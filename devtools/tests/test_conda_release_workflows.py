@@ -10,11 +10,14 @@ PUBLISH_WORKFLOW = (
     REPO / ".github" / "workflows" / "build_and_upload_conda_packages.yaml"
 )
 STAGING_WORKFLOW = REPO / ".github" / "workflows" / "validate_conda_staging.yaml"
+PROMOTION_WORKFLOW = REPO / ".github" / "workflows" / "promote_conda_package.yaml"
+PUBLIC_VERIFIER_WORKFLOW = (
+    REPO / ".github" / "workflows" / "verify_public_conda_package.yaml"
+)
 
 EXPECTED_TARGETS = {
     ("linux-64", "ubuntu-24.04"),
     ("linux-aarch64", "ubuntu-24.04-arm"),
-    ("osx-64", "macos-15-intel"),
     ("osx-arm64", "macos-15"),
     ("win-64", "windows-2025"),
 }
@@ -71,6 +74,8 @@ def test_publish_workflow_is_atomic_per_native_platform():
 
     assert set(workflow["jobs"]) == {"prepare", "build-and-publish"}
     build_number = workflow[True]["workflow_dispatch"]["inputs"]["build_number"]
+    target_options = workflow[True]["workflow_dispatch"]["inputs"]["target"]["options"]
+    assert set(target_options) == {"all", *(platform for platform, _ in EXPECTED_TARGETS)}
     assert build_number["default"] == 0
     assert build_and_publish["name"] == (
         "${{ matrix.target.platform }} · one ABI3 artifact"
@@ -94,6 +99,7 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert "^[0-9]+$" in validate_identity
     for platform, runner in EXPECTED_TARGETS:
         assert f'"platform":"{platform}","runner":"{runner}"' in validate_identity
+    assert "osx-64" not in validate_identity
     assert 'echo "matrix=$matrix" >> "$GITHUB_OUTPUT"' in validate_identity
 
     resolve_candidate = _step(prepare, "Resolve the candidate before fan-out")
@@ -192,10 +198,10 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert viewer_build_input["default"] == 0
     assert python_max_input["default"] == "3.14"
     assert python_max_input["options"] == ["3.13", "3.14"]
-    assert target_input["options"] == [
+    assert set(target_input["options"]) == {
         "all",
-        *(platform for platform, _ in sorted(EXPECTED_TARGETS)),
-    ]
+        *(platform for platform, _ in EXPECTED_TARGETS),
+    }
     assert target_input["default"] == "all"
     assert source_input["default"] == "staging"
     assert source_input["options"] == ["staging", "public"]
@@ -215,6 +221,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     select_targets = _step(prepare, "Select native platforms")["run"]
     for platform, runner in EXPECTED_TARGETS:
         assert f'"platform":"{platform}","runner":"{runner}"' in select_targets
+    assert "osx-64" not in select_targets
     assert 'echo "target_matrix=$matrix" >> "$GITHUB_OUTPUT"' in select_targets
     select_python = _step(prepare, "Select the Python matrix")["run"]
     assert '["3.11","3.12","3.13"]' in select_python
@@ -261,3 +268,24 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert (
         '"$MAMBA_EXE" env export --name staging-test --explicit' in environment_record
     )
+
+
+def test_future_promotion_requires_the_four_platform_pair_gate():
+    expected = {platform for platform, _ in EXPECTED_TARGETS}
+    promotion = _workflow(PROMOTION_WORKFLOW)
+    verifier = _workflow(PUBLIC_VERIFIER_WORKFLOW)
+
+    for workflow in (promotion, verifier):
+        options = workflow[True]["workflow_dispatch"]["inputs"]["target"][
+            "options"
+        ]
+        assert set(options) == expected
+        assert "osx-64" not in options
+
+    promotion_script = _step(
+        promotion["jobs"]["promote"],
+        "Validate release identity and installed-pair gate",
+    )["run"]
+    assert "linux-64|linux-aarch64|osx-arm64|win-64" in promotion_script
+    assert '" = 17' in promotion_script  # 16 cells plus preparation job
+    assert "20-cell" not in PROMOTION_WORKFLOW.read_text(encoding="utf-8")

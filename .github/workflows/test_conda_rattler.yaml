@@ -12,7 +12,6 @@ on:
           - all
           - linux-64
           - linux-aarch64
-          - osx-64
           - osx-arm64
           - win-64
       lto:
@@ -40,12 +39,11 @@ jobs:
         env:
           INPUT_TARGET: ${{ inputs.target }}
         run: |
-          all_targets='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"},{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"},{"platform":"osx-64","runner":"macos-15-intel"},{"platform":"osx-arm64","runner":"macos-15"},{"platform":"win-64","runner":"windows-2025"}]}'
+          all_targets='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"},{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"},{"platform":"osx-arm64","runner":"macos-15"},{"platform":"win-64","runner":"windows-2025"}]}'
           case "$INPUT_TARGET" in
             all) matrix="$all_targets" ;;
             linux-64) matrix='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"}]}' ;;
             linux-aarch64) matrix='{"target":[{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"}]}' ;;
-            osx-64) matrix='{"target":[{"platform":"osx-64","runner":"macos-15-intel"}]}' ;;
             osx-arm64) matrix='{"target":[{"platform":"osx-arm64","runner":"macos-15"}]}' ;;
             win-64) matrix='{"target":[{"platform":"win-64","runner":"windows-2025"}]}' ;;
             *) exit 1 ;;

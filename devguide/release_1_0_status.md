@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-26
+**Last updated:** 2026-09-27
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -35,6 +35,13 @@ packaging work runs in parallel, record the responsible branch or collaborator
 and do not merge it across an unmet integration dependency.
 
 ## Pre-1.0 public distribution milestone — 2026-09-25
+
+**Platform policy update (2026-09-27):** Future candidates exclude macOS Intel
+(`osx-64`/x86_64). The supported macOS architecture is Apple Silicon (arm64).
+The active native Conda matrix is four platforms and, for Python 3.11–3.14,
+16 installed-pair cells. Earlier five-platform/20-cell results below remain
+valid historical evidence for the published 0.22.4/0.23.4 pair, not future
+release requirements. See `uibcdf/molsyssuite#59` and `uibcdf/moli#31`.
 
 MolSysMT 0.22.4 and MolSysViewer 0.23.4 are published GitHub Releases on
 their exact tested commits. Their ABI3/noarch Conda artifacts were promoted

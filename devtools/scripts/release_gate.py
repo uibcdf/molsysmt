@@ -85,9 +85,9 @@ def main() -> int:
         print("  - Public-API smoke (import + convert + get + select + get_center)")
         print(
             "\nHeavy gates (NOT run here): the zero-skip registered scientific "
-            "evidence execution; ci-full.yaml on ubuntu+macos x "
+            "evidence execution; ci-full.yaml on ubuntu+macos-arm64 x "
             "{3.11,3.12,3.13} with the exact Viewer candidate; the 3.14 "
-            "source-pair gate; and the 20-cell installed Conda pair."
+            "source-pair gate; and the 16-cell installed Conda pair."
         )
         return 0
 
@@ -119,8 +119,8 @@ def main() -> int:
     print(
         "Heavy gates still required before tagging: zero-skip execution of every "
         "registered scientific evidence node, a green ci-full.yaml run "
-        "(ubuntu+macos x {3.11,3.12,3.13}) against the exact Viewer SHA, "
-        "the 3.14 source-pair gate and the 20-cell installed Conda pair. "
+        "(ubuntu+macos-arm64 x {3.11,3.12,3.13}) against the exact Viewer SHA, "
+        "the 3.14 source-pair gate and the 16-cell installed Conda pair. "
         "See devguide/release_gate.md."
     )
 

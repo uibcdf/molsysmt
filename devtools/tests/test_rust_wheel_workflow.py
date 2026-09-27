@@ -29,7 +29,6 @@ def test_workflow_builds_every_declared_platform_architecture():
     expected = {
         ("linux-x86_64", "ubuntu-24.04", "x86_64"),
         ("linux-aarch64", "ubuntu-24.04-arm", "aarch64"),
-        ("macos-x86_64", "macos-15-intel", "x86_64"),
         ("macos-arm64", "macos-15", "arm64"),
         ("windows-x86_64", "windows-2022", "AMD64"),
     }
@@ -38,7 +37,6 @@ def test_workflow_builds_every_declared_platform_architecture():
     assert full["continue-on-error"] == "${{ matrix.target.experimental }}"
     assert {target["name"]: target["experimental"] for target in targets} == {
         "linux-aarch64": False,
-        "macos-x86_64": False,
         "macos-arm64": False,
         "windows-x86_64": True,
     }
@@ -89,7 +87,6 @@ def test_workflow_distinguishes_release_and_experimental_platforms():
     targets = installed["strategy"]["matrix"]["target"]
     assert {target["name"] for target in targets} == {
         "linux-aarch64",
-        "macos-x86_64",
         "macos-arm64",
         "windows-x86_64",
     }
@@ -100,7 +97,6 @@ def test_workflow_distinguishes_release_and_experimental_platforms():
     assert installed["continue-on-error"] == "${{ matrix.target.experimental }}"
     assert {target["name"]: target["experimental"] for target in targets} == {
         "linux-aarch64": False,
-        "macos-x86_64": False,
         "macos-arm64": False,
         "windows-x86_64": True,
     }

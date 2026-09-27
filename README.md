@@ -80,6 +80,10 @@ Package metadata permits Python 3.11, 3.12, 3.13 or 3.14; the badge lists only
 versions admitted for public release. Compute kernels ship precompiled, so no
 compiler or Rust toolchain is needed to install.
 
+macOS support is currently limited to Apple Silicon (arm64). Intel-based macOS
+(x86_64) is not part of the supported platform matrix. Support may be
+reconsidered if there is demonstrated user demand.
+
 Several integrations are optional — `openmm`, `mdtraj`, `MDAnalysis`, `parmed`,
 `pytraj`, `rdkit`, `nglview`, `pdbfixer`, `biopython` — and are used when present.
 MolSysMT loads only what your workflow actually touches.

@@ -15,7 +15,7 @@ on:
         description: Native platform of this exact ABI3 artifact
         required: true
         type: choice
-        options: [linux-64, linux-aarch64, osx-64, osx-arm64, win-64]
+        options: [linux-64, linux-aarch64, osx-arm64, win-64]
       filename:
         description: Exact validated ABI3 filename in the selected subdir
         required: true
@@ -29,7 +29,7 @@ on:
         required: true
         type: string
       pair_run_id:
-        description: Successful 20-cell installed-pair validation run ID
+        description: Successful 16-cell installed-pair validation run ID
         required: true
         type: string
       molsysviewer_version:
@@ -83,7 +83,7 @@ jobs:
           [[ "$PAIR_RUN_ID" =~ ^[0-9]+$ ]]
           [[ "$VIEWER_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
           [[ "$VIEWER_BUILD" =~ ^[0-9]+$ ]]
-          case "$TARGET" in linux-64|linux-aarch64|osx-64|osx-arm64|win-64) ;; *) exit 1 ;; esac
+          case "$TARGET" in linux-64|linux-aarch64|osx-arm64|win-64) ;; *) exit 1 ;; esac
           prefix="molsysmt-${RELEASE_VERSION}-pyabi3h"
           suffix="_${BUILD_NUMBER}.conda"
           [[ "$FILENAME" == "$prefix"*"$suffix" ]]
@@ -101,7 +101,7 @@ jobs:
           test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .head_sha)" = "$CANDIDATE_SHA"
           run_path="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .path)"
           [[ "$run_path" == .github/workflows/validate_conda_staging.yaml* ]]
-          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID/jobs?per_page=100" --jq .total_count)" = 21
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID/jobs?per_page=100" --jq .total_count)" = 17
           expected_run_title="MT $RELEASE_VERSION build $BUILD_NUMBER + Viewer $VIEWER_VERSION build $VIEWER_BUILD | Python 3.14 | all"
           test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .display_title)" = "$expected_run_title"
 

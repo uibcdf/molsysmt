@@ -24,11 +24,11 @@ def test_rattler_experiment_covers_each_native_release_platform():
     for platform, runner in {
         "linux-64": "ubuntu-24.04",
         "linux-aarch64": "ubuntu-24.04-arm",
-        "osx-64": "macos-15-intel",
         "osx-arm64": "macos-15",
         "win-64": "windows-2025",
     }.items():
         assert f'"platform":"{platform}","runner":"{runner}"' in matrix_script
+    assert "osx-64" not in matrix_script
     assert job["needs"] == "prepare"
     assert job["strategy"]["fail-fast"] is False
 

@@ -259,7 +259,7 @@ This segment must finish before runtime deletion.
    - fallback: required version-locked private kernel distribution.
 3. Build `cp311-abi3` wheels for:
    - Linux x86_64 and aarch64;
-   - macOS x86_64 and arm64;
+   - macOS arm64;
    - Windows x86_64 as an experimental, non-blocking artifact.
    Linux and macOS are the supported 1.0 release platforms. A Windows wheel is
    useful portability evidence, but it does not become a supported platform

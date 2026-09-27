@@ -70,7 +70,7 @@ nodes, not a record that those nodes passed in the current environment.
 The fast gates do not run the test suite. Before tagging, the **full pytest matrix must
 be green on the exact committed candidate**:
 
-- `ci-full.yaml` (manual `workflow_dispatch`): ubuntu-latest + macos-latest ×
+- `ci-full.yaml` (manual `workflow_dispatch`): ubuntu-latest + macos-15 arm64 ×
   {3.11, 3.12, 3.13} = 6 combinations. Each job runs the fast release gate,
   the registered scientific evidence through
   `execute_scientific_evidence.py --receptor=ci`, Ruff, and the full pytest suite
@@ -84,7 +84,7 @@ Do not substitute a partial or single-platform run.
 ## 3. Native wheel artifacts
 
 - `ci-rust-wheels.yaml` must pass for the supported Linux x86_64/aarch64 and
-  macOS x86_64/arm64 targets, including Python 3.11--3.13, the declared NumPy
+  macOS arm64 target, including Python 3.11--3.13, the declared NumPy
   floor/current checks, and installed public-runtime smoke.
 - Windows x86_64 remains an experimental portability target. Its wheel build,
   audit, and installed-extension checks are retained, but are non-blocking for
@@ -101,7 +101,7 @@ Do not substitute a partial or single-platform run.
   relocation marker, declare `python >=3.11,<3.15`, and carry the `cpython >=3.11` and
   `_python_abi3_support` requirements without an exact `python_abi` constraint.
 - `validate_conda_staging.yaml` must install the exact coordinated MolSysMT/MolSysViewer
-  versions with normal CPython on all five native platforms crossed with Python
+  versions with normal CPython on all four native platforms crossed with Python
   3.11--3.14 for the Python 3.14 candidate. All four runtime cells for a platform
   must resolve the same MolSysMT
   artifact. The installed version, provenance, native extension, declared py-mmcif
@@ -130,13 +130,13 @@ Do not substitute a partial or single-platform run.
 - [ ] `ruff check molsysmt` → clean.
 - [ ] `ci-full.yaml` → green on all six Python 3.11--3.13 Linux/macOS
       combinations, with its manual input naming the exact MolSysViewer
-      candidate SHA. The separate Python 3.14 source-pair gate and the 20-cell
+      candidate SHA. The separate Python 3.14 source-pair gate and the 16-cell
       installed Conda pair must also pass before claiming 3.14 support.
 - [ ] `ci-rust-wheels.yaml` → supported Linux/macOS jobs green; Windows result recorded
       as experimental evidence and not treated as a release blocker.
 - [ ] Native Conda channel metadata contains exactly one intended ABI3 artifact per
-      platform, and those five exact artifacts install with the staged
-      MolSysMT/MolSysViewer pair in all 20 Python 3.11--3.14 runtime cells when
+      platform, and those four exact artifacts install with the staged
+      MolSysMT/MolSysViewer pair in all 16 Python 3.11--3.14 runtime cells when
       3.14 is claimed. Retain the full-matrix run ID and SHA-256 coordinates for
       exact-file promotion.
 - [ ] Docs build → green, course toctree warning-clean.

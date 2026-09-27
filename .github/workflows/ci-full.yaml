@@ -3,7 +3,7 @@ name: CI full
 # Manual trigger only (workflow_dispatch).
 # Use this before release candidates to validate on all supported platforms
 # and Python versions.
-# Matrix: ubuntu-latest + macos-latest × {3.11, 3.12, 3.13} = 6 combinations.
+# Matrix: ubuntu-latest + macos-15 (arm64) × {3.11, 3.12, 3.13} = 6 combinations.
 # No coverage upload — that is handled by ci-weekly.yaml.
 
 on:
@@ -68,9 +68,9 @@ jobs:
           - { os: ubuntu-latest, python-version: "3.11" }
           - { os: ubuntu-latest, python-version: "3.12" }
           - { os: ubuntu-latest, python-version: "3.13" }
-          - { os: macos-latest,  python-version: "3.11" }
-          - { os: macos-latest,  python-version: "3.12" }
-          - { os: macos-latest,  python-version: "3.13" }
+          - { os: macos-15,  python-version: "3.11" }
+          - { os: macos-15,  python-version: "3.12" }
+          - { os: macos-15,  python-version: "3.13" }
 
     steps:
       - uses: actions/checkout@v7

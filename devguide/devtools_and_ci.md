@@ -273,7 +273,7 @@ The repository currently contains these testing and validation workflows:
 ### `ci-full.yaml` — manual dispatch only (pre-release gate)
 
 - Trigger: `workflow_dispatch` only.
-- Matrix: `(ubuntu-latest + macos-latest)` × `{3.11, 3.12, 3.13}` = 6 combinations.
+- Matrix: `(ubuntu-latest + macos-15 arm64)` × `{3.11, 3.12, 3.13}` = 6 combinations.
 - Timeout: 180 minutes per combination.
 - Runs: `pytest -q --color=yes --junitxml=junit.xml` (no coverage upload).
 - Purpose: validate all supported platforms before release candidates.
@@ -285,8 +285,8 @@ The repository currently contains these testing and validation workflows:
 - Builds one `cp311-abi3` wheel for Linux x86_64 immediately. Its artifact
   starts the Python 3.11–3.13 public installed-runtime smokes and NumPy-floor
   checks without waiting for slower portability runners.
-- Builds Linux aarch64, macOS x86_64/arm64, and Windows x86_64 in parallel.
-  Their installed-extension checks complete the five-platform matrix.
+- Builds Linux aarch64, macOS arm64, and Windows x86_64 in parallel.
+  Their installed-extension checks complete the four-platform matrix.
 - Runs Rust formatting, Clippy, unit, security, dependency, and license checks,
   plus a source-distribution round trip.
 - Keeps normal pytest and the installed public-runtime validator authoritative;
@@ -310,15 +310,15 @@ the slowest native runner completes.
 - `test_import.yaml` provides a manually dispatched import check.
 - `sphinx_docs_to_gh_pages.yaml` builds and publishes documentation.
 - `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched. Its
-  `target` input accepts either all five native platforms or one platform, so a failed
+  `target` input accepts either all four supported native platforms or one platform, so a failed
   platform can be rebuilt and published without repeating successful ones.
 
 MolSysMT adopts the pinned `gh-run-receptor` 0.6.1 contract through
 `.github/gh-run-receptor.yaml` (uibcdf/gh-run-receptor#5). The build, Conda ABI3 test,
 Rattler experiment, and staging-validation workflows select the Conda profile by exact
-path. Only `validate_conda_staging.yaml` requires all five native platforms: the other
+path. Only `validate_conda_staging.yaml` requires all four native platforms: the other
 three workflows deliberately support a one-platform dispatch, so declaring a fixed
-five-platform expectation for them would turn a valid targeted retry into a false
+four-platform expectation for them would turn a valid targeted retry into a false
 failure. Validate client rules with `gh run-receptor config check` and inspect each path
 with `config explain` before changing them.
 
