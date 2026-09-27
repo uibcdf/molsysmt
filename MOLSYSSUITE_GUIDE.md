@@ -26,7 +26,7 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 
 A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
 
-The current central member-policy release is MolSysSuite `policy-v1.5.0`, as
+The current central member-policy release is MolSysSuite `policy-v1.5.1`, as
 recorded in `suite.toml`. Each member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
 the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
@@ -161,8 +161,9 @@ by this guide alone.
 PyUnitWizard owns the [serialization design](https://github.com/uibcdf/pyunitwizard/issues/83)
 and [QuantityRecord codec](https://github.com/uibcdf/pyunitwizard/issues/82); take
 format questions there. [MolSysSuite #46](https://github.com/uibcdf/molsyssuite/issues/46)
-tracks member adoption and migrations. The effective versioned policy snapshot remains
-the commit pinned in `suite.toml` until a separate policy rollout changes it.
+tracks member adoption and migrations. A member's engineering policy remains the
+MolSysSuite release pinned by its workflow until that member adopts another release.
+The MOLI commit in `suite.toml` records platform-contract context for the suite.
 
 ## Common development baseline
 
