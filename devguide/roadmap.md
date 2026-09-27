@@ -36,6 +36,17 @@ and its false-red verifier are recorded under `uibcdf/molsyssuite#49` and
 `uibcdf/molsysmt#247`; the paired-release procedure and lessons are in
 [release and citation](release_and_citation.md).
 
+The priorities below are continuing quality themes, not a second 1.0 gate
+list. The execution ledger is authoritative for what remains before 1.0.
+
+## Completed foundations
+
+- Form support tiers and the machine-readable public API stability registry
+  now define the claimed contract; see [the support-tier protocol](support_tier_protocol.md)
+  and [public API surface](api_surface.md).
+- The Rust extension is packaged and the transitional Numba CPU/CUDA runtime
+  has been removed; see [the 1.0 execution ledger](release_1_0_status.md).
+
 ## Priority 0: scientific integrity
 
 - propagate scientific failures instead of returning partial heavy results;
@@ -45,11 +56,7 @@ and its false-red verifier are recorded under `uibcdf/molsyssuite#49` and
 
 ## Priority 1: support and API truth
 
-- make form tiers explicit rather than treating unknown forms as contractual;
-- create a machine-readable public API stability registry;
 - validate public attribute delivery and conversion fidelity;
-- productize the Rust extension and remove the transitional Numba CPU/CUDA
-  implementations before 1.0;
 - keep Python-version metadata and release matrices aligned automatically.
 
 ## Priority 2: reproducibility and lifecycle
