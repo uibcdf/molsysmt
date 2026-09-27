@@ -46,7 +46,9 @@ def _require_channel_provenance(
     filename = record.get("fn")
     digest = record.get("sha256")
     if not isinstance(channel, str) or not isinstance(url, str):
-        raise RuntimeError(f"{distribution_name} Conda record lacks {source} provenance")
+        raise RuntimeError(
+            f"{distribution_name} Conda record lacks {source} provenance"
+        )
     url_root = f"{channel_root}/"
     url_parts = (
         url.removeprefix(url_root).split("/") if url.startswith(url_root) else []

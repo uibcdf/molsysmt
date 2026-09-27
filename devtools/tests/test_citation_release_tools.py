@@ -109,17 +109,23 @@ def test_zenodo_record_accepts_repository_and_exact_archive_without_tree_url():
         {"identifier": "https://github.com/uibcdf/molsysmt/tree/1.0.0"}
     ]
     tag_style["metadata"]["custom"] = {}
-    assert verifier.validate_record(
-        tag_style,
-        "1.0.0",
-        "10.5281/zenodo.1298752",
-        "https://github.com/uibcdf/molsysmt",
-    ) == []
+    assert (
+        verifier.validate_record(
+            tag_style,
+            "1.0.0",
+            "10.5281/zenodo.1298752",
+            "https://github.com/uibcdf/molsysmt",
+        )
+        == []
+    )
 
     for mutate, expected_error in (
         (lambda item: item["metadata"].update(version="0.12.0"), "metadata.version"),
         (lambda item: item.update(conceptdoi="10.5281/zenodo.1"), "concept DOI"),
-        (lambda item: item.update(doi="10.5281/zenodo.1298752"), "distinct version DOI"),
+        (
+            lambda item: item.update(doi="10.5281/zenodo.1298752"),
+            "distinct version DOI",
+        ),
         (lambda item: item.update(status="draft"), "record status"),
         (
             lambda item: item["metadata"].update(
