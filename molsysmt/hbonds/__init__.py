@@ -1,9 +1,23 @@
-# Keep public helper imports in their established initialization order.
-# isort: off
-from .get_acceptor_atoms import acceptor_inclusion_rules, acceptor_exclusion_rules
-from .get_acceptor_atoms import get_acceptor_atoms
-from .get_donor_atoms import donor_inclusion_rules, donor_exclusion_rules
-from .get_donor_atoms import get_donor_atoms
-from .get_buch_hbonds import get_buch_hbonds
-from .get_luzard_chandler_hbonds import get_luzard_chandler_hbonds
-# isort: on
+"""Compatibility imports for the historical hydrogen-bond namespace."""
+
+from molsysmt.interactions.hbonds import (
+    acceptor_exclusion_rules,
+    acceptor_inclusion_rules,
+    donor_exclusion_rules,
+    donor_inclusion_rules,
+    get_acceptor_atoms,
+    get_buch_hbonds,
+    get_donor_atoms,
+    get_luzard_chandler_hbonds,
+)
+
+__all__ = [
+    "acceptor_exclusion_rules",
+    "acceptor_inclusion_rules",
+    "donor_exclusion_rules",
+    "donor_inclusion_rules",
+    "get_acceptor_atoms",
+    "get_buch_hbonds",
+    "get_donor_atoms",
+    "get_luzard_chandler_hbonds",
+]

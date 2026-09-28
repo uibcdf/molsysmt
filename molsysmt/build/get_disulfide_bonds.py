@@ -1,7 +1,5 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.lists import sorted_list_of_pairs
-from molsysmt._private.variables import is_all
-from molsysmt.element.bond import max_expected_bond_length
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 
 @arg_digest()
@@ -18,11 +16,11 @@ def get_disulfide_bonds(
     skip_digestion=False,
 ):
     """
-    Identifying disulfide bonds between sulfur atoms.
+    Identifying candidate disulfide bonds between sulfur atoms.
 
-    This function detects disulfide bonds in a molecular system by finding pairs of sulfur atoms
-    that belong to specified residue types (e.g., `CYS`) and lie within a covalent bond distance.
-    These S–S bridges are returned as atom index pairs.
+    This build-oriented compatibility function returns S–S pairs inferred from
+    group identity and distance in one structure. A candidate is not proof of a
+    covalent bond in the topology.
 
 
     Parameters
@@ -50,8 +48,8 @@ def get_disulfide_bonds(
 
     Returns
     -------
-    numpy.ndarray of shape (n, 2)
-        Array of atom index pairs (each a disulfide bond) detected in the selected atoms and structure.
+    list of [int, int]
+        Candidate atom-index pairs in the selected structure.
 
 
     Raises
@@ -66,8 +64,10 @@ def get_disulfide_bonds(
     Notes
     -----
     - Sulfur atoms are identified based on element type and filtered by group name (e.g., `'CYS'`).
-    - This function assumes that disulfide bonds are formed between SG atoms of cysteines or equivalent residues.
+    - The default group name is ``CYS``. Other eligible names may be supplied.
     - Distance units are internally standardized to nanometers.
+    - The per-structure detector and its measured distances are available from
+      :func:`molsysmt.interactions.disulfides.get_disulfide_candidates`.
 
 
     See Also
@@ -85,10 +85,11 @@ def get_disulfide_bonds(
     Examples
     --------
     >>> import molsysmt as msm
+    >>> from molsysmt.build.get_disulfide_bonds import get_disulfide_bonds
     >>> molsys = msm.convert('5XJH')
-    >>> s_s_pairs = msm.build.get_disulfide_bonds(molsys, max_bond_length='2.15 angstroms')
-    >>> s_s_pairs.shape
-    (2, 2)
+    >>> s_s_pairs = get_disulfide_bonds(molsys, max_bond_length='2.15 angstroms')
+    >>> len(s_s_pairs)
+    2
 
 
     .. admonition:: User guide
@@ -99,72 +100,22 @@ def get_disulfide_bonds(
     .. versionadded:: 1.0.0
     """
 
-    if group_names is None:
-        group_names = ["CYS"]
+    if engine != "MolSysMT":
+        raise NotImplementedMethodError(caller="molsysmt.build.get_disulfide_bonds")
 
-    if max_bond_length is None:
-        max_bond_length = max_expected_bond_length["protein"]["S"]["S"]
+    from molsysmt.interactions.disulfides.get_disulfide_candidates import (
+        get_disulfide_candidates,
+    )
 
-    bonds = []
-
-    if engine == "MolSysMT":
-        from molsysmt import get, select
-        from molsysmt.structure import get_contacts
-
-        if is_all(selection):
-            mask = None
-        else:
-            mask = select(molecular_system, selection=selection, syntax=syntax)
-
-        S_indices = select(
-            molecular_system,
-            element="atom",
-            selection='atom_type=="S"',
-            mask=mask,
-            syntax="MolSysMT",
-        )
-
-        if len(S_indices) > 1:
-            tmp_group_indices, tmp_group_names = get(
-                molecular_system,
-                element="atom",
-                selection=S_indices,
-                group_index=True,
-                group_name=True,
-            )
-
-            contacts = get_contacts(
-                molecular_system,
-                selection=S_indices,
-                structure_indices=structure_index,
-                threshold=max_bond_length,
-                output_type="pairs",
-                output_indices="selection",
-                pbc=pbc,
-                skip_digestion=True,
-            )
-
-            for pair in contacts[0]:
-                at1, at2 = pair
-                if tmp_group_indices[at1] != tmp_group_indices[at2]:
-                    if (
-                        tmp_group_names[at1] in group_names
-                        and tmp_group_names[at2] in group_names
-                    ):
-                        bonds.append([S_indices[at1], S_indices[at2]])
-                    else:
-                        from molsysmt._private.smonitor import warn
-
-                        for ii in pair:
-                            if tmp_group_names[ii] not in group_names:
-                                message = (
-                                    f"Atom index {S_indices[ii]} in group {tmp_group_names[ii]} with index "
-                                    f"{tmp_group_indices[ii]} cannot be part of a disulfide bond because it is not in the list "
-                                    f"of your input argument `group_names`."
-                                )
-                                warn(message)
-
-    if sorted:
-        bonds = sorted_list_of_pairs(bonds)
-
-    return bonds
+    pairs_by_structure, _ = get_disulfide_candidates(
+        molecular_system,
+        selection=selection,
+        structure_indices=structure_index,
+        max_bond_length=max_bond_length,
+        group_names=group_names,
+        pbc=pbc,
+        syntax=syntax,
+        sorted=sorted,
+        skip_digestion=True,
+    )
+    return pairs_by_structure[0].tolist()

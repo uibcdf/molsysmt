@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 57 |
+| experimental | 69 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -71,6 +71,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.has_attribute` | stable | active | pre-1.0 |
 | `molsysmt.hbonds` | experimental | active | pre-1.0 |
 | `molsysmt.info` | stable | active | pre-1.0 |
+| `molsysmt.interactions` | experimental | active | 1.0.0 |
 | `molsysmt.is_a_molecular_system` | stable | active | pre-1.0 |
 | `molsysmt.is_composed_of` | stable | active | pre-1.0 |
 | `molsysmt.merge` | stable | active | pre-1.0 |
@@ -250,3 +251,29 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.molecular_mechanics.get_non_bonded_potential_energy` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_potential_energy` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.potential_energy_minimization` | outside-contract | active | pre-1.0 |
+
+### `molsysmt.interactions`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.disulfides` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds` | experimental | active | 1.0.0 |
+
+### `molsysmt.interactions.hbonds`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.hbonds.acceptor_exclusion_rules` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.acceptor_inclusion_rules` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.donor_exclusion_rules` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.donor_inclusion_rules` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.get_acceptor_atoms` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.get_buch_hbonds` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.get_donor_atoms` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.get_luzard_chandler_hbonds` | experimental | active | 1.0.0 |
+
+### `molsysmt.interactions.disulfides`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.disulfides.get_disulfide_candidates` | experimental | active | 1.0.0 |

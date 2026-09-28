@@ -9,7 +9,7 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This capstone module presents **The Specialized Domains**, reviewing domain submodules (`msm.build`, `msm.structure`, `msm.topology`, `msm.physchem`, `msm.hbonds`, `msm.pbc`, `msm.molecular_mechanics`, `msm.third_party`) and orienting students toward their chosen Master Path.
+This capstone module presents **The Specialized Domains**, reviewing domain submodules (`msm.build`, `msm.structure`, `msm.topology`, `msm.physchem`, `msm.interactions.hbonds`, `msm.pbc`, `msm.molecular_mechanics`, `msm.third_party`) and orienting students toward their chosen Master Path.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
@@ -23,7 +23,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Section 3 (`msm.topology`) must explicitly cross-reference [Module 13](../Common_Core/13_Topological_Analysis.ipynb).
 
 ### 3. Specialized Domain Previews
-* Must demonstrate sample operations from `msm.physchem`, `msm.hbonds`, `msm.pbc`, `msm.molecular_mechanics`, and `msm.third_party`.
+* Must demonstrate sample operations from `msm.physchem`, `msm.interactions.hbonds`, `msm.pbc`, `msm.molecular_mechanics`, and `msm.third_party`.
 * Must explicitly note that functions from these remaining submodules will be formally introduced and applied throughout the 4 Master Paths (Modules 21+).
 
 ### 4. Choose Your Scientific Path & See Also

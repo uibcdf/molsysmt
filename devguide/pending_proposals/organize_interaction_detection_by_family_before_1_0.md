@@ -1,7 +1,7 @@
 ---
 summary: Organize interaction detection by family before 1.0
 issue: uibcdf/molsysmt#250
-status: open
+status: active
 opened: 2026-09-28
 closed:
 verification: inspected
@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-28, during pre-1.0 API planning for MolSysMT and its
 MolSysSuite consumers.
-**Status:** Proposed design and roadmap; no implementation decision has been made.
+**Status:** Accepted for the bounded pre-1.0 migration; implementation and
+recertification are in progress.
 
 ## What
 
@@ -36,7 +37,7 @@ the same chemistry or representation.
 
 ## How
 
-### Boundary proposed for the namespace
+### Accepted boundary for the namespace
 
 - `interactions` classifies relationships using explicit chemical and geometric
   criteria. A distance-only contact map remains a geometric primitive in
@@ -45,11 +46,13 @@ the same chemistry or representation.
   Luzard–Chandler methods and donor/acceptor helpers provide the first migration
   candidates. Preserve method identity rather than presenting different
   criteria as interchangeable.
-- `interactions.disulfides` may own **candidate detection** from chemistry and
+- `interactions.disulfides` owns **candidate detection** from chemistry and
   structure. A candidate inferred from S–S proximity is not an authoritative
   covalent bond. Recorded covalent connectivity remains in topology; build
   continues to decide how candidates contribute to repair or missing-bond
-  inference. The exact public detector name and output are design decisions.
+  inference. The public detector is `get_disulfide_candidates`, returning
+  atom-index pair arrays and aligned distance quantities per requested
+  structure. The build entry point continues to return pairs for one structure.
 - Metal coordination likewise needs an explicit distinction between observed
   coordination geometry and any connectivity declared in a chemical state.
 - This callable namespace is distinct from the proposed native or form-level
@@ -113,6 +116,31 @@ native `Interactions` API after 1.0. This report narrows the possible pre-1.0
 work to an analysis namespace and a bounded migration without advancing that
 larger data-model decision.
 
+## Decision record and implementation evidence
+
+- The accepted pre-1.0 tree contains `interactions.hbonds` and
+  `interactions.disulfides`; other families remain separate post-1.0 decisions.
+  `msm.hbonds` and its direct module imports remain compatible aliases, without
+  a deprecation decision in this release.
+- The existing Buch and Luzar–Chandler implementations were moved with their
+  criteria unchanged. The public disulfide detector returns one pair array and
+  one aligned distance quantity per requested structure, including empty
+  evaluated structures. These are observations, irrespective of whether the
+  corresponding bond is already recorded in topology.
+- `build.get_disulfide_bonds` delegates to the detector and preserves its
+  single-structure list-of-pairs result. `build.get_missing_bonds` continues to
+  consume that build entry point.
+- The current contracts and evidence level are recorded in
+  [Interaction Analysis API](../interactions_api.md). The two hydrogen-bond
+  methods retain legacy method-specific output layouts; a common result schema
+  has not been adopted.
+- Focused migration tests pass for the legacy hydrogen-bond namespace and for
+  empty single-selection hydrogen-bond results, as well as disulfide selection,
+  group filtering, periodic geometry, frame order, empty results, and recorded
+  bonds. Broader trajectory and cross-selection behavior, documentation,
+  consumer, and release
+  gates are still pending; this is not release evidence yet.
+
 ## What is measured and what is assumed
 
 - **Inspected:** the root lazy registry exposes `hbonds`; the hbonds package
@@ -145,10 +173,9 @@ larger data-model decision.
 
 ## Scope and exclusions
 
-The proposed pre-1.0 slice covers public API organization, hydrogen-bond
+The accepted pre-1.0 slice covers public API organization, hydrogen-bond
 migration, disulfide-candidate extraction, the build wrapper, and their
-contract/documentation/consumer checks. It does not authorize code changes
-yet. It does not add a general interaction classifier, a force-field energy
+contract/documentation/consumer checks. It does not add a general interaction classifier, a force-field energy
 decomposition, a pharmacophore model, arbitrary contact storage, attached
 interaction datasets, reactive bonds, or implementations of the deferred
 families.

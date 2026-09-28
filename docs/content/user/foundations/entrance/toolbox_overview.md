@@ -71,7 +71,7 @@ The **{doc}`Molecular Mechanics <../../tools/molecular_mechanics/index>`** modul
 ---
 
 ## Hbonds
-The **{doc}`Hbonds <../../tools/hbonds/index>`** module (`molsysmt.hbonds`) detects and analyzes hydrogen-bonding networks across structures and trajectories.
+The **{doc}`Hbonds <../../tools/hbonds/index>`** module (`molsysmt.interactions.hbonds`) detects and analyzes hydrogen-bonding networks across structures and trajectories.
 - **Key Operations**: `get_hbonds`, `get_hbond_acceptors`, `get_hbond_donors`.
 - **Philosophy**: Geometric and distance-angle based detection of hydrogen bonds for structural stability analysis.
 

@@ -190,6 +190,13 @@ Inference works out what the answer should be, and stays. `molsysmt.build` keeps
 `add_missing_bonds`, `get_missing_bonds` and `get_disulfide_bonds`; `molsysmt.topology`
 keeps `get_bondgraph`. None of them asks the caller which bonds to create.
 
+`molsysmt.interactions.disulfides.get_disulfide_candidates` owns the
+structure-specific S–S observation. It reports atom pairs and distances for
+each requested structure, including pairs already recorded as bonds. The build
+entry point delegates to that detector and retains its single-structure
+list-of-pairs return. `get_missing_bonds` consumes the build entry point;
+topology remains authoritative for recorded covalent connectivity.
+
 Two things this does **not** say:
 
 - `molsysmt.Topology.add_bonds` is unaffected. It is the native class method the

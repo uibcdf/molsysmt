@@ -11,7 +11,7 @@ action.
 | 1 | basic | `MolSysMTBasicPanel` | `msm.get()`, `msm.select()` | inspect counts, create viewer selections |
 | 2 | topology | `MolSysMTTopologyPanel` | `msm.topology.*` | links and topology summaries |
 | 3 | structure | `MolSysMTStructurePanel` | `msm.structure.*` | contacts links, analysis summaries, PCA vectors |
-| 4 | hbonds | `MolSysMTHBondsPanel` | `msm.hbonds.*` | `view.shapes.links.add_hbonds()` |
+| 4 | hbonds | `MolSysMTHBondsPanel` | `msm.interactions.hbonds.*` (`msm.hbonds.*` remains compatible) | `view.shapes.links.add_hbonds()` |
 | 5 | pbc | `MolSysMTPBCPanel` | `msm.pbc.*` | status and coordinate transforms |
 | 6 | physchem | `MolSysMTColorPanel` | `msm.physchem.*` | `view.whole.set_color_by_values()` |
 | 7 | molecular_mechanics | `MolSysMTMechanicsPanel` | `msm.molecular_mechanics.*` | vectors, energy summaries, minimization |

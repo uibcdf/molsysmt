@@ -5,6 +5,7 @@ from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_angle_threshold = [
     "molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
+    "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
 ]
 
 common_functions_with_angle_threshold_and_None = []

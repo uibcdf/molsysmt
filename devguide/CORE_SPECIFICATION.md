@@ -20,7 +20,8 @@ molsysmt/
   topology/        # Connectivity, sequence, and graph analysis
   physchem/        # Physicochemical property calculators
   pbc/             # Periodic Boundary Condition management
-  hbonds/          # Hydrogen bond and non-covalent interaction networks
+  interactions/    # Chemically classified interaction analyses by family
+  hbonds/          # Compatibility path for hydrogen-bond analysis
   third_party/     # Optional bridges to external engines (OpenMM, MDAnalysis)
   element/         # Canonical chemical knowledge and element-level helpers
   data/databases/  # Serialized topology templates and residue libraries

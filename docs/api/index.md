@@ -53,6 +53,12 @@ API of the set of functions to work the molecular mechanics of a molecular syste
 API of the set of functions to analyse hydrogen bonds.
 :::
 
+:::{grid-item-card} API Disulfide candidates
+:columns: 3
+:link: interactions/api_disulfides.html
+API for identifying structure-specific disulfide candidates and their distances.
+:::
+
 :::{grid-item-card} API Element
 :columns: 3
 :link: element/api_element.html
@@ -87,6 +93,7 @@ Functions that integrate MolSysMT with third-party libraries.
    physchem/api_physchem
    molecular_mechanics/api_molecular_mechanics
    hbonds/api_hbonds
+   interactions/api_disulfides
    element/api_element
    form/api_form
    third_party/api_thirds

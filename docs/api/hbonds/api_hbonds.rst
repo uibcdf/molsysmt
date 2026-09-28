@@ -1,7 +1,7 @@
-API Hbonds
-==========
+API Hydrogen bonds
+==================
 
-.. currentmodule:: molsysmt.hbonds
+.. currentmodule:: molsysmt.interactions.hbonds
 
 .. autosummary::
    :toctree: autosummary
@@ -10,4 +10,3 @@ API Hbonds
    get_donor_atoms
    get_buch_hbonds
    get_luzard_chandler_hbonds
-

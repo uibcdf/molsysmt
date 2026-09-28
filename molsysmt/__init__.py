@@ -46,6 +46,7 @@ _LAZY_ATTRIBUTES = {
     "pbc": ".pbc",
     "physchem": ".physchem",
     "molecular_mechanics": ".molecular_mechanics",
+    "interactions": ".interactions",
     "hbonds": ".hbonds",
     "third_party": ".third_party",
     "thirds": ".third_party",

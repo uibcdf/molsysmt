@@ -32,10 +32,18 @@ or optional dependencies. CI fails when an export is added without a decision,
 when a registered export disappears, or when the generated table is stale.
 
 The exact member inventories currently tracked are `molsysmt`, `basic`,
-`structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`, and
-`molecular_mechanics`. Other root namespaces have an explicit subtree policy:
+`structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`,
+`interactions`, `interactions.hbonds`, `interactions.disulfides`, and
+`molecular_mechanics`. The canonical hydrogen-bond functions live under
+`interactions.hbonds`; `hbonds` retains the same function objects as an
+experimental compatibility path. Disulfide candidate observations live under
+`interactions.disulfides`, while recorded covalent bonds remain in topology and
+`build.get_disulfide_bonds` retains its single-structure entry point. Other root namespaces have an explicit subtree policy:
 their members inherit the namespace's Experimental or Outside-contract status
 until that namespace is promoted into exact member tracking.
+
+The method criteria, result shapes, and scientific evidence level of these
+families are specified in [Interaction Analysis API](interactions_api.md).
 
 `pre-1.0` in the introduction field means that the symbol was already present
 during pre-release development and that no trustworthy finer-grained public

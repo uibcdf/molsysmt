@@ -37,6 +37,18 @@
     "molsysmt.molecular_mechanics": {
       "source": "molsysmt/molecular_mechanics/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions": {
+      "source": "molsysmt/interactions/__init__.py",
+      "discovery": "package-init"
+    },
+    "molsysmt.interactions.hbonds": {
+      "source": "molsysmt/interactions/hbonds/__init__.py",
+      "discovery": "package-init"
+    },
+    "molsysmt.interactions.disulfides": {
+      "source": "molsysmt/interactions/disulfides/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -791,6 +803,90 @@
       "owner": "root",
       "documentation": "devguide/api_surface.md",
       "contract_tests": "tests"
+    },
+    "molsysmt.interactions": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "root",
+      "documentation": "devguide/api_surface.md",
+      "contract_tests": "tests/interactions"
+    },
+    "molsysmt.interactions.disulfides": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions",
+      "documentation": "devguide/api_surface.md",
+      "contract_tests": "tests/interactions/disulfides"
+    },
+    "molsysmt.interactions.disulfides.get_disulfide_candidates": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.disulfides",
+      "documentation": "docs/content/user/tools/build/get_disulfide_bonds.ipynb",
+      "contract_tests": "tests/interactions/disulfides"
+    },
+    "molsysmt.interactions.hbonds": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions",
+      "documentation": "devguide/api_surface.md",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.acceptor_exclusion_rules": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.acceptor_inclusion_rules": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.donor_exclusion_rules": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.donor_inclusion_rules": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.get_acceptor_atoms": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.get_buch_hbonds": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.get_donor_atoms": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
+    },
+    "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/hbonds",
+      "contract_tests": "tests/interactions/hbonds"
     },
     "molsysmt.is_a_molecular_system": {
       "stability": "stable",

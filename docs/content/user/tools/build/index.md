@@ -8,7 +8,7 @@
 | [Add missing terminal cappings](add_missing_terminal_cappings.ipynb) | Adding the missing terminal cappings in a molecular system |
 | [Build peptide](build_peptide.ipynb) | Building a peptide |
 | [Editable](editable.ipynb) | Creating an editable molecular system builder to modify or construct topologies |
-| [Get disulfide bonds](get_disulfide_bonds.ipynb) | Getting the disulfide bonds of a molecular system |
+| [Get disulfide bonds](get_disulfide_bonds.ipynb) | Identifying structure-specific disulfide candidates and using the build wrapper |
 | [Get missing bonds](get_missing_bonds.ipynb) | Getting the missing bonds of a molecular system |
 | [Get missing heavy atoms](get_missing_heavy_atoms.ipynb) | Getting the missing heavy atoms of a molecular system |
 | [Get missing residues](get_missing_residues.ipynb) | Getting the missing residues of a molecular system |

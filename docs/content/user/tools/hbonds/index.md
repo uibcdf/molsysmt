@@ -1,5 +1,8 @@
 # Hydrogen bonds
 
+The canonical methods are available in `molsysmt.interactions.hbonds`.
+`molsysmt.hbonds` remains a compatibility path for existing code.
+
 |      |      |
 | :--- | :--- |
 | [Get acceptor atoms](get_acceptor_atoms.ipynb) | Identifying potential hydrogen bond acceptor atoms |

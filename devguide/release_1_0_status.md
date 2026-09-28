@@ -57,10 +57,11 @@ For the next session:
    forward automatically.
 
 The [interaction-detection namespace proposal](pending_proposals/organize_interaction_detection_by_family_before_1_0.md)
-(`uibcdf/molsysmt#250`) is a pending pre-1.0 design decision, not implemented
-or included in a tested candidate. If accepted, its bounded migration must
-finish before candidate freeze and its new commit must pass the affected
-scientific, documentation, consumer, and release gates. Further interaction
+(`uibcdf/molsysmt#250`) has been accepted for the bounded pre-1.0 migration of
+hydrogen-bond methods and disulfide-candidate detection. Implementation and
+recertification are in progress; this work is not yet part of a tested release
+candidate. Its final commit must pass the affected scientific, documentation,
+consumer, and release gates before candidate freeze. Further interaction
 families and persistent interaction datasets remain post-1.0 work.
 
 Use at most 12 pytest workers with `--receptor=llm` for compact local
