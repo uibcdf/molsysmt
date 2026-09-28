@@ -8,13 +8,18 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.residue_templates import load_residue_template
-from molsysmt._private.smonitor import UnassessedResidueWarning
+from molsysmt._private.smonitor import (
+    StructuralAttributeDropWarning,
+    UnassessedResidueWarning,
+)
 
 SOURCE_ROOT = Path(__file__).resolve().parents[3] / "molsysmt" / "data" / "pdb"
 CASES = [
     ("MSE", "3c8h.pdb", "A", 27, "O", "O"),
     ("SEP", "1atp.pdb", "E", 338, "O1P", "O"),
+    ("TPO", "1atp.pdb", "E", 197, "O1P", "O"),
 ]
+MLY_CASE = ("MLY", "2vgy.pdb", "A", 51, "CH1", "C")
 
 
 def _observed_residue(filename, group_name, chain_id, group_id):
@@ -190,12 +195,106 @@ def test_wrong_modified_atom_name_is_explicitly_unassessed():
 def test_unsupported_modified_residue_is_reported_without_parent_repair():
     builder = msm.MolSysBuilder()
     atom_index = builder.add_atom(atom_id="1", atom_name="N", atom_type="N")
-    builder.add_group([atom_index], group_id="1", group_name="TPO")
+    builder.add_group([atom_index], group_id="1", group_name="PTR")
     builder.set_coordinates(puw.quantity(np.zeros((1, 3)), "nm"))
     molsys = builder.build()
     with pytest.warns(UnassessedResidueWarning, match="no exact curated"):
         repaired = msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT")
     assert repaired.topology.atoms["atom_name"].tolist() == ["N"]
+
+
+def test_unsafe_mly_methyl_gap_remains_unassessed():
+    molsys, _ = _incomplete_residue(MLY_CASE, {"CH1"})
+    assert msm.build.get_missing_heavy_atoms(molsys) == {0: ["CH1"]}
+    original_atoms = molsys.topology.atoms.copy()
+    with pytest.warns(UnassessedResidueWarning, match="no validated local placement"):
+        repaired = msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT")
+    assert repaired.topology.atoms.equals(original_atoms)
+
+
+@pytest.mark.parametrize("missing_name", ["CG2", "P", "O1P", "O2P", "O3P"])
+def test_tpo_validated_local_placements_match_deposited_geometry(missing_name):
+    case = CASES[2]
+    molsys, observed = _incomplete_residue(case, {missing_name})
+    repaired = msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT")
+    atoms = repaired.topology.atoms
+    atom_index = atoms.index[atoms["atom_name"] == missing_name][0]
+    coords = puw.get_value(repaired.structures.coordinates, to_unit="nm")[0, atom_index]
+    assert np.linalg.norm(coords - observed[missing_name][1]) < 0.03
+
+
+def test_tpo_unvalidated_backbone_gap_remains_unassessed():
+    molsys, _ = _incomplete_residue(CASES[2], {"CA"})
+    original_atoms = molsys.topology.atoms.copy()
+    with pytest.warns(UnassessedResidueWarning, match="no validated local placement"):
+        repaired = msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT")
+    assert repaired.topology.atoms.equals(original_atoms)
+
+
+def test_tpo_repair_accepts_a_pdb_topology_without_bond_orders():
+    molsys = msm.convert(str(SOURCE_ROOT / "1atp.pdb"), to_form="molsysmt.MolSys")
+    group_index = molsys.topology.groups.index[
+        molsys.topology.groups["group_name"] == "TPO"
+    ][0]
+    atom_index = molsys.topology.atoms.index[
+        (molsys.topology.atoms["group_index"] == group_index)
+        & (molsys.topology.atoms["atom_name"] == "O1P")
+    ][0]
+    reference = puw.get_value(molsys.structures.coordinates, to_unit="nm")[
+        0, atom_index
+    ].copy()
+    incomplete = msm.remove(molsys, selection=f"atom_index=={atom_index}")
+    with pytest.warns(StructuralAttributeDropWarning):
+        repaired = msm.build.add_missing_heavy_atoms(
+            incomplete, selection=f"group_index=={group_index}", engine="MolSysMT"
+        )
+    atoms = repaired.topology.atoms
+    added_index = atoms.index[
+        (atoms["group_index"] == group_index) & (atoms["atom_name"] == "O1P")
+    ][0]
+    coords = puw.get_value(repaired.structures.coordinates, to_unit="nm")[
+        0, added_index
+    ]
+    assert atoms.at[added_index, "atom_type"] == "O"
+    assert np.linalg.norm(coords - reference) < 0.03
+
+
+def test_mly_methyl_template_error_exceeds_bound_in_all_bundled_residues():
+    from molsysmt._private.rust_backend import (
+        get_least_rmsd_rotation_and_translation_single_structure,
+    )
+
+    template = load_residue_template("MLY")
+    ideal = dict(zip(template["atoms"], np.asarray(template["coords_nm"])))
+    errors = {"CH1": [], "CH2": []}
+    n_residues = 0
+    for filename in ("2vgy.pdb", "3c0f.pdb"):
+        lines = (SOURCE_ROOT / filename).read_text().splitlines()
+        groups = {
+            (line[21], int(line[22:26]))
+            for line in lines
+            if line.startswith(("ATOM  ", "HETATM")) and line[17:20] == "MLY"
+        }
+        for chain_id, group_id in groups:
+            observed = _observed_residue(filename, "MLY", chain_id, group_id)
+            if not {"NZ", "CE", "CH1", "CH2"} <= observed.keys():
+                continue
+            n_residues += 1
+            for missing, other in (("CH1", "CH2"), ("CH2", "CH1")):
+                anchors = ["NZ", "CE", other]
+                center, rotation, translation = (
+                    get_least_rmsd_rotation_and_translation_single_structure(
+                        np.array([ideal[name] for name in anchors]),
+                        np.array([observed[name][1] for name in anchors]),
+                    )
+                )
+                predicted = rotation @ (ideal[missing] - center) + center + translation
+                errors[missing].append(np.linalg.norm(predicted - observed[missing][1]))
+    assert n_residues == 14
+    for methyl_errors in errors.values():
+        assert len(methyl_errors) == 14
+        assert min(methyl_errors) > 0.05
+        assert 0.14 < np.median(methyl_errors) < 0.15
 
 
 def test_conflicting_observed_bond_order_leaves_mse_unassessed():

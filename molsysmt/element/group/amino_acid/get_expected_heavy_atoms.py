@@ -24,7 +24,7 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
     Return the set of expected heavy (non-hydrogen) atom names for a residue.
 
     Looks up standard residues in MolSysMT's amino-acid topology database and
-    MSE and SEP in exact CCD-derived templates. When
+    MSE, SEP, TPO, and MLY in exact CCD-derived templates. When
     ``present_atom_names`` is supplied the function selects the topology
     variant whose atom set is a superset of the given heavy atoms (matching
     PDBFixer's template-selection strategy).  When no variant matches, or when
@@ -61,7 +61,9 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
     ['C', 'CA', 'CB', 'N', 'O']
     >>> 'SE' in get_expected_heavy_atoms('MSE')
     True
-    >>> get_expected_heavy_atoms('TPO') is None
+    >>> {'CH1', 'CH2'} <= get_expected_heavy_atoms('MLY')
+    True
+    >>> get_expected_heavy_atoms('PTR') is None
     True
 
 

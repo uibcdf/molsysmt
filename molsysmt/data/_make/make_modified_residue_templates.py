@@ -12,10 +12,14 @@ OUTPUT_DIR = Path(__file__).parent.parent / "databases" / "residue_templates"
 SOURCES = {
     "MSE": "945a8ad89ba50417ca70b30c749470710a5dcc5203295a73b4b9e7e041077470",
     "SEP": "a99dd6ecccf72cd3d04afd6bbfa066375e2e09434ee0b641ce36625de23de296",
+    "TPO": "95a5c0c4850e7d8af01aea1f608cc0b84baf2f6cdc4d78ca01a70217cb83cc40",
+    "MLY": "d014fdcba0f264c057469518f0e1e2fcbbfa63d9983f471b372f99f44801297b",
 }
 UPSTREAM_SHA256 = {
     "MSE": "2f8373207105fd6e18aa25ec22cfb229987da61cc79a3980e64d7ee31fb4d31c",
     "SEP": "8a64575a99938ed0960684067183d8b7a85daabb204fda3c13c24fa9353e86a9",
+    "TPO": "d642585cb6396dd78eccb0240a3ed654a27b772881e719b8d3d298cd57d57b1b",
+    "MLY": "5f6c3878bc50a166a1571237131c262e293eaac0027112d91a885f486e39afc2",
 }
 ORDERS = {"SING": 1, "DOUB": 2, "TRIP": 3}
 

@@ -52,9 +52,11 @@ def add_missing_heavy_atoms(
 
     Notes
     -----
-    The native engine repairs standard residues and selected incomplete MSE and SEP
-    residues from exact chemical templates. MSE and SEP are matched by atom name,
-    element, and connectivity; missing atoms are placed from local coordinates.
+    The native engine repairs standard residues and selected incomplete MSE, SEP,
+    and TPO residues from exact chemical templates. Curated modified residues
+    are matched by atom name, element, and connectivity; supported missing atoms
+    are placed from local coordinates. MLY has an exact heavy-atom inventory,
+    but its missing atoms remain unassessed because no placement is validated.
     Residues with ambiguous side-chain gaps or conflicting chemistry are left
     unchanged with an ``UnassessedResidueWarning``. Modified residues without
     curated templates are also reported as unassessed. Hydrogen atoms require a

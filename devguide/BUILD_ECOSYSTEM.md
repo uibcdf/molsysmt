@@ -127,10 +127,13 @@ Contains one JSON file per residue:
 - **coords_nm**: ideal coordinates in **nanometres** (Angstrom source / 10).
 - **bonds**: bonds between heavy atoms.
 
-Covered residues (30 total): 20 standard amino acids, ACE, NME, 4 RNA
-nucleotides (A, C, G, U), 4 DNA nucleotides (DA, DC, DG, DT).
+Covered residues (34 total): 20 standard amino acids, 4 curated modified
+amino acids (MSE, SEP, TPO, MLY), ACE, NME, 4 RNA nucleotides (A, C, G, U),
+and 4 DNA nucleotides (DA, DC, DG, DT).
 
-Source: PDBFixer templates at `pdbfixer/pdbfixer/templates/*.pdb`.
+Standard-residue source: PDBFixer templates at
+`pdbfixer/pdbfixer/templates/*.pdb`. Modified-residue source: pinned RCSB CCD
+snapshots in `molsysmt/data/_make/ccd_components/`.
 Bond connectivity: MolSysMT amino-acid database (`amino_acids/`) and
 terminal-capping database (`terminal_cappings/`). RNA/DNA nucleotides have
 empty bond lists (no MolSysMT database yet).
@@ -231,7 +234,7 @@ tightest-fit topology variant, computes the set difference, and excludes
 `OXT` (which is the responsibility of `get_missing_terminal_cappings`).
 The template must match the residue's chemical name exactly. A sequence-level
 replacement such as MSE→MET or SEP→SER does not establish the atom inventory;
-MSE and SEP use exact CCD-derived component templates. Other modified residues
+MSE, SEP, TPO, and MLY use exact CCD-derived component templates. Other modified residues
 without an exact template remain unassessed by this function.
 
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms`.
@@ -271,7 +274,7 @@ atoms are appended to the MolSys topology and coordinates, and bonds are
 resolved from the template. Logic lives in
 `molsysmt/build/_native_placers.py`.
 
-For MSE and SEP, `build/_modified_residue_repair.py` checks observed atom
+For MSE, SEP, TPO, and MLY, `build/_modified_residue_repair.py` checks observed atom
 names, elements, and intra-residue connectivity against the exact component
 template before placement. Local graph-neighbor anchors limit Kabsch fitting
 to the affected chemical group. The route carries explicit atom elements and
@@ -280,9 +283,14 @@ identity, and reports ambiguous or unsupported modified residues with
 `UnassessedResidueWarning`. It skips a modified residue when its observed
 chemistry conflicts with the template or its placed bond lengths are implausible.
 The template snapshots and their SHA-256 checksums live under
-`molsysmt/data/_make/ccd_components/`; the offline generator writes MSE and SEP
-JSON files. This route estimates coordinates; its bounded regression fixtures
-do not establish experimental accuracy across all conformations.
+`molsysmt/data/_make/ccd_components/`; the offline generator writes the four
+modified-residue JSON files. TPO placement is limited to a single missing P,
+O1P, O2P, O3P, or CG2 atom. MLY has exact inventory assessment but no enabled
+placement: the flexible side chain fails the bounded geometric check, and
+reconstructing a polymer N requires its external peptide bond. Remaining
+energy-based reconstruction is tracked in uibcdf/molsysmt#249. This route
+estimates coordinates; its bounded regression fixtures do not establish
+experimental accuracy across all conformations.
 
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms` +
 `pdbfixer.addMissingAtoms`.

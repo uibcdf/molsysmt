@@ -6,7 +6,9 @@ def test_modified_residues_use_exact_templates():
     assert "P" in get_expected_heavy_atoms("SEP", ["N", "CA", "OG"])
     assert get_expected_heavy_atoms("MSE", ["N", "CA", "SD"]) is None
     assert get_expected_heavy_atoms("SEP", ["N", "CA", "CB", "OG1"]) is None
-    assert get_expected_heavy_atoms("TPO", ["N", "CA"]) is None
+    assert {"P", "O1P", "CG2"} <= get_expected_heavy_atoms("TPO", ["N", "CA"])
+    assert {"NZ", "CH1", "CH2"} <= get_expected_heavy_atoms("MLY", ["N", "CA"])
+    assert get_expected_heavy_atoms("PTR", ["N", "CA"]) is None
 
 
 def test_supported_protonation_variant_keeps_its_exact_template():

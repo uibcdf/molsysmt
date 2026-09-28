@@ -46,8 +46,8 @@ def get_missing_heavy_atoms(
     topology variant whose atom set is a superset of the present heavy atoms is
     selected; missing atoms are the set difference between expected and present.
 
-    Only residues with an exact chemical template are assessed. MSE and SEP
-    use their own component templates; other modified residues without an exact
+    Only residues with an exact chemical template are assessed. MSE, SEP, TPO,
+    and MLY use their own component templates; other modified residues without an exact
     template remain unassessed rather than being treated as their nearest
     standard sequence equivalents. Water, ions, and ligands are also skipped.
 

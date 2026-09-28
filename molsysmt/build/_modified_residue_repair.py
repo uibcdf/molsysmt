@@ -5,9 +5,19 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from molsysmt._private.residue_templates import VALIDATED_MISSING_ATOMS
+
 
 def assess_modified_residue(topo, group_idx, missing_names, template, coordinates):
     """Return local anchors and a reason when repair cannot be assessed."""
+
+    permitted = VALIDATED_MISSING_ATOMS.get(template["name"])
+    if permitted is not None:
+        unsupported = set(missing_names) - permitted
+        if unsupported:
+            return None, (
+                "no validated local placement for " + ", ".join(sorted(unsupported))
+            )
 
     rows = topo.atoms[topo.atoms["group_index"] == group_idx]
     names = rows["atom_name"].tolist()
@@ -49,10 +59,8 @@ def assess_modified_residue(topo, group_idx, missing_names, template, coordinate
             continue  # The curated template contains heavy-atom bonds only.
         if pair not in template_orders:
             return None, "observed connectivity conflicts with the exact template"
-        if (
-            not pd.isna(bond.bond_order)
-            and int(bond.bond_order) != template_orders[pair]
-        ):
+        observed_order = getattr(bond, "bond_order", pd.NA)
+        if not pd.isna(observed_order) and int(observed_order) != template_orders[pair]:
             return None, "observed bond order conflicts with the exact template"
 
     anchors_by_atom = {}

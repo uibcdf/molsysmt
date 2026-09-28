@@ -8,7 +8,14 @@ from importlib.resources import files
 
 import numpy as np
 
-CURATED_MODIFIED_RESIDUES = frozenset({"MSE", "SEP"})
+CURATED_MODIFIED_RESIDUES = frozenset({"MSE", "SEP", "TPO", "MLY"})
+
+# These bounded placements were checked against complete deposited residues.
+# An empty set still enables exact atom-inventory assessment without placement.
+VALIDATED_MISSING_ATOMS = {
+    "TPO": frozenset({"CG2", "P", "O1P", "O2P", "O3P"}),
+    "MLY": frozenset(),
+}
 
 
 def _validate_modified_template(name: str, template: dict) -> None:

@@ -50,6 +50,7 @@ Assessment and diagnostics first; repair algorithms for specific nonstandard res
 
 ## Dependencies and risks
 
-Related tracked work: uibcdf/molsysmt#177, uibcdf/molsysmt#227, uibcdf/molsysmt#228.
+Related tracked work: uibcdf/molsysmt#177, uibcdf/molsysmt#227,
+uibcdf/molsysmt#228, uibcdf/molsysmt#249.
 Cross-component implementation links: uibcdf/dockingmt#4.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.
