@@ -107,7 +107,9 @@ def get_luzard_chandler_hbonds(
 
         if (selection_2 is None) and (acceptors_2 is None) and (donors_2 is None):
             if n_donors == 0 or len(acceptors) == 0:
-                return empty_result(molecular_system, structure_indices, with_angles=True)
+                return empty_result(
+                    molecular_system, structure_indices, with_angles=True
+                )
 
         unique_donors, donor_restore = np.unique(donors[:, 0], return_inverse=True)
 

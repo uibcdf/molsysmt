@@ -114,6 +114,7 @@ def get_disulfide_candidates(
 
     def empty_distances():
         return puw.quantity(np.empty(0, dtype=np.float64), "nanometers")
+
     if len(sulfur_indices) < 2:
         return (
             [empty_pairs() for _ in frame_indices],
