@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (25)
+### Open (26)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
@@ -55,6 +55,7 @@ Entries carrying front matter under
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
+- [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(inspected)*
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`preserve_atom_correspondence_through_lossy_molecular_exports.md`](preserve_atom_correspondence_through_lossy_molecular_exports.md) — [#223](https://github.com/uibcdf/molsysmt/issues/223) — Preserve atom correspondence through lossy molecular exports *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*

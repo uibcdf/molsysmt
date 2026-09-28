@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-27
+**Last updated:** 2026-09-28
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -55,6 +55,13 @@ For the next session:
    then decide on tags and releases. Verify public artifacts and
    Zenodo records after publication. No pre-1.0 exception rolls
    forward automatically.
+
+The [interaction-detection namespace proposal](pending_proposals/organize_interaction_detection_by_family_before_1_0.md)
+(`uibcdf/molsysmt#250`) is a pending pre-1.0 design decision, not implemented
+or included in a tested candidate. If accepted, its bounded migration must
+finish before candidate freeze and its new commit must pass the affected
+scientific, documentation, consumer, and release gates. Further interaction
+families and persistent interaction datasets remain post-1.0 work.
 
 Use at most 12 pytest workers with `--receptor=llm` for compact local
 diagnostics; normal pytest verdicts remain authoritative. Use

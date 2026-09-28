@@ -440,6 +440,26 @@ After the conversion and Rust-only blockers are green:
 7. tag only the clean commit that passed the full Python 3.11–3.13 matrix and
    installed-wheel tests.
 
+## Candidate pre-1.0 API decision: interaction detection
+
+[`uibcdf/molsysmt#250`](https://github.com/uibcdf/molsysmt/issues/250) and
+[its local proposal](organize_interaction_detection_by_family_before_1_0.md)
+record a **pending**, bounded namespace decision. No implementation or release
+scope change is approved by this entry. If accepted before candidate freeze,
+the proposed 1.0 slice is `molsysmt.interactions` with family modules for the
+existing hydrogen-bond methods and disulfide **candidate** detection, while
+`molsysmt.build.get_disulfide_bonds` remains available as a build-oriented
+entry point. Distance-only contacts remain in `structure`; recorded covalent
+bonds remain topological data.
+
+The decision gate must settle the result and compatibility contracts before
+code moves. Implementation would then require scientific, documentation,
+course, consumer, API-registry, and exact-commit release recertification. The
+operational status belongs in [`release_1_0_status.md`](../release_1_0_status.md).
+Additional interaction families and a persistent `Interactions` data model
+remain separate post-1.0 proposals unless a new correctness finding changes
+their priority.
+
 ## Work That Must Not Block 1.0
 
 The following remain valid post-1.0 work unless they reveal a correctness

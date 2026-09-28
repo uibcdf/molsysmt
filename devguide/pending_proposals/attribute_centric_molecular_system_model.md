@@ -399,6 +399,13 @@ for non-covalent and coordination relationships. Candidate use cases include:
 - declarations imported from sources such as mmCIF `struct_conn`;
 - interaction fingerprints and pose-comparison inputs.
 
+The proposed **callable** `molsysmt.interactions` namespace is tracked separately
+by [`uibcdf/molsysmt#250`](organize_interaction_detection_by_family_before_1_0.md).
+It may be organized before 1.0 without introducing this native information
+domain. Its possible disulfide-candidate detector would report evidence for
+build workflows, not move recorded covalent bonds out of topology. The final
+namespace and result contracts remain pending decisions.
+
 An interaction may be declared by a source, observed by a geometric method, or
 both. Those facts must remain distinguishable.
 
