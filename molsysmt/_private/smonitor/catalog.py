@@ -114,6 +114,12 @@ CATALOG = {
             "category": "data_quality",
             "level": "WARNING",
         },
+        "UnassessedResidueWarning": {
+            "code": "MSM-WARN-BUILD-002",
+            "source": "molsysmt.warning.build.unassessed_residue",
+            "category": "data_quality",
+            "level": "WARNING",
+        },
         "StructuralAttributeDropWarning": {
             "code": "MSM-WARN-STRUCT-005",
             "source": "molsysmt.warning.structure.attribute_drop",
@@ -466,6 +472,17 @@ CODES = {
             "Not added by this call. The input carried them. reconcile_protonation "
             "removes them."
         ),
+    },
+    "MSM-WARN-BUILD-002": {
+        "title": "Modified residue left unassessed",
+        "user_message": "Residue {group_name} at group index {group_index} was left unassessed: {reason}.",
+        "user_hint": "Review the residue chemistry and coordinates before downstream preparation. Docs: {doc_url}",
+        "dev_message": "Unassessed residue {group_name} at group index {group_index}: {reason}.",
+        "dev_hint": "Only unambiguous repairs from an exact curated template are supported.",
+        "qa_message": "Unassessed residue {group_name} at group index {group_index}: {reason}.",
+        "qa_hint": "Check the expected unsupported or ambiguous case.",
+        "agent_message": "Residue {group_name} at group index {group_index} was left unassessed: {reason}.",
+        "agent_hint": "Do not infer parent-residue chemistry.",
     },
     "MSM-WARN-STRUCT-005": {
         "title": "One-sided structural attributes discarded",

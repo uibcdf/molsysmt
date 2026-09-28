@@ -41,15 +41,15 @@ def get_missing_heavy_atoms(
     Notes
     -----
     When ``engine='MolSysMT'`` the expected heavy atoms are obtained from the
-    amino-acid topology database via
+    amino-acid topology database or an exact curated modified-residue template via
     :func:`~molsysmt.element.group.amino_acid.get_expected_heavy_atoms`.  The
     topology variant whose atom set is a superset of the present heavy atoms is
     selected; missing atoms are the set difference between expected and present.
 
-    Only residues with an exact chemical template are assessed. Modified
-    residues without one, including MSE and SEP, are left unassessed rather
-    than treated as their nearest standard sequence equivalents. Water, ions,
-    and ligands are also skipped.
+    Only residues with an exact chemical template are assessed. MSE and SEP
+    use their own component templates; other modified residues without an exact
+    template remain unassessed rather than being treated as their nearest
+    standard sequence equivalents. Water, ions, and ligands are also skipped.
 
 
     .. versionadded:: 1.0.0

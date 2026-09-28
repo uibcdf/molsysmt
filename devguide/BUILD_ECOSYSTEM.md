@@ -231,7 +231,8 @@ tightest-fit topology variant, computes the set difference, and excludes
 `OXT` (which is the responsibility of `get_missing_terminal_cappings`).
 The template must match the residue's chemical name exactly. A sequence-level
 replacement such as MSE→MET or SEP→SER does not establish the atom inventory;
-modified residues without an exact template remain unassessed by this function.
+MSE and SEP use exact CCD-derived component templates. Other modified residues
+without an exact template remain unassessed by this function.
 
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms`.
 
@@ -269,6 +270,19 @@ to overlay the template onto the residue's present backbone atoms. Missing
 atoms are appended to the MolSys topology and coordinates, and bonds are
 resolved from the template. Logic lives in
 `molsysmt/build/_native_placers.py`.
+
+For MSE and SEP, `build/_modified_residue_repair.py` checks observed atom
+names, elements, and intra-residue connectivity against the exact component
+template before placement. Local graph-neighbor anchors limit Kabsch fitting
+to the affected chemical group. The route carries explicit atom elements and
+bond orders from the CCD source, retains existing atom coordinates and residue
+identity, and reports ambiguous or unsupported modified residues with
+`UnassessedResidueWarning`. It skips a modified residue when its observed
+chemistry conflicts with the template or its placed bond lengths are implausible.
+The template snapshots and their SHA-256 checksums live under
+`molsysmt/data/_make/ccd_components/`; the offline generator writes MSE and SEP
+JSON files. This route estimates coordinates; its bounded regression fixtures
+do not establish experimental accuracy across all conformations.
 
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms` +
 `pdbfixer.addMissingAtoms`.

@@ -1,3 +1,8 @@
+from molsysmt._private.residue_templates import (
+    CURATED_MODIFIED_RESIDUES,
+    load_residue_template,
+)
+
 from .get_group_db import get_group_db
 from .group_names import group_names
 
@@ -18,7 +23,8 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
     """
     Return the set of expected heavy (non-hydrogen) atom names for a residue.
 
-    Looks up the residue in MolSysMT's amino-acid topology database.  When
+    Looks up standard residues in MolSysMT's amino-acid topology database and
+    MSE and SEP in exact CCD-derived templates. When
     ``present_atom_names`` is supplied the function selects the topology
     variant whose atom set is a superset of the given heavy atoms (matching
     PDBFixer's template-selection strategy).  When no variant matches, or when
@@ -53,12 +59,23 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
     ['C', 'CA', 'CB', 'N', 'O', 'OXT']
     >>> sorted(get_expected_heavy_atoms('ALA', present_atom_names=['N', 'CA', 'C', 'O', 'CB']))
     ['C', 'CA', 'CB', 'N', 'O']
-    >>> get_expected_heavy_atoms('MSE') is None
+    >>> 'SE' in get_expected_heavy_atoms('MSE')
+    True
+    >>> get_expected_heavy_atoms('TPO') is None
     True
 
 
     .. versionadded:: 1.0.0
     """
+
+    if group_name in CURATED_MODIFIED_RESIDUES:
+        template = load_residue_template(group_name)
+        expected = set(template["atoms"])
+        if present_atom_names is not None:
+            present = {atom for atom in present_atom_names if not _is_hydrogen(atom)}
+            if not present <= expected:
+                return None
+        return expected
 
     # Sequence equivalence does not establish chemical-template equivalence.
     if group_name not in group_names:

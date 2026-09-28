@@ -186,6 +186,21 @@ class UnexpectedProtonationWarning(UserMolSysMTWarning):
         super().__init__(message=message, extra=extra)
 
 
+class UnassessedResidueWarning(UserMolSysMTWarning):
+    """A modified residue was left unchanged because repair was not supported."""
+
+    catalog_key = "UnassessedResidueWarning"
+
+    def __init__(self, message=None, *, group_name=None, group_index=None, reason=None):
+        if message is not None:
+            super().__init__(message)
+            return
+        super().__init__(
+            message,
+            extra={"group_name": group_name, "group_index": group_index, "reason": reason},
+        )
+
+
 class StructuralAttributeDropWarning(UserMolSysMTWarning):
     """Warning about one-sided structural series discarded by intersection."""
 
@@ -347,6 +362,7 @@ __all__ = [
     "MolecularSystemMismatchWarning",
     "StructuralAttributeDropWarning",
     "UnexpectedProtonationWarning",
+    "UnassessedResidueWarning",
     "StructuralAttributeOffAxisWarning",
     "IncompatibleBoxWarning",
     "BioassemblyIdentifierCollisionWarning",

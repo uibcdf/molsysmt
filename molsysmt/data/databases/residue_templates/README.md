@@ -1,6 +1,6 @@
 # residue_templates
 
-3D coordinate templates for standard residues and capping groups.
+3D coordinate templates for standard residues, selected modified residues, and capping groups.
 Used by `build/add_missing_heavy_atoms` with `engine='MolSysMT'` to place
 new atoms geometrically without requiring an external force-field backend.
 
@@ -11,6 +11,7 @@ One JSON file per residue:
 | Set | Residues |
 |-----|----------|
 | Standard amino acids | ALA, ARG, ASN, ASP, CYS, GLN, GLU, GLY, HIS, ILE, LEU, LYS, MET, PHE, PRO, SER, THR, TRP, TYR, VAL |
+| Curated modified amino acids | MSE, SEP |
 | Capping groups | ACE, NME |
 | RNA nucleotides | A, C, G, U |
 | DNA nucleotides | DA, DC, DG, DT |
@@ -34,6 +35,9 @@ One JSON file per residue:
   `data/databases/terminal_cappings/c_terminal.json` (ACE),
   `data/databases/terminal_cappings/n_terminal.json` (NME).
   RNA/DNA nucleotides have empty bond lists (no MolSysMT database yet).
+- **elements** and **bond_orders**: explicit chemistry for MSE and SEP.
+- **source**: CCD URL, SHA-256 checksum of the whitespace-normalized bundled
+  component file, and SHA-256 checksum of the original upstream download.
 
 ## Sources
 
@@ -42,6 +46,11 @@ One JSON file per residue:
 - Bond connectivity: MolSysMT amino-acid topology database
   (`data/databases/amino_acids/`) and terminal-capping database
   (`data/databases/terminal_cappings/`).
+- MSE and SEP: pinned RCSB Chemical Component Dictionary files under
+  `molsysmt/data/_make/ccd_components/`. Their heavy atoms, elements,
+  bond orders, and ideal coordinates in ångströms are extracted without
+  substituting MET or SER chemistry. Only trailing whitespace was removed
+  from the downloaded CIF snapshots.
 
 ## Generation
 
@@ -52,3 +61,14 @@ python molsysmt/data/databases/residue_templates/make_residue_templates_db.py
 ```
 
 Requires PDBFixer source available at `~/repos@others/pdbfixer`.
+
+Generate MSE and SEP offline from the pinned CCD snapshots with:
+
+```bash
+python molsysmt/data/_make/make_modified_residue_templates.py
+```
+
+The generator checks each source checksum before writing. Native placement uses
+local heavy-atom anchors and leaves ambiguous or chemically conflicting
+modified residues unassessed. Ideal coordinates are placement estimates;
+experimental structures may have different conformations.

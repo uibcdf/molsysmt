@@ -156,6 +156,10 @@ SAMPLES = {
         },
         "HD2 in ASP 12",
     ),
+    "UnassessedResidueWarning": (
+        {"group_name": "SEP", "group_index": 4, "reason": "ambiguous oxygen labels"},
+        "ambiguous oxygen labels",
+    ),
     "GpuNotAvailableWarning": ({"reason": "no CUDA GPU is accessible"}, "CUDA"),
 }
 

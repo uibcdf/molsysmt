@@ -52,8 +52,14 @@ def add_missing_heavy_atoms(
 
     Notes
     -----
-    This function adds only non-hydrogen atoms (heavy atoms) that are missing from standard
-    residues. Hydrogen atoms can be added using other tools or methods.
+    The native engine repairs standard residues and selected incomplete MSE and SEP
+    residues from exact chemical templates. MSE and SEP are matched by atom name,
+    element, and connectivity; missing atoms are placed from local coordinates.
+    Residues with ambiguous side-chain gaps or conflicting chemistry are left
+    unchanged with an ``UnassessedResidueWarning``. Modified residues without
+    curated templates are also reported as unassessed. Hydrogen atoms require a
+    separate operation. Coordinate placement is an estimate and does not replace
+    experimental refinement.
 
     The list of supported molecular systems' forms is detailed in:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
@@ -83,7 +89,7 @@ def add_missing_heavy_atoms(
     >>> molsys = msm.build.build_peptide('AAA')
     >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
     3
-    >>> molsys = msm.build.remove(molsys, selection='atom_name=="CB"')
+    >>> molsys = msm.remove(molsys, selection='atom_name=="CB"')
     >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
     0
     >>> molsys = msm.build.add_missing_heavy_atoms(molsys)
@@ -235,8 +241,15 @@ def add_missing_heavy_atoms(
         )
 
     elif engine == "MolSysMT":
+        from warnings import warn
+
+        import numpy as np
+
         from molsysmt import pyunitwizard as puw
-        from molsysmt.basic import convert, get_form
+        from molsysmt._private.residue_templates import CURATED_MODIFIED_RESIDUES
+        from molsysmt._private.smonitor import UnassessedResidueWarning
+        from molsysmt.basic import convert, get_form, select
+        from molsysmt.build._modified_residue_repair import assess_modified_residue
         from molsysmt.build._native_placers import (
             append_atoms_to_molsys,
             load_residue_template,
@@ -252,12 +265,53 @@ def add_missing_heavy_atoms(
         else:
             native_ms = molecular_system
 
+        topo = native_ms.topology
+        selected_groups = select(
+            native_ms, element="group", selection=selection, syntax=syntax
+        )
+        from molsysmt.element.group.amino_acid import get_standard_name
+        from molsysmt.element.group.amino_acid.group_names import group_names
+
+        for group_idx in selected_groups:
+            group_name = topo.groups.at[int(group_idx), "group_name"]
+            if (
+                group_name not in CURATED_MODIFIED_RESIDUES
+                and group_name not in group_names
+                and get_standard_name(group_name) is not None
+            ):
+                warn(
+                    UnassessedResidueWarning(
+                        group_name=group_name,
+                        group_index=int(group_idx),
+                        reason="no exact curated repair template",
+                    ),
+                    stacklevel=2,
+                )
+
         missing_atoms = get_missing_heavy_atoms(
             native_ms,
             selection=selection,
             syntax=syntax,
             engine="MolSysMT",
         )
+
+        for group_idx in selected_groups:
+            group_idx = int(group_idx)
+            group_name = topo.groups.at[group_idx, "group_name"]
+            if group_name not in CURATED_MODIFIED_RESIDUES or group_idx in missing_atoms:
+                continue
+            _, reason = assess_modified_residue(
+                topo, group_idx, [], load_residue_template(group_name), None
+            )
+            if reason:
+                warn(
+                    UnassessedResidueWarning(
+                        group_name=group_name,
+                        group_index=group_idx,
+                        reason=reason,
+                    ),
+                    stacklevel=2,
+                )
 
         if not missing_atoms:
             output_molecular_system = (
@@ -269,7 +323,6 @@ def add_missing_heavy_atoms(
                 else output_molecular_system
             )
 
-        topo = native_ms.topology
         all_coords = puw.get_value(native_ms.structures.coordinates, to_unit="nm")
 
         new_atom_info = []  # list of (group_idx, atom_name, coords(n_structures, 3))
@@ -283,20 +336,96 @@ def add_missing_heavy_atoms(
             group_name = topo.groups["group_name"].values[group_idx]
             template = load_residue_template(group_name)
             if template is None:
+                if get_standard_name(group_name) is not None:
+                    warn(
+                        UnassessedResidueWarning(
+                            group_name=group_name,
+                            group_index=group_idx,
+                            reason="no exact native placement template",
+                        ),
+                        stacklevel=2,
+                    )
                 continue
 
-            placed = place_missing_in_group(
-                topo, all_coords, group_idx, missing_names, template
-            )
+            curated = group_name in CURATED_MODIFIED_RESIDUES
+            if curated:
+                if len(topo._chemical_states) != 1:
+                    reason = "multiple chemical states cannot be preserved by this repair"
+                    anchors = None
+                else:
+                    anchors, reason = assess_modified_residue(
+                        topo, group_idx, missing_names, template, all_coords
+                    )
+                if reason:
+                    warn(
+                        UnassessedResidueWarning(
+                            group_name=group_name,
+                            group_index=group_idx,
+                            reason=reason,
+                        ),
+                        stacklevel=2,
+                    )
+                    continue
+
+            placed = {}
+            for atom_name in missing_names:
+                placed.update(
+                    place_missing_in_group(
+                        topo,
+                        all_coords,
+                        group_idx,
+                        [atom_name],
+                        template,
+                        anchor_names=anchors[atom_name] if curated else None,
+                    )
+                )
             if not placed:
                 continue
+
+            if curated:
+                name_to_idx = dict(zip(template["atoms"], range(len(template["atoms"]))))
+                bad_geometry = False
+                for atom1, atom2 in template["bonds"]:
+                    for new_name, neighbor in ((atom1, atom2), (atom2, atom1)):
+                        if new_name not in placed:
+                            continue
+                        existing_rows = topo.atoms[
+                            (topo.atoms["group_index"] == group_idx)
+                            & (topo.atoms["atom_name"] == neighbor)
+                        ]
+                        if existing_rows.empty:
+                            continue
+                        ideal = np.linalg.norm(
+                            np.asarray(template["coords_nm"])[name_to_idx[new_name]]
+                            - np.asarray(template["coords_nm"])[name_to_idx[neighbor]]
+                        )
+                        actual = np.linalg.norm(
+                            placed[new_name] - all_coords[:, existing_rows.index[0], :],
+                            axis=1,
+                        )
+                        if np.any(np.abs(actual - ideal) > 0.04):
+                            bad_geometry = True
+                if bad_geometry:
+                    warn(
+                        UnassessedResidueWarning(
+                            group_name=group_name,
+                            group_index=group_idx,
+                            reason="placed bond geometry conflicts with observed coordinates",
+                        ),
+                        stacklevel=2,
+                    )
+                    continue
 
             for atom_name in missing_names:
                 if atom_name not in placed:
                     continue
                 new_idx = n_orig + len(new_atom_info)
                 new_atom_index_map[(group_idx, atom_name)] = new_idx
-                new_atom_info.append((group_idx, atom_name, placed[atom_name]))
+                if curated:
+                    element = template["elements"][template["atoms"].index(atom_name)]
+                    new_atom_info.append((group_idx, atom_name, placed[atom_name], element))
+                else:
+                    new_atom_info.append((group_idx, atom_name, placed[atom_name]))
 
         # Resolve bonds: add template bonds that involve at least one new atom
         new_atom_name_by_group = {}
@@ -318,12 +447,33 @@ def add_missing_heavy_atoms(
             # Merge with new atoms
             all_name_to_idx = {**existing_name_to_idx, **name_to_new_idx}
 
-            for b1, b2 in template["bonds"]:
-                if b1 not in name_to_new_idx and b2 not in name_to_new_idx:
+            curated = group_name in CURATED_MODIFIED_RESIDUES
+            existing_pairs = {
+                frozenset((int(row.atom1_index), int(row.atom2_index)))
+                for row in topo._get_chemical_state_bonds().itertuples()
+            }
+            for bond_number, (b1, b2) in enumerate(template["bonds"]):
+                if not curated and b1 not in name_to_new_idx and b2 not in name_to_new_idx:
                     continue  # bond between two existing atoms (already in topology)
                 if b1 not in all_name_to_idx or b2 not in all_name_to_idx:
                     continue
-                new_bonds_info.append((all_name_to_idx[b1], all_name_to_idx[b2]))
+                i1, i2 = all_name_to_idx[b1], all_name_to_idx[b2]
+                if frozenset((i1, i2)) in existing_pairs:
+                    continue
+                if curated:
+                    new_bonds_info.append((i1, i2, template["bond_orders"][bond_number]))
+                else:
+                    new_bonds_info.append((i1, i2))
+
+        if not new_atom_info:
+            output_molecular_system = (
+                native_ms.copy() if form_in == "molsysmt.MolSys" else molecular_system
+            )
+            return (
+                convert(output_molecular_system, to_form=form_out, skip_digestion=True)
+                if form_in != form_out
+                else output_molecular_system
+            )
 
         native_out = append_atoms_to_molsys(native_ms, new_atom_info, new_bonds_info)
         output_molecular_system = (

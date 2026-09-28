@@ -25,6 +25,8 @@ MolSysMT acts as a universal bridge across files, web databases, and third-party
 ### 2. Native Structure Preparation Pipeline
 Structure preparation — diagnosing missing heavy atoms, adding terminal cappings, placing hydrogens at specific pH values, solvating in water boxes, and neutralizing with counterions — is implemented directly within MolSysMT. You can prepare simulation-ready models natively without requiring external tools like PDBFixer or OpenMM.
 
+Heavy-atom repair uses exact residue chemistry where available, including curated MSE and SEP templates. A modified residue without a matching template is reported as unassessed during native repair; its nearest standard amino acid is not substituted for its chemistry.
+
 ### 3. Native High-Performance Compute in Rust
 Analytical operations (including pairwise distances, neighbor lists, RMSD, structural superposition, radius of gyration, RMSF, principal component axes, SASA, and dihedral angles) are powered by precompiled Rust compute kernels. They run with **zero JIT compilation warmup**, zero startup latency, and configurable multi-threaded execution.
 

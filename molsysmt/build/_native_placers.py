@@ -17,41 +17,10 @@ Public API (internal use only):
 
 from __future__ import annotations
 
-import json
-
 import numpy as np
 import pandas as pd
 
-# ---------------------------------------------------------------------------
-# Template loader
-# ---------------------------------------------------------------------------
-
-_template_cache: dict = {}
-
-
-def load_residue_template(group_name: str) -> dict | None:
-    """
-    Return the residue template dict for *group_name*, or None if absent.
-
-    Parameters
-    ----------
-    group_name : str
-        Name of the chemical group (residue).
-    """
-    if group_name in _template_cache:
-        return _template_cache[group_name]
-    try:
-        from importlib.resources import files
-
-        data = files("molsysmt.data.databases.residue_templates").joinpath(
-            f"{group_name}.json"
-        )
-        template = json.loads(data.read_text())
-    except Exception:
-        template = None
-    _template_cache[group_name] = template
-    return template
-
+from molsysmt._private.residue_templates import load_residue_template
 
 # ---------------------------------------------------------------------------
 # Bonds sort utility (works on any DataFrame, not only Bonds_DataFrame)
@@ -73,7 +42,9 @@ def _sort_bonds_inplace(bonds_df):
 # ---------------------------------------------------------------------------
 
 
-def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, template):
+def place_missing_in_group(
+    topo, all_coords_nm, group_idx, missing_names, template, anchor_names=None
+):
     """
     Compute coordinates for *missing_names* in *group_idx* via Kabsch alignment.
 
@@ -114,6 +85,7 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
         (aidx, template_name_to_idx[aname])
         for aidx, aname in zip(existing_atom_indices, existing_atom_names)
         if aname in template_name_to_idx
+        and (anchor_names is None or aname in anchor_names)
     ]
     if not common:
         return {}
@@ -270,18 +242,26 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_rows = []
     new_coords_list = []
 
-    for group_idx, atom_name, atom_coords in new_atom_info:
-        new_atom_idx = n_orig + len(new_rows)
+    used_ids = set(topo.atoms["atom_id"].dropna().astype(str))
+    next_id = n_orig
+    for entry in new_atom_info:
+        group_idx, atom_name, atom_coords = entry[:3]
+        atom_type = entry[3] if len(entry) > 3 else get_atom_type_from_atom_name(atom_name)
         group_mask = topo.atoms["group_index"] == group_idx
         first_row = topo.atoms[group_mask].iloc[0]
         comp_idx = component_indices.loc[group_mask].iloc[0]
         chain_idx = first_row["chain_index"]
 
+        while str(next_id) in used_ids:
+            next_id += 1
+        atom_id = str(next_id)
+        used_ids.add(atom_id)
+        next_id += 1
         new_rows.append(
             {
-                "atom_id": str(new_atom_idx),
+                "atom_id": atom_id,
                 "atom_name": atom_name,
-                "atom_type": get_atom_type_from_atom_name(atom_name),
+                "atom_type": atom_type,
                 "group_index": group_idx,
                 "component_index": comp_idx,
                 "chain_index": chain_idx,
@@ -330,9 +310,13 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     bonds_copy = topo._get_chemical_state_bonds().copy()
     if new_bonds_info:
         extra = Bonds_DataFrame(n_bonds=len(new_bonds_info))
-        for k, (i1, i2) in enumerate(new_bonds_info):
+        for k, bond in enumerate(new_bonds_info):
+            i1, i2 = bond[:2]
             extra.loc[k, "atom1_index"] = int(i1)
             extra.loc[k, "atom2_index"] = int(i2)
+            if len(bond) > 2:
+                extra.loc[k, "bond_order"] = int(bond[2])
+                extra.loc[k, "bond_type"] = "covalent"
         new_bonds = topo._concatenate_bond_tables(bonds_copy, extra)
     else:
         new_bonds = bonds_copy
