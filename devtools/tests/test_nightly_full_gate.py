@@ -101,9 +101,15 @@ def test_nightly_recovery_and_pr_full_suite_are_connected():
     assert any(
         "nightly_full_gate.py" in step.get("run", "") for step in decision["steps"]
     )
+    assert (
+        weekly["on"]["workflow_dispatch"]["inputs"]["probe_backlog"]["default"]
+        == "false"
+    )
+    assert "inputs.probe_backlog == true" in decision["if"]
     full = weekly["jobs"]["full"]
     assert full["needs"] == "nightly-decision"
     assert "run_full" in full["if"]
+    assert "inputs.probe_backlog != true" in full["if"]
 
     candidate = yaml.load(
         (workflows / "ci-full.yaml").read_text(encoding="utf-8"),

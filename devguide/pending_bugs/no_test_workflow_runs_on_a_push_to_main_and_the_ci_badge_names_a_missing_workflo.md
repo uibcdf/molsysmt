@@ -181,6 +181,21 @@ four test files from `devtools/tests/run_tiers.sh smoke` explicitly. The
 local guard compares the two selections so the direct-push lane remains
 bounded. The initial unbounded run was cancelled after inspection.
 
+Manual full run `36403213916` reached pytest on Linux Python 3.11, 3.12,
+and 3.13. Each cell reported 4 failed, 10279 passed, 2 skipped, and 40
+deselected. Three failures in the cross-component unit-policy tests match
+the preceding full run `36105275495`; the fourth says a committed converter
+table differs from its generators. These failures are component work, and the
+full run remains red. The smoke result at `36403598162` is 13 passed on the
+four explicitly selected files. It covers neither the rest of pytest nor
+doctests in other paths.
+
+`ci-weekly.yaml` also offers a manual `probe_backlog=true` input. This runs
+the same detector used by the nightly schedule and skips the heavy matrix,
+so the API/history wiring can be checked on GitHub without another full run.
+It is a diagnostic only: its successful conclusion cannot serve as the
+full-suite watermark.
+
 ## Acceptance criteria
 
 1. Direct pushes use the smoke suite by default, while the two internal
