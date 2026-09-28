@@ -196,6 +196,14 @@ so the API/history wiring can be checked on GitHub without another full run.
 It is a diagnostic only: its successful conclusion cannot serve as the
 full-suite watermark.
 
+The hosted MolSysViewer backlog probe under `uibcdf/molsysviewer#116`
+exposed an API-query defect in the same watermark pattern: combining
+`branch=main` with `status=success` returned no workflow runs despite
+successful runs being returned without that filter. This detector now reads
+branch runs and checks each run's conclusion and executed full jobs itself.
+That matters when MolSysMT eventually obtains a green full Linux matrix;
+without this correction the backlog would remain due indefinitely.
+
 Hosted probe `36426806753` passed at `ffe30e6ea`: the detector selected
 `run`, found skipped commits in history, and the full matrix job was skipped
 because the dispatch requested a probe. No successful, executed full Linux

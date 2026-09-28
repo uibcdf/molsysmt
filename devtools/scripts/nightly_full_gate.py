@@ -70,11 +70,13 @@ def last_full_success(repository: str, head: str, token: str) -> str | None:
     for page in range(1, 4):
         data = api_json(
             f"/repos/{repository}/actions/workflows/ci-weekly.yaml/runs"
-            f"?branch=main&status=success&per_page=100&page={page}",
+            f"?branch=main&per_page=100&page={page}",
             token,
         )
         runs = data["workflow_runs"]
         for run in runs:
+            if run["conclusion"] != "success":
+                continue
             if run["event"] not in {"schedule", "workflow_dispatch"}:
                 continue
             commit = run["head_sha"]

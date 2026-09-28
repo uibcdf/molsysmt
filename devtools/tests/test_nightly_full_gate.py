@@ -37,12 +37,19 @@ def test_skip_markers_remain_due_after_the_last_green_commit(tmp_path, monkeypat
 
 def test_only_executed_successful_full_matrix_clears_backlog(monkeypatch):
     runs = [
-        {"id": 2, "event": "schedule", "head_sha": "newer"},
-        {"id": 1, "event": "workflow_dispatch", "head_sha": "green"},
+        {"id": 3, "event": "schedule", "head_sha": "failed", "conclusion": "failure"},
+        {"id": 2, "event": "schedule", "head_sha": "newer", "conclusion": "success"},
+        {
+            "id": 1,
+            "event": "workflow_dispatch",
+            "head_sha": "green",
+            "conclusion": "success",
+        },
     ]
 
     def fake_api(path, _token):
         if "/runs?" in path:
+            assert "status=success" not in path
             return {"workflow_runs": runs}
         run_id = 2 if "/runs/2/" in path else 1
         return {
