@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (24)
+### Open (25)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
@@ -58,6 +58,7 @@ Entries carrying front matter under
 - [`preserve_atom_correspondence_through_lossy_molecular_exports.md`](preserve_atom_correspondence_through_lossy_molecular_exports.md) — [#223](https://github.com/uibcdf/molsysmt/issues/223) — Preserve atom correspondence through lossy molecular exports *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
 - [`read_pdbqt_pose_ensembles_against_a_known_ligand_source.md`](read_pdbqt_pose_ensembles_against_a_known_ligand_source.md) — [#226](https://github.com/uibcdf/molsysmt/issues/226) — Read PDBQT pose ensembles against a known ligand source *(inspected)*
+- [`repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md`](repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md) — [#228](https://github.com/uibcdf/molsysmt/issues/228) — Repair selected nonstandard receptor residues with residue-specific templates *(inspected)*
 - [`report_receptor_residue_chemistry_and_preparation_coverage.md`](report_receptor_residue_chemistry_and_preparation_coverage.md) — [#218](https://github.com/uibcdf/molsysmt/issues/218) — Report receptor residue chemistry and preparation coverage *(inspected)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
@@ -70,14 +71,12 @@ Entries carrying front matter under
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`extend_molsysmt_python_support_to_3_14.md`](extend_molsysmt_python_support_to_3_14.md) — [#237](https://github.com/uibcdf/molsysmt/issues/237) — Extend MolSysMT Python support to 3.14. *(measured)*
 
-### Blocked (3)
+### Blocked (2)
 
 - [`enumerate_ligand_protomers_under_explicit_protonation_site_rules.md`](enumerate_ligand_protomers_under_explicit_protonation_site_rules.md) — [#230](https://github.com/uibcdf/molsysmt/issues/230) — Enumerate ligand protomers under explicit protonation-site rules *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
-- [`repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md`](repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md) — [#228](https://github.com/uibcdf/molsysmt/issues/228) — Repair selected nonstandard receptor residues with residue-specific templates *(inspected)*
-  Blocked by uibcdf/molsysmt#227.
 
 ### Partially resolved (2)
 

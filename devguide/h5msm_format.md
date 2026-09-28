@@ -73,6 +73,15 @@ Legacy 0.3 extraction may retain a 0.3 output layout so large trajectories can
 be subset without materializing all coordinates. Any normal new conversion or
 write emits 0.4.
 
+## Extraction safety
+
+Extracting an atom or structure subset from a `file:h5msm` input requires an
+explicit output filename that identifies a different file. Omitting the
+destination or naming the input through an equivalent path or hard link raises
+`ArgumentError` before any HDF5 file is opened for writing. An unrestricted
+extraction without a destination returns the original path unchanged. Callers
+that want an in-memory subset may request `to_form='molsysmt.MolSys'`.
+
 ## Required validation
 
 Changes to H5MSM require tests for:

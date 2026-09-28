@@ -229,6 +229,9 @@ The native engine covers a much larger synonym space than PDBFixer.
 `get_expected_heavy_atoms` with the present atom names to select the
 tightest-fit topology variant, computes the set difference, and excludes
 `OXT` (which is the responsibility of `get_missing_terminal_cappings`).
+The template must match the residue's chemical name exactly. A sequence-level
+replacement such as MSE→MET or SEP→SER does not establish the atom inventory;
+modified residues without an exact template remain unassessed by this function.
 
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms`.
 

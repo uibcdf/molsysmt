@@ -1,21 +1,22 @@
 ---
 summary: Repair selected nonstandard receptor residues with residue-specific templates
 issue: uibcdf/molsysmt#228
-status: blocked
+status: open
 opened: 2026-09-22
 closed:
 verification: inspected
 area: [build]
 guard:
 normative:
-blocked_by: [uibcdf/molsysmt#227]
+blocked_by: []
 supersedes: []
 ---
 
 # Repair selected nonstandard receptor residues with residue-specific templates
 
 **Reported:** 2026-09-22, during the MolSysMT–DockingMT chemical preparation review.
-**Status:** Blocked post-1.0 proposal; the named dependency must be resolved first.
+**Status:** Open post-1.0 proposal. The prerequisite correctness defect in
+uibcdf/molsysmt#227 was resolved on 2026-09-28.
 
 ## What
 

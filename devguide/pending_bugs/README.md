@@ -20,10 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (1)
 
-- [`h5msm_subset_extraction_without_an_output_path_overwrites_its_source.md`](h5msm_subset_extraction_without_an_output_path_overwrites_its_source.md) — [#235](https://github.com/uibcdf/molsysmt/issues/235) — H5MSM subset extraction without an output path overwrites its source *(high, reproduced)*
-- [`mse_heavy_atom_expectations_substitute_met_sulfur_for_selenium.md`](mse_heavy_atom_expectations_substitute_met_sulfur_for_selenium.md) — [#227](https://github.com/uibcdf/molsysmt/issues/227) — MSE heavy-atom expectations substitute MET sulfur for selenium *(high, reproduced)*
 - [`no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md`](no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md) — [#185](https://github.com/uibcdf/molsysmt/issues/185) — No test workflow runs on a push to main and the CI badge names a missing workflow. *(high, measured)*
 
 ### In progress (3)

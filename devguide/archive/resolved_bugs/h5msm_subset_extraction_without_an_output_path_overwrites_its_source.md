@@ -1,13 +1,13 @@
 ---
 summary: H5MSM subset extraction without an output path overwrites its source
 issue: uibcdf/molsysmt#235
-status: open
+status: resolved
 opened: 2026-09-22
-closed:
+closed: 2026-09-28
 severity: high
 verification: reproduced
 area: [form, extract, data]
-guard:
+guard: tests/form/file_h5msm/test_extract.py::test_public_subset_without_destination_preserves_source
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,7 @@ supersedes: []
 
 **Reported:** 2026-09-22, while investigating the local 181L fixture incident
 tracked in uibcdf/molsysmt#216.
-**Status:** Open. The current public extraction path can replace a caller's
-source file without an output filename.
+**Status:** Resolved 2026-09-28.
 
 ## What
 
@@ -104,3 +103,19 @@ user-owned file from this API behavior.
 Reproduced 2026-09-22 on host nauta with Python 3.13.14 and h5py 3.16.0,
 using the intact `181l.h5msm` from `origin/main` as the read-only source for
 temporary copies. The code path was also inspected at commit `284038cfc`.
+
+## Resolution — 2026-09-28
+
+An H5MSM atom or structure subset now requires an explicit destination distinct
+from its source. Missing destinations and equivalent source paths, including
+hard links, raise `ArgumentError` before the file is opened for writing. An
+unrestricted extraction without a destination returns the source path, and a
+distinct destination receives a new file. The public same-form conversion
+adapter now forwards `output_filename` to this checked path; users may request
+`to_form='molsysmt.MolSys'` for an in-memory subset.
+
+The guard calls public `msm.extract()` on temporary H5MSM copies with empty and
+one-atom selections. It asserts that both calls fail without a destination and
+that the source bytes remain unchanged. Adjacent tests cover explicit same-path
+aliases, hard links, a distinct destination, an in-memory result, and legacy
+H5MSM 0.3.

@@ -46,8 +46,10 @@ def get_missing_heavy_atoms(
     topology variant whose atom set is a superset of the present heavy atoms is
     selected; missing atoms are the set difference between expected and present.
 
-    Only amino-acid residues (including recognized non-standard forms) are
-    processed; water, ions, and ligands are silently skipped.
+    Only residues with an exact chemical template are assessed. Modified
+    residues without one, including MSE and SEP, are left unassessed rather
+    than treated as their nearest standard sequence equivalents. Water, ions,
+    and ligands are also skipped.
 
 
     .. versionadded:: 1.0.0
@@ -59,9 +61,7 @@ def get_missing_heavy_atoms(
         from molsysmt.basic import get, select
         from molsysmt.element.group.amino_acid import (
             get_expected_heavy_atoms,
-            get_standard_name,
         )
-        from molsysmt.element.group.amino_acid import group_names as aa_names
         from molsysmt.element.group.amino_acid.get_expected_heavy_atoms import (
             _is_hydrogen,
         )
@@ -98,15 +98,9 @@ def get_missing_heavy_atoms(
         for group_idx, group_name, atom_idx_list in zip(
             group_indices, group_name_list, atom_indices_per_group
         ):
-            # Determine the canonical look-up name
-            canonical = get_standard_name(group_name)
-            lookup_name = canonical if canonical is not None else group_name
-            if lookup_name not in aa_names:
-                continue
-
             actual_atom_names = [all_atom_names[i] for i in atom_idx_list]
 
-            expected_heavy = get_expected_heavy_atoms(lookup_name, actual_atom_names)
+            expected_heavy = get_expected_heavy_atoms(group_name, actual_atom_names)
             if expected_heavy is None:
                 continue
 

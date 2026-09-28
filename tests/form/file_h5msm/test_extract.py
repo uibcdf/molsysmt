@@ -12,9 +12,13 @@ Builder fixture: 4 atoms, 2 groups, 2 bonds, 1 chain, 2 molecules, 2 entities,
 1 structure.
 """
 
+from pathlib import Path
+
 import numpy as np
+import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt.form.file_h5msm.extract import extract as h5msm_extract
 
 
@@ -50,6 +54,118 @@ def test_extract_all_all_inplace_no_copy(builder_h5msm_file):
     """copy_if_all=False with all+all returns same path without copying."""
     result = h5msm_extract(builder_h5msm_file, copy_if_all=False, skip_digestion=True)
     assert result == builder_h5msm_file
+
+
+@pytest.mark.parametrize("selection", ["atom_index<0", "atom_index==0"])
+def test_public_subset_without_destination_preserves_source(
+    builder_h5msm_file, tmp_path, selection
+):
+    source = tmp_path / "source.h5msm"
+    source.write_bytes(Path(builder_h5msm_file).read_bytes())
+    original = source.read_bytes()
+
+    with pytest.raises(ArgumentError, match="output_filename"):
+        msm.extract(source, selection=selection)
+
+    assert source.read_bytes() == original
+
+
+def test_subset_rejects_explicit_source_path_alias(builder_h5msm_file, tmp_path):
+    source = tmp_path / "source.h5msm"
+    source.write_bytes(Path(builder_h5msm_file).read_bytes())
+    original = source.read_bytes()
+
+    with pytest.raises(ArgumentError, match="output_filename"):
+        h5msm_extract(
+            source,
+            atom_indices=np.array([0]),
+            output_filename=tmp_path / "." / source.name,
+            skip_digestion=True,
+        )
+
+    assert source.read_bytes() == original
+
+
+def test_public_subset_rejects_explicit_source_destination(
+    builder_h5msm_file, tmp_path
+):
+    source = tmp_path / "source.h5msm"
+    source.write_bytes(Path(builder_h5msm_file).read_bytes())
+    original = source.read_bytes()
+
+    with pytest.raises(ArgumentError, match="output_filename"):
+        msm.extract(
+            source,
+            selection="atom_index==0",
+            output_filename=tmp_path / "." / source.name,
+        )
+
+    assert source.read_bytes() == original
+
+
+def test_public_subset_writes_distinct_destination(builder_h5msm_file, tmp_path):
+    source = tmp_path / "source.h5msm"
+    destination = tmp_path / "subset.h5msm"
+    source.write_bytes(Path(builder_h5msm_file).read_bytes())
+    original = source.read_bytes()
+
+    result = msm.extract(
+        source,
+        selection="atom_index==0",
+        output_filename=destination,
+    )
+
+    assert Path(result) == destination
+    assert source.read_bytes() == original
+    assert msm.get(destination, n_atoms=True) == 1
+
+
+def test_public_subset_can_return_molsys_without_writing(builder_h5msm_file, tmp_path):
+    source = tmp_path / "source.h5msm"
+    source.write_bytes(Path(builder_h5msm_file).read_bytes())
+    original = source.read_bytes()
+
+    subset = msm.extract(
+        source,
+        selection="atom_index==0",
+        to_form="molsysmt.MolSys",
+    )
+
+    assert msm.get(subset, n_atoms=True) == 1
+    assert source.read_bytes() == original
+
+
+def test_subset_rejects_hard_link_to_source(builder_h5msm_file, tmp_path):
+    source = tmp_path / "source.h5msm"
+    source.write_bytes(Path(builder_h5msm_file).read_bytes())
+    alias = tmp_path / "alias.h5msm"
+    try:
+        alias.hardlink_to(source)
+    except OSError as exception:
+        pytest.skip(f"Hard links are unavailable: {exception}")
+    original = source.read_bytes()
+
+    with pytest.raises(ArgumentError, match="output_filename"):
+        h5msm_extract(
+            source,
+            atom_indices=np.array([0]),
+            output_filename=alias,
+            skip_digestion=True,
+        )
+
+    assert source.read_bytes() == original
+
+
+def test_legacy_v03_subset_without_destination_preserves_source(tmp_path):
+    legacy_fixture = Path(__file__).with_name("data") / "alanine_dipeptide_v03.h5msm"
+    source = tmp_path / "legacy.h5msm"
+    source.write_bytes(legacy_fixture.read_bytes())
+    original = source.read_bytes()
+
+    with pytest.raises(ArgumentError, match="output_filename"):
+        h5msm_extract(source, atom_indices=np.array([0]), skip_digestion=True)
+
+    assert source.read_bytes() == original
 
 
 # ---------------------------------------------------------------------------

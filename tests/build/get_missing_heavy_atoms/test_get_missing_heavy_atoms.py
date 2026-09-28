@@ -96,3 +96,27 @@ def test_get_missing_heavy_atoms_native_complete_t4(barnase_barstar):
     t4 = msm.systems["T4 lysozyme L99A"]["181l.h5msm"]
     result = msm.build.get_missing_heavy_atoms(t4)
     assert result == {}
+
+
+@pytest.mark.parametrize(
+    ("group_name", "atom_names"),
+    [
+        ("MSE", ["N", "CA", "C", "O", "CB", "CG", "SE", "CE"]),
+        ("SEP", ["N", "CA", "C", "O", "CB", "OG", "P", "O1P", "O2P", "O3P"]),
+    ],
+)
+def test_modified_residues_do_not_inherit_parent_heavy_atom_templates(
+    group_name, atom_names
+):
+    builder = msm.MolSysBuilder()
+    indices = [
+        builder.add_atom(atom_name=name, atom_type="Se" if name == "SE" else None)
+        for name in atom_names
+    ]
+    builder.add_group(indices, group_name=group_name)
+    molsys = builder.build()
+
+    assert msm.build.get_missing_heavy_atoms(molsys) == {}
+    assert msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT").topology.atoms[
+        "atom_name"
+    ].tolist() == atom_names

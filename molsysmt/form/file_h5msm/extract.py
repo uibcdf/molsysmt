@@ -1,6 +1,10 @@
+from os.path import samefile
+from pathlib import Path
+
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 
 
@@ -26,7 +30,8 @@ def extract(
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     output_filename : str or pathlib.Path, default=None
-        Output file path for serialization.
+        Destination for a subset. It must be provided and differ from the input
+        file when atoms or structures are selected.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
@@ -37,18 +42,54 @@ def extract(
     file:h5msm
         Resulting object in file:h5msm form.
 
+    Raises
+    ------
+    ArgumentError
+        If a subset has no distinct output filename.
+
 
     .. versionadded:: 1.0.0
     """
 
+    all_atoms_and_structures = is_all(atom_indices) and is_all(structure_indices)
+
     if output_filename is None:
-        output_filename = item
+        if not all_atoms_and_structures:
+            raise ArgumentError(
+                argument="output_filename",
+                value=None,
+                message=(
+                    "H5MSM subset extraction requires a distinct output_filename; "
+                    "use to_form='molsysmt.MolSys' for an in-memory result."
+                ),
+            )
+        return item
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all or (output_filename != item):
-            from shutil import copy as copy_file
+    source = Path(item)
+    destination = Path(output_filename)
+    same_path = source.resolve() == destination.resolve()
+    if not same_path:
+        try:
+            same_path = samefile(source, destination)
+        except FileNotFoundError:
+            pass
 
-            copy_file(item, output_filename)
+    if same_path:
+        if not all_atoms_and_structures:
+            raise ArgumentError(
+                argument="output_filename",
+                value=output_filename,
+                message=(
+                    "H5MSM subset extraction requires output_filename to differ "
+                    "from its source file."
+                ),
+            )
+        return output_filename
+
+    if all_atoms_and_structures:
+        from shutil import copy as copy_file
+
+        copy_file(item, output_filename)
 
         return output_filename
 

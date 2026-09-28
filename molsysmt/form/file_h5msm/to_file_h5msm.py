@@ -6,7 +6,7 @@ def to_file_h5msm(
     item,
     atom_indices="all",
     structure_indices="all",
-    output_name=None,
+    output_filename=None,
     copy_if_all=True,
     skip_digestion=False,
 ):
@@ -22,8 +22,8 @@ def to_file_h5msm(
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    output_name : object, default=None
-        Argument output_name.
+    output_filename : str or pathlib.Path, default=None
+        Destination for the converted file.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
@@ -44,7 +44,7 @@ def to_file_h5msm(
         item,
         atom_indices=atom_indices,
         structure_indices=structure_indices,
-        output_name=output_name,
+        output_filename=output_filename,
         copy_if_all=copy_if_all,
         skip_digestion=True,
     )

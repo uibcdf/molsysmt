@@ -66,6 +66,9 @@ def extract(
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - When the input is an H5MSM file, extracting a subset to the same file
+      form requires a distinct ``output_filename``. Use
+      ``to_form='molsysmt.MolSys'`` for an in-memory subset.
 
 
     See Also
