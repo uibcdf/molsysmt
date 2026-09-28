@@ -109,7 +109,12 @@ release gate. The short version:
 ## Git commits
 
 - Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.
-- Always include `[skip ci]` in the commit message unless explicitly instructed otherwise.
+- Direct pushes by the internal maintainers may use `[skip ci]` when rapid
+  iteration warrants deferring tests. Omit it by default so the short smoke
+  suite runs. Every skipped commit remains in the nightly full-suite backlog
+  until a complete Linux matrix passes. Do not use `[skip ci]` on a pull
+  request or on a release candidate; pull requests run the full platform
+  matrix and candidate validation needs evidence for its exact commit.
 
 ## Releases, citation, and Zenodo
 

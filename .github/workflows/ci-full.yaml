@@ -1,12 +1,14 @@
 name: CI full
 
-# Manual trigger only (workflow_dispatch).
-# Use this before release candidates to validate on all supported platforms
-# and Python versions.
+# Every pull request runs the full suite on all supported platforms and
+# Python versions. Manual dispatch validates an exact release candidate.
 # Matrix: ubuntu-latest + macos-15 (arm64) × {3.11, 3.12, 3.13} = 6 combinations.
 # No coverage upload — that is handled by ci-weekly.yaml.
 
 on:
+  pull_request:
+    branches:
+      - "main"
   workflow_dispatch:
     inputs:
       molsysviewer_sha:
@@ -28,13 +30,13 @@ jobs:
       - name: Require an exact MolSysViewer commit
         shell: bash
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '7a1522662e30575caf580a9447e3e6d80b628e07' }}
         run: |
           [[ "$MOLSYSVIEWER_SHA" =~ ^[0-9a-f]{40}$ ]]
 
       - name: Build the exact portable MolSysViewer dependency
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '7a1522662e30575caf580a9447e3e6d80b628e07' }}
         run: >-
           python -m pip wheel --no-deps
           git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA
@@ -153,3 +155,17 @@ jobs:
       - name: Run full test suite
         shell: bash -l {0}
         run: python -m pytest --receptor=ci --junitxml=junit.xml
+
+  pr-gate:
+    name: PR full suite
+    if: github.event_name == 'pull_request' && always()
+    needs: [controlled-molsysviewer, full-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require the complete matrix to pass
+        env:
+          WHEEL_RESULT: ${{ needs.controlled-molsysviewer.result }}
+          MATRIX_RESULT: ${{ needs.full-matrix.result }}
+        run: |
+          test "$WHEEL_RESULT" = success
+          test "$MATRIX_RESULT" = success

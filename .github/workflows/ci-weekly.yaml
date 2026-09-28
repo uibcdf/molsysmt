@@ -1,6 +1,8 @@
-name: CI weekly
+name: CI full Linux
 
-# Runs every Monday at 09:00 UTC, or manually via workflow_dispatch.
+# Runs every Monday at 09:00 UTC and on manual dispatch.
+# At 00:17 America/Mexico_City it runs only when skipped commits still need
+# a successful full matrix. The backlog survives a missed or failed night.
 # Executes the full test suite with coverage on ubuntu-latest × {3.11, 3.12, 3.13}.
 # Coverage report is uploaded to Codecov from the Python 3.13 run only.
 # Supported Python versions are 3.11, 3.12, and 3.13.
@@ -8,11 +10,35 @@ name: CI weekly
 on:
   schedule:
     - cron: "0 9 * * MON"
+    - cron: "17 0 * * *"
+      timezone: "America/Mexico_City"
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
+  nightly-decision:
+    name: Check skipped-commit backlog
+    if: github.event_name == 'schedule' && github.event.schedule == '17 0 * * *'
+    runs-on: ubuntu-latest
+    outputs:
+      run_full: ${{ steps.decide.outputs.run_full }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Decide whether to run the full matrix
+        id: decide
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python devtools/scripts/nightly_full_gate.py
+
   full:
     name: Full test — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    needs: nightly-decision
+    if: always() && (needs.nightly-decision.result != 'success' || needs.nightly-decision.outputs.run_full == 'true')
     runs-on: ${{ matrix.cfg.os }}
     timeout-minutes: 180
     strategy:
@@ -71,6 +97,11 @@ jobs:
           python -c "from argdigest import Domain, UnknownArgumentError"
           python -c "import molsysmt; print('Version:', molsysmt.__version__)"
 
+      - name: Run fast release gates
+        if: matrix.cfg.python-version == '3.13'
+        shell: bash -l {0}
+        run: python devtools/scripts/release_gate.py
+
       - name: Run scientific truth gate
         shell: bash -l {0}
         run: |
@@ -118,4 +149,4 @@ jobs:
       - name: Report failure on scheduled CI
         if: failure() && github.event_name == 'schedule'
         run: |
-          echo "::error title=Weekly CI Run Failed::The scheduled weekly CI run on ${{ matrix.cfg.os }} (Python ${{ matrix.cfg.python-version }}) failed. Inspect the workflow logs to triage."
+          echo "::error title=Scheduled Full CI Failed::The scheduled full CI run on ${{ matrix.cfg.os }} (Python ${{ matrix.cfg.python-version }}) failed. Inspect the workflow logs to triage."

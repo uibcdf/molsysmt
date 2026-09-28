@@ -7,7 +7,7 @@ closed:
 severity: high
 verification: measured
 area: [ci]
-guard:
+guard: devtools/tests/test_nightly_full_gate.py
 normative:
 blocked_by: []
 supersedes: []
@@ -156,24 +156,50 @@ unit-policy tests, whose theme is
 Excludes the reliability of the benchmark comparison, which is
 [`../pending_proposals/benchmark_regression_gate_reliability.md`](../pending_proposals/benchmark_regression_gate_reliability.md).
 
+## 2026-09-28 control decision
+
+The maintainers clarified the intended development route. Diego (`dprada`)
+and Liliana (`LMMV`) retain direct pushes to `main` without a complete suite
+on every commit. The short smoke suite runs by default; an intentional
+`[skip ci]` may suppress it when iteration speed matters. Every skipped
+commit since the last successful full Linux matrix must instead enter the
+nightly backlog. The scheduled workflow at 00:17 `America/Mexico_City` runs
+the full Linux 3.11–3.13 suite and the fast release gates when that backlog
+is nonempty. A failed or missed night does not clear it. The existing Monday
+full matrix remains unconditional. External contributors use PRs, and every
+PR executes the six-cell Linux/macOS full matrix before integration.
+
+The README now points its Tests badge to the existing `ci-smoke.yaml`, so the
+original missing-workflow badge finding is historical. It does not prove
+that tests ran for the latest commit: a skipped push leaves the last smoke
+run older. The backlog and last full-matrix outcome must be checked directly.
+
 ## Acceptance criteria
 
-1. A push to `main` that changes anything under `molsysmt/` or `tests/` runs at least the
-   smoke suite, whatever the commit message says. `[skip ci]` may keep suppressing runs
-   for documentation-only changes; it may not suppress them for source changes.
-2. A push that changes anything under `molsysmt/data/` runs `validate_demo_assets.py`.
-3. The README badge points at a workflow that exists and reports the signal a reader
-   would assume it reports.
-4. The weekly run is green, or its failure is tracked by an open entry naming it.
-5. A test asserts that the workflow whose badge the README renders exists in
-   `.github/workflows/`. This is the `guard`, and it is the one part of this entry a test
-   can hold.
+1. Direct pushes use the smoke suite by default, while the two internal
+   maintainers may intentionally use `[skip ci]` without waiting for a full
+   suite on each push. Their development route remains unrestricted.
+2. A nightly scheduled decision detects skipped commits since the last
+   successful, executed full Linux matrix. It runs that complete matrix and
+   `release_gate.py` when due, including the bundled-data validator, and
+   retries after a failure or a missed schedule. A history/API error runs the
+   matrix rather than clearing the backlog.
+3. Every PR runs the full Linux/macOS Python 3.11–3.13 matrix. The stable
+   `PR full suite` check is required before integration, while the internal
+   administrators can continue to push directly.
+4. The README badge points at a real workflow and is described as its smoke
+   signal. The weekly or nightly full-run outcome is inspected separately.
+5. A test exercises skipped-commit detection, successful-full-run watermark
+   selection, and the conservative fallback. This is the durable `guard`.
 
 ## Dependencies and risks
 
-Re-enabling per-push tests raises runner usage, which is the pressure `[skip ci]` was
-introduced to relieve. The smoke tier is minutes; the cost is bounded by keeping the full
-matrix manual and weekly, which this entry does not propose changing.
+The nightly matrix can be costly when direct pushes are frequent. A successful
+full run clears all earlier skipped commits, so one batch covers multiple
+pushes. The scheduled run is a recovery signal, not a required check on each
+direct push. The existing full-suite failures remain visible for the
+component team to diagnose; this governance change does not reinterpret a
+failed scientific test as success.
 
 ## Provenance
 

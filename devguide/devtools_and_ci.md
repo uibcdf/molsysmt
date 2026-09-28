@@ -258,11 +258,19 @@ The repository currently contains these testing and validation workflows:
 - Purpose: fast signal that nothing is catastrophically broken.
 - Concurrency: cancels in-progress runs on the same ref.
 
-### `ci-weekly.yaml` — every Monday at 09:00 UTC
+### `ci-weekly.yaml` — weekly and skipped-commit recovery
 
-- Trigger: weekly schedule + manual dispatch.
+- Trigger: Monday 09:00 UTC, manual dispatch, and a conditional nightly
+  schedule at 00:17 `America/Mexico_City`.
+- The nightly decision compares `main` with the last successful run whose
+  Linux 3.11–3.13 full-test steps all passed. It runs the complete matrix if
+  any intervening commit used a GitHub CI-skip marker. A missed schedule, a
+  failed matrix, or uncertainty about GitHub history leaves the backlog due;
+  the next night tries again. A manual dispatch always runs the full matrix.
 - Matrix: `ubuntu-latest` × `{3.11, 3.12, 3.13}`.
 - Timeout: 180 minutes per combination.
+- Python 3.13 also runs `release_gate.py`, including bundled-data integrity,
+  so a skipped data change is covered by the nightly recovery.
 - Runs the Scientific Truth Suite as an explicit early gate after importing and
   reporting the resolved MDTraj and MDAnalysis versions. The test environment
   includes both external oracles, so this gate must not rely on optional skips.
@@ -270,9 +278,14 @@ The repository currently contains these testing and validation workflows:
 - Coverage and test results uploaded to Codecov from the Python `3.13` run only.
 - Supported Python versions: `3.11`, `3.12`, and `3.13`.
 
-### `ci-full.yaml` — manual dispatch only (pre-release gate)
+### `ci-full.yaml` — every PR and manual pre-release dispatch
 
-- Trigger: `workflow_dispatch` only.
+- Trigger: every pull request to `main`, plus manual dispatch for a release
+  candidate. Every PR runs the full matrix; no author-based CI bypass is used.
+- PRs use the controlled MolSysViewer commit pinned in the routine CI. Manual
+  release dispatch still requires the exact MolSysViewer candidate SHA.
+- `PR full suite` is the stable aggregate job to require in branch protection.
+  A skipped PR workflow remains pending and cannot satisfy that check.
 - Matrix: `(ubuntu-latest + macos-15 arm64)` × `{3.11, 3.12, 3.13}` = 6 combinations.
 - Timeout: 180 minutes per combination.
 - Runs: `pytest -q --color=yes --junitxml=junit.xml` (no coverage upload).
@@ -344,9 +357,15 @@ classifiers, `requires-python`, Conda build matrices, or support badges.
 
 ### Skipping CI
 
-Add `[skip ci]` to the commit message or PR title to suppress `ci-smoke.yaml`
-on documentation-only or bookkeeping commits. Weekly and full-matrix workflows
-ignore this tag.
+Internal maintainers may put `[skip ci]` on a direct push when rapid iteration
+matters. The ordinary choice is to omit it and get the short smoke signal.
+GitHub's skip markers suppress push and PR workflows, so they must not be used
+on a PR or release candidate. The nightly Linux full matrix detects skipped
+commits since the last successful full run and retries after any failure.
+The weekly full matrix runs regardless of skip markers. Scheduled workflows
+can be delayed or dropped, so the detector uses a successful-run watermark
+rather than a calendar-day window. A red nightly run remains red; it is not
+converted into a passing CI status.
 
 ### Release validation scripts (run manually)
 
