@@ -117,6 +117,9 @@ def test_modified_residues_do_not_inherit_parent_heavy_atom_templates(
     molsys = builder.build()
 
     assert msm.build.get_missing_heavy_atoms(molsys) == {}
-    assert msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT").topology.atoms[
-        "atom_name"
-    ].tolist() == atom_names
+    assert (
+        msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT")
+        .topology.atoms["atom_name"]
+        .tolist()
+        == atom_names
+    )

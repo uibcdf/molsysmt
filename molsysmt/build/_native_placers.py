@@ -246,7 +246,9 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     next_id = n_orig
     for entry in new_atom_info:
         group_idx, atom_name, atom_coords = entry[:3]
-        atom_type = entry[3] if len(entry) > 3 else get_atom_type_from_atom_name(atom_name)
+        atom_type = (
+            entry[3] if len(entry) > 3 else get_atom_type_from_atom_name(atom_name)
+        )
         group_mask = topo.atoms["group_index"] == group_idx
         first_row = topo.atoms[group_mask].iloc[0]
         comp_idx = component_indices.loc[group_mask].iloc[0]

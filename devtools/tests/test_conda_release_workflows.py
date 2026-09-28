@@ -75,7 +75,10 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert set(workflow["jobs"]) == {"prepare", "build-and-publish"}
     build_number = workflow[True]["workflow_dispatch"]["inputs"]["build_number"]
     target_options = workflow[True]["workflow_dispatch"]["inputs"]["target"]["options"]
-    assert set(target_options) == {"all", *(platform for platform, _ in EXPECTED_TARGETS)}
+    assert set(target_options) == {
+        "all",
+        *(platform for platform, _ in EXPECTED_TARGETS),
+    }
     assert build_number["default"] == 0
     assert build_and_publish["name"] == (
         "${{ matrix.target.platform }} · one ABI3 artifact"
@@ -276,9 +279,7 @@ def test_future_promotion_requires_the_four_platform_pair_gate():
     verifier = _workflow(PUBLIC_VERIFIER_WORKFLOW)
 
     for workflow in (promotion, verifier):
-        options = workflow[True]["workflow_dispatch"]["inputs"]["target"][
-            "options"
-        ]
+        options = workflow[True]["workflow_dispatch"]["inputs"]["target"]["options"]
         assert set(options) == expected
         assert "osx-64" not in options
 

@@ -39,9 +39,7 @@ def api_json(path: str, token: str) -> dict:
 
 
 def git(*args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        ["git", *args], text=True, capture_output=True, check=False
-    )
+    return subprocess.run(["git", *args], text=True, capture_output=True, check=False)
 
 
 def is_ancestor(commit: str, head: str) -> bool:
@@ -54,7 +52,9 @@ def full_matrix_passed(repository: str, run_id: int, token: str) -> bool:
     )["jobs"]
     passed = set()
     for job in jobs:
-        match = re.fullmatch(r"Full test — ubuntu-latest, Python (3\.1[123])", job["name"])
+        match = re.fullmatch(
+            r"Full test — ubuntu-latest, Python (3\.1[123])", job["name"]
+        )
         if not match or job["conclusion"] != "success":
             continue
         if any(

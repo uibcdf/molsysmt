@@ -71,6 +71,7 @@ def test_api_uncertainty_runs_full_suite(tmp_path, monkeypatch):
     monkeypatch.setenv("GITHUB_SHA", "head")
     monkeypatch.setenv("GITHUB_TOKEN", "token")
     monkeypatch.setenv("GITHUB_OUTPUT", str(output))
+
     def offline(*_):
         raise URLError("offline")
 
@@ -97,8 +98,7 @@ def test_nightly_recovery_and_pr_full_suite_are_connected():
     )
     decision = weekly["jobs"]["nightly-decision"]
     assert any(
-        "nightly_full_gate.py" in step.get("run", "")
-        for step in decision["steps"]
+        "nightly_full_gate.py" in step.get("run", "") for step in decision["steps"]
     )
     full = weekly["jobs"]["full"]
     assert full["needs"] == "nightly-decision"

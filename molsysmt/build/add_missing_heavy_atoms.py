@@ -298,7 +298,10 @@ def add_missing_heavy_atoms(
         for group_idx in selected_groups:
             group_idx = int(group_idx)
             group_name = topo.groups.at[group_idx, "group_name"]
-            if group_name not in CURATED_MODIFIED_RESIDUES or group_idx in missing_atoms:
+            if (
+                group_name not in CURATED_MODIFIED_RESIDUES
+                or group_idx in missing_atoms
+            ):
                 continue
             _, reason = assess_modified_residue(
                 topo, group_idx, [], load_residue_template(group_name), None
@@ -350,7 +353,9 @@ def add_missing_heavy_atoms(
             curated = group_name in CURATED_MODIFIED_RESIDUES
             if curated:
                 if len(topo._chemical_states) != 1:
-                    reason = "multiple chemical states cannot be preserved by this repair"
+                    reason = (
+                        "multiple chemical states cannot be preserved by this repair"
+                    )
                     anchors = None
                 else:
                     anchors, reason = assess_modified_residue(
@@ -383,7 +388,9 @@ def add_missing_heavy_atoms(
                 continue
 
             if curated:
-                name_to_idx = dict(zip(template["atoms"], range(len(template["atoms"]))))
+                name_to_idx = dict(
+                    zip(template["atoms"], range(len(template["atoms"])))
+                )
                 bad_geometry = False
                 for atom1, atom2 in template["bonds"]:
                     for new_name, neighbor in ((atom1, atom2), (atom2, atom1)):
@@ -423,7 +430,9 @@ def add_missing_heavy_atoms(
                 new_atom_index_map[(group_idx, atom_name)] = new_idx
                 if curated:
                     element = template["elements"][template["atoms"].index(atom_name)]
-                    new_atom_info.append((group_idx, atom_name, placed[atom_name], element))
+                    new_atom_info.append(
+                        (group_idx, atom_name, placed[atom_name], element)
+                    )
                 else:
                     new_atom_info.append((group_idx, atom_name, placed[atom_name]))
 
@@ -453,7 +462,11 @@ def add_missing_heavy_atoms(
                 for row in topo._get_chemical_state_bonds().itertuples()
             }
             for bond_number, (b1, b2) in enumerate(template["bonds"]):
-                if not curated and b1 not in name_to_new_idx and b2 not in name_to_new_idx:
+                if (
+                    not curated
+                    and b1 not in name_to_new_idx
+                    and b2 not in name_to_new_idx
+                ):
                     continue  # bond between two existing atoms (already in topology)
                 if b1 not in all_name_to_idx or b2 not in all_name_to_idx:
                     continue
@@ -461,7 +474,9 @@ def add_missing_heavy_atoms(
                 if frozenset((i1, i2)) in existing_pairs:
                     continue
                 if curated:
-                    new_bonds_info.append((i1, i2, template["bond_orders"][bond_number]))
+                    new_bonds_info.append(
+                        (i1, i2, template["bond_orders"][bond_number])
+                    )
                 else:
                     new_bonds_info.append((i1, i2))
 

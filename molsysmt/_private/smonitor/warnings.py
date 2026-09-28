@@ -197,7 +197,11 @@ class UnassessedResidueWarning(UserMolSysMTWarning):
             return
         super().__init__(
             message,
-            extra={"group_name": group_name, "group_index": group_index, "reason": reason},
+            extra={
+                "group_name": group_name,
+                "group_index": group_index,
+                "reason": reason,
+            },
         )
 
 
