@@ -201,8 +201,12 @@ exposed an API-query defect in the same watermark pattern: combining
 `branch=main` with `status=success` returned no workflow runs despite
 successful runs being returned without that filter. This detector now reads
 branch runs and checks each run's conclusion and executed full jobs itself.
-That matters when MolSysMT eventually obtains a green full Linux matrix;
-without this correction the backlog would remain due indefinitely.
+It also accepts an executed successful `ci-full.yaml` manual candidate matrix
+as a watermark: the six-cell run `36120923064` at `e28ceb9` is such a run,
+although skipped commits after it still leave the backlog due. The initial
+probe's "no prior successful full matrix" message described the old detector's
+limited search, not the full GitHub run history. Without these corrections,
+the backlog could remain due indefinitely after a green candidate matrix.
 
 Hosted probe `36426806753` passed at `ffe30e6ea`: the detector selected
 `run`, found skipped commits in history, and the full matrix job was skipped

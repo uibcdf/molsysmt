@@ -23,6 +23,10 @@ SKIP_MARKER = re.compile(
     re.IGNORECASE | re.MULTILINE,
 )
 FULL_VERSIONS = {"3.11", "3.12", "3.13"}
+FULL_WORKFLOWS = {
+    "ci-weekly.yaml": ("Full test", "Run full test suite with coverage"),
+    "ci-full.yaml": ("Full matrix", "Run full test suite"),
+}
 
 
 def api_json(path: str, token: str) -> dict:
@@ -46,20 +50,20 @@ def is_ancestor(commit: str, head: str) -> bool:
     return git("merge-base", "--is-ancestor", commit, head).returncode == 0
 
 
-def full_matrix_passed(repository: str, run_id: int, token: str) -> bool:
+def full_matrix_passed(repository: str, run_id: int, token: str, workflow: str) -> bool:
     jobs = api_json(
         f"/repos/{repository}/actions/runs/{run_id}/jobs?per_page=100", token
     )["jobs"]
+    job_prefix, test_step = FULL_WORKFLOWS[workflow]
     passed = set()
     for job in jobs:
         match = re.fullmatch(
-            r"Full test — ubuntu-latest, Python (3\.1[123])", job["name"]
+            rf"{job_prefix} — ubuntu-latest, Python (3\.1[123])", job["name"]
         )
         if not match or job["conclusion"] != "success":
             continue
         if any(
-            step["name"] == "Run full test suite with coverage"
-            and step["conclusion"] == "success"
+            step["name"] == test_step and step["conclusion"] == "success"
             for step in job["steps"]
         ):
             passed.add(match.group(1))
@@ -67,26 +71,29 @@ def full_matrix_passed(repository: str, run_id: int, token: str) -> bool:
 
 
 def last_full_success(repository: str, head: str, token: str) -> str | None:
-    for page in range(1, 4):
-        data = api_json(
-            f"/repos/{repository}/actions/workflows/ci-weekly.yaml/runs"
-            f"?branch=main&per_page=100&page={page}",
-            token,
-        )
-        runs = data["workflow_runs"]
-        for run in runs:
-            if run["conclusion"] != "success":
-                continue
-            if run["event"] not in {"schedule", "workflow_dispatch"}:
-                continue
-            commit = run["head_sha"]
-            if is_ancestor(commit, head) and full_matrix_passed(
-                repository, run["id"], token
-            ):
-                return commit
-        if len(runs) < 100:
-            break
-    return None
+    anchor = None
+    for workflow in FULL_WORKFLOWS:
+        for page in range(1, 4):
+            runs = api_json(
+                f"/repos/{repository}/actions/workflows/{workflow}/runs"
+                f"?branch=main&per_page=100&page={page}",
+                token,
+            )["workflow_runs"]
+            for run in runs:
+                if run["conclusion"] != "success":
+                    continue
+                if run["event"] not in {"schedule", "workflow_dispatch"}:
+                    continue
+                commit = run["head_sha"]
+                if not is_ancestor(commit, head):
+                    continue
+                if anchor is not None and is_ancestor(commit, anchor):
+                    continue
+                if full_matrix_passed(repository, run["id"], token, workflow):
+                    anchor = commit
+            if len(runs) < 100:
+                break
+    return anchor
 
 
 def skipped_commits_after(anchor: str, head: str) -> list[str]:

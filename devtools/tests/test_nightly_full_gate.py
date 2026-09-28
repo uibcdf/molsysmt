@@ -36,7 +36,7 @@ def test_skip_markers_remain_due_after_the_last_green_commit(tmp_path, monkeypat
 
 
 def test_only_executed_successful_full_matrix_clears_backlog(monkeypatch):
-    runs = [
+    weekly_runs = [
         {"id": 3, "event": "schedule", "head_sha": "failed", "conclusion": "failure"},
         {"id": 2, "event": "schedule", "head_sha": "newer", "conclusion": "success"},
         {
@@ -46,20 +46,37 @@ def test_only_executed_successful_full_matrix_clears_backlog(monkeypatch):
             "conclusion": "success",
         },
     ]
+    candidate_runs = [
+        {
+            "id": 4,
+            "event": "workflow_dispatch",
+            "head_sha": "candidate",
+            "conclusion": "success",
+        }
+    ]
 
     def fake_api(path, _token):
         if "/runs?" in path:
             assert "status=success" not in path
-            return {"workflow_runs": runs}
-        run_id = 2 if "/runs/2/" in path else 1
+            return {
+                "workflow_runs": candidate_runs
+                if "/workflows/ci-full.yaml/" in path
+                else weekly_runs
+            }
+        run_id = int(path.split("/runs/")[1].split("/")[0])
+        prefix, test_step = (
+            ("Full matrix", "Run full test suite")
+            if run_id == 4
+            else ("Full test", "Run full test suite with coverage")
+        )
         return {
             "jobs": [
                 {
-                    "name": f"Full test — ubuntu-latest, Python {version}",
+                    "name": f"{prefix} — ubuntu-latest, Python {version}",
                     "conclusion": "success",
                     "steps": [
                         {
-                            "name": "Run full test suite with coverage",
+                            "name": test_step,
                             "conclusion": "skipped" if run_id == 2 else "success",
                         }
                     ],
@@ -69,8 +86,11 @@ def test_only_executed_successful_full_matrix_clears_backlog(monkeypatch):
         }
 
     monkeypatch.setattr(gate, "api_json", fake_api)
-    monkeypatch.setattr(gate, "is_ancestor", lambda _commit, _head: True)
-    assert gate.last_full_success("uibcdf/molsysmt", "head", "token") == "green"
+    order = {"green": 0, "candidate": 1, "newer": 2, "failed": 3, "head": 4}
+    monkeypatch.setattr(
+        gate, "is_ancestor", lambda older, newer: order[older] <= order[newer]
+    )
+    assert gate.last_full_success("uibcdf/molsysmt", "head", "token") == "candidate"
 
 
 def test_api_uncertainty_runs_full_suite(tmp_path, monkeypatch):
