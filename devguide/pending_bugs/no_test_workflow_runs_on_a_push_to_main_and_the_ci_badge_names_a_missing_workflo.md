@@ -174,6 +174,13 @@ original missing-workflow badge finding is historical. It does not prove
 that tests ran for the latest commit: a skipped push leaves the last smoke
 run older. The backlog and last full-matrix outcome must be checked directly.
 
+The first non-skipped push of this control change exposed a second mismatch:
+`ci-smoke.yaml` invoked generic pytest, which selected the full test tree
+despite the workflow's short-tier description. The workflow now passes the
+four test files from `devtools/tests/run_tiers.sh smoke` explicitly. The
+local guard compares the two selections so the direct-push lane remains
+bounded. The initial unbounded run was cancelled after inspection.
+
 ## Acceptance criteria
 
 1. Direct pushes use the smoke suite by default, while the two internal

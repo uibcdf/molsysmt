@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import subprocess
 from pathlib import Path
 from urllib.error import URLError
@@ -113,3 +114,20 @@ def test_nightly_recovery_and_pr_full_suite_are_connected():
         "controlled-molsysviewer",
         "full-matrix",
     }
+
+
+def test_push_smoke_runs_only_the_bounded_local_tier():
+    smoke = yaml.load(
+        (REPO / ".github/workflows/ci-smoke.yaml").read_text(encoding="utf-8"),
+        Loader=yaml.BaseLoader,
+    )
+    run = next(
+        step["run"]
+        for step in smoke["jobs"]["smoke"]["steps"]
+        if step.get("name") == "Run test suite"
+    )
+    paths = re.findall(r"tests/[A-Za-z0-9_./]+\.py", run)
+    assert "python -m pytest --receptor=ci" in run
+    assert len(paths) == 4
+    local_tier = (REPO / "devtools/tests/run_tiers.sh").read_text(encoding="utf-8")
+    assert all(path in local_tier for path in paths)
