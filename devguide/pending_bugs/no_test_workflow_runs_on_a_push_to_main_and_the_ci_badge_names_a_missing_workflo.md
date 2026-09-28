@@ -196,6 +196,12 @@ so the API/history wiring can be checked on GitHub without another full run.
 It is a diagnostic only: its successful conclusion cannot serve as the
 full-suite watermark.
 
+Hosted probe `36426806753` passed at `ffe30e6ea`: the detector selected
+`run`, found skipped commits in history, and the full matrix job was skipped
+because the dispatch requested a probe. No successful, executed full Linux
+matrix was found to anchor the backlog. The detector now reports the pending
+count and only five recent hashes to keep diagnostic logs readable.
+
 ## Acceptance criteria
 
 1. Direct pushes use the smoke suite by default, while the two internal

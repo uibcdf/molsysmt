@@ -123,7 +123,8 @@ def main() -> int:
 
     print(f"Nightly full CI: {'run' if run_full else 'skip'}; {reason}")
     if skipped:
-        print("Skipped commits:", ", ".join(skipped))
+        print(f"Skipped commits pending: {len(skipped)}")
+        print("Most recent skipped commits:", ", ".join(skipped[:5]))
     output = os.environ.get("GITHUB_OUTPUT")
     if output:
         with Path(output).open("a", encoding="utf-8") as stream:

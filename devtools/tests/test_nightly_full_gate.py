@@ -81,6 +81,25 @@ def test_api_uncertainty_runs_full_suite(tmp_path, monkeypatch):
     assert "run_full=true" in output.read_text(encoding="utf-8")
 
 
+def test_probe_output_binds_large_backlogs(tmp_path, monkeypatch, capsys):
+    output = tmp_path / "github-output"
+    monkeypatch.setenv("GITHUB_REPOSITORY", "uibcdf/molsysmt")
+    monkeypatch.setenv("GITHUB_SHA", "head")
+    monkeypatch.setenv("GITHUB_TOKEN", "token")
+    monkeypatch.setenv("GITHUB_OUTPUT", str(output))
+    monkeypatch.setattr(gate, "last_full_success", lambda *_: "anchor")
+    monkeypatch.setattr(
+        gate, "skipped_commits_after", lambda *_: [f"commit-{i}" for i in range(20)]
+    )
+
+    assert gate.main() == 0
+    printed = capsys.readouterr().out
+    assert "Skipped commits pending: 20" in printed
+    assert "commit-4" in printed
+    assert "commit-5" not in printed
+    assert "run_full=true" in output.read_text(encoding="utf-8")
+
+
 def test_tests_badge_names_an_existing_workflow():
     readme = (REPO / "README.md").read_text(encoding="utf-8")
     assert "actions/workflows/ci-smoke.yaml/badge.svg" in readme
