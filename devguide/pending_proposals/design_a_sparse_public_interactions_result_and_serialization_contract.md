@@ -81,6 +81,18 @@ rule. Periodic image vectors belong to the occurrence when the observed copy
 or geometry depends on them. Measures declare units such as nanometers or
 radians; scores are not implicitly energies.
 
+Participant offsets permit any finite arity: two, three, four, or more
+participants without a new class or an `n_atoms ** arity` array. Arity counts
+semantic participants, not constituent atoms: two aromatic rings are two
+participants even though each contains several atoms. Each method defines its
+valid roles, arity, and aligned measures; the container does not claim that a
+four-body relation is scientifically meaningful merely because it can store
+one. If membership changes across frames, the first model creates a new
+relation ID for each distinct participant set. The prototype must measure the
+cost of that choice for variable coordination or mediation; occurrence-level
+participant offsets are a possible later extension if relation proliferation
+proves material.
+
 ### Query semantics
 
 `structure_indices` is an explicit selection, including nonconsecutive or
@@ -219,7 +231,8 @@ Close this design issue only when:
    measures and units, periodic images, query order, and empty result types.
 2. It contains checkable examples for one frame, nonconsecutive and duplicate
    frame requests, variable and zero counts, one atom, atom-set
-   `incident`/`internal`/`cross`, a hydrogen-bond triple, and a group relation.
+   `incident`/`internal`/`cross`, a hydrogen-bond triple, a four-participant
+   relation, and a two-ring group relation.
 3. It specifies a typed versioned payload, file-backed query expectations,
    the H5MSM boundary, and a remap-or-invalidate rule.
 4. MolSysViewer and at least the known requirements of TopoMT,
