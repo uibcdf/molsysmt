@@ -868,7 +868,10 @@ deliberately narrower than the complete vision.
 
 A small experimental interaction result may be developed before 1.0 to test the
 architecture, but it should not become a release blocker or a stable public
-contract without its own approval.
+contract without its own approval. The independent public result design and
+standalone serialization boundary are now tracked by
+[`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md);
+this does not advance automatic `MolSys` attachment or embedded H5MSM storage.
 
 ## Implementation program
 

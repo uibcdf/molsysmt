@@ -27,7 +27,9 @@ candidate detector. Keep `molsysmt.build.get_disulfide_bonds` as the existing
 build-oriented entry point, potentially delegating to that detector. The
 pre-1.0 decision is about the analysis API and its migration. Additional
 interaction families and a persistent `Interactions` information domain can be
-approved separately after 1.0.
+approved separately after 1.0. The independent public result-class contract is
+now being designed in [`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md);
+it does not imply persistence inside `MolSys`.
 
 The candidate families are hydrogen bonds, ionic or salt-bridge interactions,
 halogen bonds, hydrophobic associations, metal coordination, aromatic stacking,
@@ -70,15 +72,16 @@ the same chemistry or representation.
 | 3. Separate disulfide detection from build | Before 1.0 if stage 0 is accepted | Define per-structure S–S candidates with the evidence used to infer them. Make `build.get_disulfide_bonds` a thin compatibility entry point and keep `build.get_missing_bonds` behavior explicit. Test candidates, already-recorded bonds, group filters, PBC, and selection. |
 | 4. Integrate and recertify | Before the 1.0 candidate freeze | Update API registry, argument digestion callers, User Guide, API reference, Cookbook or examples, affected Four Paths modules, and MolSysViewer compatibility or its bridge. Run focused scientific and consumer checks, then all applicable release gates on the new exact commit. |
 | 5. Add further families | After 1.0, in separate scoped issues | Prioritize ionic/salt-bridge, pi-pi, cation-pi, halogen, hydrophobic, metal-coordination, and mediated interactions from consumer use cases and available chemical-state evidence. Each family needs its own method definition and independent validation. |
-| 6. Evaluate persistent interaction data | After 1.0, under the attribute-centric architecture proposal | Decide whether an independent result form, serialization, attachment to `MolSys`, fingerprints, and cross-system alignment have sufficient evidence. Do not make stages 5–6 closure criteria for this issue. |
+| 6. Evaluate persistent interaction data | After 1.0, under the attribute-centric architecture proposal | Decide whether attachment to `MolSys`, embedded H5MSM storage, fingerprints, and cross-system alignment have sufficient evidence. The independent result class and standalone serialization are designed separately in #251. Do not make stages 5–6 closure criteria for this issue. |
 
 The minimum result contract in stage 0 must distinguish: participant roles and
 index spaces; selected structure indices and their order; observed versus
 declared relationships; method, parameters, and units; empty evaluated results
 versus analysis not run; and periodic images when they identify a different
 observed participant. It must allow hydrogen-bond triples and ring/group
-participants, not only atom pairs. The concrete result class or schema remains
-open. Large trajectory methods should use the maintained chunked-execution
+participants, not only atom pairs. The concrete result class and schema are
+tracked in [`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md).
+Large trajectory methods should use the maintained chunked-execution
 policy and avoid dense atom-pair-by-frame output by default.
 
 Cross-system analysis requires explicit atom and frame/time alignment. It must
