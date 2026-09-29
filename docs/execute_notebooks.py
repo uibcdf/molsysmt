@@ -254,7 +254,7 @@ def main(
     if notebook is not None:
         if not notebook.exists():
             print(f"{RED}✘{RESET} {notebook} does not exist.")
-            return
+            return 1
         if notebook.is_file():
             nb_list = [notebook]
         elif notebook.is_dir():
@@ -345,9 +345,7 @@ def main(
             f"{GREEN}✔{RESET} All {total_nbs} notebook(s) processed cleanly in {elapsed:.1f}s ({executed} executed, {skipped} up to date)."
         )
 
-    # The count is the exit status. It was always 0, so anything automating this
-    # — a CI job above all — reported success while documented examples were
-    # broken, which is the very defect such a job exists to catch.
+    # Return a failure count so callers can aggregate multiple input paths.
     return len(failed_notebooks)
 
 
@@ -413,10 +411,11 @@ if __name__ == "__main__":
     except Exception:
         pass
 
+    failures = 0
     if args.notebook:
         for nb in map(Path, args.notebook):
             if nb.is_file():
-                main(
+                failures += main(
                     force=args.force,
                     notebook=nb,
                     recursive=args.recursive,
@@ -424,7 +423,7 @@ if __name__ == "__main__":
                     quiet=args.quiet,
                 )
             elif nb.is_dir():
-                main(
+                failures += main(
                     force=args.force,
                     notebook=nb,
                     recursive=args.recursive,
@@ -433,10 +432,13 @@ if __name__ == "__main__":
                 )
             else:
                 print(f"{RED}✘{RESET} File not found or not a notebook: {nb}")
+                failures += 1
     else:
-        main(
+        failures += main(
             force=args.force,
             recursive=args.recursive,
             n_workers=args.n_workers,
             quiet=args.quiet,
         )
+
+    sys.exit(1 if failures else 0)

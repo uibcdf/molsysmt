@@ -1,13 +1,13 @@
 ---
 summary: Notebook execution CLI discards failure exit status
 issue: uibcdf/molsysmt#260
-status: active
+status: resolved
 opened: 2026-09-29
-closed:
+closed: 2026-09-29
 severity: high
 verification: reproduced
 area: [docs, tests]
-guard:
+guard: devtools/tests/test_execute_notebooks_cli.py::test_cli_exits_nonzero_when_any_notebook_fails
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Notebook execution CLI discards failure exit status
 
 **Reported:** 2026-09-29, while executing the updated Luzard-Chandler tutorial.
-**Status:** Active; notebook execution failure reported with successful CLI status.
+**Status:** Resolved; the CLI aggregates failures and exits nonzero.
 
 ## What
 
@@ -59,3 +59,19 @@ inputs must also fail. The guard must fail on the original entry point.
 Observed on Linux x86_64, Python 3.13.14, on 2026-09-29. The exact local
 failure was blocked socket creation during Jupyter startup; no network
 download or missing scientific dependency was involved.
+
+## Resolution
+
+The CLI now sums failure counts across all requested files and directories,
+counts missing inputs as failures, and exits with status 1 when any input
+fails. Successful runs keep status 0. The function-level missing-path branch
+also returns a failure count consistently.
+
+The process-level guard runs the original CLI entry point in a subprocess,
+controlling only the external Jupyter command result. It fails on the
+original runner for one failing notebook and both mixed-input orders. The
+missing-input test also fails on the original runner; its success control
+passes. Together these produced four failures and one pass before the fix,
+and five passes afterward. This checks the signal consumed by automation,
+without requiring a live kernel or socket permissions. The scientific
+Luzard-Chandler tutorial separately executed all six cells successfully.
