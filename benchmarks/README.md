@@ -5,6 +5,10 @@ hot MolSysMT coordinate paths.
 
 Current baseline scripts:
 
+- `h5msm_interactions.py`: checks parity and measures private selective H5MSM
+  0.5 queries alongside public `write_layers`/`read_layers`, file size, and
+  queries after a public load.
+  See the [H5MSM benchmark guide](../devguide/benchmarking/h5msm.md).
 - `structure_coordinate_paths.py`: measures small deterministic baselines for
   public structure wrappers and the local kernel-input preparation helpers used
   by those wrappers on the lightweight `particles 4` `XYZ` trajectory.

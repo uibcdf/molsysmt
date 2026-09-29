@@ -1,0 +1,248 @@
+{
+  "schema": "molsysmt.h5msm05_interactions_benchmark.v2",
+  "environment": {
+    "date_utc": "2026-09-29T15:20:34Z",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+    "logical_cpus": 20,
+    "memory_total": "32687516 kB",
+    "gpu": "not used",
+    "thread_environment": {
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "HDF5_USE_FILE_LOCKING": null
+    },
+    "python": "3.13.14",
+    "numpy": "2.4.6",
+    "h5py": "3.16.0",
+    "molsysmt": "0.21.0+606.ga03eb4bf6",
+    "pid": 3,
+    "git": {
+      "commit": "6465e6d368d70811c557ed2fb4682bac91c5b091",
+      "dirty": true
+    },
+    "storage": "temporary directory; filesystem and cache state not controlled"
+  },
+  "input": {
+    "n_atoms": 100000,
+    "n_structures": 10000,
+    "occurrences_per_nonempty_frame": 2,
+    "relation_catalog_size": 10000,
+    "n_occurrences": 15822,
+    "n_queries_regular_cases": 10,
+    "n_queries_entire_trajectory_case": 3,
+    "seed": 20260929,
+    "atom_index": 10000
+  },
+  "storage": {
+    "write_s": 0.02580976579338312,
+    "file_bytes": 235284,
+    "loaded_numeric_array_bytes": 1833832,
+    "full_load_s": 0.1035804059356451,
+    "first_open_and_query_s": 0.006799961440265179,
+    "python_tracemalloc_reader_peak_bytes": 185711,
+    "python_tracemalloc_full_load_peak_bytes": 5977072
+  },
+  "queries": {
+    "one_frame": {
+      "open_file_reader": {
+        "median_ms": 0.8142199999999999,
+        "p95_ms": 0.8858087499999998,
+        "samples_ms": [
+          0.827715,
+          0.826852,
+          0.804285,
+          0.311655,
+          0.816405,
+          0.803887,
+          0.812516,
+          0.93334,
+          0.814627,
+          0.813813
+        ]
+      },
+      "loaded_memory": {
+        "median_ms": 0.14647749999999998,
+        "p95_ms": 0.17689009999999997,
+        "samples_ms": [
+          0.188888,
+          0.159082,
+          0.162226,
+          0.140877,
+          0.147148,
+          0.145807,
+          0.145365,
+          0.143845,
+          0.143177,
+          0.153352
+        ]
+      }
+    },
+    "eight_nonconsecutive_frames": {
+      "open_file_reader": {
+        "median_ms": 0.9846845,
+        "p95_ms": 1.0445261,
+        "samples_ms": [
+          0.976429,
+          0.99294,
+          1.065245,
+          0.973824,
+          0.997267,
+          0.9277,
+          1.019203,
+          1.001644,
+          0.939605,
+          0.955412
+        ]
+      },
+      "loaded_memory": {
+        "median_ms": 0.23127550000000002,
+        "p95_ms": 0.24930055,
+        "samples_ms": [
+          0.250255,
+          0.245875,
+          0.248134,
+          0.227736,
+          0.236928,
+          0.209677,
+          0.217347,
+          0.233159,
+          0.205203,
+          0.229392
+        ]
+      }
+    },
+    "atom_in_eight_frames": {
+      "open_file_reader": {
+        "median_ms": 1.131806,
+        "p95_ms": 1.4193208999999998,
+        "samples_ms": [
+          1.18321,
+          1.360879,
+          1.467137,
+          1.085731,
+          1.178244,
+          0.898108,
+          1.072987,
+          1.177881,
+          0.989726,
+          0.990435
+        ]
+      },
+      "loaded_memory": {
+        "median_ms": 0.281383,
+        "p95_ms": 0.3163495,
+        "samples_ms": [
+          0.315816,
+          0.289726,
+          0.284442,
+          0.316786,
+          0.277576,
+          0.270074,
+          0.268728,
+          0.291628,
+          0.2614,
+          0.278324
+        ]
+      }
+    },
+    "atom_in_entire_trajectory": {
+      "open_file_reader": {
+        "median_ms": 431.042416,
+        "p95_ms": 435.76168839999997,
+        "samples_ms": [
+          431.042416,
+          436.286052,
+          430.444177
+        ]
+      },
+      "loaded_memory": {
+        "median_ms": 35.744637,
+        "p95_ms": 35.885909999999996,
+        "samples_ms": [
+          35.744637,
+          35.901607,
+          35.620603
+        ]
+      }
+    }
+  },
+  "public_h5msm": {
+    "first_write_layers_s": 0.39993939362466335,
+    "warm_write_layers_s": 0.025689481757581234,
+    "file_bytes": 235284,
+    "first_read_layers_s": 0.10800421889871359,
+    "warm_read_layers_s": 0.10461296886205673,
+    "loaded_numeric_array_bytes": 1833832,
+    "python_tracemalloc_load_peak_bytes": 5473401,
+    "queries_after_load": {
+      "one_frame": {
+        "median_ms": 0.14402399999999999,
+        "p95_ms": 0.15227205,
+        "samples_ms": [
+          0.14791,
+          0.14608,
+          0.144487,
+          0.133225,
+          0.142875,
+          0.144268,
+          0.155841,
+          0.14378,
+          0.142983,
+          0.143372
+        ]
+      },
+      "eight_nonconsecutive_frames": {
+        "median_ms": 0.225879,
+        "p95_ms": 0.23978775,
+        "samples_ms": [
+          0.230382,
+          0.233863,
+          0.240546,
+          0.222328,
+          0.238861,
+          0.201943,
+          0.21353,
+          0.22943,
+          0.21474,
+          0.217364
+        ]
+      },
+      "atom_in_eight_frames": {
+        "median_ms": 0.2796495,
+        "p95_ms": 0.3101696,
+        "samples_ms": [
+          0.287278,
+          0.277551,
+          0.275599,
+          0.271156,
+          0.281748,
+          0.264058,
+          0.262145,
+          0.293223,
+          0.324035,
+          0.290934
+        ]
+      },
+      "atom_in_entire_trajectory": {
+        "median_ms": 36.694914,
+        "p95_ms": 37.0749444,
+        "samples_ms": [
+          37.11717,
+          36.694914,
+          36.60977
+        ]
+      }
+    }
+  },
+  "notes": [
+    "The selective file reader is private; the public write_layers/read_layers path is measured separately.",
+    "First and repeated public calls include different import and filesystem cache states; neither is a cold-disk measurement.",
+    "Selected coverage, occurrences, descriptors, evidence, and distance are checked before timing.",
+    "tracemalloc excludes HDF5 native allocations and filesystem cache.",
+    "First open/query is not a cold filesystem-cache measurement."
+  ]
+}

@@ -5,6 +5,10 @@ Historical May 2026 interpretations, comparisons, paper notes, and implementatio
 plans are archived under `devguide/archive/benchmarking/`; they are not current
 performance guarantees.
 
+The operational [H5MSM benchmark guide](h5msm.md) documents the current
+interaction-layer probe, recorded evidence, interpretation, and remaining
+measurements for the modular 0.5 format.
+
 ## What to measure
 
 Measure separately:
