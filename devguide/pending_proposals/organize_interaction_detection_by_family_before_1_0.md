@@ -82,6 +82,28 @@ versus analysis not run; and periodic images when they identify a different
 observed participant. It must allow hydrogen-bond triples and ring/group
 participants, not only atom pairs. The concrete result class and schema are
 tracked in [`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md).
+
+The detector-to-result route remains an implementation gate, separate from
+MolSysViewer's initial use of already constructed analyses. Preserve the
+existing detector outputs by default and add an opt-in `Interactions` result
+only when each method can report its actual atom-role eligibility, evaluated
+frames including empty ones, parameters, units, evidence, and periodic images
+when used. The returned analysis is attached to `MolSys.interactions` by an
+explicit name; a calculation does not silently replace stored analyses. One
+named result represents one method and evaluation scope, although that method
+may classify multiple interaction types.
+
+The current Rust neighbour-list kernel computes a minimum-image displacement
+but returns only indices and distances. Its chosen lattice shift is not
+currently exposed. A disulfide candidate needs the S-S image; a Buch
+donor-hydrogen-acceptor triple needs consistent D-H and H-A images; a
+Luzard-Chandler triple needs D-H and D-A images consistent with its angle and
+distance calculations. The adapter must recover the shifts from the same
+minimum-image decisions, including triclinic boxes and deterministic ties,
+then express them in the original box basis and the documented participant
+order. A separate distance-only recomputation is insufficient evidence for
+the chosen image. Benchmark any extra image output on sparse observations so
+the default neighbour path does not pay for unused columns.
 Large trajectory methods should use the maintained chunked-execution
 policy and avoid dense atom-pair-by-frame output by default.
 

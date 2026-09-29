@@ -72,6 +72,22 @@ rebuild, and export remain the experimental integration gate. Later feedback
 from TopoMT, PharmacophoreMT, and DockingMT should test the same logical
 semantics without holding this client integration.
 
+**Consumer go-ahead, 2026-09-29:** The MolSysViewer developers report that
+they verified commit `0d1a2bf0a` against the earlier fixtures and passed five
+focused tests. They confirm that public occurrence indices distinguish
+parallel observations in the canvas and that the documented image convention
+is sufficient to begin their geometry adapter. They will first consume named,
+already constructed `molsysmt.Interactions` analyses through the Python API,
+then test projection of the visible frame into Mol*, including parallel
+observations and periodic images. An interactions-only H5MSM file must be
+associated with compatible coordinates and, when relevant, box vectors before
+it can be visualized. The client will report real frame switching, selection,
+periodic drawing, scene rebuild, and export results before this contract is
+considered stable. The reported five tests establish consumer feasibility for
+the synthetic contract; they do not complete that integration gate. Public
+file-backed queries remain conditional on combined coordinate and analysis
+measurements for the Viewer 1.0 workload.
+
 ### Runnable MolSysViewer review packet
 
 From a MolSysMT source checkout at the revision supplied with the review:

@@ -490,6 +490,16 @@ freezing the MolSysMT 1.0
 candidate. The [design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md)
 defines the review packet and acceptance evidence.
 
+The first provider handoff is complete at commit `0d1a2bf0a`: MolSysViewer
+reports five focused tests passing against the synthetic native/H5MSM fixtures
+and accepts the experimental Python result contract for starting
+`view.interactions`. This satisfies the handoff prerequisite, not the Viewer
+integration or stabilization gate. A real canvas test with parallel
+observations, periodic images, frame changes, selection, scene rebuild, and
+export is still required. The client will first load named analyses in memory;
+public file-backed query requirements will be decided from combined coordinate
+and interaction measurements.
+
 ## Work That Must Not Block 1.0
 
 The following remain valid post-1.0 work unless they reveal a correctness

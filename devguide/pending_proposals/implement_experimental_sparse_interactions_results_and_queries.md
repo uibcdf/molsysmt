@@ -14,6 +14,18 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Consumer occurrence identity checkpoint (2026-09-29)
+
+`Interactions.query(...).to_dict()` and the internal selective HDF5 reader
+expose `occurrence_indices` as `int64` positions in the complete named
+analysis. They distinguish parallel observations with the same structure and
+relation, survive filtered views and H5MSM round trips, and require no extra
+file column. Remapping or editing creates a new analysis whose positions may
+change. The public native/H5MSM and selective-reader tests guard this parity.
+MolSysViewer reports five passing focused tests against commit `0d1a2bf0a`
+and has begun its Python adapter on the experimental result contract. Its
+first real integration test remains pending.
+
 ## Public native/H5MSM consumer workflow checkpoint (2026-09-29)
 
 `tests/interactions/test_public_molsys_h5msm_workflow.py` now exercises one
