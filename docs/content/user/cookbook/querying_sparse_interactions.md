@@ -37,6 +37,7 @@ occurrences. Structure 2 was never evaluated.
 view = interactions.query(structure_indices=[3, 1, 0, 3])
 columns = view.to_dict()
 assert columns["structure_indices"].tolist() == [3, 0]
+assert columns["occurrence_indices"].tolist() == [1, 0]
 assert columns["evaluated_structure_indices"].tolist() == [3, 1, 0]
 
 ring_between = interactions.between([3, 4, 5], [6, 7, 8], exclusive=True)

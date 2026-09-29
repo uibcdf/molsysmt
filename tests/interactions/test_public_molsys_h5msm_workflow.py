@@ -53,10 +53,14 @@ def _analysis():
 def _assert_queries(result):
     selected = result.query(structure_indices=[4, 1, 0, 4, 3]).to_dict()
     np.testing.assert_array_equal(selected["structure_indices"], [4, 4, 0, 0])
+    np.testing.assert_array_equal(selected["occurrence_indices"], [3, 4, 0, 1])
     np.testing.assert_array_equal(
         selected["evaluated_structure_indices"], [4, 1, 0]
     )
     assert result.query(structure_indices=[1]).n_interactions == 0
+    assert result.query(structure_indices=[1]).to_dict()[
+        "occurrence_indices"
+    ].dtype == np.int64
     assert result.query(structure_indices=[3]).to_dict()[
         "evaluated_structure_indices"
     ].size == 0
@@ -84,7 +88,8 @@ def _assert_same_observations(expected, observed):
     expected_columns = expected.query(structure_indices=[4, 1, 0, 4, 3]).to_dict()
     observed_columns = observed.query(structure_indices=[4, 1, 0, 4, 3]).to_dict()
     for name in (
-        "evaluated_structure_indices", "structure_indices", "relation_indices",
+        "evaluated_structure_indices", "occurrence_indices",
+        "structure_indices", "relation_indices",
         "evidence", "image_offsets", "image_vectors",
     ):
         np.testing.assert_array_equal(observed_columns[name], expected_columns[name])

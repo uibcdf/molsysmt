@@ -32,6 +32,46 @@ large-trajectory or MolSysViewer acceptance claim. The full public file-backed
 query route, bounded write/read measurements, MolSysViewer review, and its
 integration smoke remain outstanding. Keep the result API Experimental.
 
+**MolSysViewer review response, 2026-09-29:** The client generated both
+synthetic H5MSM files, passed the public workflow test, and verified a
+nonconsecutive `msm.convert` selection with remapped indices. It accepted the
+logical relation/occurrence/query contract for starting `view.interactions`,
+and requested three clarifications before freezing that adapter. First,
+parallel observations need a public occurrence handle. `to_dict()` now exposes
+`occurrence_indices`: `int64` row positions in the complete named analysis.
+Filtered views and H5MSM round trips preserve them. A remap, invalidation, or
+edit creates a new analysis version and can reassign them. The selective HDF5
+reader exposes the same derived positions without a new file column. Second,
+the Buch, Luzard–Chandler, and disulfide detectors still need opt-in adapters
+that construct `Interactions` with actual method parameters, units, evidence,
+role eligibility, evaluated atom scope, and explicit empty-frame coverage.
+The existing detectors return no chosen PBC image, so an adapter must obtain
+that image from the same geometry calculation before claiming a drawable
+periodic observation. The current scope model may need refinement for
+overlapping or asymmetric donor/acceptor selections; no adapter should declare
+an all-atom search it did not perform. Third, the image convention is now
+documented in `devguide/interactions_api.md`: participant vectors are integer
+lattice shifts added to coordinates via `vector @ box` with box vectors as
+rows, and relative placement uses the first participant as reference. One
+vector shifts every atom in a compound participant; internal ring unwrapping
+is outside this representation. This is a serialization and display contract,
+not evidence that today's detector paths emit correct PBC images.
+
+The client proposes an in-memory named analysis and queries of the visible
+frame for MolSysViewer 1.0. Public selective H5MSM queries are not yet a
+client blocker; the decision depends on joint coordinate and interaction
+measurements. The requested workload matrix is 62 atoms x 5,000 structures,
+10,000 x 1,000, and 100,000 x 100, each with empty frames, varying counts,
+reused and changing relations, and multiple named analyses. Measure combined
+resident and peak memory, first-query/index construction, visible-frame
+query, one-atom trajectory query, and serialization time and size. The
+100,000 x 10,000 interactions-only case remains a storage stress test, not a
+normal viewer coordinate load. No numbers for this new matrix are claimed
+yet. MolSysViewer's frame switching, selection, periodic drawing, scene
+rebuild, and export remain the experimental integration gate. Later feedback
+from TopoMT, PharmacophoreMT, and DockingMT should test the same logical
+semantics without holding this client integration.
+
 ### Runnable MolSysViewer review packet
 
 From a MolSysMT source checkout at the revision supplied with the review:

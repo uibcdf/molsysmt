@@ -58,7 +58,8 @@ def _assert_matches_memory(filename, result, frames, **filters):
     observed = query_named_interactions_file(filename, "mixed", frames, **filters)
     expected = result.query(structure_indices=frames, **filters).to_dict()
     for key in (
-        "evaluated_structure_indices", "structure_indices", "relation_indices",
+        "evaluated_structure_indices", "occurrence_indices",
+        "structure_indices", "relation_indices",
         "evidence", "image_offsets", "image_vectors",
     ):
         if expected[key] is None:

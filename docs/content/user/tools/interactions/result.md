@@ -75,9 +75,20 @@ Each query returns a lightweight view. `to_dict()` provides typed occurrence
 columns, explicit evaluated-structure indices, measurement units, and optional
 periodic-image vectors. Use `relation(index)` to inspect the type and roles
 referenced by a result's `relation_indices` column.
+The aligned `occurrence_indices` column identifies each observation within
+this named analysis, even when two observations share a structure and relation.
+Filtering and an H5MSM round trip preserve these indices. Extracting or editing
+the analysis creates a new set of indices; rebuild saved selections against
+the new result. The current API does not expose a persistent revision token.
 If any input observation supplies periodic-image vectors, every observation
 in that result must supply them; missing vectors are not interpreted as zero
 images.
+Each vector applies to one participant in relation order. With the three box
+vectors as rows in nanometers, add `image_vector @ box` to each constituent
+atom's stored coordinate. A positive `[1, 0, 0]` adds the first box vector;
+relative geometry uses the first participant as reference. All atoms in a
+compound participant receive the same shift. These vectors do not unwrap a
+ring split across a periodic boundary.
 
 To transfer the **complete** result through MolSysMT's conversion system,
 convert it to `molsysmt.InteractionsDict`:

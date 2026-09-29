@@ -267,7 +267,11 @@ class Interactions:
             Records with ``structure_index``, ``interaction_type``, and
             ``participants``. Each participant has ``role`` and ``atom_indices``.
             Optional ``measurements`` map names to numeric values, and
-            ``evidence`` defaults to ``observed_geometry``.
+            ``evidence`` defaults to ``observed_geometry``. Optional ``images``
+            holds one integer lattice vector per participant, in relation
+            order. For a box with row vectors, add ``images[p] @ box`` to the
+            coordinates of every atom in participant ``p``; relative geometry
+            uses the image difference from the first participant.
         n_atoms : int
             Number of atoms in the local index space.
         n_structures : int
@@ -688,7 +692,13 @@ class Interactions:
         return candidates._view(positions, candidates._coverage)
 
     def to_dict(self):
-        """Returning selected occurrence columns and explicit coverage."""
+        """Returning selected occurrence columns and explicit coverage.
+
+        ``occurrence_indices`` are row positions in this complete analysis.
+        Queries retain them, including when parallel observations share a
+        structure and relation. A remap or edit creates a new analysis with
+        newly assigned positions.
+        """
         positions = self._positions
         if self.image_vectors is None:
             image_offsets = None
@@ -710,6 +720,7 @@ class Interactions:
             "source_n_structures": self.source_n_structures,
             "source_id": self.source_id,
             "evaluated_structure_indices": self._coverage.copy(),
+            "occurrence_indices": positions.copy(),
             "structure_indices": self.occurrence_structures[positions].copy(),
             "relation_indices": self.occurrence_relations[positions].copy(),
             "evidence": np.asarray(self.evidence_labels, dtype=str)[

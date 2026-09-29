@@ -68,6 +68,12 @@ periodic image vectors. Its
 `load` provide construction,
 inspection, and standalone HDF5 round trips. The current file schema version
 is 1 and is distinct from H5MSM 0.4. `load` materializes the result in memory.
+`to_dict()` exposes `occurrence_indices`, the `int64` row positions in the
+complete analysis. They distinguish parallel observations with the same
+structure and relation, remain unchanged in filtered views and H5MSM round
+trips, and are scoped to one named analysis version. Remapping or editing
+creates a new version and can reassign positions. The row position is derived
+from stored order, so it adds no per-occurrence file column.
 Input records and source indices are validated by the class. Existing
 family-specific detector outputs are not automatically converted into it.
 The analysis-level evaluation scope has modes `internal(A)`, `incident(A)`,
@@ -82,6 +88,18 @@ result.
 Periodic-image vectors are all-or-none across an analysis: the constructor
 rejects mixed explicit and absent image data rather than substituting zero
 vectors for unknown images.
+For occurrence `o`, `image_offsets[o]:image_offsets[o+1]` selects one integer
+vector per participant, in the relation's participant order. The three rows
+of a structure's box are its lattice vectors in nanometers. The observed
+position of each atom in participant `p` is its stored coordinate plus
+`image_vectors[p] @ box`. Thus a positive `[1, 0, 0]` adds the first box
+vector. Relative geometry is anchored to the first participant: subtract its
+image vector from each other participant's vector before applying the box.
+All atoms in one compound participant receive the same lattice shift; this
+encoding does not describe internal unwrapping of a split ring. Without image
+columns, the observed periodic copy is unknown, even if PBC was used by a
+detector. Detector adapters must emit the actual image chosen by their
+geometry calculation; the current detectors do not yet return it.
 
 The experimental class has no lazy file-backed query, streaming writer, or
 incremental add/remove editor. `invalidate_structures()` returns an independent
