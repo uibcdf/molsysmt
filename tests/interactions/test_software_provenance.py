@@ -35,13 +35,15 @@ def test_detector_producer_versions_survive_a_different_writer_and_reader(tmp_pa
             molsys, pbc=False, output_type="molsysmt.Interactions"),
         "disulfides": msm.interactions.disulfides.get_disulfide_candidates(
             molsys, pbc=False, output_type="molsysmt.Interactions"),
+        "luzard_chandler": msm.interactions.hbonds.get_luzard_chandler_hbonds(
+            molsys, pbc=False, output_type="molsysmt.Interactions"),
     }
     expected = {"molsysmt": producer_version}
     monkeypatch.setattr(msm, "__version__", "1.0.0+reader")
     filename = tmp_path / "historical_producer.h5msm"
     msm.convert(molsys, to_form="file:h5msm", output_filename=filename)
     restored = msm.convert(filename, to_form="molsysmt.MolSys")
-    assert set(restored.interactions) == {"buch", "disulfides"}
+    assert set(restored.interactions) == {"buch", "disulfides", "luzard_chandler"}
 
     for name, original in molsys.interactions.items():
         result = restored.interactions[name]

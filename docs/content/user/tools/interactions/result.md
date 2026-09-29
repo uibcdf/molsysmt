@@ -107,7 +107,7 @@ not JSON data. A query view's `to_dict()` has a different purpose: it reports
 selected occurrences and cannot reconstruct the full result.
 
 `interactions.software` maps producer software names to the versions used
-when calculating the observations. The Buch and disulfide adapters record
+when calculating the observations. Both hydrogen-bond and disulfide adapters record
 `{"molsysmt": msm.__version__}` at calculation time. The dictionary also
 appears in query projections and survives conversion, remapping, invalidation,
 and H5MSM persistence. Saving or loading with another MolSysMT version does
@@ -123,8 +123,8 @@ restored = msm.Interactions.load("observations.h5i")
 The standalone HDF5 file is versioned and separate from H5MSM. `load` reads
 the complete result into memory. The current version has no streaming writer,
 lazy file-backed queries, or incremental add/remove editor. The disulfide
-candidate and Buch hydrogen-bond detectors have optional `Interactions`
-outputs; the Luzard–Chandler adapter is still pending.
+candidate and both hydrogen-bond detectors have optional `Interactions`
+outputs.
 
 Use `remap()` to extract a complete result into new index spaces. A relation
 survives only if all atoms in its participants survive. Repeated structure
@@ -241,6 +241,15 @@ image. The stored distance checks the H-A segment; D-H unwrapping supplies
 consistent drawing geometry and does not add a detection criterion. These
 detectors use eager execution; requesting `Interactions` does not make them
 stream coordinates or write observations incrementally.
+
+For the joint distance-and-angle criterion, use
+`msm.interactions.hbonds.get_luzard_chandler_hbonds(...,
+output_type="molsysmt.Interactions")`. It measures donor-to-acceptor distance
+in nm and the H-D-A angle in rad, with the donor as vertex. The defaults are
+0.35 nm and a strict angular cutoff of 30 degrees (pi/6 rad). Its periodic
+images independently unwrap D-H and D-A from the donor; they reproduce the
+two vectors used for the angle. It has the same optional-result scope limits
+as Buch and preserves evaluated-empty frames and producer versions.
 
 Appended structures remain unevaluated by existing analyses, including a
 coordinate-only source passed to `msm.append_structures`. Adding atoms to a

@@ -22,4 +22,8 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 - [`the_molsyssuite_positioning_is_absent_from_every_public_surface.md`](the_molsyssuite_positioning_is_absent_from_every_public_surface.md) — [#192](https://github.com/uibcdf/molsysmt/issues/192) — The MolSysSuite positioning is absent from every public surface. *(medium, measured)*
 - [`the_readme_presents_experimental_surfaces_as_headline_capabilities.md`](the_readme_presents_experimental_surfaces_as_headline_capabilities.md) — [#186](https://github.com/uibcdf/molsysmt/issues/186) — The README presents experimental surfaces as headline capabilities. *(medium, measured)*
 
+### In progress (1)
+
+- [`notebook_execution_cli_discards_failure_exit_status.md`](notebook_execution_cli_discards_failure_exit_status.md) — [#260](https://github.com/uibcdf/molsysmt/issues/260) — Notebook execution CLI discards failure exit status *(high, reproduced)*
+
 <!-- /generated -->

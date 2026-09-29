@@ -14,6 +14,39 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Luzard-Chandler result adapter (2026-09-29)
+
+`get_luzard_chandler_hbonds(..., output_type="molsysmt.Interactions")` now
+returns automatic donor/hydrogen/acceptor roles, the actual eligible
+participant scope, evaluated-empty coverage, D-A distances in nm, H-D-A
+angles in rad, method criteria, evidence, and producer versions. Periodic
+images independently unwrap D-H and D-A from the donor, matching the angle
+kernel. The adapter checks both distance and angle; an inconsistent
+hydrogen image is rejected even when D-A distance still agrees.
+
+The tuple default retains rectangular arrays when per-frame counts agree
+and returns aligned lists with shaped empty entries when they differ. The
+one- and two-selection paths share packing and handle donor-free directions.
+The return failures reproduced under `uibcdf/molsysmt#259` are corrected.
+The angle cutoff remains strict; no distance or chemical criterion changes.
+Shared result packing leaves Buch's two-column output unchanged.
+
+The optional output has the same current scope limits as Buch: automatic
+roles, one selection, two disjoint eligible universes, or identical roles.
+Supplied roles, a second structure axis, and partially overlapping universes
+are explicitly unsupported. The calculation is eager, and the observed-image
+pass is not yet benchmarked at trajectory scale. This checkpoint supersedes
+earlier pending-adapter statements below. MolSysViewer excludes the method
+from its initial integration; its Buch/disulfide integration still proceeds.
+
+Validation: 110 focused tests passed across interaction results, both legacy
+hydrogen-bond APIs, InteractionsDict, and public H5MSM conversion. Two detector
+doctests passed. The LC tutorial executed all six code cells and its new
+sparse example reported 36 observations with nm/rad measures and the captured
+producer version. Expected bundled H5MSM 0.4 deprecation warnings remain.
+Ruff passed. Scientific fixtures include direct nonperiodic distance/angle
+checks and explicit periodic image reconstruction, not only codec parity.
+
 ## Accepted attachment responsibility (2026-09-29)
 
 The maintainer accepts declared correspondence for the pre-1.0 contract:

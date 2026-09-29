@@ -21,6 +21,19 @@ supersedes: []
 The public contract and production backend remain pending under this issue;
 the experimental class is tracked under `uibcdf/molsysmt#252`.
 
+**Luzard-Chandler adapter checkpoint, 2026-09-29:** Both hydrogen-bond
+methods and disulfide candidates now return optional sparse results. The
+new angular result retains D-A distance in nm, H-D-A angle in rad, actual
+scope, evaluated-empty frames, method parameters, evidence, software versions,
+and donor-anchored D-H/D-A periodic images. Synthetic fixtures check image
+reconstruction, nonconsecutive structures, angular rejection, a half-box tie,
+and empty/variable counts. A bundled trajectory is compared with direct
+distance and angle calculations. The method remains eager and has Buch's
+current optional-result scope limits. Its empty/ragged-output defect is
+tracked by `uibcdf/molsysmt#259`. MolSysViewer excludes this method from its
+initial integration, so this provider work does not add a client blocker.
+This checkpoint supersedes earlier pending-adapter statements below.
+
 **Accepted attachment policy, 2026-09-29:** Following another request from
 `uibcdf/molsysviewer#114`, the maintainer chose declared correspondence for
 the pre-1.0 contract. A writer is responsible for matching the system and

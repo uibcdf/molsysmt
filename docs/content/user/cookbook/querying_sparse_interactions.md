@@ -109,8 +109,8 @@ explains the current checks and limits. The writer is responsible for the
 correspondence of system and analyses stored together in H5MSM.
 
 Inspect `stored.software` or a query projection's `"software"` field to
-recover the versions that produced the observations. MolSysMT's Buch and
-disulfide adapters capture their version during calculation; H5MSM preserves
+recover the versions that produced the observations. MolSysMT's hydrogen-bond
+and disulfide adapters capture their version during calculation; H5MSM preserves
 it even when saved or loaded by another version. `{}` means the producer
 version was not recorded, as in these manually constructed synthetic records.
 
@@ -128,6 +128,12 @@ nm. Coverage includes evaluated frames with no bonds. A covalently attached
 donor hydrogen remains a participant even if the atom selection named only
 its donor. The optional result supports automatic roles in one selection or
 two disjoint participant universes; it does not yet stream large trajectories.
+
+`msm.interactions.hbonds.get_luzard_chandler_hbonds(...,
+output_type="molsysmt.Interactions")` returns the same sparse result contract,
+with D-A distance in nm and H-D-A angle in rad. Both D-H and D-A periodic
+images use the donor as reference and reproduce the angular calculation.
+It preserves empty evaluated frames and the calculation-time software version.
 
 Use {doc}`the interaction result guide <../tools/interactions/result>` for
 role, unit, and evaluated atom-scope conventions. The example uses the default

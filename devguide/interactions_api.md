@@ -33,12 +33,13 @@ For a single selection with no eligible donor or acceptor, each method returns
 an empty result for every requested structure rather than attempting a
 covalent-path lookup on an empty atom set.
 
-The Buch tuple result also supports evaluated frames with eligible atoms but
+Both hydrogen-bond tuple results support evaluated frames with eligible atoms but
 no accepted bonds. Equal counts retain the rectangular legacy arrays; varying
 counts return aligned lists of integer `(n_hbonds, 3)` arrays and nanometer
-`(n_hbonds,)` quantities, including shaped empty entries. Neither path pads
-frames with fabricated observations. This behavior resolves
-`uibcdf/molsysmt#253`.
+`(n_hbonds,)` distance quantities, including shaped empty entries.
+Luzard–Chandler also returns aligned radian angle quantities. Neither path
+pads frames with fabricated observations. The corrections are tracked by
+`uibcdf/molsysmt#253` and `uibcdf/molsysmt#259`.
 
 `get_buch_hbonds(..., output_type="molsysmt.Interactions")` returns a sparse
 analysis with donor, hydrogen, acceptor roles, evaluated-empty coverage,
@@ -97,7 +98,7 @@ The experimental `molsysmt.Interactions` class stores one method's typed observa
 relation participants and roles, explicit evaluated-structure coverage,
 declared atom search scope, measurement units, evidence labels, and optional
 periodic image vectors. Its `software` dictionary maps software names to the
-versions that produced the observations. Buch and disulfide adapters capture
+versions that produced the observations. Both hydrogen-bond and disulfide adapters capture
 `{"molsysmt": molsysmt.__version__}` during calculation. Views, remapping,
 invalidation, InteractionsDict, standalone HDF5, selective HDF5 projections,
 and H5MSM 0.5 preserve this metadata. The optional field is stored once per
@@ -118,8 +119,7 @@ trips, and are scoped to one named analysis version. Remapping or editing
 creates a new version and can reassign positions. The row position is derived
 from stored order, so it adds no per-occurrence file column.
 Input records and source indices are validated by the class. Disulfide
-candidates and Buch hydrogen bonds have opt-in result routes;
-Luzard–Chandler still has only its method-specific output.
+candidates and both hydrogen-bond detectors have opt-in result routes.
 The analysis-level evaluation scope has modes `internal(A)`, `incident(A)`,
 and `between(A, B)` with a declared participant universe. It applies uniformly
 to evaluated structures. An evaluated-empty frame claims no detections only
@@ -149,8 +149,16 @@ distance. Buch anchors the donor at image zero, applies the D-H MIC shift to
 the hydrogen, and adds the H-A MIC shift to obtain the acceptor image. The
 H-A distance is checked against the detector output. The D-H shift supplies
 a deterministic display image for the covalently attached hydrogen; it is
-not an additional Buch detection criterion. Luzard–Chandler still needs a
-result adapter whose images agree with its angle calculation.
+not an additional Buch detection criterion. Luzard–Chandler anchors the
+donor at zero and independently applies the D-H and D-A MIC shifts to the
+hydrogen and acceptor. These are the vectors used for its H-D-A angle;
+the adapter checks reconstructed D-A distance and H-D-A angle against the
+detector output. Its measurements are `distance` in nm and `angle` in rad.
+The acos detector loses precision near collinearity, so the image check uses
+a 1e-7 rad absolute angular tolerance. Both optional results currently require
+automatic roles, one selection or disjoint participant universes, or identical
+role selections; supplied roles, a second structure axis, and partially
+overlapping universes raise explicit unsupported-method errors.
 
 The experimental class has no lazy file-backed query, streaming writer, or
 incremental add/remove editor. `invalidate_structures()` returns an independent

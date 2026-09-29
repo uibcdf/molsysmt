@@ -1,13 +1,13 @@
 ---
 summary: Luzard-Chandler hydrogen bonds fail on empty or variable per-structure counts
 issue: uibcdf/molsysmt#259
-status: active
+status: resolved
 opened: 2026-09-29
-closed:
+closed: 2026-09-29
 severity: medium
 verification: reproduced
 area: [api, structure]
-guard:
+guard: tests/interactions/hbonds/test_luzard_chandler_results.py::test_luzard_chandler_preserves_variable_counts_and_empty_frames
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-09-29, during the optional detector-result adapter work
 under `uibcdf/molsysmt#250` and `uibcdf/molsysmt#252`.
-**Status:** Active; reproduced before changing the detector.
+**Status:** Resolved; both selection routes preserve empty and variable counts.
 
 ## What
 
@@ -80,3 +80,22 @@ coverage, including a direction with no eligible donors.
 
 Reproduced on 2026-09-29 under Linux x86_64, Python 3.13.14, NumPy 2.4.6,
 and PyUnitWizard 0.27.0, with the bundled Rust backend.
+
+## Resolution
+
+The detector now shapes candidate triples before processing an empty frame,
+skips angle evaluation when there are no candidates, and packs variable counts
+as aligned lists. A shared direction loop handles empty donors or acceptors
+without calling an unsupported empty neighbor query. Equal counts retain
+rectangular triples and nm/radian quantities. The optional Interactions
+adapter preserves evaluated-empty coverage without changing the criteria.
+
+The guard checks exact zero/one/two counts, requested nonconsecutive and
+repeated structure order, triple shapes and identities, and aligned distances
+and angles. Executing it against the original undecorated detector from
+`04c6593cc` reproduced `IndexError: list index out of range`; it passes after
+the correction. A separate two-selection test checks the donor-free direction.
+Fifteen focused detector tests and the full 110-test interaction/conversion
+selection passed. Two detector doctests passed. The updated tutorial executed
+all six code cells successfully. This is contract and geometric-fixture
+evidence; large-trajectory chunking and image-pass benchmarks remain separate.

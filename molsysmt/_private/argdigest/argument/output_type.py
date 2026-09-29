@@ -41,6 +41,7 @@ def digest_output_type(output_type, caller=None):
     elif caller in {
         "molsysmt.interactions.disulfides.get_disulfide_candidates.get_disulfide_candidates",
         "molsysmt.interactions.hbonds.get_buch_hbonds.get_buch_hbonds",
+        "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
     }:
         if isinstance(output_type, str):
             if output_type.lower() in ["tuple", "molsysmt.interactions"]:

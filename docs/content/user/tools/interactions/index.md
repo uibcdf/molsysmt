@@ -4,8 +4,8 @@
 `molsysmt.Interactions` stores observations from one analysis method over a
 molecular system. It supports hydrogen-bond triples, disulfide candidate pairs,
 ring groups, and relations with more participants. The class is experimental.
-Detectors retain their established outputs by default; the Buch hydrogen-bond
-and disulfide candidate detectors can also return an `Interactions` analysis
+Detectors retain their established outputs by default; both hydrogen-bond
+and the disulfide candidate detectors can also return an `Interactions` analysis
 explicitly.
 
 - {doc}`result` — building, querying, and saving sparse interaction results.

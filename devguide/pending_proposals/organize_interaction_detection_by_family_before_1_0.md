@@ -88,7 +88,8 @@ already constructed analyses. Preserve existing detector outputs by default
 and add opt-in `Interactions` results only when each method can report actual
 atom-role eligibility, evaluated frames including empty ones, parameters,
 units, evidence, and periodic images when used. The disulfide candidate
-detector and Buch now have opt-in routes. Luzard–Chandler still needs it.
+detector and both hydrogen-bond methods now have opt-in routes, with
+calculation-time software versions preserved in the result and H5MSM.
 The returned analysis is attached to `MolSys.interactions` by an explicit
 name; a calculation does not silently replace stored analyses. One named
 result represents one method and evaluation scope, although that method may
@@ -106,10 +107,12 @@ selection. Evaluated-empty and varying-count frames are now supported by the
 Buch tuple result as well, resolving `uibcdf/molsysmt#253`. Its optional
 analysis rejects supplied roles, a second structure axis, and partially
 overlapping participant universes; these require further contracts. A
-Luzard–Chandler triple needs D-H and D-A images consistent with its angle and
-distance calculations. Their adapters must preserve the same MIC decisions,
-including triclinic boxes and deterministic ties. A distance-only
-recomputation is insufficient evidence for a chosen image. Benchmark the
+Luzard–Chandler triple now uses donor-anchored D-H and D-A images and checks
+both D-A distance and H-D-A angle. Its default output preserves empty and
+varying-count frames under `uibcdf/molsysmt#259`. Analytical fixtures protect
+triclinic boxes, rotated orthogonal boxes, angular evidence, and the half-box
+tie chosen by the angle kernel. A distance-only recomputation is insufficient
+evidence for a chosen image. Benchmark the
 sparse observed-pair pass before relying on its cost at trajectory scale.
 Large trajectory methods should use the maintained chunked-execution
 policy and avoid dense atom-pair-by-frame output by default.
