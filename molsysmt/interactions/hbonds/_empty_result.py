@@ -1,4 +1,4 @@
-"""Construct empty, evaluated hydrogen-bond results."""
+"""Construct aligned per-structure hydrogen-bond results."""
 
 import numpy as np
 
@@ -20,3 +20,15 @@ def empty_result(molecular_system, structure_indices, with_angles=False):
         angles = puw.quantity(np.empty((n_structures, 0)), "radians")
         return atoms, distances, angles
     return atoms, distances
+
+
+def pack_result(atoms, distances):
+    """Keep rectangular legacy arrays and preserve varying counts as lists."""
+    triples = [np.asarray(frame, dtype=np.int64).reshape(-1, 3) for frame in atoms]
+    values = [puw.get_value(frame, to_unit="nanometers") for frame in distances]
+    if len({len(frame) for frame in triples}) > 1:
+        return triples, [puw.quantity(frame, "nanometers") for frame in values]
+    if not triples:
+        return (np.empty((0, 0, 3), dtype=np.int64),
+                puw.quantity(np.empty((0, 0)), "nanometers"))
+    return np.stack(triples), puw.quantity(np.stack(values), "nanometers")

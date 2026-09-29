@@ -1,13 +1,13 @@
 ---
 summary: Buch hydrogen-bond detector crashes when an evaluated structure has no accepted bonds
 issue: uibcdf/molsysmt#253
-status: active
+status: resolved
 opened: 2026-09-29
-closed:
+closed: 2026-09-29
 severity: medium
 verification: reproduced
 area: [api, structure]
-guard:
+guard: tests/interactions/hbonds/test_buch_results.py::test_buch_returns_aligned_variable_counts_and_empty_frames
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,8 @@ supersedes: []
 
 **Reported:** 2026-09-29, while testing the Interactions design against a
 bundled molecular trajectory for `uibcdf/molsysmt#251`.
-**Status:** Reproduced; the public detector still raises on this input.
+**Status:** Resolved. Empty evaluated frames and variable per-frame counts
+now return aligned observations instead of raising.
 
 ## What
 
@@ -98,3 +99,28 @@ validation of the Buch criterion.
 Observed 2026-09-29 on Linux 7.0.0-28-generic x86_64, Intel Xeon E5-2630 v4,
 Python 3.13.14, NumPy 2.4.6, using the bundled
 `molsysmt/data/h5msm/traj_pentalanine.h5msm` trajectory.
+
+## Resolution — 2026-09-29
+
+The Buch detector creates explicit empty nanometer quantities for zero
+accepted bonds and packs per-frame triples with shape `(n_hbonds, 3)` and
+integer dtype. Equal counts retain the existing rectangular arrays. Varying
+counts return aligned lists of triples and distance quantities; they do not
+pad missing observations. Both selection branches use this packing policy.
+An empty donor or acceptor side supplies an empty CSR search result, so a
+two-selection search can still collect the other direction without an
+unsupported empty-neighbor call or division by zero.
+
+The named guard includes eligible donors and acceptors in frames with zero,
+one, and two accepted bonds, requested in a repeated, nonconsecutive order.
+The original implementation fails on the empty frame and cannot materialize
+the varying-count array. Additional tests cover both search directions when
+one side has no donors, explicit nm units under an angstrom session, and
+five bundled pentalanine frames compared with direct H-A distances. The
+interaction and legacy hydrogen-bond battery passed 60 tests before the
+additional periodic-evidence rejection guard was added.
+
+The optional `Interactions` adapter added alongside this correction belongs
+to `uibcdf/molsysmt#250` and `uibcdf/molsysmt#252`; it is not part of the
+defect's closure criteria. The hydrogen-bond distance definition and role
+selection chemistry were not changed by this correction.

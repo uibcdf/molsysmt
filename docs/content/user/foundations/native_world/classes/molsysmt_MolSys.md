@@ -31,6 +31,15 @@ index domains. `extract(atom_indices=[...], structure_indices=[...])` remaps
 the present domains and keeps the selected structure order. An axis with no
 declared domain cannot be selected explicitly.
 
+The Buch hydrogen-bond and disulfide candidate detectors can return an
+independent `molsysmt.Interactions` analysis with
+`output_type="molsysmt.Interactions"`. Attach it under a name by assigning
+`molsys.interactions = {**molsys.interactions, "analysis_name": analysis}`.
+This retains previous named results and checks that all analyses match the
+system's atom and structure axes. See
+{doc}`the interaction result guide <../../../tools/interactions/result>`
+for participant roles, evaluated coverage, and experimental detector limits.
+
 ---
 
 ## Invariants and Performance

@@ -38,7 +38,10 @@ def digest_output_type(output_type, caller=None):
             if output_type.lower() in ["pairs", "sorted pairs", "numpy.ndarray"]:
                 return output_type.lower()
 
-    elif caller == "molsysmt.interactions.disulfides.get_disulfide_candidates.get_disulfide_candidates":
+    elif caller in {
+        "molsysmt.interactions.disulfides.get_disulfide_candidates.get_disulfide_candidates",
+        "molsysmt.interactions.hbonds.get_buch_hbonds.get_buch_hbonds",
+    }:
         if isinstance(output_type, str):
             if output_type.lower() in ["tuple", "molsysmt.interactions"]:
                 return output_type.lower()

@@ -17,6 +17,10 @@ their return conventions were moved without changing their geometric criteria:
 | `get_buch_hbonds` | Hydrogen–acceptor separation at most 0.23 nm | Per-structure donor, hydrogen, acceptor triples and aligned distances. |
 | `get_luzard_chandler_hbonds` | Donor–acceptor separation at most 0.35 nm and the H–D–A angle below 30 degrees | Per-structure triples, distances, and angles. |
 
+The donor helper sorts intact covalent donor-H pairs by donor and then hydrogen
+index. Independently sorting the columns would change chemical membership;
+the interleaved-index guard under `uibcdf/molsysmt#258` protects this invariant.
+
 Both methods support one molecular system with one or two atom selections.
 Passing `molecular_system_2` raises `NotImplementedMethodError`; cross-system
 atom and structure alignment has no defined contract yet. Their current array
@@ -28,6 +32,29 @@ in 1.0.
 For a single selection with no eligible donor or acceptor, each method returns
 an empty result for every requested structure rather than attempting a
 covalent-path lookup on an empty atom set.
+
+The Buch tuple result also supports evaluated frames with eligible atoms but
+no accepted bonds. Equal counts retain the rectangular legacy arrays; varying
+counts return aligned lists of integer `(n_hbonds, 3)` arrays and nanometer
+`(n_hbonds,)` quantities, including shaped empty entries. Neither path pads
+frames with fabricated observations. This behavior resolves
+`uibcdf/molsysmt#253`.
+
+`get_buch_hbonds(..., output_type="molsysmt.Interactions")` returns a sparse
+analysis with donor, hydrogen, acceptor roles, evaluated-empty coverage,
+nanometer H-A distances, automatic role-selection rules, and the eligible
+participant universe actually searched. The donor helper can include attached
+hydrogens outside the user's atom selection; these belong to that universe.
+One selection declares an internal scope. Two disjoint participant universes
+declare a between scope and search both donor/acceptor directions. Identical
+role selections collapse to an internal scope without duplicated observations.
+Repeated requested frames are also deduplicated in this result.
+
+The optional result currently rejects supplied donor/acceptor arrays, a second
+structure axis, and partially overlapping participant universes. Those cases
+need explicit eligibility and alignment contracts. It uses eager execution;
+the result adapter is not a streaming trajectory detector. The existing tuple
+API remains available for its established supported combinations.
 
 The migration is guarded by regression tests using bundled systems. Those tests
 show continuity of the existing implementation, not independent scientific
@@ -82,9 +109,9 @@ structure and relation, remain unchanged in filtered views and H5MSM round
 trips, and are scoped to one named analysis version. Remapping or editing
 creates a new version and can reassign positions. The row position is derived
 from stored order, so it adds no per-occurrence file column.
-Input records and source indices are validated by the class. The disulfide
-candidate detector has an opt-in result route; Buch and Luzard–Chandler still
-have only their method-specific outputs.
+Input records and source indices are validated by the class. Disulfide
+candidates and Buch hydrogen bonds have opt-in result routes;
+Luzard–Chandler still has only its method-specific output.
 The analysis-level evaluation scope has modes `internal(A)`, `incident(A)`,
 and `between(A, B)` with a declared participant universe. It applies uniformly
 to evaluated structures. An evaluated-empty frame claims no detections only
@@ -110,7 +137,12 @@ columns, the observed periodic copy is unknown, even if PBC was used by a
 detector. Detector adapters must emit the actual image chosen by their
 geometry calculation. The disulfide result route recovers this image from
 the same MIC algorithm for its observed S–S pairs and verifies the aligned
-distance. Hydrogen-bond detectors do not yet provide result adapters.
+distance. Buch anchors the donor at image zero, applies the D-H MIC shift to
+the hydrogen, and adds the H-A MIC shift to obtain the acceptor image. The
+H-A distance is checked against the detector output. The D-H shift supplies
+a deterministic display image for the covalently attached hydrogen; it is
+not an additional Buch detection criterion. Luzard–Chandler still needs a
+result adapter whose images agree with its angle calculation.
 
 The experimental class has no lazy file-backed query, streaming writer, or
 incremental add/remove editor. `invalidate_structures()` returns an independent

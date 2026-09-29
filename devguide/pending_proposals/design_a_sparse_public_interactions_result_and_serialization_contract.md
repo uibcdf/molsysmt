@@ -21,6 +21,18 @@ supersedes: []
 The public contract and production backend remain pending under this issue;
 the experimental class is tracked under `uibcdf/molsysmt#252`.
 
+**Detector adapter checkpoint, 2026-09-29:** Disulfide candidates and Buch
+hydrogen bonds now have optional `Interactions` outputs. The Buch adapter
+declares automatic chemical role-selection rules and the actual eligible
+participant universe, records evaluated-empty frames, stores H-A distances
+in nm, and preserves the D-H/H-A periodic image chain. Synthetic and bundled
+trajectory tests protect variable counts, scope, queries, units, and geometry;
+the Buch empty-frame defect is resolved under `uibcdf/molsysmt#253`. Supplied
+roles, a second structure axis, and partially overlapping participant
+universes remain unsupported for its optional result. Luzard–Chandler,
+chunked detector execution, and trajectory-scale image-pass measurements
+remain open under `uibcdf/molsysmt#250` and `uibcdf/molsysmt#252`.
+
 **Consumer-review preparation, 2026-09-29:**
 `tests/interactions/test_public_molsys_h5msm_workflow.py` supplies a runnable
 public native/H5MSM parity fixture with the requested pair, triple, compound

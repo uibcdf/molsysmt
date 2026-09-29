@@ -88,7 +88,7 @@ already constructed analyses. Preserve existing detector outputs by default
 and add opt-in `Interactions` results only when each method can report actual
 atom-role eligibility, evaluated frames including empty ones, parameters,
 units, evidence, and periodic images when used. The disulfide candidate
-detector now has that opt-in route. Buch and Luzard–Chandler still need it.
+detector and Buch now have opt-in routes. Luzard–Chandler still needs it.
 The returned analysis is attached to `MolSys.interactions` by an explicit
 name; a calculation does not silently replace stored analyses. One named
 result represents one method and evaluation scope, although that method may
@@ -98,8 +98,14 @@ The Rust neighbour-list kernel still returns only indices and distances.
 The disulfide adapter runs a sparse observed-pair MIC pass using the same
 minimum-image algorithm, derives each S-S lattice shift in the original box
 basis, and verifies that its distance matches the detector output. This does
-not add image columns to the default neighbour path. A Buch
-donor-hydrogen-acceptor triple needs consistent D-H and H-A images; a
+not add image columns to the default neighbour path. The Buch adapter uses
+consistent D-H and H-A images, anchored on the donor, and verifies the
+observed H-A distance. It declares automatic role-selection rules and the
+eligible participant universe, including attached hydrogens outside an atom
+selection. Evaluated-empty and varying-count frames are now supported by the
+Buch tuple result as well, resolving `uibcdf/molsysmt#253`. Its optional
+analysis rejects supplied roles, a second structure axis, and partially
+overlapping participant universes; these require further contracts. A
 Luzard–Chandler triple needs D-H and D-A images consistent with its angle and
 distance calculations. Their adapters must preserve the same MIC decisions,
 including triclinic boxes and deterministic ties. A distance-only
@@ -111,6 +117,11 @@ policy and avoid dense atom-pair-by-frame output by default.
 The observed-pair work exposed a prior MIC defect: rotated orthogonal boxes
 were sent through a Cartesian-diagonal fast path. Its correction and
 independent lattice-image guard are tracked by `uibcdf/molsysmt#257`.
+
+Participant checks also found the donor helper could sort its two columns
+independently and break covalent donor-H membership. The intact-row correction
+and interleaved-index guards are tracked by `uibcdf/molsysmt#258` and apply to
+both existing hydrogen-bond detectors.
 
 Cross-system analysis requires explicit atom and frame/time alignment. It must
 not be inferred from matching positional frame numbers. Current hydrogen-bond

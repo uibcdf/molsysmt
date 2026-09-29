@@ -114,8 +114,8 @@ restored = msm.Interactions.load("observations.h5i")
 The standalone HDF5 file is versioned and separate from H5MSM. `load` reads
 the complete result into memory. The current version has no streaming writer,
 lazy file-backed queries, or incremental add/remove editor. The disulfide
-candidate detector has an optional `Interactions` output; hydrogen-bond
-detector adapters are still pending.
+candidate and Buch hydrogen-bond detectors have optional `Interactions`
+outputs; the Luzard–Chandler adapter is still pending.
 
 Use `remap()` to extract a complete result into new index spaces. A relation
 survives only if all atoms in its participants survive. Repeated structure
@@ -190,6 +190,28 @@ analysis = msm.interactions.disulfides.get_disulfide_candidates(
 molsys.interactions = {"disulfide_candidates": analysis}
 assert molsys.interactions["disulfide_candidates"].n_interactions == 1
 ```
+
+For a system with covalently attached donor hydrogens, use the Buch detector
+to construct an analysis of H-A distances (in nm):
+
+```python
+analysis = msm.interactions.hbonds.get_buch_hbonds(
+    molsys, output_type="molsysmt.Interactions"
+)
+molsys.interactions = {**molsys.interactions, "buch": analysis}
+visible = analysis.query(structure_indices=[0]).to_dict()
+```
+
+The result declares the automatically eligible participants, including
+donor hydrogens attached outside an atom selection. Two selections must have
+disjoint participant universes or identical roles for this optional output.
+Supplied role arrays and a second structure axis are currently unsupported.
+With PBC, the donor is the image anchor, the hydrogen uses its D-H minimum
+image, and the acceptor continues from that hydrogen using the observed H-A
+image. The stored distance checks the H-A segment; D-H unwrapping supplies
+consistent drawing geometry and does not add a detection criterion. These
+detectors use eager execution; requesting `Interactions` does not make them
+stream coordinates or write observations incrementally.
 
 Appended structures remain unevaluated by existing analyses, including a
 coordinate-only source passed to `msm.append_structures`. Adding atoms to a

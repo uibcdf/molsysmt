@@ -107,6 +107,14 @@ candidate detector can instead return an `Interactions` result with
 `molsys.interactions` before writing H5MSM 0.5. Its geometric S–S candidates
 do not assert that a covalent bond exists in the chemical state.
 
+`msm.interactions.hbonds.get_buch_hbonds(...,
+output_type="molsysmt.Interactions")` supplies the same workflow for Buch
+hydrogen bonds, with donor, hydrogen, and acceptor roles and H-A distances in
+nm. Coverage includes evaluated frames with no bonds. A covalently attached
+donor hydrogen remains a participant even if the atom selection named only
+its donor. The optional result supports automatic roles in one selection or
+two disjoint participant universes; it does not yet stream large trajectories.
+
 Use {doc}`the interaction result guide <../tools/interactions/result>` for
 role, unit, and evaluated atom-scope conventions. The example uses the default
 `internal` scope over all nine atoms. For a detector restricted to one selection,

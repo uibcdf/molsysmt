@@ -14,6 +14,39 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Buch detector result adapter (2026-09-29)
+
+The Buch detector now has optional `output_type="molsysmt.Interactions"`,
+with automatic donor/hydrogen/acceptor roles, eligible participant scope,
+evaluated-empty coverage, H-A distances in nm, criterion parameters, chemical
+selection rules, and observed periodic images. The donor is anchored at zero;
+the hydrogen uses the D-H MIC shift, and the acceptor adds the H-A shift.
+The adapter checks the H-A distance against the detector output. The D-H
+unwrap supplies display geometry rather than another detection criterion.
+
+One selection gives internal scope; two disjoint eligible universes give
+between scope, with both donor/acceptor directions. Identical role selections
+and repeated frames do not duplicate sparse observations. Supplied role
+arrays, a second structure axis, and partially overlapping universes are
+explicitly unsupported by the optional result. The detector remains eager;
+chunked calculation and its trajectory-scale image-pass benchmark are open.
+
+The existing tuple output now preserves empty evaluated frames and variable
+counts under `uibcdf/molsysmt#253`: equal counts retain rectangular arrays,
+while varying counts return aligned lists without padding. Synthetic tests
+exercise empty and varying counts, nonconsecutive and repeated frames, scopes,
+queries, both selection directions, nm units under an angstrom session, and
+PBC image reconstruction in diagonal, triclinic, and rotated orthogonal boxes.
+A bundled trajectory is compared with direct H-A distances. H5MSM 0.5
+preserves the method, role rules, and coverage. Luzard–Chandler remains open.
+
+Participant checks also reproduced a scientific defect in the shared donor
+helper: independent column sorting could detach a hydrogen from its declared
+covalent partner. The correction under `uibcdf/molsysmt#258` sorts intact
+rows. An interleaved-index fixture checks exact donor-H bonds, the triples
+from both existing detectors, and sparse queries for the true hydrogen.
+It leaves chemical eligibility rules and geometric criteria unchanged.
+
 ## First detector result adapter (2026-09-29)
 
 `interactions.disulfides.get_disulfide_candidates` now accepts optional
@@ -33,8 +66,8 @@ checks its distance against the neighbour result before recording images.
 An independent lattice enumeration tests orthogonal, triclinic, and rotated
 orthogonal boxes. The latter revealed and motivated the MIC correction under
 `uibcdf/molsysmt#257`. The default neighbour-list result remains unchanged;
-the extra pass is not yet benchmarked at trajectory scale. Buch and
-Luzard–Chandler result adapters remain open.
+the extra pass is not yet benchmarked at trajectory scale. The subsequent
+Buch checkpoint above adds its result route; Luzard–Chandler remains open.
 
 ## Consumer occurrence identity checkpoint (2026-09-29)
 
