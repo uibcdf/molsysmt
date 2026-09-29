@@ -62,6 +62,7 @@ def test_merge_drops_incomplete_per_atom_mechanics_without_stale_rows():
     merged = msm.merge([left, right], keep_ids=False)
 
     assert merged.topology.n_atoms == 8
+    assert merged.chemical_states.n_atoms == 8
     assert merged.molecular_mechanics.atoms_ff is None
     extracted = merged.extract(atom_indices=[0, 7], skip_digestion=True)
     assert extracted.topology.n_atoms == 2

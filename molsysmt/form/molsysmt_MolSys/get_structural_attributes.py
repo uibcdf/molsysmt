@@ -691,6 +691,9 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
+    if item.structures is None:
+        return item._get_n_structures()
+
     from molsysmt.form.molsysmt_Structures import (
         get_n_structures_from_system as aux_get,
     )

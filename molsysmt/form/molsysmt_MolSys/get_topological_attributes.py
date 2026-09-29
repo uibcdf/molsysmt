@@ -227,7 +227,7 @@ def get_chemical_state_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "chemical_state_index")
+    return list(range(item.chemical_states.n_chemical_states))
 
 
 @arg_digest(form=form)
@@ -251,7 +251,7 @@ def get_chemical_state_id_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "chemical_state_id")
+    return [state.state_id for state in item.chemical_states._states]
 
 
 @arg_digest(form=form)
@@ -275,7 +275,7 @@ def get_n_chemical_states_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "n_chemical_states")
+    return item.chemical_states.n_chemical_states
 
 
 @arg_digest(form=form)
@@ -299,7 +299,7 @@ def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "reference_chemical_state_index")
+    return item.chemical_states.reference_chemical_state_index
 
 
 @arg_digest(form=form)
@@ -8214,9 +8214,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_atoms_from_system as aux_get
-
-    return aux_get(item.topology, skip_digestion=True)
+    return item.get_n_atoms()
 
 
 @arg_digest(form=form)

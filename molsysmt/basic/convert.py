@@ -653,6 +653,83 @@ def _reconcile_composed_structure_state_association(item):
         )
 
 
+def _convert_to_h5msm05(
+    molecular_system, from_form, output_filename, selection,
+    structure_indices, syntax, kwargs,
+):
+    """Write the public H5MSM target through the versioned 0.5 codec."""
+    from molsysmt import h5msm
+    from molsysmt.form import _dict_modules
+
+    if output_filename is None:
+        raise ValueError("output_filename is required for H5MSM conversion.")
+    if from_form == "file:h5msm":
+        from pathlib import Path
+
+        source_path = Path(molecular_system)
+        target_path = Path(output_filename)
+        if target_path.exists() and source_path.samefile(target_path):
+            from molsysmt._private.smonitor import ArgumentError
+
+            raise ArgumentError(
+                "output_filename", value=output_filename, caller="molsysmt.convert",
+            )
+
+    options = dict(kwargs)
+    for name, default in (
+        ("compression", "gzip"), ("compression_opts", 4),
+        ("int_precision", "single"), ("float_precision", "single"),
+    ):
+        value = options.pop(name, default)
+        if value != default:
+            raise ValueError(
+                f"H5MSM 0.5 does not support the {name} conversion option yet."
+            )
+
+    if isinstance(from_form, str):
+        routes = _dict_modules[from_form]._convert_to
+        if from_form == "molsysmt.Structures" or (
+            "molsysmt.MolSys" not in routes and "molsysmt.Structures" in routes
+        ):
+            target = "molsysmt.Structures"
+        elif from_form == "molsysmt.ChemicalStates" or (
+            "molsysmt.MolSys" not in routes
+            and "molsysmt.ChemicalStates" in routes
+        ):
+            target = "molsysmt.ChemicalStates"
+        else:
+            target = "molsysmt.MolSys"
+    else:
+        target = "molsysmt.MolSys"
+
+    if (
+        from_form == target and is_all(selection) and is_all(structure_indices)
+        and not options
+    ):
+        native = molecular_system
+    else:
+        native = convert(
+            molecular_system, to_form=target, selection=selection,
+            structure_indices=structure_indices, syntax=syntax,
+            skip_digestion=True, **options,
+        )
+    structures = native if target == "molsysmt.Structures" else getattr(native, "structures", None)
+    if (
+        not is_all(selection)
+        and structures is not None
+        and structures.bioassembly is not None
+    ):
+        raise ValueError(
+            "H5MSM 0.5 cannot write an atom selection with bioassembly until "
+            "its chain indices can be remapped."
+        )
+    if target == "molsysmt.Structures":
+        return h5msm.write_layers(output_filename, structures=native)
+    if target == "molsysmt.ChemicalStates":
+        return h5msm.write_layers(output_filename, chemical_states=native)
+    return h5msm.write(native, output_filename)
+
+
 # Keep the decorator import beside the public conversion boundary.
 from smonitor import signal  # noqa: E402
 
@@ -731,6 +808,9 @@ def convert(
       adapter limitation.
     - Ordinary conversions do not construct a preflight report. This keeps the
       reporting layer opt-in when neither `strict` nor `return_report` is used.
+    - Converting to ``file:h5msm`` writes H5MSM 0.5. Legacy 0.3 and 0.4
+      files remain readable and can be migrated with
+      :func:`molsysmt.h5msm.migrate_to_05`.
 
 
     See Also
@@ -767,11 +847,13 @@ def convert(
     """
 
     from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
+    from molsysmt._private.h5msm import maybe_read_modular_h5msm
 
     from . import get_form
 
     output = None
 
+    molecular_system = maybe_read_modular_h5msm(molecular_system)
     from_form = get_form(molecular_system)
 
     if isinstance(from_form, (list, tuple)):
@@ -833,6 +915,17 @@ def convert(
                     f"cannot preserve: {[issue.attribute for issue in report.issues]}"
                 ),
             )
+
+    if to_form == "file:h5msm" or str(to_form).endswith(".h5msm"):
+        options = dict(kwargs)
+        output_filename = options.pop("output_filename", None)
+        if to_form != "file:h5msm":
+            output_filename = to_form
+        output = _convert_to_h5msm05(
+            molecular_system, from_form, output_filename,
+            selection, structure_indices, syntax, options,
+        )
+        return (output, report) if return_report else output
 
     # If one to one
     if not isinstance(from_form, (list, tuple)):

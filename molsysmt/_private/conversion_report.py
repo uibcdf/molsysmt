@@ -1185,7 +1185,7 @@ def _instance_has(module, item, attribute, source_form):
         return False
     if source_form in {"molsysmt.Topology", "molsysmt.MolSys"}:
         topology = item.topology if source_form == "molsysmt.MolSys" else item
-        if (
+        if topology is not None and (
             len(topology._chemical_states) != 1
             and topology._reference_chemical_state_index is None
         ):

@@ -40,6 +40,8 @@ _convert_to = {
     "mdtraj.Topology": "to_mdtraj_Topology",
     "mdtraj.Trajectory": "to_mdtraj_Trajectory",
     "molsysmt.Topology": "to_molsysmt_Topology",
+    "molsysmt.ChemicalStates": "to_molsysmt_ChemicalStates",
+    "molsysmt.ChemicalStatesDict": "to_molsysmt_ChemicalStatesDict",
     "molsysmt.Structures": "to_molsysmt_Structures",
     "molsysmt.MolecularMechanics": "to_molsysmt_MolecularMechanics",
     "molsysmt.MolecularMechanicsDict": "to_molsysmt_MolecularMechanicsDict",

@@ -43,6 +43,12 @@ def to_file_h5msm(
     file:h5msm
         Resulting object in file:h5msm form.
 
+    Raises
+    ------
+    ValueError
+        If the source MolSys lacks topology, chemical states, or structures, or contains
+        interaction analyses unsupported by H5MSM 0.4.
+
 
     .. versionadded:: 1.0.0
     """
@@ -51,6 +57,17 @@ def to_file_h5msm(
 
     from ..molsysmt_Structures.to_file_h5msm import dump_structures_to_h5msm
     from ..molsysmt_Topology.to_file_h5msm import dump_topology_to_h5msm
+
+    if item.topology is None or item.chemical_states is None or item.structures is None:
+        raise ValueError(
+            "H5MSM 0.4 requires topology, chemical states, and structures; partial MolSys "
+            "objects need the experimental H5MSM 0.5 codec."
+        )
+    if item.interactions:
+        raise ValueError(
+            "H5MSM 0.4 cannot store MolSys interaction analyses; "
+            "write the analyses as standalone Interactions files until H5MSM 0.5."
+        )
 
     handler = H5MSMFileHandler(
         output_filename,

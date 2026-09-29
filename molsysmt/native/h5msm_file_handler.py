@@ -4,7 +4,7 @@ import h5py
 import numpy as np
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.smonitor import FormatError
+from molsysmt._private.smonitor import FormatError, LegacyH5MSMWarning, warn
 
 h5msm_version = "0.4"
 supported_h5msm_versions = frozenset({"0.3", "0.4"})
@@ -73,6 +73,9 @@ class H5MSMFileHandler:
                 ),
                 caller="molsysmt.native.H5MSMFileHandler",
             )
+
+        if io_mode == "r":
+            warn(LegacyH5MSMWarning(version=self.format_version))
 
         if closed:
             self.file.close()

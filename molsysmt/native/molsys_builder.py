@@ -157,6 +157,7 @@ class MolSysBuilder:
         )
 
         self.topology.atoms.loc[atom_index, "group_index"] = pd.NA
+        self.topology._chemical_states_domain._n_atoms = self.topology.n_atoms
         self.topology._set_component_indices(pd.NA, atom_indices=atom_index)
         self.topology.atoms.loc[atom_index, "chain_index"] = pd.NA
 

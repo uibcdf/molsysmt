@@ -25,5 +25,8 @@ def digest_n_atoms(n_atoms, caller=None):
     elif caller == "molsysmt.native.molsys.__init__":
         if isinstance(n_atoms, int):
             return n_atoms
+    elif caller == "molsysmt.native.chemical_states.__init__":
+        if isinstance(n_atoms, int) and not isinstance(n_atoms, bool):
+            return n_atoms
 
     raise ArgumentError("n_atoms", value=n_atoms, caller=caller, message=None)

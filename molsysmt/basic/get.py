@@ -97,6 +97,10 @@ def get(
       components, and bonds from ``chemical_state``. The default uses the
       reference-state rules. Access is rejected when multiple states exist
       without a reference and no explicit index is supplied.
+    - A partial native MolSys without topology can still expose its atom count,
+      chemical-state inventory, and stored structural series. Attributes that
+      require an absent domain return ``None``. Explicit chemical-state
+      selection on such an object is not supported yet.
     - ``isotope`` is stable atom metadata. Rich bond attributes keep integral
       and fractional order, relationship type, aromaticity, conjugation,
       stereochemistry and reference atoms, direction, component participation,
@@ -160,6 +164,7 @@ def get(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.attribute import (
         attributes,
     )
@@ -167,6 +172,7 @@ def get(
 
     from .. import get_form, select, where_is_attribute
 
+    molecular_system = maybe_read_modular_h5msm(molecular_system)
     form = get_form(molecular_system)
 
     if isinstance(form, (list, tuple)):
@@ -462,14 +468,24 @@ def _coerce_native_scalars(value):
 
 
 def _coerce_ids_to_string(value):
-    """Normalize *_id values to Python/NumPy strings, preserving shape."""
+    """Normalize present *_id values to strings while preserving missing IDs."""
+    if value is None:
+        return None
     if is_iterable_of_iterables(value):
         return [_coerce_ids_to_string(aux_value) for aux_value in value]
     else:
         arr = np.asarray(value)
         if arr.shape == ():
+            if arr.item() is None:
+                return None
             return str(arr.astype(str))
         else:
+            if arr.dtype.kind == "O" and any(item is None for item in arr.flat):
+                normalized = np.asarray(
+                    [None if item is None else str(item) for item in arr.flat],
+                    dtype=object,
+                ).reshape(arr.shape)
+                return normalized.tolist()
             return arr.astype(str).tolist()
 
 

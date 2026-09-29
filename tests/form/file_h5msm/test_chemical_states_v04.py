@@ -9,6 +9,12 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import FormatError, StructuralInconsistencyError
+from molsysmt.form.molsysmt_MolSys.to_file_h5msm import (
+    to_file_h5msm as write_legacy_molsys,
+)
+from molsysmt.form.molsysmt_Topology.to_file_h5msm import (
+    to_file_h5msm as write_legacy_topology,
+)
 from molsysmt.native import MolSys, Structures, Topology
 
 
@@ -59,7 +65,7 @@ def test_v04_roundtrip_preserves_full_reference_state(tmp_path):
     topology = _rich_topology()
     filename = tmp_path / "rich.h5msm"
 
-    msm.convert(topology, to_form="file:h5msm", output_filename=filename)
+    write_legacy_topology(topology, output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.Topology")
 
     with h5py.File(filename, "r") as file:
@@ -127,7 +133,7 @@ def test_v04_roundtrip_preserves_multiple_states_without_reference(tmp_path):
     topology._set_reference_chemical_state_index(None)
     filename = tmp_path / "multi.h5msm"
 
-    msm.convert(topology, to_form="file:h5msm", output_filename=filename)
+    write_legacy_topology(topology, output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.Topology")
 
     assert msm.get(filename, element="system", n_chemical_states=True) == 2
@@ -178,8 +184,8 @@ def test_v04_selected_write_remaps_every_state(tmp_path):
     )
     filename = tmp_path / "selected.h5msm"
 
-    msm.convert(
-        topology, to_form="file:h5msm", selection=[1, 2, 3], output_filename=filename
+    write_legacy_topology(
+        topology, atom_indices=[1, 2, 3], output_filename=filename
     )
     observed = msm.convert(filename, to_form="molsysmt.Topology")
 
@@ -234,7 +240,7 @@ def test_v04_preserves_materialized_all_null_column(tmp_path):
     )
     filename = tmp_path / "nullable.h5msm"
 
-    msm.convert(topology, to_form="file:h5msm", output_filename=filename)
+    write_legacy_topology(topology, output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.Topology")
 
     assert "formal_charge" in observed._reference_chemical_state.atom_attributes
@@ -248,7 +254,7 @@ def test_v04_roundtrip_preserves_zero_state_as_unavailable(tmp_path):
     topology._clear_chemical_states()
     filename = tmp_path / "zero-state.h5msm"
 
-    msm.convert(topology, to_form="file:h5msm", output_filename=filename)
+    write_legacy_topology(topology, output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.Topology")
 
     assert msm.get(filename, element="system", n_chemical_states=True) == 0
@@ -266,7 +272,7 @@ def test_v04_molsys_persists_implicit_single_state_association(tmp_path):
     )
     filename = tmp_path / "molsys.h5msm"
 
-    msm.convert(molsys, to_form="file:h5msm", output_filename=filename)
+    write_legacy_molsys(molsys, output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
     with h5py.File(filename, "r") as file:
@@ -286,7 +292,7 @@ def test_v04_molsys_roundtrip_preserves_nullable_structure_state_mapping(tmp_pat
     molsys._set_structure_chemical_state_indices([0, 1, pd.NA])
     filename = tmp_path / "mapped-multistate.h5msm"
 
-    msm.convert(molsys, to_form="file:h5msm", output_filename=filename)
+    write_legacy_molsys(molsys, output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.MolSys")
     observed_subset = msm.convert(
         filename,

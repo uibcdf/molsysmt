@@ -53,6 +53,9 @@ def _provides_topology(form_module) -> bool:
 def _provides_primary_topology(form_module) -> bool:
     """Return whether topology is a primary payload of a form."""
 
+    declared = getattr(form_module, "provides_primary_topology", None)
+    if declared is not None:
+        return bool(declared)
     if getattr(form_module, "piped_topological_attribute", None) is not None:
         return True
     return bool(
@@ -117,7 +120,11 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
     atom_counts = []
     for item, form in zip(items, forms):
         form_module = _dict_modules[form]
-        if not (_provides_topology(form_module) or _provides_structures(form_module)):
+        if not (
+            _provides_topology(form_module)
+            or _provides_structures(form_module)
+            or getattr(form_module, "provides_atom_domain", False)
+        ):
             continue
         try:
             n_atoms = get(

@@ -642,8 +642,7 @@ def test_legacy_direct_table_state_migrates_on_restore():
     topology = build_minimal_topology()
     legacy_state = topology.__dict__.copy()
     reference_state = topology._reference_chemical_state
-    legacy_state.pop("_chemical_states")
-    legacy_state.pop("_reference_chemical_state_index")
+    legacy_state.pop("_chemical_states_domain")
     legacy_state["bonds"] = reference_state.bonds
     legacy_state["components"] = reference_state.components
 
@@ -660,8 +659,7 @@ def test_legacy_atom_component_column_migrates_to_reference_state_on_restore():
     topology = build_minimal_topology()
     legacy_state = topology.__dict__.copy()
     reference_state = topology._reference_chemical_state
-    legacy_state.pop("_chemical_states")
-    legacy_state.pop("_reference_chemical_state_index")
+    legacy_state.pop("_chemical_states_domain")
     legacy_atoms = pd.DataFrame(topology.atoms.copy())
     legacy_atoms["component_index"] = [0, 0, 1, 1]
     legacy_state["atoms"] = legacy_atoms
@@ -679,8 +677,7 @@ def test_intermediate_reference_state_storage_migrates_on_restore():
     topology = build_minimal_topology()
     legacy_state = topology.__dict__.copy()
     reference_state = topology._reference_chemical_state
-    legacy_state.pop("_chemical_states")
-    legacy_state.pop("_reference_chemical_state_index")
+    legacy_state.pop("_chemical_states_domain")
     legacy_state["_reference_chemical_state"] = reference_state
 
     restored = Topology.__new__(Topology)

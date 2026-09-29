@@ -1,3 +1,5 @@
+import weakref
+
 import numpy as np
 import pandas as pd
 from smonitor import signal
@@ -98,8 +100,215 @@ def _merged_molecular_mechanics(target, source, attribute_policy):
     return merged
 
 
+def _extend_interaction_structures(result, n_structures):
+    """Preserve known observations while adding unevaluated structures."""
+
+    if n_structures < result.n_structures:
+        raise ValueError("Interaction structure axes cannot shrink during an append.")
+    from .interactions_dict import _decode_interactions, _encode_interactions
+
+    encoded = _encode_interactions(result)
+    encoded.data["n_structures"] = n_structures
+    if n_structures != result.n_structures:
+        encoded.data["structure_source_indices"] = np.r_[
+            result.structure_source_indices,
+            np.full(n_structures - result.n_structures, -1, dtype=np.int64),
+        ]
+    return _decode_interactions(encoded)
+
+
+def _extend_interaction_atoms(result, n_atoms):
+    """Keep the evaluated atom universe fixed while adding new local atoms."""
+
+    if n_atoms < result.n_atoms:
+        raise ValueError("Interaction atom axes cannot shrink during an add.")
+    from .interactions_dict import _decode_interactions, _encode_interactions
+
+    encoded = _encode_interactions(result)
+    encoded.data["n_atoms"] = n_atoms
+    if n_atoms != result.n_atoms:
+        encoded.data["atom_source_indices"] = np.r_[
+            result.atom_source_indices,
+            np.full(n_atoms - result.n_atoms, -1, dtype=np.int64),
+        ]
+        if result.evaluation_universe_indices is None:
+            encoded.data["evaluation_universe_indices"] = np.arange(
+                result.n_atoms, dtype=np.int64
+            )
+    return _decode_interactions(encoded)
+
+
 class MolSys:
-    """Container holding native topology, structures, and molecular mechanics data."""
+    """Container holding native molecular-system information domains."""
+
+    @property
+    def interactions(self):
+        """Returning named interaction analyses aligned with this system."""
+
+        from types import MappingProxyType
+
+        analyses = getattr(self, "_interactions", {})
+        self._validate_interactions(analyses)
+        return MappingProxyType(analyses)
+
+    @interactions.setter
+    def interactions(self, analyses):
+        """Replacing named interaction analyses after index-domain validation."""
+
+        candidate = dict(analyses)
+        self._validate_interactions(candidate)
+        self._interactions = candidate
+
+    def _validate_interactions(self, analyses):
+        from molsysmt.interactions.result import Interactions
+
+        n_atoms = self._get_n_atoms()
+        n_structures = None if self.structures is None else self.structures.n_structures
+        for name, result in analyses.items():
+            if not isinstance(name, str) or not name:
+                raise ValueError("Interaction analysis names must be nonempty strings.")
+            if not isinstance(result, Interactions) or not result._is_full:
+                raise ValueError("Each interaction analysis must be a full Interactions result.")
+            if n_atoms is None:
+                n_atoms = result.n_atoms
+            if n_structures is None:
+                n_structures = result.n_structures
+            if n_atoms is None or result.n_atoms != n_atoms or result.n_structures != n_structures:
+                raise ValueError(
+                    f"Interaction analysis {name!r} has atom/structure domains "
+                    f"({result.n_atoms}, {result.n_structures}), expected "
+                    f"({n_atoms}, {n_structures})."
+                )
+
+    @property
+    def topology(self):
+        """Returning the stable topology and its compatibility facades."""
+
+        return self._topology
+
+    @topology.setter
+    def topology(self, value):
+        from .topology import Topology
+
+        if not isinstance(value, Topology):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="MolSys topology must be a native Topology.",
+                caller="molsysmt.native.MolSys",
+            )
+        owner_ref = getattr(value, "_molsys_owner_ref", None)
+        owner = None if owner_ref is None else owner_ref()
+        if owner is not None and owner is not self:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="A topology already attached to another MolSys must be copied.",
+                caller="molsysmt.native.MolSys",
+            )
+        absent_chemistry = (
+            "_chemical_states_domain" in self.__dict__
+            and self._chemical_states_domain is None
+        )
+        if absent_chemistry and value._chemical_states_domain.n_chemical_states:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="A topology carrying chemical states cannot replace one with absent chemistry.",
+                caller="molsysmt.native.MolSys",
+            )
+        association = getattr(self, "_structure_chemical_state_indices", None)
+        if association is not None:
+            known = pd.Series(association).dropna()
+            if not known.empty and (
+                absent_chemistry
+                or (known >= value._chemical_states_domain.n_chemical_states).any()
+            ):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason=(
+                        "The structure-to-state association refers to a state "
+                        "outside the replacement topology's ChemicalStates collection."
+                    ),
+                    caller="molsysmt.native.MolSys",
+                )
+        previous = getattr(self, "_topology", None)
+        if previous is not None and previous is not value:
+            previous._molsys_owner_ref = None
+        self._topology = value
+        self._chemical_states_domain = (
+            None if absent_chemistry else value._chemical_states_domain
+        )
+        value._molsys_owner_ref = weakref.ref(self)
+
+    @property
+    def chemical_states(self):
+        """Returning the independent chemical-state information domain."""
+
+        return self._chemical_states_domain
+
+    @chemical_states.setter
+    def chemical_states(self, value):
+        from .chemical_states import ChemicalStates
+
+        if not isinstance(value, ChemicalStates):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="MolSys chemical_states must be a ChemicalStates collection.",
+                caller="molsysmt.native.MolSys",
+            )
+        self._replace_chemical_states(value)
+
+    def _replace_chemical_states(self, value):
+        """Keep one state authority visible through both native domains."""
+
+        if self.topology is not None and value.n_atoms != self.topology.n_atoms:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Chemical states and topology must share an atom-index domain.",
+                caller="molsysmt.native.MolSys",
+            )
+        if self.structures is not None:
+            payload = self.structures._frame_payload()
+            if any(payload[name] is not None for name in (
+                "coordinates", "velocities", "b_factor", "occupancy"
+            )) and value.n_atoms != self.structures.n_atoms:
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason="Chemical states and structures must share an atom-index domain.",
+                    caller="molsysmt.native.MolSys",
+                )
+        if any(
+            result.n_atoms != value.n_atoms
+            for result in getattr(self, "_interactions", {}).values()
+        ):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Chemical states and interactions must share an atom-index domain.",
+                caller="molsysmt.native.MolSys",
+            )
+        value._replace_states(value._states, value._reference_index)
+        association = getattr(self, "_structure_chemical_state_indices", None)
+        if association is not None:
+            known = pd.Series(association).dropna()
+            if not known.empty and (known >= value.n_chemical_states).any():
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason=(
+                        "The structure-to-state association refers to a state "
+                        "outside the replacement ChemicalStates collection."
+                    ),
+                    caller="molsysmt.native.MolSys",
+                )
+        self._chemical_states_domain = value
+        if self.topology is not None:
+            self.topology._chemical_states_domain = value
 
     @signal(tags=["native"])
     @arg_digest()
@@ -132,11 +341,79 @@ class MolSys:
         self.structures = Structures(skip_digestion=True)
         self.molecular_mechanics = MolecularMechanics()
         self._structure_chemical_state_indices = None
+        self._interactions = {}
+
+    @classmethod
+    def _from_partial_domains(cls, *, chemical_states=None, topology=None,
+                              structures=None, interactions=None):
+        """Build a private partial-domain probe without inventing missing layers."""
+
+        from .chemical_states import ChemicalStates
+        from .structures import Structures
+        from .topology import Topology
+
+        if chemical_states is not None and not isinstance(chemical_states, ChemicalStates):
+            raise TypeError("chemical_states must be native ChemicalStates or None.")
+        if topology is not None and not isinstance(topology, Topology):
+            raise TypeError("topology must be native Topology or None.")
+        if structures is not None and not isinstance(structures, Structures):
+            raise TypeError("structures must be native Structures or None.")
+        if (topology is None and structures is None and chemical_states is None
+                and not interactions):
+            raise ValueError("A partial MolSys needs at least one information domain.")
+        if chemical_states is None and topology is not None:
+            if topology._chemical_states_domain.n_chemical_states:
+                raise ValueError("A topology without a chemical-state layer must have no states.")
+        if (topology is not None and chemical_states is not None
+                and topology.n_atoms != chemical_states.n_atoms):
+            raise ValueError("Topology and chemical states must share an atom domain.")
+        if structures is not None:
+            payload = structures._frame_payload()
+            has_atom_axis = any(payload[name] is not None for name in (
+                "coordinates", "velocities", "b_factor", "occupancy"
+            ))
+            if has_atom_axis:
+                if chemical_states is not None and structures.n_atoms != chemical_states.n_atoms:
+                    raise ValueError("Structures and chemical states must share an atom domain.")
+                if topology is not None and structures.n_atoms != topology.n_atoms:
+                    raise ValueError("Structures and topology must share an atom domain.")
+
+        from .molecular_mechanics import MolecularMechanics
+
+        result = object.__new__(cls)
+        result._topology = None
+        result._chemical_states_domain = chemical_states
+        result.structures = structures
+        result.molecular_mechanics = MolecularMechanics()
+        result._structure_chemical_state_indices = None
+        result._interactions = {}
+        if topology is not None:
+            result.topology = topology
+            if chemical_states is not None:
+                result.chemical_states = chemical_states
+        result.interactions = {} if interactions is None else interactions
+        return result
 
     def __setstate__(self, state):
         """Restore a molecular system and finish coordinated legacy migration."""
 
+        legacy_topology = state.pop("topology", None)
+        state.pop("_chemical_states", None)
+        had_chemical_states = "_chemical_states_domain" in state
+        chemical_states = state.pop("_chemical_states_domain", None)
         self.__dict__.update(state)
+        if legacy_topology is not None:
+            self.topology = legacy_topology
+            if had_chemical_states and chemical_states is None:
+                self._chemical_states_domain = None
+        elif self._topology is None:
+            self._chemical_states_domain = chemical_states
+        else:
+            self._chemical_states_domain = (
+                None if had_chemical_states and chemical_states is None
+                else self._topology._chemical_states_domain
+            )
+            self._topology._molsys_owner_ref = weakref.ref(self)
         if "_structure_chemical_state_indices" not in self.__dict__:
             legacy_indices = getattr(self.structures, "_chemical_state_indices", None)
             self._structure_chemical_state_indices = (
@@ -150,7 +427,13 @@ class MolSys:
                     dtype="Int64",
                 )
             )
-        self.structures.__dict__.pop("_chemical_state_indices", None)
+        if "_interactions" not in self.__dict__:
+            self._interactions = {}
+        if self.structures is not None:
+            self.structures.__dict__.pop("_chemical_state_indices", None)
+        if self.topology is None:
+            self._validate_interactions(self._interactions)
+            return
         topology_formal_charge = getattr(self.topology, "_legacy_formal_charge", None)
         mechanics_formal_charge = getattr(
             self.molecular_mechanics, "_legacy_formal_charge", None
@@ -197,12 +480,15 @@ class MolSys:
         for owner in (self.topology, self.molecular_mechanics):
             owner.__dict__.pop("_legacy_formal_charge", None)
             owner.__dict__.pop("_legacy_partial_charge", None)
+        self._validate_interactions(self._interactions)
 
     def _get_structure_chemical_state_indices(
         self, structure_indices="all", resolved=True
     ):
         """Return explicit or implicitly resolved state indices aligned to structures."""
 
+        if self.structures is None:
+            raise ValueError("Structure-to-state associations require structures.")
         n_structures = self.structures.n_structures
         if is_all(structure_indices):
             indices = np.arange(n_structures, dtype=np.int64)
@@ -221,12 +507,13 @@ class MolSys:
                 )
 
         if self._structure_chemical_state_indices is None:
-            if resolved and len(self.topology._chemical_states) == 1:
+            if (resolved and self.chemical_states is not None
+                    and self.chemical_states.n_chemical_states == 1):
                 return pd.array(np.zeros(len(indices), dtype=np.int64), dtype="Int64")
             return pd.array([pd.NA] * len(indices), dtype="Int64")
 
         values = self._structure_chemical_state_indices[indices]
-        n_states = len(self.topology._chemical_states)
+        n_states = 0 if self.chemical_states is None else self.chemical_states.n_chemical_states
         known = pd.Series(values).dropna()
         if not known.empty and ((known < 0).any() or (known >= n_states).any()):
             from molsysmt._private.smonitor import StructuralInconsistencyError
@@ -240,6 +527,10 @@ class MolSys:
     def _set_structure_chemical_state_indices(self, values, structure_indices="all"):
         """Set nullable state indices for all or selected structures."""
 
+        if self.structures is None:
+            raise ValueError("Structure-to-state associations require structures.")
+        if self.chemical_states is None and values is not None:
+            raise ValueError("Structure-to-state associations require chemical states.")
         n_structures = self.structures.n_structures
         if is_all(structure_indices):
             indices = np.arange(n_structures, dtype=np.int64)
@@ -278,7 +569,7 @@ class MolSys:
                 )
 
         array = pd.array(normalized, dtype="Int64")
-        n_states = len(self.topology._chemical_states)
+        n_states = self.chemical_states.n_chemical_states
         known = pd.Series(array).dropna()
         if not known.empty and ((known < 0).any() or (known >= n_states).any()):
             from molsysmt._private.smonitor import StructuralInconsistencyError
@@ -339,7 +630,49 @@ class MolSys:
         copy_if_all=True,
         skip_digestion=False,
     ):
-        """Return a copy or subset of the molecular system."""
+        """Extracting atoms and structures into a native molecular system.
+
+        Parameters
+        ----------
+        atom_indices : str or array_like, default='all'
+            Atom indices to retain. A topology-free system requires unique
+            valid indices when this axis is selected explicitly.
+        structure_indices : str or array_like, default='all'
+            Structure indices to retain in the given order; repeated indices
+            are allowed when a structure-index domain is declared.
+        copy_if_all : bool, default=True
+            Whether to return an independent copy when both selections are
+            ``'all'``.
+        skip_digestion : bool, default=False
+            Whether to skip argument validation for a trusted internal call.
+
+        Returns
+        -------
+        MolSys
+            Molecular system with present domains and named interactions
+            remapped to the selected index spaces.
+
+        Raises
+        ------
+        ValueError
+            If an explicit selection uses an absent index domain or cannot
+            safely remap the available data.
+
+        Notes
+        -----
+        Named interactions can declare both index domains even when the
+        system has no topology or structures. For H5MSM 0.5 examples, see
+        :doc:`/user/tools/form/file/h5msm_05`.
+
+        Examples
+        --------
+        >>> from molsysmt.native import MolSys
+        >>> system = MolSys(n_atoms=2)
+        >>> system.extract(atom_indices=[1]).get_n_atoms()
+        1
+
+        .. versionadded:: 1.0.0
+        """
 
         if is_all(atom_indices) and is_all(structure_indices):
             if copy_if_all:
@@ -348,6 +681,86 @@ class MolSys:
                 return self
 
         else:
+            if self.topology is None:
+                n_atoms = self._get_n_atoms()
+                if not is_all(atom_indices):
+                    if n_atoms is None:
+                        raise ValueError(
+                            "Atom extraction requires a declared atom-index domain."
+                        )
+                    atoms = np.asarray(atom_indices)
+                    if atoms.size == 0:
+                        atoms = np.asarray(atom_indices, dtype=np.int64)
+                    if (atoms.ndim != 1 or atoms.dtype.kind not in "iu"
+                            or np.any(atoms < 0) or np.any(atoms >= n_atoms)
+                            or np.unique(atoms).size != atoms.size):
+                        raise ValueError(
+                            "atom_indices must be unique valid integer indices."
+                        )
+                    atom_indices = atoms.astype(np.int64, copy=False)
+                    if (self.structures is not None
+                            and self.structures.bioassembly is not None):
+                        raise ValueError(
+                            "Atom extraction cannot remap a bioassembly without topology."
+                        )
+                    if any(value is not None for value in
+                           self.molecular_mechanics.to_dict().values()):
+                        raise ValueError(
+                            "Atom extraction cannot remap molecular mechanics "
+                            "without topology."
+                        )
+                if not is_all(structure_indices):
+                    n_structures = self._get_n_structures()
+                    if n_structures is None:
+                        raise ValueError(
+                            "Structure extraction requires a declared structure-index domain."
+                        )
+                    frames = np.asarray(structure_indices)
+                    if frames.size == 0:
+                        frames = np.asarray(structure_indices, dtype=np.int64)
+                    if (frames.ndim != 1 or frames.dtype.kind not in "iu"
+                            or np.any(frames < 0)
+                            or np.any(frames >= n_structures)):
+                        raise ValueError(
+                            "structure_indices must be valid integer indices."
+                        )
+                    structure_indices = frames.astype(np.int64, copy=False)
+
+                states = None
+                if self.chemical_states is not None:
+                    states = (self.chemical_states.copy() if is_all(atom_indices)
+                              else self.chemical_states._extract_atoms(atom_indices))
+                extracted = MolSys._from_partial_domains(
+                    chemical_states=states,
+                    structures=(
+                        None if self.structures is None else
+                        self.structures.extract(
+                            atom_indices=atom_indices,
+                            structure_indices=structure_indices,
+                            copy_if_all=True,
+                            skip_digestion=True,
+                        )
+                    ),
+                    interactions={
+                        name: result.remap(
+                            atom_indices=atom_indices,
+                            structure_indices=structure_indices,
+                        )
+                        for name, result in self.interactions.items()
+                    },
+                )
+                extracted.molecular_mechanics = self.molecular_mechanics.copy()
+                if self._structure_chemical_state_indices is not None:
+                    if is_all(structure_indices):
+                        extracted._structure_chemical_state_indices = (
+                            self._structure_chemical_state_indices.copy()
+                        )
+                    else:
+                        extracted._structure_chemical_state_indices = pd.array(
+                            self._structure_chemical_state_indices[structure_indices],
+                            dtype="Int64",
+                        )
+                return extracted
             if not is_all(atom_indices):
                 atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
 
@@ -441,6 +854,14 @@ class MolSys:
                         dtype="Int64",
                     )
 
+            tmp_item.interactions = {
+                name: result.remap(
+                    atom_indices=atom_indices,
+                    structure_indices=structure_indices,
+                )
+                for name, result in self.interactions.items()
+            }
+
             return tmp_item
 
     @signal(tags=["native"])
@@ -496,6 +917,12 @@ class MolSys:
     ):
         """Adding topology and atom-aligned structures from another MolSys."""
 
+        if item.interactions:
+            raise ValueError(
+                "Adding atoms from a source with interaction analyses "
+                "requires an explicit analysis-merge policy."
+            )
+
         n_atoms_before = self.topology.n_atoms
         n_chains_before = self.topology.n_chains
 
@@ -526,10 +953,15 @@ class MolSys:
             item.molecular_mechanics,
             attribute_policy=attribute_policy,
         )
+        candidate_interactions = {
+            name: _extend_interaction_atoms(result, candidate_topology.n_atoms)
+            for name, result in self.interactions.items()
+        }
 
         self.topology = candidate_topology
         self.structures = candidate_structures
         self.molecular_mechanics = candidate_mechanics
+        self.interactions = candidate_interactions
 
     @arg_digest(form="molsysmt.MolSys")
     def append_structures(
@@ -541,6 +973,12 @@ class MolSys:
         skip_digestion=False,
     ):
         """Append structures from another MolSys while aligning atom indices."""
+
+        if item.interactions:
+            raise ValueError(
+                "Appending structures from a source with interaction analyses "
+                "requires an explicit analysis merge."
+            )
 
         source_topology = item.topology.extract(
             atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
@@ -605,11 +1043,32 @@ class MolSys:
             )
             self._structure_chemical_state_indices = None
             self._set_structure_chemical_state_indices(combined)
+        self.interactions = {
+            name: _extend_interaction_structures(result, self.structures.n_structures)
+            for name, result in self._interactions.items()
+        }
 
     @signal(tags=["native"])
     def copy(self):
         """Deep-copy the MolSys."""
 
+        if self.topology is None or self.chemical_states is None or self.structures is None:
+            tmp_item = MolSys._from_partial_domains(
+                chemical_states=(
+                    None if self.chemical_states is None else self.chemical_states.copy()
+                ),
+                topology=None if self.topology is None else self.topology.copy(),
+                structures=None if self.structures is None else self.structures.copy(),
+                interactions={
+                    name: result.remap() for name, result in self.interactions.items()
+                },
+            )
+            tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+            if self._structure_chemical_state_indices is not None:
+                tmp_item._structure_chemical_state_indices = (
+                    self._structure_chemical_state_indices.copy()
+                )
+            return tmp_item
         tmp_item = MolSys()
         tmp_item.topology = self.topology.copy()
         tmp_item.structures = self.structures.copy()
@@ -618,6 +1077,9 @@ class MolSys:
             tmp_item._structure_chemical_state_indices = (
                 self._structure_chemical_state_indices.copy()
             )
+        tmp_item.interactions = {
+            name: result.remap() for name, result in self.interactions.items()
+        }
         return tmp_item
 
     def add_missing_bonds(
@@ -705,6 +1167,11 @@ class MolSys:
     ):
         """Return a text summary of the MolSys."""
 
+        if self.topology is None:
+            raise ValueError(
+                "MolSys.info requires a topology; inspect chemical_states directly."
+            )
+
         from molsysmt.basic import info as _info
 
         return _info(
@@ -745,7 +1212,28 @@ class MolSys:
         )
 
     def _get_n_atoms(self):
-        return self.topology._get_n_atoms()
+        if self.topology is not None:
+            return self.topology.n_atoms
+        if self.chemical_states is not None:
+            return self.chemical_states.n_atoms
+        if self.structures is not None:
+            payload = self.structures._frame_payload()
+            if any(payload[name] is not None for name in (
+                "coordinates", "velocities", "b_factor", "occupancy"
+            )):
+                return self.structures.n_atoms
+        analyses = getattr(self, "_interactions", {})
+        if analyses:
+            return next(iter(analyses.values())).n_atoms
+        return None
+
+    def _get_n_structures(self):
+        if self.structures is not None:
+            return self.structures.n_structures
+        analyses = getattr(self, "_interactions", {})
+        if analyses:
+            return next(iter(analyses.values())).n_structures
+        return None
 
     def get_n_atoms(self):
-        return self.topology.get_n_atoms()
+        return self._get_n_atoms()

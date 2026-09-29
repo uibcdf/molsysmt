@@ -52,7 +52,7 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     topology_ds = item.file["topology"]
     format_version = item.format_version
 
-    tmp_item = Topology()
+    tmp_item = Topology(n_atoms=len(topology_ds["atoms"]["atom_id"]))
 
     # Atoms
     tmp_item.atoms["atom_id"] = _read_strings(topology_ds["atoms"]["atom_id"])
@@ -149,13 +149,12 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
         )
         state.component_evidence = "unknown"
     else:
-        from molsysmt.form.molsysmt_Topology._h5msm_chemical_states import (
+        from molsysmt.form._h5msm_chemical_states import (
             read_chemical_states,
         )
 
         states, reference_index = read_chemical_states(topology_ds, tmp_item.n_atoms)
-        tmp_item._chemical_states = states
-        tmp_item._reference_chemical_state_index = reference_index
+        tmp_item._chemical_states_domain._replace_states(states, reference_index)
 
     if not is_all(atom_indices):
         tmp_item = tmp_item.extract(atom_indices=atom_indices, skip_digestion=True)

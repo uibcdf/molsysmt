@@ -46,6 +46,7 @@ _LAZY_ATTRIBUTES = {
     "pbc": ".pbc",
     "physchem": ".physchem",
     "molecular_mechanics": ".molecular_mechanics",
+    "h5msm": ".h5msm",
     "interactions": ".interactions",
     "hbonds": ".hbonds",
     "third_party": ".third_party",
@@ -55,6 +56,10 @@ _LAZY_ATTRIBUTES = {
     "pyunitwizard": ("._pyunitwizard", "puw"),
     # Native classes
     "MolSysBuilder": (".native", "MolSysBuilder"),
+    "Interactions": (".interactions.result", "Interactions"),
+    "ChemicalStates": (".native", "ChemicalStates"),
+    "ChemicalStatesDict": (".native", "ChemicalStatesDict"),
+    "InteractionsDict": (".native", "InteractionsDict"),
     "MolSysDict": (".native", "MolSysDict"),
     "TopologyDict": (".native", "TopologyDict"),
     # Basic functions

@@ -72,6 +72,12 @@ CATALOG = {
             "category": "deprecation",
             "level": "WARNING",
         },
+        "LegacyH5MSMWarning": {
+            "code": "MSM-WARN-H5MSM-001",
+            "source": "molsysmt.warning.h5msm_legacy",
+            "category": "deprecation",
+            "level": "WARNING",
+        },
         "CrossChainCovalentBondsWarning": {
             "code": "MSM-WARN-STRUCT-001",
             "source": "molsysmt.warning.cross_chain_bonds",
@@ -382,6 +388,17 @@ CODES = {
         "qa_hint": "Update callsite to the recommended API. Docs: {doc_url}",
         "agent_message": "Deprecated API used in '{caller}'.",
         "agent_hint": "Update callsite to the recommended API. Docs: {doc_url}",
+    },
+    "MSM-WARN-H5MSM-001": {
+        "title": "Legacy H5MSM version",
+        "user_message": "H5MSM {version} is deprecated; reading remains supported.",
+        "user_hint": "Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: {doc_url}",
+        "dev_message": "Legacy H5MSM {version} was read.",
+        "dev_hint": "Use molsysmt.h5msm.migrate_to_05 for a versioned copy.",
+        "qa_message": "Legacy H5MSM {version} read path exercised.",
+        "qa_hint": "Verify source preservation and 0.5 migration coverage.",
+        "agent_message": "H5MSM {version} was read; migrate_to_05 produces the current schema.",
+        "agent_hint": "Keep the source and output paths distinct.",
     },
     "MSM-WARN-STRUCT-001": {
         "title": "Cross-chain covalent bonds",
@@ -934,6 +951,7 @@ CODES = {
 SIGNALS = {
     "molsysmt.warning.selection": {"extra_required": ["caller"]},
     "molsysmt.warning.deprecation": {"extra_required": ["caller"]},
+    "molsysmt.warning.h5msm_legacy": {"extra_required": ["version"]},
     "molsysmt.warning.cross_chain_bonds": {
         "extra_required": ["caller", "count", "pairs"]
     },

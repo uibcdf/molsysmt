@@ -144,8 +144,11 @@ def select(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.basic import where_is_attribute
     from molsysmt.form import _dict_modules
+
+    molecular_system = maybe_read_modular_h5msm(molecular_system)
 
     if (
         chemical_state != "reference"

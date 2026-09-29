@@ -60,6 +60,9 @@ def has_attribute(
       without changing the topology's reference state.
     - Explicit integer state selection currently requires a native Topology or
       MolSys.
+    - For a partial native MolSys, availability depends on the domains that
+      are present. A missing topology or structures domain does not count as
+      an available attribute even with ``include_none=True``.
 
 
     See Also
@@ -91,8 +94,10 @@ def has_attribute(
     """
 
     from molsysmt import get_form
+    from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.form import _dict_modules
 
+    molecular_system = maybe_read_modular_h5msm(molecular_system)
     forms_in = get_form(molecular_system)
 
     if not isinstance(forms_in, (list, tuple)):

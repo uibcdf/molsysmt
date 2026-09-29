@@ -18,7 +18,7 @@ def _native_topologies(molecular_system):
             pending.extend(item)
         elif isinstance(item, MolSys):
             topology = item.topology
-            if id(topology) not in seen:
+            if topology is not None and id(topology) not in seen:
                 seen.add(id(topology))
                 yield topology
         elif isinstance(item, Topology) and id(item) not in seen:
@@ -55,6 +55,13 @@ def resolve_chemical_state(function):
             return function(*args, **kwargs)
 
         molecular_system = arguments.arguments.get("molecular_system")
+        from molsysmt._private.h5msm import maybe_read_modular_h5msm
+
+        native_system = maybe_read_modular_h5msm(molecular_system)
+        if native_system is not molecular_system:
+            arguments.arguments["molecular_system"] = native_system
+            args, kwargs = arguments.args, arguments.kwargs
+            molecular_system = native_system
         if chemical_state == "structure":
             molsystems = list(_native_molsystems(molecular_system))
             if len(molsystems) != 1:

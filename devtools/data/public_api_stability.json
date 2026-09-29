@@ -42,6 +42,10 @@
       "source": "molsysmt/interactions/__init__.py",
       "discovery": "package-init"
     },
+    "molsysmt.h5msm": {
+      "source": "molsysmt/h5msm.py",
+      "discovery": "package-init"
+    },
     "molsysmt.interactions.hbonds": {
       "source": "molsysmt/interactions/hbonds/__init__.py",
       "discovery": "package-init"
@@ -154,6 +158,34 @@
       "owner": "root",
       "documentation": "devguide/api_surface.md",
       "contract_tests": "tests"
+    },
+    "molsysmt.ChemicalStates": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "native",
+      "documentation": "docs/content/user/tools/topology/index.md",
+      "contract_tests": "tests/native/test_chemical_states.py"
+    },
+    "molsysmt.ChemicalStatesDict": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "native",
+      "documentation": "docs/content/user/tools/topology/index.md",
+      "contract_tests": "tests/form/molsysmt_ChemicalStatesDict/test_roundtrip.py"
+    },
+    "molsysmt.Interactions": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions",
+      "documentation": "docs/content/user/tools/interactions/result.md",
+      "contract_tests": "tests/interactions/test_result.py"
+    },
+    "molsysmt.InteractionsDict": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "interactions",
+      "documentation": "docs/content/user/tools/interactions/result.md",
+      "contract_tests": "tests/form/molsysmt_InteractionsDict/test_roundtrip.py"
     },
     "molsysmt.MolSysDict": {
       "stability": "stable",
@@ -796,6 +828,62 @@
       "owner": "hbonds",
       "documentation": "docs/content/user/tools/hbonds",
       "contract_tests": "tests/hbonds"
+    },
+    "molsysmt.h5msm": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "root",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+    },
+    "molsysmt.h5msm.append_structures": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_structures_v05_probe.py"
+    },
+    "molsysmt.h5msm.migrate_04_to_05": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+    },
+    "molsysmt.h5msm.migrate_to_05": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+    },
+    "molsysmt.h5msm.read": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+    },
+    "molsysmt.h5msm.read_layers": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+    },
+    "molsysmt.h5msm.write": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+    },
+    "molsysmt.h5msm.write_layers": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "h5msm",
+      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
     },
     "molsysmt.info": {
       "stability": "stable",

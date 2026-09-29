@@ -5,6 +5,9 @@ from .molsys_builder import MolSysBuilder
 from .molsys_dict import MolSysDict
 from .topology_dict import TopologyDict
 from .topology import Topology
+from .chemical_states import ChemicalStates
+from .chemical_states_dict import ChemicalStatesDict
+from .interactions_dict import InteractionsDict
 from .structures import Structures
 from .molecular_mechanics import MolecularMechanics
 

@@ -1,8 +1,12 @@
+from pathlib import Path
+
 from molsysmt._private.smonitor import ArgumentError
 
 
 def digest_filename(filename, caller=None):
 
+    if isinstance(filename, Path):
+        return str(filename)
     if isinstance(filename, str):
         return filename
 

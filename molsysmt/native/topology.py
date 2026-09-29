@@ -9,6 +9,8 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 
+from .chemical_states import ChemicalStates
+
 _ACTIVE_CHEMICAL_STATE_INDICES = ContextVar(
     "molsysmt_active_chemical_state_indices", default={}
 )
@@ -645,7 +647,40 @@ _ReferenceChemicalStateStorage = _ChemicalStateStorage
 
 
 class Topology:
-    """Native topology container including atoms, groups, chains, and bonds."""
+    """Native stable atom inventory with chemical-state compatibility access."""
+
+    def __setattr__(self, name, value):
+        if name == "chemical_states":
+            raise AttributeError(
+                "Topology has no chemical_states attribute; assign chemical states "
+                "through MolSys.chemical_states."
+            )
+        super().__setattr__(name, value)
+
+    def __getstate__(self):
+        """Exclude a MolSys ownership link from topology serialization."""
+
+        state = self.__dict__.copy()
+        state.pop("_molsys_owner_ref", None)
+        return state
+
+    @property
+    def _chemical_states(self):
+        return self._chemical_states_domain._states
+
+    @_chemical_states.setter
+    def _chemical_states(self, value):
+        self._chemical_states_domain._replace_states(
+            value, self._chemical_states_domain._reference_index
+        )
+
+    @property
+    def _reference_chemical_state_index(self):
+        return self._chemical_states_domain._reference_index
+
+    @_reference_chemical_state_index.setter
+    def _reference_chemical_state_index(self, value):
+        self._chemical_states_domain._set_reference_index(value)
 
     @arg_digest()
     def __init__(
@@ -661,8 +696,12 @@ class Topology:
     ):
         """Initialize empty topology tables with the requested sizes."""
 
-        self._chemical_states = [_ChemicalStateStorage(n_atoms=n_atoms)]
-        self._reference_chemical_state_index = 0
+        self._chemical_states_domain = ChemicalStates(
+            n_atoms=n_atoms, skip_digestion=True
+        )
+        self._chemical_states_domain._append_state(
+            _ChemicalStateStorage(n_atoms=n_atoms), set_as_reference=True
+        )
         self.reset_atoms(n_atoms=n_atoms)
         self.reset_groups(n_groups=n_groups)
         self.reset_components(n_components=n_components)
@@ -1401,41 +1440,17 @@ class Topology:
         """Append an empty private chemical state and return its index."""
 
         state = _ChemicalStateStorage(n_atoms=self.n_atoms, state_id=state_id)
-        self._chemical_states.append(state)
-        state_index = len(self._chemical_states) - 1
-        if len(self._chemical_states) == 1 or set_as_reference:
-            self._reference_chemical_state_index = state_index
-        return state_index
+        return self._chemical_states_domain._append_state(state, set_as_reference)
 
     def _clear_chemical_states(self):
         """Remove all private chemical states without changing stable topology."""
 
-        self._chemical_states = []
-        self._reference_chemical_state_index = None
+        self._chemical_states_domain._replace_states([], None)
 
     def _set_reference_chemical_state_index(self, state_index):
         """Set the private reference-state index after validating it."""
 
-        if state_index is None:
-            self._reference_chemical_state_index = None
-            return
-        if isinstance(state_index, (bool, np.bool_)) or not isinstance(
-            state_index, (int, np.integer)
-        ):
-            raise StructuralInconsistencyError(
-                reason="Reference chemical-state index must be an integer or None.",
-                caller="molsysmt.native.Topology",
-            )
-        state_index = int(state_index)
-        if not 0 <= state_index < len(self._chemical_states):
-            raise StructuralInconsistencyError(
-                reason=(
-                    f"Reference chemical-state index {state_index} is invalid for "
-                    f"{len(self._chemical_states)} states."
-                ),
-                caller="molsysmt.native.Topology",
-            )
-        self._reference_chemical_state_index = state_index
+        self._chemical_states_domain._set_reference_index(state_index)
 
     def _ensure_state_for_mutation(self):
         """Return a reference state, creating one only for an explicit mutation."""
@@ -1471,6 +1486,8 @@ class Topology:
     def __setstate__(self, state):
         """Restore topology state, migrating legacy direct table storage."""
 
+        state.pop("_molsys_owner_ref", None)
+
         if "atoms_dataframe" in state:
             self._restore_legacy_flat_state(state)
             return
@@ -1485,13 +1502,27 @@ class Topology:
         legacy_bonds = state.pop("bonds", None)
         legacy_components = state.pop("components", None)
         legacy_reference_state = state.pop("_reference_chemical_state", None)
+        legacy_states = state.pop("_chemical_states", None)
+        had_legacy_reference_index = "_reference_chemical_state_index" in state
+        legacy_reference_index = state.pop("_reference_chemical_state_index", None)
         self.__dict__.update(state)
+        if "_chemical_states_domain" not in self.__dict__:
+            self._chemical_states_domain = ChemicalStates(
+                n_atoms=self.n_atoms, skip_digestion=True
+            )
+            if legacy_states is not None:
+                self._chemical_states = legacy_states
+                self._reference_chemical_state_index = (
+                    legacy_reference_index
+                    if had_legacy_reference_index
+                    else (0 if len(legacy_states) == 1 else None)
+                )
         if "isotope" not in self.atoms.columns:
             self.atoms.insert(
                 3, "isotope", pd.array([pd.NA] * self.n_atoms, dtype="UInt16")
             )
 
-        if "_chemical_states" not in self.__dict__:
+        if not self._chemical_states and legacy_states is None:
             if legacy_reference_state is None:
                 legacy_reference_state = _ChemicalStateStorage(
                     n_atoms=self.n_atoms,
@@ -1507,7 +1538,7 @@ class Topology:
                 chemical_state.bonds, n_atoms=self.n_atoms
             )
 
-        if "_reference_chemical_state_index" not in self.__dict__:
+        if self._reference_chemical_state_index is None and len(self._chemical_states) == 1:
             self._reference_chemical_state_index = (
                 0 if len(self._chemical_states) == 1 else None
             )
@@ -1756,6 +1787,23 @@ class Topology:
     def reset_atoms(self, n_atoms=0):
         """Reset atoms table to a new size."""
 
+        n_atoms = int(n_atoms)
+        if n_atoms != self._chemical_states_domain.n_atoms:
+            for state in self._chemical_states:
+                if (
+                    len(state.bonds)
+                    or len(state.components)
+                    or state.atom_attributes.shape[1]
+                    or state.component_indices.notna().any()
+                ):
+                    raise StructuralInconsistencyError(
+                        reason=(
+                            "Resetting the atom count would invalidate chemical-state "
+                            "data; extract or remove atoms instead."
+                        ),
+                        caller="molsysmt.native.Topology.reset_atoms",
+                    )
+            self._chemical_states_domain._resize_atom_domain(n_atoms)
         self.atoms = Atoms_DataFrame(n_atoms=n_atoms)
 
     def reset_groups(self, n_groups=0):
@@ -1893,58 +1941,8 @@ class Topology:
                 .astype("Int64")
             )
 
-            atom_index_map = {old: new for new, old in enumerate(atom_indices)}
-            extracted_states = []
-            for source_state in self._chemical_states:
-                source_state._ensure_compatibility(self.n_atoms)
-                source_membership = source_state.component_indices.iloc[
-                    atom_indices
-                ].copy()
-                old_component_indices = source_membership.dropna().unique().tolist()
-                component_index_map = {
-                    old: new for new, old in enumerate(old_component_indices)
-                }
-                extracted_components = source_state.components.iloc[
-                    old_component_indices
-                ].copy()
-                extracted_components.reset_index(drop=True, inplace=True)
-                extracted_membership = source_membership.map(
-                    component_index_map
-                ).astype("Int64")
-                extracted_membership.reset_index(drop=True, inplace=True)
-
-                source_bonds = source_state.bonds
-                mask_atom1 = np.isin(source_bonds["atom1_index"], atom_indices)
-                mask_atom2 = np.isin(source_bonds["atom2_index"], atom_indices)
-                mask = mask_atom1 & mask_atom2
-                extracted_bonds = source_bonds[mask].copy()
-                extracted_bonds.reset_index(drop=True, inplace=True)
-                extracted_bonds = self._remap_bond_atom_indices(
-                    extracted_bonds, atom_index_map
-                )
-                extracted_state = _ChemicalStateStorage(
-                    n_atoms=len(atom_indices),
-                    bonds=self._coerce_bond_table(
-                        extracted_bonds, n_atoms=len(atom_indices)
-                    ),
-                    components=extracted_components,
-                    component_indices=extracted_membership,
-                    state_id=source_state.state_id,
-                    connectivity_completeness=source_state.connectivity_completeness,
-                    component_completeness=source_state.component_completeness,
-                    component_evidence=source_state.component_evidence,
-                    provenance_index=source_state.provenance_index,
-                )
-                extracted_state.atom_attributes = source_state.atom_attributes.iloc[
-                    atom_indices
-                ].copy()
-                extracted_state.atom_attributes.reset_index(drop=True, inplace=True)
-                extracted_state._normalize_atom_attribute_columns()
-                extracted_states.append(extracted_state)
-
-            tmp_item._chemical_states = extracted_states
-            tmp_item._reference_chemical_state_index = (
-                self._reference_chemical_state_index
+            tmp_item._chemical_states_domain = (
+                self._chemical_states_domain._extract_atoms(atom_indices)
             )
             tmp_item.atoms["atom_id"] = tmp_item.atoms["atom_id"].astype("string")
             tmp_item.groups["group_id"] = tmp_item.groups["group_id"].astype("string")
@@ -2034,6 +2032,7 @@ class Topology:
         self.atoms = pd.concat(
             [self.atoms, tmp_item.atoms], ignore_index=True, copy=False
         )
+        self._chemical_states_domain._n_atoms = len(self.atoms)
         self._reference_chemical_state.component_indices = combined_component_indices
         self._reference_chemical_state.atom_attributes = combined_atom_attributes
         self._reference_chemical_state._normalize_atom_attribute_columns()
@@ -2094,8 +2093,7 @@ class Topology:
         tmp_item.molecules = self.molecules.copy()
         tmp_item.entities = self.entities.copy()
         tmp_item.chains = self.chains.copy()
-        tmp_item._chemical_states = [state.copy() for state in self._chemical_states]
-        tmp_item._reference_chemical_state_index = self._reference_chemical_state_index
+        tmp_item._chemical_states_domain = self._chemical_states_domain.copy()
 
         tmp_item._atoms_dirty = self._atoms_dirty
         tmp_item._groups_dirty = self._groups_dirty

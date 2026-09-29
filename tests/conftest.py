@@ -343,11 +343,16 @@ def builder_pdb_handler(builder_pdb_text):
 
 @pytest.fixture(scope="session")
 def _base_builder_h5msm_file(_base_builder_pdb_molsys, tmp_path_factory):
+    from molsysmt.form.molsysmt_MolSys.to_file_h5msm import (
+        to_file_h5msm as write_legacy_h5msm,
+    )
+
     output_path = (
         tmp_path_factory.mktemp("builder_h5msm_assets") / "builder_fixture.h5msm"
     )
-    msm.convert(
-        _base_builder_pdb_molsys, to_form="file:h5msm", output_filename=str(output_path)
+    write_legacy_h5msm(
+        _base_builder_pdb_molsys, output_filename=str(output_path),
+        skip_digestion=True,
     )
     assert output_path.is_file()
     return str(output_path)

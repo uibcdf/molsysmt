@@ -25,9 +25,17 @@ def to_molsysmt_Structures(
     molsysmt.Structures
         Resulting object in molsysmt.Structures form.
 
+    Raises
+    ------
+    ValueError
+        If the source MolSys has no structures domain.
+
 
     .. versionadded:: 1.0.0
     """
+
+    if item.structures is None:
+        raise ValueError("This MolSys has no structures domain to convert.")
 
     tmp_item = item.structures.extract(
         atom_indices=atom_indices,

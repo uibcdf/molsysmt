@@ -163,13 +163,15 @@ def test_h5msm_reader_preserves_nonmonotonic_repeated_frame_order(tmp_path):
 def test_h5msm_dataset_unit_does_not_require_root_unit_fallback(tmp_path):
     import h5py
 
+    from molsysmt.form.molsysmt_Structures.to_file_h5msm import to_file_h5msm
+
     puw = msm.pyunitwizard
     structures = Structures(
         coordinates=puw.quantity(np.ones((1, 1, 3)), "nm"),
         skip_digestion=True,
     )
     output = tmp_path / "dataset-unit.h5msm"
-    msm.convert(structures, to_form="file:h5msm", output_filename=output)
+    to_file_h5msm(structures, output_filename=output)
 
     with h5py.File(output, "r+") as file:
         coordinates = file["structures"]["coordinates"]

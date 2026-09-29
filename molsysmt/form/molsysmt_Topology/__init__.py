@@ -33,6 +33,8 @@ from .remove_bonds import remove_bonds  # noqa: E402
 
 _convert_to = {
     "molsysmt.Topology": "to_molsysmt_Topology",
+    "molsysmt.ChemicalStates": "to_molsysmt_ChemicalStates",
+    "molsysmt.ChemicalStatesDict": "to_molsysmt_ChemicalStatesDict",
     "molsysmt.MolSys": "to_molsysmt_MolSys",
     "molsysmt.TopologyDict": "to_molsysmt_TopologyDict",
     "file:topology_yaml": "to_file_topology_yaml",

@@ -21,8 +21,15 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
 
+    Raises
+    ------
+    ValueError
+        If the source MolSys has no topology domain.
+
 
     .. versionadded:: 1.0.0
     """
 
+    if item.topology is None:
+        raise ValueError("This MolSys has no topology domain to convert.")
     return item.topology.extract(atom_indices=atom_indices, skip_digestion=True)

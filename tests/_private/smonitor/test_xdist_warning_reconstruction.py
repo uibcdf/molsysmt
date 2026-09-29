@@ -102,6 +102,7 @@ SAMPLES = {
         {"message": "setup_logging() is deprecated"},
         "deprecated",
     ),
+    "LegacyH5MSMWarning": ({"version": "0.4"}, "0.4"),
     "UserMolSysMTWarning": (
         {"message": "a plain user warning"},
         "a plain user warning",

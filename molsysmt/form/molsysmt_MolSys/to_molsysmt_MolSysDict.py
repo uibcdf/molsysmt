@@ -40,11 +40,27 @@ def to_molsysmt_MolSysDict(
     molsysmt.MolSysDict
         Resulting object in molsysmt.MolSysDict form.
 
+    Raises
+    ------
+    ValueError
+        If topology, chemical states, or structures are absent, or interaction
+        analyses cannot be represented by MolSysDict 0.1.
+
 
     .. versionadded:: 1.0.0
     """
 
     from .extract import extract
+
+    if item.topology is None or item.chemical_states is None or item.structures is None:
+        raise ValueError(
+            "MolSysDict 0.1 requires topology, chemical states, and structures; partial MolSys "
+            "objects need a versioned modular representation."
+        )
+    if item.interactions:
+        raise ValueError(
+            "MolSysDict 0.1 cannot store MolSys interaction analyses."
+        )
 
     item = extract(
         item,

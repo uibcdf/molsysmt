@@ -44,6 +44,7 @@ from .warnings import (
     DownloadWarning,
     GpuNotAvailableWarning,
     IncompatibleBoxWarning,
+    LegacyH5MSMWarning,
     MemoryPressureWarning,
     MolecularSystemMismatchWarning,
     MolSysMTCatalogWarning,
@@ -84,5 +85,6 @@ __all__ = [
     "UnassessedResidueWarning",
     "StructuralAttributeOffAxisWarning",
     "IncompatibleBoxWarning",
+    "LegacyH5MSMWarning",
     "BioassemblyIdentifierCollisionWarning",
 ]

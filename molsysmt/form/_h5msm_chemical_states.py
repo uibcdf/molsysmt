@@ -1,4 +1,4 @@
-"""Serializing native chemical states in the H5MSM 0.4 layout."""
+"""Serialize chemical-state records for legacy and modular H5MSM layouts."""
 
 import h5py
 import numpy as np
@@ -67,8 +67,8 @@ def _write_nullable_table(group, table, dtypes, dataset_options):
     for name in table.columns:
         if name not in dtypes:
             raise StructuralInconsistencyError(
-                reason=f"H5MSM 0.4 has no declared dtype for column {name!r}.",
-                caller="molsysmt.form.molsysmt_Topology.to_file_h5msm",
+                reason=f"H5MSM has no declared chemical-state dtype for column {name!r}.",
+                caller="molsysmt.form._h5msm_chemical_states",
             )
         values, null_mask, h5_dtype = _dataset_values(table[name], dtypes[name])
         group.create_dataset(name, data=values, dtype=h5_dtype, **dataset_options)
@@ -95,8 +95,8 @@ def _read_nullable_table(group, dtypes, index):
     }
     if unknown:
         raise StructuralInconsistencyError(
-            reason=f"H5MSM 0.4 contains unknown columns {sorted(unknown)}.",
-            caller="molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Topology",
+            reason=f"H5MSM chemical states contain unknown columns {sorted(unknown)}.",
+            caller="molsysmt.form._h5msm_chemical_states",
         )
     return output
 
@@ -127,40 +127,11 @@ def write_chemical_states(topology, topology_group, dataset_options):
     if "chemical_states" in topology_group:
         del topology_group["chemical_states"]
     states_group = topology_group.create_group("chemical_states")
-    states_group.attrs["n_chemical_states"] = len(topology._chemical_states)
     reference_index = topology._reference_chemical_state_index
-    states_group.attrs["reference_chemical_state_index"] = (
-        -1 if reference_index is None else int(reference_index)
+    _write_states_group(
+        states_group, topology._chemical_states, topology.n_atoms,
+        reference_index, dataset_options,
     )
-
-    for state_index, state in enumerate(topology._chemical_states):
-        state._ensure_compatibility(topology.n_atoms)
-        group = states_group.create_group(str(state_index))
-        if state.state_id is not None:
-            group.attrs["state_id"] = state.state_id
-        group.attrs["connectivity_completeness"] = state.connectivity_completeness
-        group.attrs["component_completeness"] = state.component_completeness
-        group.attrs["component_evidence"] = state.component_evidence
-        group.attrs["provenance_index"] = (
-            -1 if state.provenance_index is None else int(state.provenance_index)
-        )
-
-        component_indices = state.component_indices
-        values = component_indices.fillna(-1).to_numpy(dtype=np.int64)
-        group.create_dataset("component_indices", data=values, **dataset_options)
-
-        components = group.create_group("components")
-        _write_nullable_table(
-            components, state.components, _COMPONENT_DTYPES, dataset_options
-        )
-
-        atom_attributes = group.create_group("atom_attributes")
-        _write_nullable_table(
-            atom_attributes, state.atom_attributes, _ATOM_DTYPES, dataset_options
-        )
-
-        bonds = group.create_group("bonds")
-        _write_nullable_table(bonds, state.bonds, _BOND_DTYPES, dataset_options)
 
     for legacy_name in ("components", "bonds"):
         if legacy_name in topology_group:
@@ -193,6 +164,42 @@ def write_chemical_states(topology, topology_group, dataset_options):
         topology_group.attrs["n_bonds"] = -1
 
 
+def _write_states_group(states_group, states, n_atoms, reference_index, dataset_options):
+    """Write state records without depending on their position in the file."""
+    states_group.attrs["n_chemical_states"] = len(states)
+    states_group.attrs["reference_chemical_state_index"] = (
+        -1 if reference_index is None else int(reference_index)
+    )
+
+    for state_index, state in enumerate(states):
+        state._ensure_compatibility(n_atoms)
+        group = states_group.create_group(str(state_index))
+        if state.state_id is not None:
+            group.attrs["state_id"] = state.state_id
+        group.attrs["connectivity_completeness"] = state.connectivity_completeness
+        group.attrs["component_completeness"] = state.component_completeness
+        group.attrs["component_evidence"] = state.component_evidence
+        group.attrs["provenance_index"] = (
+            -1 if state.provenance_index is None else int(state.provenance_index)
+        )
+
+        component_indices = state.component_indices
+        values = component_indices.fillna(-1).to_numpy(dtype=np.int64)
+        group.create_dataset("component_indices", data=values, **dataset_options)
+
+        components = group.create_group("components")
+        _write_nullable_table(
+            components, state.components, _COMPONENT_DTYPES, dataset_options
+        )
+
+        atom_attributes = group.create_group("atom_attributes")
+        _write_nullable_table(
+            atom_attributes, state.atom_attributes, _ATOM_DTYPES, dataset_options
+        )
+
+        bonds = group.create_group("bonds")
+        _write_nullable_table(bonds, state.bonds, _BOND_DTYPES, dataset_options)
+
 def read_chemical_states(topology_group, n_atoms):
     """
     Performing read chemical states on form molsysmt.Topology.
@@ -219,13 +226,17 @@ def read_chemical_states(topology_group, n_atoms):
             reason="H5MSM 0.4 topology is missing its chemical_states group.",
             caller="molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Topology",
         )
-    states_group = topology_group["chemical_states"]
+    return _read_states_group(topology_group["chemical_states"], n_atoms)
+
+
+def _read_states_group(states_group, n_atoms):
+    """Read state records from a group independent of its parent."""
     n_states = int(states_group.attrs.get("n_chemical_states", len(states_group)))
     expected_names = [str(index) for index in range(n_states)]
     if sorted(states_group.keys(), key=int) != expected_names:
         raise StructuralInconsistencyError(
-            reason="H5MSM 0.4 chemical-state indices are not contiguous and ordered.",
-            caller="molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Topology",
+            reason="H5MSM chemical-state indices are not contiguous and ordered.",
+            caller="molsysmt.form._h5msm_chemical_states",
         )
 
     output = []
@@ -279,7 +290,38 @@ def read_chemical_states(topology_group, n_atoms):
     reference_index = int(states_group.attrs.get("reference_chemical_state_index", -1))
     if reference_index >= n_states:
         raise StructuralInconsistencyError(
-            reason="H5MSM 0.4 reference chemical-state index is out of range.",
-            caller="molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Topology",
+            reason="H5MSM reference chemical-state index is out of range.",
+            caller="molsysmt.form._h5msm_chemical_states",
         )
     return output, None if reference_index < 0 else reference_index
+
+
+def write_independent_chemical_states(root, states, dataset_options=None):
+    """Write a standalone chemical-state layer under an H5MSM 0.5 root."""
+    if "chemical_states" in root:
+        raise ValueError("The chemical_states layer already exists.")
+    group = root.create_group("chemical_states")
+    group.attrs["schema_version"] = 1
+    group.attrs["n_atoms"] = states.n_atoms
+    _write_states_group(
+        group, states._states, states.n_atoms, states._reference_index,
+        {} if dataset_options is None else dataset_options,
+    )
+
+
+def read_independent_chemical_states(root):
+    """Read an optional standalone chemical-state layer from H5MSM 0.5."""
+    from molsysmt.native.chemical_states import ChemicalStates
+
+    if "chemical_states" not in root:
+        return None
+    group = root["chemical_states"]
+    if group.attrs.get("schema_version") != 1 or "n_atoms" not in group.attrs:
+        raise ValueError("Unsupported H5MSM 0.5 chemical-state layer schema.")
+    n_atoms = int(group.attrs["n_atoms"])
+    if n_atoms < 0:
+        raise ValueError("Chemical-state atom count must be nonnegative.")
+    records, reference_index = _read_states_group(group, n_atoms)
+    states = ChemicalStates(n_atoms=n_atoms, skip_digestion=True)
+    states._replace_states(records, reference_index)
+    return states

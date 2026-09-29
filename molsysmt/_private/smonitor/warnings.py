@@ -47,6 +47,18 @@ class MolSysMTDeprecationWarning(DeprecationWarning):
     pass
 
 
+class LegacyH5MSMWarning(UserMolSysMTWarning):
+    """Warning about reading an H5MSM schema older than 0.5."""
+
+    catalog_key = "LegacyH5MSMWarning"
+
+    def __init__(self, message=None, *, version=None):
+        if message is not None:
+            super().__init__(message)
+            return
+        super().__init__(message, extra={"version": version})
+
+
 class CrossChainCovalentBondsWarning(MolSysMTCatalogWarning):
     catalog_key = "CrossChainCovalentBondsWarning"
 
@@ -360,6 +372,7 @@ __all__ = [
     "UserMolSysMTWarning",
     "SelectionWarning",
     "MolSysMTDeprecationWarning",
+    "LegacyH5MSMWarning",
     "CrossChainCovalentBondsWarning",
     "DownloadWarning",
     "NotDigestedArgumentWarning",

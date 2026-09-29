@@ -86,6 +86,7 @@ def append_structures(
             skip_digestion=True,
         )
     else:
+        existing_analyses = dict(to_item.interactions)
         old_n_structures = to_item.structures.n_structures
         old_state_indices = to_item._get_structure_chemical_state_indices(resolved=True)
         to_item.structures.append(
@@ -125,5 +126,13 @@ def append_structures(
             combined = pd.array(list(old_state_indices) + incoming, dtype="Int64")
             to_item._structure_chemical_state_indices = None
             to_item._set_structure_chemical_state_indices(combined)
+
+        if existing_analyses and n_new_structures:
+            from molsysmt.native.molsys import _extend_interaction_structures
+
+            to_item.interactions = {
+                name: _extend_interaction_structures(result, to_item.structures.n_structures)
+                for name, result in existing_analyses.items()
+            }
 
     pass
