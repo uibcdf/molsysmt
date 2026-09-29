@@ -4,7 +4,7 @@ import json
 
 import numpy as np
 
-from .result import _indices, _unique_in_order
+from .result import _indices, _software_versions, _unique_in_order
 
 
 def _dataset(group, path, cache=None):
@@ -247,6 +247,7 @@ def query_interactions_group(group, structure_indices, *, atom_indices=None,
         "source_n_atoms": int(metadata.get("source_n_atoms", n_atoms)),
         "source_n_structures": int(metadata.get("source_n_structures", n_structures)),
         "source_id": metadata.get("source_id"),
+        "software": _software_versions(metadata.get("software")),
         "method": metadata["method"],
         "parameters": metadata["parameters"],
         "evaluation_mode": metadata["evaluation_mode"],

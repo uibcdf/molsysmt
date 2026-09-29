@@ -64,6 +64,7 @@ def _encode_interactions(result):
         "method": result.method,
         "parameters": deepcopy(result.parameters),
         "source_id": result.source_id,
+        "software": result.software.copy(),
     }
     data.update(
         (name, None if getattr(result, name) is None else getattr(result, name).copy())
@@ -131,6 +132,7 @@ def _decode_interactions(payload):
         method=data["method"],
         parameters=deepcopy(data["parameters"]),
         source_id=data["source_id"],
+        software=data.get("software"),
         occurrence_image_offsets=(
             None if data["occurrence_image_offsets"] is None
             else data["occurrence_image_offsets"].copy()

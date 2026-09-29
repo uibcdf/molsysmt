@@ -96,7 +96,15 @@ identity. The disulfide API is Experimental in the public stability registry.
 The experimental `molsysmt.Interactions` class stores one method's typed observations,
 relation participants and roles, explicit evaluated-structure coverage,
 declared atom search scope, measurement units, evidence labels, and optional
-periodic image vectors. Its
+periodic image vectors. Its `software` dictionary maps software names to the
+versions that produced the observations. Buch and disulfide adapters capture
+`{"molsysmt": molsysmt.__version__}` during calculation. Views, remapping,
+invalidation, InteractionsDict, standalone HDF5, selective HDF5 projections,
+and H5MSM 0.5 preserve this metadata. The optional field is stored once per
+analysis in schema-1 metadata, without a per-occurrence column. Readers of
+older payloads with no field return `{}`: unknown producer versions are never
+filled from the installed reader version. External producers may supply their
+own name/version entries through `from_records(software=...)`. Its
 `query` method supports local-index structure lists and atom-set `incident`,
 `internal`, and `cross` semantics; `between` supports disjoint atom sets.
 `from_records`, `to_dict`, `relation`, `remap`, `invalidate_structures`, `save`, and

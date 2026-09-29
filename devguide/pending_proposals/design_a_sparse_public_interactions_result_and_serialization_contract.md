@@ -38,18 +38,45 @@ future work, not release gates. This decision refines earlier fingerprint
 and revision proposals below; invalidation after a known geometry or chemistry
 change remains required. The current policy is recorded in
 [the interaction API contract](../interactions_api.md#associating-analyses-with-a-system).
-MolSysViewer may request a user declaration when loading an independent file
-and may apply stricter checks within its own interface. It has not yet
-accepted this policy; the maintainer will relay the response.
+MolSysViewer accepts this policy after reviewing commit `2e79b5f29` and
+reports 27 passing focused tests. It will request a user declaration when
+loading an independent file, require explicit alignment when ordering differs,
+and treat labels and maps as provenance. It acknowledges the current remap
+limit: a subsystem analysis cannot be embedded into a larger target. Its
+initial computation workflow uses Buch and disulfide candidates;
+Luzard-Chandler is outside that initial client scope. Canvas and session
+round trips remain the consumer integration gate.
 
 The client plans three routes to the same named analysis collection:
 opening a system with analyses, loading a separate analysis, and requesting
 MolSysMT calculation followed by explicit client attachment. Its main API
 and UI will own these workflows, with a gradual migration from its addon.
 MolSysMT detectors continue returning results without attaching them.
-Software-version provenance in detector results remains a separate open
-requirement alongside the Luzard–Chandler adapter; neither should be claimed
-complete because Buch and disulfide results carry method parameters and units.
+The software-version requirement is implemented in the checkpoint below.
+Luzard–Chandler remains MolSysMT work even though it is outside the client's
+initial integration scope.
+
+**Calculation-time software provenance, 2026-09-29:** `Interactions.software`
+is an optional dictionary of nonempty software names and producer-version
+strings. Buch and disulfide adapters capture the MolSysMT version during
+calculation. The field survives query projections, remapping, invalidation,
+copying, InteractionsDict, standalone HDF5, selective HDF5 projections, and
+public H5MSM conversion. It is additive, optional analysis metadata in the
+existing schema-1 codecs; it adds no per-occurrence arrays. Readers of older
+payloads without the field preserve unknown provenance as `{}` and never
+infer the calculation version from the reader's installed package.
+`tests/interactions/test_software_provenance.py` uses different producer,
+writer, and reader versions to protect that distinction, including empty
+evaluated frames and old payloads. This supersedes the earlier open
+software-version statements below; the result remains Experimental until
+the real MolSysViewer integration gate passes.
+
+Validation for this checkpoint: 95 focused tests passed across
+`tests/interactions`, `tests/hbonds`, `tests/form/molsysmt_InteractionsDict`,
+and `tests/form/file_h5msm/test_public_h5msm_v05.py`. Four doctests passed in
+the result, Buch, and disulfide modules. The runs emitted expected legacy
+H5MSM 0.4 deprecation warnings from bundled systems. Dependency validation
+passed; no new dependency is introduced.
 
 **Public conversion evidence, 2026-09-29:**
 `tests/interactions/test_public_molsys_h5msm_workflow.py::test_public_convert_preserves_multiple_named_analyses_and_sparse_columns`

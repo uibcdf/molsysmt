@@ -42,6 +42,9 @@ This assignment declares that the analysis's local atom and structure indices
 correspond to the system. MolSysMT checks compatible axes and valid results;
 you are responsible for the correspondence of independently loaded data.
 Source labels and maps retain provenance without authenticating that origin.
+Each analysis's `software` dictionary records its producer versions; saving
+or loading the system preserves those versions rather than substituting
+the version installed by the reader. An empty dictionary means unknown.
 See
 {doc}`the interaction result guide <../../../tools/interactions/result>`
 for participant roles, evaluated coverage, and experimental detector limits.

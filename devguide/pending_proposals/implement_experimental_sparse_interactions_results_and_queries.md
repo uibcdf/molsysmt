@@ -26,8 +26,13 @@ not remaining 1.0 gates. This refines the earlier source-fingerprint proposals
 in this report without removing invalidation for known scientific changes.
 MolSysViewer's request and the accepted decision are recorded in
 [the result design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md).
-Its acceptance of this policy remains pending. Explicit software-version
-provenance in detector outputs remains open, together with Luzard–Chandler.
+MolSysViewer accepts this policy after reviewing `2e79b5f29`, reports 27
+focused passing tests, and excludes Luzard-Chandler from its initial client
+scope. `Interactions.software` now preserves the calculation-time version
+through views, edits, dictionaries, and H5MSM. Buch and disulfide candidates
+populate it; old payloads without it remain unknown rather than adopting
+the reader version. The guard is `tests/interactions/test_software_provenance.py`.
+Luzard–Chandler remains in the MolSysMT implementation scope.
 
 ## Buch detector result adapter (2026-09-29)
 

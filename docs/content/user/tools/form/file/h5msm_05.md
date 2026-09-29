@@ -20,6 +20,12 @@ Native `MolSys` round trips also support structures and attached interactions
 without topology or chemical states, provided their atom and structure axes
 are explicitly linked in the file.
 
+Each analysis's `software` dictionary retains the versions that produced its
+observations. For example, a Buch result records the MolSysMT version used
+for calculation. A different writer or reader version does not replace that
+value. The optional metadata is stored once per named analysis; older analyses
+without it expose an empty dictionary, meaning unknown producer versions.
+
 ## Writing and reading a molecular system
 
 ```python

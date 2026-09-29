@@ -106,6 +106,15 @@ It avoids one Python dictionary per occurrence. It is a typed Python payload,
 not JSON data. A query view's `to_dict()` has a different purpose: it reports
 selected occurrences and cannot reconstruct the full result.
 
+`interactions.software` maps producer software names to the versions used
+when calculating the observations. The Buch and disulfide adapters record
+`{"molsysmt": msm.__version__}` at calculation time. The dictionary also
+appears in query projections and survives conversion, remapping, invalidation,
+and H5MSM persistence. Saving or loading with another MolSysMT version does
+not replace the producer version. Older results without this metadata expose
+`{}`, meaning unknown. When constructing an analysis from an external
+detector, you can declare its versions with `software={"detector_name": "1.2"}`.
+
 ```python
 interactions.save("observations.h5i")
 restored = msm.Interactions.load("observations.h5i")

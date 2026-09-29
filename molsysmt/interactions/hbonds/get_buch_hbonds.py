@@ -91,6 +91,8 @@ def get_buch_hbonds(
     The detector returns an independent analysis. Attach it to
     ``molsys.interactions`` under an explicit name to retain it with the system.
     This method uses eager execution and does not stream large trajectories.
+    The optional analysis records the calculation-time MolSysMT version in
+    ``software``; serialization preserves it independently of the reader version.
 
     Examples
     --------

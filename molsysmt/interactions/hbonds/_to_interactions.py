@@ -11,6 +11,7 @@ def to_buch_interactions(molecular_system, structure_indices, donors, acceptors,
                          atoms, distances, distance_threshold, pbc,
                          donors_2=None, acceptors_2=None):
     """Describe the searched universe and the images of observed Buch triples."""
+    from molsysmt import __version__
     from molsysmt.basic import get
     from molsysmt.interactions.result import Interactions
 
@@ -73,6 +74,7 @@ def to_buch_interactions(molecular_system, structure_indices, donors, acceptors,
         records, n_atoms=n_atoms, n_structures=n_structures,
         evaluated_structure_indices=frames,
         method="molsysmt.interactions.hbonds.get_buch_hbonds",
+        software={"molsysmt": __version__},
         parameters={
             "distance_threshold_nm": float(puw.get_value(
                 distance_threshold, to_unit="nanometers")),

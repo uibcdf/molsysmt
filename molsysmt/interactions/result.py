@@ -46,6 +46,19 @@ def _scope_indices(values, limit, name):
     return np.unique(_indices(values, limit, name))
 
 
+def _software_versions(software):
+    """Validate declared producer versions without inferring the reader version."""
+    if software is None:
+        return {}
+    if not isinstance(software, dict) or any(
+        not isinstance(name, str) or not name.strip()
+        or not isinstance(version, str) or not version.strip()
+        for name, version in software.items()
+    ):
+        raise ValueError("software must map nonempty software names to nonempty version strings")
+    return software.copy()
+
+
 class Interactions:
     """Storing sparse interaction observations and querying their participants.
 
@@ -61,6 +74,8 @@ class Interactions:
     Attaching it declares that its local indices correspond to the target
     system. The caller is responsible for that correspondence; source maps
     and the optional ``source_id`` label do not authenticate molecular origin.
+    ``software`` records producer versions declared when observations were
+    calculated. Missing versions remain unknown when loading older payloads.
 
     .. versionadded:: 1.0.0
     """
@@ -75,7 +90,7 @@ class Interactions:
                  structure_source_indices=None, source_n_atoms=None,
                  source_n_structures=None, evaluation_mode="internal",
                  evaluation_atom_indices=None, evaluation_atom_indices_b=None,
-                 evaluation_universe_indices=None):
+                 evaluation_universe_indices=None, software=None):
         self.n_atoms = int(n_atoms)
         self.n_structures = int(n_structures)
         self.source_n_atoms = (
@@ -144,6 +159,7 @@ class Interactions:
         self.method = str(method)
         self.parameters = dict(parameters or {})
         self.source_id = source_id
+        self.software = _software_versions(software)
         self._positions = np.arange(len(self.occurrence_relations), dtype=np.int64)
         self._coverage = self.evaluated_structure_indices
         self._is_full = True
@@ -261,7 +277,7 @@ class Interactions:
                      structure_source_indices=None, source_n_atoms=None,
                      source_n_structures=None, evaluation_mode="internal",
                      evaluation_atom_indices=None, evaluation_atom_indices_b=None,
-                     evaluation_universe_indices=None):
+                     evaluation_universe_indices=None, software=None):
         """Building a sparse result from frame-specific interaction records.
 
         Parameters
@@ -287,6 +303,11 @@ class Interactions:
             Unit for every measurement column; use ``"dimensionless"`` for scores.
         parameters : dict or None, default=None
             Method parameters used for this result.
+        software : dict or None, default=None
+            Software names mapped to the version strings that produced the
+            observations. None records unknown versions, without using the
+            installed reader version. MolSysMT detector adapters capture
+            ``{"molsysmt": molsysmt.__version__}`` when calculating the result.
         source_id : str or None, default=None
             Optional provenance label supplied by the caller. It is not a verified
             fingerprint of the molecular system.
@@ -394,7 +415,7 @@ class Interactions:
             occurrence_evidence=[row[2] for row in rows],
             measurements={name: [row[3].get(name, np.nan) for row in rows]
                           for name in units}, measure_units=units, method=method,
-            parameters=parameters, source_id=source_id,
+            parameters=parameters, source_id=source_id, software=software,
             occurrence_image_offsets=image_offsets, image_vectors=image_vectors,
             atom_source_indices=atom_source_indices,
             structure_source_indices=structure_source_indices,
@@ -723,6 +744,7 @@ class Interactions:
             "source_n_atoms": self.source_n_atoms,
             "source_n_structures": self.source_n_structures,
             "source_id": self.source_id,
+            "software": self.software.copy(),
             "evaluated_structure_indices": self._coverage.copy(),
             "occurrence_indices": positions.copy(),
             "structure_indices": self.occurrence_structures[positions].copy(),
@@ -883,6 +905,7 @@ class Interactions:
             method=self.method,
             parameters=self.parameters,
             source_id=self.source_id,
+            software=self.software,
             atom_source_indices=self.atom_source_indices[atoms].copy(),
             structure_source_indices=self.structure_source_indices[frames].copy(),
             source_n_atoms=self.source_n_atoms,
@@ -968,6 +991,7 @@ class Interactions:
             method=self.method,
             parameters=self.parameters,
             source_id=self.source_id,
+            software=self.software,
             atom_source_indices=self.atom_source_indices.copy(),
             structure_source_indices=self.structure_source_indices.copy(),
             source_n_atoms=self.source_n_atoms,
@@ -1012,6 +1036,7 @@ class Interactions:
             "source_n_structures": self.source_n_structures,
             "method": self.method, "parameters": self.parameters,
             "source_id": self.source_id, "measure_units": self.measure_units,
+            "software": self.software,
             "evaluation_mode": self.evaluation_mode,
         })
         query_index = group.create_group("query_index")
@@ -1146,6 +1171,7 @@ class Interactions:
                           in group["measurements"].items()},
             measure_units=metadata["measure_units"], method=metadata["method"],
             parameters=metadata["parameters"], source_id=metadata["source_id"],
+            software=metadata.get("software"),
             occurrence_image_offsets=(
                 group["occurrence_image_offsets"][:]
                 if "occurrence_image_offsets" in group else None

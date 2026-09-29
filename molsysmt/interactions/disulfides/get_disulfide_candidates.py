@@ -63,6 +63,8 @@ def get_disulfide_candidates(
     -----
     Candidate pairs are observations in individual structures. They do not
     change the molecular topology or imply that a recorded bond is missing.
+    The optional analysis records the calculation-time MolSysMT version in
+    ``software``, independently of the version used to save or load it.
 
     See Also
     --------
@@ -255,12 +257,15 @@ def _as_interactions(molecular_system, frame_indices, sulfur_indices,
                 record["images"] = [[0, 0, 0], images[index].tolist()]
             records.append(record)
 
+    from molsysmt import __version__
+
     return Interactions.from_records(
         records,
         n_atoms=get(molecular_system, n_atoms=True),
         n_structures=get(molecular_system, n_structures=True),
         evaluated_structure_indices=frame_indices,
         method="molsysmt.interactions.disulfides.get_disulfide_candidates",
+        software={"molsysmt": __version__},
         parameters={
             "max_bond_length_nm": float(puw.get_value(max_bond_length, to_unit="nanometers")),
             "group_names": [str(name) for name in group_names],

@@ -108,6 +108,12 @@ extraction. The {ref}`association guide <user-tools-interactions-association>`
 explains the current checks and limits. The writer is responsible for the
 correspondence of system and analyses stored together in H5MSM.
 
+Inspect `stored.software` or a query projection's `"software"` field to
+recover the versions that produced the observations. MolSysMT's Buch and
+disulfide adapters capture their version during calculation; H5MSM preserves
+it even when saved or loaded by another version. `{}` means the producer
+version was not recorded, as in these manually constructed synthetic records.
+
 The synthetic records above show the container without requiring a detector.
 For a molecular system with eligible cysteine sulfur atoms, the disulfide
 candidate detector can instead return an `Interactions` result with

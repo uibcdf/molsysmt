@@ -27,6 +27,17 @@ alignment. Optional provenance labels and source maps are not authenticated
 cross-file identity. Automatic origin verification is future work rather
 than a requirement for the 0.5 format or MolSysViewer 1.0 integration.
 
+**Producer provenance, 2026-09-29:** Named analyses now store optional
+`software` metadata mapping software names to calculation-time versions.
+Buch and disulfide adapters capture the MolSysMT version; public conversion
+and layer reading preserve it regardless of the installed writer/reader.
+Old analysis payloads without the field remain unknown (`{}`). The guard
+`tests/interactions/test_software_provenance.py` covers historical versions,
+empty evaluated frames, dictionaries, views, remapping, invalidation, and
+standalone as well as H5MSM persistence. MolSysViewer accepts the declared
+correspondence policy after reviewing `2e79b5f29`; canvas and saved-session
+integration tests remain pending on the client side.
+
 ## Motivation
 
 MolSysMT deliberately accepts molecular-system forms with partial information.
