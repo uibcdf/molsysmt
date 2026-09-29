@@ -4,7 +4,7 @@ This guide is for agents editing the **Tools** section of the User Guide under `
 
 ## Purpose and organization
 
-- Each tools subdirectory (`basic`, `build`, `topology`, `structure`, `pbc`, `physchem`, `hbonds`, `molecular_mechanics`, `element`, `form`, `thirds`) groups tutorials for related functions.
+- Each tools subdirectory (`basic`, `build`, `topology`, `structure`, `pbc`, `physchem`, `hbonds`, `interactions`, `molecular_mechanics`, `element`, `form`, `thirds`) groups tutorials for related functions.
 - The main index `tools/index.md` presents these groups as a grid of cards and a hidden toctree; maintain this structure when adding new groups.
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files

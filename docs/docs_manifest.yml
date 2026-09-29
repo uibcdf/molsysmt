@@ -91,6 +91,12 @@ sections:
         index_file: docs/content/user/tools/hbonds/index.md
         index_agents_file: docs/content/user/tools/hbonds/index.AGENTS.md
         status: pending_review
+      - name: interactions
+        path: docs/content/user/tools/interactions
+        agents_file: docs/content/user/tools/interactions/AGENTS.md
+        index_file: docs/content/user/tools/interactions/index.md
+        index_agents_file: docs/content/user/tools/interactions/index.AGENTS.md
+        status: in_progress
       - name: molecular_mechanics
         path: docs/content/user/tools/molecular_mechanics
         agents_file: docs/content/user/tools/molecular_mechanics/AGENTS.md
@@ -109,6 +115,9 @@ sections:
         index_file: docs/content/user/tools/form/index.md
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
+        pages:
+          - file: docs/content/user/tools/form/file/h5msm_05.md
+            agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
       - name: thirds
         path: docs/content/user/tools/thirds
         agents_file: docs/content/user/tools/thirds/AGENTS.md
@@ -155,6 +164,11 @@ sections:
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
+      - name: querying_sparse_interactions
+        file: docs/content/user/cookbook/querying_sparse_interactions.md
+        agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
+      - file: docs/content/user/cookbook/migrating_h5msm.md
+        agents_file: docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md
   showcase:
     path: docs/content/showcase
     status: in_progress

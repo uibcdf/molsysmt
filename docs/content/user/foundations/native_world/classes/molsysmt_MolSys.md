@@ -1,7 +1,7 @@
 (user-foundations-native-world-classes-molsysmt-molsys)=
 # MolSys
 
-`molsysmt.MolSys` is the primary native unified molecular system container in MolSysMT. It composes the topological graph, 3D structures sequence or ensemble, and molecular mechanics parameter contracts into a single immutable state object.
+`molsysmt.MolSys` is the primary native molecular system container in MolSysMT. It can combine topology, chemical states, a 3D structures sequence or ensemble, named interaction results, and molecular mechanics data.
 
 ---
 
@@ -9,19 +9,27 @@
 
 As a user, `molsysmt.MolSys` is the central object returned when loading, converting, or processing molecular systems. By composing dedicated sub-containers, `MolSys` ensures strict separation of concerns while providing a unified gateway for selections, spatial queries, and form transformations.
 
-`molsysmt.MolSys` instances are treated as immutable state objects. Modifying system composition or atom inventories is handled via `molsysmt.MolSysBuilder` before compiling back to a fresh `MolSys`.
+Some native operations edit a `MolSys` in place; `extract` returns an independent subset. A partial `MolSys` retains only the information domains that were available in its source.
 
 ---
 
 ## Internal Attributes
 
-Inside a `molsysmt.MolSys` instance, three primary core component objects are composed:
+The native container exposes these domains:
 
 | Attribute | Internal Object Class | Description |
 | :--- | :--- | :--- |
 | **`topology`** | `molsysmt.Topology` | Topological graph containing atom, residue, group, component, molecule, and chain inventories. |
 | **`structures`** | `molsysmt.Structures` | Structural container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and frame timestamps. |
+| **`chemical_states`** | `molsysmt.ChemicalStates` | State-dependent covalent bonds and atom-level chemical assignments. |
+| **`interactions`** | Named `molsysmt.Interactions` results | Sparse observations with declared atom and structure index domains. |
 | **`molecular_mechanics`** | `molsysmt.MolecularMechanics` | Forcefield parameters, partial charges, atom masses, and non-bonded interaction rules. |
+
+An H5MSM 0.5 file may load as a partial `MolSys` without topology. If it
+contains only named interactions, those results supply the atom and structure
+index domains. `extract(atom_indices=[...], structure_indices=[...])` remaps
+the present domains and keeps the selected structure order. An axis with no
+declared domain cannot be selected explicitly.
 
 ---
 

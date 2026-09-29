@@ -444,21 +444,51 @@ After the conversion and Rust-only blockers are green:
 
 [`uibcdf/molsysmt#250`](https://github.com/uibcdf/molsysmt/issues/250) and
 [its local proposal](organize_interaction_detection_by_family_before_1_0.md)
-record a **pending**, bounded namespace decision. No implementation or release
-scope change is approved by this entry. If accepted before candidate freeze,
-the proposed 1.0 slice is `molsysmt.interactions` with family modules for the
-existing hydrogen-bond methods and disulfide **candidate** detection, while
+record the accepted namespace migration. The 1.0 slice includes
+`molsysmt.interactions` with family modules for the existing hydrogen-bond
+methods and disulfide **candidate** detection, while
 `molsysmt.build.get_disulfide_bonds` remains available as a build-oriented
 entry point. Distance-only contacts remain in `structure`; recorded covalent
 bonds remain topological data.
 
-The decision gate must settle the result and compatibility contracts before
-code moves. Implementation would then require scientific, documentation,
-course, consumer, API-registry, and exact-commit release recertification. The
-operational status belongs in [`release_1_0_status.md`](../release_1_0_status.md).
-Additional interaction families and a persistent `Interactions` data model
-remain separate post-1.0 proposals unless a new correctness finding changes
-their priority.
+The public `Interactions` result contract (#251), native `MolSys` ownership,
+H5MSM 0.5 persistence, and MolSysViewer integration (#114) are required
+before the 1.0 candidate freeze. Implementation is tracked by #252. These
+changes require scientific, documentation, course, consumer, API-registry, and
+exact-commit release recertification. The operational status belongs in
+[`release_1_0_status.md`](../release_1_0_status.md). Additional interaction
+families and integrations with TopoMT, PharmacophoreMT, and DockingMT may
+follow after 1.0.
+
+The integration gate includes four concrete checks: a `MolSys` with named
+interaction results survives copy and valid selections without losing source
+index meaning; edits remap or explicitly invalidate affected observations;
+the next versioned H5MSM schema round-trips the same data and rejects
+unsupported interaction layers without silent loss; and MolSysViewer can
+query a single frame, nonconsecutive frames, and atom selections against
+both native and H5MSM-loaded results. Large-trajectory reading and writing
+must use bounded memory. H5MSM 0.5 is the accepted pre-1.0 format target:
+topology, chemical states, structures, and interactions are optional sibling
+layers. The numeric 0.4.1 extension candidate is withdrawn. Native
+chemical-state ownership remains a separate design question under the
+attribute-centric proposal; the 0.5 file layout alone does not migrate the
+current Python storage.
+
+The minimal pre-1.0 `MolecularMechanics` object is experimental. H5MSM 0.5
+does not store it; nonempty mechanics data must fail conversion rather than
+be silently discarded. Mechanics persistence is deferred to a separately
+designed H5MSM 0.6 after MolSysMT 1.0, as tracked by
+[its proposal](h5msm_0_6_molecular_mechanics_persistence.md)
+(`uibcdf/molsysmt#256`). That codec is outside the 1.0 release gate.
+
+Before MolSysViewer starts its `view.interactions` module, MolSysMT must
+present a runnable result contract and H5MSM-loaded examples to the
+developers of `uibcdf/molsysviewer#114`. Their concrete feedback must be
+solicited on both the `Interactions` query contract and the H5MSM 0.5 public
+loading and query route, then resolved before stabilizing `Interactions` or
+freezing the MolSysMT 1.0
+candidate. The [design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md)
+defines the review packet and acceptance evidence.
 
 ## Work That Must Not Block 1.0
 
@@ -467,10 +497,12 @@ defect:
 
 - new native PDB, XTC, DCD, or other third-party-independent parsers;
 - Arrow or optional-column memory experiments;
-- reactive chemical states and interaction datasets beyond the accepted 1.0
-  boundary;
+- reactive chemical states and additional interaction families or datasets
+  beyond the accepted 1.0 boundary;
 - fused Rust multi-observable passes and speculative GPU redesign;
 - broad Tier 2 and Tier 3 adapter expansion;
+- H5MSM 0.6 persistence for `MolecularMechanics`, after its native parameter
+  model and index associations are defined;
 - further kernel micro-optimization after release thresholds are met;
 - paper extensions that do not alter the released scientific contract.
 

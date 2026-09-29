@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (25)
+### Open (27)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
@@ -54,24 +54,28 @@ Entries carrying front matter under
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
+- [`h5msm_0_6_molecular_mechanics_persistence.md`](h5msm_0_6_molecular_mechanics_persistence.md) — [#256](https://github.com/uibcdf/molsysmt/issues/256) — Design H5MSM 0.6 persistence for MolecularMechanics *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`preserve_atom_correspondence_through_lossy_molecular_exports.md`](preserve_atom_correspondence_through_lossy_molecular_exports.md) — [#223](https://github.com/uibcdf/molsysmt/issues/223) — Preserve atom correspondence through lossy molecular exports *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
 - [`read_pdbqt_pose_ensembles_against_a_known_ligand_source.md`](read_pdbqt_pose_ensembles_against_a_known_ligand_source.md) — [#226](https://github.com/uibcdf/molsysmt/issues/226) — Read PDBQT pose ensembles against a known ligand source *(inspected)*
 - [`report_receptor_residue_chemistry_and_preparation_coverage.md`](report_receptor_residue_chemistry_and_preparation_coverage.md) — [#218](https://github.com/uibcdf/molsysmt/issues/218) — Report receptor residue chemistry and preparation coverage *(inspected)*
+- [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Retire Topology.bonds after 1.0 in favor of ChemicalStates *(inspected)*
+  Blocked by uibcdf/molsysmt#254.
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
 
-### In progress (5)
+### In progress (6)
 
 - [`audit_dependency_contracts_across_packaging_environments_and_ci.md`](audit_dependency_contracts_across_packaging_environments_and_ci.md) — [#245](https://github.com/uibcdf/molsysmt/issues/245) — Audit dependency contracts across packaging, environments, and CI *(reproduced)*
-- [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(inspected)*
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`extend_molsysmt_python_support_to_3_14.md`](extend_molsysmt_python_support_to_3_14.md) — [#237](https://github.com/uibcdf/molsysmt/issues/237) — Extend MolSysMT Python support to 3.14. *(measured)*
+- [`implement_experimental_sparse_interactions_results_and_queries.md`](implement_experimental_sparse_interactions_results_and_queries.md) — [#252](https://github.com/uibcdf/molsysmt/issues/252) — Implement experimental sparse Interactions results and queries *(measured)*
 - [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(inspected)*
+- [`promote_chemical_states_to_a_native_molsys_domain.md`](promote_chemical_states_to_a_native_molsys_domain.md) — [#254](https://github.com/uibcdf/molsysmt/issues/254) — Promote ChemicalStates to an independent native MolSys domain *(inspected)*
 
 ### Blocked (2)
 
@@ -80,8 +84,9 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (2)
+### Partially resolved (3)
 
+- [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(measured)*
 - [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
 - [`review_python_ecosystem_policy_adoption.md`](review_python_ecosystem_policy_adoption.md) — [#244](https://github.com/uibcdf/molsysmt/issues/244) — Review inherited Python ecosystem policy in MolSysMT. *(inspected)*
 

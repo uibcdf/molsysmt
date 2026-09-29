@@ -16,6 +16,8 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`trajectory_performance_analysis`** | Computing RMSD, per-residue RMSF, and radius of gyration time series across trajectory structures. |
 | **{doc}`structural_surgery_mutagenesis`** | Introducing point mutations in memory, rebuilding side chains, and superimposing against the wild type. |
 | **{doc}`form_teleportation`** | Converting molecular systems across OpenMM, MDAnalysis, NetworkX, MDTraj, and BioPython. |
+| **{doc}`querying_sparse_interactions`** | Comparing synthetic interaction observations across selected structures and atom sets. |
+| **{doc}`migrating_h5msm`** | Translating a 0.4 molecular-system file into the modular H5MSM 0.5 schema. |
 
 ```{eval-rst}
 .. toctree::
@@ -31,6 +33,8 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    trajectory_performance_analysis.ipynb
    structural_surgery_mutagenesis.ipynb
    form_teleportation.ipynb
+   querying_sparse_interactions.md
+   migrating_h5msm.md
 ```
 
 :::{tip}

@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 69 |
+| experimental | 81 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -25,10 +25,14 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.ArgumentConflictError` | stable | active | pre-1.0 |
 | `molsysmt.ArgumentError` | stable | active | pre-1.0 |
 | `molsysmt.ArgumentLengthError` | stable | active | pre-1.0 |
+| `molsysmt.ChemicalStates` | experimental | active | 1.0.0 |
+| `molsysmt.ChemicalStatesDict` | experimental | active | 1.0.0 |
 | `molsysmt.ConversionIssue` | experimental | active | pre-1.0 |
 | `molsysmt.ConversionReport` | experimental | active | pre-1.0 |
 | `molsysmt.FileAlreadyHandledError` | stable | active | pre-1.0 |
 | `molsysmt.FileContentError` | stable | active | pre-1.0 |
+| `molsysmt.Interactions` | experimental | active | 1.0.0 |
+| `molsysmt.InteractionsDict` | experimental | active | 1.0.0 |
 | `molsysmt.InternalAlgorithmError` | stable | active | pre-1.0 |
 | `molsysmt.Iterator` | stable | active | pre-1.0 |
 | `molsysmt.IteratorError` | stable | active | pre-1.0 |
@@ -68,6 +72,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.get_attributes` | stable | active | pre-1.0 |
 | `molsysmt.get_form` | stable | active | pre-1.0 |
 | `molsysmt.get_label` | stable | active | pre-1.0 |
+| `molsysmt.h5msm` | experimental | active | 1.0.0 |
 | `molsysmt.has_attribute` | stable | active | pre-1.0 |
 | `molsysmt.hbonds` | experimental | active | pre-1.0 |
 | `molsysmt.info` | stable | active | pre-1.0 |
@@ -258,6 +263,18 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | --- | --- | --- | --- |
 | `molsysmt.interactions.disulfides` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds` | experimental | active | 1.0.0 |
+
+### `molsysmt.h5msm`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.h5msm.append_structures` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.migrate_04_to_05` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.migrate_to_05` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.read` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.read_layers` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.write` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.write_layers` | experimental | active | 1.0.0 |
 
 ### `molsysmt.interactions.hbonds`
 

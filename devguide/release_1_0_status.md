@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -62,7 +62,77 @@ hydrogen-bond methods and disulfide-candidate detection. Implementation and
 recertification are in progress; this work is not yet part of a tested release
 candidate. Its final commit must pass the affected scientific, documentation,
 consumer, and release gates before candidate freeze. Further interaction
-families and persistent interaction datasets remain post-1.0 work.
+families may follow after 1.0. The public `Interactions` contract (#251),
+optional native `MolSys` attachment and H5MSM persistence (#252), and a tested
+MolSysViewer integration (`uibcdf/molsysviewer#114`) are now required before
+the 1.0 candidate freeze. Native attachment, local-to-source maps, declared
+atom search scope, and standalone and grouped HDF5 codecs have focused tests.
+Public H5MSM 0.5 round trips for named analyses and supported partial `MolSys`
+combinations are contract-tested. Incremental interaction editing, bounded
+public file access, and MolSysViewer consumer agreement remain open.
+TopoMT, PharmacophoreMT, and DockingMT integrations do not gate 1.0.
+The 2026-09-29 integration inspection found that H5MSM 0.4 extraction
+materializes and rewrites a full `MolSys`; it cannot preserve attached
+interactions and now rejects that export. Native copy, extraction, atom
+addition, and structure append have bounded experimental rules. On 2026-09-29 the
+scope decision advanced the full H5MSM 0.5 modular layout, with separate
+chemical-state and interaction layers, onto the pre-1.0 path; the earlier
+0.4.1 extension candidate was withdrawn. An explicit public
+`molsysmt.h5msm` API now reads and writes the 0.5 layout and offers a
+0.3/0.4-to-0.5 migration helper. Public `molsysmt.convert` now writes 0.5 by
+default and reads 0.5 through the native codec; legacy adapter operations remain
+for 0.3/0.4. Reading a legacy file emits an actionable warning without dropping
+support. This is not release evidence. Candidate freeze awaits
+remaining 0.5 form operations, schema coverage,
+the required lifecycle gates, and MolSysViewer tests. A runnable MolSysMT
+candidate must be reviewed with
+the MolSysViewer developers before they start `view.interactions` and before
+the MolSysMT result API is stabilized. `ChemicalStates` is now a separate
+native domain; its wider release validation remains open.
+H5MSM 0.5 native routes now round-trip all seven primary combinations
+of topology, chemical states, and structures, preserving absent layers through
+copy and pickle. Full field fidelity, general append behavior, and large-trajectory gates
+remain open. Public `read` now reconstructs a partial native `MolSys` from
+named interaction-only payloads, using their declared atom and structure
+index domains. A present-empty interaction layer still requires `read_layers`
+because it declares neither domain.
+Native 0.5 write/read now also round-trips structures plus named interactions
+without chemical states, with or without topology, and rejects missing
+interaction-axis associations instead of guessing from matching lengths.
+The public structures-only read path is guarded for coordinate-bearing and
+time-only files: both become partial `MolSys` objects with absent topology and
+chemical states, and the time-only case retains an unknown atom count.
+The public
+0.5 writer now round-trips typed bioassembly transforms, including translations
+converted from angstroms to nanometers in the bundled TcTIM BinaryCIF case.
+Sparse alternate locations now round-trip through the public 0.5 route on
+the bundled PDB example, and structure IDs retain integer or string type.
+Sparse alternate-location columns can append when both stored and incoming
+blocks declare them. `MolecularMechanics` remains a minimal, experimental
+native domain before 1.0. Its persistence is explicitly deferred to H5MSM
+0.6 after 1.0 (`uibcdf/molsysmt#256`); H5MSM 0.5 has no mechanics layer and rejects nonempty
+mechanics data before writing rather than dropping it.
+The public topology-free file path can append complete frame rows and read
+nonconsecutive selections,
+including files with chemical states and atom-axis links. It can extend one
+structure-to-state map when new state indices are supplied. Append involving
+topology, interactions, other structure-axis associations, and crash recovery
+are still unimplemented.
+
+For the MolSysViewer review of `uibcdf/molsysviewer#114`, the public parity
+test `tests/interactions/test_public_molsys_h5msm_workflow.py` and
+`devtools/scripts/create_molsysviewer_interactions_fixture.py` now provide
+synthetic native and H5MSM 0.5 examples. The fixture generator writes both a
+complete `MolSys` file and an interaction-only file that loads as a partial
+`MolSys`. The [review packet](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md#runnable-molsysviewer-review-packet)
+states the implemented query contract and current limitations. This is
+preparation for consumer review, not acceptance by MolSysViewer or an
+exact-commit 1.0 release gate.
+An expanded local selection covering H5MSM, native forms, interactions,
+`MolSys` adapters, conversion, structure append, hydrogen bonds, and
+disulfides passed 1,347 tests on 2026-09-29. Ruff, public API stability,
+form adapter, dependency, and devguide checks also passed. This dirty-checkout
+evidence must be repeated on a review commit before candidate certification.
 
 Use at most 12 pytest workers with `--receptor=llm` for compact local
 diagnostics; normal pytest verdicts remain authoritative. Use
@@ -972,7 +1042,8 @@ These remain `DEFERRED` unless a correctness defect promotes them:
 
 - additional native format parsers;
 - Arrow and optional-column memory experiments;
-- reactive interactions and chemical-state expansion beyond the 1.0 boundary;
+- additional interaction families and reactive chemical-state expansion beyond
+  the accepted 1.0 interaction result and persistence scope;
 - speculative Rust GPU work and fused multi-observable kernels;
 - broad Tier 2 and Tier 3 adapter expansion;
 - nonessential post-threshold micro-optimization;

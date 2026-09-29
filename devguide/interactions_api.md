@@ -56,10 +56,66 @@ order, and already-recorded bonds. These tests validate the implementation of
 the stated threshold rule; they do not independently establish chemical bond
 identity. The disulfide API is Experimental in the public stability registry.
 
-## Release boundary
+## Current result behavior and 1.0 target
 
-No persistent `Interactions` data domain, generic contact classifier, or other
-interaction family is part of this first slice. Client libraries can call the
-family-specific APIs and should preserve method identity and units in any
-presentation or derived analysis. Any shared result format or cross-system
-contract requires a separate design decision.
+The experimental `molsysmt.Interactions` class stores one method's typed observations,
+relation participants and roles, explicit evaluated-structure coverage,
+declared atom search scope, measurement units, evidence labels, and optional
+periodic image vectors. Its
+`query` method supports local-index structure lists and atom-set `incident`,
+`internal`, and `cross` semantics; `between` supports disjoint atom sets.
+`from_records`, `to_dict`, `relation`, `remap`, `invalidate_structures`, `save`, and
+`load` provide construction,
+inspection, and standalone HDF5 round trips. The current file schema version
+is 1 and is distinct from H5MSM 0.4. `load` materializes the result in memory.
+Input records and source indices are validated by the class. Existing
+family-specific detector outputs are not automatically converted into it.
+The analysis-level evaluation scope has modes `internal(A)`, `incident(A)`,
+and `between(A, B)` with a declared participant universe. It applies uniformly
+to evaluated structures. An evaluated-empty frame claims no detections only
+inside that scope. A constructor defaults to an internal search over all local
+atoms; detector adapters must supply their actual search scope. Relations
+outside the scope are rejected. Scope and source maps survive remapping,
+InteractionsDict, and standalone HDF5 round trips. Distinct per-frame scopes
+or merged analyses with different scopes are not yet representable as one
+result.
+Periodic-image vectors are all-or-none across an analysis: the constructor
+rejects mixed explicit and absent image data rather than substituting zero
+vectors for unknown images.
+
+The experimental class has no lazy file-backed query, streaming writer, or
+incremental add/remove editor. `invalidate_structures()` returns an independent
+snapshot with the selected frames unevaluated and their occurrences removed;
+it copies packed arrays and does not replace an incremental editor. It represents one
+molecular-system index space and one method per instance. `MolSys.interactions`
+holds a mapping of named full results with matching atom and structure axes.
+Each result retains local-to-source atom and structure index arrays plus the
+sizes of both source axes. Extraction composes those maps; an appended
+structure has source index `-1` and is unevaluated. The source identity stays
+with the mapped result. These are positional indices, never element IDs.
+Native copy, extraction, and removal preserve or remap attached results;
+newly appended structures remain unevaluated. Adding atoms to a target with
+analyses preserves the target's previous atom search scope: new
+atoms are outside the evaluated universe and have source index `-1`. Adding
+from a source that carries analyses, or appending its structures, requires an
+explicit merge policy and currently fails. H5MSM 0.4 and
+MolSysDict 0.1 exports reject a system with attached analyses because those
+formats cannot store them. The design and remaining gates are
+tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+The required H5MSM and MolSysViewer integrations are tracked
+in the [1.0 execution plan](pending_proposals/release_1_0_execution_plan.md)
+and the design proposal [#251](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+Implementation progress is tracked by
+[`uibcdf/molsysmt#252`](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md).
+
+H5MSM 0.5 has an optional interaction layer. Public `molsysmt.h5msm.write`
+and `read` preserve named analyses attached to `MolSys`; `write_layers` and
+`read_layers` also handle interaction-only files. The public readers currently
+materialize each selected analysis. An indexed selective HDF5 reader exists
+internally, but it is not yet a supported public file-backed query API.
+The native/H5MSM parity workflow is guarded by
+`tests/interactions/test_public_molsys_h5msm_workflow.py`. No generic contact
+classifier or other interaction family is implemented in this slice. Client
+libraries can call the family-specific APIs and should preserve method
+identity and units in any presentation or derived analysis. A stable
+cross-system result contract requires a separate decision.

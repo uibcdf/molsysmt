@@ -26,10 +26,11 @@ interpreted families, beginning with `interactions.hbonds` and a disulfide
 candidate detector. Keep `molsysmt.build.get_disulfide_bonds` as the existing
 build-oriented entry point, potentially delegating to that detector. The
 pre-1.0 decision is about the analysis API and its migration. Additional
-interaction families and a persistent `Interactions` information domain can be
-approved separately after 1.0. The independent public result-class contract is
-now being designed in [`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md);
-it does not imply persistence inside `MolSys`.
+interaction families can be approved separately after 1.0. A persistent
+`Interactions` domain inside `MolSys` and H5MSM is required before 1.0;
+its contract and implementation are tracked in
+[`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md)
+and [`uibcdf/molsysmt#252`](implement_experimental_sparse_interactions_results_and_queries.md).
 
 The candidate families are hydrogen bonds, ionic or salt-bridge interactions,
 halogen bonds, hydrophobic associations, metal coordination, aromatic stacking,
@@ -72,7 +73,7 @@ the same chemistry or representation.
 | 3. Separate disulfide detection from build | Before 1.0 if stage 0 is accepted | Define per-structure S–S candidates with the evidence used to infer them. Make `build.get_disulfide_bonds` a thin compatibility entry point and keep `build.get_missing_bonds` behavior explicit. Test candidates, already-recorded bonds, group filters, PBC, and selection. |
 | 4. Integrate and recertify | Before the 1.0 candidate freeze | Update API registry, argument digestion callers, User Guide, API reference, Cookbook or examples, affected Four Paths modules, and MolSysViewer compatibility or its bridge. Run focused scientific and consumer checks, then all applicable release gates on the new exact commit. |
 | 5. Add further families | After 1.0, in separate scoped issues | Prioritize ionic/salt-bridge, pi-pi, cation-pi, halogen, hydrophobic, metal-coordination, and mediated interactions from consumer use cases and available chemical-state evidence. Each family needs its own method definition and independent validation. |
-| 6. Evaluate persistent interaction data | After 1.0, under the attribute-centric architecture proposal | Decide whether attachment to `MolSys`, embedded H5MSM storage, fingerprints, and cross-system alignment have sufficient evidence. The independent result class and standalone serialization are designed separately in #251. Do not make stages 5–6 closure criteria for this issue. |
+| 6. Integrate persistent interaction data | Before 1.0, tracked by #251 and #252 | Attach optional results to `MolSys`; define remap or invalidation on source edits; persist and recover them in a versioned H5MSM interaction layer. The broader attribute-centric architecture and cross-system alignment remain separate decisions. Stage 5 is not a closure criterion for this namespace issue. |
 
 The minimum result contract in stage 0 must distinguish: participant roles and
 index spaces; selected structure indices and their order; observed versus
@@ -92,8 +93,9 @@ before their new paths become canonical.
 MolSysMT owns the general molecular-system detectors and their scientific
 contracts. MolSysViewer owns presentation, TopoMT owns pocket-specific
 interpretation, and PharmacophoreMT owns pharmacophoric features and models.
-Consumer integration requirements need confirmation in the respective
-repositories. If acceptance creates a shared result or rollout contract for
+MolSysViewer integration is required before 1.0 under
+`uibcdf/molsysviewer#114`; the other client integrations can follow later.
+If acceptance creates a shared result or rollout contract for
 multiple suite members, open a linked `uibcdf/molsyssuite` coordination issue
 under the suite ownership policy; this MolSysMT issue remains the provider
 implementation record.
@@ -114,10 +116,9 @@ public imports, argument digesters, docs, course examples, and the
 
 The [attribute-centric architecture proposal](attribute_centric_molecular_system_model.md)
 already identifies hydrogen bonds, aromatic interactions, cation-pi, halogen,
-metal coordination, and frame-dependent occurrences. It recommends a stable
-native `Interactions` API after 1.0. This report narrows the possible pre-1.0
-work to an analysis namespace and a bounded migration without advancing that
-larger data-model decision.
+metal coordination, and frame-dependent occurrences. Its broader architecture
+remains a separate proposal. This report covers the analysis namespace;
+#251 and #252 cover the required native and H5MSM interaction domain.
 
 ## Decision record and implementation evidence
 
@@ -153,9 +154,9 @@ larger data-model decision.
   measurement was made for this report.
 - **Inspected:** the public stability registry marks `molsysmt.hbonds`, its
   functions, and `molsysmt.build.get_disulfide_bonds` experimental.
-- **Assumed pending consumer review:** MolSysViewer, TopoMT, and
-  PharmacophoreMT will benefit from a shared provider API. Exact required
-  methods, result adapters, and delivery dates have not been established.
+- **Consumer requirement:** MolSysViewer needs the provider result before
+  1.0 under `uibcdf/molsysviewer#114`. TopoMT, PharmacophoreMT, and DockingMT
+  may need it later; their integrations do not gate this release.
 - **Estimate:** a bounded namespace migration can fit before 1.0 if the
   compatibility and scientific gates are limited to the existing hbonds and
   disulfide surfaces. This is a planning judgement, not a schedule measurement.
@@ -171,17 +172,19 @@ larger data-model decision.
 - Moving the covalent bond record into `Interactions` would confuse inferred
   observations with topology truth. A disulfide detector can live in the
   analysis namespace while recorded bonds remain topological.
-- Requiring all proposed families or the persistent `Interactions` object for
-  1.0 would expand a namespace decision into an unvalidated scientific program.
+- Requiring every proposed interaction family for 1.0 would expand this
+  namespace decision into an unvalidated scientific program. The generic
+  `Interactions` domain and its persistence are separate required work.
 
 ## Scope and exclusions
 
 The accepted pre-1.0 slice covers public API organization, hydrogen-bond
 migration, disulfide-candidate extraction, the build wrapper, and their
 contract/documentation/consumer checks. It does not add a general interaction classifier, a force-field energy
-decomposition, a pharmacophore model, arbitrary contact storage, attached
-interaction datasets, reactive bonds, or implementations of the deferred
-families.
+decomposition, a pharmacophore model, arbitrary contact storage, reactive
+bonds, or implementations of the deferred families. Attached interaction
+datasets are required before 1.0 under #251 and #252, outside this namespace
+migration issue's implementation scope.
 
 ## Acceptance criteria
 
@@ -194,7 +197,9 @@ If the proposal is accepted for implementation, close this issue only when:
    tests, including a guard for the canonical path and the build wrapper.
 3. The stability registry, argument validation, public documentation, affected
    course material, and MolSysViewer compatibility are reconciled. Consumer
-   handoffs are linked by issue number where needed.
+   handoffs are linked by issue number where needed. Native `MolSys` and H5MSM
+   persistence remain required pre-1.0 gates under #251 and #252, even if this
+   namespace migration issue closes earlier.
 4. Every accepted interaction method has its criteria, limitations, and
    scientific evidence level recorded. No method is called scientifically
    validated without an independent oracle; unsupported modes fail visibly.

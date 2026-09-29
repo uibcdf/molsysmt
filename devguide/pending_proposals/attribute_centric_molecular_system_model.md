@@ -306,11 +306,12 @@ Molecular-system information domains
 ```
 
 This diagram groups attributes by responsibility. Native `MolSys` currently
-integrates topology, structures, and mechanics, but the current topology stores
-one bond table directly and does not implement the nested chemical-state model.
-It does not yet contain `Interactions`. A topology may legitimately contain no
-chemical state, so the nested collection must not become a mandatory populated
-object for sequence-only or otherwise incomplete representations.
+integrates topology, structures, and mechanics. `Topology` now holds a private
+ordered chemical-state collection and reference-state index, while `MolSys`
+owns the structure-to-state association. It does not yet contain attached
+`Interactions`. A topology may legitimately contain no chemical state, so
+the collection must not become mandatory populated data for sequence-only or
+otherwise incomplete representations.
 
 ### Topology
 
@@ -816,6 +817,45 @@ stable atom index space it necessarily references and weakens the conventional
 meaning of topology. Nesting is the preferred first boundary. Extraction to a
 peer domain remains a future major-design escape hatch if real multi-state use
 shows that independent ownership is more coherent.
+
+### Reassessment for the pre-1.0 H5MSM 0.5 gate (2026-09-29)
+
+The paragraph above records the decision that led to the implemented
+ChemicalState v1 contract: private state storage inside native `Topology`,
+with structure-to-state association in `MolSys`. It is historical reasoning,
+not evidence that independent ownership was implemented. The newer H5MSM 0.5
+proposal makes `/chemical_states` a root sibling of `/topology` and permits
+state-only files. Its promotion onto the pre-1.0 path reopens the native
+ownership question. File layout and Python object ownership need not match,
+but a state-only file cannot become a normal native `MolSys` without either
+an independent state domain or a placeholder topology created for the object
+layout.
+
+| Native choice | Advantages | Costs and risks |
+| --- | --- | --- |
+| Keep private states nested in `Topology`; separate only in H5MSM 0.5 | Preserves existing `Topology.bonds`, `Topology.components`, chemical-state selectors, adapters, and native lifecycle with the least migration. A state always shares the topology's stable atom indices. | A state-only H5MSM layer needs a separate native form or a fabricated topology. Topology changes and state changes remain coupled; the public object model does not mirror partial 0.5 files. |
+| Publish `ChemicalStates` as a view over `Topology` storage | Exposes a named domain with little immediate data movement and no second physical authority. May serve consumers needing direct access to state collections. | A view still depends on a topology owner and does not solve independent state-only lifetime or absent-topology semantics. It can appear independent while remaining coupled. |
+| Make `ChemicalStates` a peer native authority in `MolSys` | Matches partial H5MSM 0.5 files, supports state-only forms and lifecycle, makes the atom-domain reference explicit, and keeps discrete chemistry separate from stable atom inventory and interaction observations. One state collection can be reused across many structures. | Requires an atom-domain contract, coordinated remapping on atom edits, changes to `Topology` and form adapters, 0.3/0.4 migration, and compatibility facades for existing state-dependent `Topology` access. A second stored bond table would be unacceptable. |
+
+The peer design now appears the strongest long-term fit **if** MolSysMT commits
+to H5MSM 0.5 state-only support before 1.0. It should have exactly one physical
+state authority. `Topology.bonds`, `Topology.components`, and other accepted
+v1 conveniences can remain compatibility views over the resolved reference
+state; they must not duplicate it. `MolSys` retains the nullable
+structure-to-state index because association is a composition fact, not
+topology or coordinate data. A standalone `ChemicalStates` object needs a
+minimal local atom domain and an explicit map when attached to a topology.
+
+This is a provisional recommendation, not a change to current native code or
+an approval of a public class signature. Before accepting it, prototype a
+state-only `MolSys`, a topology-only `MolSys`, and a full multi-state system;
+exercise `get`, `set`, `select`, copy, extract, atom addition/removal,
+structure append, and 0.3/0.4-to-0.5 conversion. Compare memory and work
+against the nested baseline. The current private-state implementation reaches
+at least 32 source modules and 16 test modules by direct reference; that is a
+search footprint, not a measured migration cost. Continuous electronic
+observables remain separate from discrete `ChemicalStates` under either
+choice.
 
 ### Rename topology immediately
 

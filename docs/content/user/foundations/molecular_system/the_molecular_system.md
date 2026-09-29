@@ -22,7 +22,7 @@ Traditional molecular modeling workflows often tie analysis scripts to specific 
 A complete molecular system in MolSysMT is composed of four non-exclusive, complementary architectural layers:
 
 ### 1. Topology Layer
-Defines the physical inventory of elements (`atoms`, `groups`, `components`, `molecules`, `chains`, `entities`, `bioassemblies`) and their chemical connectivity, such as covalent bonds, formal bond orders, aromaticity, and chemical state descriptors.
+Defines the stable atom inventory and hierarchy (`atoms`, `groups`, `molecules`, `chains`, `entities`, and `bioassemblies`). `Topology.bonds` remains a convenient way to inspect the reference chemical state's covalent bonds; it reads the `ChemicalStates` domain.
 
 ### 2. Structure Layer
 Defines spatial geometry, temporal evolution, and structural properties—including 3D atom coordinates with shape `(n_structures, n_atoms, 3)`, periodic box vectors with shape `(n_structures, 3, 3)`, simulation time points, and structure indices or IDs.
@@ -31,7 +31,38 @@ Defines spatial geometry, temporal evolution, and structural properties—includ
 Defines force field parameters and mechanical attributes required for energy evaluation and simulations (e.g., atomic partial charges, formal masses, force field atom types, non-bonded parameters, and harmonic term constants).
 
 ### 4. Chemical State Layer
-Defines state-dependent chemical variations, encompassing explicit protonation states, tautomeric forms, stereochemical configurations (`R`/`S`, `E`/`Z`), and chemical-state associations across structures.
+Defines state-dependent chemical variations, including covalent bonds, bond orders, component membership, protonation states, tautomeric forms, and stereochemical assignments (`R`/`S`, `E`/`Z`). A native `MolSys` exposes the collection as `molsys.chemical_states`; `Topology` does not expose a `chemical_states` property. Each state uses the topology's atom-index domain; a standalone `ChemicalStates` collection can specify that domain by atom count alone. Associations between structures and states belong to `MolSys`.
+
+An experimental partial `MolSys` may contain any combination of topology,
+chemical states, and structures, or only named interaction analyses. Each
+analysis declares atom and structure index domains even when both topology and
+structures are absent. `MolSys.extract` can use explicit atom and structure
+index lists for such a system; when a domain is undeclared, extraction on that
+axis raises an error. `msm.get` reports data from the domains
+present, while `msm.has_attribute` reports attributes of an absent domain as
+unavailable. A topology without chemical states does not claim zero bonds:
+its chemistry is unavailable. Public `msm.convert` writes H5MSM 0.5 when
+`to_form="file:h5msm"`; legacy file-form operations remain available for
+H5MSM 0.3 and 0.4. The explicit `msm.h5msm.write` and
+`msm.h5msm.read` functions use the modular 0.5 schema and preserve supported
+partial native systems. The {doc}`H5MSM 0.5 guide
+<../../tools/form/file/h5msm_05>` describes the versioned API and its current
+limits.
+
+---
+
+## Independent Analysis Results
+
+Some analyses produce data associated with a molecular system without changing
+its topology or structures. The experimental `molsysmt.Interactions` class is
+one such result: it records chemically classified observations and the source
+atom and structure indices they refer to. A native `MolSys` can hold several
+named analyses in `molsys.interactions`; its extraction methods remap their
+indices. Each analysis declares which atom relationships and structures were
+searched, so an evaluated structure with no matches has a defined scope.
+An observed disulfide candidate does not establish a covalent bond.
+See {doc}`Querying interaction results
+<../../tools/interactions/result>` for its current query behavior.
 
 ---
 

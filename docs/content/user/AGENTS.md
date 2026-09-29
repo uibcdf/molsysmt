@@ -14,7 +14,7 @@ end-user documentation.
 
 - Keep the top-level organization:
   - `Introduction` (`intro/`): concepts, installation, core ideas (molecular systems, forms, elements, selections, units, supported engines, logging).
-  - `Tools` (`tools/`): per-function tutorials grouped by topic (basic, build, topology, structure, PBC, physchem, hbonds, molecular_mechanics, element, form, thirds).
+  - `Tools` (`tools/`): per-function tutorials grouped by topic (basic, build, topology, structure, PBC, physchem, hbonds, interactions, molecular_mechanics, element, form, thirds).
   - `Cookbook` (`cookbook/`): recipes that combine several tools to achieve practical workflows.
 - When adding new sections or pages, integrate them into this structure instead of creating parallel trees.
 - Do not move content that belongs to the Developer Guide into the User Guide; low-level implementation details and internal conventions belong under `devguide/` or `docs/content/developer`.

@@ -54,6 +54,13 @@ Set of functions to calculate physicochemical properties of molecular systems.
 Set of functions to identify and analyze hydrogen bonds in molecular systems.
 :::
 
+:::{grid-item-card} **Interactions**
+:link: interactions/index
+:link-type: doc
+
+Store and query sparse interaction observations across structures.
+:::
+
 :::{grid-item-card} **Molecular Mechanics**
 :link: molecular_mechanics/index
 :link-type: doc
@@ -96,6 +103,7 @@ Set of functions to facilitate the use of third-party libraries.
    pbc/index.md
    physchem/index.md
    hbonds/index.md
+   interactions/index.md
    molecular_mechanics/index.md
    element/index.md
    form/index.md
