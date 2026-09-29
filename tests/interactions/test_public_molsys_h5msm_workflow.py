@@ -161,3 +161,42 @@ def test_public_queries_survive_native_attachment_and_h5msm_roundtrip(tmp_path):
         ], [1],
     )
     assert invalidated.query(structure_indices=[0]).n_interactions == 2
+
+
+def test_public_convert_preserves_multiple_named_analyses_and_sparse_columns(tmp_path):
+    molsys = MolSys(n_atoms=11)
+    molsys.structures.append(
+        coordinates=np.zeros((6, 11, 3)), skip_digestion=True
+    )
+    empty = msm.Interactions.from_records(
+        [], n_atoms=11, n_structures=6,
+        evaluated_structure_indices=[1, 5], method="empty_review_fixture",
+        parameters={"criterion": "synthetic"}, measure_units={"distance": "nm"},
+        evaluation_atom_indices=[0, 1], evaluation_universe_indices=[0, 1],
+    )
+    molsys.interactions = {"review": _analysis(), "empty": empty}
+    filename = tmp_path / "converted_review.h5msm"
+
+    msm.convert(molsys, to_form="file:h5msm", output_filename=filename)
+    restored = msm.convert(filename, to_form="molsysmt.MolSys")
+
+    assert set(restored.interactions) == {"review", "empty"}
+    review = restored.interactions["review"]
+    _assert_queries(review)
+    _assert_same_observations(molsys.interactions["review"], review)
+    assert review.parameters == molsys.interactions["review"].parameters
+    assert review.source_n_atoms == 12
+    assert review.source_n_structures == 9
+    restored_empty = restored.interactions["empty"]
+    assert restored_empty.method == empty.method
+    assert restored_empty.parameters == empty.parameters
+    assert restored_empty.measure_units == empty.measure_units
+    np.testing.assert_array_equal(restored_empty.evaluated_structure_indices, [1, 5])
+    assert restored_empty.evaluation_scope["mode"] == "internal"
+    np.testing.assert_array_equal(restored_empty.evaluation_scope["atom_indices"], [0, 1])
+    np.testing.assert_array_equal(restored_empty.evaluation_scope["universe_indices"], [0, 1])
+    assert restored_empty.query(structure_indices=[1]).n_interactions == 0
+    assert restored_empty.query(structure_indices=[0]).to_dict()[
+        "evaluated_structure_indices"
+    ].size == 0
+    assert restored_empty.to_dict()["measurements"]["distance"].shape == (0,)

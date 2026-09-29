@@ -36,7 +36,13 @@ independent `molsysmt.Interactions` analysis with
 `output_type="molsysmt.Interactions"`. Attach it under a name by assigning
 `molsys.interactions = {**molsys.interactions, "analysis_name": analysis}`.
 This retains previous named results and checks that all analyses match the
-system's atom and structure axes. See
+system's atom and structure axes.
+
+This assignment declares that the analysis's local atom and structure indices
+correspond to the system. MolSysMT checks compatible axes and valid results;
+you are responsible for the correspondence of independently loaded data.
+Source labels and maps retain provenance without authenticating that origin.
+See
 {doc}`the interaction result guide <../../../tools/interactions/result>`
 for participant roles, evaluated coverage, and experimental detector limits.
 

@@ -58,6 +58,9 @@ class Interactions:
     -----
     This experimental result stores one analysis method per instance. It does
     not attach itself to a molecular system or declare covalent connectivity.
+    Attaching it declares that its local indices correspond to the target
+    system. The caller is responsible for that correspondence; source maps
+    and the optional ``source_id`` label do not authenticate molecular origin.
 
     .. versionadded:: 1.0.0
     """
@@ -285,7 +288,8 @@ class Interactions:
         parameters : dict or None, default=None
             Method parameters used for this result.
         source_id : str or None, default=None
-            Optional source identity supplied by the caller.
+            Optional provenance label supplied by the caller. It is not a verified
+            fingerprint of the molecular system.
         atom_source_indices : array-like of int or None, default=None
             Local-to-source atom indices. ``-1`` denotes no source counterpart.
         structure_source_indices : array-like of int or None, default=None

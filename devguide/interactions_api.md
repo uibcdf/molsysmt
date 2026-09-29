@@ -152,8 +152,9 @@ molecular-system index space and one method per instance. `MolSys.interactions`
 holds a mapping of named full results with matching atom and structure axes.
 Each result retains local-to-source atom and structure index arrays plus the
 sizes of both source axes. Extraction composes those maps; an appended
-structure has source index `-1` and is unevaluated. The source identity stays
-with the mapped result. These are positional indices, never element IDs.
+structure has source index `-1` and is unevaluated. The caller-supplied source
+label stays with the mapped result. These are positional indices, never
+element IDs.
 Native copy, extraction, and removal preserve or remap attached results;
 newly appended structures remain unevaluated. Adding atoms to a target with
 analyses preserves the target's previous atom search scope: new
@@ -180,3 +181,33 @@ classifier or other interaction family is implemented in this slice. Client
 libraries can call the family-specific APIs and should preserve method
 identity and units in any presentation or derived analysis. A stable
 cross-system result contract requires a separate decision.
+
+## Associating analyses with a system
+
+Attaching a full analysis to `MolSys.interactions` declares that its local
+atom and structure indices refer to that system's local index spaces.
+MolSysMT validates the result's typed columns, index bounds, source maps,
+coverage, and participant scope. Native attachment also validates analysis
+names, full-result types, and matching atom and structure axis sizes. These
+checks establish structural consistency; equal axis sizes do not prove that
+two independently supplied systems have the same atom or structure ordering.
+
+The H5MSM writer is responsible for the scientific correspondence of layers
+and their declared associations. The 0.5 reader validates those associations;
+it does not independently authenticate the molecular origin of the layers.
+When loading an analysis from a separate file, the caller is responsible for
+choosing the matching system and aligning both local axes before attachment.
+If ordering differs, supply that correspondence explicitly through a supported
+remap or extraction. `Interactions.remap()` takes the old analysis indices in
+the desired new order; it is not an arbitrary embedding into a larger target.
+Source maps record provenance and are not automatically joined to target axes.
+
+`source_id` is an optional caller-supplied provenance label, not a verified
+fingerprint. Missing source identity does not prevent attachment of an
+otherwise valid result. Content fingerprints and automatic cross-file origin
+verification are optional future capabilities, not a MolSysMT 1.0 gate. A
+consumer may require an explicit user declaration or impose stricter checks.
+This does not waive existing validation: malformed results, out-of-range
+indices, incompatible axes, and contradictory declared H5MSM associations
+remain errors. The caller must also provide coordinates and, for periodic
+observations, box vectors compatible with the stored geometry and images.

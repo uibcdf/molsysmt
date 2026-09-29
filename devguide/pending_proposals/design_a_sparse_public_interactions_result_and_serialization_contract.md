@@ -21,6 +21,62 @@ supersedes: []
 The public contract and production backend remain pending under this issue;
 the experimental class is tracked under `uibcdf/molsysmt#252`.
 
+**Accepted attachment policy, 2026-09-29:** Following another request from
+`uibcdf/molsysviewer#114`, the maintainer chose declared correspondence for
+the pre-1.0 contract. A writer is responsible for matching the system and
+analyses stored together; a caller attaching a separately loaded analysis is
+responsible for selecting the correct system and explicitly aligning local
+atom and structure axes when they differ. MolSysMT validates typed payloads,
+indices, coverage, scope, axis sizes, and declared H5MSM associations. It does
+not certify molecular identity from equal dimensions or from `source_id`,
+which is an optional caller-supplied label. Existing source maps remain
+provenance, not automatic cross-file matching keys. An arbitrary sparse-domain
+embedding into a larger system is not provided by today's `remap` API.
+
+Automatic source authentication and content fingerprints remain optional
+future work, not release gates. This decision refines earlier fingerprint
+and revision proposals below; invalidation after a known geometry or chemistry
+change remains required. The current policy is recorded in
+[the interaction API contract](../interactions_api.md#associating-analyses-with-a-system).
+MolSysViewer may request a user declaration when loading an independent file
+and may apply stricter checks within its own interface. It has not yet
+accepted this policy; the maintainer will relay the response.
+
+The client plans three routes to the same named analysis collection:
+opening a system with analyses, loading a separate analysis, and requesting
+MolSysMT calculation followed by explicit client attachment. Its main API
+and UI will own these workflows, with a gradual migration from its addon.
+MolSysMT detectors continue returning results without attaching them.
+Software-version provenance in detector results remains a separate open
+requirement alongside the Luzard–Chandler adapter; neither should be claimed
+complete because Buch and disulfide results carry method parameters and units.
+
+**Public conversion evidence, 2026-09-29:**
+`tests/interactions/test_public_molsys_h5msm_workflow.py::test_public_convert_preserves_multiple_named_analyses_and_sparse_columns`
+now checks `MolSys -> msm.convert(..., to_form="file:h5msm") ->
+msm.convert(..., to_form="molsysmt.MolSys")` with two named analyses.
+The mixed analysis retains roles, compound participants, parallel occurrence
+indices, evidence, images, measurement values and units, and nonidentity
+source maps. The second analysis has no occurrences and retains its method
+parameters, evaluated-empty frames, and restricted atom scope. Scope is
+compared through its public semantics because an internal selection equal
+to its universe can use an implicit compact representation after remapping.
+This is contract evidence for the public persistence route, not origin
+authentication or a MolSysViewer session/export acceptance test.
+
+The following focused run passed 29 tests; the result module's two doctests
+also passed. Ruff, developer-guide validation, and queue-index checks passed.
+Only markdown sources changed in the five affected course notebooks; their
+code cells, outputs, and metadata were preserved.
+
+```bash
+python -m pytest --receptor=llm \
+    tests/interactions/test_public_molsys_h5msm_workflow.py \
+    tests/form/file_h5msm/test_public_h5msm_v05.py \
+    tests/form/file_h5msm/test_associations_v05_probe.py
+python -m pytest --receptor=llm --doctest-modules molsysmt/interactions/result.py
+```
+
 **Detector adapter checkpoint, 2026-09-29:** Disulfide candidates and Buch
 hydrogen bonds now have optional `Interactions` outputs. The Buch adapter
 declares automatic chemical role-selection rules and the actual eligible

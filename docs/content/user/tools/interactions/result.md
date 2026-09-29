@@ -159,6 +159,26 @@ A native `MolSys` can hold several named, full interaction analyses. Their
 atom and structure counts must match the system. Its `copy()`, `extract()`,
 and `remove()` methods preserve or remap the analyses.
 
+(user-tools-interactions-association)=
+## Associating an analysis
+
+Attaching an analysis declares that its local atom and structure indices
+correspond to the system's local indices. You are responsible for choosing
+the matching system. MolSysMT checks index bounds, result consistency, and
+matching axis sizes; equal counts alone do not establish molecular identity.
+The writer of an H5MSM containing both system and analyses is responsible
+for their correspondence and declared associations.
+
+When loading an analysis from another file, align it with the target before
+attachment if either axis has a different order. `remap()` accepts old
+analysis indices in the desired new order. It can extract or reorder the
+analysis; it does not embed a smaller analysis into a larger target domain.
+Source maps are provenance and are not automatically matched to the target.
+`source_id` is an optional label supplied by the caller, not a verified
+fingerprint. Attachment requires no automatic origin authentication. Use
+coordinates and periodic boxes compatible with the calculation; the stored
+image vectors refer to that geometry.
+
 ```python
 import numpy as np
 from molsysmt.native import MolSys

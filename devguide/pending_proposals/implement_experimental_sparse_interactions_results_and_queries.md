@@ -14,6 +14,21 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Accepted attachment responsibility (2026-09-29)
+
+The maintainer accepts declared correspondence for the pre-1.0 contract:
+the writer owns the correspondence of system and analysis layers, and the
+caller owns the alignment of an independently loaded analysis with the target
+system. The [normative attachment policy](../interactions_api.md#associating-analyses-with-a-system)
+states the current checks and the meaning of `source_id` and source maps.
+Automatic origin verification and fingerprints are optional future work,
+not remaining 1.0 gates. This refines the earlier source-fingerprint proposals
+in this report without removing invalidation for known scientific changes.
+MolSysViewer's request and the accepted decision are recorded in
+[the result design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md).
+Its acceptance of this policy remains pending. Explicit software-version
+provenance in detector outputs remains open, together with Luzard–Chandler.
+
 ## Buch detector result adapter (2026-09-29)
 
 The Buch detector now has optional `output_type="molsysmt.Interactions"`,

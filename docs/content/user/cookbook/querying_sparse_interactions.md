@@ -100,6 +100,14 @@ without the other layers. Both `read` and `read_layers` currently materialize
 the selected interaction result in memory; they are not file-backed query
 objects.
 
+Attaching a separately loaded analysis declares that its local atom and
+structure indices correspond to the target system. You are responsible for
+that correspondence; matching axis sizes and a `source_id` label do not prove
+it. Align reordered axes before attachment using a supported remap or
+extraction. The {ref}`association guide <user-tools-interactions-association>`
+explains the current checks and limits. The writer is responsible for the
+correspondence of system and analyses stored together in H5MSM.
+
 The synthetic records above show the container without requiring a detector.
 For a molecular system with eligible cysteine sulfur atoms, the disulfide
 candidate detector can instead return an `Interactions` result with

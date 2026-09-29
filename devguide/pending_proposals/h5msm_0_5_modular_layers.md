@@ -18,6 +18,15 @@ migration is underway. Public `molsysmt.convert` now writes 0.5 and reads it
 through the native 0.5 codec. The legacy file-form adapters still serve 0.3/0.4;
 the explicit `molsysmt.h5msm` API also writes and reads versioned 0.5 layers.
 
+**Attachment responsibility, 2026-09-29:** The accepted pre-1.0
+[interaction attachment policy](../interactions_api.md#associating-analyses-with-a-system)
+uses declared correspondence. The writer owns the scientific correspondence
+of layers; the reader validates their explicit associations. Attaching an
+analysis from another file is a caller declaration after any necessary axis
+alignment. Optional provenance labels and source maps are not authenticated
+cross-file identity. Automatic origin verification is future work rather
+than a requirement for the 0.5 format or MolSysViewer 1.0 integration.
+
 ## Motivation
 
 MolSysMT deliberately accepts molecular-system forms with partial information.
