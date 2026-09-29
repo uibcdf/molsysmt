@@ -113,8 +113,9 @@ restored = msm.Interactions.load("observations.h5i")
 
 The standalone HDF5 file is versioned and separate from H5MSM. `load` reads
 the complete result into memory. The current version has no streaming writer,
-lazy file-backed queries, incremental add/remove editor, or automatic detector
-adapters.
+lazy file-backed queries, or incremental add/remove editor. The disulfide
+candidate detector has an optional `Interactions` output; hydrogen-bond
+detector adapters are still pending.
 
 Use `remap()` to extract a complete result into new index spaces. A relation
 survives only if all atoms in its participants survive. Repeated structure
@@ -169,12 +170,33 @@ selected = molsys.extract(atom_indices=[0, 1, 2], structure_indices=[2, 0])
 assert selected.interactions["example"].n_structures == 2
 ```
 
+You can also attach an analysis returned directly by the disulfide candidate
+detector. This synthetic example identifies a geometric candidate; it does
+not declare a covalent bond:
+
+```python
+builder = msm.MolSysBuilder()
+first = builder.add_atom(atom_name="SG", atom_type="S")
+second = builder.add_atom(atom_name="SG", atom_type="S")
+builder.add_group([first], group_name="CYS")
+builder.add_group([second], group_name="CYS")
+builder.set_coordinates(
+    msm.pyunitwizard.quantity([[0, 0, 0], [0.20, 0, 0]], "nm")
+)
+molsys = builder.build()
+analysis = msm.interactions.disulfides.get_disulfide_candidates(
+    molsys, pbc=False, output_type="molsysmt.Interactions"
+)
+molsys.interactions = {"disulfide_candidates": analysis}
+assert molsys.interactions["disulfide_candidates"].n_interactions == 1
+```
+
 Appended structures remain unevaluated by existing analyses, including a
 coordinate-only source passed to `msm.append_structures`. Adding atoms to a
 system with analyses keeps their previous search universe fixed; the added
 atoms are outside it and are not claimed as evaluated. Adding atoms from a
 source `MolSys` that already has analyses, or appending structures from such a
 source, requires an explicit analysis merge policy and currently raises an
-error. H5MSM 0.4 and MolSysDict 0.1
-cannot store attached analyses and reject that export; use standalone
-`Interactions.save()` until H5MSM 0.5 supports the interaction layer.
+error. H5MSM 0.4 and MolSysDict 0.1 cannot store attached analyses and
+reject that export. H5MSM 0.5 writes and reads the named analyses with the
+system; `Interactions.save()` remains available for standalone results.

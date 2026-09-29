@@ -125,10 +125,10 @@ results more fully, including periodic images and invalidation.
 
 Current limits matter to the review: public H5MSM readers materialize the
 selected analysis; the selective file reader remains internal. The result has
-no incremental add/remove editor or detector `output_type` adapters. Existing
-hydrogen-bond and disulfide detectors still return their method-specific
-arrays. The requested feedback should identify which of these limits block
-MolSysViewer 1.0 and provide representative data sizes and query patterns.
+no incremental add/remove editor. The disulfide candidate detector has an
+opt-in `Interactions` output; hydrogen-bond detectors retain only their
+method-specific arrays. MolSysViewer accepted the in-memory named-result
+route for its initial integration and supplied representative sizes above.
 
 ## What
 

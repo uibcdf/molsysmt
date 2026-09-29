@@ -18,7 +18,10 @@
 //! `devguide/pending_proposals/triclinic_cell_list_completeness.md`.
 
 use numpy::ndarray::{Array1, Array2, Array3};
-use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray2, PyReadonlyArray3};
+use numpy::{
+    IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3,
+};
+use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
 use crate::mathlib::fast_floor;
@@ -29,11 +32,23 @@ use crate::symmetric::mirror_upper_to_lower;
 pub type Mat3 = [[f64; 3]; 3];
 
 /// Mirrors molsysmt.lib.pbc.box_is_orthogonal_single_structure (row dot products).
+#[cfg(test)]
 pub(crate) fn box_is_orthogonal(b: &Mat3) -> bool {
     let dot = |u: &[f64; 3], v: &[f64; 3]| u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
     dot(&b[0], &b[1]).abs() <= 1e-4
         && dot(&b[0], &b[2]).abs() <= 1e-4
         && dot(&b[1], &b[2]).abs() <= 1e-4
+}
+
+/// The diagonal fast path is valid only when each lattice vector follows its
+/// corresponding Cartesian axis. A rotated orthogonal box is still orthogonal
+/// but needs the general lattice-vector calculation.
+fn box_is_axis_aligned(b: &Mat3) -> bool {
+    (0..3).all(|row| {
+        b[row][row].is_finite()
+            && b[row][row] != 0.0
+            && (0..3).all(|col| row == col || b[row][col] == 0.0)
+    })
 }
 
 /// The exhaustive ±1 (27-image) wrap — the mild-box reference kept only for tests
@@ -220,11 +235,12 @@ fn norm2(a: [f64; 3]) -> f64 {
 }
 
 /// The single production minimum-image **vector** mechanism, used by every MIC kernel
-/// (distances, angles, dihedrals, cell list, SASA). Orthogonal boxes use the centred wrap;
-/// triclinic boxes use the reduced cell — correct on skewed boxes, unlike the ±1 search,
-/// whose shell can miss a second-neighbour minimum image (see the module tests). `cell`/`inv`
-/// come from [`prep_dist`]: for orthogonal boxes `cell` is the box and `inv` is unused; for
-/// triclinic they are the reduced cell and its inverse.
+/// (distances, angles, dihedrals, cell list, SASA). Axis-aligned boxes use the
+/// centred wrap; all other orientations use the reduced cell. The latter is
+/// correct on skewed boxes, unlike the ±1 search, whose shell can miss a
+/// second-neighbour minimum image (see the module tests). `cell`/`inv` come
+/// from [`prep_dist`]: for axis-aligned boxes `cell` is the box and `inv` is
+/// unused; otherwise they are the reduced cell and its inverse.
 #[inline(always)]
 pub(crate) fn mic_vector(v: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> [f64; 3] {
     if ortho {
@@ -277,11 +293,11 @@ pub(crate) fn mic_distance_reduced(p1: [f64; 3], p2: [f64; 3], red: &Mat3, inv: 
     (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt()
 }
 
-/// Per-box precompute: orthogonal flag, the cell to wrap in (the box itself when
-/// orthogonal, its reduced form when triclinic), and the reduced cell's general inverse.
+/// Per-box precompute: axis-aligned fast-path flag, the box itself or its
+/// reduced form, and the reduced cell's general inverse when needed.
 #[inline]
 pub(crate) fn prep_dist(b: &Mat3) -> (bool, Mat3, Mat3) {
-    if box_is_orthogonal(b) {
+    if box_is_axis_aligned(b) {
         (true, *b, [[0.0; 3]; 3])
     } else {
         let (red, inv) = prep_reduced(b);
@@ -555,6 +571,89 @@ pub fn get_mic_distances_pairs_single_structure<'py>(
     out.into_pyarray(py)
 }
 
+/// Return one MIC distance and original-box lattice shift per observed pair.
+/// The shift is added to `coordinates2` while `coordinates1` remains the anchor.
+#[pyfunction]
+pub fn get_mic_pair_observations<'py>(
+    py: Python<'py>,
+    coordinates1: PyReadonlyArray2<'py, f64>,
+    coordinates2: PyReadonlyArray2<'py, f64>,
+    boxes: PyReadonlyArray3<'py, f64>,
+    structure_indices: PyReadonlyArray1<'py, i64>,
+) -> PyResult<(Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<i32>>)> {
+    let c1 = coordinates1.as_array();
+    let c2 = coordinates2.as_array();
+    let b = boxes.as_array();
+    let frames = structure_indices.as_array();
+    let n = c1.shape()[0];
+    if c1.shape()[1] != 3 || c2.shape() != [n, 3] || frames.len() != n || b.shape()[1..] != [3, 3] {
+        return Err(PyValueError::new_err(
+            "Invalid pair-coordinate, frame, or box shape.",
+        ));
+    }
+
+    let mut prepared = Vec::with_capacity(b.shape()[0]);
+    for s in 0..b.shape()[0] {
+        let bs = box_at(&b, s);
+        let original_inverse = crate::mathlib::inverse_matrix_3x3_full(&bs);
+        if original_inverse
+            .iter()
+            .flatten()
+            .any(|value| !value.is_finite())
+        {
+            return Err(PyValueError::new_err(
+                "Periodic box is singular or nonfinite.",
+            ));
+        }
+        let (ortho, cell, reduced_inverse) = prep_dist(&bs);
+        prepared.push((bs, original_inverse, ortho, cell, reduced_inverse));
+    }
+
+    let mut distances = Array1::<f64>::zeros(n);
+    let mut images = Array2::<i32>::zeros((n, 3));
+    for p in 0..n {
+        let frame = frames[p];
+        if frame < 0 || frame as usize >= prepared.len() {
+            return Err(PyValueError::new_err(
+                "Pair structure index is outside the box axis.",
+            ));
+        }
+        let (box_original, original_inverse, ortho, cell, reduced_inverse) =
+            &prepared[frame as usize];
+        let raw = [
+            c2[[p, 0]] - c1[[p, 0]],
+            c2[[p, 1]] - c1[[p, 1]],
+            c2[[p, 2]] - c1[[p, 2]],
+        ];
+        let wrapped = mic_vector(raw, cell, reduced_inverse, *ortho);
+        distances[p] = norm2(wrapped).sqrt();
+        let shift = sub3(wrapped, raw);
+        for axis in 0..3 {
+            let component = shift[0] * original_inverse[0][axis]
+                + shift[1] * original_inverse[1][axis]
+                + shift[2] * original_inverse[2][axis];
+            let rounded = component.round();
+            if !rounded.is_finite() || rounded < i32::MIN as f64 || rounded > i32::MAX as f64 {
+                return Err(PyValueError::new_err(
+                    "Periodic image exceeds the int32 range.",
+                ));
+            }
+            images[[p, axis]] = rounded as i32;
+        }
+        for axis in 0..3 {
+            let reconstructed = images[[p, 0]] as f64 * box_original[0][axis]
+                + images[[p, 1]] as f64 * box_original[1][axis]
+                + images[[p, 2]] as f64 * box_original[2][axis];
+            if (reconstructed - shift[axis]).abs() > 1e-9 * (1.0 + shift[axis].abs()) {
+                return Err(PyValueError::new_err(
+                    "Periodic image cannot be expressed in the box basis.",
+                ));
+            }
+        }
+    }
+    Ok((distances.into_pyarray(py), images.into_pyarray(py)))
+}
+
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_mic_distances_single_system, m)?)?;
     m.add_function(wrap_pyfunction!(get_mic_distances, m)?)?;
@@ -568,6 +667,7 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
         get_mic_distances_pairs_single_structure,
         m
     )?)?;
+    m.add_function(wrap_pyfunction!(get_mic_pair_observations, m)?)?;
     Ok(())
 }
 

@@ -46,6 +46,14 @@ structure. An evaluated structure with no candidates has an empty `(0, 2)`
 pair array and an empty `(0,)` distance array. The detector does not mutate the
 system and reports a geometric candidate even if the pair is already recorded
 as a bond.
+With `output_type="molsysmt.Interactions"`, it instead returns one full sparse
+analysis in the original system's atom and structure index spaces. The result
+declares its eligible sulfur atoms as the evaluated scope, retains evaluated
+empty frames, stores nanometer distances and geometric evidence, and records
+the observed lattice image when a periodic box was used. Repeated requested
+structure indices do not duplicate observations in this result. The default
+tuple output remains unchanged. The caller attaches the analysis to `MolSys`
+under a chosen name when persistence with the system is wanted.
 
 The topology remains authoritative for recorded covalent bonds.
 `build.get_disulfide_bonds` delegates to this detector and retains its
@@ -74,8 +82,9 @@ structure and relation, remain unchanged in filtered views and H5MSM round
 trips, and are scoped to one named analysis version. Remapping or editing
 creates a new version and can reassign positions. The row position is derived
 from stored order, so it adds no per-occurrence file column.
-Input records and source indices are validated by the class. Existing
-family-specific detector outputs are not automatically converted into it.
+Input records and source indices are validated by the class. The disulfide
+candidate detector has an opt-in result route; Buch and Luzard–Chandler still
+have only their method-specific outputs.
 The analysis-level evaluation scope has modes `internal(A)`, `incident(A)`,
 and `between(A, B)` with a declared participant universe. It applies uniformly
 to evaluated structures. An evaluated-empty frame claims no detections only
@@ -99,7 +108,9 @@ All atoms in one compound participant receive the same lattice shift; this
 encoding does not describe internal unwrapping of a split ring. Without image
 columns, the observed periodic copy is unknown, even if PBC was used by a
 detector. Detector adapters must emit the actual image chosen by their
-geometry calculation; the current detectors do not yet return it.
+geometry calculation. The disulfide result route recovers this image from
+the same MIC algorithm for its observed S–S pairs and verifies the aligned
+distance. Hydrogen-bond detectors do not yet provide result adapters.
 
 The experimental class has no lazy file-backed query, streaming writer, or
 incremental add/remove editor. `invalidate_structures()` returns an independent

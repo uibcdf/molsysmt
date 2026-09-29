@@ -14,6 +14,28 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## First detector result adapter (2026-09-29)
+
+`interactions.disulfides.get_disulfide_candidates` now accepts optional
+`output_type="molsysmt.Interactions"`; its default pair and distance lists
+remain unchanged. The result uses original atom and structure indices,
+eligible sulfur atoms as its declared internal scope, explicit evaluated
+coverage including empty frames, the geometric-candidate evidence label,
+nanometer distances, and the method's threshold, group filter, and PBC
+parameters. Repeated requested frames are collapsed for this result. The
+caller attaches the result to `MolSys.interactions` under an explicit name;
+the detector does not mutate the system. A focused H5MSM 0.5 round trip
+preserves method and images.
+
+A new private Rust observed-pair pass returns both MIC distance and original-box
+integer image for only the pairs emitted by a detector. The disulfide adapter
+checks its distance against the neighbour result before recording images.
+An independent lattice enumeration tests orthogonal, triclinic, and rotated
+orthogonal boxes. The latter revealed and motivated the MIC correction under
+`uibcdf/molsysmt#257`. The default neighbour-list result remains unchanged;
+the extra pass is not yet benchmarked at trajectory scale. Buch and
+Luzard–Chandler result adapters remain open.
+
 ## Consumer occurrence identity checkpoint (2026-09-29)
 
 `Interactions.query(...).to_dict()` and the internal selective HDF5 reader

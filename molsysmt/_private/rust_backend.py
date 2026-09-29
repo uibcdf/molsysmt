@@ -52,6 +52,18 @@ def get_mic_distances_pairs_single_structure(
     )
 
 
+def get_mic_pair_observations(coordinates1, coordinates2, boxes, structure_indices):
+    """Return MIC distances and original-box images for observed pairs."""
+    import numpy as np
+
+    return _rust.get_mic_pair_observations(
+        np.ascontiguousarray(coordinates1, dtype=np.float64),
+        np.ascontiguousarray(coordinates2, dtype=np.float64),
+        np.ascontiguousarray(boxes, dtype=np.float64),
+        np.ascontiguousarray(structure_indices, dtype=np.int64),
+    )
+
+
 # --------------------------------------------------------------------------- neighbour list
 # Dispatch of molsysmt.lib.structure.neighbor_list.neighbor_list_csr_multi (the hot
 # kernel behind get_contacts and get_neighbors). Bit-for-bit identical results.

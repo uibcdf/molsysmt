@@ -16,6 +16,7 @@ def get_disulfide_candidates(
     pbc=True,
     syntax="MolSysMT",
     sorted=True,
+    output_type="tuple",
     skip_digestion=False,
 ):
     """Identifying candidate disulfide atom pairs in selected structures.
@@ -43,16 +44,20 @@ def get_disulfide_candidates(
         Selection syntax used to evaluate ``selection``.
     sorted : bool, default=True
         Whether to sort candidate pairs by atom indices.
+    output_type : {'tuple', 'molsysmt.Interactions'}, default='tuple'
+        Return the existing pair and distance lists, or a sparse analysis
+        with explicit evaluated coverage, atom scope, and observed images.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    tuple of list
-        ``(atom_pairs, distances)`` with one entry per requested structure.
+    tuple of list or molsysmt.Interactions
+        By default, ``(atom_pairs, distances)`` with one entry per requested structure.
         Each pair array has shape ``(n_candidates, 2)`` and global atom indices;
         its aligned distance array is a quantity in nanometers. Empty evaluated
-        structures contain arrays with shapes ``(0, 2)`` and ``(0,)``.
+        structures contain arrays with shapes ``(0, 2)`` and ``(0,)``. The
+        optional analysis uses the original system's atom and structure indices.
 
     Notes
     -----
@@ -64,6 +69,23 @@ def get_disulfide_candidates(
     :func:`molsysmt.build.get_disulfide_bonds`
         Get candidate pairs in the build API for one structure.
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from molsysmt import pyunitwizard as puw
+    >>> from molsysmt.interactions.disulfides.get_disulfide_candidates import get_disulfide_candidates
+    >>> builder = msm.MolSysBuilder()
+    >>> first = builder.add_atom(atom_name="SG", atom_type="S")
+    >>> second = builder.add_atom(atom_name="SG", atom_type="S")
+    >>> _ = builder.add_group([first], group_name="CYS")
+    >>> _ = builder.add_group([second], group_name="CYS")
+    >>> builder.set_coordinates(puw.quantity([[0, 0, 0], [0.2, 0, 0]], "nm"))
+    >>> molsys = builder.build()
+    >>> result = get_disulfide_candidates(
+    ...     molsys, pbc=False, output_type="molsysmt.Interactions")
+    >>> result.n_interactions
+    1
+
     .. admonition:: User guide
 
        See :ref:`Get disulfide bonds <Tutorial_Get_disulfide_bonds>` for a
@@ -73,6 +95,8 @@ def get_disulfide_candidates(
     """
     from molsysmt.basic import get, select
     from molsysmt.structure import get_neighbors
+
+    return_interactions = str(output_type).lower() == "molsysmt.interactions"
 
     if group_names is None:
         group_names = ["CYS"]
@@ -115,10 +139,14 @@ def get_disulfide_candidates(
     def empty_distances():
         return puw.quantity(np.empty(0, dtype=np.float64), "nanometers")
     if len(sulfur_indices) < 2:
-        return (
-            [empty_pairs() for _ in frame_indices],
-            [empty_distances() for _ in frame_indices],
-        )
+        pairs = [empty_pairs() for _ in frame_indices]
+        distances = [empty_distances() for _ in frame_indices]
+        if return_interactions:
+            return _as_interactions(
+                molecular_system, frame_indices, sulfur_indices, pairs,
+                distances, max_bond_length, group_names, pbc,
+            )
+        return pairs, distances
 
     neighbor_pairs, neighbor_distances = get_neighbors(
         molecular_system,
@@ -153,4 +181,93 @@ def get_disulfide_candidates(
             pairs_by_structure.append(empty_pairs())
             distances_by_structure.append(empty_distances())
 
+    if return_interactions:
+        return _as_interactions(
+            molecular_system, frame_indices, sulfur_indices,
+            pairs_by_structure, distances_by_structure,
+            max_bond_length, group_names, pbc,
+        )
     return pairs_by_structure, distances_by_structure
+
+
+def _as_interactions(molecular_system, frame_indices, sulfur_indices,
+                     pairs_by_structure, distances_by_structure,
+                     max_bond_length, group_names, pbc):
+    """Build a scoped sparse analysis from the detector's aligned output."""
+    from molsysmt._private.rust_backend import get_mic_pair_observations
+    from molsysmt.basic import get
+    from molsysmt.interactions.result import Interactions
+
+    records = []
+    visited_frames = set()
+    for frame, pairs, frame_distances in zip(
+        frame_indices, pairs_by_structure, distances_by_structure
+    ):
+        frame = int(frame)
+        if frame in visited_frames:
+            continue
+        visited_frames.add(frame)
+        if len(pairs) == 0:
+            continue
+        pairs = np.sort(np.asarray(pairs, dtype=np.int64), axis=1)
+        distances_nm = np.asarray(
+            puw.get_value(frame_distances, to_unit="nanometers"), dtype=np.float64
+        )
+        images = None
+        if pbc:
+            box = get(
+                molecular_system, element="system", structure_indices=int(frame),
+                box=True,
+            )
+            if box is not None and box[0] is not None:
+                box_nm = np.asarray(puw.get_value(box, to_unit="nanometers"))
+                atoms = np.unique(pairs)
+                coordinates = get(
+                    molecular_system, element="atom", selection=atoms,
+                    structure_indices=int(frame), coordinates=True,
+                )
+                coordinates_nm = np.asarray(
+                    puw.get_value(coordinates, to_unit="nanometers")
+                )[0]
+                pair_positions = np.searchsorted(atoms, pairs)
+                observed_distances, images = get_mic_pair_observations(
+                    coordinates_nm[pair_positions[:, 0]],
+                    coordinates_nm[pair_positions[:, 1]],
+                    box_nm,
+                    np.zeros(len(pairs), dtype=np.int64),
+                )
+                if not np.allclose(observed_distances, distances_nm, atol=1e-8, rtol=1e-8):
+                    raise ValueError(
+                        "Periodic candidate images disagree with detected distances."
+                    )
+        for index, (first, second) in enumerate(pairs):
+            record = {
+                "structure_index": int(frame),
+                "interaction_type": "disulfide_candidate",
+                "participants": [
+                    {"role": "sulfur", "atom_indices": [int(first)]},
+                    {"role": "sulfur", "atom_indices": [int(second)]},
+                ],
+                "measurements": {"distance": float(distances_nm[index])},
+                "evidence": "geometric_proximity",
+            }
+            if images is not None:
+                record["images"] = [[0, 0, 0], images[index].tolist()]
+            records.append(record)
+
+    return Interactions.from_records(
+        records,
+        n_atoms=get(molecular_system, n_atoms=True),
+        n_structures=get(molecular_system, n_structures=True),
+        evaluated_structure_indices=frame_indices,
+        method="molsysmt.interactions.disulfides.get_disulfide_candidates",
+        parameters={
+            "max_bond_length_nm": float(puw.get_value(max_bond_length, to_unit="nanometers")),
+            "group_names": [str(name) for name in group_names],
+            "pbc": bool(pbc),
+        },
+        measure_units={"distance": "nm"},
+        evaluation_mode="internal",
+        evaluation_atom_indices=sulfur_indices,
+        evaluation_universe_indices=sulfur_indices,
+    )

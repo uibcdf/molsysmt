@@ -100,6 +100,13 @@ without the other layers. Both `read` and `read_layers` currently materialize
 the selected interaction result in memory; they are not file-backed query
 objects.
 
+The synthetic records above show the container without requiring a detector.
+For a molecular system with eligible cysteine sulfur atoms, the disulfide
+candidate detector can instead return an `Interactions` result with
+`output_type="molsysmt.Interactions"`. Attach that result under a name in
+`molsys.interactions` before writing H5MSM 0.5. Its geometric S–S candidates
+do not assert that a covalent bond exists in the chemical state.
+
 Use {doc}`the interaction result guide <../tools/interactions/result>` for
 role, unit, and evaluated atom-scope conventions. The example uses the default
 `internal` scope over all nine atoms. For a detector restricted to one selection,
