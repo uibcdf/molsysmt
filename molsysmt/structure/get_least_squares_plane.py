@@ -21,7 +21,7 @@ from ._plane import PlaneReducer
 
 @signal(tags=["api", "structure"])
 @arg_digest()
-def get_plane(molecular_system, selection="all", structure_indices="all", pbc=False,
+def get_least_squares_plane(molecular_system, selection="all", structure_indices="all", pbc=False,
               syntax="MolSysMT", heavy_mode="auto", skip_digestion=False):
     """
     Fitting unweighted least-squares planes to selected atom groups.
@@ -110,8 +110,8 @@ def get_plane(molecular_system, selection="all", structure_indices="all", pbc=Fa
     Examples
     --------
     >>> import molsysmt as msm
-    >>> from molsysmt.structure.get_plane import get_plane
-    >>> plane = get_plane(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], selection=[0, 1, 2])
+    >>> from molsysmt.structure.get_least_squares_plane import get_least_squares_plane
+    >>> plane = get_least_squares_plane(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], selection=[0, 1, 2])
     >>> plane['normals'].shape
     (1, 1, 3)
     >>> plane['atom_offsets'].tolist()
@@ -119,7 +119,7 @@ def get_plane(molecular_system, selection="all", structure_indices="all", pbc=Fa
 
     .. admonition:: Tutorial with more examples
 
-       See :ref:`Tutorial_Get_plane` for planarity, groups, units and PBC examples.
+       See :ref:`Tutorial_Get_least_squares_plane` for planarity, groups, units and PBC examples.
 
     .. versionadded:: 1.0.0
     """
@@ -127,7 +127,7 @@ def get_plane(molecular_system, selection="all", structure_indices="all", pbc=Fa
     from molsysmt.basic import get, get_form, select
     from molsysmt.form import _dict_modules
 
-    caller = "molsysmt.structure.get_plane"
+    caller = "molsysmt.structure.get_least_squares_plane"
     dimensions = modular_h5msm_dimensions(molecular_system)
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
@@ -184,14 +184,14 @@ def get_plane(molecular_system, selection="all", structure_indices="all", pbc=Fa
     attributes = ["coordinates", "box"] if pbc else ["coordinates"]
     if isinstance(form, str) and getattr(_dict_modules[form], "_heavy_support", {}).get("coordinates", False):
         outputs = ChunkedExecutor(
-            molecular_system, form, "get_plane", reducer=reducer, atom_indices=universe,
+            molecular_system, form, "get_least_squares_plane", reducer=reducer, atom_indices=universe,
             structure_indices=frames, attributes=attributes,
             heavy_mode="force" if mode == "heavy" else "off",
             max_chunk_size=max(1, available // per_frame),
         ).execute()
     else:
         if mode == "heavy":
-            raise UnsupportedHeavyOperationError(operation="get_plane", form=str(form),
+            raise UnsupportedHeavyOperationError(operation="get_least_squares_plane", form=str(form),
                                                  reason="No streamed structural delivery route.")
         reducer.initialize({"n_structures": len(frames)})
         if len(frames):

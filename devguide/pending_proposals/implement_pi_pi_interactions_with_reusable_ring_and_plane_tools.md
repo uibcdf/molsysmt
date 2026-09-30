@@ -33,7 +33,7 @@ consumer; coordination continues through uibcdf/molsysviewer#114.
 2. `physchem.get_aromatic_rings` prepares a basis from the explicitly aromatic
    covalent bond subgraph. Unknown atom/bond flags fail; no geometry-based
    aromaticity or residue-name inference is introduced.
-3. `structure.get_plane` fits planes with centroids, unoriented normals and
+3. `structure.get_least_squares_plane` fits planes with centroids, unoriented normals and
    orthogonal RMS/maximum deviations. PBC validation uses the shared PBC layer.
 4. The future detector will use explicit geometry thresholds, bounded neighbor
    searches, projected coordinate blocks and typed sparse accumulation. It must
@@ -176,9 +176,9 @@ python devtools/scripts/validate_course.py
 python devtools/scripts/validate_docstrings.py
 python devtools/scripts/validate_api_stability.py
 python devtools/scripts/validate_dependencies.py
-python -m pytest --receptor=llm tests/structure/test_get_plane.py tests/structure/get_center tests/physchem/test_get_aromatic_rings.py tests/topology/test_get_rings.py --disable-warnings
-python -m pytest --receptor=llm --doctest-modules molsysmt/structure/get_plane.py --disable-warnings
-python docs/execute_notebooks.py -q -f -n 2 docs/content/user/tools/structure/get_plane.ipynb docs/content/user/cookbook/preparing_aromatic_participants.ipynb
+python -m pytest --receptor=llm tests/structure/test_get_least_squares_plane.py tests/structure/get_center tests/physchem/test_get_aromatic_rings.py tests/topology/test_get_rings.py --disable-warnings
+python -m pytest --receptor=llm --doctest-modules molsysmt/structure/get_least_squares_plane.py --disable-warnings
+python docs/execute_notebooks.py -q -f -n 2 docs/content/user/tools/structure/get_least_squares_plane.ipynb docs/content/user/cookbook/preparing_aromatic_participants.ipynb
 python devtools/scripts/benchmark_plane_fitting.py --output /tmp/plane_fitting.json
 ruff check molsysmt
 ```
@@ -187,3 +187,35 @@ The combined tests emit expected legacy-file deprecation warnings and deliberate
 small-budget memory-pressure diagnostics. These are not silently suppressed
 scientific skips. The current course gate is devtools/scripts/validate_course.py;
 the older course-local script uses obsolete section/filename expectations.
+
+## Unit-policy audit after plane review
+
+The user's review requested an explicit least-squares name, evidence before a
+Rust implementation and confirmation that session length units remain authoritative.
+The user selected `get_least_squares_plane`; the experimental public function,
+source/test/tutorial files, API registry and maintained examples now use that name.
+It replaces the unreleased review name `get_plane`, without adding another alias.
+
+The current numerical boundary explicitly extracts coordinates and boxes in nm.
+Returned length quantities are constructed with their actual internal unit and
+standardized under the active PyUnitWizard policy. Dimensionless normals are not
+rescaled. This does not configure the user's policy or assume that the session
+still uses nm. Existing storage and H5MSM wire conventions remain separate from
+user-facing output units.
+
+The unit regression suite now uses temporary contexts and covers coordinate
+inputs in angstrom, nm, pm and meters; outputs in nm, angstrom, micrometers and
+pm; warped-plane deviations, mixed coordinate/box units, eager/native-streamed
+paths, nested-context restoration and quantity backends selected by the user.
+The tutorial executes a temporary angstrom output policy.
+The focused checkpoint passes 60 tests, including all four installed quantity
+backends (Pint, OpenMM, Unyt and Astropy); the updated tutorial executes cleanly.
+The named public API passes 139 combined plane/center/ring tests and its doctest.
+
+An exploratory cProfile control (1,000 six-atom groups, 50 structures) puts most
+cost in geometric preparation/fitting, with substantial NumPy SVD time and Python
+per-group work. This is a localization observation, not a Rust comparison or a
+new speed claim. Before changing the numerical algorithm, compare bounded
+batched SVD and a bundled Rust candidate against the same scaled/degenerate and
+unit contracts. Existing principal-axis covariance routines are not assumed to
+preserve SVD conditioning or the current singular-value-gap diagnostic.

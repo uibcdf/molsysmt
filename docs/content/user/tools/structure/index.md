@@ -14,7 +14,7 @@
 | [Get maximum distances](get_maximum_distances.ipynb) | Getting the maximum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get minimum distances](get_minimum_distances.ipynb) | Getting the minimum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get neighbors](get_neighbors.ipynb) | Getting the list of neighboring elements or groups of elements of a molecular system from specific elements or group of elements of another molecular system |
-| [Get plane](get_plane.ipynb) | Fitting unweighted planes and measuring planarity of selected atom groups |
+| [Get least squares plane](get_least_squares_plane.ipynb) | Fitting unweighted planes and measuring planarity of selected atom groups |
 | [Get principal axes](get_principal_axes.ipynb) | Getting the principal inertia or geometric axes of a molecular system |
 | [Get radius of gyration](get_radius_of_gyration.ipynb) | Getting radius of gyration of a molecular system |
 | [Get RMSD](get_rmsd.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
@@ -47,7 +47,7 @@
    get_maximum_distances.ipynb
    get_minimum_distances.ipynb
    get_neighbors.ipynb
-   get_plane.ipynb
+   get_least_squares_plane.ipynb
    get_principal_axes.ipynb
    get_radius_of_gyration.ipynb
    get_rmsd.ipynb

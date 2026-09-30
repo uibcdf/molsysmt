@@ -143,7 +143,7 @@ in [benchmarking/rings.md](benchmarking/rings.md).
 
 ## Reusable plane geometry
 
-`msm.structure.get_plane` fits unweighted orthogonal least-squares planes to
+`msm.structure.get_least_squares_plane` fits unweighted orthogonal least-squares planes to
 one atom selection or overlapping groups. It requires coordinates, not topology
 or aromaticity. Its geometric dictionary is not an InteractionsDict. Packed
 source atom memberships and requested source structure indices accompany centers,

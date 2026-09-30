@@ -12,7 +12,7 @@ The public heavy path is currently integrated into these structure operations:
 - `molsysmt.structure.get_center`;
 - `molsysmt.structure.get_rmsd`;
 - `molsysmt.structure.get_distances`.
-- `molsysmt.structure.get_plane`.
+- `molsysmt.structure.get_least_squares_plane`.
 
 `molsysmt.interactions.ionic.get_ionic_interactions` also uses this executor
 for native MolSys and H5MSM 0.5 paths with atom-index selections or `"all"`.
@@ -87,7 +87,7 @@ file, and sparse/dense output storage needs its own budget.
 
 ### Plane fitting working estimates
 
-`structure.get_plane` projects the union of complete selected groups and fills
+`structure.get_least_squares_plane` projects the union of complete selected groups and fills
 preallocated dense arrays without accumulating a second list of output blocks.
 Native Structures/MolSys and H5MSM support streamed coordinates; eager getter
 delivery covers other coordinate-bearing forms. Placeholder iterator classes

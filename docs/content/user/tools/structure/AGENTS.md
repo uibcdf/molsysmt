@@ -34,7 +34,7 @@ Houses tutorial units for structural coordinate operations, spatial measurements
 - `get_minimum_distances.ipynb` ➔ `get_minimum_distances.ipynb.AGENTS.md`
 - `get_neighbors.ipynb` ➔ `get_neighbors.ipynb.AGENTS.md`
 - `get_principal_axes.ipynb` ➔ `get_principal_axes.ipynb.AGENTS.md`
-- `get_plane.ipynb` ➔ `get_plane.ipynb.AGENTS.md`
+- `get_least_squares_plane.ipynb` ➔ `get_least_squares_plane.ipynb.AGENTS.md`
 - `get_radius_of_gyration.ipynb` ➔ `get_radius_of_gyration.ipynb.AGENTS.md`
 - `get_rmsd.ipynb` ➔ `get_rmsd.ipynb.AGENTS.md`
 - `get_rmsf.ipynb` ➔ `get_rmsf.ipynb.AGENTS.md`

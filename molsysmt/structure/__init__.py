@@ -6,7 +6,7 @@ from .get_maximum_distances import get_maximum_distances
 from .get_contacts import get_contacts
 from .get_neighbors import get_neighbors
 from .get_center import get_center
-from .get_plane import get_plane
+from .get_least_squares_plane import get_least_squares_plane
 from .center import center
 from .translate import translate
 from .move_away import move_away

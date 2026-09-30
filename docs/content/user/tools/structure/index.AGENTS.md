@@ -5,7 +5,7 @@ Governance rules for `docs/content/user/tools/structure/index.md` (the Structure
 
 ## Structural Invariants
 1. **Title**: `# Structure`
-2. **Catalog Table**: 2-column catalog table listing all structure tutorials, including `get_plane.ipynb`, with Markdown link titles and brief gerund descriptions.
+2. **Catalog Table**: 2-column catalog table listing all structure tutorials, including `get_least_squares_plane.ipynb`, with Markdown link titles and brief gerund descriptions.
 3. **Hidden toctree**:
    ```rst
    .. toctree::
@@ -24,7 +24,7 @@ Governance rules for `docs/content/user/tools/structure/index.md` (the Structure
       get_maximum_distances.ipynb
       get_minimum_distances.ipynb
       get_neighbors.ipynb
-      get_plane.ipynb
+      get_least_squares_plane.ipynb
       get_principal_axes.ipynb
       get_radius_of_gyration.ipynb
       get_rmsd.ipynb

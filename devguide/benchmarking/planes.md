@@ -36,6 +36,12 @@ Base commit `508dd18b7` with dirty plane changes; source/script hashes identify
 the measured implementation. Thread environment and configured budget are
 recorded in the JSON with raw samples and process-memory definitions.
 
+The measured function used the review name `get_plane`; the recorded source
+files are preserved in commit `1c60460f0`. The public tool is now named
+`get_least_squares_plane`, and the reproduction script uses that name. The
+snapshot is historical evidence for the measured implementation, not a new
+Rust comparison or a rerun of the renamed API.
+
 | Mode | Median seconds | Returned numeric buffers, bytes |
 | --- | --- | --- |
 | Eager | 0.684 | 3,256,408 |

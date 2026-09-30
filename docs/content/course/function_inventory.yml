@@ -99,9 +99,9 @@ molsysmt.physchem.get_aromatic_rings:
   doc_ref: "{func}`molsysmt.physchem.get_aromatic_rings`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_aromatic_rings()**: Prepares aromatic ring participants. See {func}`molsysmt.physchem.get_aromatic_rings`.\n:::"
 
-molsysmt.structure.get_plane:
-  name: "msm.structure.get_plane"
+molsysmt.structure.get_least_squares_plane:
+  name: "msm.structure.get_least_squares_plane"
   first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
   summary: "Fits unweighted planes to complete atom groups and measures planarity."
-  doc_ref: "{func}`molsysmt.structure.get_plane`"
-  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.structure.get_plane()**: Fits general planes independently of chemical recognition. See {func}`molsysmt.structure.get_plane`.\n:::"
+  doc_ref: "{func}`molsysmt.structure.get_least_squares_plane`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.structure.get_least_squares_plane()**: Fits general planes independently of chemical recognition. See {func}`molsysmt.structure.get_least_squares_plane`.\n:::"

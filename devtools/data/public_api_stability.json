@@ -1609,12 +1609,12 @@
       "documentation": "docs/content/user/tools/physchem/get_aromatic_rings.ipynb",
       "contract_tests": "tests/physchem/test_get_aromatic_rings.py"
     },
-    "molsysmt.structure.get_plane": {
+    "molsysmt.structure.get_least_squares_plane": {
       "stability": "experimental",
       "introduced": "pre-1.0",
       "owner": "structure",
-      "documentation": "docs/content/user/tools/structure/get_plane.ipynb",
-      "contract_tests": "tests/structure/test_get_plane.py"
+      "documentation": "docs/content/user/tools/structure/get_least_squares_plane.ipynb",
+      "contract_tests": "tests/structure/test_get_least_squares_plane.py"
     }
   }
 }

@@ -46,11 +46,11 @@ def main():
     source_peak = _peak_rss()
     records = []
     for mode in ("off", "force"):
-        msm.structure.get_plane(molsys, selection=groups, structure_indices=frames, heavy_mode=mode)
+        msm.structure.get_least_squares_plane(molsys, selection=groups, structure_indices=frames, heavy_mode=mode)
         timings = []
         for _ in range(args.repetitions):
             start = time.perf_counter()
-            result = msm.structure.get_plane(molsys, selection=groups, structure_indices=frames, heavy_mode=mode)
+            result = msm.structure.get_least_squares_plane(molsys, selection=groups, structure_indices=frames, heavy_mode=mode)
             timings.append(time.perf_counter() - start)
             np.testing.assert_allclose(result["normals"], np.broadcast_to([0., 0., 1.], (len(frames), args.planes, 3)), atol=1e-12)
             np.testing.assert_allclose(puw.get_value(result["centers"], to_unit="nm"), np.broadcast_to(centers, (len(frames), args.planes, 3)), atol=1e-12)
@@ -69,7 +69,7 @@ def main():
         "dirty_worktree": bool(subprocess.check_output(["git", "status", "--porcelain"], text=True)),
         "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "source_hashes": {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in (
-            "molsysmt/structure/get_plane.py", "molsysmt/structure/_plane.py",
+            "molsysmt/structure/get_least_squares_plane.py", "molsysmt/structure/_plane.py",
             "molsysmt/_private/execution/chunked_executor.py",
         )},
         "host": platform.node(), "platform": platform.platform(),

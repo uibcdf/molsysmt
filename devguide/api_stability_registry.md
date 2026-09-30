@@ -142,10 +142,10 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.structure.get_dihedral_angles` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_least_rmsd` | stable | active | pre-1.0 |
+| `molsysmt.structure.get_least_squares_plane` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_maximum_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_minimum_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_neighbors` | stable | active | pre-1.0 |
-| `molsysmt.structure.get_plane` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_principal_axes` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_radius_of_gyration` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_rmsd` | stable | active | pre-1.0 |
