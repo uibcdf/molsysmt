@@ -58,6 +58,31 @@ cross-component feedback, and issue ownership.
 - Respect `msm.configure.show_all_capabilities` which allows users to filter available forms based on their installed environment.
 
 
+## Modular tool design
+
+- Before adding a feature, inspect existing general tools and identify the
+  owning module or MolSysSuite provider for each required capability.
+- When an operation has meaningful standalone use or serves other workflows,
+  implement or extend it as a documented general-purpose tool in that owner,
+  with its own contract and tests. Have the new feature call that tool.
+  Keep feature-specific scientific criteria and orchestration in the consumer.
+- Chemical-property interpretation belongs in `physchem`, connectivity tools
+  in `topology`, geometric operations in `structure`, and periodic reconstruction
+  and image conventions in `pbc`. Stored chemical assignments remain owned by
+  `ChemicalStates`; reusable tools must not create competing chemical stores.
+- Report missing sibling capabilities to the provider and link the consumer
+  requirement. Preserve dependency direction and lazy optional dependencies.
+  Temporary duplication requires a tracked reason and removal condition.
+- Reuse existing compiled primitives. Further heavy routines may use the
+  bundled Rust backend when workload measurements justify them; preserve
+  scientific behavior and explicit public validation, units, and provenance.
+- Internal helpers can remain private behind a supported general tool. Export
+  operations with meaningful user contracts rather than every implementation
+  detail. Do not create placeholder APIs or speculative utility packages.
+
+This is an accepted local maintainer instruction. Its suite-wide policy and
+adoption are tracked by `uibcdf/molsyssuite#61`; the central rollout is pending.
+
 ## Performance Architecture
 
 - **Validated Boundaries**: Normalize user input once at a clear public boundary. A

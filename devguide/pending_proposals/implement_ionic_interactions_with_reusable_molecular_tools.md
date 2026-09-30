@@ -34,6 +34,11 @@ separately scoped implementation issues.
 
 ### Maintainer decision: general tools belong to their domains
 
+The local root AGENTS.md now carries this maintainer instruction. Its
+suite-wide policy and adoption in other components are tracked by
+`uibcdf/molsyssuite#61`; preparing that central proposal does not establish
+adoption in every member.
+
 The detector orchestrates chemical eligibility, candidate generation, and
 its named scientific criterion. Reusable capabilities belong in the existing
 domain modules. Promote an internal helper to a general public tool when a
