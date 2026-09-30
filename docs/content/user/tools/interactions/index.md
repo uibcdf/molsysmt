@@ -8,7 +8,11 @@ Detectors retain their established outputs by default; both hydrogen-bond
 and the disulfide candidate detectors can also return an `Interactions` analysis
 explicitly.
 
+The new experimental ionic detector returns sparse analyses by default, using
+selected-state formal-charge centers and an explicit minimum-distance cutoff.
+
 - {doc}`result` — building, querying, and saving sparse interaction results.
+- {doc}`get_ionic_interactions` — calculating scoped formal-charge contacts.
 
 ```{eval-rst}
 .. toctree::
@@ -16,4 +20,5 @@ explicitly.
    :hidden:
 
    result
+   get_ionic_interactions
 ```

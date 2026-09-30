@@ -53,9 +53,14 @@
     "molsysmt.interactions.disulfides": {
       "source": "molsysmt/interactions/disulfides/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions.ionic": {
+      "source": "molsysmt/interactions/ionic/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
+    "molsysmt/physchem/_charge_centers.py:pack_membership": "Move an unexported private packing helper to molsysmt/_private/sparse_membership.py for shared chemical-feature and interaction use; no public callable is removed",
     "molsysmt/form/file_dcd/copy.py:copy": "Add missing output_filename parameter used in function body",
     "molsysmt/form/file_dcd/extract.py:extract": "Add missing output_filename parameter used in function body",
     "molsysmt/form/file_inpcrd/extract.py:extract": "Add missing output_filename parameter used in function body",
@@ -1573,6 +1578,20 @@
       "owner": "root",
       "documentation": "devguide/api_surface.md",
       "contract_tests": "tests"
+    },
+    "molsysmt.interactions.ionic": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.ionic",
+      "documentation": "docs/content/user/tools/interactions/get_ionic_interactions.ipynb",
+      "contract_tests": "tests/interactions/ionic/test_get_ionic_interactions.py"
+    },
+    "molsysmt.interactions.ionic.get_ionic_interactions": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.ionic",
+      "documentation": "docs/content/user/tools/interactions/get_ionic_interactions.ipynb",
+      "contract_tests": "tests/interactions/ionic/test_get_ionic_interactions.py"
     }
   }
 }

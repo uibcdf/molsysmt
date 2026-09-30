@@ -64,6 +64,13 @@ A molecule of zero net charge can contain separate local charged centers.
 Those features precede geometric detection and are distinct from the occurrence
 analyses stored in `interactions`.
 
+The experimental `msm.interactions.ionic.get_ionic_interactions()` calculation
+uses those features and an explicit geometric cutoff to produce an analysis.
+You attach it under a chosen name by assigning
+`molsys.interactions = {**molsys.interactions, 'ionic': analysis}`. It records
+geometric proximity between opposite formal-charge centers, not an interaction
+energy or a recorded bond. See {ref}`Tutorial_Get_ionic_interactions`.
+
 ---
 
 ## Invariants and Performance

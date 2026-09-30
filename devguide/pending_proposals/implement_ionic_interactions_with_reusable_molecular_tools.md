@@ -19,8 +19,8 @@ interaction families and source inspection of molecular analysis libraries.
 **Status:** Active implementation. The maintainer accepts ionic, pi-pi,
 and cation-pi as the next sequence and requires reusable domain tools and
 allows additional Rust routines for heavy computation. The first general
-charge-center tool is implemented experimentally; the ionic detector remains
-pending.
+charge-center tool and the eager minimum-distance ionic detector are implemented
+experimentally. Chunked execution and performance evidence remain pending.
 
 ## What
 
@@ -89,7 +89,9 @@ Each calculation must distinguish:
    or an independently specified electrostatic energy model.
 
 Argument names such as `charge_source`, `participant_definition`, and `method`
-are proposed concepts, not exported API. Prefer extending an existing general
+are design concepts; the delivered method records source and participant
+definition as parameters rather than exposing every source as a selector.
+Prefer extending an existing general
 API when its semantics fit; do not introduce a second generic charge getter
 merely to serve the detector.
 
@@ -225,10 +227,92 @@ Evidence for this checkpoint:
 - The API is registered as experimental. Documentation, digestion, Ruff,
   dependency, API-stability, and devguide checks accompany the delivery.
 
-The minimum-distance detector, occurrence scope, PBC image evidence, chunked
-trajectory execution, Interactions persistence tests, and performance
-measurements remain pending. No detector throughput, memory bound, or
-scientific stabilization is claimed by this first tool.
+This first-tool checkpoint did not deliver the detector, PBC observations,
+chunked execution, or Interactions persistence. The subsequent checkpoint
+below records the detector delivery separately.
+
+### Eager detector checkpoint — 2026-09-30
+
+The experimental public operation is now
+`interactions.ionic.get_ionic_interactions(molecular_system, distance_threshold,
+...)`. The threshold is required and unitful. Its `minimum_distance` method
+observes opposite formal-charge centers under the recognizer's bounded
+definition. It accepts distances at the cutoff with one float64 ULP allowance
+for unit-conversion roundoff. This is geometric evidence, not energy or a bond.
+
+Calculation scopes are `selection_mode='internal'`, `'incident'`, or `'between'`.
+Between selections must be disjoint and both explicit. Whole-center selections
+are required; result queries retain the established atom-set semantics. Repeated
+structure indices are deduplicated and evaluated in sorted order, including
+zero-occurrence frames. Intramolecular contacts are included, directly covalently
+linked centers are excluded, and dative bonds do not impose that exclusion.
+
+The computation delegates sparse atom candidates and MIC images to existing
+Rust kernels. Scope planning limits incident/between candidate searches to
+pertinent oriented center sets, rather than generating unrelated center pairs
+and retaining only their final filtered rows. The reusable grouped-minimum primitive lives in
+`structure/_group_minimum_contacts.py`; an anchor-relative whole-participant
+image check lives in `pbc/_whole_participants.py`. Both have independent
+analytical tests. Integer membership packing moved to a shared private utility
+rather than maintaining a copy per feature/detector. The signature guard's
+explicit waiver records this unexported helper relocation; the public
+charge-center signature is unchanged.
+
+Arrays accumulate occurrence frame indices, center pairs, distances, and
+images. NumPy identifies unique relations across frames before direct typed
+Interactions construction. There is no Python dictionary per occurrence or
+dense atom-pair matrix. One center pair has at most one occurrence per frame,
+even when several geometry-reference atom pairs meet the cutoff. Equal minima
+select reference indices deterministically; this method does not enumerate all
+periodic images.
+
+Periodic observations use one original-box image per whole participant. Any
+eligible participant requiring internal anchor-relative MIC shifts is rejected
+when pair geometry is evaluated. The guard is a stated bounded condition, not
+a general component compactness criterion or an automatic reconstruction.
+Tests reproduce measures in diagonal, rotated orthogonal, and triclinic boxes,
+and reject a split carboxylate.
+
+Results default to `molsysmt.Interactions`; `output_type='molsysmt.InteractionsDict'`
+returns the existing typed versioned payload. Parameters record threshold units,
+recognition definition/version/state and evidence, scope and exclusions, eager
+execution, and periodic policy. Measures contain nm distances and elementary
+participant charges. Producer software versions and actual images persist in
+public H5MSM 0.5 round trips. Attachment remains an explicit caller action.
+
+The initial route is eager: coordinates, candidates, and the complete sparse
+result reside in memory. It rejects an estimated full source coordinate
+footprint exceeding `configure.max_ram_usage`, even for a small frame selection.
+For a direct H5MSM 0.5 path, a shared private metadata preflight reads existing
+axis cardinalities before materialization; the detector then materializes the
+file once. This prevents repeated file loads by downstream basic queries.
+The full reader still validates domain associations. Coordinate footprint is
+an estimate, not a total RAM bound; chemistry, conversions, existing analyses,
+candidates, packing, and output can dominate. Other source conversion routes
+may allocate before the estimate and are not claimed streaming-safe.
+
+Delivery evidence:
+
+- `tests/interactions/ionic/test_get_ionic_interactions.py` exercises analytical
+  cutoff controls, atomic and compound centers, neutral controls, selections,
+  state-dependent charge/connectivity, original frame indices distinct from IDs,
+  missing data, producer evidence, images, dictionary/file round trips,
+  extraction/remapping, non-default unit sessions, and preflight failures.
+- `tests/structure/test_group_minimum_contacts.py` and
+  `tests/pbc/test_whole_participants.py` protect the independent general helpers.
+- The focused run including the existing charge-center tests passes:
+  **80 passed**. Both public docstrings pass together: **2 passed**.
+- A focused compatibility run for the existing hydrogen-bond namespace,
+  disulfide detector, public H5MSM workflow, and producer provenance passes:
+  **21 passed**, with the expected warning for a bundled legacy 0.4 file.
+- The new detector tutorial and named-persistence recipe were executed.
+  Foundations and the four Module 39 course paths document the bounded route;
+  existing course code/outputs were preserved rather than re-executed.
+
+The issue remains active. ChunkedExecutor integration, sparse accumulation
+budgets, real-system evaluation within supported chemistry, and reproducible
+end-to-end benchmarks remain acceptance work. No throughput, total memory
+bound, comprehensive chemistry validation, or stabilization is claimed.
 
 ### Element-specific tools
 
@@ -280,15 +364,17 @@ internal native-data helpers rather than calling the public query layer.
   examples. The previously discussed 0.4 nm example and Mol*'s 0.5 nm default
   are reference choices, not agreed defaults or independent scientific truth.
 
-### Proposed public surface
+### Public surface and remaining design
 
-The first family route is
-`interactions.ionic.get_ionic_interactions`. Common arguments include
+The first exported experimental family route is
+`interactions.ionic.get_ionic_interactions`. Its arguments include
 `molecular_system`, `selection`, `selection_2`, `structure_indices`,
-`chemical_state`, `method`, `pbc`, `syntax`, and `output_type`. The proposed
-initial output is `molsysmt.Interactions`, with existing conversion to
-`molsysmt.InteractionsDict`. Precise names and defaults require docstring and
-digestion review before export. Current detector defaults remain as documented.
+`chemical_state`, `method`, `selection_mode`, `pbc`, `syntax`, `output_type`,
+the required `distance_threshold`, and `assume_complete_connectivity`.
+Its default output is `molsysmt.Interactions`; the optional
+`molsysmt.InteractionsDict` output uses the existing public conversion.
+Additional source/method routes need separate docstring and digestion review.
+Existing detector defaults remain as documented.
 
 Define calculation scopes for internal, incident, and between searches rather
 than conflating a calculation selection with filtering an existing result.

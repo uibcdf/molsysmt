@@ -79,13 +79,3 @@ def formal_charge_centers(elements, charges, pairs, bond_orders):
         centers.append((members, sorted(geometry_by_root[key]), charge, kind))
     centers.sort(key=lambda center: center[0])
     return centers
-
-
-def pack_membership(groups):
-    """Pack atom-index groups into int64 values and offsets, including empty input."""
-
-    offsets = np.zeros(len(groups) + 1, dtype=np.int64)
-    np.cumsum([len(group) for group in groups], out=offsets[1:])
-    return np.asarray(
-        [atom for group in groups for atom in group], dtype=np.int64
-    ), offsets

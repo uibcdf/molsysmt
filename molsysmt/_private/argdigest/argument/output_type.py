@@ -3,6 +3,17 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_output_type(output_type, caller=None):
 
+    if (
+        caller
+        == "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions"
+    ):
+        if isinstance(output_type, str) and output_type.lower() in {
+            "molsysmt.interactions",
+            "molsysmt.interactionsdict",
+        }:
+            return output_type.lower()
+        raise ArgumentError("output_type", value=output_type, caller=caller)
+
     if caller == "molsysmt.basic.info.info":
         if isinstance(output_type, str):
             if output_type.lower() in ["styler", "dataframe", "dictionary"]:

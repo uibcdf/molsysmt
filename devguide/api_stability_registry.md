@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 82 |
+| experimental | 84 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -264,6 +264,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | --- | --- | --- | --- |
 | `molsysmt.interactions.disulfides` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.ionic` | experimental | active | pre-1.0 |
 
 ### `molsysmt.h5msm`
 
@@ -295,3 +296,9 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
 | `molsysmt.interactions.disulfides.get_disulfide_candidates` | experimental | active | 1.0.0 |
+
+### `molsysmt.interactions.ionic`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.ionic.get_ionic_interactions` | experimental | active | pre-1.0 |

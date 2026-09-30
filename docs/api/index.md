@@ -94,6 +94,7 @@ Functions that integrate MolSysMT with third-party libraries.
    molecular_mechanics/api_molecular_mechanics
    hbonds/api_hbonds
    interactions/api_disulfides
+   interactions/api_ionic
    element/api_element
    form/api_form
    third_party/api_thirds

@@ -8,8 +8,9 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.chemical_state import resolve_chemical_state
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
+from molsysmt._private.sparse_membership import pack_membership
 
-from ._charge_centers import formal_charge_centers, pack_membership
+from ._charge_centers import formal_charge_centers
 
 _CALLER = "molsysmt.physchem.get_charge_centers"
 

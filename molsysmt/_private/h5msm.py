@@ -3,6 +3,34 @@
 from pathlib import Path
 
 
+def modular_h5msm_dimensions(item):
+    """Return source axis sizes from 0.5 metadata without loading domain arrays.
+
+    Return None for other forms. This preflight is not a schema validation;
+    the materializing reader remains responsible for domain associations.
+    """
+    if not isinstance(item, (str, Path)) or not str(item).endswith(".h5msm"):
+        return None
+    import h5py
+
+    from molsysmt.form._h5msm05_associations import _axis_sizes_from_file
+
+    with h5py.File(item, "r") as file:
+        version = file.attrs.get("version")
+        if isinstance(version, bytes):
+            version = version.decode()
+        if version != "0.5":
+            return None
+        sizes = _axis_sizes_from_file(file)
+    n_atoms = sizes.get(
+        ("structures", None, "atom"),
+        sizes.get(
+            ("topology", None, "atom"), sizes.get(("chemical_states", None, "atom"), 0)
+        ),
+    )
+    return n_atoms, sizes.get(("structures", None, "structure"), 0)
+
+
 def maybe_read_modular_h5msm(item):
     """Materialize a 0.5 file when a legacy file adapter cannot query its schema."""
     if isinstance(item, (list, tuple)):

@@ -77,3 +77,10 @@ molsysmt.physchem.get_charge_centers:
   summary: "Recognizes sparse formal-charge centers in one chemical state."
   doc_ref: "{func}`molsysmt.physchem.get_charge_centers`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_charge_centers()**: Recognizes formal-charge centers in one chemical state. See {func}`molsysmt.physchem.get_charge_centers`.\n:::"
+
+molsysmt.interactions.ionic.get_ionic_interactions:
+  name: "msm.interactions.ionic.get_ionic_interactions"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Calculates scoped geometric contacts between formal-charge centers."
+  doc_ref: "{func}`molsysmt.interactions.ionic.get_ionic_interactions`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.ionic.get_ionic_interactions()**: Calculates geometric observations between formal-charge centers. See {func}`molsysmt.interactions.ionic.get_ionic_interactions`.\n:::"

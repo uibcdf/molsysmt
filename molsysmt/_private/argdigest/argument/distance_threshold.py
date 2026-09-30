@@ -4,6 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_distance_threshold = [
+    "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",
     "molsysmt.hbonds.get_buch_hbonds.get_buch_hbonds",
     "molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
     "molsysmt.interactions.hbonds.get_buch_hbonds.get_buch_hbonds",

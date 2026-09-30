@@ -1,12 +1,11 @@
 from molsysmt._private.smonitor import ArgumentError
 
-# The only surface taking a `method` argument is the potential energy minimization,
-# and its OpenMM backend exposes a single algorithm through LocalEnergyMinimizer.
+# The minimization backend exposes one algorithm through LocalEnergyMinimizer.
 _supported_methods = {"l-bfgs": "L-BFGS"}
 
 
 def digest_method(method, caller=None):
-    """Check the name of the minimization method.
+    """Validating the caller's named scientific method.
 
     Parameters
     ----------
@@ -26,6 +25,11 @@ def digest_method(method, caller=None):
     ArgumentError
         If the method is not a string or its name is not supported.
     """
+
+    if caller == "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions":
+        if isinstance(method, str) and method == "minimum_distance":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
 
     if isinstance(method, str):
         try:

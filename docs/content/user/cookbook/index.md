@@ -19,6 +19,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`querying_sparse_interactions`** | Comparing synthetic interaction observations across selected structures and atom sets. |
 | **{doc}`migrating_h5msm`** | Translating a 0.4 molecular-system file into the modular H5MSM 0.5 schema. |
 | **{doc}`preparing_charged_participants`** | Recognizing local charged centers and selecting complete chemical participants. |
+| **{doc}`saving_ionic_interactions`** | Calculating, naming, saving, and querying an ionic-contact analysis. |
 
 ```{eval-rst}
 .. toctree::
@@ -37,6 +38,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    querying_sparse_interactions.md
    migrating_h5msm.md
    preparing_charged_participants.ipynb
+   saving_ionic_interactions.ipynb
 ```
 
 :::{tip}
