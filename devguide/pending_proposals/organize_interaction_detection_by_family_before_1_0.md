@@ -166,7 +166,7 @@ remains a separate proposal. This report covers the analysis namespace;
 ### Modular extension decision — 2026-09-30
 
 The maintainer accepts ionic, pi-pi, and cation-pi as the next sequence,
-starting with the independently scoped [ionic proposal #261](implement_ionic_interactions_with_reusable_molecular_tools.md).
+starting with the independently scoped [ionic proposal #261](../archive/resolved_proposals/implement_ionic_interactions_with_reusable_molecular_tools.md).
 Reusable charge interpretation and hydrophobic typing belong in `physchem`,
 connectivity tools in `topology`, geometry in `structure`, and reconstruction
 and image conventions in `pbc`. Family detectors orchestrate those tools and

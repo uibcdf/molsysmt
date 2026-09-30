@@ -9,6 +9,10 @@ The operational [H5MSM benchmark guide](h5msm.md) documents the current
 interaction-layer probe, recorded evidence, interpretation, and remaining
 measurements for the modular 0.5 format.
 
+The [ionic calculation guide](ionic.md) records molecular and synthetic
+controls, projected H5MSM calculation, resident sparse output, independent
+correctness checks, and eager/chunked timing and memory tradeoffs.
+
 ## What to measure
 
 Measure separately:

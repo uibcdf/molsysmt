@@ -14,6 +14,15 @@ the artifacts independently.
 | Solvated chicken villin HP35 | `molsysmt/data/h5/traj_chicken_villin_HP35_solvated.h5` | Multi-molecule covalent reconstruction against MDTraj periodic bond distances | `701372a9749186302717c0c85027e6177bebdeb43a09620f43b930f692898959` |
 | NGLView `md_1u19` | `molsysmt/data/gro/md_1u19.gro` | Topology for a periodic multiframe demo trajectory | `8eec93cb0b45c43abc50ec40e49f983e2c2484671077777db19bf7340c068c76` |
 | NGLView `md_1u19` | `molsysmt/data/xtc/md_1u19.xtc` | Periodic coordinates and boxes for MIC comparisons | `8279bc6723a4b2e70d6ef3e83fbbcaeb3f981d80546ef4195b7b1d7ba5815af1` |
+| Chicken villin HP35, PDB 1VII | `molsysmt/data/pdb/1vii.pdb` | Ionic contacts in a declared formal-charge state | `ebecd3d6c0dd9c8b34bcbea9b57c73e4f73986cc674150f0aaa0687db66e77ef` |
+
+The ionic fixtures additionally use `devtools/data/ionic_validation_systems.json`
+for explicit charge assignments, whole participants, distance-reference atoms,
+and both source checksums. RDKit reads unchanged PDB coordinates and bond orders.
+The fixture state charges N-termini, Lys and Arg and deprotonates Asp/Glu and
+C-termini; it does not claim that experimental protonation has been measured.
+All other formal charges are explicitly zero. SMARTS recognition and exhaustive
+Cartesian distances provide independent controls for the bounded detector.
 
 The 1L2Y file identifies the deposited NMR ensemble, authors, experimental
 conditions, and primary publication in its PDB header. The other artifacts are

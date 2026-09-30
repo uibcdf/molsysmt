@@ -3,7 +3,8 @@
 `molsysmt.interactions` owns chemically interpreted analyses over molecular
 systems. Distance-only proximity remains a geometric primitive in `structure`;
 it is not by itself an interaction classification. The first public families
-are `interactions.hbonds` and `interactions.disulfides`. Other families need
+are `interactions.hbonds`, `interactions.disulfides`, and the experimental
+`interactions.ionic`. Other families need
 separate scientific contracts and decisions.
 
 ## Hydrogen bonds
@@ -91,6 +92,64 @@ has synthetic tests for geometry, selection, group filters, periodicity, frame
 order, and already-recorded bonds. These tests validate the implementation of
 the stated threshold rule; they do not independently establish chemical bond
 identity. The disulfide API is Experimental in the public stability registry.
+
+## Ionic contacts
+
+`interactions.ionic.get_ionic_interactions` calculates minimum-distance
+observations between opposite formal-charge centers in one declared chemical
+state. The required `distance_threshold` is a finite positive length quantity;
+there is no universal default. The criterion is inclusive, with one float64
+ULP for unit-conversion roundoff. Proximity is geometric evidence, not an
+electrostatic energy, favorable binding, or a recorded covalent bond.
+
+General chemistry belongs to `physchem.get_charge_centers`. Its bounded
+definition groups carboxylate and guanidinium motifs, directly covalently
+connected charged atoms, and other literal charged atoms; net-neutral groups
+are omitted. Carboxylate geometry uses oxygen references, guanidinium nitrogen
+references. Whole-center membership is retained even when a reference subset
+defines the distance. Source elements, formal charges, connectivity, and bond
+orders must be explicit. An explicit completeness assumption is recorded
+without repairing the source. No protonation, residue descriptor, partial
+charge model, or force-field parameterization substitutes for missing chemistry.
+Phosphate, sulfate, and aromatic delocalization remain separately scoped under
+`uibcdf/molsysmt#262`.
+
+Recognition examines source chemistry once before selection. Atom selections
+must contain complete centers. Calculation scopes are internal, incident, or
+between two disjoint selections. Frames are source structure indices; repeats
+are deduplicated and sorted, and evaluated-empty frames remain in coverage.
+Intramolecular contacts are included; direct covalent center links are excluded,
+while dative links do not impose this exclusion. There is no residue/component
+exclusion. MIC uses the available box when requested. A periodic observation
+anchors the positive participant at image zero and shifts the whole negative
+participant by the recorded row-box lattice vector. Split participants needing
+individual atom images fail explicitly.
+
+The default result is `molsysmt.Interactions`, optionally
+`molsysmt.InteractionsDict`. Relations have positive/negative roles; measures
+contain distances in nm and center charges in elementary charge units.
+Parameters preserve threshold, charge source, selected state, definition/rule
+version, evidence, scope, exclusions, periodic policy, execution mode, block
+count, and numerical memory policy. Producer versions are captured at
+calculation time. Attachment to `MolSys.interactions` is an explicit named
+assignment; public H5MSM 0.5 preserves the complete result.
+
+Keyword-only `heavy_mode` supports native MolSys and H5MSM 0.5 paths with
+index selections or `all`. Rich string selections retain eager execution.
+The [scalability contract](SCALABILITY.md) defines chemistry projection,
+coordinate/candidate/result working estimates, and unsupported combinations.
+The result remains resident; the detector has no incremental writer.
+
+Scientific controls use analytical fixtures and real bundled Trp-cage/HP35
+coordinates under explicitly declared states. Fixed membership, independent
+RDKit SMARTS, exhaustive Cartesian distances, and controlled periodic image
+representations protect the bounded claim. They do not establish experimental
+protonation or validate arbitrary chemical motifs. Guards are
+`tests/scientific_truth/curated/test_ionic_interactions.py` and
+`tests/interactions/ionic/`; source hashes and state assumptions are in
+`devtools/data/ionic_validation_systems.json`. The API remains Experimental;
+scientific correctness for this declared rule does not establish stability.
+See the [ionic benchmark guide](benchmarking/ionic.md) for measured tradeoffs.
 
 ## Current result behavior and 1.0 target
 
@@ -193,7 +252,7 @@ materialize each selected analysis. An indexed selective HDF5 reader exists
 internally, but it is not yet a supported public file-backed query API.
 The native/H5MSM parity workflow is guarded by
 `tests/interactions/test_public_molsys_h5msm_workflow.py`. No generic contact
-classifier or other interaction family is implemented in this slice. Client
+classifier is implied by these family methods. Client
 libraries can call the family-specific APIs and should preserve method
 identity and units in any presentation or derived analysis. A stable
 cross-system result contract requires a separate decision.

@@ -1,13 +1,13 @@
 ---
 summary: Implement ionic interactions with reusable molecular tools
 issue: uibcdf/molsysmt#261
-status: active
+status: resolved
 opened: 2026-09-30
-closed:
-verification: inspected
+closed: 2026-09-30
+verification: measured
 area: [api, attribute, structure, pbc, performance, docs]
-guard:
-normative:
+guard: tests/scientific_truth/curated/test_ionic_interactions.py
+normative: interactions_api.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,12 +16,14 @@ supersedes: []
 
 **Reported:** 2026-09-30, following the maintainer's review of additional
 interaction families and source inspection of molecular analysis libraries.
-**Status:** Active implementation. The maintainer accepts ionic, pi-pi,
-and cation-pi as the next sequence and requires reusable domain tools and
-allows additional Rust routines for heavy computation. The first general
-charge-center tool and eager/chunked minimum-distance ionic detector are
-implemented experimentally. Synthetic stage measurements are available;
-real-system scientific and performance acceptance remains pending.
+**Status:** Resolved for the bounded experimental formal-charge/minimum-distance
+method. Reusable chemical, geometric, PBC, and sparse execution tools are
+implemented; analytical and independent molecular controls, eager/chunked
+parity, persistence, and synthetic/molecular measurements complete the accepted
+first delivery. Pi-pi and cation-pi follow as separately scoped families.
+Expanded recognition remains `uibcdf/molsysmt#262`; no universal chemistry,
+experimental protonation, electrostatic energy, stability, or total RAM guarantee
+is claimed.
 
 ## What
 
@@ -64,7 +66,7 @@ Do not create placeholder exports.
 | Centers, best-fit planes, planarity, distances, and angular geometry | `structure`, using existing centers and geometric principal axes where appropriate | Centers and geometric principal axes exist, including Rust kernels. A reusable plane result with degeneracy checks and explicit units may need an additional boundary. |
 | Covalent reconstruction, MIC conventions, and lattice shifts | `pbc` | `wrap_to_mic` and `wrap_to_pbc` reconstruct covalent blocks with `compact='component'`. Returning per-atom reconstruction shifts and a compactness check would require an explicit additional contract. |
 | Spatial candidate search | `structure.get_neighbors` and private shared numerical kernels | Threshold CSR search already uses the bundled Rust cell-list kernel. |
-| Sparse analysis, query, attachment, and persistence | Interactions, MolSys.interactions, InteractionsDict, and H5MSM | Existing experimental contract; see the [interaction API](../interactions_api.md). |
+| Sparse analysis, query, attachment, and persistence | Interactions, MolSys.interactions, InteractionsDict, and H5MSM | Existing experimental contract; see the [interaction API](../../interactions_api.md). |
 
 Participant atom sets are chemical motifs, not additional native residue
 groups. Their local row indices must not be presented as `group_index`, and
@@ -190,7 +192,7 @@ and alternative resonance representations outside the documented rules are
 not grouped by this version.
 Expansion and scientific validation of these rules are tracked separately in
 `uibcdf/molsysmt#262`; see the
-[charge-center coverage proposal](expand_and_validate_formal_charge_center_recognition.md).
+[charge-center coverage proposal](../../pending_proposals/expand_and_validate_formal_charge_center_recognition.md).
 That expansion is not a closure requirement for this first bounded ionic method.
 
 The result packs whole-center membership and separate distance-reference
@@ -404,7 +406,7 @@ coverage. Group minima use bounded source batches; final observations have
 deterministic ordering, scientific provenance, charges, and periodic images.
 
 Working estimates and explicit failure limits are normative in
-[`SCALABILITY.md`](../SCALABILITY.md). The complete sparse result is resident;
+[`SCALABILITY.md`](../../SCALABILITY.md). The complete sparse result is resident;
 no incremental writer, checkpoint/resume, or total process RAM bound is
 claimed. Conservative candidate bounds may reject actually sparse cases.
 Rich string selections retain eager execution and reject forced chunking.
@@ -420,7 +422,7 @@ and a later-block scientific failure before finalization. User Guide and
 Cookbook examples demonstrate execution choices and public persistence; all
 four affected course modules describe the delivered scope.
 
-**Remaining:** real molecular systems with explicit source chemistry,
+**At this chunked checkpoint, remaining:** real molecular systems with explicit source chemistry,
 independent scientific controls, and performance measurements on those systems.
 The bounded synthetic measures below do not establish recognition of new
 motifs or an acceptable speed at arbitrary charged-center density. Broader
@@ -516,15 +518,73 @@ python devtools/scripts/benchmark_ionic_interactions.py --atoms 100000 --frames 
 
 Raw snapshots:
 
-- [1,000 × 300](../../benchmarks/baselines/ionic_1000x300.json).
-- [10,000 × 30](../../benchmarks/baselines/ionic_10000x30.json).
-- [100,000 × 100, dilute charges](../../benchmarks/baselines/ionic_100000x100_dilute.json).
+- [1,000 × 300](../../../benchmarks/baselines/ionic_1000x300.json).
+- [10,000 × 30](../../../benchmarks/baselines/ionic_10000x30.json).
+- [100,000 × 100, dilute charges](../../../benchmarks/baselines/ionic_100000x100_dilute.json).
 
-Checkpoint validation: **780 passed** across heavy execution, ionic detection,
+Earlier chunked checkpoint validation: **780 passed** across heavy execution, ionic detection,
 charge-center recognition, grouped geometry, diagnostic catalog, native form
 routes, and public MolSys/H5MSM workflow. Toolbox and Cookbook notebooks were
 executed successfully. These measurements leave the issue active until the
 real-system scientific and performance acceptance above is completed.
+
+### Molecular validation and closure — 2026-09-30
+
+**Scientifically validated within the declared method/state scope:** bundled
+1L2Y coordinates (304 atoms, all 38 NMR models) and 1VII coordinates (596 atoms,
+one model) are unchanged. A checksum-pinned independent fixture manifest
+specifies every formal charge, complete participant membership, and reference
+atoms. RDKit reads source connectivity/orders. The modeling state charges
+N-termini, Lys and Arg and deprotonates Asp/Glu and C-termini; all other formal
+charges are zero. This is explicitly declared fixture preparation, not a
+production protonation rule or experimental protonation measurement.
+
+Independent RDKit SMARTS establish carboxylate/guanidinium memberships. A
+separate exhaustive Cartesian displacement calculation uses the fixed reference
+memberships rather than MolSysMT centers, neighbors, or geometry. It checks
+observation keys, roles, counts and distances, native/file sources, eager/chunked
+execution, and explicit cutoffs. Fixed counts are 20/61 for Trp-cage at 0.4/0.8
+nm and 0/4 for villin at those cutoffs; 0.8 nm is a positive-output control,
+not a recommended biological threshold. No reference value consumes detector
+output. Selected frames `[37, 0, 13, 37]` cover deduplication and empty coverage,
+internal/incident/between scopes, combined atom/frame queries, named full-system
+H5MSM persistence, occurrence indices, parameters, and producer versions.
+Controlled triclinic lattice shifts of whole participants on real coordinates
+preserve the independent nonperiodic distances and reconstruct every observation
+from the actual serialized image. This is a periodic representation control,
+not another molecular dynamics dataset.
+
+**Benchmarked:** the same sequential worker harness measures real Trp-cage,
+a 100-cycle repetition (3,800 frames, only 38 independent structures), and
+villin at the explicit 0.8 nm control. Each worker validates all observations
+against the independent reference outside its calculation timer. Date, hardware,
+versions, samples, source/implementation hashes, state definition, warmup,
+stage timings, queries, resident bytes, public persistence and Linux VmHWM are
+recorded in `benchmarks/baselines/ionic_real_*.json`. The maintained operational
+[ionic benchmark guide](../../benchmarking/ionic.md) holds reproduction commands,
+numbers and interpretation. Native calculation medians are about 27/29 ms
+(eager/chunked) for the 38-model ensemble and 1.24/1.27 s for its repeated control;
+file medians include chemical preparation. Chunking is a memory-workspace
+choice and does not universally accelerate these cases. Runtime and source
+loading dominate whole-worker peak RSS for these small results.
+
+Closure evidence: the combined charge-center, ionic, grouped geometry, whole
+participant PBC, sparse accumulator, molecular oracle and provenance selection
+passes **129 tests**. The final molecular controls pass **22 tests**, with no
+skips. The detector and persistence notebooks execute successfully. Ruff,
+public API, docstring, dependencies, course, scientific registry structure and
+developer-guide gates pass. Production detector/kernel code is unchanged in
+this validation checkpoint. The API remains Experimental; these focused
+results are not a release-candidate certificate or validation of other families.
+
+Durable method rules are absorbed by [`interactions_api.md`](../../interactions_api.md),
+working limits by [`SCALABILITY.md`](../../SCALABILITY.md), and benchmark procedures
+by [`benchmarking/ionic.md`](../../benchmarking/ionic.md). The closure guard is
+`tests/scientific_truth/curated/test_ionic_interactions.py`; expected memberships,
+counts and Cartesian distances fail if recognition, frame/scope semantics,
+periodic images, or persisted observations regress. The earlier pending
+real-system statements in dated checkpoints below/above describe their historical
+state and are superseded by this closure.
 
 ### Public surface and remaining design
 
@@ -612,8 +672,8 @@ writer. Delivery beyond RAM needs the separately tracked serialization work
 under #252 and a measured budget policy. Do not advertise an out-of-core
 detector merely because its input can be iterated.
 
-Follow the [Rust optimization guide](../rust_kernel_optimization_guide.md)
-and [heavy-trajectory contract](../SCALABILITY.md), preserving deterministic
+Follow the [Rust optimization guide](../../rust_kernel_optimization_guide.md)
+and [heavy-trajectory contract](../../SCALABILITY.md), preserving deterministic
 MIC ties, frame provenance, and fail-fast execution.
 
 ## Why
@@ -671,7 +731,7 @@ candidates:
 - Missing charges do not justify silent reparameterization or a switch to a
   different charge definition.
 - Successful RDKit sanitization does not prove the source state was explicit
-  and chemically sufficient; see the [readiness proposal](diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md).
+  and chemically sufficient; see the [readiness proposal](../../pending_proposals/diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md).
 - Mol* and its NGL antecedents do not form two independent scientific oracles.
 - Compacting coordinates does not preserve internal images in today's result
   encoding automatically.

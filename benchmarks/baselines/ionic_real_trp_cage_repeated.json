@@ -1,0 +1,203 @@
+{
+  "date_utc": "2026-09-30T18:06:44.163991+00:00",
+  "base_commit": "0a46e4ca31e660352a10ce002be7095adbb6e99c",
+  "worktree_dirty": true,
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "python": "3.13.14",
+  "numpy": "2.4.6",
+  "h5py": "3.16.0",
+  "molsysmt": "0.21.0+606.ga03eb4bf6",
+  "atoms": 304,
+  "frames": 3800,
+  "charged_atoms": 5,
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "thread_environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null,
+    "NUMBA_NUM_THREADS": null
+  },
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_ionic_interactions.py": "6fa2d952d52d8b488ed85981710810924da0e042a0a58414e5c26775640dcbfb",
+    "molsysmt/interactions/ionic/get_ionic_interactions.py": "fcc328ee954377a914c0d2d0ceee837d49105fb9533476e47111a27664fdb2d5",
+    "molsysmt/interactions/ionic/_reducer.py": "7083adbde8bbf6663c37e957f839158d327052faaad0470db859313519df68fe",
+    "devtools/scripts/ionic_validation_systems.py": "c5dc429f916372470a4927c02ce9d150925dc1936d12385dacbcce955b8c8a6d",
+    "devtools/data/ionic_validation_systems.json": "12ed6f93ab9d59825f661fb0bd21294f54d9b5f3e3f3a41eb845bd049d935b35"
+  },
+  "coordinate_bytes": 27724800,
+  "repeats": 3,
+  "distance_threshold_nm": 0.4,
+  "chunk_size_limit": 64,
+  "ram_budget_bytes": 1073741824,
+  "warmup": "one tiny independent ionic calculation per worker; OS page cache uncontrolled",
+  "rss_scope": "Linux VmHWM since worker exec through calculation, indexing, serialization and reload; includes source loading",
+  "fixture": "protein coordinates with a declared chemical state; no PBC",
+  "dataset": "trp_cage",
+  "source_artifact": "molsysmt/data/pdb/1l2y.pdb",
+  "source_sha256": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438",
+  "cycles": 100,
+  "independent_structures": 38,
+  "chemical_state": "Explicit benchmark state: charged N-termini, Lys and Arg; deprotonated Asp/Glu and C-termini. All other atoms have zero formal charge. This is a declared modeling state, not experimental protonation evidence.",
+  "rdkit": "2025.9.5",
+  "oracle": "Fixed participant manifest and exhaustive Cartesian displacement calculation; verified outside timed calculation.",
+  "results": [
+    {
+      "source": "native",
+      "mode": "off",
+      "source_load_s": 0.2679534563794732,
+      "calculation_samples_s": [
+        1.248172570951283,
+        1.2391355959698558,
+        1.2383737247437239
+      ],
+      "calculation_median_s": 1.2391355959698558,
+      "stage_medians": {
+        "neighbors_s": 0.742343433201313,
+        "consume_s": 1.2186003932729363,
+        "packing_s": 0.0024362439289689064,
+        "group_geometry_s": 1.1448107799515128,
+        "recognition_s": 0.01089227944612503,
+        "candidate_pairs": 4500.0,
+        "group_reduction_s": 0.4024673467501998,
+        "validation_acceptance_accumulation_s": 0.07378961332142353
+      },
+      "occurrences": 2000,
+      "relations": 3,
+      "chunks": 1,
+      "numeric_bytes_before_index": 167632,
+      "numeric_bytes_after_index": 186224,
+      "rss_before_calculation_bytes": [
+        478318592,
+        479481856,
+        479485952
+      ],
+      "process_peak_rss_bytes": 510337024,
+      "rusage_peak_rss_bytes": 509767680,
+      "frame_query_median_s": 7.7058095484972e-05,
+      "first_atom_query_s": 0.0002847732976078987,
+      "atom_query_median_s": 4.295073449611664e-05,
+      "h5msm_write_s": 0.010794002562761307,
+      "h5msm_read_s": 0.007139380089938641,
+      "h5msm_bytes": 72853
+    },
+    {
+      "source": "native",
+      "mode": "force",
+      "source_load_s": 0.2689037872478366,
+      "calculation_samples_s": [
+        1.2799060605466366,
+        1.2690861904993653,
+        1.2621060656383634
+      ],
+      "calculation_median_s": 1.2690861904993653,
+      "stage_medians": {
+        "packing_s": 0.002305329777300358,
+        "recognition_s": 0.010818427428603172,
+        "candidate_pairs": 4500.0,
+        "neighbors_s": 0.7450737059116364,
+        "consume_s": 1.2381755812093616,
+        "group_geometry_s": 1.1580896526575089,
+        "group_reduction_s": 0.4130159467458725,
+        "validation_acceptance_accumulation_s": 0.0800859285518527
+      },
+      "occurrences": 2000,
+      "relations": 3,
+      "chunks": 60,
+      "numeric_bytes_before_index": 167632,
+      "numeric_bytes_after_index": 186224,
+      "rss_before_calculation_bytes": [
+        478105600,
+        478539776,
+        478564352
+      ],
+      "process_peak_rss_bytes": 509894656,
+      "rusage_peak_rss_bytes": 509517824,
+      "frame_query_median_s": 8.068699389696121e-05,
+      "first_atom_query_s": 0.0002499585971236229,
+      "atom_query_median_s": 4.4920481741428375e-05,
+      "h5msm_write_s": 0.01071319729089737,
+      "h5msm_read_s": 0.0072828419506549835,
+      "h5msm_bytes": 72853
+    },
+    {
+      "source": "file",
+      "mode": "off",
+      "source_load_s": 2.333894371986389e-06,
+      "calculation_samples_s": [
+        1.9238414019346237,
+        1.9481648970395327,
+        1.9091881215572357
+      ],
+      "calculation_median_s": 1.9238414019346237,
+      "stage_medians": {
+        "candidate_pairs": 4500.0,
+        "group_geometry_s": 1.1810554843395948,
+        "chemistry_read_s": 0.07884001079946756,
+        "neighbors_s": 0.7683103196322918,
+        "consume_s": 1.2583569381386042,
+        "packing_s": 0.002287771552801132,
+        "recognition_s": 0.009235226549208164,
+        "group_reduction_s": 0.41274516470730305,
+        "validation_acceptance_accumulation_s": 0.07730145379900932
+      },
+      "occurrences": 2000,
+      "relations": 3,
+      "chunks": 1,
+      "numeric_bytes_before_index": 167632,
+      "numeric_bytes_after_index": 186224,
+      "rss_before_calculation_bytes": [
+        421376000,
+        428433408,
+        428240896
+      ],
+      "process_peak_rss_bytes": 478556160,
+      "rusage_peak_rss_bytes": 478556160,
+      "frame_query_median_s": 9.014736860990524e-05,
+      "first_atom_query_s": 0.0002991845831274986,
+      "atom_query_median_s": 6.311573088169098e-05,
+      "h5msm_write_s": 0.012862518429756165,
+      "h5msm_read_s": 0.009823010303080082,
+      "h5msm_bytes": 72853
+    },
+    {
+      "source": "file",
+      "mode": "force",
+      "source_load_s": 1.9632279872894287e-06,
+      "calculation_samples_s": [
+        2.061356063000858,
+        2.0541389165446162,
+        2.0455997632816434
+      ],
+      "calculation_median_s": 2.0541389165446162,
+      "stage_medians": {
+        "neighbors_s": 0.7853826927021146,
+        "packing_s": 0.0024394067004323006,
+        "chemistry_read_s": 0.07662122696638107,
+        "group_geometry_s": 1.2045779014006257,
+        "recognition_s": 0.009386938996613026,
+        "consume_s": 1.2859828118234873,
+        "candidate_pairs": 4500.0,
+        "group_reduction_s": 0.4191952086985111,
+        "validation_acceptance_accumulation_s": 0.08140491042286158
+      },
+      "occurrences": 2000,
+      "relations": 3,
+      "chunks": 60,
+      "numeric_bytes_before_index": 167632,
+      "numeric_bytes_after_index": 186224,
+      "rss_before_calculation_bytes": [
+        421400576,
+        426033152,
+        426184704
+      ],
+      "process_peak_rss_bytes": 476938240,
+      "rusage_peak_rss_bytes": 477343744,
+      "frame_query_median_s": 8.591031655669212e-05,
+      "first_atom_query_s": 0.0002689165994524956,
+      "atom_query_median_s": 4.735449329018593e-05,
+      "h5msm_write_s": 0.011215072125196457,
+      "h5msm_read_s": 0.007384243421256542,
+      "h5msm_bytes": 72853
+    }
+  ]
+}

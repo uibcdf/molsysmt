@@ -84,7 +84,7 @@ Experimental status is owned by
 [test_get_charge_centers.py](../../tests/physchem/test_get_charge_centers.py)
 contains current-rule chemistry and selection controls. The original delivery
 checkpoint and execution results are recorded in the
-[ionic implementation proposal](implement_ionic_interactions_with_reusable_molecular_tools.md).
+[ionic implementation proposal](../archive/resolved_proposals/implement_ionic_interactions_with_reusable_molecular_tools.md).
 Those tests do not validate the new families proposed here.
 
 **Proposed, not validated:** recognition rules and complete geometric

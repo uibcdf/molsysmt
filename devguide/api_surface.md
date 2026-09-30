@@ -33,7 +33,7 @@ when a registered export disappears, or when the generated table is stale.
 
 The exact member inventories currently tracked are `molsysmt`, `basic`,
 `structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`,
-`interactions`, `interactions.hbonds`, `interactions.disulfides`, and
+`interactions`, `interactions.hbonds`, `interactions.disulfides`, `interactions.ionic`, and
 `molecular_mechanics`. The canonical hydrogen-bond functions live under
 `interactions.hbonds`; `hbonds` retains the same function objects as an
 experimental compatibility path. Disulfide candidate observations live under

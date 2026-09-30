@@ -2,7 +2,8 @@
 """Measure ionic calculation, query, and H5MSM costs in isolated worker processes.
 
 Synthetic separated Na/Cl pairs vary by frame, including evaluated-empty frames.
-This is a scale control, not a biological or energetic validation dataset.
+Optional protein fixtures use fixed coordinates and declared chemical states.
+Repeating an ensemble is a scale control, not additional independent structures.
 """
 
 import argparse
@@ -110,7 +111,7 @@ def _worker(args):
             candidates[0] = 0
             rss_before.append(_rss_bytes())
             start = time.perf_counter()
-            result = get_ionic_interactions(source, ".4 nm", pbc=False, heavy_mode=args.mode)
+            result = get_ionic_interactions(source, f"{args.threshold} nm", pbc=False, heavy_mode=args.mode)
             durations.append(time.perf_counter() - start)
             observations.append({**stages, "candidate_pairs": candidates[0]})
     bytes_before_index = result.numeric_nbytes
@@ -140,6 +141,19 @@ def _worker(args):
         read_s = time.perf_counter() - start
         np.testing.assert_array_equal(restored.occurrence_structures, result.occurrence_structures)
         np.testing.assert_allclose(restored.measurements["distance"], result.measurements["distance"])
+    if args.dataset:
+        from ionic_validation_systems import (
+            cartesian_reference,
+            observation_columns,
+            prepare_system,
+        )
+
+        _, reference, xyz, _ = prepare_system(args.dataset)
+        expected = cartesian_reference(reference, np.tile(xyz, (args.cycles, 1, 1)), args.threshold)
+        actual = observation_columns(result, reference)
+        assert actual.keys() == expected.keys() and result.n_interactions == len(expected)
+        for key, value in expected.items():
+            np.testing.assert_allclose(actual[key], value, atol=1e-12, rtol=0)
     grouped = {}
     for label in {key for row in observations for key in row}:
         grouped[label] = float(np.median([row.get(label, 0.) for row in observations]))
@@ -167,6 +181,9 @@ def main():
     parser.add_argument("--atoms", type=int, default=1000)
     parser.add_argument("--frames", type=int, default=300)
     parser.add_argument("--charged-atoms", type=int)
+    parser.add_argument("--dataset", choices=["trp_cage", "villin"])
+    parser.add_argument("--cycles", type=int, default=1)
+    parser.add_argument("--threshold", type=float, default=.4)
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--chunk", type=int, default=32)
     parser.add_argument("--budget", type=int, default=1024**3)
@@ -175,6 +192,8 @@ def main():
     parser.add_argument("--source", choices=["native", "file"])
     parser.add_argument("--mode", choices=["off", "force"])
     args = parser.parse_args()
+    if args.cycles < 1 or not np.isfinite(args.threshold) or args.threshold <= 0:
+        parser.error("Use a positive cycle count and finite positive threshold in nm.")
     if args.atoms < 2 or args.atoms % 2 or min(args.frames, args.repeats, args.chunk, args.budget) < 1:
         parser.error("Use an even positive atom count and positive frame/repetition/chunk/budget counts.")
     if args.charged_atoms is not None and (
@@ -190,9 +209,30 @@ def main():
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
     dirty = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=root, text=True).strip())
     results = []
+    dataset_metadata = {}
+    if args.dataset:
+        from ionic_validation_systems import MANIFEST, prepare_system
+
+        from molsysmt.native import Structures
+
+        fixture, reference, xyz, _ = prepare_system(args.dataset)
+        fixture.structures = Structures(coordinates=msm.pyunitwizard.quantity(
+            np.tile(xyz, (args.cycles, 1, 1)), "nm"))
+        args.atoms, args.frames = reference["atoms"], reference["structures"] * args.cycles
+        args.charged_atoms = len(reference["charge_atoms"])
+        dataset_metadata = {
+            "dataset": args.dataset, "source_artifact": reference["path"],
+            "source_sha256": reference["sha256"], "cycles": args.cycles,
+            "independent_structures": reference["structures"],
+            "chemical_state": json.loads(MANIFEST.read_text())["state_definition"],
+            "rdkit": version("rdkit"),
+            "oracle": "Fixed participant manifest and exhaustive Cartesian displacement calculation; verified outside timed calculation.",
+        }
+    else:
+        fixture = _fixture(args.atoms, args.frames, args.charged_atoms)
     with tempfile.TemporaryDirectory() as directory:
         source = str(Path(directory) / "source.h5msm")
-        msm.convert(_fixture(args.atoms, args.frames, args.charged_atoms), to_form=source)
+        msm.convert(fixture, to_form=source)
         for form in ("native", "file"):
             for mode in ("off", "force"):
                 command = [
@@ -200,7 +240,10 @@ def main():
                     "--source", form, "--mode", mode, "--atoms", str(args.atoms),
                     "--frames", str(args.frames), "--repeats", str(args.repeats),
                     "--chunk", str(args.chunk), "--budget", str(args.budget),
+                    "--threshold", str(args.threshold),
                 ]
+                if args.dataset:
+                    command.extend(["--dataset", args.dataset, "--cycles", str(args.cycles)])
                 completed = subprocess.run(command, check=True, capture_output=True, text=True)
                 results.append(json.loads(completed.stdout))
                 print(f"Completed {form}/{mode}", file=sys.stderr, flush=True)
@@ -219,12 +262,17 @@ def main():
                                                root / "molsysmt/interactions/ionic/get_ionic_interactions.py",
                                                root / "molsysmt/interactions/ionic/_reducer.py")},
         "coordinate_bytes": args.atoms * args.frames * 24, "repeats": args.repeats,
+        "distance_threshold_nm": args.threshold,
         "chunk_size_limit": args.chunk, "ram_budget_bytes": args.budget,
         "warmup": "one tiny independent ionic calculation per worker; OS page cache uncontrolled",
         "rss_scope": "Linux VmHWM since worker exec through calculation, indexing, serialization and reload; includes source loading",
-        "fixture": "synthetic independent Na/Cl pairs; empty and variable frames; no PBC",
+        "fixture": "protein coordinates with a declared chemical state; no PBC" if args.dataset else "synthetic independent Na/Cl pairs; empty and variable frames; no PBC",
+        **dataset_metadata,
         "results": results,
     }
+    if args.dataset:
+        for path in (root / "devtools/scripts/ionic_validation_systems.py", MANIFEST):
+            report["implementation_sha256"][str(path.relative_to(root))] = hashlib.sha256(path.read_bytes()).hexdigest()
     encoded = json.dumps(report, indent=2) + "\n"
     if args.output:
         args.output.write_text(encoded)

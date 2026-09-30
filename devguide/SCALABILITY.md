@@ -115,8 +115,10 @@ runtime are outside the estimates. All output occurrences and final indexes
 must fit in memory. Ionic delivery has no incremental writer, checkpoint, or
 resume contract. Its parameters record execution mode, block count, and memory
 policy. Tests cover eager/chunked parity, scope, source indices, empty frames,
-periodic images, H5MSM round trips, and failure integrity; measurements and
-remaining real-system acceptance are tracked under `uibcdf/molsysmt#261`.
+periodic images, H5MSM round trips, and failure integrity. Independent molecular
+controls are described in [Interaction Analysis API](interactions_api.md);
+dated performance evidence and its limits are in the
+[ionic benchmark guide](benchmarking/ionic.md), delivered under `uibcdf/molsysmt#261`.
 
 ## Reducer protocol
 

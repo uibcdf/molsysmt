@@ -17,8 +17,9 @@ Current baseline scripts:
   and public H5MSM 0.5 interaction-layer persistence in isolated workers.
   Run cases sequentially without other benchmark jobs. It records Linux
   address-space peak RSS separately from the possibly inherited rusage peak.
-  The dated checkpoints are in `baselines/ionic_*.json`; interpretation and
-  remaining real-system acceptance are tracked in `uibcdf/molsysmt#261`.
+  The dated checkpoints are in `baselines/ionic_*.json`; molecular fixtures,
+  independent checks, reproduction commands, and interpretation are described
+  in the [ionic benchmark guide](../devguide/benchmarking/ionic.md).
 - `rust/bench_release_runtime.py`: runs isolated Rust-only release workloads
   for startup, first versus repeated calls, peak memory, explicit 1/2/4-thread
   scaling, and bounded nested concurrency. Every workload validates its result.
