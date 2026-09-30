@@ -185,6 +185,10 @@ Atomic and generic cluster labels report formal-charge evidence; they are not
 a universal ionic classification. Phosphate, sulfate, aromatic delocalization,
 and alternative resonance representations outside the documented rules are
 not grouped by this version.
+Expansion and scientific validation of these rules are tracked separately in
+`uibcdf/molsysmt#262`; see the
+[charge-center coverage proposal](expand_and_validate_formal_charge_center_recognition.md).
+That expansion is not a closure requirement for this first bounded ionic method.
 
 The result packs whole-center membership and separate distance-reference
 membership into int64 arrays and offsets. It records elementary-charge units,
