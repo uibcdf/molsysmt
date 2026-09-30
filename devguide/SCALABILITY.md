@@ -12,6 +12,7 @@ The public heavy path is currently integrated into these structure operations:
 - `molsysmt.structure.get_center`;
 - `molsysmt.structure.get_rmsd`;
 - `molsysmt.structure.get_distances`.
+- `molsysmt.structure.get_plane`.
 
 `molsysmt.interactions.ionic.get_ionic_interactions` also uses this executor
 for native MolSys and H5MSM 0.5 paths with atom-index selections or `"all"`.
@@ -83,6 +84,25 @@ H5MSM 0.4 file and handler iterators retain their legacy schema route.
 This source capability alone does not establish bounded memory for an entire
 public operation. Other public preflight calls can still materialize a 0.5
 file, and sparse/dense output storage needs its own budget.
+
+### Plane fitting working estimates
+
+`structure.get_plane` projects the union of complete selected groups and fills
+preallocated dense arrays without accumulating a second list of output blocks.
+Native Structures/MolSys and H5MSM support streamed coordinates; eager getter
+delivery covers other coordinate-bearing forms. Placeholder iterator classes
+do not count as streaming support. Numeric selections on H5MSM 0.5 read only
+axis metadata and projected structural series. Rich selections can materialize
+the source through ordinary selection.
+
+The numerical estimate reserves two output-sized buffers for quantities and
+standardization, packed memberships and projections, 24 bytes per projected atom
+per frame, 192 bytes per atom in the largest fitted group per frame, and 256
+bytes per fitted group per frame plus box work. Output and a one-frame workspace
+must fit before reading. Auto mode streams when the selected full work cannot
+fit; off mode fails when its estimated eager work exceeds the budget. The
+remaining budget determines a cap applied after chunk optimization. These are
+working estimates, not an RSS guarantee or an incremental output writer.
 
 ### Ionic preparation and working estimates
 

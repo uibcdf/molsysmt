@@ -73,6 +73,10 @@ not strong statistical evidence. See
 
 ## Reporting rule
 
+Reusable interaction preparation has separate operational guides:
+[ring participants](rings.md) and [plane fitting](planes.md). Their synthetic
+controls establish those bounded stages, not full pi-pi detector performance.
+
 Publication, README, or release claims must link to the exact result artifact
 and reproducible command. Re-run competitor comparisons against current pinned
 versions and describe semantic differences; do not infer architectural

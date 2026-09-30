@@ -12,3 +12,6 @@
 
 - Preserve sparse covalent versus aromatic ring membership, explicit state metadata,
   whole fused selections, tied-basis limits, and links to executed ring examples.
+
+- Keep general unweighted plane fitting separate from aromaticity, with unique-normal
+  and whole-participant PBC requirements, resident output and executed-tool links.

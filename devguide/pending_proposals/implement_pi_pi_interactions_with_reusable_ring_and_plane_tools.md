@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-30, following the validated ionic detector and the user's
 request to continue with pi-pi and later cation-pi calculations.
-**Status:** Active. Ring foundations are implemented; geometry, detector and its
-scientific/performance validation remain pending.
+**Status:** Active. Ring foundations and general plane fitting are implemented;
+the detector and its scientific/performance validation remain pending.
 
 ## What
 
@@ -33,8 +33,8 @@ consumer; coordination continues through uibcdf/molsysviewer#114.
 2. `physchem.get_aromatic_rings` prepares a basis from the explicitly aromatic
    covalent bond subgraph. Unknown atom/bond flags fail; no geometry-based
    aromaticity or residue-name inference is introduced.
-3. A general structure tool will fit planes with centroids, normals and
-   planarity measures. PBC image handling belongs to the shared PBC layer.
+3. `structure.get_plane` fits planes with centroids, unoriented normals and
+   orthogonal RMS/maximum deviations. PBC validation uses the shared PBC layer.
 4. The future detector will use explicit geometry thresholds, bounded neighbor
    searches, projected coordinate blocks and typed sparse accumulation. It must
    retain state, source axes, evaluated empty frames, complete participants,
@@ -60,7 +60,10 @@ advantage over all alternatives.
 ## What is measured and what is assumed
 
 **Implemented:** Two public experimental ring tools, common graph/membership
-helpers, fixed producer versions and complete-ring selection semantics.
+helpers, fixed producer versions and complete-ring selection semantics. The
+public experimental plane tool provides form-agnostic unweighted least-squares
+geometry, source memberships/indices, finite/unique-normal validation, strict
+whole-participant PBC checks and bounded coordinate blocks with resident output.
 
 **Contract-tested:** The combined checkpoint passed 289 tests; the final
 preparation/selection refinement passed 61 focused tests. Known memberships,
@@ -84,8 +87,23 @@ Membership arrays occupy 56,008 bytes; source/selected/examined axes bring total
 returned NumPy buffers to 2,456,008 bytes. This is not a trajectory detector
 benchmark or a total allocation guarantee.
 
-**Not yet measured:** Pi-pi detection speed, memory, geometric accuracy, PBC
-reconstruction and joint viewer loading. No detector exists at this checkpoint.
+The plane checkpoint passed 119 combined tests and 43 focused tests after the
+final scale-independent box refinement. It covers analytical rotations/translation/scale, an independent
+covariance oracle for a warped cloud, degeneracy, compound groups, triclinic PBC,
+source nonmutation, indices distinct from IDs, projected H5MSM (Structures-only
+and alongside saved analyses), native/dictionary/RDKit/MDTraj forms and numerical
+budget caps. The executed tutorial includes a bundled phenylalanine ring and a
+planarity plot; the executed preparation recipe and all four property course
+modules now distinguish chemical participants from fitted geometric planes.
+
+The sequential plane benchmark fits 1,000 groups over 50 selected structures
+from a 100,000-atom / 100-structure resident source. Median eager/block times are
+0.684/1.472 seconds with 3,256,408 returned numeric bytes; exact hashes and scope
+are recorded in [the plane guide](../benchmarking/planes.md). It does not measure
+file I/O, isolated RSS savings or the complete detector.
+
+**Not yet measured:** Pi-pi detection speed, memory, observation accuracy, general
+PBC reconstruction and joint viewer loading. No detector exists at this checkpoint.
 
 ## What was refuted
 
@@ -98,6 +116,11 @@ reconstruction and joint viewer loading. No detector exists at this checkpoint.
   method/version metadata and tied-basis limits prevent that overclaim.
 - Full coordinate materialization is unnecessary for chemical participants in
   a modular H5MSM 0.5 file with declared compatible atom axes.
+- A declared iterator class alone is not a real structural delivery route.
+  General plane fitting uses coordinate getters eagerly for forms with placeholder
+  iterators and requests streaming only through declared heavy capabilities.
+- Input streaming does not shrink dense output. Smaller blocks trade coordinate
+  workspace for repeated group-fitting calls; the plane control measures this cost.
 
 ## Scope and exclusions
 
@@ -118,14 +141,14 @@ new dependencies and a Rust rewrite without profiling are outside this phase.
 ## Acceptance criteria
 
 - [x] Public form-agnostic ring identification and declared-aromatic participants.
-- [ ] Analytical plane fitting with explicit units, degeneracy and planarity rules.
+- [x] Analytical plane fitting with explicit units, degeneracy and planarity rules.
 - [ ] Scientifically explicit pi-pi geometry, selection scope and exclusions.
 - [ ] Parallel/edge-to-face, near misses, warped and fused rings, evaluated-empty
       frames and periodic image reconstruction tests.
 - [ ] Native/H5MSM parity, nonconsecutive structures, atom queries and named round trip.
 - [ ] Independent molecular fixtures and reproducible time/memory measurements.
 - [ ] Complete detector API, Foundations, Toolbox, Cookbook and four-path documentation.
-      Ring-tool docstrings, two executed tutorials, an executed recipe, API registry,
+      Ring/plane docstrings, three executed tutorials, an executed recipe, API registry,
       Foundations and all four physicochemical-property course modules are updated.
 
 The proposal stays active until the detector is implemented and those criteria
@@ -153,6 +176,10 @@ python devtools/scripts/validate_course.py
 python devtools/scripts/validate_docstrings.py
 python devtools/scripts/validate_api_stability.py
 python devtools/scripts/validate_dependencies.py
+python -m pytest --receptor=llm tests/structure/test_get_plane.py tests/structure/get_center tests/physchem/test_get_aromatic_rings.py tests/topology/test_get_rings.py --disable-warnings
+python -m pytest --receptor=llm --doctest-modules molsysmt/structure/get_plane.py --disable-warnings
+python docs/execute_notebooks.py -q -f -n 2 docs/content/user/tools/structure/get_plane.ipynb docs/content/user/cookbook/preparing_aromatic_participants.ipynb
+python devtools/scripts/benchmark_plane_fitting.py --output /tmp/plane_fitting.json
 ruff check molsysmt
 ```
 

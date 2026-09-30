@@ -4,3 +4,6 @@
 - Keep topology versus physchem responsibilities, source indices, explicit aromatic flags,
   whole-ring selections, producer versions and chemistry-only H5MSM 0.5 round trip.
 - Do not present chemical participants as observed pi-pi contacts.
+
+- Preserve the independent geometric plane step, explicit units, whole memberships,
+  and the distinction between planarity and declared aromaticity.

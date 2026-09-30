@@ -41,4 +41,12 @@ Inside `molsysmt.Structures`, spatial and thermodynamic observables are stored a
 
 ## API Documentation
 
+Geometry can be evaluated from Structures without topology or chemical-state
+metadata. For example, plane fitting produces centroids, unoriented normals and
+orthogonal deviations for whole atom selections. Planarity alone does not
+establish aromaticity. Coordinate streaming and resident calculated output are
+separate memory costs; explicit source atom and structure indices preserve their
+meaning in a Structures-only H5MSM 0.5 file. See {ref}`Tutorial_Get_plane` for
+executed examples and PBC requirements.
+
 Detailed methods, getters, and converters for `molsysmt.Structures` are documented in the [{doc}`molsysmt.Structures API Reference </api/form/molsysmt_Structures/api_molsysmt_Structures>`].

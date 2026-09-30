@@ -1,0 +1,74 @@
+{
+  "record_version": "plane_fitting_benchmark@1",
+  "date": "2026-09-30",
+  "git_head": "508dd18b72ebae85200a9ec42b4e14f35a59bc2b",
+  "dirty_worktree": true,
+  "script_sha256": "4b0e80828800601ceffd8bf7e0d19b4bdeed35047c753616652553ce3bd84905",
+  "source_hashes": {
+    "molsysmt/structure/get_plane.py": "3b7a2aad764bf6ed8414fb7ceb90cc7b38e11091b6d13cdf4dde2d8ad4f31758",
+    "molsysmt/structure/_plane.py": "34f9f63960a9926bbd184efde5ac54dd4d64a7eeac41ea67297392ad5535db62",
+    "molsysmt/_private/execution/chunked_executor.py": "94d13ae0da50b2b6c9335067350a943fcca8c3c598bc375af5d097f545cae692"
+  },
+  "host": "nauta",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "available_cpu_count": 20,
+  "thread_environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null
+  },
+  "versions": {
+    "python": "3.13.14",
+    "molsysmt": "0.21.0+606.ga03eb4bf6",
+    "numpy": "2.4.6"
+  },
+  "configuration": {
+    "chunk_size": 8,
+    "chunk_memory_fraction": 0,
+    "max_ram_usage": 16736008192
+  },
+  "dataset": {
+    "n_atoms": 100000,
+    "n_structures": 100,
+    "n_planes": 1000,
+    "selected_atoms": 6000,
+    "selected_structures": 50,
+    "source_coordinate_bytes": 240000000
+  },
+  "methodology": {
+    "warmup": "one complete call per mode",
+    "repetitions": 3,
+    "statistic": "median",
+    "timing": "public selection, coordinate projection, group-wise NumPy SVD and output quantities; fixture construction excluded",
+    "oracle": "known planar regular hexagons with prescribed centers and z normals; no chemistry claims",
+    "rss": "Linux process VmHWM including imports, resident source, warmup and earlier modes; not allocation delta or isolated-mode comparison",
+    "numeric_memory": "returned NumPy/quantity buffers only; Python containers, work arrays and source excluded",
+    "io": "no file I/O timed; source is resident native Structures"
+  },
+  "source_process_peak_rss_bytes": 376303616,
+  "records": [
+    {
+      "heavy_mode": "off",
+      "seconds": [
+        0.7600423274561763,
+        0.6838463265448809,
+        0.6382171446457505
+      ],
+      "median_seconds": 0.6838463265448809,
+      "returned_numeric_bytes": 3256408,
+      "process_peak_rss_bytes": 666185728
+    },
+    {
+      "heavy_mode": "force",
+      "seconds": [
+        1.4752490911632776,
+        1.46115252841264,
+        1.4717631619423628
+      ],
+      "median_seconds": 1.4717631619423628,
+      "returned_numeric_bytes": 3256408,
+      "process_peak_rss_bytes": 666185728
+    }
+  ]
+}

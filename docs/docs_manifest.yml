@@ -77,6 +77,10 @@ sections:
         index_file: docs/content/user/tools/structure/index.md
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
+        pages:
+          - name: get_plane
+            file: docs/content/user/tools/structure/get_plane.ipynb
+            agents_file: docs/content/user/tools/structure/get_plane.ipynb.AGENTS.md
       - name: pbc
         path: docs/content/user/tools/pbc
         agents_file: docs/content/user/tools/pbc/AGENTS.md

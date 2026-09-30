@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 86 |
+| experimental | 87 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -145,6 +145,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.structure.get_maximum_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_minimum_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_neighbors` | stable | active | pre-1.0 |
+| `molsysmt.structure.get_plane` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_principal_axes` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_radius_of_gyration` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_rmsd` | stable | active | pre-1.0 |

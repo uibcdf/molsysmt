@@ -141,6 +141,44 @@ or favorable pi-pi geometry. The plane tool and pi-pi detector remain under
 uibcdf/molsysmt#265. Reproducible chemical preparation measurements are described
 in [benchmarking/rings.md](benchmarking/rings.md).
 
+## Reusable plane geometry
+
+`msm.structure.get_plane` fits unweighted orthogonal least-squares planes to
+one atom selection or overlapping groups. It requires coordinates, not topology
+or aromaticity. Its geometric dictionary is not an InteractionsDict. Packed
+source atom memberships and requested source structure indices accompany centers,
+unoriented unit normals and orthogonal RMS/maximum deviations. Structure traversal
+preserves order and repetitions; explicit empty frame lists have typed shapes.
+
+The implementation uses scaled, centered group-wise NumPy SVD. The normal is
+unique only when the middle/smallest singular-value gap exceeds 1e-12 times the
+largest singular value. Collinear, coincident and degenerate clouds fail; regular
+planar rings with equal in-plane singular values are permitted. The normal's
+largest absolute component is positive, with the first component breaking an
+exact tie. This is not a temporal sign-continuity promise. Future detectors must
+compare unoriented planes using the absolute dot product.
+
+With `pbc=True`, boxes must be finite and numerically nonsingular: determinant
+magnitude after dividing by each box's largest absolute component must exceed
+1e-12, independently of uniform length scaling. All group atoms
+must already be in their anchor's MIC neighborhood. Shared PBC validation rejects
+groups requiring internal image shifts. The tool does not reconstruct molecules,
+change coordinates or infer aromaticity. Ring recognition, plane fitting and
+observation criteria remain distinct tools in their owning modules.
+
+Native Structures/MolSys and modular H5MSM use ChunkedExecutor with projected
+coordinate blocks. Explicit H5MSM indices avoid topology and saved-analysis
+materialization, including Structures-only files. Other forms providing a real
+coordinate getter use the eager route; placeholder iterators do not establish
+streaming capability. Missing forced streaming fails explicitly.
+
+Dense results are preallocated in RAM. Numerical budget estimates include output
+standardization and group-wise SVD workspace; an operation-specific chunk cap
+applies after optimization. They do not bound process RSS or supply a disk-backed
+output. See [benchmarking/planes.md](benchmarking/planes.md) for a bounded
+projection/geometry measurement. Pi-pi detection remains pending in
+uibcdf/molsysmt#265.
+
 ## Ionic contacts
 
 `interactions.ionic.get_ionic_interactions` calculates minimum-distance
