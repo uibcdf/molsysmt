@@ -188,6 +188,46 @@ During an accepted Python transition, `suite.toml` may authorize named component
 
 Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
+## Optional engines and external methods
+
+Whenever a component exposes an optional external library, executable, accelerator,
+service or saved-result adapter, apply the
+[optional engine integration contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/optional_engine_integration.md).
+This applies to new integrations and changes to existing boundaries. Record
+non-applicability when no such boundary exists; do not add unused dependencies.
+
+Distinguish the selected method/provider from its access route: Python library,
+CLI, service, files or local implementation. Keep existing public APIs and justified
+environments while recording their adoption. Guard only the selected route, import
+optional Python engines lazily, declare actual installer routes and disabled routes,
+and keep saved-result and local routes independent of the original engine. An absent
+requested engine must not silently choose another method. An intentional automatic
+selection must expose its rule and actual choice.
+
+For Python boundaries, use DepDigest for availability/dependency declarations and
+SMonitor for diagnostic events, following their canonical guides. The consumer owns
+execution, service configuration, conversions and scientific validation. Preserve
+transitive import, command, service and parser failures separately from absence.
+When accepting a custom executable, check and execute that same command/path.
+Verify the published provider version before requiring a new capability publicly;
+a controlled source pin is integration evidence, not a public installation route.
+
+Keep method/backend identity, submitted input mappings, original output provenance,
+measurement definitions/units and transformations explicit at consumer result
+boundaries. Result schemas and scientific tolerances remain component-owned.
+Availability, installed-adapter verification, live service checks and receiving-member
+compatibility are separate evidence. Ordinary justified absence skips do not replace
+a designated installed-engine gate, which must reject missing, shadowed or unexecuted
+engines. Follow the existing CI lane/recovery policy and local verification schedule.
+
+Link the member ecosystem review and complete the starter's
+`devguide/optional_engine_review.md` worksheet or a documented local equivalent.
+Any exception records the affected route/rule, reason, owning member/provider issues,
+interim behavior/evidence, responsible maintainer, removal condition and dated review
+deadline. Source implementation, synchronized guidance, provider publication and
+runtime adoption are independent states. Shared rollout is tracked in
+[MolSysSuite #62](https://github.com/uibcdf/molsyssuite/issues/62).
+
 ## Public release versions
 
 MolSysSuite defines member release identity in its [release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md), enforces it, and maintains the historical-tag inventory and separate `policy-vX.Y.Z` governance-release namespace.
