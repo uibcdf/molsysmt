@@ -415,7 +415,7 @@ def test_modular_file_budget_is_checked_before_materializing_domains(
         _calculate(path, chemical_state=0, structure_indices=[0])
 
 
-def test_modular_file_materializes_once_and_preserves_explicit_state(
+def test_modular_file_prepares_chemistry_once_without_materializing_structures(
     tmp_path, monkeypatch
 ):
     from molsysmt.form import _h5msm05_modular
@@ -426,14 +426,20 @@ def test_modular_file_materializes_once_and_preserves_explicit_state(
     molsys.topology._chemical_states[second].connectivity_completeness = "complete"
     path = str(tmp_path / "states.h5msm")
     msm.convert(molsys, to_form=path)
-    original = _h5msm05_modular.read_molsys_file
+    original = _h5msm05_modular._read_calculation_chemistry
     calls = []
 
-    def counted(filename):
+    def counted(filename, **kwargs):
         calls.append(filename)
-        return original(filename)
+        return original(filename, **kwargs)
 
-    monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", counted)
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Ionic detection must not materialize full structural or interaction domains.")
+
+    monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", forbidden)
+    monkeypatch.setattr(_h5msm05_modular, "read_independent_structures", forbidden)
+    monkeypatch.setattr(_h5msm05_modular, "read_named_analyses", forbidden)
+    monkeypatch.setattr(_h5msm05_modular, "_read_calculation_chemistry", counted)
     result = _calculate(path, chemical_state=second)
     assert len(calls) == 1
     assert result.parameters["chemical_state_index"] == second

@@ -13,6 +13,11 @@ The public heavy path is currently integrated into these structure operations:
 - `molsysmt.structure.get_rmsd`;
 - `molsysmt.structure.get_distances`.
 
+`molsysmt.interactions.ionic.get_ionic_interactions` also uses this executor
+for native MolSys and H5MSM 0.5 paths with atom-index selections or `"all"`.
+Its complete sparse output remains resident; input streaming does not imply
+disk-backed output.
+
 Eligibility is narrower than the full eager API. It depends on the operation,
 selection shape, comparison mode, output, and whether the input form advertises
 the required attributes in `_heavy_support`. Unsupported combinations must use
@@ -77,9 +82,41 @@ H5MSM 0.4 file and handler iterators retain their legacy schema route.
 
 This source capability alone does not establish bounded memory for an entire
 public operation. Other public preflight calls can still materialize a 0.5
-file, and sparse/dense output storage needs its own budget. In particular,
-the ionic detector has not yet been connected to the executor; #261 tracks
-that integration and its measurements.
+file, and sparse/dense output storage needs its own budget.
+
+### Ionic preparation and working estimates
+
+The ionic route prepares full-source charge centers once. For index selections
+on H5MSM 0.5 it loads topology, chemical states, and association metadata,
+without loading structural series or named analyses. Atom axes must have
+declared identity links. Structure-assigned chemistry must resolve to one
+known state across the requested structures. Only eligible participant atoms
+enter the coordinate projection. Rich string selections use the eager route;
+unsupported chunked requests fail explicitly.
+
+The keyword-only `heavy_mode` preserves existing positional calls. Besides
+the full-source coordinate estimate, `"auto"` checks the selected coordinate
+working estimate. Ionic execution reserves one quarter of `max_ram_usage`
+for coordinate blocks (a factor of four over selected numeric inputs), one
+eighth per candidate search, and one half for sparse accumulation and packing.
+An operation-specific chunk cap applies after the shared optimizer.
+
+Candidate searches batch source reference atoms using a conservative
+possible-pair workspace bound. Even a geometrically sparse search can be
+rejected when that bound cannot fit. Rebuilding neighbor data across batches
+can add runtime. Sparse columns accumulate as aligned NumPy arrays per
+coordinate block, with a packing factor and explicit axis/membership estimates.
+Budget failures return no partial analysis. Empty analyses also account for
+their source axes.
+
+These are numeric working estimates, not a process RSS limit. Caller-owned
+coordinates, full chemistry tables, Python objects, library caches, and the
+runtime are outside the estimates. All output occurrences and final indexes
+must fit in memory. Ionic delivery has no incremental writer, checkpoint, or
+resume contract. Its parameters record execution mode, block count, and memory
+policy. Tests cover eager/chunked parity, scope, source indices, empty frames,
+periodic images, H5MSM round trips, and failure integrity; measurements and
+remaining real-system acceptance are tracked under `uibcdf/molsysmt#261`.
 
 ## Reducer protocol
 

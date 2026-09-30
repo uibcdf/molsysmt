@@ -258,6 +258,47 @@ def write_complete_molsys_file(filename, molsys):
     )
 
 
+def _read_calculation_chemistry(filename, *, chemical_state, structure_indices):
+    """Prepare native chemistry on declared shared axes without reading structures."""
+    import numpy as np
+
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+    from molsysmt.native import MolSys
+
+    payload = read_modular_file(
+        filename, layers={"topology", "chemical_states", "associations"}
+    )
+    topology, states = payload["topology"], payload["chemical_states"]
+    if topology is None or states is None:
+        raise ValueError("Calculation requires topology and chemical states layers.")
+    with h5py.File(filename, "r") as file:
+        sizes = _axis_sizes_from_file(file)
+    by_key = {_link_key(link): link for link in payload["associations"] or []}
+    required = [_identity_link("atom", "chemical_states", "topology")]
+    if ("structures", None, "atom") in sizes:
+        required.append(_identity_link("atom", "structures", "topology"))
+    for link in required:
+        observed = by_key.get(_link_key(link))
+        if observed is None or not isinstance(observed["indices"], str):
+            raise ValueError("Calculation requires declared identity atom-axis links.")
+    prepared = MolSys._from_partial_domains(topology=topology, chemical_states=states)
+    if chemical_state != "structure":
+        return prepared, chemical_state
+    frames = np.asarray(structure_indices, dtype=np.int64)
+    key = ("structure_state", "structures", None, "chemical_states", None)
+    if key in by_key:
+        indices = by_key[key]["indices"]
+        chosen = frames if isinstance(indices, str) else indices[frames]
+    else:
+        chosen = np.full(len(frames), 0 if states.n_chemical_states == 1 else -1)
+    if not len(chosen) or np.any(chosen < 0) or len(np.unique(chosen)) != 1:
+        raise StructuralInconsistencyError(
+            reason="Requested structures must resolve to one known chemical state.",
+            caller="molsysmt.form._h5msm05_modular._read_calculation_chemistry",
+        )
+    return prepared, int(chosen[0])
+
+
 def read_complete_molsys_file(filename):
     """Rebuild one complete MolSys only when all required axes align."""
     import pandas as pd

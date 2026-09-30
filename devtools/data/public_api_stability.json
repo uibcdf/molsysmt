@@ -70,7 +70,9 @@
     "molsysmt/molecular_dynamics/protocols/OpenMM/md_protocols.py:equilibration_NPT": "Fix mutable default argument forcefield (Ruff B006)",
     "molsysmt/third_party/openmm/forces/add_allowed_plane_region.py:add_allowed_plane_region": "Fix mutable default argument normal_vector (Ruff B006)",
     "molsysmt/third_party/openmm/forces/add_forbidden_plane_region.py:add_forbidden_plane_region": "Fix mutable default argument normal_vector (Ruff B006)",
-    "molsysmt/third_party/openmm/forces/add_plane_harmonic_restraint.py:add_plane_harmonic_restraint": "Fix mutable default argument normal_vector (Ruff B006)"
+    "molsysmt/third_party/openmm/forces/add_plane_harmonic_restraint.py:add_plane_harmonic_restraint": "Fix mutable default argument normal_vector (Ruff B006)",
+    "molsysmt/interactions/ionic/get_ionic_interactions.py:get_ionic_interactions": "Add keyword-only heavy_mode with default auto for the documented experimental ionic block route; existing positional parameters and detector output defaults are preserved.",
+    "molsysmt/interactions/ionic/get_ionic_interactions.py:reference_atoms": "Remove a local function nested inside the private _detect helper while replacing eager geometry with the shared sparse reducer; reference_atoms was never a module callable or public export."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {

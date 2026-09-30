@@ -318,6 +318,12 @@ class HeavyOutputFailureError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class MemoryBudgetExceededError(HeavyOutputFailureError):
+    """Report a numerical RAM working estimate exceeding its allocated budget."""
+
+    catalog_key = "MemoryBudgetExceededError"
+
+
 from .warnings import NotDigestedArgumentWarning  # noqa: E402
 
 __all__ = [
@@ -347,4 +353,5 @@ __all__ = [
     "NotDigestedArgumentWarning",
     "UnsupportedHeavyOperationError",
     "HeavyOutputFailureError",
+    "MemoryBudgetExceededError",
 ]

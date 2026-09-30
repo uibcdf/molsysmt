@@ -47,6 +47,9 @@ class ChunkedExecutor:
         Frame selection.
     chunk_size : int or None
         Frames per chunk. None uses molsysmt.configure.chunk_size.
+    max_chunk_size : int or None
+        Optional operation-specific upper limit applied after chunk optimization.
+        None keeps the form's existing advisory-size policy.
     heavy_mode : str
         'auto' | 'force' | 'off'
     attributes : list or None
@@ -81,6 +84,7 @@ class ChunkedExecutor:
         checkpoint_path=None,
         restore_from=None,
         output_path=None,
+        max_chunk_size: int | None = None,
     ):
         self.molecular_system = molecular_system
         self.form = form
@@ -93,6 +97,7 @@ class ChunkedExecutor:
         self.checkpoint_path = checkpoint_path
         self.restore_from = restore_from
         self.output_path = output_path
+        self.max_chunk_size = max_chunk_size
 
         import molsysmt.configure as config
 
@@ -175,6 +180,10 @@ class ChunkedExecutor:
                 max_ram_usage=config.max_ram_usage,
                 chunk_memory_fraction=config.chunk_memory_fraction,
             )
+            if self.max_chunk_size is not None:
+                if self.max_chunk_size < 1:
+                    raise ValueError("max_chunk_size must be a positive integer.")
+                self.chunk_size = min(self.chunk_size, self.max_chunk_size)
 
             info(
                 "HeavyPathSelected",

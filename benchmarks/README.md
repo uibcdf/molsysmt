@@ -12,6 +12,13 @@ Current baseline scripts:
 - `structure_coordinate_paths.py`: measures small deterministic baselines for
   public structure wrappers and the local kernel-input preparation helpers used
   by those wrappers on the lightweight `particles 4` `XYZ` trajectory.
+- `../devtools/scripts/benchmark_ionic_interactions.py`: measures synthetic
+  ionic calculation stages, eager/chunked native/file paths, sparse query costs,
+  and public H5MSM 0.5 interaction-layer persistence in isolated workers.
+  Run cases sequentially without other benchmark jobs. It records Linux
+  address-space peak RSS separately from the possibly inherited rusage peak.
+  The dated checkpoints are in `baselines/ionic_*.json`; interpretation and
+  remaining real-system acceptance are tracked in `uibcdf/molsysmt#261`.
 - `rust/bench_release_runtime.py`: runs isolated Rust-only release workloads
   for startup, first versus repeated calls, peak memory, explicit 1/2/4-thread
   scaling, and bounded nested concurrency. Every workload validates its result.

@@ -6,4 +6,4 @@
   participants, frame queries, empty coverage, both outputs, and state choice.
 - Preserve the analytical time-series plot and charged-group biological analogue.
 - Explain one-image-per-participant PBC semantics and rejection of split groups.
-- State eager input/output limits and the experimental recognition coverage.
+- Cover the heavy_mode routes, projected H5MSM input, resident result budgets and limits and the experimental recognition coverage.

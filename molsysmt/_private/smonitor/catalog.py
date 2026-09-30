@@ -326,6 +326,12 @@ CATALOG = {
             "category": "io",
             "level": "ERROR",
         },
+        "MemoryBudgetExceededError": {
+            "code": "MSM-ERR-HVY-003",
+            "source": "molsysmt.error.heavy.memory_budget",
+            "category": "execution",
+            "level": "ERROR",
+        },
     },
 }
 
@@ -923,6 +929,17 @@ CODES = {
         "qa_hint": "Confirm that downstream calculations handle unknown atom types explicitly.",
         "agent_message": "Atom name '{atom_name}' mapped to fallback type 'UNK'.",
         "agent_hint": "Check the naming convention or supply an explicit atom type.",
+    },
+    "MSM-ERR-HVY-003": {
+        "title": "Numerical memory budget exceeded",
+        "user_message": "RAM working estimate exceeds its budget: {reason}",
+        "user_hint": "Reduce the analysis size or increase the RAM budget after checking available memory.",
+        "dev_message": "RAM estimate {predicted_bytes} bytes exceeds {available_bytes} bytes: {reason}",
+        "dev_hint": "Check candidate batching and sparse accumulation estimates.",
+        "qa_message": "RAM estimate {predicted_bytes} bytes exceeds {available_bytes} bytes: {reason}",
+        "qa_hint": "Verify failure occurs without returning partial scientific results.",
+        "agent_message": "RAM estimate {predicted_bytes} bytes exceeds {available_bytes} bytes: {reason}",
+        "agent_hint": "Limit numerical workspace or reduce retained observations.",
     },
     "MSM-ERR-HVY-001": {
         "title": "Unsupported heavy-mode combination",

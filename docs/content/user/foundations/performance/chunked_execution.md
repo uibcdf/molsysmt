@@ -1,7 +1,7 @@
 (user-foundations-performance-chunked-execution)=
 # Chunked Execution
 
-Chunked execution is MolSysMT's core strategy for processing molecular structure sequences that exceed available physical RAM without crashing or requiring complex user code refactoring.
+Chunked execution processes supported molecular structure sequences in coordinate blocks. Each operation has its own input, selection, and output limits; streaming coordinates does not guarantee that its complete result fits in RAM.
 
 ---
 
@@ -9,7 +9,7 @@ Chunked execution is MolSysMT's core strategy for processing molecular structure
 
 A single-precision coordinate array for a 1-million-atom system across 10,000 structures occupies approximately 120 GB of RAM. Loading such a system using standard eager allocation exceeds the memory capacity of most workstations.
 
-To overcome this **memory wall**, MolSysMT implements a dual-path execution model that transparently scales from small test systems to massive production structure sequences.
+MolSysMT's canonical coordinate buffers use float64, so the same array occupies approximately 240 GB. Supported operations can read selected coordinate blocks instead of materializing the whole sequence.
 
 ---
 
@@ -17,14 +17,14 @@ To overcome this **memory wall**, MolSysMT implements a dual-path execution mode
 
 MolSysMT manages execution through the `ChunkedExecutor` engine:
 
-- **Eager Path**: For small systems, the full coordinate array is loaded into RAM, and analysis kernels process the dataset in a single high-speed pass.
+- **Eager Path**: The selected coordinate array is loaded into RAM and supplied to the reducer in one block.
 - **Heavy Path (`ChunkedExecutor`)**: For large structure sequences, MolSysMT streams coordinate blocks in bounded chunks, passes each chunk to the analysis kernel, and accumulates partial results iteratively.
 
 ---
 
 ## Controlling Execution (`heavy_mode`)
 
-All structural analysis functions in MolSysMT accept the `heavy_mode` parameter. Users can configure this behavior globally for the entire session or override it per function call:
+The public chunked route is available for `get_center`, `get_rmsd`, and `get_distances`, subject to each function's supported combinations. The experimental ionic detector also accepts a keyword-only `heavy_mode`, supporting native MolSys and H5MSM 0.5 paths with integer atom-index selections or `'all'`.
 
 ### Session Configuration vs. Function Override
 
@@ -32,9 +32,8 @@ All structural analysis functions in MolSysMT accept the `heavy_mode` parameter.
 import molsysmt as msm
 
 # 1. Global session configuration
-msm.configure.heavy_mode = 'force'   # Force heavy chunked path globally
 msm.configure.chunk_size = 500       # Set global chunk size to 500 structures
-msm.configure.max_ram_usage = '8GB' # Set RAM ceiling threshold
+msm.configure.max_ram_usage = 8 * 1024**3 # Numeric working budget in bytes
 
 # 2. Per-function call argument override
 # Auto mode: MolSysMT decides based on estimated memory footprint
@@ -47,6 +46,16 @@ center = msm.structure.get_center('system.h5msm', selection='all', heavy_mode='f
 center = msm.structure.get_center('system.h5msm', selection='all', heavy_mode='off')
 ```
 
+Configuration sets working estimates rather than an operating-system memory cap. `auto` selects a route using input footprint estimates; ionic calculation also considers its selected coordinate workspace. Unsupported forced combinations raise an explicit error.
+
+## Ionic analyses and H5MSM 0.5
+
+For supported file calculations, the ionic detector prepares topology, chemical states, and association metadata once, without reading all coordinates or stored analyses. It then projects eligible participant atoms in blocks. Atom-axis identity must be declared, and structure-assigned chemistry must resolve to one known state for the selected structures.
+
+The complete `Interactions` result remains in memory. Coordinate, candidate, and sparse-result working estimates are checked separately; they exclude caller-owned coordinates, full chemistry tables, runtime caches, and Python object overhead. Conservative candidate bounds can reject a calculation even when actual contacts are sparse. There is no incremental result writer or checkpoint/resume interface for this detector.
+
+See {ref}`Getting ionic interactions <Tutorial_Get_ionic_interactions>` for an executable comparison of eager and chunked execution, and {ref}`Saving ionic interactions <Cookbook_Saving_ionic_interactions>` for recalculating directly from H5MSM 0.5 and saving a named analysis. Choose eager execution when the selected input and result fit comfortably; use blocks to control coordinate workspace when necessary. Smaller blocks can add I/O and orchestration cost.
+
 ---
 
 ## Custom Chunking Scripts with Iterators
@@ -57,7 +66,7 @@ If you need to program a custom analysis script or building pipeline that proces
 import molsysmt as msm
 
 # Stream a large file in chunks of 200 structures
-iterator = msm.Iterator('large_system.h5msm', element='structure', chunk_size=200)
+iterator = msm.Iterator('large_system.h5msm', chunk=200, coordinates=True)
 
 for chunk_index, coordinates in enumerate(iterator):
     # Process each chunk of coordinates independently with custom logic

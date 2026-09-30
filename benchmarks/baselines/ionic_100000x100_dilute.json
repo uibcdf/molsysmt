@@ -1,0 +1,184 @@
+{
+  "date_utc": "2026-09-30T13:24:38.402986+00:00",
+  "base_commit": "c5cd7b13bbd949d585b14def79f02891677716dc",
+  "worktree_dirty": true,
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "python": "3.13.14",
+  "numpy": "2.4.6",
+  "h5py": "3.16.0",
+  "molsysmt": "0.21.0+606.ga03eb4bf6",
+  "atoms": 100000,
+  "frames": 100,
+  "charged_atoms": 100,
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "thread_environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null,
+    "NUMBA_NUM_THREADS": null
+  },
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_ionic_interactions.py": "3ff0f68ae84e8e6c160bb36923e17a7df8b80c7b13d53f82f3c861f4f419c1f2",
+    "molsysmt/interactions/ionic/get_ionic_interactions.py": "fcc328ee954377a914c0d2d0ceee837d49105fb9533476e47111a27664fdb2d5",
+    "molsysmt/interactions/ionic/_reducer.py": "7083adbde8bbf6663c37e957f839158d327052faaad0470db859313519df68fe"
+  },
+  "coordinate_bytes": 240000000,
+  "repeats": 2,
+  "chunk_size_limit": 16,
+  "ram_budget_bytes": 2147483648,
+  "warmup": "one tiny independent ionic calculation per worker; OS page cache uncontrolled",
+  "rss_scope": "Linux VmHWM since worker exec through calculation, indexing, serialization and reload; includes source loading",
+  "fixture": "synthetic independent Na/Cl pairs; empty and variable frames; no PBC",
+  "results": [
+    {
+      "source": "native",
+      "mode": "off",
+      "source_load_s": 1.382132644765079,
+      "calculation_samples_s": [
+        0.3375683771446347,
+        0.3411012701690197
+      ],
+      "calculation_median_s": 0.3393348236568272,
+      "stage_medians": {
+        "recognition_s": 0.17324563534930348,
+        "packing_s": 0.030011827126145363,
+        "consume_s": 0.07094911998137832,
+        "group_geometry_s": 0.06754271173849702,
+        "neighbors_s": 0.0509399170987308,
+        "candidate_pairs": 3660.0,
+        "group_reduction_s": 0.016602794639766216,
+        "validation_acceptance_accumulation_s": 0.003406408242881298
+      },
+      "occurrences": 3660,
+      "relations": 50,
+      "chunks": 1,
+      "numeric_bytes_before_index": 995536,
+      "numeric_bytes_after_index": 1826032,
+      "rss_before_calculation_bytes": [
+        723664896,
+        724844544
+      ],
+      "process_peak_rss_bytes": 963452928,
+      "rusage_peak_rss_bytes": 963452928,
+      "frame_query_median_s": 6.484147161245346e-05,
+      "first_atom_query_s": 0.0008932836353778839,
+      "atom_query_median_s": 3.8451049476861954e-05,
+      "h5msm_write_s": 0.01031502615660429,
+      "h5msm_read_s": 0.03155540581792593,
+      "h5msm_bytes": 61736
+    },
+    {
+      "source": "native",
+      "mode": "force",
+      "source_load_s": 1.4127491265535355,
+      "calculation_samples_s": [
+        0.34402457159012556,
+        0.33983226772397757
+      ],
+      "calculation_median_s": 0.34192841965705156,
+      "stage_medians": {
+        "group_geometry_s": 0.06767108011990786,
+        "recognition_s": 0.1751052881591022,
+        "neighbors_s": 0.051218424923717976,
+        "consume_s": 0.07143608806654811,
+        "packing_s": 0.029944695997983217,
+        "candidate_pairs": 3660.0,
+        "group_reduction_s": 0.01645265519618988,
+        "validation_acceptance_accumulation_s": 0.003765007946640253
+      },
+      "occurrences": 3660,
+      "relations": 50,
+      "chunks": 7,
+      "numeric_bytes_before_index": 995536,
+      "numeric_bytes_after_index": 1826032,
+      "rss_before_calculation_bytes": [
+        725270528,
+        725508096
+      ],
+      "process_peak_rss_bytes": 964939776,
+      "rusage_peak_rss_bytes": 964939776,
+      "frame_query_median_s": 7.753819227218628e-05,
+      "first_atom_query_s": 0.0009612981230020523,
+      "atom_query_median_s": 4.2819883674383163e-05,
+      "h5msm_write_s": 0.010638335719704628,
+      "h5msm_read_s": 0.032557785511016846,
+      "h5msm_bytes": 61736
+    },
+    {
+      "source": "file",
+      "mode": "off",
+      "source_load_s": 1.885928213596344e-06,
+      "calculation_samples_s": [
+        0.9215816911309958,
+        0.9062941921874881
+      ],
+      "calculation_median_s": 0.9139379416592419,
+      "stage_medians": {
+        "recognition_s": 0.17588528478518128,
+        "consume_s": 0.0720861041918397,
+        "neighbors_s": 0.0508037400431931,
+        "packing_s": 0.03152467682957649,
+        "chemistry_read_s": 0.5239920914173126,
+        "group_geometry_s": 0.06827971851453185,
+        "candidate_pairs": 3660.0,
+        "group_reduction_s": 0.01747597847133875,
+        "validation_acceptance_accumulation_s": 0.003806385677307844
+      },
+      "occurrences": 3660,
+      "relations": 50,
+      "chunks": 1,
+      "numeric_bytes_before_index": 995536,
+      "numeric_bytes_after_index": 1826032,
+      "rss_before_calculation_bytes": [
+        421109760,
+        443768832
+      ],
+      "process_peak_rss_bytes": 467726336,
+      "rusage_peak_rss_bytes": 912896000,
+      "frame_query_median_s": 6.763264536857605e-05,
+      "first_atom_query_s": 0.0009517734870314598,
+      "atom_query_median_s": 4.021730273962021e-05,
+      "h5msm_write_s": 0.010640605352818966,
+      "h5msm_read_s": 0.03267774172127247,
+      "h5msm_bytes": 61736
+    },
+    {
+      "source": "file",
+      "mode": "force",
+      "source_load_s": 2.2780150175094604e-06,
+      "calculation_samples_s": [
+        0.9186434792354703,
+        0.9249670645222068
+      ],
+      "calculation_median_s": 0.9218052718788385,
+      "stage_medians": {
+        "packing_s": 0.02938828757032752,
+        "candidate_pairs": 3660.0,
+        "consume_s": 0.07296169130131602,
+        "recognition_s": 0.17521329782903194,
+        "group_geometry_s": 0.06905314233154058,
+        "neighbors_s": 0.052523826248943806,
+        "chemistry_read_s": 0.5312129948288202,
+        "group_reduction_s": 0.01652931608259678,
+        "validation_acceptance_accumulation_s": 0.003908548969775438
+      },
+      "occurrences": 3660,
+      "relations": 50,
+      "chunks": 7,
+      "numeric_bytes_before_index": 995536,
+      "numeric_bytes_after_index": 1826032,
+      "rss_before_calculation_bytes": [
+        421380096,
+        441524224
+      ],
+      "process_peak_rss_bytes": 467689472,
+      "rusage_peak_rss_bytes": 912896000,
+      "frame_query_median_s": 6.650108844041824e-05,
+      "first_atom_query_s": 0.0009445464238524437,
+      "atom_query_median_s": 3.8892962038517e-05,
+      "h5msm_write_s": 0.010270263999700546,
+      "h5msm_read_s": 0.033561279997229576,
+      "h5msm_bytes": 61736
+    }
+  ]
+}

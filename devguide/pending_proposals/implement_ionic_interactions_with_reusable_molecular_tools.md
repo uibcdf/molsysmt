@@ -19,8 +19,9 @@ interaction families and source inspection of molecular analysis libraries.
 **Status:** Active implementation. The maintainer accepts ionic, pi-pi,
 and cation-pi as the next sequence and requires reusable domain tools and
 allows additional Rust routines for heavy computation. The first general
-charge-center tool and the eager minimum-distance ionic detector are implemented
-experimentally. Chunked execution and performance evidence remain pending.
+charge-center tool and eager/chunked minimum-distance ionic detector are
+implemented experimentally. Synthetic stage measurements are available;
+real-system scientific and performance acceptance remains pending.
 
 ## What
 
@@ -280,7 +281,7 @@ execution, and periodic policy. Measures contain nm distances and elementary
 participant charges. Producer software versions and actual images persist in
 public H5MSM 0.5 round trips. Attachment remains an explicit caller action.
 
-The initial route is eager: coordinates, candidates, and the complete sparse
+At the initial eager-delivery checkpoint, coordinates, candidates, and the complete sparse
 result reside in memory. It rejects an estimated full source coordinate
 footprint exceeding `configure.max_ram_usage`, even for a small frame selection.
 For a direct H5MSM 0.5 path, a shared private metadata preflight reads existing
@@ -309,9 +310,9 @@ Delivery evidence:
   Foundations and the four Module 39 course paths document the bounded route;
   existing course code/outputs were preserved rather than re-executed.
 
-The issue remains active. ChunkedExecutor integration, sparse accumulation
-budgets, real-system evaluation within supported chemistry, and reproducible
-end-to-end benchmarks remain acceptance work. No throughput, total memory
+The issue remained active at this eager-delivery checkpoint. The later integration
+and measurement checkpoints below supersede its pending chunking/budget work;
+real-system acceptance remains open. No throughput, total memory
 bound, comprehensive chemistry validation, or stabilization is claimed.
 
 ### Element-specific tools
@@ -386,12 +387,144 @@ and partial blocks. Structural metadata validation is reused with the
 independent reader. This iterator does not prepare chemical domains or
 validate cross-domain atom/state associations.
 
-**Remaining:** connect an ionic sparse reducer to this executor, prepare
-chemistry without reading all structural payloads, define output/candidate
-budgets, and execute the real-system and stage-separated benchmark plan.
-Some public H5MSM 0.5 preflight routes still materialize domains; no whole
-public-pipeline out-of-core capability is claimed. The ionic detector's
-published eager contract has not changed in this checkpoint.
+This shared-boundary checkpoint preceded the ionic integration described
+below. Other public H5MSM 0.5 preflight routes can still materialize domains;
+the file iterator alone does not establish a whole-pipeline memory guarantee.
+
+### Ionic chunked integration checkpoint — 2026-09-30
+
+**Implemented / parity-tested:** keyword-only `heavy_mode='auto'` uses a
+sparse reducer and shared ChunkedExecutor on native MolSys and H5MSM 0.5 with
+index selections or `all`. Preparation examines source chemistry once. The
+file route reads chemistry/association metadata without structural series or
+saved analyses, checks identity atom links, and resolves one selected chemical
+state. Coordinate blocks project eligible whole participants. Typed columns
+accumulate per block, retaining source structure indices and evaluated-empty
+coverage. Group minima use bounded source batches; final observations have
+deterministic ordering, scientific provenance, charges, and periodic images.
+
+Working estimates and explicit failure limits are normative in
+[`SCALABILITY.md`](../SCALABILITY.md). The complete sparse result is resident;
+no incremental writer, checkpoint/resume, or total process RAM bound is
+claimed. Conservative candidate bounds may reject actually sparse cases.
+Rich string selections retain eager execution and reject forced chunking.
+
+Executable guards are `tests/interactions/ionic/test_chunked_ionic.py`,
+`tests/heavy/test_sparse_accumulator.py`, and
+`tests/structure/test_group_minimum_contacts.py`, together with the existing
+chemical recognition, ionic analytical, public persistence, and shared executor
+tests. They compare supported native/file eager/chunked paths, nonconsecutive
+and repeated indices, internal/incident/between scopes, compound participants,
+triclinic images, state associations, typed empties, budgets, missing data,
+and a later-block scientific failure before finalization. User Guide and
+Cookbook examples demonstrate execution choices and public persistence; all
+four affected course modules describe the delivered scope.
+
+**Remaining:** real molecular systems with explicit source chemistry,
+independent scientific controls, and performance measurements on those systems.
+The bounded synthetic measures below do not establish recognition of new
+motifs or an acceptable speed at arbitrary charged-center density. Broader
+recognition remains independently tracked by `uibcdf/molsysmt#262`.
+
+### Synthetic ionic measurements — 2026-09-30
+
+**Benchmarked:** `devtools/scripts/benchmark_ionic_interactions.py` runs four
+sequential worker processes per case (native/file, eager/chunked). Workers
+warm geometry with an independent two-atom control, then repeat calculation
+three times (two for the largest source). Medians are reported; OS page-cache
+state, CPU frequency, and external host activity are uncontrolled. No other
+local benchmark or test workload was scheduled during these final samples.
+Hardware: Intel Xeon E5-2630 v4, 2.20 GHz, Linux x86_64; Python 3.13.14, NumPy
+2.4.6, h5py 3.16.0. Reports preserve environment, calculation samples, source
+load cost, stage medians, and hashes of the benchmark/detector/reducer. The
+source checkpoint is a dirty implementation based on `c5cd7b13b`; the runtime
+package version label alone does not identify this source revision.
+
+Synthetic separated Na/Cl pairs have variable and evaluated-empty frames.
+The 100,000-atom case contains only 100 charged atoms; neutral He controls
+the full source axis and coordinate size. It is not a biological dataset,
+a 100,000-charged-center test, or a 10,000-structure throughput claim.
+
+| Atoms × structures (charged atoms) | Source | Mode / blocks | Median calculation (s) | Worker peak RSS (MiB) |
+| --- | --- | --- | --- | --- |
+| 1,000 × 300 (1,000) | native | off / 1 | 1.186 | 455.1 |
+| 1,000 × 300 (1,000) | native | force / 10 | 1.252 | 449.2 |
+| 1,000 × 300 (1,000) | file | off / 1 | 1.781 | 434.8 |
+| 1,000 × 300 (1,000) | file | force / 10 | 2.086 | 425.5 |
+| 10,000 × 30 (10,000) | native | off / 1 | 5.255 | 462.7 |
+| 10,000 × 30 (10,000) | native | force / 4 | 5.827 | 457.0 |
+| 10,000 × 30 (10,000) | file | off / 1 | 6.124 | 443.4 |
+| 10,000 × 30 (10,000) | file | force / 4 | 6.670 | 432.6 |
+| 100,000 × 100 (100) | native | off / 1 | 0.339 | 918.8 |
+| 100,000 × 100 (100) | native | force / 7 | 0.342 | 920.2 |
+| 100,000 × 100 (100) | file | off / 1 | 0.914 | 446.1 |
+| 100,000 × 100 (100) | file | force / 7 | 0.922 | 446.0 |
+
+RSS is Linux `/proc/self/status:VmHWM`, from worker exec through source
+loading, calculation, indexing, interaction-layer writing and reading. It
+includes the runtime and is not the peak of calculation alone. The separate
+`rusage_peak_rss_bytes` can include an inherited pre-exec parent high-water
+mark; it must not be used to estimate projected-file memory savings. Parent
+fixture generation and combined parent/worker residency are not included.
+
+Coordinate payloads are 7.2 MB, 7.2 MB, and 240 MB. The first two cases yield
+109,980 and 109,998 occurrences; the dilute case yields 3,660. Eager and
+chunked modes have the same counts, numeric result sizes, and compressed
+interaction-layer file sizes for each case. Full semantic parity is protected
+by tests rather than inferred from matching counts.
+
+**Interpretation:** blocks add orchestration/I/O cost on these small selected
+coordinate payloads. File mode at 1,000 × 300 rises from 1.781 to 2.086 s,
+while worker peak RSS falls from 434.8 to 425.5 MiB. At 100,000 × 100 only
+100 eligible atoms are projected, so both file modes already avoid the full
+240 MB coordinate payload. Their worker peak is about 446 MiB versus about
+920 MiB for the route that first loads the complete native system; that
+comparison includes loading and serialization and does not isolate chunking.
+
+For 10,000 charged atoms, grouped geometry takes roughly 5–5.5 s and neighbor
+search takes roughly 4.7–5.2 s. Conservative candidate batching can rebuild
+spatial data multiple times per structure. The next optimization to evaluate
+is a reusable bounded neighbor interface that reuses target spatial data.
+For the dilute case, file chemistry reading takes about 0.53 s and recognition
+about 0.18 s, compared with about 0.05 s of neighbor search. These are different
+bottlenecks; compiling result packing alone would not address either one.
+
+Stage timers are inclusive: consume includes grouped geometry, grouped
+geometry includes neighbors. Derived differences between medians estimate
+group reduction and validation/acceptance/accumulation; they are not independent
+additive measurements. End-to-end time also includes untimed preparation and I/O.
+
+| Case | Numeric result before/after indexes (MB) | Frame query (µs) | Warm atom query (µs) | First atom query (ms) | H5MSM layer size (bytes) | Write/read (ms) |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1,000 × 300 | 5.768 / 6.668 | 67.5 | 59.7 | 5.09 | 163,936 | 39.0 / 46.2 |
+| 10,000 × 30 | 6.160 / 7.240 | 69.8 | 34.8 | 30.54 | 310,201 | 49.6 / 81.6 |
+| 100,000 × 100 | 0.996 / 1.826 | 66.5 | 38.9 | 0.94 | 61,736 | 10.3 / 33.6 |
+
+Query medians use 50 repeated calls after index construction. Numeric bytes
+exclude Python objects; even a dilute result retains axis-sized maps/index
+offsets. Persistence uses public `write_layers`/`read_layers` on interactions
+only, validates frames and distances, and is distinct from saving the source
+coordinates. Compound images and named full-system round trips are test-covered.
+
+Reproduce sequentially from the repository root on Linux:
+
+```bash
+python devtools/scripts/benchmark_ionic_interactions.py --atoms 1000 --frames 300 --repeats 3 --chunk 32 --output /tmp/ionic_1000x300.json
+python devtools/scripts/benchmark_ionic_interactions.py --atoms 10000 --frames 30 --repeats 3 --chunk 8 --output /tmp/ionic_10000x30.json
+python devtools/scripts/benchmark_ionic_interactions.py --atoms 100000 --frames 100 --charged-atoms 100 --repeats 2 --chunk 16 --budget 2147483648 --output /tmp/ionic_100000x100_dilute.json
+```
+
+Raw snapshots:
+
+- [1,000 × 300](../../benchmarks/baselines/ionic_1000x300.json).
+- [10,000 × 30](../../benchmarks/baselines/ionic_10000x30.json).
+- [100,000 × 100, dilute charges](../../benchmarks/baselines/ionic_100000x100_dilute.json).
+
+Checkpoint validation: **780 passed** across heavy execution, ionic detection,
+charge-center recognition, grouped geometry, diagnostic catalog, native form
+routes, and public MolSys/H5MSM workflow. Toolbox and Cookbook notebooks were
+executed successfully. These measurements leave the issue active until the
+real-system scientific and performance acceptance above is completed.
 
 ### Public surface and remaining design
 
@@ -399,7 +532,8 @@ The first exported experimental family route is
 `interactions.ionic.get_ionic_interactions`. Its arguments include
 `molecular_system`, `selection`, `selection_2`, `structure_indices`,
 `chemical_state`, `method`, `selection_mode`, `pbc`, `syntax`, `output_type`,
-the required `distance_threshold`, and `assume_complete_connectivity`.
+the required `distance_threshold`, `assume_complete_connectivity`, and
+keyword-only `heavy_mode`.
 Its default output is `molsysmt.Interactions`; the optional
 `molsysmt.InteractionsDict` output uses the existing public conversion.
 Additional source/method routes need separate docstring and digestion review.

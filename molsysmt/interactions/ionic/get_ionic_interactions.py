@@ -31,6 +31,8 @@ def get_ionic_interactions(
     output_type="molsysmt.Interactions",
     syntax="MolSysMT",
     skip_digestion=False,
+    *,
+    heavy_mode="auto",
 ):
     """Detecting minimum-distance contacts between opposite formal-charge centers.
 
@@ -75,6 +77,11 @@ def get_ionic_interactions(
         Selection syntax used to evaluate selection and selection_2.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    heavy_mode : {'auto', 'force', 'off'}, default='auto'
+        Keyword-only execution policy. Chunked execution supports native MolSys
+        and H5MSM 0.5 paths with atom-index selections or 'all'. Auto also
+        considers selected-block working estimates. Off requests eager execution
+        within the budget; force processes bounded coordinate blocks.
 
     Returns
     -------
@@ -96,8 +103,11 @@ def get_ionic_interactions(
     NotImplementedMethodError
         If periodic participants require internal image shifts.
     UnsupportedHeavyOperationError
-        If the estimated full source coordinate footprint exceeds the eager RAM
-        budget. This initial implementation has no chunked execution route.
+        If chunked execution is needed for an unsupported form/selection, or
+        selected coordinate buffers cannot fit the configured working estimate.
+    MemoryBudgetExceededError
+        If candidate or resident sparse-result working estimates exceed their
+        allocated portions of configure.max_ram_usage. No partial result is returned.
 
     Notes
     -----
@@ -109,8 +119,18 @@ def get_ionic_interactions(
     do not impose this exclusion. No residue, component, or energy exclusion
     is inferred. All source chemistry is examined before filtering centers.
     The calculation neither attaches an analysis nor modifies coordinates.
-    Coordinate, candidate, and complete result arrays are currently in memory;
-    the footprint check is an input estimate, not a total peak-RAM guarantee.
+    Chemistry is prepared once. Chunked H5MSM 0.5 calculations load topology,
+    chemical states, and association metadata without loading structural series
+    or saved analyses. Atom axes must have declared identity links. A structure
+    selection must resolve to one state when chemical_state='structure'.
+    Rich string selections retain the eager route; chunked requests reject them.
+    The complete sparse result remains resident. Coordinate blocks reserve one
+    quarter of the configured budget, candidate searches one eighth each, and
+    sparse accumulation/packing one half. Estimates include numerical workspace
+    factors, not caller-owned coordinates, chemistry tables, Python overhead,
+    or a process RSS guarantee. There is no incremental result writer or public
+    checkpoint/resume route. Candidate batching uses a conservative possible-pair
+    bound and can reject a budget even when actual neighbors would be sparse.
 
     See Also
     --------
@@ -147,13 +167,19 @@ def get_ionic_interactions(
     """
     import molsysmt.configure as config
     from molsysmt import __version__
-    from molsysmt._private.execution.memory_policy import estimate_footprint
+    from molsysmt._private.execution import ChunkedExecutor
+    from molsysmt._private.execution.memory_policy import (
+        decide_mode,
+        estimate_footprint,
+    )
     from molsysmt._private.h5msm import (
         maybe_read_modular_h5msm,
         modular_h5msm_dimensions,
     )
     from molsysmt.basic import convert, get, select
+    from molsysmt.interactions.ionic._reducer import _IonicReducer
     from molsysmt.interactions.result import Interactions
+    from molsysmt.native import MolSys
     from molsysmt.physchem.get_charge_centers import get_charge_centers
 
     threshold_value = np.asarray(puw.get_value(distance_threshold, to_unit="nm"))
@@ -184,6 +210,7 @@ def get_ionic_interactions(
         )
 
     dimensions = modular_h5msm_dimensions(molecular_system)
+    modular_source = dimensions is not None
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
     n_atoms, n_structures = dimensions
@@ -196,18 +223,40 @@ def get_ionic_interactions(
         raise ArgumentError(
             "structure_indices", value=structure_indices, caller=_CALLER
         )
-    if estimate_footprint(n_atoms, n_structures) > config.max_ram_usage:
+    mode = decide_mode(estimate_footprint(n_atoms, n_structures), heavy_mode)
+    index_selections = all(
+        value is None or not isinstance(value, str) or is_all(value)
+        for value in (selection, selection_2)
+    )
+    supported_source = isinstance(molecular_system, MolSys) or modular_source
+    if mode == "heavy" and not (supported_source and index_selections):
         raise UnsupportedHeavyOperationError(
-            operation=_CALLER,
-            form="eager ionic detection",
-            reason="The initial ionic method has no chunked execution route.",
+            operation=_CALLER, form="ionic detection",
+            reason="Chunked ionic detection requires native MolSys or H5MSM 0.5 and atom-index selections or all.",
         )
+    if mode == "eager" and estimate_footprint(n_atoms, n_structures) > config.max_ram_usage:
+        raise UnsupportedHeavyOperationError(
+            operation=_CALLER, form="eager ionic detection",
+            reason="The source coordinate estimate exceeds the RAM budget with heavy_mode='off'.",
+        )
+    coordinate_source = molecular_system
+    selection_frames = frames
+    if modular_source and index_selections:
+        from molsysmt.form._h5msm05_modular import _read_calculation_chemistry
 
-    molecular_system = maybe_read_modular_h5msm(molecular_system)
+        molecular_system, chemical_state = _read_calculation_chemistry(
+            molecular_system, chemical_state=chemical_state, structure_indices=frames,
+        )
+        selection_frames = "all"
+    else:
+        molecular_system = maybe_read_modular_h5msm(molecular_system)
+        coordinate_source = molecular_system
+        if chemical_state == "structure" and isinstance(molecular_system, MolSys):
+            chemical_state = molecular_system._resolve_structure_chemical_state_index(frames)
     centers = get_charge_centers(
         molecular_system,
         chemical_state=chemical_state,
-        structure_indices=frames,
+        structure_indices=selection_frames,
         assume_complete_connectivity=assume_complete_connectivity,
     )
     first = np.unique(
@@ -215,7 +264,7 @@ def get_ionic_interactions(
             molecular_system,
             selection=selection,
             syntax=syntax,
-            structure_indices=frames,
+            structure_indices=selection_frames,
             chemical_state=chemical_state,
         )
     ).astype(np.int64)
@@ -226,7 +275,7 @@ def get_ionic_interactions(
                 molecular_system,
                 selection=selection_2,
                 syntax=syntax,
-                structure_indices=frames,
+                structure_indices=selection_frames,
                 chemical_state=chemical_state,
             )
         ).astype(np.int64)
@@ -288,7 +337,8 @@ def get_ionic_interactions(
             "image_policy": "whole_participants_anchor_relative_mic",
             "pbc_policy": "mic_when_box_available",
             "recognition_scope": "full_source_chemical_state",
-            "execution": "eager",
+            "execution": "chunked" if mode == "heavy" else "eager",
+            "memory_policy": "numeric_working_estimates@1",
             "intramolecular": "included",
             "exclude_direct_covalent": True,
         },
@@ -299,45 +349,10 @@ def get_ionic_interactions(
     )
     searches = _search_sets(positive, negative, in_first, in_second, selection_mode)
     if len(frames) and searches:
-        coordinates = get(
-            molecular_system,
-            selection=universe,
-            structure_indices=frames,
-            coordinates=True,
+        topology = (
+            molecular_system.topology if isinstance(molecular_system, MolSys)
+            else convert(molecular_system, to_form="molsysmt.Topology")
         )
-        if coordinates is None:
-            raise StructuralInconsistencyError(
-                reason="Coordinates are required to evaluate nonempty center pairs.",
-                caller=_CALLER,
-            )
-        coordinates = np.asarray(
-            puw.get_value(coordinates, to_unit="nm"), dtype=np.float64
-        )
-        boxes = (
-            get(molecular_system, structure_indices=frames, box=True) if pbc else None
-        )
-        boxes = (
-            None
-            if boxes is None
-            else np.asarray(puw.get_value(boxes, to_unit="nm"), dtype=np.float64)
-        )
-        if (
-            coordinates.shape != (len(frames), len(universe), 3)
-            or not np.isfinite(coordinates).all()
-        ):
-            raise StructuralInconsistencyError(
-                reason="Finite coordinates are required for every evaluated center.",
-                caller=_CALLER,
-            )
-        if boxes is not None and (
-            boxes.shape != (len(frames), 3, 3)
-            or not np.isfinite(boxes).all()
-            or np.any(np.abs(np.linalg.det(boxes)) < 1e-12)
-        ):
-            raise StructuralInconsistencyError(
-                reason="Periodic boxes must be finite and nonsingular.", caller=_CALLER
-            )
-        topology = convert(molecular_system, to_form="molsysmt.Topology")
         state = topology._chemical_states[centers["chemical_state_index"]]
         covalent = (
             state.bonds.loc[state.bonds["bond_type"] == "covalent"]
@@ -352,23 +367,79 @@ def get_ionic_interactions(
             ca, cb = atom_centers[a], atom_centers[b]
             if ca >= 0 and cb >= 0 and ca != cb:
                 excluded.add(tuple(sorted((int(ca), int(cb)))))
-        result = _detect(
-            coordinates,
-            boxes,
-            universe,
-            frames,
-            centers,
-            members,
-            positive,
-            negative,
-            in_first,
-            in_second,
-            selection_mode,
-            threshold,
-            excluded,
-            metadata,
+        reducer = _IonicReducer(
+            centers=centers, members=members, universe=universe,
+            active=np.concatenate((positive, negative)), searches=searches,
+            threshold=threshold, excluded=excluded, metadata=metadata,
+            budget_bytes=config.max_ram_usage,
         )
+        if supported_source:
+            if modular_source and index_selections:
+                import h5py
+
+                with h5py.File(coordinate_source, "r") as source_file:
+                    has_coordinates = "structures/coordinates" in source_file
+            else:
+                has_coordinates = (
+                    coordinate_source.structures is not None
+                    and coordinate_source.structures.coordinates is not None
+                )
+            if not has_coordinates:
+                raise StructuralInconsistencyError(
+                    reason="Coordinates are required to evaluate nonempty center pairs.",
+                    caller=_CALLER,
+                )
+            frame_working_bytes = 4 * (24 * len(universe) + (72 if pbc else 0))
+            block_budget = config.max_ram_usage // 4
+            max_chunk_size = min(config.chunk_size, block_budget // max(1, frame_working_bytes))
+            if max_chunk_size < 1:
+                raise UnsupportedHeavyOperationError(
+                    operation=_CALLER, form="ionic coordinate blocks",
+                    reason="One selected coordinate frame exceeds the block working-memory estimate.",
+                )
+            if mode == "eager" and len(frames) * frame_working_bytes > block_budget:
+                if heavy_mode == "auto" and index_selections:
+                    mode = "heavy"
+                    metadata["parameters"]["execution"] = "chunked"
+                else:
+                    raise UnsupportedHeavyOperationError(
+                        operation=_CALLER, form="eager ionic coordinate blocks",
+                        reason="Selected eager coordinates exceed the block working-memory estimate; request chunked execution.",
+                    )
+            result = ChunkedExecutor(
+                coordinate_source,
+                "file:h5msm" if modular_source and index_selections else "molsysmt.MolSys",
+                _CALLER, reducer=reducer, atom_indices=universe,
+                structure_indices=frames,
+                heavy_mode="force" if mode == "heavy" else "off",
+                attributes=["coordinates", "box"] if pbc else ["coordinates"],
+                max_chunk_size=max_chunk_size,
+            ).execute()
+        else:
+            if 4 * len(frames) * (24 * len(universe) + (72 if pbc else 0)) > config.max_ram_usage // 4:
+                raise UnsupportedHeavyOperationError(
+                    operation=_CALLER, form="eager ionic coordinate blocks",
+                    reason="Selected eager coordinates exceed the block working-memory estimate.",
+                )
+            coordinates = get(molecular_system, selection=universe, structure_indices=frames, coordinates=True)
+            boxes = get(molecular_system, structure_indices=frames, box=True) if pbc else None
+            reducer.initialize({})
+            reducer.consume({
+                "coordinates": None if coordinates is None else np.asarray(puw.get_value(coordinates, to_unit="nm"), dtype=np.float64),
+                "box": None if boxes is None else np.asarray(puw.get_value(boxes, to_unit="nm"), dtype=np.float64),
+                "structure_indices": frames,
+            })
+            result = reducer.finalize()
     else:
+        from molsysmt._private.execution.sparse_accumulator import (
+            SparseColumnAccumulator,
+        )
+
+        SparseColumnAccumulator(
+            {}, budget_bytes=config.max_ram_usage // 2,
+            fixed_bytes=8 * (2 * n_atoms + 4 * n_structures),
+        ).check_budget()
+        metadata["parameters"]["execution_chunks"] = 0
         result = Interactions.from_records([], **metadata)
     return (
         result
@@ -407,149 +478,3 @@ def _search_sets(positive, negative, in_first, in_second, mode):
             (positive[in_second[positive]], negative[in_first[negative]]),
         ]
     return [(first, second) for first, second in pairs if len(first) and len(second)]
-
-
-def _detect(
-    coordinates,
-    boxes,
-    universe,
-    frames,
-    centers,
-    members,
-    positive,
-    negative,
-    in_first,
-    in_second,
-    mode,
-    threshold,
-    excluded,
-    metadata,
-):
-    from molsysmt._private.sparse_membership import pack_membership
-    from molsysmt.interactions.result import Interactions
-    from molsysmt.pbc._whole_participants import require_whole_participants
-    from molsysmt.structure._group_minimum_contacts import group_minimum_contacts
-
-    geometry = centers["geometry_atom_indices"]
-    offsets = centers["geometry_atom_offsets"]
-
-    def reference_atoms(indices):
-        groups = [geometry[offsets[i] : offsets[i + 1]] for i in indices]
-        return np.concatenate(groups), np.repeat(
-            indices, [len(group) for group in groups]
-        )
-
-    searches = []
-    for first, second in _search_sets(positive, negative, in_first, in_second, mode):
-        pos_atoms, pos_centers = reference_atoms(first)
-        neg_atoms, neg_centers = reference_atoms(second)
-        searches.append(
-            (
-                np.searchsorted(universe, pos_atoms),
-                pos_centers,
-                np.searchsorted(universe, neg_atoms),
-                neg_centers,
-            )
-        )
-    frame_columns, pair_columns, distance_columns, image_columns = [], [], [], []
-    pair_dtype = np.dtype([("a", np.int64), ("b", np.int64)])
-    excluded_rows = (
-        np.asarray(sorted(excluded), dtype=np.int64)
-        .reshape(-1, 2)
-        .view(pair_dtype)
-        .ravel()
-    )
-    active = np.concatenate((positive, negative))
-    whole_atoms = np.concatenate([members[i] for i in active])
-    whole_offsets = np.concatenate(([0], np.cumsum([len(members[i]) for i in active])))
-    whole_positions = np.searchsorted(universe, whole_atoms)
-    for local_frame, frame in enumerate(frames):
-        xyz = coordinates[local_frame]
-        box = None if boxes is None else boxes[local_frame]
-        if box is not None:
-            require_whole_participants(
-                xyz, box, whole_offsets, whole_positions, _CALLER
-            )
-        observations = [
-            group_minimum_contacts(
-                xyz[pos_positions],
-                pos_centers,
-                xyz[neg_positions],
-                neg_centers,
-                threshold,
-                box,
-            )
-            for pos_positions, pos_centers, neg_positions, neg_centers in searches
-        ]
-        pairs, distances, target_images = [
-            np.concatenate(columns) for columns in zip(*observations)
-        ]
-        allowed = (
-            np.ones(len(pairs), dtype=bool)
-            if mode == "internal"
-            else in_first[pairs[:, 0]] | in_first[pairs[:, 1]]
-            if mode == "incident"
-            else (
-                (in_first[pairs[:, 0]] & in_second[pairs[:, 1]])
-                | (in_second[pairs[:, 0]] & in_first[pairs[:, 1]])
-            )
-        )
-        if excluded:
-            canonical = (
-                np.ascontiguousarray(np.sort(pairs, axis=1)).view(pair_dtype).ravel()
-            )
-            allowed &= ~np.isin(canonical, excluded_rows)
-        pairs, distances, target_images = (
-            pairs[allowed],
-            distances[allowed],
-            target_images[allowed],
-        )
-        if not len(pairs):
-            continue
-        images = np.zeros((len(pairs), 2, 3), dtype=np.int32)
-        images[:, 1] = target_images
-        frame_columns.append(np.full(len(pairs), frame, dtype=np.int64))
-        pair_columns.append(pairs)
-        distance_columns.append(distances)
-        image_columns.append(images)
-    if not pair_columns:
-        return Interactions.from_records([], **metadata)
-    relation_pairs, occurrence_relations = np.unique(
-        np.concatenate(pair_columns),
-        axis=0,
-        return_inverse=True,
-    )
-    occurrence_frames = np.concatenate(frame_columns)
-    order = np.lexsort((occurrence_relations, occurrence_frames))
-    occurrence_relations, occurrence_frames = (
-        occurrence_relations[order],
-        occurrence_frames[order],
-    )
-    participant_groups = [members[i] for i in relation_pairs.ravel()]
-    atoms, atom_offsets = pack_membership(participant_groups)
-    charges = puw.get_value(centers["charges"], to_unit="e")
-    return Interactions(
-        relation_types=["ionic_contact"] * len(relation_pairs),
-        relation_participant_offsets=np.arange(len(relation_pairs) + 1) * 2,
-        participant_roles=[
-            role for _ in relation_pairs for role in ("positive", "negative")
-        ],
-        participant_atom_offsets=atom_offsets,
-        participant_atoms=atoms,
-        occurrence_structures=occurrence_frames,
-        occurrence_relations=occurrence_relations,
-        occurrence_evidence=np.zeros(len(occurrence_relations), dtype=np.int32),
-        evidence_labels=["formal_charge_geometric_proximity"],
-        measurements={
-            "distance": np.concatenate(distance_columns)[order],
-            "positive_charge": charges[relation_pairs[occurrence_relations, 0]],
-            "negative_charge": charges[relation_pairs[occurrence_relations, 1]],
-        },
-        occurrence_image_offsets=None
-        if boxes is None
-        else np.arange(len(order) + 1) * 2,
-        image_vectors=None
-        if boxes is None
-        else np.concatenate(image_columns)[order].reshape(-1, 3),
-        **metadata,
-    )
