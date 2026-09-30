@@ -9,3 +9,6 @@
   network-dependent examples.
 - Keep the bounded eager/chunked ionic route, explicit cutoff, named attachment and
   links to its executed tutorial and persistence recipe.
+
+- Preserve sparse covalent versus aromatic ring membership, explicit state metadata,
+  whole fused selections, tied-basis limits, and links to executed ring examples.

@@ -22,3 +22,5 @@ Houses tutorial units for physical and chemical property calculations: SASA, ato
 - `get_surface_area.ipynb` ➔ `get_surface_area.ipynb.AGENTS.md`
 - `get_transmembrane_tendency.ipynb` ➔ `get_transmembrane_tendency.ipynb.AGENTS.md`
 - `get_volume.ipynb` ➔ `get_volume.ipynb.AGENTS.md`
+
+- `get_aromatic_rings.ipynb` ➔ `get_aromatic_rings.ipynb.AGENTS.md`: state-specific sparse ring participants.

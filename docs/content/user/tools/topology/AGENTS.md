@@ -24,3 +24,5 @@ Houses tutorial units for covalent connectivity, molecular graphs, connected com
 - `get_dihedral_quartets.ipynb` ➔ `get_dihedral_quartets.ipynb.AGENTS.md`
 - `get_sequence_alignment.ipynb` ➔ `get_sequence_alignment.ipynb.AGENTS.md`
 - `get_sequence_identity.ipynb` ➔ `get_sequence_identity.ipynb.AGENTS.md`
+
+- `get_rings.ipynb` ➔ `get_rings.ipynb.AGENTS.md`: state-specific sparse ring participants.

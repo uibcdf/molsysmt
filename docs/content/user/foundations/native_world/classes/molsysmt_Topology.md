@@ -51,6 +51,22 @@ geometry for a topology-only system.
 
 ---
 
+## Ring Participants
+
+Covalent connectivity and aromatic flags belong to the selected `ChemicalStates`
+state. `msm.topology.get_rings()` perceives a sparse minimum cycle basis from its
+covalent graph. `msm.physchem.get_aromatic_rings()` perceives a basis from the
+explicitly aromatic bond subgraph. Both preserve source atom indices, return
+complete sorted memberships, and reject selections cutting a perceived ring.
+A cycle basis need not be unique; it is not every cycle. Declared aromaticity,
+geometric planarity, and observed interactions have distinct meanings. Unknown
+aromatic flags require explicit chemistry before recognition. These experimental
+operations do not calculate contacts or alter the source state. See
+{ref}`Tutorial_Get_rings`, {ref}`Tutorial_Get_aromatic_rings`, and
+{ref}`Cookbook_Preparing_aromatic_participants` for executed examples.
+
+---
+
 ## API Documentation
 
 All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].

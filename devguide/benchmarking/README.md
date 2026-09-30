@@ -13,6 +13,10 @@ The [ionic calculation guide](ionic.md) records molecular and synthetic
 controls, projected H5MSM calculation, resident sparse output, independent
 correctness checks, and eager/chunked timing and memory tradeoffs.
 
+The [ring participant guide](rings.md) records chemistry preparation on known
+isolated cycles and a large acyclic tail, with result buffer sizes and explicit
+limits on interpreting total process memory.
+
 ## What to measure
 
 Measure separately:

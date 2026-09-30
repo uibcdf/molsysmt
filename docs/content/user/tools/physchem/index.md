@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Get aromatic rings](get_aromatic_rings.ipynb) | Preparing rings from declared aromatic bonds |
 | [Get area buried](get_area_buried.ipynb) | Getting the buried surface area of elements in a molecular system |
 | [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |
 | [Get buried fraction](get_buried_fraction.ipynb) | Getting the fraction of buried surface area for elements in a molecular system |
@@ -21,6 +22,7 @@
    :maxdepth: 2
    :hidden:
 
+   get_aromatic_rings.ipynb
    get_area_buried.ipynb
    get_atomic_radius.ipynb
    get_buried_fraction.ipynb

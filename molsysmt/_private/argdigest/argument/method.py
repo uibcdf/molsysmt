@@ -26,6 +26,14 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    if caller in {
+        "molsysmt.topology.get_rings.get_rings",
+        "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
+    }:
+        if isinstance(method, str) and method == "minimum_cycle_basis":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if caller == "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions":
         if isinstance(method, str) and method == "minimum_distance":
             return method

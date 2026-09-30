@@ -84,3 +84,17 @@ molsysmt.interactions.ionic.get_ionic_interactions:
   summary: "Calculates scoped geometric contacts between formal-charge centers."
   doc_ref: "{func}`molsysmt.interactions.ionic.get_ionic_interactions`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.ionic.get_ionic_interactions()**: Calculates geometric observations between formal-charge centers. See {func}`molsysmt.interactions.ionic.get_ionic_interactions`.\n:::"
+
+molsysmt.topology.get_rings:
+  name: "msm.topology.get_rings"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Perceives a sparse minimum cycle basis of declared covalent connectivity."
+  doc_ref: "{func}`molsysmt.topology.get_rings`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rings()**: Perceives a sparse covalent cycle basis. See {func}`molsysmt.topology.get_rings`.\n:::"
+
+molsysmt.physchem.get_aromatic_rings:
+  name: "msm.physchem.get_aromatic_rings"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Prepares complete participants from explicitly aromatic covalent bonds."
+  doc_ref: "{func}`molsysmt.physchem.get_aromatic_rings`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_aromatic_rings()**: Prepares aromatic ring participants. See {func}`molsysmt.physchem.get_aromatic_rings`.\n:::"

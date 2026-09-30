@@ -34,6 +34,11 @@ definitions = {
 
 def digest_definition(definition, caller=None):
 
+    if caller == "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings":
+        if isinstance(definition, str) and definition == "stored_aromatic_bonds":
+            return definition
+        raise ArgumentError("definition", value=definition, caller=caller)
+
     if caller == "molsysmt.physchem.get_charge_centers.get_charge_centers":
         if (
             isinstance(definition, str)

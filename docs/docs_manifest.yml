@@ -66,7 +66,11 @@ sections:
         agents_file: docs/content/user/tools/topology/AGENTS.md
         index_file: docs/content/user/tools/topology/index.md
         index_agents_file: docs/content/user/tools/topology/index.AGENTS.md
-        status: reviewed
+        status: in_progress
+        pages:
+          - name: get_rings
+            file: docs/content/user/tools/topology/get_rings.ipynb
+            agents_file: docs/content/user/tools/topology/get_rings.ipynb.AGENTS.md
       - name: structure
         path: docs/content/user/tools/structure
         agents_file: docs/content/user/tools/structure/AGENTS.md
@@ -86,6 +90,9 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_aromatic_rings
+            file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb
+            agents_file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb.AGENTS.md
           - name: get_charge_centers
             file: docs/content/user/tools/physchem/get_charge_centers.ipynb
             agents_file: docs/content/user/tools/physchem/get_charge_centers.ipynb.AGENTS.md
@@ -176,6 +183,9 @@ sections:
       - name: querying_sparse_interactions
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
+      - name: preparing_aromatic_participants
+        file: docs/content/user/cookbook/preparing_aromatic_participants.ipynb
+        agents_file: docs/content/user/cookbook/preparing_aromatic_participants.ipynb.AGENTS.md
       - name: preparing_charged_participants
         file: docs/content/user/cookbook/preparing_charged_participants.ipynb
         agents_file: docs/content/user/cookbook/preparing_charged_participants.ipynb.AGENTS.md

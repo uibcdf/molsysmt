@@ -83,6 +83,8 @@ def select(
 
     Notes
     -----
+    - All-element selections obtain counts through a direct getter or the
+      source form's registered attribute pipe.
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - Syntax support is directional. :func:`molsysmt.supported.syntaxes`
@@ -145,7 +147,7 @@ def select(
     """
 
     from molsysmt._private.h5msm import maybe_read_modular_h5msm
-    from molsysmt.basic import where_is_attribute
+    from molsysmt.basic import get, where_is_attribute
     from molsysmt.form import _dict_modules
 
     molecular_system = maybe_read_modular_h5msm(molecular_system)
@@ -166,8 +168,10 @@ def select(
         aux_item, aux_form = where_is_attribute(
             molecular_system, attribute, skip_digestion=True
         )
-        n_elements = getattr(_dict_modules[aux_form], f"get_{attribute}_from_system")(
-            aux_item
+        getter = getattr(_dict_modules[aux_form], f"get_{attribute}_from_system", None)
+        n_elements = (
+            getter(aux_item) if getter is not None
+            else get(aux_item, skip_digestion=True, **{attribute: True})
         )
 
         output_indices = np.arange(n_elements, dtype="int64").tolist()

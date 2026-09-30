@@ -1594,6 +1594,20 @@
       "owner": "interactions.ionic",
       "documentation": "docs/content/user/tools/interactions/get_ionic_interactions.ipynb",
       "contract_tests": "tests/interactions/ionic/test_get_ionic_interactions.py"
+    },
+    "molsysmt.topology.get_rings": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "topology",
+      "documentation": "docs/content/user/tools/topology/get_rings.ipynb",
+      "contract_tests": "tests/topology/test_get_rings.py"
+    },
+    "molsysmt.physchem.get_aromatic_rings": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_aromatic_rings.ipynb",
+      "contract_tests": "tests/physchem/test_get_aromatic_rings.py"
     }
   }
 }

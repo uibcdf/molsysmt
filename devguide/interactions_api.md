@@ -93,6 +93,54 @@ order, and already-recorded bonds. These tests validate the implementation of
 the stated threshold rule; they do not independently establish chemical bond
 identity. The disulfide API is Experimental in the public stability registry.
 
+## Reusable ring participants
+
+`topology.get_rings` and `physchem.get_aromatic_rings` are experimental chemical
+preparation tools. They are form-agnostic: external inputs use the registered
+native chemistry conversion routes, not detector-specific package branches.
+ChemicalStates, ChemicalStatesDict and topology-free MolSys can supply the
+necessary atom domain and chemistry directly. H5MSM 0.5 reads chemistry and
+association metadata without coordinates or saved analyses, and requires
+declared identity atom links where domains are combined. Rich selections also
+need the attributes and geometry used by their expressions.
+
+Both tools use `@arg_digest()` and expose `skip_digestion=False`. Private graph,
+state and packing helpers are undecorated. Trusted delegation skips digestion
+only when the complete target argument contract is already satisfied.
+
+The topology operation computes an unweighted minimum cycle basis of the complete
+covalent graph, excluding dative edges. It does not classify aromaticity. The
+physchem operation computes a basis of the covalent subgraph explicitly marked
+aromatic in the chosen ChemicalStates state. Unknown atom or bond aromatic flags
+fail rather than becoming False. Aromatic bond endpoints must be declared
+aromatic, and aromatic atoms/bonds must belong to cycles in that subgraph.
+A nonaromatic fusion bond can leave an aromatic perimeter, so filtering the full
+covalent basis would not be equivalent. No planarity, residue-name, or bond-order
+fallback is used. Legacy TopologyDict/MolSysDict do not preserve these aromatic
+fields; their covalent graphs can still be used with an explicit completeness
+assumption when needed. Typed ChemicalStatesDict preserves the relevant chemistry.
+
+Results contain int64 `atom_indices`/`atom_offsets`, source, selected and examined
+atom axes, state index, method, connectivity evidence and producer versions.
+Aromatic results also record the declared-bond definition and rule version.
+Memberships are sorted atom sets, not traversal order. Recognition precedes
+selection and rejects cuts through any perceived ring, including shared fused
+atoms. Empty memberships have `(0,)` and offsets `[0]`. These dictionaries are
+chemical features, not InteractionsDict or observed pi-pi interactions.
+
+A minimum basis is not all cycles or SymmSSSR. Tied bases need not be unique or
+symmetry-preserving; fixed atom indices and NetworkX version establish the
+reproducibility boundary. Perception uses cyclic biconnected blocks and an
+explicit default maximum of 256 atoms per cyclic block. Larger blocks fail
+before basis calculation; the caller may raise the limit after assessing cost.
+The limit does not bound process RSS, total graph memory or execution time.
+
+Analytical graph tests and optional independent RDKit fixtures cover the stated
+simple/fused memberships. This evidence does not establish universal aromaticity
+or favorable pi-pi geometry. The plane tool and pi-pi detector remain under
+uibcdf/molsysmt#265. Reproducible chemical preparation measurements are described
+in [benchmarking/rings.md](benchmarking/rings.md).
+
 ## Ionic contacts
 
 `interactions.ionic.get_ionic_interactions` calculates minimum-distance

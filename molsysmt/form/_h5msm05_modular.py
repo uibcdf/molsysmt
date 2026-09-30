@@ -258,7 +258,7 @@ def write_complete_molsys_file(filename, molsys):
     )
 
 
-def _read_calculation_chemistry(filename, *, chemical_state, structure_indices):
+def _read_calculation_chemistry(filename, *, chemical_state, structure_indices, require_topology=True):
     """Prepare native chemistry on declared shared axes without reading structures."""
     import numpy as np
 
@@ -269,17 +269,23 @@ def _read_calculation_chemistry(filename, *, chemical_state, structure_indices):
         filename, layers={"topology", "chemical_states", "associations"}
     )
     topology, states = payload["topology"], payload["chemical_states"]
-    if topology is None or states is None:
-        raise ValueError("Calculation requires topology and chemical states layers.")
+    if states is None or (require_topology and topology is None):
+        raise ValueError("Calculation requires chemical states and, when requested, a topology layer.")
     with h5py.File(filename, "r") as file:
         sizes = _axis_sizes_from_file(file)
     by_key = {_link_key(link): link for link in payload["associations"] or []}
-    required = [_identity_link("atom", "chemical_states", "topology")]
-    if ("structures", None, "atom") in sizes:
+    required = [_identity_link("atom", "chemical_states", "topology")] if topology is not None else []
+    if topology is not None and ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "topology"))
+    elif topology is None and ("structures", None, "atom") in sizes:
+        required.append(_identity_link("atom", "structures", "chemical_states"))
     for link in required:
         observed = by_key.get(_link_key(link))
-        if observed is None or not isinstance(observed["indices"], str):
+        if (
+            observed is None or not isinstance(observed["indices"], str)
+            or observed["target"] != link["target"]
+            or observed["target_name"] != link["target_name"]
+        ):
             raise ValueError("Calculation requires declared identity atom-axis links.")
     prepared = MolSys._from_partial_domains(topology=topology, chemical_states=states)
     if chemical_state != "structure":

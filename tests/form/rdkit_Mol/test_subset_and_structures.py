@@ -9,6 +9,14 @@ import molsysmt as msm  # noqa: E402
 from molsysmt import pyunitwizard as puw  # noqa: E402
 
 
+@pytest.mark.parametrize("smiles", ["", "CO", "c1ccccc1"])
+def test_all_atom_selection_uses_a_declared_attribute_pipe_without_a_direct_count_getter(smiles):
+    molecule = Chem.MolFromSmiles(smiles)
+    assert msm.has_attribute(molecule, "n_atoms")
+    assert msm.select(molecule) == list(range(molecule.GetNumAtoms()))
+    assert msm.select(molecule, selection="all", element="group") == []
+
+
 def test_rdkit_conformer_selection_uses_positions_and_preserves_ids():
     molecule = Chem.AddHs(Chem.MolFromSmiles("CO"))
     first = Chem.Conformer(molecule.GetNumAtoms())
