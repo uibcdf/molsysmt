@@ -150,7 +150,11 @@ source atom memberships and requested source structure indices accompany centers
 unoriented unit normals and orthogonal RMS/maximum deviations. Structure traversal
 preserves order and repetitions; explicit empty frame lists have typed shapes.
 
-The implementation uses scaled, centered group-wise NumPy SVD. The normal is
+The implementation uses a bundled Rust/Faer rectangular SVD on scaled, centered
+coordinates, without forming covariance matrices or computing left vectors.
+Independent frames follow the session parallel policy; each worker fits groups
+sequentially with bounded workspace. Units, selection and PBC validation remain
+in Python. The normal is
 unique only when the middle/smallest singular-value gap exceeds 1e-12 times the
 largest singular value. Collinear, coincident and degenerate clouds fail; regular
 planar rings with equal in-plane singular values are permitted. The normal's

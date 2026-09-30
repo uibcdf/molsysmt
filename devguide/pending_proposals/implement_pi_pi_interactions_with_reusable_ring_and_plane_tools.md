@@ -219,3 +219,58 @@ new speed claim. Before changing the numerical algorithm, compare bounded
 batched SVD and a bundled Rust candidate against the same scaled/degenerate and
 unit contracts. Existing principal-axis covariance routines are not assumed to
 preserve SVD conditioning or the current singular-value-gap diagnostic.
+
+## Plane kernel decision — 2026-09-30
+
+**Implemented:** the public plane tool now delegates packed groups to the bundled
+Rust/Faer rectangular SVD. Units, digestion, form delivery, selection and PBC stay
+at the Python boundary. Frame parallelism follows session configuration; groups
+within a frame are sequential. Right vectors only are computed. Packed indices
+and strided float64 coordinates are borrowed. Degeneracy, sign, output shapes,
+source indices and the unweighted scientific criterion are preserved.
+
+**Benchmarked:** six isolated workloads compare frozen group-wise NumPy, bounded
+batched NumPy, Rust with one thread and Rust with four threads. Single-thread Rust
+wins every measured workload. In the 50-structure/1,000-group numeric case the
+medians are 507.738, 309.934, 149.641 and 46.494 ms respectively. Batched NumPy is
+useful but does not justify retaining a second production implementation here.
+Four-thread benefits depend on frame count; a one-frame group list remains serial.
+The method, raw samples, hashes, versions and memory limits are in
+[the plane benchmark guide](../benchmarking/planes.md) and its linked artifacts.
+The final integrated public benchmark records 0.074 s eager and 0.176 s for
+eight-frame blocks, with the same 3,256,408 returned numeric bytes. The older
+0.684/1.472 s observations remain a separate historical checkpoint.
+
+**Refuted:** the first Nalgebra candidate had inaccurate right vectors in the
+rotated warped hexagon despite RMS agreement. It was rejected without widening
+tolerances. The Faer candidate passes a covariance-oracle component and maximum-
+deviation regression while production retains rectangular SVD conditioning.
+The raw prototype discrepancies are preserved in the benchmark guide.
+
+**Memory:** the Rust kernel is not universally lower in process RSS than NumPy.
+The 50-by-1,000 case uses about 86.0/86.5 MiB with one/four threads versus 84.9 MiB
+for grouped NumPy; the bounded NumPy batch control uses about 94.5 MiB. These are
+isolated process high-water marks, not allocation deltas. Actual Faer scratch
+requirements exposed an underestimated small-group reserve; 2,048 additional
+bytes per frame now cover the aligned workspace. A native guard checks this
+estimate against the dependency's required scratch and matrix padding.
+
+**Validated checkpoint:** 190 combined Python geometry/ring/packaging tests,
+81 Rust tests, the public plane doctest, and both executed plane/aromatic-preparation
+notebooks pass. Unit policies and supported eager/streamed forms retain their
+coverage. The four course Module 39 explanations and Structures foundation remain
+accurate because the user contract is unchanged; the course validator covers all
+156 notebooks. Ruff, production Clippy with warnings denied, Rust formatting,
+API/docstring/dependency/developer-guide gates pass. Local non-editable Linux
+wheel validation checks all 101 private exports and a public Angstrom-input plane
+smoke. This is not a new supported-platform wheel matrix or a stabilized pi-pi API.
+
+Installed-wheel inspection also restored the manifest entry for the already
+implemented `get_mic_pair_observations` kernel and factored its return type so the
+existing production Clippy gate passes. Generated data caches leaking into a
+local wheel were reported and repaired in uibcdf/molsysmt#267, with a real
+setuptools resource-preservation guard. No Rust or Python dependency was added.
+
+The next implementation stage remains the pi-pi detector using the shared ring,
+plane, spatial-candidate and periodic-image tools. This kernel decision does not
+close the detector proposal.

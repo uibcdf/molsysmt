@@ -9,6 +9,7 @@ import subprocess
 import time
 from pathlib import Path
 
+import molsysmt._rust as rust
 import numpy as np
 
 import molsysmt as msm
@@ -71,20 +72,23 @@ def main():
         "source_hashes": {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in (
             "molsysmt/structure/get_least_squares_plane.py", "molsysmt/structure/_plane.py",
             "molsysmt/_private/execution/chunked_executor.py",
+            "rust/src/planes.rs", "rust/Cargo.lock", "molsysmt/_private/rust_backend.py",
         )},
+        "extension_sha256": hashlib.sha256(Path(rust.__file__).read_bytes()).hexdigest(),
         "host": platform.node(), "platform": platform.platform(),
         "cpu": next((line.split(":", 1)[1].strip() for line in Path("/proc/cpuinfo").read_text().splitlines() if line.startswith("model name")), "unknown"),
         "available_cpu_count": len(os.sched_getaffinity(0)),
         "thread_environment": {name: os.environ.get(name) for name in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")},
         "versions": {"python": platform.python_version(), "molsysmt": msm.__version__, "numpy": np.__version__},
         "configuration": {"chunk_size": configure.chunk_size, "chunk_memory_fraction": configure.chunk_memory_fraction,
-                          "max_ram_usage": configure.max_ram_usage},
+                          "max_ram_usage": configure.max_ram_usage, "num_threads": configure.num_threads,
+                          "parallel_mode": configure.parallel_mode, "parallel_threshold": configure.parallel_threshold, "min_payload_per_thread": configure.min_payload_per_thread},
         "dataset": {"n_atoms": args.atoms, "n_structures": args.structures, "n_planes": args.planes,
                     "selected_atoms": 6 * args.planes, "selected_structures": len(frames),
                     "source_coordinate_bytes": 24 * args.atoms * args.structures},
         "methodology": {
             "warmup": "one complete call per mode", "repetitions": args.repetitions, "statistic": "median",
-            "timing": "public selection, coordinate projection, group-wise NumPy SVD and output quantities; fixture construction excluded",
+            "timing": "public selection, coordinate projection, packed Rust/Faer SVD and output quantities; fixture construction excluded",
             "oracle": "known planar regular hexagons with prescribed centers and z normals; no chemistry claims",
             "rss": "Linux process VmHWM including imports, resident source, warmup and earlier modes; not allocation delta or isolated-mode comparison",
             "numeric_memory": "returned NumPy/quantity buffers only; Python containers, work arrays and source excluded",

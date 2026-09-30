@@ -20,6 +20,7 @@ mod mic;
 mod neighbors;
 mod pbc;
 mod pca;
+mod planes;
 mod rmsd;
 mod sasa;
 mod series;
@@ -230,6 +231,7 @@ fn _rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
     rmsd::register(m)?;
     axes::register(m)?;
     pca::register(m)?;
+    planes::register(m)?;
     // Synthetic bench probes.
     m.add_function(wrap_pyfunction!(fibonacci_sphere_points, m)?)?;
     m.add_function(wrap_pyfunction!(pairwise_sqdistances, m)?)?;

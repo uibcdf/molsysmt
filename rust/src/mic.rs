@@ -571,6 +571,8 @@ pub fn get_mic_distances_pairs_single_structure<'py>(
     out.into_pyarray(py)
 }
 
+type PairObservationArrays<'py> = (Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<i32>>);
+
 /// Return one MIC distance and original-box lattice shift per observed pair.
 /// The shift is added to `coordinates2` while `coordinates1` remains the anchor.
 #[pyfunction]
@@ -580,7 +582,7 @@ pub fn get_mic_pair_observations<'py>(
     coordinates2: PyReadonlyArray2<'py, f64>,
     boxes: PyReadonlyArray3<'py, f64>,
     structure_indices: PyReadonlyArray1<'py, i64>,
-) -> PyResult<(Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<i32>>)> {
+) -> PyResult<PairObservationArrays<'py>> {
     let c1 = coordinates1.as_array();
     let c2 = coordinates2.as_array();
     let b = boxes.as_array();

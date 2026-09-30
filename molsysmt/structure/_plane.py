@@ -13,39 +13,13 @@ def fit_planes(coordinates, offsets, positions, *, caller):
     Positions index the projected coordinate axis. Each group is an atom set.
     Scaling before SVD avoids squaring the condition number as covariance does.
     """
-    n_frames, n_groups = len(coordinates), len(offsets) - 1
-    centers = np.empty((n_frames, n_groups, 3), dtype=np.float64)
-    normals = np.empty_like(centers)
-    rms = np.empty((n_frames, n_groups), dtype=np.float64)
-    maximum = np.empty_like(rms)
-    for group, (start, stop) in enumerate(zip(offsets[:-1], offsets[1:])):
-        xyz = coordinates[:, positions[start:stop]]
-        relative = xyz - xyz[:, :1]
-        center = relative.mean(axis=1)
-        centered = relative - center[:, None]
-        scale = np.max(np.abs(centered), axis=(1, 2))
-        if not np.isfinite(centered).all() or np.any(scale == 0):
-            raise StructuralInconsistencyError(
-                reason=f"Plane group {group} contains coincident or unrepresentable coordinates.",
-                caller=caller,
-            )
-        scaled = centered / scale[:, None, None]
-        _, singular, axes = np.linalg.svd(scaled, full_matrices=False)
-        tolerance = 1e-12 * singular[:, 0]
-        if np.any(singular[:, 1] - singular[:, 2] <= tolerance):
-            raise StructuralInconsistencyError(
-                reason=f"Plane group {group} has no unique normal (collinear or degenerate geometry).",
-                caller=caller,
-            )
-        normal = axes[:, -1]
-        pivot = np.argmax(np.abs(normal), axis=1)
-        normal *= np.where(normal[np.arange(n_frames), pivot] < 0, -1.0, 1.0)[:, None]
-        residual = np.einsum("faj,fj->fa", scaled, normal)
-        centers[:, group] = xyz[:, 0] + center
-        normals[:, group] = normal
-        rms[:, group] = np.sqrt(np.mean(residual * residual, axis=1)) * scale
-        maximum[:, group] = np.max(np.abs(residual), axis=1) * scale
-    return centers, normals, rms, maximum
+    from molsysmt._private.rust_backend import get_least_squares_planes
+
+    try:
+        return get_least_squares_planes(coordinates, offsets, positions)
+    except ValueError as error:
+        raise StructuralInconsistencyError(reason=str(error), caller=caller) from error
+
 
 
 class PlaneReducer(Reducer):

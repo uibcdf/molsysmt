@@ -20,6 +20,18 @@ def _num_threads_for_size(payload_size):
     return _get_effective_num_threads(payload_size)
 
 
+def get_least_squares_planes(coordinates, atom_offsets, atom_positions):
+    """Fit packed groups to canonical nm blocks; units remain owned by Python."""
+    import numpy as np
+
+    return _rust.get_least_squares_planes(
+        np.asarray(coordinates, dtype=np.float64),
+        np.ascontiguousarray(atom_offsets, dtype=np.int64),
+        np.ascontiguousarray(atom_positions, dtype=np.int64),
+        _num_threads_for_size(coordinates.size),
+    )
+
+
 # --------------------------------------------------------------------------- MIC distances
 # Adapters for the minimum-image distance family.
 

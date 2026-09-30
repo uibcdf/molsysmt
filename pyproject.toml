@@ -119,6 +119,9 @@ molsysmt = [
 ]
 "molsysmt.data" = ["**"]
 
+[tool.setuptools.exclude-package-data]
+"*" = ["*.py[cod]", "__pycache__/*", "**/__pycache__/*"]
+
 [[tool.setuptools-rust.ext-modules]]
 target = "molsysmt._rust"
 path = "rust/Cargo.toml"

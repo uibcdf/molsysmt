@@ -269,7 +269,7 @@ def test_numerical_budget_caps_coordinate_blocks_and_dense_output(monkeypatch):
     import molsysmt.structure._plane as kernel
 
     source = _system(np.repeat(_coordinates()[0][:1], 80, axis=0))
-    monkeypatch.setattr(configure, "max_ram_usage", 14000)
+    monkeypatch.setattr(configure, "max_ram_usage", 20000)
     monkeypatch.setattr(configure, "chunk_size", 100)
     sizes = []
     original = kernel.fit_planes

@@ -98,7 +98,12 @@ the source through ordinary selection.
 The numerical estimate reserves two output-sized buffers for quantities and
 standardization, packed memberships and projections, 24 bytes per projected atom
 per frame, 192 bytes per atom in the largest fitted group per frame, and 256
-bytes per fitted group per frame plus box work. Output and a one-frame workspace
+bytes per fitted group per frame, 2,048 bytes for aligned factorization scratch
+per frame, plus box work. Rust/Faer computes only right singular vectors;
+parallelism is across frames and each worker holds one group. Packed memberships
+are borrowed and strided float64 coordinates need no contiguous copy. The native
+scratch-size guard checks small and large groups against the working estimate.
+Output and a one-frame workspace
 must fit before reading. Auto mode streams when the selected full work cannot
 fit; off mode fails when its estimated eager work exceeds the budget. The
 remaining budget determines a cap applied after chunk optimization. These are

@@ -92,6 +92,11 @@ def get_least_squares_plane(molecular_system, selection="all", structure_indices
     absolute component: normalized determinant magnitude must exceed 1e-12.
     This check is invariant to uniform coordinate/box scaling.
 
+    A bundled Rust kernel uses a rectangular SVD without forming covariance
+    matrices. Independent structures follow the session's parallel policy;
+    each worker holds one group's factorization workspace. Python retains unit
+    conversion, selection and PBC validation.
+
     Numeric H5MSM 0.5 selections read metadata and projected structural blocks,
     without loading topology or saved analyses. Rich selections may materialize
     the input through the ordinary selection route. Output remains in RAM;
@@ -162,10 +167,11 @@ def get_least_squares_plane(molecular_system, selection="all", structure_indices
     universe = np.unique(atoms)
     positions = np.searchsorted(universe, atoms)
     # Reserve a second output-sized buffer for quantity standardization and
-    # group-wise SVD workspace. This bounds numeric buffers, not total RSS.
+    # group-wise SVD workspace, including aligned factorization scratch.
+    # This bounds numeric buffers, not total RSS.
     fixed = atoms.nbytes + offsets.nbytes + frames.nbytes + universe.nbytes + positions.nbytes
     output_work = fixed + 2 * 64 * len(frames) * len(groups)
-    per_frame = 24 * len(universe) + 192 * max(map(len, groups)) + 256 * len(groups) + 72
+    per_frame = 24 * len(universe) + 192 * max(map(len, groups)) + 256 * len(groups) + 2048 + 72
     available = int(configure.max_ram_usage) - output_work
     if available < per_frame and len(frames):
         raise MemoryBudgetExceededError(reason="Plane output and one coordinate work block exceed the numerical budget.",
