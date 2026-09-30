@@ -21,6 +21,7 @@ definitions = {
     ],
     "get_volume": ["grantham"],
     "get_charge": ["physical_pH7", "collantes", "OpenMM"],
+    "get_charge_centers": ["formal_charge"],
     "get_surface_area": ["collantes"],
     "get_polarity": ["grantham", "zimmerman"],
     "get_area_buried": ["rose"],
@@ -32,6 +33,13 @@ definitions = {
 
 
 def digest_definition(definition, caller=None):
+
+    if caller == "molsysmt.physchem.get_charge_centers.get_charge_centers":
+        if (
+            isinstance(definition, str)
+            and definition in definitions["get_charge_centers"]
+        ):
+            return definition
 
     if caller == "molsysmt.physchem.get_mass.get_mass":
         if isinstance(definition, str):

@@ -1179,6 +1179,13 @@
       "documentation": "docs/content/user/tools/physchem",
       "contract_tests": "tests/physchem"
     },
+    "molsysmt.physchem.get_charge_centers": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_charge_centers.ipynb",
+      "contract_tests": "tests/physchem/test_get_charge_centers.py"
+    },
     "molsysmt.physchem.get_electronegativity": {
       "stability": "experimental",
       "introduced": "pre-1.0",

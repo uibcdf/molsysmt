@@ -1,0 +1,9 @@
+# Physicochemical properties module contract
+
+- Preserve the course-alzheimer-physicochemical-properties anchor, module title,
+  existing scientific scenarios, code cells and executed outputs.
+- Keep the distinction between stored formal charges, force-field partial
+  charges, residue descriptors and recognized local charge centers.
+- Preserve charge-center limits and links to the executed tutorial and recipe.
+- This update adds conceptual guidance; it does not validate the legacy
+  network-dependent examples or claim that ionic detection is implemented.

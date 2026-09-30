@@ -16,10 +16,11 @@ supersedes: []
 
 **Reported:** 2026-09-30, following the maintainer's review of additional
 interaction families and source inspection of molecular analysis libraries.
-**Status:** Active design preparation. The maintainer accepts ionic, pi-pi,
+**Status:** Active implementation. The maintainer accepts ionic, pi-pi,
 and cation-pi as the next sequence and requires reusable domain tools and
-allows additional Rust routines for heavy computation. No new detector or
-public primitive is implemented by this record.
+allows additional Rust routines for heavy computation. The first general
+charge-center tool is implemented experimentally; the ionic detector remains
+pending.
 
 ## What
 
@@ -53,10 +54,10 @@ Do not create placeholder exports.
 | --- | --- | --- |
 | Stored formal charges, aromatic flags, and covalent bond assignments | ChemicalStates, delivered through `basic.get(..., chemical_state=...)` | Implemented; the native MolSys domain owns the state collection. |
 | Stored partial charges | MolecularMechanics, delivered through `basic.get(..., partial_charge=True)` | Implemented query/storage route. State association, source provenance, and missing-value behavior need review before use by a detector. |
-| Charge-center identification and charge interpretation | `physchem`; proposed `get_charge_centers`, subject to naming review | New work. `physchem.get_charge` currently provides residue scales and an OpenMM partial-charge route, not this state-specific participant identification. |
+| Charge-center identification and charge interpretation | `physchem.get_charge_centers` | Implemented experimentally for selected-state formal charges with bounded motif rules. `physchem.get_charge` remains the residue-scale/OpenMM partial-charge route. |
 | Explicit force-field parameterization and charge assignment | Existing conversions and `molecular_mechanics` for force-field work; extend the owning general tool rather than parameterizing inside a detector | OpenMM System conversion exists. General named charge assignment is separately tracked by `uibcdf/molsysmt#221`; Gasteiger assignment is not force-field parameterization. |
 | Element-specific queries and interpretation | `element.atom`, `element.molecule`, and the relevant subtype namespace, including `element.molecule.small_molecule` | The namespaces exist. The molecule-level small-molecule package currently has no exported helpers; group-level small-molecule name/database/bond helpers already exist. |
-| Connectivity traversal, cycles, and reusable functional-group recognition | `topology`, reading the selected chemical state rather than creating another chemical store | Bond graphs and covalent paths exist; a general ring/functional-group contract needs work. |
+| Connectivity traversal, cycles, and reusable functional-group recognition | `topology`, reading the selected chemical state rather than creating another chemical store | Bond graphs and covalent paths exist. Private CSR traversal and bounded carboxyl/guanidine candidate recognition now serve the charge-center tool; a public general ring/functional-group contract remains future work. |
 | Aromatic eligibility from stored or explicitly inferred chemistry | General chemistry interpretation in `physchem`, using connectivity tools | Stored attributes and RDKit conversion exist; a common aromatic participant provider is new work. |
 | Hydrophobicity scales and atom hydrophobic typing | `physchem`, with a named definition and evidence | Residue hydrophobicity scales exist. They do not assign atom-level hydrophobicity. Atom typing would be separate work when a detector needs it. |
 | Centers, best-fit planes, planarity, distances, and angular geometry | `structure`, using existing centers and geometric principal axes where appropriate | Centers and geometric principal axes exist, including Rust kernels. A reusable plane result with degeneracy checks and explicit units may need an additional boundary. |
@@ -158,8 +159,8 @@ needed ionic energy semantics or trajectory-scale performance.
 Steps 1 and 2 define the proposed first implementation under this issue.
 The other sources remain valid planned routes, rather than rejected
 alternatives or closure requirements for this first method. The cutoff and
-recognition-rule coverage still need explicit scientific decisions before
-public export; no universal threshold is settled here. The proposed first
+recognition-rule coverage of the detector still need explicit scientific decisions
+before its public export; no universal threshold is settled here. The proposed first
 method requires an explicit distance threshold with units rather than choosing
 an unvalidated universal default.
 
@@ -170,8 +171,60 @@ used to recognize a motif or account for its charge from the atoms used for
 the named distance criterion when these sets differ. The detector translates
 the documented participant set into Interactions and preserves query semantics.
 Center row indices are local indices, never native molecular `group_index`.
-This result layout is a proposed standalone contract, not a new native domain
-or an implemented class.
+This result layout is now an experimental standalone dictionary contract,
+not a new native domain or a new class.
+
+### Implementation checkpoint — 2026-09-30
+
+The first delivery step is implemented as
+`physchem.get_charge_centers(..., definition='formal_charge')`. It reads the
+selected chemical state, recognizes bounded carboxyl/guanidine motifs, combines
+directly covalently connected charged atoms, and omits neutral groups. It does
+not change source chemistry, parameterize, or substitute a residue definition.
+Atomic and generic cluster labels report formal-charge evidence; they are not
+a universal ionic classification. Phosphate, sulfate, aromatic delocalization,
+and alternative resonance representations outside the documented rules are
+not grouped by this version.
+
+The result packs whole-center membership and separate distance-reference
+membership into int64 arrays and offsets. It records elementary-charge units,
+selected and examined atom indices, the current source axis, state index,
+recognition-rule version, completeness evidence, and the recognition software
+version. A stored chemical-state provenance index remains a reference to that
+source; absent historical charge-preparation provenance is not invented.
+This chemical-feature dictionary is not an InteractionsDict or an occurrence
+analysis and is not automatically attached to MolSys.
+
+Recognition requires explicit elements, formal charges, covalent/dative bond
+relationships, and supported covalent bond orders. Incomplete or unknown
+connectivity fails by default. The caller can explicitly declare complete
+connectivity with `assume_complete_connectivity=True`; the result records that
+assumption without altering source metadata or filling bonds. Recognition
+examines the full state before filtering centers. A selection cutting a
+nonzero compound center fails, and source atom indices are never renumbered
+or confused with IDs. Structure-assigned states currently require the
+requested structures to share one state.
+
+Evidence for this checkpoint:
+
+- `tests/physchem/test_get_charge_centers.py`: 32 deterministic cases covering
+  charge-localization variants, neutral nitro/N-oxide controls, zwitterions,
+  state changes, compound selections, dative bonds, missing prerequisites,
+  explicit completeness assumptions, optional RDKit source chemistry, and
+  a public H5MSM 0.5 source round trip. This is bounded contract and analytical
+  evidence, not validation of all chemical groups.
+- The focused run including existing `tests/physchem/get_charge` passes:
+  **36 passed**. The new public docstring doctest passes: **1 passed**.
+- The new User Guide tutorial and Cookbook recipe were executed successfully.
+  All four Module 39 course paths received conceptual guidance and links;
+  their existing network-dependent code cells were preserved, not re-executed.
+- The API is registered as experimental. Documentation, digestion, Ruff,
+  dependency, API-stability, and devguide checks accompany the delivery.
+
+The minimum-distance detector, occurrence scope, PBC image evidence, chunked
+trajectory execution, Interactions persistence tests, and performance
+measurements remain pending. No detector throughput, memory bound, or
+scientific stabilization is claimed by this first tool.
 
 ### Element-specific tools
 

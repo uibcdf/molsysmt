@@ -51,6 +51,21 @@ for participant roles, evaluated coverage, and experimental detector limits.
 
 ---
 
+## Charge Interpretation
+
+Formal charges describe a selected chemical state. Force-field partial charges
+are molecular mechanics parameters. Residue descriptors or protonation assumptions
+are named interpretations and do not replace either stored source automatically.
+
+The experimental {func}`molsysmt.physchem.get_charge_centers` tool produces
+sparse chemical features for one state, with whole-center atom membership,
+distance-reference atoms, unitful charges, original input indices and evidence.
+A molecule of zero net charge can contain separate local charged centers.
+Those features precede geometric detection and are distinct from the occurrence
+analyses stored in `interactions`.
+
+---
+
 ## Invariants and Performance
 
 - **String Identifier Invariant**: All element IDs (`atom_id`, `group_id`, `chain_id`) inside `topology` are normalized to string representations.

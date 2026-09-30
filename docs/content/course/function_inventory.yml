@@ -70,3 +70,10 @@ molsysmt.basic.compare:
   summary: "Compares structural or topological attributes across two molecular systems to verify equivalence."
   doc_ref: "{func}`molsysmt.basic.compare`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.compare()**: Compares attributes across two systems to verify topology or coordinate match. See API doc: {func}`molsysmt.basic.compare`.\n:::"
+
+molsysmt.physchem.get_charge_centers:
+  name: "msm.physchem.get_charge_centers"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Recognizes sparse formal-charge centers in one chemical state."
+  doc_ref: "{func}`molsysmt.physchem.get_charge_centers`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_charge_centers()**: Recognizes formal-charge centers in one chemical state. See {func}`molsysmt.physchem.get_charge_centers`.\n:::"

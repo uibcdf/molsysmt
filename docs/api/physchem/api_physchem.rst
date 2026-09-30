@@ -12,6 +12,7 @@ API Physical and Chemical Properties
    get_atomic_radius
    get_buried_fraction
    get_charge
+   get_charge_centers
    get_electronegativity
    get_hydrophobicity
    get_mass

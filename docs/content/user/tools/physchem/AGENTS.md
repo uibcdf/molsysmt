@@ -13,6 +13,7 @@ Houses tutorial units for physical and chemical property calculations: SASA, ato
 - `get_atomic_radius.ipynb` ➔ `get_atomic_radius.ipynb.AGENTS.md`
 - `get_buried_fraction.ipynb` ➔ `get_buried_fraction.ipynb.AGENTS.md`
 - `get_charge.ipynb` ➔ `get_charge.ipynb.AGENTS.md`
+- `get_charge_centers.ipynb` ➔ `get_charge_centers.ipynb.AGENTS.md`
 - `get_electronegativity.ipynb` ➔ `get_electronegativity.ipynb.AGENTS.md`
 - `get_hydrophobicity.ipynb` ➔ `get_hydrophobicity.ipynb.AGENTS.md`
 - `get_mass.ipynb` ➔ `get_mass.ipynb.AGENTS.md`
