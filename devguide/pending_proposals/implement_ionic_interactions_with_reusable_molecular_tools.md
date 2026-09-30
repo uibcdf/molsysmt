@@ -55,6 +55,7 @@ Do not create placeholder exports.
 | Stored partial charges | MolecularMechanics, delivered through `basic.get(..., partial_charge=True)` | Implemented query/storage route. State association, source provenance, and missing-value behavior need review before use by a detector. |
 | Charge-center identification and charge interpretation | `physchem`; proposed `get_charge_centers`, subject to naming review | New work. `physchem.get_charge` currently provides residue scales and an OpenMM partial-charge route, not this state-specific participant identification. |
 | Explicit force-field parameterization and charge assignment | Existing conversions and `molecular_mechanics` for force-field work; extend the owning general tool rather than parameterizing inside a detector | OpenMM System conversion exists. General named charge assignment is separately tracked by `uibcdf/molsysmt#221`; Gasteiger assignment is not force-field parameterization. |
+| Element-specific queries and interpretation | `element.atom`, `element.molecule`, and the relevant subtype namespace, including `element.molecule.small_molecule` | The namespaces exist. The molecule-level small-molecule package currently has no exported helpers; group-level small-molecule name/database/bond helpers already exist. |
 | Connectivity traversal, cycles, and reusable functional-group recognition | `topology`, reading the selected chemical state rather than creating another chemical store | Bond graphs and covalent paths exist; a general ring/functional-group contract needs work. |
 | Aromatic eligibility from stored or explicitly inferred chemistry | General chemistry interpretation in `physchem`, using connectivity tools | Stored attributes and RDKit conversion exist; a common aromatic participant provider is new work. |
 | Hydrophobicity scales and atom hydrophobic typing | `physchem`, with a named definition and evidence | Residue hydrophobicity scales exist. They do not assign atom-level hydrophobicity. Atom typing would be separate work when a detector needs it. |
@@ -171,6 +172,29 @@ the documented participant set into Interactions and preserves query semantics.
 Center row indices are local indices, never native molecular `group_index`.
 This result layout is a proposed standalone contract, not a new native domain
 or an implemented class.
+
+### Element-specific tools
+
+**Maintainer clarification — 2026-09-30:** Consider the existing `element`
+hierarchy when placing reusable tools. A capability whose contract is specific
+to atoms belongs in `element.atom`; one specific to small molecules may belong
+in `element.molecule.small_molecule`. For example, a query assessing the
+chemical prerequisites of a selected small molecule can be a meaningful
+subtype-specific tool when needed by both preparation and interaction workflows.
+This is an ownership option, not a new export or an additional required feature.
+
+Keep the native hierarchy explicit: `element.group.small_molecule` operates
+at the group/residue level, whereas `element.molecule.small_molecule` is the
+molecule-level namespace. The inspected group helpers recognize known names
+and consult local group databases; they do not establish complete chemistry
+or recognition coverage for arbitrary ligands.
+
+General charge interpretation remains in `physchem`, connectivity operations
+in `topology`, and geometry/PBC operations in their existing domains. An
+element-specific convenience query delegates to those tools when appropriate;
+it does not duplicate them. Follow `molsysmt/element/AGENTS.md`: public element
+queries can support multiple forms, while native rebuild/inference paths use
+internal native-data helpers rather than calling the public query layer.
 
 ### Ionic scientific contract
 
