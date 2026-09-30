@@ -26,7 +26,7 @@ interpreted families, beginning with `interactions.hbonds` and a disulfide
 candidate detector. Keep `molsysmt.build.get_disulfide_bonds` as the existing
 build-oriented entry point, potentially delegating to that detector. The
 pre-1.0 decision is about the analysis API and its migration. Additional
-interaction families can be approved separately after 1.0. A persistent
+interaction families are approved and scheduled separately. A persistent
 `Interactions` domain inside `MolSys` and H5MSM is required before 1.0;
 its contract and implementation are tracked in
 [`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md)
@@ -72,7 +72,7 @@ the same chemistry or representation.
 | 2. Migrate hydrogen bonds | Before 1.0 if stage 0 is accepted | Make `interactions.hbonds` canonical, retain or retire `msm.hbonds` according to the agreed compatibility policy, preserve named-method behavior, and cover empty, selected, PBC, and multiple-structure cases. Reject unsupported advertised combinations explicitly. |
 | 3. Separate disulfide detection from build | Before 1.0 if stage 0 is accepted | Define per-structure S–S candidates with the evidence used to infer them. Make `build.get_disulfide_bonds` a thin compatibility entry point and keep `build.get_missing_bonds` behavior explicit. Test candidates, already-recorded bonds, group filters, PBC, and selection. |
 | 4. Integrate and recertify | Before the 1.0 candidate freeze | Update API registry, argument digestion callers, User Guide, API reference, Cookbook or examples, affected Four Paths modules, and MolSysViewer compatibility or its bridge. Run focused scientific and consumer checks, then all applicable release gates on the new exact commit. |
-| 5. Add further families | After 1.0, in separate scoped issues | Prioritize ionic/salt-bridge, pi-pi, cation-pi, halogen, hydrophobic, metal-coordination, and mediated interactions from consumer use cases and available chemical-state evidence. Each family needs its own method definition and independent validation. |
+| 5. Add further families | Separately scheduled; not a closure gate for this pre-1.0 migration | Prioritize ionic/salt-bridge, pi-pi, cation-pi, halogen, hydrophobic, metal-coordination, and mediated interactions from consumer use cases and available chemical-state evidence. Each family needs its own method definition and independent validation. The first ionic delivery is tracked by #261. |
 | 6. Integrate persistent interaction data | Before 1.0, tracked by #251 and #252 | Attach optional results to `MolSys`; define remap or invalidation on source edits; persist and recover them in a versioned H5MSM interaction layer. The broader attribute-centric architecture and cross-system alignment remain separate decisions. Stage 5 is not a closure criterion for this namespace issue. |
 
 The minimum result contract in stage 0 must distinguish: participant roles and
@@ -163,8 +163,30 @@ remains a separate proposal. This report covers the analysis namespace;
 
 ## Decision record and implementation evidence
 
+### Modular extension decision — 2026-09-30
+
+The maintainer accepts ionic, pi-pi, and cation-pi as the next sequence,
+starting with the independently scoped [ionic proposal #261](implement_ionic_interactions_with_reusable_molecular_tools.md).
+Reusable charge interpretation and hydrophobic typing belong in `physchem`,
+connectivity tools in `topology`, geometry in `structure`, and reconstruction
+and image conventions in `pbc`. Family detectors orchestrate those tools and
+apply their named scientific criteria. Existing compiled primitives are
+reused; further heavy routines may be implemented in Rust with profiling and
+scientific parity evidence. This supersedes the earlier assumption that every
+additional family must wait until after 1.0; it does not add them as release
+or closure gates. Delivery dates remain separately scheduled.
+
+The component reconstruction already exists through `pbc.wrap_to_mic` and
+`pbc.wrap_to_pbc` with `compact='component'`. Returning reconstruction image
+shifts and representing split compound participants in Interactions remain
+separate design work. Residue hydrophobicity scales already exist, whereas
+atom hydrophobic typing needs its own explicit definition. The new record
+documents inspection evidence and intended work, not implemented detectors.
+
+### Original migration decision and evidence
+
 - The accepted pre-1.0 tree contains `interactions.hbonds` and
-  `interactions.disulfides`; other families remain separate post-1.0 decisions.
+  `interactions.disulfides`; other families remain separately scoped decisions.
   `msm.hbonds` and its direct module imports remain compatible aliases, without
   a deprecation decision in this release.
 - The existing Buch and Luzar–Chandler implementations were moved with their
