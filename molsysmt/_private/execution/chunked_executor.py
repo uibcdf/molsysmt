@@ -204,8 +204,12 @@ class ChunkedExecutor:
 
     def _get_dimensions(self):
         """Return (n_atoms, n_structures) from the molecular system."""
+        from molsysmt._private.h5msm import modular_h5msm_dimensions
         from molsysmt.basic import get
 
+        dimensions = modular_h5msm_dimensions(self.molecular_system)
+        if dimensions is not None:
+            return dimensions
         n_atoms = get(self.molecular_system, element="system", n_atoms=True)
         n_structures = get(self.molecular_system, element="system", n_structures=True)
         return int(n_atoms), int(n_structures)
@@ -246,7 +250,10 @@ class ChunkedExecutor:
 
         _EMA_ALPHA = 0.3  # exponential moving-average weight for ETA
 
-        n_chunks = max(1, int(np.ceil(n_structures / self.chunk_size)))
+        n_selected = (
+            n_structures if self.structure_indices is None else len(self.structure_indices)
+        )
+        n_chunks = int(np.ceil(n_selected / self.chunk_size))
 
         # --- Checkpoint / resume: determine starting chunk ---
         start_chunk = 0
@@ -264,9 +271,7 @@ class ChunkedExecutor:
                 structure_indices = list(range(frames_to_skip, n_structures))
             else:
                 structure_indices = list(structure_indices)[frames_to_skip:]
-            n_chunks_active = max(
-                1, int(np.ceil(len(structure_indices) / self.chunk_size))
-            )
+            n_chunks_active = int(np.ceil(len(structure_indices) / self.chunk_size))
         else:
             n_chunks_active = n_chunks
 
@@ -310,11 +315,15 @@ class ChunkedExecutor:
         t_ema = None  # exponential moving average of per-chunk elapsed time
         memory_pressure_active = False
 
-        with self._get_form_iterator(structure_indices, self.chunk_size) as it:
+        with self._chunk_source(structure_indices, self.chunk_size, n_structures) as it:
+            frame_offset = 0
             for raw_chunk in it:
                 t0 = time.perf_counter()
 
                 chunk = self._build_chunk(raw_chunk)
+                frame_offset = self._set_chunk_indices(
+                    chunk, structure_indices, frame_offset, n_structures
+                )
                 for reducer in self._reducers:
                     reducer.consume(chunk)
 
@@ -385,6 +394,9 @@ class ChunkedExecutor:
 
                 chunk_index += 1
 
+        if frame_offset != n_structures_selected:
+            raise ValueError("Trajectory iterator did not deliver every requested structure.")
+
         results = [r.finalize() for r in self._reducers]
         return results[0] if self._single else results
 
@@ -393,23 +405,77 @@ class ChunkedExecutor:
         Eager path: load all frames in a single chunk via the form's StructuresIterator.
         Used when heavy_mode='off' or footprint is within RAM budget.
         """
+        n_selected = (
+            n_structures if self.structure_indices is None else len(self.structure_indices)
+        )
         meta = {
             "n_atoms": n_atoms,
-            "n_structures": n_structures,
-            "n_chunks": 1,
+            "n_structures": n_selected,
+            "n_structures_total": n_structures,
+            "n_chunks": int(n_selected > 0),
             "operation": self.operation,
+            "form": self.form,
+            "atom_indices": self.atom_indices,
+            "structure_indices": self.structure_indices,
         }
         for reducer in self._reducers:
             reducer.initialize(dict(meta))
 
-        with self._get_form_iterator(self.structure_indices, n_structures) as it:
+        with self._chunk_source(self.structure_indices, max(1, n_selected), n_structures) as it:
+            frame_offset = 0
             for raw_chunk in it:
                 chunk = self._build_chunk(raw_chunk)
+                frame_offset = self._set_chunk_indices(
+                    chunk, self.structure_indices, frame_offset, n_structures
+                )
                 for reducer in self._reducers:
                     reducer.consume(chunk)
 
+        if frame_offset != n_selected:
+            raise ValueError("Trajectory iterator did not deliver every requested structure.")
+
         results = [r.finalize() for r in self._reducers]
         return results[0] if self._single else results
+
+    def _chunk_source(self, structure_indices, chunk_size, n_structures):
+        """Avoid opening a trajectory when no structures are requested."""
+        from contextlib import nullcontext
+
+        if n_structures == 0 or (structure_indices is not None and len(structure_indices) == 0):
+            return nullcontext(iter(()))
+        return self._get_form_iterator(structure_indices, chunk_size)
+
+    @staticmethod
+    def _set_chunk_indices(chunk, selected, offset, total):
+        """Assign source indices from the requested traversal, never from IDs."""
+        series = next((
+            chunk[name] for name in ("coordinates", "box", "time", "structure_id")
+            if chunk.get(name) is not None
+        ), None)
+        if series is None or series.ndim == 0:
+            raise ValueError("A trajectory chunk must contain a structural series.")
+        size = len(series)
+        for name in ("coordinates", "box", "time", "structure_id"):
+            values = chunk.get(name)
+            if values is not None and (values.ndim == 0 or len(values) != size):
+                raise ValueError("Trajectory chunk series have incompatible structure axes.")
+        expected = (
+            np.arange(offset, offset + size, dtype=np.int64)
+            if selected is None
+            else np.asarray(selected[offset:offset + size], dtype=np.int64)
+        )
+        if len(expected) != size or offset + size > (total if selected is None else len(selected)):
+            raise ValueError("Trajectory iterator delivered more structures than requested.")
+        observed = chunk.get("structure_indices")
+        if observed is not None:
+            if observed.ndim != 1 or observed.dtype.kind not in "iu":
+                raise ValueError("Trajectory chunk indices must be a one-dimensional integer array.")
+            if not np.array_equal(observed, expected):
+                raise ValueError("Trajectory chunk indices disagree with the requested traversal.")
+        expected = expected.view()
+        expected.flags.writeable = False
+        chunk["structure_indices"] = expected
+        return offset + size
 
     def _save_checkpoint(self, chunk_index: int) -> None:
         """Serialize all reducer states to a checkpoint file."""
@@ -443,23 +509,24 @@ class ChunkedExecutor:
         """
         from molsysmt import pyunitwizard as puw
 
-        def _to_float64(q):
+        def _to_float64(q, unit):
             if q is None:
                 return None
-            val = puw.get_value(q)
-            return np.asarray(val, dtype=np.float64)
+            val = puw.get_value(q, to_unit=unit)
+            return np.asarray(val, dtype=np.float64).view()
 
-        coords = _to_float64(raw_chunk.get("coordinates"))
-        box = _to_float64(raw_chunk.get("box"))
-        time_ = _to_float64(raw_chunk.get("time"))
+        coords = _to_float64(raw_chunk.get("coordinates"), "nm")
+        box = _to_float64(raw_chunk.get("box"), "nm")
+        time_ = _to_float64(raw_chunk.get("time"), "ps")
         structure_id = raw_chunk.get("structure_id")
 
         chunk = {
             "coordinates": coords,
             "box": box,
             "time": time_,
-            "structure_indices": np.asarray(structure_id)
-            if structure_id is not None
+            "structure_id": np.asarray(structure_id).view() if structure_id is not None else None,
+            "structure_indices": np.asarray(raw_chunk["structure_indices"]).view()
+            if raw_chunk.get("structure_indices") is not None
             else None,
         }
         # Make arrays read-only

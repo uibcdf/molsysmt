@@ -55,7 +55,7 @@ def _executor(reducers, n_chunks=1):
         "structure_indices": np.array([0]),
     }
     executor._get_form_iterator = lambda structure_indices, chunk_size: _Iterator(
-        [chunk] * n_chunks
+        [dict(chunk, structure_indices=np.array([i])) for i in range(n_chunks)]
     )
     executor._build_chunk = lambda raw_chunk: raw_chunk
     return executor

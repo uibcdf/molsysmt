@@ -42,7 +42,9 @@ def get_coordinates_from_atom(
     if (indices is None) or (structure_indices is None):
         return None
 
-    tmp_coordinates = copy(item.coordinates)
+    tmp_coordinates = item.coordinates
+    if tmp_coordinates is None:
+        return None
 
     if not is_all(structure_indices):
         if not is_all(indices):
@@ -53,7 +55,7 @@ def get_coordinates_from_atom(
         if not is_all(indices):
             tmp_coordinates = tmp_coordinates[:, indices, :]
 
-    return tmp_coordinates
+    return copy(tmp_coordinates)
 
 
 @arg_digest(form=form)

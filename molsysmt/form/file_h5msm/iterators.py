@@ -23,6 +23,19 @@ class StructuresIterator:
         **kwargs,
     ):
 
+        from molsysmt._private.h5msm import modular_h5msm_dimensions
+
+        self._handler = None
+        if modular_h5msm_dimensions(molecular_system) is not None:
+            from molsysmt.form._h5msm05_iterator import _StructuresIterator05
+
+            self._inner = _StructuresIterator05(
+                molecular_system, atom_indices=atom_indices,
+                structure_indices=structure_indices, start=start, stop=stop,
+                step=step, chunk=chunk, output_type=output_type, **kwargs,
+            )
+            return
+
         from molsysmt.form.molsysmt_H5MSMFileHandler.iterators import (
             StructuresIterator as _Inner,
         )
@@ -55,6 +68,8 @@ class StructuresIterator:
         return self
 
     def __exit__(self, *args):
+        if self._handler is None:
+            return self._inner.__exit__(*args)
         if self._handler is not None:
             self._handler.close()
             self._handler = None

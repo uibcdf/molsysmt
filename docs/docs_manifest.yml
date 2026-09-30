@@ -157,6 +157,7 @@ sections:
       - name: big_data_trajectories
         file: docs/content/user/cookbook/big_data_trajectories.ipynb
         agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
+        status: reviewed
       - name: from_pdb_to_solvated_box
         file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb
         agents_file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb.AGENTS.md

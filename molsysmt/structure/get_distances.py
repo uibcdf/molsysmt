@@ -167,6 +167,8 @@ def get_distances(
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     heavy_mode : {'auto', 'force', 'off'}, default='auto'
         Policy controlling the chunked path for memory-intensive calculations.
+        Coordinate and box blocks use nm internally; the result retains its
+        length unit independently of session standard units.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
     parallel : bool or None, default=None
@@ -302,8 +304,7 @@ def get_distances(
             dist_val = (
                 executor.execute()
             )  # (n_structures, n_atoms, n_atoms), float64, nm
-            length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
-            distances = puw.quantity(dist_val, length_unit)
+            distances = puw.quantity(dist_val, "nm")
 
         else:
             distances = _get_distances_in_memory(

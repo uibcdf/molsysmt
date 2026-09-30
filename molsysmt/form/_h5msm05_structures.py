@@ -299,6 +299,32 @@ def append_independent_structures(root, structures, *, block_size=256):
             group.attrs[name] = metadata[name]
 
 
+def _validate_structure_series(group, name, n_structures, n_atoms):
+    """Validate one stored series without reading its payload."""
+    dataset = group[name]
+    _, unit, ndim, _ = _FIELDS[name]
+    expected = (n_structures,)
+    if name in _ATOM_FIELDS:
+        if n_atoms < 0:
+            raise ValueError(f"Structural series {name!r} requires a known atom axis.")
+        expected += (n_atoms,)
+    if name in _VECTOR_FIELDS:
+        expected += (3,)
+    if name == "box":
+        expected += (3,)
+    if dataset.ndim != ndim or dataset.shape != expected:
+        raise ValueError(f"Structural series {name!r} has an invalid shape.")
+    if unit is not None and dataset.attrs.get("unit") != unit:
+        raise ValueError(f"Structural series {name!r} has an unsupported unit.")
+    if name == "structure_id":
+        kind = dataset.attrs.get("value_kind", "int64")
+        if kind == "string":
+            if h5py.check_string_dtype(dataset.dtype) is None:
+                raise ValueError("Structural series 'structure_id' has an invalid string type.")
+        elif kind != "int64" or dataset.dtype != np.dtype("int64"):
+            raise ValueError("Structural series 'structure_id' has an invalid integer type.")
+
+
 def read_independent_structures(root, *, structure_indices=None, atom_indices=None):
     """Read selected structural series from an optional H5MSM 0.5 layer."""
     if "structures" not in root:
@@ -327,26 +353,7 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
         if name not in group:
             continue
         dataset = group[name]
-        expected = (n_structures,)
-        if name in _ATOM_FIELDS:
-            if n_atoms < 0:
-                raise ValueError(f"Structural series {name!r} requires a known atom axis.")
-            expected += (n_atoms,)
-        if name in _VECTOR_FIELDS:
-            expected += (3,)
-        if name == "box":
-            expected += (3,)
-        if dataset.ndim != ndim or dataset.shape != expected:
-            raise ValueError(f"Structural series {name!r} has an invalid shape.")
-        if unit is not None and dataset.attrs.get("unit") != unit:
-            raise ValueError(f"Structural series {name!r} has an unsupported unit.")
-        if name == "structure_id":
-            kind = dataset.attrs.get("value_kind", "int64")
-            if kind == "string":
-                if h5py.check_string_dtype(dataset.dtype) is None:
-                    raise ValueError("Structural series 'structure_id' has an invalid string type.")
-            elif kind != "int64" or dataset.dtype != np.dtype("int64"):
-                raise ValueError("Structural series 'structure_id' has an invalid integer type.")
+        _validate_structure_series(group, name, n_structures, n_atoms)
         if name in _ATOM_FIELDS and atom_selection is not None:
             values = _atom_rows(dataset, frame_selection, atom_selection)
         else:

@@ -115,11 +115,19 @@ def get_center(
         If an unsupported engine is requested.
 
 
+    Notes
+    -----
+    Chunked calculations use nm internally and return a quantity standardized
+    to the session's length unit. Native iteration reads the existing structures
+    domain and copies only selected coordinate blocks; accumulated output still
+    occupies memory.
+
     Examples
     --------
     >>> import molsysmt as msm
+    >>> from molsysmt.structure.get_center import get_center
     >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
-    >>> msm.structure.get_center(molsys, weights='masses').shape
+    >>> get_center(molsys, weights='masses').shape
     (1, 1, 3)
 
 
@@ -180,8 +188,7 @@ def get_center(
                     attributes=["coordinates"],
                 )
                 center_val = executor.execute()  # (n_structures, 1, 3), float64, nm
-                length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
-                center = puw.quantity(center_val, length_unit)
+                center = puw.quantity(center_val, "nm")
             else:
                 coordinates = get(
                     molecular_system,
@@ -249,8 +256,7 @@ def get_center(
                     attributes=["coordinates"],
                 )
                 center_val = executor.execute()  # (n_structures, n_groups, 3)
-                length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
-                center = puw.quantity(center_val, length_unit)
+                center = puw.quantity(center_val, "nm")
             else:
                 coordinates = get(
                     molecular_system,

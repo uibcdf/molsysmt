@@ -111,6 +111,8 @@ def get_rmsd(
         Backend used to perform the calculation.
     heavy_mode : {'auto', 'force', 'off'}, default='auto'
         Policy controlling the chunked path for memory-intensive calculations.
+        Chunk coordinates and the reference are converted explicitly to nm;
+        the returned quantity follows the session's length-unit policy.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
     parallel : bool or None, default=None
@@ -187,8 +189,8 @@ def get_rmsd(
 
         if mode == "heavy":
             # Extract reference as float64 numpy array in canonical length unit (nm)
-            ref_val, length_unit = puw.get_value_and_unit(
-                reference_coordinates, value_type="numpy.ndarray", dtype=np.float64
+            ref_val = puw.get_value(
+                reference_coordinates, to_unit="nm", dtype=np.float64
             )
             # ref_val shape may be (1, n_atoms, 3) — squeeze to (n_atoms, 3)
             ref_val = np.squeeze(ref_val, axis=0) if ref_val.ndim == 3 else ref_val
@@ -211,7 +213,7 @@ def get_rmsd(
                 attributes=["coordinates"],
             )
             rmsd_val = executor.execute()  # (n_structures,), float64, nm
-            return puw.quantity(rmsd_val, length_unit)
+            return puw.standardize(puw.quantity(rmsd_val, "nm"))
 
         else:
             coordinates = get(

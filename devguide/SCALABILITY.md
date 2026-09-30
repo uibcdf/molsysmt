@@ -41,10 +41,45 @@ builds dictionaries with these keys:
 - `coordinates`: read-only `float64` values in nm;
 - `box`: read-only `float64` values in nm, or `None`;
 - `time`: read-only `float64` values in ps, or `None`;
-- `structure_indices`: read-only structure identifiers or `None`.
+- `structure_indices`: read-only `int64` source structure indices, in the
+  requested traversal order, including repetitions;
+- `structure_id`: read-only source identifiers when the iterator was asked
+  to deliver them, otherwise `None`. Identifiers never supply indices.
+
+The executor converts quantities explicitly to nm and ps, independently of
+session standard units. Public structure reducers wrap their numeric outputs
+with the canonical unit before any session-unit standardization. Making chunk
+views read-only does not make caller-owned source arrays read-only.
+
+Eager and heavy reducer metadata distinguish `n_structures` (requested count)
+from `n_structures_total` (source count). Empty traversals initialize and finalize
+reducers without opening the trajectory. A reducer must implement its own
+typed empty result if its public operation accepts empty selections. Short,
+excess, misaligned, or incorrectly indexed delivery raises before finalization.
 
 Reducers must copy an array before mutating it. Scientific logic belongs in the
 reducer; the executor owns iteration, policy, and orchestration.
+
+### Source projections
+
+Native `MolSys` iteration reads its existing `structures` domain directly.
+Native coordinate getters select the requested rows before copying. These
+paths avoid an additional full-source coordinate copy; the source remains
+resident in RAM and the reducer may still accumulate a large result.
+
+For a path to H5MSM 0.5, executor dimension preflight reads axis metadata.
+The file-form iterator projects coordinates, box, time, and structure IDs in
+blocks and validates structural-series shapes and units before delivery.
+It preserves nonconsecutive and repeated frame indices and requested atom
+order, and closes its owned handle on completion or context exit. Other
+structural attributes are not supported by this iterator yet. The existing
+H5MSM 0.4 file and handler iterators retain their legacy schema route.
+
+This source capability alone does not establish bounded memory for an entire
+public operation. Other public preflight calls can still materialize a 0.5
+file, and sparse/dense output storage needs its own budget. In particular,
+the ionic detector has not yet been connected to the executor; #261 tracks
+that integration and its measurements.
 
 ## Reducer protocol
 

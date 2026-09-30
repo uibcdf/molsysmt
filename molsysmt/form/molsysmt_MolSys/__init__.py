@@ -2,6 +2,7 @@ from .add_bonds import add_bonds
 from .remove_bonds import remove_bonds
 
 form_name = "molsysmt.MolSys"
+_heavy_support = {"coordinates": True, "box": True}
 form_type = "class"
 form_info = ["", ""]
 

@@ -67,6 +67,12 @@ class StructuresIterator:
 
         return self
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return False
+
     def __next__(self):
 
         indices = self._indices_iterator.__next__()

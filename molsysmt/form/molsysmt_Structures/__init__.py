@@ -1,4 +1,5 @@
 form_name = "molsysmt.Structures"
+_heavy_support = {"coordinates": True, "box": True}
 form_type = "class"
 form_info = ["", ""]
 

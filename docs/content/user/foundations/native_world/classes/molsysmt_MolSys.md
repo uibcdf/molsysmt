@@ -75,6 +75,13 @@ energy or a recorded bond. See {ref}`Tutorial_Get_ionic_interactions`.
 
 ## Invariants and Performance
 
+Structural iteration reads the existing `structures` domain without copying
+the complete ensemble first. Coordinate getters copy only the requested
+atom and structure selection. The original system stays in memory, and
+collecting every returned block still stores the complete selected result.
+Use structure **indices** to choose rows; `structure_id` contains labels
+that need not be consecutive numbers or match those indices.
+
 - **String Identifier Invariant**: All element IDs (`atom_id`, `group_id`, `chain_id`) inside `topology` are normalized to string representations.
 - **Fast Digestion Bypass**: Compatible with `skip_digestion=True` for high-frequency internal algorithm passes.
 

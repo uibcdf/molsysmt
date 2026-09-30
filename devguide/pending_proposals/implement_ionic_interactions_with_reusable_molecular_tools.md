@@ -364,6 +364,35 @@ internal native-data helpers rather than calling the public query layer.
   examples. The previously discussed 0.4 nm example and Mol*'s 0.5 nm default
   are reference choices, not agreed defaults or independent scientific truth.
 
+### Shared execution checkpoint — 2026-09-30
+
+Preparing the ionic sparse reducer exposed the shared boundary defect
+`uibcdf/molsysmt#263`: IDs were delivered as indices and units were stripped
+without canonical conversion. The boundary and existing structure consumers
+have been corrected. Requested and total frame counts are now distinct,
+empty selections do not open the trajectory, and invalid delivery fails
+before finalization.
+
+Native iteration also copied the full Structures domain during iterator
+construction, then copied the full coordinate series before selecting each
+block. The iterator now reads the source domain directly, and the getter
+copies only the projected coordinate block. Copy-size and forbidden-extraction
+tests protect those properties without claiming a measured peak-RAM reduction.
+
+The shared executor can preflight H5MSM 0.5 dimensions from metadata and use
+a projected structural iterator for coordinates, box, time, and structure
+IDs. It preserves selected atom order, nonconsecutive/repeated frame traversal,
+and partial blocks. Structural metadata validation is reused with the
+independent reader. This iterator does not prepare chemical domains or
+validate cross-domain atom/state associations.
+
+**Remaining:** connect an ionic sparse reducer to this executor, prepare
+chemistry without reading all structural payloads, define output/candidate
+budgets, and execute the real-system and stage-separated benchmark plan.
+Some public H5MSM 0.5 preflight routes still materialize domains; no whole
+public-pipeline out-of-core capability is claimed. The ionic detector's
+published eager contract has not changed in this checkpoint.
+
 ### Public surface and remaining design
 
 The first exported experimental family route is

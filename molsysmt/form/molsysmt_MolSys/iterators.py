@@ -6,7 +6,6 @@ from ..molsysmt_Structures.iterators import (
 from ..molsysmt_Topology.iterators import (
     TopologyIterator as TopologyIterator_molsysmt_Topology,
 )
-from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_Topology import to_molsysmt_Topology
 
 
@@ -26,7 +25,10 @@ class StructuresIterator(StructuresIterator_molsysmt_Structures):
         **kwargs,
     ):
 
-        molecular_system = to_molsysmt_Structures(molecular_system, skip_digestion=True)
+        # Iteration reads the existing domain; conversion would copy the trajectory.
+        molecular_system = molecular_system.structures
+        if molecular_system is None:
+            raise ValueError("This MolSys has no structures domain to iterate.")
 
         super().__init__(
             molecular_system,
