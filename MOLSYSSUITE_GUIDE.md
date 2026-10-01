@@ -188,6 +188,36 @@ During an accepted Python transition, `suite.toml` may authorize named component
 
 Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
+## Modular reusable tools
+
+Before implementing a new or changed capability, inspect existing tools and identify
+the owning domain/module or MolSysSuite provider. Reuse supported operations. Implement
+or extend missing independently useful operations as documented general tools in that
+owner, with their own contracts and tests, and have consumers call them. Keep feature
+selection, interpretation, rendering and orchestration in the consumer; implementation
+helpers remain private behind supported tools.
+
+Apply the [modular reusable tools policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/modular_reusable_tools.md)
+to every registered component, including support libraries, scientific components,
+developer tools and specialist subsystems. Every root `AGENTS.md` must explicitly route
+this requirement through this section. New Python members receive it from the starter
+kit. Existing public APIs, scientific definitions, units/index mappings, dependency
+direction and special environments retain their owning component contracts.
+
+Report missing sibling capabilities to the provider with linked consumer evidence.
+The provider chooses its supported backend and justifies performance changes from
+measurements. Apply the existing CI/recovery and release policies. This rule governs
+relevant new or changed work; discovered historical duplication receives an owned
+migration decision. Scientific defects remain with component development teams.
+
+A temporary duplication or workaround records the affected operation/rule, provider and
+consumer issues, rationale, responsible owner, interim impact, review/expiry date and
+removal condition. Keep the instruction visible during an implementation exception.
+Guide and instruction checks verify delivery/routing only. Architectural review must
+inspect the standalone tool contract and actual consumer call, distinguishing source
+inspection from executed compatibility evidence. Adoption is tracked in
+[MolSysSuite #61](https://github.com/uibcdf/molsyssuite/issues/61).
+
 ## Optional engines and external methods
 
 Whenever a component exposes an optional external library, executable, accelerator,
