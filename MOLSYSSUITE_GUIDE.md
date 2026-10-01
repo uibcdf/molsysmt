@@ -301,6 +301,12 @@ retain credential-bearing webhook configuration. Follow the complete
 [Zenodo archival and DOI policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/zenodo_policy.md)
 and its central inventory before publishing or changing a DOI claim.
 
+Use bounded probes with scheduled/manual follow-up for delayed ingestion. The
+default intervention window is 72 hours from original publication; pending and
+service-unavailable states never establish archival. Adopt the common pinned
+recovery workflow or a documented equivalent before the next applicable release;
+the policy specifies complete discovery, evidence and tracked exceptions.
+
 ## Member classification and planning
 
 MolSysSuite records independent fields for each member: `role` says what it provides,

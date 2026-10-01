@@ -98,12 +98,12 @@ After the exact candidate passes every gate:
 4. allow the enabled Zenodo integration to ingest it and verify the new record:
 
    ```bash
-   python devtools/scripts/verify_zenodo_release.py 1.0.0
+   gh workflow run verify-zenodo-release.yaml --repo uibcdf/molsysmt -f version=X.Y.Z
    ```
 
 The `verify-zenodo-release.yaml` workflow performs step 4 automatically for published
 releases. A failed or delayed external ingestion does not change the tested software
-commit, but the release is not fully signed off until the verifier passes. Retry the
+commit, but archival sign-off requires an explicit `verified` result, including DOI and exact file evidence; a green pending probe is insufficient. Retry the
 verification before attempting any manual deposit.
 
 ## Citation policy for readers
@@ -193,3 +193,33 @@ compact run triage, escalating to targeted native logs only when needed.
 - If ingestion is only delayed, rerun the verifier. Do not create a manual duplicate.
 - If an incorrect Zenodo record was published, preserve its history and use Zenodo's
   supported editing/versioning controls or contact Zenodo support; never repoint a DOI.
+
+
+## Resumable ingestion verification
+
+Adopted under uibcdf/molsysmt#273 and uibcdf/molsyssuite#49.
+The workflow calls the common provider pinned to `b78fa9d30d46ce5607999cdecae85cf6c03f5fcd`.
+Its publication probe runs once, then scheduled read-only scans run nominally
+every six hours. Manual dispatch accepts an exact public tag or an empty version
+to scan. No component runtime or scientific suite is installed or executed.
+
+The fixed coverage cutoff is `2026-09-25T00:00:00Z`, including the paired release.
+It is not advanced as time passes or later releases appear. Public prereleases
+are included; drafts and unpublished tags are excluded. Reruns preserve the
+original GitHub publication timestamp and its 72-hour intervention deadline.
+
+Inspect the sanitized `zenodo-public-evidence` artifact and job summary:
+`ingestion_pending` before the deadline is an operationally successful probe,
+not completed archival. Only `verified` with distinct DOI and exact source file
+inventory supports citation sign-off. `invalid` and conclusive overdue `absent`
+fail; incomplete/network/service queries remain `temporarily_unavailable` and
+fail separately. Scheduled runs can be delayed or dropped; maintainers inspect
+overdue evidence and dispatch manually if needed. Late records remain recoverable.
+
+The component maintainer owns overdue investigation and its local issue; an
+authorized Zenodo maintainer checks account-side status before any replay or
+manual deposit. The common normative policy, bounds and exceptions are routed
+through MOLSYSSUITE_GUIDE.md. No release, webhook, deposit, metadata or package
+promotion is mutated by verification. Existing one-off verifier helpers are
+historical diagnostics; workflow evidence from the common provider owns current
+archival sign-off and recovery. These checks do not establish Conda/npm archival.

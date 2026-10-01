@@ -151,8 +151,9 @@ Do not substitute a partial or single-platform run.
 Only then tag the release.
 
 After publishing the GitHub Release, F6 is complete only when Zenodo has archived the
-tag and `python devtools/scripts/verify_zenodo_release.py <tag>` resolves a distinct
-version DOI inside the declared concept family. The DOI of a not-yet-published version
+tag and the shared verifier reports `verified`, with a distinct version DOI
+inside the declared concept family and exact source file evidence. A green probe
+with `ingestion_pending` does not complete F6. The DOI of a not-yet-published version
 cannot be a pre-tag gate unless it was deliberately pre-reserved through the Zenodo API.
 
 ## Notes
