@@ -4,6 +4,7 @@ from .get_mass import get_mass
 from .get_charge import get_charge
 from .get_charge_centers import get_charge_centers
 from .get_aromatic_rings import get_aromatic_rings
+from .get_hbond_sites import get_hbond_sites
 from .get_atomic_radius import get_atomic_radius
 from .get_electronegativity import get_electronegativity
 from .get_polarity import get_polarity

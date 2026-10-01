@@ -126,3 +126,17 @@ molsysmt.topology.get_substructure_matches:
   summary: "Matches complete chemical SMARTS without silent truncation."
   doc_ref: "{func}`molsysmt.topology.get_substructure_matches`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_substructure_matches()**: Matches declared chemical graphs with explicit query limits. See {func}`molsysmt.topology.get_substructure_matches`.\n:::"
+
+molsysmt.physchem.get_hbond_sites:
+  name: "msm.physchem.get_hbond_sites"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Prepares attributed donor–hydrogen pairs and acceptor indices."
+  doc_ref: "{func}`molsysmt.physchem.get_hbond_sites`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_hbond_sites()**: Prepares attributed donor–hydrogen pairs and acceptor indices. See {func}`molsysmt.physchem.get_hbond_sites`.\n:::"
+
+molsysmt.interactions.hbonds.get_hbonds:
+  name: "msm.interactions.hbonds.get_hbonds"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Calculates sparse per-structure hydrogen bonds with named criteria."
+  doc_ref: "{func}`molsysmt.interactions.hbonds.get_hbonds`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.hbonds.get_hbonds()**: Calculates sparse per-structure hydrogen bonds with named criteria. See {func}`molsysmt.interactions.hbonds.get_hbonds`.\n:::"

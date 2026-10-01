@@ -42,12 +42,22 @@ def digest_method(method, caller=None):
     if caller in {
         "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
     }:
-        if isinstance(method, str) and method == "centroid_angle_offset":
+        if isinstance(method, str) and method in {"centroid_angle_offset", "prolif", "molstar_geometry", "mdtraj_geometry"}:
             return method
         raise ArgumentError("method", value=method, caller=caller)
 
     if caller == "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions":
-        if isinstance(method, str) and method in {"prolif", "centroid_angle_offset"}:
+        if isinstance(method, str) and method in {"prolif", "centroid_angle_offset", "molstar_geometry"}:
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
+    if caller == "molsysmt.physchem.get_hbond_sites.get_hbond_sites":
+        if isinstance(method, str) and method in {"prolif", "cpptraj", "mdtraj"}:
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
+    if caller == "molsysmt.interactions.hbonds.get_hbonds.get_hbonds":
+        if isinstance(method, str) and method in {"prolif", "cpptraj", "baker_hubbard", "wernet_nilsson", "mdanalysis_geometry"}:
             return method
         raise ArgumentError("method", value=method, caller=caller)
 

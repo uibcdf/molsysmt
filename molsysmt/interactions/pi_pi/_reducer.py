@@ -12,15 +12,21 @@ from molsysmt.pbc._whole_participants import (
     validate_periodic_boxes,
 )
 from molsysmt.structure._group_minimum_contacts import bounded_group_minimum_contacts
-from molsysmt.structure._plane import fit_planes, plane_pair_geometry
+from molsysmt.structure._plane import (
+    centroid_edge_planes,
+    fit_planes,
+    plane_pair_geometry,
+    triangle_planes,
+)
 
 
 class _PiPiReducer(Reducer):
     def __init__(self, *, members, active, universe, searches, excluded, thresholds,
-                 geometry, metadata, budget_bytes):
+                 geometry, method, metadata, budget_bytes):
         self.members, self.active, self.universe = members, active, universe
         self.searches, self.thresholds, self.geometry = searches, thresholds, geometry
         self.metadata, self.budget_bytes = metadata, budget_bytes
+        self.method = method
         atoms, self.offsets = pack_membership([members[i] for i in active])
         self.positions = np.searchsorted(universe, atoms)
         self.active_positions = np.full(len(members), -1, dtype=np.int64)
@@ -52,9 +58,13 @@ class _PiPiReducer(Reducer):
             raise StructuralInconsistencyError(reason="Periodic box availability changed between blocks.", caller=caller)
         self.periodic = has_box
         self.chunks += 1
-        centers, normals, rms, maximum = fit_planes(coordinates, self.offsets, self.positions, caller=caller)
+        if self.method == "centroid_angle_offset":
+            centers, normals, rms, maximum = fit_planes(coordinates, self.offsets, self.positions, caller=caller)
+        else:
+            plane = triangle_planes if self.method == "molstar_geometry" else centroid_edge_planes
+            centers, normals, rms, maximum = plane(coordinates, self.offsets, self.positions)
         distance_cutoff = self.thresholds["distance_threshold"]
-        angle_cutoff, offset_cutoff, planarity_cutoff = [np.nextafter(self.thresholds[name], np.inf)
+        angle_cutoff, offset_cutoff, planarity_cutoff = [np.nextafter(self.thresholds.get(name, np.inf), np.inf)
             for name in ("angle_threshold", "offset_threshold", "planarity_threshold")]
         # Roundoff must not make the two nominally disjoint classes overlap.
         angle_cutoff = min(angle_cutoff, np.nextafter(np.pi / 4, -np.inf))
@@ -86,10 +96,22 @@ class _PiPiReducer(Reducer):
                     continue
                 projected_pairs = self.active_positions[pairs]
                 distances, angles, offset_a, offset_b = plane_pair_geometry(center, normal, projected_pairs, shifts, box)
-                parallel = (angles <= angle_cutoff) & (np.maximum(offset_a, offset_b) <= offset_cutoff)
-                edge = (np.pi / 2 - angles <= angle_cutoff) & (np.minimum(offset_a, offset_b) <= offset_cutoff)
+                extra = {}
+                if self.method == "centroid_angle_offset":
+                    parallel = (angles <= angle_cutoff) & (np.maximum(offset_a, offset_b) <= offset_cutoff)
+                    edge = (np.pi / 2 - angles <= angle_cutoff) & (np.minimum(offset_a, offset_b) <= offset_cutoff)
+                else:
+                    from molsysmt.interactions.pi_pi._criteria import reference_pi_masks
+
+                    a, b = projected_pairs.T
+                    angles = np.arccos(np.clip(np.abs(np.einsum("ij,ij->i", normal[a], normal[b])), 0, 1))
+                    parallel, edge, normal_a, normal_b, intersection = reference_pi_masks(
+                        self.method, center, normal, projected_pairs, shifts, box,
+                        distances, angles, offset_a, offset_b, self.thresholds)
+                    extra = dict(normal_angle_a=normal_a, normal_angle_b=normal_b, intersection_distance=intersection)
                 keep = parallel if self.geometry == "parallel" else edge if self.geometry == "edge_to_face" else parallel | edge
-                keep &= (distances > 0) & (distances <= np.nextafter(distance_cutoff, np.inf))
+                limit = np.nextafter(distance_cutoff, np.inf) if self.method == "centroid_angle_offset" else distance_cutoff
+                keep &= (distances > 0) & (distances <= limit)
                 if not keep.any():
                     continue
                 pairs, shifts = pairs[keep], shifts[keep]
@@ -103,6 +125,7 @@ class _PiPiReducer(Reducer):
                     "offset_a": offset_a[keep], "offset_b": offset_b[keep],
                     "rms_deviation_a": rms_dev[a], "rms_deviation_b": rms_dev[b],
                     "max_deviation_a": max_dev[a], "max_deviation_b": max_dev[b],
+                    **{name: values[keep] for name, values in extra.items()},
                 })
 
     def finalize(self):

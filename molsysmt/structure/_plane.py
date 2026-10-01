@@ -80,6 +80,52 @@ def centroid_edge_planes(coordinates, offsets, positions):
     return centers, normals, rms, maximum
 
 
+def triangle_planes(coordinates, offsets, positions):
+    """Form normals from the first three ordered atoms, retaining group centroids.
+
+    This is Mol*'s charged-interaction geometric construction. Undefined
+    triangles produce NaN normals; they are not replaced with fitted planes.
+    """
+    from molsysmt.structure._centroid import packed_centroids
+
+    centers = packed_centroids(coordinates, offsets, positions)
+    first = coordinates[:, positions[offsets[:-1]]]
+    second = coordinates[:, positions[offsets[:-1] + 1]]
+    third = coordinates[:, positions[offsets[:-1] + 2]]
+    normals = np.cross(second - first, third - first)
+    lengths = np.linalg.norm(normals, axis=-1)
+    normals = np.divide(normals, lengths[..., None], out=np.full_like(normals, np.nan), where=lengths[..., None] > 0)
+    groups = np.repeat(np.arange(len(centers[0])), np.diff(offsets))
+    deviation = np.einsum("tij,tij->ti", coordinates[:, positions] - centers[:, groups], normals[:, groups])
+    rms = np.sqrt(np.add.reduceat(deviation ** 2, offsets[:-1], axis=1) / np.diff(offsets))
+    maximum = np.maximum.reduceat(np.abs(deviation), offsets[:-1], axis=1)
+    return centers, normals, rms, maximum
+
+
+def plane_intersection_projection(centers_a, normals_a, centers_b, normals_b, *, near_singular=False):
+    """Project the first centroid on the line common to two planes.
+
+    Return a point per row, or NaNs when the planes cannot define the line.
+    This general geometric operation has no ring or interaction criterion.
+    The projection depends on which plane is first. near_singular selects
+    NumPy's default isclose determinant tolerance rather than exact singularity.
+    Lengths retain the numerical input unit; normals must be unit vectors.
+    """
+    direction = np.cross(normals_a, normals_b)
+    matrices = np.stack((normals_a, normals_b, direction), axis=1)
+    determinants = np.linalg.det(matrices)
+    valid = np.isfinite(determinants) & ~(np.isclose(determinants, 0) if near_singular else determinants == 0)
+    output = np.full_like(centers_a, np.nan, dtype=np.float64)
+    if valid.any():
+        a, b, line = normals_a[valid], normals_b[valid], direction[valid]
+        rhs = np.column_stack((np.einsum("ij,ij->i", a, centers_a[valid]),
+                               np.einsum("ij,ij->i", b, centers_b[valid]), np.zeros(valid.sum())))
+        point = np.linalg.solve(matrices[valid], rhs[..., None])[..., 0]
+        line /= np.linalg.norm(line, axis=1)[:, None]
+        output[valid] = point + np.einsum("ij,ij->i", centers_a[valid] - point, line)[:, None] * line
+    return output
+
+
 class PlaneReducer(Reducer):
     """Fill preallocated dense output while keeping coordinate work in blocks."""
 

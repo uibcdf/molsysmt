@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 92 |
+| experimental | 94 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -215,6 +215,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_charge` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_charge_centers` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_electronegativity` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_hbond_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hydrophobicity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_mass` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_polarity` | experimental | active | pre-1.0 |
@@ -295,6 +296,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.interactions.hbonds.get_acceptor_atoms` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds.get_buch_hbonds` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds.get_donor_atoms` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.get_hbonds` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.hbonds.get_luzard_chandler_hbonds` | experimental | active | 1.0.0 |
 
 ### `molsysmt.interactions.disulfides`

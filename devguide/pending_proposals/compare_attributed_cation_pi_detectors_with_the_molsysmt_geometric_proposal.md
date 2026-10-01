@@ -80,8 +80,27 @@ No experimental/quantum reference benchmark or superiority result is available y
 
 The contract tests preserve these differences instead of hiding them behind one
 participant assignment. These are behavioral differences, not evidence of error
-rates or physical improvement. Mol*/PLIP and energetic reference tasks remain
-unimplemented comparison candidates.
+rates or physical improvement. Mol* geometry on declared features is now implemented
+under uibcdf/molsysmt#274; full Mol* valence/residue feature discovery and refinement,
+PLIP and energetic reference tasks remain separate comparison candidates.
+
+## Attributed extensions — 2026-10-01
+
+The implementation recorded in uibcdf/molsysmt#274 adds `molstar_geometry` for
+cation-pi and ProLIF/Mol*/MDTraj profiles for pi-pi, plus reusable chemical-site
+recognition and per-frame known hydrogen-bond definitions. Its independent oracle
+executes the original supported cores on controlled geometries. Native/RDKit/H5MSM
+parity and periodic-image contracts establish implementation behavior within that
+scope, not physical superiority. See
+[the implementation record](../archive/resolved_proposals/implement_attributed_pi_and_hbond_methods.md).
+
+These comparisons distinguish triangle, centroid-edge and least-squares normals;
+either-plane versus both-plane offsets; role-dependent plane intersection; site
+chemistry; explicit hydrogen roles; and strict versus inclusive cutoffs. Float32
+external trajectory coordinates can disagree with float64 exactly at thresholds;
+boundary observations must not be used to infer different physical accuracy.
+The existing benchmark records remain dated controls for their original methods and
+commit, not measurements of these newly added profiles.
 
 ## What was refuted
 

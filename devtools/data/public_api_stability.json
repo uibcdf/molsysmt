@@ -80,7 +80,9 @@
     "molsysmt/third_party/openmm/forces/add_forbidden_plane_region.py:add_forbidden_plane_region": "Fix mutable default argument normal_vector (Ruff B006)",
     "molsysmt/third_party/openmm/forces/add_plane_harmonic_restraint.py:add_plane_harmonic_restraint": "Fix mutable default argument normal_vector (Ruff B006)",
     "molsysmt/interactions/ionic/get_ionic_interactions.py:get_ionic_interactions": "Add keyword-only heavy_mode with default auto for the documented experimental ionic block route; existing positional parameters and detector output defaults are preserved.",
-    "molsysmt/interactions/ionic/get_ionic_interactions.py:reference_atoms": "Remove a local function nested inside the private _detect helper while replacing eager geometry with the shared sparse reducer; reference_atoms was never a module callable or public export."
+    "molsysmt/interactions/ionic/get_ionic_interactions.py:reference_atoms": "Remove a local function nested inside the private _detect helper while replacing eager geometry with the shared sparse reducer; reference_atoms was never a module callable or public export.",
+    "molsysmt/interactions/pi_pi/get_pi_pi_interactions.py:get_pi_pi_interactions": "Allow None thresholds for explicit attributed profiles and add keyword-only max_matches for ProLIF SMARTS; custom default still requires its four explicit cuts. Tracked by uibcdf/molsysmt#274.",
+    "molsysmt/topology/_rings.py:ring_context": "Move private ring_context chemical-source resolution to topology/_chemical_graph.py for shared ring and hbond chemistry; no public export is removed. Tracked by uibcdf/molsysmt#274."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {
@@ -1658,6 +1660,20 @@
       "owner": "topology",
       "documentation": "docs/content/user/tools/topology/get_substructure_matches.ipynb",
       "contract_tests": "tests/topology/get_substructure_matches/test_get_substructure_matches.py"
+    },
+    "molsysmt.physchem.get_hbond_sites": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_hbond_sites.ipynb",
+      "contract_tests": "tests/physchem/test_get_hbond_sites.py"
+    },
+    "molsysmt.interactions.hbonds.get_hbonds": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/interactions/get_hbonds.ipynb",
+      "contract_tests": "tests/interactions/hbonds/test_attributed_hbonds.py"
     }
   }
 }

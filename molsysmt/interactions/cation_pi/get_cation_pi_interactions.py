@@ -46,21 +46,23 @@ def get_cation_pi_interactions(
         aromatic atom/bond flags. A chemical-only domain has no element inventory.
     distance_threshold : quantity, str, or None, default=None
         Finite positive cation-point/ring-centroid cutoff with length units.
-        None uses ProLIF's 0.45 nm; the custom method requires an explicit value.
+        None uses ProLIF's 0.45 nm or Mol* geometry's 0.60 nm; the custom
+        method requires an explicit value.
     angle_threshold : quantity, str, or None, default=None
         Acute displacement/normal angle cutoff with angular units. ProLIF
         accepts a scalar maximum (minimum zero) or a quantity with two values
         [minimum, maximum] within 0 to 90 degrees; None uses [0, 30] degrees.
         The custom method requires an explicit nonnegative scalar below 90
-        degrees. Calculations and stored parameters use radians.
+        degrees. Leave None for Mol* geometry, which has no angular filter.
+        Calculations and stored parameters use radians.
     offset_threshold : quantity, str, or None, default=None
         Custom method's finite nonnegative lateral displacement cutoff, with
         length units. Required for the custom method; must be None for ProLIF,
-        which applies no offset filter.
+        which applies no offset filter. Mol* geometry defaults to 0.20 nm.
     planarity_threshold : quantity, str, or None, default=None
         Custom method's finite nonnegative maximum ring-plane deviation cutoff,
         with length units. Required for the custom method; must be None for
-        ProLIF, which applies no planarity filter. Zero adds no absolute tolerance.
+        ProLIF/Mol* geometry, which apply no planarity filter. Zero adds no absolute tolerance.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Include every atom of any intersected eligible participant. ProLIF
         cations are singleton matched atoms; custom cations may be compound.
@@ -74,8 +76,9 @@ def get_cation_pi_interactions(
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         Selected chemistry. Structure assignments must resolve one state across
         the requested structures; no protonation or parameterization is inferred.
-    method : {'prolif', 'centroid_angle_offset'}, default='prolif'
-        ProLIF 2.2.2 reproduction or separately identified MolSysMT proposal.
+    method : {'prolif', 'centroid_angle_offset', 'molstar_geometry'}, default='prolif'
+        ProLIF 2.2.2 core, Mol* geometry on declared MolSysMT participants,
+        or the separately identified MolSysMT proposal.
         Original version, references and adaptations are recorded in parameters.
     selection_mode : {'internal', 'incident', 'between'}, default='internal'
         Search within selection, from selection to every eligible system
@@ -167,6 +170,17 @@ def get_cation_pi_interactions(
     This experimental proposal has no established accuracy advantage; its
     comparison is tracked in uibcdf/molsysmt#271.
 
+    molstar_geometry reproduces the charged.ts geometric tester using distance
+    <=0.60 nm and lateral offset <=0.20 nm, with a normal from the first three
+    basis member atoms. It adds no angle/planarity or covalent exclusion.
+    Its participants are MolSysMT declared formal-charge centers and aromatic
+    basis rings, not Mol*'s valence-model/residue feature discovery. Their
+    centroid uses all participating atoms; Mol* can mark atoms that do not
+    contribute to its feature centroid. This named profile therefore compares
+    geometry on supplied features and does not claim full Mol* detector parity.
+    Undefined triangles/zero displacements are skipped; whole-participant MIC
+    is an explicit extension. The pinned source reference survives serialization.
+
     Coverage contains eligible participants, not every atom examined during
     full-state recognition. Results are never attached automatically. H5MSM
     index selections read chemistry once and projected coordinates without
@@ -220,7 +234,7 @@ def get_cation_pi_interactions(
     from molsysmt.basic import convert, get, select
     from molsysmt.interactions.cation_pi._reducer import _CationPiReducer
     from molsysmt.interactions.result import Interactions
-    from molsysmt.native import MolSys
+    from molsysmt.native import MolSys, Topology
     from molsysmt.physchem.get_aromatic_rings import get_aromatic_rings
     from molsysmt.physchem.get_charge_centers import get_charge_centers
     from molsysmt.topology._rings import ring_context
@@ -231,6 +245,11 @@ def get_cation_pi_interactions(
                                 message="ProLIF has no offset or planarity cutoff; leave both None.")
         distance_threshold = puw.quantity(.45, "nm") if distance_threshold is None else distance_threshold
         angle_threshold = puw.quantity([0., 30.], "degrees") if angle_threshold is None else angle_threshold
+    elif method == "molstar_geometry":
+        if angle_threshold is not None or planarity_threshold is not None:
+            raise ArgumentError("angle_threshold", caller=_CALLER, message="Mol* cation-pi geometry has no angle or planarity filter; leave both None.")
+        distance_threshold = puw.quantity(.6, "nm") if distance_threshold is None else distance_threshold
+        offset_threshold = puw.quantity(.2, "nm") if offset_threshold is None else offset_threshold
     elif any(value is None for value in (distance_threshold, angle_threshold, offset_threshold, planarity_threshold)):
         raise ArgumentError("method", caller=_CALLER,
                             message="The custom centroid_angle_offset method requires all four explicit cutoffs.")
@@ -253,7 +272,7 @@ def get_cation_pi_interactions(
         if number.shape != () or not np.isfinite(number) or number < 0 or (positive and number == 0):
             raise ArgumentError(name, value=value, caller=_CALLER, message="Use a finite scalar cutoff with the required units and range.")
         thresholds[name] = float(number)
-    if method != "prolif" and thresholds["angle_threshold"] >= np.pi / 2:
+    if method == "centroid_angle_offset" and thresholds["angle_threshold"] >= np.pi / 2:
         raise ArgumentError("angle_threshold", caller=_CALLER, message="Angular deviation must be strictly below 90 degrees.")
     if (selection_mode == "between") != (selection_2 is not None):
         raise ArgumentError("selection_2", caller=_CALLER, message="Supply a second selection only for between searches.")
@@ -287,7 +306,7 @@ def get_cation_pi_interactions(
         molecular_system, chemical_state, frames, assume_complete_connectivity, _CALLER,
     )
     if method == "prolif":
-        from molsysmt.interactions.cation_pi._prolif import (
+        from molsysmt.physchem._prolif import (
             PROLIF_PATTERNS,
             PROLIF_REFERENCE,
         )
@@ -316,8 +335,13 @@ def get_cation_pi_interactions(
         rings = get_aromatic_rings(states, chemical_state=state_index,
                                   assume_complete_connectivity=assume_complete_connectivity,
                                   max_cyclic_block_size=max_cyclic_block_size)
-        charge_centers = get_charge_centers(source, chemical_state=state_index,
-                                            assume_complete_connectivity=assume_complete_connectivity)
+        charge_topology = source.topology if isinstance(source, MolSys) else source if isinstance(source, Topology) else convert(source, to_form="molsysmt.Topology")
+        if charge_topology is None:
+            raise StructuralInconsistencyError(reason="Formal-charge center recognition requires an element inventory.", caller=_CALLER)
+        charge_view, state_view = copy(charge_topology), copy(states)
+        state_view._reference_index = state_index
+        charge_view._chemical_states_domain = state_view
+        charge_centers = get_charge_centers(charge_view, assume_complete_connectivity=assume_complete_connectivity)
         all_charges = np.asarray(puw.get_value(charge_centers["charges"], to_unit="e"))
         positive = np.flatnonzero(all_charges > 0)
         center_members = [charge_centers["atom_indices"][charge_centers["atom_offsets"][i]:charge_centers["atom_offsets"][i + 1]]
@@ -337,6 +361,15 @@ def get_cation_pi_interactions(
             distance_comparison="positive_and_less_than_or_equal", angular_roundoff_cap="strictly_below_pi_over_2",
         )
         software = {**rings["software"], **charge_centers["software"]}
+        if method == "molstar_geometry":
+            from molsysmt._private.scientific_references import MOLSTAR_REFERENCE
+
+            feature_parameters.update(
+                method_reference=MOLSTAR_REFERENCE, geometry_rule_version="molstar.CationPi.geometry@48071795",
+                plane_method="cross_of_first_three_basis_member_atoms", cutoff_roundoff="none",
+                distance_comparison="positive_and_less_than_or_equal", angular_roundoff_cap=None,
+                adaptation="geometry_only_declared_molsysmt_centers_and_ring_basis_no_molstar_valence_or_refinement",
+            )
     n_cations = len(center_members)
     members = center_members + ring_members
     if index_selections:
@@ -382,7 +415,7 @@ def get_cation_pi_interactions(
                for name, value in thresholds.items()},
             "chemical_state_index": state_index, "pbc": pbc,
             "image_policy": "whole_participants_anchor_relative_mic", "pbc_policy": "mic_when_box_available",
-            "exclude_overlap": method != "prolif", "exclude_direct_covalent": method != "prolif", "intramolecular": "included",
+            "exclude_overlap": method == "centroid_angle_offset", "exclude_direct_covalent": method == "centroid_angle_offset", "intramolecular": "included",
             "memory_policy": "numeric_working_estimates@1",
         },
         evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
@@ -395,7 +428,7 @@ def get_cation_pi_interactions(
     else:
         per_frame = 4 * 24 * len(universe) + 256 * len(active_indices) + 192 * max(len(members[i]) for i in active_indices) + 2048 + (288 if pbc else 0)
         reducer = _CationPiReducer(members=members, active=active_indices, universe=universe, searches=searches,
-                              excluded=connected_group_pairs(members, covalent) if method != "prolif" else set(), thresholds=thresholds,
+                              excluded=connected_group_pairs(members, covalent) if method == "centroid_angle_offset" else set(), thresholds=thresholds,
                                   n_cations=n_cations, charges=charges, method=method,
                                   metadata=metadata, budget_bytes=configure.max_ram_usage)
         result = execute_projected_geometry(coordinate_source, universe=universe, frames=frames,

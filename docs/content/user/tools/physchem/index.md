@@ -9,6 +9,7 @@
 | [Get charge](get_charge.ipynb) | Getting the formal, tabulated, or partial force field charge of elements |
 | [Get charge centers](get_charge_centers.ipynb) | Recognizing sparse formal-charge centers in one chemical state |
 | [Get electronegativity](get_electronegativity.ipynb) | Getting Pauling electronegativities for constituent atoms |
+| [Get hydrogen-bond sites](get_hbond_sites.ipynb) | Recognizing attributed donor–hydrogen pairs and acceptors |
 | [Get hydrophobicity](get_hydrophobicity.ipynb) | Getting hydrophobicity values for residues from standard biochemical scales |
 | [Get mass](get_mass.ipynb) | Getting atomic, residue, or total molecular system mass |
 | [Get polarity](get_polarity.ipynb) | Getting polarity descriptors for residues from reference scales |
@@ -29,6 +30,7 @@
    get_charge.ipynb
    get_charge_centers.ipynb
    get_electronegativity.ipynb
+   get_hbond_sites.ipynb
    get_hydrophobicity.ipynb
    get_mass.ipynb
    get_polarity.ipynb

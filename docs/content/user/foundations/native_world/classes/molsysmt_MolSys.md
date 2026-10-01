@@ -49,6 +49,12 @@ This assignment declares that the analysis's local atom and structure indices
 correspond to the system. MolSysMT checks compatible axes and valid results;
 you are responsible for the correspondence of independently loaded data.
 Source labels and maps retain provenance without authenticating that origin.
+Chemical recognition and geometric criteria are separate parts of an analysis.
+Named hydrogen-bond, π–π and cation–π profiles carry their pinned method references;
+a geometric profile on declared participants need not reproduce the reference
+package's feature discovery. Different definitions remain separate named analyses.
+The method reference describes the reproduced definition, while the producer
+describes the software that actually generated these observations.
 Each analysis's `software` dictionary records its producer versions; saving
 or loading the system preserves those versions rather than substituting
 the version installed by the reader. An empty dictionary means unknown.

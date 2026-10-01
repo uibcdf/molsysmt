@@ -229,3 +229,26 @@ For exact workloads and measured tradeoffs, see
 not reclaim a caller-owned resident trajectory; file projection can avoid that
 resident source. Query inverse-index construction and compressed disk bytes
 are reported separately from the detector's coordinate work.
+
+## Attributed hydrogen-bond working estimates
+
+`interactions.hbonds.get_hbonds` recognizes full-source candidate sites once using
+`physchem.get_hbond_sites`, or validates explicit donor-H/acceptor indices. It
+projects the union of eligible sites and queries bounded spatial candidates per
+frame. Incident scope partitions donor-H rows into selected-role and external-role
+searches, so an observation is not duplicated. Between scope requires all three
+roles within the disjoint selection union and participation on each side.
+
+Native/H5MSM index selections use the shared projected executor. Rich H5MSM
+selections need bounded eager loading; unsupported forced routes fail explicitly.
+Coordinate/triplet estimates reserve one quarter of max_ram_usage, candidate work
+one eighth per search and resident sparse accumulation/packing one half. The
+per-frame estimate includes four coordinate-sized buffers, 256 bytes per candidate
+site and 4,096 bytes of scratch. Chemistry, caller-owned arrays, Python overhead
+and process RSS are outside these numerical estimates. Output remains resident;
+there is no incremental output writer or arbitrary-trajectory memory guarantee.
+
+Method geometry determines coherent periodic triplet images. CPPTRAJ requires
+whole donor-H coordinates; DA-based profiles reject inconsistent independent DA
+and H-centered MIC observations. These checks are scientific failures, not reasons
+to silently switch imaging or discard an otherwise qualifying observation.

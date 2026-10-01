@@ -101,6 +101,9 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_hbond_sites
+            file: docs/content/user/tools/physchem/get_hbond_sites.ipynb
+            agents_file: docs/content/user/tools/physchem/get_hbond_sites.ipynb.AGENTS.md
           - name: get_aromatic_rings
             file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb
             agents_file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb.AGENTS.md
@@ -120,6 +123,9 @@ sections:
         index_agents_file: docs/content/user/tools/interactions/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_hbonds
+            file: docs/content/user/tools/interactions/get_hbonds.ipynb
+            agents_file: docs/content/user/tools/interactions/get_hbonds.ipynb.AGENTS.md
           - name: get_ionic_interactions
             file: docs/content/user/tools/interactions/get_ionic_interactions.ipynb
             agents_file: docs/content/user/tools/interactions/get_ionic_interactions.ipynb.AGENTS.md
@@ -209,6 +215,9 @@ sections:
       - name: saving_ionic_interactions
         file: docs/content/user/cookbook/saving_ionic_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_ionic_interactions.ipynb.AGENTS.md
+      - name: saving_hbond_interactions
+        file: docs/content/user/cookbook/saving_hbond_interactions.ipynb
+        agents_file: docs/content/user/cookbook/saving_hbond_interactions.ipynb.AGENTS.md
       - name: saving_pi_pi_interactions
         file: docs/content/user/cookbook/saving_pi_pi_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_pi_pi_interactions.ipynb.AGENTS.md

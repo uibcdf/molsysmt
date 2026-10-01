@@ -1,6 +1,7 @@
 """Public boundary for declared-aromatic ring geometry observations."""
 
 import numpy as np
+from depdigest import dep_digest
 from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
@@ -21,18 +22,20 @@ _CALLER = "molsysmt.interactions.pi_pi.get_pi_pi_interactions"
 
 @signal(tags=["api", "interactions"])
 @arg_digest()
+@dep_digest("rdkit", when={"method": "prolif"})
 def get_pi_pi_interactions(
-    molecular_system, distance_threshold, angle_threshold, offset_threshold,
-    planarity_threshold, selection="all", selection_2=None, structure_indices="all",
+    molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None,
+    planarity_threshold=None, selection="all", selection_2=None, structure_indices="all",
     chemical_state="reference", method="centroid_angle_offset",
     selection_mode="internal", pbc=True, assume_complete_connectivity=False,
     output_type="molsysmt.Interactions", syntax="MolSysMT", skip_digestion=False,
-    *, geometry="both", max_cyclic_block_size=256, heavy_mode="auto",
+    *, geometry="both", max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto",
 ):
-    """Detecting parallel and edge-to-face geometries between declared aromatic rings.
+    """Detecting aromatic ring geometries with explicit attributed criteria.
 
-    Use complete ring memberships from get_aromatic_rings and unweighted
-    least-squares planes. Explicit cutoffs define geometric candidates;
+    Choose ProLIF, Mol*/MDTraj geometric profiles or the separate MolSysMT
+    proposal. Reference recognition and plane construction remain explicit.
+    Geometric cutoffs define candidates;
     the result does not establish attraction, binding energy or a chemical bond.
 
     Parameters
@@ -40,21 +43,28 @@ def get_pi_pi_interactions(
     molecular_system : molecular system
         Any supported form providing coordinates and explicit selected-state
         atom/bond aromatic flags and complete covalent connectivity.
-    distance_threshold : quantity or str
-        Finite positive cutoff for the centroid distance, with length units.
-        No universal default is supplied.
-    angle_threshold : quantity or str
-        Maximum deviation from parallel or perpendicular planes, with angular
+    distance_threshold : quantity, str, or None, default=None
+        Finite positive centroid-distance cutoff with length units. Required
+        for the custom method. None uses 0.55 nm for Mol* or separate 0.55/0.65 nm
+        face/edge limits for ProLIF and MDTraj. An explicit value overrides both
+        limits for those profiles.
+    angle_threshold : quantity, str, or None, default=None
+        Custom/Mol* maximum deviation from parallel or perpendicular planes, with angular
         units. Must be nonnegative and strictly below 45 degrees, keeping the
-        two geometry classes disjoint. Internally evaluated in radians.
-    offset_threshold : quantity or str
-        Finite nonnegative lateral offset cutoff, with length units. Parallel
+        two geometry classes disjoint. Mol* defaults to 30 degrees. Leave None
+        for ProLIF/MDTraj, which use their named angular intervals. Internally
+        evaluated in radians.
+    offset_threshold : quantity, str, or None, default=None
+        Finite nonnegative lateral offset cutoff with length units. Custom parallel
         geometries must satisfy both planes' offsets; edge-to-face geometries
-        must satisfy at least one. No universal default is supplied.
-    planarity_threshold : quantity or str
-        Finite nonnegative maximum orthogonal atom deviation from each ring's
+        must satisfy at least one. Mol* defaults to 0.2 nm and accepts either
+        offset for both classes. Leave None for ProLIF/MDTraj, which use angular
+        and plane-intersection criteria instead.
+    planarity_threshold : quantity, str, or None, default=None
+        Custom method's required finite nonnegative maximum orthogonal atom deviation from each ring's
         fitted plane, with length units. Warped rings exceeding it are excluded.
         Zero requires numerically exact planarity; no absolute tolerance is added.
+        Leave None for reference profiles, which do not filter planarity.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Atom selection. Include every atom of any intersected aromatic ring,
         including adjacent fused rings sharing selected atoms.
@@ -67,8 +77,11 @@ def get_pi_pi_interactions(
         State supplying the chemistry. Structure-assigned states must resolve
         to one state across the requested frames.
     method : str, default='centroid_angle_offset'
-        Only the documented centroid, unoriented plane-angle and offset rule
-        is supported. Its version is recorded in the result.
+        centroid_angle_offset is the separately identified MolSysMT proposal;
+        prolif reproduces ProLIF 2.2.2 chemical SMARTS and pi-stacking core;
+        molstar_geometry and mdtraj_geometry apply those packages' geometric
+        rules to MolSysMT's declared aromatic minimum cycle basis. They do not
+        claim parity with the packages' entire feature/fingerprint pipelines.
     selection_mode : {'internal', 'incident', 'between'}, default='internal'
         Search within selection, from selection to every eligible system ring,
         or between selection and selection_2, respectively.
@@ -89,6 +102,9 @@ def get_pi_pi_interactions(
     max_cyclic_block_size : int, default=256
         Keyword-only ring-basis limit per aromatic cyclic biconnected block.
         Increasing it can substantially increase recognition time and memory.
+    max_matches : int, default=100000
+        Keyword-only bound per ProLIF ring SMARTS query before selection. An
+        exceeded limit raises rather than returning a truncated participant set.
     heavy_mode : {'auto', 'force', 'off'}, default='auto'
         Keyword-only execution policy. Streaming follows the form's declared
         coordinate support. Other supported forms use their ordinary getters
@@ -96,7 +112,7 @@ def get_pi_pi_interactions(
 
     Returns
     -------
-    molsysmt.Interactions or dict
+    molsysmt.Interactions or molsysmt.InteractionsDict
         Sparse pi_pi relations with ring_a/ring_b whole-ring participants,
         ordered by their source memberships. Occurrences retain centroid
         distance, acute plane angle, both lateral offsets, and each ring's
@@ -104,7 +120,9 @@ def get_pi_pi_interactions(
         and edge-to-face observations. Images shift ring_b relative to ring_a
         using row box vectors. Source axes, evaluated frames, examined aromatic
         atom scope, chemistry evidence, parameters and producer versions are
-        explicit. Empty numeric measure columns have shape (0,).
+        explicit. Reference profiles also retain both normal/centroid acute
+        angles and the tested intersection distance (nm); the latter is NaN
+        where the intersection test was not applied. Empty columns have (0,).
 
     Raises
     ------
@@ -124,7 +142,7 @@ def get_pi_pi_interactions(
 
     Notes
     -----
-    Let d be the observed MIC centroid displacement and n_a/n_b the unit
+    For the custom method, let d be the observed MIC centroid displacement and n_a/n_b the unit
     normals. The acute plane angle is atan2(norm(cross(n_a,n_b)),
     abs(dot(n_a,n_b))). Each offset is norm(d-dot(d,n)*n). Parallel accepts
     angle <= angle_threshold and max(offset_a,offset_b) <= offset_threshold.
@@ -135,13 +153,39 @@ def get_pi_pi_interactions(
     an additional absolute tolerance. Angular roundoff is capped strictly below
     pi/4 so the two classes remain disjoint even near the numerical boundary.
 
-    Self, overlapping/fused and directly covalently linked rings are excluded.
+    The custom method excludes self, overlapping/fused and directly covalently linked rings.
     Other intramolecular contacts are included; dative links do not exclude a
-    pair. There is no clash, energy, residue or component filter. A minimum cycle
+    pair. Reference profiles add no overlap/covalent exclusion; undefined normals
+    and zero displacements are skipped explicitly. There is no energy, residue
+    or component filter. A minimum cycle
     basis is not all cycles or SymmSSSR. Chemistry is examined across the full
     source; observation coverage contains only eligible aromatic atom scopes.
     Every selected frame is searched, without first-frame candidate pruning.
     The calculation neither attaches an analysis nor modifies its source.
+
+    ProLIF uses its original five/six-member ring SMARTS and normals formed
+    from centroid-to-first-two matched atoms. MDTraj geometry uses the same
+    normal construction with supplied basis-member order. Face accepts distance
+    <=0.55 nm, acute plane angle <=35 degrees and either normal/centroid angle
+    <=33 degrees. Edge accepts distance <=0.65 nm, plane angle >=50 degrees,
+    either normal/centroid angle <=30 degrees and the projected intersection
+    within 0.15 nm of either centroid. The original core projects ring_a's
+    centroid on the intersection line: this is role-dependent. Canonical source
+    memberships fix ring_a/ring_b; atom reordering can therefore affect this
+    criterion. It is not silently symmetrized. ProLIF checks exact determinant
+    singularity; MDTraj uses NumPy isclose, without reproducing its random
+    replacement of singular matrices. No first-frame pruning is performed.
+
+    Mol* geometry uses the first three basis atoms for its triangle normal,
+    distance <=0.55 nm, deviation <=30 degrees from parallel/perpendicular,
+    and min(offset_a,offset_b)<=0.2 nm for both classes. Its valence-based feature
+    recognition and contact refinement are not reproduced. Reference comparisons
+    add no ULP allowance. Computation uses float64; MDTraj's float32 coordinates
+    can yield different decisions exactly at thresholds. Coherent whole-ring
+    MIC geometry is a MolSysMT extension;
+    MDTraj's original pi routine wraps centroid distances but uses raw centroid
+    vectors for angles/intersections. Producer versions and pinned references
+    are separate metadata. No reference profile establishes attractive energy.
 
     H5MSM 0.5 index selections load chemistry/association metadata once and
     projected coordinate blocks, without saved analyses. Rich file selections
@@ -198,18 +242,38 @@ def get_pi_pi_interactions(
     from molsysmt.topology._rings import ring_context
 
     thresholds = {}
+    reference_thresholds = {"face_distance": .55, "edge_distance": .65}
+    if method == "centroid_angle_offset":
+        if any(value is None for value in (distance_threshold, angle_threshold, offset_threshold, planarity_threshold)):
+            raise ArgumentError("method", caller=_CALLER, message="The custom method requires all four explicit cutoffs.")
+    elif method == "molstar_geometry":
+        if planarity_threshold is not None:
+            raise ArgumentError("planarity_threshold", caller=_CALLER, message="Mol* geometry has no planarity filter.")
+        distance_threshold = puw.quantity(.55, "nm") if distance_threshold is None else distance_threshold
+        angle_threshold = puw.quantity(30, "degrees") if angle_threshold is None else angle_threshold
+        offset_threshold = puw.quantity(.2, "nm") if offset_threshold is None else offset_threshold
+    else:
+        if any(value is not None for value in (angle_threshold, offset_threshold, planarity_threshold)):
+            raise ArgumentError("method", caller=_CALLER, message="ProLIF and MDTraj profiles use their named default angular/intersection criteria; leave angle, offset and planarity None.")
     for name, value, unit, positive in (
         ("distance_threshold", distance_threshold, "nm", True),
         ("angle_threshold", angle_threshold, "radians", False),
         ("offset_threshold", offset_threshold, "nm", False),
         ("planarity_threshold", planarity_threshold, "nm", False),
     ):
+        if value is None:
+            continue
         number = np.asarray(puw.get_value(value, to_unit=unit))
         if number.shape != () or not np.isfinite(number) or number < 0 or (positive and number == 0):
             raise ArgumentError(name, value=value, caller=_CALLER, message="Use a finite scalar cutoff with the required units and range.")
         thresholds[name] = float(number)
-    if thresholds["angle_threshold"] >= np.pi / 4:
+    if "angle_threshold" in thresholds and thresholds["angle_threshold"] >= np.pi / 4:
         raise ArgumentError("angle_threshold", caller=_CALLER, message="Angular deviation must be strictly below 45 degrees.")
+    if method in {"prolif", "mdtraj_geometry"}:
+        if distance_threshold is not None:
+            reference_thresholds = dict.fromkeys(reference_thresholds, thresholds["distance_threshold"])
+        thresholds.update(reference_thresholds)
+        thresholds["distance_threshold"] = max(reference_thresholds.values())
     if (selection_mode == "between") != (selection_2 is not None):
         raise ArgumentError("selection_2", caller=_CALLER, message="Supply a second selection only for between searches.")
 
@@ -241,10 +305,40 @@ def get_pi_pi_interactions(
     source, states, _, state_index, _, covalent, selection_frames = ring_context(
         molecular_system, chemical_state, frames, assume_complete_connectivity, _CALLER,
     )
-    rings = get_aromatic_rings(states, chemical_state=state_index,
-                              assume_complete_connectivity=assume_complete_connectivity,
-                              max_cyclic_block_size=max_cyclic_block_size)
-    members = [rings["atom_indices"][a:b] for a, b in zip(rings["atom_offsets"][:-1], rings["atom_offsets"][1:])]
+    if method == "prolif":
+        from molsysmt.physchem._prolif import PROLIF_PATTERNS, PROLIF_REFERENCE
+        from molsysmt.topology import get_substructure_matches
+
+        matches = get_substructure_matches(source, PROLIF_PATTERNS[1:], chemical_state=state_index,
+                                          assume_complete_connectivity=assume_complete_connectivity,
+                                          max_matches=max_matches)
+        members = sorted([row for matrix in matches["matches"] for row in matrix],
+                         key=lambda row: tuple(sorted(row)))
+        software = matches["software"]
+        recognition = dict(participant_definition="prolif_default_5_6_membered_ring_smarts",
+                           smarts_patterns=list(PROLIF_PATTERNS[1:]), max_matches=max_matches,
+                           aromatic_evidence=matches["evidence"], method_reference=PROLIF_REFERENCE,
+                           plane_method="cross_of_centroid_to_first_two_smarts_atoms",
+                           adaptation="single_source_sparse_scopes_coherent_mic_no_full_fingerprint")
+    else:
+        rings = get_aromatic_rings(states, chemical_state=state_index,
+                                  assume_complete_connectivity=assume_complete_connectivity,
+                                  max_cyclic_block_size=max_cyclic_block_size)
+        members = [rings["atom_indices"][a:b] for a, b in zip(rings["atom_offsets"][:-1], rings["atom_offsets"][1:])]
+        software = rings["software"]
+        recognition = dict(participant_definition=rings["definition"], recognition_rule_version=rings["rule_version"],
+                           ring_method=rings["method"], aromatic_evidence=rings["evidence"],
+                           plane_method="unweighted_orthogonal_least_squares", method_reference=None)
+        if method == "molstar_geometry":
+            from molsysmt._private.scientific_references import MOLSTAR_REFERENCE
+            recognition.update(method_reference=MOLSTAR_REFERENCE,
+                               plane_method="cross_of_first_three_basis_member_atoms",
+                               adaptation="geometry_only_declared_molsysmt_ring_basis_no_molstar_valence_or_refinement")
+        elif method == "mdtraj_geometry":
+            from molsysmt._private.scientific_references import MDTRAJ_REFERENCE
+            recognition.update(method_reference=MDTRAJ_REFERENCE,
+                               plane_method="cross_of_centroid_to_first_two_basis_member_atoms",
+                               adaptation="supplied_declared_molsysmt_ring_basis_no_first_frame_pruning")
     if index_selections:
         selection_source = copy(states)
         selection_source._reference_index = state_index
@@ -275,35 +369,47 @@ def get_pi_pi_interactions(
     universe = np.unique(np.concatenate([members[i] for i in active_indices])) if len(active_indices) else np.empty(0, dtype=np.int64)
     metadata = dict(
         n_atoms=n_atoms, n_structures=n_structures, evaluated_structure_indices=frames,
-        method=_CALLER, software=rings["software"],
+        method=_CALLER, software=software,
         measure_units={"distance": "nm", "plane_angle": "radians", "offset_a": "nm", "offset_b": "nm",
-                       "rms_deviation_a": "nm", "rms_deviation_b": "nm", "max_deviation_a": "nm", "max_deviation_b": "nm"},
+                       "rms_deviation_a": "nm", "rms_deviation_b": "nm", "max_deviation_a": "nm", "max_deviation_b": "nm",
+                       **({"normal_angle_a": "radians", "normal_angle_b": "radians", "intersection_distance": "nm"}
+                          if method != "centroid_angle_offset" else {})},
         parameters={
-            "method": method, "geometry": geometry, "geometry_rule_version": "centroid_angle_offset@1",
+            "method": method, "geometry": geometry, "geometry_rule_version": "centroid_angle_offset@1" if method == "centroid_angle_offset" else method + "_pi_pi@1",
             **{name: {"value": value, "unit": "radians" if name == "angle_threshold" else "nm"}
                for name, value in thresholds.items()},
             "cutoff_roundoff": "one_float64_ulp", "distance_comparison": "positive_and_less_than_or_equal",
             "angular_roundoff_cap": "strictly_below_pi_over_4",
             "parallel_offsets": "both", "edge_to_face_offsets": "at_least_one",
-            "participant_definition": rings["definition"], "recognition_rule_version": rings["rule_version"],
-            "ring_method": rings["method"], "chemical_state_index": state_index, "aromatic_evidence": rings["evidence"],
             "max_cyclic_block_size": max_cyclic_block_size, "recognition_scope": "full_source_chemical_state",
-            "plane_method": "unweighted_orthogonal_least_squares", "pbc": pbc,
+            "chemical_state_index": state_index, "pbc": pbc, **recognition,
+            "canonical_roles": "ring_a_has_lexicographically_smaller_source_membership",
+            "intersection_projection": "ring_a_centroid" if method in {"prolif", "mdtraj_geometry"} else None,
+            **({"face_plane_angle_degrees": [0, 35], "edge_plane_angle_degrees": [50, 90],
+                "face_normal_angle_degrees": [0, 33], "edge_normal_angle_degrees": [0, 30],
+                "intersection_radius": {"value": .15, "unit": "nm"},
+                "normal_angle_policy": "at_least_one", "near_singular_intersection": method == "mdtraj_geometry"}
+               if method in {"prolif", "mdtraj_geometry"} else {}),
             "image_policy": "whole_participants_anchor_relative_mic", "pbc_policy": "mic_when_box_available",
-            "exclude_overlap": True, "exclude_direct_covalent": True, "intramolecular": "included",
+            "exclude_overlap": method == "centroid_angle_offset", "exclude_direct_covalent": method == "centroid_angle_offset", "intramolecular": "included",
             "memory_policy": "numeric_working_estimates@1",
         },
         evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
         evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
     )
+    if method != "centroid_angle_offset":
+        metadata["parameters"].update(cutoff_roundoff="none", angular_roundoff_cap=None,
+                                      parallel_offsets="at_least_one" if method == "molstar_geometry" else "not_used",
+                                      edge_to_face_offsets="at_least_one" if method == "molstar_geometry" else "not_used")
     if not len(frames) or not searches:
         metadata["parameters"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
         per_frame = 4 * 24 * len(universe) + 256 * len(active_indices) + 192 * max(len(members[i]) for i in active_indices) + 2048 + (288 if pbc else 0)
         reducer = _PiPiReducer(members=members, active=active_indices, universe=universe, searches=searches,
-                              excluded=connected_group_pairs(members, covalent), thresholds=thresholds,
+                              excluded=connected_group_pairs(members, covalent) if method == "centroid_angle_offset" else set(), thresholds=thresholds,
+                              method=method,
                               geometry=geometry, metadata=metadata, budget_bytes=configure.max_ram_usage)
         result = execute_projected_geometry(coordinate_source, universe=universe, frames=frames,
                                             reducer=reducer, per_frame_bytes=per_frame,

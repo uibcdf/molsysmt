@@ -21,3 +21,6 @@
 
 - Preserve attributed ProLIF cation-pi versus the custom proposal, full-state SMARTS,
   hydrogen annotation semantics, sparse coverage and executed tutorial/recipe links.
+
+- Preserve attributed hydrogen-bond profiles, reusable site recognition, all three roles,
+  declared coverage and links to executed tool/persistence examples.

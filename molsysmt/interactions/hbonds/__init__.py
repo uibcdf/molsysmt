@@ -8,4 +8,5 @@ from .get_donor_atoms import donor_inclusion_rules, donor_exclusion_rules
 from .get_donor_atoms import get_donor_atoms
 from .get_buch_hbonds import get_buch_hbonds
 from .get_luzard_chandler_hbonds import get_luzard_chandler_hbonds
+from .get_hbonds import get_hbonds
 # isort: on

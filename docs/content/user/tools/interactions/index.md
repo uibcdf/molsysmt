@@ -11,8 +11,12 @@ explicitly.
 The new experimental ionic detector returns sparse analyses by default, using
 selected-state formal-charge centers and an explicit minimum-distance cutoff.
 The experimental pi-pi detector uses declared aromatic rings, fitted planes,
-and explicit distance, angle, offset and planarity cutoffs.
+and explicit distance, angle, offset and planarity cutoffs for its custom proposal.
+Attributed ProLIF and Mol*/MDTraj geometric profiles are available separately.
+The new hydrogen-bond entry point offers named per-structure scientific criteria;
+its default sparse output is independent of the established Buch/Luzard–Chandler defaults.
 
+- {doc}`get_hbonds` — calculating attributed hydrogen-bond observations.
 - {doc}`result` — building, querying, and saving sparse interaction results.
 - {doc}`get_ionic_interactions` — calculating scoped formal-charge contacts.
 - {doc}`get_pi_pi_interactions` — calculating parallel and edge-to-face ring geometry.
@@ -24,6 +28,7 @@ and explicit distance, angle, offset and planarity cutoffs.
    :hidden:
 
    result
+   get_hbonds
    get_ionic_interactions
    get_pi_pi_interactions
    get_cation_pi_interactions

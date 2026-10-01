@@ -14,6 +14,7 @@ API Physical and Chemical Properties
    get_charge
    get_charge_centers
    get_electronegativity
+   get_hbond_sites
    get_hydrophobicity
    get_mass
    get_polarity

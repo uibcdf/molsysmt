@@ -17,6 +17,7 @@ from molsysmt.structure._plane import (
     centroid_edge_planes,
     fit_planes,
     plane_point_geometry,
+    triangle_planes,
 )
 
 
@@ -70,6 +71,11 @@ class _CationPiReducer(Reducer):
             angle_low, angle_high = self.thresholds["angle_threshold"]
             angle_cutoff = angle_high
             offset_cutoff, planarity_cutoff = np.inf, np.inf
+        elif self.method == "molstar_geometry":
+            ring_centers, ring_normals, ring_rms, ring_max = triangle_planes(
+                coordinates, self.ring_offsets, self.ring_positions)
+            angle_cutoff, planarity_cutoff = np.inf, np.inf
+            offset_cutoff = self.thresholds["offset_threshold"]
         else:
             ring_centers, ring_normals, ring_rms, ring_max = fit_planes(
                 coordinates, self.ring_offsets, self.ring_positions, caller=caller)
@@ -107,6 +113,8 @@ class _CationPiReducer(Reducer):
                     cosine = np.divide(heights, distances, out=np.full(len(distances), np.nan), where=distances > 0)
                     angles = np.arccos(np.clip(cosine, 0., 1.))
                     keep = (distances <= distance_cutoff) & (angles >= angle_low) & (angles <= angle_high)
+                elif self.method == "molstar_geometry":
+                    keep = (distances > 0) & (distances <= distance_cutoff) & (offsets <= offset_cutoff)
                 else:
                     keep = (distances > 0) & (distances <= np.nextafter(distance_cutoff, np.inf)) & (angles <= angle_cutoff) & (offsets <= offset_cutoff)
                 if not keep.any():
