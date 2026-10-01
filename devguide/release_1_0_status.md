@@ -62,8 +62,8 @@ hydrogen-bond methods and disulfide-candidate detection. Implementation and
 recertification are in progress; this work is not yet part of a tested release
 candidate. Its final commit must pass the affected scientific, documentation,
 consumer, and release gates before candidate freeze. Separately approved
-experimental ionic, pi-pi, cation-pi and halogen families are now implemented;
-hydrophobic, metal and water-mediated detectors remain pending, not new 1.0
+experimental ionic, pi-pi, cation-pi, halogen and hydrophobic families are now
+implemented; metal and water-mediated detectors remain pending, not new 1.0
 requirements. The public `Interactions` contract (#251),
 optional native `MolSys` attachment and H5MSM persistence (#252), and a tested
 MolSysViewer integration (`uibcdf/molsysviewer#114`) are now required before

@@ -1,5 +1,6 @@
 import pytest
 
+import molsysmt as msm
 from devtools.scripts.validate_docstrings import (
     find_vacuous_docstring_content,
     normalize_default_repr,
@@ -137,3 +138,40 @@ def test_normalize_default_repr():
 def test_validate_docstrings_passes_on_codebase():
     """Verify that all public functions pass bidirectional and default validation."""
     assert validate() == 0
+
+
+@pytest.mark.parametrize(("family", "function"), [
+    ("hbonds", "get_hbonds"),
+    ("disulfides", "get_disulfide_candidates"),
+    ("ionic", "get_ionic_interactions"),
+    ("pi_pi", "get_pi_pi_interactions"),
+    ("cation_pi", "get_cation_pi_interactions"),
+    ("halogen_bonds", "get_halogen_bonds"),
+    ("hydrophobic", "get_hydrophobic_interactions"),
+])
+def test_missing_exported_detector_docstring_fails_gate(monkeypatch, capsys, family, function):
+    detector = getattr(getattr(msm.interactions, family), function)
+    monkeypatch.setattr(detector, "__doc__", None)
+    assert validate() == 1
+    assert f"molsysmt.interactions.{family}.{function}: Missing docstring entirely." in capsys.readouterr().out
+
+
+def test_wrong_detector_default_fails_gate(monkeypatch, capsys):
+    detector = msm.interactions.hydrophobic.get_hydrophobic_interactions
+    monkeypatch.setattr(detector, "__doc__", detector.__doc__.replace(
+        "method : str, default='atom_pair_distance'", "method : str, default='invented'"))
+    assert validate() == 1
+    assert "Default mismatch for parameter 'method'" in capsys.readouterr().out
+
+
+def test_new_public_family_is_checked_without_validator_edits(monkeypatch, capsys):
+    from types import SimpleNamespace
+
+    def undocumented_detector(molecular_system):
+        return molecular_system
+
+    namespace = SimpleNamespace(get_interactions=undocumented_detector)
+    monkeypatch.setattr(msm.interactions, "test_family", namespace, raising=False)
+    monkeypatch.setattr(msm.interactions, "__all__", [*msm.interactions.__all__, "test_family"])
+    assert validate() == 1
+    assert "molsysmt.interactions.test_family.get_interactions: Missing docstring entirely." in capsys.readouterr().out

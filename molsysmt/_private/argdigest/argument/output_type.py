@@ -6,6 +6,7 @@ def digest_output_type(output_type, caller=None):
     if (
         caller in {
             "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",
+            "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions",
             "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",
             "molsysmt.interactions.hbonds.get_hbonds.get_hbonds",
             "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",

@@ -17,6 +17,7 @@ API Physical and Chemical Properties
    get_hbond_sites
    get_halogen_bond_sites
    get_hydrophobicity
+   get_hydrophobic_sites
    get_mass
    get_polarity
    get_protor_atom_type

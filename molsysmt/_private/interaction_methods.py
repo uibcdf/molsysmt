@@ -8,6 +8,12 @@ reference software package invented the scientific criterion.
 from molsysmt._private.smonitor import ArgumentError
 
 PROFILES = {
+    "hydrophobic": {
+        ("atom_pair_distance", "smarts_hydrophobic_atoms"): "atom_pair_distance",
+    },
+    "hydrophobic_sites": {
+        ("smarts_hydrophobic_atoms", None): "smarts_hydrophobic_atoms",
+    },
     "halogen_bonds": {
         ("distance_two_angles", "smarts_donor_acceptor"): "distance_two_angles",
     },
@@ -40,6 +46,7 @@ PROFILES = {
 }
 
 DEFAULT_PROFILES = {
+    "atom_pair_distance": "smarts_hydrophobic_atoms",
     "distance_two_angles": "smarts_donor_acceptor",
     "baker_hubbard": "nitrogen_oxygen",
     "wernet_nilsson": "nitrogen_oxygen",

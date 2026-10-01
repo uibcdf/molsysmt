@@ -16,6 +16,7 @@ Attributed ProLIF and Mol*/MDTraj geometric profiles are available separately.
 The new hydrogen-bond entry point offers named per-structure scientific criteria;
 its default sparse output is independent of the established Buch/Luzard–Chandler defaults.
 
+- {doc}`get_hydrophobic_interactions` — calculating typed hydrophobic atom proximity.
 - {doc}`get_halogen_bonds` — calculating four-role halogen geometry.
 - {doc}`get_hbonds` — calculating attributed hydrogen-bond observations.
 - {doc}`result` — building, querying, and saving sparse interaction results.
@@ -28,6 +29,7 @@ its default sparse output is independent of the established Buch/Luzard–Chandl
    :maxdepth: 1
    :hidden:
 
+   get_hydrophobic_interactions
    get_halogen_bonds
    result
    get_hbonds

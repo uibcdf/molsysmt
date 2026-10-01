@@ -5,7 +5,7 @@ systems. Distance-only proximity remains a geometric primitive in `structure`;
 it is not by itself an interaction classification. The first public families
 are `interactions.hbonds`, `interactions.disulfides`, and the experimental
 `interactions.ionic`, `interactions.pi_pi`, `interactions.cation_pi` and
-`interactions.halogen_bonds`. Other families need
+`interactions.halogen_bonds` and `interactions.hydrophobic`. Other families need
 separate scientific contracts and decisions.
 
 ## Scientific method names and attribution
@@ -30,6 +30,7 @@ has multiple supported definitions. The following pairs are implemented:
 | Cation-pi | `centroid_distance_offset` | `three_atom_plane` | Mol* geometric definition |
 | Cation-pi | `centroid_angle_offset` | `least_squares` | Explicit-cutoff MolSysMT proposal |
 | Halogen bonds | `distance_two_angles` | `smarts_donor_acceptor` | ProLIF 2.2.2 core adapting Auffinger et al.; not original-paper distance thresholds |
+| Hydrophobic | `atom_pair_distance` | `smarts_hydrophobic_atoms` | ProLIF 2.2.2 atomic SMARTS incorporating RDKit feature patterns and distance criterion |
 
 The descriptive names do not establish who first introduced a formula. Reference
 implementations and verified papers are retained separately. Historical software
@@ -492,12 +493,63 @@ ProLIF 2.2.2 with recorded source hashes. It is not biological accuracy evidence
 or qualification of the MolSysViewer renderer. The implementation record is
 `uibcdf/molsysmt#277`.
 
+## Hydrophobic observations
+
+`interactions.hydrophobic.get_hydrophobic_interactions` is experimental. Its
+`atom_pair_distance` method with `smarts_hydrophobic_atoms` profile reproduces
+ProLIF 2.2.2 Hydrophobic/Distance SMARTS and the inclusive 0.45 nm default.
+There is no new software-name selector or assumed original author. The independent
+`physchem.get_hydrophobic_sites` tool uses general declared-graph SMARTS matching
+with lazy RDKit, full-source recognition before selection, one selected chemical
+state and checked match caps. These are atomic chemical features, not values from
+`get_hydrophobicity` residue scales or evidence of solvent-mediated attraction.
+The exact pattern includes selected neutral aromatic/carbon/sulfur environments
+and Br/I, excludes charged atoms and carbon linked to N/O/F, and does not match
+all terminal methyl carbons or F/Cl. Missing assignments are not repaired.
+
+Relations contain two distinct singleton atoms in ascending source-index order,
+with roles `hydrophobic_1` and `hydrophobic_2`. A symmetric observation is stored
+once per frame. Roles do not encode ligand/protein direction. Same-atom records
+and reverse duplicates are excluded, while distinct coincident atoms can have
+zero distance. No covalent or intramolecular filter is added to the raw reference
+core; callers should select disjoint ligand/environment sets for interfacial
+analyses. Internal/incident/between semantics cover both atoms and retain the
+actual typed search universe. Selected repeated structures are evaluated once;
+known-empty scope and unevaluated coverage remain distinct.
+
+Native/H5MSM numeric selections use the shared projected coordinate executor and
+compiled bounded spatial candidates. Canonical pair MIC anchored on the lower
+atom index preserves identical observed images even when a search originates
+from the other selected side, including MIC ties. Integer row-box shifts
+reconstruct the measured distance. It is a single winning MIC image, not an
+all-images enumeration or reference residue-fingerprint pruning. Inputs carry
+length units and result distances declare nm. Exact-cutoff comparisons have no
+added geometric tolerance; roundoff can affect boundary membership.
+
+Full chemistry and accepted sparse output remain resident; coordinate/candidate/
+accumulator estimates reserve one quarter/one eighth/one half of the configured
+numeric RAM, excluding Python overhead and process RSS. Rich H5MSM selections
+need bounded eager loading or reject forced streaming. Calculation does not
+attach automatically. Typed and named H5MSM 0.5 round trips preserve scope,
+occurrence identity, original producers, evidence and reference bibliography.
+Optional Ackredit credits completed computations, not subsequent reads.
+
+Mol* carbon/C-H and fluorine rules, F-F exclusion and 0.40 nm default are a
+separate alternative. This initial profile does not establish energetic accuracy,
+universal chemical typing, complete Mol* parity or renderer qualification.
+Guards are `tests/interactions/hydrophobic/`,
+`tests/physchem/test_get_hydrophobic_sites.py` and
+`tests/scientific_truth/curated/test_hydrophobic_interactions.py`. The unmodified
+ProLIF oracle has seven controls, 21 synthetic structures and 119 unordered
+observations; exact site/pair identities and geometry agree across three forms.
+See `uibcdf/molsysmt#278` for the implementation record.
+
 ## Planned family coverage
 
-The initial eight-family inventory under `uibcdf/molsysmt#250` has six
+The initial eight-family inventory under `uibcdf/molsysmt#250` has seven
 implemented experimental detectors: hydrogen bonds, disulfide candidates,
-ionic observations, pi-pi, cation-pi and halogen bonds. Hydrophobic associations
-and metal coordination do not yet have public detectors. Water-mediated hydrogen
+ionic observations, pi-pi, cation-pi, halogen bonds and hydrophobic observations.
+Metal coordination does not yet have a public detector. Water-mediated hydrogen
 bonds are also explicitly pending under the maintainer's 2026-10-01 decision.
 These additions need
 separate scientific contracts and reusable chemical preparation; they are not

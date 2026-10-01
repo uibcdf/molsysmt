@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 97 |
+| experimental | 100 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -217,6 +217,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_electronegativity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_halogen_bond_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hbond_sites` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_hydrophobic_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hydrophobicity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_mass` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_polarity` | experimental | active | pre-1.0 |
@@ -272,6 +273,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.interactions.disulfides` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.halogen_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.hbonds` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hydrophobic` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.ionic` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.pi_pi` | experimental | active | pre-1.0 |
 
@@ -330,3 +332,9 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
 | `molsysmt.interactions.halogen_bonds.get_halogen_bonds` | experimental | active | pre-1.0 |
+
+### `molsysmt.interactions.hydrophobic`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.hydrophobic.get_hydrophobic_interactions` | experimental | active | pre-1.0 |

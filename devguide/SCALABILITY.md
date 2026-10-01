@@ -270,3 +270,22 @@ RSS. Match caps, candidate exhaustion and resident-result budgets fail explicitl
 Native and H5MSM index selections use the shared executor; rich file selections
 require bounded eager loading and reject forced streaming. Output remains in RAM;
 there is no incremental result writer or arbitrary-scale performance guarantee.
+
+## Hydrophobic atom-pair working estimates
+
+Full declared chemistry is recognized once through `physchem.get_hydrophobic_sites`.
+Coordinate projection covers typed sites in the actual scope. Internal searches
+keep one ordered half of symmetric candidates; incident scope separates selected
+internal pairs and selected/external pairs. Between mode searches only the two
+disjoint typed sets. Existing compiled candidates perform spatial filtering.
+Canonical-pair imaging removes search-orientation dependence of periodic MIC ties.
+
+Coordinate blocks reserve one quarter of configured numeric RAM, bounded candidates
+one eighth and resident sparse accumulation/packing one half. Per-frame estimates
+reserve four coordinate-sized buffers, 256 bytes per recognized site, 4,096 bytes
+of scratch and optional box work. Chemistry, caller-owned arrays, Python overhead
+and RSS are outside those estimates. Output remains resident; dense candidate
+workloads fail explicitly before unbounded result materialization. Numeric-index
+H5MSM/native routes stream through the shared executor; rich file selections need
+bounded eager loading or reject forced streaming. No atom-pair tensor, incremental
+writer, total-RSS guarantee or newly measured Rust speedup is claimed.

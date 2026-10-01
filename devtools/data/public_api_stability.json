@@ -69,6 +69,10 @@
     "molsysmt.interactions.halogen_bonds": {
       "source": "molsysmt/interactions/halogen_bonds/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions.hydrophobic": {
+      "source": "molsysmt/interactions/hydrophobic/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -1699,6 +1703,27 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb",
       "contract_tests": "tests/physchem/test_get_halogen_bond_sites.py"
+    },
+    "molsysmt.interactions.hydrophobic": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.hydrophobic",
+      "documentation": "docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb",
+      "contract_tests": "tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py"
+    },
+    "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.hydrophobic",
+      "documentation": "docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb",
+      "contract_tests": "tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py"
+    },
+    "molsysmt.physchem.get_hydrophobic_sites": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb",
+      "contract_tests": "tests/physchem/test_get_hydrophobic_sites.py"
     }
   }
 }

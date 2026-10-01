@@ -37,3 +37,10 @@ PROLIF_HALOGEN_PATTERNS = (
     "[#6,#7,Si,F,Cl,Br,I]-[Cl,Br,I,At]",
     "[#7,#8,P,S,Se,Te,a;!+{1-}]!#[*]",
 )
+
+# Hydrophobic 2.2.2 incorporates RDKit feature patterns; methyl is not a blanket match.
+PROLIF_HYDROPHOBIC_PATTERN = (
+    "[c,s,Br,I,S&H0&v2"
+    ",$([C;X2H0R0,X3H1R0,X4H2R0,X3H0,X4H1,X4H0])"
+    ";+0;!$([#6]~[#7,#8,#9])]"
+)

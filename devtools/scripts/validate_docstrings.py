@@ -229,6 +229,10 @@ def validate() -> int:
         "molsysmt.third_party.openmm.reporters": msm.third_party.openmm.reporters,
         "molsysmt.third_party.nglview": msm.third_party.nglview,
     }
+    # Discover the public lazy families so adding a detector cannot silently
+    # bypass lifecycle validation. Import failures remain visible to the gate.
+    for family in msm.interactions.__all__:
+        public_modules[f"molsysmt.interactions.{family}"] = getattr(msm.interactions, family)
 
     errors = []
     total_checked = 0

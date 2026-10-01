@@ -21,7 +21,7 @@ final consumer and exact-candidate recertification remain open.
 
 ## Current checkpoint — 2026-10-01
 
-The initial inventory has six implemented experimental families, not eight
+The initial inventory has seven implemented experimental families, not eight
 completed families:
 
 | Planned family | Implemented public entry point | Remaining scope |
@@ -32,7 +32,7 @@ completed families:
 | Pi-pi | `interactions.pi_pi.get_pi_pi_interactions` | Reference profiles and the explicit-cutoff proposal are implemented; broader comparison remains open. |
 | Cation-pi | `interactions.cation_pi.get_cation_pi_interactions` | Reference profiles and the explicit-cutoff proposal are implemented; comparison is tracked by `uibcdf/molsysmt#271`. |
 | Halogen bonds | `interactions.halogen_bonds.get_halogen_bonds` | ProLIF-adapted distance/two-angle profile and general site recognition implemented under `uibcdf/molsysmt#277`; original-paper and Mol* alternatives remain distinct. |
-| Hydrophobic associations | None | General atom hydrophobic typing belongs in `physchem`; existing residue scales do not provide that definition. |
+| Hydrophobic associations | `interactions.hydrophobic.get_hydrophobic_interactions` | Pinned atomic SMARTS/distance profile and general `physchem.get_hydrophobic_sites` implemented under `uibcdf/molsysmt#278`; distinct from residue scales and an energetic model. |
 | Metal coordination | None | Define coordination evidence and chemical-state inputs separately from declared connectivity. |
 | Water-mediated hydrogen bonds | None | Explicitly scheduled pending family; compose named hydrogen-bond observations through chemically identified water participants and retain their images/evidence. |
 

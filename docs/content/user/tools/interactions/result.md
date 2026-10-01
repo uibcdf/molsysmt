@@ -347,3 +347,17 @@ reproduces the ProLIF 2.2.2 core adapted from Auffinger et al. (2004), not that
 paper's original element-specific distance thresholds. Producer versions and
 the adapted paper/reference bibliography persist with each named analysis. See
 {ref}`Tutorial_Get_halogen_bonds` and {ref}`Cookbook_Saving_halogen_bonds`.
+
+## Hydrophobic atom-pair observations
+
+The experimental {func}`molsysmt.interactions.hydrophobic.get_hydrophobic_interactions`
+uses `atom_pair_distance` with `smarts_hydrophobic_atoms`, reproducing the pinned
+ProLIF 2.2.2 core. Two distinct atoms form an unordered relation, with ascending
+source indices and roles `hydrophobic_1`/`hydrophobic_2`; roles do not encode the
+selected interface sides. Self records and reverse duplicates are excluded.
+Additional covalent/intramolecular exclusions are not inferred. Use disjoint
+selections for interfacial observations. This typed proximity is not a residue
+scale value or interaction energy. Scope, known-empty coverage, canonical MIC
+images, original producers and reference bibliography remain part of the named
+analysis. See {ref}`Tutorial_Get_hydrophobic_interactions` and
+{ref}`Cookbook_Saving_hydrophobic_interactions`.

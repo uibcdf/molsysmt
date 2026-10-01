@@ -11,6 +11,7 @@
 | [Get electronegativity](get_electronegativity.ipynb) | Getting Pauling electronegativities for constituent atoms |
 | [Get halogen-bond sites](get_halogen_bond_sites.ipynb) | Recognizing ordered donor–halogen and acceptor–reference pairs |
 | [Get hydrogen-bond sites](get_hbond_sites.ipynb) | Recognizing attributed donor–hydrogen pairs and acceptors |
+| [Get hydrophobic sites](get_hydrophobic_sites.ipynb) | Recognizing declared chemical atom sites independently of geometry |
 | [Get hydrophobicity](get_hydrophobicity.ipynb) | Getting hydrophobicity values for residues from standard biochemical scales |
 | [Get mass](get_mass.ipynb) | Getting atomic, residue, or total molecular system mass |
 | [Get polarity](get_polarity.ipynb) | Getting polarity descriptors for residues from reference scales |
@@ -24,6 +25,7 @@
    :maxdepth: 2
    :hidden:
 
+   get_hydrophobic_sites.ipynb
    get_halogen_bond_sites.ipynb
    get_aromatic_rings.ipynb
    get_area_buried.ipynb

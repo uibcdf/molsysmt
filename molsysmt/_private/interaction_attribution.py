@@ -81,6 +81,7 @@ def attributed(family, fixed_method=None):
                     parameters, software = result.data["parameters"], result.data["software"]
                 elif isinstance(result, dict) and (
                     "donor_hydrogen_pairs" in result or "donor_halogen_pairs" in result
+                    or "hydrophobic_atom_indices" in result
                 ):
                     parameters, software = result, result["software"]
                 else:

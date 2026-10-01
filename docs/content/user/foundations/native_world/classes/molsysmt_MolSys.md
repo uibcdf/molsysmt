@@ -50,7 +50,8 @@ correspond to the system. MolSysMT checks compatible axes and valid results;
 you are responsible for the correspondence of independently loaded data.
 Source labels and maps retain provenance without authenticating that origin.
 Chemical recognition and geometric criteria are separate parts of an analysis.
-Named hydrogen-bond, π–π, cation–π and halogen profiles carry their pinned method references;
+Named hydrogen-bond, π–π, cation–π, halogen and hydrophobic profiles carry
+their pinned method references;
 a geometric profile on declared participants need not reproduce the reference
 package's feature discovery. Different definitions remain separate named analyses.
 The method reference describes the reproduced definition, while the producer
@@ -114,6 +115,14 @@ roles: donor, halogen, acceptor and acceptor reference. Every eligible reference
 neighbor remains identifiable. Chemical recognition can be inspected separately
 through the general site tool. See {ref}`Tutorial_Get_halogen_bond_sites`,
 {ref}`Tutorial_Get_halogen_bonds` and {ref}`Cookbook_Saving_halogen_bonds`.
+
+Hydrophobic observations use a separately named atomic chemical interpretation
+and a distance criterion. Their two roles identify canonical source-index order,
+not ligand and protein sides. They are distinct from residue hydrophobicity
+values or interaction energies. You can calculate a disjoint interface, attach
+under a name and preserve its original scope and references in H5MSM 0.5. See
+{ref}`Tutorial_Get_hydrophobic_sites`, {ref}`Tutorial_Get_hydrophobic_interactions`
+and {ref}`Cookbook_Saving_hydrophobic_interactions`.
 
 ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-level
 explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native

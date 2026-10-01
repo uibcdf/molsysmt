@@ -104,6 +104,9 @@ sections:
           - name: get_halogen_bond_sites
             file: docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb.AGENTS.md
+          - name: get_hydrophobic_sites
+            file: docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb
+            agents_file: docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb.AGENTS.md
           - name: get_hbond_sites
             file: docs/content/user/tools/physchem/get_hbond_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_hbond_sites.ipynb.AGENTS.md
@@ -135,6 +138,9 @@ sections:
           - name: get_pi_pi_interactions
             file: docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb
             agents_file: docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb.AGENTS.md
+          - name: get_hydrophobic_interactions
+            file: docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb
+            agents_file: docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb.AGENTS.md
           - name: get_halogen_bonds
             file: docs/content/user/tools/interactions/get_halogen_bonds.ipynb
             agents_file: docs/content/user/tools/interactions/get_halogen_bonds.ipynb.AGENTS.md
@@ -221,6 +227,9 @@ sections:
       - name: saving_ionic_interactions
         file: docs/content/user/cookbook/saving_ionic_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_ionic_interactions.ipynb.AGENTS.md
+      - name: saving_hydrophobic_interactions
+        file: docs/content/user/cookbook/saving_hydrophobic_interactions.ipynb
+        agents_file: docs/content/user/cookbook/saving_hydrophobic_interactions.ipynb.AGENTS.md
       - name: saving_halogen_bonds
         file: docs/content/user/cookbook/saving_halogen_bonds.ipynb
         agents_file: docs/content/user/cookbook/saving_halogen_bonds.ipynb.AGENTS.md

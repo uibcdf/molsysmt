@@ -40,6 +40,8 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     families = {
+        "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions": "hydrophobic",
+        "molsysmt.physchem.get_hydrophobic_sites.get_hydrophobic_sites": "hydrophobic_sites",
         "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds": "halogen_bonds",
         "molsysmt.physchem.get_halogen_bond_sites.get_halogen_bond_sites": "halogen_bond_sites",
         "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions": "pi_pi",
