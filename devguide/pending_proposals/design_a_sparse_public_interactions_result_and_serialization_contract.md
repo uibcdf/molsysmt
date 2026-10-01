@@ -17,9 +17,36 @@ supersedes: []
 **Reported:** 2026-09-28, after the result-contract request from
 `uibcdf/molsysviewer#114` exposed a decision left open by
 [`uibcdf/molsysmt#250`](organize_interaction_detection_by_family_before_1_0.md).
-**Status:** The comparative evaluation has selected an implementation baseline.
-The public contract and production backend remain pending under this issue;
-the experimental class is tracked under `uibcdf/molsysmt#252`.
+**Status:** The comparative evaluation selected a packed sparse implementation
+baseline. The experimental public contract, named native attachment and H5MSM
+0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
+stabilization and exact-candidate release qualification remain open.
+
+## Current checkpoint — 2026-10-01
+
+The [normative interaction contract](../interactions_api.md) now covers five
+implemented families, descriptive/scientific method selectors with exact profiles,
+and detached optional attribution. A named result represents one producer method
+and evaluation scope; `MolSys.interactions` is a mapping of names to full sparse
+results. It is neither an untyped list nor automatic detector attachment.
+
+Real local MolSysViewer qualification on clean provider commit
+`e21f03d9992b87af2cc9285211adee888462be41` passed scientific geometry, index queries,
+complete/analysis-only H5MSM and saved-session round trips. An additional public
+client guard verifies original Baker–Hubbard bibliography and producer versions,
+nonconsecutive queries and evaluated-empty frames without new Ackredit reader
+tracking. See [the implementation evidence](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01).
+This is source-checkout qualification, not certification of a published provider
+artifact or a fresh browser/GPU run. The contract remains Experimental.
+
+Incremental editing, bounded public file-backed queries/writing, per-frame search
+scopes, arbitrary subsystem embedding and merge policy remain outside the current
+supported result API. Historical comparisons and dated checkpoints below retain
+their measured premises; earlier pending-contract/adapter statements are superseded
+by this checkpoint and the normative guide. Halogen, hydrophobic and metal
+detectors remain absent rather than being promised by the generic result class.
+
+## Earlier checkpoints
 
 **Luzard-Chandler adapter checkpoint, 2026-09-29:** Both hydrogen-bond
 methods and disulfide candidates now return optional sparse results. The

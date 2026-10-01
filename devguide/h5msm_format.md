@@ -25,6 +25,31 @@ with explicit associations; MolecularMechanics is outside 0.5. Absence of an opt
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
 
+## Version 0.5 interaction metadata
+
+Named analyses are optional and may accompany structures, chemistry, topology,
+or stand alone with declared atom and structure index domains. Public conversion
+preserves typed sparse relations, occurrence order, evaluated-empty coverage,
+search scope, source maps, units, evidence and periodic images. The full contract
+is [Interaction Analysis API](interactions_api.md); the existing interaction
+codec schema is independent of the H5MSM root version.
+
+Each analysis stores producer `software` versions once in metadata. Scientific
+selectors, profiles, definition labels and detached bibliography are ordinary
+versioned analysis parameters. The optional `parameters["attribution"]` payload
+uses `molsysmt.scientific_attribution@1`; it adds no per-occurrence columns and
+requires no new H5MSM root version. A loader preserves original producer
+versions and references without reporting a new calculation. Missing historical
+attribution stays absent, and missing producer versions stay unknown.
+Guards are `tests/interactions/test_scientific_attribution.py` and
+`tests/interactions/test_software_provenance.py`.
+
+Recorded covalent bonds are owned by the sibling `chemical_states` layer.
+Disulfide and metal-coordination observations must not replace that authority.
+`Topology.bonds` is a native compatibility facade, not a second file-layer store.
+H5MSM 0.5 excludes `MolecularMechanics`; nonempty mechanics data are rejected
+rather than silently lost. Mechanics persistence belongs to 0.6 after 1.0.
+
 ## Version 0.4 topology
 
 `/topology` stores stable atom identity and semantic hierarchy:

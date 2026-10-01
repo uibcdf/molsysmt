@@ -449,7 +449,8 @@ record the accepted namespace migration. The 1.0 slice includes
 methods and disulfide **candidate** detection, while
 `molsysmt.build.get_disulfide_bonds` remains available as a build-oriented
 entry point. Distance-only contacts remain in `structure`; recorded covalent
-bonds remain topological data.
+bonds belong to `ChemicalStates`, with `Topology.bonds` retained as a
+compatibility facade.
 
 The public `Interactions` result contract (#251), native `MolSys` ownership,
 H5MSM 0.5 persistence, and MolSysViewer integration (#114) are required
@@ -457,8 +458,10 @@ before the 1.0 candidate freeze. Implementation is tracked by #252. These
 changes require scientific, documentation, course, consumer, API-registry, and
 exact-commit release recertification. The operational status belongs in
 [`release_1_0_status.md`](../release_1_0_status.md). Additional interaction
-families and integrations with TopoMT, PharmacophoreMT, and DockingMT may
-follow after 1.0.
+families are separately approved and need not block 1.0. Experimental ionic,
+pi-pi and cation-pi detectors have since been implemented; halogen, hydrophobic
+and metal coordination remain future work. Integrations with TopoMT,
+PharmacophoreMT and DockingMT may follow after 1.0.
 
 The integration gate includes four concrete checks: a `MolSys` with named
 interaction results survives copy and valid selections without losing source
@@ -470,9 +473,10 @@ both native and H5MSM-loaded results. Large-trajectory reading and writing
 must use bounded memory. H5MSM 0.5 is the accepted pre-1.0 format target:
 topology, chemical states, structures, and interactions are optional sibling
 layers. The numeric 0.4.1 extension candidate is withdrawn. Native
-chemical-state ownership remains a separate design question under the
-attribute-centric proposal; the 0.5 file layout alone does not migrate the
-current Python storage.
+chemical-state ownership has been implemented separately under
+`uibcdf/molsysmt#254`: `MolSys.chemical_states` owns the native domain and
+`Topology.bonds` remains a compatibility facade. File layout alone is not
+evidence of native ownership; both contracts have their own guards.
 
 The minimal pre-1.0 `MolecularMechanics` object is experimental. H5MSM 0.5
 does not store it; nonempty mechanics data must fail conversion rather than
@@ -481,13 +485,11 @@ designed H5MSM 0.6 after MolSysMT 1.0, as tracked by
 [its proposal](h5msm_0_6_molecular_mechanics_persistence.md)
 (`uibcdf/molsysmt#256`). That codec is outside the 1.0 release gate.
 
-Before MolSysViewer starts its `view.interactions` module, MolSysMT must
-present a runnable result contract and H5MSM-loaded examples to the
-developers of `uibcdf/molsysviewer#114`. Their concrete feedback must be
-solicited on both the `Interactions` query contract and the H5MSM 0.5 public
-loading and query route, then resolved before stabilizing `Interactions` or
-freezing the MolSysMT 1.0
-candidate. The [design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md)
+The prerequisite provider handoff to `uibcdf/molsysviewer#114` has been met:
+the runnable result contract and H5MSM-loaded examples enabled the client's
+`view.interactions` work. Concrete feedback on both the result and H5MSM routes
+must remain resolved before stabilizing `Interactions` or freezing the MolSysMT
+1.0 candidate. The [design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md)
 defines the review packet and acceptance evidence.
 
 The first provider handoff is complete at commit `0d1a2bf0a`: MolSysViewer
@@ -499,6 +501,17 @@ observations, periodic images, frame changes, selection, scene rebuild, and
 export is still required. The client will first load named analyses in memory;
 public file-backed query requirements will be decided from combined coordinate
 and interaction measurements.
+
+The 2026-10-01 local consumer checkpoint supersedes the early pending-Python
+integration statement: real Viewer geometry, queries and complete/analysis-only
+H5MSM plus MSV session round trips passed against clean provider `e21f03d99`.
+Original bibliography and producer versions also survive the client workflow
+without crediting readers as new calculations. The
+[implementation record](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+identifies source checkouts, workload limits and remaining exact-candidate gates.
+It is not a new browser/GPU certification. Optional Ackredit attribution does
+not make the provider a hard runtime dependency or add whole-library attribution
+as a 1.0 gate.
 
 ## Work That Must Not Block 1.0
 

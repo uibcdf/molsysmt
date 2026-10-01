@@ -61,16 +61,32 @@ The [interaction-detection namespace proposal](pending_proposals/organize_intera
 hydrogen-bond methods and disulfide-candidate detection. Implementation and
 recertification are in progress; this work is not yet part of a tested release
 candidate. Its final commit must pass the affected scientific, documentation,
-consumer, and release gates before candidate freeze. Further interaction
-families may follow after 1.0. The public `Interactions` contract (#251),
+consumer, and release gates before candidate freeze. Separately approved
+experimental ionic, pi-pi and cation-pi families are now implemented;
+halogen, hydrophobic and metal detectors remain future work, not new 1.0
+requirements. The public `Interactions` contract (#251),
 optional native `MolSys` attachment and H5MSM persistence (#252), and a tested
 MolSysViewer integration (`uibcdf/molsysviewer#114`) are now required before
 the 1.0 candidate freeze. Native attachment, local-to-source maps, declared
 atom search scope, and standalone and grouped HDF5 codecs have focused tests.
 Public H5MSM 0.5 round trips for named analyses and supported partial `MolSys`
-combinations are contract-tested. Incremental interaction editing, bounded
-public file access, and MolSysViewer consumer agreement remain open.
+combinations are contract-tested. Incremental interaction editing and bounded
+public file access remain unsupported. The experimental consumer contract is
+agreed; stabilization and exact-candidate qualification remain open.
 TopoMT, PharmacophoreMT, and DockingMT integrations do not gate 1.0.
+
+The 2026-10-01 naming/attribution checkpoint at clean provider `e21f03d99`
+adds scientific/descriptive selectors, exact profiles, compatibility aliases
+and detached optional Ackredit bibliography. Whole-library and suite-wide
+adoption remain partial under `uibcdf/molsysmt#27`, `uibcdf/ackredit#75` and
+`uibcdf/molsyssuite#68`. Real local MolSysViewer qualification passed four
+scientific workloads, geometry/query checks and H5MSM/session round trips.
+A new optional public-client guard also passed for original bibliography,
+producer versions and absence of reader calculation credits (18 focused tests,
+none skipped). [The implementation record](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+identifies the clean provider, dirty consumer source and measurement limits.
+This advances local interoperability; it is not an installed published-pair
+qualification, a new browser/GPU run or the exact-candidate 1.0 release gate.
 
 The 2026-10-01 detector checkpoint adds an experimental cation-pi API with the
 attributed ProLIF 2.2.2 core definition as default and a separately named MolSysMT
@@ -95,10 +111,10 @@ default and reads 0.5 through the native codec; legacy adapter operations remain
 for 0.3/0.4. Reading a legacy file emits an actionable warning without dropping
 support. This is not release evidence. Candidate freeze awaits
 remaining 0.5 form operations, schema coverage,
-the required lifecycle gates, and MolSysViewer tests. A runnable MolSysMT
-candidate must be reviewed with
-the MolSysViewer developers before they start `view.interactions` and before
-the MolSysMT result API is stabilized. `ChemicalStates` is now a separate
+the required lifecycle gates, and exact-candidate MolSysViewer tests. The runnable
+experimental provider handoff has already enabled `view.interactions` development;
+current client evidence must still be agreed before the MolSysMT result API is
+stabilized. `ChemicalStates` is now a separate
 native domain; its wider release validation remains open.
 H5MSM 0.5 native routes now round-trip all seven primary combinations
 of topology, chemical states, and structures, preserving absent layers through
@@ -136,9 +152,10 @@ test `tests/interactions/test_public_molsys_h5msm_workflow.py` and
 synthetic native and H5MSM 0.5 examples. The fixture generator writes both a
 complete `MolSys` file and an interaction-only file that loads as a partial
 `MolSys`. The [review packet](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md#runnable-molsysviewer-review-packet)
-states the implemented query contract and current limitations. This is
-preparation for consumer review, not acceptance by MolSysViewer or an
-exact-commit 1.0 release gate.
+states the implemented query contract and current limitations. MolSysViewer has
+accepted the experimental handoff and local qualification has advanced as
+recorded above. The original fixture packet alone is not an exact-commit
+1.0 release gate.
 An expanded local selection covering H5MSM, native forms, interactions,
 `MolSys` adapters, conversion, structure append, hydrogen bonds, and
 disulfides passed 1,347 tests on 2026-09-29. Ruff, public API stability,

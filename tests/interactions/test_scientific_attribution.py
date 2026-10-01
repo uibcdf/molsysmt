@@ -193,6 +193,65 @@ def test_result_bibliography_survives_all_persistence_paths_without_reader_track
         assert ackredit.get_used_items() == {}
 
 
+def test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions(tmp_path):
+    ackredit = pytest.importorskip("ackredit")
+    msv = pytest.importorskip("molsysviewer")
+    pytest.importorskip("molsysviewer.interactions", reason="Experimental Viewer interactions API is required.")
+    molsys = hbond_system()
+    with ackredit.session("viewer-producer"):
+        result = msm.interactions.hbonds.get_hbonds(
+            molsys, pbc=False, structure_indices=[2, 0, 1, 2])
+        original = deepcopy(result.parameters["attribution"])
+        producer_versions = dict(result.software)
+        paper = "doi:10.1016/0079-6107(84)90007-5"
+        assert paper in ackredit.get_used_items()
+        assert result.evaluated_structure_indices.tolist() == [0, 1, 2]
+        assert result.query(structure_indices=[1]).n_interactions == 0
+
+    view = msv.new_view(molsys)
+    try:
+        with ackredit.session("viewer-reader"):
+            view.interactions.attach(result, name="baker_hubbard", assume_aligned=True)
+            metadata = view.interactions.analyses()[0]
+            assert metadata["parameters"]["attribution"] == original
+            assert metadata["software"] == producer_versions
+            selected = view.interactions.query("baker_hubbard", structure_indices=[2, 0, 2])
+            assert selected.parameters["attribution"] == original
+            assert selected.n_interactions == 2
+
+            complete = tmp_path / "viewer_complete.h5msm"
+            analyses_only = tmp_path / "viewer_analyses.h5msm"
+            session = tmp_path / "viewer_session.msv"
+            msm.convert(view.molsys, to_form=str(complete))
+            msm.h5msm.write_layers(str(analyses_only), interactions=dict(view.molsys.interactions))
+            view.save_session(session)
+
+            for path in (complete, analyses_only):
+                target = msv.new_view(hbond_system())
+                try:
+                    loaded = target.interactions.load(
+                        path, analysis_name="baker_hubbard", assume_aligned=True)
+                    assert loaded.parameters["attribution"] == original
+                    assert loaded.software == producer_versions
+                    np.testing.assert_array_equal(
+                        loaded.to_dict()["occurrence_indices"], result.to_dict()["occurrence_indices"])
+                    assert loaded.query(structure_indices=[1]).n_interactions == 0
+                finally:
+                    target.close()
+
+            restored = msv.load_session(session)
+            try:
+                saved = restored.interactions.get_analysis("baker_hubbard")
+                assert saved.parameters["attribution"] == original
+                assert saved.software == producer_versions
+                assert restored.interactions.analyses()[0]["parameters"]["attribution"] == original
+            finally:
+                restored.close()
+            assert ackredit.get_used_items() == {}
+    finally:
+        view.close()
+
+
 def test_lazy_import_and_genuine_provider_absence_in_fresh_process():
     script = '''
 import importlib.abc

@@ -1,10 +1,10 @@
 ---
 summary: Promote ChemicalStates to an independent native MolSys domain
 issue: uibcdf/molsysmt#254
-status: active
+status: partial
 opened: 2026-09-29
 closed:
-verification: inspected
+verification: measured
 area: [api, form, native]
 guard:
 normative:
@@ -13,6 +13,27 @@ supersedes: []
 ---
 
 # Promote ChemicalStates to an independent native MolSys domain
+
+## Current checkpoint — 2026-10-01
+
+Independent native ownership and the public H5MSM 0.5 route are implemented.
+`MolSys.chemical_states` owns the public domain; `Topology.chemical_states` is
+removed and `Topology.bonds` remains a selected-state compatibility facade.
+State-only and other supported partial `MolSys` combinations no longer require
+inventing topology or structures. Public conversion writes 0.5, with chemical
+states stored beside topology rather than nested under it. The public native
+implementation and the normative [H5MSM format contract](../h5msm_format.md)
+define current behavior.
+
+Guards include `tests/native/test_chemical_states.py`,
+`tests/native/test_molsys_chemical_state_association.py` and
+`tests/form/file_h5msm/test_public_h5msm_v05.py`. Final lifecycle and
+exact-candidate release recertification remain open; this checkpoint does not
+close the proposal merely because native ownership exists. Retirement of the
+remaining public `Topology.bonds` facade is post-1.0 under `uibcdf/molsysmt#255`.
+The 2026-09-29 checkpoint below records the incremental migration sequence;
+its early private-probe and 0.4-writer statements are historical, not the current
+public contract.
 
 ## What
 

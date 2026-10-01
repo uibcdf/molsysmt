@@ -1,7 +1,8 @@
 # H5MSM 0.5 Modular Layer Contract
 
-**Status:** accepted pre-1.0 design target; explicit 0.5 API and public
-`convert` writing implemented, full form integration and final schema gates pending
+**Status:** accepted pre-1.0 target; public 0.5 conversion, modular native
+ownership and named interaction persistence implemented. Final exact-candidate
+schema, lifecycle and installed-consumer gates remain open.
 
 **Target:** before MolSysMT 1.0 candidate freeze
 
@@ -14,7 +15,9 @@
 proposed below. The native decision is now tracked by
 `uibcdf/molsysmt#254`: `ChemicalStates` owns the state records, and
 `Topology` retains compatibility access to the selected state. The native
-migration is underway. Public `molsysmt.convert` now writes 0.5 and reads it
+migration is implemented: `MolSys.chemical_states` is the public domain,
+`Topology.chemical_states` has been removed, and `Topology.bonds` remains a
+compatibility facade. Public `molsysmt.convert` now writes 0.5 and reads it
 through the native 0.5 codec. The legacy file-form adapters still serve 0.3/0.4;
 the explicit `molsysmt.h5msm` API also writes and reads versioned 0.5 layers.
 
@@ -37,6 +40,23 @@ empty evaluated frames, dictionaries, views, remapping, invalidation, and
 standalone as well as H5MSM persistence. MolSysViewer accepts the declared
 correspondence policy after reviewing `2e79b5f29`; canvas and saved-session
 integration tests remain pending on the client side.
+
+**Current checkpoint, 2026-10-01:** The [normative format contract](../h5msm_format.md)
+and [public 0.5 schema](../../docs/content/user/tools/form/file/h5msm_05.md)
+define implemented reader/writer behavior. ChemicalStates, structures-only,
+interaction-only and combined native routes exist; dated design/probe sections
+below preserve the earlier implementation sequence, not current missing APIs.
+General append involving topology or interactions and crash recovery remain
+unsupported. MolecularMechanics is deliberately absent from 0.5 and belongs
+to separately designed 0.6 persistence after 1.0.
+
+Analyses now retain canonical scientific selectors, exact profiles and optional
+detached attribution in their existing parameter metadata; no root-version bump
+or per-occurrence bibliography is introduced. The original calculation's software
+versions remain unchanged on loading. Local real MolSysViewer qualification has
+passed complete/analysis-only H5MSM and MSV session round trips, superseding the
+2026-09-29 pending-client statement above. Its [source and evidence boundaries](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+do not certify a published installed pair or a fresh browser/GPU run.
 
 ## Motivation
 

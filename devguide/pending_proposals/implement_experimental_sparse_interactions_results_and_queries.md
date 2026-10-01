@@ -1,7 +1,7 @@
 ---
 summary: Implement experimental sparse Interactions results and queries
 issue: uibcdf/molsysmt#252
-status: active
+status: partial
 opened: 2026-09-28
 closed:
 verification: measured
@@ -13,6 +13,66 @@ supersedes: []
 ---
 
 # Implement experimental sparse Interactions results and queries
+
+## Consumer and attribution checkpoint — 2026-10-01
+
+The experimental packed result, named `MolSys.interactions` collection and
+public H5MSM 0.5 codecs are implemented. Five detector families produce supported
+results: hydrogen bonds, disulfide candidates, ionic, pi-pi and cation-pi.
+Legacy tuple defaults remain available; scientific/descriptive method selectors
+and exact profiles preserve previously validated numerical behavior. Optional
+attribution is analysis metadata, not an occurrence column. Current contracts
+belong in [Interaction Analysis API](../interactions_api.md) and
+[H5MSM Format Contract](../h5msm_format.md). The dated checkpoints below are
+implementation history, not the current outstanding-work list.
+
+**Measured consumer qualification:** The real MolSysViewer qualification tool
+was run against clean provider commit
+`e21f03d9992b87af2cc9285211adee888462be41`, unchanged before and after the run.
+The consumer checkout was on `a8aa669c9e3b712f4433511bdf990c5e8df54e30` with existing
+human changes preserved; its head hash alone does not identify that dirty tree.
+It passed with process exit 0:
+
+| Case | Observed workload | Verified behavior |
+| --- | --- | --- |
+| Pentalanine trajectory | 62 atoms, source structures `[4999, 0, 73, 3]`, evaluated local structures `[3, 0, 2]`, 56 observations | Nonconsecutive/atom-set queries and complete H5MSM, analysis-only H5MSM and MSV session round trips. |
+| Controlled periodic reimaging | 62 atoms, 76 observations, 16 with nonzero images | A real residue translated by one box vector; independently reconstructed geometry under an angstrom unit policy. |
+| Solvated villin | 4,369 atoms, one structure, 2,439 observations, 299 with nonzero images | Real sparse Buch output and image geometry; numeric analysis arrays occupy 562,168 bytes. |
+| 2HGR sulfur proximity | 55,628 atoms, eight candidates at 0.205 nm | Candidate geometry without modifying declared covalent connectivity. |
+
+The trajectory case took 5,645 ms including its workflow; the villin case took
+1,765 ms. Peak RSS was 860.7 MiB for the entire importing/qualifying process, not
+the interaction arrays alone. These one-run observations are not comparative
+performance guarantees. Installed MolSysMT metadata reported
+`0.21.0+606.ga03eb4bf6`; the source commit above identifies the provider tested.
+The JSON result is the last log line. Reproduce with the real consumer tool:
+
+```bash
+python ../molsysviewer/devtools/qualify_interactions.py /tmp/molsysmt-viewer-qualification
+```
+
+The tool is maintained by the consumer under `uibcdf/molsysviewer#114`; no sibling
+documentation path is treated as a contract. This evidence covers Python API,
+canvas-message geometry and persistence. It is not a fresh browser/WebGL run,
+an installed published pair, or the final exact-candidate 1.0 gate.
+
+**Attribution guard:**
+`tests/interactions/test_scientific_attribution.py::test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions`
+uses real optional Ackredit and MolSysViewer public APIs. A successful
+Baker–Hubbard calculation credits its producer session; named metadata, queries,
+complete/analysis-only H5MSM and session recovery retain the same detached
+bibliography and original versions. Evaluated-empty frames and occurrence indices
+survive. A fresh reader session remains uncredited. This optional client guard
+must be run with Ackredit and the experimental Viewer interactions API installed;
+older clients without that API skip, and a skipped test is not client evidence.
+The final focused attribution module run passed all 18 tests in 13.46 seconds.
+
+**Remaining:** exact-candidate consumer/release qualification, result stabilization
+after agreed client evidence, and separately scoped incremental editing or public
+bounded file access. Current immutable snapshots and resident sparse detector
+results are not an incremental editor or a streaming writer. Halogen, hydrophobic
+and metal families remain future detectors under #250; their absence does not
+invalidate this generic sparse result implementation.
 
 ## Luzard-Chandler result adapter (2026-09-29)
 

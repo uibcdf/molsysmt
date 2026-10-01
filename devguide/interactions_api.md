@@ -4,8 +4,64 @@
 systems. Distance-only proximity remains a geometric primitive in `structure`;
 it is not by itself an interaction classification. The first public families
 are `interactions.hbonds`, `interactions.disulfides`, and the experimental
-`interactions.ionic` and `interactions.pi_pi`. Other families need
+`interactions.ionic`, `interactions.pi_pi`, and `interactions.cation_pi`. Other families need
 separate scientific contracts and decisions.
+
+## Scientific method names and attribution
+
+Public method selectors name a scientific criterion or its geometric operations,
+not a reference software package. A keyword-only `profile` specifies participant
+recognition, plane construction and numerical conventions when the criterion
+has multiple supported definitions. The following pairs are implemented:
+
+| Family | `method` | `profile` | Reference definition |
+| --- | --- | --- | --- |
+| Hydrogen bonds | `baker_hubbard` | `nitrogen_oxygen` | Baker–Hubbard criterion, MDTraj implementation reference |
+| Hydrogen bonds | `wernet_nilsson` | `nitrogen_oxygen` | Wernet–Nilsson criterion, MDTraj implementation reference |
+| Hydrogen bonds | `donor_acceptor_distance_angle` | `elemental_fon` | CPPTRAJ elemental sites and geometric rule |
+| Hydrogen bonds | `donor_acceptor_distance_angle` | `smarts_donor_acceptor` | ProLIF SMARTS sites and geometric rule |
+| Hydrogen bonds | `donor_acceptor_distance_angle` | `explicit_sites` | MDAnalysis geometric rule with caller-supplied sites |
+| Pi-pi | `plane_angle_intersection` | `smarts_5_6` | ProLIF ring and plane definition |
+| Pi-pi | `plane_angle_intersection` | `aromatic_cycles` | MDTraj geometric definition on declared aromatic cycles |
+| Pi-pi | `centroid_angle_offset` | `three_atom_plane` | Mol* geometric definition |
+| Pi-pi | `centroid_angle_offset` | `least_squares` | Explicit-cutoff MolSysMT proposal |
+| Cation-pi | `centroid_distance_angle` | `smarts_5_6` | ProLIF ring/cation and plane definition |
+| Cation-pi | `centroid_distance_offset` | `three_atom_plane` | Mol* geometric definition |
+| Cation-pi | `centroid_angle_offset` | `least_squares` | Explicit-cutoff MolSysMT proposal |
+
+The descriptive names do not establish who first introduced a formula. Reference
+implementations and verified papers are retained separately. Historical software
+selectors such as `prolif`, `cpptraj`, `mdtraj_geometry` and `molstar_geometry`
+remain compatibility aliases for their exact profiles; a conflicting profile
+raises an argument error. Defaults and numerical observations are unchanged by
+renaming. Public detector docstrings define the exact cutoffs, inequality signs,
+site rules and reference limitations. Reproducing a geometric definition does
+not promise the reference program's complete feature discovery or refinement.
+
+`Interactions.method` identifies the producer function. The scientific selector
+is `parameters["method"]`, accompanied by `profile`, `method_definition` and the
+selected rule's parameters. `method_definition` is a versioned definition label,
+not a DOI. Producer versions belong in `Interactions.software`; the reader's
+installed version must never replace them.
+
+The optional Ackredit pilot credits completed calculations, including evaluated
+empty results, to the application's current session. A detached bibliography in
+`parameters["attribution"]` has schema `molsysmt.scientific_attribution@1`, a
+producer target and typed bibliographic items with contextual roles
+`scientific_criterion`, `reference_implementation`, and `executed_software`.
+Referencing ProLIF does not claim that ProLIF executed. Verified declarations are
+offline; missing original attribution is left unknown rather than invented.
+This metadata is constructed once per analysis, independently of workflow-session
+deduplication, and survives views, typed conversion and H5MSM persistence.
+
+Ackredit is loaded lazily and remains optional. Import hooks, reminders, journals
+and network enrichment are not enabled by MolSysMT. Missing Ackredit preserves
+the result bibliography; a broken optional provider emits `MSM-WARN-ATTR-001`
+without discarding a completed calculation. Reading, querying or remapping a
+saved analysis does not credit a new calculation. Portable provider capture and
+suite adoption remain tracked by `uibcdf/ackredit#75` and
+`uibcdf/molsyssuite#68`; this is not whole-library instrumentation. The guard is
+`tests/interactions/test_scientific_attribution.py`.
 
 ## Hydrogen bonds
 
@@ -63,6 +119,24 @@ show continuity of the existing implementation, not independent scientific
 validation of either hydrogen-bond definition. Callers must choose and report
 the named criterion and parameters used.
 
+The newer `interactions.hbonds.get_hbonds` defaults to Baker–Hubbard and returns
+`molsysmt.Interactions` (or `molsysmt.InteractionsDict` when requested). It supports
+the five method/profile pairs above. Its public defaults differ from the legacy
+tuple functions by design; the legacy functions retain their default outputs.
+The result includes all donor/hydrogen/acceptor roles, three pair distances in
+nm, D-H-A and H-D-A angles in rad, actual evaluated scope and empty-frame
+coverage. Method-specific geometric and chemical rules are recorded explicitly.
+
+General site recognition belongs to `physchem.get_hbond_sites`; its public
+methods are `elemental_nitrogen_oxygen`, `elemental_fluorine_oxygen_nitrogen`
+and `smarts_donor_acceptor`. Explicit-site calculations require intact supplied
+donor-H pairs and acceptor indices, not partial-charge guessing. Selection
+eligibility is distinct from the complete chemical graph examined during
+recognition. Modern detection supports projected coordinate blocks on native
+MolSys and H5MSM 0.5, with a resident sparse result. The legacy Buch and
+Luzard–Chandler adapters remain eager. All paths must retain the actual images
+used by geometry; inconsistent periodic triangles are rejected.
+
 ## Disulfide candidates
 
 `interactions.disulfides.get_disulfide_candidates` identifies sulfur atoms in
@@ -84,7 +158,8 @@ structure indices do not duplicate observations in this result. The default
 tuple output remains unchanged. The caller attaches the analysis to `MolSys`
 under a chosen name when persistence with the system is wanted.
 
-The topology remains authoritative for recorded covalent bonds.
+`ChemicalStates` owns recorded covalent bonds; `Topology.bonds` remains a
+compatibility facade for the selected state.
 `build.get_disulfide_bonds` delegates to this detector and retains its
 single-structure list-of-pairs result for build workflows;
 `build.get_missing_bonds` continues to consume that entry point. The detector
@@ -137,8 +212,8 @@ The limit does not bound process RSS, total graph memory or execution time.
 
 Analytical graph tests and optional independent RDKit fixtures cover the stated
 simple/fused memberships. This evidence does not establish universal aromaticity
-or favorable pi-pi geometry. The plane tool and pi-pi detector remain under
-uibcdf/molsysmt#265. Reproducible chemical preparation measurements are described
+or favorable pi-pi geometry. These general tools now supply both pi-pi and
+cation-pi detection. Reproducible chemical preparation measurements are described
 in [benchmarking/rings.md](benchmarking/rings.md).
 
 ## Reusable plane geometry
@@ -180,8 +255,8 @@ Dense results are preallocated in RAM. Numerical budget estimates include output
 standardization and group-wise SVD workspace; an operation-specific chunk cap
 applies after optimization. They do not bound process RSS or supply a disk-backed
 output. See [benchmarking/planes.md](benchmarking/planes.md) for a bounded
-projection/geometry measurement. Pi-pi detection remains pending in
-uibcdf/molsysmt#265.
+projection/geometry measurement. The implemented ring detectors call the general
+plane and plane-pair tools; their scientific criteria remain in `interactions`.
 
 ## Ionic contacts
 
@@ -244,14 +319,15 @@ See the [ionic benchmark guide](benchmarking/ionic.md) for measured tradeoffs.
 ## Aromatic ring observations
 
 `interactions.pi_pi.get_pi_pi_interactions` is an experimental geometric detector.
-It uses the general declared-aromatic minimum-basis participants, packed Rust
+Its default `centroid_angle_offset`/`least_squares` profile uses the general
+declared-aromatic minimum-basis participants, packed Rust
 least-squares planes, bounded compiled spatial candidates and shared whole-group
 PBC validation. General plane-pair angle/offset geometry belongs to `structure`;
 chemical rules belong to `physchem`; the detector owns acceptance and sparse
 observation assembly. Compound selection membership is shared with ionic and
 ring tools. No additional dependency or detector-specific Rust kernel is added.
 
-Four explicit unitful cutoffs define the rule: positive centroid distance,
+For this default profile, four explicit unitful cutoffs define the rule: positive centroid distance,
 angular deviation, lateral offset and maximum orthogonal plane deviation. The
 acute unoriented angle lies in [0, pi/2]; the angular cutoff must be below pi/4.
 Parallel geometry requires the angle near zero and both lateral offsets within
@@ -261,6 +337,19 @@ cutoff. Inclusive comparisons permit one float64 ULP without an absolute
 geometric tolerance. Angular roundoff remains strictly below pi/4 to preserve
 disjoint classes. Zero cutoffs therefore require numerical exactness.
 This is `centroid_angle_offset@1`, not an energy, attraction or Mol* parity claim.
+
+The other supported profiles preserve their reference geometry. ProLIF uses
+ordered 5/6-member SMARTS rings; MDTraj geometry uses declared aromatic cycles.
+Their centroid-to-first-two-member normals support parallel and edge-to-face
+criteria with plane-intersection tests for the latter. The Mol* profile uses
+three-atom planes, centroid distance, parallel/perpendicular angular classes
+and lateral offset. These profiles have their own defaults and exact boundary
+rules; they do not inherit the proposal's planarity or covalent exclusions.
+Mol* feature discovery/refinement is outside the geometric reproduction. Common
+MolSysMT whole-participant MIC geometry is an explicit extension, not a claim of
+identical historical reference PBC behavior.
+
+The following planarity and exclusion rules describe the default proposal:
 
 Self, overlapping/fused and directly covalently linked rings are excluded.
 Other intramolecular geometries are included; dative bonds do not impose an
@@ -311,6 +400,59 @@ are covered by `tests/interactions/pi_pi/` and
 bounded geometric evidence, not a universal physical interpretation. See
 [the detector benchmark guide](benchmarking/pi_pi.md) for reproducible
 calculation/query/memory/H5MSM controls. The API remains Experimental.
+
+## Cation-pi observations
+
+`interactions.cation_pi.get_cation_pi_interactions` defaults to
+`centroid_distance_angle`/`smarts_5_6`. It reproduces the ProLIF 2.2.2 core
+definition using RDKit SMARTS for cations and 5/6-member aromatic rings,
+unweighted centers and a centroid-to-first-two-member normal. The default
+centroid distance is at most 0.45 nm and the acute normal/center angle is in
+[0, 30 degrees], inclusively. There is no added offset, planarity or covalent
+exclusion. SMARTS cations can include resonance motifs whose individual atoms
+have zero formal charge; this is not the formal-charge-center proposal.
+
+`centroid_distance_offset`/`three_atom_plane` reproduces Mol* geometry on
+declared positive charge centers and aromatic participants: distance at most
+0.60 nm and lateral offset at most 0.20 nm by default. It does not reproduce
+all Mol* valence-based feature discovery. `centroid_angle_offset`/`least_squares`
+uses general formal-charge centers, declared aromatic cycles and fitted planes,
+with four caller-supplied unitful cutoffs. It excludes overlapping or directly
+covalently connected participants. It is a MolSysMT proposal, not a validated
+improvement over either reference definition; comparison remains under
+`uibcdf/molsysmt#271`.
+
+Relations retain complete `cation` and `ring` participant groups. Sparse results
+store centroid distance, acute normal angle, height, lateral offset and plane
+deviations with explicit units, selected state, actual scope, rule parameters,
+evidence, producer versions and reference attribution. Normal orientation is
+recorded where the profile requires it. Repeated structure indices evaluate
+once; evaluated-empty frames remain explicit. Individual-atom result queries
+are supported even though calculation selections must contain whole groups.
+Named attachment is explicit, with InteractionsDict and H5MSM round trips.
+
+Shared whole-participant PBC validation anchors the cation and records the
+ring image; split groups fail rather than guessing atom images. Native/H5MSM
+coordinate execution can be chunked, but accepted observations remain in RAM.
+Public inputs remain form-agnostic when the form supplies sufficient chemistry
+and coordinates; soft RDKit imports are confined to the SMARTS profile.
+Guards are `tests/interactions/cation_pi/` and
+`tests/scientific_truth/curated/test_cation_pi_interactions.py`. See
+[benchmarking/cation_pi.md](benchmarking/cation_pi.md) for bounded measurements.
+
+## Planned family coverage
+
+The initial eight-family inventory under `uibcdf/molsysmt#250` has five
+implemented experimental detectors: hydrogen bonds, disulfide candidates,
+ionic observations, pi-pi and cation-pi. Halogen bonds, hydrophobic associations
+and metal coordination do not yet have public detectors. Mediated interactions,
+such as water bridges, are a further future family. These additions need
+separate scientific contracts and reusable chemical preparation; they are not
+mandatory 1.0 gates. Phosphate/sulfate and aromatic charge-delocalization
+extensions (`uibcdf/molsysmt#262`) and comparison of the proposed aromatic
+criteria (`uibcdf/molsysmt#271`) are open refinements of existing tools, not
+unimplemented detector families. See the [namespace roadmap](pending_proposals/organize_interaction_detection_by_family_before_1_0.md)
+for the implementation inventory and release boundary.
 
 ## Current result behavior and 1.0 target
 

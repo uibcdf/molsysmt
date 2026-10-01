@@ -63,6 +63,18 @@ This is a bounded first real client for Ackredit.
 
 ## What is measured and what is assumed
 
+**Real client checkpoint, 2026-10-01:** After the pilot was published as
+`e21f03d9992b87af2cc9285211adee888462be41`, the local real MolSysViewer qualification
+passed its four scientific/persistence workloads. The [implementation record](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+separates the clean provider commit from the consumer's dirty source checkout
+and states the limits of that evidence. A new optional public-client test in
+`tests/interactions/test_scientific_attribution.py` explicitly protects original
+Baker–Hubbard bibliography and software versions in named Viewer metadata,
+queries, complete and analysis-only H5MSM, and saved-session recovery. Reader
+sessions do not receive a new calculation credit. All 18 tests in that module
+passed locally; Ackredit and MolSysViewer were installed, so none were skipped.
+This is not a new browser/GPU qualification or public-distribution gate.
+
 Contract-tested and parity-tested with the real editable provider:
 
 - Interaction/recognizer/scientific-control selection: 511 tests passed.

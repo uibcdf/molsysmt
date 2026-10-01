@@ -1,10 +1,10 @@
 ---
 summary: Organize interaction detection by family before 1.0
 issue: uibcdf/molsysmt#250
-status: active
+status: partial
 opened: 2026-09-28
 closed:
-verification: inspected
+verification: measured
 area: [api, build, docs]
 guard:
 normative:
@@ -16,8 +16,41 @@ supersedes: []
 
 **Reported:** 2026-09-28, during pre-1.0 API planning for MolSysMT and its
 MolSysSuite consumers.
-**Status:** Accepted for the bounded pre-1.0 migration; implementation and
-recertification are in progress.
+**Status:** Namespace, detector migration and persistent result routes implemented;
+final consumer and exact-candidate recertification remain open.
+
+## Current checkpoint — 2026-10-01
+
+The initial inventory has five implemented experimental families, not eight
+completed families:
+
+| Planned family | Implemented public entry point | Remaining scope |
+| --- | --- | --- |
+| Hydrogen bonds | `interactions.hbonds.get_hbonds`, `get_buch_hbonds`, `get_luzard_chandler_hbonds` | Preserve legacy defaults; modern method/profile definitions and optional attribution are implemented. |
+| Disulfide candidates | `interactions.disulfides.get_disulfide_candidates` | Geometric observations, not certification or storage of covalent bonds. |
+| Ionic observations | `interactions.ionic.get_ionic_interactions` | Bounded formal-charge centers; phosphate/sulfate and aromatic delocalization extensions remain under `uibcdf/molsysmt#262`. |
+| Pi-pi | `interactions.pi_pi.get_pi_pi_interactions` | Reference profiles and the explicit-cutoff proposal are implemented; broader comparison remains open. |
+| Cation-pi | `interactions.cation_pi.get_cation_pi_interactions` | Reference profiles and the explicit-cutoff proposal are implemented; comparison is tracked by `uibcdf/molsysmt#271`. |
+| Halogen bonds | None | Define chemical sites, named geometric criterion and independent controls before implementation. |
+| Hydrophobic associations | None | General atom hydrophobic typing belongs in `physchem`; existing residue scales do not provide that definition. |
+| Metal coordination | None | Define coordination evidence and chemical-state inputs separately from declared connectivity. |
+
+Mediated interactions, such as water bridges, are an additional future family
+in stage 5, not a ninth committed 1.0 requirement. No public empty family stubs
+are introduced. New families remain separately scheduled and may be approved
+before 1.0 without becoming release blockers.
+
+The current normative contract is [Interaction Analysis API](../interactions_api.md).
+Scientific/descriptive method selectors, exact profiles and portable optional
+Ackredit attribution are implemented at `e21f03d9992b87af2cc9285211adee888462be41`.
+The initial attribution pilot remains partial under `uibcdf/molsysmt#27` because
+whole-library and suite adoption are separate work. Named `MolSys.interactions`
+and H5MSM 0.5 round trips are implemented under #251/#252. Real local Viewer
+qualification now checks geometry, queries and H5MSM/session round trips;
+the reproducible evidence and its release limitations are recorded in
+[the implementation report](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01).
+The dated migration records below describe earlier checkpoints; their pending
+statements do not override this inventory.
 
 ## What
 
@@ -51,7 +84,8 @@ the same chemistry or representation.
   criteria as interchangeable.
 - `interactions.disulfides` owns **candidate detection** from chemistry and
   structure. A candidate inferred from S–S proximity is not an authoritative
-  covalent bond. Recorded covalent connectivity remains in topology; build
+  covalent bond. Recorded covalent connectivity belongs to `ChemicalStates`,
+  with `Topology.bonds` retained as a compatibility facade; build
   continues to decide how candidates contribute to repair or missing-bond
   inference. The public detector is `get_disulfide_candidates`, returning
   atom-index pair arrays and aligned distance quantities per requested
@@ -141,10 +175,10 @@ multiple suite members, open a linked `uibcdf/molsyssuite` coordination issue
 under the suite ownership policy; this MolSysMT issue remains the provider
 implementation record.
 
-## Why
+## Why — original motivation (2026-09-28)
 
-[The current public root](../../molsysmt/__init__.py)
-exports `hbonds` separately, while
+[The public root](../../molsysmt/__init__.py)
+originally exported `hbonds` separately, while
 [`build.get_disulfide_bonds`](../../molsysmt/build/get_disulfide_bonds.py)
 uses geometric contacts to infer pairs and
 [`build.get_missing_bonds`](../../molsysmt/build/get_missing_bonds.py) consumes
@@ -199,8 +233,9 @@ documents inspection evidence and intended work, not implemented detectors.
   consume that build entry point.
 - The current contracts and evidence level are recorded in
   [Interaction Analysis API](../interactions_api.md). The two hydrogen-bond
-  methods retain legacy method-specific output layouts; a common result schema
-  has not been adopted.
+  methods retain legacy method-specific default output layouts. At this initial
+  checkpoint, the optional common result schema had not yet been adopted;
+  its subsequent implementation is summarized above and in #251/#252.
 - Focused migration tests pass for the legacy hydrogen-bond namespace and for
   empty single-selection hydrogen-bond results, as well as disulfide selection,
   group filtering, periodic geometry, frame order, empty results, and recorded
@@ -208,7 +243,7 @@ documents inspection evidence and intended work, not implemented detectors.
   consumer, and release
   gates are still pending; this is not release evidence yet.
 
-## What is measured and what is assumed
+## Original inspection and assumptions — 2026-09-28
 
 - **Inspected:** the root lazy registry exposes `hbonds`; the hbonds package
   exports four rule lists, two atom helpers, and two named methods; the disulfide detector
@@ -233,8 +268,8 @@ documents inspection evidence and intended work, not implemented detectors.
   generation with chemical classification. `structure.get_contacts` remains a
   useful primitive and should not be migrated for that reason alone.
 - Moving the covalent bond record into `Interactions` would confuse inferred
-  observations with topology truth. A disulfide detector can live in the
-  analysis namespace while recorded bonds remain topological.
+  observations with declared chemical-state truth. A disulfide detector can
+  live in the analysis namespace while `ChemicalStates` owns recorded bonds.
 - Requiring every proposed interaction family for 1.0 would expand this
   namespace decision into an unvalidated scientific program. The generic
   `Interactions` domain and its persistence are separate required work.
