@@ -337,6 +337,17 @@ capabilities and track concrete remediation in the component repository. The com
 repository policy gate enforces the offline identity baseline; service freshness still
 requires a separate networked audit under `devguide/repository_badges.md`.
 
+When meaningful coverage reporting is maintained, the README displays Codecov's
+live repository-specific percentage between tests and documentation. Explain
+report scope and cadence: the last uploaded report may lag later direct/skip
+commits and does not certify a full matrix or scientific correctness. Review the
+complete report and actual upload, not only a numeric cached badge. Missing or
+stale evidence needs an owner-local issue; justified non-applicability and bounded
+exceptions remain visible in the central inventory, including auxiliary tools.
+Use the common badge generator and public coverage probe in MolSysSuite. This
+rule adds no full suite to internal pushes and no common coverage floor. Follow
+the [coverage evidence contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md#coverage-percentage-applicability-and-cadence).
+
 ## Quantities crossing boundaries
 
 Follow the [quantity boundary contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/quantity_boundaries.md)
