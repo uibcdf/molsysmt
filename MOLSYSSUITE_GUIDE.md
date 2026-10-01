@@ -291,6 +291,18 @@ component's actual platform/Python matrix, recipe, installed-resource/launcher
 checks, secrets and scientific gates. A member without Conda publication records
 non-applicability.
 
+For qualifying new or changed Conda routes, apply `noarch: python` when Python
+code and resources are independent of OS/architecture/ABI. Third-party native
+dependencies alone do not disqualify the consumer; bundled extensions/platform
+binaries or selectors changing payload require a different profile. Use the
+[shared noarch workflow](https://github.com/uibcdf/molsyssuite/blob/main/devguide/noarch_conda_workflow.md),
+a reviewed tested equivalent or a bounded policy exception. Build one file once,
+inspect versions/resources before upload, and preserve the claimed installed
+matrix. The first migration requires staging and installed qualification. Pinned
+wrappers reuse common build/upload and exact-file promotion; components own their
+scientific installed gates. A green probe with skipped tests cannot authorize
+publication. These controls add no suite to ordinary internal pushes.
+
 Commit a reviewed route decision before tagging. Stage candidates that require
 pre-public installed/pair validation, add unvalidated compatibility, are coupled
 or already have files registered under any label. Eligible ordinary direct
