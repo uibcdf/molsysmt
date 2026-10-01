@@ -3,8 +3,11 @@
 **Status:** normative for writers and readers implemented by MolSysMT.
 
 H5MSM is the versioned native persistence format for complete or partial
-molecular systems. New writers emit version 0.4. Readers support versions 0.3
-and 0.4 and reject missing, malformed, or unknown versions explicitly.
+molecular systems. Public conversion and h5msm writers emit version 0.5. Readers support versions
+0.3, 0.4 and 0.5, with deprecation warnings for legacy input. Unknown versions
+are rejected explicitly. The legacy codec details below describe 0.3/0.4; the
+public modular layout is documented in
+[H5MSM 0.5](../docs/content/user/tools/form/file/h5msm_05.md).
 
 ## Root contract
 
@@ -16,7 +19,9 @@ Every file carries at least:
 - canonical unit declarations;
 - creation and modification timestamps.
 
-The root contains `topology` and `structures` groups. Absence of an optional
+Legacy roots contain `topology` and `structures` groups. Modular 0.5 layers
+`topology`, `chemical_states`, `structures` and named `interactions` are optional,
+with explicit associations; MolecularMechanics is outside 0.5. Absence of an optional
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
 
@@ -70,8 +75,8 @@ derived from missing membership, and component evidence is `unknown` because
 not a claim that the source format recorded that evidence.
 
 Legacy 0.3 extraction may retain a 0.3 output layout so large trajectories can
-be subset without materializing all coordinates. Any normal new conversion or
-write emits 0.4.
+be subset without materializing all coordinates. Public new conversion and writes emit 0.5. The explicit legacy codec retains
+its 0.4 layout for legacy operations.
 
 ## Extraction safety
 
@@ -99,3 +104,13 @@ Current bundled demos use H5MSM 0.4 and are validated against
 `molsysmt/data/demo_manifest.json`. One immutable 0.3 alanine-dipeptide fixture
 is isolated under `tests/form/file_h5msm/data/` for read-compatibility tests.
 Regenerating a file is not itself validation.
+
+## Declared hydrogen annotations
+
+The registered optional atom-state field `n_explicit_hydrogens` uses nullable UInt8
+semantics and the ordinary sibling null mask. It stores atom-level declarations
+such as RDKit `[NH2+]`, not indexed bonded H atoms or implicit hydrogens. The current
+chemical codec preserves it in 0.4/0.5; absent historical fields remain unknown.
+Readers predating the column may reject files containing it. Source atom/structure
+axes never grow merely to preserve this annotation. Guard:
+`tests/form/rdkit_Mol/test_declared_hydrogen_round_trip.py`.

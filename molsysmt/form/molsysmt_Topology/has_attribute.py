@@ -5,6 +5,7 @@ _ATOM_STATE_COLUMNS = {
     "atom_is_aromatic": "is_aromatic",
     "n_unpaired_electrons": "n_unpaired_electrons",
     "n_implicit_hydrogens": "n_implicit_hydrogens",
+    "n_explicit_hydrogens": "n_explicit_hydrogens",
     "allows_implicit_hydrogens": "allows_implicit_hydrogens",
     "atom_stereochemistry": "stereochemistry",
 }

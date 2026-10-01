@@ -7,7 +7,10 @@ from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulat
 from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.sparse_membership import pack_membership
 from molsysmt.interactions.result import Interactions
-from molsysmt.pbc._whole_participants import require_whole_participants
+from molsysmt.pbc._whole_participants import (
+    require_whole_participants,
+    validate_periodic_boxes,
+)
 from molsysmt.structure._group_minimum_contacts import bounded_group_minimum_contacts
 from molsysmt.structure._plane import fit_planes, plane_pair_geometry
 
@@ -41,11 +44,7 @@ class _PiPiReducer(Reducer):
         if coordinates is None or coordinates.shape != (len(frames), len(self.universe), 3) or not np.isfinite(coordinates).all():
             raise StructuralInconsistencyError(reason="Finite coordinates are required for every evaluated ring atom.", caller=caller)
         if boxes is not None:
-            if boxes.shape != (len(frames), 3, 3) or not np.isfinite(boxes).all():
-                raise StructuralInconsistencyError(reason="Periodic boxes must be finite and nonsingular.", caller=caller)
-            scale = np.max(np.abs(boxes), axis=(1, 2))
-            if np.any(scale == 0) or np.any(np.abs(np.linalg.det(boxes / scale[:, None, None])) <= 1e-12):
-                raise StructuralInconsistencyError(reason="Periodic boxes are numerically singular after scale normalization.", caller=caller)
+            validate_periodic_boxes(boxes, len(frames), caller=caller)
             for xyz, box in zip(coordinates, boxes):
                 require_whole_participants(xyz, box, self.offsets, self.positions, caller)
         has_box = boxes is not None

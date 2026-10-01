@@ -18,6 +18,7 @@ def _set_atom_state_attribute(item, attribute, indices, value):
         "atom_is_aromatic": "is_aromatic",
         "n_unpaired_electrons": "n_unpaired_electrons",
         "n_implicit_hydrogens": "n_implicit_hydrogens",
+        "n_explicit_hydrogens": "n_explicit_hydrogens",
         "allows_implicit_hydrogens": "allows_implicit_hydrogens",
         "atom_stereochemistry": "stereochemistry",
     }[attribute]
@@ -119,6 +120,30 @@ def set_n_implicit_hydrogens_to_atom(
     .. versionadded:: 1.0.0
     """
     return _set_atom_state_attribute(item, "n_implicit_hydrogens", indices, value)
+
+
+@arg_digest(form=form)
+def set_n_explicit_hydrogens_to_atom(
+    item, indices="all", value=None, skip_digestion=False
+):
+    """
+    Setting bracket-declared hydrogen counts to atom on form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Molecular system supplying the declared chemical state.
+    indices : object, default='all'
+        Atom indices whose coordinate-free explicit hydrogen counts are requested.
+    value : object, default=None
+        Nonnegative declared hydrogen counts; these are not bonded hydrogen atoms.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    .. versionadded:: 1.0.0
+    """
+    return _set_atom_state_attribute(item, "n_explicit_hydrogens", indices, value)
 
 
 @arg_digest(form=form)

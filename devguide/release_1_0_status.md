@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-29
+**Last updated:** 2026-10-01
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -71,6 +71,17 @@ Public H5MSM 0.5 round trips for named analyses and supported partial `MolSys`
 combinations are contract-tested. Incremental interaction editing, bounded
 public file access, and MolSysViewer consumer agreement remain open.
 TopoMT, PharmacophoreMT, and DockingMT integrations do not gate 1.0.
+
+The 2026-10-01 detector checkpoint adds an experimental cation-pi API with the
+attributed ProLIF 2.2.2 core definition as default and a separately named MolSysMT
+proposal. Its original-detector parity, declared hydrogen conversion repair,
+forms/units/scopes/PBC/persistence, executed documentation and bounded scale
+measurements are recorded in
+[the completed implementation report](archive/resolved_proposals/implement_cation_pi_observations_with_reusable_charge_and_plane_tools.md)
+and [the benchmark guide](benchmarking/cation_pi.md).
+The general SMARTS tool belongs to topology. Broader scientific comparison remains
+open in uibcdf/molsysmt#271 and does not gate 1.0; no claim of superior physical
+accuracy or a passed final release-candidate gate follows from this checkpoint.
 The 2026-09-29 integration inspection found that H5MSM 0.4 extraction
 materializes and rewrites a full `MolSys`; it cannot preserve attached
 interactions and now rejects that export. Native copy, extraction, atom

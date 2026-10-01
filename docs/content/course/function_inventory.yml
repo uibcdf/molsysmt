@@ -112,3 +112,17 @@ molsysmt.interactions.pi_pi.get_pi_pi_interactions:
   first_introduced_in: Path_Biophysics/39_Physicochemical_Properties.ipynb
   doc_ref: "{func}`molsysmt.interactions.pi_pi.get_pi_pi_interactions`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.pi_pi.get_pi_pi_interactions()**: Calculates geometric aromatic ring observations. See {func}`molsysmt.interactions.pi_pi.get_pi_pi_interactions`.\n:::"
+
+molsysmt.interactions.cation_pi.get_cation_pi_interactions:
+  name: "msm.interactions.cation_pi.get_cation_pi_interactions"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Calculates attributed cation-pi geometries and a separately identified proposal."
+  doc_ref: "{func}`molsysmt.interactions.cation_pi.get_cation_pi_interactions`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.cation_pi.get_cation_pi_interactions()**: Calculates attributed ProLIF geometries or the explicitly named proposal. See {func}`molsysmt.interactions.cation_pi.get_cation_pi_interactions`.\n:::"
+
+molsysmt.topology.get_substructure_matches:
+  name: "msm.topology.get_substructure_matches"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Matches complete chemical SMARTS without silent truncation."
+  doc_ref: "{func}`molsysmt.topology.get_substructure_matches`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_substructure_matches()**: Matches declared chemical graphs with explicit query limits. See {func}`molsysmt.topology.get_substructure_matches`.\n:::"

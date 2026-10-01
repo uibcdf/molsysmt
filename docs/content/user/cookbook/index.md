@@ -21,6 +21,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`preparing_aromatic_participants`** | Preparing complete ring participants from declared aromatic chemistry. |
 | **{doc}`preparing_charged_participants`** | Recognizing local charged centers and selecting complete chemical participants. |
 | **{doc}`saving_ionic_interactions`** | Calculating, naming, saving, and querying an ionic-contact analysis. |
+| **{doc}`saving_cation_pi_interactions`** | Saving attributed cation–π observations and a separate geometric proposal. |
 | **{doc}`saving_pi_pi_interactions`** | Calculating, naming, saving, and querying aromatic ring geometry. |
 
 ```{eval-rst}
@@ -43,6 +44,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    preparing_charged_participants.ipynb
    saving_ionic_interactions.ipynb
    saving_pi_pi_interactions.ipynb
+   saving_cation_pi_interactions.ipynb
 ```
 
 :::{tip}

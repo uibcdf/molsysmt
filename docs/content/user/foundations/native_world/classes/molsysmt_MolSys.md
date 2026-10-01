@@ -88,6 +88,17 @@ families in `molsys.interactions` under different names. See
 
 ---
 
+The cation–π detector defaults to the attributed ProLIF 2.2.2 definition and returns
+another named analysis. Its original method reference is separate from the producing
+MolSysMT/RDKit versions. The custom centroid/angle/offset proposal has a different
+participant and geometric definition; no scientific superiority is established.
+See {ref}`Tutorial_Get_cation_pi_interactions` and
+{ref}`Cookbook_Saving_cation_pi_interactions`.
+
+ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-level
+explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native
+and H5MSM round trips preserve the annotations without adding coordinate rows.
+
 ## Invariants and Performance
 
 Structural iteration reads the existing `structures` domain without copying

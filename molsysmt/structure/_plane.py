@@ -4,7 +4,10 @@ import numpy as np
 
 from molsysmt._private.execution import Reducer
 from molsysmt._private.smonitor import StructuralInconsistencyError
-from molsysmt.pbc._whole_participants import require_whole_participants
+from molsysmt.pbc._whole_participants import (
+    require_whole_participants,
+    validate_periodic_boxes,
+)
 
 
 def fit_planes(coordinates, offsets, positions, *, caller):
@@ -39,6 +42,42 @@ def plane_pair_geometry(centers, normals, pairs, target_images, box=None):
     offset_b = np.linalg.norm(delta - np.einsum("ij,ij->i", delta, b)[:, None] * b, axis=1)
     return np.linalg.norm(delta, axis=1), angle, offset_a, offset_b
 
+
+def plane_point_geometry(points, centers, normals):
+    """Measure point distances, acute normal angles, lateral offsets and heights.
+
+    Corresponding rows refer to the same observed Cartesian image; lengths
+    retain the numerical input unit and angles are radians. No chemical or
+    interaction criterion is applied. Normals must be unit vectors.
+    """
+    delta = points - centers
+    projection = np.einsum("ij,ij->i", delta, normals)
+    offset = np.linalg.norm(delta - projection[:, None] * normals, axis=1)
+    height = np.abs(projection)
+    return np.linalg.norm(delta, axis=1), np.arctan2(offset, height), offset, height
+
+
+def centroid_edge_planes(coordinates, offsets, positions):
+    """Form centroid planes from the first two ordered members of each group.
+
+    This reproduces ProLIF's geometric construction; it is not a least-squares
+    fit. Degenerate centroid edges produce NaN normals/deviations, allowing a
+    caller to reject undefined angular observations without changing the group.
+    """
+    from molsysmt.structure._centroid import packed_centroids
+
+    centers = packed_centroids(coordinates, offsets, positions)
+    first = coordinates[:, positions[offsets[:-1]]] - centers
+    second = coordinates[:, positions[offsets[:-1] + 1]] - centers
+    normals = np.cross(first, second)
+    lengths = np.linalg.norm(normals, axis=-1)
+    normals = np.divide(normals, lengths[..., None], out=np.full_like(normals, np.nan), where=lengths[..., None] > 0)
+    groups = np.repeat(np.arange(len(centers[0])), np.diff(offsets))
+    delta = coordinates[:, positions] - centers[:, groups]
+    deviation = np.einsum("tij,tij->ti", delta, normals[:, groups])
+    rms = np.sqrt(np.add.reduceat(deviation ** 2, offsets[:-1], axis=1) / np.diff(offsets))
+    maximum = np.maximum.reduceat(np.abs(deviation), offsets[:-1], axis=1)
+    return centers, normals, rms, maximum
 
 
 class PlaneReducer(Reducer):
@@ -77,14 +116,7 @@ class PlaneReducer(Reducer):
                     reason="PBC plane fitting requires finite, nonsingular boxes for every selected structure.",
                     caller=self.caller,
                 )
-            scale = np.max(np.abs(boxes), axis=(1, 2))
-            if np.any(scale == 0) or np.any(
-                np.abs(np.linalg.det(boxes / scale[:, None, None])) <= 1e-12
-            ):
-                raise StructuralInconsistencyError(
-                    reason="Periodic boxes are numerically singular after scale normalization.",
-                    caller=self.caller,
-                )
+            validate_periodic_boxes(boxes, len(frames), caller=self.caller)
             for xyz, box in zip(coordinates, boxes):
                 require_whole_participants(xyz, box, self.offsets, self.positions, self.caller)
         block = fit_planes(coordinates, self.offsets, self.positions, caller=self.caller)

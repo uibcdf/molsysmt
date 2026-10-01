@@ -16,6 +16,7 @@ _PUBLIC_TO_NATIVE_ATOM_STATE = {
     "atom_is_aromatic": "is_aromatic",
     "n_unpaired_electrons": "n_unpaired_electrons",
     "n_implicit_hydrogens": "n_implicit_hydrogens",
+    "n_explicit_hydrogens": "n_explicit_hydrogens",
     "allows_implicit_hydrogens": "allows_implicit_hydrogens",
     "atom_stereochemistry": "stereochemistry",
 }
@@ -163,6 +164,33 @@ def get_n_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=False
     """
 
     return _get_atom_state_attribute(item, "n_implicit_hydrogens", indices=indices)
+
+
+@arg_digest(form=form)
+def get_n_explicit_hydrogens_from_atom(item, indices="all", skip_digestion=False):
+    """
+    Getting bracket-declared hydrogen counts from atom in form molsysmt.Topology.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Molecular system supplying the declared chemical state.
+    indices : object, default='all'
+        Atom indices whose coordinate-free explicit hydrogen counts are requested.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Declared per-atom hydrogen counts, preserving unknown values and requested order.
+
+
+    .. versionadded:: 1.0.0
+    """
+
+    return _get_atom_state_attribute(item, "n_explicit_hydrogens", indices=indices)
 
 
 @arg_digest(form=form)

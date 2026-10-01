@@ -39,8 +39,15 @@ def digest_method(method, caller=None):
             return method
         raise ArgumentError("method", value=method, caller=caller)
 
-    if caller == "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions":
+    if caller in {
+        "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
+    }:
         if isinstance(method, str) and method == "centroid_angle_offset":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
+    if caller == "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions":
+        if isinstance(method, str) and method in {"prolif", "centroid_angle_offset"}:
             return method
         raise ArgumentError("method", value=method, caller=caller)
 

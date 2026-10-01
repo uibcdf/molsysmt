@@ -18,3 +18,6 @@
 
 - Preserve experimental pi-pi geometric criteria, whole-ring selections, sparse
   evaluated-frame coverage, explicit named attachment and executed-tool/recipe links.
+
+- Preserve attributed ProLIF cation-pi versus the custom proposal, full-state SMARTS,
+  hydrogen annotation semantics, sparse coverage and executed tutorial/recipe links.

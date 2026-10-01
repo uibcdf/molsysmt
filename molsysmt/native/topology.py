@@ -296,6 +296,7 @@ _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES = {
     "is_aromatic": "boolean",
     "n_unpaired_electrons": "UInt8",
     "n_implicit_hydrogens": "UInt8",
+    "n_explicit_hydrogens": "UInt8",
     "allows_implicit_hydrogens": "boolean",
     "stereochemistry": "string",
 }

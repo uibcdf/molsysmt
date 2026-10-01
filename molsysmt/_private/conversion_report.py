@@ -8,6 +8,7 @@ _CHEMICAL_ATTRIBUTES = (
     "atom_is_aromatic",
     "n_unpaired_electrons",
     "n_implicit_hydrogens",
+    "n_explicit_hydrogens",
     "allows_implicit_hydrogens",
     "atom_stereochemistry",
     "bond_id",
@@ -152,6 +153,7 @@ _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE = {
         "atom_is_aromatic",
         "n_unpaired_electrons",
         "n_implicit_hydrogens",
+        "n_explicit_hydrogens",
         "allows_implicit_hydrogens",
         "atom_stereochemistry",
     ),
@@ -522,6 +524,7 @@ def _audit_native_topology_to_dict(
         ("atom_is_aromatic", "is_aromatic"),
         ("n_unpaired_electrons", "n_unpaired_electrons"),
         ("n_implicit_hydrogens", "n_implicit_hydrogens"),
+        ("n_explicit_hydrogens", "n_explicit_hydrogens"),
         ("allows_implicit_hydrogens", "allows_implicit_hydrogens"),
         ("atom_stereochemistry", "stereochemistry"),
     )
@@ -1147,6 +1150,7 @@ def _native_multistate_has(item, source_form, attribute):
         "atom_is_aromatic": "is_aromatic",
         "n_unpaired_electrons": "n_unpaired_electrons",
         "n_implicit_hydrogens": "n_implicit_hydrogens",
+        "n_explicit_hydrogens": "n_explicit_hydrogens",
         "allows_implicit_hydrogens": "allows_implicit_hydrogens",
         "atom_stereochemistry": "stereochemistry",
     }

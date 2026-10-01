@@ -116,6 +116,7 @@ where = ["."]
 molsysmt = [
     "py.typed",
     "form/*/form.json",
+    "interactions/cation_pi/PROLIF_LICENSE.txt",
 ]
 "molsysmt.data" = ["**"]
 

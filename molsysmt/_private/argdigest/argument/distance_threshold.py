@@ -12,7 +12,9 @@ common_functions_with_distance_threshold = [
     "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
 ]
 
-common_functions_with_distance_threshold_and_None = []
+common_functions_with_distance_threshold_and_None = [
+    "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions",
+]
 
 
 def digest_distance_threshold(distance_threshold, caller=None):

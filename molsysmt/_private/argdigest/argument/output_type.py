@@ -7,6 +7,7 @@ def digest_output_type(output_type, caller=None):
         caller in {
             "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",
             "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
+            "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions",
         }
     ):
         if isinstance(output_type, str) and output_type.lower() in {

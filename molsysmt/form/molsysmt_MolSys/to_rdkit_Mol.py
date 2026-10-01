@@ -96,6 +96,7 @@ def to_rdkit_Mol(
     aromatic = _optional_atom_values(topology, "is_aromatic")
     radicals = _optional_atom_values(topology, "n_unpaired_electrons")
     allows_implicit = _optional_atom_values(topology, "allows_implicit_hydrogens")
+    explicit_hydrogens = _optional_atom_values(topology, "n_explicit_hydrogens")
     stereochemistry = _optional_atom_values(topology, "stereochemistry")
 
     editable = Chem.RWMol()
@@ -129,6 +130,8 @@ def to_rdkit_Mol(
             atom.SetNoImplicit(not bool(allows_implicit.iloc[atom_index]))
         if aromatic is not None and not pd.isna(aromatic.iloc[atom_index]):
             atom.SetIsAromatic(bool(aromatic.iloc[atom_index]))
+        if explicit_hydrogens is not None and not pd.isna(explicit_hydrogens.iloc[atom_index]):
+            atom.SetNumExplicitHs(int(explicit_hydrogens.iloc[atom_index]))
         editable.AddAtom(atom)
 
     bond_type_by_order = {

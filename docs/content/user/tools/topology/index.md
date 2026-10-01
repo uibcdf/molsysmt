@@ -45,6 +45,7 @@ whose bond table is empty.
 
 |      |      |
 | :--- | :--- |
+| [Get substructure matches](get_substructure_matches.ipynb) | Matching complete chemical SMARTS with {func}`molsysmt.topology.get_substructure_matches` |
 | [Get rings](get_rings.ipynb) | Perceiving a sparse covalent cycle basis |
 | [Get bondgraph](get_bondgraph.ipynb) | Getting the bondgraph of a molecular system |
 | [Get covalent blocks](get_covalent_blocks.ipynb) | Getting the covalent blocks of a molecular system |
@@ -60,6 +61,7 @@ whose bond table is empty.
    :hidden:
 
    get_rings.ipynb
+   get_substructure_matches.ipynb
    get_bondgraph.ipynb
    get_covalent_blocks.ipynb
    get_covalent_paths.ipynb

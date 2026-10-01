@@ -81,3 +81,7 @@ Publication, README, or release claims must link to the exact result artifact
 and reproducible command. Re-run competitor comparisons against current pinned
 versions and describe semantic differences; do not infer architectural
 superiority from one operation or dataset.
+
+The [cation-pi controls](cation_pi.md) separate attributed ProLIF geometry from
+the custom proposal and record calculation, queries, memory and H5MSM costs.
+Scientific comparison remains tracked by uibcdf/molsysmt#271.

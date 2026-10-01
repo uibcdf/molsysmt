@@ -90,6 +90,7 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
             "atom_is_aromatic",
             "n_unpaired_electrons",
             "n_implicit_hydrogens",
+            "n_explicit_hydrogens",
             "allows_implicit_hydrogens",
             "atom_stereochemistry",
             "bond_id",

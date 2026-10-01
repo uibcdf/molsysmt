@@ -2,7 +2,7 @@
 
 from importlib import import_module
 
-__all__ = ["hbonds", "disulfides", "ionic", "pi_pi"]
+__all__ = ["hbonds", "disulfides", "ionic", "pi_pi", "cation_pi"]
 
 
 def __getattr__(name):

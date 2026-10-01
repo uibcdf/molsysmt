@@ -16,6 +16,7 @@ and explicit distance, angle, offset and planarity cutoffs.
 - {doc}`result` — building, querying, and saving sparse interaction results.
 - {doc}`get_ionic_interactions` — calculating scoped formal-charge contacts.
 - {doc}`get_pi_pi_interactions` — calculating parallel and edge-to-face ring geometry.
+- {doc}`get_cation_pi_interactions` — reproducing ProLIF cation–π observations and examining a separate proposal.
 
 ```{eval-rst}
 .. toctree::
@@ -25,4 +26,5 @@ and explicit distance, angle, offset and planarity cutoffs.
    result
    get_ionic_interactions
    get_pi_pi_interactions
+   get_cation_pi_interactions
 ```

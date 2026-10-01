@@ -24,3 +24,5 @@ prune sandbox
 prune tests
 prune molsysmt/.pytest_cache
 global-exclude *.py[cod] *.so *.pyd *.dylib *.nbi *.nbc
+
+include molsysmt/interactions/cation_pi/PROLIF_LICENSE.txt

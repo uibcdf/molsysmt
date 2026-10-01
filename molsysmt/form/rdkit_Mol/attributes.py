@@ -19,6 +19,7 @@ attributes["partial_charge"] = True
 attributes["atom_is_aromatic"] = True
 attributes["n_unpaired_electrons"] = True
 attributes["n_implicit_hydrogens"] = True
+attributes["n_explicit_hydrogens"] = True
 attributes["allows_implicit_hydrogens"] = True
 attributes["atom_stereochemistry"] = True
 attributes["fractional_bond_order"] = True

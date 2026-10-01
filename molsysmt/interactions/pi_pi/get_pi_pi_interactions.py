@@ -7,7 +7,6 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import (
     ArgumentError,
-    MemoryBudgetExceededError,
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
@@ -186,12 +185,12 @@ def get_pi_pi_interactions(
     from copy import copy
 
     from molsysmt import configure
-    from molsysmt._private.execution import ChunkedExecutor
-    from molsysmt._private.execution.memory_policy import decide_mode
+    from molsysmt._private.execution.projected_geometry import (
+        execute_projected_geometry,
+    )
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
-    from molsysmt.basic import convert, get, get_form, select
-    from molsysmt.form import _dict_modules
+    from molsysmt.basic import convert, get, select
     from molsysmt.interactions.pi_pi._reducer import _PiPiReducer
     from molsysmt.interactions.result import Interactions
     from molsysmt.native import MolSys
@@ -303,32 +302,10 @@ def get_pi_pi_interactions(
         result = Interactions.from_records([], **metadata)
     else:
         per_frame = 4 * 24 * len(universe) + 256 * len(active_indices) + 192 * max(len(members[i]) for i in active_indices) + 2048 + (288 if pbc else 0)
-        block_budget = configure.max_ram_usage // 4
-        max_chunk_size = min(configure.chunk_size, block_budget // per_frame)
-        if max_chunk_size < 1:
-            raise UnsupportedHeavyOperationError(operation=_CALLER, form="pi-pi coordinate blocks",
-                                                 reason="One projected coordinate/plane frame exceeds the block working estimate.")
-        mode = decide_mode(per_frame * len(frames) * 4, heavy_mode)
-        if mode == "eager" and per_frame * len(frames) > block_budget:
-            raise MemoryBudgetExceededError(reason="Selected eager plane work exceeds the block budget; use streaming.",
-                                            predicted_bytes=per_frame * len(frames), available_bytes=block_budget, caller=_CALLER)
-        metadata["parameters"]["execution"] = "chunked" if mode == "heavy" else "eager"
         reducer = _PiPiReducer(members=members, active=active_indices, universe=universe, searches=searches,
                               excluded=connected_group_pairs(members, covalent), thresholds=thresholds,
                               geometry=geometry, metadata=metadata, budget_bytes=configure.max_ram_usage)
-        form = get_form(coordinate_source)
-        attributes = ["coordinates", "box"] if pbc else ["coordinates"]
-        if isinstance(form, str) and getattr(_dict_modules[form], "_heavy_support", {}).get("coordinates", False):
-            result = ChunkedExecutor(coordinate_source, form, _CALLER, reducer=reducer, atom_indices=universe,
-                                     structure_indices=frames, attributes=attributes,
-                                     heavy_mode="force" if mode == "heavy" else "off",
-                                     max_chunk_size=max_chunk_size).execute()
-        else:
-            if mode == "heavy":
-                raise UnsupportedHeavyOperationError(operation=_CALLER, form=str(form), reason="No streamed coordinate delivery route.")
-            reducer.initialize({})
-            coordinates = get(coordinate_source, selection=universe, structure_indices=frames, coordinates=True)
-            box = get(coordinate_source, structure_indices=frames, box=True) if pbc else None
-            reducer.consume(ChunkedExecutor._build_chunk({"coordinates": coordinates, "box": box, "structure_indices": frames}))
-            result = reducer.finalize()
+        result = execute_projected_geometry(coordinate_source, universe=universe, frames=frames,
+                                            reducer=reducer, per_frame_bytes=per_frame,
+                                            pbc=pbc, heavy_mode=heavy_mode, caller=_CALLER)
     return result if output_type == "molsysmt.interactions" else convert(result, to_form="molsysmt.InteractionsDict")

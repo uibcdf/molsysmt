@@ -32,7 +32,8 @@ Properties defining electronic states, formal/partial charges, and protonation:
 | **`formal_charge`** | Atom / Group | Integer electronic formal charge state. | `elementary_charge` (`e`) |
 | **`electronegativity`** | Atom | Pauling or Mulliken atomic electronegativity scale value. | N/A |
 | **`aromaticity`** | Atom / Bond | Huckel aromaticity classification flag. | Boolean |
-| **`n_implicit_hydrogens`** | Atom / Group | Count of non-explicitly modeled hydrogen atoms. | Integer |
+| **`n_implicit_hydrogens`** | Atom | Implicit hydrogen count in the declared chemical graph. | Integer |
+| **`n_explicit_hydrogens`** | Atom | Atom-level hydrogen annotations such as RDKit bracket H counts; these do not add indexed H atoms. | Integer |
 | **`n_unpaired_electrons`** | Atom | Radical or free electron count. | Integer |
 | **`pka`** | Group | Acid dissociation constant value for ionizable groups. | N/A |
 

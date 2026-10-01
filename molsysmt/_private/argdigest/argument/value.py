@@ -176,6 +176,11 @@ def digest_value(value, caller=None):
 
             return digest_n_implicit_hydrogens(value, caller=caller)
 
+        if caller.endswith("set_n_explicit_hydrogens_to_atom"):
+            from .n_explicit_hydrogens import digest_n_explicit_hydrogens
+
+            return digest_n_explicit_hydrogens(value, caller=caller)
+
         if caller.endswith("set_allows_implicit_hydrogens_to_atom"):
             from .allows_implicit_hydrogens import digest_allows_implicit_hydrogens
 

@@ -150,12 +150,14 @@ def test_optional_atom_state_columns_preserve_nullable_dtypes_and_values():
         "stereochemistry", ["R", "unspecified", pd.NA]
     )
 
+    topology._set_chemical_state_atom_attribute("n_explicit_hydrogens", [0, 2, pd.NA])
     atom_attributes = topology._reference_chemical_state.atom_attributes
     assert atom_attributes.columns.tolist() == [
         "formal_charge",
         "is_aromatic",
         "n_unpaired_electrons",
         "n_implicit_hydrogens",
+        "n_explicit_hydrogens",
         "allows_implicit_hydrogens",
         "stereochemistry",
     ]
@@ -163,6 +165,8 @@ def test_optional_atom_state_columns_preserve_nullable_dtypes_and_values():
     assert str(atom_attributes["is_aromatic"].dtype) == "boolean"
     assert str(atom_attributes["n_unpaired_electrons"].dtype) == "UInt8"
     assert str(atom_attributes["n_implicit_hydrogens"].dtype) == "UInt8"
+    assert str(atom_attributes["n_explicit_hydrogens"].dtype) == "UInt8"
+    assert atom_attributes["n_explicit_hydrogens"].tolist() == [0, 2, pd.NA]
     assert str(atom_attributes["allows_implicit_hydrogens"].dtype) == "boolean"
     assert str(atom_attributes["stereochemistry"].dtype) == "string"
     assert atom_attributes["formal_charge"].tolist() == [-1, 0, 1]

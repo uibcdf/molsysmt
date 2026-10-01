@@ -1106,6 +1106,16 @@ add_attribute(
     nullable=True,
 )
 add_attribute(
+    "n_explicit_hydrogens",
+    runs_on_elements=True,
+    chemical_state=True,
+    get_from=["atom"],
+    set_to="atom",
+    domain="atom",
+    dtype="UInt8",
+    nullable=True,
+)
+add_attribute(
     "allows_implicit_hydrogens",
     runs_on_elements=True,
     chemical_state=True,

@@ -120,6 +120,7 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
         "is_aromatic": [atom.GetIsAromatic() for atom in atoms],
         "n_unpaired_electrons": [atom.GetNumRadicalElectrons() for atom in atoms],
         "n_implicit_hydrogens": [atom.GetNumImplicitHs() for atom in atoms],
+        "n_explicit_hydrogens": [atom.GetNumExplicitHs() for atom in atoms],
         "allows_implicit_hydrogens": [not atom.GetNoImplicit() for atom in atoms],
         "stereochemistry": [_rdkit_atom_stereochemistry(atom) for atom in atoms],
     }

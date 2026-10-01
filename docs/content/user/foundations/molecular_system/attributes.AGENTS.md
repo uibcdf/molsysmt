@@ -16,5 +16,5 @@ This micro-governance contract governs [`docs/content/user/foundations/molecular
 
 3. **Programmatic Attribute Catalog**:
    - Section MUST be titled `## Attributes you can get`.
-   - The complete catalog of 118 attributes MUST be generated programmatically from `molsysmt.attribute.attributes` via a hidden code cell (`"tags": ["remove-input"]`).
+   - The complete catalog of registered attributes MUST be generated programmatically from `molsysmt.attribute.attributes` via a hidden code cell (`"tags": ["remove-input"]`).
    - Renders a clean full-width HTML table (`class="table"`, `justify='left'`, 100% width) without scroll containers.

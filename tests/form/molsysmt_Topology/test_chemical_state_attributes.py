@@ -14,6 +14,7 @@ def test_registry_classifies_the_complete_first_atom_state_vertical():
         "atom_is_aromatic": ("boolean", None),
         "n_unpaired_electrons": ("UInt8", None),
         "n_implicit_hydrogens": ("UInt8", None),
+        "n_explicit_hydrogens": ("UInt8", None),
         "allows_implicit_hydrogens": ("boolean", None),
         "atom_stereochemistry": ("string", None),
     }

@@ -65,6 +65,13 @@ assembly is present, because its chain indices cannot be remapped without a
 topology. `msm.convert` likewise rejects writing an atom subset that retains
 bioassembly metadata until chain indices can be remapped safely.
 
+Chemical-state atom tables also preserve nullable `n_explicit_hydrogens` (UInt8),
+separately from implicit hydrogen counts and indexed H atoms. A missing old field
+stays unknown; it is not reconstructed. Readers predating this optional column may
+reject files containing it. Current readers accept older files lacking it. Named
+cation–π analyses preserve the original method reference as well as producer versions;
+ProLIF's SMARTS membership order remains available to reconstruct its ring normal.
+
 ## Reading optional layers
 
 `msm.h5msm.read_layers` returns a dictionary. Each requested layer is present

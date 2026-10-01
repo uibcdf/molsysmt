@@ -147,6 +147,32 @@ def get_n_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=False
 
 
 @arg_digest(form=form)
+def get_n_explicit_hydrogens_from_atom(item, indices="all", skip_digestion=False):
+    """
+    Getting bracket-declared hydrogen counts from atom in form file:h5msm.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Molecular system supplying the declared chemical state.
+    indices : object, default='all'
+        Atom indices whose coordinate-free explicit hydrogen counts are requested.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Declared per-atom hydrogen counts, preserving unknown values and requested order.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return _get_atom_state_attribute(item, "n_explicit_hydrogens", indices)
+
+
+@arg_digest(form=form)
 def get_allows_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting allows implicit hydrogens from atom in form file:h5msm.

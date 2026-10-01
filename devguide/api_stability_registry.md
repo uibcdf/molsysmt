@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 89 |
+| experimental | 92 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -236,6 +236,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.topology.get_rings` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_alignment` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_identity` | experimental | active | pre-1.0 |
+| `molsysmt.topology.get_substructure_matches` | experimental | active | pre-1.0 |
 
 ### `molsysmt.hbonds`
 
@@ -265,6 +266,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
+| `molsysmt.interactions.cation_pi` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.disulfides` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.ionic` | experimental | active | pre-1.0 |
@@ -312,3 +314,9 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
 | `molsysmt.interactions.pi_pi.get_pi_pi_interactions` | experimental | active | pre-1.0 |
+
+### `molsysmt.interactions.cation_pi`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.cation_pi.get_cation_pi_interactions` | experimental | active | pre-1.0 |

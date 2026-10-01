@@ -61,6 +61,10 @@
     "molsysmt.interactions.pi_pi": {
       "source": "molsysmt/interactions/pi_pi/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions.cation_pi": {
+      "source": "molsysmt/interactions/cation_pi/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -1633,6 +1637,27 @@
       "owner": "interactions.pi_pi",
       "documentation": "docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb",
       "contract_tests": "tests/interactions/pi_pi/test_get_pi_pi_interactions.py"
+    },
+    "molsysmt.interactions.cation_pi": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.cation_pi",
+      "documentation": "docs/content/user/tools/interactions/get_cation_pi_interactions.ipynb",
+      "contract_tests": "tests/interactions/cation_pi/test_get_cation_pi_interactions.py"
+    },
+    "molsysmt.interactions.cation_pi.get_cation_pi_interactions": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.cation_pi",
+      "documentation": "docs/content/user/tools/interactions/get_cation_pi_interactions.ipynb",
+      "contract_tests": "tests/interactions/cation_pi/test_get_cation_pi_interactions.py"
+    },
+    "molsysmt.topology.get_substructure_matches": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "topology",
+      "documentation": "docs/content/user/tools/topology/get_substructure_matches.ipynb",
+      "contract_tests": "tests/topology/get_substructure_matches/test_get_substructure_matches.py"
     }
   }
 }
