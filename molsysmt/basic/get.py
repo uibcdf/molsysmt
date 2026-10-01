@@ -112,6 +112,10 @@ def get(
       MolSys. Convert an external form before querying a non-reference state.
     - ``chemical_state='structure'`` requires a native MolSys and rejects
       missing associations or structure selections spanning multiple states.
+    - Empty native connectivity is valid. With ``element='atom'``, ``n_bonds``
+      returns a zero count and ``bond_index`` an empty list for each selected
+      atom. With ``element='system'`` (the default), the total bond count is zero.
+      This does not establish that chemical connectivity is complete.
     - Form-independent attributes such as box lengths, angles, shape, and volume
       are derived from the box matrix when the source form exposes that matrix
       but does not implement a dedicated getter.
@@ -153,6 +157,13 @@ def get(
     >>> molsys.structures.coordinates = msm.pyunitwizard.quantity(np.zeros((2, 1, 3)), 'nm')
     >>> msm.get(molsys, structure_chemical_state_index=True)
     [0, 0]
+
+
+    >>> molsys = Topology(n_atoms=2)
+    >>> msm.get(molsys, element='atom', n_bonds=True)
+    [0, 0]
+    >>> msm.get(molsys, element='atom', bond_index=True)
+    [[], []]
 
 
     .. admonition:: Tutorial with more examples

@@ -1381,31 +1381,41 @@ def get_chain_type_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bond_index_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting bond index from atom in form molsysmt.Topology.
-
+    """Getting incident bond indices for each selected atom.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native molsysmt.Topology supplying the selected chemical-state bonds.
+    indices : str or list of int, default='all'
+        Source atom indices. 'all' includes every atom; an empty list selects none.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list of list of int
+        One list of source bond indices per requested atom, including bonds to
+        atoms outside the selection. An atom without bonds has an empty list.
 
+    Notes
+    -----
+    Empty connectivity is valid and does not imply complete chemical assignment.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_bond_index_from_atom(Topology(n_atoms=2))
+    [[], []]
 
     .. versionadded:: 1.0.0
     """
     output = None
 
     G = Graph()
-    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    edges = np.asarray(
+        get_bonded_atom_pairs_from_bond(item, skip_digestion=True), dtype=np.int64
+    ).reshape(-1, 2)
     n_bonds = len(edges)
     edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
         [n_bonds, 1]
@@ -1540,24 +1550,22 @@ def get_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting bonded atom pairs from atom in form molsysmt.Topology.
-
+    """Getting bond endpoint pairs incident on selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native molsysmt.Topology supplying the selected chemical-state bonds.
+    indices : str or list of int, default='all'
+        Source atom indices. 'all' includes every atom; an empty list selects none.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
-
+    list of list of int
+        Source atom-index pairs for bonds touching at least one selected atom,
+        in source bond order. No bonds or no selected atoms yields an empty list.
 
     .. versionadded:: 1.0.0
     """
@@ -1568,7 +1576,7 @@ def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
 
     else:
         pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-        pairs = np.array(pairs)
+        pairs = np.asarray(pairs, dtype=np.int64).reshape(-1, 2)
         mask = np.isin(pairs[:, 0], indices) | np.isin(pairs[:, 1], indices)
         output = pairs[mask, :].tolist()
 
@@ -1579,31 +1587,31 @@ def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_inner_bond_index_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting inner bond index from atom in form molsysmt.Topology.
-
+    """Getting selected internal bond indices for each selected atom.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native molsysmt.Topology supplying the selected chemical-state bonds.
+    indices : str or list of int, default='all'
+        Source atom indices. 'all' includes every atom; an empty list selects none.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
-
+    list of list of int
+        One list per requested atom, containing source bond indices whose two
+        atoms are selected. Atoms without internal bonds have empty lists.
 
     .. versionadded:: 1.0.0
     """
     output = None
 
     G = Graph()
-    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    edges = np.asarray(
+        get_bonded_atom_pairs_from_bond(item, skip_digestion=True), dtype=np.int64
+    ).reshape(-1, 2)
     n_bonds = len(edges)
     edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
         [n_bonds, 1]
@@ -2081,24 +2089,28 @@ def get_total_n_chains_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_bonds_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n bonds from atom in form molsysmt.Topology.
-
+    """Counting incident bonds for each selected atom.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native molsysmt.Topology supplying the selected chemical-state bonds.
+    indices : str or list of int, default='all'
+        Source atom indices. 'all' includes every atom; an empty list selects none.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list of int
+        One count per requested atom, including bonds to unselected atoms.
+        Atoms without bonds have count zero; no selected atoms yields an empty list.
 
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_bonds_from_atom(Topology(n_atoms=2))
+    [0, 0]
 
     .. versionadded:: 1.0.0
     """
@@ -4292,7 +4304,7 @@ def get_inner_bond_index_from_group(item, indices="all", skip_digestion=False):
             aux = []
         output.append(aux)
 
-    del atom_indices_from_group, bonded_atom_pairs, bond_indices_from_atom, pairs
+    del atom_indices_from_group, bonded_atom_pairs, bond_indices_from_atom
 
     return output
 
