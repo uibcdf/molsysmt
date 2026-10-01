@@ -28,9 +28,65 @@ paper, and a list built from what a library *contains* cannot make that distinct
 - **Nothing breaks without it.** Ackredit is an optional dependency, and the pattern in
   section 1 is what keeps your library working when it is absent.
 
+## Optional MolSysSuite scientific clients
+
+The accepted [MolSysSuite client policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ackredit_client_policy.md)
+applies to new or changed optional scientific method/result attribution boundaries.
+Utilities without such boundaries record non-applicability. Guide distribution
+does not establish runtime adoption or published compatibility.
+
+- Keep bibliographic declarations offline in host constants, checked against the
+  original work. Load Ackredit and register records only when an attribution
+  boundary is requested. Importing the host must not import Ackredit or perform
+  network/filesystem work.
+- Use supported public `register_item`, `scope` and `track_item` operations at the
+  branch actually reached. Distinguish criterion, adapted reference implementation
+  and executed software in host result context. Track per calculation or meaningful
+  child operation, not per pair/frame/occurrence. Completed evaluated-empty analyses
+  retain provenance; failures cannot claim successful completion.
+- Applications own sessions. Contribute to the current session; do not replace it
+  with an isolated component session or subtract deduplicated session IDs to infer
+  a result's references.
+- Each result retains detached bibliographic records and original producer versions,
+  including references reused by other results. Reading a saved result preserves
+  that provenance without crediting another calculation.
+- Absence preserves results and host-owned provenance. Provider failures emit host
+  catalog diagnostics and preserve completed science without claiming successful
+  tracking. Isolate provider errors without swallowing scientific exceptions.
+- Libraries must not automatically enable import hooks, auto tracking, enrichment,
+  journals or reminders. Applications may explicitly opt into documented features.
+- Use a real provider to test observed credit, reused references across two results,
+  enclosing workflows, empty results, genuine absence, failure, detached ownership,
+  fresh-process lazy import and fresh readers retaining original versions without
+  new credit. An installed flag or mocked success is insufficient.
+- Verify provider floors and published dependency closure for each claimed Python
+  minor. Keep the client's existing support range; editable pilot evidence does not
+  authorize a public extra or installation claim.
+
+Portable capture/export/import remains pending in uibcdf/ackredit#75. No new API is
+promised here. Until supported, bounded host adapters use public operations and
+host-owned result schemas. Do not read private registries, copy renderers or treat
+journals of IDs as a portable bibliography. The MolSysMT pilot at
+`e21f03d9992b87af2cc9285211adee888462be41` is consumer evidence; its
+`molsysmt.scientific_attribution@1` schema remains local.
+
+A MolSysSuite client needing other initialization/session semantics records a
+reviewed member-owned exception with the affected rule, reason, owner and issue,
+interim controls, expiry and removal condition. Provider implementation and member
+runtime adoption remain separate.
+
+## Eager demonstration profile
+
+Sections 1–6 and the worked examples below describe the existing eager profile
+for deliberate eager integrations and third-party demonstrations. Its template
+is tested against the example libraries. Optional MolSysSuite scientific clients
+use the deferred profile above; do not copy eager import/registration into them.
+
 ## 1. Centralization File: `_ackredit.py`
 
-Every host library should have a `_ackredit.py` file in its main package directory to centralize Ackredit's configuration and handle it as an optional dependency.
+Hosts centralize their integration in `_ackredit.py`. The following template is
+for the eager demonstration profile; deferred clients load the provider only at
+their attribution boundary.
 
 The single rule this file exists to enforce: **the host keeps working when Ackredit is absent**. Every name it exports must therefore have a fallback with the *same signature* as the real one, or the host will break precisely in the case the pattern was meant to protect.
 
@@ -172,7 +228,9 @@ These call the module directly, which is why the template imports `ackredit` as 
 
 ### Auto-Discovery of Dependencies
 
-If your library uses external packages (like `mdtraj`) and you want Ackredit to track them automatically, enable the hooks early in your initialization — before your `__init__` imports the submodules that import those packages:
+An application explicitly choosing automatic discovery enables hooks before the
+imports it wants to observe. This is an application choice; optional scientific
+libraries must not enable hooks in their own initialization:
 
 ```python
 from ._ackredit import ACKREDIT_INSTALLED, ackredit
@@ -195,7 +253,9 @@ if ACKREDIT_INSTALLED:
 
 ### Session Persistence
 
-For long-running scientific workflows, you can ensure no citation is lost even if the script crashes:
+An application may explicitly choose a persistence journal for a long-running
+workflow. Libraries must not enable it automatically; a journal is not a detached
+result bibliography:
 
 ```python
 from ._ackredit import ACKREDIT_INSTALLED, ackredit
@@ -228,18 +288,21 @@ By following this pattern, the host library remains functional even if Ackredit 
 1.  **The host works without Ackredit.** Every name `_ackredit.py` exports has a fallback
     with the *same signature* as the real one. A fallback that has drifted breaks your
     library precisely in the case the pattern exists to protect.
-2.  **Declare at import, credit at runtime.** `register_item` and `bind` say what *could*
-    be cited and belong at import time. `track_item` says what *was* used and belongs in
-    the code path that used it. Crediting at import is the behaviour Ackredit replaces.
+2.  **Declare offline, credit at runtime.** The eager demonstration profile registers
+    and binds at import. Optional MolSysSuite clients keep declarations in offline
+    constants and defer provider registration until use. `track_item` belongs in the
+    code path actually reached; importing a library never earns scientific credit.
 3.  **Bind the unconditional, track the conditional.** If a citation depends on the path
     taken, call `track_item` on that branch. `credit_bound=True` is for the coarse case
     and credits on every call, which is why it is opt-in.
 4.  **Never write a truncation as a name.** `"et al."`, `"and others"` and `"..."` are
     rendering decisions, not people. Written into `authors`, BibTeX turns them into a
     person and the bibliography credits someone who does not exist.
-5.  **Do not silence the integration.** The `try`/`except ImportError` is deliberately
+5.  **Do not silence the integration.** In the eager template, `try`/`except ImportError` is deliberately
     quiet, so a host with Ackredit installed but mis-integrated is indistinguishable from
     one without it. Assert `ACKREDIT_INSTALLED` where it matters — section 6.
+    Deferred clients distinguish genuine absence from a broken provider and emit
+    catalog diagnostics for failures, as required by the optional profile above.
 
 ## SMonitor Integration
 

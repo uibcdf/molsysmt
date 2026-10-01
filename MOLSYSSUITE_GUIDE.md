@@ -337,6 +337,24 @@ capabilities and track concrete remediation in the component repository. The com
 repository policy gate enforces the offline identity baseline; service freshness still
 requires a separate networked audit under `devguide/repository_badges.md`.
 
+## Optional scientific attribution
+
+For new or changed optional scientific attribution boundaries, follow the
+[Ackredit client policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ackredit_client_policy.md)
+and the synchronized `ACKREDIT_GUIDE.md` where present. Defer provider imports and
+registration until use, credit the executed branch, contribute to the application's
+session and keep detached bibliography and original versions in results. Provider
+absence or diagnosed failure preserves completed scientific results. Libraries
+must not automatically enable hooks, enrichment, journals or reminders.
+
+Evidence must observe a real provider, reused references, enclosing workflows,
+absence/failure and fresh readers; pilot evidence does not certify published
+dependency closure. Ackredit owns portable attribution APIs; members own their
+scientific schemas and runtime adoption. Utilities without attribution boundaries
+record non-applicability. Different initialization/session semantics require a
+reviewed member exception with its rule, reason, owner, interim controls, expiry
+and removal condition. Guide distribution alone does not establish adoption.
+
 ## GitHub Actions inspection
 
 Follow the [MolSysSuite developer-tools policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md)
