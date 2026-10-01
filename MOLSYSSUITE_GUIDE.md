@@ -262,6 +262,34 @@ runtime adoption are independent states. Shared rollout is tracked in
 
 MolSysSuite defines member release identity in its [release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md), enforces it, and maintains the historical-tag inventory and separate `policy-vX.Y.Z` governance-release namespace.
 
+## Conda staging and publication
+
+When preparing or changing Conda publication, apply the
+[shared publication contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/conda_publication_policy.md).
+Classify native ABI3, noarch Python or metapackage artifacts; retain the
+component's actual platform/Python matrix, recipe, installed-resource/launcher
+checks, secrets and scientific gates. A member without Conda publication records
+non-applicability.
+
+Commit a reviewed route decision before tagging. Stage candidates that require
+pre-public installed/pair validation, add unvalidated compatibility, are coupled
+or already have files registered under any label. Eligible ordinary direct
+releases keep automatic publication, after exact-source native gates and a fresh
+conclusive all-label absence check. Manual builds are staging-only; public builds
+never use `--no-test` or overwrite immutable coordinates. A bootstrap exception
+identifies the cycle, exact candidate, counterpart gate, owner and expiry.
+
+Promote the exact validated files by SHA-256 with retained receipts; use additive
+build repairs and the reviewed dependency-first order. Verify public main labels
+and solver-index records independently with the pinned common Conda verifier.
+After a verifier/index failure, rerun that read-only boundary without repeating
+promotion. Its file/inventory evidence, producer receipts and installed-pair
+tests remain separate claims. Adopt the lightweight publication guard or a
+documented tested equivalent before affected release work; it adds no general
+scientific suite to internal development pushes. Scope, versioned templates,
+commands, existing-profile adoption and dated exceptions are in the policy and
+its [rollout inventory](https://github.com/uibcdf/molsyssuite/blob/main/devguide/rollouts/conda_publication.md).
+
 ## Repository badges
 
 MolSysSuite owns member badge evidence, its role taxonomy and generated suite identity baseline. Every member README carries the centrally generated MolSysSuite identity baseline in

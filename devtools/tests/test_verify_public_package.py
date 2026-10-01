@@ -34,3 +34,10 @@ def test_independent_recheck_has_no_mutation_credentials_or_promotion():
     assert all("/promote@" not in step.get("uses", "") for step in steps)
     assert all("ANACONDA_UIBCDF_TOKEN" not in str(step) for step in steps)
     assert not (ROOT / "devtools/conda-build/verify_public_package.py").exists()
+
+
+def test_publication_guard_is_pinned_and_runs_without_scientific_jobs():
+    data = yaml.load((ROOT / ".github/workflows/check-conda-publication.yml").read_text(), Loader=yaml.BaseLoader)
+    assert set(data["on"]) == {"push", "pull_request", "workflow_dispatch"}
+    assert data["permissions"] == {"contents": "read"}
+    assert data["jobs"] == {"publication": {"uses": "uibcdf/molsyssuite/.github/workflows/check-conda-publication.yaml@2a63a15d67d2e72724b6349e89f9f026b25e860f"}}
