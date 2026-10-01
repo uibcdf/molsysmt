@@ -81,7 +81,7 @@ def set(
       named interaction analysis on the selected structures. Their observations
       are removed and those structures become unevaluated. Other structures
       and existing result views are preserved; no scientific recalculation is
-      performed. Empty selections and non-geometric edits do not invalidate.
+      performed. Empty selections and identifier/time edits do not invalidate.
       With attached analyses, full geometry assignment cannot resize the
       structure axis; use extraction or append operations instead.
     - Invalidation is staged before geometry delegation. If delegation fails
@@ -89,6 +89,15 @@ def set(
       write may have occurred. Allocation and validation failures before
       delegation preserve the existing system. Direct edits through a separate
       Structures object require explicit owner invalidation.
+    - Editing native MolSys atom-state assignments or scientific bond-state
+      attributes invalidates every evaluated structure in every named analysis.
+      This includes charge, aromaticity, hydrogen and stereochemical assignments;
+      ``bond_id`` remains a label. Chemical dependencies are not inferred, even
+      when ``chemical_state`` names one state or ``structure_indices`` selects
+      only some structures: the assignment changes that state's chemical data.
+      Editing ``structure_chemical_state_index`` invalidates only the selected
+      structures. Direct Topology/ChemicalStates aliases and mechanics edits
+      require explicit owner invalidation.
 
 
     See Also
@@ -124,6 +133,10 @@ def set(
     >>> molsys.interactions = {'example': analysis}
     >>> msm.set(molsys, coordinates=msm.pyunitwizard.quantity(
     ...     [[[1, 0, 0]]], 'nm'))
+    >>> molsys.interactions['example'].evaluated_structure_indices.tolist()
+    []
+    >>> molsys.interactions = {'example': analysis}
+    >>> msm.set(molsys, element='atom', formal_charge=[0])
     >>> molsys.interactions['example'].evaluated_structure_indices.tolist()
     []
 

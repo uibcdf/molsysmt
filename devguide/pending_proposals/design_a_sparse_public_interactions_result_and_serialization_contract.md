@@ -22,6 +22,24 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Controlled chemical-state edit lifecycle — 2026-10-01
+
+Public `msm.set` atom-state and scientific bond-state assignments on native
+MolSys, and owner-level `MolSys.chemical_states` replacement, now invalidate
+all evaluated frames in every named analysis. This conservative rule does not
+infer per-method chemical dependencies. Editing or clearing the frame-to-state
+association invalidates only selected frames. Empty selections and bond IDs
+preserve analyses. Earlier snapshots, source maps, units and producer metadata
+survive; staged invalidation protects allocation failures and uncertain writes.
+
+The concrete stale-evidence defect is tracked by uibcdf/molsysmt#287 and guarded
+by `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`. The normative
+contract belongs in [Interaction Analysis API](../interactions_api.md). Separate
+Topology/ChemicalStates aliases, direct topology replacement, mechanics and raw
+data edits require explicit owner invalidation. This extends #285's copying
+primitive; it does not implement an observer protocol, scientific recalculation
+or an incremental editor. Those broader gates remain open in #251 and #252.
+
 ## Current checkpoint — 2026-10-01
 
 The [normative interaction contract](../interactions_api.md) now covers nine

@@ -740,16 +740,40 @@ Native MolSys coordinate and box form setters invalidate all named analyses
 in their selected frames, including evaluated-empty frames. The affected
 occurrences and coverage are removed; untouched frames, metadata, index maps,
 and old result/query snapshots remain intact. Empty atom/frame selections and
-non-geometric writes do not invalidate. Full geometry assignment with attached
+identifier/time writes do not invalidate. Full geometry assignment with attached
 analyses cannot resize the frame axis; use the supported extract/append routes.
 Invalidation snapshots are staged before delegation. Allocation or validation
 failures before delegation preserve the system; after delegation starts,
 failures conservatively leave selected frames unevaluated because writes may
 be partial. No detector runs automatically. This is the existing copying
 invalidation primitive, not an incremental editor. Direct writes through a
-separate Structures object still require explicit owner invalidation; chemistry
-changes and arbitrary aliases do not acquire an observer protocol from this fix.
+separate Structures object still require explicit owner invalidation.
 The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
+
+Public `msm.set` atom-state and scientific bond-state assignments on native
+MolSys invalidate all evaluated frames in every named analysis. Owner-level
+`MolSys.chemical_states` replacement does the same. This includes atom charges,
+aromaticity, radical and hydrogen assignments, stereochemistry, bond order and
+type, aromaticity/conjugation, direction and reference atoms, component
+participation and evidence. Bond IDs remain labels and do not invalidate.
+Empty atom/bond selections preserve analyses. The atom-state assignment changes
+the selected chemical state, not just a frame's copy; supplying one state or
+some `structure_indices` therefore does not narrow this conservative rule.
+No complete per-analysis chemical dependency graph is assumed.
+
+Assigning or clearing `structure_chemical_state_index` changes the frame
+association and invalidates only the selected frames, including evaluated-empty
+ones. Invalid associations and incompatible ChemicalStates replacements are
+rejected before publishing edits. The same staged snapshot primitive protects
+allocation failures and uncertain delegate writes; no detector is invoked.
+Earlier views, metadata, source maps and original producer versions survive.
+The guard is `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`.
+
+Raw arrays/DataFrames, separate Topology or ChemicalStates aliases, direct
+Topology replacement and MolecularMechanics changes require explicit owner
+invalidation. They do not acquire an observer protocol through the controlled
+setters. The invalidation primitive still copies packed arrays; incremental
+editing and finer chemical dependencies remain separate work.
 The required H5MSM and MolSysViewer integrations are tracked
 in the [1.0 execution plan](pending_proposals/release_1_0_execution_plan.md)
 and the design proposal [#251](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).

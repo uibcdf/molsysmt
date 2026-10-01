@@ -128,7 +128,7 @@ ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-lev
 explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native
 and H5MSM round trips preserve the annotations without adding coordinate rows.
 
-## Geometry Updates
+## Evidence Updates
 
 Editing coordinates or periodic boxes with `msm.set(molsys, ...)` removes
 observations and evaluated coverage for the selected structures in every named
@@ -137,7 +137,7 @@ unevaluated after its geometry changes. Other structures and previously held
 result/query snapshots remain intact. Recalculate the changed structures before
 claiming new observations or evaluated-empty coverage.
 
-Empty atom/frame selections and non-geometric changes such as time do not
+Empty atom/frame selections and identifier/time changes do not
 invalidate analyses. With attached results, full geometry assignment preserves
 the structure axis; use extraction or append operations to change that axis.
 The existing snapshot invalidation copies packed result arrays and is not an
@@ -148,6 +148,20 @@ This automatic boundary is the native MolSys form. If you edit a separately
 accessed `molsys.structures` directly, explicitly replace each affected named
 result with `analysis.invalidate_structures(structure_indices)`. Geometry
 setters do not infer changes made through independent objects or aliased data.
+
+Changing chemical-state atom or scientific bond assignments through
+`msm.set(molsys, ...)`, or replacing `molsys.chemical_states`, marks every
+named analysis unevaluated. Charge centers, aromatic participants and
+hydrogen-bond roles can change at fixed coordinates. MolSysMT conservatively
+invalidates all covered structures because it does not infer each method's
+chemical dependencies. Empty atom/bond selections and bond ID changes preserve
+analyses. Assigning or clearing `structure_chemical_state_index` invalidates
+only the selected structures. Earlier result/query snapshots remain available.
+
+Separately accessed Topology/ChemicalStates collections, direct topology
+replacement, mechanics changes and raw table/array edits require explicit
+owner invalidation. Recalculate and attach new results before claiming that
+these changed data have been evaluated.
 
 ## Invariants and Performance
 

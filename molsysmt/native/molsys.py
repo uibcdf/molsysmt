@@ -182,14 +182,14 @@ class MolSys:
                 )
 
     @contextmanager
-    def _editing_structure_geometry(self, structure_indices, atom_indices=None):
+    def _invalidating_interaction_frames(self, structure_indices, atom_indices=None):
         """Staging frame invalidation before writes and publishing it on failure.
 
-        The caller has validated the geometry edit and preserved index domains.
+        The caller has validated the edit and preserved index domains.
         Once delegation starts, a failure may follow a partial write; retaining
         unevaluated frames is safer than preserving their old observations.
         """
-        if (not self._interactions
+        if (not getattr(self, "_interactions", {})
                 or (atom_indices is not None and not is_all(atom_indices)
                     and np.asarray(atom_indices).size == 0)):
             yield
@@ -282,6 +282,13 @@ class MolSys:
 
     @chemical_states.setter
     def chemical_states(self, value):
+        """Replacing chemical states and invalidating attached observations.
+
+        A validated replacement marks every named analysis unevaluated.
+        Previously held result and query snapshots remain unchanged. Editing
+        a separately accessed ChemicalStates collection requires explicit
+        owner invalidation; this setter does not observe its internal aliases.
+        """
         from .chemical_states import ChemicalStates
 
         if not isinstance(value, ChemicalStates):
@@ -338,9 +345,10 @@ class MolSys:
                     ),
                     caller="molsysmt.native.MolSys",
                 )
-        self._chemical_states_domain = value
-        if self.topology is not None:
-            self.topology._chemical_states_domain = value
+        with self._invalidating_interaction_frames("all"):
+            self._chemical_states_domain = value
+            if self.topology is not None:
+                self.topology._chemical_states_domain = value
 
     @signal(tags=["native"])
     @arg_digest()
@@ -581,7 +589,8 @@ class MolSys:
                 )
 
         if values is None and is_all(structure_indices):
-            self._structure_chemical_state_indices = None
+            with self._invalidating_interaction_frames(indices):
+                self._structure_chemical_state_indices = None
             return
 
         if values is None or values is pd.NA:
@@ -615,10 +624,14 @@ class MolSys:
             )
 
         if self._structure_chemical_state_indices is None:
-            self._structure_chemical_state_indices = pd.array(
+            candidate = pd.array(
                 [pd.NA] * n_structures, dtype="Int64"
             )
-        self._structure_chemical_state_indices[indices] = array
+        else:
+            candidate = self._structure_chemical_state_indices.copy()
+        candidate[indices] = array
+        with self._invalidating_interaction_frames(indices):
+            self._structure_chemical_state_indices = candidate
 
     def _resolve_structure_chemical_state_index(self, structure_indices="all"):
         """Resolve one state shared by the requested structures or fail closed."""

@@ -11,6 +11,8 @@ form = "molsysmt.MolSys"
 
 
 def _set_atom_state_attribute(item, attribute, indices, value):
+    if not is_all(indices) and len(indices) == 0:
+        return
     if attribute == "formal_charge" and puw.is_quantity(value):
         value = puw.get_value(value, to_unit="elementary_charge")
     native_attribute = {
@@ -23,11 +25,12 @@ def _set_atom_state_attribute(item, attribute, indices, value):
         "atom_stereochemistry": "stereochemistry",
     }[attribute]
     atom_indices = None if is_all(indices) else indices
-    item.topology._set_chemical_state_atom_attribute(
-        native_attribute, value, atom_indices=atom_indices
-    )
-    if attribute == "formal_charge":
-        item.molecular_mechanics.formal_charge = None
+    with item._invalidating_interaction_frames("all", atom_indices=indices):
+        item.topology._set_chemical_state_atom_attribute(
+            native_attribute, value, atom_indices=atom_indices
+        )
+        if attribute == "formal_charge":
+            item.molecular_mechanics.formal_charge = None
 
 
 @arg_digest(form=form)
@@ -46,6 +49,11 @@ def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=Fa
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
 
     .. versionadded:: 1.0.0
     """
@@ -68,6 +76,11 @@ def set_atom_is_aromatic_to_atom(item, indices="all", value=None, skip_digestion
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
 
     .. versionadded:: 1.0.0
     """
@@ -93,6 +106,11 @@ def set_n_unpaired_electrons_to_atom(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
+
     .. versionadded:: 1.0.0
     """
     return _set_atom_state_attribute(item, "n_unpaired_electrons", indices, value)
@@ -116,6 +134,11 @@ def set_n_implicit_hydrogens_to_atom(
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
 
     .. versionadded:: 1.0.0
     """
@@ -141,6 +164,11 @@ def set_n_explicit_hydrogens_to_atom(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
+
     .. versionadded:: 1.0.0
     """
     return _set_atom_state_attribute(item, "n_explicit_hydrogens", indices, value)
@@ -164,6 +192,11 @@ def set_allows_implicit_hydrogens_to_atom(
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
 
     .. versionadded:: 1.0.0
     """
@@ -189,6 +222,11 @@ def set_atom_stereochemistry_to_atom(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty assignments invalidate all evaluated frames in every named
+    interaction analysis. Earlier result/query snapshots remain unchanged.
+
     .. versionadded:: 1.0.0
     """
     return _set_atom_state_attribute(item, "atom_stereochemistry", indices, value)
@@ -201,7 +239,11 @@ def _set_bond_state_attribute(item, attribute, indices, value):
 
     topology_set = import_module("molsysmt.form.molsysmt_Topology.set")
     function = getattr(topology_set, f"set_{attribute}_to_bond")
-    return function(item.topology, indices=indices, value=value, skip_digestion=True)
+    if (attribute == "bond_id" or (not is_all(indices) and len(indices) == 0)
+            or (is_all(indices) and item.topology.n_bonds == 0)):
+        return function(item.topology, indices=indices, value=value, skip_digestion=True)
+    with item._invalidating_interaction_frames("all"):
+        return function(item.topology, indices=indices, value=value, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -220,6 +262,10 @@ def set_bond_id_to_bond(item, indices="all", value=None, skip_digestion=False):
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Bond IDs are labels; this assignment preserves named interaction analyses.
 
     .. versionadded:: 1.0.0
     """
@@ -242,6 +288,11 @@ def set_bond_order_to_bond(item, indices="all", value=None, skip_digestion=False
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
 
     .. versionadded:: 1.0.0
     """
@@ -267,6 +318,11 @@ def set_fractional_bond_order_to_bond(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
+
     .. versionadded:: 1.0.0
     """
     return _set_bond_state_attribute(item, "fractional_bond_order", indices, value)
@@ -289,6 +345,11 @@ def set_bond_type_to_bond(item, indices="all", value=None, skip_digestion=False)
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
+
     .. versionadded:: 1.0.0
     """
     return _set_bond_state_attribute(item, "bond_type", indices, value)
@@ -310,6 +371,11 @@ def set_bond_is_aromatic_to_bond(item, indices="all", value=None, skip_digestion
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
 
     .. versionadded:: 1.0.0
     """
@@ -335,6 +401,11 @@ def set_bond_is_conjugated_to_bond(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
+
     .. versionadded:: 1.0.0
     """
     return _set_bond_state_attribute(item, "bond_is_conjugated", indices, value)
@@ -358,6 +429,11 @@ def set_bond_stereochemistry_to_bond(
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
 
     .. versionadded:: 1.0.0
     """
@@ -383,6 +459,11 @@ def set_bond_stereo_atom_indices_to_bond(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
+
     .. versionadded:: 1.0.0
     """
     return _set_bond_state_attribute(item, "bond_stereo_atom_indices", indices, value)
@@ -406,6 +487,11 @@ def set_bond_donor_atom_index_to_bond(
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
 
     .. versionadded:: 1.0.0
     """
@@ -431,6 +517,11 @@ def set_bond_acceptor_atom_index_to_bond(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
+
     .. versionadded:: 1.0.0
     """
     return _set_bond_state_attribute(item, "bond_acceptor_atom_index", indices, value)
@@ -455,6 +546,11 @@ def set_bond_joins_components_to_bond(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
+
     .. versionadded:: 1.0.0
     """
     return _set_bond_state_attribute(item, "bond_joins_components", indices, value)
@@ -476,6 +572,11 @@ def set_bond_evidence_to_bond(item, indices="all", value=None, skip_digestion=Fa
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Notes
+    -----
+    Nonempty scientific bond assignments invalidate all evaluated frames in
+    every named analysis. Empty selections preserve analyses; no detector runs.
 
     .. versionadded:: 1.0.0
     """
@@ -1130,7 +1231,7 @@ def set_coordinates_to_atom(
             "Geometry setters cannot resize a structure axis with attached interactions; use extraction or append_structures.",
             caller="molsysmt.form.molsysmt_MolSys.set",
         )
-    with item._editing_structure_geometry(structure_indices, atom_indices=indices):
+    with item._invalidating_interaction_frames(structure_indices, atom_indices=indices):
         return aux_set(
             item.structures,
             indices=indices,
@@ -2881,6 +2982,11 @@ def set_structure_chemical_state_index_to_system(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Assigning or clearing the association invalidates named analyses only in
+    the selected frames. Invalid values are rejected before publishing edits.
+
     .. versionadded:: 1.0.0
     """
 
@@ -2951,7 +3057,7 @@ def set_box_to_system(item, structure_indices="all", value=None, skip_digestion=
             "Geometry setters cannot resize a structure axis with attached interactions; use extraction or append_structures.",
             caller="molsysmt.form.molsysmt_MolSys.set",
         )
-    with item._editing_structure_geometry(structure_indices):
+    with item._invalidating_interaction_frames(structure_indices):
         return aux_set(
             item.structures,
             structure_indices=structure_indices,

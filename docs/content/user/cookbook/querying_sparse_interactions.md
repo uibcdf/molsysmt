@@ -176,6 +176,29 @@ assert updated.query(structure_indices=[3]).n_interactions == 1
 assert old_view.n_interactions == 1
 ```
 
+Chemical-state assignments have a wider scope. Changing a formal charge or
+aromaticity through `msm.set(molsys, ...)` invalidates every covered structure
+in every named analysis. Replacing `molsys.chemical_states` does the same.
+The library does not infer which methods depend on the edited assignment.
+Changing `structure_chemical_state_index` instead invalidates only the selected
+structures. Bond identifiers and empty selections preserve analyses.
+
+The records in this recipe remain synthetic; this charge edit illustrates
+invalidation without assigning a scientific interpretation to those records:
+
+```python
+previous_ring_view = molsys.interactions['example'].query(structure_indices=[3])
+msm.set(molsys, element='atom', selection=[0], formal_charge=0)
+assert molsys.interactions['example'].evaluated_structure_indices.size == 0
+assert molsys.interactions['example'].n_interactions == 0
+assert previous_ring_view.n_interactions == 1
+```
+
+Direct Topology/ChemicalStates aliases, topology replacement, mechanics changes
+and raw table/array writes need explicit owner invalidation. Use
+`analysis.invalidate_structures(...)` to replace each affected named result
+before calculating new evidence.
+
 An observed proximity is separate from the chemical state's covalent graph.
 For example, explicitly adding a covalent bond changes the `ChemicalStates`
 domain and the compatible `Topology.bonds` view together:
