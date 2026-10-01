@@ -8,6 +8,12 @@ reference software package invented the scientific criterion.
 from molsysmt._private.smonitor import ArgumentError
 
 PROFILES = {
+    "halogen_bonds": {
+        ("distance_two_angles", "smarts_donor_acceptor"): "distance_two_angles",
+    },
+    "halogen_bond_sites": {
+        ("smarts_donor_acceptor", None): "smarts_donor_acceptor",
+    },
     "hbonds": {
         ("baker_hubbard", "nitrogen_oxygen"): "baker_hubbard",
         ("wernet_nilsson", "nitrogen_oxygen"): "wernet_nilsson",
@@ -34,6 +40,7 @@ PROFILES = {
 }
 
 DEFAULT_PROFILES = {
+    "distance_two_angles": "smarts_donor_acceptor",
     "baker_hubbard": "nitrogen_oxygen",
     "wernet_nilsson": "nitrogen_oxygen",
     "donor_acceptor_distance_angle": "elemental_fon",

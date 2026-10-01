@@ -26,6 +26,8 @@ def _bibliography(definition, software, parameters):
     implementation = definition["implementation"]
     if method in ARTICLES:
         items.append(_article(method, "scientific_criterion"))
+    for name in parameters.get("scientific_references", ()):
+        items.append(_article(name, "scientific_criterion"))
     reference = parameters.get("method_reference")
     if reference is not None:
         name = reference.get("software", "").lower().replace("*", "star")
@@ -77,7 +79,9 @@ def attributed(family, fixed_method=None):
                     parameters, software = result.parameters, result.software
                 elif hasattr(result, "data") and result.data.get("schema") == "molsysmt.interactions_dict":
                     parameters, software = result.data["parameters"], result.data["software"]
-                elif isinstance(result, dict) and "donor_hydrogen_pairs" in result:
+                elif isinstance(result, dict) and (
+                    "donor_hydrogen_pairs" in result or "donor_halogen_pairs" in result
+                ):
                     parameters, software = result, result["software"]
                 else:
                     parameters, software = {}, {"molsysmt": __version__}

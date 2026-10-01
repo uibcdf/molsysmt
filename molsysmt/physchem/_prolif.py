@@ -31,3 +31,9 @@ PROLIF_HBOND_PATTERNS = (
     ",$([o+0])"
     ",$([F&$(F-[#6])&!$(F-[#6][F,Cl,Br,I])])]",
 )
+
+# XBAcceptor matches D-X and A-R; !# includes double/aromatic bonds but not triple.
+PROLIF_HALOGEN_PATTERNS = (
+    "[#6,#7,Si,F,Cl,Br,I]-[Cl,Br,I,At]",
+    "[#7,#8,P,S,Se,Te,a;!+{1-}]!#[*]",
+)

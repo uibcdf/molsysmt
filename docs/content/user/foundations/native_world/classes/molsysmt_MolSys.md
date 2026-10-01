@@ -50,7 +50,7 @@ correspond to the system. MolSysMT checks compatible axes and valid results;
 you are responsible for the correspondence of independently loaded data.
 Source labels and maps retain provenance without authenticating that origin.
 Chemical recognition and geometric criteria are separate parts of an analysis.
-Named hydrogen-bond, π–π and cation–π profiles carry their pinned method references;
+Named hydrogen-bond, π–π, cation–π and halogen profiles carry their pinned method references;
 a geometric profile on declared participants need not reproduce the reference
 package's feature discovery. Different definitions remain separate named analyses.
 The method reference describes the reproduced definition, while the producer
@@ -108,6 +108,12 @@ MolSysMT/RDKit versions. The custom centroid/angle/offset proposal has a differe
 participant and geometric definition; no scientific superiority is established.
 See {ref}`Tutorial_Get_cation_pi_interactions` and
 {ref}`Cookbook_Saving_cation_pi_interactions`.
+
+The experimental halogen detector adds an independent named analysis with four
+roles: donor, halogen, acceptor and acceptor reference. Every eligible reference
+neighbor remains identifiable. Chemical recognition can be inspected separately
+through the general site tool. See {ref}`Tutorial_Get_halogen_bond_sites`,
+{ref}`Tutorial_Get_halogen_bonds` and {ref}`Cookbook_Saving_halogen_bonds`.
 
 ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-level
 explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native

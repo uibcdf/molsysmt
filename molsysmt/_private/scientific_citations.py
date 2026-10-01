@@ -6,6 +6,11 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "auffinger_2004": dict(
+        doi="10.1073/pnas.0407607101", title="Halogen bonds in biological molecules",
+        authors=["Auffinger, Pascal", "Hays, Franklin A.", "Westhof, Eric", "Ho, P. Shing"],
+        year=2004, journal="Proceedings of the National Academy of Sciences",
+        volume="101", pages="16789-16794"),
     "baker_hubbard": dict(
         doi="10.1016/0079-6107(84)90007-5", title="Hydrogen bonding in globular proteins",
         authors=["Baker, E. N.", "Hubbard, R. E."], year=1984,

@@ -22,6 +22,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`preparing_charged_participants`** | Recognizing local charged centers and selecting complete chemical participants. |
 | **{doc}`saving_ionic_interactions`** | Calculating, naming, saving, and querying an ionic-contact analysis. |
 | **{doc}`saving_cation_pi_interactions`** | Saving attributed cation–π observations and a separate geometric proposal. |
+| **{doc}`saving_halogen_bonds`** | Naming, saving and remapping four-role halogen observations. |
 | **{doc}`saving_hbond_interactions`** | Persisting named hydrogen-bond definitions and sparse coverage. |
 | **{doc}`saving_pi_pi_interactions`** | Calculating, naming, saving, and querying aromatic ring geometry. |
 
@@ -30,6 +31,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    :maxdepth: 1
    :hidden:
 
+   saving_halogen_bonds.ipynb
    building_complex_dimers.ipynb
    spectacular_visualizations.ipynb
    simulation_workflow.ipynb

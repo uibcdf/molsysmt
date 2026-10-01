@@ -65,6 +65,10 @@
     "molsysmt.interactions.cation_pi": {
       "source": "molsysmt/interactions/cation_pi/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions.halogen_bonds": {
+      "source": "molsysmt/interactions/halogen_bonds/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -1674,6 +1678,27 @@
       "owner": "interactions.hbonds",
       "documentation": "docs/content/user/tools/interactions/get_hbonds.ipynb",
       "contract_tests": "tests/interactions/hbonds/test_attributed_hbonds.py"
+    },
+    "molsysmt.interactions.halogen_bonds": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.halogen_bonds",
+      "documentation": "docs/content/user/tools/interactions/get_halogen_bonds.ipynb",
+      "contract_tests": "tests/interactions/halogen_bonds/test_get_halogen_bonds.py"
+    },
+    "molsysmt.interactions.halogen_bonds.get_halogen_bonds": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.halogen_bonds",
+      "documentation": "docs/content/user/tools/interactions/get_halogen_bonds.ipynb",
+      "contract_tests": "tests/interactions/halogen_bonds/test_get_halogen_bonds.py"
+    },
+    "molsysmt.physchem.get_halogen_bond_sites": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb",
+      "contract_tests": "tests/physchem/test_get_halogen_bond_sites.py"
     }
   }
 }

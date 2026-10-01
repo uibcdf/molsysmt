@@ -21,7 +21,7 @@ final consumer and exact-candidate recertification remain open.
 
 ## Current checkpoint — 2026-10-01
 
-The initial inventory has five implemented experimental families, not eight
+The initial inventory has six implemented experimental families, not eight
 completed families:
 
 | Planned family | Implemented public entry point | Remaining scope |
@@ -31,12 +31,14 @@ completed families:
 | Ionic observations | `interactions.ionic.get_ionic_interactions` | Bounded formal-charge centers; phosphate/sulfate and aromatic delocalization extensions remain under `uibcdf/molsysmt#262`. |
 | Pi-pi | `interactions.pi_pi.get_pi_pi_interactions` | Reference profiles and the explicit-cutoff proposal are implemented; broader comparison remains open. |
 | Cation-pi | `interactions.cation_pi.get_cation_pi_interactions` | Reference profiles and the explicit-cutoff proposal are implemented; comparison is tracked by `uibcdf/molsysmt#271`. |
-| Halogen bonds | None | Define chemical sites, named geometric criterion and independent controls before implementation. |
+| Halogen bonds | `interactions.halogen_bonds.get_halogen_bonds` | ProLIF-adapted distance/two-angle profile and general site recognition implemented under `uibcdf/molsysmt#277`; original-paper and Mol* alternatives remain distinct. |
 | Hydrophobic associations | None | General atom hydrophobic typing belongs in `physchem`; existing residue scales do not provide that definition. |
 | Metal coordination | None | Define coordination evidence and chemical-state inputs separately from declared connectivity. |
+| Water-mediated hydrogen bonds | None | Explicitly scheduled pending family; compose named hydrogen-bond observations through chemically identified water participants and retain their images/evidence. |
 
-Mediated interactions, such as water bridges, are an additional future family
-in stage 5, not a ninth committed 1.0 requirement. No public empty family stubs
+The maintainer added water-mediated hydrogen bonds to the explicit pending
+inventory on 2026-10-01. They extend the initial eight-family list without
+becoming a ninth mandatory 1.0 requirement. No public empty family stubs
 are introduced. New families remain separately scheduled and may be approved
 before 1.0 without becoming release blockers.
 

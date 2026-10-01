@@ -335,3 +335,15 @@ source, requires an explicit analysis merge policy and currently raises an
 error. H5MSM 0.4 and MolSysDict 0.1 cannot store attached analyses and
 reject that export. H5MSM 0.5 writes and reads the named analyses with the
 system; `Interactions.save()` remains available for standalone results.
+
+## Directional halogen observations
+
+The experimental {func}`molsysmt.interactions.halogen_bonds.get_halogen_bonds`
+returns four singleton roles: donor, halogen, acceptor and acceptor reference.
+Every role participates in atom-set queries; an acceptor with two eligible
+reference neighbors can yield two separately identifiable directional relations.
+The descriptive `distance_two_angles` method with `smarts_donor_acceptor` profile
+reproduces the ProLIF 2.2.2 core adapted from Auffinger et al. (2004), not that
+paper's original element-specific distance thresholds. Producer versions and
+the adapted paper/reference bibliography persist with each named analysis. See
+{ref}`Tutorial_Get_halogen_bonds` and {ref}`Cookbook_Saving_halogen_bonds`.

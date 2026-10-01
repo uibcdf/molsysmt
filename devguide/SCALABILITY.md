@@ -252,3 +252,21 @@ Method geometry determines coherent periodic triplet images. CPPTRAJ requires
 whole donor-H coordinates; DA-based profiles reject inconsistent independent DA
 and H-centered MIC observations. These checks are scientific failures, not reasons
 to silently switch imaging or discard an otherwise qualifying observation.
+
+## Halogen-bond working estimates
+
+The experimental halogen detector prepares full-source ordered chemical pairs
+once through `physchem.get_halogen_bond_sites`. It projects D-X-A-R participants,
+uses bounded compiled X-A candidate searches and reconstructs coherent adjacent
+MIC vectors before measuring both angles. It never materializes an atom-pair
+tensor. Different reference neighbors remain separately identifiable relations.
+
+Coordinate/chain blocks reserve one quarter of max_ram_usage, bounded candidates
+one eighth per search and resident sparse accumulation/packing one half. The
+per-frame estimate is four coordinate-sized buffers plus 256 bytes per chemical
+site, 4,096 bytes of scratch and the periodic matrix reserve. Numeric estimates
+exclude full chemical graphs, caller-owned arrays, Python overhead and process
+RSS. Match caps, candidate exhaustion and resident-result budgets fail explicitly.
+Native and H5MSM index selections use the shared executor; rich file selections
+require bounded eager loading and reject forced streaming. Output remains in RAM;
+there is no incremental result writer or arbitrary-scale performance guarantee.

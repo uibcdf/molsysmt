@@ -12,6 +12,7 @@ common_functions_with_distance_threshold = [
 ]
 
 common_functions_with_distance_threshold_and_None = [
+    "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",
     "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
     "molsysmt.interactions.hbonds.get_hbonds.get_hbonds",
     "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions",

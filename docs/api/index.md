@@ -97,6 +97,7 @@ Functions that integrate MolSysMT with third-party libraries.
    interactions/api_ionic
    interactions/api_pi_pi
    interactions/api_cation_pi
+   interactions/api_halogen_bonds
    element/api_element
    form/api_form
    third_party/api_thirds
