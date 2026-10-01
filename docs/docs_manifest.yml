@@ -62,7 +62,7 @@ sections:
         status: reviewed
         pages:
           - name: get
-            description: Attribute queries, element levels and valid empty connectivity.
+            description: Attribute queries, incident group bond counts and valid empty connectivity.
             file: docs/content/user/tools/basic/get.ipynb
             agents_file: docs/content/user/tools/basic/get.ipynb.AGENTS.md
           - name: convert

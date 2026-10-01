@@ -2741,6 +2741,48 @@ def get_n_chains_from_group(item, indices="all", skip_digestion=False):
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
+@arg_digest(form=form)
+def get_n_bonds_from_group(item, indices="all", skip_digestion=False):
+    """Getting unique incident bond counts for selected groups.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Molecular system containing group membership and chemical-state bonds.
+    indices : list of int or 'all', default='all'
+        Group indices in the requested output order. An empty list selects no groups.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    list of int
+        Number of distinct bonds incident on each selected group. A bond between
+        groups contributes once to each group; an internal bond is counted once.
+
+    Notes
+    -----
+    Delegation to the topology facade preserves the chemical state selected by
+    ``molsysmt.get``. No independent bond storage is created.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> builder = msm.MolSysBuilder()
+    >>> a = builder.add_atom(atom_name='C', atom_type='C')
+    >>> b = builder.add_atom(atom_name='C', atom_type='C')
+    >>> group = builder.add_group([a, b], group_name='X', group_type='unknown')
+    >>> bond = builder.add_bond(a, b)
+    >>> msm.get(builder.build(), element='group', n_bonds=True)
+    [1]
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_group as aux_get
+
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
 # From component
 
 

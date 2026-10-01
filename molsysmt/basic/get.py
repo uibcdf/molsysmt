@@ -116,6 +116,9 @@ def get(
       returns a zero count and ``bond_index`` an empty list for each selected
       atom. With ``element='system'`` (the default), the total bond count is zero.
       This does not establish that chemical connectivity is complete.
+    - With ``element='group'``, ``n_bonds`` counts distinct bonds incident on
+      each selected group in the selected chemical state. An internal bond
+      contributes once; a bond between groups contributes once to each group.
     - Form-independent attributes such as box lengths, angles, shape, and volume
       are derived from the box matrix when the source form exposes that matrix
       but does not implement a dedicated getter.
