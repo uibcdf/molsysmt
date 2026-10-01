@@ -51,8 +51,42 @@ and H5MSM 0.5 round trips are implemented under #251/#252. Real local Viewer
 qualification now checks geometry, queries and H5MSM/session round trips;
 the reproducible evidence and its release limitations are recorded in
 [the implementation report](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01).
+The current nine-family provider and existing consumer checks passed at clean
+source `3b12fba50`; the exact scope and remaining visual qualification are
+recorded in [the provider checkpoint](implement_experimental_sparse_interactions_results_and_queries.md#nine-family-provider-qualification--2026-10-01).
 The dated migration records below describe earlier checkpoints; their pending
 statements do not override this inventory.
+
+## Consumer handoff for the implemented families
+
+The provider now exposes experimental results for hydrogen bonds, disulfide
+candidates, ionic observations, pi-pi, cation-pi, halogen bonds, hydrophobic
+associations, metal coordination candidates and water-mediated hydrogen bonds.
+The last family supports exact paths through one or two distinct waters.
+
+These calculations return the same public `Interactions` model, with their
+actual participant roles, searched atom scope, evaluated frames, geometry,
+units, method/profile, evidence, periodic images and original producer
+attribution. Existing legacy hydrogen-bond and disulfide tuple defaults remain
+available. The detector returns an analysis; the caller attaches it under a
+name in `MolSys.interactions`. Named analyses survive public H5MSM 0.5
+conversion. Calculation and scientific criteria remain provider-owned.
+
+For the next MolSysViewer review, separate accepting and persisting these
+analyses from rendering their geometry. The current consumer smoke qualifies
+hydrogen-bond and disulfide projections. The other seven families need their
+own visual semantics: rings are composite participants; metal coordination
+is a candidate rather than certified bonding; water paths contain multiple
+directed donor/hydrogen/acceptor roles and coherent images for every leg.
+Unsupported geometry must remain explicit rather than dropping roles or
+reinterpreting a compound relation as a single atom pair.
+
+MolSysViewer owns the next visual and session qualification for these families.
+Its feedback should identify the provider/client sources tested, the analysis
+and method/profile, selection/frame changes, reconstructed periodic geometry,
+and persistence or export behavior. Provider stabilization and the complete
+1.0 candidate gate remain open; broader chemistry and incremental/out-of-core
+extensions keep their existing separate issues.
 
 ## What
 

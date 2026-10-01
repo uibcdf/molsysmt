@@ -74,6 +74,10 @@ Public H5MSM 0.5 round trips for named analyses and supported partial `MolSys`
 combinations are contract-tested. Incremental interaction editing and bounded
 public file access remain unsupported. The experimental consumer contract is
 agreed; stabilization and exact-candidate qualification remain open.
+The [2026-10-01 provider qualification](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md#nine-family-provider-qualification--2026-10-01)
+records the current nine-family test scope and a repeated local consumer smoke.
+That consumer smoke covers hydrogen-bond and disulfide projections; the other
+families still need consumer visual qualification.
 TopoMT, PharmacophoreMT, and DockingMT integrations do not gate 1.0.
 
 The 2026-10-01 naming/attribution checkpoint at clean provider `e21f03d99`

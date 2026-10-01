@@ -14,6 +14,47 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Nine-family provider qualification — 2026-10-01
+
+**Contract-tested and parity-tested:** clean MolSysMT source commit
+`3b12fba501909a052fd115b09ddb11aae875ee66` passed **729 tests**, with no skips:
+687 interaction and reusable scientific-tool cases, plus 42 charge-center,
+native collection and typed-dictionary cases. The selected modules cover all
+nine experimental families, including one- and two-water paths, compound
+participant queries, nonconsecutive frames, evaluated-empty coverage,
+non-default units, observed periodic images, named persistence, remapping,
+producer versions and detached attribution. Existing frozen independent-oracle
+comparisons ran within these tests; reference programs were not regenerated.
+
+The existing real MolSysViewer qualification command also returned exit 0 on
+this provider revision, unchanged and clean before and after the run. All four
+workloads below retained their observations; the combined run passed geometry,
+query and persistence checks. MolSysViewer was at `ca6a3cda9eefcbd878775bcced8e21e7cb9bc069`
+with 290 pre-existing dirty entries; Ackredit was at
+`e4ff20a30f4eb862472e82144d582f101c2a5fd6` with nine dirty entries and 35 commits
+behind its fetched upstream. Those worktrees were preserved. Their HEAD hashes
+alone do not identify complete sources. The bounded suite-status inspection
+reported these differences; no sibling merge, checkout or edit was performed.
+
+Commands, environment, exact provider identity, qualification-script hash,
+test outcomes and consumer observations are recorded in
+[the dated qualification artifact](../../devtools/data/interactions_provider_qualification_20261001.json).
+The recorded installed MolSysMT version differs from the source revision; it
+must not replace that revision when identifying this editable-source test.
+Runtime dependency validation, Ruff and the public stability checks passed.
+
+**Consumer boundary:** the inspected Viewer projects `hbond` and
+`disulfide_candidate` geometry. Its other interaction types are currently
+counted as skipped by that projection. This run therefore does not establish
+visual support for the other seven families. It also does not establish a new
+browser/WebGL run, a published dependency pair or the complete exact-candidate
+release gate. Those remain with the consumer and release owners.
+
+The current experimental provider delivery is ready for the next consumer
+review. No public method, default, result schema or stability classification
+changed during this qualification. The original checkpoint below remains
+historical evidence for its earlier provider revision.
+
 ## Consumer and attribution checkpoint — 2026-10-01
 
 The experimental packed result, named `MolSys.interactions` collection and
