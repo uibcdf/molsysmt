@@ -91,3 +91,16 @@ only archival automation, governance guidance and report records. Original worki
 state is preserved and scientific execution review remains deferred. Closure is
 guarded by the local normative release/citation contract and the pinned common
 provider's semantic regression module recorded under uibcdf/molsyssuite#49.
+
+## Provider hardening and revalidation — 2026-10-01
+
+Final provider `2cc2d9bfe80f14a981d40bc109ecdf2af39b693b` also handles concept records without a
+usable version identity. A new failing reproducer showed that such a result
+could be classified as overdue absent; it is now temporarily_unavailable when
+no exact match can be established. All fourteen provider regressions pass.
+The current caller and normative operation guide pin this hardened commit.
+Initial adoption observations above remain unchanged historical evidence.
+
+[exact final hosted run 36843304931](https://github.com/uibcdf/molsysmt/actions/runs/36843304931) passed at `3dfdd51ee8f841eec3940cd161b988c98aae1e16`. Native checkout logs prove the final provider commit and actual verified-state output; the sanitized artifact matches the registered source ZIP name, size and checksum.
+
+[scan final hosted run 36843305017](https://github.com/uibcdf/molsysmt/actions/runs/36843305017) passed at `3dfdd51ee8f841eec3940cd161b988c98aae1e16`. Native checkout logs prove the final provider commit and actual verified-state output; the sanitized artifact matches the registered source ZIP name, size and checksum.
