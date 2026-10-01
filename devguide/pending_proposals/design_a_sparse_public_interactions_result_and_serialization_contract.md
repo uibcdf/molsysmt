@@ -24,7 +24,7 @@ stabilization and exact-candidate release qualification remain open.
 
 ## Current checkpoint — 2026-10-01
 
-The [normative interaction contract](../interactions_api.md) now covers five
+The [normative interaction contract](../interactions_api.md) now covers nine
 implemented families, descriptive/scientific method selectors with exact profiles,
 and detached optional attribution. A named result represents one producer method
 and evaluation scope; `MolSys.interactions` is a mapping of names to full sparse
@@ -43,8 +43,14 @@ Incremental editing, bounded public file-backed queries/writing, per-frame searc
 scopes, arbitrary subsystem embedding and merge policy remain outside the current
 supported result API. Historical comparisons and dated checkpoints below retain
 their measured premises; earlier pending-contract/adapter statements are superseded
-by this checkpoint and the normative guide. Halogen, hydrophobic and metal
-detectors remain absent rather than being promised by the generic result class.
+by this checkpoint and the normative guide. Halogen, hydrophobic, metal and
+one-/two-water path detectors are implemented experimentally. The latest
+provider and consumer qualification scope is recorded in
+[the nine-family checkpoint](implement_experimental_sparse_interactions_results_and_queries.md#nine-family-provider-qualification--2026-10-01).
+Public native MolSys coordinate and box setters now invalidate attached analyses
+in edited structures under uibcdf/molsysmt#285. Direct edits through separate
+Structures objects still require explicit owner invalidation; no generic edit
+observer or incremental replacement API is implied.
 
 ## Earlier checkpoints
 

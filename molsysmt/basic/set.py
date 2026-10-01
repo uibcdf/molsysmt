@@ -77,6 +77,18 @@ def set(
       MolSys. Convert external forms before editing a non-reference state.
     - ``structure_chemical_state_index`` sets the nullable MolSys association
       aligned to `structure_indices`; it does not change the topology reference.
+    - Editing coordinates or box through a native MolSys invalidates every
+      named interaction analysis on the selected structures. Their observations
+      are removed and those structures become unevaluated. Other structures
+      and existing result views are preserved; no scientific recalculation is
+      performed. Empty selections and non-geometric edits do not invalidate.
+      With attached analyses, full geometry assignment cannot resize the
+      structure axis; use extraction or append operations instead.
+    - Invalidation is staged before geometry delegation. If delegation fails
+      after it starts, selected structures remain unevaluated because a partial
+      write may have occurred. Allocation and validation failures before
+      delegation preserve the existing system. Direct edits through a separate
+      Structures object require explicit owner invalidation.
 
 
     See Also
@@ -96,7 +108,7 @@ def set(
     >>> msm.basic.set(molsys, selection='group_index==30', group_name='HSD')
     >>> msm.basic.get(molsys, element='group', selection='group_index==30', group_name=True)
     ['HSD']
-    >>> from molsysmt.native import Topology
+    >>> from molsysmt.native import MolSys, Topology
     >>> topology = Topology(n_atoms=2)
     >>> msm.set(topology, element='atom', chemical_state=0, formal_charge=[1, -1])
     >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
@@ -104,6 +116,16 @@ def set(
     >>> msm.set(topology, element='atom', isotope=[13, 2])
     >>> msm.get(topology, element='atom', isotope=True)
     [13, 2]
+    >>> molsys = MolSys(n_atoms=1)
+    >>> molsys.structures.append(coordinates=msm.pyunitwizard.quantity(
+    ...     [[[0, 0, 0]]], 'nm'))
+    >>> analysis = msm.Interactions.from_records([], n_atoms=1, n_structures=1,
+    ...     evaluated_structure_indices=[0], method='example')
+    >>> molsys.interactions = {'example': analysis}
+    >>> msm.set(molsys, coordinates=msm.pyunitwizard.quantity(
+    ...     [[[1, 0, 0]]], 'nm'))
+    >>> molsys.interactions['example'].evaluated_structure_indices.tolist()
+    []
 
 
     .. admonition:: Tutorial with more examples

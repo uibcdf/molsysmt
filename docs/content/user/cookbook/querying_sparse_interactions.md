@@ -149,11 +149,32 @@ role, unit, and evaluated atom-scope conventions. The example uses the default
 pass its actual `evaluation_mode`, selected atoms, and searched atom universe
 to `from_records`. A complete result can be attached to `MolSys`
 under an analysis name; extraction remaps its atom and structure indices.
-After changing coordinates in one structure, call
-`interactions.invalidate_structures([structure_index])` and replace the named
-result before re-evaluating that structure. The invalidated frame is no longer
-marked as evaluated; an evaluated frame with zero observations has a different
-meaning.
+Geometry edits through `msm.set(molsys, coordinates=..., structure_indices=[...])`
+or its box setter automatically replace affected named results with snapshots
+whose edited frames are unevaluated. They remove old observations and preserve
+untouched frames and previous query views. This is conservative per-structure
+invalidation, even when only one atom moved; it does not calculate new results.
+If you edit `molsys.structures` separately, explicitly call
+`analysis.invalidate_structures([structure_index])` and replace each affected
+named result before re-evaluating. An unevaluated frame differs from one
+evaluated with zero observations.
+
+The synthetic system above demonstrates the automatic boundary:
+
+```python
+old_view = molsys.interactions['example'].query(structure_indices=[0])
+msm.set(molsys, selection=[2], structure_indices=[0],
+        coordinates=msm.pyunitwizard.quantity([[[1, 0, 0]]], 'nm'))
+updated = molsys.interactions['example']
+assert updated.query(structure_indices=[0]).to_dict()[
+    'evaluated_structure_indices'
+].size == 0
+assert updated.query(structure_indices=[1]).to_dict()[
+    'evaluated_structure_indices'
+].tolist() == [1]
+assert updated.query(structure_indices=[3]).n_interactions == 1
+assert old_view.n_interactions == 1
+```
 
 An observed proximity is separate from the chemical state's covalent graph.
 For example, explicitly adding a covalent bond changes the `ChemicalStates`

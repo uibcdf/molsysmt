@@ -735,6 +735,21 @@ explicit merge policy and currently fails. H5MSM 0.4 and
 MolSysDict 0.1 exports reject a system with attached analyses because those
 formats cannot store them. The design and remaining gates are
 tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+
+Native MolSys coordinate and box form setters invalidate all named analyses
+in their selected frames, including evaluated-empty frames. The affected
+occurrences and coverage are removed; untouched frames, metadata, index maps,
+and old result/query snapshots remain intact. Empty atom/frame selections and
+non-geometric writes do not invalidate. Full geometry assignment with attached
+analyses cannot resize the frame axis; use the supported extract/append routes.
+Invalidation snapshots are staged before delegation. Allocation or validation
+failures before delegation preserve the system; after delegation starts,
+failures conservatively leave selected frames unevaluated because writes may
+be partial. No detector runs automatically. This is the existing copying
+invalidation primitive, not an incremental editor. Direct writes through a
+separate Structures object still require explicit owner invalidation; chemistry
+changes and arbitrary aliases do not acquire an observer protocol from this fix.
+The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
 The required H5MSM and MolSysViewer integrations are tracked
 in the [1.0 execution plan](pending_proposals/release_1_0_execution_plan.md)
 and the design proposal [#251](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).

@@ -14,6 +14,23 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Public geometry-edit lifecycle — 2026-10-01
+
+The native MolSys coordinate and box setters now stage invalidation of affected
+frames across named analyses before geometry writes. Observations and evaluated
+coverage are removed in those frames, including previously evaluated-empty
+ones. Untouched frames and earlier result/query snapshots survive. Failures
+before delegation preserve the system; after delegation begins, uncertain
+partial writes leave selected frames unevaluated. Empty selections and
+non-geometric changes preserve results. Full geometry assignment with attached
+analyses cannot silently resize the structure axis.
+
+This closes the concrete public-setter gap in uibcdf/molsysmt#285. The primitive
+copies packed arrays; it does not implement incremental replacement, observer
+ownership for separate Structures objects, or automatic scientific recalculation.
+The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
+The normative behavior belongs in [Interaction Analysis API](../interactions_api.md).
+
 ## Nine-family provider qualification — 2026-10-01
 
 **Contract-tested and parity-tested:** clean MolSysMT source commit

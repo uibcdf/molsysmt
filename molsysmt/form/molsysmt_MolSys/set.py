@@ -1103,6 +1103,12 @@ def set_coordinates_to_atom(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Selected structures become unevaluated in every named interaction analysis
+    once geometry delegation starts. Previous result views remain unchanged.
+    Empty atom/frame selections leave attached results intact.
+
     .. versionadded:: 1.0.0
     """
     from molsysmt.form.molsysmt_Structures.set import set_coordinates_to_atom as aux_set
@@ -1118,13 +1124,20 @@ def set_coordinates_to_atom(
                 caller="molsysmt.form.molsysmt_MolSys.set",
             )
 
-    return aux_set(
-        item.structures,
-        indices=indices,
-        structure_indices=structure_indices,
-        value=value,
-        skip_digestion=True,
-    )
+    if (item.interactions and is_all(indices) and is_all(structure_indices)
+            and value.shape[0] != item.structures.n_structures):
+        raise StructuralInconsistencyError(
+            "Geometry setters cannot resize a structure axis with attached interactions; use extraction or append_structures.",
+            caller="molsysmt.form.molsysmt_MolSys.set",
+        )
+    with item._editing_structure_geometry(structure_indices, atom_indices=indices):
+        return aux_set(
+            item.structures,
+            indices=indices,
+            structure_indices=structure_indices,
+            value=value,
+            skip_digestion=True,
+        )
 
 
 @arg_digest(form=form)
@@ -2922,16 +2935,29 @@ def set_box_to_system(item, structure_indices="all", value=None, skip_digestion=
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Selected structures become unevaluated in every named interaction analysis
+    once geometry delegation starts, including when clearing a full box series.
+    Full assignment preserves the structure axis when analyses are attached.
+
     .. versionadded:: 1.0.0
     """
     from ..molsysmt_Structures.set import set_box_to_system as aux_set
 
-    return aux_set(
-        item.structures,
-        structure_indices=structure_indices,
-        value=value,
-        skip_digestion=True,
-    )
+    if (item.interactions and is_all(structure_indices) and value is not None
+            and value.shape[0] != item.structures.n_structures):
+        raise StructuralInconsistencyError(
+            "Geometry setters cannot resize a structure axis with attached interactions; use extraction or append_structures.",
+            caller="molsysmt.form.molsysmt_MolSys.set",
+        )
+    with item._editing_structure_geometry(structure_indices):
+        return aux_set(
+            item.structures,
+            structure_indices=structure_indices,
+            value=value,
+            skip_digestion=True,
+        )
 
 
 @arg_digest(form=form)

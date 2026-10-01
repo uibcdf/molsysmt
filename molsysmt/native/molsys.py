@@ -1,4 +1,5 @@
 import weakref
+from contextlib import contextmanager
 
 import numpy as np
 import pandas as pd
@@ -179,6 +180,37 @@ class MolSys:
                     f"({result.n_atoms}, {result.n_structures}), expected "
                     f"({n_atoms}, {n_structures})."
                 )
+
+    @contextmanager
+    def _editing_structure_geometry(self, structure_indices, atom_indices=None):
+        """Staging frame invalidation before writes and publishing it on failure.
+
+        The caller has validated the geometry edit and preserved index domains.
+        Once delegation starts, a failure may follow a partial write; retaining
+        unevaluated frames is safer than preserving their old observations.
+        """
+        if (not self._interactions
+                or (atom_indices is not None and not is_all(atom_indices)
+                    and np.asarray(atom_indices).size == 0)):
+            yield
+            return
+        analyses = dict(self.interactions)
+        frames = (
+            np.arange(self._get_n_structures(), dtype=np.int64)
+            if is_all(structure_indices) else np.asarray(structure_indices).reshape(-1)
+        )
+        if frames.size == 0:
+            yield
+            return
+        candidate = {
+            name: result.invalidate_structures(frames)
+            if np.isin(result.evaluated_structure_indices, frames).any() else result
+            for name, result in analyses.items()
+        }
+        try:
+            yield
+        finally:
+            self._interactions = candidate
 
     @property
     def topology(self):

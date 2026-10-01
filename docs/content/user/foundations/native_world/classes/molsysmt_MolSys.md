@@ -128,6 +128,27 @@ ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-lev
 explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native
 and H5MSM round trips preserve the annotations without adding coordinate rows.
 
+## Geometry Updates
+
+Editing coordinates or periodic boxes with `msm.set(molsys, ...)` removes
+observations and evaluated coverage for the selected structures in every named
+analysis. Even a previously evaluated frame with zero observations becomes
+unevaluated after its geometry changes. Other structures and previously held
+result/query snapshots remain intact. Recalculate the changed structures before
+claiming new observations or evaluated-empty coverage.
+
+Empty atom/frame selections and non-geometric changes such as time do not
+invalidate analyses. With attached results, full geometry assignment preserves
+the structure axis; use extraction or append operations to change that axis.
+The existing snapshot invalidation copies packed result arrays and is not an
+incremental editor. Geometry delegation failures conservatively retain
+unevaluated coverage because a partial write may have occurred.
+
+This automatic boundary is the native MolSys form. If you edit a separately
+accessed `molsys.structures` directly, explicitly replace each affected named
+result with `analysis.invalidate_structures(structure_indices)`. Geometry
+setters do not infer changes made through independent objects or aliased data.
+
 ## Invariants and Performance
 
 Structural iteration reads the existing `structures` domain without copying
