@@ -75,8 +75,12 @@ def test_moving_a_previously_noninteracting_atom_requires_new_frame_evaluation(o
         source, structure_indices=[1], pbc=False, output_type='molsysmt.Interactions')
     assert fresh.query(structure_indices=[1]).n_interactions == 1
     np.testing.assert_array_equal(fresh.evaluated_structure_indices, [1])
-    source.interactions = {**source.interactions, 'buch_recomputed_frame1': fresh}
-    assert source.interactions['buch'] is retained
+    updated = retained.replace_structures(fresh)
+    source.interactions = {**source.interactions, 'buch': updated}
+    assert source.interactions['buch'].query(structure_indices=[0, 1, 2]).n_interactions == 3
+    assert source.interactions['buch'].query(structure_indices=[3]).to_dict()['evaluated_structure_indices'].size == 0
+    assert source.interactions['second'] is not updated
+    assert updated._packed_result is None
 
 
 @pytest.mark.parametrize('attribute', ['coordinates', 'box'])

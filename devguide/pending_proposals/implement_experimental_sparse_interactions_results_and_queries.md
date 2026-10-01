@@ -14,6 +14,88 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Compatible frame replacement implementation — 2026-10-01
+
+**Implemented and contract-tested:** `Interactions.replace_structures(replacement,
+skip_digestion=False)` returns a full new analysis replacing every frame evaluated
+by a compatible recalculation, including zero-result frames. Coverage is united;
+unaffected frames remain valid and old results/views remain unchanged. The real
+Buch guard moves a previously noninteracting atom, recalculates only its frame,
+and attaches the combined result under the original name. No detector or owner
+attachment runs automatically.
+
+The operands must match local/source axes and maps, source label, method,
+parameters, original producer versions, measure names/units and effective atom
+scope. Views and extracted axes fail explicitly. Parameter equality is strict,
+including attribution and execution descriptors; divergent run descriptors need
+separate analyses until execution-specific provenance is modeled. Populated
+blocks cannot mix known and unknown periodic images. New typed relations and
+evidence labels extend the registry; matching relation keys retain their index.
+Parallel observations receive distinct frame-ordered occurrence handles that
+survive standalone, typed, pickle and public H5MSM round trips.
+
+Unchanged observations are shared as immutable independently indexed blocks.
+Frame ownership routes selected queries directly to relevant blocks. Atom
+queries reuse source inverse indexes and build new block indexes only as needed.
+Selected projections allocate selected occurrence buffers and share the relation
+registry. Full-column access/export/remap may pack all active rows; interchange
+packing is temporary unless previously requested explicitly. Edits flatten block
+ownership rather than retaining prior edited analyses. Fully superseded blocks
+are released; partial blocks retain their retired rows, and unused relation
+entries remain until future compaction. An evaluated-empty result releases its
+occurrence blocks. Storage and file schema versions are unchanged.
+
+**Benchmarked:** fresh processes using 100,000 atoms, 10,000 frames, 1,000 reused
+relations, distance/angle measurements, evaluated-empty frames and optional three
+periodic vectors per row. Replacing frame 10 with ten observations gives about
+**0.73 MiB live / 1.20 MiB additional peak** at both 100,000 and 1,000,000 rows.
+Keeping twenty same-frame edited snapshots gives about **8.4 MiB live / 8.9 MiB
+peak**; the final analysis still has only two source blocks. Patch operands are
+constructed before tracing. Imports, coordinates and disk IO are excluded.
+First patch indexing and complete-column packing are measured separately. These
+are single-run allocation observations, not statistical speed or RSS guarantees.
+The base atom index is built before measurement; cold whole-trajectory indexing
+still has its own linear cost. Full packing remains linear, with about 320 MiB
+additional traced peak for the periodic million-row fixture.
+
+Reproduce:
+
+```bash
+python devtools/scripts/benchmark_interactions_frame_replacement.py \
+    --output /tmp/interactions_frame_replacement.json
+```
+
+The [raw qualification artifact](../../devtools/data/interactions_frame_replacement_memory_20261001.json)
+records source/script hashes, the base commit, dependency/platform information,
+allocation/timing stages and semantic checks. The base commit plus recorded
+working-tree hashes identify the implementation before publication.
+
+Guards: `tests/interactions/test_frame_replacement.py`, including fixed-frame
+allocation bounds at different row counts, new/compound relations, parallel
+images, evaluated-empty replacement, all interchange routes, incompatible
+metadata rejection, released blocks, old views, invalidation after replacement
+and extraction; real Buch workflow:
+`tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
+The [normative API](../interactions_api.md), result User Guide, sparse cookbook,
+MolSys foundation page and course Module 10 document the complete edit lifecycle.
+
+**Validation:** the affected interaction/native/form/H5MSM selection and result
+doctests passed **641 tests**, with expected memory-budget fixture and legacy
+H5MSM warnings. The final frame-routing refinement and its additional guard
+passed the focused frame replacement/validity, native coordinate workflow and
+result doctest selection (55 tests). All eleven result-guide Python blocks before attribution and all
+eight sparse-recipe blocks executed successfully. Course Module 10 code cells
+and stored outputs are unchanged. Sphinx HTML built with 25 preexisting
+course/header/navigation warnings. Ruff, dependency validation, developer-guide
+validation/index checks and the public signature guard passed. This is local
+provider qualification, not a new Viewer canvas run or exact release gate.
+
+**Remaining:** automatic block/registry compaction, editing individual
+observations, bounded writers, execution-specific provenance, per-frame scopes
+and broader direct-mutation ownership. #252 remains partial. Historical reset
+checkpoints below are superseded only where this milestone adds frame replacement;
+their recorded measurements remain evidence for their dated implementation.
+
 ## Shared frame-validity implementation — 2026-10-01
 
 **Implemented and contract-tested:** `invalidate_structures()` now returns a

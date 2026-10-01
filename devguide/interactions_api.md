@@ -663,7 +663,8 @@ filled from the installed reader version. External producers may supply their
 own name/version entries through `from_records(software=...)`. Its
 `query` method supports local-index structure lists and atom-set `incident`,
 `internal`, and `cross` semantics; `between` supports disjoint atom sets.
-`from_records`, `to_dict`, `relation`, `remap`, `invalidate_structures`, `save`, and
+`from_records`, `to_dict`, `relation`, `remap`, `invalidate_structures`,
+`replace_structures`, `save`, and
 `load` provide construction,
 inspection, and standalone HDF5 round trips. The current file schema version
 is 1 and is distinct from H5MSM 0.4. `load` materializes the result in memory.
@@ -756,6 +757,44 @@ MolSysDict 0.1 exports reject a system with attached analyses because those
 formats cannot store them. The design and remaining gates are
 tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
 
+### Compatible frame replacement
+
+`Interactions.replace_structures(replacement, skip_digestion=False)` is a
+validated native public boundary returning an independent full analysis. The
+replacement must be another full result with matching local/source dimensions,
+source maps/label, method, parameters, software producer versions, measure units
+and effective evaluation scope. It replaces every incoming evaluated frame,
+including zero-row frames, and unions coverage. Query views and extracted axes
+are rejected. Parameter equality includes execution and attribution metadata;
+this first contract rejects differing run metadata rather than erasing evidence.
+A distinct per-execution provenance model remains pending for detectors whose
+run descriptors differ between partial calculations. Known/unknown periodic
+images cannot coexist in populated active blocks; empty coverage does not
+synthesize images.
+
+The private layout stores disjoint immutable source blocks, relation/evidence
+maps and frame ownership/count offsets. Relation keys include kind, ordered
+roles and all ordered member indices; matching keys reuse existing indices and
+new keys append. Occurrence indices are positions in the new frame-ordered
+analysis, preserving parallel rows, and survive full interchange. Incoming row
+order within each frame is preserved. Frame queries route directly to their
+owner blocks and create selected occurrence buffers sharing the global relation
+registry. Atom queries reuse block-local inverse indexes, creating indexes for
+new blocks only as needed. Replacement allocation depends on the frame axis,
+relation registry and active block count, without copying unaffected occurrence
+columns. Previously requested packed caches are not retained by new edits.
+
+Edits flatten ownership rather than referencing earlier patched snapshots, and
+fully superseded blocks are released unless another result retains them. A
+partially active block still retains its old rows; unused relation definitions
+are retained. Automatic block/registry compaction and bounded writers remain
+pending. Complete columns, remap, pickle and typed/HDF5 export can pack the full
+active analysis, with interchange-only caches released afterward. Selected views
+own their projected rows; existing packed-base views still share base rows.
+Guards are `tests/interactions/test_frame_replacement.py` and the real Buch
+recalculation workflow in
+`tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
+
 Native MolSys coordinate and box form setters invalidate all named analyses
 in their selected frames, including evaluated-empty frames. The affected
 occurrences and coverage are removed; untouched frames, metadata, index maps,
@@ -770,8 +809,8 @@ failures conservatively leave selected frames unevaluated because writes may
 be partial. No detector runs automatically. Recalculate the complete declared
 atom scope of an affected frame explicitly. Assigning a detector result under
 an existing name replaces that analysis and does not merge its frame coverage;
-same-analysis incremental replacement remains pending. This validity primitive
-is not an incremental editor. Direct writes through a
+`current.replace_structures(fresh)` instead replaces only the frames evaluated
+by a compatible full recalculation. This validity primitive does not run a detector. Direct writes through a
 separate Structures object still require explicit owner invalidation.
 The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
 
@@ -797,8 +836,8 @@ The guard is `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`.
 Raw arrays/DataFrames, separate Topology or ChemicalStates aliases, direct
 Topology replacement and MolecularMechanics changes require explicit owner
 invalidation. They do not acquire an observer protocol through the controlled
-setters. Incremental replacement and finer chemical dependencies remain separate
-work; invalidation itself shares the read-only columns.
+setters. Editors of individual observations and finer chemical dependencies remain
+separate work; invalidation itself shares the read-only columns.
 The required H5MSM and MolSysViewer integrations are tracked
 in the [1.0 execution plan](pending_proposals/release_1_0_execution_plan.md)
 and the design proposal [#251](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).

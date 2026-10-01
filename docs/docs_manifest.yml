@@ -31,7 +31,7 @@ sections:
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
           - name: molsys
-            description: Native domains, declared analysis correspondence and coordinate-change invalidation.
+            description: Native domains, declared correspondence, coordinate invalidation and compatible frame replacement.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -150,7 +150,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, read-only storage and reset/recalculation policy after coordinate edits.
+            description: Sparse queries, immutable storage and partial recalculation/replacement after coordinate edits.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbonds
@@ -247,7 +247,7 @@ sections:
         file: docs/content/user/cookbook/form_teleportation.ipynb
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, pending-frame reset after coordinate edits and H5MSM persistence.
+        description: Sparse queries, coordinate invalidation, frame replacement and H5MSM persistence.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

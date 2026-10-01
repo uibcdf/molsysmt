@@ -130,6 +130,39 @@ with TemporaryDirectory() as directory:
     ].size == 0
 ```
 
+Now simulate a recalculation of frame 1 with one synthetic hydrogen bond:
+
+```python
+fresh_record = {**records[0], "structure_index": 1,
+                "measurements": {"distance": 0.24}}
+fresh = msm.Interactions.from_records(
+    [fresh_record], n_atoms=9, n_structures=5,
+    evaluated_structure_indices=[1], method="example",
+    measure_units={"distance": "nm"},
+)
+updated = current.replace_structures(fresh)
+molsys_edited.interactions = {"example": updated}
+assert updated.query(structure_indices=[3, 1, 0]).to_dict()[
+    "occurrence_indices"
+].tolist() == [2, 1, 0]
+assert updated.query(atom_indices=[2]).n_interactions == 2
+assert previous_view.n_interactions == 1
+with TemporaryDirectory() as directory:
+    filename = str(Path(directory) / "recalculated.h5msm")
+    msm.convert(molsys_edited, to_form="file:h5msm", output_filename=filename)
+    restored = msm.convert(filename, to_form="molsysmt.MolSys").interactions["example"]
+    assert restored.query(structure_indices=[3, 1, 0]).to_dict()[
+        "occurrence_indices"
+    ].tolist() == [2, 1, 0]
+```
+
+`replace_structures` replaces every frame evaluated by the new result, including
+frames recalculated with zero observations. It checks axes, source maps, method,
+parameters, producer versions, units and atom scope. Recalculation must retain
+the original system axes and scope; an extracted frame has different local axes.
+The unchanged observation blocks are shared. New occurrence handles belong to
+the updated version; old views remain snapshots of the earlier result.
+
 Frame invalidation shares read-only columns and does not recalculate anything.
 Selected queries avoid packing the complete surviving analysis; export may
 materialize it temporarily. Earlier snapshots can keep shared storage alive.

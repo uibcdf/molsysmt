@@ -22,6 +22,29 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Compatible frame replacement delivered — 2026-10-01
+
+The public class now also replaces incoming evaluated frames within a compatible
+full analysis, preserving unchanged frames, evaluated-empty coverage, parallel
+observations, image vectors and producer metadata. Unchanged occurrence blocks
+are shared, frame ownership directs frame queries, and lazy indexes remain
+block-local. Fully superseded blocks are released without chains of old results;
+selected query projections copy only relevant rows and share the relation registry.
+Method/parameters, units, producer versions, source axes/maps and evaluation scope
+must match. Divergent execution metadata is rejected, not discarded.
+
+At fixed 100,000 atoms / 10,000 structures / 1,000 relations, one-frame replacement
+has approximately 1.20 MiB additional traced peak at both 100,000 and 1,000,000
+observations. Keeping twenty edited snapshots peaks around 8.9 MiB. These are
+allocation observations excluding existing blocks, coordinates and prebuilt base
+indexes. Complete-column packing remains linear. Exact scope and reproducible
+measurements belong in
+[the implementation record](implement_experimental_sparse_interactions_results_and_queries.md#compatible-frame-replacement-implementation--2026-10-01).
+The backend ranking and typed/H5MSM schemas are unchanged. Compaction, individual
+row editing, bounded writers and execution-specific provenance remain pending.
+This checkpoint supersedes earlier statements that same-analysis frame
+replacement is unavailable; the experimental consumer contract remains open.
+
 ## Shared frame validity delivered — 2026-10-01
 
 The delivered invalidation primitive now owns immutable numeric storage and

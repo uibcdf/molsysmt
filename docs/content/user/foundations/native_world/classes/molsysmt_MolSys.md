@@ -142,8 +142,11 @@ invalidate analyses. With attached results, full geometry assignment preserves
 the structure axis; use extraction or append operations to change that axis.
 Invalidation shares read-only observation columns and changes frame validity
 without duplicating the surviving observations. Complete-column access,
-remapping or export may materialize active columns later; this is not yet an
-incremental replacement editor. Geometry delegation failures conservatively retain
+remapping or export may materialize active columns later. After recalculating
+selected frames on the original axes and scope, use
+`current.replace_structures(fresh)` and attach its result under the same name.
+This preserves other frames and checks calculation compatibility; attaching
+`fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain
 unevaluated coverage because a partial write may have occurred.
 
 This automatic boundary is the native MolSys form. If you edit a separately

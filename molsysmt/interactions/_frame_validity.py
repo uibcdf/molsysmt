@@ -36,6 +36,10 @@ def _interchange_result(result):
 
 
 def _invalidate(source, frames):
+    if hasattr(source, "_segments"):
+        from ._frame_replacement import _invalidate_patch
+
+        return _invalidate_patch(source, frames)
     root = source._root if isinstance(source, _FrameFilteredInteractions) else source
     coverage = source.evaluated_structure_indices[
         ~np.isin(source.evaluated_structure_indices, frames)

@@ -9,6 +9,8 @@ from types import MappingProxyType
 
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+
 _STORAGE_FIELDS = frozenset({
     "n_atoms", "n_structures", "source_n_atoms", "source_n_structures",
     "atom_source_indices", "structure_source_indices", "evaluation_mode",
@@ -27,12 +29,14 @@ def _immutable_array(value):
     return np.frombuffer(array.tobytes(), dtype=array.dtype).reshape(array.shape)
 
 
-def _restore_view(payload, positions, coverage, removal):
+def _restore_view(payload, positions, coverage, removal, public_indices=None):
     from molsysmt.native.interactions_dict import _decode_interactions
 
     result = _decode_interactions(payload)._view(positions, coverage)
     if removal is not None:
         result._row_removal = tuple(_immutable_array(value) for value in removal)
+    if public_indices is not None:
+        result._public_occurrence_indices = _immutable_array(public_indices)
     return result
 
 
@@ -131,6 +135,7 @@ class Interactions:
         return _restore_view, (
             _encode_interactions(base), self._positions, self._coverage,
             getattr(self, "_row_removal", None),
+            getattr(self, "_public_occurrence_indices", None),
         )
 
     def __init__(self, *, n_atoms, n_structures, evaluated_structure_indices,
@@ -802,6 +807,8 @@ class Interactions:
                 ] for index in positions
             ]) if len(positions) else np.empty((0, 3), dtype=np.int32)
         occurrence_indices = positions.copy()
+        if hasattr(self, "_public_occurrence_indices"):
+            occurrence_indices = self._public_occurrence_indices[positions].copy()
         removal = getattr(self, "_row_removal", None)
         if removal is not None:
             ends, cumulative = removal
@@ -985,6 +992,59 @@ class Interactions:
             occurrence_image_offsets=image_offsets,
             image_vectors=image_vectors,
         )
+
+    @arg_digest()
+    def replace_structures(self, replacement, skip_digestion=False):
+        """Replacing evaluated frames with compatible recalculated observations.
+
+        Every frame evaluated by ``replacement`` replaces its previous rows,
+        including evaluated frames with zero observations. Other frames remain
+        unchanged. Both operands must be full analyses on the same local and
+        source axes with matching method, parameters, producer versions, units
+        and atom evaluation scope. This operation returns a new analysis and
+        does not attach it to a molecular system or run a detector.
+
+        Parameters
+        ----------
+        replacement : Interactions
+            Full analysis containing the frames to replace. Query views and
+            results on extracted or reordered axes are not accepted.
+        skip_digestion : bool, default=False
+            Skip argument digestion when inputs already satisfy this contract.
+
+        Returns
+        -------
+        Interactions
+            Analysis sharing immutable occurrence storage with its operands.
+
+        Raises
+        ------
+        ValueError
+            If operands are query views, metadata or axes differ, or populated
+            frames mix known and unknown periodic images.
+
+        Notes
+        -----
+        Occurrence indices belong to the new analysis version. Queries retain
+        these indices and serialization preserves them. Complete-column access
+        and serialization can materialize the combined columns. Repeated edits
+        retain active source blocks, without chaining earlier analysis versions.
+
+        Examples
+        --------
+        >>> from molsysmt import Interactions
+        >>> old = Interactions.from_records([], n_atoms=2, n_structures=2,
+        ...     evaluated_structure_indices=[0], method="example")
+        >>> fresh = Interactions.from_records([], n_atoms=2, n_structures=2,
+        ...     evaluated_structure_indices=[1], method="example")
+        >>> old.replace_structures(fresh).evaluated_structure_indices.tolist()
+        [0, 1]
+
+        .. versionadded:: 1.0.0
+        """
+        from ._frame_replacement import _replace
+
+        return _replace(self, replacement)
 
     def invalidate_structures(self, structure_indices):
         """Marking selected structures unevaluated and removing their observations.

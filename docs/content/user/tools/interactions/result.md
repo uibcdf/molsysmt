@@ -163,7 +163,7 @@ or `measurements` after invalidation can pack and cache all surviving columns.
 Use `query(...).to_dict()` for selected frames or atoms when you need only a
 small result. Remapping and serialization can also pack the active data;
 temporary packing for those operations is released afterward. This is not yet
-an incremental writer or an add/remove editor.
+an incremental writer or an editor for individual observations.
 
 (user-tools-interactions-coordinate-edits)=
 ## Changing coordinates
@@ -224,14 +224,71 @@ molsys.interactions = {
 }
 ```
 
-Calculate new observations with the appropriate detector and attach the returned
-full `Interactions` object explicitly. A detector call restricted to selected
-frames returns coverage for those frames only. Assigning it under an existing
-name **replaces** that analysis; it does not merge it with its previously valid
-frames. You can retain the remaining valid analysis and store the recalculation
-under a separate name. A same-analysis incremental replacement API is still
-pending. Calculation method, parameters, evaluated scope and producer versions
-belong to the newly calculated result.
+### Recalculating selected frames
+
+Calculate new observations for the changed frames with the appropriate detector,
+using the same molecular system axes and the complete original atom search scope.
+Then call `current.replace_structures(fresh)` and attach the returned analysis
+under its original name. Every frame evaluated by `fresh` replaces all its old
+observations. A recalculated frame with zero observations remains **evaluated**.
+Other frames and previously held snapshots remain unchanged. Nothing is detected
+or attached automatically.
+
+For the synthetic example above, declare a new evaluated-empty result for frame 2:
+
+```python
+fresh = msm.Interactions.from_records(
+    [], n_atoms=3, n_structures=3, evaluated_structure_indices=[2],
+    method=interactions.method, parameters=interactions.parameters,
+    software=interactions.software, source_id=interactions.source_id,
+    measure_units=interactions.measure_units,
+)
+updated = current.replace_structures(fresh)
+molsys.interactions = {"example": updated}
+assert updated.query(structure_indices=[2]).n_interactions == 0
+assert updated.query(structure_indices=[2]).to_dict()[
+    "evaluated_structure_indices"
+].tolist() == [2]  # Evaluated absence, unlike the earlier pending frame.
+assert updated.query(structure_indices=[0]).n_interactions == 1
+```
+
+For a real Buch analysis, the equivalent workflow is:
+
+```python
+# Given a MolSys whose named "buch" analysis used this same scope and pbc=False:
+# fresh = msm.interactions.hbonds.get_buch_hbonds(
+#     molsys, structure_indices=[2], pbc=False,
+#     output_type="molsysmt.Interactions")
+# updated = molsys.interactions["buch"].replace_structures(fresh)
+# molsys.interactions = {**molsys.interactions, "buch": updated}
+```
+
+Both operands must be full analyses with the same local/source axes and maps,
+source label, method, parameters, producer versions, measurement names/units,
+and effective atom evaluation scope. A query view or an extracted subsystem
+is not a replacement operand. Differences raise an error; use a separate name
+for a different calculation. Parameter equality is strict, including attribution
+and execution metadata: detectors that change those records between runs require
+separate analyses until a distinct execution-provenance contract is introduced.
+Populated frames cannot mix known periodic images with unknown images. Empty
+frames do not invent images or impose missing observations.
+
+Replacement shares immutable source blocks and indexes the owner of each frame.
+A selected-frame query visits its owners and copies only the selected occurrence
+columns, while sharing the relation registry. Atom queries reuse each active
+source block's lazy inverse indexes. These selected projections differ from
+views of an ordinary packed analysis, which share its occurrence columns too.
+Repeated replacement drops fully superseded block references; it does not retain
+a chain of analysis versions. A partly active block retains its original rows,
+and unused relation definitions may remain in the registry. Many small edits can
+therefore accumulate blocks; automatic compaction is still pending.
+
+New occurrence indices belong to the updated analysis version and survive its
+H5MSM/typed round trip. Replacing a frame does not preserve its old canvas handles.
+Reading complete columns, remapping or exporting can materialize all active data;
+these operations are not yet bounded writers or editors of individual rows.
+Assigning `fresh` directly under an existing name still replaces the **whole**
+analysis: use `replace_structures` to preserve other frames.
 
 ```python
 subset = interactions.remap(atom_indices=[0, 1, 2], structure_indices=[2, 0])
