@@ -169,3 +169,13 @@ Keep task-specific decisions local and report missing sibling capabilities to th
 provider with linked consumer evidence. Follow
 [MOLSYSSUITE_GUIDE.md#modular-reusable-tools](MOLSYSSUITE_GUIDE.md#modular-reusable-tools)
 for applicability, compatibility, performance and tracked exceptions.
+
+## Durable working instructions
+
+Keep technical findings in owning issues, fixes, tests and maintained guidance.
+Place only accepted lasting contributor actions in root or appropriately scoped
+instructions, following
+[the common policy](MOLSYSSUITE_GUIDE.md#durable-working-instructions).
+For work under `devguide/`, also read [devguide/AGENTS.md](devguide/AGENTS.md)
+and its local reporting protocol. Shared instruction proposals belong in
+`uibcdf/molsyssuite`; cross-MOLI contracts belong in `uibcdf/moli`.

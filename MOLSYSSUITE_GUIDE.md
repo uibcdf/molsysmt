@@ -62,6 +62,26 @@ copies were synchronized. Use the central `devtools/scripts/adoption_status.py` 
 and `devguide/adoption_lifecycle.md` procedure to find the responsible consumer, observed
 state and next action for each relationship.
 
+## Durable working instructions
+
+Follow the [durable working-instruction policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/working_instructions_policy.md).
+Keep technical findings in owning issues, fixes, tests and maintained technical
+guidance. When normal review accepts a lasting contributor or agent action,
+place repository-wide instructions in root `AGENTS.md` and directory-specific
+actions in the relevant nested file. Include the accepted action with its
+decision, or track distinct adoption work with an owned issue; a defect does
+not automatically require another instruction or issue.
+
+For work in `devguide/`, read `devguide/AGENTS.md`, the root instructions and
+the local reporting protocol. Start with current guidance and relevant active
+queues; use archive indexes for orientation and open historical records for a
+stated question. Preserve local queue layouts and commands. Propose working
+rules useful to other members in `uibcdf/molsyssuite` with local evidence;
+cross-MOLI contracts belong in `uibcdf/moli`. Upstream changes require explicit
+suite adoption. Mechanical checks verify active routes, not prose quality;
+bounded exceptions and member adoption are recorded by the policy. Future
+human-facing reporting integration remains uibcdf/molsyssuite#65.
+
 ## Cross-repository working state
 
 Before work spanning components, use the MolSysSuite checkout to refresh and inspect every
