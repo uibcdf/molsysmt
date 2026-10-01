@@ -147,6 +147,14 @@ It copies the packed occurrence arrays, so repeated local edits still need
 the planned incremental editor. Re-evaluate the affected structures before
 claiming that they have no interactions.
 
+For a large analysis, invalidating even one structure allocates storage for
+almost all surviving observations, plus temporary arrays. The original result
+can remain resident while an earlier reference or query view exists. This cost
+depends on the stored observations, measurements and periodic image columns;
+it does not copy the system's coordinates or write to disk. Automatic
+invalidation through a supported `MolSys` setter applies this operation to
+each affected named analysis.
+
 ```python
 subset = interactions.remap(atom_indices=[0, 1, 2], structure_indices=[2, 0])
 assert subset.n_structures == 2

@@ -14,6 +14,66 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Invalidation memory checkpoint — 2026-10-01
+
+**Benchmarked:** the current public `invalidate_structures()` implementation
+was measured directly, without allocating coordinates, using 100,000 and
+1,000,000 observations on 100,000 atoms and 10,000 structures. The fixture has
+1,000 reused three-participant relations, distance and angle measurements, and
+evaluated-empty frames. Each case runs in an isolated process after one small
+warm-up. These are single-call allocation measurements, not comparative timing
+statistics or an end-to-end MolSys memory limit.
+
+At one million observations, invalidating frame index 10 removes 112 rows:
+
+| Image columns | Original numeric arrays | New numeric arrays | Additional traced allocation peak |
+| --- | ---: | ---: | ---: |
+| Absent | about 43 MiB | about 43 MiB | about 72 MiB |
+| Present, three vectors per observation | about 85 MiB | about 85 MiB | about 145 MiB |
+
+The traced peak excludes the already allocated original and includes new arrays
+and temporaries. It is **not** the whole-process RSS. Source/result maps and row
+handles are counted in the numeric payload; Python objects and coordinates are
+not. The old result and its query view remain valid in the probe.
+
+Invalidating all frames produces a much smaller empty result: approximately
+0.9 MiB in this reused-relation fixture, with approximately 18 MiB of additional
+traced peak allocation at one million observations. Retained source maps and
+relation definitions account for the nonzero empty payload. Existing aliases
+can keep the old analysis alive. Multiple attached analyses are invalidated
+individually, so the cost is not bounded by the size of the coordinate edit.
+
+Reproduce from the repository root:
+
+```bash
+python devtools/scripts/benchmark_interactions_invalidation_memory.py \
+    --output /tmp/interactions-invalidation-memory.json
+```
+
+The [dated measurement artifact](../../devtools/data/interactions_invalidation_memory_20261001.json)
+records source/script hashes, dependency versions, hardware, raw byte counts,
+process RSS, methodology and semantic checks. Invalidation performs no disk
+write and creates no coordinate copy; those costs were not measured here.
+
+**Implementation priority revised:** functional frame replacement using another
+complete packed snapshot would avoid scientific recalculation of other frames
+but would preserve this linear copy cost. Do not call it an incremental editor
+or make it the memory solution. First qualify safe shared storage with local
+validity/override information against the existing query, occurrence-handle,
+source-map and H5MSM contracts. Current arrays are writable, so simply sharing
+them would not provide independent old snapshots. A storage/ownership change
+must preserve those semantics or explicitly define their experimental revision.
+
+Acceptance measurements must include one-frame and repeated edits, several named
+analyses, retained old query views, all-frame invalidation, first atom-index
+construction and serialization. Invalidation should allocate according to the
+changed frame scope rather than surviving trajectory rows; replacement should
+add the new observations and required relation definitions. If export needs a
+packed snapshot, measure that separate materialization boundary and a bounded
+writer. Read-only storage and local overrides remain candidates, not delivered
+public capabilities. No detector, public signature or schema changed in this
+measurement checkpoint.
+
 ## Controlled chemical-state edit lifecycle — 2026-10-01
 
 Public `msm.set` atom-state and scientific bond-state assignments on native

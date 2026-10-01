@@ -726,6 +726,11 @@ sizes of both source axes. Extraction composes those maps; an appended
 structure has source index `-1` and is unevaluated. The caller-supplied source
 label stays with the mapped result. These are positional indices, never
 element IDs.
+Local invalidation therefore has allocation cost proportional to surviving
+observation columns, not just the edited frame. Temporaries and earlier result
+or query references can increase peak and retained memory. No coordinates are
+copied and no disk write is triggered by this primitive. Owner setters apply
+the same operation separately to each affected named analysis.
 Native copy, extraction, and removal preserve or remap attached results;
 newly appended structures remain unevaluated. Adding atoms to a target with
 analyses preserves the target's previous atom search scope: new

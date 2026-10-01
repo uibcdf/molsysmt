@@ -1,0 +1,192 @@
+{
+  "date_utc": "2026-10-01T22:41:16.450839+00:00",
+  "source_commit": "25b68d31fecd67a610f11fc5948bfe670b29f281",
+  "script_sha256": "b9e6e3df02a8c7efd572593d636849a5fa6df4c3c0d54193d0b981fd8a9ea15a",
+  "result_source_sha256": "57c7aac64ff49cbd8c5fd5bbb364ece3a6616aceb6a402369ba44b7af1961e59",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "python": "3.13.14",
+  "numpy": "2.4.6",
+  "installed_molsysmt": "0.21.0+606.ga03eb4bf6",
+  "cpu_model": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "methodology": {
+    "statistic": "one measured call per isolated case; not a timing comparison",
+    "warmup": "one discarded 100-occurrence invalidation before constructing the fixture",
+    "fixture": "100,000 atoms, 10,000 structures, 1,000 reusable three-role relations; every tenth frame evaluated-empty; distance and angle columns",
+    "coordinates": "not allocated or copied; interaction-only measurement",
+    "array_bytes": "unique ndarray objects, including row handles/maps; excludes Python overhead",
+    "traced_bytes": "tracemalloc starts after fixture construction; live original is excluded; peak includes output and temporaries, not whole-process peak RSS",
+    "rss": "Linux process RSS and lifetime high-water mark before/after operation; includes imports and allocator retention",
+    "disk": "not measured; invalidation performs no disk write"
+  },
+  "cases": [
+    {
+      "occurrences": 100000,
+      "periodic_images": false,
+      "scope": "one_frame",
+      "removed_occurrences": 12,
+      "remaining_occurrences": 99988,
+      "input_array_bytes": 5416016,
+      "output_array_bytes": 5415480,
+      "additional_traced_live_bytes": 5419888,
+      "additional_traced_peak_bytes": 11773640,
+      "elapsed_seconds": 0.07769311685115099,
+      "process_before_bytes": {
+        "VmHWM": 83718144,
+        "VmRSS": 83718144
+      },
+      "process_after_bytes": {
+        "VmHWM": 90849280,
+        "VmRSS": 90849280
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 100000,
+      "periodic_images": false,
+      "scope": "all_frames",
+      "removed_occurrences": 100000,
+      "remaining_occurrences": 0,
+      "input_array_bytes": 5416016,
+      "output_array_bytes": 936016,
+      "additional_traced_live_bytes": 940431,
+      "additional_traced_peak_bytes": 4603948,
+      "elapsed_seconds": 0.06864114571362734,
+      "process_before_bytes": {
+        "VmHWM": 83705856,
+        "VmRSS": 83705856
+      },
+      "process_after_bytes": {
+        "VmHWM": 85549056,
+        "VmRSS": 85549056
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 100000,
+      "periodic_images": true,
+      "scope": "one_frame",
+      "removed_occurrences": 12,
+      "remaining_occurrences": 99988,
+      "input_array_bytes": 9816024,
+      "output_array_bytes": 9814960,
+      "additional_traced_live_bytes": 9819696,
+      "additional_traced_peak_bytes": 19373288,
+      "elapsed_seconds": 0.09206822887063026,
+      "process_before_bytes": {
+        "VmHWM": 84553728,
+        "VmRSS": 84553728
+      },
+      "process_after_bytes": {
+        "VmHWM": 99069952,
+        "VmRSS": 96890880
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 100000,
+      "periodic_images": true,
+      "scope": "all_frames",
+      "removed_occurrences": 100000,
+      "remaining_occurrences": 0,
+      "input_array_bytes": 9816024,
+      "output_array_bytes": 936024,
+      "additional_traced_live_bytes": 940768,
+      "additional_traced_peak_bytes": 4604618,
+      "elapsed_seconds": 0.06741278152912855,
+      "process_before_bytes": {
+        "VmHWM": 84635648,
+        "VmRSS": 84635648
+      },
+      "process_after_bytes": {
+        "VmHWM": 86487040,
+        "VmRSS": 86487040
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": false,
+      "scope": "one_frame",
+      "removed_occurrences": 112,
+      "remaining_occurrences": 999888,
+      "input_array_bytes": 45016016,
+      "output_array_bytes": 45011080,
+      "additional_traced_live_bytes": 45015472,
+      "additional_traced_peak_bytes": 75666540,
+      "elapsed_seconds": 0.2596347723156214,
+      "process_before_bytes": {
+        "VmHWM": 139419648,
+        "VmRSS": 122839040
+      },
+      "process_after_bytes": {
+        "VmHWM": 193363968,
+        "VmRSS": 176771072
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": false,
+      "scope": "all_frames",
+      "removed_occurrences": 1000000,
+      "remaining_occurrences": 0,
+      "input_array_bytes": 45016016,
+      "output_array_bytes": 936016,
+      "additional_traced_live_bytes": 940415,
+      "additional_traced_peak_bytes": 19091641,
+      "elapsed_seconds": 0.08547565713524818,
+      "process_before_bytes": {
+        "VmHWM": 139358208,
+        "VmRSS": 122740736
+      },
+      "process_after_bytes": {
+        "VmHWM": 139358208,
+        "VmRSS": 125255680
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": true,
+      "scope": "one_frame",
+      "removed_occurrences": 112,
+      "remaining_occurrences": 999888,
+      "input_array_bytes": 89016024,
+      "output_array_bytes": 89006160,
+      "additional_traced_live_bytes": 89010947,
+      "additional_traced_peak_bytes": 151658639,
+      "elapsed_seconds": 0.5702297883108258,
+      "process_before_bytes": {
+        "VmHWM": 147333120,
+        "VmRSS": 130789376
+      },
+      "process_after_bytes": {
+        "VmHWM": 282501120,
+        "VmRSS": 254656512
+      },
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": true,
+      "scope": "all_frames",
+      "removed_occurrences": 1000000,
+      "remaining_occurrences": 0,
+      "input_array_bytes": 89016024,
+      "output_array_bytes": 936024,
+      "additional_traced_live_bytes": 940835,
+      "additional_traced_peak_bytes": 19091641,
+      "elapsed_seconds": 0.08142023533582687,
+      "process_before_bytes": {
+        "VmHWM": 147394560,
+        "VmRSS": 130822144
+      },
+      "process_after_bytes": {
+        "VmHWM": 147394560,
+        "VmRSS": 138694656
+      },
+      "checks_passed": true
+    }
+  ]
+}

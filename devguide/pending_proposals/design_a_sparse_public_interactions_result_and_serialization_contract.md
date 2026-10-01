@@ -22,6 +22,23 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Local invalidation memory checkpoint — 2026-10-01
+
+The public copying primitive was measured with up to one million observations.
+Removing one frame still allocates a nearly complete surviving result: about
+85 MiB of new numeric arrays with three periodic image vectors per observation,
+and about 145 MiB of additional traced peak allocation in the measured fixture.
+Coordinates were not allocated, and this peak is not whole-process RSS. Emptying
+all frames is cheaper than retaining most observations. The reproducible
+methodology, raw artifact and revised editing acceptance criteria belong in
+[the implementation record](implement_experimental_sparse_interactions_results_and_queries.md#invalidation-memory-checkpoint--2026-10-01).
+
+This confirms a limit of the delivered snapshot primitive, not a new backend
+ranking. Safe shared storage with local validity and replacement data must be
+qualified before claiming efficient repeated edits. Existing writable arrays,
+old query snapshots and typed serialization prevent treating shallow sharing
+as an already safe solution. No public editing API was added at this checkpoint.
+
 ## Controlled chemical-state edit lifecycle — 2026-10-01
 
 Public `msm.set` atom-state and scientific bond-state assignments on native
