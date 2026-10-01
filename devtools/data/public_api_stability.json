@@ -98,7 +98,8 @@
     "molsysmt/interactions/ionic/get_ionic_interactions.py:get_ionic_interactions": "Add keyword-only heavy_mode with default auto for the documented experimental ionic block route; existing positional parameters and detector output defaults are preserved.",
     "molsysmt/interactions/ionic/get_ionic_interactions.py:reference_atoms": "Remove a local function nested inside the private _detect helper while replacing eager geometry with the shared sparse reducer; reference_atoms was never a module callable or public export.",
     "molsysmt/interactions/pi_pi/get_pi_pi_interactions.py:get_pi_pi_interactions": "Allow None thresholds for explicit attributed profiles and add keyword-only max_matches for ProLIF SMARTS; custom default still requires its four explicit cuts. Tracked by uibcdf/molsysmt#274.",
-    "molsysmt/topology/_rings.py:ring_context": "Move private ring_context chemical-source resolution to topology/_chemical_graph.py for shared ring and hbond chemistry; no public export is removed. Tracked by uibcdf/molsysmt#274."
+    "molsysmt/topology/_rings.py:ring_context": "Move private ring_context chemical-source resolution to topology/_chemical_graph.py for shared ring and hbond chemistry; no public export is removed. Tracked by uibcdf/molsysmt#274.",
+    "molsysmt/interactions/water_bridges/get_water_bridges.py:get_water_bridges": "Add keyword-only exact order=1/2 and generalize the experimental default method to hbond_water_path. Default single-water numerical behavior and explicit two_hbonds_one_water calls remain supported. Tracked by uibcdf/molsysmt#282."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {

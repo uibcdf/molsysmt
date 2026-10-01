@@ -146,7 +146,7 @@ that need not be consecutive numbers or match those indices.
 
 Detailed methods, converters, and getters for `molsysmt.MolSys` are documented in the [{doc}`molsysmt.MolSys API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
 
-Metal coordination candidates and single-water hydrogen-bond paths can be named
+Metal coordination candidates and one- or two-water hydrogen-bond paths can be named
 independent analyses in `molsys.interactions`. Their observed geometry does not
 change declared chemical-state bonds. See {ref}`Getting metal coordination
 <Tutorial_Get_metal_coordination>` and {ref}`Getting water bridges

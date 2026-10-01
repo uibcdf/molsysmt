@@ -148,6 +148,7 @@ sections:
             file: docs/content/user/tools/interactions/get_metal_coordination.ipynb
             agents_file: docs/content/user/tools/interactions/get_metal_coordination.ipynb.AGENTS.md
           - name: get_water_bridges
+            description: Exact one- and two-water paths with directed roles and observed images.
             file: docs/content/user/tools/interactions/get_water_bridges.ipynb
             agents_file: docs/content/user/tools/interactions/get_water_bridges.ipynb.AGENTS.md
           - name: get_hydrophobic_interactions
@@ -240,6 +241,7 @@ sections:
         file: docs/content/user/cookbook/saving_ionic_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_ionic_interactions.ipynb.AGENTS.md
       - name: saving_mediated_interactions
+        description: Named metal candidates and exact hydration orders persisted in H5MSM.
         file: docs/content/user/cookbook/saving_mediated_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_mediated_interactions.ipynb.AGENTS.md
       - name: saving_hydrophobic_interactions

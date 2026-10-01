@@ -14,6 +14,7 @@ PROFILES = {
 
     "water_bridges": {
         ('two_hbonds_one_water', 'indexed_water'): 'two_hbonds_one_water',
+        ('hbond_water_path', 'indexed_water'): 'hbond_water_path',
     },
 
     "metal_coordination_sites": {
@@ -64,6 +65,7 @@ PROFILES = {
 DEFAULT_PROFILES = {
     "metal_ligand_distance": "smarts_metal_ligand",
     "two_hbonds_one_water": "indexed_water",
+    "hbond_water_path": "indexed_water",
     "water_sites": {
         ('explicit_water_graph', None): 'explicit_water_graph',
     },

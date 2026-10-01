@@ -32,7 +32,7 @@ has multiple supported definitions. The following pairs are implemented:
 | Cation-pi | `centroid_angle_offset` | `least_squares` | Explicit-cutoff MolSysMT proposal |
 | Halogen bonds | `distance_two_angles` | `smarts_donor_acceptor` | ProLIF 2.2.2 core adapting Auffinger et al.; not original-paper distance thresholds |
 | Metal coordination | `metal_ligand_distance` | `smarts_metal_ligand` | ProLIF 2.2.2 MetalDonor/Distance chemical sites and inclusive 0.28 nm criterion |
-| Water bridges | `two_hbonds_one_water` | `indexed_water` | Single-water two-leg path concept; independently chosen attributed hydrogen-bond criteria |
+| Water bridges | `hbond_water_path` | `indexed_water` | Exact one- or two-water path; independently chosen attributed hydrogen-bond criteria. Previous `two_hbonds_one_water` remains supported for order one. |
 | Hydrophobic | `atom_pair_distance` | `smarts_hydrophobic_atoms` | ProLIF 2.2.2 atomic SMARTS incorporating RDKit feature patterns and distance criterion |
 
 The descriptive names do not establish who first introduced a formula. Reference
@@ -573,63 +573,73 @@ and sparse accumulator are reused. Guards live under
 ProLIF evidence is in `tests/scientific_truth/curated/test_metal_coordination.py`.
 See `uibcdf/molsysmt#280` for implementation evidence and limits.
 
-## Single-water hydrogen-bond paths
+## Indexed water-mediated hydrogen-bond paths
 
-`interactions.water_bridges.get_water_bridges` implements `two_hbonds_one_water`
-with profile `indexed_water`. It recognizes full-source neutral explicit O-H-H
-components through `physchem.get_water_sites`, then reuses `hbonds.get_hbonds`
-for same-frame branches incident on water oxygen. `hbond_method` and
-`hbond_profile` retain the exact branch criterion; the default is Baker-Hubbard.
-The descriptive path method does not claim invention of the graph concept used
-by ProLIF WaterBridge and MDAnalysis WaterBridgeAnalysis. The reference path
-concept and the executed branch method are separately attributed. No complete
-residue/network pipeline equivalence is promised.
+`interactions.water_bridges.get_water_bridges` implements `hbond_water_path`
+with profile `indexed_water`. Keyword-only `order=1` (default) means exactly one
+water and two simultaneous hydrogen bonds; `order=2` means exactly two distinct
+waters and three simultaneous bonds. This is an exact order, not an upper bound.
+Store separate named analyses when both orders are wanted. The previous method
+`two_hbonds_one_water` retains its literal order-one meaning; it rejects order two.
+Its single-water numerical behavior remains supported.
 
-A relation stores six singleton roles, in two directed D-H-A triples:
-`leg_1_donor`, `leg_1_hydrogen`, `leg_1_acceptor`, `leg_2_donor`,
-`leg_2_hydrogen`, `leg_2_acceptor`. The shared water oxygen repeats as a role
-atom in both branches; alternative and bifurcated hydrogens remain identifiable.
-Only actual branch atoms participate; unused water H is not a seventh participant.
-The water may donate both branches, accept both or donate one and accept one.
-Distinct external heavy atoms are required. Sort branches by external heavy
-atom index then directed D-H-A tuple; join an exact branch pair once per frame.
+Recognize full-source neutral explicit O-H-H components through
+`physchem.get_water_sites`, then reuse `hbonds.get_hbonds` for same-frame legs
+incident on water oxygen. `hbond_method` and `hbond_profile` retain the exact leg
+criterion; the default is Baker-Hubbard. ProLIF WaterBridge and MDAnalysis
+WaterBridgeAnalysis are references for the path concept, separately attributed
+from the executed leg criterion. Their pruning, residue aggregation and
+maximum/minimum-order policies are not a promised pipeline equivalence.
+
+Relations store six or nine singleton roles in two or three directed D-H-A
+triples: `leg_1_donor`, `leg_1_hydrogen`, `leg_1_acceptor`, and similarly for legs
+two and three. Each mediator oxygen repeats in adjacent legs; alternative and
+bifurcated hydrogens remain identifiable. Unused water H is not an additional
+participant. Distinct external heavy atoms and distinct mediator oxygens are
+required. Order the traversal from the lower external heavy-atom index, while
+preserving each leg's donor/acceptor orientation. Reversal is not a second path;
+different observed leg triples are distinguishable paths. Repeated endpoint
+cycles and observations from different frames are excluded.
 
 `internal`, `incident` and `between` apply to all actual participating atoms,
-including mediator atoms and the observed H. Internal excludes endpoint-only
+including mediator atoms and observed H. Internal excludes endpoint-only
 selections; use incident for those. Between requires all participants in the
-union of two disjoint sets and at least one in each; water atoms must be supplied
-in that union. Queries retain the existing all-participant semantics. Evaluated
-empty frames remain distinguishable from unevaluated frames.
+union of two disjoint sets and at least one in each. Evaluated empty frames remain
+distinguishable from unevaluated frames. Atom removal drops incomplete relations
+without recalculating other interactions.
 
-Measurements keep `leg_1_` and `leg_2_` prefixes and explicit nm/radians units.
-The complete attributed leg parameters are saved in `hbond_parameters`.
-Translate the second leg's integer images onto the first shared water oxygen,
-then anchor the six images at the first role. Preserve both relative geometries
-and reject incompatible images for a repeated atom or int32 overflow. The PBC
-composition helper lives in `pbc`; no geometric images are reconstructed from
-saved scalar distances. Named and typed H5MSM 0.5 conversions preserve images,
-occurrence indices and original software/bibliographic provenance.
+Measures retain `leg_1_`, `leg_2_` and (for order two) `leg_3_` prefixes and explicit
+nm/radians units. Empty order-two output has all fifteen float64 measure columns.
+The complete attributed leg parameters remain in `hbond_parameters`, with
+`mediator_order` and the versioned path rule identifying the composition.
+Translate each next leg onto its shared mediator oxygen image, then anchor at the
+first role. Preserve all relative geometries; reject incompatible repeated-atom
+images or int32 overflow. This reusable image join belongs to `pbc`, and handles
+arbitrary role counts without reconstructing images from scalar distances.
+Named and typed H5MSM 0.5 conversions preserve roles, images, occurrence indices
+and original software/bibliographic provenance; no schema change is needed.
 
-Accepted legs remain resident while bounded per-water pair batches construct
-sparse bridge columns. Numeric working estimates include leg arrays and result
-packing, but not complete Python/graph RSS. This is not an incremental writer.
-Multiple-water networks, implicit H, endpoint-only scope modes, virtual-site
-recognition and caller-explicit leg sites are outside this first contract.
-Guards live under `tests/interactions/water_bridges/`,
+Accepted legs remain resident. Order one batches per-water pairs; order two
+batches terminal fan-out only across observed water-water edges. No all-water
+pair array or dense trajectory tensor is allocated. Numeric working estimates
+include leg arrays and sparse packing, but not complete Python/graph RSS.
+Higher orders, implicit H, endpoint-only scope modes, virtual-site recognition,
+caller-explicit leg sites and an incremental writer remain outside this contract.
+Guards: `tests/interactions/water_bridges/`,
 `tests/physchem/test_get_water_sites.py` and
 `tests/scientific_truth/curated/test_water_bridges.py`. The independent oracle
-uses original ProLIF HBDonor observations and a separate path enumeration;
-controlled geometries also check all three water-role patterns analytically.
-See `uibcdf/molsysmt#281` for implementation evidence and limits.
+uses original ProLIF HBDonor observations and separate simple-path enumeration;
+controlled geometries check all eight three-leg directions analytically.
+Implementation records: `uibcdf/molsysmt#281` and `uibcdf/molsysmt#282`.
 
 ## Planned family coverage
 
 All eight original families under `uibcdf/molsysmt#250` now have implemented
 experimental detectors: hydrogen bonds, disulfide candidates, ionic observations,
 pi-pi, cation-pi, halogen bonds, hydrophobic observations and metal candidates.
-Single-water hydrogen-bond bridges extend this inventory as the ninth family
+One- and two-water hydrogen-bond bridges extend this inventory as the ninth family
 under the maintainer's 2026-10-01 decision. These additions are not mandatory
-new 1.0 gates; metal-specific physical criteria, higher-order water paths and
+new 1.0 gates; metal-specific physical criteria, paths through more than two waters and
 broader comparative validation remain refinements rather than implied support.
 Phosphate/sulfate and aromatic charge-delocalization
 extensions (`uibcdf/molsysmt#262`) and comparison of the proposed aromatic

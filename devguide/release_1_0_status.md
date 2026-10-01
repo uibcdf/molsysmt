@@ -63,8 +63,9 @@ recertification are in progress; this work is not yet part of a tested release
 candidate. Its final commit must pass the affected scientific, documentation,
 consumer, and release gates before candidate freeze. Separately approved
 experimental ionic, pi-pi, cation-pi, halogen, hydrophobic, metal-candidate and
-single-water hydrogen-bond families are now implemented; these are not new 1.0
-requirements. Metal-specific rules and multi-water networks remain extensions. The public `Interactions` contract (#251),
+one- and two-water hydrogen-bond families are now implemented; these are not new 1.0
+requirements. Metal-specific rules and paths through more than two waters remain
+extensions. The public `Interactions` contract (#251),
 optional native `MolSys` attachment and H5MSM persistence (#252), and a tested
 MolSysViewer integration (`uibcdf/molsysviewer#114`) are now required before
 the 1.0 candidate freeze. Native attachment, local-to-source maps, declared

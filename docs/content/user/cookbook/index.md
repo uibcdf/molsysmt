@@ -22,7 +22,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`preparing_charged_participants`** | Recognizing local charged centers and selecting complete chemical participants. |
 | **{doc}`saving_ionic_interactions`** | Calculating, naming, saving, and querying an ionic-contact analysis. |
 | **{doc}`saving_cation_pi_interactions`** | Saving attributed cation–π observations and a separate geometric proposal. |
-| **{doc}`saving_mediated_interactions`** | Saving metal candidates and single-water paths with original provenance. |
+| **{doc}`saving_mediated_interactions`** | Saving metal candidates and one- or two-water paths with original provenance. |
 | **{doc}`saving_hydrophobic_interactions`** | Naming, saving and remapping a typed fragment-interface analysis. |
 | **{doc}`saving_halogen_bonds`** | Naming, saving and remapping four-role halogen observations. |
 | **{doc}`saving_hbond_interactions`** | Persisting named hydrogen-bond definitions and sparse coverage. |

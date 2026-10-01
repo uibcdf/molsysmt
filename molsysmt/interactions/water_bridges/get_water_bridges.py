@@ -1,4 +1,4 @@
-"""Compose explicit single-water paths from two attributed hydrogen bonds."""
+"""Compose indexed one- or two-water paths from attributed hydrogen bonds."""
 
 from copy import deepcopy
 
@@ -23,13 +23,13 @@ from molsysmt._private.variables import is_all
 @attributed("water_bridges")
 def get_water_bridges(
     molecular_system, selection="all", selection_2=None, structure_indices="all",
-    chemical_state="reference", method="two_hbonds_one_water", distance_threshold=None,
+    chemical_state="reference", method="hbond_water_path", distance_threshold=None,
     angle_threshold=None, selection_mode="internal", pbc=True,
     assume_complete_connectivity=False, output_type="molsysmt.Interactions",
     syntax="MolSysMT", skip_digestion=False, *, hbond_method="baker_hubbard",
-    hbond_profile=None, max_matches=100000, heavy_mode="auto", profile=None,
+    hbond_profile=None, max_matches=100000, heavy_mode="auto", profile=None, order=1,
 ):
-    """Observing two simultaneous hydrogen bonds through one indexed water molecule.
+    """Observing simultaneous hydrogen bonds through one or two indexed waters.
 
     Return an independent analysis; attachment to a molecular system is explicit.
 
@@ -41,7 +41,7 @@ def get_water_bridges(
         Waters require two explicitly indexed hydrogens.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Source atom selection. All-participant scope includes mediator atoms and
-        hydrogens actually used by the two branches.
+        hydrogens actually used by the observed legs.
     selection_2 : str, list, tuple, numpy.ndarray, or None, default=None
         Disjoint second selection, required only for between mode. Mediator atoms
         must be in the union for between mode; use incident for endpoint-only sets.
@@ -50,8 +50,9 @@ def get_water_bridges(
         Frames without bridges retain explicit evaluated coverage.
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         State supplying waters and leg sites. Requested frames must resolve one state.
-    method : str, default='two_hbonds_one_water'
-        Two observed D-H-A legs sharing one water oxygen in the same frame.
+    method : str, default='hbond_water_path'
+        Simple paths of observed D-H-A legs through the requested water order.
+        The previous two_hbonds_one_water selector remains available for order one.
     distance_threshold : quantity, str, or None, default=None
         Positive scalar length cutoff passed to the leg detector. None uses its
         named scientific default: H-A <0.25 nm for Baker-Hubbard, for example.
@@ -64,7 +65,7 @@ def get_water_bridges(
         These are atom scopes, not implicit ligand/protein endpoint selections.
     pbc : bool, default=True
         Preserve observed leg MIC images when a valid box exists. Translate the
-        second leg onto the same water oxygen image, keeping both geometries.
+        next leg onto its shared water oxygen image, keeping every geometry.
     assume_complete_connectivity : bool, default=False
         Record a completeness assumption without repairing chemical assignments.
     output_type : str, default='molsysmt.Interactions'
@@ -74,7 +75,7 @@ def get_water_bridges(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
     hbond_method : str, default='baker_hubbard'
-        Keyword-only criterion for both legs: baker_hubbard, wernet_nilsson, or
+        Keyword-only criterion for every leg: baker_hubbard, wernet_nilsson, or
         donor_acceptor_distance_angle with an automatic chemical site profile.
     hbond_profile : str or None, default=None
         Keyword-only recognition/geometry profile passed to get_hbonds. None
@@ -86,15 +87,20 @@ def get_water_bridges(
         stream projected coordinates. Accepted legs and bridges remain in RAM.
     profile : str or None, default=None
         Keyword-only indexed_water profile. None selects this profile.
+    order : int, default=1
+        Keyword-only exact number of distinct mediator waters: one or two.
+        Two waters require three simultaneous legs. This is not a maximum order;
+        store separate named analyses to retain both one- and two-water paths.
 
     Returns
     -------
     molsysmt.Interactions or molsysmt.InteractionsDict
-        Relations of type water_bridge, six singleton roles in two D-H-A triples:
+        Relations of type water_bridge, six or nine singleton roles in D-H-A triples:
         leg_1_donor, leg_1_hydrogen, leg_1_acceptor, leg_2_donor,
-        leg_2_hydrogen, leg_2_acceptor. The water oxygen repeats in both branches;
+        leg_2_hydrogen, leg_2_acceptor, plus leg_3 roles for order two. Each mediator
+        oxygen repeats in its adjacent legs;
         each role retains its own observed image. Measures prefixed ``leg_1_`` and
-        ``leg_2_`` retain nm or radians. Scope, frames, reference/producer provenance,
+        ``leg_2_`` (and ``leg_3_`` for order two) retain nm or radians. Scope, frames, reference/producer provenance,
         and the complete attributed leg parameters accompany the result.
 
     Raises
@@ -110,7 +116,7 @@ def get_water_bridges(
 
     Notes
     -----
-    The path construction follows the single-water two-hydrogen-bond concept
+    The path construction follows the water-mediated hydrogen-bond path concept
     used by ProLIF WaterBridge and MDAnalysis WaterBridgeAnalysis, adapted to
     atom-level observations rather than residue fingerprints. Leg science is
     explicitly chosen and attributed; the default uses Baker-Hubbard criteria,
@@ -121,13 +127,15 @@ def get_water_bridges(
     The water can donate both legs, accept both, or donate one and accept one.
     Different donor hydrogens are different observations, including bifurcated
     hydrogen bonds; neither branch direction nor hydrogen roles are discarded.
-    Sort branches by the external heavy-atom index, then the directed D-H-A
-    tuple. An undirected path appears once per exact branch pair and frame.
+    Order legs along the path starting from the lower external heavy-atom index,
+    preserving each directed D-H-A tuple. An undirected path appears once per
+    exact leg sequence and frame. Order two requires two distinct water oxygens
+    and their observed connecting leg; cycles and repeated endpoint atoms are excluded.
     All returned participants are actual leg atoms; an unused water hydrogen
     is not an additional participant. Internal queries and atom removal use
     those participants. Neutral explicit waters are recognized by chemical
-    graph, not residue name. Water-water networks, paths through multiple waters,
-    implicit hydrogens, energies and global frequency pruning are excluded.
+    graph, not residue name. Paths through more than two waters, implicit
+    hydrogens, energies and global frequency pruning are excluded.
 
     No dense atom-pair or trajectory tensor is allocated. Leg coordinates use
     the existing projected executor. Numeric resident leg columns, join arrays
@@ -175,6 +183,8 @@ def get_water_bridges(
     from ._join import join_water_legs
 
     caller = "molsysmt.interactions.water_bridges.get_water_bridges"
+    if method == "two_hbonds_one_water" and order != 1:
+        raise ArgumentError("order", caller=caller, message="two_hbonds_one_water requires order=1; use hbond_water_path for order=2.")
     leg_definition = resolve_method("hbonds", hbond_method, hbond_profile, caller=caller)
     if leg_definition["implementation"] == "mdanalysis_geometry":
         raise ArgumentError("hbond_profile", caller=caller, message="Water bridges require automatic leg site recognition.")
@@ -228,12 +238,12 @@ def get_water_bridges(
     metadata = dict(
         n_atoms=n_atoms, n_structures=n_structures, evaluated_structure_indices=frames,
         method=caller, software={**waters["software"], **legs.software},
-        measure_units={f"leg_{branch}_{name}": unit for branch in (1, 2) for name, unit in legs.measure_units.items()},
+        measure_units={f"leg_{branch}_{name}": unit for branch in range(1, order + 2) for name, unit in legs.measure_units.items()},
         evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
         evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
         parameters=dict(
-            method=method, method_reference=reference, geometry_rule_version="two_hbonds_one_water@1",
+            method=method, method_reference=reference, geometry_rule_version=f"hbond_water_path_order_{order}@1",
             hbond_method=leg_definition["method"], hbond_profile=leg_definition["profile"],
             hbond_parameters=deepcopy(legs.parameters), water_definition=waters["method"],
             water_smarts=waters["smarts_patterns"], chemistry_evidence=waters["evidence"],
@@ -241,7 +251,7 @@ def get_water_bridges(
             chemical_state_index=state_index, max_matches=max_matches,
             assume_complete_connectivity=assume_complete_connectivity, pbc=pbc,
             branch_identity="distinct_external_heavy_atom_then_directed_dha",
-            selection_policy="all_actual_leg_participants", mediator_order=1,
+            selection_policy="all_actual_leg_participants", mediator_order=order,
             hydrogen_policy="indexed_atoms_only", image_policy="align_shared_water_oxygen_then_anchor_first_role",
             execution=legs.parameters["execution"], execution_chunks=legs.parameters["execution_chunks"],
             memory_policy="resident_legs_and_sparse_join_numeric_estimates@1",

@@ -366,8 +366,9 @@ analysis. See {ref}`Tutorial_Get_hydrophobic_interactions` and
 
 {func}`molsysmt.interactions.metal_coordination.get_metal_coordination` stores
 directed metal/ligand candidates; it does not declare bonds in ChemicalStates.
-{func}`molsysmt.interactions.water_bridges.get_water_bridges` stores two D-H-A
-branches with six singleton roles and a shared water oxygen. Repeated atoms
+{func}`molsysmt.interactions.water_bridges.get_water_bridges` stores two or three
+D-H-A legs with six or nine singleton roles and one or two mediator waters.
+`order=1` is the default; `order=2` means exactly two distinct waters, not up to two. Repeated atoms
 retain their separate chemical roles; incident queries return an occurrence
 once. Internal queries require all actual branch atoms, including mediator
 O and the participating H. An unused water H is not an extra participant.

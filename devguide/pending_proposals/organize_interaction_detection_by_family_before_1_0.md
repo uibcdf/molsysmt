@@ -34,7 +34,7 @@ completed families:
 | Halogen bonds | `interactions.halogen_bonds.get_halogen_bonds` | ProLIF-adapted distance/two-angle profile and general site recognition implemented under `uibcdf/molsysmt#277`; original-paper and Mol* alternatives remain distinct. |
 | Hydrophobic associations | `interactions.hydrophobic.get_hydrophobic_interactions` | Pinned atomic SMARTS/distance profile and general `physchem.get_hydrophobic_sites` implemented under `uibcdf/molsysmt#278`; distinct from residue scales and an energetic model. |
 | Metal coordination | `interactions.metal_coordination.get_metal_coordination` | Pinned metal/ligand SMARTS and inclusive distance candidates under `uibcdf/molsysmt#280`; separate from declared connectivity. |
-| Water-mediated hydrogen bonds | `interactions.water_bridges.get_water_bridges` | Explicit single-water two-leg observations under `uibcdf/molsysmt#281`; preserve directed hydrogen roles and coherent images. Multi-water paths remain future work. |
+| Water-mediated hydrogen bonds | `interactions.water_bridges.get_water_bridges` | Exact one- or two-water paths under `uibcdf/molsysmt#281` and `uibcdf/molsysmt#282`; preserve directed hydrogen roles and coherent images. Higher orders remain future work. |
 
 The maintainer added water-mediated hydrogen bonds to the explicit
 inventory on 2026-10-01. They extend the initial eight-family list without
