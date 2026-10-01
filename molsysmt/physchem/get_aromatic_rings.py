@@ -90,6 +90,9 @@ def get_aromatic_rings(
     ChemicalStates, ChemicalStatesDict and topology-free MolSys inputs can
     supply participants without a topology inventory. Legacy TopologyDict
     and MolSysDict forms do not supply complete aromatic metadata.
+    A ChemicalStates/Structures pair (including dictionary chemistry) uses the
+    same public composition route and declares matching atom-index spaces.
+    Native full structural series are shared for this read-only chemical context.
 
     See Also
     --------

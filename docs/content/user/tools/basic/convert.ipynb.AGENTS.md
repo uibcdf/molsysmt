@@ -18,4 +18,6 @@ This document defines micro-governance rules for the `convert.ipynb` tutorial un
   - `## One item into multiple`
   - `## Supported conversions`
 - **Admonitions**: `API documentation`, `{tip}`, `{note}`, and `{seealso}` are collapsible dropdowns.
+- Preserve the chemical/structural domain composition example, declared index
+  correspondence, ordered selections, copy policy and unknown multi-state association.
 - **See Also**: Collapsible dropdown listing referenced tools and Foundations guides in exact order of appearance (`Introduction_Forms`, `user-foundations-entrance-demo-systems`, `info`, `get_form`, `compare`, `concatenate_structures`, `view`).

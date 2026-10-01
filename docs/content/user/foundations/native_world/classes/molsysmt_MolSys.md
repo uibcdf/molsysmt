@@ -11,6 +11,13 @@ As a user, `molsysmt.MolSys` is the central object returned when loading, conver
 
 Some native operations edit a `MolSys` in place; `extract` returns an independent subset. A partial `MolSys` retains only the information domains that were available in its source.
 
+If you hold chemical states and structures separately, use
+`msm.convert([chemical_states, structures], to_form='molsysmt.MolSys')`.
+The chemistry may also be a `ChemicalStatesDict`. The pair declares matching
+atom-index correspondence and produces a topology-free system; index selections
+remap both domains together. The reference state is preserved, but several
+states are not automatically assigned to structures. See {ref}`Tutorial_Convert`.
+
 ---
 
 ## Internal Attributes

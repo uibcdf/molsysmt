@@ -19,6 +19,16 @@ def ring_context(molecular_system, chemical_state, structure_indices, assume_com
     from molsysmt.native import ChemicalStates, MolSys, Topology
 
     selection_frames = structure_indices
+    forms = get_form(molecular_system)
+    if isinstance(forms, (list, tuple)) and any(
+        form in ("molsysmt.ChemicalStates", "molsysmt.ChemicalStatesDict")
+        for form in forms
+    ):
+        # General conversion owns axis validation and declared correspondence.
+        # The read-only chemistry context may share full native domains.
+        molecular_system = convert(
+            molecular_system, to_form="molsysmt.MolSys", copy_if_all=False,
+        )
     dimensions = modular_h5msm_dimensions(molecular_system)
     if dimensions is not None:
         from molsysmt.form._h5msm05_modular import _read_calculation_chemistry

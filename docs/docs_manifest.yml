@@ -55,6 +55,10 @@ sections:
         index_file: docs/content/user/tools/basic/index.md
         index_agents_file: docs/content/user/tools/basic/index.AGENTS.md
         status: reviewed
+        pages:
+          - name: convert
+            file: docs/content/user/tools/basic/convert.ipynb
+            agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
       - name: build
         path: docs/content/user/tools/build
         agents_file: docs/content/user/tools/build/AGENTS.md
@@ -202,6 +206,7 @@ sections:
       - name: saving_pi_pi_interactions
         file: docs/content/user/cookbook/saving_pi_pi_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_pi_pi_interactions.ipynb.AGENTS.md
+        description: Named aromatic analyses from composed chemical and structural domains.
       - file: docs/content/user/cookbook/migrating_h5msm.md
         agents_file: docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md
   showcase:

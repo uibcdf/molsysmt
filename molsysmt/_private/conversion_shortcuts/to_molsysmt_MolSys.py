@@ -193,3 +193,39 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(
     )
 
     return output_item
+
+
+def molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys(
+    molecular_system, atom_indices="all", structure_indices="all",
+    copy_if_all=True, skip_digestion=False,
+):
+    """Compose aligned chemical and structural domains without inventing topology.
+
+    The composite declares index correspondence. Validate the full axes before
+    extracting so a selection cannot hide incompatible source domains. Native
+    extraction owns ordered remapping and the default independent-copy policy.
+    """
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+    from molsysmt.basic import convert, get_form
+    from molsysmt.native import MolSys
+
+    states, structures = None, None
+    for form, item in zip(get_form(molecular_system), molecular_system):
+        if form == "molsysmt.Structures":
+            structures = item
+        elif form == "molsysmt.ChemicalStates":
+            states = item
+        elif form == "molsysmt.ChemicalStatesDict":
+            states = convert(item, to_form="molsysmt.ChemicalStates")
+    try:
+        source = MolSys._from_partial_domains(
+            chemical_states=states, structures=structures,
+        )
+    except ValueError as error:
+        raise StructuralInconsistencyError(
+            reason=str(error), caller="molsysmt.convert",
+        ) from error
+    return source.extract(
+        atom_indices=atom_indices, structure_indices=structure_indices,
+        copy_if_all=copy_if_all,
+    )

@@ -92,6 +92,25 @@ def test_parallel_edge_and_evaluated_empty_frames_reuse_one_relation():
     assert not molsys.interactions
 
 
+@pytest.mark.parametrize("dictionary", [False, True])
+@pytest.mark.parametrize("reverse", [False, True])
+def test_composite_chemical_and_structural_domains_share_public_conversion(dictionary, reverse):
+    molsys = _ensemble()
+    chemistry = (msm.convert(molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict")
+                 if dictionary else molsys.chemical_states)
+    source = [molsys.structures, chemistry] if reverse else [chemistry, molsys.structures]
+    expected = _calculate(molsys, structure_indices=[2, 0], chemical_state="structure")
+    result = _calculate(source, structure_indices=[2, 0], chemical_state="structure")
+    _assert_same(result, expected)
+    rings = msm.physchem.get_aromatic_rings(source)
+    assert rings["atom_offsets"].tolist() == [0, 6, 12]
+    assert rings["atom_indices"].tolist() == list(range(12))
+    covalent_rings = msm.topology.get_rings(source)
+    np.testing.assert_array_equal(covalent_rings["atom_indices"], rings["atom_indices"])
+    assert molsys.chemical_states.reference_chemical_state_index == 0
+    assert not molsys.interactions
+
+
 @pytest.mark.parametrize(("geometry", "frames"), [("parallel", [0]), ("edge_to_face", [2]), ("both", [0, 2])])
 def test_geometric_class_selection(geometry, frames):
     assert _calculate(_ensemble(), geometry=geometry).occurrence_structures.tolist() == frames

@@ -6,6 +6,7 @@ from .to_molsysmt_MolSys import (
     file_h5msm_and_file_dcd_to_molsysmt_MolSys,
     file_prmtop_and_file_inpcrd_to_molsysmt_MolSys,
     file_psf_and_file_dcd_to_molsysmt_MolSys,
+    molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys,
     molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys,
 )
 
@@ -26,3 +27,8 @@ _multiple_conversion_shortcuts[tuple(sorted(["file:gro", "file:xtc"]))] = {
 _multiple_conversion_shortcuts[
     tuple(sorted(["molsysmt.Topology", "molsysmt.Structures"]))
 ] = {"molsysmt.MolSys": molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys}
+
+for chemical_form in ("molsysmt.ChemicalStates", "molsysmt.ChemicalStatesDict"):
+    _multiple_conversion_shortcuts[
+        tuple(sorted([chemical_form, "molsysmt.Structures"]))
+    ] = {"molsysmt.MolSys": molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys}

@@ -80,6 +80,9 @@ def get_rings(
     The block limit bounds individual problems, not process RSS or runtime.
     ChemicalStates, ChemicalStatesDict and topology-free MolSys inputs also
     support membership calculations when their stored chemistry is sufficient.
+    A ChemicalStates/Structures pair (including dictionary chemistry) uses
+    public conversion to resolve a topology-free context without copying the
+    full native structural series. The pair declares atom-index correspondence.
 
     See Also
     --------

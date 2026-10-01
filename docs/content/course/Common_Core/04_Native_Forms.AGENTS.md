@@ -21,6 +21,8 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must present component objects: `molsysmt.Topology`, `molsysmt.ChemicalStates`, `molsysmt.Structures`, and `molsysmt.MolecularMechanics`.
 * Must explain the responsibilities of each component (`topology` for the stable atom inventory and hierarchy, `chemical_states` for covalent bonds and state-dependent assignments, `structures` for coordinate arrays `(n_structures, n_atoms, 3)` and periodic boxes, `molecular_mechanics` for force field parameters and energies).
 * Must explain that `Topology.bonds` is a compatibility view of the reference chemical state, not a second bond authority.
+* Preserve declared ChemicalStates/Structures composition without topology,
+  ordered index selection and unknown multi-state structure association.
 * Must include explicit hyperlinked cross-references pointing to where deeper analysis of each domain can be found in future modules.
 
 ### 3. Section 3: Native Disk Storage (`file:h5msm`)

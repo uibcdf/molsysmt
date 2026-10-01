@@ -225,6 +225,29 @@ DCD trajectory and states that the multi-structure item dictates the resulting
 structure axis. The plan that produced it is
 [`archive/resolved_proposals/docs/convert_tutorial_multi_form_structure_axis.md`](archive/resolved_proposals/docs/convert_tutorial_multi_form_structure_axis.md).
 
+### Separate chemical and structural domains
+
+A pair containing native `ChemicalStates` (or `ChemicalStatesDict`) and native
+`Structures` converts to a topology-free `MolSys`, in either order. The caller
+declares that both atom-index spaces correspond; matching cardinalities validate
+the axes but do not independently verify molecular identity. Full source axes
+must be compatible before any selection is applied.
+
+The composition reuses native partial-domain assembly and `MolSys.extract`.
+Unique atom indices retain their supplied order; nonconsecutive or repeated
+structure indices retain theirs. Chemistry, bonds and structural series remap
+together. All states and the reference index are preserved. Composition adds
+no per-structure state assignment: a single state resolves implicitly, while
+multiple states remain unassigned until the user declares an association.
+Missing topology is preserved, rather than synthesizing an atom hierarchy.
+
+The default result owns independent native domains. With `copy_if_all=False`
+and both axes set to `'all'`, native inputs may be shared through a new MolSys
+container. Dictionary chemistry is decoded to native storage. Selections always
+produce independent remapped domains. No partial graph shortcut or competing
+chemical store is introduced in scientific consumers. Ring tools use the same
+public conversion with the full-domain sharing policy for a read-only context.
+
 ## Forms with partial source information
 
 A source containing coordinates but no topology must not invent semantic

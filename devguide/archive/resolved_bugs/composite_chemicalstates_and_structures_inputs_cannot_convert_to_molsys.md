@@ -1,14 +1,14 @@
 ---
 summary: Composite ChemicalStates and Structures inputs cannot convert to MolSys
 issue: uibcdf/molsysmt#269
-status: open
+status: resolved
 opened: 2026-10-01
-closed:
+closed: 2026-10-01
 severity: medium
 verification: reproduced
 area: [convert, form]
-guard:
-normative:
+guard: tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py::test_compose_chemical_and_structural_domains_without_inventing_topology
+normative: devguide/forms_and_conversions.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,7 +16,7 @@ supersedes: []
 # Composite chemical and structural domains cannot convert to MolSys
 
 **Reported:** 2026-10-01, during the final pi-pi form-parity review.
-**Status:** Reproduced conversion limitation; domain composition needs a shared repair.
+**Status:** Resolved through shared conversion shortcuts and native partial-domain extraction.
 
 ## What
 
@@ -28,8 +28,9 @@ H5MSM 0.5. A list of `Topology` and `Structures` also works.
 ```python
 import numpy as np
 import molsysmt as msm
+from molsysmt.native import MolSys
 
-molsys = msm.MolSys(n_atoms=1)
+molsys = MolSys(n_atoms=1)
 molsys.structures.append(
     coordinates=msm.pyunitwizard.quantity(np.zeros((1, 1, 3)), 'nm'))
 msm.convert([molsys.chemical_states, molsys.structures],
@@ -101,3 +102,53 @@ independent files require explicit policy; they must not be silently inferred.
 
 2026-10-01; Linux, Python 3.13, local MolSysSuite development environment.
 No network data or optional scientific dependency is needed for reproduction.
+
+## Resolution — 2026-10-01
+
+**Implemented:** Both exact pairs (native ChemicalStates or ChemicalStatesDict,
+with native Structures) register in the existing composite conversion graph.
+The private converter reuses `MolSys._from_partial_domains` and `MolSys.extract`,
+validating full axes before ordered remapping. Default outputs own independent
+domains; explicit full-axis `copy_if_all=False` permits native sharing. Dictionary
+chemistry is decoded using its existing converter. Topology remains absent and
+all states, reference selection, chemistry evidence and units are preserved.
+
+The shared ring context delegates these composites to public conversion with
+full native sharing for read-only recognition. Covalent and aromatic ring tools,
+and pi-pi observations, therefore use one composition policy. No detector-local
+assembly routine or chemical store is introduced. No per-structure state
+association is inferred for multiple states.
+
+**Contract-tested:** Twelve conversion cases cover both input orders and chemical
+forms, bonds and assignments, source immutability, ordered atom and repeated
+structure selections, nondefault unit policy, incompatible full atom axes,
+copy policy, implicit single-state resolution and public H5MSM persistence.
+Four additional pi-pi cases compare composite observations with the analytical
+native ensemble and check both ring tools. The guard asserts complete chemistry
+and topology absence through public conversion; the original generic fallback
+cannot satisfy it.
+
+**Validation checkpoint:** 162 tests pass across composite conversion routes,
+aromatic/covalent ring recognition, pi-pi analytical and independent molecular
+oracles, public MolSys/H5MSM workflows and the converter's doctest. The existing
+legacy-format and off-axis-reference warnings remain visible. Both updated
+tutorials execute (convert: 58.3 s; aromatic persistence recipe: 9.8 s).
+The converter docstring now uses a bundled BCIF example instead of a downloaded
+PDB identifier. Foundations, Toolbox, Cookbook and the common native-forms course
+module describe the same supported composition and association limits.
+The HTML build completes without errors; existing navigation/reference warnings
+remain visible. No new dependency, Rust routine or API namespace is introduced.
+Two additional doctests for the updated ring-tool notes pass independently.
+
+Reproduction:
+
+```bash
+python -m pytest --receptor=llm tests/basic/convert/mult_to_one tests/physchem/test_get_aromatic_rings.py tests/topology/test_get_rings.py tests/interactions/pi_pi tests/scientific_truth/curated/test_pi_pi_interactions.py tests/interactions/test_public_molsys_h5msm_workflow.py --doctest-modules molsysmt/basic/convert.py --disable-warnings
+python docs/execute_notebooks.py -q -f docs/content/user/tools/basic/convert.ipynb docs/content/user/cookbook/saving_pi_pi_interactions.ipynb
+```
+
+**Scope:** The registered routes require native Structures and one chemical
+collection. Arbitrary conflicting provider lists, independently authenticated
+identity, a direct ChemicalStates-to-Topology conversion, and streamed composite
+coordinate delivery are not established by this repair. Existing H5MSM/native
+MolSys projected streaming routes remain available after explicit composition.

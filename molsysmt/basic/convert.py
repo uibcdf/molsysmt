@@ -811,6 +811,13 @@ def convert(
     - Converting to ``file:h5msm`` writes H5MSM 0.5. Legacy 0.3 and 0.4
       files remain readable and can be migrated with
       :func:`molsysmt.h5msm.migrate_to_05`.
+    - A native ChemicalStates (or ChemicalStatesDict) and Structures pair can
+      compose a topology-free MolSys, in either item order. Supplying the pair
+      declares that their atom indices correspond; full axis counts must agree.
+      Atom and structure index selections remap the two domains together.
+      The reference chemical state is preserved, but multiple states acquire
+      no inferred per-structure assignment. The default result is independent;
+      ``copy_if_all=False`` shares native domains only for full-axis conversion.
 
 
     See Also
@@ -826,15 +833,30 @@ def convert(
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys_A = '2LAO'
+    >>> molsys_A = msm.systems['T4 lysozyme L99A']['181l.bcif.gz']
     >>> msm.get_form(molsys_A)
-    'string:pdb_id'
-    >>> molsys_B = msm.convert(molsys_A, to_form='openmm.Topology')
+    'file:bcif.gz'
+    >>> molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
     >>> msm.get_form(molsys_B)
-    'openmm.Topology'
+    'molsysmt.MolSys'
     >>> _, report = msm.convert(molsys_B, to_form='molsysmt.Topology', return_report=True)
     >>> report.outcome in {'exact', 'equivalent', 'lossy'}
     True
+
+    Composing separately held chemical and structural domains:
+
+    >>> import numpy as np
+    >>> from molsysmt.native import ChemicalStates, Structures
+    >>> states = ChemicalStates(n_atoms=2)
+    >>> states.append_state()
+    0
+    >>> structures = Structures()
+    >>> structures.append(coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), 'nm'))
+    >>> partial = msm.convert([states, structures], selection=[1, 0])
+    >>> partial.topology is None
+    True
+    >>> msm.get(partial, n_atoms=True, n_structures=True)
+    [2, 1]
 
 
     .. admonition:: Tutorial with more examples
