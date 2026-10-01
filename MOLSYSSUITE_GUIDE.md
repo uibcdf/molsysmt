@@ -337,6 +337,24 @@ capabilities and track concrete remediation in the component repository. The com
 repository policy gate enforces the offline identity baseline; service freshness still
 requires a separate networked audit under `devguide/repository_badges.md`.
 
+## Quantities crossing boundaries
+
+Follow the [quantity boundary contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/quantity_boundaries.md)
+for new or changed persistence, backend, message and frontend routes. PyUnitWizard
+owns interchange design (`uibcdf/pyunitwizard#83`) and implementation (#82);
+members own scientific schemas and migration. Use its shared record/codec route
+for general quantity interchange. Fixed-unit numerical protocols extract with
+explicit `to_unit=` matching the receiver's declared contract; do not strip a
+standardized quantity and assume its unit.
+
+Applicable boundaries need a real regression under a non-default application
+policy, with explicit output classification and reader unit validation. Provider
+API promotion and published compatibility remain separate from source pilots.
+Existing schema/provider limitations need reviewed member exceptions with interim
+unit-preserving controls, owner, expiry and removal condition. These focused
+compatibility checks do not require full scientific suites at every internal push.
+Complete adoption remains tracked in `uibcdf/molsyssuite#46` and #18.
+
 ## macOS support boundary
 
 macOS support is currently limited to Apple Silicon (arm64). Intel-based macOS
