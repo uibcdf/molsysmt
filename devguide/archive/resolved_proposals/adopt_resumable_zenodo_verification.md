@@ -1,10 +1,10 @@
 ---
 summary: Adopt resumable read-only Zenodo verification.
 issue: uibcdf/molsysmt#273
-status: active
+status: resolved
 opened: 2026-10-01
-closed:
-verification: inspected
+closed: 2026-10-01
+verification: measured
 area: [ci]
 guard:
 normative: devguide/release_and_citation.md
@@ -15,7 +15,7 @@ supersedes: []
 # Adopt resumable read-only Zenodo verification
 
 **Reported:** 2026-10-01, common recovery work under uibcdf/molsyssuite#49.
-**Status:** Active; implementation prepared, exact-commit hosted verification pending.
+**Status:** Resolved; published exact-tag and covered-release hosted checks pass.
 
 ## What
 
@@ -72,3 +72,22 @@ request/discovery bounds must not silently omit a covered release.
 
 2026-10-01, Python 3.13.15, isolated checkout from refreshed main. Original member
 worktrees are preserved. Publication/hosted measurements are recorded at closure.
+
+## Resolution — 2026-10-01
+
+[exact hosted run 36841371420](https://github.com/uibcdf/molsysmt/actions/runs/36841371420) passed at `f09ed3b4c73a8ecdd0cf2341a62ec450dbadcc7d`. Native checkout logs prove provider `b78fa9d30d46ce5607999cdecae85cf6c03f5fcd`; the actual probe step passed. The sanitized artifact reports `verified` for 0.22.4, record 22959294, version DOI 10.5281/zenodo.22959294, with the registered exact source ZIP size and checksum.
+
+[scan hosted run 36841371556](https://github.com/uibcdf/molsysmt/actions/runs/36841371556) passed at `f09ed3b4c73a8ecdd0cf2341a62ec450dbadcc7d`. Native checkout logs prove provider `b78fa9d30d46ce5607999cdecae85cf6c03f5fcd`; the actual probe step passed. The sanitized artifact reports `verified` for 0.22.4, record 22959294, version DOI 10.5281/zenodo.22959294, with the registered exact source ZIP size and checksum.
+
+The fixed-cutoff scan and exact-tag routes both execute the common provider;
+they do not install or test the scientific runtime. The shared tests protect the
+72-hour/pending boundary, original clock, unavailable distinction, late recovery,
+complete discovery and exact-file validation. Restoring a 15-minute outer window
+causes the central pending-state regression to fail in a controlled mutation.
+
+Local citation/sign-off instructions require the per-release verified state;
+operationally green pending results are insufficient. The implementation changes
+only archival automation, governance guidance and report records. Original working
+state is preserved and scientific execution review remains deferred. Closure is
+guarded by the local normative release/citation contract and the pinned common
+provider's semantic regression module recorded under uibcdf/molsyssuite#49.
