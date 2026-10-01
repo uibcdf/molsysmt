@@ -21,8 +21,8 @@ final consumer and exact-candidate recertification remain open.
 
 ## Current checkpoint — 2026-10-01
 
-The initial inventory has seven implemented experimental families, not eight
-completed families:
+The current inventory contains nine implemented experimental families. Their
+remaining scope and release qualification are recorded below:
 
 | Planned family | Implemented public entry point | Remaining scope |
 | --- | --- | --- |
