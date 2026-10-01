@@ -183,3 +183,88 @@ def test_push_smoke_runs_only_the_bounded_local_tier():
     assert len(paths) == 4
     local_tier = (REPO / "devtools/tests/run_tiers.sh").read_text(encoding="utf-8")
     assert all(path in local_tier for path in paths)
+
+
+def test_single_python_coverage_cannot_clear_the_full_matrix_backlog(monkeypatch):
+    def jobs(versions):
+        return {
+            "jobs": [
+                {
+                    "name": f"Full test — ubuntu-latest, Python {version}",
+                    "conclusion": "success",
+                    "steps": [
+                        {
+                            "name": "Run full test suite with coverage",
+                            "conclusion": "success",
+                        }
+                    ],
+                }
+                for version in versions
+            ]
+        }
+
+    monkeypatch.setattr(gate, "api_json", lambda *_: jobs(["3.13"]))
+    assert not gate.full_matrix_passed("uibcdf/molsysmt", 1, "token", "ci-weekly.yaml")
+    monkeypatch.setattr(gate, "api_json", lambda *_: jobs(gate.FULL_VERSIONS))
+    assert gate.full_matrix_passed("uibcdf/molsysmt", 1, "token", "ci-weekly.yaml")
+
+
+def test_coverage_retention_preserves_failures_and_rejects_aborted_suites(tmp_path):
+    import os
+
+    workflow = yaml.load(
+        (REPO / ".github/workflows/ci-weekly.yaml").read_text(),
+        Loader=yaml.BaseLoader,
+    )
+    steps = workflow["jobs"]["full"]["steps"]
+    suite = next(step for step in steps if step.get("id") == "suite")
+    assert "continue-on-error" not in suite
+    command = suite["run"]
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    executable = bin_dir / "python"
+    for status in (0, 1, 2):
+        executable.write_text(f"#!/bin/sh\nexit {status}\n")
+        executable.chmod(0o755)
+        output = tmp_path / f"output-{status}"
+        env = dict(
+            os.environ,
+            PATH=f"{bin_dir}:{os.environ['PATH']}",
+            GITHUB_OUTPUT=str(output),
+        )
+        result = subprocess.run(
+            ["bash", "-c", command], cwd=tmp_path, env=env, check=False
+        )
+        assert result.returncode == status
+        assert output.read_text().strip() == f"exit_code={status}"
+    retain = next(
+        step for step in steps if step.get("name") == "Retain coverage and test results"
+    )
+    upload = next(
+        step for step in steps if step.get("name") == "Upload coverage to Codecov"
+    )
+    for step in (retain, upload):
+        assert (
+            "steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1'"
+            in step["if"]
+        )
+        assert "!cancelled()" in step["if"]
+    assert "github.ref == 'refs/heads/main'" in upload["if"]
+    assert upload["with"]["fail_ci_if_error"] == "true"
+    assert upload["with"]["disable_search"] == "true"
+
+
+def test_only_an_explicit_manual_request_selects_the_single_coverage_lane():
+    workflow = yaml.load(
+        (REPO / ".github/workflows/ci-weekly.yaml").read_text(),
+        Loader=yaml.BaseLoader,
+    )
+    option = workflow["on"]["workflow_dispatch"]["inputs"]["python_313_only"]
+    assert option["type"] == "boolean" and option["default"] == "false"
+    matrix = workflow["jobs"]["full"]["strategy"]["matrix"]["cfg"]
+    assert (
+        "github.event_name == 'workflow_dispatch' && inputs.python_313_only == true"
+        in matrix
+    )
+    assert 'python-version":"3.11' in matrix and 'python-version":"3.12' in matrix
+    assert matrix.count('python-version":"3.13') == 2

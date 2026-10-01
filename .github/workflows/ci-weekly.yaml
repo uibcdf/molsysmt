@@ -15,6 +15,11 @@ on:
       timezone: "America/Mexico_City"
   workflow_dispatch:
     inputs:
+      python_313_only:
+        description: "Run the complete suite only on Linux/Python 3.13 for coverage; does not clear full-matrix debt"
+        type: boolean
+        required: false
+        default: false
       probe_backlog:
         description: "Check the skipped-commit backlog without running tests"
         type: boolean
@@ -55,10 +60,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cfg:
-          - { os: ubuntu-latest, python-version: "3.11" }
-          - { os: ubuntu-latest, python-version: "3.12" }
-          - { os: ubuntu-latest, python-version: "3.13" }
+        # The scheduled/default route keeps all three supported Linux minors.
+        # Only an explicit manual request selects the coverage uploader alone.
+        cfg: ${{ fromJSON(github.event_name == 'workflow_dispatch' && inputs.python_313_only == true && '[{"os":"ubuntu-latest","python-version":"3.13"}]' || '[{"os":"ubuntu-latest","python-version":"3.11"},{"os":"ubuntu-latest","python-version":"3.12"},{"os":"ubuntu-latest","python-version":"3.13"}]') }}
 
     steps:
       - uses: actions/checkout@v7
@@ -133,20 +137,44 @@ jobs:
           retention-days: 14
 
       - name: Run full test suite with coverage
+        id: suite
         shell: bash -l {0}
         run: |
+          set +e
           python -m pytest --receptor=ci \
             --cov-config=.coveragerc \
             --cov=molsysmt \
             --cov-report=xml \
             --junitxml=junit.xml
+          pytest_status=$?
+          echo "exit_code=$pytest_status" >> "$GITHUB_OUTPUT"
+          exit "$pytest_status"
+
+      - name: Retain coverage and test results
+        if: >-
+          !cancelled() && (steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1')
+        uses: actions/upload-artifact@v7
+        with:
+          name: full-suite-coverage-py${{ matrix.cfg.python-version }}
+          path: |
+            coverage.xml
+            junit.xml
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Upload coverage to Codecov
-        if: matrix.cfg.python-version == '3.13'
-        uses: codecov/codecov-action@v7
+        # A completed suite with failed tests still has a measured coverage report.
+        # Pytest collection/interruption/internal errors (2-5) cannot publish it.
+        if: >-
+          !cancelled() && github.ref == 'refs/heads/main'
+          && matrix.cfg.python-version == '3.13'
+          && (steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1')
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           verbose: true
           files: ./coverage.xml
+          disable_search: true
+          fail_ci_if_error: true
           flags: unittests
           name: codecov-ubuntu-py3.13
           token: ${{ secrets.CODECOV_TOKEN }}
