@@ -54,6 +54,12 @@ CATALOG = {
         },
     },
     "warnings": {
+        "AckreditTrackingWarning": {
+            "code": "MSM-WARN-ATTR-001",
+            "source": "molsysmt._ackredit",
+            "category": "attribution",
+            "level": "WARNING",
+        },
         "SupportTier2Warning": {
             "code": "MSM-WARN-TIER-002",
             "source": "molsysmt.warning.tier2",
@@ -336,6 +342,17 @@ CATALOG = {
 }
 
 CODES = {
+    "MSM-WARN-ATTR-001": {
+        "title": "Optional attribution tracking unavailable",
+        "user_message": "Ackredit could not {operation}: {reason}",
+        "user_hint": "The scientific result and its stored bibliography remain available. Check the Ackredit installation.",
+        "dev_message": "Ackredit could not {operation}: {reason}",
+        "dev_hint": "Inspect the optional-provider failure; do not discard the completed scientific result.",
+        "qa_message": "Ackredit could not {operation}: {reason}",
+        "qa_hint": "Verify that the scientific result is preserved and the provider failure is reported.",
+        "agent_message": "Ackredit could not {operation}: {reason}",
+        "agent_hint": "Inspect the optional provider. Preserve scientific results and their stored bibliography.",
+    },
     "MSM-WARN-TIER-002": {
         "title": "Best-effort supported form or function (Tier 2)",
         "user_message": "'{name}' is a best-effort supported {kind} (Tier 2). "

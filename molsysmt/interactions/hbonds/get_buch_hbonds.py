@@ -1,10 +1,12 @@
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import NotImplementedMethodError
 
 
 @arg_digest()
+@attributed("hbonds", "hydrogen_acceptor_distance")
 def get_buch_hbonds(
     molecular_system,
     selection="all",
@@ -93,6 +95,10 @@ def get_buch_hbonds(
     This method uses eager execution and does not stream large trajectories.
     The optional analysis records the calculation-time MolSysMT version in
     ``software``; serialization preserves it independently of the reader version.
+    Its parameters retain the descriptive hydrogen_acceptor_distance criterion
+    and a bibliography without inventing an unverified original Buch paper.
+    Completed calculations contribute to an optional Ackredit workflow session;
+    tuple outputs retain their existing layout without embedded metadata.
 
     Examples
     --------

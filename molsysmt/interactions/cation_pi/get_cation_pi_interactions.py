@@ -6,6 +6,7 @@ from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import (
     ArgumentError,
     StructuralInconsistencyError,
@@ -23,13 +24,15 @@ _CALLER = "molsysmt.interactions.cation_pi.get_cation_pi_interactions"
 @signal(tags=["api", "interactions"])
 @arg_digest()
 @dep_digest("rdkit", when={"method": "prolif"})
+@dep_digest("rdkit", when={"method": "centroid_distance_angle"})
+@attributed("cation_pi")
 def get_cation_pi_interactions(
     molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None,
     planarity_threshold=None, selection="all", selection_2=None, structure_indices="all",
-    chemical_state="reference", method="prolif",
+    chemical_state="reference", method="centroid_distance_angle",
     selection_mode="internal", pbc=True, assume_complete_connectivity=False,
     output_type="molsysmt.Interactions", syntax="MolSysMT", skip_digestion=False,
-    *, max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto",
+    *, max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto", profile=None,
 ):
     """Detecting cation-pi geometries using an attributed or experimental method.
 
@@ -76,10 +79,11 @@ def get_cation_pi_interactions(
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         Selected chemistry. Structure assignments must resolve one state across
         the requested structures; no protonation or parameterization is inferred.
-    method : {'prolif', 'centroid_angle_offset', 'molstar_geometry'}, default='prolif'
-        ProLIF 2.2.2 core, Mol* geometry on declared MolSysMT participants,
-        or the separately identified MolSysMT proposal.
-        Original version, references and adaptations are recorded in parameters.
+    method : str, default='centroid_distance_angle'
+        centroid_distance_angle, centroid_distance_offset, or the separately
+        identified centroid_angle_offset proposal. Historical prolif and
+        molstar_geometry selectors remain exact compatibility aliases.
+        Reference implementations and adaptations are recorded separately.
     selection_mode : {'internal', 'incident', 'between'}, default='internal'
         Search within selection, from selection to every eligible system
         participant, or between selection and selection_2, respectively.
@@ -103,6 +107,12 @@ def get_cation_pi_interactions(
     heavy_mode : {'auto', 'force', 'off'}, default='auto'
         Keyword-only execution policy. Streaming requires the form's declared
         coordinate route; other supported forms use bounded eager getters.
+
+    profile : str or None, default=None
+        Keyword-only profile. centroid_distance_angle uses smarts_5_6;
+        centroid_distance_offset uses three_atom_plane; centroid_angle_offset
+        uses least_squares. These preserve the distinct recognition, normal
+        construction and comparisons of each referenced definition.
 
     Returns
     -------
@@ -141,6 +151,11 @@ def get_cation_pi_interactions(
 
     Notes
     -----
+    Canonical method names describe the criterion. Profiles and pinned source
+    references preserve the complete reproduced definition. The detached
+    parameters['attribution'] bibliography survives typed and H5MSM storage,
+    independently of optional Ackredit tracking in the application's session.
+
     ProLIF uses its original cation SMARTS, including amidine/guanidine
     resonance and opposite-charge exclusions, and aromatic 5/6-member ring
     SMARTS. The ring centroid is the arithmetic mean; its normal is the cross
@@ -226,6 +241,9 @@ def get_cation_pi_interactions(
     from copy import copy
 
     from molsysmt import configure
+    from molsysmt._private.interaction_methods import resolve_method
+
+    method = resolve_method("cation_pi", method, profile, caller=_CALLER)["implementation"]
     from molsysmt._private.execution.projected_geometry import (
         execute_projected_geometry,
     )

@@ -58,6 +58,14 @@ describes the software that actually generated these observations.
 Each analysis's `software` dictionary records its producer versions; saving
 or loading the system preserves those versions rather than substituting
 the version installed by the reader. An empty dictionary means unknown.
+Detector-produced analyses also keep bibliographic records and contextual
+roles in `analysis.parameters["attribution"]`, once per named analysis.
+These records accompany the system through H5MSM and extraction. Optional
+Ackredit sessions collect references from completed calculations; opening a
+saved system does not claim those calculations were performed again.
+Method names identify authors or criteria, and profiles identify the reproduced
+recognition/geometry conventions. See
+{ref}`Methods and attribution <user-tools-interactions-attribution>`.
 See
 {doc}`the interaction result guide <../../../tools/interactions/result>`
 for participant roles, evaluated coverage, and experimental detector limits.

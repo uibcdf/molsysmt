@@ -2,6 +2,7 @@
 from molsysmt._private.smonitor import LibraryNotFoundError
 
 LIBRARIES = {
+    "ackredit": {"type": "soft", "pypi": "ackredit"},
     "numpy": {"type": "hard", "pypi": "numpy"},
     "pandas": {"type": "hard", "pypi": "pandas"},
     "mmcif": {"type": "hard", "pypi": "mmcif"},

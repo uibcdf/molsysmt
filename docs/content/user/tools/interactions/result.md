@@ -168,6 +168,81 @@ A native `MolSys` can hold several named, full interaction analyses. Their
 atom and structure counts must match the system. Its `copy()`, `extract()`,
 and `remove()` methods preserve or remap the analyses.
 
+(user-tools-interactions-attribution)=
+## Methods and attribution
+
+Calculation methods use an author's name when a scientific definition is
+established, or describe the geometric criterion. A `profile` selects the
+recognition and geometry conventions within a method. These names do not claim
+that the reference program originated the criterion:
+
+| Calculation | Method | Profile | Reference implementation |
+| --- | --- | --- | --- |
+| Hydrogen bonds | `baker_hubbard`, `wernet_nilsson` | `nitrogen_oxygen` | MDTraj |
+| Hydrogen bonds | `donor_acceptor_distance_angle` | `elemental_fon` | CPPTRAJ |
+| Hydrogen bonds | `donor_acceptor_distance_angle` | `smarts_donor_acceptor` | ProLIF |
+| Hydrogen bonds | `donor_acceptor_distance_angle` | `explicit_sites` | MDAnalysis geometry |
+| Cation–π | `centroid_distance_angle` | `smarts_5_6` | ProLIF |
+| Cation–π | `centroid_distance_offset` | `three_atom_plane` | Mol* geometry |
+| Cation–π | `centroid_angle_offset` | `least_squares` | MolSysMT proposal |
+| π–π | `plane_angle_intersection` | `smarts_5_6` | ProLIF |
+| π–π | `plane_angle_intersection` | `aromatic_cycles` | MDTraj geometry |
+| π–π | `centroid_angle_offset` | `three_atom_plane` | Mol* geometry |
+| π–π | `centroid_angle_offset` | `least_squares` | MolSysMT proposal |
+
+For example, `method="donor_acceptor_distance_angle", profile="elemental_fon"`
+selects the existing CPPTRAJ-compatible definition. The old selectors `prolif`,
+`cpptraj`, `mdanalysis_geometry`, `mdtraj_geometry`, and `molstar_geometry`
+remain supported aliases in their respective functions. Changing the name
+does not change participants, cutoffs, inclusivity, periodic images or defaults.
+Explicit incompatible method/profile combinations raise an error.
+The site recognizer has descriptive methods `elemental_nitrogen_oxygen`,
+`elemental_fluorine_oxygen_nitrogen`, and `smarts_donor_acceptor`;
+its previous software selectors remain aliases too.
+
+Detector-produced analyses include `method`, `profile`, `method_definition`,
+and `attribution` in `analysis.parameters`. The attribution payload uses
+`schema="molsysmt.scientific_attribution@1"`, a calculation target and a compact
+list of bibliographic records. Each record declares its contextual roles:
+`scientific_criterion`, `reference_implementation`, or `executed_software`.
+A reference to ProLIF does not mean ProLIF was executed. Actual producer
+versions remain in `analysis.software`; a reached RDKit branch records RDKit.
+The versioned method definition identifies a contract, not a scientific DOI.
+The original reference for the historical Buch selector has not been verified;
+its recorded criterion is `hydrogen_acceptor_distance`, without a guessed paper.
+The existing Luzard–Chandler entry point records the established
+`luzar_chandler` criterion and its paper while retaining its public spelling.
+
+The complete typed dictionary, standalone file and H5MSM 0.5 preserve these
+records, including the bibliography and producer versions recorded at calculation
+time. Query views expose `.parameters`; their occurrence-only `to_dict()` does
+not carry the complete analysis parameters. Loading, querying and remapping do
+not register a new scientific calculation. Manually constructed and older
+analyses may have no attribution; missing records mean unknown provenance.
+
+When Ackredit is installed, completed calculations also register their used
+references in the current Ackredit session. An evaluated structure with no
+observations still belongs to that calculation. MolSysMT imports Ackredit lazily
+and enables no import hooks, DOI enrichment, persistent journal or reminders.
+Without Ackredit, the same result-level metadata is produced. A broken optional
+provider emits a diagnostic while preserving the scientific result.
+The caller owns workflow sessions and report destinations:
+
+```python
+# Optional workflow reporting; requires Ackredit.
+import ackredit
+
+with ackredit.session("interaction-workflow"):
+    analysis = msm.interactions.hbonds.get_hbonds(molecular_system, pbc=False)
+    print(ackredit.report(format="bibtex"))
+```
+
+Here `molecular_system` must supply the detector's required chemistry and
+coordinates; this sketch does not assign chemistry or download a system.
+Bibliography is stored once per analysis, never once per observation. Portable
+workflow capture and contextual report roles are being coordinated with
+[Ackredit #75](https://github.com/uibcdf/ackredit/issues/75).
+
 (user-tools-interactions-association)=
 ## Associating an analysis
 

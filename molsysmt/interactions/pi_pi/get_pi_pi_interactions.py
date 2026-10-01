@@ -6,6 +6,7 @@ from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import (
     ArgumentError,
     StructuralInconsistencyError,
@@ -23,13 +24,16 @@ _CALLER = "molsysmt.interactions.pi_pi.get_pi_pi_interactions"
 @signal(tags=["api", "interactions"])
 @arg_digest()
 @dep_digest("rdkit", when={"method": "prolif"})
+@dep_digest("rdkit", when={"method": "plane_angle_intersection", "profile": None})
+@dep_digest("rdkit", when={"method": "plane_angle_intersection", "profile": "smarts_5_6"})
+@attributed("pi_pi")
 def get_pi_pi_interactions(
     molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None,
     planarity_threshold=None, selection="all", selection_2=None, structure_indices="all",
     chemical_state="reference", method="centroid_angle_offset",
     selection_mode="internal", pbc=True, assume_complete_connectivity=False,
     output_type="molsysmt.Interactions", syntax="MolSysMT", skip_digestion=False,
-    *, geometry="both", max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto",
+    *, geometry="both", max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto", profile=None,
 ):
     """Detecting aromatic ring geometries with explicit attributed criteria.
 
@@ -77,11 +81,10 @@ def get_pi_pi_interactions(
         State supplying the chemistry. Structure-assigned states must resolve
         to one state across the requested frames.
     method : str, default='centroid_angle_offset'
-        centroid_angle_offset is the separately identified MolSysMT proposal;
-        prolif reproduces ProLIF 2.2.2 chemical SMARTS and pi-stacking core;
-        molstar_geometry and mdtraj_geometry apply those packages' geometric
-        rules to MolSysMT's declared aromatic minimum cycle basis. They do not
-        claim parity with the packages' entire feature/fingerprint pipelines.
+        centroid_angle_offset or plane_angle_intersection. Profiles distinguish
+        the proposal and adapted reference definitions. Historical prolif,
+        molstar_geometry and mdtraj_geometry selectors remain exact aliases;
+        geometric adaptations do not reproduce complete feature pipelines.
     selection_mode : {'internal', 'incident', 'between'}, default='internal'
         Search within selection, from selection to every eligible system ring,
         or between selection and selection_2, respectively.
@@ -109,6 +112,12 @@ def get_pi_pi_interactions(
         Keyword-only execution policy. Streaming follows the form's declared
         coordinate support. Other supported forms use their ordinary getters
         eagerly when the selected working estimate fits the budget.
+
+    profile : str or None, default=None
+        Keyword-only profile. centroid_angle_offset defaults to least_squares;
+        three_atom_plane selects the adapted Mol* geometry. For
+        plane_angle_intersection, smarts_5_6 is the default ProLIF profile and
+        aromatic_cycles uses the adapted MDTraj geometry on declared rings.
 
     Returns
     -------
@@ -142,6 +151,11 @@ def get_pi_pi_interactions(
 
     Notes
     -----
+    Canonical method/profile identities and their definition version accompany
+    the effective cutoffs and pinned reference implementation. The detached
+    parameters['attribution'] bibliography survives typed and H5MSM storage;
+    optional Ackredit tracking credits the application's current session.
+
     For the custom method, let d be the observed MIC centroid displacement and n_a/n_b the unit
     normals. The acute plane angle is atan2(norm(cross(n_a,n_b)),
     abs(dot(n_a,n_b))). Each offset is norm(d-dot(d,n)*n). Parallel accepts
@@ -229,6 +243,9 @@ def get_pi_pi_interactions(
     from copy import copy
 
     from molsysmt import configure
+    from molsysmt._private.interaction_methods import resolve_method
+
+    method = resolve_method("pi_pi", method, profile, caller=_CALLER)["implementation"]
     from molsysmt._private.execution.projected_geometry import (
         execute_projected_geometry,
     )

@@ -35,6 +35,12 @@ class UserMolSysMTWarning(MolSysMTCatalogWarning):
     pass
 
 
+class AckreditTrackingWarning(UserMolSysMTWarning):
+    """Report optional attribution-provider failures without losing a result."""
+
+    catalog_key = "AckreditTrackingWarning"
+
+
 class SelectionWarning(UserMolSysMTWarning):
     """Warnings related to selection strings and resolved subsets."""
 

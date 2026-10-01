@@ -1,11 +1,13 @@
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 
 
 @arg_digest()
+@attributed("hbonds", "luzar_chandler")
 def get_luzard_chandler_hbonds(
     molecular_system,
     selection="all",
@@ -97,6 +99,9 @@ def get_luzard_chandler_hbonds(
     vectors used for the angle. The optional analysis records the
     calculation-time MolSysMT version in ``software``. This method uses eager
     execution and does not stream large trajectories.
+    The optional analysis records the luzar_chandler criterion and original
+    paper in its parameters. Completed calculations contribute to an optional
+    Ackredit workflow session; tuple outputs keep their existing layout.
 
     Examples
     --------

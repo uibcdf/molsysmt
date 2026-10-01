@@ -2,11 +2,13 @@ import numpy as np
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.variables import is_all
 from molsysmt.element.bond import max_expected_bond_length
 
 
 @arg_digest()
+@attributed("disulfides", "sulfur_sulfur_distance")
 def get_disulfide_candidates(
     molecular_system,
     selection="all",
@@ -65,6 +67,9 @@ def get_disulfide_candidates(
     change the molecular topology or imply that a recorded bond is missing.
     The optional analysis records the calculation-time MolSysMT version in
     ``software``, independently of the version used to save or load it.
+    Analysis parameters record the sulfur_sulfur_distance criterion and
+    calculation bibliography. Optional Ackredit sessions collect completed
+    calculations; the default tuple output retains its existing layout.
 
     See Also
     --------

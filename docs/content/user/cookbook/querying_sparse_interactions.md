@@ -114,6 +114,14 @@ and disulfide adapters capture their version during calculation; H5MSM preserves
 it even when saved or loaded by another version. `{}` means the producer
 version was not recorded, as in these manually constructed synthetic records.
 
+Detector-produced analyses also retain a compact bibliography in
+`analysis.parameters["attribution"]`. H5MSM preserves the original references
+and producer versions independently of whether Ackredit is installed when
+reading the file. Loading does not credit a new calculation. The synthetic
+records in this recipe have no attribution because no scientific detector was
+run. See {ref}`Methods and attribution <user-tools-interactions-attribution>`
+for method/profile names and optional workflow reporting.
+
 The synthetic records above show the container without requiring a detector.
 For a molecular system with eligible cysteine sulfur atoms, the disulfide
 candidate detector can instead return an `Interactions` result with

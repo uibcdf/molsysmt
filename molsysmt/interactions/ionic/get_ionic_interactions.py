@@ -5,6 +5,7 @@ from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import (
     ArgumentError,
     StructuralInconsistencyError,
@@ -18,6 +19,7 @@ _CALLER = "molsysmt.interactions.ionic.get_ionic_interactions"
 
 @signal(tags=["api", "interactions"])
 @arg_digest()
+@attributed("ionic", "minimum_distance")
 def get_ionic_interactions(
     molecular_system,
     distance_threshold,
@@ -112,6 +114,11 @@ def get_ionic_interactions(
 
     Notes
     -----
+    Analysis parameters retain the minimum_distance criterion and compact
+    bibliography. Completed calculations also contribute to an optional
+    Ackredit session; loading or querying an analysis does not credit a new
+    calculation. Bibliographic metadata is identical without Ackredit.
+
     This experimental definition recognizes carboxylate and guanidinium plus
     literal formal-charge atoms/clusters; phosphate, sulfate, and aromatic
     delocalization are not resolved universally. Intramolecular contacts are

@@ -5,15 +5,18 @@ from depdigest import dep_digest
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 
 @signal(tags=["api", "physchem"])
 @arg_digest()
 @dep_digest("rdkit", when={"method": "prolif"})
+@dep_digest("rdkit", when={"method": "smarts_donor_acceptor"})
+@attributed("hbond_sites")
 def get_hbond_sites(
     molecular_system, selection="all", structure_indices="all",
-    chemical_state="reference", method="mdtraj", assume_complete_connectivity=False,
+    chemical_state="reference", method="elemental_nitrogen_oxygen", assume_complete_connectivity=False,
     syntax="MolSysMT", skip_digestion=False, *, max_matches=100000,
 ):
     """Recognizing donor-hydrogen pairs and acceptors with an attributed rule.
@@ -36,10 +39,11 @@ def get_hbond_sites(
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         State supplying connectivity and chemistry. Structure-assigned states
         must resolve to one state across the requested frames.
-    method : {'mdtraj', 'cpptraj', 'prolif'}, default='mdtraj'
-        MDTraj recognizes N/O donors bonded to indexed H and all N/O acceptors.
-        CPPTRAJ uses F/O/N for both roles. ProLIF uses its 2.2.2 donor/acceptor
-        SMARTS, including chemical exclusions absent from the elemental rules.
+    method : str, default='elemental_nitrogen_oxygen'
+        elemental_nitrogen_oxygen recognizes N/O donors bonded to indexed H
+        and all N/O acceptors; elemental_fluorine_oxygen_nitrogen uses F/O/N
+        for both roles. smarts_donor_acceptor uses the attributed ProLIF 2.2.2
+        SMARTS. mdtraj, cpptraj and prolif remain compatibility aliases.
     assume_complete_connectivity : bool, default=False
         Explicitly assume supplied connectivity complete when metadata is
         insufficient. The assumption does not change the source chemistry.
@@ -70,6 +74,10 @@ def get_hbond_sites(
 
     Notes
     -----
+    The returned attribution field contains a detached bibliography, with
+    reference implementations distinguished from executed dependencies.
+    Optional Ackredit records this completed recognition in the current session.
+
     These are candidate-site definitions, not universal donor/acceptor chemistry.
     Elemental profiles intentionally include chemically unsuitable N/O atoms;
     they reproduce the reference rules. No water, sidechain, residue or solvent
@@ -110,6 +118,9 @@ def get_hbond_sites(
     )
 
     caller = "molsysmt.physchem.get_hbond_sites"
+    from molsysmt._private.interaction_methods import resolve_method
+
+    method = resolve_method("hbond_sites", method, caller=caller)["implementation"]
     source, states, _, state_index, _, bonds, frames = chemical_graph_context(
         molecular_system, chemical_state, structure_indices, assume_complete_connectivity, caller)
     selected = select_chemical_atoms(source, states, state_index, selection, frames, syntax)

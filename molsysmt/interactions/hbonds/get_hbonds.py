@@ -6,6 +6,7 @@ from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import (
     ArgumentError,
     StructuralInconsistencyError,
@@ -17,13 +18,15 @@ from molsysmt._private.variables import is_all
 @signal(tags=["api", "interactions"])
 @arg_digest()
 @dep_digest("rdkit", when={"method": "prolif", "donor_hydrogen_pairs": None})
+@dep_digest("rdkit", when={"method": "donor_acceptor_distance_angle", "profile": "smarts_donor_acceptor", "donor_hydrogen_pairs": None})
+@attributed("hbonds")
 def get_hbonds(
     molecular_system, selection="all", selection_2=None, structure_indices="all",
     chemical_state="reference", method="baker_hubbard", distance_threshold=None,
     angle_threshold=None, selection_mode="internal", pbc=True,
     assume_complete_connectivity=False, output_type="molsysmt.Interactions",
     syntax="MolSysMT", skip_digestion=False, *, donor_hydrogen_pairs=None,
-    acceptor_atom_indices=None, max_matches=100000, heavy_mode="auto",
+    acceptor_atom_indices=None, max_matches=100000, heavy_mode="auto", profile=None,
 ):
     """Detecting sparse hydrogen bonds with an explicitly attributed criterion.
 
@@ -48,9 +51,9 @@ def get_hbonds(
         State supplying chemical sites. Structure assignments must resolve
         to one state across all requested structures.
     method : str, default='baker_hubbard'
-        baker_hubbard, wernet_nilsson, cpptraj, prolif, or mdanalysis_geometry.
-        The MDAnalysis geometric profile requires explicit sites; other methods
-        use their chemical rules unless both site arrays are supplied.
+        baker_hubbard, wernet_nilsson, or donor_acceptor_distance_angle.
+        The profile fixes recognition and exact geometric conventions.
+        cpptraj, prolif and mdanalysis_geometry remain compatibility aliases.
     distance_threshold : quantity, str, or None, default=None
         Positive scalar cutoff with length units. None uses H-A <0.25 nm for
         Baker–Hubbard, D-A <=0.30 nm for CPPTRAJ/MDAnalysis, D-A <=0.35 nm for
@@ -89,6 +92,13 @@ def get_hbonds(
         Keyword-only execution policy. Native/H5MSM projected coordinate routes
         process bounded blocks; other forms require bounded eager delivery.
 
+    profile : str or None, default=None
+        Keyword-only calculation profile. donor_acceptor_distance_angle uses
+        elemental_fon by default; smarts_donor_acceptor and explicit_sites
+        select the adapted ProLIF and MDAnalysis definitions respectively.
+        explicit_sites requires both site arrays. Author-named methods use
+        nitrogen_oxygen. An alias already fixes its profile.
+
     Returns
     -------
     molsysmt.Interactions or molsysmt.InteractionsDict
@@ -113,6 +123,12 @@ def get_hbonds(
 
     Notes
     -----
+    Completed calculations retain an offline bibliography in
+    parameters['attribution'], including results with zero observations.
+    Optional Ackredit tracking contributes to the current application session.
+    Reference implementations are distinguished from executed software;
+    loading a stored analysis does not credit a new calculation.
+
     This reproduces supported reference cores, not whole package workflows:
     no occupancy aggregation, residue/solvent/sidechain pruning, water bridges,
     force-field energy or implicit coordinate construction. ProLIF recognition
@@ -185,6 +201,9 @@ def get_hbonds(
     )
 
     caller = "molsysmt.interactions.hbonds.get_hbonds"
+    from molsysmt._private.interaction_methods import resolve_method
+
+    method = resolve_method("hbonds", method, profile, caller=caller)["implementation"]
     if (selection_mode == "between") != (selection_2 is not None):
         raise ArgumentError("selection_2", caller=caller, message="Supply a second selection only for between searches.")
     explicit = donor_hydrogen_pairs is not None
@@ -242,7 +261,8 @@ def get_hbonds(
                      method_reference=MDANALYSIS_REFERENCE if method == "mdanalysis_geometry" else None,
                      software={"molsysmt": __version__}, smarts_patterns=None)
     else:
-        site_method = "mdtraj" if method in {"baker_hubbard", "wernet_nilsson"} else method
+        site_method = {"baker_hubbard": "elemental_nitrogen_oxygen", "wernet_nilsson": "elemental_nitrogen_oxygen",
+                       "cpptraj": "elemental_fluorine_oxygen_nitrogen", "prolif": "smarts_donor_acceptor"}[method]
         sites = get_hbond_sites(source, chemical_state=state_index, method=site_method,
                                 assume_complete_connectivity=assume_complete_connectivity, max_matches=max_matches)
         donors, acceptors = sites["donor_hydrogen_pairs"], sites["acceptor_atom_indices"]
