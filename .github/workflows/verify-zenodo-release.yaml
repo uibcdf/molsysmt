@@ -19,7 +19,7 @@ permissions:
 jobs:
   verify:
     name: Probe archived releases
-    uses: uibcdf/molsyssuite/.github/workflows/verify-zenodo-releases.yaml@b78fa9d30d46ce5607999cdecae85cf6c03f5fcd
+    uses: uibcdf/molsyssuite/.github/workflows/verify-zenodo-releases.yaml@2cc2d9bfe80f14a981d40bc109ecdf2af39b693b
     with:
       concept-doi: 10.5281/zenodo.1298752
       since: "2026-09-25T00:00:00Z"

@@ -198,7 +198,7 @@ compact run triage, escalating to targeted native logs only when needed.
 ## Resumable ingestion verification
 
 Adopted under uibcdf/molsysmt#273 and uibcdf/molsyssuite#49.
-The workflow calls the common provider pinned to `b78fa9d30d46ce5607999cdecae85cf6c03f5fcd`.
+The workflow calls the common provider pinned to `2cc2d9bfe80f14a981d40bc109ecdf2af39b693b`.
 Its publication probe runs once, then scheduled read-only scans run nominally
 every six hours. Manual dispatch accepts an exact public tag or an empty version
 to scan. No component runtime or scientific suite is installed or executed.
