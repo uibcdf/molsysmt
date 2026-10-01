@@ -337,6 +337,22 @@ capabilities and track concrete remediation in the component repository. The com
 repository policy gate enforces the offline identity baseline; service freshness still
 requires a separate networked audit under `devguide/repository_badges.md`.
 
+## macOS support boundary
+
+macOS support is currently limited to Apple Silicon (arm64). Intel-based macOS
+(x86_64) is not part of the supported platform matrix. Support may be
+reconsidered if there is demonstrated user demand. Apply this boundary to current
+support statements, future CI/release targets and installed-package gates.
+Historical artifacts and dated evidence retain their original identity.
+
+An eligible architecture is not proof of member compatibility: a component must
+provide its own installed/runtime evidence before claiming macOS arm64 support.
+Incubating members may make no platform claim. See the
+[CI policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md#platforms-and-experimental-versions)
+and [member rollout](https://github.com/uibcdf/molsyssuite/blob/main/devguide/rollouts/macos_arm64.md).
+Reconsideration requires a concrete user need in a MolSysSuite issue and an
+explicit support decision with component evidence and ownership.
+
 ## Optional scientific attribution
 
 For new or changed optional scientific attribution boundaries, follow the
