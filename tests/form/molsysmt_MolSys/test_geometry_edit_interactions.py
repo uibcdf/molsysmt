@@ -62,6 +62,23 @@ def test_coordinate_edit_invalidates_real_observation_and_preserves_old_view(obs
         np.testing.assert_array_equal(result.query(structure_indices=[1]).to_dict()['evaluated_structure_indices'], [1])
 
 
+def test_moving_a_previously_noninteracting_atom_requires_new_frame_evaluation(observed_system):
+    source = observed_system
+    assert source.interactions['buch'].query(structure_indices=[1]).n_interactions == 0
+    msm.set(source, selection=[2], structure_indices=[1],
+            coordinates=msm.pyunitwizard.quantity([[[.3, 0, 0]]], 'nm'))
+    retained = source.interactions['buch']
+    assert retained.query(structure_indices=[1]).to_dict()['evaluated_structure_indices'].size == 0
+    assert retained.query(structure_indices=[0, 2]).n_interactions == 2
+    assert retained._packed_result is None
+    fresh = msm.interactions.hbonds.get_buch_hbonds(
+        source, structure_indices=[1], pbc=False, output_type='molsysmt.Interactions')
+    assert fresh.query(structure_indices=[1]).n_interactions == 1
+    np.testing.assert_array_equal(fresh.evaluated_structure_indices, [1])
+    source.interactions = {**source.interactions, 'buch_recomputed_frame1': fresh}
+    assert source.interactions['buch'] is retained
+
+
 @pytest.mark.parametrize('attribute', ['coordinates', 'box'])
 @pytest.mark.parametrize('frames', [[2, 0, 2], [1], 'all'])
 def test_geometry_edits_invalidate_exact_frame_coverage(observed_system, attribute, frames):

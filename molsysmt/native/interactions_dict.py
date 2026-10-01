@@ -28,6 +28,13 @@ class InteractionsDict:
 
 
 def _encode_interactions(result):
+    from molsysmt.interactions._frame_validity import _interchange_result
+
+    with _interchange_result(result) as packed:
+        return _encode_packed_interactions(packed)
+
+
+def _encode_packed_interactions(result):
     if not result._is_full:
         raise ValueError("An InteractionsDict requires a full interaction result.")
     arrays = (

@@ -62,7 +62,13 @@ def test_copy_extract_and_remove_preserve_coverage_and_remap_indices():
 
     copied = molsys.copy()
     assert copied.interactions["pairs"] is not molsys.interactions["pairs"]
-    copied.interactions["pairs"].occurrence_structures[0] = 1
+    with pytest.raises(ValueError, match="read-only"):
+        copied.interactions["pairs"].occurrence_structures[0] = 1
+    copied.interactions = {
+        **copied.interactions,
+        "pairs": copied.interactions["pairs"].invalidate_structures([2]),
+    }
+    assert copied.interactions["pairs"].n_interactions == 0
     np.testing.assert_array_equal(molsys.interactions["pairs"].occurrence_structures, [2])
 
     subset = molsys.extract(

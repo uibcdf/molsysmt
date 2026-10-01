@@ -100,6 +100,42 @@ without the other layers. Both `read` and `read_layers` currently materialize
 the selected interaction result in memory; they are not file-backed query
 objects.
 
+## Editing a structure
+
+An atom that had no previous interactions can acquire one after moving. Reset
+the evaluated status of the affected frames before a new calculation. Native
+`MolSys` coordinate and box setters do this for all attached named analyses,
+even for a frame previously evaluated with no observations:
+
+```python
+molsys_edited = molsys.copy()
+previous_view = molsys_edited.interactions["example"].query(structure_indices=[3])
+msm.set(molsys_edited, selection=[0], structure_indices=[1],
+        coordinates=msm.pyunitwizard.quantity([[[0.1, 0.0, 0.0]]], "nm"))
+current = molsys_edited.interactions["example"]
+assert current.query(structure_indices=[1]).n_interactions == 0
+assert current.query(structure_indices=[1]).to_dict()[
+    "evaluated_structure_indices"
+].size == 0  # It now needs a calculation.
+assert current.query(structure_indices=[3]).n_interactions == 1
+assert previous_view.n_interactions == 1
+
+with TemporaryDirectory() as directory:
+    filename = str(Path(directory) / "edited.h5msm")
+    msm.h5msm.write(molsys_edited, filename)
+    restored = msm.h5msm.read(filename).interactions["example"]
+    assert restored.evaluated_structure_indices.tolist() == [0, 3]
+    assert restored.query(structure_indices=[1]).to_dict()[
+        "evaluated_structure_indices"
+    ].size == 0
+```
+
+Frame invalidation shares read-only columns and does not recalculate anything.
+Selected queries avoid packing the complete surviving analysis; export may
+materialize it temporarily. Earlier snapshots can keep shared storage alive.
+For direct domain/array writes, explicit invalidation and recalculation/attachment
+rules, see {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
+
 Attaching a separately loaded analysis declares that its local atom and
 structure indices correspond to the target system. You are responsible for
 that correspondence; matching axis sizes and a `source_id` label do not prove

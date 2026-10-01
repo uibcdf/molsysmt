@@ -3,9 +3,37 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
+from types import MappingProxyType
 
 import numpy as np
+
+_STORAGE_FIELDS = frozenset({
+    "n_atoms", "n_structures", "source_n_atoms", "source_n_structures",
+    "atom_source_indices", "structure_source_indices", "evaluation_mode",
+    "evaluation_atom_indices", "evaluation_atom_indices_b",
+    "evaluation_universe_indices", "evaluated_structure_indices",
+    "relation_types", "relation_participant_offsets", "participant_roles",
+    "participant_atom_offsets", "participant_atoms", "occurrence_structures",
+    "occurrence_relations", "occurrence_evidence", "evidence_labels",
+    "occurrence_image_offsets", "image_vectors", "measurements",
+})
+
+
+def _immutable_array(value):
+    """Own a read-only numeric buffer, independent of writable caller aliases."""
+    array = np.asarray(value)
+    return np.frombuffer(array.tobytes(), dtype=array.dtype).reshape(array.shape)
+
+
+def _restore_view(payload, positions, coverage, removal):
+    from molsysmt.native.interactions_dict import _decode_interactions
+
+    result = _decode_interactions(payload)._view(positions, coverage)
+    if removal is not None:
+        result._row_removal = tuple(_immutable_array(value) for value in removal)
+    return result
 
 
 def _indices(values, limit, name):
@@ -76,9 +104,34 @@ class Interactions:
     and the optional ``source_id`` label do not authenticate molecular origin.
     ``software`` records producer versions declared when observations were
     calculated. Missing versions remain unknown when loading older payloads.
+    Numeric storage is owned and read-only, including measurement columns.
+    Construct a new result to change observations. Invalidation shares that
+    storage with independent frame validity; complete-column access or
+    interchange may pack surviving observations on demand.
 
     .. versionadded:: 1.0.0
     """
+
+    def __setattr__(self, name, value):
+        if name in _STORAGE_FIELDS and self.__dict__.get("_storage_locked", False):
+            raise AttributeError("Interaction storage is read-only; construct a new result")
+        object.__setattr__(self, name, value)
+
+    def __reduce__(self):
+        from molsysmt.native.interactions_dict import (
+            _decode_interactions,
+            _encode_interactions,
+        )
+
+        if self._is_full:
+            return _decode_interactions, (_encode_interactions(self),)
+        base = object.__new__(Interactions)
+        base.__dict__ = self.__dict__.copy()
+        base._is_full = True
+        return _restore_view, (
+            _encode_interactions(base), self._positions, self._coverage,
+            getattr(self, "_row_removal", None),
+        )
 
     def __init__(self, *, n_atoms, n_structures, evaluated_structure_indices,
                  relation_types, relation_participant_offsets, participant_roles,
@@ -157,7 +210,7 @@ class Interactions:
                              for key, value in measurements.items()}
         self.measure_units = dict(measure_units)
         self.method = str(method)
-        self.parameters = dict(parameters or {})
+        self.parameters = deepcopy(dict(parameters or {}))
         self.source_id = source_id
         self.software = _software_versions(software)
         self._positions = np.arange(len(self.occurrence_relations), dtype=np.int64)
@@ -168,6 +221,16 @@ class Interactions:
         self._relation_occurrence_offsets = None
         self._relation_occurrence_ids = None
         self._validate()
+        for name in _STORAGE_FIELDS:
+            value = getattr(self, name)
+            if isinstance(value, np.ndarray):
+                setattr(self, name, _immutable_array(value))
+        self.measurements = MappingProxyType({
+            name: _immutable_array(value) for name, value in self.measurements.items()
+        })
+        self._positions = _immutable_array(self._positions)
+        self._coverage = self.evaluated_structure_indices
+        self._storage_locked = True
 
     def _validate(self):
         if self.n_atoms < 0 or self.n_structures < 0:
@@ -738,6 +801,11 @@ class Interactions:
                     self.occurrence_image_offsets[index + 1]
                 ] for index in positions
             ]) if len(positions) else np.empty((0, 3), dtype=np.int32)
+        occurrence_indices = positions.copy()
+        removal = getattr(self, "_row_removal", None)
+        if removal is not None:
+            ends, cumulative = removal
+            occurrence_indices -= cumulative[np.searchsorted(ends, positions, side="right")]
         return {
             "n_atoms": self.n_atoms,
             "n_structures": self.n_structures,
@@ -746,7 +814,7 @@ class Interactions:
             "source_id": self.source_id,
             "software": self.software.copy(),
             "evaluated_structure_indices": self._coverage.copy(),
-            "occurrence_indices": positions.copy(),
+            "occurrence_indices": occurrence_indices,
             "structure_indices": self.occurrence_structures[positions].copy(),
             "relation_indices": self.occurrence_relations[positions].copy(),
             "evidence": np.asarray(self.evidence_labels, dtype=str)[
@@ -921,10 +989,16 @@ class Interactions:
     def invalidate_structures(self, structure_indices):
         """Marking selected structures unevaluated and removing their observations.
 
-        A new result is returned. Its atom and structure index spaces remain
-        unchanged, and the source result and existing query views are not
-        modified. This operation is appropriate when coordinates or chemical
-        context changed and the affected structures need reanalysis.
+        A new result shares read-only numeric storage and excludes the selected
+        structures from evaluated coverage. Its atom and structure index spaces
+        remain unchanged; the source result and existing query views are not
+        modified. No detector runs automatically. Recalculate affected frames
+        explicitly before treating them as evaluated, including empty frames.
+
+        Frame validity is updated without copying surviving occurrence columns.
+        Reading complete numeric columns, remapping or serializing the result
+        can materialize those columns later. Queries for particular frames or
+        atoms do not require that materialization.
 
         Parameters
         ----------
@@ -934,7 +1008,7 @@ class Interactions:
         Returns
         -------
         Interactions
-            Independent result with selected structures unevaluated.
+            Result with independent coverage and selected structures unevaluated.
 
         Raises
         ------
@@ -956,62 +1030,9 @@ class Interactions:
         frames = np.unique(_indices(
             structure_indices, self.n_structures, "structure_indices"
         ))
-        keep_coverage = self.evaluated_structure_indices[
-            ~np.isin(self.evaluated_structure_indices, frames)
-        ]
-        positions = np.flatnonzero(~np.isin(self.occurrence_structures, frames))
-        if self.image_vectors is None:
-            image_offsets = None
-            image_vectors = None
-        else:
-            lengths = np.diff(self.occurrence_image_offsets)[positions]
-            image_offsets = np.r_[0, np.cumsum(lengths)]
-            image_positions = (
-                np.arange(image_offsets[-1], dtype=np.int64)
-                - np.repeat(image_offsets[:-1], lengths)
-                + np.repeat(self.occurrence_image_offsets[positions], lengths)
-            )
-            image_vectors = self.image_vectors[image_positions].copy()
-        return Interactions(
-            n_atoms=self.n_atoms,
-            n_structures=self.n_structures,
-            evaluated_structure_indices=keep_coverage.copy(),
-            relation_types=self.relation_types,
-            relation_participant_offsets=self.relation_participant_offsets.copy(),
-            participant_roles=self.participant_roles,
-            participant_atom_offsets=self.participant_atom_offsets.copy(),
-            participant_atoms=self.participant_atoms.copy(),
-            occurrence_structures=self.occurrence_structures[positions].copy(),
-            occurrence_relations=self.occurrence_relations[positions].copy(),
-            occurrence_evidence=self.occurrence_evidence[positions].copy(),
-            evidence_labels=self.evidence_labels,
-            measurements={name: value[positions].copy()
-                          for name, value in self.measurements.items()},
-            measure_units=self.measure_units,
-            method=self.method,
-            parameters=self.parameters,
-            source_id=self.source_id,
-            software=self.software,
-            atom_source_indices=self.atom_source_indices.copy(),
-            structure_source_indices=self.structure_source_indices.copy(),
-            source_n_atoms=self.source_n_atoms,
-            source_n_structures=self.source_n_structures,
-            evaluation_mode=self.evaluation_mode,
-            evaluation_atom_indices=(
-                None if self.evaluation_atom_indices is None
-                else self.evaluation_atom_indices.copy()
-            ),
-            evaluation_atom_indices_b=(
-                None if self.evaluation_atom_indices_b is None
-                else self.evaluation_atom_indices_b.copy()
-            ),
-            evaluation_universe_indices=(
-                None if self.evaluation_universe_indices is None
-                else self.evaluation_universe_indices.copy()
-            ),
-            occurrence_image_offsets=image_offsets,
-            image_vectors=image_vectors,
-        )
+        from ._frame_validity import _invalidate
+
+        return _invalidate(self, frames)
 
     def save(self, filename):
         """Writing the full result to a versioned standalone HDF5 file."""

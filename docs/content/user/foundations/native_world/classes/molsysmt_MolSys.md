@@ -140,14 +140,23 @@ claiming new observations or evaluated-empty coverage.
 Empty atom/frame selections and identifier/time changes do not
 invalidate analyses. With attached results, full geometry assignment preserves
 the structure axis; use extraction or append operations to change that axis.
-The existing snapshot invalidation copies packed result arrays and is not an
-incremental editor. Geometry delegation failures conservatively retain
+Invalidation shares read-only observation columns and changes frame validity
+without duplicating the surviving observations. Complete-column access,
+remapping or export may materialize active columns later; this is not yet an
+incremental replacement editor. Geometry delegation failures conservatively retain
 unevaluated coverage because a partial write may have occurred.
 
 This automatic boundary is the native MolSys form. If you edit a separately
 accessed `molsys.structures` directly, explicitly replace each affected named
 result with `analysis.invalidate_structures(structure_indices)`. Geometry
 setters do not infer changes made through independent objects or aliased data.
+
+Invalidation applies even when the moved atom did not participate in a previous
+interaction: moving it can create a new one. No detector runs automatically.
+Use frame coverage, not a zero occurrence count alone, to distinguish a pending
+calculation from a calculated absence. See
+{ref}`Changing coordinates <user-tools-interactions-coordinate-edits>` for a
+copyable example and the complete edit policy.
 
 Changing chemical-state atom or scientific bond assignments through
 `msm.set(molsys, ...)`, or replacing `molsys.chemical_states`, marks every

@@ -718,7 +718,7 @@ overlapping universes raise explicit unsupported-method errors.
 The experimental class has no lazy file-backed query, streaming writer, or
 incremental add/remove editor. `invalidate_structures()` returns an independent
 snapshot with the selected frames unevaluated and their occurrences removed;
-it copies packed arrays and does not replace an incremental editor. It represents one
+it shares immutable numeric storage and does not replace an incremental editor. It represents one
 molecular-system index space and one method per instance. `MolSys.interactions`
 holds a mapping of named full results with matching atom and structure axes.
 Each result retains local-to-source atom and structure index arrays plus the
@@ -726,11 +726,26 @@ sizes of both source axes. Extraction composes those maps; an appended
 structure has source index `-1` and is unevaluated. The caller-supplied source
 label stays with the mapped result. These are positional indices, never
 element IDs.
-Local invalidation therefore has allocation cost proportional to surviving
-observation columns, not just the edited frame. Temporaries and earlier result
-or query references can increase peak and retained memory. No coordinates are
-copied and no disk write is triggered by this primitive. Owner setters apply
-the same operation separately to each affected named analysis.
+Numeric columns are owned, read-only buffers, independent of writable inputs.
+Storage fields cannot be reassigned and the measurement mapping is read-only.
+Construction pays for ownership once. Local invalidation updates coverage and
+compact removed-row intervals without allocating surviving occurrence columns.
+Its allocations depend on covered structures and metadata, not trajectory row
+count. Repeated invalidation references one immutable base rather than a chain
+of earlier filtered snapshots. Atom/structure queries filter validity and reuse
+the base's lazy inverse indexes. Occurrence handles are positions in the active
+analysis and survive full typed/file round trips, including parallel observations.
+
+Partially invalidated rows remain physically resident in shared storage but
+cannot be returned as active observations. If no observations survive, the new
+result releases its occurrence-base reference. Earlier results/views can still
+retain that storage. Complete occurrence/image/measurement attribute access
+materializes and caches a packed active result; remapping, pickling and typed
+or HDF5 serialization may materialize it temporarily. Interchange-only packing
+is released after success or failure unless a caller previously requested the
+cached complete columns. These operations are not bounded incremental writers.
+No coordinates are copied and invalidation triggers no disk write. Owner
+setters apply the same validity operation separately to each affected analysis.
 Native copy, extraction, and removal preserve or remap attached results;
 newly appended structures remain unevaluated. Adding atoms to a target with
 analyses preserves the target's previous atom search scope: new
@@ -744,14 +759,19 @@ tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_inte
 Native MolSys coordinate and box form setters invalidate all named analyses
 in their selected frames, including evaluated-empty frames. The affected
 occurrences and coverage are removed; untouched frames, metadata, index maps,
-and old result/query snapshots remain intact. Empty atom/frame selections and
+and old result/query snapshots remain intact. Moving an atom that did not
+previously participate still invalidates the frame: new candidates can appear.
+Compound participants may also depend on the moved atom's coordinates. Empty atom/frame selections and
 identifier/time writes do not invalidate. Full geometry assignment with attached
 analyses cannot resize the frame axis; use the supported extract/append routes.
 Invalidation snapshots are staged before delegation. Allocation or validation
 failures before delegation preserve the system; after delegation starts,
 failures conservatively leave selected frames unevaluated because writes may
-be partial. No detector runs automatically. This is the existing copying
-invalidation primitive, not an incremental editor. Direct writes through a
+be partial. No detector runs automatically. Recalculate the complete declared
+atom scope of an affected frame explicitly. Assigning a detector result under
+an existing name replaces that analysis and does not merge its frame coverage;
+same-analysis incremental replacement remains pending. This validity primitive
+is not an incremental editor. Direct writes through a
 separate Structures object still require explicit owner invalidation.
 The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
 
@@ -777,8 +797,8 @@ The guard is `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`.
 Raw arrays/DataFrames, separate Topology or ChemicalStates aliases, direct
 Topology replacement and MolecularMechanics changes require explicit owner
 invalidation. They do not acquire an observer protocol through the controlled
-setters. The invalidation primitive still copies packed arrays; incremental
-editing and finer chemical dependencies remain separate work.
+setters. Incremental replacement and finer chemical dependencies remain separate
+work; invalidation itself shares the read-only columns.
 The required H5MSM and MolSysViewer integrations are tracked
 in the [1.0 execution plan](pending_proposals/release_1_0_execution_plan.md)
 and the design proposal [#251](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).

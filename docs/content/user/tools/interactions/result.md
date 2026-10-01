@@ -142,18 +142,96 @@ assert invalidated.query(structure_indices=[0]).to_dict()[
 ].size == 0
 ```
 
-This returns an independent result and leaves existing query views unchanged.
-It copies the packed occurrence arrays, so repeated local edits still need
-the planned incremental editor. Re-evaluate the affected structures before
-claiming that they have no interactions.
+This returns a result with independent validity and leaves existing query
+views unchanged. It shares read-only columns instead of copying surviving
+observations. Re-evaluate the affected structures before claiming that they
+have no interactions.
 
-For a large analysis, invalidating even one structure allocates storage for
-almost all surviving observations, plus temporary arrays. The original result
-can remain resident while an earlier reference or query view exists. This cost
-depends on the stored observations, measurements and periodic image columns;
-it does not copy the system's coordinates or write to disk. Automatic
-invalidation through a supported `MolSys` setter applies this operation to
-each affected named analysis.
+Numeric storage, including the measurement mapping and its arrays, is read-only
+and independent of the input buffers used to construct the result. To change
+observations, construct another result; an `InteractionsDict` provides editable
+interchange columns that can be converted back into a validated result.
+
+Invalidating frames allocates coverage information rather than a new copy of
+every observation. Partial invalidation keeps the underlying shared columns in
+memory, including excluded rows. Queries do not return those rows. If no
+observations survive, the new result drops its reference to the occurrence
+storage; old results and views can still retain it.
+
+Reading complete attributes such as `occurrence_structures`, `image_vectors`
+or `measurements` after invalidation can pack and cache all surviving columns.
+Use `query(...).to_dict()` for selected frames or atoms when you need only a
+small result. Remapping and serialization can also pack the active data;
+temporary packing for those operations is released afterward. This is not yet
+an incremental writer or an add/remove editor.
+
+(user-tools-interactions-coordinate-edits)=
+## Changing coordinates
+
+When you call `msm.set(molsys, coordinates=..., structure_indices=...)` on a
+native `MolSys`, every attached named analysis becomes **unevaluated in the
+selected structures**. This applies even if you move just one atom, the atom
+had no earlier interactions, or the frame previously had zero observations.
+Other structures remain evaluated. Periodic box changes use the same rule.
+
+MolSysMT does not run detectors automatically. A moved atom can form a new
+interaction, and a moved ring member can change the geometry of its entire
+ring. Checking only previous participants would miss these changes. Recalculate
+the affected frame, considering the detector's complete declared atom scope.
+
+| Operation on native `MolSys` | Effect on named analyses |
+| --- | --- |
+| Coordinates or box through `msm.set` | Selected frames become unevaluated. |
+| Empty atom/frame selection, time or identifier edit | Results remain valid. |
+| Scientific chemical-state edits through `msm.set`, or replacing `chemical_states` | All covered frames become unevaluated. |
+| Changing `structure_chemical_state_index` | Selected frames become unevaluated. |
+| Direct writes through arrays or separate domain objects | You must invalidate the owning analyses explicitly. |
+
+For example, attach a synthetic result to matching coordinates, then move one
+atom in a previously evaluated-empty frame:
+
+```python
+import numpy as np
+from molsysmt.native import MolSys, Structures
+
+molsys = MolSys(n_atoms=3)
+molsys.structures = Structures(
+    coordinates=msm.pyunitwizard.quantity(np.zeros((3, 3, 3)), "nm")
+)
+molsys.interactions = {"example": interactions}
+previous_view = interactions.query(structure_indices=[0])
+
+msm.set(molsys, selection=[2], structure_indices=[2],
+        coordinates=msm.pyunitwizard.quantity([[[0.3, 0.0, 0.0]]], "nm"))
+
+current = molsys.interactions["example"]
+assert current.evaluated_structure_indices.tolist() == [0]
+assert current.query(structure_indices=[2]).n_interactions == 0
+assert current.query(structure_indices=[2]).to_dict()[
+    "evaluated_structure_indices"
+].size == 0  # Pending calculation, not an evaluated absence of interactions.
+assert current.query(structure_indices=[0]).n_interactions == 1
+assert previous_view.n_interactions == 1  # A snapshot of the earlier analysis.
+```
+
+For explicit coordinate writes outside that owner boundary, invalidate the
+named analyses yourself:
+
+```python
+molsys.interactions = {
+    name: analysis.invalidate_structures([0])
+    for name, analysis in molsys.interactions.items()
+}
+```
+
+Calculate new observations with the appropriate detector and attach the returned
+full `Interactions` object explicitly. A detector call restricted to selected
+frames returns coverage for those frames only. Assigning it under an existing
+name **replaces** that analysis; it does not merge it with its previously valid
+frames. You can retain the remaining valid analysis and store the recalculation
+under a separate name. A same-analysis incremental replacement API is still
+pending. Calculation method, parameters, evaluated scope and producer versions
+belong to the newly calculated result.
 
 ```python
 subset = interactions.remap(atom_indices=[0, 1, 2], structure_indices=[2, 0])

@@ -14,6 +14,91 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Shared frame-validity implementation — 2026-10-01
+
+**Implemented and contract-tested:** `invalidate_structures()` now returns a
+full logical analysis with independent evaluated coverage over immutable numeric
+storage. Native coordinate/box and chemical-state setters keep their existing
+invalidation policy without copying surviving occurrence columns. A moved atom
+that previously had no interactions still invalidates its frame. No detector
+runs automatically. Frame and atom queries, including internal/cross/between
+compound-participant queries, exclude invalid rows without packing the analysis.
+The lazy inverse indexes are reused. Repeated invalidations retain one base,
+not a chain of intermediate results.
+
+Construction owns read-only numeric buffers so writable input aliases cannot
+change old or new snapshots; observation fields and measurement mapping cannot
+be replaced in place. This changes experimental storage mutability, not public
+signatures or the typed/H5MSM schemas. Editable `InteractionsDict` columns remain
+available for constructing a new validated result. The native copy test now
+verifies protected arrays and independent invalidation, instead of assuming
+unvalidated occurrence-column mutation is supported.
+
+Complete-column access can pack/cache the surviving rows. Typed conversion,
+remapping, pickle and HDF5 export can pack temporarily and release that temporary
+projection afterward. Public occurrence handles remain positions in the active
+analysis and persist across round trips; parallel observations remain distinct.
+Previously held views keep their earlier coverage/observations. When all
+observations are removed, the new empty result drops its occurrence-base
+reference, preserving any still-evaluated empty frames. Partial invalidation
+does not reclaim excluded rows in the shared base.
+
+**Benchmarked:** the same fixture sizes as the earlier copying checkpoint below
+now allocate about **82 KiB live / 275 KiB peak** for one-frame invalidation at
+both 100,000 and 1,000,000 observations, with or without three periodic image
+vectors per occurrence. One million rows with a prebuilt atom index gives the
+same allocation. Twenty edits with every intermediate snapshot retained use
+about **1.6 MiB live / 1.8 MiB peak**, excluding the preexisting shared base.
+The earlier periodic copying baseline was about 145 MiB additional peak for one
+frame. These are allocation observations, not whole-process RSS guarantees or
+statistical timing comparisons. The current first complete-column access still
+has linear allocation cost, approximately 184 MiB additional traced peak in
+the periodic million-row fixture. Construction also pays a one-time buffer
+ownership copy. Those boundaries are deliberately measured separately.
+
+Reproduce with the command in the earlier checkpoint, writing a new artifact.
+The [shared-storage artifact](../../devtools/data/interactions_shared_invalidation_memory_20261001.json)
+includes dependency/hardware metadata, source file hashes for the measured
+working tree, warm-up policy, original and referenced array sizes, separate
+materialization costs and semantic checks. Its HEAD identifies the base commit;
+the recorded file hashes identify the implementation under qualification.
+
+Guards belong in `tests/interactions/test_frame_validity.py`, including an
+allocation ceiling tested at fixed frame count and different occurrence counts,
+input-alias protection, row handles, periodic vectors, empty coverage, repeated
+edits, pickle, typed/H5MSM round trips and old-view survival. The real Buch
+previously-empty-frame recalculation is guarded by
+`tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
+Normative behavior belongs in [Interaction Analysis API](../interactions_api.md).
+The User Guide's result, MolSys and sparse recipe pages and course Module 10
+explain coordinate-change behavior and explicit recalculation.
+
+**Validation checkpoint:** the affected interaction/native/form/H5MSM selection
+and result doctest passed 621 tests with no skips. The subsequent query-view
+pickle and repeated-edit metadata refinements passed the final focused selection
+(23 tests, including the result doctest):
+
+```bash
+python -m pytest --receptor=llm tests/interactions/test_frame_validity.py \
+    tests/native/test_molsys_interactions.py molsysmt/interactions/result.py \
+    --doctest-modules
+```
+
+The coordinate-edit module and new frame-validity module also passed together
+(33 tests). All nine executable result-guide blocks before the optional
+attribution sketches and all seven sparse-recipe blocks ran successfully. Course
+Module 10's existing code cells and outputs were preserved. Sphinx HTML built
+successfully with preexisting course/header/navigation warnings; this is not a
+warning-free documentation claim. Ruff, dependency validation, developer-guide
+validation/index checks and the public signature guard passed. No exact-candidate
+release gate or new real Viewer canvas qualification is claimed here.
+
+**Remaining:** same-analysis incremental frame replacement/add/remove,
+compaction policy, bounded writers and broader direct-mutation ownership.
+This milestone implements cheap reset of evaluated status; it does not close
+#252 or claim those remaining capabilities. The copying checkpoints below
+describe the earlier implementation and remain historical evidence.
+
 ## Invalidation memory checkpoint — 2026-10-01
 
 **Benchmarked:** the current public `invalidate_structures()` implementation

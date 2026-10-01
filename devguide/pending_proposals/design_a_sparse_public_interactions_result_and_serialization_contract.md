@@ -22,6 +22,25 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Shared frame validity delivered — 2026-10-01
+
+The delivered invalidation primitive now owns immutable numeric storage and
+shares it across independent frame-validity snapshots. Queries exclude invalid
+frames without packing all surviving occurrences; explicit full-column access
+and interchange remain materialization boundaries. The experimental storage
+arrays/mapping are read-only, with input-alias protection. No detector runs
+automatically. Repeated invalidation reuses a single base and previously held
+views retain their observations.
+
+The measured one-frame invalidation peak is approximately 275 KiB at fixed
+10,000 structures with either 100,000 or 1,000,000 observations; twenty retained
+edit snapshots peak around 1.8 MiB. These allocations exclude existing shared
+storage, coordinate arrays and imports. Full-column materialization remains
+linear and is not a streaming writer. The exact evidence and scope belong in
+[the implementation record](implement_experimental_sparse_interactions_results_and_queries.md#shared-frame-validity-implementation--2026-10-01).
+The class now provides cheap reset, not same-analysis incremental replacement.
+Neither the backend ranking nor the versioned persistence schemas changed.
+
 ## Local invalidation memory checkpoint — 2026-10-01
 
 The public copying primitive was measured with up to one million observations.

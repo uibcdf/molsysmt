@@ -29,6 +29,11 @@ sections:
         agents_file: docs/content/user/foundations/native_world/AGENTS.md
         index_file: docs/content/user/foundations/native_world/index.md
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
+        pages:
+          - name: molsys
+            description: Native domains, declared analysis correspondence and coordinate-change invalidation.
+            file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
         agents_file: docs/content/user/foundations/language/AGENTS.md
         index_file: docs/content/user/foundations/language/index.md
@@ -144,6 +149,10 @@ sections:
         index_agents_file: docs/content/user/tools/interactions/index.AGENTS.md
         status: in_progress
         pages:
+          - name: result
+            description: Sparse queries, read-only storage and reset/recalculation policy after coordinate edits.
+            file: docs/content/user/tools/interactions/result.md
+            agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbonds
             file: docs/content/user/tools/interactions/get_hbonds.ipynb
             agents_file: docs/content/user/tools/interactions/get_hbonds.ipynb.AGENTS.md
@@ -238,6 +247,7 @@ sections:
         file: docs/content/user/cookbook/form_teleportation.ipynb
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
+        description: Sparse queries, pending-frame reset after coordinate edits and H5MSM persistence.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants
