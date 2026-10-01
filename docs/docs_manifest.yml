@@ -104,6 +104,12 @@ sections:
           - name: get_halogen_bond_sites
             file: docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb.AGENTS.md
+          - name: get_metal_coordination_sites
+            file: docs/content/user/tools/physchem/get_metal_coordination_sites.ipynb
+            agents_file: docs/content/user/tools/physchem/get_metal_coordination_sites.ipynb.AGENTS.md
+          - name: get_water_sites
+            file: docs/content/user/tools/physchem/get_water_sites.ipynb
+            agents_file: docs/content/user/tools/physchem/get_water_sites.ipynb.AGENTS.md
           - name: get_hydrophobic_sites
             file: docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb.AGENTS.md
@@ -138,6 +144,12 @@ sections:
           - name: get_pi_pi_interactions
             file: docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb
             agents_file: docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb.AGENTS.md
+          - name: get_metal_coordination
+            file: docs/content/user/tools/interactions/get_metal_coordination.ipynb
+            agents_file: docs/content/user/tools/interactions/get_metal_coordination.ipynb.AGENTS.md
+          - name: get_water_bridges
+            file: docs/content/user/tools/interactions/get_water_bridges.ipynb
+            agents_file: docs/content/user/tools/interactions/get_water_bridges.ipynb.AGENTS.md
           - name: get_hydrophobic_interactions
             file: docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb
             agents_file: docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb.AGENTS.md
@@ -227,6 +239,9 @@ sections:
       - name: saving_ionic_interactions
         file: docs/content/user/cookbook/saving_ionic_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_ionic_interactions.ipynb.AGENTS.md
+      - name: saving_mediated_interactions
+        file: docs/content/user/cookbook/saving_mediated_interactions.ipynb
+        agents_file: docs/content/user/cookbook/saving_mediated_interactions.ipynb.AGENTS.md
       - name: saving_hydrophobic_interactions
         file: docs/content/user/cookbook/saving_hydrophobic_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_hydrophobic_interactions.ipynb.AGENTS.md

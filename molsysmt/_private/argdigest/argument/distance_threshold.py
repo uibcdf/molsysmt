@@ -12,6 +12,9 @@ common_functions_with_distance_threshold = [
 ]
 
 common_functions_with_distance_threshold_and_None = [
+    "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination",
+    "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges",
+
     "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",
     "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions",
     "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",

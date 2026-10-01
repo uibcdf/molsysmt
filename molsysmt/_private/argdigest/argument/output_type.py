@@ -5,6 +5,9 @@ def digest_output_type(output_type, caller=None):
 
     if (
         caller in {
+            "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination",
+            "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges",
+
             "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",
             "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions",
             "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",

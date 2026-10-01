@@ -5,7 +5,8 @@ systems. Distance-only proximity remains a geometric primitive in `structure`;
 it is not by itself an interaction classification. The first public families
 are `interactions.hbonds`, `interactions.disulfides`, and the experimental
 `interactions.ionic`, `interactions.pi_pi`, `interactions.cation_pi` and
-`interactions.halogen_bonds` and `interactions.hydrophobic`. Other families need
+`interactions.halogen_bonds`, `interactions.hydrophobic`,
+`interactions.metal_coordination` and `interactions.water_bridges`. Other families need
 separate scientific contracts and decisions.
 
 ## Scientific method names and attribution
@@ -30,6 +31,8 @@ has multiple supported definitions. The following pairs are implemented:
 | Cation-pi | `centroid_distance_offset` | `three_atom_plane` | Mol* geometric definition |
 | Cation-pi | `centroid_angle_offset` | `least_squares` | Explicit-cutoff MolSysMT proposal |
 | Halogen bonds | `distance_two_angles` | `smarts_donor_acceptor` | ProLIF 2.2.2 core adapting Auffinger et al.; not original-paper distance thresholds |
+| Metal coordination | `metal_ligand_distance` | `smarts_metal_ligand` | ProLIF 2.2.2 MetalDonor/Distance chemical sites and inclusive 0.28 nm criterion |
+| Water bridges | `two_hbonds_one_water` | `indexed_water` | Single-water two-leg path concept; independently chosen attributed hydrogen-bond criteria |
 | Hydrophobic | `atom_pair_distance` | `smarts_hydrophobic_atoms` | ProLIF 2.2.2 atomic SMARTS incorporating RDKit feature patterns and distance criterion |
 
 The descriptive names do not establish who first introduced a formula. Reference
@@ -544,16 +547,91 @@ ProLIF oracle has seven controls, 21 synthetic structures and 119 unordered
 observations; exact site/pair identities and geometry agree across three forms.
 See `uibcdf/molsysmt#278` for the implementation record.
 
+## Metal coordination candidates
+
+`interactions.metal_coordination.get_metal_coordination` applies the descriptive
+`metal_ligand_distance` criterion with profile `smarts_metal_ligand`: pinned
+ProLIF 2.2.2 MetalDonor chemical sites and inclusive distance <=0.28 nm without
+added tolerance. `physchem.get_metal_coordination_sites` owns graph recognition.
+The supported metal set is Ca, Cd, Co, Cu, Fe, Mg, Mn, Ni and Zn; oxygen,
+restricted nitrogen and negative nonpositive atoms can be candidate ligands.
+This is not a universal all-metal chemical model. Dative assignments remain
+independent of covalent graph matching and are never created or removed.
+
+Relations are directed `metal_coordination_candidate` pairs with singleton
+`metal`, `ligand` roles, measured distance in nm, explicit evaluated-frame
+coverage, source indices, declared typed atom scope and original producer versions.
+Self pairs are excluded; intramolecular/covalent neighbors remain included. An
+atom matching both roles can produce two distinct reversed-role relations.
+MIC images anchor on the metal and preserve actual pair geometry. Do not interpret
+proximity as a certified bond, oxidation state, coordination number or energy.
+
+The general pattern matching, projected executor, compiled bounded pair searches
+and sparse accumulator are reused. Guards live under
+`tests/interactions/metal_coordination/` and
+`tests/physchem/test_get_metal_coordination_sites.py`; offline independent original
+ProLIF evidence is in `tests/scientific_truth/curated/test_metal_coordination.py`.
+See `uibcdf/molsysmt#280` for implementation evidence and limits.
+
+## Single-water hydrogen-bond paths
+
+`interactions.water_bridges.get_water_bridges` implements `two_hbonds_one_water`
+with profile `indexed_water`. It recognizes full-source neutral explicit O-H-H
+components through `physchem.get_water_sites`, then reuses `hbonds.get_hbonds`
+for same-frame branches incident on water oxygen. `hbond_method` and
+`hbond_profile` retain the exact branch criterion; the default is Baker-Hubbard.
+The descriptive path method does not claim invention of the graph concept used
+by ProLIF WaterBridge and MDAnalysis WaterBridgeAnalysis. The reference path
+concept and the executed branch method are separately attributed. No complete
+residue/network pipeline equivalence is promised.
+
+A relation stores six singleton roles, in two directed D-H-A triples:
+`leg_1_donor`, `leg_1_hydrogen`, `leg_1_acceptor`, `leg_2_donor`,
+`leg_2_hydrogen`, `leg_2_acceptor`. The shared water oxygen repeats as a role
+atom in both branches; alternative and bifurcated hydrogens remain identifiable.
+Only actual branch atoms participate; unused water H is not a seventh participant.
+The water may donate both branches, accept both or donate one and accept one.
+Distinct external heavy atoms are required. Sort branches by external heavy
+atom index then directed D-H-A tuple; join an exact branch pair once per frame.
+
+`internal`, `incident` and `between` apply to all actual participating atoms,
+including mediator atoms and the observed H. Internal excludes endpoint-only
+selections; use incident for those. Between requires all participants in the
+union of two disjoint sets and at least one in each; water atoms must be supplied
+in that union. Queries retain the existing all-participant semantics. Evaluated
+empty frames remain distinguishable from unevaluated frames.
+
+Measurements keep `leg_1_` and `leg_2_` prefixes and explicit nm/radians units.
+The complete attributed leg parameters are saved in `hbond_parameters`.
+Translate the second leg's integer images onto the first shared water oxygen,
+then anchor the six images at the first role. Preserve both relative geometries
+and reject incompatible images for a repeated atom or int32 overflow. The PBC
+composition helper lives in `pbc`; no geometric images are reconstructed from
+saved scalar distances. Named and typed H5MSM 0.5 conversions preserve images,
+occurrence indices and original software/bibliographic provenance.
+
+Accepted legs remain resident while bounded per-water pair batches construct
+sparse bridge columns. Numeric working estimates include leg arrays and result
+packing, but not complete Python/graph RSS. This is not an incremental writer.
+Multiple-water networks, implicit H, endpoint-only scope modes, virtual-site
+recognition and caller-explicit leg sites are outside this first contract.
+Guards live under `tests/interactions/water_bridges/`,
+`tests/physchem/test_get_water_sites.py` and
+`tests/scientific_truth/curated/test_water_bridges.py`. The independent oracle
+uses original ProLIF HBDonor observations and a separate path enumeration;
+controlled geometries also check all three water-role patterns analytically.
+See `uibcdf/molsysmt#281` for implementation evidence and limits.
+
 ## Planned family coverage
 
-The initial eight-family inventory under `uibcdf/molsysmt#250` has seven
-implemented experimental detectors: hydrogen bonds, disulfide candidates,
-ionic observations, pi-pi, cation-pi, halogen bonds and hydrophobic observations.
-Metal coordination does not yet have a public detector. Water-mediated hydrogen
-bonds are also explicitly pending under the maintainer's 2026-10-01 decision.
-These additions need
-separate scientific contracts and reusable chemical preparation; they are not
-mandatory 1.0 gates. Phosphate/sulfate and aromatic charge-delocalization
+All eight original families under `uibcdf/molsysmt#250` now have implemented
+experimental detectors: hydrogen bonds, disulfide candidates, ionic observations,
+pi-pi, cation-pi, halogen bonds, hydrophobic observations and metal candidates.
+Single-water hydrogen-bond bridges extend this inventory as the ninth family
+under the maintainer's 2026-10-01 decision. These additions are not mandatory
+new 1.0 gates; metal-specific physical criteria, higher-order water paths and
+broader comparative validation remain refinements rather than implied support.
+Phosphate/sulfate and aromatic charge-delocalization
 extensions (`uibcdf/molsysmt#262`) and comparison of the proposed aromatic
 criteria (`uibcdf/molsysmt#271`) are open refinements of existing tools, not
 unimplemented detector families. See the [namespace roadmap](pending_proposals/organize_interaction_detection_by_family_before_1_0.md)

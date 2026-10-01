@@ -40,6 +40,11 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     families = {
+        "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination": "metal_coordination",
+        "molsysmt.physchem.get_metal_coordination_sites.get_metal_coordination_sites": "metal_coordination_sites",
+        "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges": "water_bridges",
+        "molsysmt.physchem.get_water_sites.get_water_sites": "water_sites",
+
         "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions": "hydrophobic",
         "molsysmt.physchem.get_hydrophobic_sites.get_hydrophobic_sites": "hydrophobic_sites",
         "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds": "halogen_bonds",

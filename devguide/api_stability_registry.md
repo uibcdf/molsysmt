@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 100 |
+| experimental | 106 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -220,6 +220,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_hydrophobic_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hydrophobicity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_mass` | stable | active | pre-1.0 |
+| `molsysmt.physchem.get_metal_coordination_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_polarity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_atom_type` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_vdw_radius` | experimental | active | pre-1.0 |
@@ -227,6 +228,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_surface_area` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_transmembrane_tendency` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_volume` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_water_sites` | experimental | active | pre-1.0 |
 
 ### `molsysmt.topology`
 
@@ -275,7 +277,9 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.interactions.hbonds` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hydrophobic` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.ionic` | experimental | active | pre-1.0 |
+| `molsysmt.interactions.metal_coordination` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.pi_pi` | experimental | active | pre-1.0 |
+| `molsysmt.interactions.water_bridges` | experimental | active | pre-1.0 |
 
 ### `molsysmt.h5msm`
 
@@ -338,3 +342,15 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
 | `molsysmt.interactions.hydrophobic.get_hydrophobic_interactions` | experimental | active | pre-1.0 |
+
+### `molsysmt.interactions.metal_coordination`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.metal_coordination.get_metal_coordination` | experimental | active | pre-1.0 |
+
+### `molsysmt.interactions.water_bridges`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.interactions.water_bridges.get_water_bridges` | experimental | active | pre-1.0 |

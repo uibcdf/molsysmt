@@ -44,3 +44,9 @@ PROLIF_HYDROPHOBIC_PATTERN = (
     ",$([C;X2H0R0,X3H1R0,X4H2R0,X3H0,X4H1,X4H0])"
     ";+0;!$([#6]~[#7,#8,#9])]"
 )
+
+# MetalDonor 2.2.2: elemental metal set and chemically restricted ligand atoms.
+PROLIF_METAL_PATTERNS = (
+    "[Ca,Cd,Co,Cu,Fe,Mg,Mn,Ni,Zn]",
+    "[O,#7&!$([nX3])&!$([NX3]-*=[!#6])&!$([NX3]-[a])&!$([NX4]),-{1-};!+{1-}]",
+)

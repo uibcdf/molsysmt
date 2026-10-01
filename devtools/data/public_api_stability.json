@@ -73,6 +73,14 @@
     "molsysmt.interactions.hydrophobic": {
       "source": "molsysmt/interactions/hydrophobic/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions.metal_coordination": {
+      "source": "molsysmt/interactions/metal_coordination/__init__.py",
+      "discovery": "package-init"
+    },
+    "molsysmt.interactions.water_bridges": {
+      "source": "molsysmt/interactions/water_bridges/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -1724,6 +1732,48 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb",
       "contract_tests": "tests/physchem/test_get_hydrophobic_sites.py"
+    },
+    "molsysmt.interactions.metal_coordination": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.metal_coordination",
+      "documentation": "docs/content/user/tools/interactions/get_metal_coordination.ipynb",
+      "contract_tests": "tests/interactions/metal_coordination/test_get_metal_coordination.py"
+    },
+    "molsysmt.interactions.metal_coordination.get_metal_coordination": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.metal_coordination",
+      "documentation": "docs/content/user/tools/interactions/get_metal_coordination.ipynb",
+      "contract_tests": "tests/interactions/metal_coordination/test_get_metal_coordination.py"
+    },
+    "molsysmt.interactions.water_bridges": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.water_bridges",
+      "documentation": "docs/content/user/tools/interactions/get_water_bridges.ipynb",
+      "contract_tests": "tests/interactions/water_bridges/test_get_water_bridges.py"
+    },
+    "molsysmt.interactions.water_bridges.get_water_bridges": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.water_bridges",
+      "documentation": "docs/content/user/tools/interactions/get_water_bridges.ipynb",
+      "contract_tests": "tests/interactions/water_bridges/test_get_water_bridges.py"
+    },
+    "molsysmt.physchem.get_metal_coordination_sites": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_metal_coordination_sites.ipynb",
+      "contract_tests": "tests/physchem/test_get_metal_coordination_sites.py"
+    },
+    "molsysmt.physchem.get_water_sites": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_water_sites.ipynb",
+      "contract_tests": "tests/physchem/test_get_water_sites.py"
     }
   }
 }

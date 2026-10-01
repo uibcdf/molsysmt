@@ -8,6 +8,22 @@ reference software package invented the scientific criterion.
 from molsysmt._private.smonitor import ArgumentError
 
 PROFILES = {
+    "water_sites": {
+        ('explicit_water_graph', None): 'explicit_water_graph',
+    },
+
+    "water_bridges": {
+        ('two_hbonds_one_water', 'indexed_water'): 'two_hbonds_one_water',
+    },
+
+    "metal_coordination_sites": {
+        ('smarts_metal_ligand', None): 'smarts_metal_ligand',
+    },
+
+    "metal_coordination": {
+        ('metal_ligand_distance', 'smarts_metal_ligand'): 'metal_ligand_distance',
+    },
+
     "hydrophobic": {
         ("atom_pair_distance", "smarts_hydrophobic_atoms"): "atom_pair_distance",
     },
@@ -46,6 +62,24 @@ PROFILES = {
 }
 
 DEFAULT_PROFILES = {
+    "metal_ligand_distance": "smarts_metal_ligand",
+    "two_hbonds_one_water": "indexed_water",
+    "water_sites": {
+        ('explicit_water_graph', None): 'explicit_water_graph',
+    },
+
+    "water_bridges": {
+        ('two_hbonds_one_water', 'indexed_water'): 'two_hbonds_one_water',
+    },
+
+    "metal_coordination_sites": {
+        ('smarts_metal_ligand', None): 'smarts_metal_ligand',
+    },
+
+    "metal_coordination": {
+        ('metal_ligand_distance', 'smarts_metal_ligand'): 'metal_ligand_distance',
+    },
+
     "atom_pair_distance": "smarts_hydrophobic_atoms",
     "distance_two_angles": "smarts_donor_acceptor",
     "baker_hubbard": "nitrogen_oxygen",

@@ -13,6 +13,8 @@
 | [Get hydrogen-bond sites](get_hbond_sites.ipynb) | Recognizing attributed donor–hydrogen pairs and acceptors |
 | [Get hydrophobic sites](get_hydrophobic_sites.ipynb) | Recognizing declared chemical atom sites independently of geometry |
 | [Get hydrophobicity](get_hydrophobicity.ipynb) | Getting hydrophobicity values for residues from standard biochemical scales |
+| [Get metal coordination sites](get_metal_coordination_sites.ipynb) | Recognizing metal and ligand chemistry independently of geometry |
+| [Get water sites](get_water_sites.ipynb) | Recognizing neutral explicit O-H-H molecular components |
 | [Get mass](get_mass.ipynb) | Getting atomic, residue, or total molecular system mass |
 | [Get polarity](get_polarity.ipynb) | Getting polarity descriptors for residues from reference scales |
 | [Get SASA](get_sasa.ipynb) | Getting the solvent accessible surface area of a molecular system |
@@ -25,6 +27,8 @@
    :maxdepth: 2
    :hidden:
 
+   get_metal_coordination_sites.ipynb
+   get_water_sites.ipynb
    get_hydrophobic_sites.ipynb
    get_halogen_bond_sites.ipynb
    get_aromatic_rings.ipynb

@@ -70,3 +70,22 @@ Tests compare identities exactly and distances within 1e-12 over RDKit/native/H5
 inputs, including reversed disjoint atom partitions. Default tests use the offline
 JSON and never import ProLIF. The generator is
 `devtools/scripts/hydrophobic_validation_systems.py`.
+
+### Metal candidates and single-water paths — 2026-10-01
+
+`devtools/data/metal_coordination_validation_systems.json` uses original ProLIF
+2.2.2 MetalDonor/Distance, six chemistry controls, 18 structures and 12 directed
+observations. Single-source self pairs are excluded; reverse roles remain distinct.
+`devtools/scripts/metal_coordination_validation_systems.py` regenerates it.
+
+`devtools/data/water_bridge_validation_systems.json` uses original ProLIF 2.2.2
+HBDonor branches plus an independent two-leg single-water path enumeration,
+three water-role controls, nine structures and six paths. It does not execute
+the complete reference WaterBridge residue/network pipeline. The branch criterion
+is D-A/angle with SMARTS; the public default Baker-Hubbard path is independently
+checked against straight-leg analytical geometry. Regenerate with
+`devtools/scripts/water_bridge_validation_systems.py`. Neither generator calls
+MolSysMT's detectors. Their manifests record exact source hashes, reference
+commit, Python/RDKit versions, host and nm coordinate units. Source code is
+pinned to ProLIF commit `19f1800218387c49536eb9d3e8cd3044fdb337ee`.
+Reference packages are isolated development tools, not production dependencies.

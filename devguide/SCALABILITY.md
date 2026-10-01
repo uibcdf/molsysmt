@@ -289,3 +289,18 @@ workloads fail explicitly before unbounded result materialization. Numeric-index
 H5MSM/native routes stream through the shared executor; rich file selections need
 bounded eager loading or reject forced streaming. No atom-pair tensor, incremental
 writer, total-RSS guarantee or newly measured Rust speedup is claimed.
+
+## Metal candidates and single-water paths
+
+Metal candidates reuse complete chemical site recognition, compiled bounded pair
+searches, projected coordinate execution and resident sparse packing. Native/H5MSM
+index selections stream coordinates without loading saved analyses. The metal
+anchors the MIC image. Chemical graphs and accepted output remain in memory.
+
+Single-water paths reuse the hydrogen-bond executor and retain accepted legs
+while joining same-frame observations by water oxygen. Per-water candidate fan-out
+is batched rather than materialized as a dense pair tensor. Resident leg columns,
+join arrays and bridge packing have a shared numeric working estimate. Dense
+output fails its budget explicitly; process RSS and graph overhead are not fully
+modeled. `heavy_mode='force'` selects supported leg coordinate streaming, not an
+incremental bridge writer. Public file queries/rendering remain separate work.

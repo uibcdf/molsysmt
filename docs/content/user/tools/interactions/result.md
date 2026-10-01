@@ -361,3 +361,15 @@ scale value or interaction energy. Scope, known-empty coverage, canonical MIC
 images, original producers and reference bibliography remain part of the named
 analysis. See {ref}`Tutorial_Get_hydrophobic_interactions` and
 {ref}`Cookbook_Saving_hydrophobic_interactions`.
+
+## Coordination and solvent paths
+
+{func}`molsysmt.interactions.metal_coordination.get_metal_coordination` stores
+directed metal/ligand candidates; it does not declare bonds in ChemicalStates.
+{func}`molsysmt.interactions.water_bridges.get_water_bridges` stores two D-H-A
+branches with six singleton roles and a shared water oxygen. Repeated atoms
+retain their separate chemical roles; incident queries return an occurrence
+once. Internal queries require all actual branch atoms, including mediator
+O and the participating H. An unused water H is not an extra participant.
+Both analyses retain evaluated-empty frames, original references/producer
+versions, units and observed images through named H5MSM 0.5 conversion.
