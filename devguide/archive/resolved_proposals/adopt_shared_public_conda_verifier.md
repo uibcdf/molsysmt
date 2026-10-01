@@ -1,12 +1,12 @@
 ---
 summary: Call the pinned common public Conda verifier and retain independent evidence.
 issue: uibcdf/molsysmt#275
-status: active
+status: resolved
 opened: 2026-10-01
-closed:
-verification: inspected
+closed: 2026-10-01
+verification: measured
 area: [governance, release]
-guard:
+guard: devtools/tests/test_verify_public_package.py
 normative:
 blocked_by: []
 supersedes: []
@@ -15,7 +15,7 @@ supersedes: []
 # Shared public Conda verification
 
 **Reported:** 2026-10-01, following uibcdf/molsyssuite#48 and #27.
-**Status:** Provider adopted; hosted read-only verification pending.
+**Status:** Resolved: common provider adopted and its public-file verification passed.
 
 ## What
 
@@ -71,3 +71,12 @@ Policy and broader release routing remain coordinated under uibcdf/molsyssuite#2
 
 2026-10-01; isolated clean checkout; administrative tests only. Provider revision
 `399d33a4ee0da148571cba7cfc004e3f3a2e71e7`. Hosted execution evidence will be appended before closure.
+
+## Resolution and measured evidence
+
+Administrative verification passed 6 selected local tests. Native hosted
+run 36860167904 executed the pinned shared action, verified the exact public file
+and retained independent evidence. The common provider and six-file inventory
+were verified centrally in run 36850953842. The local guard protects the actual
+provider pin, package/filename/digest inputs and `always()` evidence retention.
+No promotion or package release was repeated.
