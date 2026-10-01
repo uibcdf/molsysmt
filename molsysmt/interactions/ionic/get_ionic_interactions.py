@@ -10,6 +10,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
+from molsysmt._private.sparse_membership import whole_group_selection
 from molsysmt._private.variables import is_all
 
 _CALLER = "molsysmt.interactions.ionic.get_ionic_interactions"
@@ -449,18 +450,8 @@ def get_ionic_interactions(
 
 
 def _whole_selection(members, selected):
-    selected = set(selected.tolist())
-    result = np.zeros(len(members), dtype=bool)
-    for index, atoms in enumerate(members):
-        overlap = selected.intersection(atoms.tolist())
-        if overlap and len(overlap) != len(atoms):
-            raise ArgumentError(
-                "selection",
-                caller=_CALLER,
-                message="The selection cuts a compound charge center.",
-            )
-        result[index] = bool(overlap)
-    return result
+    return whole_group_selection(members, selected, caller=_CALLER,
+                                 description="compound charge center")
 
 
 def _search_sets(positive, negative, in_first, in_second, mode):

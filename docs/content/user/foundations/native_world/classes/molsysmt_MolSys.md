@@ -71,6 +71,14 @@ You attach it under a chosen name by assigning
 geometric proximity between opposite formal-charge centers, not an interaction
 energy or a recorded bond. See {ref}`Tutorial_Get_ionic_interactions`.
 
+The experimental `msm.interactions.pi_pi.get_pi_pi_interactions()` calculation
+uses declared aromatic ring chemistry and least-squares planes. Explicit cutoffs
+define parallel or edge-to-face observations; planarity alone does not establish
+aromaticity. It returns another independently named analysis, with the same
+source-index, coverage, producer-version and persistence contracts. Store both
+families in `molsys.interactions` under different names. See
+{ref}`Tutorial_Get_pi_pi_interactions` and {ref}`Cookbook_Saving_pi_pi_interactions`.
+
 ---
 
 ## Invariants and Performance

@@ -8,7 +8,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
-from molsysmt._private.sparse_membership import pack_membership
+from molsysmt._private.sparse_membership import pack_membership, whole_group_selection
 
 
 def ring_context(molecular_system, chemical_state, structure_indices, assume_complete, caller):
@@ -135,17 +135,8 @@ def ring_result(rings, *, molecular_system, states, state, state_index,
     if selected is None or np.asarray(selected).ndim != 1:
         raise ArgumentError("selection", value=selection, caller=caller)
     selected = np.unique(selected).astype(np.int64)
-    selected_set = set(selected.tolist())
-    retained = []
-    for ring in rings:
-        overlap = selected_set.intersection(ring.tolist())
-        if overlap and len(overlap) != len(ring):
-            raise ArgumentError(
-                "selection", value=selection, caller=caller,
-                message="The selection cuts a perceived ring; include all its atoms.",
-            )
-        if overlap:
-            retained.append(ring)
+    included = whole_group_selection(rings, selected, caller=caller, description="perceived ring")
+    retained = [rings[index] for index in np.flatnonzero(included)]
     atoms, offsets = pack_membership(retained)
     source_indices = np.arange(states.n_atoms, dtype=np.int64)
     return {

@@ -1,12 +1,12 @@
 ---
 summary: Implement pi-pi interactions with reusable ring and plane tools
 issue: uibcdf/molsysmt#265
-status: active
+status: resolved
 opened: 2026-09-30
-closed:
+closed: 2026-10-01
 verification: measured
 area: [api, attribute, structure, performance, docs, tests]
-guard:
+guard: tests/scientific_truth/curated/test_pi_pi_interactions.py::test_protein_observations_match_exhaustive_covariance_reference
 normative: devguide/interactions_api.md
 blocked_by: []
 supersedes: []
@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-30, following the validated ionic detector and the user's
 request to continue with pi-pi and later cation-pi calculations.
-**Status:** Active. Ring foundations and general plane fitting are implemented;
-the detector and its scientific/performance validation remain pending.
+**Status:** Resolved. The experimental detector, reusable foundations, bounded
+scientific/performance evidence and public documentation are implemented.
 
 ## What
 
@@ -35,7 +35,7 @@ consumer; coordination continues through uibcdf/molsysviewer#114.
    aromaticity or residue-name inference is introduced.
 3. `structure.get_least_squares_plane` fits planes with centroids, unoriented normals and
    orthogonal RMS/maximum deviations. PBC validation uses the shared PBC layer.
-4. The future detector will use explicit geometry thresholds, bounded neighbor
+4. The detector uses explicit geometry thresholds, bounded neighbor
    searches, projected coordinate blocks and typed sparse accumulation. It must
    retain state, source axes, evaluated empty frames, complete participants,
    parameters, producer version and observed periodic images. No auto-attachment.
@@ -81,7 +81,7 @@ A controlled nonaromatic fusion-bond graph separately requires its aromatic
 perimeter to remain a participant.
 
 **Benchmarked, bounded:** The sequential 100,000-atom / 1,000 isolated-cycle
-control is recorded in [the ring guide](../benchmarking/rings.md), with exact
+control is recorded in [the ring guide](../../benchmarking/rings.md), with exact
 source hashes, raw timings and separate returned-buffer/process-memory definitions.
 Membership arrays occupy 56,008 bytes; source/selected/examined axes bring total
 returned NumPy buffers to 2,456,008 bytes. This is not a trajectory detector
@@ -99,11 +99,13 @@ modules now distinguish chemical participants from fitted geometric planes.
 The sequential plane benchmark fits 1,000 groups over 50 selected structures
 from a 100,000-atom / 100-structure resident source. Median eager/block times are
 0.684/1.472 seconds with 3,256,408 returned numeric bytes; exact hashes and scope
-are recorded in [the plane guide](../benchmarking/planes.md). It does not measure
+are recorded in [the plane guide](../../benchmarking/planes.md). It does not measure
 file I/O, isolated RSS savings or the complete detector.
 
-**Not yet measured:** Pi-pi detection speed, memory, observation accuracy, general
-PBC reconstruction and joint viewer loading. No detector exists at this checkpoint.
+**Historical checkpoint:** The ring/plane stages did not yet measure pi-pi
+detection. The resolution below adds detector geometry, speed, memory and
+persistence evidence. General PBC reconstruction and joint viewer loading remain
+outside this phase.
 
 ## What was refuted
 
@@ -142,18 +144,18 @@ new dependencies and a Rust rewrite without profiling are outside this phase.
 
 - [x] Public form-agnostic ring identification and declared-aromatic participants.
 - [x] Analytical plane fitting with explicit units, degeneracy and planarity rules.
-- [ ] Scientifically explicit pi-pi geometry, selection scope and exclusions.
-- [ ] Parallel/edge-to-face, near misses, warped and fused rings, evaluated-empty
+- [x] Scientifically explicit pi-pi geometry, selection scope and exclusions.
+- [x] Parallel/edge-to-face, near misses, warped and fused rings, evaluated-empty
       frames and periodic image reconstruction tests.
-- [ ] Native/H5MSM parity, nonconsecutive structures, atom queries and named round trip.
-- [ ] Independent molecular fixtures and reproducible time/memory measurements.
-- [ ] Complete detector API, Foundations, Toolbox, Cookbook and four-path documentation.
+- [x] Native/H5MSM parity, nonconsecutive structures, atom queries and named round trip.
+- [x] Independent molecular fixtures and reproducible time/memory measurements.
+- [x] Complete detector API, Foundations, Toolbox, Cookbook and four-path documentation.
       Ring/plane docstrings, three executed tutorials, an executed recipe, API registry,
       Foundations and all four physicochemical-property course modules are updated.
 
-The proposal stays active until the detector is implemented and those criteria
-have bounded scientific and execution evidence. Ring foundations alone do not
-close it or add a public `interactions.pi_pi` namespace.
+The final stage below supplies bounded scientific and execution evidence for
+these criteria. Experimental API classification remains explicit; closing the
+implementation proposal does not stabilize its physical interpretation.
 
 ## References and provenance
 
@@ -236,7 +238,7 @@ medians are 507.738, 309.934, 149.641 and 46.494 ms respectively. Batched NumPy 
 useful but does not justify retaining a second production implementation here.
 Four-thread benefits depend on frame count; a one-frame group list remains serial.
 The method, raw samples, hashes, versions and memory limits are in
-[the plane benchmark guide](../benchmarking/planes.md) and its linked artifacts.
+[the plane benchmark guide](../../benchmarking/planes.md) and its linked artifacts.
 The final integrated public benchmark records 0.074 s eager and 0.176 s for
 eight-frame blocks, with the same 3,256,408 returned numeric bytes. The older
 0.684/1.472 s observations remain a separate historical checkpoint.
@@ -274,3 +276,107 @@ setuptools resource-preservation guard. No Rust or Python dependency was added.
 The next implementation stage remains the pi-pi detector using the shared ring,
 plane, spatial-candidate and periodic-image tools. This kernel decision does not
 close the detector proposal.
+
+## Detector resolution — 2026-10-01
+
+**Decision:** Accepted and implemented as the experimental
+interactions.pi_pi.get_pi_pi_interactions public tool. No new dependency or
+feature-specific Rust kernel was justified by this measured stage.
+
+**Implemented:** Explicit distance/angle/offset/maximum-planarity cutoffs,
+centroid_angle_offset@1 method version, parallel and edge-to-face evidence,
+complete ring_a/ring_b memberships, source indices, evaluated empty frames,
+state/evidence/producer metadata, full-versus-eligible scope, observed MIC images,
+Interactions/InteractionsDict output and explicit named attachment. Internal,
+incident and disjoint between scopes are supported. Self, overlapping/fused and
+directly covalently linked rings are excluded; other intramolecular pairs are
+included. No energy, attraction, clash or residue/component inference is added.
+
+General plane-pair geometry belongs to structure, whole-participant MIC checks
+to pbc, and compound selection membership is now reused by ionic and ring tools.
+The detector uses the existing compiled plane/spatial kernels and vectorized
+candidate geometry. Every selected frame is searched. H5MSM index selections
+prepare chemistry once and read projected blocks without saved analyses.
+Rich H5MSM selections require bounded eager materialization and reject forced
+streaming before loading the source. Other forms use actual declared streaming
+support or their eager coordinate getter/conversion route. Chemistry-only input
+without a declared structure axis fails clearly.
+
+**Scientifically validated, bounded:** Fixed independent aromatic memberships on
+checksum-preserved Trp-cage/villin protein coordinates agree with RDKit aromatic
+SymmSSSR cycles for those fixtures. An exhaustive independent covariance-plane
+oracle compares every eligible ring pair and each retained geometric measure,
+including native/file and eager/block routes. Controlled triclinic image
+translations reconstruct the same observed geometry. A separate analytical suite
+covers both classes, near-miss distance/angle/offset cutoffs, warped/degenerate
+rings, fused/direct-covalent exclusions, nonconsecutive/repeated frames, full-ring
+calculation scopes, atom queries, named/dictionary/image-preserving persistence,
+remapping, nondefault length/angle policies and unsupported/invalid routes.
+This bounds geometric observations, not universal aromaticity or an energy model.
+Evidence categorical codes are local to their label tables: round-trip assertions
+compare their logical labels and preserve public occurrence indices.
+
+**Benchmarked, bounded:** Isolated sequential controls measure the full detector,
+queries, numeric bytes, Linux VmHWM and standalone H5MSM I/O. With 100,000 atoms,
+100 structures and 1,000 rings, 36,660 occurrences use 4,330,336 numeric result bytes
+before inverse indexing; native eager median is 0.930 s and H5MSM blocks 3.062 s.
+With 10,000 atoms, 1,000 structures and 200 rings, 73,200 occurrences use 6,861,616
+bytes; native eager median is 1.016 s and H5MSM blocks 4.393 s. Source coordinates
+occupy 240 MB in both controls. File blocks lower measured process high-water
+marks but cost more repeated calls. The complete result remains resident.
+Regular synthetic values compress especially well; disk ratios and reused-atom
+query timings are not general workload promises. Raw samples, hashes, hardware,
+software/thread configuration and exact memory/I/O scopes are in
+[the pi-pi benchmark guide](../../benchmarking/pi_pi.md).
+
+**Documentation:** The public docstring/doctest, experimental API registry,
+Foundations, complete Toolbox tutorial, Cookbook persistence recipe, benchmark
+methods and all four Module 39 course explanations are updated. Both new
+notebooks execute with plots, periodic geometry, explicit outputs, named/public
+conversion, file calculation, standalone persistence and frame queries. The
+frozen legacy course code/outputs remain preserved; this stage does not certify
+unrelated legacy network-dependent exercises.
+
+**Final scientific/native checkpoint:** 283 tests pass across pi-pi, independent
+molecular oracles, ionic/shared memberships, ring/plane tools, native boxes and
+public MolSys/H5MSM workflows. Deliberate small-budget memory-pressure and
+incompatible-box diagnostics remain visible. Over-budget accumulation and invalid
+later blocks must raise before finalizing any partial analysis. The new detector
+API stays Experimental.
+
+The executed periodic tutorial exposed a pre-existing full-box setter no-op,
+separately recorded and repaired in uibcdf/molsysmt#268. Full native/public
+assignment now initializes a missing box with explicit units; partial
+initialization fails rather than inventing other frame values. This is not a
+change to the detector's documented missing-box MIC policy.
+
+**Remaining limits:** General aromaticity perception, all-cycle enumeration,
+automatic split-ring reconstruction, energy scoring, an incremental result
+writer, arbitrary out-of-core accepted-output sizes and joint viewer/session
+measurements are outside this resolved implementation. Cation-pi can reuse the
+chemical charge/ring and geometric foundations in a separately tracked stage.
+
+Reproduction commands:
+
+```bash
+python -m pytest --receptor=llm tests/interactions/pi_pi tests/scientific_truth/curated/test_pi_pi_interactions.py --disable-warnings
+python -m pytest --receptor=llm --doctest-modules molsysmt/interactions/pi_pi/get_pi_pi_interactions.py --disable-warnings
+python docs/execute_notebooks.py -q -f -n 2 docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb docs/content/user/cookbook/saving_pi_pi_interactions.ipynb
+python devtools/scripts/benchmark_pi_pi_interactions.py --output /tmp/pi_pi_100k_100.json
+python devtools/scripts/benchmark_pi_pi_interactions.py --atoms 10000 --structures 1000 --rings 200 --output /tmp/pi_pi_10k_1000.json
+```
+
+Final documentation review also checks actual notebook schemas with nbformat:
+legacy Module 39 files retain their 4.4 cell schema, so newer cell-id metadata
+is omitted. Their scientific code and executed outputs are unchanged. The full
+HTML build succeeds; unrelated existing navigation/reference warnings remain
+visible in the build log. The new pi-pi API page is part of the API toctree.
+Angular roundoff is capped below pi/4; an exact 45-degree acceptance guard
+prevents nominally disjoint classes overlapping at the last floating-point bit.
+
+Final form review confirms the composite Topology/Structures calculation route.
+Separately supplied ChemicalStates/Structures (including ChemicalStatesDict)
+expose an existing generic conversion limitation, recorded in
+uibcdf/molsysmt#269. The supported topology-free routes are a native MolSys or
+H5MSM containing both domains; the detector does not provide a competing private
+domain-composition implementation.

@@ -1,0 +1,92 @@
+{
+  "schema_version": "pi_pi_validation@1",
+  "provenance": "Aromatic cycles independently transcribed from RDKit SymmSSSR on checksum-fixed protein coordinates; protonation uses the existing declared ionic fixture state. Not a measured binding-energy reference.",
+  "systems": {
+    "trp_cage": {
+      "atoms": 304,
+      "structures": 38,
+      "path": "molsysmt/data/pdb/1l2y.pdb",
+      "sha256": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438",
+      "rings": [
+        [
+          40,
+          41,
+          42,
+          43,
+          44,
+          45
+        ],
+        [
+          97,
+          98,
+          99,
+          100,
+          101
+        ],
+        [
+          99,
+          101,
+          102,
+          103,
+          104,
+          105
+        ]
+      ]
+    },
+    "villin": {
+      "atoms": 596,
+      "structures": 1,
+      "path": "molsysmt/data/pdb/1vii.pdb",
+      "sha256": "ebecd3d6c0dd9c8b34bcbea9b57c73e4f73986cc674150f0aaa0687db66e77ef",
+      "rings": [
+        [
+          93,
+          94,
+          95,
+          96,
+          97,
+          98
+        ],
+        [
+          161,
+          162,
+          163,
+          164,
+          165,
+          166
+        ],
+        [
+          264,
+          265,
+          266,
+          267,
+          268,
+          269
+        ],
+        [
+          360,
+          361,
+          362,
+          363,
+          364
+        ],
+        [
+          362,
+          364,
+          365,
+          366,
+          367,
+          368
+        ],
+        [
+          580,
+          581,
+          582,
+          583,
+          584,
+          585
+        ]
+      ]
+    }
+  }
+}

@@ -39,6 +39,11 @@ def digest_method(method, caller=None):
             return method
         raise ArgumentError("method", value=method, caller=caller)
 
+    if caller == "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions":
+        if isinstance(method, str) and method == "centroid_angle_offset":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if isinstance(method, str):
         try:
             return _supported_methods[method.lower()]

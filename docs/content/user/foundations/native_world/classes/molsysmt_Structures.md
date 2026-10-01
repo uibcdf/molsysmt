@@ -31,6 +31,12 @@ Inside `molsysmt.Structures`, spatial and thermodynamic observables are stored a
 
 ---
 
+A missing periodic box series can be initialized with
+`msm.set(molsys, box=...)` or `molsys.structures.set_box(value=...)` using the full
+structure axis. Partial box updates require an existing series; they do not
+invent periodic boxes for unspecified structures. Box quantities carry length
+units and are stored internally in nm. See {ref}`Tutorial_Set`.
+
 ## Invariants and Performance
 
 - **Zero-Copy Views**: Slicing structures returns zero-copy NumPy array views whenever possible.

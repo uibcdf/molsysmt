@@ -207,3 +207,25 @@ New heavy operations should reuse `ChunkedExecutor` and `Reducer`, declare the
 required form attributes, and add operation-level parity tests. Do not expose a
 public `heavy_mode` parameter before the complete eligible and ineligible API
 surface is defined and tested.
+
+## Pi-pi detector working estimates
+
+The experimental pi-pi detector prepares ring chemistry once and uses projected
+coordinate/plane blocks with the form's declared heavy route. The complete
+accepted Interactions analysis remains resident; source streaming cannot make
+an arbitrarily large result fit RAM. It does not construct atom-pair tensors.
+
+One quarter of max_ram_usage covers selected coordinates, plane output and
+factorization estimates; bounded candidate search reserves one eighth per
+search, and sparse accumulation/packing reserves one half. Per-frame plane
+work includes the aligned Rust workspace reserve established by the general
+plane tool. Every frame is searched, without first-frame pruning. Numeric
+estimates exclude caller-owned source arrays, chemistry tables, Python overhead
+and total process RSS. The basis limit is per cyclic aromatic block, not total
+system size. An unsupported heavy form fails rather than silently loading it.
+
+For exact workloads and measured tradeoffs, see
+[the pi-pi benchmark guide](benchmarking/pi_pi.md). Native block processing does
+not reclaim a caller-owned resident trajectory; file projection can avoid that
+resident source. Query inverse-index construction and compressed disk bytes
+are reported separately from the detector's coordinate work.

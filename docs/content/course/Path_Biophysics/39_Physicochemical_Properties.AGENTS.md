@@ -15,3 +15,6 @@
 
 - Keep general unweighted plane fitting separate from aromaticity, with unique-normal
   and whole-participant PBC requirements, resident output and executed-tool links.
+
+- Preserve experimental pi-pi geometric criteria, whole-ring selections, sparse
+  evaluated-frame coverage, explicit named attachment and executed-tool/recipe links.

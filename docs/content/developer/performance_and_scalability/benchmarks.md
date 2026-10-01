@@ -56,3 +56,23 @@ copies from the repository root:
 python devtools/scripts/sync_benchmark_docs.py
 python devtools/scripts/sync_benchmark_docs.py --check
 ```
+
+## Measuring aromatic analyses
+
+The experimental pi-pi detector has a standalone reproducible control:
+
+```bash
+python devtools/scripts/benchmark_pi_pi_interactions.py --output /tmp/pi_pi.json
+```
+
+It compares native/H5MSM sources and eager/block execution, with variable and
+empty frames. It records calculation timings, numeric result bytes before/after
+inverse indexing, first/warmed frame and atom queries, and standalone H5MSM
+interaction-layer read/write costs. Each combination uses an isolated worker;
+run sequentially without other benchmarks, tests or builds. Source coordinate
+loading is excluded from calculation timing and included in process VmHWM.
+The result remains resident even when coordinates stream. Synthetic repeated
+values compress especially well, so disk ratios are not general predictions.
+The canonical methods and raw records live in devguide/benchmarking/pi_pi.md and
+benchmarks/baselines/pi_pi_*.json, tracked by uibcdf/molsysmt#265. For public
+usage see {ref}`Tutorial_Get_pi_pi_interactions`.

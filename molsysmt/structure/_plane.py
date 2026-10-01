@@ -21,6 +21,25 @@ def fit_planes(coordinates, offsets, positions, *, caller):
         raise StructuralInconsistencyError(reason=str(error), caller=caller) from error
 
 
+def plane_pair_geometry(centers, normals, pairs, target_images, box=None):
+    """Measure unoriented plane pairs in the observed second-participant image.
+
+    Inputs are canonical numeric arrays, with row lattice vectors. Return
+    centroid distance, acute plane angle in radians, and each lateral offset.
+    No interaction criterion or chemical interpretation is applied here.
+    """
+    first, second = pairs.T
+    delta = centers[second] - centers[first]
+    if box is not None:
+        delta = delta + target_images @ box
+    a, b = normals[first], normals[second]
+    angle = np.arctan2(np.linalg.norm(np.cross(a, b), axis=1),
+                       np.abs(np.einsum("ij,ij->i", a, b)))
+    offset_a = np.linalg.norm(delta - np.einsum("ij,ij->i", delta, a)[:, None] * a, axis=1)
+    offset_b = np.linalg.norm(delta - np.einsum("ij,ij->i", delta, b)[:, None] * b, axis=1)
+    return np.linalg.norm(delta, axis=1), angle, offset_a, offset_b
+
+
 
 class PlaneReducer(Reducer):
     """Fill preallocated dense output while keeping coordinate work in blocks."""

@@ -116,6 +116,9 @@ sections:
           - name: get_ionic_interactions
             file: docs/content/user/tools/interactions/get_ionic_interactions.ipynb
             agents_file: docs/content/user/tools/interactions/get_ionic_interactions.ipynb.AGENTS.md
+          - name: get_pi_pi_interactions
+            file: docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb
+            agents_file: docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb.AGENTS.md
       - name: molecular_mechanics
         path: docs/content/user/tools/molecular_mechanics
         agents_file: docs/content/user/tools/molecular_mechanics/AGENTS.md
@@ -196,6 +199,9 @@ sections:
       - name: saving_ionic_interactions
         file: docs/content/user/cookbook/saving_ionic_interactions.ipynb
         agents_file: docs/content/user/cookbook/saving_ionic_interactions.ipynb.AGENTS.md
+      - name: saving_pi_pi_interactions
+        file: docs/content/user/cookbook/saving_pi_pi_interactions.ipynb
+        agents_file: docs/content/user/cookbook/saving_pi_pi_interactions.ipynb.AGENTS.md
       - file: docs/content/user/cookbook/migrating_h5msm.md
         agents_file: docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md
   showcase:

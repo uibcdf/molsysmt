@@ -4,7 +4,7 @@
 systems. Distance-only proximity remains a geometric primitive in `structure`;
 it is not by itself an interaction classification. The first public families
 are `interactions.hbonds`, `interactions.disulfides`, and the experimental
-`interactions.ionic`. Other families need
+`interactions.ionic` and `interactions.pi_pi`. Other families need
 separate scientific contracts and decisions.
 
 ## Hydrogen bonds
@@ -240,6 +240,77 @@ protonation or validate arbitrary chemical motifs. Guards are
 `devtools/data/ionic_validation_systems.json`. The API remains Experimental;
 scientific correctness for this declared rule does not establish stability.
 See the [ionic benchmark guide](benchmarking/ionic.md) for measured tradeoffs.
+
+## Aromatic ring observations
+
+`interactions.pi_pi.get_pi_pi_interactions` is an experimental geometric detector.
+It uses the general declared-aromatic minimum-basis participants, packed Rust
+least-squares planes, bounded compiled spatial candidates and shared whole-group
+PBC validation. General plane-pair angle/offset geometry belongs to `structure`;
+chemical rules belong to `physchem`; the detector owns acceptance and sparse
+observation assembly. Compound selection membership is shared with ionic and
+ring tools. No additional dependency or detector-specific Rust kernel is added.
+
+Four explicit unitful cutoffs define the rule: positive centroid distance,
+angular deviation, lateral offset and maximum orthogonal plane deviation. The
+acute unoriented angle lies in [0, pi/2]; the angular cutoff must be below pi/4.
+Parallel geometry requires the angle near zero and both lateral offsets within
+cutoff. Edge-to-face requires the angle near pi/2 and at least one offset within
+cutoff. Both rings must satisfy planarity. A pair has positive distance within
+cutoff. Inclusive comparisons permit one float64 ULP without an absolute
+geometric tolerance. Angular roundoff remains strictly below pi/4 to preserve
+disjoint classes. Zero cutoffs therefore require numerical exactness.
+This is `centroid_angle_offset@1`, not an energy, attraction or Mol* parity claim.
+
+Self, overlapping/fused and directly covalently linked rings are excluded.
+Other intramolecular geometries are included; dative bonds do not impose an
+exclusion. There is no clash or residue/component filter. A minimum basis is
+not every cycle or a universal aromaticity model. Degenerate rings fail rather
+than silently claiming evaluated-empty observations; warped, nondegenerate
+rings exceeding the explicit planarity cutoff are excluded.
+
+Internal, incident and disjoint between searches operate on complete ring
+participants. Candidate searches are planned only between relevant sets and
+repeated for every requested structure. Partial compound calculation selections
+fail. Completed-result queries can inspect individual atoms. Source indices,
+not atom or structure IDs, define axes. Repeated frames evaluate once, sorted;
+empty evaluated frames remain explicit. `chemical_state='structure'` requires
+one known state across selected frames.
+
+One sparse `pi_pi` relation has `ring_a`/`ring_b` groups ordered by source ring
+membership. Occurrences store evidence for parallel or edge-to-face geometry,
+centroid distance, acute angle, both offsets and both RMS/maximum deviations.
+Lengths and angles carry explicit nm/radians units. Producer versions retain
+MolSysMT and NetworkX versions at calculation time. Geometry/chemistry method
+versions, cutoffs, state and full recognition versus eligible observation scope
+are recorded. The default is Interactions; InteractionsDict is optional. Named
+attachment is explicit. Both named and standalone H5MSM 0.5 round trips preserve
+this contract and public occurrence indices.
+
+MIC shifts are added to all atoms of ring_b using row box vectors; ring_a is
+zero. Every ring must already be whole in its anchor-relative image. Split
+rings fail, and general unwrapping/reconstruction remains a separate future
+PBC operation. Only the selected MIC image is reported. With pbc=True and no
+box, geometry is nonperiodic under the explicit mic_when_box_available policy.
+
+Rich H5MSM selections require eager materialization within the full source-coordinate
+estimate; forced file streaming requires index selections or all.
+
+All supported forms with sufficient chemistry and coordinates can use their
+normal getters/conversion routes. Real heavy coordinate delivery, rather than
+an iterator name, permits streaming. H5MSM index selections prepare native
+chemistry and association metadata once without materializing structural series
+or named analyses. Selected coordinates and fitted planes are block bounded;
+accepted occurrences remain resident. Numeric working estimates are not a
+process-RSS guarantee or an incremental result writer.
+
+Analytical contracts, fixed molecular memberships, an independent exhaustive
+covariance-plane oracle on Trp-cage/villin and controlled periodic translations
+are covered by `tests/interactions/pi_pi/` and
+`tests/scientific_truth/curated/test_pi_pi_interactions.py`. These establish
+bounded geometric evidence, not a universal physical interpretation. See
+[the detector benchmark guide](benchmarking/pi_pi.md) for reproducible
+calculation/query/memory/H5MSM controls. The API remains Experimental.
 
 ## Current result behavior and 1.0 target
 

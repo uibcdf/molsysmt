@@ -1,0 +1,153 @@
+{
+  "record_version": "pi_pi_benchmark@1",
+  "date": "2026-10-01",
+  "git_head": "18cc43021a663b5c79b8aa7b51cdef5e1fe27785",
+  "dirty_worktree": true,
+  "source_hashes": {
+    "devtools/scripts/benchmark_pi_pi_interactions.py": "eba73d60369e24b7f62fb756dfdecaf48493a9b4ccbb4ede52068cf46d249b78",
+    "molsysmt/interactions/pi_pi/get_pi_pi_interactions.py": "fe102965948b91397add1d965103903a00b579390c27cac5745857d4d9fcda90",
+    "molsysmt/interactions/pi_pi/_reducer.py": "4e71f02ea08977c27d77521de9110200d7d1410b2394996c5bbe97cd0e61884d",
+    "molsysmt/structure/_plane.py": "8fdb6b4f7f1d962cd39a43b81d2cb50255296f96c7f25dcfbf84366520dae462",
+    "molsysmt/structure/_group_minimum_contacts.py": "37e389a098788609315d238cfd0340610bd6d7078712466189a2da59483c092c",
+    "molsysmt/_private/sparse_membership.py": "f1695c847c647ce20a50c61101092e53b673d8066c68fc79e48bd371e3deba34"
+  },
+  "extension_sha256": "50b54c09d6e8191450a69b1703bef82a4c5a123efb17015336258a91973dc33e",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "python": "3.13.14",
+  "numpy": "2.4.6",
+  "molsysmt": "0.22.4+60.g7a8350f76.dirty",
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "thread_environment": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null
+  },
+  "parallel_configuration": {
+    "num_threads": -1,
+    "parallel_mode": "auto",
+    "parallel_threshold": 500000,
+    "min_payload_per_thread": 250000
+  },
+  "atoms": 100000,
+  "structures": 100,
+  "rings": 1000,
+  "coordinate_bytes": 240000000,
+  "chunk_size_limit": 16,
+  "ram_budget_bytes": 1073741824,
+  "repetitions": 3,
+  "fixture": "Separated regular hexagon pairs, variable counts and every fifth frame empty; no PBC; declared synthetic aromaticity.",
+  "timing": "Full public detector, including chemistry preparation, projection, geometry and sparse packing; source creation/loading excluded.",
+  "warmup": "One tiny calculation per isolated worker; OS page cache uncontrolled.",
+  "rss": "Linux VmHWM since worker exec, including imports, source loading, calculations, indexing, serialization and reload; not allocation delta.",
+  "disk": "Standalone interactions layer in H5MSM 0.5; coordinate source write is not timed.",
+  "results": [
+    {
+      "source": "native",
+      "heavy_mode": "off",
+      "samples_seconds": [
+        0.9809841383248568,
+        0.9233261281624436,
+        0.930164372548461
+      ],
+      "median_seconds": 0.930164372548461,
+      "occurrences": 36660,
+      "relations": 500,
+      "chunks": 1,
+      "numeric_bytes_before_index": 4330336,
+      "numeric_bytes_after_index": 5475632,
+      "rss_before_calculation_bytes": [
+        713883648,
+        723558400,
+        724221952
+      ],
+      "process_peak_rss_bytes": 953450496,
+      "first_atom_query_s": 0.005673496052622795,
+      "atom_query_median_s": 3.9779115468263626e-05,
+      "frame_query_median_s": 6.756093353033066e-05,
+      "h5msm_write_s": 0.03215357009321451,
+      "h5msm_read_s": 0.055454324930906296,
+      "h5msm_bytes": 146896
+    },
+    {
+      "source": "native",
+      "heavy_mode": "force",
+      "samples_seconds": [
+        1.5084224482998252,
+        1.5446185721084476,
+        1.550085241906345
+      ],
+      "median_seconds": 1.5446185721084476,
+      "occurrences": 36660,
+      "relations": 500,
+      "chunks": 7,
+      "numeric_bytes_before_index": 4330336,
+      "numeric_bytes_after_index": 5475632,
+      "rss_before_calculation_bytes": [
+        714387456,
+        719069184,
+        720117760
+      ],
+      "process_peak_rss_bytes": 954130432,
+      "first_atom_query_s": 0.006108952686190605,
+      "atom_query_median_s": 4.0386803448200226e-05,
+      "frame_query_median_s": 7.131276652216911e-05,
+      "h5msm_write_s": 0.03268354292958975,
+      "h5msm_read_s": 0.05580595042556524,
+      "h5msm_bytes": 146896
+    },
+    {
+      "source": "file",
+      "heavy_mode": "off",
+      "samples_seconds": [
+        2.4670256646350026,
+        2.37638574372977,
+        2.4497265741229057
+      ],
+      "median_seconds": 2.4497265741229057,
+      "occurrences": 36660,
+      "relations": 500,
+      "chunks": 1,
+      "numeric_bytes_before_index": 4330336,
+      "numeric_bytes_after_index": 5475632,
+      "rss_before_calculation_bytes": [
+        416800768,
+        465297408,
+        466374656
+      ],
+      "process_peak_rss_bytes": 519368704,
+      "first_atom_query_s": 0.005733383819460869,
+      "atom_query_median_s": 3.921845927834511e-05,
+      "frame_query_median_s": 6.431341171264648e-05,
+      "h5msm_write_s": 0.03169478103518486,
+      "h5msm_read_s": 0.05454545468091965,
+      "h5msm_bytes": 146896
+    },
+    {
+      "source": "file",
+      "heavy_mode": "force",
+      "samples_seconds": [
+        3.0624068416655064,
+        3.0518646435812116,
+        3.170751741155982
+      ],
+      "median_seconds": 3.0624068416655064,
+      "occurrences": 36660,
+      "relations": 500,
+      "chunks": 7,
+      "numeric_bytes_before_index": 4330336,
+      "numeric_bytes_after_index": 5475632,
+      "rss_before_calculation_bytes": [
+        416722944,
+        459243520,
+        462077952
+      ],
+      "process_peak_rss_bytes": 470183936,
+      "first_atom_query_s": 0.0056578777730464935,
+      "atom_query_median_s": 4.037981852889061e-05,
+      "frame_query_median_s": 6.556836888194084e-05,
+      "h5msm_write_s": 0.03172507230192423,
+      "h5msm_read_s": 0.06465710140764713,
+      "h5msm_bytes": 146896
+    }
+  ]
+}

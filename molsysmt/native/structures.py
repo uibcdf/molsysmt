@@ -1270,17 +1270,46 @@ class Structures:
 
     @arg_digest()
     def set_box(self, structure_indices="all", value=None, skip_digestion=False):
-        if self._box is None:
+        """Assigning periodic boxes to all or selected structures.
+
+        Parameters
+        ----------
+        structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+            Structure indices (0-based) to update. Use 'all' to initialize a
+            missing box series; a partial update requires an existing series.
+        value : quantity or None, default=None
+            Box matrices with shape (n_selected_structures, 3, 3), carrying
+            length units. Internal storage uses nm. None clears the full series.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        None
+            The object is updated in place.
+
+        Raises
+        ------
+        StructuralInconsistencyError
+            If a partial update is requested before a box series exists.
+
+        .. versionadded:: 1.0.0
+        """
+        if is_all(structure_indices):
+            self.box = value
             return
+        if self._box is None:
+            if np.asarray(structure_indices).size == 0:
+                return
+            raise StructuralInconsistencyError(
+                reason="Initialize the full box series before updating selected structures.",
+                caller="molsysmt.native.Structures.set_box",
+            )
 
         self._box.flags.writeable = True
         try:
             raw_val = _raw_value(value, "nm")
-            if is_all(structure_indices):
-                self._box.flags.writeable = False
-                self.box = value
-            else:
-                self._box[structure_indices, :, :] = raw_val[:, :, :]
+            self._box[structure_indices, :, :] = raw_val[:, :, :]
         finally:
             if self._box is not None:
                 self._box.flags.writeable = False

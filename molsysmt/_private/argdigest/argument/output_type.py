@@ -4,8 +4,10 @@ from molsysmt._private.smonitor import ArgumentError
 def digest_output_type(output_type, caller=None):
 
     if (
-        caller
-        == "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions"
+        caller in {
+            "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",
+            "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
+        }
     ):
         if isinstance(output_type, str) and output_type.lower() in {
             "molsysmt.interactions",

@@ -4,6 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_angle_threshold = [
+    "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
     "molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
     "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds",
 ]

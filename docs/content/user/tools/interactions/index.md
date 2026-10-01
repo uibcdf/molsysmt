@@ -10,9 +10,12 @@ explicitly.
 
 The new experimental ionic detector returns sparse analyses by default, using
 selected-state formal-charge centers and an explicit minimum-distance cutoff.
+The experimental pi-pi detector uses declared aromatic rings, fitted planes,
+and explicit distance, angle, offset and planarity cutoffs.
 
 - {doc}`result` — building, querying, and saving sparse interaction results.
 - {doc}`get_ionic_interactions` — calculating scoped formal-charge contacts.
+- {doc}`get_pi_pi_interactions` — calculating parallel and edge-to-face ring geometry.
 
 ```{eval-rst}
 .. toctree::
@@ -21,4 +24,5 @@ selected-state formal-charge centers and an explicit minimum-distance cutoff.
 
    result
    get_ionic_interactions
+   get_pi_pi_interactions
 ```

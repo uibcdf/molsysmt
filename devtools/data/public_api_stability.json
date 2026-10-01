@@ -57,6 +57,10 @@
     "molsysmt.interactions.ionic": {
       "source": "molsysmt/interactions/ionic/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.interactions.pi_pi": {
+      "source": "molsysmt/interactions/pi_pi/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -1615,6 +1619,20 @@
       "owner": "structure",
       "documentation": "docs/content/user/tools/structure/get_least_squares_plane.ipynb",
       "contract_tests": "tests/structure/test_get_least_squares_plane.py"
+    },
+    "molsysmt.interactions.pi_pi": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.pi_pi",
+      "documentation": "docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb",
+      "contract_tests": "tests/interactions/pi_pi/test_get_pi_pi_interactions.py"
+    },
+    "molsysmt.interactions.pi_pi.get_pi_pi_interactions": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "interactions.pi_pi",
+      "documentation": "docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb",
+      "contract_tests": "tests/interactions/pi_pi/test_get_pi_pi_interactions.py"
     }
   }
 }

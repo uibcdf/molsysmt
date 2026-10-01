@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
 - [`no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md`](no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md) — [#185](https://github.com/uibcdf/molsysmt/issues/185) — No test workflow runs on a push to main and the CI badge names a missing workflow. *(high, measured)*
+- [`composite_chemicalstates_and_structures_inputs_cannot_convert_to_molsys.md`](composite_chemicalstates_and_structures_inputs_cannot_convert_to_molsys.md) — [#269](https://github.com/uibcdf/molsysmt/issues/269) — Composite ChemicalStates and Structures inputs cannot convert to MolSys *(medium, reproduced)*
 
 ### In progress (3)
 
