@@ -17,8 +17,11 @@ supersedes: []
 ## Consumer and attribution checkpoint — 2026-10-01
 
 The experimental packed result, named `MolSys.interactions` collection and
-public H5MSM 0.5 codecs are implemented. Five detector families produce supported
-results: hydrogen bonds, disulfide candidates, ionic, pi-pi and cation-pi.
+public H5MSM 0.5 codecs are implemented. At the measured consumer checkpoint
+below, five detector families produced supported results: hydrogen bonds,
+disulfide candidates, ionic, pi-pi and cation-pi. The current nine-family
+inventory, including subsequently implemented detectors, is maintained in
+[the interaction-family roadmap](organize_interaction_detection_by_family_before_1_0.md).
 Legacy tuple defaults remain available; scientific/descriptive method selectors
 and exact profiles preserve previously validated numerical behavior. Optional
 attribution is analysis metadata, not an occurrence column. Current contracts
@@ -70,9 +73,11 @@ The final focused attribution module run passed all 18 tests in 13.46 seconds.
 **Remaining:** exact-candidate consumer/release qualification, result stabilization
 after agreed client evidence, and separately scoped incremental editing or public
 bounded file access. Current immutable snapshots and resident sparse detector
-results are not an incremental editor or a streaming writer. Halogen, hydrophobic
-and metal families remain future detectors under #250; their absence does not
-invalidate this generic sparse result implementation.
+results are not an incremental editor or a streaming writer. Halogen,
+hydrophobic, metal and one-/two-water bridge detectors are now implemented
+experimentally under #250. The earlier consumer measurement above does not
+qualify these later additions; final consumer evidence must identify the actual
+provider and client candidates tested.
 
 ## Luzard-Chandler result adapter (2026-09-29)
 
