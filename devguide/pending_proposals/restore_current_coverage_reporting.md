@@ -265,3 +265,33 @@ probe reuses the identical XML, source SHA and timestamp without executing tests
 Its native result and independent service state must be recorded separately.
 All 33 local artifact/provenance and suite/debt tests pass; workflow lint, Ruff
 and local developer-guide validation also pass.
+
+
+### Legacy transport outcome and remaining diagnostic boundary
+
+[36987144451](https://github.com/uibcdf/molsysmt/actions/runs/36987144451)
+completed successfully on publisher source
+`e28d37d143af50ee0e2d3513104a73c0cae91167`. Native logs show the official CLI
+`--legacy` mode, original measured SHA and the same XML SHA-256. The upload
+ended at `2026-10-02T08:59:48Z` with `Upload queued for processing complete`.
+The independent check at `2026-10-02T09:03:55.181766+00:00` still has null
+commit state/totals and no numeric SVG. The uploads listing contains the four
+modern coverage requests in `started` and separately processed JUnit; no new
+legacy entry is exposed in that listing. Native success therefore proves only
+that the legacy request was queued, not a fifth processed or listed upload.
+
+Routine publication remains automatic, independent and OIDC with the current
+endpoint. No second scientific execution occurred in any replay. #286 remains
+partial and the live badge remains withheld. Further identical retries do not
+yet have a new diagnostic hypothesis. Provider-side processing logs or an
+authenticated upload error are needed to distinguish the remaining causes;
+the authenticated `Missing Head Report` notice does not do so.
+
+The evidence above supplies a support packet: source run, original XML digest
+and timestamp, exact measured versus publisher SHAs, four replay links,
+authentication/flag/endpoint differences and separate service observations.
+No signed storage URL, credential or account identifier is needed. Repository
+activation, valid YAML, XML counts and tracked-source mapping were verified,
+but none is a confirmed cause or a processing guarantee. There is no evidence
+that changing scientific assertions, exclusions, the source SHA or report
+timestamp would be a valid repair.
