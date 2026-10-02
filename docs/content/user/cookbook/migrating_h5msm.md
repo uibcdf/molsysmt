@@ -17,6 +17,14 @@ molsys = msm.h5msm.read("trajectory_05.h5msm")
 print(molsys.structures.n_structures)
 ```
 
+## Resolving unit errors
+
+Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.
+
+If migration rejects a file, recover the correct declarations from the original
+writer or its documented unit contract. Recreate the file with those units;
+MolSysMT cannot infer a missing unit from the numerical values.
+
 ## Inspecting independent layers
 
 Read only the domains needed for the next step:

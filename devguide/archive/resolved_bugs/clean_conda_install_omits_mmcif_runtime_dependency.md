@@ -1,13 +1,13 @@
 ---
 summary: Clean package installations omit the mmCIF runtime dependency.
 issue: uibcdf/molsysmt#200
-status: active
+status: resolved
 opened: 2026-09-02
-closed:
+closed: 2026-10-02
 severity: high
 verification: reproduced
 area: [deps, packaging, form]
-guard:
+guard: tests/test_distribution_manifests.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,15 +17,12 @@ supersedes: []
 
 **Reported:** 2026-09-02, while exercising the staged MolSysMT 0.22.0 candidate
 through MolSysViewer in a clean Conda environment.
-**Status (2026-09-27):** The missing dependency declaration and py-mmcif
-provider coverage are corrected, and public MolSysMT 0.22.4 /
-MolSysViewer 0.23.4 passed the clean 20-cell installed-pair matrix on
-Python 3.11–3.14. That matrix exercised bundled BCIF and PDB-text
-conversion, not necessarily the original remote-PDB-ID request below.
-Before closing this issue, verify that exact path from a clean public
-installation or name an existing guard that does so. The older
-0.22.0/0.23.1 and 0.22.3/0.23.3 staging results below are history, not
-unpublished current candidates.
+**Status (2026-10-02):** Resolved. Runtime declarations, the portable parser,
+and the clean public pair are corrected. The original remote-ID conversion
+`msm.convert("1BRS", selection='molecule_type=="protein"')` was repeated
+successfully from a pre-existing clean Conda prefix containing public
+MolSysMT 0.22.4 build 3 and py-mmcif 1.1.1, without importing this checkout.
+It returned a MolSys with 4,638 selected atoms.
 
 ## Updated package boundary — 2026-09-24
 
@@ -34,7 +31,7 @@ build 3 is historical: build 5 of 0.22.0 passed the 15-cell exact-pair
 staging matrix (`35967239820`). The later 0.22.3/0.23.3 technical pair passed
 20/20 installed cells on the five native platforms and Python 3.11–3.14,
 including bundled BCIF conversion, the staged package provenance guard, and
-MolSysViewer resources. See [`python_3_14_checkpoint.md`](../python_3_14_checkpoint.md).
+MolSysViewer resources. See [`python_3_14_checkpoint.md`](../../python_3_14_checkpoint.md).
 The original missing-`mmcif` path is therefore guarded in staging, but this
 does not prove a public-channel MolSysMT release or close this issue yet.
 
@@ -170,3 +167,19 @@ separately and must not be conflated with functional correctness.
 - Public provider package: py-mmcif `bc17dc2b`, publication run `35496771848`,
   `uibcdf/noarch::py-mmcif-1.1.1-py_0`, independently installed with Python 3.14.7,
   2026-09-20.
+
+
+## Closure — 2026-10-02
+
+The clean public PDB-ID reproduction used Linux x86-64, Python 3.14.7,
+`uibcdf/linux-64::molsysmt-0.22.4-pyabi3h03bb3b7_3.conda`, and
+`mmcif` imported from that same environment. This is one fresh Linux
+request, not a new remote-download matrix on every platform. The existing
+20-cell public matrix independently covers bundled BCIF and PDB-text routes.
+
+The addressable guard `tests/test_distribution_manifests.py` verifies
+actual Python and Conda runtime declarations and deliberately removes
+py-mmcif from a recipe to prove that the omission is detected. The installed
+pair validator separately executes real BCIF conversion and rejects missing
+provider dependencies. The original defect cannot be hidden by adding mmcif
+only to a development environment.

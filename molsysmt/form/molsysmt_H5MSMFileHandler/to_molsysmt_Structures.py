@@ -4,6 +4,7 @@ import numpy as np
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.h5msm_units import legacy_dataset_unit
 from molsysmt._private.variables import is_all
 
 
@@ -13,15 +14,6 @@ def _read_structure_rows(dataset, structure_indices):
     if is_all(structure_indices):
         return dataset[:]
     return np.asarray([dataset[int(index)] for index in structure_indices])
-
-
-def _dataset_unit(dataset, file, root_attribute, fallback):
-    """Returning a dataset unit with a root-level compatibility fallback."""
-
-    return dataset.attrs.get(
-        "unit",
-        file.attrs.get(root_attribute, fallback),
-    )
 
 
 def _requested_structure_indices(structures, structure_indices):
@@ -63,6 +55,17 @@ def to_molsysmt_Structures(
         Resulting object in molsysmt.Structures form.
 
 
+    Raises
+    ------
+    FormatError
+        If a populated structural dataset has missing, invalid, or contradictory units.
+
+    Notes
+    -----
+    Legacy units must be explicit at dataset, structural-group, or root level.
+    Duplicate declarations must describe the same scale and dimension.
+    The native Structures object stores canonical physical quantities.
+
     .. versionadded:: 1.0.0
     """
     from molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_H5MSMFileHandler import (
@@ -82,7 +85,7 @@ def to_molsysmt_Structures(
 
     # Coordinates
     coordinates_ds = structures_ds["coordinates"]
-    coordinates_unit = _dataset_unit(coordinates_ds, item.file, "length_unit", "nm")
+    coordinates_unit = legacy_dataset_unit(coordinates_ds)
     coordinates = _read_structure_rows(coordinates_ds, structure_indices)
     if not is_all(atom_indices):
         coordinates = coordinates[:, atom_indices, :]
@@ -93,15 +96,7 @@ def to_molsysmt_Structures(
     # Velocities
     velocities_ds = structures_ds.get("velocities")
     if velocities_ds is not None and velocities_ds.shape[0] > 0:
-        velocities_unit = _dataset_unit(
-            velocities_ds,
-            item.file,
-            "velocity_unit",
-            (
-                f"{item.file.attrs.get('length_unit', 'nm')}/"
-                f"{item.file.attrs.get('time_unit', 'ps')}"
-            ),
-        )
+        velocities_unit = legacy_dataset_unit(velocities_ds)
         velocities = _read_structure_rows(velocities_ds, structure_indices)
         if not is_all(atom_indices):
             velocities = velocities[:, atom_indices, :]
@@ -114,7 +109,7 @@ def to_molsysmt_Structures(
     # Box
     if "box" in structures_ds and structures_ds["box"].shape[0] > 0:
         box_ds = structures_ds["box"]
-        box_unit = _dataset_unit(box_ds, item.file, "length_unit", "nm")
+        box_unit = legacy_dataset_unit(box_ds)
         if structures_ds.attrs.get("constant_box", False):
             requested_indices = _requested_structure_indices(
                 structures_ds, structure_indices
@@ -132,7 +127,7 @@ def to_molsysmt_Structures(
 
     # B factor
     if "b_factor" in structures_ds and structures_ds["b_factor"].shape[0] > 0:
-        b_factor_unit = structures_ds.attrs.get("b_factor_unit", "nanometer**2")
+        b_factor_unit = legacy_dataset_unit(structures_ds["b_factor"])
         b_factor = _read_structure_rows(structures_ds["b_factor"], structure_indices)
         if not is_all(atom_indices):
             b_factor = b_factor[:, atom_indices]
@@ -143,7 +138,7 @@ def to_molsysmt_Structures(
     # Time
     if "time" in structures_ds and structures_ds["time"].shape[0] > 0:
         time_ds = structures_ds["time"]
-        time_unit = _dataset_unit(time_ds, item.file, "time_unit", "ps")
+        time_unit = legacy_dataset_unit(time_ds)
         if structures_ds.attrs.get("constant_time_step", False):
             requested_indices = _requested_structure_indices(
                 structures_ds, structure_indices
@@ -177,16 +172,12 @@ def to_molsysmt_Structures(
         tmp_item.structure_id = None
 
     # Thermodynamic series
-    for attribute, root_unit, fallback in (
-        ("temperature", "temperature_unit", "K"),
-        ("potential_energy", "energy_unit", "kJ/mol"),
-        ("kinetic_energy", "energy_unit", "kJ/mol"),
-    ):
+    for attribute in ("temperature", "potential_energy", "kinetic_energy"):
         dataset = structures_ds.get(attribute)
         if dataset is None or dataset.shape[0] == 0:
             setattr(tmp_item, attribute, None)
             continue
-        unit = _dataset_unit(dataset, item.file, root_unit, fallback)
+        unit = legacy_dataset_unit(dataset)
         values = _read_structure_rows(dataset, structure_indices)
         setattr(
             tmp_item,

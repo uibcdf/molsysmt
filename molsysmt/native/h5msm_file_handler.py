@@ -75,6 +75,13 @@ class H5MSMFileHandler:
             )
 
         if io_mode == "r":
+            from molsysmt._private.h5msm_units import validate_legacy_structural_units
+
+            try:
+                validate_legacy_structural_units(self.file)
+            except Exception:
+                self.file.close()
+                raise
             warn(LegacyH5MSMWarning(version=self.format_version))
 
         if closed:

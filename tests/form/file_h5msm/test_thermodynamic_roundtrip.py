@@ -178,6 +178,7 @@ def test_h5msm_dataset_unit_does_not_require_root_unit_fallback(tmp_path):
         coordinates[:] = 1.0
         coordinates.attrs["unit"] = "angstrom"
         del file.attrs["length_unit"]
+        del file["structures"].attrs["length_unit"]
 
     recovered = msm.convert(output, to_form="molsysmt.Structures")
 

@@ -35,6 +35,8 @@ Inside `molsysmt.Topology`, data is maintained across seven canonical tabular Da
 
 ---
 
+A valid native topology can have atoms and bonds but zero groups, for example an RDKit molecule without residue metadata. In that case, atom-level `group_id`, `group_name`, and `group_type` queries return `None`; `n_groups` remains zero. MolSysMT does not invent residue groups or a ligand label. Check `msm.has_attribute(molsys, "group_name")` before requiring that hierarchy.
+
 ## Container Conversion
 
 A topology can be wrapped in a `molsysmt.MolSys` without inventing structural data:

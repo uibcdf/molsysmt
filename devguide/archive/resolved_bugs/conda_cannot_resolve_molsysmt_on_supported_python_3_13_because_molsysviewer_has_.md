@@ -1,13 +1,13 @@
 ---
 summary: Conda cannot resolve MolSysMT on supported Python 3.13 because MolSysViewer has no compatible build
 issue: uibcdf/molsysmt#195
-status: active
+status: resolved
 opened: 2026-09-01
-closed:
+closed: 2026-10-02
 severity: high
 verification: reproduced
 area: [build, deps]
-guard:
+guard: devtools/tests/test_conda_release_workflows.py::test_staging_workflow_installs_the_pair_on_the_native_matrix
 normative:
 blocked_by: []
 supersedes: []
@@ -17,15 +17,15 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status (2026-09-27):** The original Python 3.13 public-channel solver
-failure is no longer the active release blocker. Public MolSysMT 0.22.4
-and MolSysViewer 0.23.4 passed 20/20 clean installed-pair cells across
-Python 3.11–3.14, including all five platforms then in scope. The
-issue and this report remain open pending their formal closure with a
-mechanically addressable regression guard; do not repeat the older
-0.22.0/0.23.1 staging route as if public packages were still missing.
-Future 1.0 candidates require fresh exact-coordinate gates, now without
-macOS Intel. See [the current release status](../release_1_0_status.md).
+**Status (2026-10-02):** Resolved. Public MolSysMT 0.22.4 and
+MolSysViewer 0.23.4 passed the clean 20-cell installed-pair matrix on
+Python 3.11–3.14, including the original Python 3.13 solver path.
+Run 36129993869 was rechecked with GH Run Receptor: success, 21/21 jobs,
+20 artifacts, 5/5 platforms. The maintained workflow guard checks native
+matrix installation of both exact package coordinates and execution of
+version, provenance, native-code, BCIF, PDB-text, and resource probes.
+Future 1.0 candidates still need fresh exact-coordinate gates on the
+current four-platform support matrix.
 
 The 0.22.0/0.23.1 staging steps below are historical evidence for how
 the original defect was diagnosed, not instructions for a new release.
@@ -34,7 +34,7 @@ The separate newer 0.22.3/0.23.3 technical staging pair passed 20/20
 installed cells across the same five platforms and Python 3.11–3.14 on
 2026-09-24, with explicit channel URL and SHA-256 provenance. This is not a
 retroactive upgrade of the 0.22.0/0.23.1 candidate or a public release; see
-[`python_3_14_checkpoint.md`](../python_3_14_checkpoint.md) for its runs.
+[`python_3_14_checkpoint.md`](../../python_3_14_checkpoint.md) for its runs.
 
 ## Coordination checkpoint — 2026-09-24, full matrix
 
@@ -240,7 +240,7 @@ the original report:
   old assumption that Python 3.13 needed a separate `py313` Viewer artefact.
 
 The accompanying MolSysMT change implements Route A from
-[`../pending_proposals/migration_off_the_in_house_publication_actions.md`](../pending_proposals/migration_off_the_in_house_publication_actions.md):
+[`../../pending_proposals/migration_off_the_in_house_publication_actions.md`](../../pending_proposals/migration_off_the_in_house_publication_actions.md):
 
 1. `devtools/conda-build/meta.yaml` builds with the native Rust compiler metapackage on
    every platform and the C compiler metapackage on Linux to capture the `libgcc` run
@@ -376,3 +376,15 @@ Each repository continues to publish only its own artefact.
 
 Measured 2026-09-01 on Linux x86_64 with Conda 26.5.3 and the libmamba solver against
 `uibcdf`, `conda-forge` and `ambermd`. MolSysMT worktree based on `6eea33df9`.
+
+
+## Closure — 2026-10-02
+
+The public installation evidence supersedes the historical candidate coordinates
+in the acceptance criteria. The regression guard is
+`devtools/tests/test_conda_release_workflows.py::test_staging_workflow_installs_the_pair_on_the_native_matrix`.
+It fails if exact-pair solver installation or its executable package probes
+are removed from the maintained matrix. Artifact availability is verified by
+that live release gate, not inferred from this static guard. The validator's
+negative tests additionally reject editable, wrong-channel, wrong-ABI and
+missing-mmcif records. No new package was published during this review.

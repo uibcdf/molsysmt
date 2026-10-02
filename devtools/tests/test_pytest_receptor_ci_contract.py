@@ -1,6 +1,7 @@
 """Regression tests for the agent-oriented GitHub Actions test output."""
 
 import re
+import tomllib
 from pathlib import Path
 
 import yaml
@@ -55,7 +56,10 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
             assert "inputs.molsysviewer_sha" in text
             assert "^[0-9a-f]{40}$" in text
         else:
-            assert "7a1522662e30575caf580a9447e3e6d80b628e07" in text
+            contract = tomllib.loads(
+                (REPO / "devtools/dependency_contract.toml").read_text()
+            )
+            assert contract["routine_viewer_source"]["sha"] in text
 
     full_text = WORKFLOWS[0].read_text(encoding="utf-8")
     assert "controlled-molsysviewer-wheel" in full_text

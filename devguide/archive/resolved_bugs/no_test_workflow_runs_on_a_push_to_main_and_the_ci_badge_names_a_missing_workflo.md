@@ -1,9 +1,9 @@
 ---
 summary: No test workflow runs on a push to main and the CI badge names a missing workflow.
 issue: uibcdf/molsysmt#185
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-10-02
 severity: high
 verification: measured
 area: [ci]
@@ -17,7 +17,10 @@ supersedes: []
 
 **Reported:** 2026-08-19, during an external audit, while establishing how
 [#182](https://github.com/uibcdf/molsysmt/issues/182) survived a commit and a day.
-**Status:** open. Measured on `b9a2098e4` against the live run history.
+**Status (2026-10-02):** Resolved for the trigger, backlog, smoke and badge
+contract. The original observation below applies to b9a2098e4. A red full
+suite remains a red result; the separate stale-provider defect is tracked
+by uibcdf/molsysmt#293.
 
 ## What
 
@@ -38,7 +41,7 @@ The two commits without `[skip ci]` touched only `devguide/`, which `ci-smoke.ya
 lists under `paths-ignore`. So every commit in that range was excluded, by one mechanism
 or the other, from the only test workflow a push can start.
 
-**The exclusion is policy, not accident.** [`AGENTS.md`](../../AGENTS.md) requires
+**The exclusion is policy, not accident.** [`AGENTS.md`](../../../AGENTS.md) requires
 `[skip ci]` in every commit message unless explicitly instructed otherwise, and
 `ci-smoke.yaml` skips when the head commit message contains it:
 
@@ -152,9 +155,9 @@ release gate relative to the push path.
 
 Excludes the content of any suite, and excludes the currently failing cross-repo
 unit-policy tests, whose theme is
-[`../pending_proposals/pyunitwizard_global_standards_conflict.md`](../pending_proposals/pyunitwizard_global_standards_conflict.md).
+[`../../pending_proposals/pyunitwizard_global_standards_conflict.md`](../../pending_proposals/pyunitwizard_global_standards_conflict.md).
 Excludes the reliability of the benchmark comparison, which is
-[`../pending_proposals/benchmark_regression_gate_reliability.md`](../pending_proposals/benchmark_regression_gate_reliability.md).
+[`../../pending_proposals/benchmark_regression_gate_reliability.md`](../../pending_proposals/benchmark_regression_gate_reliability.md).
 
 ## 2026-09-28 control decision
 
@@ -246,3 +249,22 @@ failed scientific test as success.
 Measured 2026-08-19 against the live GitHub Actions history via `gh`, at repository
 commit `b9a2098e4`. Run identifiers are recorded above so the outcomes remain checkable
 after the history scrolls.
+
+
+## Closure — 2026-10-02
+
+The nightly/full workflow now actually executes, rather than requiring every
+push to run the complete matrix. Smoke run 37007674176 passed at 78981d6c1.
+Scheduled full run 37008569379 completed all three Linux Python 3.11–3.13
+suites and fast/evidence gates, then correctly reported failure from the
+three stale-Viewer policy tests in each cell. GH Run Receptor recorded
+failure, three failed test jobs and six evidence artifacts. This is evidence
+that the trigger/control route works, not a green full suite. The stale
+source pin is corrected separately under uibcdf/molsysmt#293.
+
+`devtools/tests/test_nightly_full_gate.py` exercises skipped-commit discovery,
+executed successful matrices as the watermark, conservative API-error
+handling, failure retention, actual smoke selection, badge existence, and
+nightly/PR connections. The guard would fail if this control mechanism were
+removed or a skipped/failed matrix cleared the backlog. No full-matrix
+release readiness is claimed by closing this defect.

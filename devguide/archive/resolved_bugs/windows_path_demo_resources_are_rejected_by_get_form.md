@@ -1,13 +1,13 @@
 ---
 summary: WindowsPath demo resources are rejected by get_form on Windows.
 issue: uibcdf/molsysmt#241
-status: active
+status: resolved
 opened: 2026-09-24
-closed:
+closed: 2026-10-02
 severity: high
 verification: reproduced
 area: [basic, form]
-guard:
+guard: tests/basic/test_get_form.py::test_bundled_path_is_detected_and_converted_on_native_platform
 normative:
 blocked_by: []
 supersedes: []
@@ -17,10 +17,10 @@ supersedes: []
 
 **Reported:** 2026-09-24 by the coordinated MolSysMT/MolSysViewer Python
 3.14 source-pair CI run `uibcdf/molsysviewer` Actions run `35970837689`.
-**Status:** Fixed and verified on the `python-3.14-support` source branch,
-but still active until the fix and guard land in `main`. The exact corrected
-source pair passed its native-path guard and full MolSysViewer Python suite
-on Windows in run `35975122014`.
+**Status:** Resolved on main. The fix and addressable guard were merged before
+78981d6c1 and the native-path regression passed again during this review.
+The earlier exact corrected source pair passed its native-path guard and full
+MolSysViewer Python suite on Windows in run 35975122014.
 
 ## What
 
@@ -106,6 +106,5 @@ The branch implementation in MolSysMT
 would fail again if Windows paths stopped being accepted or converted.
 Hosted source-pair run `35975122014` passed all three Python 3.14 jobs,
 including the installed guard and the full Viewer suite on Windows.
-Merge the fix and guard into `main` before archiving this report or closing
-the issue. This source test does not establish a published or staged Conda
-package pair.
+The fix and guard are now present on main. This source test does not establish
+a newly qualified Windows release candidate or a published Conda package pair.

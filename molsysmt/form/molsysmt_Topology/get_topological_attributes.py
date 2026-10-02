@@ -647,12 +647,15 @@ def get_group_id_from_atom(item, indices="all", skip_digestion=False):
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list or None
+        The group IDs mapped to selected atoms, or None when no groups exist.
 
 
     .. versionadded:: 1.0.0
     """
+    if item.n_groups == 0:
+        return None
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     group_id_from_group = item.groups["group_id"].to_numpy()
 
@@ -684,12 +687,15 @@ def get_group_name_from_atom(item, indices="all", skip_digestion=False):
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list or None
+        The group names mapped to selected atoms, or None when no groups exist.
 
 
     .. versionadded:: 1.0.0
     """
+    if item.n_groups == 0:
+        return None
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     group_name_from_group = item.groups["group_name"].to_numpy()
 
@@ -721,12 +727,15 @@ def get_group_type_from_atom(item, indices="all", skip_digestion=False):
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list or None
+        The group types mapped to selected atoms, or None when no groups exist.
 
 
     .. versionadded:: 1.0.0
     """
+    if item.n_groups == 0:
+        return None
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     group_type_from_group = item.groups["group_type"].to_numpy()
 

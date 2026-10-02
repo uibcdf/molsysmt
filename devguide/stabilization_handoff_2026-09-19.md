@@ -77,7 +77,7 @@ RCSB `mmcif` API is used but undeclared. Development and test environments conce
 omission by installing `py-mmcif` independently.
 
 The durable analysis is now
-[`pending_bugs/clean_conda_install_omits_mmcif_runtime_dependency.md`](pending_bugs/clean_conda_install_omits_mmcif_runtime_dependency.md).
+[`archive/resolved_bugs/clean_conda_install_omits_mmcif_runtime_dependency.md`](archive/resolved_bugs/clean_conda_install_omits_mmcif_runtime_dependency.md).
 Source history refuted the hypothesis that MolSysMT had incorporated a replacement
 parser. The selected resolution is to restore `mmcif` as a hard dependency, consume its
 portable public adapter instead of requiring `IoAdapterCore`, and publish a functionally

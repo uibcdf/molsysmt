@@ -2,6 +2,7 @@ import numpy as np
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.h5msm_units import legacy_dataset_unit
 from molsysmt._private.indices import indices_iterator
 from molsysmt._private.smonitor import NotImplementedIteratorError
 from molsysmt._private.variables import is_all
@@ -56,8 +57,12 @@ class StructuresIterator:
             chunk=self.chunk,
         )
 
-        self._length_unit = molecular_system.file.attrs["length_unit"]
-        self._time_unit = molecular_system.file.attrs["time_unit"]
+        self._units = {
+            field: legacy_dataset_unit(molecular_system.file["structures"][field])
+            for field in self.arguments
+            if field in {"coordinates", "box", "time"}
+            and molecular_system.file["structures"][field].size
+        }
 
     def __iter__(self):
 
@@ -82,7 +87,7 @@ class StructuresIterator:
                         ].astype("float64")
                         coords = coords[:, self.atom_indices, :]
                     self._output_dictionary["coordinates"] = puw.quantity(
-                        coords, self._length_unit, standardized=True
+                        coords, self._units["coordinates"]
                     )
 
                 elif argument == "box":
@@ -93,7 +98,7 @@ class StructuresIterator:
                     else:
                         box = f["box"][indices, :, :].astype("float64")
                     self._output_dictionary["box"] = puw.quantity(
-                        box, self._length_unit, standardized=True
+                        box, self._units["box"]
                     )
 
                 elif argument == "time":
@@ -106,14 +111,12 @@ class StructuresIterator:
                             init_time
                             + time_step
                             * np.atleast_1d(np.array(indices, dtype="float64")),
-                            self._time_unit,
-                            standardized=True,
+                            self._units["time"],
                         )
                     else:
                         self._output_dictionary["time"] = puw.quantity(
                             f["time"][indices].astype("float64"),
-                            self._time_unit,
-                            standardized=True,
+                            self._units["time"],
                         )
 
                 elif argument == "structure_id":
@@ -129,6 +132,11 @@ class StructuresIterator:
                         )
                     else:
                         self._output_dictionary["structure_id"] = f["id"][indices]
+
+            for field in self._units:
+                value = self._output_dictionary[field]
+                if value is not None:
+                    self._output_dictionary[field] = puw.standardize(value)
 
             if self._output_type == "values":
                 output = list(self._output_dictionary.values())

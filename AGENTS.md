@@ -22,8 +22,8 @@ cross-component feedback, and issue ownership.
 
 ## Public vs private API
 
-- Public functions and methods (imported in package `__init__` modules or intended for users) should use the `@digest` decorator from `molsysmt._private.digestion` for argument validation.
-- Private helpers, especially anything under `molsysmt/_private`, must **not** use `@digest`. Keep them small, focused, and internal.
+- Public functions and methods (imported in package `__init__` modules or intended for users) should use the `@arg_digest` decorator from `molsysmt._private.argdigest` for argument validation.
+- Private helpers, especially anything under `molsysmt/_private`, must **not** use `@arg_digest`. Keep them small, focused, and internal.
 - Do not expose `_private` modules in public APIs.
 - When adding new public functions, ensure they follow existing naming, argument, and return-value conventions in adjacent modules.
 

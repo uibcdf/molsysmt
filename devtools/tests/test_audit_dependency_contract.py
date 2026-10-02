@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import shutil
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -152,7 +153,10 @@ def test_a_new_recipe_cannot_escape_inventory(contract_tree):
 
 def test_routine_viewer_sha_cannot_drift_between_workflows(contract_tree):
     path = contract_tree / ".github/workflows/benchmarks.yml"
-    _replace(path, "7a1522662e30575caf580a9447e3e6d80b628e07", "b" * 40)
+    contract = tomllib.loads(
+        (contract_tree / "devtools/dependency_contract.toml").read_text()
+    )
+    _replace(path, contract["routine_viewer_source"]["sha"], "b" * 40)
 
     assert any(
         finding.path == ".github/workflows/benchmarks.yml"

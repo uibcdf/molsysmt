@@ -64,3 +64,20 @@ def test_mol_to_smiles(smiles_back):
 
 def test_parity_atom_count(mol_from_smiles_back):
     assert mol_from_smiles_back.GetNumAtoms() == N_ATOMS
+
+
+@pytest.mark.parametrize("to_form", ["molsysmt.Topology", "molsysmt.MolSys"])
+@pytest.mark.parametrize("selection", ["all", [0, 2]])
+def test_group_free_native_queries_return_absent_without_inventing_groups(
+    caffeine_mol, to_form, selection
+):
+    native = msm.convert(caffeine_mol, to_form=to_form)
+    assert msm.get(native, n_groups=True) == 0
+    for attribute in ("group_id", "group_name", "group_type"):
+        assert not msm.has_attribute(native, attribute)
+        assert (
+            msm.get(native, element="atom", selection=selection, **{attribute: True})
+            is None
+        )
+    assert msm.get(native, n_groups=True) == 0
+    assert msm.get(native, n_atoms=True) == N_ATOMS

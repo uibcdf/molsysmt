@@ -75,12 +75,19 @@ def test_public_05_reads_a_structures_only_file_as_molsys(
             )
 
 
-def test_public_05_writers_reject_mechanics_without_creating_a_file(tmp_path):
+@pytest.mark.parametrize("mechanics_field", ["forcefield", "partial_charge"])
+def test_public_05_writers_reject_mechanics_without_creating_a_file(
+    tmp_path, mechanics_field
+):
     source = MolSys(n_atoms=2)
     source.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
     )
-    source.molecular_mechanics.forcefield = "example"
+    if mechanics_field == "forcefield":
+        source.molecular_mechanics.forcefield = "example"
+    else:
+        source.molecular_mechanics.partial_charge = np.array([0.2, -0.2])
+        assert msm.has_attribute(source, "partial_charge")
     direct = tmp_path / "mechanics_write.h5msm"
     converted = tmp_path / "mechanics_convert.h5msm"
 
@@ -90,6 +97,11 @@ def test_public_05_writers_reject_mechanics_without_creating_a_file(tmp_path):
         msm.convert(source, to_form="file:h5msm", output_filename=converted)
     assert not direct.exists()
     assert not converted.exists()
+    if mechanics_field == "partial_charge":
+        np.testing.assert_allclose(
+            np.asarray(source.molecular_mechanics.partial_charge, dtype=float),
+            [0.2, -0.2],
+        )
 
 
 def test_public_convert_writes_05_and_roundtrips_native_queries(tmp_path):

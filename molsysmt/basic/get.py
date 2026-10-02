@@ -72,6 +72,8 @@ def get(
     ArgumentError
         If any input argument is invalid or inconsistent, including malformed
         selections and out-of-range element, mask, or structure indices.
+    FormatError
+        If a legacy H5MSM file has missing, invalid, or contradictory units.
     NotWithThisFormError
         If a form declares a requested attribute but provides neither a
         compatible direct getter, registered derivation, nor usable attribute
@@ -112,6 +114,9 @@ def get(
       MolSys. Convert an external form before querying a non-reference state.
     - ``chemical_state='structure'`` requires a native MolSys and rejects
       missing associations or structure selections spanning multiple states.
+    - A native topology with zero groups returns ``None`` for atom-level
+      ``group_id``, ``group_name``, and ``group_type`` queries. No group or ligand
+      label is invented.
     - Empty native connectivity is valid. With ``element='atom'``, ``n_bonds``
       returns a zero count and ``bond_index`` an empty list for each selected
       atom. With ``element='system'`` (the default), the total bond count is zero.
@@ -167,6 +172,10 @@ def get(
     [0, 0]
     >>> msm.get(molsys, element='atom', bond_index=True)
     [[], []]
+    >>> msm.get(molsys, n_groups=True)
+    0
+    >>> msm.get(molsys, element='atom', group_name=True) is None
+    True
 
 
     .. admonition:: Tutorial with more examples

@@ -7,6 +7,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.execfile import execfile as execfile
+from molsysmt._private.h5msm_units import legacy_dataset_unit
 from molsysmt._private.smonitor import (
     NotImplementedMethodError as NotImplementedMethodError,
 )
@@ -89,7 +90,9 @@ def get_coordinates_from_atom(
                 output.append(frame[restore_order, :])
         output = np.array(output)
 
-    output = puw.quantity(output, item.file.attrs["length_unit"], standardized=True)
+    output = puw.quantity(
+        output, legacy_dataset_unit(item.file["structures"]["coordinates"])
+    )
 
     return output
 
@@ -151,8 +154,7 @@ def get_velocities_from_atom(
 
     output = puw.quantity(
         output,
-        item.file.attrs["length_unit"] + "/" + item.file.attrs["time_unit"],
-        standardized=True,
+        legacy_dataset_unit(item.file["structures"]["velocities"]),
     )
 
     return output
@@ -216,8 +218,8 @@ def get_b_factor_from_atom(
                 output.append(frame[restore_order])
         output = np.array(output)
 
-    unit = item.file["structures"].attrs.get("b_factor_unit", "nanometer**2")
-    output = puw.quantity(output, unit, standardized=True)
+    unit = legacy_dataset_unit(item.file["structures"]["b_factor"])
+    output = puw.quantity(output, unit)
 
     return output
 
@@ -291,7 +293,7 @@ def get_box_from_system(item, structure_indices="all", skip_digestion=False):
         else:
             output = item.file["structures"]["box"][structure_indices, :, :]
 
-    output = puw.quantity(output, item.file.attrs["length_unit"], standardized=True)
+    output = puw.quantity(output, legacy_dataset_unit(item.file["structures"]["box"]))
 
     return output
 
@@ -335,7 +337,7 @@ def get_time_from_system(item, structure_indices="all", skip_digestion=False):
             item.file["structures"]["time"], structure_indices
         )
 
-    output = puw.quantity(output, item.file.attrs["time_unit"], standardized=True)
+    output = puw.quantity(output, legacy_dataset_unit(item.file["structures"]["time"]))
 
     return output
 
@@ -457,7 +459,9 @@ def get_kinetic_energy_from_system(item, structure_indices="all", skip_digestion
         item.file["structures"]["kinetic_energy"], structure_indices
     )
 
-    output = puw.quantity(output, item.file.attrs["energy_unit"], standardized=True)
+    output = puw.quantity(
+        output, legacy_dataset_unit(item.file["structures"]["kinetic_energy"])
+    )
 
     return output
 
@@ -494,7 +498,9 @@ def get_potential_energy_from_system(
         item.file["structures"]["potential_energy"], structure_indices
     )
 
-    output = puw.quantity(output, item.file.attrs["energy_unit"], standardized=True)
+    output = puw.quantity(
+        output, legacy_dataset_unit(item.file["structures"]["potential_energy"])
+    )
 
     return output
 
@@ -548,7 +554,7 @@ def get_temperature_from_system(item, structure_indices="all", skip_digestion=Fa
         )
 
         output = puw.quantity(
-            output, item.file.attrs["temperature_unit"], standardized=True
+            output, legacy_dataset_unit(item.file["structures"]["temperature"])
         )
 
     return output

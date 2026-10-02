@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-01
+**Last updated:** 2026-10-02
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,33 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Reported-defect review — 2026-10-02
+
+Legacy H5MSM unit reads now share explicit, validated metadata across queries,
+conversion, iteration and migration; conflicting or missing units fail clearly
+(uibcdf/molsysmt#240). Group-free native atom metadata returns None without
+inventing residues (uibcdf/molsysmt#233). The root argument-validation instruction
+uses the real arg_digest boundary (uibcdf/molsysmt#231).
+
+Formal closure also records the already-merged Windows path correction,
+explicit rejection of unsupported partial-charge snapshots, verified public
+Conda resolution and mmCIF conversion, and the CI trigger/backlog contract
+(uibcdf/molsysmt#241, #234, #195, #200, and #185). MolecularMechanics
+persistence remains post-1.0 in H5MSM 0.6.
+
+The observed scheduled run 37008569379 at 78981d6c1 executed all three
+Linux Python 3.11–3.13 suites but failed three policy tests per cell. It
+still installed Viewer source 7a1522662e30575caf580a9447e3e6d80b628e07.
+Routine pins and the default full-candidate fallback now use the verified
+public 0.23.4 source cf427942d0b08a1c5c60f262c6a6b33f248d6f8b
+(uibcdf/molsysmt#293). The corrected public pair passes the policy guard;
+this is not yet a new green hosted full matrix. Explicit candidate SHA inputs
+remain mandatory for the actual 1.0 qualification decision.
+
+General adapter-delivery debt (uibcdf/molsysmt#139), documentation build debt
+(uibcdf/molsysmt#144), and older reports requiring fresh reproduction stay
+open; this closure does not certify them or establish release readiness.
 
 ## Resume from here
 

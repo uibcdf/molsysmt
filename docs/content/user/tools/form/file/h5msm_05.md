@@ -35,6 +35,10 @@ This bound covers observation-column writes, not total RAM or other domains;
 selection/remapping before writing can still materialize data.
 See {ref}`user-tools-interactions-result`.
 
+## Reading legacy units
+
+Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.
+
 ## Writing and reading a molecular system
 
 ```python

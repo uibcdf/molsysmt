@@ -9,7 +9,9 @@
 
 The `h5msm` file format provides an efficient, portable, and versioned binary persistence format built on top of HDF5 (`h5py`). It is designed to store complex molecular topologies, chemical states, multi-frame 3D coordinate trajectories, and forcefield parameters in a single file without losing precision or unit definitions.
 
-New files written by MolSysMT use **Schema 0.4**, while maintaining full backward compatibility for reading legacy **Schema 0.3** files.
+Public conversion writes **Schema 0.5**. Legacy **Schema 0.3/0.4** files remain
+readable with a deprecation warning. The layout below describes the legacy
+format; see {doc}`the modular 0.5 schema <../../../tools/form/file/h5msm_05>`.
 
 ---
 
@@ -53,6 +55,8 @@ with TemporaryDirectory() as tmpdir:
 ```
 
 ---
+
+Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.
 
 ## Performance and Storage Invariants
 
