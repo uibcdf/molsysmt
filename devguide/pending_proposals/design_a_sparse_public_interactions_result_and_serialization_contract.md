@@ -22,6 +22,19 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Explicit observation compaction — 2026-10-02
+
+`Interactions.compact()` now releases references to retired observation blocks
+through a new packed snapshot while preserving active occurrence/relation
+indices, axes, coverage and provenance. Old snapshots keep their storage until
+released. Catalog pruning and automatic compaction are separate future choices.
+Column-at-a-time copying avoids the earlier whole-query projection; allocation
+still includes the new result and temporarily one column while freezing it.
+Contract guards and paired measurements belong to
+[the implementation record](implement_experimental_sparse_interactions_results_and_queries.md#explicit-observation-compaction--2026-10-02).
+The remaining provider/client closure checklist is maintained there rather than
+in the historical comparison checkpoints below.
+
 ## Bounded HDF5 export — 2026-10-02
 
 Standalone and named H5MSM writes now traverse resident active source blocks in

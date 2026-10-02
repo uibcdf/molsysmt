@@ -189,9 +189,35 @@ storage; old results and views can still retain it.
 Reading complete attributes such as `occurrence_structures`, `image_vectors`
 or `measurements` after invalidation can pack and cache all surviving columns.
 Use `query(...).to_dict()` for selected frames or atoms when you need only a
-small result. Remapping and serialization can also pack the active data;
+small result. Remapping and typed/pickle serialization can also pack the active data;
 temporary packing for those operations is released afterward. This is not yet
 an incremental writer or an editor for individual observations.
+
+(user-tools-interactions-compaction)=
+## Reclaiming retired observations
+
+After invalidation or repeated recalculation, use `compact()` when you want to
+release excluded observation storage:
+
+```python
+compacted = invalidated.compact()
+assert compacted.evaluated_structure_indices.tolist() == [2]
+assert compacted.n_interactions == 0
+assert interactions.n_interactions == 1  # The original analysis is unchanged.
+```
+
+The returned full analysis preserves occurrence and relation indices, source
+maps, coverage and provenance. Unused relation definitions stay in its catalog.
+Queries and H5MSM saving work as before. Query views cannot be compacted.
+
+Attach it explicitly if you want to replace a named analysis:
+`molsys.interactions = {**molsys.interactions, "example": analysis.compact()}`.
+Release references to the previous analysis and its query views to reclaim their
+storage. Those snapshots otherwise remain valid and keep their old buffers.
+Compacting builds new observation columns and needs memory for that output plus
+a temporary copy of one column. It neither recalculates observations nor makes
+unevaluated structures evaluated. Saving to H5MSM already writes active blocks
+directly, so you do not need to compact before saving.
 
 (user-tools-interactions-coordinate-edits)=
 ## Changing coordinates

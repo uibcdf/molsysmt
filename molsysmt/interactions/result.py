@@ -113,7 +113,8 @@ class Interactions:
     Numeric storage is owned and read-only, including measurement columns.
     Construct a new result to change observations. Invalidation shares that
     storage with independent frame validity; complete-column access or
-    interchange may pack surviving observations on demand.
+        interchange may pack surviving observations on demand. ``compact()``
+        creates an independent packed snapshot without recalculating observations.
 
     .. versionadded:: 1.0.0
     """
@@ -1085,7 +1086,8 @@ class Interactions:
         -----
         Occurrence indices belong to the new analysis version. Queries retain
         these indices and serialization preserves them. Complete-column access
-        and serialization can materialize the combined columns. Repeated edits
+        and typed/pickle serialization can materialize the combined columns;
+        HDF5 saving writes active blocks directly. Repeated edits
         retain active source blocks, without chaining earlier analysis versions.
 
         Examples
@@ -1151,6 +1153,66 @@ class Interactions:
         from ._frame_validity import _invalidate
 
         return _invalidate(self, frames)
+
+    @arg_digest()
+    def compact(self, skip_digestion=False):
+        """Compacting active observations into an independent packed analysis.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion when inputs already satisfy this contract.
+
+        Returns
+        -------
+        Interactions
+            Full analysis without references to invalidated or replaced row
+            blocks. Already packed analyses share their immutable columns.
+
+        Raises
+        ------
+        ValueError
+            If called on a query view rather than a full analysis.
+
+        Notes
+        -----
+        Local and source axes, relation indices, occurrence indices, unused
+        relation definitions, coverage and provenance are preserved. No
+        detector runs and no molecular system is updated automatically.
+        Old analyses and queries remain valid. Release their references to
+        reclaim their storage. Query indexes are rebuilt lazily on the result.
+        Destination columns require memory; freezing duplicates at most one
+        destination column at a time, with bounded translation workspace.
+        This is not a total process-memory limit or an in-place operation.
+
+        See Also
+        --------
+        replace_structures, invalidate_structures, save
+
+        Examples
+        --------
+        >>> original = Interactions.from_records([], n_atoms=0, n_structures=2,
+        ...     evaluated_structure_indices=[0, 1], method="example")
+        >>> compacted = original.invalidate_structures([0]).compact()
+        >>> compacted.evaluated_structure_indices.tolist()
+        [1]
+        >>> original.evaluated_structure_indices.tolist()
+        [0, 1]
+
+        .. versionadded:: 1.0.0
+        """
+        # Older editable ArgDigest checkouts accept truthy non-booleans before
+        # digestion (uibcdf/argdigest#17). Remove this fallback after upgrading
+        # the runtime contract to a provider carrying that fix.
+        if not isinstance(skip_digestion, bool):
+            from molsysmt._private.argdigest.argument.skip_digestion import (
+                digest_skip_digestion,
+            )
+
+            digest_skip_digestion(skip_digestion)
+        from ._compaction import compact
+
+        return compact(self)
 
     def save(self, filename):
         """Writing the full result to a versioned standalone HDF5 file.

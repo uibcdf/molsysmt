@@ -150,7 +150,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, frame-scoped provenance, partial replacement and bounded HDF5 writing.
+            description: Sparse queries, provenance, partial replacement, explicit compaction and bounded HDF5 writing.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbonds
@@ -247,7 +247,7 @@ sections:
         file: docs/content/user/cookbook/form_teleportation.ipynb
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, coordinate invalidation, frame replacement and bounded H5MSM persistence.
+        description: Sparse queries, coordinate invalidation, frame replacement, explicit compaction and H5MSM persistence.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

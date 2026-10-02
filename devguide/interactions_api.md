@@ -899,6 +899,46 @@ Guards are `tests/interactions/test_frame_replacement.py` and the real Buch
 recalculation workflow in
 `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
 
+### Explicit observation compaction
+
+`analysis.compact()` returns an independent full packed snapshot. It removes
+references to invalidated/replaced occurrence blocks and resets query indexes,
+which rebuild lazily. It does not mutate the source, run a detector or attach
+the result to a molecular system. Query views are rejected. Already packed
+analyses return a separate wrapper sharing their immutable columns.
+
+Coverage order, evaluated-empty structures, local/source axes, atom search
+scope, scientific/producer metadata and frame-scoped execution records are
+preserved. Active occurrence order, relation indices and occurrence handles are
+unchanged. Unused relation definitions and evidence labels remain in the catalog;
+compaction does not renumber or prune them. It releases retired observation
+storage, rather than rewriting chemical identity or the relation registry.
+
+The implementation reuses active source-span traversal from HDF5 export, copies
+one destination column at a time and translates relation/evidence codes in
+bounded windows. Variable-arity periodic vectors are copied independently of
+row windows. Each completed column obtains an immutable bytes owner, retaining
+input-alias protection. While freezing a column, its mutable and immutable
+destinations briefly coexist. Peak additional allocation therefore includes
+the packed output plus at most one destination column, bounded translation
+workspace and frame/run metadata. This is not a constant-memory or total-RSS
+guarantee. It does not use or change a source materialization cache.
+
+Old analyses and query snapshots continue to own their data. Replacing the named
+analysis and releasing those references permits Python to reclaim retired
+buffers; the allocator need not immediately reduce process RSS. Compaction is
+explicit because it has an allocation and copying cost. HDF5 export alone does
+not require it. Automatic compaction and unused-registry pruning remain future
+decisions. The guard is `tests/interactions/test_compaction.py`, including
+weak-reference release, dense-frame allocation limits, nonconsecutive/atom
+queries, parallel and four-body periodic observations, and codec round trips.
+
+The installed editable ArgDigest checkout used for this checkpoint precedes the
+fix for `uibcdf/argdigest#17`. The method temporarily checks non-boolean skip
+flags through the existing argument digester; remove this fallback when the
+public runtime floor includes that provider fix. The public decorator and
+normal boolean trusted-delegation contract remain intact.
+
 Native MolSys coordinate and box form setters invalidate all named analyses
 in their selected frames, including evaluated-empty frames. The affected
 occurrences and coverage are removed; untouched frames, metadata, index maps,

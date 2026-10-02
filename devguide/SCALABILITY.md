@@ -27,6 +27,16 @@ out-of-core capable.
 
 ## Decision policy
 
+Resident interaction results can be explicitly compacted after frame edits with
+`Interactions.compact()`. This releases references to retired observation blocks
+through a new packed snapshot. Allocation includes the packed output, at most
+one destination column while freezing it, bounded translation workspace and
+frame/run metadata. Old snapshots still keep their data alive. Relation catalog
+definitions are preserved, including unused ones. HDF5 saving already traverses
+active blocks without compaction; neither operation supplies detector-to-file
+accumulation. See [the compaction contract](interactions_api.md#explicit-observation-compaction)
+and [the paired measurements](benchmarking/h5msm.md#compacting-resident-interaction-observations).
+
 `molsysmt._private.execution.memory_policy` estimates the coordinate footprint
 from atom and structure counts. `heavy_mode` controls the decision:
 

@@ -14,6 +14,61 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Explicit observation compaction — 2026-10-02
+
+**Implemented and contract-tested:** `Interactions.compact()` returns an
+independent packed analysis with only active occurrence storage. It neither
+calculates nor attaches anything. Existing local/source axes, evaluated-empty
+coverage, occurrence and relation indices, compound participants, parallel
+images, measures and frame-scoped producer provenance are preserved. Unused
+catalog definitions remain to avoid renumbering relations. Old snapshots remain
+valid; releasing them permits reclamation of their buffers. Already packed
+analyses share immutable storage through a new wrapper.
+
+The implementation copies active source spans one column at a time with bounded
+translation windows. Freezing retains the established immutable bytes-owner
+contract and can temporarily duplicate one destination column. Allocation
+includes the new result; it cannot be described as constant-memory compaction.
+The guard `tests/interactions/test_compaction.py` prohibits the old full-query
+packing boundary, verifies weak-reference release (including a retained old
+view), checks a dense-frame allocation bound and performs query/codec parity.
+
+**Benchmarked:** `devtools/scripts/benchmark_interactions_compaction.py` compares
+the existing full-query packing boundary with explicit compaction in fresh
+workers at 100k/1M observations, 100k atoms and 10k structures. Half the frame
+indices are invalidated; patched cases restore one frame. Active-column and
+execution-record fingerprints match. Reproducible measurements, source hashes
+and limitations are in the [H5MSM benchmark guide](../benchmarking/h5msm.md#compacting-resident-interaction-observations).
+
+**Checkpoint evidence:** the main regression selection passed 701 tests; the
+completed compaction/doctest selection passed 24 tests, including four-body
+images and old-view retention. The installed editable ArgDigest checkout is
+older than the fix for `uibcdf/argdigest#17`; the new method temporarily reuses
+the existing skip-flag digester to reject non-booleans. Its removal condition is
+in the normative contract. No dependency or sibling source was modified.
+All 13 executable result-guide blocks and 8 sparse Cookbook blocks passed;
+Module 10's protected code and outputs remain unchanged. Ruff, dependency,
+API-registry, signature and developer-guide/index gates passed. Sphinx HTML
+built successfully with existing documentation warnings.
+
+### Provider closure checklist
+
+The result/query model, named `MolSys` attachment, H5MSM 0.5 round trips,
+invalidation, compatible frame replacement, execution provenance, bounded
+resident export and explicit row compaction are implemented. Nine detector
+families already produce the common experimental result. No further family
+is implicit in this checkpoint.
+
+Before treating the consumer contract as stabilized, provide MolSysViewer with
+an updated exact-commit packet covering codec 2 and execution records, and
+collect its feedback on the agreed frame/selection/session workflow. Final
+release recertification must run against that chosen commit. Direct
+detector-to-file accumulation, resumable append, unused-registry pruning,
+individual-observation editors and public lazy file queries are still absent;
+they are distinct capabilities from compacting a resident result. The accepted
+initial Viewer path loads the selected analysis into memory. Large-workload
+measurements may still require these extensions; do not imply them in that path.
+
 ## Bounded active-column HDF5 writing — 2026-10-02
 
 **Implemented and contract-tested:** standalone save, named H5MSM layers and

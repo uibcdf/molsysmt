@@ -188,6 +188,58 @@ writing, typed dictionaries, pickle and remapping can still materialize data.
 The guard is `tests/interactions/test_bounded_hdf5_writer.py`: semantic read-back,
 forbidden packing, cache preservation and dense single-frame allocation scaling.
 
+## Compacting resident interaction observations
+
+Use `Interactions.compact()` to create an independent packed result after
+invalidation or repeated frame replacement. HDF5 saving does not require this
+step. The [compaction contract](../interactions_api.md#explicit-observation-compaction)
+explains buffer lifetimes, preserved handles and unused catalog retention.
+
+Reproduce the paired in-memory comparison:
+
+```bash
+python devtools/scripts/benchmark_interactions_compaction.py \
+    --samples 3 --output /tmp/interactions-compaction.json
+```
+
+**Benchmarked checkpoint, 2026-10-02:** the
+[raw artifact](../../devtools/data/interactions_compaction_20261002.json)
+compares the existing full-query packing projection with the new explicit
+compaction method. Each case/variant uses a fresh worker, discarded warm-up,
+three untraced samples and a separate traced sample retaining its destination.
+Resident inputs are excluded from additional allocation. The fixture has
+100,000 atoms, 10,000 structures and 1,000 reused three-participant relations,
+at 100k/1M occurrences. Half the structure indices are invalidated, and patched
+cases restore structure index 10 with ten observations. Constant distances and
+angles, plus zero images, are synthetic storage inputs. No detector, coordinates
+or disk IO is included. Active column and execution-record fingerprints agree.
+
+For one million input occurrences:
+
+| Case | Additional traced peak: projection / compact | Untraced median: projection / compact | Referenced numeric storage: edited / compact |
+| --- | ---: | ---: | ---: |
+| Filtered, no images | 41.71 / 22.07 MiB | 77.8 / 39.0 ms | 43.12 / 19.60 MiB |
+| Patched, no images | 54.26 / 22.07 MiB | 81.2 / 39.1 ms | 44.09 / 19.60 MiB |
+| Filtered, known images | 82.39 / 49.17 MiB | 113.8 / 92.3 ms | 85.08 / 38.23 MiB |
+| Patched, known images | 142.34 / 49.17 MiB | 159.3 / 90.6 ms | 86.05 / 38.23 MiB |
+
+Additional peak includes the new packed observation buffers; it is not a
+constant-memory operation. Column-at-a-time copying plus immutable freezing
+limits additional workspace to one destination column and numeric windows,
+with separate frame/run metadata. The timings qualify this fixture, not a
+universal speed factor. Numeric storage counts referenced array payloads,
+including shared catalogs; it excludes Python overhead. Old results and views
+can keep retired buffers alive after compaction, and Python's allocator may
+retain released memory in the process. Reported RSS and lifetime high-water
+marks are not isolated operation peaks or total-RAM guarantees. Unused relation
+definitions remain in the catalog and query indexes rebuild lazily.
+
+The guard `tests/interactions/test_compaction.py` checks semantic round trips,
+unchanged handles, cache preservation, weak-reference release, four-body images
+and a dense single-frame peak bound including the destination. Explicit
+compaction is separate from automatic pruning, incremental editing or a
+resumable detector-to-file writer.
+
 ## Next measurements before stabilizing H5MSM 0.5
 
 The interaction case is a starting point. The acceptance benchmark needs

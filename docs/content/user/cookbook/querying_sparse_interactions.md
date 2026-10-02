@@ -147,6 +147,11 @@ assert updated.query(structure_indices=[3, 1, 0]).to_dict()[
 ].tolist() == [2, 1, 0]
 assert updated.query(atom_indices=[2]).n_interactions == 2
 assert previous_view.n_interactions == 1
+compacted = updated.compact()
+assert compacted.query(structure_indices=[3, 1, 0]).to_dict()[
+    "occurrence_indices"
+].tolist() == [2, 1, 0]
+molsys_edited.interactions = {"example": compacted}
 with TemporaryDirectory() as directory:
     filename = str(Path(directory) / "recalculated.h5msm")
     msm.convert(molsys_edited, to_form="file:h5msm", output_filename=filename)
@@ -164,6 +169,11 @@ calculation for each evaluated frame, including empty ones. Recalculation must r
 the original system axes and scope; an extracted frame has different local axes.
 The unchanged observation blocks are shared. New occurrence handles belong to
 the updated version; old views remain snapshots of the earlier result.
+The recipe explicitly attaches `updated.compact()` to release references to
+retired row blocks while preserving the updated handles. Release `updated`,
+`current` and any older views too if you want their buffers reclaimed. Building
+the compacted result requires memory for new columns; unused relation definitions
+stay in its catalog. Compaction is optional before saving.
 
 Frame invalidation shares read-only columns and does not recalculate anything.
 Selected queries and HDF5 saving avoid packing the complete surviving analysis.

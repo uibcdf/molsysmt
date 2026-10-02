@@ -151,6 +151,11 @@ policies. Each analysis keeps their frame membership and details in
 producer versions and atom scope must still agree. Saving the full system in
 H5MSM writes these analyses from their active blocks without packing all their
 observations. Remapping or typed dictionary conversion can still materialize them.
+To release retired observation blocks after repeated edits, explicitly attach
+`current.compact()` under the same name and release old analyses and query views.
+Compaction preserves the indices and coverage; it needs memory for new columns
+and keeps unused relation definitions. See
+{ref}`Reclaiming retired observations <user-tools-interactions-compaction>`.
 
 This preserves other frames and checks calculation compatibility; attaching
 `fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain
