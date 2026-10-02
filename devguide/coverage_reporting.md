@@ -44,3 +44,37 @@ records line/branch measures, area breakdown, actual test failures and successfu
 transport separately from pending Codecov processing. Until the independent
 service exposes a complete report for the tested SHA, the live README badge
 remains withheld under uibcdf/molsysmt#286.
+
+
+## Replaying a retained report
+
+`ci-coverage-upload.yaml` republishes an existing full-Linux Python 3.13 artifact
+without installing MolSysMT or executing tests:
+
+```bash
+gh workflow run ci-coverage-upload.yaml -R uibcdf/molsysmt --ref main \
+  -f source_run_id=36939842865
+```
+
+The local reusable profile `select_source(run_id, fetch=...)` in
+`devtools/scripts/coverage_artifact.py` checks native run, producer-job and
+artifact metadata. It accepts only the owning `main` weekly workflow, a completed
+Python 3.13 suite and successful report retention, and a unique unexpired artifact
+whose run/repository/branch/SHA match. Missing, ambiguous, aborted, forked or
+unavailable evidence fails publication. It emits safe run/SHA/artifact IDs;
+GitHub's existing API client and artifact action perform authenticated reads.
+`inspect_xml(path)` checks nonempty Cobertura counts and records the XML digest.
+Neither operation executes artifact contents or changes coverage selections.
+
+The uploader checks out the measured source for path mapping and explicitly
+submits its original commit SHA and branch, rather than relabelling old coverage
+as the publisher's commit. The downloaded XML stays outside the checkout so the
+source switch cannot delete it. This first controlled replay retains the existing
+token and `unittests` flag. It does not alter routine suite cadence or CI debt.
+Independent service processing is still required after successful transport.
+
+Artifact retention is 14 days; it does not override Codecov's default 12-hour
+report-age check. A replay preserves the original XML timestamp. See the
+[official age setting](https://docs.codecov.com/docs/codecov-yaml#expired-reports)
+when an explicitly reviewed older report needs a separately bounded service
+configuration; do not regenerate timestamps to imply a fresh execution.

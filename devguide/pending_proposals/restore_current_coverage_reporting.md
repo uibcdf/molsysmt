@@ -173,3 +173,21 @@ repayment by one successful interpreter. Hosted evidence independently confirms
 only the requested interpreter ran and failed tests remained failed while XML
 retention and transport succeeded. Service completion is deliberately not
 inferred from those guards.
+
+
+## Authorized transport replay (2026-10-02)
+
+The maintainer authorized a replay and, if it still fails processing, adoption of
+the independent automatic OIDC publisher strategy used by the three new suite
+producers. Their jobs already follow their test jobs automatically; job separation
+also permits publisher-only retries. The first MolSysMT replay preserves token
+and flag, validates retained source provenance, and submits the unchanged XML for
+source `98e0d7832026df1f03320003d47ab9c4a6df2188`. Its own documentation/workflow
+commit is not the measured source. No scientific suite is rerun by this operation.
+The replay run and observed service outcome will be recorded after execution.
+
+The new local reusable artifact profile is contract-tested in
+`devtools/tests/test_coverage_artifact.py`, including failed completed suites,
+source identity, fork/branch/workflow rejection, aborted/missing/expired/ambiguous
+artifacts, input safety and original-SHA publication. Existing ten suite/debt
+guards continue to protect completed-suite retention and the full-matrix watermark.
