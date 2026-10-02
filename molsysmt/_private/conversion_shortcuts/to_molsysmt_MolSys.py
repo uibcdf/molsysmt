@@ -196,8 +196,11 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(
 
 
 def molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys(
-    molecular_system, atom_indices="all", structure_indices="all",
-    copy_if_all=True, skip_digestion=False,
+    molecular_system,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
 ):
     """Compose aligned chemical and structural domains without inventing topology.
 
@@ -219,13 +222,16 @@ def molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys(
             states = convert(item, to_form="molsysmt.ChemicalStates")
     try:
         source = MolSys._from_partial_domains(
-            chemical_states=states, structures=structures,
+            chemical_states=states,
+            structures=structures,
         )
     except ValueError as error:
         raise StructuralInconsistencyError(
-            reason=str(error), caller="molsysmt.convert",
+            reason=str(error),
+            caller="molsysmt.convert",
         ) from error
     return source.extract(
-        atom_indices=atom_indices, structure_indices=structure_indices,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
         copy_if_all=copy_if_all,
     )

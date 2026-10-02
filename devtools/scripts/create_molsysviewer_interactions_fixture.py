@@ -17,8 +17,9 @@ import molsysmt as msm
 from molsysmt.native import MolSys, Structures
 
 
-def _record(structure_index, interaction_type, participants, distance, evidence,
-            images=None):
+def _record(
+    structure_index, interaction_type, participants, distance, evidence, images=None
+):
     return {
         "structure_index": structure_index,
         "interaction_type": interaction_type,
@@ -35,18 +36,40 @@ def make_analysis():
     """Build one typed analysis with the cases requested by MolSysViewer."""
 
     hydrogen_bond = [
-        ("donor", [0]), ("hydrogen", [1]), ("acceptor", [2]),
+        ("donor", [0]),
+        ("hydrogen", [1]),
+        ("acceptor", [2]),
     ]
     records = [
         _record(0, "hbond", hydrogen_bond, 0.20, "geometry"),
-        _record(0, "pi_pi", [
-            ("ring_a", [3, 4, 5]), ("ring_b", [6, 7, 8]),
-        ], 0.36, "geometry"),
-        _record(2, "disulfide_candidate", [
-            ("sulfur", [9]), ("sulfur", [10]),
-        ], 0.19, "proximity"),
-        _record(4, "hbond", hydrogen_bond, 0.21, "geometry",
-                images=[[0, 0, 0], [0, 0, 0], [1, 0, 0]]),
+        _record(
+            0,
+            "pi_pi",
+            [
+                ("ring_a", [3, 4, 5]),
+                ("ring_b", [6, 7, 8]),
+            ],
+            0.36,
+            "geometry",
+        ),
+        _record(
+            2,
+            "disulfide_candidate",
+            [
+                ("sulfur", [9]),
+                ("sulfur", [10]),
+            ],
+            0.19,
+            "proximity",
+        ),
+        _record(
+            4,
+            "hbond",
+            hydrogen_bond,
+            0.21,
+            "geometry",
+            images=[[0, 0, 0], [0, 0, 0], [1, 0, 0]],
+        ),
         _record(4, "hbond", hydrogen_bond, 0.22, "independent_observation"),
     ]
     return msm.Interactions.from_records(
@@ -63,10 +86,22 @@ def make_analysis():
         source_n_structures=9,
         software={"molsysmt": msm.__version__},
         execution_records=[
-            {"structure_indices": [0, 1, 2],
-             "details": {"data_kind": "synthetic_fixture", "execution": "chunked", "execution_chunks": 2}},
-            {"structure_indices": [4],
-             "details": {"data_kind": "synthetic_fixture", "execution": "eager", "execution_chunks": 1}},
+            {
+                "structure_indices": [0, 1, 2],
+                "details": {
+                    "data_kind": "synthetic_fixture",
+                    "execution": "chunked",
+                    "execution_chunks": 2,
+                },
+            },
+            {
+                "structure_indices": [4],
+                "details": {
+                    "data_kind": "synthetic_fixture",
+                    "execution": "eager",
+                    "execution_chunks": 1,
+                },
+            },
         ],
     )
 
@@ -74,23 +109,62 @@ def make_analysis():
 def make_lifecycle_analyses():
     """Build named synthetic snapshots for execution and edit review."""
     original = make_analysis()
-    metadata = {name: getattr(original, name) for name in (
-        "n_atoms", "n_structures", "method", "measure_units", "parameters", "source_id",
-        "atom_source_indices", "structure_source_indices", "source_n_atoms", "source_n_structures", "software",
-    )}
+    metadata = {
+        name: getattr(original, name)
+        for name in (
+            "n_atoms",
+            "n_structures",
+            "method",
+            "measure_units",
+            "parameters",
+            "source_id",
+            "atom_source_indices",
+            "structure_source_indices",
+            "source_n_atoms",
+            "source_n_structures",
+            "software",
+        )
+    }
     participants = [("donor", [0]), ("hydrogen", [1]), ("acceptor", [2])]
-    fresh = msm.Interactions.from_records([
-        _record(4, "hbond", participants, .23, "geometry",
-                images=[[0, 0, 0], [0, 0, 0], [1, 0, 0]]),
-        _record(4, "hbond", participants, .24, "independent_observation"),
-    ], **metadata, evaluated_structure_indices=[1, 4],
-        execution={"data_kind": "synthetic_fixture", "execution": "chunked", "execution_chunks": 3})
+    fresh = msm.Interactions.from_records(
+        [
+            _record(
+                4,
+                "hbond",
+                participants,
+                0.23,
+                "geometry",
+                images=[[0, 0, 0], [0, 0, 0], [1, 0, 0]],
+            ),
+            _record(4, "hbond", participants, 0.24, "independent_observation"),
+        ],
+        **metadata,
+        evaluated_structure_indices=[1, 4],
+        execution={
+            "data_kind": "synthetic_fixture",
+            "execution": "chunked",
+            "execution_chunks": 3,
+        },
+    )
     invalidated = original.invalidate_structures([4])
     recalculated = invalidated.replace_structures(fresh)
-    empty = msm.Interactions.from_records([], **metadata, evaluated_structure_indices=[1, 5],
-        execution={"data_kind": "synthetic_fixture", "execution": "eager", "execution_chunks": 1})
-    return {"review": original, "invalidated": invalidated, "recalculated": recalculated,
-            "compacted": recalculated.compact(), "empty": empty}
+    empty = msm.Interactions.from_records(
+        [],
+        **metadata,
+        evaluated_structure_indices=[1, 5],
+        execution={
+            "data_kind": "synthetic_fixture",
+            "execution": "eager",
+            "execution_chunks": 1,
+        },
+    )
+    return {
+        "review": original,
+        "invalidated": invalidated,
+        "recalculated": recalculated,
+        "compacted": recalculated.compact(),
+        "empty": empty,
+    }
 
 
 def create_files(output_directory):
@@ -125,14 +199,25 @@ def create_files(output_directory):
         for name, expected in analyses.items():
             observed = loaded.interactions[name]
             assert observed.software == expected.software
-            assert [(record["structure_indices"].tolist(), record["details"])
-                    for record in observed.execution_records] == [
-                        (record["structure_indices"].tolist(), record["details"])
-                        for record in expected.execution_records]
+            assert [
+                (record["structure_indices"].tolist(), record["details"])
+                for record in observed.execution_records
+            ] == [
+                (record["structure_indices"].tolist(), record["details"])
+                for record in expected.execution_records
+            ]
             actual, wanted = observed.query().to_dict(), expected.query().to_dict()
-            for column in ("occurrence_indices", "structure_indices", "relation_indices", "image_offsets", "image_vectors"):
+            for column in (
+                "occurrence_indices",
+                "structure_indices",
+                "relation_indices",
+                "image_offsets",
+                "image_vectors",
+            ):
                 np.testing.assert_array_equal(actual[column], wanted[column])
-            np.testing.assert_allclose(actual["measurements"]["distance"], wanted["measurements"]["distance"])
+            np.testing.assert_allclose(
+                actual["measurements"]["distance"], wanted["measurements"]["distance"]
+            )
         result = loaded.interactions["review"]
         selected = result.query(structure_indices=[4, 1, 0, 4, 3]).to_dict()
         np.testing.assert_array_equal(selected["structure_indices"], [4, 4, 0, 0])
@@ -140,24 +225,41 @@ def create_files(output_directory):
             selected["evaluated_structure_indices"], [4, 1, 0]
         )
         assert result.query(structure_indices=[1]).n_interactions == 0
-        assert result.query(structure_indices=[3]).to_dict()[
-            "evaluated_structure_indices"
-        ].size == 0
+        assert (
+            result.query(structure_indices=[3])
+            .to_dict()["evaluated_structure_indices"]
+            .size
+            == 0
+        )
         assert result.query(atom_indices=[0], mode="incident").n_interactions == 3
         assert result.between([3, 4, 5], [6, 7, 8], exclusive=True).n_interactions == 1
         assert result.measure_units == {"distance": "nm"}
-        np.testing.assert_array_equal(result.atom_source_indices, [
-            11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
-        ])
+        np.testing.assert_array_equal(
+            result.atom_source_indices,
+            [
+                11,
+                10,
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1,
+            ],
+        )
         if path == analysis_file:
             assert loaded.topology is None
             assert loaded.structures is None
-            subset = loaded.extract(
-                atom_indices=[2, 0, 1], structure_indices=[4, 1, 0]
+            subset = loaded.extract(atom_indices=[2, 0, 1], structure_indices=[4, 1, 0])
+            assert (
+                subset.interactions["review"]
+                .query(structure_indices=[0])
+                .n_interactions
+                == 2
             )
-            assert subset.interactions["review"].query(
-                structure_indices=[0]
-            ).n_interactions == 2
     return full_file, analysis_file
 
 

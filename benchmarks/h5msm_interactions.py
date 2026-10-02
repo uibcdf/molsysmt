@@ -38,18 +38,23 @@ def make_result(n_atoms, n_structures, occurrences_per_structure, n_relations):
             continue
         for ordinal in range(occurrences_per_structure):
             relation = (frame * 31 + ordinal * 17) % n_relations
-            records.append({
-                "structure_index": frame,
-                "interaction_type": "pair",
-                "participants": [
-                    {"role": "first", "atom_indices": [2 * relation]},
-                    {"role": "second", "atom_indices": [2 * relation + 1]},
-                ],
-                "measurements": {"distance": 0.2 + frame * 0.00001},
-            })
+            records.append(
+                {
+                    "structure_index": frame,
+                    "interaction_type": "pair",
+                    "participants": [
+                        {"role": "first", "atom_indices": [2 * relation]},
+                        {"role": "second", "atom_indices": [2 * relation + 1]},
+                    ],
+                    "measurements": {"distance": 0.2 + frame * 0.00001},
+                }
+            )
     return msm.Interactions.from_records(
-        records, n_atoms=n_atoms, n_structures=n_structures,
-        evaluated_structure_indices=evaluated, method="synthetic_benchmark",
+        records,
+        n_atoms=n_atoms,
+        n_structures=n_structures,
+        evaluated_structure_indices=evaluated,
+        method="synthetic_benchmark",
         measure_units={"distance": "nm"},
         parameters={"occurrences_per_nonempty_frame": occurrences_per_structure},
     )
@@ -68,10 +73,14 @@ def memory_query(result, request, filters):
 def signature(payload):
     """Compare selected coverage, occurrences, descriptors, and measurements."""
     descriptors = tuple(
-        (int(relation), descriptor["interaction_type"], tuple(
-            (participant["role"], tuple(participant["atom_indices"].tolist()))
-            for participant in descriptor["participants"]
-        ))
+        (
+            int(relation),
+            descriptor["interaction_type"],
+            tuple(
+                (participant["role"], tuple(participant["atom_indices"].tolist()))
+                for participant in descriptor["participants"]
+            ),
+        )
         for relation, descriptor in sorted(payload["relations"].items())
     )
     return (
@@ -102,13 +111,19 @@ def git_metadata():
     """Identify the code version when running inside a Git checkout."""
     try:
         commit = subprocess.run(
-            ["git", "rev-parse", "HEAD"], check=True, capture_output=True,
+            ["git", "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
             text=True,
         ).stdout.strip()
-        dirty = bool(subprocess.run(
-            ["git", "status", "--porcelain"], check=True, capture_output=True,
-            text=True,
-        ).stdout)
+        dirty = bool(
+            subprocess.run(
+                ["git", "status", "--porcelain"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+        )
     except (OSError, subprocess.CalledProcessError):
         return {"commit": None, "dirty": None}
     return {"commit": commit, "dirty": dirty}
@@ -127,16 +142,29 @@ def linux_value(filename, prefix):
 
 
 def run(args):
-    if args.atoms < 4 or args.structures < 15 or args.occurrences < 1 or args.queries < 1:
-        raise ValueError("Use at least 4 atoms, 15 structures, 1 occurrence, and 1 query.")
-    n_relations = min(100, args.atoms // 2) if args.relations is None else args.relations
+    if (
+        args.atoms < 4
+        or args.structures < 15
+        or args.occurrences < 1
+        or args.queries < 1
+    ):
+        raise ValueError(
+            "Use at least 4 atoms, 15 structures, 1 occurrence, and 1 query."
+        )
+    n_relations = (
+        min(100, args.atoms // 2) if args.relations is None else args.relations
+    )
     if n_relations < 2 or n_relations > args.atoms // 2:
         raise ValueError("relations must be between 2 and atoms // 2.")
     rng = np.random.default_rng(args.seed)
     result = make_result(args.atoms, args.structures, args.occurrences, n_relations)
     frames = [int(x) for x in rng.integers(args.structures, size=args.queries)]
-    groups = [rng.choice(args.structures, size=min(8, args.structures),
-                         replace=False).tolist() for _ in range(args.queries)]
+    groups = [
+        rng.choice(
+            args.structures, size=min(8, args.structures), replace=False
+        ).tolist()
+        for _ in range(args.queries)
+    ]
     atom = 2 * ((31 * (args.structures // 2)) % n_relations)
     cases = {
         "one_frame": [(frame,) for frame in frames],
@@ -163,8 +191,11 @@ def run(args):
         start = time.perf_counter()
         loaded = read_interactions_file(filename)["benchmark"]
         full_load_s = time.perf_counter() - start
-        numeric_bytes = sum(value.nbytes for value in loaded.__dict__.values()
-                            if isinstance(value, np.ndarray))
+        numeric_bytes = sum(
+            value.nbytes
+            for value in loaded.__dict__.values()
+            if isinstance(value, np.ndarray)
+        )
 
         timings = {}
         with HDF5InteractionsReader(filename, "benchmark") as reader:
@@ -174,19 +205,24 @@ def run(args):
                     file_payload = reader.query(request, **filters)
                     memory_payload = memory_query(loaded, request, filters)
                     if signature(file_payload) != signature(memory_payload):
-                        raise AssertionError(f"File and memory differ for {name}: {request}")
+                        raise AssertionError(
+                            f"File and memory differ for {name}: {request}"
+                        )
                 # Warm both paths before collecting separate samples.
                 reader.query(requests[0], **filters)
                 memory_query(loaded, requests[0], filters)
                 timings[name] = {
                     "open_file_reader": measure(
-                        lambda request, filters=filters: reader.query(request, **filters),
+                        lambda request, filters=filters: reader.query(
+                            request, **filters
+                        ),
                         requests,
                     ),
                     "loaded_memory": measure(
                         lambda request, filters=filters: memory_query(
                             loaded, request, filters
-                        ), requests
+                        ),
+                        requests,
                     ),
                 }
 
@@ -203,9 +239,7 @@ def run(args):
 
         public_filename = Path(directory) / "public_interactions.h5msm"
         start = time.perf_counter()
-        msm.h5msm.write_layers(
-            str(public_filename), interactions={"benchmark": result}
-        )
+        msm.h5msm.write_layers(str(public_filename), interactions={"benchmark": result})
         public_first_write_s = time.perf_counter() - start
         public_warm_filename = Path(directory) / "public_interactions_warm.h5msm"
         start = time.perf_counter()
@@ -232,22 +266,26 @@ def run(args):
         tracemalloc.stop()
         del public_loaded_for_memory
         public_numeric_bytes = sum(
-            value.nbytes for value in public_loaded.__dict__.values()
+            value.nbytes
+            for value in public_loaded.__dict__.values()
             if isinstance(value, np.ndarray)
         )
         public_timings = {}
         for name, requests in cases.items():
             filters = {"atom_indices": [atom]} if name.startswith("atom_") else {}
             for request in requests:
-                if signature(memory_query(public_loaded, request, filters)) != signature(
-                    memory_query(result, request, filters)
-                ):
-                    raise AssertionError(f"Public H5MSM result differs for {name}: {request}")
+                if signature(
+                    memory_query(public_loaded, request, filters)
+                ) != signature(memory_query(result, request, filters)):
+                    raise AssertionError(
+                        f"Public H5MSM result differs for {name}: {request}"
+                    )
             memory_query(public_loaded, requests[0], filters)
             public_timings[name] = measure(
                 lambda request, filters=filters: memory_query(
                     public_loaded, request, filters
-                ), requests,
+                ),
+                requests,
             )
 
     return {
@@ -261,9 +299,13 @@ def run(args):
             "memory_total": linux_value("/proc/meminfo", "MemTotal"),
             "gpu": "not used",
             "thread_environment": {
-                key: os.environ.get(key) for key in (
-                    "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
-                    "NUMEXPR_NUM_THREADS", "HDF5_USE_FILE_LOCKING",
+                key: os.environ.get(key)
+                for key in (
+                    "OMP_NUM_THREADS",
+                    "OPENBLAS_NUM_THREADS",
+                    "MKL_NUM_THREADS",
+                    "NUMEXPR_NUM_THREADS",
+                    "HDF5_USE_FILE_LOCKING",
                 )
             },
             "python": platform.python_version(),
@@ -320,8 +362,11 @@ def main():
     parser.add_argument("--atoms", type=int, default=1000)
     parser.add_argument("--structures", type=int, default=1000)
     parser.add_argument("--occurrences", type=int, default=2)
-    parser.add_argument("--relations", type=int,
-                        help="Distinct pair relationships (default: min(100, atoms // 2))")
+    parser.add_argument(
+        "--relations",
+        type=int,
+        help="Distinct pair relationships (default: min(100, atoms // 2))",
+    )
     parser.add_argument("--queries", type=int, default=30)
     parser.add_argument("--seed", type=int, default=20260929)
     parser.add_argument("--output", type=Path, help="Optional JSON result path")

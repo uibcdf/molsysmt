@@ -35,9 +35,7 @@ def test_multistate_roundtrip_preserves_nullable_chemistry_and_reference():
     )
     topology._set_reference_chemical_state_index(None)
 
-    encoded = msm.convert(
-        topology, to_form="molsysmt.ChemicalStatesDict"
-    )
+    encoded = msm.convert(topology, to_form="molsysmt.ChemicalStatesDict")
     decoded = msm.convert(encoded, to_form="molsysmt.ChemicalStates")
 
     assert msm.get_form(decoded) == "molsysmt.ChemicalStates"
@@ -45,18 +43,23 @@ def test_multistate_roundtrip_preserves_nullable_chemistry_and_reference():
     assert decoded.n_chemical_states == 2
     assert decoded.reference_chemical_state_index is None
     assert decoded._states[1].state_id == "product"
-    pd.testing.assert_frame_equal(decoded.get_bonds(0), topology._chemical_states[0].bonds)
-    pd.testing.assert_frame_equal(decoded.get_bonds(1), topology._chemical_states[1].bonds)
+    pd.testing.assert_frame_equal(
+        decoded.get_bonds(0), topology._chemical_states[0].bonds
+    )
+    pd.testing.assert_frame_equal(
+        decoded.get_bonds(1), topology._chemical_states[1].bonds
+    )
     pd.testing.assert_frame_equal(
         decoded._states[0].atom_attributes,
         topology._chemical_states[0].atom_attributes,
     )
-    assert encoded.data["states"][0]["atom_attributes"]["columns"][
-        "formal_charge"
-    ]["null_mask"].tolist() == [False, True, False]
-    assert isinstance(encoded.data["states"][0]["bonds"]["columns"][
-        "bond_order"
-    ]["values"], np.ndarray)
+    assert encoded.data["states"][0]["atom_attributes"]["columns"]["formal_charge"][
+        "null_mask"
+    ].tolist() == [False, True, False]
+    assert isinstance(
+        encoded.data["states"][0]["bonds"]["columns"]["bond_order"]["values"],
+        np.ndarray,
+    )
 
 
 def test_dictionary_copy_is_independent_and_schema_is_versioned():
@@ -101,7 +104,8 @@ def test_direct_conversion_from_native_system_preserves_and_detaches_states(
 
     result = msm.convert(source, to_form=target_form)
     states = (
-        result if target_form == "molsysmt.ChemicalStates"
+        result
+        if target_form == "molsysmt.ChemicalStates"
         else msm.convert(result, to_form="molsysmt.ChemicalStates")
     )
 
@@ -112,9 +116,12 @@ def test_direct_conversion_from_native_system_preserves_and_detaches_states(
     assert len(states.get_bonds(1)) == 1
     assert states._states[1].state_id == "second"
     states._states[0].bonds.loc[0, "atom2_index"] = 2
-    assert msm.convert(
-        topology, to_form="molsysmt.ChemicalStates"
-    ).get_bonds(0).loc[0, "atom2_index"] == 1
+    assert (
+        msm.convert(topology, to_form="molsysmt.ChemicalStates")
+        .get_bonds(0)
+        .loc[0, "atom2_index"]
+        == 1
+    )
 
 
 def test_direct_dictionary_conversion_rejects_a_selection_it_cannot_remap():

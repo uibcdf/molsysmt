@@ -24,7 +24,9 @@ def prepare_system(name):
     reference = manifest["systems"][name]
     path = ROOT / reference["path"]
     if hashlib.sha256(path.read_bytes()).hexdigest() != reference["sha256"]:
-        raise ValueError("Ionic validation source checksum disagrees with the manifest.")
+        raise ValueError(
+            "Ionic validation source checksum disagrees with the manifest."
+        )
     molecule = Chem.MolFromPDBFile(str(path), removeHs=False)
     if molecule is None or molecule.GetNumAtoms() != reference["atoms"]:
         raise ValueError("RDKit cannot read the declared validation atom axis.")
@@ -36,15 +38,23 @@ def prepare_system(name):
         if charge < 0:
             atom.SetNoImplicit(True)
     Chem.SanitizeMol(molecule)
-    reference_coordinates = np.asarray([
-        conformer.GetPositions() / 10.0 for conformer in molecule.GetConformers()
-    ])
+    reference_coordinates = np.asarray(
+        [conformer.GetPositions() / 10.0 for conformer in molecule.GetConformers()]
+    )
     system = msm.convert(molecule, to_form="molsysmt.MolSys")
     return system, reference, reference_coordinates, molecule
 
 
-def cartesian_reference(reference, coordinates, threshold, *, frames=None,
-                        selected=None, second=None, scope="internal"):
+def cartesian_reference(
+    reference,
+    coordinates,
+    threshold,
+    *,
+    frames=None,
+    selected=None,
+    second=None,
+    scope="internal",
+):
     """Enumerate small reference center pairs without MolSysMT geometry helpers.
 
     Membership and reference atoms come from the manifest; the independent
@@ -68,14 +78,18 @@ def cartesian_reference(reference, coordinates, threshold, *, frames=None,
             elif scope == "incident":
                 include = bool((p | n) & selected)
             elif scope == "between":
-                include = (p <= selected and n <= second) or (n <= selected and p <= second)
+                include = (p <= selected and n <= second) or (
+                    n <= selected and p <= second
+                )
             else:
                 raise ValueError("Unknown validation scope.")
             if not include:
                 continue
             for frame in frames:
-                delta = (coordinates[frame, positive["geometry"]][:, None]
-                         - coordinates[frame, negative["geometry"]][None])
+                delta = (
+                    coordinates[frame, positive["geometry"]][:, None]
+                    - coordinates[frame, negative["geometry"]][None]
+                )
                 distance = float(np.sqrt((delta * delta).sum(axis=-1)).min())
                 if distance <= threshold:
                     observations[frame, positive["label"], negative["label"]] = distance
@@ -84,19 +98,24 @@ def cartesian_reference(reference, coordinates, threshold, *, frames=None,
 
 def observation_columns(result, reference):
     """Translate actual typed rows to independent reference labels for comparison."""
-    labels = {tuple(center["atoms"]): center["label"] for center in reference["centers"]}
+    labels = {
+        tuple(center["atoms"]): center["label"] for center in reference["centers"]
+    }
     relations = []
     for relation in range(len(result.relation_types)):
-        start, stop = result.relation_participant_offsets[relation:relation + 2]
+        start, stop = result.relation_participant_offsets[relation : relation + 2]
         roles = {}
         for participant in range(start, stop):
-            a, b = result.participant_atom_offsets[participant:participant + 2]
-            roles[result.participant_roles[participant]] = labels[tuple(result.participant_atoms[a:b])]
+            a, b = result.participant_atom_offsets[participant : participant + 2]
+            roles[result.participant_roles[participant]] = labels[
+                tuple(result.participant_atoms[a:b])
+            ]
         relations.append((roles["positive"], roles["negative"]))
     return {
         (int(frame), *relations[relation]): float(distance)
         for frame, relation, distance in zip(
-            result.occurrence_structures, result.occurrence_relations,
+            result.occurrence_structures,
+            result.occurrence_relations,
             result.measurements["distance"],
         )
     }

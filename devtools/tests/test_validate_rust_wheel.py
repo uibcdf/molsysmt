@@ -124,7 +124,12 @@ def test_installed_validator_requires_exactly_one_wheel(tmp_path):
 def test_rust_export_manifest_is_exact_and_includes_parallel_controls():
     exports = INSTALLED_MODULE.expected_rust_exports()
     assert len(exports) == 101
-    assert {"get_available_num_threads", "probe_num_threads", "get_least_squares_planes", "get_mic_pair_observations"} <= exports
+    assert {
+        "get_available_num_threads",
+        "probe_num_threads",
+        "get_least_squares_planes",
+        "get_mic_pair_observations",
+    } <= exports
 
 
 def test_data_package_excludes_generated_cache_but_keeps_scientific_resources(tmp_path):
@@ -132,25 +137,42 @@ def test_data_package_excludes_generated_cache_but_keeps_scientific_resources(tm
     from setuptools.command.build_py import build_py
     from setuptools.config.expand import canonic_package_data
 
-    settings = tomllib.loads((Path(__file__).resolve().parents[2] / "pyproject.toml").read_text())["tool"]["setuptools"]
+    settings = tomllib.loads(
+        (Path(__file__).resolve().parents[2] / "pyproject.toml").read_text()
+    )["tool"]["setuptools"]
     source = tmp_path / "data"
-    resources = {"demo/system.h5msm", "databases/residues.pkl.gz", "tables/parameters.json"}
-    caches = {"__pycache__/module.pyc", "databases/__pycache__/module.cpython-313.pyc",
-              "databases/__pycache__/unrelated.txt", "leftover.pyc"}
+    resources = {
+        "demo/system.h5msm",
+        "databases/residues.pkl.gz",
+        "tables/parameters.json",
+    }
+    caches = {
+        "__pycache__/module.pyc",
+        "databases/__pycache__/module.cpython-313.pyc",
+        "databases/__pycache__/unrelated.txt",
+        "leftover.pyc",
+    }
     for name in resources | caches:
         path = source / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b"fixture")
-    distribution = Distribution({
-        "packages": ["molsysmt.data"], "package_dir": {"molsysmt.data": str(source)},
-        "package_data": canonic_package_data(settings["package-data"]),
-        "exclude_package_data": canonic_package_data(settings["exclude-package-data"]),
-    })
+    distribution = Distribution(
+        {
+            "packages": ["molsysmt.data"],
+            "package_dir": {"molsysmt.data": str(source)},
+            "package_data": canonic_package_data(settings["package-data"]),
+            "exclude_package_data": canonic_package_data(
+                settings["exclude-package-data"]
+            ),
+        }
+    )
     builder = build_py(distribution)
     builder.ensure_finalized()
     builder.analyze_manifest()
-    included = {Path(name).relative_to(source).as_posix()
-                for name in builder.find_data_files("molsysmt.data", str(source))}
+    included = {
+        Path(name).relative_to(source).as_posix()
+        for name in builder.find_data_files("molsysmt.data", str(source))
+    }
     assert resources <= included
     assert not caches & included
 

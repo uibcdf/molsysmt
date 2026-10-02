@@ -22,12 +22,27 @@ from molsysmt._private.variables import is_all
 @dep_digest("rdkit")
 @attributed("water_bridges")
 def get_water_bridges(
-    molecular_system, selection="all", selection_2=None, structure_indices="all",
-    chemical_state="reference", method="hbond_water_path", distance_threshold=None,
-    angle_threshold=None, selection_mode="internal", pbc=True,
-    assume_complete_connectivity=False, output_type="molsysmt.Interactions",
-    syntax="MolSysMT", skip_digestion=False, *, hbond_method="baker_hubbard",
-    hbond_profile=None, max_matches=100000, heavy_mode="auto", profile=None, order=1,
+    molecular_system,
+    selection="all",
+    selection_2=None,
+    structure_indices="all",
+    chemical_state="reference",
+    method="hbond_water_path",
+    distance_threshold=None,
+    angle_threshold=None,
+    selection_mode="internal",
+    pbc=True,
+    assume_complete_connectivity=False,
+    output_type="molsysmt.Interactions",
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    hbond_method="baker_hubbard",
+    hbond_profile=None,
+    max_matches=100000,
+    heavy_mode="auto",
+    profile=None,
+    order=1,
 ):
     """Observing simultaneous hydrogen bonds through one or two indexed waters.
 
@@ -184,82 +199,175 @@ def get_water_bridges(
 
     caller = "molsysmt.interactions.water_bridges.get_water_bridges"
     if method == "two_hbonds_one_water" and order != 1:
-        raise ArgumentError("order", caller=caller, message="two_hbonds_one_water requires order=1; use hbond_water_path for order=2.")
-    leg_definition = resolve_method("hbonds", hbond_method, hbond_profile, caller=caller)
+        raise ArgumentError(
+            "order",
+            caller=caller,
+            message="two_hbonds_one_water requires order=1; use hbond_water_path for order=2.",
+        )
+    leg_definition = resolve_method(
+        "hbonds", hbond_method, hbond_profile, caller=caller
+    )
     if leg_definition["implementation"] == "mdanalysis_geometry":
-        raise ArgumentError("hbond_profile", caller=caller, message="Water bridges require automatic leg site recognition.")
+        raise ArgumentError(
+            "hbond_profile",
+            caller=caller,
+            message="Water bridges require automatic leg site recognition.",
+        )
     if (selection_mode == "between") != (selection_2 is not None):
-        raise ArgumentError("selection_2", caller=caller, message="Supply a second selection only for between searches.")
+        raise ArgumentError(
+            "selection_2",
+            caller=caller,
+            message="Supply a second selection only for between searches.",
+        )
     dimensions = modular_h5msm_dimensions(molecular_system)
     modular = dimensions is not None
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
     if any(value is None for value in dimensions):
-        raise StructuralInconsistencyError(reason="Declared atom and structure axes are required.", caller=caller)
+        raise StructuralInconsistencyError(
+            reason="Declared atom and structure axes are required.", caller=caller
+        )
     n_atoms, n_structures = map(int, dimensions)
-    frames = np.arange(n_structures, dtype=np.int64) if is_all(structure_indices) else np.unique(structure_indices).astype(np.int64)
+    frames = (
+        np.arange(n_structures, dtype=np.int64)
+        if is_all(structure_indices)
+        else np.unique(structure_indices).astype(np.int64)
+    )
     if np.any(frames < 0) or np.any(frames >= n_structures):
         raise ArgumentError("structure_indices", value=structure_indices, caller=caller)
     fixed = 8 * (2 * n_atoms + 4 * n_structures)
-    SparseColumnAccumulator({}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed).check_budget()
+    SparseColumnAccumulator(
+        {}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed
+    ).check_budget()
     coordinate_source = molecular_system
-    index_selections = all(value is None or not isinstance(value, str) or is_all(value) for value in (selection, selection_2))
+    index_selections = all(
+        value is None or not isinstance(value, str) or is_all(value)
+        for value in (selection, selection_2)
+    )
     if modular and not index_selections:
         from molsysmt._private.execution.memory_policy import estimate_footprint
         from molsysmt._private.h5msm import maybe_read_modular_h5msm
 
-        if heavy_mode == "force" or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage:
-            raise UnsupportedHeavyOperationError(operation=caller, form="H5MSM rich selections",
-                                                 reason="Use atom-index selections or all for bounded file calculations.")
+        if (
+            heavy_mode == "force"
+            or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage
+        ):
+            raise UnsupportedHeavyOperationError(
+                operation=caller,
+                form="H5MSM rich selections",
+                reason="Use atom-index selections or all for bounded file calculations.",
+            )
         molecular_system = maybe_read_modular_h5msm(molecular_system)
         coordinate_source = molecular_system
     source, states, _, state_index, _, _, selection_frames = chemical_graph_context(
-        molecular_system, chemical_state, frames, assume_complete_connectivity, caller)
-    waters = get_water_sites(source, chemical_state=state_index,
-                             assume_complete_connectivity=assume_complete_connectivity, max_matches=max_matches)
-    first = select_chemical_atoms(source, states, state_index, selection, selection_frames, syntax)
-    second = None if selection_2 is None else select_chemical_atoms(source, states, state_index, selection_2, selection_frames, syntax)
+        molecular_system, chemical_state, frames, assume_complete_connectivity, caller
+    )
+    waters = get_water_sites(
+        source,
+        chemical_state=state_index,
+        assume_complete_connectivity=assume_complete_connectivity,
+        max_matches=max_matches,
+    )
+    first = select_chemical_atoms(
+        source, states, state_index, selection, selection_frames, syntax
+    )
+    second = (
+        None
+        if selection_2 is None
+        else select_chemical_atoms(
+            source, states, state_index, selection_2, selection_frames, syntax
+        )
+    )
     if second is not None and np.intersect1d(first, second).size:
-        raise ArgumentError("selection_2", caller=caller, message="Between selections must be disjoint.")
+        raise ArgumentError(
+            "selection_2", caller=caller, message="Between selections must be disjoint."
+        )
     oxygen = waters["water_atom_indices"][:, 0]
     if selection_mode != "incident":
-        oxygen = np.intersect1d(oxygen, first if second is None else np.union1d(first, second))
+        oxygen = np.intersect1d(
+            oxygen, first if second is None else np.union1d(first, second)
+        )
     # Keep validation at the leg public boundary: thresholds and resolved source
     # form have not yet been normalized to that callee's full contract.
-    legs = get_hbonds(coordinate_source, selection=oxygen, selection_mode="incident",
-                      structure_indices=frames, chemical_state=state_index, method=hbond_method,
-                      profile=hbond_profile, distance_threshold=distance_threshold,
-                      angle_threshold=angle_threshold, pbc=pbc,
-                      assume_complete_connectivity=assume_complete_connectivity,
-                      max_matches=max_matches, heavy_mode=heavy_mode)
+    legs = get_hbonds(
+        coordinate_source,
+        selection=oxygen,
+        selection_mode="incident",
+        structure_indices=frames,
+        chemical_state=state_index,
+        method=hbond_method,
+        profile=hbond_profile,
+        distance_threshold=distance_threshold,
+        angle_threshold=angle_threshold,
+        pbc=pbc,
+        assume_complete_connectivity=assume_complete_connectivity,
+        max_matches=max_matches,
+        heavy_mode=heavy_mode,
+    )
     reference = dict(PROLIF_REFERENCE)
-    reference["implementation"] = reference["implementation"].replace("interactions.py", "water_bridge.py")
+    reference["implementation"] = reference["implementation"].replace(
+        "interactions.py", "water_bridge.py"
+    )
     universe = legs.evaluation_universe_indices
     metadata = dict(
-        n_atoms=n_atoms, n_structures=n_structures, evaluated_structure_indices=frames,
-        method=caller, software={**waters["software"], **legs.software},
-        measure_units={f"leg_{branch}_{name}": unit for branch in range(1, order + 2) for name, unit in legs.measure_units.items()},
-        evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
-        evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
+        n_atoms=n_atoms,
+        n_structures=n_structures,
+        evaluated_structure_indices=frames,
+        method=caller,
+        software={**waters["software"], **legs.software},
+        measure_units={
+            f"leg_{branch}_{name}": unit
+            for branch in range(1, order + 2)
+            for name, unit in legs.measure_units.items()
+        },
+        evaluation_mode=selection_mode,
+        evaluation_atom_indices=np.intersect1d(first, universe),
+        evaluation_atom_indices_b=None
+        if second is None
+        else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
         parameters=dict(
-            method=method, method_reference=reference, geometry_rule_version=f"hbond_water_path_order_{order}@1",
-            hbond_method=leg_definition["method"], hbond_profile=leg_definition["profile"],
-            hbond_parameters=deepcopy(legs.parameters), water_definition=waters["method"],
-            water_smarts=waters["smarts_patterns"], chemistry_evidence=waters["evidence"],
-            scientific_references=[leg_definition["method"]] if leg_definition["method"] in {"baker_hubbard", "wernet_nilsson"} else [],
-            chemical_state_index=state_index, max_matches=max_matches,
-            assume_complete_connectivity=assume_complete_connectivity, pbc=pbc,
+            method=method,
+            method_reference=reference,
+            geometry_rule_version=f"hbond_water_path_order_{order}@1",
+            hbond_method=leg_definition["method"],
+            hbond_profile=leg_definition["profile"],
+            hbond_parameters=deepcopy(legs.parameters),
+            water_definition=waters["method"],
+            water_smarts=waters["smarts_patterns"],
+            chemistry_evidence=waters["evidence"],
+            scientific_references=[leg_definition["method"]]
+            if leg_definition["method"] in {"baker_hubbard", "wernet_nilsson"}
+            else [],
+            chemical_state_index=state_index,
+            max_matches=max_matches,
+            assume_complete_connectivity=assume_complete_connectivity,
+            pbc=pbc,
             branch_identity="distinct_external_heavy_atom_then_directed_dha",
-            selection_policy="all_actual_leg_participants", mediator_order=order,
-            hydrogen_policy="indexed_atoms_only", image_policy="align_shared_water_oxygen_then_anchor_first_role",
+            selection_policy="all_actual_leg_participants",
+            mediator_order=order,
+            hydrogen_policy="indexed_atoms_only",
+            image_policy="align_shared_water_oxygen_then_anchor_first_role",
         ),
     )
-    leg_execution = legs.execution_records[0]["details"] if legs.execution_records else {}
+    leg_execution = (
+        legs.execution_records[0]["details"] if legs.execution_records else {}
+    )
     metadata["execution"] = {
-        **leg_execution, "hbond_execution": leg_execution,
+        **leg_execution,
+        "hbond_execution": leg_execution,
         "memory_policy": "resident_legs_and_sparse_join_numeric_estimates@1",
     }
-    result = join_water_legs(legs, all_water_oxygen=waters["water_atom_indices"][:, 0],
-                             first=first, second=second, metadata=metadata, budget_bytes=configure.max_ram_usage)
-    return result if output_type == "molsysmt.interactions" else convert(result, to_form="molsysmt.InteractionsDict")
+    result = join_water_legs(
+        legs,
+        all_water_oxygen=waters["water_atom_indices"][:, 0],
+        first=first,
+        second=second,
+        metadata=metadata,
+        budget_bytes=configure.max_ram_usage,
+    )
+    return (
+        result
+        if output_type == "molsysmt.interactions"
+        else convert(result, to_form="molsysmt.InteractionsDict")
+    )

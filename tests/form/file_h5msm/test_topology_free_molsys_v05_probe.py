@@ -17,8 +17,12 @@ from molsysmt.native import MolSys, Structures, Topology
 
 def _link(indices):
     return {
-        "axis": "atom", "source": "structures", "target": "chemical_states",
-        "source_name": None, "target_name": None, "indices": indices,
+        "axis": "atom",
+        "source": "structures",
+        "target": "chemical_states",
+        "source_name": None,
+        "target_name": None,
+        "indices": indices,
     }
 
 
@@ -31,23 +35,28 @@ def _system():
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
     )
     analysis = msm.Interactions.from_records(
-        [{
-            "structure_index": 1,
-            "interaction_type": "hbond",
-            "participants": [
-                {"role": "donor", "atom_indices": [0]},
-                {"role": "hydrogen", "atom_indices": [1]},
-                {"role": "acceptor", "atom_indices": [2]},
-            ],
-        }],
-        n_atoms=3, n_structures=2, evaluated_structure_indices=[0, 1],
+        [
+            {
+                "structure_index": 1,
+                "interaction_type": "hbond",
+                "participants": [
+                    {"role": "donor", "atom_indices": [0]},
+                    {"role": "hydrogen", "atom_indices": [1]},
+                    {"role": "acceptor", "atom_indices": [2]},
+                ],
+            }
+        ],
+        n_atoms=3,
+        n_structures=2,
+        evaluated_structure_indices=[0, 1],
         method="candidate",
     )
     result = MolSys._from_partial_domains(
-        chemical_states=states, structures=structures,
-        interactions={"hbonds": analysis},
+        chemical_states=states,
+        structures=structures,
     )
     result._set_structure_chemical_state_indices([0, 1])
+    result.interactions = {"hbonds": analysis}
     return result
 
 
@@ -57,7 +66,10 @@ def test_topology_free_roundtrip_keeps_axes_and_state_assignments(tmp_path):
     with h5py.File(filename, "r") as file:
         assert "topology" not in file
         assert set(file) == {
-            "chemical_states", "structures", "interactions", "associations"
+            "chemical_states",
+            "structures",
+            "interactions",
+            "associations",
         }
 
     restored = read_topology_free_molsys_file(filename)
@@ -66,16 +78,14 @@ def test_topology_free_roundtrip_keeps_axes_and_state_assignments(tmp_path):
     assert restored.chemical_states.n_chemical_states == 2
     assert len(restored.chemical_states.get_bonds(0)) == 1
     assert restored._get_structure_chemical_state_indices().tolist() == [0, 1]
-    assert restored.interactions["hbonds"].query(
-        structure_indices=[0]
-    ).n_interactions == 0
-    assert restored.interactions["hbonds"].query(
-        structure_indices=[1]
-    ).n_interactions == 1
-
-    selected = restored.extract(
-        atom_indices=[2, 0, 1], structure_indices=[1, 0]
+    assert (
+        restored.interactions["hbonds"].query(structure_indices=[0]).n_interactions == 0
     )
+    assert (
+        restored.interactions["hbonds"].query(structure_indices=[1]).n_interactions == 1
+    )
+
+    selected = restored.extract(atom_indices=[2, 0, 1], structure_indices=[1, 0])
     assert selected.topology is None
     assert selected.structures.coordinates.shape == (2, 3, 3)
     assert selected._get_structure_chemical_state_indices().tolist() == [1, 0]
@@ -88,9 +98,9 @@ def test_topology_free_roundtrip_keeps_axes_and_state_assignments(tmp_path):
     np.testing.assert_array_equal(
         selected.interactions["hbonds"].structure_source_indices, [1, 0]
     )
-    assert selected.interactions["hbonds"].query(
-        structure_indices=[0]
-    ).n_interactions == 1
+    assert (
+        selected.interactions["hbonds"].query(structure_indices=[0]).n_interactions == 1
+    )
 
     for clone in (restored.copy(), pickle.loads(pickle.dumps(restored))):
         assert clone.topology is None
@@ -115,17 +125,18 @@ def test_chemical_states_and_interactions_define_axes_without_structures(tmp_pat
     selected = restored.extract(atom_indices=[2, 0, 1], structure_indices=[1, 0])
     assert selected.chemical_states.n_atoms == 3
     assert selected.interactions["hbonds"].n_structures == 2
-    assert selected.interactions["hbonds"].query(structure_indices=[0]).n_interactions == 1
+    assert (
+        selected.interactions["hbonds"].query(structure_indices=[0]).n_interactions == 1
+    )
 
 
 @pytest.mark.parametrize("indices", [None, [1, 0, 2]])
-def test_topology_free_reader_rejects_missing_or_reordered_atom_link(
-    tmp_path, indices
-):
+def test_topology_free_reader_rejects_missing_or_reordered_atom_link(tmp_path, indices):
     system = _system()
     filename = tmp_path / "unrepresentable.h5msm"
     write_modular_file(
-        filename, chemical_states=system.chemical_states,
+        filename,
+        chemical_states=system.chemical_states,
         structures=system.structures,
         associations=None if indices is None else [_link(indices)],
     )
@@ -136,9 +147,7 @@ def test_topology_free_reader_rejects_missing_or_reordered_atom_link(
 def test_frame_only_structures_do_not_invent_an_atom_axis(tmp_path):
     states = msm.ChemicalStates(n_atoms=3)
     frames = Structures(time=msm.pyunitwizard.quantity([0.0, 1.0], "ps"))
-    system = MolSys._from_partial_domains(
-        chemical_states=states, structures=frames
-    )
+    system = MolSys._from_partial_domains(chemical_states=states, structures=frames)
     filename = tmp_path / "time_only.h5msm"
     write_topology_free_molsys_file(filename, system)
 
@@ -155,8 +164,10 @@ def test_present_empty_interactions_cannot_be_hidden_in_native_mapping(tmp_path)
     system = _system()
     filename = tmp_path / "empty_analysis_layer.h5msm"
     write_modular_file(
-        filename, chemical_states=system.chemical_states,
-        structures=system.structures, interactions={},
+        filename,
+        chemical_states=system.chemical_states,
+        structures=system.structures,
+        interactions={},
         associations=[_link("identity")],
     )
     with pytest.raises(ValueError, match="present-empty interaction layer"):
@@ -166,7 +177,9 @@ def test_present_empty_interactions_cannot_be_hidden_in_native_mapping(tmp_path)
 def test_replacing_chemistry_cannot_break_structural_atom_alignment():
     system = _system()
     original = system.chemical_states
-    with pytest.raises(msm.StructuralInconsistencyError, match="share an atom-index domain"):
+    with pytest.raises(
+        msm.StructuralInconsistencyError, match="share an atom-index domain"
+    ):
         system.chemical_states = msm.ChemicalStates(n_atoms=2)
     assert system.chemical_states is original
 

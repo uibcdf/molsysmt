@@ -12,4 +12,6 @@ def digest_max_cyclic_block_size(max_cyclic_block_size, caller=None):
         and max_cyclic_block_size >= 3
     ):
         return int(max_cyclic_block_size)
-    raise ArgumentError("max_cyclic_block_size", value=max_cyclic_block_size, caller=caller)
+    raise ArgumentError(
+        "max_cyclic_block_size", value=max_cyclic_block_size, caller=caller
+    )

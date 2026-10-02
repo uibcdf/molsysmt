@@ -91,6 +91,4 @@ def test_partial_constructor_rejects_mismatched_atom_axes():
         coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
     )
     with pytest.raises(ValueError, match="share an atom domain"):
-        MolSys._from_partial_domains(
-            chemical_states=states, structures=structures
-        )
+        MolSys._from_partial_domains(chemical_states=states, structures=structures)

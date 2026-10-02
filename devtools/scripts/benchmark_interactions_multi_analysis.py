@@ -39,11 +39,14 @@ def _check_copy(source, grouped, method):
             original.attrs["metadata"]
         ):
             raise AssertionError(f"{method} metadata changed")
+
         def check_dataset(name, item):
-            if (isinstance(item, h5py.Dataset)
-                    and not name.startswith("source_maps_probe/")):
+            if isinstance(item, h5py.Dataset) and not name.startswith(
+                "source_maps_probe/"
+            ):
                 if not np.array_equal(item[:], copied[name][:]):
                     raise AssertionError(f"{method}/{name} changed")
+
         original.visititems(check_dataset)
         for name in ("atom_indices", "structure_indices"):
             if not np.array_equal(
@@ -58,24 +61,31 @@ def main():
     parser.add_argument("--frames", type=int, default=1000)
     args = parser.parse_args()
     n_atoms = 500
-    records, evaluated = generate_fixture(
-        args.frames, n_atoms, 8, "mixed", 251
-    )
+    records, evaluated = generate_fixture(args.frames, n_atoms, 8, "mixed", 251)
     methods = sorted({row["interaction_type"] for row in records})
     results = {}
     rows_by_method = {}
     coverage_by_method = {}
     for method in methods:
-        coverage = [frame for frame in evaluated
-                    if method != "disulfide_candidate" or frame % 2 == 0]
+        coverage = [
+            frame
+            for frame in evaluated
+            if method != "disulfide_candidate" or frame % 2 == 0
+        ]
         covered = set(coverage)
-        rows = [row for row in records
-                if row["interaction_type"] == method
-                and row["structure_index"] in covered]
+        rows = [
+            row
+            for row in records
+            if row["interaction_type"] == method and row["structure_index"] in covered
+        ]
         result = msm.Interactions.from_records(
-            rows, n_atoms=n_atoms, n_structures=args.frames,
-            evaluated_structure_indices=coverage, method=f"detector:{method}",
-            measure_units=UNITS, parameters={"seed": 251, "kind": method},
+            rows,
+            n_atoms=n_atoms,
+            n_structures=args.frames,
+            evaluated_structure_indices=coverage,
+            method=f"detector:{method}",
+            measure_units=UNITS,
+            parameters={"seed": 251, "kind": method},
             source_id="synthetic_contract",
         )
         results[method] = result
@@ -111,11 +121,12 @@ def main():
             result.save(path)
             with h5py.File(path, "r+") as file:
                 source = file.create_group("source_maps_probe")
-                source.create_dataset("atom_indices", data=np.arange(n_atoms),
-                                      compression="gzip")
-                source.create_dataset("structure_indices",
-                                      data=np.arange(args.frames),
-                                      compression="gzip")
+                source.create_dataset(
+                    "atom_indices", data=np.arange(n_atoms), compression="gzip"
+                )
+                source.create_dataset(
+                    "structure_indices", data=np.arange(args.frames), compression="gzip"
+                )
             files[method] = path
             loaded = msm.Interactions.load(path)
             if materialize(loaded.query(atom_indices=[0])) != expected(
@@ -127,11 +138,12 @@ def main():
             file.attrs["format"] = "molsysmt.interactions.multiple_probe"
             file.attrs["schema_version"] = 1
             source = file.create_group("source_maps_probe")
-            source.create_dataset("atom_indices", data=np.arange(n_atoms),
-                                  compression="gzip")
-            source.create_dataset("structure_indices",
-                                  data=np.arange(args.frames),
-                                  compression="gzip")
+            source.create_dataset(
+                "atom_indices", data=np.arange(n_atoms), compression="gzip"
+            )
+            source.create_dataset(
+                "structure_indices", data=np.arange(args.frames), compression="gzip"
+            )
             analyses = file.create_group("analyses")
             for method, path in files.items():
                 _copy_analysis(path, analyses.create_group(method))
@@ -139,26 +151,34 @@ def main():
             _check_copy(path, grouped, method)
         separate_bytes = sum(path.stat().st_size for path in files.values())
         grouped_bytes = grouped.stat().st_size
-        print(json.dumps({
-            "platform": platform.platform(), "frames": args.frames,
-            "methods": methods,
-            "observations_per_method": {name: len(rows)
-                                        for name, rows in rows_by_method.items()},
-            "evaluated_per_method": {name: len(frames)
-                                     for name, frames in coverage_by_method.items()},
-            "four_separate_files_bytes": separate_bytes,
-            "one_grouped_file_bytes": grouped_bytes,
-            "grouped_saving_pct": round(
-                100 * (separate_bytes - grouped_bytes) / separate_bytes, 2
-            ),
-            "collection_warm_frame_median_ms": round(
-                statistics.median(frame_samples), 4
-            ),
-            "collection_warm_atom_median_ms": round(
-                statistics.median(atom_samples), 4
-            ),
-            "note": "Grouped file is a storage probe, not a public loader",
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "frames": args.frames,
+                    "methods": methods,
+                    "observations_per_method": {
+                        name: len(rows) for name, rows in rows_by_method.items()
+                    },
+                    "evaluated_per_method": {
+                        name: len(frames) for name, frames in coverage_by_method.items()
+                    },
+                    "four_separate_files_bytes": separate_bytes,
+                    "one_grouped_file_bytes": grouped_bytes,
+                    "grouped_saving_pct": round(
+                        100 * (separate_bytes - grouped_bytes) / separate_bytes, 2
+                    ),
+                    "collection_warm_frame_median_ms": round(
+                        statistics.median(frame_samples), 4
+                    ),
+                    "collection_warm_atom_median_ms": round(
+                        statistics.median(atom_samples), 4
+                    ),
+                    "note": "Grouped file is a storage probe, not a public loader",
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

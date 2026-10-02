@@ -29,17 +29,35 @@ from benchmark_interactions_flat_blocks import FlatReader, write_flat_file
 from benchmark_interactions_projected_reader import ProjectedReader
 from benchmark_interactions_sqlite import SQLiteProbe
 
-EVENT_DTYPE = np.dtype([
-    ("structure", "u4"), ("relation", "u4"), ("evidence", "u2"),
-    ("distance", "f8"), ("angle", "f8"), ("image_start", "u4"),
-    ("image_stop", "u4"), ("atom_count", "u2"),
-], align=False)
-RELATION_DTYPE = np.dtype([
-    ("kind", "u2"), ("part_start", "u4"), ("part_stop", "u4"),
-], align=False)
-PARTICIPANT_DTYPE = np.dtype([
-    ("role", "u2"), ("atom_start", "u4"), ("atom_stop", "u4"),
-], align=False)
+EVENT_DTYPE = np.dtype(
+    [
+        ("structure", "u4"),
+        ("relation", "u4"),
+        ("evidence", "u2"),
+        ("distance", "f8"),
+        ("angle", "f8"),
+        ("image_start", "u4"),
+        ("image_stop", "u4"),
+        ("atom_count", "u2"),
+    ],
+    align=False,
+)
+RELATION_DTYPE = np.dtype(
+    [
+        ("kind", "u2"),
+        ("part_start", "u4"),
+        ("part_stop", "u4"),
+    ],
+    align=False,
+)
+PARTICIPANT_DTYPE = np.dtype(
+    [
+        ("role", "u2"),
+        ("atom_start", "u4"),
+        ("atom_stop", "u4"),
+    ],
+    align=False,
+)
 TABLES = ("events", "relations", "participants", "atoms", "images", "frames")
 
 
@@ -57,7 +75,8 @@ def write_compound_file(source, target):
             events = np.empty(event_count, dtype=EVENT_DTYPE)
             events["structure"] = common["occurrence_structures"]
             events["relation"] = (
-                descriptors["occurrence_relations"] if scope == "global"
+                descriptors["occurrence_relations"]
+                if scope == "global"
                 else np.arange(event_count)
             )
             events["evidence"] = common["occurrence_evidence"]
@@ -85,7 +104,8 @@ def write_compound_file(source, target):
             participants["atom_start"] = atom_offsets[:-1]
             participants["atom_stop"] = atom_offsets[1:]
             arrays = {
-                "events": events, "relations": relations,
+                "events": events,
+                "relations": relations,
                 "participants": participants,
                 "atoms": descriptors["participant_atoms"].astype(np.uint32),
                 "images": common["image_vectors"],
@@ -103,19 +123,22 @@ def write_compound_file(source, target):
         file.attrs["metadata"] = old.attrs["metadata"]
         for name in ("labels", "index", "evaluated_structure_indices", "block_scope"):
             old.copy(name, file)
-        file.create_dataset("block_offsets", data=np.asarray(
-            [offsets[name] for name in TABLES], dtype=np.int64
-        ))
+        file.create_dataset(
+            "block_offsets",
+            data=np.asarray([offsets[name] for name in TABLES], dtype=np.int64),
+        )
         data = file.create_group("data")
         for name in TABLES:
             array = np.concatenate(buffers[name])
             data.create_dataset(
                 name, data=array, compression="gzip" if array.size else None
             )
-    return {"file_bytes": target.stat().st_size,
-            "event_dtype_bytes": EVENT_DTYPE.itemsize,
-            "relation_dtype_bytes": RELATION_DTYPE.itemsize,
-            "participant_dtype_bytes": PARTICIPANT_DTYPE.itemsize}
+    return {
+        "file_bytes": target.stat().st_size,
+        "event_dtype_bytes": EVENT_DTYPE.itemsize,
+        "relation_dtype_bytes": RELATION_DTYPE.itemsize,
+        "participant_dtype_bytes": PARTICIPANT_DTYPE.itemsize,
+    }
 
 
 class CompoundReader:
@@ -123,7 +146,10 @@ class CompoundReader:
 
     def __init__(self, path, strategy="adaptive"):
         self.file = h5py.File(path, "r")
-        if self.file.attrs.get("format") != "molsysmt.interactions.compound_block_probe":
+        if (
+            self.file.attrs.get("format")
+            != "molsysmt.interactions.compound_block_probe"
+        ):
             raise ValueError("unsupported compound-block probe format")
         self.metadata = json.loads(self.file.attrs["metadata"])
         if self.metadata["measure_units"] != UNITS:
@@ -132,8 +158,10 @@ class CompoundReader:
         self.covered = set(self.coverage)
         self.offsets = self.file["block_offsets"][:]
         self.block_event_offsets = self.file["index/block_event_offsets"][:]
-        self.labels = {name: self.file[f"labels/{name}"].asstr()[:]
-                       for name in ("types", "roles", "evidence")}
+        self.labels = {
+            name: self.file[f"labels/{name}"].asstr()[:]
+            for name in ("types", "roles", "evidence")
+        }
         self.datasets = {}
         self.strategy = strategy
         self.read_calls = 0
@@ -154,11 +182,12 @@ class CompoundReader:
         first, last = indices[0], indices[-1]
         span = last - first + 1
         use_span = (
-            span == len(indices) or self.strategy == "span"
+            span == len(indices)
+            or self.strategy == "span"
             or (self.strategy == "adaptive" and span <= 4 * len(indices))
         )
         if use_span:
-            values = dataset[start + first:start + last + 1]
+            values = dataset[start + first : start + last + 1]
             selected = (values[index - first] for index in indices)
             self.logical_rows_read += span
         else:
@@ -173,19 +202,34 @@ class CompoundReader:
         if not positions:
             return []
         events = self._take("events", block, positions)
-        relations = self._take("relations", block,
-                               (event["relation"] for event in events.values()))
-        part_indices = sorted({part for relation in relations.values()
-                               for part in range(int(relation["part_start"]),
-                                                 int(relation["part_stop"]))})
+        relations = self._take(
+            "relations", block, (event["relation"] for event in events.values())
+        )
+        part_indices = sorted(
+            {
+                part
+                for relation in relations.values()
+                for part in range(
+                    int(relation["part_start"]), int(relation["part_stop"])
+                )
+            }
+        )
         participants = self._take("participants", block, part_indices)
-        atom_indices = sorted({atom for part in participants.values()
-                               for atom in range(int(part["atom_start"]),
-                                                 int(part["atom_stop"]))})
+        atom_indices = sorted(
+            {
+                atom
+                for part in participants.values()
+                for atom in range(int(part["atom_start"]), int(part["atom_stop"]))
+            }
+        )
         atoms = self._take("atoms", block, atom_indices)
-        image_indices = sorted({image for event in events.values()
-                                for image in range(int(event["image_start"]),
-                                                   int(event["image_stop"]))})
+        image_indices = sorted(
+            {
+                image
+                for event in events.values()
+                for image in range(int(event["image_start"]), int(event["image_stop"]))
+            }
+        )
         images = self._take("images", block, image_indices)
 
         output = []
@@ -193,26 +237,39 @@ class CompoundReader:
             event = events[position]
             relation = relations[int(event["relation"])]
             parts = []
-            for index in range(int(relation["part_start"]),
-                               int(relation["part_stop"])):
+            for index in range(int(relation["part_start"]), int(relation["part_stop"])):
                 part = participants[index]
-                parts.append({
-                    "role": self.labels["roles"][int(part["role"])],
-                    "atom_indices": [int(atoms[atom])
-                                     for atom in range(int(part["atom_start"]),
-                                                       int(part["atom_stop"]))],
-                })
-            output.append(_signature({
-                "structure_index": event["structure"],
-                "interaction_type": self.labels["types"][int(relation["kind"])],
-                "participants": parts,
-                "evidence": self.labels["evidence"][int(event["evidence"])],
-                "measurements": {"distance": event["distance"],
-                                 "angle": event["angle"]},
-                "images": [images[image]
-                           for image in range(int(event["image_start"]),
-                                              int(event["image_stop"]))],
-            }))
+                parts.append(
+                    {
+                        "role": self.labels["roles"][int(part["role"])],
+                        "atom_indices": [
+                            int(atoms[atom])
+                            for atom in range(
+                                int(part["atom_start"]), int(part["atom_stop"])
+                            )
+                        ],
+                    }
+                )
+            output.append(
+                _signature(
+                    {
+                        "structure_index": event["structure"],
+                        "interaction_type": self.labels["types"][int(relation["kind"])],
+                        "participants": parts,
+                        "evidence": self.labels["evidence"][int(event["evidence"])],
+                        "measurements": {
+                            "distance": event["distance"],
+                            "angle": event["angle"],
+                        },
+                        "images": [
+                            images[image]
+                            for image in range(
+                                int(event["image_start"]), int(event["image_stop"])
+                            )
+                        ],
+                    }
+                )
+            )
         return output
 
     def query_frame(self, frame):
@@ -221,13 +278,13 @@ class CompoundReader:
         block = frame // self.metadata["block_size"]
         local = frame - block * self.metadata["block_size"]
         bounds = self._take("frames", block, [local, local + 1])
-        return [frame], Counter(self._rows(
-            block, range(int(bounds[local]), int(bounds[local + 1]))
-        ))
+        return [frame], Counter(
+            self._rows(block, range(int(bounds[local]), int(bounds[local + 1])))
+        )
 
     def query_atom(self, atom):
-        offsets = self.file["index/atom_offsets"][atom:atom + 2]
-        ids = self.file["index/atom_occurrences"][int(offsets[0]):int(offsets[1])]
+        offsets = self.file["index/atom_offsets"][atom : atom + 2]
+        ids = self.file["index/atom_occurrences"][int(offsets[0]) : int(offsets[1])]
         blocks = np.searchsorted(self.block_event_offsets, ids, side="right") - 1
         output = []
         for block in np.unique(blocks):
@@ -239,18 +296,24 @@ class CompoundReader:
 def _measure(path, backend, kind, index, repeats):
     times = []
     calls = []
-    spec = ({"frames": [index]} if kind == "frame" else {"atoms": [index]})
+    spec = {"frames": [index]} if kind == "frame" else {"atoms": [index]}
     for _ in range(repeats):
         start = time.perf_counter_ns()
         if backend == "compound":
             reader = CompoundReader(path)
-            actual = (reader.query_frame(index) if kind == "frame"
-                      else reader.query_atom(index))
+            actual = (
+                reader.query_frame(index)
+                if kind == "frame"
+                else reader.query_atom(index)
+            )
             calls.append(reader.read_calls)
         elif backend == "flat":
             reader = FlatReader(path)
-            actual = (reader.query_frame(index) if kind == "frame"
-                      else reader.query_atom(index))
+            actual = (
+                reader.query_frame(index)
+                if kind == "frame"
+                else reader.query_atom(index)
+            )
         else:
             reader = SQLiteProbe(path)
             actual = reader.materialize(reader.select(spec))
@@ -263,14 +326,17 @@ def _session_probe(paths, records, evaluated):
     """Time checked requests against one open reader per backend."""
     rng = np.random.default_rng(251)
     frames = rng.choice(1000, size=200, replace=False).tolist()
-    atoms = [0, 42, *rng.choice(np.arange(1, 500), size=18,
-                                replace=False).tolist()]
+    atoms = [0, 42, *rng.choice(np.arange(1, 500), size=18, replace=False).tolist()]
     requests = [("frame", frame) for frame in frames]
     requests.extend(("atom", atom) for atom in atoms)
-    oracles = [expected(
-        records, evaluated,
-        **({"frames": [index]} if kind == "frame" else {"atoms": [index]})
-    ) for kind, index in requests]
+    oracles = [
+        expected(
+            records,
+            evaluated,
+            **({"frames": [index]} if kind == "frame" else {"atoms": [index]}),
+        )
+        for kind, index in requests
+    ]
     output = {}
     for backend, path in paths.items():
         if backend == "compound":
@@ -287,12 +353,16 @@ def _session_probe(paths, records, evaluated):
             for (kind, index), oracle in zip(requests, oracles):
                 start = time.perf_counter_ns()
                 if backend == "sqlite":
-                    spec = ({"frames": [index]} if kind == "frame"
-                            else {"atoms": [index]})
+                    spec = (
+                        {"frames": [index]} if kind == "frame" else {"atoms": [index]}
+                    )
                     actual = reader.materialize(reader.select(spec))
                 else:
-                    actual = (reader.query_frame(index) if kind == "frame"
-                              else reader.query_atom(index))
+                    actual = (
+                        reader.query_frame(index)
+                        if kind == "frame"
+                        else reader.query_atom(index)
+                    )
                 elapsed = (time.perf_counter_ns() - start) / 1e6
                 if actual != oracle:
                     raise AssertionError(
@@ -307,7 +377,8 @@ def _session_probe(paths, records, evaluated):
             kind: {
                 "median_ms": round(statistics.median(times), 3),
                 "p95_ms": round(float(np.percentile(times, 95)), 3),
-            } for kind, times in samples.items()
+            }
+            for kind, times in samples.items()
         }
         output[backend]["named_atom_ms"] = named
     return output
@@ -317,18 +388,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--block-size", type=int, default=100)
     parser.add_argument("--repeats", type=int, default=5)
-    parser.add_argument("--distribution", choices=("stable", "churn", "mixed"),
-                        default="mixed")
+    parser.add_argument(
+        "--distribution", choices=("stable", "churn", "mixed"), default="mixed"
+    )
     parser.add_argument("--session-probe", action="store_true")
     args = parser.parse_args()
     if args.block_size < 1 or args.repeats < 1:
         parser.error("block size and repeats must be positive")
     n_frames, n_atoms = 1000, 500
-    records, evaluated = generate_fixture(
-        n_frames, n_atoms, 8, args.distribution, 251
-    )
-    requests = (("frame", 2), ("frame", 1), ("frame", 750),
-                ("atom", 0), ("atom", 42))
+    records, evaluated = generate_fixture(n_frames, n_atoms, 8, args.distribution, 251)
+    requests = (("frame", 2), ("frame", 1), ("frame", 750), ("atom", 0), ("atom", 42))
     with tempfile.TemporaryDirectory() as directory:
         flat_path = Path(directory) / "flat.h5i"
         compound_path = Path(directory) / "compound.h5i"
@@ -341,35 +410,54 @@ def main():
         sql.close()
         measures = {}
         for kind, index in requests:
-            spec = ({"frames": [index]} if kind == "frame"
-                    else {"atoms": [index]})
+            spec = {"frames": [index]} if kind == "frame" else {"atoms": [index]}
             oracle = expected(records, evaluated, **spec)
             key = f"{kind}:{index}"
             measures[key] = {"rows": sum(oracle[1].values())}
-            for backend, path in (("flat", flat_path),
-                                  ("compound", compound_path),
-                                  ("sqlite", sql_path)):
-                actual, ms, calls = _measure(
-                    path, backend, kind, index, args.repeats
-                )
+            for backend, path in (
+                ("flat", flat_path),
+                ("compound", compound_path),
+                ("sqlite", sql_path),
+            ):
+                actual, ms, calls = _measure(path, backend, kind, index, args.repeats)
                 if actual != oracle:
                     raise AssertionError(f"{backend} {key} differs from oracle")
                 measures[key][backend] = ms
                 if calls is not None:
                     measures[key]["compound_data_reads"] = calls
-        sessions = (_session_probe({
-            "flat": flat_path, "projected": flat_path,
-            "compound": compound_path, "sqlite": sql_path,
-        }, records, evaluated) if args.session_probe else None)
-        print(json.dumps({
-            "platform": platform.platform(), "h5py": h5py.__version__,
-            "sqlite": sqlite3.sqlite_version, "distribution": args.distribution,
-            "block_size": args.block_size, "repeats": args.repeats,
-            "occurrences": len(records), "flat": flat_info,
-            "compound": compound_info, "sqlite_file_bytes": sql_path.stat().st_size,
-            "median_open_query_ms": measures,
-            "persistent_session": sessions,
-        }, indent=2))
+        sessions = (
+            _session_probe(
+                {
+                    "flat": flat_path,
+                    "projected": flat_path,
+                    "compound": compound_path,
+                    "sqlite": sql_path,
+                },
+                records,
+                evaluated,
+            )
+            if args.session_probe
+            else None
+        )
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "h5py": h5py.__version__,
+                    "sqlite": sqlite3.sqlite_version,
+                    "distribution": args.distribution,
+                    "block_size": args.block_size,
+                    "repeats": args.repeats,
+                    "occurrences": len(records),
+                    "flat": flat_info,
+                    "compound": compound_info,
+                    "sqlite_file_bytes": sql_path.stat().st_size,
+                    "median_open_query_ms": measures,
+                    "persistent_session": sessions,
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

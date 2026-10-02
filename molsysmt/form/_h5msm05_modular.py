@@ -34,8 +34,15 @@ from ._h5msm_chemical_states import (
 )
 
 
-def write_modular_file(filename, *, topology=None, chemical_states=None,
-                       structures=None, interactions=None, associations=None):
+def write_modular_file(
+    filename,
+    *,
+    topology=None,
+    chemical_states=None,
+    structures=None,
+    interactions=None,
+    associations=None,
+):
     """Write optional independent domains after validating declared axis links."""
     from molsysmt.interactions.result import Interactions
     from molsysmt.native import ChemicalStates, Structures, Topology
@@ -52,7 +59,9 @@ def write_modular_file(filename, *, topology=None, chemical_states=None,
             if not isinstance(name, str) or not name:
                 raise ValueError("Interaction analysis names must be nonempty strings.")
             if not isinstance(result, Interactions) or not result._is_full:
-                raise TypeError("Interaction analyses must contain full Interactions results.")
+                raise TypeError(
+                    "Interaction analyses must contain full Interactions results."
+                )
 
     if topology is not None:
         validate_independent_topology(topology)
@@ -79,7 +88,8 @@ def write_modular_file(filename, *, topology=None, chemical_states=None,
 def _prepare_structure_state_append(file, links, indices, count, sizes):
     """Validate one existing per-frame state map before any dataset grows."""
     matching = [
-        (position, link) for position, link in enumerate(links)
+        (position, link)
+        for position, link in enumerate(links)
         if link["axis"] == "structure_state"
     ]
     if not matching:
@@ -94,18 +104,28 @@ def _prepare_structure_state_append(file, links, indices, count, sizes):
     if count == 0 and indices is None:
         return None
     if indices is None:
-        raise ValueError("structure_state_indices are required for appended structures.")
+        raise ValueError(
+            "structure_state_indices are required for appended structures."
+        )
     incoming = np.asarray(indices)
     if incoming.size == 0:
         incoming = np.asarray(indices, dtype=np.int64)
-    if incoming.ndim != 1 or incoming.shape != (count,) or incoming.dtype.kind not in "iu":
-        raise ValueError("structure_state_indices must match the appended structure axis.")
+    if (
+        incoming.ndim != 1
+        or incoming.shape != (count,)
+        or incoming.dtype.kind not in "iu"
+    ):
+        raise ValueError(
+            "structure_state_indices must match the appended structure axis."
+        )
     if incoming.dtype.kind == "u" and np.any(incoming > np.iinfo(np.int64).max):
         raise ValueError("structure_state_indices exceed the supported index range.")
     incoming = incoming.astype(np.int64, copy=False)
     n_states = sizes[("chemical_states", None, "state")]
     if np.any(incoming < -1) or np.any(incoming >= n_states):
-        raise ValueError("structure_state_indices contain an index outside the state axis.")
+        raise ValueError(
+            "structure_state_indices contain an index outside the state axis."
+        )
 
     child = file[f"associations/{position}"]
     old_count = sizes[("structures", None, "structure")]
@@ -115,7 +135,9 @@ def _prepare_structure_state_append(file, links, indices, count, sizes):
     else:
         dataset = child["indices"]
         if dataset.dtype != np.dtype("int64") or dataset.maxshape[0] is not None:
-            raise ValueError("The stored structure-to-state association is not appendable.")
+            raise ValueError(
+                "The stored structure-to-state association is not appendable."
+            )
         old_indices = dataset[:]
     joined = np.concatenate((old_indices, incoming))
     updated_sizes = dict(sizes)
@@ -138,13 +160,19 @@ def append_modular_structures(
         if file.attrs.get("type") != "h5msm" or file.attrs.get("version") != "0.5":
             raise ValueError("Expected an H5MSM 0.5 modular file.")
         if "structures" not in file or set(file) - {
-            "structures", "chemical_states", "associations"
+            "structures",
+            "chemical_states",
+            "associations",
         }:
-            raise ValueError("Appending requires a topology-free file without interactions.")
+            raise ValueError(
+                "Appending requires a topology-free file without interactions."
+            )
         sizes = _axis_sizes_from_file(file)
         links = read_associations(file, sizes) or []
         if any(link["axis"] == "structure" for link in links):
-            raise ValueError("Appending cannot extend a stored structure-axis association.")
+            raise ValueError(
+                "Appending cannot extend a stored structure-axis association."
+            )
         state_update = _prepare_structure_state_append(
             file, links, structure_state_indices, structures.n_structures, sizes
         )
@@ -166,11 +194,17 @@ def append_modular_structures(
 def read_modular_file(filename, *, layers=None, analysis_names=None):
     """Read selected optional domains and validate requested associations."""
     allowed = {
-        "topology", "chemical_states", "structures", "interactions", "associations"
+        "topology",
+        "chemical_states",
+        "structures",
+        "interactions",
+        "associations",
     }
     requested = (
-        allowed if layers is None
-        else {layers} if isinstance(layers, str)
+        allowed
+        if layers is None
+        else {layers}
+        if isinstance(layers, str)
         else set(layers)
     )
     if requested - allowed:
@@ -192,27 +226,36 @@ def read_modular_file(filename, *, layers=None, analysis_names=None):
         if "interactions" in requested:
             result["interactions"] = (
                 read_named_analyses(file["interactions"], names=analysis_names)
-                if "interactions" in file else None
+                if "interactions" in file
+                else None
             )
             if analysis_names is not None and result["interactions"] is None:
                 raise KeyError("The file has no interaction analyses.")
         if "associations" in requested:
-            result["associations"] = read_associations(file, _axis_sizes_from_file(file))
+            result["associations"] = read_associations(
+                file, _axis_sizes_from_file(file)
+            )
         return result
 
 
 def _identity_link(axis, source, target, *, source_name=None):
     return {
-        "axis": axis, "source": source, "target": target,
-        "source_name": source_name, "target_name": None,
+        "axis": axis,
+        "source": source,
+        "target": target,
+        "source_name": source_name,
+        "target_name": None,
         "indices": "identity",
     }
 
 
 def _link_key(link):
     return (
-        link["axis"], link["source"], link["source_name"],
-        link["target"], link["target_name"],
+        link["axis"],
+        link["source"],
+        link["source_name"],
+        link["target"],
+        link["target_name"],
     )
 
 
@@ -236,21 +279,30 @@ def write_complete_molsys_file(filename, molsys):
     if ("structures", None, "atom") in sizes:
         links.append(_identity_link("atom", "structures", "topology"))
     for name in sorted(analyses):
-        links.append(_identity_link("atom", "interactions", "topology", source_name=name))
-        links.append(_identity_link("structure", "interactions", "structures", source_name=name))
+        links.append(
+            _identity_link("atom", "interactions", "topology", source_name=name)
+        )
+        links.append(
+            _identity_link("structure", "interactions", "structures", source_name=name)
+        )
     association = molsys._structure_chemical_state_indices
     if association is not None:
-        links.append({
-            "axis": "structure_state", "source": "structures",
-            "target": "chemical_states", "source_name": None,
-            "target_name": None,
-            "indices": [
-                -1 if pd.isna(value) else int(value) for value in association
-            ],
-        })
+        links.append(
+            {
+                "axis": "structure_state",
+                "source": "structures",
+                "target": "chemical_states",
+                "source_name": None,
+                "target_name": None,
+                "indices": [
+                    -1 if pd.isna(value) else int(value) for value in association
+                ],
+            }
+        )
     normalize_associations(links, sizes)
     write_modular_file(
-        filename, topology=molsys.topology,
+        filename,
+        topology=molsys.topology,
         chemical_states=molsys.chemical_states,
         structures=molsys.structures,
         interactions=analyses or None,
@@ -258,7 +310,9 @@ def write_complete_molsys_file(filename, molsys):
     )
 
 
-def _read_calculation_chemistry(filename, *, chemical_state, structure_indices, require_topology=True):
+def _read_calculation_chemistry(
+    filename, *, chemical_state, structure_indices, require_topology=True
+):
     """Prepare native chemistry on declared shared axes without reading structures."""
     import numpy as np
 
@@ -270,11 +324,17 @@ def _read_calculation_chemistry(filename, *, chemical_state, structure_indices, 
     )
     topology, states = payload["topology"], payload["chemical_states"]
     if states is None or (require_topology and topology is None):
-        raise ValueError("Calculation requires chemical states and, when requested, a topology layer.")
+        raise ValueError(
+            "Calculation requires chemical states and, when requested, a topology layer."
+        )
     with h5py.File(filename, "r") as file:
         sizes = _axis_sizes_from_file(file)
     by_key = {_link_key(link): link for link in payload["associations"] or []}
-    required = [_identity_link("atom", "chemical_states", "topology")] if topology is not None else []
+    required = (
+        [_identity_link("atom", "chemical_states", "topology")]
+        if topology is not None
+        else []
+    )
     if topology is not None and ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "topology"))
     elif topology is None and ("structures", None, "atom") in sizes:
@@ -282,7 +342,8 @@ def _read_calculation_chemistry(filename, *, chemical_state, structure_indices, 
     for link in required:
         observed = by_key.get(_link_key(link))
         if (
-            observed is None or not isinstance(observed["indices"], str)
+            observed is None
+            or not isinstance(observed["indices"], str)
             or observed["target"] != link["target"]
             or observed["target_name"] != link["target_name"]
         ):
@@ -316,7 +377,9 @@ def read_complete_molsys_file(filename):
     states = payload["chemical_states"]
     structures = payload["structures"]
     if topology is None or states is None or structures is None:
-        raise ValueError("A complete MolSys requires topology, chemical states, and structures.")
+        raise ValueError(
+            "A complete MolSys requires topology, chemical states, and structures."
+        )
     links = payload["associations"]
     if links is None:
         raise ValueError("A complete MolSys requires explicit atom-axis associations.")
@@ -326,8 +389,12 @@ def read_complete_molsys_file(filename):
     if ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "topology"))
     for name in sorted(payload["interactions"] or {}):
-        required.append(_identity_link("atom", "interactions", "topology", source_name=name))
-        required.append(_identity_link("structure", "interactions", "structures", source_name=name))
+        required.append(
+            _identity_link("atom", "interactions", "topology", source_name=name)
+        )
+        required.append(
+            _identity_link("structure", "interactions", "structures", source_name=name)
+        )
     state_key = ("structure_state", "structures", None, "chemical_states", None)
     allowed_keys = {_link_key(link) for link in required} | {state_key}
     if set(by_key) - allowed_keys:
@@ -335,8 +402,7 @@ def read_complete_molsys_file(filename):
     for link in required:
         observed = by_key.get(_link_key(link))
         if observed is None or not (
-            isinstance(observed["indices"], str)
-            and observed["indices"] == "identity"
+            isinstance(observed["indices"], str) and observed["indices"] == "identity"
         ):
             raise ValueError("MolSys requires declared identity links for shared axes.")
 
@@ -363,13 +429,12 @@ def read_state_only_molsys_file(filename):
     payload = read_modular_file(filename)
     if payload["chemical_states"] is None:
         raise ValueError("A state-only MolSys requires chemical states.")
-    if any(payload[name] is not None for name in (
-        "topology", "structures", "interactions", "associations"
-    )):
+    if any(
+        payload[name] is not None
+        for name in ("topology", "structures", "interactions", "associations")
+    ):
         raise ValueError("A state-only MolSys cannot contain other H5MSM layers.")
-    return MolSys._from_partial_domains(
-        chemical_states=payload["chemical_states"]
-    )
+    return MolSys._from_partial_domains(chemical_states=payload["chemical_states"])
 
 
 def write_topology_free_molsys_file(filename, molsys):
@@ -391,26 +456,36 @@ def write_topology_free_molsys_file(filename, molsys):
     if ("structures", None, "atom") in sizes:
         links.append(_identity_link("atom", "structures", "chemical_states"))
     for name in sorted(analyses):
-        links.append(_identity_link(
-            "atom", "interactions", "chemical_states", source_name=name
-        ))
+        links.append(
+            _identity_link("atom", "interactions", "chemical_states", source_name=name)
+        )
         if structures is not None:
-            links.append(_identity_link(
-                "structure", "interactions", "structures", source_name=name
-            ))
+            links.append(
+                _identity_link(
+                    "structure", "interactions", "structures", source_name=name
+                )
+            )
     association = molsys._structure_chemical_state_indices
     if association is not None:
         if structures is None:
             raise ValueError("Structure-to-state associations require structures.")
-        links.append({
-            "axis": "structure_state", "source": "structures",
-            "target": "chemical_states", "source_name": None,
-            "target_name": None,
-            "indices": [-1 if pd.isna(value) else int(value) for value in association],
-        })
+        links.append(
+            {
+                "axis": "structure_state",
+                "source": "structures",
+                "target": "chemical_states",
+                "source_name": None,
+                "target_name": None,
+                "indices": [
+                    -1 if pd.isna(value) else int(value) for value in association
+                ],
+            }
+        )
     write_modular_file(
-        filename, chemical_states=molsys.chemical_states,
-        structures=structures, interactions=analyses or None,
+        filename,
+        chemical_states=molsys.chemical_states,
+        structures=structures,
+        interactions=analyses or None,
         associations=links or None,
     )
 
@@ -427,7 +502,9 @@ def read_topology_free_molsys_file(filename):
     structures = payload["structures"]
     analyses = payload["interactions"]
     if analyses is not None and not analyses:
-        raise ValueError("MolSys cannot represent a present-empty interaction layer yet.")
+        raise ValueError(
+            "MolSys cannot represent a present-empty interaction layer yet."
+        )
 
     links = payload["associations"] or []
     by_key = {_link_key(link): link for link in links}
@@ -436,13 +513,15 @@ def read_topology_free_molsys_file(filename):
     if ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "chemical_states"))
     for name in sorted(analyses or {}):
-        required.append(_identity_link(
-            "atom", "interactions", "chemical_states", source_name=name
-        ))
+        required.append(
+            _identity_link("atom", "interactions", "chemical_states", source_name=name)
+        )
         if structures is not None:
-            required.append(_identity_link(
-                "structure", "interactions", "structures", source_name=name
-            ))
+            required.append(
+                _identity_link(
+                    "structure", "interactions", "structures", source_name=name
+                )
+            )
     state_key = ("structure_state", "structures", None, "chemical_states", None)
     allowed_keys = {_link_key(link) for link in required}
     if structures is not None:
@@ -452,14 +531,13 @@ def read_topology_free_molsys_file(filename):
     for link in required:
         observed = by_key.get(_link_key(link))
         if observed is None or not (
-            isinstance(observed["indices"], str)
-            and observed["indices"] == "identity"
+            isinstance(observed["indices"], str) and observed["indices"] == "identity"
         ):
             raise ValueError("MolSys requires declared identity links for shared axes.")
 
     result = MolSys._from_partial_domains(
-        chemical_states=payload["chemical_states"], structures=structures,
-        interactions=analyses or {},
+        chemical_states=payload["chemical_states"],
+        structures=structures,
     )
     if state_key in by_key:
         indices = by_key[state_key]["indices"]
@@ -468,6 +546,7 @@ def read_topology_free_molsys_file(filename):
         result._set_structure_chemical_state_indices(
             [pd.NA if value < 0 else int(value) for value in indices]
         )
+    result.interactions = analyses or {}
     return result
 
 
@@ -486,26 +565,31 @@ def write_no_chemical_states_molsys_file(filename, molsys):
         raise ValueError("The topology contains chemistry absent from MolSys.")
     if molsys._structure_chemical_state_indices is not None:
         raise ValueError("Structure-to-state assignments require chemical states.")
-    if any(value is not None for value in molsys.molecular_mechanics.to_dict().values()):
+    if any(
+        value is not None for value in molsys.molecular_mechanics.to_dict().values()
+    ):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
 
     analyses = dict(molsys.interactions)
     sizes = _axis_sizes(topology, None, structures, analyses)
     links = []
-    if (("topology", None, "atom") in sizes
-            and ("structures", None, "atom") in sizes):
+    if ("topology", None, "atom") in sizes and ("structures", None, "atom") in sizes:
         links.append(_identity_link("atom", "structures", "topology"))
     atom_target = "topology" if topology is not None else "structures"
     for name in sorted(analyses):
-        links.append(_identity_link(
-            "atom", "interactions", atom_target, source_name=name
-        ))
+        links.append(
+            _identity_link("atom", "interactions", atom_target, source_name=name)
+        )
         if structures is not None:
-            links.append(_identity_link(
-                "structure", "interactions", "structures", source_name=name
-            ))
+            links.append(
+                _identity_link(
+                    "structure", "interactions", "structures", source_name=name
+                )
+            )
     write_modular_file(
-        filename, topology=topology, structures=structures,
+        filename,
+        topology=topology,
+        structures=structures,
         interactions=analyses or None,
         associations=links or None,
     )
@@ -523,23 +607,26 @@ def read_no_chemical_states_molsys_file(filename):
         raise ValueError("This reader requires absent chemical states.")
     analyses = payload["interactions"]
     if analyses is not None and not analyses:
-        raise ValueError("MolSys cannot represent a present-empty interaction layer yet.")
+        raise ValueError(
+            "MolSys cannot represent a present-empty interaction layer yet."
+        )
     if topology is None and structures is None:
         raise ValueError("A molecular payload needs topology or structures.")
     sizes = _axis_sizes(topology, None, structures, analyses)
     required = []
-    if (("topology", None, "atom") in sizes
-            and ("structures", None, "atom") in sizes):
+    if ("topology", None, "atom") in sizes and ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "topology"))
     atom_target = "topology" if topology is not None else "structures"
     for name in sorted(analyses or {}):
-        required.append(_identity_link(
-            "atom", "interactions", atom_target, source_name=name
-        ))
+        required.append(
+            _identity_link("atom", "interactions", atom_target, source_name=name)
+        )
         if structures is not None:
-            required.append(_identity_link(
-                "structure", "interactions", "structures", source_name=name
-            ))
+            required.append(
+                _identity_link(
+                    "structure", "interactions", "structures", source_name=name
+                )
+            )
     links = payload["associations"] or []
     by_key = {_link_key(link): link for link in links}
     if set(by_key) - {_link_key(link) for link in required}:
@@ -547,12 +634,13 @@ def read_no_chemical_states_molsys_file(filename):
     for link in required:
         observed = by_key.get(_link_key(link))
         if observed is None or not (
-            isinstance(observed["indices"], str)
-            and observed["indices"] == "identity"
+            isinstance(observed["indices"], str) and observed["indices"] == "identity"
         ):
             raise ValueError("MolSys requires declared identity links for shared axes.")
     return MolSys._from_partial_domains(
-        topology=topology, structures=structures, chemical_states=None,
+        topology=topology,
+        structures=structures,
+        chemical_states=None,
         interactions=analyses or {},
     )
 
@@ -562,17 +650,26 @@ def write_topology_chemistry_molsys_file(filename, molsys):
 
     from molsysmt.native import MolSys
 
-    if (not isinstance(molsys, MolSys) or molsys.topology is None
-            or molsys.chemical_states is None or molsys.structures is not None):
+    if (
+        not isinstance(molsys, MolSys)
+        or molsys.topology is None
+        or molsys.chemical_states is None
+        or molsys.structures is not None
+    ):
         raise TypeError("This H5MSM probe requires topology and chemistry only.")
     if molsys.topology._chemical_states_domain is not molsys.chemical_states:
-        raise ValueError("Topology and MolSys disagree on the chemical-state authority.")
+        raise ValueError(
+            "Topology and MolSys disagree on the chemical-state authority."
+        )
     if molsys.interactions:
         raise ValueError("This H5MSM probe cannot encode interaction analyses yet.")
-    if any(value is not None for value in molsys.molecular_mechanics.to_dict().values()):
+    if any(
+        value is not None for value in molsys.molecular_mechanics.to_dict().values()
+    ):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
     write_modular_file(
-        filename, topology=molsys.topology,
+        filename,
+        topology=molsys.topology,
         chemical_states=molsys.chemical_states,
         associations=[_identity_link("atom", "chemical_states", "topology")],
     )
@@ -584,14 +681,21 @@ def read_topology_chemistry_molsys_file(filename):
     from molsysmt.native import MolSys
 
     payload = read_modular_file(filename)
-    if (payload["topology"] is None or payload["chemical_states"] is None
-            or payload["structures"] is not None or payload["interactions"] is not None):
+    if (
+        payload["topology"] is None
+        or payload["chemical_states"] is None
+        or payload["structures"] is not None
+        or payload["interactions"] is not None
+    ):
         raise ValueError("This reader requires topology and chemistry only.")
     expected = _identity_link("atom", "chemical_states", "topology")
     links = payload["associations"] or []
-    if len(links) != 1 or _link_key(links[0]) != _link_key(expected) or not (
-        isinstance(links[0]["indices"], str)
-        and links[0]["indices"] == "identity"
+    if (
+        len(links) != 1
+        or _link_key(links[0]) != _link_key(expected)
+        or not (
+            isinstance(links[0]["indices"], str) and links[0]["indices"] == "identity"
+        )
     ):
         raise ValueError("MolSys requires one declared identity atom-axis link.")
     return MolSys._from_partial_domains(
@@ -606,11 +710,16 @@ def write_molsys_file(filename, molsys):
 
     if not isinstance(molsys, MolSys):
         raise TypeError("H5MSM 0.5 requires a native MolSys.")
-    if (molsys.topology is None and molsys.chemical_states is None
-            and molsys.structures is None):
+    if (
+        molsys.topology is None
+        and molsys.chemical_states is None
+        and molsys.structures is None
+    ):
         if not molsys.interactions:
             raise ValueError("An interaction-only MolSys needs a named analysis.")
-        if any(value is not None for value in molsys.molecular_mechanics.to_dict().values()):
+        if any(
+            value is not None for value in molsys.molecular_mechanics.to_dict().values()
+        ):
             raise ValueError("H5MSM 0.5 cannot encode molecular mechanics yet.")
         return write_modular_file(filename, interactions=dict(molsys.interactions))
     if molsys.chemical_states is None:
@@ -628,7 +737,11 @@ def read_molsys_file(filename):
         if file.attrs.get("type") != "h5msm" or file.attrs.get("version") != "0.5":
             raise ValueError("Expected an H5MSM 0.5 modular file.")
         allowed = {
-            "topology", "chemical_states", "structures", "interactions", "associations"
+            "topology",
+            "chemical_states",
+            "structures",
+            "interactions",
+            "associations",
         }
         if set(file) - allowed:
             raise ValueError("H5MSM 0.5 file contains an unknown root layer.")
@@ -681,14 +794,21 @@ def migrate_to_05(source_filename, output_filename, *, source_version=None):
         version = file.attrs.get("version")
         if isinstance(version, bytes):
             version = version.decode()
-        if (file.attrs.get("type") != "h5msm" or version not in {"0.3", "0.4"}
-                or (source_version is not None and version != source_version)):
+        if (
+            file.attrs.get("type") != "h5msm"
+            or version not in {"0.3", "0.4"}
+            or (source_version is not None and version != source_version)
+        ):
             expected = source_version or "0.3 or 0.4"
             raise ValueError(f"Migration requires an H5MSM {expected} source file.")
         if "topology" not in file or "structures" not in file:
-            raise ValueError("The legacy source lacks its topology or structures scaffold.")
+            raise ValueError(
+                "The legacy source lacks its topology or structures scaffold."
+            )
         if int(file["topology"].attrs.get("n_atoms", 0)) == 0:
-            raise ValueError("A zero-atom legacy scaffold has ambiguous layer presence.")
+            raise ValueError(
+                "A zero-atom legacy scaffold has ambiguous layer presence."
+            )
 
     from molsysmt.basic import convert
 

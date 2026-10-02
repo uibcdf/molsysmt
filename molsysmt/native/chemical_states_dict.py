@@ -76,24 +76,28 @@ def _decode_table(payload):
 def _encode_chemical_states(states):
     records = []
     for state in states._states:
-        records.append({
-            "state_id": state.state_id,
-            "connectivity_completeness": state.connectivity_completeness,
-            "component_completeness": state.component_completeness,
-            "component_evidence": state.component_evidence,
-            "provenance_index": state.provenance_index,
-            "component_indices": _encode_series(state.component_indices),
-            "components": _encode_table(state.components),
-            "atom_attributes": _encode_table(state.atom_attributes),
-            "bonds": _encode_table(state.bonds),
-        })
-    return ChemicalStatesDict({
-        "schema": "molsysmt.chemical_states_dict",
-        "version": 1,
-        "n_atoms": states.n_atoms,
-        "reference_chemical_state_index": states._reference_index,
-        "states": records,
-    })
+        records.append(
+            {
+                "state_id": state.state_id,
+                "connectivity_completeness": state.connectivity_completeness,
+                "component_completeness": state.component_completeness,
+                "component_evidence": state.component_evidence,
+                "provenance_index": state.provenance_index,
+                "component_indices": _encode_series(state.component_indices),
+                "components": _encode_table(state.components),
+                "atom_attributes": _encode_table(state.atom_attributes),
+                "bonds": _encode_table(state.bonds),
+            }
+        )
+    return ChemicalStatesDict(
+        {
+            "schema": "molsysmt.chemical_states_dict",
+            "version": 1,
+            "n_atoms": states.n_atoms,
+            "reference_chemical_state_index": states._reference_index,
+            "states": records,
+        }
+    )
 
 
 def _decode_chemical_states(payload):
@@ -101,7 +105,10 @@ def _decode_chemical_states(payload):
     from .topology import Bonds_DataFrame, Components_DataFrame, _ChemicalStateStorage
 
     data = payload.data
-    if data.get("schema") != "molsysmt.chemical_states_dict" or data.get("version") != 1:
+    if (
+        data.get("schema") != "molsysmt.chemical_states_dict"
+        or data.get("version") != 1
+    ):
         raise ValueError("Unsupported ChemicalStatesDict schema or version.")
     n_atoms = int(data["n_atoms"])
     collection = ChemicalStates(n_atoms=n_atoms)
@@ -119,7 +126,9 @@ def _decode_chemical_states(payload):
 
         component_indices = _decode_series(record["component_indices"])
         if len(component_indices) != n_atoms:
-            raise ValueError("ChemicalStatesDict component indices have the wrong length.")
+            raise ValueError(
+                "ChemicalStatesDict component indices have the wrong length."
+            )
         state = _ChemicalStateStorage(
             n_atoms=n_atoms,
             bonds=bonds,

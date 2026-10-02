@@ -9,15 +9,18 @@ from molsysmt._private.smonitor import MemoryBudgetExceededError
 
 def test_sparse_blocks_keep_numeric_columns_and_typed_empty_shape():
     accumulator = SparseColumnAccumulator(
-        {"pairs": (np.int64, (2,)), "distance": (np.float64, ())}, budget_bytes=10000,
+        {"pairs": (np.int64, (2,)), "distance": (np.float64, ())},
+        budget_bytes=10000,
     )
     assert accumulator.concatenate("pairs").shape == (0, 2)
     assert accumulator.concatenate("distance").dtype == np.float64
     for count in (2, 0, 1):
-        accumulator.append({
-            "pairs": np.zeros((count, 2), dtype=np.int64),
-            "distance": np.ones(count, dtype=np.float64),
-        })
+        accumulator.append(
+            {
+                "pairs": np.zeros((count, 2), dtype=np.int64),
+                "distance": np.ones(count, dtype=np.float64),
+            }
+        )
     assert accumulator.n_rows == 3
     assert accumulator.nbytes == 72
     assert accumulator.concatenate("pairs").shape == (3, 2)
@@ -38,7 +41,8 @@ def test_result_working_budget_rejects_a_block_without_retaining_it():
 @pytest.mark.parametrize("fault", ["dtype", "shape", "rows", "names"])
 def test_column_schema_rejects_misaligned_numeric_buffers(fault):
     accumulator = SparseColumnAccumulator(
-        {"pairs": (np.int64, (2,)), "distance": (np.float64, ())}, budget_bytes=10000,
+        {"pairs": (np.int64, (2,)), "distance": (np.float64, ())},
+        budget_bytes=10000,
     )
     columns = {"pairs": np.zeros((2, 2), dtype=np.int64), "distance": np.ones(2)}
     if fault == "dtype":

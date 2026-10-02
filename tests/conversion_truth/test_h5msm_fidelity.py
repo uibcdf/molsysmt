@@ -7,9 +7,10 @@ from molsysmt import pyunitwizard as puw
 
 
 def _roundtrip_h5msm(molsys, filename, float_precision):
-    msm.convert(
+    from molsysmt.form.molsysmt_MolSys.to_file_h5msm import to_file_h5msm
+
+    to_file_h5msm(
         molsys,
-        to_form="file:h5msm",
         output_filename=str(filename),
         float_precision=float_precision,
         int_precision=float_precision,
@@ -41,7 +42,7 @@ def test_h5msm_04_preserves_normalized_bond_fields(rich_molsys, tmp_path):
     assert restored.bonds["is_conjugated"].tolist() == [True, pd.NA, pd.NA]
 
 
-def test_h5msm_single_and_double_precision_have_explicit_numeric_contracts(
+def test_legacy_h5msm_single_and_double_precision_have_explicit_numeric_contracts(
     rich_molsys, tmp_path
 ):
     single = _roundtrip_h5msm(rich_molsys, tmp_path / "single.h5msm", "single")
@@ -77,7 +78,7 @@ def test_h5msm_single_and_double_precision_have_explicit_numeric_contracts(
     )
 
 
-def test_h5msm_writer_reads_component_membership_through_native_seam(
+def test_legacy_h5msm_writer_reads_component_membership_through_native_seam(
     rich_molsys, tmp_path, monkeypatch
 ):
     topology = rich_molsys.topology.copy()
@@ -92,11 +93,9 @@ def test_h5msm_writer_reads_component_membership_through_native_seam(
     )
     filename = tmp_path / "component-seam-write.h5msm"
 
-    msm.convert(
-        topology,
-        to_form="file:h5msm",
-        output_filename=str(filename),
-    )
+    from molsysmt.form.molsysmt_Topology.to_file_h5msm import to_file_h5msm
+
+    to_file_h5msm(topology, output_filename=str(filename))
 
     with h5py.File(filename, "r") as file:
         np.testing.assert_array_equal(

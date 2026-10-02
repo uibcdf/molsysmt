@@ -159,7 +159,16 @@ def test_release_gate_and_workflow_enforce_the_two_citation_phases():
     workflow = yaml.load(
         workflow_path.read_text(encoding="utf-8"), Loader=yaml.BaseLoader
     )
-    assert workflow["on"]["release"]["types"] == ["released"]
-    step = workflow["jobs"]["verify"]["steps"][-1]
-    assert "verify_zenodo_release.py" in step["run"]
-    assert step["env"]["RELEASE_VERSION"]
+    assert workflow["on"]["release"]["types"] == ["published"]
+    assert workflow["on"]["schedule"]
+    assert "version" in workflow["on"]["workflow_dispatch"]["inputs"]
+    job = workflow["jobs"]["verify"]
+    assert job["uses"] == (
+        "uibcdf/molsyssuite/.github/workflows/verify-zenodo-releases.yaml"
+        "@2cc2d9bfe80f14a981d40bc109ecdf2af39b693b"
+    )
+    assert job["with"]["concept-doi"] == "10.5281/zenodo.1298752"
+    assert job["with"]["tag"] == (
+        "${{ github.event.release.tag_name || inputs.version || '' }}"
+    )
+    assert job["with"]["since"] == "2026-09-25T00:00:00Z"

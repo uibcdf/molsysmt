@@ -24,4 +24,6 @@ def test_file_h5msm_preserves_b_factor_roundtrip(tmp_path, tctim_bcif_molsys):
         msm.pyunitwizard.get_value(b_factor_from_molsys),
     )
     restored = msm.convert(output_path)
-    assert set(restored.structures.bioassembly) == set(tctim_bcif_molsys.structures.bioassembly)
+    assert set(restored.structures.bioassembly) == set(
+        tctim_bcif_molsys.structures.bioassembly
+    )

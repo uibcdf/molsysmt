@@ -3,19 +3,16 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_output_type(output_type, caller=None):
 
-    if (
-        caller in {
-            "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination",
-            "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges",
-
-            "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",
-            "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions",
-            "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",
-            "molsysmt.interactions.hbonds.get_hbonds.get_hbonds",
-            "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
-            "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions",
-        }
-    ):
+    if caller in {
+        "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination",
+        "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges",
+        "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",
+        "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.get_hydrophobic_interactions",
+        "molsysmt.interactions.ionic.get_ionic_interactions.get_ionic_interactions",
+        "molsysmt.interactions.hbonds.get_hbonds.get_hbonds",
+        "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
+        "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions",
+    }:
         if isinstance(output_type, str) and output_type.lower() in {
             "molsysmt.interactions",
             "molsysmt.interactionsdict",

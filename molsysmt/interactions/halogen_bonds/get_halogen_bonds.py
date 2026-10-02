@@ -20,12 +20,25 @@ from molsysmt._private.variables import is_all
 @dep_digest("rdkit")
 @attributed("halogen_bonds")
 def get_halogen_bonds(
-    molecular_system, selection="all", selection_2=None, structure_indices="all",
-    chemical_state="reference", method="distance_two_angles", distance_threshold=None,
-    donor_angle_range=None, acceptor_angle_range=None, selection_mode="internal",
-    pbc=True, assume_complete_connectivity=False, output_type="molsysmt.Interactions",
-    syntax="MolSysMT", skip_digestion=False, *, max_matches=100000,
-    heavy_mode="auto", profile=None,
+    molecular_system,
+    selection="all",
+    selection_2=None,
+    structure_indices="all",
+    chemical_state="reference",
+    method="distance_two_angles",
+    distance_threshold=None,
+    donor_angle_range=None,
+    acceptor_angle_range=None,
+    selection_mode="internal",
+    pbc=True,
+    assume_complete_connectivity=False,
+    output_type="molsysmt.Interactions",
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    max_matches=100000,
+    heavy_mode="auto",
+    profile=None,
 ):
     """Detecting sparse halogen bonds by distance and two directional angles.
 
@@ -172,44 +185,96 @@ def get_halogen_bonds(
 
     caller = "molsysmt.interactions.halogen_bonds.get_halogen_bonds"
     if (selection_mode == "between") != (selection_2 is not None):
-        raise ArgumentError("selection_2", caller=caller, message="Supply a second selection only for between searches.")
-    distance = .35 if distance_threshold is None else np.asarray(puw.get_value(distance_threshold, to_unit="nm"))
+        raise ArgumentError(
+            "selection_2",
+            caller=caller,
+            message="Supply a second selection only for between searches.",
+        )
+    distance = (
+        0.35
+        if distance_threshold is None
+        else np.asarray(puw.get_value(distance_threshold, to_unit="nm"))
+    )
     if np.shape(distance) != () or not np.isfinite(distance) or distance <= 0:
-        raise ArgumentError("distance_threshold", caller=caller, message="Use a finite positive scalar length.")
-    donor_angle = np.deg2rad([130., 180.]) if donor_angle_range is None else np.asarray(puw.get_value(donor_angle_range, to_unit="radians"))
-    acceptor_angle = np.deg2rad([80., 140.]) if acceptor_angle_range is None else np.asarray(puw.get_value(acceptor_angle_range, to_unit="radians"))
+        raise ArgumentError(
+            "distance_threshold",
+            caller=caller,
+            message="Use a finite positive scalar length.",
+        )
+    donor_angle = (
+        np.deg2rad([130.0, 180.0])
+        if donor_angle_range is None
+        else np.asarray(puw.get_value(donor_angle_range, to_unit="radians"))
+    )
+    acceptor_angle = (
+        np.deg2rad([80.0, 140.0])
+        if acceptor_angle_range is None
+        else np.asarray(puw.get_value(acceptor_angle_range, to_unit="radians"))
+    )
     dimensions = modular_h5msm_dimensions(molecular_system)
     modular = dimensions is not None
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
     if any(value is None for value in dimensions):
-        raise StructuralInconsistencyError(reason="Declared atom and structure axes are required.", caller=caller)
+        raise StructuralInconsistencyError(
+            reason="Declared atom and structure axes are required.", caller=caller
+        )
     n_atoms, n_structures = map(int, dimensions)
-    frames = np.arange(n_structures, dtype=np.int64) if is_all(structure_indices) else np.unique(structure_indices).astype(np.int64)
+    frames = (
+        np.arange(n_structures, dtype=np.int64)
+        if is_all(structure_indices)
+        else np.unique(structure_indices).astype(np.int64)
+    )
     if np.any(frames < 0) or np.any(frames >= n_structures):
         raise ArgumentError("structure_indices", value=structure_indices, caller=caller)
     fixed = 8 * (2 * n_atoms + 4 * n_structures)
-    SparseColumnAccumulator({}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed).check_budget()
+    SparseColumnAccumulator(
+        {}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed
+    ).check_budget()
     coordinate_source = molecular_system
-    index_selections = all(value is None or not isinstance(value, str) or is_all(value) for value in (selection, selection_2))
+    index_selections = all(
+        value is None or not isinstance(value, str) or is_all(value)
+        for value in (selection, selection_2)
+    )
     if modular and not index_selections:
         from molsysmt._private.execution.memory_policy import estimate_footprint
         from molsysmt._private.h5msm import maybe_read_modular_h5msm
 
-        if heavy_mode == "force" or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage:
-            raise UnsupportedHeavyOperationError(operation=caller, form="H5MSM rich selections",
-                                                 reason="Use atom-index selections or all for bounded file calculations.")
+        if (
+            heavy_mode == "force"
+            or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage
+        ):
+            raise UnsupportedHeavyOperationError(
+                operation=caller,
+                form="H5MSM rich selections",
+                reason="Use atom-index selections or all for bounded file calculations.",
+            )
         molecular_system = maybe_read_modular_h5msm(molecular_system)
         coordinate_source = molecular_system
     source, states, _, state_index, _, _, selection_frames = chemical_graph_context(
-        molecular_system, chemical_state, frames, assume_complete_connectivity, caller)
-    sites = get_halogen_bond_sites(source, chemical_state=state_index,
-                                  assume_complete_connectivity=assume_complete_connectivity, max_matches=max_matches)
+        molecular_system, chemical_state, frames, assume_complete_connectivity, caller
+    )
+    sites = get_halogen_bond_sites(
+        source,
+        chemical_state=state_index,
+        assume_complete_connectivity=assume_complete_connectivity,
+        max_matches=max_matches,
+    )
     donors, acceptors = sites["donor_halogen_pairs"], sites["acceptor_reference_pairs"]
-    first = select_chemical_atoms(source, states, state_index, selection, selection_frames, syntax)
-    second = None if selection_2 is None else select_chemical_atoms(source, states, state_index, selection_2, selection_frames, syntax)
+    first = select_chemical_atoms(
+        source, states, state_index, selection, selection_frames, syntax
+    )
+    second = (
+        None
+        if selection_2 is None
+        else select_chemical_atoms(
+            source, states, state_index, selection_2, selection_frames, syntax
+        )
+    )
     if second is not None and np.intersect1d(first, second).size:
-        raise ArgumentError("selection_2", caller=caller, message="Between selections must be disjoint.")
+        raise ArgumentError(
+            "selection_2", caller=caller, message="Between selections must be disjoint."
+        )
     if selection_mode != "incident":
         union = first if second is None else np.union1d(first, second)
         donors = donors[np.isin(donors, union).all(axis=1)]
@@ -217,32 +282,61 @@ def get_halogen_bonds(
     donor_rows, acceptor_rows = np.arange(len(donors)), np.arange(len(acceptors))
     if selection_mode == "incident":
         in_first = np.isin(donors, first).any(axis=1)
-        searches = [(donor_rows[in_first], acceptor_rows),
-                    (donor_rows[~in_first], acceptor_rows[np.isin(acceptors, first).any(axis=1)])]
+        searches = [
+            (donor_rows[in_first], acceptor_rows),
+            (
+                donor_rows[~in_first],
+                acceptor_rows[np.isin(acceptors, first).any(axis=1)],
+            ),
+        ]
     else:
         searches = [(donor_rows, acceptor_rows)]
     searches = [(d, a) for d, a in searches if len(d) and len(a)]
     universe = np.unique(np.concatenate((donors.ravel(), acceptors.ravel())))
     metadata = dict(
-        n_atoms=n_atoms, n_structures=n_structures, evaluated_structure_indices=frames,
-        method=caller, software=sites["software"],
-        measure_units={"distance": "nm", "donor_angle": "radians", "acceptor_angle": "radians",
-                       "donor_halogen_distance": "nm", "acceptor_reference_distance": "nm"},
-        evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
-        evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
+        n_atoms=n_atoms,
+        n_structures=n_structures,
+        evaluated_structure_indices=frames,
+        method=caller,
+        software=sites["software"],
+        measure_units={
+            "distance": "nm",
+            "donor_angle": "radians",
+            "acceptor_angle": "radians",
+            "donor_halogen_distance": "nm",
+            "acceptor_reference_distance": "nm",
+        },
+        evaluation_mode=selection_mode,
+        evaluation_atom_indices=np.intersect1d(first, universe),
+        evaluation_atom_indices_b=None
+        if second is None
+        else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
         parameters=dict(
-            method=method, method_reference=sites["method_reference"], geometry_rule_version="distance_two_angles_halogen@1",
-            scientific_references=["auffinger_2004"], scientific_reference_relationship="adapted_not_original_thresholds",
-            site_definition=sites["method"], chemistry_evidence=sites["evidence"], smarts_patterns=sites["smarts_patterns"],
-            max_matches=max_matches, distance_threshold={"value": float(distance), "unit": "nm"},
+            method=method,
+            method_reference=sites["method_reference"],
+            geometry_rule_version="distance_two_angles_halogen@1",
+            scientific_references=["auffinger_2004"],
+            scientific_reference_relationship="adapted_not_original_thresholds",
+            site_definition=sites["method"],
+            chemistry_evidence=sites["evidence"],
+            smarts_patterns=sites["smarts_patterns"],
+            max_matches=max_matches,
+            distance_threshold={"value": float(distance), "unit": "nm"},
             donor_angle_range={"value": donor_angle.tolist(), "unit": "radians"},
             acceptor_angle_range={"value": acceptor_angle.tolist(), "unit": "radians"},
-            comparisons="inclusive_without_tolerance", chemical_state_index=state_index,
-            assume_complete_connectivity=assume_complete_connectivity, recognition_scope="full_source_chemical_state",
-            pbc=pbc, pbc_policy="mic_when_box_available", image_policy="adjacent_chain_mic_anchored_on_donor",
-            reference_neighbors="distinct_directional_observations", intramolecular="included",
-            covalent_exclusion="none", undefined_angles="skipped", occupancy_policy="individual_frame_observations",
+            comparisons="inclusive_without_tolerance",
+            chemical_state_index=state_index,
+            assume_complete_connectivity=assume_complete_connectivity,
+            recognition_scope="full_source_chemical_state",
+            pbc=pbc,
+            pbc_policy="mic_when_box_available",
+            image_policy="adjacent_chain_mic_anchored_on_donor",
+            reference_neighbors="distinct_directional_observations",
+            intramolecular="included",
+            covalent_exclusion="none",
+            undefined_angles="skipped",
+            occupancy_policy="individual_frame_observations",
             adaptation="single_source_sparse_scopes_no_residue_pruning_coherent_chain_mic",
         ),
     )
@@ -251,10 +345,37 @@ def get_halogen_bonds(
         metadata["execution"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
-        reducer = _HalogenReducer(donors=donors, acceptors=acceptors, universe=universe, searches=searches,
-                                 first=first, second=second, distance=float(distance), donor_angle=donor_angle,
-                                 acceptor_angle=acceptor_angle, metadata=metadata, budget_bytes=configure.max_ram_usage)
-        per_frame = 4 * 24 * len(universe) + 384 * (len(donors) + len(acceptors)) + 4096 + (288 if pbc else 0)
-        result = execute_projected_geometry(coordinate_source, universe=universe, frames=frames, reducer=reducer,
-                                           per_frame_bytes=per_frame, pbc=pbc, heavy_mode=heavy_mode, caller=caller)
-    return result if output_type == "molsysmt.interactions" else convert(result, to_form="molsysmt.InteractionsDict")
+        reducer = _HalogenReducer(
+            donors=donors,
+            acceptors=acceptors,
+            universe=universe,
+            searches=searches,
+            first=first,
+            second=second,
+            distance=float(distance),
+            donor_angle=donor_angle,
+            acceptor_angle=acceptor_angle,
+            metadata=metadata,
+            budget_bytes=configure.max_ram_usage,
+        )
+        per_frame = (
+            4 * 24 * len(universe)
+            + 384 * (len(donors) + len(acceptors))
+            + 4096
+            + (288 if pbc else 0)
+        )
+        result = execute_projected_geometry(
+            coordinate_source,
+            universe=universe,
+            frames=frames,
+            reducer=reducer,
+            per_frame_bytes=per_frame,
+            pbc=pbc,
+            heavy_mode=heavy_mode,
+            caller=caller,
+        )
+    return (
+        result
+        if output_type == "molsysmt.interactions"
+        else convert(result, to_form="molsysmt.InteractionsDict")
+    )

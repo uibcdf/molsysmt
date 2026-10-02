@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import io
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -129,9 +130,42 @@ def test_promotion_requires_exact_release_and_installed_pair_evidence():
     )
     assert "git rev-list -n 1" in identity["run"]
     assert "release_route.py" in identity["run"]
-    assert "validate_conda_staging.yaml" in identity["run"]
-    assert "--jq .total_count" in identity["run"]
-    assert "--jq .display_title" in identity["run"]
+    matrix = next(step for step in steps if step.get("id") == "installed_matrix")
+    assert matrix["uses"] == (
+        "uibcdf/molsyssuite/.github/actions/verify-installed-matrix"
+        "@778c918b37a1c2c2fa03ed387a000bff0edf1b3d"
+    )
+    contract = matrix["with"]
+    assert contract["repository"] == "uibcdf/molsysmt"
+    assert contract["workflow"] == ".github/workflows/validate_conda_staging.yaml"
+    assert contract["run-id"] == "${{ inputs.pair_run_id }}"
+    assert contract["candidate-sha"] == "${{ inputs.candidate_sha }}"
+    assert contract["title"] == (
+        "MT ${{ inputs.version }} build ${{ inputs.build_number }} + "
+        "Viewer ${{ inputs.molsysviewer_version }} build "
+        "${{ inputs.molsysviewer_build_number }} | Python 3.14 | all"
+    )
+    profile = json.loads(contract["profile"])
+    assert profile["platforms"] == ["linux-64", "linux-aarch64", "osx-arm64", "win-64"]
+    assert profile["python_versions"] == ["3.11", "3.12", "3.13", "3.14"]
+    assert profile["prepare_job"] == "Validate the requested package versions"
+    assert profile["required_steps"] == [
+        "Install the selected package pair",
+        "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+        "Record the exact environment",
+        "Retain the environment record",
+    ]
+    assert steps.index(identity) < steps.index(matrix) < steps.index(promotion)
+    evidence = next(
+        step
+        for step in steps
+        if step.get("name") == "Retain independent installed-matrix evidence"
+    )
+    assert (
+        evidence["with"]["path"]
+        == "${{ steps.installed_matrix.outputs.evidence-path }}"
+    )
+    assert evidence["with"]["if-no-files-found"] == "error"
     assert (
         promotion["uses"]
         == "uibcdf/action-build-and-upload-conda-packages/promote@v2.2.2"

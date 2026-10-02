@@ -18,8 +18,9 @@ def get_disulfide_candidates(
     pbc=True,
     syntax="MolSysMT",
     sorted=True,
-    output_type="tuple",
     skip_digestion=False,
+    *,
+    output_type="tuple",
 ):
     """Identifying candidate disulfide atom pairs in selected structures.
 
@@ -151,8 +152,14 @@ def get_disulfide_candidates(
         distances = [empty_distances() for _ in frame_indices]
         if return_interactions:
             return _as_interactions(
-                molecular_system, frame_indices, sulfur_indices, pairs,
-                distances, max_bond_length, group_names, pbc,
+                molecular_system,
+                frame_indices,
+                sulfur_indices,
+                pairs,
+                distances,
+                max_bond_length,
+                group_names,
+                pbc,
             )
         return pairs, distances
 
@@ -191,16 +198,28 @@ def get_disulfide_candidates(
 
     if return_interactions:
         return _as_interactions(
-            molecular_system, frame_indices, sulfur_indices,
-            pairs_by_structure, distances_by_structure,
-            max_bond_length, group_names, pbc,
+            molecular_system,
+            frame_indices,
+            sulfur_indices,
+            pairs_by_structure,
+            distances_by_structure,
+            max_bond_length,
+            group_names,
+            pbc,
         )
     return pairs_by_structure, distances_by_structure
 
 
-def _as_interactions(molecular_system, frame_indices, sulfur_indices,
-                     pairs_by_structure, distances_by_structure,
-                     max_bond_length, group_names, pbc):
+def _as_interactions(
+    molecular_system,
+    frame_indices,
+    sulfur_indices,
+    pairs_by_structure,
+    distances_by_structure,
+    max_bond_length,
+    group_names,
+    pbc,
+):
     """Build a scoped sparse analysis from the detector's aligned output."""
     from molsysmt._private.rust_backend import get_mic_pair_observations
     from molsysmt.basic import get
@@ -224,15 +243,20 @@ def _as_interactions(molecular_system, frame_indices, sulfur_indices,
         images = None
         if pbc:
             box = get(
-                molecular_system, element="system", structure_indices=int(frame),
+                molecular_system,
+                element="system",
+                structure_indices=int(frame),
                 box=True,
             )
             if box is not None and box[0] is not None:
                 box_nm = np.asarray(puw.get_value(box, to_unit="nanometers"))
                 atoms = np.unique(pairs)
                 coordinates = get(
-                    molecular_system, element="atom", selection=atoms,
-                    structure_indices=int(frame), coordinates=True,
+                    molecular_system,
+                    element="atom",
+                    selection=atoms,
+                    structure_indices=int(frame),
+                    coordinates=True,
                 )
                 coordinates_nm = np.asarray(
                     puw.get_value(coordinates, to_unit="nanometers")
@@ -244,7 +268,9 @@ def _as_interactions(molecular_system, frame_indices, sulfur_indices,
                     box_nm,
                     np.zeros(len(pairs), dtype=np.int64),
                 )
-                if not np.allclose(observed_distances, distances_nm, atol=1e-8, rtol=1e-8):
+                if not np.allclose(
+                    observed_distances, distances_nm, atol=1e-8, rtol=1e-8
+                ):
                     raise ValueError(
                         "Periodic candidate images disagree with detected distances."
                     )
@@ -273,7 +299,9 @@ def _as_interactions(molecular_system, frame_indices, sulfur_indices,
         method="molsysmt.interactions.disulfides.get_disulfide_candidates",
         software={"molsysmt": __version__},
         parameters={
-            "max_bond_length_nm": float(puw.get_value(max_bond_length, to_unit="nanometers")),
+            "max_bond_length_nm": float(
+                puw.get_value(max_bond_length, to_unit="nanometers")
+            ),
             "group_names": [str(name) for name in group_names],
             "pbc": bool(pbc),
         },

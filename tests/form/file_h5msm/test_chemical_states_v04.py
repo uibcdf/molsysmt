@@ -184,9 +184,7 @@ def test_v04_selected_write_remaps_every_state(tmp_path):
     )
     filename = tmp_path / "selected.h5msm"
 
-    write_legacy_topology(
-        topology, atom_indices=[1, 2, 3], output_filename=filename
-    )
+    write_legacy_topology(topology, atom_indices=[1, 2, 3], output_filename=filename)
     observed = msm.convert(filename, to_form="molsysmt.Topology")
 
     assert observed.n_atoms == 3

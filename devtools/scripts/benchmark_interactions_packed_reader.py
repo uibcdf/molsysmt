@@ -24,9 +24,11 @@ def _ragged_take(offsets, indices):
     output_offsets = np.empty(len(indices) + 1, dtype=np.int64)
     output_offsets[0] = 0
     np.cumsum(counts, out=output_offsets[1:])
-    positions = (np.repeat(starts, counts)
-                 + np.arange(output_offsets[-1], dtype=np.int64)
-                 - np.repeat(output_offsets[:-1], counts))
+    positions = (
+        np.repeat(starts, counts)
+        + np.arange(output_offsets[-1], dtype=np.int64)
+        - np.repeat(output_offsets[:-1], counts)
+    )
     return output_offsets, positions
 
 
@@ -49,9 +51,16 @@ def _join_batches(batches):
     if not batches:
         return _empty_columns()
     output = {}
-    for name in ("structure_indices", "type_codes", "evidence_codes",
-                 "measure_distance", "measure_angle", "role_codes", "atoms",
-                 "image_vectors"):
+    for name in (
+        "structure_indices",
+        "type_codes",
+        "evidence_codes",
+        "measure_distance",
+        "measure_angle",
+        "role_codes",
+        "atoms",
+        "image_vectors",
+    ):
         output[name] = np.concatenate([batch[name] for batch in batches])
     for name in ("participant_offsets", "atom_offsets"):
         offsets = []
@@ -59,9 +68,7 @@ def _join_batches(batches):
         for batch in batches:
             offsets.append(batch[name][:-1] + total)
             total += int(batch[name][-1])
-        output[name] = np.concatenate(
-            (*offsets, np.asarray([total], dtype=np.int64))
-        )
+        output[name] = np.concatenate((*offsets, np.asarray([total], dtype=np.int64)))
     return output
 
 
@@ -115,9 +122,7 @@ class PackedReader(FlatReader):
             relations = positions
             types = descriptors["occurrence_type_codes"][positions]
             participant_bounds = descriptors["occurrence_participant_offsets"]
-        part_offsets, part_positions = _ragged_take(
-            participant_bounds, relations
-        )
+        part_offsets, part_positions = _ragged_take(participant_bounds, relations)
         atom_offsets, atom_positions = _ragged_take(
             descriptors["participant_atom_offsets"], part_positions
         )
@@ -146,16 +151,14 @@ class PackedReader(FlatReader):
         local = frame - block * self.metadata["block_size"]
         position = self.column_index["frame_offsets"]
         start = int(self.offsets[position, block])
-        first, last = self.file["data/frame_offsets"][
-            start + local:start + local + 2
-        ]
+        first, last = self.file["data/frame_offsets"][start + local : start + local + 2]
         if first == last:
             return [frame], _empty_columns()
         return [frame], self._selected_block(block, np.arange(first, last))
 
     def query_atom_columns(self, atom):
-        offsets = self.file["index/atom_offsets"][atom:atom + 2]
-        ids = self.file["index/atom_occurrences"][int(offsets[0]):int(offsets[1])]
+        offsets = self.file["index/atom_offsets"][atom : atom + 2]
+        ids = self.file["index/atom_occurrences"][int(offsets[0]) : int(offsets[1])]
         blocks = np.searchsorted(self.block_event_offsets, ids, side="right") - 1
         batches = []
         for block in np.unique(blocks):
@@ -173,31 +176,29 @@ class PackedReader(FlatReader):
         if structure_indices is None:
             return self.coverage, None
         requested = self._indices(
-            structure_indices, self.metadata["n_structures"],
+            structure_indices,
+            self.metadata["n_structures"],
             "structure_indices",
         )
         coverage = [frame for frame in requested if frame in self.covered]
         return coverage, np.asarray(coverage, dtype=np.int64)
 
     def _postings(self, atom_indices):
-        atoms = self._indices(
-            atom_indices, self.metadata["n_atoms"], "atom_indices"
-        )
+        atoms = self._indices(atom_indices, self.metadata["n_atoms"], "atom_indices")
         offsets = self.file["index/atom_offsets"]
         postings = self.file["index/atom_occurrences"]
         groups = []
         for atom in atoms:
-            first, last = offsets[atom:atom + 2]
+            first, last = offsets[atom : atom + 2]
             if first != last:
-                groups.append(postings[int(first):int(last)])
+                groups.append(postings[int(first) : int(last)])
         if not groups:
             return np.empty(0, dtype=np.int64), np.empty(0, dtype=np.int64)
         return np.unique(np.concatenate(groups), return_counts=True)
 
     def _posting_count(self, atom_indices):
         offsets = self.file["index/atom_offsets"]
-        return sum(int(offsets[atom + 1]) - int(offsets[atom])
-                   for atom in atom_indices)
+        return sum(int(offsets[atom + 1]) - int(offsets[atom]) for atom in atom_indices)
 
     def _frame_candidate_count(self, coverage):
         grouped = {}
@@ -232,10 +233,12 @@ class PackedReader(FlatReader):
         for block in sorted(grouped):
             common, _, _ = self._block(block)
             offsets = common["frame_offsets"]
-            positions = np.concatenate([
-                np.arange(offsets[local], offsets[local + 1])
-                for local in grouped[block]
-            ])
+            positions = np.concatenate(
+                [
+                    np.arange(offsets[local], offsets[local + 1])
+                    for local in grouped[block]
+                ]
+            )
             if not len(positions):
                 continue
             columns = self._selected_block(block, positions)
@@ -247,10 +250,8 @@ class PackedReader(FlatReader):
         )
         return coverage, columns
 
-    def _gather_ids(self, ids, coverage, requested_frames, hits=None,
-                    keep_equal=True):
-        if (not len(ids)
-                or requested_frames is not None and not len(requested_frames)):
+    def _gather_ids(self, ids, coverage, requested_frames, hits=None, keep_equal=True):
+        if not len(ids) or requested_frames is not None and not len(requested_frames):
             return coverage, _empty_columns()
         blocks = np.searchsorted(self.block_event_offsets, ids, side="right") - 1
         batches = []
@@ -264,8 +265,7 @@ class PackedReader(FlatReader):
                     common["occurrence_structures"][positions], requested_frames
                 )
             if hits is not None:
-                internal = (hits[selected]
-                            == common["occurrence_atom_count"][positions])
+                internal = hits[selected] == common["occurrence_atom_count"][positions]
                 keep &= internal if keep_equal else ~internal
             if np.any(keep):
                 batches.append(self._selected_block(int(block), positions[keep]))
@@ -273,8 +273,9 @@ class PackedReader(FlatReader):
             _join_batches(batches), coverage, requested_frames
         )
 
-    def query_columns(self, structure_indices=None, atom_indices=None,
-                      mode="incident", planner="auto"):
+    def query_columns(
+        self, structure_indices=None, atom_indices=None, mode="incident", planner="auto"
+    ):
         """Query typed columns by source structure and atom indices."""
         if mode not in {"incident", "internal", "cross"}:
             raise ValueError("mode must be incident, internal, or cross")
@@ -285,45 +286,58 @@ class PackedReader(FlatReader):
             if requested_frames is None:
                 batches = []
                 for block in range(len(self.scopes)):
-                    count = (self.block_event_offsets[block + 1]
-                             - self.block_event_offsets[block])
+                    count = (
+                        self.block_event_offsets[block + 1]
+                        - self.block_event_offsets[block]
+                    )
                     if count:
-                        batches.append(self._selected_block(
-                            block, np.arange(count)
-                        ))
+                        batches.append(self._selected_block(block, np.arange(count)))
                 return coverage, _join_batches(batches)
-            return coverage, _join_batches([
-                self.query_frame_columns(int(frame))[1] for frame in coverage
-            ])
+            return coverage, _join_batches(
+                [self.query_frame_columns(int(frame))[1] for frame in coverage]
+            )
         atom_indices = self._indices(
             atom_indices, self.metadata["n_atoms"], "atom_indices"
         )
         use_frames = requested_frames is not None and (
-            planner == "frame" or (
-                planner == "auto" and self._frame_candidate_count(coverage)
+            planner == "frame"
+            or (
+                planner == "auto"
+                and self._frame_candidate_count(coverage)
                 <= self._posting_count(atom_indices)
             )
         )
         if use_frames:
+
             def select(columns):
                 hits = _hit_counts(columns, atom_indices)
                 if mode == "incident":
                     return hits > 0
                 total = _hit_counts(columns, columns["atoms"])
-                return ((hits == total) & (hits > 0) if mode == "internal"
-                        else (hits > 0) & (hits < total))
+                return (
+                    (hits == total) & (hits > 0)
+                    if mode == "internal"
+                    else (hits > 0) & (hits < total)
+                )
 
             return self._frame_first(coverage, requested_frames, select)
         ids, hits = self._postings(atom_indices)
         return self._gather_ids(
-            ids, coverage, requested_frames,
+            ids,
+            coverage,
+            requested_frames,
             hits=None if mode == "incident" else hits,
             keep_equal=mode == "internal",
         )
 
-    def between_columns(self, atom_indices_a, atom_indices_b,
-                        structure_indices=None, exclusive=False,
-                        planner="auto"):
+    def between_columns(
+        self,
+        atom_indices_a,
+        atom_indices_b,
+        structure_indices=None,
+        exclusive=False,
+        planner="auto",
+    ):
         """Query relations touching both atom sets with optional exclusivity."""
         if planner not in {"auto", "frame", "atom"}:
             raise ValueError("planner must be auto, frame, or atom")
@@ -335,21 +349,27 @@ class PackedReader(FlatReader):
             atom_indices_b, self.metadata["n_atoms"], "atom_indices_b"
         )
         use_frames = requested_frames is not None and (
-            planner == "frame" or (
-                planner == "auto" and self._frame_candidate_count(coverage)
-                <= min(self._posting_count(atom_indices_a),
-                       self._posting_count(atom_indices_b))
+            planner == "frame"
+            or (
+                planner == "auto"
+                and self._frame_candidate_count(coverage)
+                <= min(
+                    self._posting_count(atom_indices_a),
+                    self._posting_count(atom_indices_b),
+                )
             )
         )
         if use_frames:
             union_atoms = list(dict.fromkeys((*atom_indices_a, *atom_indices_b)))
 
             def select(columns):
-                found = ((_hit_counts(columns, atom_indices_a) > 0)
-                         & (_hit_counts(columns, atom_indices_b) > 0))
+                found = (_hit_counts(columns, atom_indices_a) > 0) & (
+                    _hit_counts(columns, atom_indices_b) > 0
+                )
                 if exclusive:
-                    found &= (_hit_counts(columns, union_atoms)
-                              == _hit_counts(columns, columns["atoms"]))
+                    found &= _hit_counts(columns, union_atoms) == _hit_counts(
+                        columns, columns["atoms"]
+                    )
                 return found
 
             return self._frame_first(coverage, requested_frames, select)
@@ -361,9 +381,7 @@ class PackedReader(FlatReader):
         union_atoms = list(dict.fromkeys((*atom_indices_a, *atom_indices_b)))
         union_ids, hits = self._postings(union_atoms)
         positions = np.searchsorted(union_ids, ids)
-        return self._gather_ids(
-            ids, coverage, requested_frames, hits=hits[positions]
-        )
+        return self._gather_ids(ids, coverage, requested_frames, hits=hits[positions])
 
 
 def decoded_counter(columns, labels):
@@ -377,17 +395,18 @@ def decoded_counter(columns, labels):
         for part in range(part_start, part_stop):
             first = int(columns["atom_offsets"][part])
             last = int(columns["atom_offsets"][part + 1])
-            participants.append({
-                "role": labels["roles"][int(columns["role_codes"][part])],
-                "atom_indices": columns["atoms"][first:last].tolist(),
-            })
+            participants.append(
+                {
+                    "role": labels["roles"][int(columns["role_codes"][part])],
+                    "atom_indices": columns["atoms"][first:last].tolist(),
+                }
+            )
         record = {
             "structure_index": columns["structure_indices"][row],
             "interaction_type": labels["types"][int(columns["type_codes"][row])],
             "participants": participants,
             "evidence": labels["evidence"][int(columns["evidence_codes"][row])],
-            "measurements": {name: columns[f"measure_{name}"][row]
-                             for name in UNITS},
+            "measurements": {name: columns[f"measure_{name}"][row] for name in UNITS},
             "images": columns["image_vectors"][part_start:part_stop],
         }
         output[_signature(record)] += 1

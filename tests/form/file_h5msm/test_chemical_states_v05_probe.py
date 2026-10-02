@@ -47,9 +47,7 @@ def test_chemical_state_only_layer_roundtrips_without_topology(tmp_path):
     assert observed.reference_chemical_state_index is None
     assert observed._states[0].state_id == "reactant"
     assert observed._states[1].state_id == "product"
-    assert observed._states[0].atom_attributes.equals(
-        states._states[0].atom_attributes
-    )
+    assert observed._states[0].atom_attributes.equals(states._states[0].atom_attributes)
     assert observed._states[0].bonds.equals(states._states[0].bonds)
 
 
@@ -81,7 +79,10 @@ def test_chemical_states_and_interactions_are_independent_siblings(tmp_path):
     states = ChemicalStates(n_atoms=2)
     states.append_state()
     interactions = msm.Interactions.from_records(
-        [], n_atoms=2, n_structures=1, evaluated_structure_indices=[0],
+        [],
+        n_atoms=2,
+        n_structures=1,
+        evaluated_structure_indices=[0],
         method="candidate",
     )
 
@@ -89,7 +90,9 @@ def test_chemical_states_and_interactions_are_independent_siblings(tmp_path):
         file.attrs["type"] = "h5msm"
         file.attrs["version"] = "0.5"
         write_independent_chemical_states(file, states)
-        write_named_analyses(file.create_group("interactions"), {"hbonds": interactions})
+        write_named_analyses(
+            file.create_group("interactions"), {"hbonds": interactions}
+        )
         assert set(file) == {"chemical_states", "interactions"}
 
     with h5py.File(filename, "r") as file:

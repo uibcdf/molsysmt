@@ -31,6 +31,10 @@ from molsysmt import systems
 #   ('convert_file', name, key)        msm.convert from a file shipped with the library
 
 ROUTES = {
+    "molsysmt.ChemicalStates": ("convert", "molsys"),
+    "molsysmt.ChemicalStatesDict": ("convert", "chemical_states"),
+    "molsysmt.Interactions": ("convert", "interactions"),
+    "molsysmt.InteractionsDict": ("convert", "interactions"),
     "MDAnalysis.Topology": ("convert", "pdb_file"),
     "MDAnalysis.Universe": ("convert", "pdb_file"),
     "MDAnalysis.topology.PDBParser": ("convert", "pdb_file"),
@@ -155,6 +159,14 @@ def origins():
         "pdb_file": pdb_file,
         "h5msm_file": h5msm_file,
         "molsys": molsys,
+        "chemical_states": msm.convert(molsys, to_form="molsysmt.ChemicalStates"),
+        "interactions": msm.Interactions.from_records(
+            [],
+            n_atoms=molsys.topology.n_atoms,
+            n_structures=molsys.structures.n_structures,
+            evaluated_structure_indices=[],
+            method="fixture",
+        ),
         "topology": msm.convert(molsys, to_form="molsysmt.Topology"),
         "structures": msm.convert(molsys, to_form="molsysmt.Structures"),
     }

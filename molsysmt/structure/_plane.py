@@ -36,10 +36,15 @@ def plane_pair_geometry(centers, normals, pairs, target_images, box=None):
     if box is not None:
         delta = delta + target_images @ box
     a, b = normals[first], normals[second]
-    angle = np.arctan2(np.linalg.norm(np.cross(a, b), axis=1),
-                       np.abs(np.einsum("ij,ij->i", a, b)))
-    offset_a = np.linalg.norm(delta - np.einsum("ij,ij->i", delta, a)[:, None] * a, axis=1)
-    offset_b = np.linalg.norm(delta - np.einsum("ij,ij->i", delta, b)[:, None] * b, axis=1)
+    angle = np.arctan2(
+        np.linalg.norm(np.cross(a, b), axis=1), np.abs(np.einsum("ij,ij->i", a, b))
+    )
+    offset_a = np.linalg.norm(
+        delta - np.einsum("ij,ij->i", delta, a)[:, None] * a, axis=1
+    )
+    offset_b = np.linalg.norm(
+        delta - np.einsum("ij,ij->i", delta, b)[:, None] * b, axis=1
+    )
     return np.linalg.norm(delta, axis=1), angle, offset_a, offset_b
 
 
@@ -71,11 +76,18 @@ def centroid_edge_planes(coordinates, offsets, positions):
     second = coordinates[:, positions[offsets[:-1] + 1]] - centers
     normals = np.cross(first, second)
     lengths = np.linalg.norm(normals, axis=-1)
-    normals = np.divide(normals, lengths[..., None], out=np.full_like(normals, np.nan), where=lengths[..., None] > 0)
+    normals = np.divide(
+        normals,
+        lengths[..., None],
+        out=np.full_like(normals, np.nan),
+        where=lengths[..., None] > 0,
+    )
     groups = np.repeat(np.arange(len(centers[0])), np.diff(offsets))
     delta = coordinates[:, positions] - centers[:, groups]
     deviation = np.einsum("tij,tij->ti", delta, normals[:, groups])
-    rms = np.sqrt(np.add.reduceat(deviation ** 2, offsets[:-1], axis=1) / np.diff(offsets))
+    rms = np.sqrt(
+        np.add.reduceat(deviation**2, offsets[:-1], axis=1) / np.diff(offsets)
+    )
     maximum = np.maximum.reduceat(np.abs(deviation), offsets[:-1], axis=1)
     return centers, normals, rms, maximum
 
@@ -94,15 +106,28 @@ def triangle_planes(coordinates, offsets, positions):
     third = coordinates[:, positions[offsets[:-1] + 2]]
     normals = np.cross(second - first, third - first)
     lengths = np.linalg.norm(normals, axis=-1)
-    normals = np.divide(normals, lengths[..., None], out=np.full_like(normals, np.nan), where=lengths[..., None] > 0)
+    normals = np.divide(
+        normals,
+        lengths[..., None],
+        out=np.full_like(normals, np.nan),
+        where=lengths[..., None] > 0,
+    )
     groups = np.repeat(np.arange(len(centers[0])), np.diff(offsets))
-    deviation = np.einsum("tij,tij->ti", coordinates[:, positions] - centers[:, groups], normals[:, groups])
-    rms = np.sqrt(np.add.reduceat(deviation ** 2, offsets[:-1], axis=1) / np.diff(offsets))
+    deviation = np.einsum(
+        "tij,tij->ti",
+        coordinates[:, positions] - centers[:, groups],
+        normals[:, groups],
+    )
+    rms = np.sqrt(
+        np.add.reduceat(deviation**2, offsets[:-1], axis=1) / np.diff(offsets)
+    )
     maximum = np.maximum.reduceat(np.abs(deviation), offsets[:-1], axis=1)
     return centers, normals, rms, maximum
 
 
-def plane_intersection_projection(centers_a, normals_a, centers_b, normals_b, *, near_singular=False):
+def plane_intersection_projection(
+    centers_a, normals_a, centers_b, normals_b, *, near_singular=False
+):
     """Project the first centroid on the line common to two planes.
 
     Return a point per row, or NaNs when the planes cannot define the line.
@@ -114,15 +139,25 @@ def plane_intersection_projection(centers_a, normals_a, centers_b, normals_b, *,
     direction = np.cross(normals_a, normals_b)
     matrices = np.stack((normals_a, normals_b, direction), axis=1)
     determinants = np.linalg.det(matrices)
-    valid = np.isfinite(determinants) & ~(np.isclose(determinants, 0) if near_singular else determinants == 0)
+    valid = np.isfinite(determinants) & ~(
+        np.isclose(determinants, 0) if near_singular else determinants == 0
+    )
     output = np.full_like(centers_a, np.nan, dtype=np.float64)
     if valid.any():
         a, b, line = normals_a[valid], normals_b[valid], direction[valid]
-        rhs = np.column_stack((np.einsum("ij,ij->i", a, centers_a[valid]),
-                               np.einsum("ij,ij->i", b, centers_b[valid]), np.zeros(valid.sum())))
+        rhs = np.column_stack(
+            (
+                np.einsum("ij,ij->i", a, centers_a[valid]),
+                np.einsum("ij,ij->i", b, centers_b[valid]),
+                np.zeros(valid.sum()),
+            )
+        )
         point = np.linalg.solve(matrices[valid], rhs[..., None])[..., 0]
         line /= np.linalg.norm(line, axis=1)[:, None]
-        output[valid] = point + np.einsum("ij,ij->i", centers_a[valid] - point, line)[:, None] * line
+        output[valid] = (
+            point
+            + np.einsum("ij,ij->i", centers_a[valid] - point, line)[:, None] * line
+        )
     return output
 
 
@@ -136,8 +171,10 @@ class PlaneReducer(Reducer):
     def initialize(self, metadata):
         shape = (metadata["n_structures"], len(self.offsets) - 1)
         self.outputs = (
-            np.empty((*shape, 3)), np.empty((*shape, 3)),
-            np.empty(shape), np.empty(shape),
+            np.empty((*shape, 3)),
+            np.empty((*shape, 3)),
+            np.empty(shape),
+            np.empty(shape),
         )
         self.cursor = 0
 
@@ -164,11 +201,15 @@ class PlaneReducer(Reducer):
                 )
             validate_periodic_boxes(boxes, len(frames), caller=self.caller)
             for xyz, box in zip(coordinates, boxes):
-                require_whole_participants(xyz, box, self.offsets, self.positions, self.caller)
-        block = fit_planes(coordinates, self.offsets, self.positions, caller=self.caller)
+                require_whole_participants(
+                    xyz, box, self.offsets, self.positions, self.caller
+                )
+        block = fit_planes(
+            coordinates, self.offsets, self.positions, caller=self.caller
+        )
         end = self.cursor + len(frames)
         for output, values in zip(self.outputs, block):
-            output[self.cursor:end] = values
+            output[self.cursor : end] = values
         self.cursor = end
 
     def finalize(self):

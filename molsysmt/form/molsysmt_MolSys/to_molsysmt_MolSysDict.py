@@ -58,9 +58,7 @@ def to_molsysmt_MolSysDict(
             "objects need a versioned modular representation."
         )
     if item.interactions:
-        raise ValueError(
-            "MolSysDict 0.1 cannot store MolSys interaction analyses."
-        )
+        raise ValueError("MolSysDict 0.1 cannot store MolSys interaction analyses.")
 
     item = extract(
         item,

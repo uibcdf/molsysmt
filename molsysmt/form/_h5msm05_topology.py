@@ -7,7 +7,14 @@ from molsysmt.native.chemical_states_dict import _decode_series, _encode_series
 from molsysmt.native.topology import Topology
 
 _TABLES = {
-    "atoms": ("atom_id", "atom_name", "atom_type", "isotope", "group_index", "chain_index"),
+    "atoms": (
+        "atom_id",
+        "atom_name",
+        "atom_type",
+        "isotope",
+        "group_index",
+        "chain_index",
+    ),
     "groups": ("group_id", "group_name", "group_type", "molecule_index"),
     "molecules": ("molecule_id", "molecule_name", "molecule_type", "entity_index"),
     "entities": ("entity_id", "entity_name", "entity_type"),
@@ -44,12 +51,16 @@ def write_independent_topology(root, topology, *, compression="gzip"):
             options = {"compression": compression} if compression is not None else {}
             if values.dtype.kind in "USO":
                 column_group.create_dataset(
-                    "values", data=values.astype(object), dtype=h5py.string_dtype(),
+                    "values",
+                    data=values.astype(object),
+                    dtype=h5py.string_dtype(),
                     **options,
                 )
             else:
                 column_group.create_dataset("values", data=values, **options)
-            column_group.create_dataset("null_mask", data=payload["null_mask"], **options)
+            column_group.create_dataset(
+                "null_mask", data=payload["null_mask"], **options
+            )
 
 
 def read_independent_topology(root):
@@ -74,7 +85,9 @@ def read_independent_topology(root):
         for column in columns:
             column_group = table_group[column]
             if set(column_group) != {"values", "null_mask"}:
-                raise ValueError(f"Topology column {name}/{column} has an invalid schema.")
+                raise ValueError(
+                    f"Topology column {name}/{column} has an invalid schema."
+                )
             dataset = column_group["values"]
             values = dataset.asstr()[:] if dataset.dtype.kind in "OSU" else dataset[:]
             payload = {
@@ -84,7 +97,9 @@ def read_independent_topology(root):
             }
             series = _decode_series(payload)
             if len(series) != n_rows:
-                raise ValueError(f"Topology column {name}/{column} has the wrong length.")
+                raise ValueError(
+                    f"Topology column {name}/{column} has the wrong length."
+                )
             table[column] = series
         tables[name] = table
 

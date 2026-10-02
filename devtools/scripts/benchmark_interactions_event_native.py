@@ -53,15 +53,21 @@ def write_event_native(path, result):
     with h5py.File(path, "w") as file:
         file.attrs["format"] = "molsysmt.interactions.event_probe"
         file.attrs["schema_version"] = 1
-        file.attrs["metadata"] = json.dumps({
-            "n_atoms": result.n_atoms, "n_structures": result.n_structures,
-            "method": result.method, "parameters": result.parameters,
-            "source_id": result.source_id, "measure_units": result.measure_units,
-        })
+        file.attrs["metadata"] = json.dumps(
+            {
+                "n_atoms": result.n_atoms,
+                "n_structures": result.n_structures,
+                "method": result.method,
+                "parameters": result.parameters,
+                "source_id": result.source_id,
+                "measure_units": result.measure_units,
+            }
+        )
         labels = file.create_group("labels")
         string_dtype = h5py.string_dtype(encoding="utf-8")
         for name, values in (
-            ("types", type_labels), ("roles", role_labels),
+            ("types", type_labels),
+            ("roles", role_labels),
             ("evidence", result.evidence_labels),
         ):
             labels.create_dataset(name, data=np.asarray(values, dtype=string_dtype))
@@ -89,12 +95,12 @@ def query_event_native(path, kind, index, *, page_size=128):
         indexes = file["probe_indexes"]
         if kind == "frame":
             coverage = [index] if index in set(evaluated) else []
-            first, last = indexes["frame_offsets"][index:index + 2]
+            first, last = indexes["frame_offsets"][index : index + 2]
             ids = np.arange(int(first), int(last), dtype=np.int64)
         else:
             coverage = evaluated
-            first, last = indexes["atom_offsets"][index:index + 2]
-            ids = indexes["atom_occurrences"][int(first):int(last)].astype(np.int64)
+            first, last = indexes["atom_offsets"][index : index + 2]
+            ids = indexes["atom_occurrences"][int(first) : int(last)].astype(np.int64)
         if not len(ids):
             return coverage, Counter()
         labels = {
@@ -112,40 +118,53 @@ def query_event_native(path, kind, index, *, page_size=128):
             structures = file["occurrence_structures"][first:last]
             types = file["occurrence_type_codes"][first:last]
             evidence = file["occurrence_evidence"][first:last]
-            measures = {name: file[f"measurements/{name}"][first:last]
-                        for name in UNITS}
-            part_offsets = file["occurrence_participant_offsets"][first:last + 1]
+            measures = {
+                name: file[f"measurements/{name}"][first:last] for name in UNITS
+            }
+            part_offsets = file["occurrence_participant_offsets"][first : last + 1]
             part_first, part_last = int(part_offsets[0]), int(part_offsets[-1])
             roles = file["participant_role_codes"][part_first:part_last]
-            atom_offsets = file["participant_atom_offsets"][part_first:part_last + 1]
+            atom_offsets = file["participant_atom_offsets"][part_first : part_last + 1]
             atom_first, atom_last = int(atom_offsets[0]), int(atom_offsets[-1])
             atoms = file["participant_atoms"][atom_first:atom_last]
-            image_offsets = file["occurrence_image_offsets"][first:last + 1]
+            image_offsets = file["occurrence_image_offsets"][first : last + 1]
             image_first, image_last = int(image_offsets[0]), int(image_offsets[-1])
             images = file["image_vectors"][image_first:image_last]
             for occurrence_id in selected:
                 local = int(occurrence_id) - first
                 participants = []
-                for part in range(int(part_offsets[local]),
-                                  int(part_offsets[local + 1])):
+                for part in range(
+                    int(part_offsets[local]), int(part_offsets[local + 1])
+                ):
                     part_local = part - part_first
-                    participants.append({
-                        "role": labels["roles"][int(roles[part_local])],
-                        "atom_indices": atoms[
-                            int(atom_offsets[part_local]) - atom_first:
-                            int(atom_offsets[part_local + 1]) - atom_first
-                        ].tolist(),
-                    })
-                output.append(_signature({
-                    "structure_index": structures[local],
-                    "interaction_type": labels["types"][int(types[local])],
-                    "participants": participants,
-                    "evidence": labels["evidence"][int(evidence[local])],
-                    "measurements": {name: values[local]
-                                     for name, values in measures.items()},
-                    "images": images[
-                        int(image_offsets[local]) - image_first:
-                        int(image_offsets[local + 1]) - image_first
-                    ],
-                }))
+                    participants.append(
+                        {
+                            "role": labels["roles"][int(roles[part_local])],
+                            "atom_indices": atoms[
+                                int(atom_offsets[part_local]) - atom_first : int(
+                                    atom_offsets[part_local + 1]
+                                )
+                                - atom_first
+                            ].tolist(),
+                        }
+                    )
+                output.append(
+                    _signature(
+                        {
+                            "structure_index": structures[local],
+                            "interaction_type": labels["types"][int(types[local])],
+                            "participants": participants,
+                            "evidence": labels["evidence"][int(evidence[local])],
+                            "measurements": {
+                                name: values[local] for name, values in measures.items()
+                            },
+                            "images": images[
+                                int(image_offsets[local]) - image_first : int(
+                                    image_offsets[local + 1]
+                                )
+                                - image_first
+                            ],
+                        }
+                    )
+                )
         return coverage, Counter(output)

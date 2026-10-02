@@ -18,9 +18,14 @@ from .test_get_ionic_interactions import _calculate, _ions, _system
 def _assert_same(first, second):
     # Execution provenance can differ, while every scientific/result field must match.
     for name in (
-        "occurrence_structures", "occurrence_relations", "participant_atoms",
-        "participant_atom_offsets", "relation_participant_offsets",
-        "evaluated_structure_indices", "atom_source_indices", "structure_source_indices",
+        "occurrence_structures",
+        "occurrence_relations",
+        "participant_atoms",
+        "participant_atom_offsets",
+        "relation_participant_offsets",
+        "evaluated_structure_indices",
+        "atom_source_indices",
+        "structure_source_indices",
     ):
         np.testing.assert_array_equal(getattr(first, name), getattr(second, name))
     assert first.participant_roles == second.participant_roles
@@ -33,15 +38,20 @@ def _assert_same(first, second):
         assert second.image_vectors is None
     else:
         np.testing.assert_array_equal(first.image_vectors, second.image_vectors)
-        np.testing.assert_array_equal(first.occurrence_image_offsets, second.occurrence_image_offsets)
+        np.testing.assert_array_equal(
+            first.occurrence_image_offsets, second.occurrence_image_offsets
+        )
     np.testing.assert_array_equal(
-        first.query().to_dict()["occurrence_indices"], second.query().to_dict()["occurrence_indices"]
+        first.query().to_dict()["occurrence_indices"],
+        second.query().to_dict()["occurrence_indices"],
     )
 
 
 @pytest.mark.parametrize("file_source", [False, True])
 @pytest.mark.parametrize("scope", ["internal", "incident", "between"])
-def test_eager_chunked_scopes_and_empty_nonconsecutive_frames(file_source, scope, tmp_path):
+def test_eager_chunked_scopes_and_empty_nonconsecutive_frames(
+    file_source, scope, tmp_path
+):
     molsys = _ions()
     if file_source:
         source = str(tmp_path / "ions.h5msm")
@@ -61,23 +71,34 @@ def test_eager_chunked_scopes_and_empty_nonconsecutive_frames(file_source, scope
     assert chunked.execution_records[0]["details"]["execution_chunks"] == 2
     assert eager.execution_records[0]["details"]["execution_chunks"] == 1
     assert chunked.query(structure_indices=1).n_interactions == 0
-    assert chunked.query(structure_indices=1).to_dict()["evaluated_structure_indices"].tolist() == [1]
+    assert chunked.query(structure_indices=1).to_dict()[
+        "evaluated_structure_indices"
+    ].tolist() == [1]
 
 
 @pytest.mark.parametrize("file_source", [False, True])
 def test_compound_triclinic_images_queries_and_named_roundtrip(file_source, tmp_path):
-    box = np.array([[2, 0, 0], [.4, 2, 0], [.2, .3, 2.]])
-    xyz = np.array([[[.1, 0, 0], [.2, 0, 0], [.2, .1, 0], [1.9, 0, 0]]])
-    molsys = _system(["C", "O", "O", "Na"], [0, -1, 0, 1],
-                     np.repeat(xyz, 5, axis=0), [(0, 1), (0, 2)], [1, 2],
-                     box=np.repeat(box[None], 5, axis=0))
+    box = np.array([[2, 0, 0], [0.4, 2, 0], [0.2, 0.3, 2.0]])
+    xyz = np.array([[[0.1, 0, 0], [0.2, 0, 0], [0.2, 0.1, 0], [1.9, 0, 0]]])
+    molsys = _system(
+        ["C", "O", "O", "Na"],
+        [0, -1, 0, 1],
+        np.repeat(xyz, 5, axis=0),
+        [(0, 1), (0, 2)],
+        [1, 2],
+        box=np.repeat(box[None], 5, axis=0),
+    )
     source = molsys
     if file_source:
         source = str(tmp_path / "compound.h5msm")
         msm.convert(molsys, to_form=source)
     with msm.configure.context(chunk_size=2):
-        eager = msm.interactions.ionic.get_ionic_interactions(source, ".4 nm", heavy_mode="off")
-        chunked = msm.interactions.ionic.get_ionic_interactions(source, ".4 nm", heavy_mode="force")
+        eager = msm.interactions.ionic.get_ionic_interactions(
+            source, ".4 nm", heavy_mode="off"
+        )
+        chunked = msm.interactions.ionic.get_ionic_interactions(
+            source, ".4 nm", heavy_mode="force"
+        )
     _assert_same(eager, chunked)
     assert chunked.execution_records[0]["details"]["execution_chunks"] == 3
     assert chunked.query(atom_indices=[0], structure_indices=[4, 1]).n_interactions == 2
@@ -102,13 +123,20 @@ def test_file_state_resolution_and_no_structural_materialization(tmp_path, monke
     msm.convert(molsys, to_form=source)
 
     def forbidden(*args, **kwargs):
-        raise AssertionError("Projected calculation must not read whole structural or interaction domains.")
+        raise AssertionError(
+            "Projected calculation must not read whole structural or interaction domains."
+        )
 
     monkeypatch.setattr(_h5msm05_modular, "read_independent_structures", forbidden)
     monkeypatch.setattr(_h5msm05_modular, "read_named_analyses", forbidden)
     monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", forbidden)
     with msm.configure.context(chunk_size=1):
-        result = _calculate(source, chemical_state="structure", structure_indices=[2, 0], heavy_mode="force")
+        result = _calculate(
+            source,
+            chemical_state="structure",
+            structure_indices=[2, 0],
+            heavy_mode="force",
+        )
     assert result.parameters["chemical_state_index"] == state
     np.testing.assert_allclose(result.measurements["positive_charge"], [2, 1, 2])
     with pytest.raises(StructuralInconsistencyError):
@@ -131,9 +159,14 @@ def test_file_rejects_nonidentity_atom_association_before_geometry(tmp_path):
 
 def test_auto_coordinate_working_estimate_selects_small_blocks():
     molsys = _ions()
-    molsys.structures = Structures(coordinates=puw.quantity(
-        np.tile(puw.get_value(molsys.structures.coordinates, to_unit="nm"), (2, 1, 1)), "nm"
-    ))
+    molsys.structures = Structures(
+        coordinates=puw.quantity(
+            np.tile(
+                puw.get_value(molsys.structures.coordinates, to_unit="nm"), (2, 1, 1)
+            ),
+            "nm",
+        )
+    )
     with msm.configure.context(max_ram_usage=6000, chunk_size=2):
         result = _calculate(molsys)
     assert result.execution_records[0]["details"]["execution"] == "chunked"
@@ -142,8 +175,9 @@ def test_auto_coordinate_working_estimate_selects_small_blocks():
 
 
 def test_result_budget_failure_does_not_return_partial_coverage():
-    molsys = _system(["Na", "Cl"], [1, -1],
-                     np.tile([[[0., 0, 0], [.2, 0, 0]]], (12, 1, 1)))
+    molsys = _system(
+        ["Na", "Cl"], [1, -1], np.tile([[[0.0, 0, 0], [0.2, 0, 0]]], (12, 1, 1))
+    )
     with msm.configure.context(max_ram_usage=8000, chunk_size=2):
         with pytest.raises(MemoryBudgetExceededError, match="sparse-result"):
             _calculate(molsys, heavy_mode="force")
@@ -180,7 +214,12 @@ def test_missing_coordinates_are_not_evaluated_as_zero(file_source, tmp_path):
 
 def test_rich_selection_rejects_forced_chunking_but_keeps_eager():
     molsys = _ions()
-    assert _calculate(molsys, selection='atom_type=="Na" or atom_type=="Cl"', heavy_mode="off").n_interactions == 2
+    assert (
+        _calculate(
+            molsys, selection='atom_type=="Na" or atom_type=="Cl"', heavy_mode="off"
+        ).n_interactions
+        == 2
+    )
     with pytest.raises(UnsupportedHeavyOperationError):
         _calculate(molsys, selection='atom_type=="Na"', heavy_mode="force")
 

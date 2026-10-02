@@ -24,18 +24,23 @@ class SparseColumnAccumulator:
         if predicted > self._budget:
             raise MemoryBudgetExceededError(
                 reason="Estimated resident sparse-result working memory exceeds the RAM budget.",
-                predicted_bytes=predicted, available_bytes=self._budget,
+                predicted_bytes=predicted,
+                available_bytes=self._budget,
                 caller="molsysmt._private.execution.sparse_accumulator",
             )
 
     def append(self, columns):
         if set(columns) != set(self._specifications):
-            raise ValueError("Sparse column names disagree with the accumulator schema.")
+            raise ValueError(
+                "Sparse column names disagree with the accumulator schema."
+            )
         rows = None
         for name, (dtype, tail_shape) in self._specifications.items():
             value = columns[name]
             if value.dtype != np.dtype(dtype) or value.shape[1:] != tail_shape:
-                raise ValueError("Sparse column dtype or trailing shape disagrees with its schema.")
+                raise ValueError(
+                    "Sparse column dtype or trailing shape disagrees with its schema."
+                )
             if rows is None:
                 rows = len(value)
             elif rows != len(value):

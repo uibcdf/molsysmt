@@ -15,7 +15,9 @@ def normalize(records, execution, coverage, size):
     result = []
     seen = []
     for record in records:
-        frames = _indices(record["structure_indices"], size, "execution structure_indices")
+        frames = _indices(
+            record["structure_indices"], size, "execution structure_indices"
+        )
         if np.unique(frames).size != frames.size:
             raise ValueError("Execution structure indices must be unique")
         details = deepcopy(dict(record["details"]))
@@ -24,7 +26,9 @@ def normalize(records, execution, coverage, size):
             seen.append(frames)
     frames = np.concatenate(seen) if seen else np.empty(0, dtype=np.int64)
     if not np.array_equal(np.sort(frames), np.sort(coverage)):
-        raise ValueError("Execution records must partition evaluated structures exactly")
+        raise ValueError(
+            "Execution records must partition evaluated structures exactly"
+        )
     return tuple(result)
 
 
@@ -52,7 +56,9 @@ def replace(source, incoming, frames):
         elif mask.any():
             records.append((_immutable_array(active[mask]), details))
     for record in incoming.execution_records:
-        records.append((_immutable_array(record["structure_indices"]), record["details"]))
+        records.append(
+            (_immutable_array(record["structure_indices"]), record["details"])
+        )
     return tuple(records)
 
 
@@ -84,13 +90,25 @@ def write_group(group, records):
     import h5py
 
     child = group.create_group("execution")
-    child.create_dataset("details", data=np.asarray(
-        [json.dumps(record["details"]) for record in records],
-        dtype=h5py.string_dtype(encoding="utf-8")))
-    offsets = np.r_[0, np.cumsum([len(record["structure_indices"]) for record in records])].astype(np.int64)
-    frames = np.concatenate([record["structure_indices"] for record in records]) if records else np.empty(0, dtype=np.int64)
+    child.create_dataset(
+        "details",
+        data=np.asarray(
+            [json.dumps(record["details"]) for record in records],
+            dtype=h5py.string_dtype(encoding="utf-8"),
+        ),
+    )
+    offsets = np.r_[
+        0, np.cumsum([len(record["structure_indices"]) for record in records])
+    ].astype(np.int64)
+    frames = (
+        np.concatenate([record["structure_indices"] for record in records])
+        if records
+        else np.empty(0, dtype=np.int64)
+    )
     child.create_dataset("structure_offsets", data=offsets)
-    child.create_dataset("structure_indices", data=frames, compression="gzip" if frames.size else None)
+    child.create_dataset(
+        "structure_indices", data=frames, compression="gzip" if frames.size else None
+    )
 
 
 def read_group(group):
@@ -100,8 +118,14 @@ def read_group(group):
     details = child["details"].asstr()[:]
     offsets = child["structure_offsets"][:]
     frames = child["structure_indices"][:]
-    if (offsets.shape != (len(details) + 1,) or offsets[0] != 0
-            or offsets[-1] != len(frames) or np.any(np.diff(offsets) < 0)):
+    if (
+        offsets.shape != (len(details) + 1,)
+        or offsets[0] != 0
+        or offsets[-1] != len(frames)
+        or np.any(np.diff(offsets) < 0)
+    ):
         raise ValueError("Invalid execution provenance offsets")
-    return tuple({"structure_indices": frames[first:last], "details": json.loads(value)}
-                 for value, first, last in zip(details, offsets[:-1], offsets[1:]))
+    return tuple(
+        {"structure_indices": frames[first:last], "details": json.loads(value)}
+        for value, first, last in zip(details, offsets[:-1], offsets[1:])
+    )

@@ -14,6 +14,37 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Direct main integration — 2026-10-02
+
+The maintainer authorized local merging, local validation, a normal push and
+retirement of integrated development branches without a pull request.
+Merge `03b3185497426676ba4a7d10b05351952401881b` incorporates the complete
+Interactions branch and the 29 current remote-main commits. The remote changes
+include suite governance, shared CI/release verification and coverage retention.
+The conflicts were a generated queue index and formatting of an older
+Luzar–Chandler implementation; the current scientific implementation is retained.
+
+The first integrated complete suite passed 11,661 tests, failed 23 and skipped
+11. Focused repairs then passed 562 tests with two PyTraj skips; 81 native Rust
+tests passed. This is an intermediate checkpoint; final complete validation is
+still required before pushing. Two confirmed runtime defects are tracked by
+`uibcdf/molsysmt#290` and `uibcdf/molsysmt#291`.
+
+The other repairs update actual form-census fixtures, the generated converter
+keyword table, rich chemistry fixtures, attribution assertions scoped to the
+scientific calculation and guards for delegated CI workflows. Legacy numeric
+precision and handler tests explicitly use the legacy 0.4 writer; the public
+conversion default remains 0.5. Optional output arguments preserve established
+positional detector calls and have explicit experimental signature waivers.
+The repository format gate required a mechanical Ruff normalization of the
+new interaction, chemistry, form, benchmark and test files.
+
+All other development branches are ancestors of the merged main except the
+Rust C1 packaging spike. Its document explicitly says not to merge the spike;
+preserve its tip under `archive/rust-c1-spike-20261002` before branch deletion.
+Publication branches remain outside development cleanup. Consumer acceptance
+and release-platform certification remain separate from this local merge.
+
 ## Pinned consumer review packet — 2026-10-02
 
 **Prepared and contract-tested:** the updated
@@ -43,9 +74,8 @@ published-pair certification or complete release/platform matrix. No external
 message was sent. The maintainer can pass on the packet and request feedback.
 
 **Remaining closure:** obtain the consumer's explicit feedback on the updated
-contract and its actual canvas/frame/selection/export/session workflow. Align
-the development branch with remote `main` and run the applicable full PR CI
-before merging. The observed branch had 51 commits absent from remote `main`,
+contract and its actual canvas/frame/selection/export/session workflow. The earlier inspection preceded the maintainer-authorized local integration
+reported above. At that inspection, the branch had 51 commits absent from remote `main`,
 which had 29 commits absent from the branch; local `main` was an ancestor of
 the branch. No merge or branch deletion was performed. `#250`/`#251`/`#252`
 remain partial until their own acceptance conditions are met.

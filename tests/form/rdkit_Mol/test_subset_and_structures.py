@@ -10,7 +10,9 @@ from molsysmt import pyunitwizard as puw  # noqa: E402
 
 
 @pytest.mark.parametrize("smiles", ["", "CO", "c1ccccc1"])
-def test_all_atom_selection_uses_a_declared_attribute_pipe_without_a_direct_count_getter(smiles):
+def test_all_atom_selection_uses_a_declared_attribute_pipe_without_a_direct_count_getter(
+    smiles,
+):
     molecule = Chem.MolFromSmiles(smiles)
     assert msm.has_attribute(molecule, "n_atoms")
     assert msm.select(molecule) == list(range(molecule.GetNumAtoms()))

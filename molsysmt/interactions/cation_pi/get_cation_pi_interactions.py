@@ -27,12 +27,27 @@ _CALLER = "molsysmt.interactions.cation_pi.get_cation_pi_interactions"
 @dep_digest("rdkit", when={"method": "centroid_distance_angle"})
 @attributed("cation_pi")
 def get_cation_pi_interactions(
-    molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None,
-    planarity_threshold=None, selection="all", selection_2=None, structure_indices="all",
-    chemical_state="reference", method="centroid_distance_angle",
-    selection_mode="internal", pbc=True, assume_complete_connectivity=False,
-    output_type="molsysmt.Interactions", syntax="MolSysMT", skip_digestion=False,
-    *, max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto", profile=None,
+    molecular_system,
+    distance_threshold=None,
+    angle_threshold=None,
+    offset_threshold=None,
+    planarity_threshold=None,
+    selection="all",
+    selection_2=None,
+    structure_indices="all",
+    chemical_state="reference",
+    method="centroid_distance_angle",
+    selection_mode="internal",
+    pbc=True,
+    assume_complete_connectivity=False,
+    output_type="molsysmt.Interactions",
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    max_cyclic_block_size=256,
+    max_matches=100000,
+    heavy_mode="auto",
+    profile=None,
 ):
     """Detecting cation-pi geometries using an attributed or experimental method.
 
@@ -243,7 +258,9 @@ def get_cation_pi_interactions(
     from molsysmt import configure
     from molsysmt._private.interaction_methods import resolve_method
 
-    method = resolve_method("cation_pi", method, profile, caller=_CALLER)["implementation"]
+    method = resolve_method("cation_pi", method, profile, caller=_CALLER)[
+        "implementation"
+    ]
     from molsysmt._private.execution.projected_geometry import (
         execute_projected_geometry,
     )
@@ -259,18 +276,50 @@ def get_cation_pi_interactions(
 
     if method == "prolif":
         if offset_threshold is not None or planarity_threshold is not None:
-            raise ArgumentError("offset_threshold", caller=_CALLER,
-                                message="ProLIF has no offset or planarity cutoff; leave both None.")
-        distance_threshold = puw.quantity(.45, "nm") if distance_threshold is None else distance_threshold
-        angle_threshold = puw.quantity([0., 30.], "degrees") if angle_threshold is None else angle_threshold
+            raise ArgumentError(
+                "offset_threshold",
+                caller=_CALLER,
+                message="ProLIF has no offset or planarity cutoff; leave both None.",
+            )
+        distance_threshold = (
+            puw.quantity(0.45, "nm")
+            if distance_threshold is None
+            else distance_threshold
+        )
+        angle_threshold = (
+            puw.quantity([0.0, 30.0], "degrees")
+            if angle_threshold is None
+            else angle_threshold
+        )
     elif method == "molstar_geometry":
         if angle_threshold is not None or planarity_threshold is not None:
-            raise ArgumentError("angle_threshold", caller=_CALLER, message="Mol* cation-pi geometry has no angle or planarity filter; leave both None.")
-        distance_threshold = puw.quantity(.6, "nm") if distance_threshold is None else distance_threshold
-        offset_threshold = puw.quantity(.2, "nm") if offset_threshold is None else offset_threshold
-    elif any(value is None for value in (distance_threshold, angle_threshold, offset_threshold, planarity_threshold)):
-        raise ArgumentError("method", caller=_CALLER,
-                            message="The custom centroid_angle_offset method requires all four explicit cutoffs.")
+            raise ArgumentError(
+                "angle_threshold",
+                caller=_CALLER,
+                message="Mol* cation-pi geometry has no angle or planarity filter; leave both None.",
+            )
+        distance_threshold = (
+            puw.quantity(0.6, "nm")
+            if distance_threshold is None
+            else distance_threshold
+        )
+        offset_threshold = (
+            puw.quantity(0.2, "nm") if offset_threshold is None else offset_threshold
+        )
+    elif any(
+        value is None
+        for value in (
+            distance_threshold,
+            angle_threshold,
+            offset_threshold,
+            planarity_threshold,
+        )
+    ):
+        raise ArgumentError(
+            "method",
+            caller=_CALLER,
+            message="The custom centroid_angle_offset method requires all four explicit cutoffs.",
+        )
     thresholds = {}
     for name, value, unit, positive in (
         ("distance_threshold", distance_threshold, "nm", True),
@@ -282,46 +331,96 @@ def get_cation_pi_interactions(
             continue
         number = np.asarray(puw.get_value(value, to_unit=unit))
         if name == "angle_threshold" and method == "prolif":
-            interval = np.array([0., float(number)]) if number.shape == () else number
-            if interval.shape != (2,) or not np.isfinite(interval).all() or not 0 <= interval[0] <= interval[1] <= np.pi / 2:
-                raise ArgumentError(name, value=value, caller=_CALLER, message="Use a scalar maximum or a two-angle interval within 0 to 90 degrees.")
+            interval = np.array([0.0, float(number)]) if number.shape == () else number
+            if (
+                interval.shape != (2,)
+                or not np.isfinite(interval).all()
+                or not 0 <= interval[0] <= interval[1] <= np.pi / 2
+            ):
+                raise ArgumentError(
+                    name,
+                    value=value,
+                    caller=_CALLER,
+                    message="Use a scalar maximum or a two-angle interval within 0 to 90 degrees.",
+                )
             thresholds[name] = interval.tolist()
             continue
-        if number.shape != () or not np.isfinite(number) or number < 0 or (positive and number == 0):
-            raise ArgumentError(name, value=value, caller=_CALLER, message="Use a finite scalar cutoff with the required units and range.")
+        if (
+            number.shape != ()
+            or not np.isfinite(number)
+            or number < 0
+            or (positive and number == 0)
+        ):
+            raise ArgumentError(
+                name,
+                value=value,
+                caller=_CALLER,
+                message="Use a finite scalar cutoff with the required units and range.",
+            )
         thresholds[name] = float(number)
     if method == "centroid_angle_offset" and thresholds["angle_threshold"] >= np.pi / 2:
-        raise ArgumentError("angle_threshold", caller=_CALLER, message="Angular deviation must be strictly below 90 degrees.")
+        raise ArgumentError(
+            "angle_threshold",
+            caller=_CALLER,
+            message="Angular deviation must be strictly below 90 degrees.",
+        )
     if (selection_mode == "between") != (selection_2 is not None):
-        raise ArgumentError("selection_2", caller=_CALLER, message="Supply a second selection only for between searches.")
+        raise ArgumentError(
+            "selection_2",
+            caller=_CALLER,
+            message="Supply a second selection only for between searches.",
+        )
 
     dimensions = modular_h5msm_dimensions(molecular_system)
     modular = dimensions is not None
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
     if any(size is None for size in dimensions):
-        raise StructuralInconsistencyError(reason="Declared atom and structure axes are required for cation-pi geometry.", caller=_CALLER)
+        raise StructuralInconsistencyError(
+            reason="Declared atom and structure axes are required for cation-pi geometry.",
+            caller=_CALLER,
+        )
     n_atoms, n_structures = map(int, dimensions)
-    frames = np.arange(n_structures, dtype=np.int64) if is_all(structure_indices) else np.unique(structure_indices)
+    frames = (
+        np.arange(n_structures, dtype=np.int64)
+        if is_all(structure_indices)
+        else np.unique(structure_indices)
+    )
     frames = frames.astype(np.int64)
     if np.any((frames < 0) | (frames >= n_structures)):
-        raise ArgumentError("structure_indices", value=structure_indices, caller=_CALLER)
+        raise ArgumentError(
+            "structure_indices", value=structure_indices, caller=_CALLER
+        )
     fixed_bytes = 8 * (2 * n_atoms + 4 * n_structures)
-    SparseColumnAccumulator({}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed_bytes).check_budget()
+    SparseColumnAccumulator(
+        {}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed_bytes
+    ).check_budget()
     coordinate_source = molecular_system
-    index_selections = all(value is None or not isinstance(value, str) or is_all(value)
-                           for value in (selection, selection_2))
+    index_selections = all(
+        value is None or not isinstance(value, str) or is_all(value)
+        for value in (selection, selection_2)
+    )
     if modular and not index_selections:
         from molsysmt._private.execution.memory_policy import estimate_footprint
         from molsysmt._private.h5msm import maybe_read_modular_h5msm
 
-        if heavy_mode == "force" or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage:
-            raise UnsupportedHeavyOperationError(operation=_CALLER, form="H5MSM rich selections",
-                                                 reason="Use atom-index selections or all for bounded file calculations; rich selection requires eager source materialization within budget.")
+        if (
+            heavy_mode == "force"
+            or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage
+        ):
+            raise UnsupportedHeavyOperationError(
+                operation=_CALLER,
+                form="H5MSM rich selections",
+                reason="Use atom-index selections or all for bounded file calculations; rich selection requires eager source materialization within budget.",
+            )
         molecular_system = maybe_read_modular_h5msm(molecular_system)
         coordinate_source = molecular_system
     source, states, state, state_index, _, covalent, selection_frames = ring_context(
-        molecular_system, chemical_state, frames, assume_complete_connectivity, _CALLER,
+        molecular_system,
+        chemical_state,
+        frames,
+        assume_complete_connectivity,
+        _CALLER,
     )
     if method == "prolif":
         from molsysmt.physchem._prolif import (
@@ -330,62 +429,114 @@ def get_cation_pi_interactions(
         )
         from molsysmt.topology import get_substructure_matches
 
-        features = get_substructure_matches(source, PROLIF_PATTERNS, chemical_state=state_index,
-                                            assume_complete_connectivity=assume_complete_connectivity,
-                                            max_matches=max_matches)
+        features = get_substructure_matches(
+            source,
+            PROLIF_PATTERNS,
+            chemical_state=state_index,
+            assume_complete_connectivity=assume_complete_connectivity,
+            max_matches=max_matches,
+        )
         center_members = list(features["matches"][0])
-        ring_members = sorted([row for matrix in features["matches"][1:] for row in matrix],
-                              key=lambda row: tuple(sorted(row)))
-        charges = np.asarray([state.atom_attributes["formal_charge"].iloc[int(row[0])] for row in center_members], dtype=float)
+        ring_members = sorted(
+            [row for matrix in features["matches"][1:] for row in matrix],
+            key=lambda row: tuple(sorted(row)),
+        )
+        charges = np.asarray(
+            [
+                state.atom_attributes["formal_charge"].iloc[int(row[0])]
+                for row in center_members
+            ],
+            dtype=float,
+        )
         feature_parameters = dict(
-            method_reference=PROLIF_REFERENCE, geometry_rule_version="prolif.CationPi@2.2.2",
-            smarts_patterns=list(PROLIF_PATTERNS), max_matches=max_matches,
-            cation_point="matched_reference_atom", charge_policy="prolif_cation_smarts_including_resonance",
+            method_reference=PROLIF_REFERENCE,
+            geometry_rule_version="prolif.CationPi@2.2.2",
+            smarts_patterns=list(PROLIF_PATTERNS),
+            max_matches=max_matches,
+            cation_point="matched_reference_atom",
+            charge_policy="prolif_cation_smarts_including_resonance",
             participant_definition="prolif_default_5_6_membered_ring_smarts",
             plane_method="cross_of_centroid_to_first_two_smarts_atoms",
-            cutoff_roundoff="none", distance_comparison="less_than_or_equal", angular_roundoff_cap=None,
-            recognition_scope="full_source_chemical_state_rdkit_matches", chemistry_evidence=features["evidence"],
+            cutoff_roundoff="none",
+            distance_comparison="less_than_or_equal",
+            angular_roundoff_cap=None,
+            recognition_scope="full_source_chemical_state_rdkit_matches",
+            chemistry_evidence=features["evidence"],
             hydrogen_policy="rdkit_declared_and_valence_implicit_hydrogens",
             adaptation="single_source_scopes_sparse_output_and_optional_mic_no_residue_pruning",
         )
         software = features["software"]
     else:
-        rings = get_aromatic_rings(states, chemical_state=state_index,
-                                  assume_complete_connectivity=assume_complete_connectivity,
-                                  max_cyclic_block_size=max_cyclic_block_size)
-        charge_topology = source.topology if isinstance(source, MolSys) else source if isinstance(source, Topology) else convert(source, to_form="molsysmt.Topology")
+        rings = get_aromatic_rings(
+            states,
+            chemical_state=state_index,
+            assume_complete_connectivity=assume_complete_connectivity,
+            max_cyclic_block_size=max_cyclic_block_size,
+        )
+        charge_topology = (
+            source.topology
+            if isinstance(source, MolSys)
+            else source
+            if isinstance(source, Topology)
+            else convert(source, to_form="molsysmt.Topology")
+        )
         if charge_topology is None:
-            raise StructuralInconsistencyError(reason="Formal-charge center recognition requires an element inventory.", caller=_CALLER)
+            raise StructuralInconsistencyError(
+                reason="Formal-charge center recognition requires an element inventory.",
+                caller=_CALLER,
+            )
         charge_view, state_view = copy(charge_topology), copy(states)
         state_view._reference_index = state_index
         charge_view._chemical_states_domain = state_view
-        charge_centers = get_charge_centers(charge_view, assume_complete_connectivity=assume_complete_connectivity)
+        charge_centers = get_charge_centers(
+            charge_view, assume_complete_connectivity=assume_complete_connectivity
+        )
         all_charges = np.asarray(puw.get_value(charge_centers["charges"], to_unit="e"))
         positive = np.flatnonzero(all_charges > 0)
-        center_members = [charge_centers["atom_indices"][charge_centers["atom_offsets"][i]:charge_centers["atom_offsets"][i + 1]]
-                          for i in positive]
+        center_members = [
+            charge_centers["atom_indices"][
+                charge_centers["atom_offsets"][i] : charge_centers["atom_offsets"][
+                    i + 1
+                ]
+            ]
+            for i in positive
+        ]
         charges = all_charges[positive]
-        ring_members = [rings["atom_indices"][a:b] for a, b in zip(rings["atom_offsets"][:-1], rings["atom_offsets"][1:])]
+        ring_members = [
+            rings["atom_indices"][a:b]
+            for a, b in zip(rings["atom_offsets"][:-1], rings["atom_offsets"][1:])
+        ]
         feature_parameters = dict(
-            geometry_rule_version="cation_centroid_angle_offset@1", method_reference=None,
+            geometry_rule_version="cation_centroid_angle_offset@1",
+            method_reference=None,
             cation_point="arithmetic_centroid_of_all_participant_atoms",
-            charge_definition=charge_centers["definition"], charge_source=charge_centers["charge_source"],
-            charge_rule_version=charge_centers["rule_version"], charge_evidence=charge_centers["evidence"],
+            charge_definition=charge_centers["definition"],
+            charge_source=charge_centers["charge_source"],
+            charge_rule_version=charge_centers["rule_version"],
+            charge_evidence=charge_centers["evidence"],
             charge_policy="positive_net_formal_charge_no_partial_charge_fallback",
-            participant_definition=rings["definition"], recognition_rule_version=rings["rule_version"],
-            ring_method=rings["method"], aromatic_evidence=rings["evidence"],
-            max_cyclic_block_size=max_cyclic_block_size, recognition_scope="full_source_chemical_state",
-            plane_method="unweighted_orthogonal_least_squares", cutoff_roundoff="one_float64_ulp",
-            distance_comparison="positive_and_less_than_or_equal", angular_roundoff_cap="strictly_below_pi_over_2",
+            participant_definition=rings["definition"],
+            recognition_rule_version=rings["rule_version"],
+            ring_method=rings["method"],
+            aromatic_evidence=rings["evidence"],
+            max_cyclic_block_size=max_cyclic_block_size,
+            recognition_scope="full_source_chemical_state",
+            plane_method="unweighted_orthogonal_least_squares",
+            cutoff_roundoff="one_float64_ulp",
+            distance_comparison="positive_and_less_than_or_equal",
+            angular_roundoff_cap="strictly_below_pi_over_2",
         )
         software = {**rings["software"], **charge_centers["software"]}
         if method == "molstar_geometry":
             from molsysmt._private.scientific_references import MOLSTAR_REFERENCE
 
             feature_parameters.update(
-                method_reference=MOLSTAR_REFERENCE, geometry_rule_version="molstar.CationPi.geometry@48071795",
-                plane_method="cross_of_first_three_basis_member_atoms", cutoff_roundoff="none",
-                distance_comparison="positive_and_less_than_or_equal", angular_roundoff_cap=None,
+                method_reference=MOLSTAR_REFERENCE,
+                geometry_rule_version="molstar.CationPi.geometry@48071795",
+                plane_method="cross_of_first_three_basis_member_atoms",
+                cutoff_roundoff="none",
+                distance_comparison="positive_and_less_than_or_equal",
+                angular_roundoff_cap=None,
                 adaptation="geometry_only_declared_molsysmt_centers_and_ring_basis_no_molstar_valence_or_refinement",
             )
     n_cations = len(center_members)
@@ -395,48 +546,121 @@ def get_cation_pi_interactions(
         selection_source._reference_index = state_index
         selection_state = "reference"
     else:
-        selection_source = source if isinstance(source, MolSys) else convert(source, to_form="molsysmt.MolSys")
+        selection_source = (
+            source
+            if isinstance(source, MolSys)
+            else convert(source, to_form="molsysmt.MolSys")
+        )
         selection_state = state_index
-    first = np.unique(select(selection_source, selection=selection, structure_indices=selection_frames,
-                             chemical_state=selection_state, syntax=syntax)).astype(np.int64)
-    second = None if selection_2 is None else np.unique(select(
-        selection_source, selection=selection_2, structure_indices=selection_frames,
-        chemical_state=selection_state, syntax=syntax)).astype(np.int64)
+    first = np.unique(
+        select(
+            selection_source,
+            selection=selection,
+            structure_indices=selection_frames,
+            chemical_state=selection_state,
+            syntax=syntax,
+        )
+    ).astype(np.int64)
+    second = (
+        None
+        if selection_2 is None
+        else np.unique(
+            select(
+                selection_source,
+                selection=selection_2,
+                structure_indices=selection_frames,
+                chemical_state=selection_state,
+                syntax=syntax,
+            )
+        ).astype(np.int64)
+    )
     if second is not None and np.intersect1d(first, second).size:
-        raise ArgumentError("selection_2", caller=_CALLER, message="Between selections must be disjoint.")
+        raise ArgumentError(
+            "selection_2",
+            caller=_CALLER,
+            message="Between selections must be disjoint.",
+        )
     in_first = whole_group_selection(members, first, caller=_CALLER)
-    in_second = None if second is None else whole_group_selection(members, second, caller=_CALLER, argument="selection_2")
-    active = in_first if selection_mode == "internal" else np.ones(len(members), dtype=bool) if selection_mode == "incident" else in_first | in_second
+    in_second = (
+        None
+        if second is None
+        else whole_group_selection(
+            members, second, caller=_CALLER, argument="selection_2"
+        )
+    )
+    active = (
+        in_first
+        if selection_mode == "internal"
+        else np.ones(len(members), dtype=bool)
+        if selection_mode == "incident"
+        else in_first | in_second
+    )
     active_indices = np.flatnonzero(active)
     cations = np.arange(n_cations, dtype=np.int64)
     ring_indices = np.arange(n_cations, len(members), dtype=np.int64)
-    first_cations, first_rings = cations[in_first[cations]], ring_indices[in_first[ring_indices]]
+    first_cations, first_rings = (
+        cations[in_first[cations]],
+        ring_indices[in_first[ring_indices]],
+    )
     if selection_mode == "between":
-        searches = [(first_cations, ring_indices[in_second[ring_indices]]),
-                    (cations[in_second[cations]], first_rings)]
+        searches = [
+            (first_cations, ring_indices[in_second[ring_indices]]),
+            (cations[in_second[cations]], first_rings),
+        ]
     else:
         searches = [(first_cations, first_rings)]
         if selection_mode == "incident":
-            searches.extend([(first_cations, ring_indices[~in_first[ring_indices]]),
-                             (cations[~in_first[cations]], first_rings)])
+            searches.extend(
+                [
+                    (first_cations, ring_indices[~in_first[ring_indices]]),
+                    (cations[~in_first[cations]], first_rings),
+                ]
+            )
     searches = [(a, b) for a, b in searches if len(a) and len(b)]
-    universe = np.unique(np.concatenate([members[i] for i in active_indices])) if len(active_indices) else np.empty(0, dtype=np.int64)
+    universe = (
+        np.unique(np.concatenate([members[i] for i in active_indices]))
+        if len(active_indices)
+        else np.empty(0, dtype=np.int64)
+    )
     metadata = dict(
-        n_atoms=n_atoms, n_structures=n_structures, evaluated_structure_indices=frames,
-        method=_CALLER, software=software,
-        measure_units={"distance": "nm", "normal_angle": "radians", "offset": "nm", "height": "nm",
-                       "ring_rms_deviation": "nm", "ring_max_deviation": "nm", "cation_charge": "e",
-                       **({"oriented_normal_angle": "radians"} if method == "prolif" else {})},
-        parameters={
-            "method": method, **feature_parameters,
-            **{name: {"value": value, "unit": "radians" if name == "angle_threshold" else "nm"}
-               for name, value in thresholds.items()},
-            "chemical_state_index": state_index, "pbc": pbc,
-            "image_policy": "whole_participants_anchor_relative_mic", "pbc_policy": "mic_when_box_available",
-            "exclude_overlap": method == "centroid_angle_offset", "exclude_direct_covalent": method == "centroid_angle_offset", "intramolecular": "included",
+        n_atoms=n_atoms,
+        n_structures=n_structures,
+        evaluated_structure_indices=frames,
+        method=_CALLER,
+        software=software,
+        measure_units={
+            "distance": "nm",
+            "normal_angle": "radians",
+            "offset": "nm",
+            "height": "nm",
+            "ring_rms_deviation": "nm",
+            "ring_max_deviation": "nm",
+            "cation_charge": "e",
+            **({"oriented_normal_angle": "radians"} if method == "prolif" else {}),
         },
-        evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
-        evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
+        parameters={
+            "method": method,
+            **feature_parameters,
+            **{
+                name: {
+                    "value": value,
+                    "unit": "radians" if name == "angle_threshold" else "nm",
+                }
+                for name, value in thresholds.items()
+            },
+            "chemical_state_index": state_index,
+            "pbc": pbc,
+            "image_policy": "whole_participants_anchor_relative_mic",
+            "pbc_policy": "mic_when_box_available",
+            "exclude_overlap": method == "centroid_angle_offset",
+            "exclude_direct_covalent": method == "centroid_angle_offset",
+            "intramolecular": "included",
+        },
+        evaluation_mode=selection_mode,
+        evaluation_atom_indices=np.intersect1d(first, universe),
+        evaluation_atom_indices_b=None
+        if second is None
+        else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
     )
     metadata["execution"] = {"memory_policy": "numeric_working_estimates@1"}
@@ -444,12 +668,40 @@ def get_cation_pi_interactions(
         metadata["execution"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
-        per_frame = 4 * 24 * len(universe) + 256 * len(active_indices) + 192 * max(len(members[i]) for i in active_indices) + 2048 + (288 if pbc else 0)
-        reducer = _CationPiReducer(members=members, active=active_indices, universe=universe, searches=searches,
-                              excluded=connected_group_pairs(members, covalent) if method == "centroid_angle_offset" else set(), thresholds=thresholds,
-                                  n_cations=n_cations, charges=charges, method=method,
-                                  metadata=metadata, budget_bytes=configure.max_ram_usage)
-        result = execute_projected_geometry(coordinate_source, universe=universe, frames=frames,
-                                            reducer=reducer, per_frame_bytes=per_frame,
-                                            pbc=pbc, heavy_mode=heavy_mode, caller=_CALLER)
-    return result if output_type == "molsysmt.interactions" else convert(result, to_form="molsysmt.InteractionsDict")
+        per_frame = (
+            4 * 24 * len(universe)
+            + 256 * len(active_indices)
+            + 192 * max(len(members[i]) for i in active_indices)
+            + 2048
+            + (288 if pbc else 0)
+        )
+        reducer = _CationPiReducer(
+            members=members,
+            active=active_indices,
+            universe=universe,
+            searches=searches,
+            excluded=connected_group_pairs(members, covalent)
+            if method == "centroid_angle_offset"
+            else set(),
+            thresholds=thresholds,
+            n_cations=n_cations,
+            charges=charges,
+            method=method,
+            metadata=metadata,
+            budget_bytes=configure.max_ram_usage,
+        )
+        result = execute_projected_geometry(
+            coordinate_source,
+            universe=universe,
+            frames=frames,
+            reducer=reducer,
+            per_frame_bytes=per_frame,
+            pbc=pbc,
+            heavy_mode=heavy_mode,
+            caller=_CALLER,
+        )
+    return (
+        result
+        if output_type == "molsysmt.interactions"
+        else convert(result, to_form="molsysmt.InteractionsDict")
+    )

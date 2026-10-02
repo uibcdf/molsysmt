@@ -34,7 +34,9 @@ def main():
     }
     start = time.perf_counter()
     result = msm.Interactions.from_records(
-        [record], n_atoms=args.atoms, n_structures=args.structures,
+        [record],
+        n_atoms=args.atoms,
+        n_structures=args.structures,
         evaluated_structure_indices=[0, args.structures - 1],
         method="scope_probe",
     )
@@ -61,21 +63,26 @@ def main():
         if not np.array_equal(loaded.evaluation_universe_indices, expected_scope):
             raise AssertionError("atom search scope changed after HDF5 round trip")
 
-    print(json.dumps({
-        "atoms": args.atoms,
-        "structures": args.structures,
-        "added_atoms": args.added_atoms,
-        "observations": result.n_interactions,
-        "base_numeric_bytes": base_bytes,
-        "extended_numeric_bytes": extended.numeric_nbytes,
-        "additional_numeric_bytes": extended.numeric_nbytes - base_bytes,
-        "scope_array_bytes": extended.evaluation_universe_indices.nbytes,
-        "standalone_disk_bytes": disk_bytes,
-        "build_s": build_s,
-        "extend_s": extend_s,
-        "save_s": save_s,
-        "load_s": load_s,
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "atoms": args.atoms,
+                "structures": args.structures,
+                "added_atoms": args.added_atoms,
+                "observations": result.n_interactions,
+                "base_numeric_bytes": base_bytes,
+                "extended_numeric_bytes": extended.numeric_nbytes,
+                "additional_numeric_bytes": extended.numeric_nbytes - base_bytes,
+                "scope_array_bytes": extended.evaluation_universe_indices.nbytes,
+                "standalone_disk_bytes": disk_bytes,
+                "build_s": build_s,
+                "extend_s": extend_s,
+                "save_s": save_s,
+                "load_s": load_s,
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

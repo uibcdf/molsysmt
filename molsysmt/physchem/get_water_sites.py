@@ -12,10 +12,16 @@ from molsysmt._private.interaction_attribution import attributed
 @dep_digest("rdkit")
 @attributed("water_sites")
 def get_water_sites(
-    molecular_system, selection="all", structure_indices="all",
-    chemical_state="reference", method="explicit_water_graph",
-    assume_complete_connectivity=False, syntax="MolSysMT", skip_digestion=False,
-    *, max_matches=100000,
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    chemical_state="reference",
+    method="explicit_water_graph",
+    assume_complete_connectivity=False,
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    max_matches=100000,
 ):
     """Recognizing neutral water molecules with three explicitly indexed atoms.
 
@@ -101,20 +107,29 @@ def get_water_sites(
 
     pattern = "[O;+0;D2;H2](-[#1;+0;D1])-[#1;+0;D1]"
     matches = get_substructure_matches(
-        molecular_system, pattern, selection=selection,
-        structure_indices=structure_indices, chemical_state=chemical_state,
-        assume_complete_connectivity=assume_complete_connectivity, syntax=syntax,
+        molecular_system,
+        pattern,
+        selection=selection,
+        structure_indices=structure_indices,
+        chemical_state=chemical_state,
+        assume_complete_connectivity=assume_complete_connectivity,
+        syntax=syntax,
         max_matches=max_matches,
     )
     waters = matches["matches"][0].copy().reshape(-1, 3)
     waters[:, 1:] = np.sort(waters[:, 1:], axis=1)
     waters = np.unique(waters, axis=0)
     return dict(
-        water_atom_indices=waters, atom_source_indices=matches["source_atom_indices"],
+        water_atom_indices=waters,
+        atom_source_indices=matches["source_atom_indices"],
         selected_atom_indices=matches["selection_atom_indices"],
-        chemical_state_index=matches["chemical_state_index"], method=method,
-        smarts_patterns=[pattern], evidence=matches["evidence"],
-        software=matches["software"], max_matches=max_matches,
+        chemical_state_index=matches["chemical_state_index"],
+        method=method,
+        smarts_patterns=[pattern],
+        evidence=matches["evidence"],
+        software=matches["software"],
+        max_matches=max_matches,
         assume_complete_connectivity=assume_complete_connectivity,
-        scope="full_source_recognition_then_selection", hydrogen_policy="indexed_atoms_only",
+        scope="full_source_recognition_then_selection",
+        hydrogen_policy="indexed_atoms_only",
     )

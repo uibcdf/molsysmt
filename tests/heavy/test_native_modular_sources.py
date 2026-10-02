@@ -14,10 +14,12 @@ class _Collector(Reducer):
         self.chunks = []
 
     def consume(self, chunk):
-        self.chunks.append({
-            name: None if array is None else array.copy()
-            for name, array in chunk.items()
-        })
+        self.chunks.append(
+            {
+                name: None if array is None else array.copy()
+                for name, array in chunk.items()
+            }
+        )
 
     def finalize(self):
         return self.chunks
@@ -32,9 +34,13 @@ def _structures():
     )
 
 
-@pytest.mark.parametrize("form", ["molsysmt.Structures", "molsysmt.MolSys", "file:h5msm"])
+@pytest.mark.parametrize(
+    "form", ["molsysmt.Structures", "molsysmt.MolSys", "file:h5msm"]
+)
 @pytest.mark.parametrize("mode", ["force", "off"])
-def test_selected_projected_sources_preserve_axes_and_units(form, mode, tmp_path, monkeypatch):
+def test_selected_projected_sources_preserve_axes_and_units(
+    form, mode, tmp_path, monkeypatch
+):
     structures = _structures()
     selected = np.array([4, 1, 4, 0, 3], dtype=np.int64)
     atoms = np.array([3, 0], dtype=np.int64)
@@ -59,12 +65,20 @@ def test_selected_projected_sources_preserve_axes_and_units(form, mode, tmp_path
         source = structures
     with msm.configure.context(chunk_memory_fraction=None):
         chunks = ChunkedExecutor(
-            source, form, "projected_test", reducer=_Collector(),
-            atom_indices=atoms, structure_indices=selected, chunk_size=2,
-            heavy_mode=mode, attributes=["coordinates", "box"],
+            source,
+            form,
+            "projected_test",
+            reducer=_Collector(),
+            atom_indices=atoms,
+            structure_indices=selected,
+            chunk_size=2,
+            heavy_mode=mode,
+            attributes=["coordinates", "box"],
         ).execute()
     xyz = np.concatenate([chunk["coordinates"] for chunk in chunks])
-    reference = puw.get_value(structures.coordinates, to_unit="nm")[np.ix_(selected, atoms)]
+    reference = puw.get_value(structures.coordinates, to_unit="nm")[
+        np.ix_(selected, atoms)
+    ]
     np.testing.assert_allclose(xyz, reference)
     np.testing.assert_allclose(
         np.concatenate([chunk["box"] for chunk in chunks]),
@@ -90,7 +104,9 @@ def test_native_coordinate_getter_copies_only_the_projection(monkeypatch):
 
     monkeypatch.setattr(getters, "copy", observed)
     structures = _structures()
-    selected = msm.get(structures, selection=[3, 0], structure_indices=[4, 1], coordinates=True)
+    selected = msm.get(
+        structures, selection=[3, 0], structure_indices=[4, 1], coordinates=True
+    )
     assert shapes == [(2, 2, 3)]
     selected[0, 0, 0] = puw.quantity(999, "nm")
     assert puw.get_value(structures.coordinates, to_unit="nm")[4, 3, 0] != 999
@@ -102,14 +118,21 @@ def test_modular_iterator_projects_labels_time_and_closes_on_early_exit(tmp_path
     source = str(tmp_path / "labels.h5msm")
     msm.convert(_structures(), to_form=source)
     iterator = StructuresIterator(
-        source, atom_indices=[3, 0], structure_indices=[4, 1, 4, 0],
-        chunk=2, output_type="dictionary", coordinates=True,
-        structure_id=True, time=True,
+        source,
+        atom_indices=[3, 0],
+        structure_indices=[4, 1, 4, 0],
+        chunk=2,
+        output_type="dictionary",
+        coordinates=True,
+        structure_id=True,
+        time=True,
     )
     with iterator:
         block = next(iterator)
         assert block["structure_id"].tolist() == ["source-104", "source-101"]
-        np.testing.assert_allclose(puw.get_value(block["time"], to_unit="ps"), [4000, 1000])
+        np.testing.assert_allclose(
+            puw.get_value(block["time"], to_unit="ps"), [4000, 1000]
+        )
         assert block["coordinates"].shape == (2, 2, 3)
         assert iterator._inner._file.id.valid
     assert not iterator._inner._file.id.valid
@@ -130,10 +153,20 @@ def test_modular_iterator_closes_owned_handle_when_consumer_fails(tmp_path):
 
 @pytest.mark.parametrize("operation", ["get_center", "get_rmsd", "get_distances"])
 def test_public_reducers_preserve_quantities_under_nondefault_units(operation):
-    puw.configure.set_standard_units([
-        "angstrom", "ns", "K", "mole", "dalton", "e", "kJ/mol",
-        "kJ/(mol*nm)", "kJ/(mol*nm**2)", "radians",
-    ])
+    puw.configure.set_standard_units(
+        [
+            "angstrom",
+            "ns",
+            "K",
+            "mole",
+            "dalton",
+            "e",
+            "kJ/mol",
+            "kJ/(mol*nm)",
+            "kJ/(mol*nm**2)",
+            "radians",
+        ]
+    )
     molsys = MolSys._from_partial_domains(structures=_structures())
     function = getattr(msm.structure, operation)
     options = dict(selection=[0, 3], structure_indices=[4, 1, 4])
@@ -163,6 +196,9 @@ def test_modular_iterator_rejects_invalid_series_metadata(tmp_path, fault):
             file["structures"].attrs["schema_version"] = 9
     with pytest.raises(ValueError):
         ChunkedExecutor(
-            source, "file:h5msm", "invalid_file_test", reducer=_Collector(),
+            source,
+            "file:h5msm",
+            "invalid_file_test",
+            reducer=_Collector(),
             heavy_mode="force",
         ).execute()

@@ -28,8 +28,14 @@ def _requests(records, n_frames):
     first_ring = ring["participants"][0]["atom_indices"]
     second_ring = ring["participants"][1]["atom_indices"]
     whole_relation = sorted(_record_atoms(ring))
-    frames = [n_frames - 1, ring["structure_index"], 1,
-              ring["structure_index"], 0, n_frames // 2]
+    frames = [
+        n_frames - 1,
+        ring["structure_index"],
+        1,
+        ring["structure_index"],
+        0,
+        n_frames // 2,
+    ]
     return (
         {"frames": frames},
         {"frames": [0, 1]},
@@ -43,10 +49,8 @@ def _requests(records, n_frames):
         {"atoms": whole_relation, "mode": "cross"},
         {"atoms": [], "mode": "incident", "frames": frames},
         {"between": (first_ring, second_ring), "frames": frames},
-        {"between": (first_ring, second_ring), "exclusive": True,
-         "frames": frames},
-        {"between": (whole_relation, second_ring), "exclusive": True,
-         "frames": frames},
+        {"between": (first_ring, second_ring), "exclusive": True, "frames": frames},
+        {"between": (whole_relation, second_ring), "exclusive": True, "frames": frames},
         {},
     )
 
@@ -55,7 +59,9 @@ def _check(reader, records, evaluated, spec, planner):
     if "between" in spec:
         a, b = spec["between"]
         actual_coverage, columns = reader.between_columns(
-            a, b, structure_indices=spec.get("frames"),
+            a,
+            b,
+            structure_indices=spec.get("frames"),
             exclusive=spec.get("exclusive", False),
             planner=planner,
         )
@@ -81,44 +87,65 @@ def _check(reader, records, evaluated, spec, planner):
     ):
         raise AssertionError("empty selection has unstable typed shape")
     found_frames = list(dict.fromkeys(columns["structure_indices"].tolist()))
-    expected_frames = [frame for frame in oracle_coverage
-                       if any(signature[0] == frame for signature in oracle_rows)]
+    expected_frames = [
+        frame
+        for frame in oracle_coverage
+        if any(signature[0] == frame for signature in oracle_rows)
+    ]
     if found_frames != expected_frames:
-        raise AssertionError(f"structure request order differs for {spec} with {planner}")
+        raise AssertionError(
+            f"structure request order differs for {spec} with {planner}"
+        )
     return count
 
 
 def _edge_cases(directory):
     """Exercise repeated atoms, compound overlap, and parallel observations."""
     records = [
-        {"structure_index": 2, "interaction_type": "three_body",
-         "participants": [
-             {"role": "left", "atom_indices": [0, 1]},
-             {"role": "right", "atom_indices": [0, 2]},
-         ], "evidence": "observed_geometry",
-         "measurements": {"distance": 0.25, "angle": 0.4},
-         "images": [[0, 0, 0], [1, 0, 0]]},
-        {"structure_index": 3, "interaction_type": "pair",
-         "participants": [
-             {"role": "first", "atom_indices": [3]},
-             {"role": "second", "atom_indices": [4]},
-         ], "evidence": "source_annotation",
-         "measurements": {"distance": 0.30, "angle": -1.0},
-         "images": [[0, 0, 0], [0, 0, 0]]},
-        {"structure_index": 3, "interaction_type": "pair",
-         "participants": [
-             {"role": "first", "atom_indices": [3]},
-             {"role": "second", "atom_indices": [4]},
-         ], "evidence": "source_annotation",
-         "measurements": {"distance": 0.32, "angle": -1.0},
-         "images": [[0, 1, 0], [0, 0, 0]]},
-        {"structure_index": 6, "interaction_type": "pi_pi",
-         "participants": [
-             {"role": "ring", "atom_indices": [5, 6, 7]},
-             {"role": "ring", "atom_indices": [7, 8, 9]},
-         ], "evidence": "observed_geometry",
-         "measurements": {"distance": 0.35, "angle": 0.1},
-         "images": [[0, 0, 0], [0, 0, 0]]},
+        {
+            "structure_index": 2,
+            "interaction_type": "three_body",
+            "participants": [
+                {"role": "left", "atom_indices": [0, 1]},
+                {"role": "right", "atom_indices": [0, 2]},
+            ],
+            "evidence": "observed_geometry",
+            "measurements": {"distance": 0.25, "angle": 0.4},
+            "images": [[0, 0, 0], [1, 0, 0]],
+        },
+        {
+            "structure_index": 3,
+            "interaction_type": "pair",
+            "participants": [
+                {"role": "first", "atom_indices": [3]},
+                {"role": "second", "atom_indices": [4]},
+            ],
+            "evidence": "source_annotation",
+            "measurements": {"distance": 0.30, "angle": -1.0},
+            "images": [[0, 0, 0], [0, 0, 0]],
+        },
+        {
+            "structure_index": 3,
+            "interaction_type": "pair",
+            "participants": [
+                {"role": "first", "atom_indices": [3]},
+                {"role": "second", "atom_indices": [4]},
+            ],
+            "evidence": "source_annotation",
+            "measurements": {"distance": 0.32, "angle": -1.0},
+            "images": [[0, 1, 0], [0, 0, 0]],
+        },
+        {
+            "structure_index": 6,
+            "interaction_type": "pi_pi",
+            "participants": [
+                {"role": "ring", "atom_indices": [5, 6, 7]},
+                {"role": "ring", "atom_indices": [7, 8, 9]},
+            ],
+            "evidence": "observed_geometry",
+            "measurements": {"distance": 0.35, "angle": 0.1},
+            "images": [[0, 0, 0], [0, 0, 0]],
+        },
     ]
     evaluated = [2, 3, 4, 5, 6]
     specs = (
@@ -128,21 +155,21 @@ def _edge_cases(directory):
         {"frames": [3], "atoms": [3, 4], "mode": "internal"},
         {"frames": [6], "atoms": [7], "mode": "cross"},
         {"between": ([0], [1]), "frames": [2]},
-        {"between": ([0, 1], [0, 2]), "frames": [2],
-         "exclusive": True},
+        {"between": ([0, 1], [0, 2]), "frames": [2], "exclusive": True},
         {"frames": [5]},
     )
     path = directory / "edge_interactions.h5i"
     scratch = directory / "edge_postings.sqlite"
-    write_streaming_flat_file(
-        path, iter(records), iter(evaluated), 40, 43, 30, scratch
-    )
+    write_streaming_flat_file(path, iter(records), iter(evaluated), 40, 43, 30, scratch)
     reader = PackedReader(path)
     checks = 0
     try:
         for spec in specs:
-            planners = (("auto", "frame", "atom")
-                        if "atoms" in spec or "between" in spec else ("auto",))
+            planners = (
+                ("auto", "frame", "atom")
+                if "atoms" in spec or "between" in spec
+                else ("auto",)
+            )
             for planner in planners:
                 _check(reader, records, evaluated, spec, planner)
                 checks += 1
@@ -157,8 +184,9 @@ def main():
     parser.add_argument("--atoms", type=int, default=500)
     parser.add_argument("--per-frame", type=int, default=8)
     parser.add_argument("--block-size", type=int, default=100)
-    parser.add_argument("--distribution", choices=("stable", "mixed", "churn"),
-                        default="mixed")
+    parser.add_argument(
+        "--distribution", choices=("stable", "mixed", "churn"), default="mixed"
+    )
     args = parser.parse_args()
     if args.frames < 30 or args.atoms < 30 or args.per_frame < 1:
         parser.error("frames and atoms must be at least 30; per-frame positive")
@@ -172,8 +200,13 @@ def main():
         path = Path(directory) / "interactions.h5i"
         scratch = Path(directory) / "postings.sqlite"
         write_info = write_streaming_flat_file(
-            path, iter(records), iter(evaluated), args.frames,
-            args.atoms, args.block_size, scratch,
+            path,
+            iter(records),
+            iter(evaluated),
+            args.frames,
+            args.atoms,
+            args.block_size,
+            scratch,
         )
         reader = PackedReader(path)
         try:
@@ -181,10 +214,12 @@ def main():
             counts = []
             checks = 0
             for spec in requests:
-                planners = (("auto", "frame", "atom")
-                            if spec.get("frames") is not None
-                            and ("atoms" in spec or "between" in spec)
-                            else ("auto",))
+                planners = (
+                    ("auto", "frame", "atom")
+                    if spec.get("frames") is not None
+                    and ("atoms" in spec or "between" in spec)
+                    else ("auto",)
+                )
                 for planner in planners:
                     count = _check(reader, records, evaluated, spec, planner)
                     checks += 1
@@ -194,21 +229,28 @@ def main():
         finally:
             reader.close()
         edge_checks = _edge_cases(Path(directory))
-        print(json.dumps({
-            "platform": platform.platform(),
-            "frames": args.frames, "atoms": args.atoms,
-            "distribution": args.distribution, "occurrences": len(records),
-            "file_bytes": write_info["file_bytes"],
-            "mode_counts": {
-                "global": write_info["choices"].count(0),
-                "event": write_info["choices"].count(1),
-            },
-            "semantic_cases_verified": len(counts),
-            "planner_checks_verified": checks,
-            "edge_case_checks_verified": edge_checks,
-            "selected_counts": counts,
-            "query_and_oracle_s": round(query_s, 3),
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "frames": args.frames,
+                    "atoms": args.atoms,
+                    "distribution": args.distribution,
+                    "occurrences": len(records),
+                    "file_bytes": write_info["file_bytes"],
+                    "mode_counts": {
+                        "global": write_info["choices"].count(0),
+                        "event": write_info["choices"].count(1),
+                    },
+                    "semantic_cases_verified": len(counts),
+                    "planner_checks_verified": checks,
+                    "edge_case_checks_verified": edge_checks,
+                    "selected_counts": counts,
+                    "query_and_oracle_s": round(query_s, 3),
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

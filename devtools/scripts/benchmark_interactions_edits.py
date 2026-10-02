@@ -42,7 +42,10 @@ def replace_affected_events(events, frame, n_atoms):
         (2, ((affected_atom + 2) % n_atoms,)),
     )
     new_event = (
-        frame, (0, new_participants), 0, 0.25,
+        frame,
+        (0, new_participants),
+        0,
+        0.25,
         np.asarray([[0, 0, 0], [0, 0, 0], [1, 0, 0]], dtype=np.int8),
     )
     replacement = [*retained, new_event]
@@ -78,12 +81,14 @@ def write_edit_group(path, name, arrays):
         group = file.require_group("edit_journal").create_group(name)
         group.attrs["scope"] = "replace_evaluated_frames"
         for column, values in arrays.items():
-            group.create_dataset(column, data=values,
-                                 compression="gzip" if values.size else None)
+            group.create_dataset(
+                column, data=values, compression="gzip" if values.size else None
+            )
 
 
-def atom_count_after_overlay(base, base_index, replacement, replacement_index,
-                             frame, atom):
+def atom_count_after_overlay(
+    base, base_index, replacement, replacement_index, frame, atom
+):
     base_events = query_atom(base, base_index, atom, "event")
     first = base["frame_offsets"][frame]
     last = base["frame_offsets"][frame + 1]
@@ -101,8 +106,12 @@ def main():
     parser.add_argument("--repeated-edits", type=int, default=20)
     parser.add_argument("--churn", action="store_true")
     args = parser.parse_args()
-    if (args.frames <= 11 or args.atoms < 20 or args.block_size < 1
-            or args.repeated_edits < 1):
+    if (
+        args.frames <= 11
+        or args.atoms < 20
+        or args.block_size < 1
+        or args.repeated_edits < 1
+    ):
         parser.error("frames > 11, atoms >= 20, block size and edits positive")
     frame = 10
     events = make_events(args.frames, args.atoms, args.churn)
@@ -111,8 +120,8 @@ def main():
     canonical_ids = {}
     for event_index, event in enumerate(events):
         canonical_ids.setdefault(event[1], event_index)
-    edited_events, frame_replacement, affected_atom, removed = (
-        replace_affected_events(events, frame, args.atoms)
+    edited_events, frame_replacement, affected_atom, removed = replace_affected_events(
+        events, frame, args.atoms
     )
 
     start = time.perf_counter()
@@ -126,26 +135,34 @@ def main():
     frame_delta_s = time.perf_counter() - start
     check_lossless(
         frame_delta,
-        [(0, key, evidence, distance, images)
-         for _, key, evidence, distance, images in frame_replacement],
+        [
+            (0, key, evidence, distance, images)
+            for _, key, evidence, distance, images in frame_replacement
+        ],
         1,
     )
 
     block_start = frame // args.block_size * args.block_size
     block_stop = min(block_start + args.block_size, args.frames)
-    block_events = [event for event in edited_events
-                    if block_start <= event[0] < block_stop]
+    block_events = [
+        event for event in edited_events if block_start <= event[0] < block_stop
+    ]
     start = time.perf_counter()
     block_delta = encode_local(
-        block_events, block_stop - block_start, args.atoms, block_start,
+        block_events,
+        block_stop - block_start,
+        args.atoms,
+        block_start,
         canonical_ids,
     )
     block_index = build_atom_index(block_delta, args.atoms, "event")
     block_delta_s = time.perf_counter() - start
     check_lossless(
         block_delta,
-        [(structure_index - block_start, key, evidence, distance, images)
-         for structure_index, key, evidence, distance, images in block_events],
+        [
+            (structure_index - block_start, key, evidence, distance, images)
+            for structure_index, key, evidence, distance, images in block_events
+        ],
         block_stop - block_start,
     )
 
@@ -155,9 +172,10 @@ def main():
             base, base_index, frame_delta, frame_index, frame, atom
         )
         assert observed == expected
-    assert len(frame_replacement) == np.diff(
-        rebuilt["frame_offsets"][[frame, frame + 1]]
-    )[0]
+    assert (
+        len(frame_replacement)
+        == np.diff(rebuilt["frame_offsets"][[frame, frame + 1]])[0]
+    )
     assert len(block_events) == block_delta["frame_offsets"][-1]
     assert frame_delta["source_frame_map"].tolist() == [frame]
 
@@ -176,7 +194,8 @@ def main():
     overlay_atom_count_query = time_queries(
         lambda atom: atom_count_after_overlay(
             base, base_index, frame_delta, frame_index, frame, int(atom)
-        ), requested_atoms,
+        ),
+        requested_atoms,
     )
 
     with tempfile.TemporaryDirectory() as directory:
@@ -214,37 +233,48 @@ def main():
         repeated_append_s = time.perf_counter() - start
         repeated_append_bytes = repeated_path.stat().st_size - repeated_base_bytes
 
-    print(json.dumps({
-        "platform": platform.platform(), "python": platform.python_version(),
-        "numpy": np.__version__, "h5py": h5py.__version__,
-        "frames": args.frames, "atoms": args.atoms, "events_before": len(events),
-        "events_after": len(edited_events), "churn": args.churn,
-        "edited_frame": frame, "affected_atom": affected_atom,
-        "removed_observations": removed,
-        "new_observations": 1,
-        "full_rebuild_s": round(full_rebuild_s, 4),
-        "frame_delta_build_s": round(frame_delta_s, 4),
-        "block_delta_build_s": round(block_delta_s, 4),
-        "base_core_bytes": payload_bytes(base),
-        "full_rebuilt_core_bytes": payload_bytes(rebuilt),
-        "frame_delta_core_bytes": payload_bytes(frame_delta),
-        "block_delta_core_bytes": payload_bytes(block_delta),
-        "base_atom_index_bytes": payload_bytes(base_index),
-        "frame_delta_atom_index_bytes": payload_bytes(frame_index),
-        "block_delta_atom_index_bytes": payload_bytes(block_index),
-        "base_file_bytes": base_file_bytes,
-        "frame_append_bytes": frame_append_bytes,
-        "block_append_bytes": block_append_bytes,
-        "full_rebuilt_file_bytes": rebuilt_file_bytes,
-        "append_frame_s": round(append_frame_s, 4),
-        "append_block_s": round(append_block_s, 4),
-        "rewrite_full_s": round(rewrite_full_s, 4),
-        "repeated_edits": args.repeated_edits,
-        "repeated_append_bytes": repeated_append_bytes,
-        "repeated_append_s": round(repeated_append_s, 4),
-        "full_atom_count_query": full_atom_count_query,
-        "overlay_atom_count_query": overlay_atom_count_query,
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "platform": platform.platform(),
+                "python": platform.python_version(),
+                "numpy": np.__version__,
+                "h5py": h5py.__version__,
+                "frames": args.frames,
+                "atoms": args.atoms,
+                "events_before": len(events),
+                "events_after": len(edited_events),
+                "churn": args.churn,
+                "edited_frame": frame,
+                "affected_atom": affected_atom,
+                "removed_observations": removed,
+                "new_observations": 1,
+                "full_rebuild_s": round(full_rebuild_s, 4),
+                "frame_delta_build_s": round(frame_delta_s, 4),
+                "block_delta_build_s": round(block_delta_s, 4),
+                "base_core_bytes": payload_bytes(base),
+                "full_rebuilt_core_bytes": payload_bytes(rebuilt),
+                "frame_delta_core_bytes": payload_bytes(frame_delta),
+                "block_delta_core_bytes": payload_bytes(block_delta),
+                "base_atom_index_bytes": payload_bytes(base_index),
+                "frame_delta_atom_index_bytes": payload_bytes(frame_index),
+                "block_delta_atom_index_bytes": payload_bytes(block_index),
+                "base_file_bytes": base_file_bytes,
+                "frame_append_bytes": frame_append_bytes,
+                "block_append_bytes": block_append_bytes,
+                "full_rebuilt_file_bytes": rebuilt_file_bytes,
+                "append_frame_s": round(append_frame_s, 4),
+                "append_block_s": round(append_block_s, 4),
+                "rewrite_full_s": round(rewrite_full_s, 4),
+                "repeated_edits": args.repeated_edits,
+                "repeated_append_bytes": repeated_append_bytes,
+                "repeated_append_s": round(repeated_append_s, 4),
+                "full_atom_count_query": full_atom_count_query,
+                "overlay_atom_count_query": overlay_atom_count_query,
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -218,9 +218,13 @@ class ChemicalStates:
         atoms = np.asarray(atom_indices)
         if atoms.size == 0:
             atoms = np.asarray(atom_indices, dtype=np.int64)
-        if (atoms.ndim != 1 or atoms.dtype.kind not in "iu"
-                or np.any(atoms < 0) or np.any(atoms >= self._n_atoms)
-                or np.unique(atoms).size != atoms.size):
+        if (
+            atoms.ndim != 1
+            or atoms.dtype.kind not in "iu"
+            or np.any(atoms < 0)
+            or np.any(atoms >= self._n_atoms)
+            or np.unique(atoms).size != atoms.size
+        ):
             raise ValueError("atom_indices must be unique valid integer indices.")
         atoms = atoms.astype(np.int64, copy=False)
         atom_map = {int(old): new for new, old in enumerate(atoms)}
@@ -229,18 +233,15 @@ class ChemicalStates:
             source_state._ensure_compatibility(self._n_atoms)
             membership = source_state.component_indices.iloc[atoms].copy()
             old_components = membership.dropna().unique().tolist()
-            component_map = {
-                old: new for new, old in enumerate(old_components)
-            }
+            component_map = {old: new for new, old in enumerate(old_components)}
             components = source_state.components.iloc[old_components].copy()
             components.reset_index(drop=True, inplace=True)
             membership = membership.map(component_map).astype("Int64")
             membership.reset_index(drop=True, inplace=True)
 
             bonds = source_state.bonds
-            kept = (
-                np.isin(bonds["atom1_index"], atoms)
-                & np.isin(bonds["atom2_index"], atoms)
+            kept = np.isin(bonds["atom1_index"], atoms) & np.isin(
+                bonds["atom2_index"], atoms
             )
             bonds = bonds[kept].copy()
             bonds.reset_index(drop=True, inplace=True)

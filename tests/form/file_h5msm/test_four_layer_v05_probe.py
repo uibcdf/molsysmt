@@ -30,16 +30,20 @@ def test_four_layer_file_keeps_chemistry_and_observations_separate(tmp_path):
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
     )
     hbonds = msm.Interactions.from_records(
-        [{
-            "structure_index": 1,
-            "interaction_type": "hbond",
-            "participants": [
-                {"role": "donor", "atom_indices": [0]},
-                {"role": "hydrogen", "atom_indices": [1]},
-                {"role": "acceptor", "atom_indices": [2]},
-            ],
-        }],
-        n_atoms=3, n_structures=2, evaluated_structure_indices=[0, 1],
+        [
+            {
+                "structure_index": 1,
+                "interaction_type": "hbond",
+                "participants": [
+                    {"role": "donor", "atom_indices": [0]},
+                    {"role": "hydrogen", "atom_indices": [1]},
+                    {"role": "acceptor", "atom_indices": [2]},
+                ],
+            }
+        ],
+        n_atoms=3,
+        n_structures=2,
+        evaluated_structure_indices=[0, 1],
         method="candidate",
     )
     filename = tmp_path / "four_layers.h5msm"
@@ -54,7 +58,10 @@ def test_four_layer_file_keeps_chemistry_and_observations_separate(tmp_path):
         write_independent_structures(file, structures)
         write_named_analyses(file.create_group("interactions"), {"hbonds": hbonds})
         assert set(file) == {
-            "topology", "chemical_states", "structures", "interactions"
+            "topology",
+            "chemical_states",
+            "structures",
+            "interactions",
         }
         assert "bonds" not in file["topology"]
 

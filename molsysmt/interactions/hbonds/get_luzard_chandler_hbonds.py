@@ -23,6 +23,7 @@ def get_luzard_chandler_hbonds(
     angle_threshold="30 degrees",
     pbc=True,
     syntax="MolSysMT",
+    *,
     output_type="tuple",
     skip_digestion=False,
 ):
@@ -135,11 +136,19 @@ def get_luzard_chandler_hbonds(
 
     if molecular_system_2 is not None:
         raise NotImplementedMethodError(
-            caller="molsysmt.interactions.hbonds.get_luzard_chandler_hbonds")
+            caller="molsysmt.interactions.hbonds.get_luzard_chandler_hbonds"
+        )
     return_interactions = output_type == "molsysmt.interactions"
-    if return_interactions and any(value is not None for value in (
-        acceptors, donors, acceptors_2, donors_2, structure_indices_2,
-    )):
+    if return_interactions and any(
+        value is not None
+        for value in (
+            acceptors,
+            donors,
+            acceptors_2,
+            donors_2,
+            structure_indices_2,
+        )
+    ):
         raise NotImplementedMethodError(
             method="Luzard-Chandler Interactions output",
             arguments="supplied roles or a second structure axis",
@@ -155,19 +164,29 @@ def get_luzard_chandler_hbonds(
     def roles(selected, donor_pairs, acceptor_indices):
         if acceptor_indices is None:
             acceptor_indices = get_acceptor_atoms(
-                molecular_system, selection=selected, syntax=syntax)
+                molecular_system, selection=selected, syntax=syntax
+            )
         else:
             acceptor_indices = select(
-                molecular_system, selection=selected, mask=acceptor_indices, syntax=syntax)
+                molecular_system,
+                selection=selected,
+                mask=acceptor_indices,
+                syntax=syntax,
+            )
         if donor_pairs is None:
-            donor_pairs = get_donor_atoms(molecular_system, selection=selected, syntax=syntax)
+            donor_pairs = get_donor_atoms(
+                molecular_system, selection=selected, syntax=syntax
+            )
         else:
             donor_pairs = select(
-                molecular_system, selection=selected, mask=donor_pairs, syntax=syntax)
+                molecular_system, selection=selected, mask=donor_pairs, syntax=syntax
+            )
         return donor_pairs, acceptor_indices
 
     donors, acceptors = roles(selection, donors, acceptors)
-    two_selections = any(value is not None for value in (selection_2, acceptors_2, donors_2))
+    two_selections = any(
+        value is not None for value in (selection_2, acceptors_2, donors_2)
+    )
     directions = [(donors, acceptors)]
     if two_selections:
         if selection_2 is None:
@@ -178,24 +197,51 @@ def get_luzard_chandler_hbonds(
     searches = []
     for donor_pairs, acceptor_indices in directions:
         unique_donors, donor_restore = np.unique(donor_pairs[:, 0], return_inverse=True)
-        if not len(unique_donors) or not len(acceptor_indices) or not len(structure_indices):
+        if (
+            not len(unique_donors)
+            or not len(acceptor_indices)
+            or not len(structure_indices)
+        ):
             neighbors = (
-                np.zeros(len(structure_indices) * len(unique_donors) + 1, dtype=np.int64),
-                np.empty(0, dtype=np.int64), puw.quantity(np.empty(0), "nanometers"),
+                np.zeros(
+                    len(structure_indices) * len(unique_donors) + 1, dtype=np.int64
+                ),
+                np.empty(0, dtype=np.int64),
+                puw.quantity(np.empty(0), "nanometers"),
             )
         else:
             neighbors = get_neighbors(
-                molecular_system, selection=unique_donors, selection_2=acceptor_indices,
-                structure_indices=structure_indices, structure_indices_2=structure_indices_2,
-                threshold=distance_threshold, pbc=pbc, output_type="csr",
+                molecular_system,
+                selection=unique_donors,
+                selection_2=acceptor_indices,
+                structure_indices=structure_indices,
+                structure_indices_2=structure_indices_2,
+                threshold=distance_threshold,
+                pbc=pbc,
+                output_type="csr",
             )
-        searches.append((donor_pairs, acceptor_indices, donor_restore,
-                         len(unique_donors), *neighbors))
+        searches.append(
+            (
+                donor_pairs,
+                acceptor_indices,
+                donor_restore,
+                len(unique_donors),
+                *neighbors,
+            )
+        )
 
     output_atoms, output_distances, output_angles = [], [], []
     for position, frame in enumerate(structure_indices):
         triples, distances = [], []
-        for donor_pairs, acceptor_indices, restore, n_unique, offsets, indices, values in searches:
+        for (
+            donor_pairs,
+            acceptor_indices,
+            restore,
+            n_unique,
+            offsets,
+            indices,
+            values,
+        ) in searches:
             for pair_index, (donor, hydrogen) in enumerate(donor_pairs):
                 row = position * n_unique + restore[pair_index]
                 for neighbor in range(offsets[row], offsets[row + 1]):
@@ -204,11 +250,21 @@ def get_luzard_chandler_hbonds(
                         triples.append([donor, hydrogen, acceptor])
                         distances.append(values[neighbor])
         triples = np.asarray(triples, dtype=np.int64).reshape(-1, 3)
-        distances = (puw.utils.sequences.concatenate(distances, value_type="numpy.ndarray")
-                     if distances else puw.quantity(np.empty(0), "nanometers"))
-        angles = (get_angles(molecular_system, triples[:, [1, 0, 2]],
-                             pbc=pbc, structure_indices=int(frame))[0]
-                  if len(triples) else puw.quantity(np.empty(0), "radians"))
+        distances = (
+            puw.utils.sequences.concatenate(distances, value_type="numpy.ndarray")
+            if distances
+            else puw.quantity(np.empty(0), "nanometers")
+        )
+        angles = (
+            get_angles(
+                molecular_system,
+                triples[:, [1, 0, 2]],
+                pbc=pbc,
+                structure_indices=int(frame),
+            )[0]
+            if len(triples)
+            else puw.quantity(np.empty(0), "radians")
+        )
         accepted = angles < angle_threshold
         output_atoms.append(triples[accepted])
         output_distances.append(distances[accepted])
@@ -217,8 +273,15 @@ def get_luzard_chandler_hbonds(
     result = pack_result(output_atoms, output_distances, output_angles)
     if return_interactions:
         return to_luzard_chandler_interactions(
-            molecular_system, structure_indices, donors, acceptors, *result,
-            distance_threshold, angle_threshold, pbc,
-            donors_2 if two_selections else None, acceptors_2 if two_selections else None,
+            molecular_system,
+            structure_indices,
+            donors,
+            acceptors,
+            *result,
+            distance_threshold,
+            angle_threshold,
+            pbc,
+            donors_2 if two_selections else None,
+            acceptors_2 if two_selections else None,
         )
     return result

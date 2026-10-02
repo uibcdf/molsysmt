@@ -12,10 +12,16 @@ from molsysmt._private.interaction_attribution import attributed
 @dep_digest("rdkit")
 @attributed("hydrophobic_sites")
 def get_hydrophobic_sites(
-    molecular_system, selection="all", structure_indices="all",
-    chemical_state="reference", method="smarts_hydrophobic_atoms",
-    assume_complete_connectivity=False, syntax="MolSysMT", skip_digestion=False,
-    *, max_matches=100000,
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    chemical_state="reference",
+    method="smarts_hydrophobic_atoms",
+    assume_complete_connectivity=False,
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    max_matches=100000,
 ):
     """Recognizing hydrophobic atom sites from complete declared chemical graphs.
 
@@ -108,18 +114,26 @@ def get_hydrophobic_sites(
     from molsysmt.topology import get_substructure_matches
 
     matches = get_substructure_matches(
-        molecular_system, PROLIF_HYDROPHOBIC_PATTERN, selection=selection,
-        structure_indices=structure_indices, chemical_state=chemical_state,
-        assume_complete_connectivity=assume_complete_connectivity, syntax=syntax,
+        molecular_system,
+        PROLIF_HYDROPHOBIC_PATTERN,
+        selection=selection,
+        structure_indices=structure_indices,
+        chemical_state=chemical_state,
+        assume_complete_connectivity=assume_complete_connectivity,
+        syntax=syntax,
         max_matches=max_matches,
     )
     return dict(
         hydrophobic_atom_indices=np.unique(matches["matches"][0].ravel()),
         atom_source_indices=matches["source_atom_indices"],
         selected_atom_indices=matches["selection_atom_indices"],
-        chemical_state_index=matches["chemical_state_index"], method=method,
-        method_reference=PROLIF_REFERENCE, smarts_patterns=[PROLIF_HYDROPHOBIC_PATTERN],
-        evidence=matches["evidence"], software=matches["software"], max_matches=max_matches,
+        chemical_state_index=matches["chemical_state_index"],
+        method=method,
+        method_reference=PROLIF_REFERENCE,
+        smarts_patterns=[PROLIF_HYDROPHOBIC_PATTERN],
+        evidence=matches["evidence"],
+        software=matches["software"],
+        max_matches=max_matches,
         assume_complete_connectivity=assume_complete_connectivity,
         scope="full_source_recognition_then_selection",
     )

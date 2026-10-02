@@ -37,8 +37,12 @@ def _records(path, n_frames, block_size):
     for start in range(0, n_frames, block_size):
         frames = list(range(start, min(start + block_size, n_frames)))
         offsets, indices, distances = msm.structure.get_neighbors(
-            path, selection=donors[:, 1], selection_2=acceptors,
-            structure_indices=frames, threshold="2.3 angstroms", pbc=False,
+            path,
+            selection=donors[:, 1],
+            selection_2=acceptors,
+            structure_indices=frames,
+            threshold="2.3 angstroms",
+            pbc=False,
             output_type="csr",
         )
         nanometers = puw.get_value(distances, to_unit="nanometers")
@@ -49,18 +53,20 @@ def _records(path, n_frames, block_size):
                     acceptor = int(acceptors[indices[position]])
                     if donor == acceptor:
                         continue
-                    records.append({
-                        "structure_index": frame,
-                        "interaction_type": "hbond",
-                        "participants": [
-                            {"role": "donor", "atom_indices": [int(donor)]},
-                            {"role": "hydrogen", "atom_indices": [int(hydrogen)]},
-                            {"role": "acceptor", "atom_indices": [acceptor]},
-                        ],
-                        "evidence": "observed_geometry",
-                        "measurements": {"distance": float(nanometers[position])},
-                        "images": [[0, 0, 0]] * 3,
-                    })
+                    records.append(
+                        {
+                            "structure_index": frame,
+                            "interaction_type": "hbond",
+                            "participants": [
+                                {"role": "donor", "atom_indices": [int(donor)]},
+                                {"role": "hydrogen", "atom_indices": [int(hydrogen)]},
+                                {"role": "acceptor", "atom_indices": [acceptor]},
+                            ],
+                            "evidence": "observed_geometry",
+                            "measurements": {"distance": float(nanometers[position])},
+                            "images": [[0, 0, 0]] * 3,
+                        }
+                    )
     return records
 
 
@@ -77,11 +83,13 @@ def _view_signatures(view):
     found = []
     for row, relation in enumerate(columns["relation_indices"]):
         participants = view.relation(relation)["participants"]
-        found.append((
-            int(columns["structure_indices"][row]),
-            tuple(int(part["atom_indices"][0]) for part in participants),
-            round(float(columns["measurements"]["distance"][row]), 8),
-        ))
+        found.append(
+            (
+                int(columns["structure_indices"][row]),
+                tuple(int(part["atom_indices"][0]) for part in participants),
+                round(float(columns["measurements"]["distance"][row]), 8),
+            )
+        )
     return columns["evaluated_structure_indices"].tolist(), Counter(found)
 
 
@@ -100,9 +108,9 @@ def main():
     parser.add_argument("--block-size", type=int, default=100)
     args = parser.parse_args()
     path = "molsysmt/data/h5msm/traj_pentalanine.h5msm"
-    n_atoms, available = (int(value) for value in msm.get(
-        path, n_atoms=True, n_structures=True
-    ))
+    n_atoms, available = (
+        int(value) for value in msm.get(path, n_atoms=True, n_structures=True)
+    )
     if not 0 < args.frames <= available or args.block_size < 1:
         parser.error("frames must fit the trajectory and block size be positive")
     initial_rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
@@ -111,15 +119,19 @@ def main():
     detector_seconds = time.perf_counter() - start
     evaluated = list(range(args.frames))
     result = msm.Interactions.from_records(
-        records, n_atoms=n_atoms, n_structures=args.frames,
-        evaluated_structure_indices=evaluated, method="buch_h_acceptor_0.23_nm",
+        records,
+        n_atoms=n_atoms,
+        n_structures=args.frames,
+        evaluated_structure_indices=evaluated,
+        method="buch_h_acceptor_0.23_nm",
         measure_units={"distance": "nm"},
         parameters={"distance_threshold_nm": 0.23, "pbc": False},
         source_id=Path(path).name,
     )
     arrays = build_runs(result, 100)
-    offsets = np.searchsorted(result.occurrence_structures,
-                              np.arange(args.frames + 1), side="left")
+    offsets = np.searchsorted(
+        result.occurrence_structures, np.arange(args.frames + 1), side="left"
+    )
     original_by_frame = {}
     for record in records:
         original_by_frame.setdefault(record["structure_index"], []).append(
@@ -128,49 +140,58 @@ def main():
     checked = list(range(min(args.frames, 100)))
     checked.extend(range(100, args.frames, max(1, args.frames // 100)))
     for frame in dict.fromkeys(checked):
-        selected = query_positions(arrays, frame, 100,
-                                   len(result.relation_types))
+        selected = query_positions(arrays, frame, 100, len(result.relation_types))
         direct = np.arange(offsets[frame], offsets[frame + 1])
         if not np.array_equal(selected, direct):
             raise AssertionError(f"temporal lookup differs at frame {frame}")
-        coverage, found = _view_signatures(
-            result.query(structure_indices=[frame])
-        )
+        coverage, found = _view_signatures(result.query(structure_indices=[frame]))
         if coverage != [frame] or found != Counter(original_by_frame.get(frame, [])):
             raise AssertionError(f"full-result oracle differs at frame {frame}")
-    frame_request = list(dict.fromkeys([
-        args.frames - 1, 10, 10, 0, min(125, args.frames - 1), 99,
-    ]))
-    frame_request = [frame for frame in frame_request if frame < args.frames]
-    coverage, found = _view_signatures(
-        result.query(structure_indices=frame_request)
+    frame_request = list(
+        dict.fromkeys(
+            [
+                args.frames - 1,
+                10,
+                10,
+                0,
+                min(125, args.frames - 1),
+                99,
+            ]
+        )
     )
+    frame_request = [frame for frame in frame_request if frame < args.frames]
+    coverage, found = _view_signatures(result.query(structure_indices=frame_request))
     frame_set = set(frame_request)
     if coverage != frame_request or found != Counter(
-        _signature(row) for row in records
-        if row["structure_index"] in frame_set
+        _signature(row) for row in records if row["structure_index"] in frame_set
     ):
         raise AssertionError("nonconsecutive frame request differs")
     frequency = Counter(
-        atom for row in records for part in row["participants"]
+        atom
+        for row in records
+        for part in row["participants"]
         for atom in part["atom_indices"]
     )
     hot_atom = frequency.most_common(1)[0][0]
-    group = {hot_atom, *(atom for part in records[0]["participants"]
-                         for atom in part["atom_indices"])}
+    group = {
+        hot_atom,
+        *(atom for part in records[0]["participants"] for atom in part["atom_indices"]),
+    }
     query_counts = {}
     for mode in ("incident", "internal", "cross"):
-        _, found = _view_signatures(result.query(atom_indices=sorted(group),
-                                                 mode=mode))
+        _, found = _view_signatures(result.query(atom_indices=sorted(group), mode=mode))
         oracle = Counter()
         for row in records:
-            atoms = {atom for part in row["participants"]
-                     for atom in part["atom_indices"]}
+            atoms = {
+                atom for part in row["participants"] for atom in part["atom_indices"]
+            }
             incident = bool(atoms & group)
             internal = atoms <= group
-            if ((mode == "incident" and incident)
-                    or (mode == "internal" and internal)
-                    or (mode == "cross" and incident and not internal)):
+            if (
+                (mode == "incident" and incident)
+                or (mode == "internal" and internal)
+                or (mode == "cross" and incident and not internal)
+            ):
                 oracle[_signature(row)] += 1
         if found != oracle:
             raise AssertionError(f"real-data {mode} query differs")
@@ -186,40 +207,64 @@ def main():
     ]
     # Build the lazy atom index before timing its warm query path.
     result.query(atom_indices=[hot_atom]).to_dict()
-    query_ms = {"frame": _time_requests(frame_calls),
-                "atom": _time_requests(atom_calls)}
+    query_ms = {
+        "frame": _time_requests(frame_calls),
+        "atom": _time_requests(atom_calls),
+    }
     files = _file_probe(
-        result, records, evaluated, arrays, offsets,
+        result,
+        records,
+        evaluated,
+        arrays,
+        offsets,
         query_callback=lambda normal, temporal: compare_files(
-            normal, temporal, records, evaluated, n_atoms, args.frames,
+            normal,
+            temporal,
+            records,
+            evaluated,
+            n_atoms,
+            args.frames,
         ),
     )
-    frame_counts = np.bincount(result.occurrence_structures,
-                               minlength=args.frames)
-    index_bytes = sum(value.nbytes for name, value in arrays.items()
-                      if name != "test_position_map")
-    frame_index_bytes = (offsets.nbytes + result.occurrence_structures.nbytes
-                         + result.occurrence_relations.nbytes)
-    print(json.dumps({
-        "platform": platform.platform(), "source": path,
-        "frames": args.frames, "atoms": n_atoms,
-        "detector_seconds": round(detector_seconds, 3),
-        "occurrences": len(records),
-        "relations": len(result.relation_types),
-        "runs": len(arrays["run_starts"]),
-        "empty_evaluated_frames": int(np.count_nonzero(frame_counts == 0)),
-        "max_per_frame": int(np.max(frame_counts)),
-        "median_per_frame": float(statistics.median(frame_counts)),
-        "raw_frame_index_bytes": frame_index_bytes,
-        "raw_temporal_index_bytes": index_bytes,
-        "sampled_oracle_checked_frames": len(set(checked)),
-        "nonconsecutive_frame_request": frame_request,
-        "hot_atom": hot_atom, "group_query_counts": query_counts,
-        "warm_complete_query_median_ms": query_ms,
-        "peak_rss_growth_after_import_kib":
-            resource.getrusage(resource.RUSAGE_SELF).ru_maxrss - initial_rss,
-        "file_probe": files,
-    }, indent=2))
+    frame_counts = np.bincount(result.occurrence_structures, minlength=args.frames)
+    index_bytes = sum(
+        value.nbytes for name, value in arrays.items() if name != "test_position_map"
+    )
+    frame_index_bytes = (
+        offsets.nbytes
+        + result.occurrence_structures.nbytes
+        + result.occurrence_relations.nbytes
+    )
+    print(
+        json.dumps(
+            {
+                "platform": platform.platform(),
+                "source": path,
+                "frames": args.frames,
+                "atoms": n_atoms,
+                "detector_seconds": round(detector_seconds, 3),
+                "occurrences": len(records),
+                "relations": len(result.relation_types),
+                "runs": len(arrays["run_starts"]),
+                "empty_evaluated_frames": int(np.count_nonzero(frame_counts == 0)),
+                "max_per_frame": int(np.max(frame_counts)),
+                "median_per_frame": float(statistics.median(frame_counts)),
+                "raw_frame_index_bytes": frame_index_bytes,
+                "raw_temporal_index_bytes": index_bytes,
+                "sampled_oracle_checked_frames": len(set(checked)),
+                "nonconsecutive_frame_request": frame_request,
+                "hot_atom": hot_atom,
+                "group_query_counts": query_counts,
+                "warm_complete_query_median_ms": query_ms,
+                "peak_rss_growth_after_import_kib": resource.getrusage(
+                    resource.RUSAGE_SELF
+                ).ru_maxrss
+                - initial_rss,
+                "file_probe": files,
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

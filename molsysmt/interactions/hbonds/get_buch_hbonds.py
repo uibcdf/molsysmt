@@ -21,8 +21,9 @@ def get_buch_hbonds(
     distance_threshold="2.3 angstroms",
     pbc=True,
     syntax="MolSysMT",
-    output_type="tuple",
     skip_digestion=False,
+    *,
+    output_type="tuple",
 ):
     """
     Calculating hydrogen bonds using the Buch geometric criteria.
@@ -130,38 +131,64 @@ def get_buch_hbonds(
     from .get_donor_atoms import get_donor_atoms
 
     return_interactions = output_type == "molsysmt.interactions"
-    if return_interactions and any(value is not None for value in (
-        acceptors, donors, acceptors_2, donors_2, structure_indices_2,
-    )):
+    if return_interactions and any(
+        value is not None
+        for value in (
+            acceptors,
+            donors,
+            acceptors_2,
+            donors_2,
+            structure_indices_2,
+        )
+    ):
         raise NotImplementedMethodError(
             method="Buch Interactions output",
             arguments="supplied roles or a second structure axis",
             caller="molsysmt.interactions.hbonds.get_buch_hbonds",
         )
 
-    def deliver(result, donor_pairs, acceptor_indices,
-                donor_pairs_2=None, acceptor_indices_2=None):
+    def deliver(
+        result,
+        donor_pairs,
+        acceptor_indices,
+        donor_pairs_2=None,
+        acceptor_indices_2=None,
+    ):
         if return_interactions:
             return to_buch_interactions(
-                molecular_system, structure_indices, donor_pairs,
-                acceptor_indices, *result, distance_threshold, pbc,
-                donor_pairs_2, acceptor_indices_2,
+                molecular_system,
+                structure_indices,
+                donor_pairs,
+                acceptor_indices,
+                *result,
+                distance_threshold,
+                pbc,
+                donor_pairs_2,
+                acceptor_indices_2,
             )
         return result
 
     def neighbors(hydrogens, acceptor_atoms):
         if len(hydrogens) == 0 or len(acceptor_atoms) == 0:
-            n_frames = (get(molecular_system, n_structures=True)
-                        if is_all(structure_indices)
-                        else len(np.atleast_1d(structure_indices)))
-            return (np.zeros(n_frames * len(hydrogens) + 1, dtype=np.int64),
-                    np.empty(0, dtype=np.int64),
-                    puw.quantity(np.empty(0), "nanometers"))
+            n_frames = (
+                get(molecular_system, n_structures=True)
+                if is_all(structure_indices)
+                else len(np.atleast_1d(structure_indices))
+            )
+            return (
+                np.zeros(n_frames * len(hydrogens) + 1, dtype=np.int64),
+                np.empty(0, dtype=np.int64),
+                puw.quantity(np.empty(0), "nanometers"),
+            )
         return get_neighbors(
-            molecular_system, selection=hydrogens, selection_2=acceptor_atoms,
+            molecular_system,
+            selection=hydrogens,
+            selection_2=acceptor_atoms,
             structure_indices=structure_indices,
             structure_indices_2=structure_indices_2,
-            threshold=distance_threshold, pbc=pbc, output_type="csr",
+            threshold=distance_threshold,
+            pbc=pbc,
+            output_type="csr",
         )
 
     if molecular_system_2 is None:
@@ -187,8 +214,9 @@ def get_buch_hbonds(
 
         if (selection_2 is None) and (acceptors_2 is None) and (donors_2 is None):
             if n_donors == 0 or len(acceptors) == 0:
-                return deliver(empty_result(molecular_system, structure_indices),
-                               donors, acceptors)
+                return deliver(
+                    empty_result(molecular_system, structure_indices), donors, acceptors
+                )
 
         if (selection_2 is None) and (acceptors_2 is None) and (donors_2 is None):
             offsets, indices, distances = neighbors(donors[:, 1], acceptors)
@@ -213,11 +241,14 @@ def get_buch_hbonds(
                 output_distances.append(
                     puw.utils.sequences.concatenate(
                         tmp_distances, value_type="numpy.ndarray"
-                    ) if tmp_distances else puw.quantity(np.empty(0), "nanometers")
+                    )
+                    if tmp_distances
+                    else puw.quantity(np.empty(0), "nanometers")
                 )
 
-            return deliver(pack_result(output_atoms, output_distances),
-                           donors, acceptors)
+            return deliver(
+                pack_result(output_atoms, output_distances), donors, acceptors
+            )
 
         else:
             if selection_2 is None:
@@ -260,8 +291,13 @@ def get_buch_hbonds(
             elif n_donors_2:
                 n_structures = (len(offsets_2) - 1) // n_donors_2
             else:
-                return deliver(empty_result(molecular_system, structure_indices),
-                               donors, acceptors, donors_2, acceptors_2)
+                return deliver(
+                    empty_result(molecular_system, structure_indices),
+                    donors,
+                    acceptors,
+                    donors_2,
+                    acceptors_2,
+                )
             for structure_index in range(n_structures):
                 tmp_atoms = []
                 tmp_distances = []
@@ -290,11 +326,18 @@ def get_buch_hbonds(
                 output_distances.append(
                     puw.utils.sequences.concatenate(
                         tmp_distances, value_type="numpy.ndarray"
-                    ) if tmp_distances else puw.quantity(np.empty(0), "nanometers")
+                    )
+                    if tmp_distances
+                    else puw.quantity(np.empty(0), "nanometers")
                 )
 
-            return deliver(pack_result(output_atoms, output_distances),
-                           donors, acceptors, donors_2, acceptors_2)
+            return deliver(
+                pack_result(output_atoms, output_distances),
+                donors,
+                acceptors,
+                donors_2,
+                acceptors_2,
+            )
 
     raise NotImplementedMethodError(
         caller="molsysmt.interactions.hbonds.get_buch_hbonds"

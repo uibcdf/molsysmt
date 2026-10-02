@@ -24,7 +24,7 @@ use numpy::{
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
-use crate::mathlib::fast_floor;
+use crate::mathlib::{fast_floor, fast_round_ties_even};
 #[cfg(test)]
 use crate::mathlib::inverse_matrix_3x3;
 use crate::symmetric::mirror_upper_to_lower;
@@ -634,7 +634,7 @@ pub fn get_mic_pair_observations<'py>(
             let component = shift[0] * original_inverse[0][axis]
                 + shift[1] * original_inverse[1][axis]
                 + shift[2] * original_inverse[2][axis];
-            let rounded = component.round();
+            let rounded = fast_round_ties_even(component);
             if !rounded.is_finite() || rounded < i32::MIN as f64 || rounded > i32::MAX as f64 {
                 return Err(PyValueError::new_err(
                     "Periodic image exceeds the int32 range.",

@@ -21,8 +21,15 @@ from ._plane import PlaneReducer
 
 @signal(tags=["api", "structure"])
 @arg_digest()
-def get_least_squares_plane(molecular_system, selection="all", structure_indices="all", pbc=False,
-              syntax="MolSysMT", heavy_mode="auto", skip_digestion=False):
+def get_least_squares_plane(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    pbc=False,
+    syntax="MolSysMT",
+    heavy_mode="auto",
+    skip_digestion=False,
+):
     """
     Fitting unweighted least-squares planes to selected atom groups.
 
@@ -137,17 +144,32 @@ def get_least_squares_plane(molecular_system, selection="all", structure_indices
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
     n_atoms, n_structures = map(int, dimensions)
-    frames = np.arange(n_structures, dtype=np.int64) if is_all(structure_indices) else np.asarray(structure_indices)
-    if frames.ndim != 1 or frames.dtype.kind not in "iu" or np.any((frames < 0) | (frames >= n_structures)):
-        raise ArgumentError("structure_indices", caller=caller, message="Use valid source structure indices.")
+    frames = (
+        np.arange(n_structures, dtype=np.int64)
+        if is_all(structure_indices)
+        else np.asarray(structure_indices)
+    )
+    if (
+        frames.ndim != 1
+        or frames.dtype.kind not in "iu"
+        or np.any((frames < 0) | (frames >= n_structures))
+    ):
+        raise ArgumentError(
+            "structure_indices",
+            caller=caller,
+            message="Use valid source structure indices.",
+        )
     frames = frames.astype(np.int64, copy=False)
     multiple = is_iterable_of_iterables(selection) or (
-        isinstance(selection, (list, tuple)) and len(selection) > 0
+        isinstance(selection, (list, tuple))
+        and len(selection) > 0
         and all(isinstance(group, str) for group in selection)
     )
     selections = selection if multiple else [selection]
     if len(selections) == 0:
-        raise ArgumentError("selection", caller=caller, message="At least one plane group is required.")
+        raise ArgumentError(
+            "selection", caller=caller, message="At least one plane group is required."
+        )
     groups = []
     for group in selections:
         if dimensions is not None and is_all(group):
@@ -155,13 +177,32 @@ def get_least_squares_plane(molecular_system, selection="all", structure_indices
         elif not isinstance(group, str) and group is not None:
             atoms = np.asarray(group)
         else:
-            atoms = np.asarray(select(molecular_system, selection=group,
-                                      structure_indices=structure_indices, syntax=syntax, skip_digestion=True))
-        if atoms.ndim != 1 or atoms.dtype.kind not in "iu" or np.any((atoms < 0) | (atoms >= n_atoms)):
-            raise ArgumentError("selection", caller=caller, message="Plane groups require valid atom indices.")
+            atoms = np.asarray(
+                select(
+                    molecular_system,
+                    selection=group,
+                    structure_indices=structure_indices,
+                    syntax=syntax,
+                    skip_digestion=True,
+                )
+            )
+        if (
+            atoms.ndim != 1
+            or atoms.dtype.kind not in "iu"
+            or np.any((atoms < 0) | (atoms >= n_atoms))
+        ):
+            raise ArgumentError(
+                "selection",
+                caller=caller,
+                message="Plane groups require valid atom indices.",
+            )
         atoms = np.unique(atoms).astype(np.int64, copy=False)
         if len(atoms) < 3:
-            raise ArgumentError("selection", caller=caller, message="Each plane requires at least three distinct atoms.")
+            raise ArgumentError(
+                "selection",
+                caller=caller,
+                message="Each plane requires at least three distinct atoms.",
+            )
         groups.append(atoms)
     atoms, offsets = pack_membership(groups)
     universe = np.unique(atoms)
@@ -169,50 +210,101 @@ def get_least_squares_plane(molecular_system, selection="all", structure_indices
     # Reserve a second output-sized buffer for quantity standardization and
     # group-wise SVD workspace, including aligned factorization scratch.
     # This bounds numeric buffers, not total RSS.
-    fixed = atoms.nbytes + offsets.nbytes + frames.nbytes + universe.nbytes + positions.nbytes
+    fixed = (
+        atoms.nbytes
+        + offsets.nbytes
+        + frames.nbytes
+        + universe.nbytes
+        + positions.nbytes
+    )
     output_work = fixed + 2 * 64 * len(frames) * len(groups)
-    per_frame = 24 * len(universe) + 192 * max(map(len, groups)) + 256 * len(groups) + 2048 + 72
+    per_frame = (
+        24 * len(universe) + 192 * max(map(len, groups)) + 256 * len(groups) + 2048 + 72
+    )
     available = int(configure.max_ram_usage) - output_work
     if available < per_frame and len(frames):
-        raise MemoryBudgetExceededError(reason="Plane output and one coordinate work block exceed the numerical budget.",
-                                        predicted_bytes=output_work + per_frame,
-                                        available_bytes=int(configure.max_ram_usage), caller=caller)
+        raise MemoryBudgetExceededError(
+            reason="Plane output and one coordinate work block exceed the numerical budget.",
+            predicted_bytes=output_work + per_frame,
+            available_bytes=int(configure.max_ram_usage),
+            caller=caller,
+        )
     if output_work > configure.max_ram_usage:
-        raise MemoryBudgetExceededError(reason="Plane output exceeds the numerical budget.",
-                                        predicted_bytes=output_work, available_bytes=int(configure.max_ram_usage), caller=caller)
+        raise MemoryBudgetExceededError(
+            reason="Plane output exceeds the numerical budget.",
+            predicted_bytes=output_work,
+            available_bytes=int(configure.max_ram_usage),
+            caller=caller,
+        )
     mode = decide_mode(output_work + per_frame * len(frames), heavy_mode)
     if mode == "eager" and per_frame * len(frames) > available:
-        raise MemoryBudgetExceededError(reason="Eager plane work exceeds the numerical budget; use coordinate streaming.",
-                                        predicted_bytes=output_work + per_frame * len(frames),
-                                        available_bytes=int(configure.max_ram_usage), caller=caller)
+        raise MemoryBudgetExceededError(
+            reason="Eager plane work exceeds the numerical budget; use coordinate streaming.",
+            predicted_bytes=output_work + per_frame * len(frames),
+            available_bytes=int(configure.max_ram_usage),
+            caller=caller,
+        )
     form = get_form(molecular_system)
     reducer = PlaneReducer(offsets, positions, len(universe), pbc, caller)
     attributes = ["coordinates", "box"] if pbc else ["coordinates"]
-    if isinstance(form, str) and getattr(_dict_modules[form], "_heavy_support", {}).get("coordinates", False):
+    if isinstance(form, str) and getattr(_dict_modules[form], "_heavy_support", {}).get(
+        "coordinates", False
+    ):
         outputs = ChunkedExecutor(
-            molecular_system, form, "get_least_squares_plane", reducer=reducer, atom_indices=universe,
-            structure_indices=frames, attributes=attributes,
+            molecular_system,
+            form,
+            "get_least_squares_plane",
+            reducer=reducer,
+            atom_indices=universe,
+            structure_indices=frames,
+            attributes=attributes,
             heavy_mode="force" if mode == "heavy" else "off",
             max_chunk_size=max(1, available // per_frame),
         ).execute()
     else:
         if mode == "heavy":
-            raise UnsupportedHeavyOperationError(operation="get_least_squares_plane", form=str(form),
-                                                 reason="No streamed structural delivery route.")
+            raise UnsupportedHeavyOperationError(
+                operation="get_least_squares_plane",
+                form=str(form),
+                reason="No streamed structural delivery route.",
+            )
         reducer.initialize({"n_structures": len(frames)})
         if len(frames):
-            coordinates = get(molecular_system, selection=universe, structure_indices=frames,
-                              coordinates=True, skip_digestion=True)
-            box = get(molecular_system, structure_indices=frames, box=True, skip_digestion=True) if pbc else None
-            reducer.consume(ChunkedExecutor._build_chunk({
-                "coordinates": coordinates, "box": box, "structure_indices": frames,
-            }))
+            coordinates = get(
+                molecular_system,
+                selection=universe,
+                structure_indices=frames,
+                coordinates=True,
+                skip_digestion=True,
+            )
+            box = (
+                get(
+                    molecular_system,
+                    structure_indices=frames,
+                    box=True,
+                    skip_digestion=True,
+                )
+                if pbc
+                else None
+            )
+            reducer.consume(
+                ChunkedExecutor._build_chunk(
+                    {
+                        "coordinates": coordinates,
+                        "box": box,
+                        "structure_indices": frames,
+                    }
+                )
+            )
         outputs = reducer.finalize()
     centers, normals, rms, maximum = outputs
     return {
-        "centers": puw.standardize(puw.quantity(centers, "nm")), "normals": normals,
+        "centers": puw.standardize(puw.quantity(centers, "nm")),
+        "normals": normals,
         "rms_deviation": puw.standardize(puw.quantity(rms, "nm")),
         "max_deviation": puw.standardize(puw.quantity(maximum, "nm")),
-        "atom_indices": atoms, "atom_offsets": offsets, "structure_indices": frames.copy(),
+        "atom_indices": atoms,
+        "atom_offsets": offsets,
+        "structure_indices": frames.copy(),
         "method": "unweighted_orthogonal_least_squares",
     }

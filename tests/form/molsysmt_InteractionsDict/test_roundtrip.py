@@ -8,8 +8,11 @@ import molsysmt as msm
 
 def test_empty_evaluated_frames_roundtrip_without_occurrence_objects():
     result = msm.Interactions.from_records(
-        [], n_atoms=4, n_structures=5,
-        evaluated_structure_indices=[1, 3], method="example",
+        [],
+        n_atoms=4,
+        n_structures=5,
+        evaluated_structure_indices=[1, 3],
+        method="example",
     )
 
     encoded = msm.convert(result, to_form="molsysmt.InteractionsDict")
@@ -54,13 +57,18 @@ def test_compound_roles_images_measurements_and_source_roundtrip():
         },
     ]
     original = msm.Interactions.from_records(
-        records, n_atoms=7, n_structures=6,
-        evaluated_structure_indices=[1, 2, 4], method="detector",
+        records,
+        n_atoms=7,
+        n_structures=6,
+        evaluated_structure_indices=[1, 2, 4],
+        method="detector",
         measure_units={"distance": "nm"},
-        parameters={"cutoff_nm": 0.4}, source_id="toy",
+        parameters={"cutoff_nm": 0.4},
+        source_id="toy",
         atom_source_indices=[10, 3, 5, 12, 8, 1, 6],
         structure_source_indices=[8, 4, 7, 0, 2, 9],
-        source_n_atoms=13, source_n_structures=10,
+        source_n_atoms=13,
+        source_n_structures=10,
     )
 
     encoded = msm.convert(original, to_form="molsysmt.InteractionsDict")
@@ -75,12 +83,8 @@ def test_compound_roles_images_measurements_and_source_roundtrip():
     assert decoded.query(structure_indices=[4, 1, 4]).n_interactions == 2
     assert decoded.query(atom_indices=[0, 1, 2], mode="internal").n_interactions == 0
     assert decoded.source_id == "toy"
-    np.testing.assert_array_equal(
-        decoded.atom_source_indices, [10, 3, 5, 12, 8, 1, 6]
-    )
-    np.testing.assert_array_equal(
-        decoded.structure_source_indices, [8, 4, 7, 0, 2, 9]
-    )
+    np.testing.assert_array_equal(decoded.atom_source_indices, [10, 3, 5, 12, 8, 1, 6])
+    np.testing.assert_array_equal(decoded.structure_source_indices, [8, 4, 7, 0, 2, 9])
     assert decoded.source_n_atoms == 13
     assert decoded.source_n_structures == 10
     assert decoded.parameters == {"cutoff_nm": 0.4}
@@ -92,28 +96,35 @@ def test_compound_roles_images_measurements_and_source_roundtrip():
     np.testing.assert_array_equal(
         decoded.measurements["distance"], original.measurements["distance"]
     )
-    assert decoded.relation(0)["interaction_type"] == original.relation(0)[
-        "interaction_type"
-    ]
+    assert (
+        decoded.relation(0)["interaction_type"]
+        == original.relation(0)["interaction_type"]
+    )
     for observed, expected in zip(
         decoded.relation(0)["participants"], original.relation(0)["participants"]
     ):
         assert observed["role"] == expected["role"]
-        np.testing.assert_array_equal(observed["atom_indices"], expected["atom_indices"])
+        np.testing.assert_array_equal(
+            observed["atom_indices"], expected["atom_indices"]
+        )
 
 
 def test_dictionary_copy_is_independent_and_invalid_evidence_fails():
     original = msm.Interactions.from_records(
-        [{
-            "structure_index": 0,
-            "interaction_type": "ionic",
-            "participants": [
-                {"role": "cation", "atom_indices": [0]},
-                {"role": "anion", "atom_indices": [1]},
-            ],
-        }],
-        n_atoms=2, n_structures=1,
-        evaluated_structure_indices=[0], method="example",
+        [
+            {
+                "structure_index": 0,
+                "interaction_type": "ionic",
+                "participants": [
+                    {"role": "cation", "atom_indices": [0]},
+                    {"role": "anion", "atom_indices": [1]},
+                ],
+            }
+        ],
+        n_atoms=2,
+        n_structures=1,
+        evaluated_structure_indices=[0],
+        method="example",
     )
     encoded = msm.convert(original, to_form="molsysmt.InteractionsDict")
     copied = msm.convert(encoded, to_form="molsysmt.InteractionsDict")
@@ -126,9 +137,14 @@ def test_dictionary_copy_is_independent_and_invalid_evidence_fails():
 
 def test_declared_evaluation_scope_survives_columnar_roundtrip():
     original = msm.Interactions.from_records(
-        [], n_atoms=5, n_structures=2, evaluated_structure_indices=[0],
-        method="scoped", evaluation_mode="between",
-        evaluation_atom_indices=[0, 1], evaluation_atom_indices_b=[3, 4],
+        [],
+        n_atoms=5,
+        n_structures=2,
+        evaluated_structure_indices=[0],
+        method="scoped",
+        evaluation_mode="between",
+        evaluation_atom_indices=[0, 1],
+        evaluation_atom_indices_b=[3, 4],
         evaluation_universe_indices=[0, 1, 3, 4],
     )
     encoded = msm.convert(original, to_form="molsysmt.InteractionsDict")
@@ -137,14 +153,18 @@ def test_declared_evaluation_scope_survives_columnar_roundtrip():
     assert restored.evaluation_mode == "between"
     np.testing.assert_array_equal(restored.evaluation_scope["atom_indices"], [0, 1])
     np.testing.assert_array_equal(restored.evaluation_scope["atom_indices_b"], [3, 4])
-    np.testing.assert_array_equal(restored.evaluation_scope["universe_indices"],
-                                  [0, 1, 3, 4])
+    np.testing.assert_array_equal(
+        restored.evaluation_scope["universe_indices"], [0, 1, 3, 4]
+    )
 
 
 def test_conversion_rejects_structure_selection_instead_of_ignoring_it():
     original = msm.Interactions.from_records(
-        [], n_atoms=2, n_structures=3,
-        evaluated_structure_indices=[0, 2], method="example",
+        [],
+        n_atoms=2,
+        n_structures=3,
+        evaluated_structure_indices=[0, 2],
+        method="example",
     )
 
     with pytest.raises(ValueError, match="requires all"):

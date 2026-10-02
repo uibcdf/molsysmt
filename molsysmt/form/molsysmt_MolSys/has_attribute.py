@@ -67,7 +67,10 @@ def has_attribute(
             molecular_system.chemical_states.reference_chemical_state_index is not None
         )
     if attribute == "structure_chemical_state_index":
-        if molecular_system.structures is None or molecular_system.chemical_states is None:
+        if (
+            molecular_system.structures is None
+            or molecular_system.chemical_states is None
+        ):
             return False
         if include_none:
             return True

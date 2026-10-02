@@ -15,8 +15,13 @@ from molsysmt._private.scientific_citations import ARTICLES, SOFTWARE
 
 def _article(name, role):
     record = deepcopy(ARTICLES[name])
-    return dict(id="doi:" + record["doi"], type="article", url="https://doi.org/" + record["doi"],
-                **record, roles=[role])
+    return dict(
+        id="doi:" + record["doi"],
+        type="article",
+        url="https://doi.org/" + record["doi"],
+        **record,
+        roles=[role],
+    )
 
 
 def _bibliography(definition, software, parameters):
@@ -36,20 +41,42 @@ def _bibliography(definition, software, parameters):
         else:
             url = reference.get("documentation", reference.get("implementation"))
             if url:
-                items.append(dict(id="reference:" + url, type="web", title=reference["software"] + " reference definition",
-                                  url=url, roles=["reference_implementation"]))
-    elif implementation in {"prolif", "cpptraj", "mdtraj", "mdtraj_geometry", "molstar_geometry"}:
+                items.append(
+                    dict(
+                        id="reference:" + url,
+                        type="web",
+                        title=reference["software"] + " reference definition",
+                        url=url,
+                        roles=["reference_implementation"],
+                    )
+                )
+    elif implementation in {
+        "prolif",
+        "cpptraj",
+        "mdtraj",
+        "mdtraj_geometry",
+        "molstar_geometry",
+    }:
         name = implementation.replace("_geometry", "")
         items.append(_article(name, "reference_implementation"))
     for name, version in sorted(software.items()):
         record = deepcopy(SOFTWARE.get(name, dict(title=name)))
-        items.append(dict(id=f"software:{name}:{version}", type="software", **record,
-                          version=version, roles=["executed_software"]))
+        items.append(
+            dict(
+                id=f"software:{name}:{version}",
+                type="software",
+                **record,
+                version=version,
+                roles=["executed_software"],
+            )
+        )
     # A paper can play several roles, but is still one bibliographic work.
     unique = {}
     for item in items:
         if item["id"] in unique:
-            unique[item["id"]]["roles"] = sorted(set(unique[item["id"]]["roles"] + item["roles"]))
+            unique[item["id"]]["roles"] = sorted(
+                set(unique[item["id"]]["roles"] + item["roles"])
+            )
         else:
             unique[item["id"]] = item
     return list(unique.values())
@@ -57,6 +84,7 @@ def _bibliography(definition, software, parameters):
 
 def attributed(family, fixed_method=None):
     """Wrap one completed scientific calculation, never an occurrence loop."""
+
     def decorate(function):
         call_signature = signature(function)
         target = function.__module__
@@ -68,32 +96,55 @@ def attributed(family, fixed_method=None):
             bound = call_signature.bind(*args, **kwargs)
             bound.apply_defaults()
             if fixed_method is None:
-                definition = resolve_method(family, bound.arguments["method"],
-                                            bound.arguments.get("profile"), caller=target)
+                definition = resolve_method(
+                    family,
+                    bound.arguments["method"],
+                    bound.arguments.get("profile"),
+                    caller=target,
+                )
             else:
-                definition = dict(method=fixed_method, profile="native", implementation=fixed_method,
-                                  definition=f"molsysmt.{family}.{fixed_method}.native@1")
+                definition = dict(
+                    method=fixed_method,
+                    profile="native",
+                    implementation=fixed_method,
+                    definition=f"molsysmt.{family}.{fixed_method}.native@1",
+                )
             with _ackredit.scope(target) as provider:
                 result = function(*args, **kwargs)
                 if hasattr(result, "parameters"):
                     parameters, software = result.parameters, result.software
-                elif hasattr(result, "data") and result.data.get("schema") == "molsysmt.interactions_dict":
-                    parameters, software = result.data["parameters"], result.data["software"]
+                elif (
+                    hasattr(result, "data")
+                    and result.data.get("schema") == "molsysmt.interactions_dict"
+                ):
+                    parameters, software = (
+                        result.data["parameters"],
+                        result.data["software"],
+                    )
                 elif isinstance(result, dict) and (
-                    "donor_hydrogen_pairs" in result or "donor_halogen_pairs" in result
+                    "donor_hydrogen_pairs" in result
+                    or "donor_halogen_pairs" in result
                     or "hydrophobic_atom_indices" in result
-                    or "metal_atom_indices" in result or "water_atom_indices" in result
+                    or "metal_atom_indices" in result
+                    or "water_atom_indices" in result
                 ):
                     parameters, software = result, result["software"]
                 else:
                     parameters, software = {}, {"molsysmt": __version__}
                 items = _bibliography(definition, software, parameters)
-                parameters.update(method=definition["method"], profile=definition["profile"],
-                                  method_definition=definition["definition"])
-                parameters["attribution"] = dict(schema="molsysmt.scientific_attribution@1",
-                                                 target=target, items=items)
+                parameters.update(
+                    method=definition["method"],
+                    profile=definition["profile"],
+                    method_definition=definition["definition"],
+                )
+                parameters["attribution"] = dict(
+                    schema="molsysmt.scientific_attribution@1",
+                    target=target,
+                    items=items,
+                )
                 _ackredit.credit(provider, items, target)
                 return result
 
         return wrapped
+
     return decorate

@@ -32,20 +32,40 @@ def _run_cli(tmp_path, names):
     shutil.copyfile(_SCRIPT, script)
     for name in names:
         if name != "missing.ipynb":
-            (tmp_path / name).write_text(json.dumps({
-                "cells": [{"cell_type": "code", "source": ["pass"],
-                           "outputs": [], "metadata": {}}],
-                "metadata": {}, "nbformat": 4, "nbformat_minor": 0,
-            }))
+            (tmp_path / name).write_text(
+                json.dumps(
+                    {
+                        "cells": [
+                            {
+                                "cell_type": "code",
+                                "source": ["pass"],
+                                "outputs": [],
+                                "metadata": {},
+                            }
+                        ],
+                        "metadata": {},
+                        "nbformat": 4,
+                        "nbformat_minor": 0,
+                    }
+                )
+            )
     return subprocess.run(
         [sys.executable, "-c", _CONTROLLED_KERNEL, str(script), "-q", "-f", *names],
-        cwd=tmp_path, capture_output=True, text=True, timeout=30,
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
 
 
-@pytest.mark.parametrize("names", [
-    ["fail.ipynb"], ["ok.ipynb", "fail.ipynb"], ["fail.ipynb", "ok.ipynb"],
-])
+@pytest.mark.parametrize(
+    "names",
+    [
+        ["fail.ipynb"],
+        ["ok.ipynb", "fail.ipynb"],
+        ["fail.ipynb", "ok.ipynb"],
+    ],
+)
 def test_cli_exits_nonzero_when_any_notebook_fails(tmp_path, names):
     result = _run_cli(tmp_path, names)
     assert "1 notebook(s) failed" in result.stdout

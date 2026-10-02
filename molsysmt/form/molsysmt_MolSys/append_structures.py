@@ -131,7 +131,9 @@ def append_structures(
             from molsysmt.native.molsys import _extend_interaction_structures
 
             to_item.interactions = {
-                name: _extend_interaction_structures(result, to_item.structures.n_structures)
+                name: _extend_interaction_structures(
+                    result, to_item.structures.n_structures
+                )
                 for name, result in existing_analyses.items()
             }
 

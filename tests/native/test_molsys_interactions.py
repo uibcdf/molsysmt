@@ -19,14 +19,16 @@ def _system(n_atoms=3, n_structures=3):
 
 def _analysis(n_atoms=3, n_structures=3):
     return msm.Interactions.from_records(
-        [{
-            "structure_index": 2,
-            "interaction_type": "pair",
-            "participants": [
-                {"role": "first", "atom_indices": [0]},
-                {"role": "second", "atom_indices": [1]},
-            ],
-        }],
+        [
+            {
+                "structure_index": 2,
+                "interaction_type": "pair",
+                "participants": [
+                    {"role": "first", "atom_indices": [0]},
+                    {"role": "second", "atom_indices": [1]},
+                ],
+            }
+        ],
         n_atoms=n_atoms,
         n_structures=n_structures,
         evaluated_structure_indices=[0, 1, 2],
@@ -55,8 +57,11 @@ def test_attachment_validates_names_full_results_and_both_index_axes():
 def test_copy_extract_and_remove_preserve_coverage_and_remap_indices():
     molsys = _system()
     empty_analysis = msm.Interactions.from_records(
-        [], n_atoms=3, n_structures=3,
-        evaluated_structure_indices=[0], method="empty",
+        [],
+        n_atoms=3,
+        n_structures=3,
+        evaluated_structure_indices=[0],
+        method="empty",
     )
     molsys.interactions = {"pairs": _analysis(), "empty": empty_analysis}
 
@@ -69,7 +74,9 @@ def test_copy_extract_and_remove_preserve_coverage_and_remap_indices():
         "pairs": copied.interactions["pairs"].invalidate_structures([2]),
     }
     assert copied.interactions["pairs"].n_interactions == 0
-    np.testing.assert_array_equal(molsys.interactions["pairs"].occurrence_structures, [2])
+    np.testing.assert_array_equal(
+        molsys.interactions["pairs"].occurrence_structures, [2]
+    )
 
     subset = molsys.extract(
         atom_indices=[0, 1], structure_indices=[2, 0], skip_digestion=True
@@ -105,8 +112,9 @@ def test_atom_add_preserves_bounded_coverage_and_structure_append_keeps_old_obse
     assert molsys.topology.n_atoms == 4
     assert molsys.interactions["pairs"].source_id == "original"
     after_add = molsys.interactions["pairs"]
-    np.testing.assert_array_equal(after_add.evaluation_scope["universe_indices"],
-                                  [0, 1, 2])
+    np.testing.assert_array_equal(
+        after_add.evaluation_scope["universe_indices"], [0, 1, 2]
+    )
     np.testing.assert_array_equal(after_add.atom_source_indices, [0, 1, 2, -1])
     assert after_add.query(atom_indices=[3]).n_interactions == 0
 
@@ -115,14 +123,15 @@ def test_atom_add_preserves_bounded_coverage_and_structure_append_keeps_old_obse
     after_append = molsys.interactions["pairs"]
     assert after_append.n_structures == 4
     assert after_append.source_id == "original"
-    np.testing.assert_array_equal(
-        after_append.structure_source_indices, [0, 1, 2, -1]
-    )
+    np.testing.assert_array_equal(after_append.structure_source_indices, [0, 1, 2, -1])
     np.testing.assert_array_equal(after_append.evaluated_structure_indices, [0, 1, 2])
     assert after_append.query(structure_indices=[3]).n_interactions == 0
-    assert after_append.query(structure_indices=[3]).to_dict()[
-        "evaluated_structure_indices"
-    ].size == 0
+    assert (
+        after_append.query(structure_indices=[3])
+        .to_dict()["evaluated_structure_indices"]
+        .size
+        == 0
+    )
 
 
 def test_merging_a_source_with_analyses_requires_an_explicit_policy():

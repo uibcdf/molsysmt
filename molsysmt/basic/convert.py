@@ -654,8 +654,13 @@ def _reconcile_composed_structure_state_association(item):
 
 
 def _convert_to_h5msm05(
-    molecular_system, from_form, output_filename, selection,
-    structure_indices, syntax, kwargs,
+    molecular_system,
+    from_form,
+    output_filename,
+    selection,
+    structure_indices,
+    syntax,
+    kwargs,
 ):
     """Write the public H5MSM target through the versioned 0.5 codec."""
     from molsysmt import h5msm
@@ -672,13 +677,17 @@ def _convert_to_h5msm05(
             from molsysmt._private.smonitor import ArgumentError
 
             raise ArgumentError(
-                "output_filename", value=output_filename, caller="molsysmt.convert",
+                "output_filename",
+                value=output_filename,
+                caller="molsysmt.convert",
             )
 
     options = dict(kwargs)
     for name, default in (
-        ("compression", "gzip"), ("compression_opts", 4),
-        ("int_precision", "single"), ("float_precision", "single"),
+        ("compression", "gzip"),
+        ("compression_opts", 4),
+        ("int_precision", "single"),
+        ("float_precision", "single"),
     ):
         value = options.pop(name, default)
         if value != default:
@@ -693,8 +702,7 @@ def _convert_to_h5msm05(
         ):
             target = "molsysmt.Structures"
         elif from_form == "molsysmt.ChemicalStates" or (
-            "molsysmt.MolSys" not in routes
-            and "molsysmt.ChemicalStates" in routes
+            "molsysmt.MolSys" not in routes and "molsysmt.ChemicalStates" in routes
         ):
             target = "molsysmt.ChemicalStates"
         else:
@@ -703,17 +711,27 @@ def _convert_to_h5msm05(
         target = "molsysmt.MolSys"
 
     if (
-        from_form == target and is_all(selection) and is_all(structure_indices)
+        from_form == target
+        and is_all(selection)
+        and is_all(structure_indices)
         and not options
     ):
         native = molecular_system
     else:
         native = convert(
-            molecular_system, to_form=target, selection=selection,
-            structure_indices=structure_indices, syntax=syntax,
-            skip_digestion=True, **options,
+            molecular_system,
+            to_form=target,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            skip_digestion=True,
+            **options,
         )
-    structures = native if target == "molsysmt.Structures" else getattr(native, "structures", None)
+    structures = (
+        native
+        if target == "molsysmt.Structures"
+        else getattr(native, "structures", None)
+    )
     if (
         not is_all(selection)
         and structures is not None
@@ -944,8 +962,13 @@ def convert(
         if to_form != "file:h5msm":
             output_filename = to_form
         output = _convert_to_h5msm05(
-            molecular_system, from_form, output_filename,
-            selection, structure_indices, syntax, options,
+            molecular_system,
+            from_form,
+            output_filename,
+            selection,
+            structure_indices,
+            syntax,
+            options,
         )
         return (output, report) if return_report else output
 

@@ -5,7 +5,9 @@ import numpy as np
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 
 
-def chemical_graph_context(molecular_system, chemical_state, structure_indices, assume_complete, caller):
+def chemical_graph_context(
+    molecular_system, chemical_state, structure_indices, assume_complete, caller
+):
     """Resolve chemistry without selecting or truncating the source covalent graph."""
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt._private.variables import is_all
@@ -21,24 +23,38 @@ def chemical_graph_context(molecular_system, chemical_state, structure_indices, 
         # General conversion owns axis validation and declared correspondence.
         # The read-only chemistry context may share full native domains.
         molecular_system = convert(
-            molecular_system, to_form="molsysmt.MolSys", copy_if_all=False,
+            molecular_system,
+            to_form="molsysmt.MolSys",
+            copy_if_all=False,
         )
     dimensions = modular_h5msm_dimensions(molecular_system)
     if dimensions is not None:
         from molsysmt.form._h5msm05_modular import _read_calculation_chemistry
 
-        frames = np.arange(dimensions[1], dtype=np.int64) if is_all(structure_indices) else structure_indices
-        if np.any(np.asarray(frames) < 0) or np.any(np.asarray(frames) >= dimensions[1]):
-            raise ArgumentError("structure_indices", value=structure_indices, caller=caller)
+        frames = (
+            np.arange(dimensions[1], dtype=np.int64)
+            if is_all(structure_indices)
+            else structure_indices
+        )
+        if np.any(np.asarray(frames) < 0) or np.any(
+            np.asarray(frames) >= dimensions[1]
+        ):
+            raise ArgumentError(
+                "structure_indices", value=structure_indices, caller=caller
+            )
         molecular_system, chemical_state = _read_calculation_chemistry(
-            molecular_system, chemical_state=chemical_state, structure_indices=frames,
+            molecular_system,
+            chemical_state=chemical_state,
+            structure_indices=frames,
             require_topology=False,
         )
         selection_frames = "all"
     if chemical_state == "structure":
         if not isinstance(molecular_system, MolSys):
             raise ArgumentError("chemical_state", value=chemical_state, caller=caller)
-        chemical_state = molecular_system._resolve_structure_chemical_state_index(structure_indices)
+        chemical_state = molecular_system._resolve_structure_chemical_state_index(
+            structure_indices
+        )
     if isinstance(molecular_system, MolSys):
         states = molecular_system.chemical_states
     elif isinstance(molecular_system, ChemicalStates):
@@ -48,41 +64,67 @@ def chemical_graph_context(molecular_system, chemical_state, structure_indices, 
         states = molecular_system
     else:
         topology = (
-            molecular_system if isinstance(molecular_system, Topology)
+            molecular_system
+            if isinstance(molecular_system, Topology)
             else convert(molecular_system, to_form="molsysmt.Topology")
         )
         states = topology._chemical_states_domain
     if states is None:
-        raise StructuralInconsistencyError(reason="A chemical-states domain is required.", caller=caller)
-    state_index = states._resolve_index(None if chemical_state == "reference" else chemical_state)
+        raise StructuralInconsistencyError(
+            reason="A chemical-states domain is required.", caller=caller
+        )
+    state_index = states._resolve_index(
+        None if chemical_state == "reference" else chemical_state
+    )
     state = states._states[state_index]
     n_atoms = states.n_atoms
-    if n_atoms and state.connectivity_completeness != "complete" and not assume_complete:
+    if (
+        n_atoms
+        and state.connectivity_completeness != "complete"
+        and not assume_complete
+    ):
         raise StructuralInconsistencyError(
-            reason="Chemical graph analysis requires connectivity declared complete.", caller=caller,
+            reason="Chemical graph analysis requires connectivity declared complete.",
+            caller=caller,
         )
     bonds = state.bonds
     if len(bonds):
         if not {"bond_type", "atom1_index", "atom2_index"} <= set(bonds.columns):
-            raise StructuralInconsistencyError(reason="Bond chemistry columns are missing.", caller=caller)
-        relationships = bonds["bond_type"]
-        if relationships.isna().any() or not relationships.isin(["covalent", "dative"]).all():
             raise StructuralInconsistencyError(
-                reason="Every bond requires a covalent or dative relationship.", caller=caller,
+                reason="Bond chemistry columns are missing.", caller=caller
+            )
+        relationships = bonds["bond_type"]
+        if (
+            relationships.isna().any()
+            or not relationships.isin(["covalent", "dative"]).all()
+        ):
+            raise StructuralInconsistencyError(
+                reason="Every bond requires a covalent or dative relationship.",
+                caller=caller,
             )
         covalent = bonds.loc[relationships == "covalent"]
         pairs = covalent[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
     else:
         covalent, pairs = bonds, np.empty((0, 2), dtype=np.int64)
     if (
-        np.any(pairs < 0) or np.any(pairs >= n_atoms)
+        np.any(pairs < 0)
+        or np.any(pairs >= n_atoms)
         or np.any(pairs[:, 0] == pairs[:, 1])
         or len(np.unique(np.sort(pairs, axis=1), axis=0)) != len(pairs)
     ):
         raise StructuralInconsistencyError(
-            reason="Covalent bonds must be unique pairs of distinct valid atom indices.", caller=caller,
+            reason="Covalent bonds must be unique pairs of distinct valid atom indices.",
+            caller=caller,
         )
-    return molecular_system, states, state, state_index, covalent, pairs, selection_frames
+    return (
+        molecular_system,
+        states,
+        state,
+        state_index,
+        covalent,
+        pairs,
+        selection_frames,
+    )
 
 
 def select_chemical_atoms(source, states, state_index, selection, frames, syntax):
@@ -98,7 +140,18 @@ def select_chemical_atoms(source, states, state_index, selection, frames, syntax
         view._reference_index = state_index
         state = "reference"
     else:
-        view = source if isinstance(source, (MolSys, Topology)) else convert(source, to_form="molsysmt.MolSys")
+        view = (
+            source
+            if isinstance(source, (MolSys, Topology))
+            else convert(source, to_form="molsysmt.MolSys")
+        )
         state = state_index
-    return np.unique(select(view, selection=selection, structure_indices=frames,
-                            chemical_state=state, syntax=syntax)).astype(np.int64)
+    return np.unique(
+        select(
+            view,
+            selection=selection,
+            structure_indices=frames,
+            chemical_state=state,
+            syntax=syntax,
+        )
+    ).astype(np.int64)

@@ -14,7 +14,8 @@ PROLIF_PATTERNS = (
     "[a;r5]1:[a;r5]:[a;r5]:[a;r5]:[a;r5]:1",
 )
 PROLIF_REFERENCE = {
-    "software": "ProLIF", "version": "2.2.2",
+    "software": "ProLIF",
+    "version": "2.2.2",
     "commit": "19f1800218387c49536eb9d3e8cd3044fdb337ee",
     "implementation": "https://github.com/chemosim-lab/ProLIF/blob/19f1800218387c49536eb9d3e8cd3044fdb337ee/prolif/interactions/interactions.py",
     "geometry": "https://github.com/chemosim-lab/ProLIF/blob/19f1800218387c49536eb9d3e8cd3044fdb337ee/prolif/utils.py",

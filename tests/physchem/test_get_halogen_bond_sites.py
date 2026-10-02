@@ -26,7 +26,10 @@ def test_known_halogen_sites_are_form_agnostic(form, tmp_path):
     assert sites["donor_halogen_pairs"].dtype == np.int64
     assert sites["acceptor_reference_pairs"].dtype == np.int64
     assert "rdkit" in sites["software"]
-    assert any(item["roles"] == ["reference_implementation"] for item in sites["attribution"]["items"])
+    assert any(
+        item["roles"] == ["reference_implementation"]
+        for item in sites["attribution"]["items"]
+    )
 
 
 def test_reference_neighbors_and_complete_pair_selection_are_preserved():
@@ -41,12 +44,16 @@ def test_reference_neighbors_and_complete_pair_selection_are_preserved():
 
 def test_positive_acceptors_and_unknown_chemistry_are_not_silently_reclassified():
     molecule = Chem.MolFromSmiles("CCl.C[NH3+]")
-    assert msm.physchem.get_halogen_bond_sites(molecule)["acceptor_reference_pairs"].shape == (0, 2)
+    assert msm.physchem.get_halogen_bond_sites(molecule)[
+        "acceptor_reference_pairs"
+    ].shape == (0, 2)
     native = msm.convert(Chem.MolFromSmiles("CCl.C=O"), to_form="molsysmt.MolSys")
     native.chemical_states._states[0].connectivity_completeness = "partial"
     with pytest.raises(msm.StructuralInconsistencyError):
         msm.physchem.get_halogen_bond_sites(native)
-    assert msm.physchem.get_halogen_bond_sites(native, assume_complete_connectivity=True)["assume_complete_connectivity"]
+    assert msm.physchem.get_halogen_bond_sites(
+        native, assume_complete_connectivity=True
+    )["assume_complete_connectivity"]
     native.chemical_states._states[0].atom_attributes["formal_charge"] = None
     with pytest.raises(msm.StructuralInconsistencyError):
         msm.physchem.get_halogen_bond_sites(native, assume_complete_connectivity=True)

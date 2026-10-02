@@ -11,16 +11,33 @@ import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 
-_STORAGE_FIELDS = frozenset({
-    "n_atoms", "n_structures", "source_n_atoms", "source_n_structures",
-    "atom_source_indices", "structure_source_indices", "evaluation_mode",
-    "evaluation_atom_indices", "evaluation_atom_indices_b",
-    "evaluation_universe_indices", "evaluated_structure_indices",
-    "relation_types", "relation_participant_offsets", "participant_roles",
-    "participant_atom_offsets", "participant_atoms", "occurrence_structures",
-    "occurrence_relations", "occurrence_evidence", "evidence_labels",
-    "occurrence_image_offsets", "image_vectors", "measurements",
-})
+_STORAGE_FIELDS = frozenset(
+    {
+        "n_atoms",
+        "n_structures",
+        "source_n_atoms",
+        "source_n_structures",
+        "atom_source_indices",
+        "structure_source_indices",
+        "evaluation_mode",
+        "evaluation_atom_indices",
+        "evaluation_atom_indices_b",
+        "evaluation_universe_indices",
+        "evaluated_structure_indices",
+        "relation_types",
+        "relation_participant_offsets",
+        "participant_roles",
+        "participant_atom_offsets",
+        "participant_atoms",
+        "occurrence_structures",
+        "occurrence_relations",
+        "occurrence_evidence",
+        "evidence_labels",
+        "occurrence_image_offsets",
+        "image_vectors",
+        "measurements",
+    }
+)
 
 
 def _immutable_array(value):
@@ -83,11 +100,15 @@ def _software_versions(software):
     if software is None:
         return {}
     if not isinstance(software, dict) or any(
-        not isinstance(name, str) or not name.strip()
-        or not isinstance(version, str) or not version.strip()
+        not isinstance(name, str)
+        or not name.strip()
+        or not isinstance(version, str)
+        or not version.strip()
         for name, version in software.items()
     ):
-        raise ValueError("software must map nonempty software names to nonempty version strings")
+        raise ValueError(
+            "software must map nonempty software names to nonempty version strings"
+        )
     return software.copy()
 
 
@@ -121,7 +142,9 @@ class Interactions:
 
     def __setattr__(self, name, value):
         if name in _STORAGE_FIELDS and self.__dict__.get("_storage_locked", False):
-            raise AttributeError("Interaction storage is read-only; construct a new result")
+            raise AttributeError(
+                "Interaction storage is read-only; construct a new result"
+            )
         object.__setattr__(self, name, value)
 
     def __reduce__(self):
@@ -137,37 +160,63 @@ class Interactions:
         base._is_full = True
         base._coverage = base.evaluated_structure_indices
         return _restore_view, (
-            _encode_interactions(base), self._positions, self._coverage,
+            _encode_interactions(base),
+            self._positions,
+            self._coverage,
             getattr(self, "_row_removal", None),
             getattr(self, "_public_occurrence_indices", None),
         )
 
-    def __init__(self, *, n_atoms, n_structures, evaluated_structure_indices,
-                 relation_types, relation_participant_offsets, participant_roles,
-                 participant_atom_offsets, participant_atoms, occurrence_structures,
-                 occurrence_relations, occurrence_evidence, measurements,
-                 measure_units, method, parameters=None, source_id=None,
-                 occurrence_image_offsets=None, image_vectors=None,
-                 evidence_labels=None, atom_source_indices=None,
-                 structure_source_indices=None, source_n_atoms=None,
-                 source_n_structures=None, evaluation_mode="internal",
-                 evaluation_atom_indices=None, evaluation_atom_indices_b=None,
-                 evaluation_universe_indices=None, software=None,
-                 execution=None, execution_records=None):
+    def __init__(
+        self,
+        *,
+        n_atoms,
+        n_structures,
+        evaluated_structure_indices,
+        relation_types,
+        relation_participant_offsets,
+        participant_roles,
+        participant_atom_offsets,
+        participant_atoms,
+        occurrence_structures,
+        occurrence_relations,
+        occurrence_evidence,
+        measurements,
+        measure_units,
+        method,
+        parameters=None,
+        source_id=None,
+        occurrence_image_offsets=None,
+        image_vectors=None,
+        evidence_labels=None,
+        atom_source_indices=None,
+        structure_source_indices=None,
+        source_n_atoms=None,
+        source_n_structures=None,
+        evaluation_mode="internal",
+        evaluation_atom_indices=None,
+        evaluation_atom_indices_b=None,
+        evaluation_universe_indices=None,
+        software=None,
+        execution=None,
+        execution_records=None,
+    ):
         self.n_atoms = int(n_atoms)
         self.n_structures = int(n_structures)
         self.source_n_atoms = (
             self.n_atoms if source_n_atoms is None else int(source_n_atoms)
         )
         self.source_n_structures = (
-            self.n_structures if source_n_structures is None
+            self.n_structures
+            if source_n_structures is None
             else int(source_n_structures)
         )
         self.atom_source_indices = _source_map(
             atom_source_indices, self.n_atoms, "atom_source_indices"
         )
         self.structure_source_indices = _source_map(
-            structure_source_indices, self.n_structures,
+            structure_source_indices,
+            self.n_structures,
             "structure_source_indices",
         )
         self.evaluation_mode = str(evaluation_mode)
@@ -181,8 +230,11 @@ class Interactions:
             evaluation_universe_indices, self.n_atoms, "evaluation_universe_indices"
         )
         self.evaluated_structure_indices = _unique_in_order(
-            _indices(evaluated_structure_indices, self.n_structures,
-                     "evaluated_structure_indices")
+            _indices(
+                evaluated_structure_indices,
+                self.n_structures,
+                "evaluated_structure_indices",
+            )
         )
         self.relation_types = tuple(relation_types)
         self.relation_participant_offsets = np.asarray(
@@ -206,18 +258,19 @@ class Interactions:
             )
         else:
             self.evidence_labels = tuple(evidence_labels)
-            self.occurrence_evidence = np.asarray(
-                occurrence_evidence, dtype=np.int32
-            )
+            self.occurrence_evidence = np.asarray(occurrence_evidence, dtype=np.int32)
         self.occurrence_image_offsets = (
-            None if occurrence_image_offsets is None else
-            np.asarray(occurrence_image_offsets, dtype=np.int64)
+            None
+            if occurrence_image_offsets is None
+            else np.asarray(occurrence_image_offsets, dtype=np.int64)
         )
         self.image_vectors = (
             None if image_vectors is None else np.asarray(image_vectors, dtype=np.int32)
         )
-        self.measurements = {key: np.asarray(value, dtype=np.float64)
-                             for key, value in measurements.items()}
+        self.measurements = {
+            key: np.asarray(value, dtype=np.float64)
+            for key, value in measurements.items()
+        }
         self.measure_units = dict(measure_units)
         self.method = str(method)
         self.parameters = deepcopy(dict(parameters or {}))
@@ -232,16 +285,17 @@ class Interactions:
         self._relation_occurrence_ids = None
         from ._execution_provenance import normalize
 
-        self._execution_records = normalize(execution_records, execution,
-                                            self._coverage, self.n_structures)
+        self._execution_records = normalize(
+            execution_records, execution, self._coverage, self.n_structures
+        )
         self._validate()
         for name in _STORAGE_FIELDS:
             value = getattr(self, name)
             if isinstance(value, np.ndarray):
                 setattr(self, name, _immutable_array(value))
-        self.measurements = MappingProxyType({
-            name: _immutable_array(value) for name, value in self.measurements.items()
-        })
+        self.measurements = MappingProxyType(
+            {name: _immutable_array(value) for name, value in self.measurements.items()}
+        )
         self._positions = _immutable_array(self._positions)
         self._coverage = self.evaluated_structure_indices
         self._storage_locked = True
@@ -251,19 +305,26 @@ class Interactions:
             raise ValueError("n_atoms and n_structures must be nonnegative")
         if self.source_n_atoms < 0 or self.source_n_structures < 0:
             raise ValueError("source atom and structure counts must be nonnegative")
-        if (self.atom_source_indices.shape != (self.n_atoms,)
-                or self.structure_source_indices.shape != (self.n_structures,)):
-            raise ValueError("source-index maps must match the local atom and structure axes")
-        if (np.any(self.atom_source_indices < -1)
-                or np.any(self.atom_source_indices >= self.source_n_atoms)
-                or np.any(self.structure_source_indices < -1)
-                or np.any(self.structure_source_indices >= self.source_n_structures)):
+        if self.atom_source_indices.shape != (
+            self.n_atoms,
+        ) or self.structure_source_indices.shape != (self.n_structures,):
+            raise ValueError(
+                "source-index maps must match the local atom and structure axes"
+            )
+        if (
+            np.any(self.atom_source_indices < -1)
+            or np.any(self.atom_source_indices >= self.source_n_atoms)
+            or np.any(self.structure_source_indices < -1)
+            or np.any(self.structure_source_indices >= self.source_n_structures)
+        ):
             raise ValueError("source-index maps contain out-of-range indices")
         mapped_atoms = self.atom_source_indices[self.atom_source_indices >= 0]
         if np.unique(mapped_atoms).size != mapped_atoms.size:
             raise ValueError("atom source indices must be unique when known")
         if self.evaluation_mode not in {"internal", "incident", "between"}:
-            raise ValueError("evaluation_mode must be 'internal', 'incident', or 'between'")
+            raise ValueError(
+                "evaluation_mode must be 'internal', 'incident', or 'between'"
+            )
         universe = self._scope_axis(self.evaluation_universe_indices)
         selected = self._scope_selected()
         universe_mask = np.zeros(self.n_atoms, dtype=np.bool_)
@@ -271,7 +332,9 @@ class Interactions:
         selected_mask = np.zeros(self.n_atoms, dtype=np.bool_)
         selected_mask[selected] = True
         if not np.all(universe_mask[selected]):
-            raise ValueError("evaluation atom set must be within the evaluated universe")
+            raise ValueError(
+                "evaluation atom set must be within the evaluated universe"
+            )
         if self.evaluation_mode == "internal":
             if self.evaluation_atom_indices_b is not None:
                 raise ValueError("internal evaluation does not use a second atom set")
@@ -281,31 +344,42 @@ class Interactions:
             if self.evaluation_atom_indices_b is not None:
                 raise ValueError("incident evaluation does not use a second atom set")
         else:
-            if self.evaluation_atom_indices is None or self.evaluation_atom_indices_b is None:
+            if (
+                self.evaluation_atom_indices is None
+                or self.evaluation_atom_indices_b is None
+            ):
                 raise ValueError("between evaluation requires two explicit atom sets")
             b_mask = np.zeros(self.n_atoms, dtype=np.bool_)
             b_mask[self.evaluation_atom_indices_b] = True
             if np.any(selected_mask[self.evaluation_atom_indices_b]):
                 raise ValueError("between evaluation atom sets must be disjoint")
             if not np.all(universe_mask[self.evaluation_atom_indices_b]):
-                raise ValueError("evaluation atom sets must be within the evaluated universe")
+                raise ValueError(
+                    "evaluation atom sets must be within the evaluated universe"
+                )
         n_relations = len(self.relation_types)
         n_participants = len(self.participant_roles)
-        if (len(self.relation_participant_offsets) != n_relations + 1
-                or self.relation_participant_offsets[0] != 0
-                or self.relation_participant_offsets[-1] != n_participants
-                or np.any(np.diff(self.relation_participant_offsets) <= 0)):
+        if (
+            len(self.relation_participant_offsets) != n_relations + 1
+            or self.relation_participant_offsets[0] != 0
+            or self.relation_participant_offsets[-1] != n_participants
+            or np.any(np.diff(self.relation_participant_offsets) <= 0)
+        ):
             raise ValueError("each relation must have at least one participant")
-        if (len(self.participant_atom_offsets) != n_participants + 1
-                or self.participant_atom_offsets[0] != 0
-                or self.participant_atom_offsets[-1] != len(self.participant_atoms)
-                or np.any(np.diff(self.participant_atom_offsets) <= 0)):
+        if (
+            len(self.participant_atom_offsets) != n_participants + 1
+            or self.participant_atom_offsets[0] != 0
+            or self.participant_atom_offsets[-1] != len(self.participant_atoms)
+            or np.any(np.diff(self.participant_atom_offsets) <= 0)
+        ):
             raise ValueError("each participant must contain at least one atom")
         _indices(self.participant_atoms, self.n_atoms, "participant_atoms")
         for relation in range(n_relations):
             atoms = self._relation_atoms(relation)
             if not np.all(universe_mask[atoms]):
-                raise ValueError("relation contains atoms outside the evaluated universe")
+                raise ValueError(
+                    "relation contains atoms outside the evaluated universe"
+                )
             if self.evaluation_mode == "internal":
                 valid = np.all(selected_mask[atoms])
             else:
@@ -313,21 +387,26 @@ class Interactions:
                 if self.evaluation_mode == "between":
                     valid = valid and b_mask[atoms].any()
             if not valid:
-                raise ValueError("relation does not satisfy the declared evaluation scope")
+                raise ValueError(
+                    "relation does not satisfy the declared evaluation scope"
+                )
         n_occurrences = len(self.occurrence_relations)
-        if (len(self.occurrence_structures) != n_occurrences
-                or len(self.occurrence_evidence) != n_occurrences):
+        if (
+            len(self.occurrence_structures) != n_occurrences
+            or len(self.occurrence_evidence) != n_occurrences
+        ):
             raise ValueError("occurrence columns must have equal lengths")
-        if (np.any(self.occurrence_evidence < 0)
-                or np.any(self.occurrence_evidence >= len(self.evidence_labels))):
+        if np.any(self.occurrence_evidence < 0) or np.any(
+            self.occurrence_evidence >= len(self.evidence_labels)
+        ):
             raise ValueError("occurrence evidence code is outside the label table")
         if np.any(np.diff(self.occurrence_structures) < 0):
             raise ValueError("occurrences must be ordered by structure")
-        _indices(self.occurrence_structures, self.n_structures,
-                 "occurrence_structures")
+        _indices(self.occurrence_structures, self.n_structures, "occurrence_structures")
         _indices(self.occurrence_relations, n_relations, "occurrence_relations")
-        if not np.all(np.isin(self.occurrence_structures,
-                            self.evaluated_structure_indices)):
+        if not np.all(
+            np.isin(self.occurrence_structures, self.evaluated_structure_indices)
+        ):
             raise ValueError("an occurrence belongs to an unevaluated structure")
         if set(self.measurements) != set(self.measure_units):
             raise ValueError("each measurement requires an explicit unit")
@@ -337,9 +416,12 @@ class Interactions:
             raise ValueError("image offsets and vectors must be supplied together")
         if self.image_vectors is not None:
             offsets = self.occurrence_image_offsets
-            if (offsets.shape != (n_occurrences + 1,) or offsets[0] != 0
-                    or offsets[-1] != len(self.image_vectors)
-                    or self.image_vectors.shape != (len(self.image_vectors), 3)):
+            if (
+                offsets.shape != (n_occurrences + 1,)
+                or offsets[0] != 0
+                or offsets[-1] != len(self.image_vectors)
+                or self.image_vectors.shape != (len(self.image_vectors), 3)
+            ):
                 raise ValueError("periodic image columns have inconsistent shapes")
             arities = np.diff(self.relation_participant_offsets)[
                 self.occurrence_relations
@@ -348,14 +430,29 @@ class Interactions:
                 raise ValueError("each occurrence needs one image per participant")
 
     @classmethod
-    def from_records(cls, records, *, n_atoms, n_structures,
-                     evaluated_structure_indices, method, measure_units=None,
-                     parameters=None, source_id=None, atom_source_indices=None,
-                     structure_source_indices=None, source_n_atoms=None,
-                     source_n_structures=None, evaluation_mode="internal",
-                     evaluation_atom_indices=None, evaluation_atom_indices_b=None,
-                     evaluation_universe_indices=None, software=None,
-                     execution=None, execution_records=None):
+    def from_records(
+        cls,
+        records,
+        *,
+        n_atoms,
+        n_structures,
+        evaluated_structure_indices,
+        method,
+        measure_units=None,
+        parameters=None,
+        source_id=None,
+        atom_source_indices=None,
+        structure_source_indices=None,
+        source_n_atoms=None,
+        source_n_structures=None,
+        evaluation_mode="internal",
+        evaluation_atom_indices=None,
+        evaluation_atom_indices_b=None,
+        evaluation_universe_indices=None,
+        software=None,
+        execution=None,
+        execution_records=None,
+    ):
         """Building a sparse result from frame-specific interaction records.
 
         Parameters
@@ -432,10 +529,13 @@ class Interactions:
         .. versionadded:: 1.0.0
         """
         units = dict(measure_units or {})
-        coverage = _unique_in_order(_indices(
-            evaluated_structure_indices, int(n_structures),
-            "evaluated_structure_indices"
-        ))
+        coverage = _unique_in_order(
+            _indices(
+                evaluated_structure_indices,
+                int(n_structures),
+                "evaluated_structure_indices",
+            )
+        )
         relation_keys = set()
         coverage_set = set(coverage.tolist())
         rows = []
@@ -457,13 +557,26 @@ class Interactions:
             images = record.get("images")
             if images is not None:
                 images = np.asarray(images)
-                if (images.shape != (len(participants), 3)
-                        or images.dtype.kind not in "iu"):
-                    raise ValueError("images must contain an integer vector per participant")
+                if (
+                    images.shape != (len(participants), 3)
+                    or images.dtype.kind not in "iu"
+                ):
+                    raise ValueError(
+                        "images must contain an integer vector per participant"
+                    )
                 images = images.astype(np.int32)
-            rows.append((frame, key, str(record.get("evidence", "observed_geometry")),
-                         measures, images))
-        relation_lookup = {key: index for index, key in enumerate(sorted(relation_keys))}
+            rows.append(
+                (
+                    frame,
+                    key,
+                    str(record.get("evidence", "observed_geometry")),
+                    measures,
+                    images,
+                )
+            )
+        relation_lookup = {
+            key: index for index, key in enumerate(sorted(relation_keys))
+        }
         relation_types = []
         relation_participant_offsets = [0]
         roles = []
@@ -476,11 +589,19 @@ class Interactions:
                 atoms.extend(indices)
                 participant_atom_offsets.append(len(atoms))
             relation_participant_offsets.append(len(roles))
-        rows = [(frame, relation_lookup[key], evidence, measures, images)
-                for frame, key, evidence, measures, images in rows]
-        rows.sort(key=lambda row: (row[0], row[1],
-                                   () if row[4] is None else tuple(row[4].flat),
-                                   row[2], tuple(sorted(row[3].items()))))
+        rows = [
+            (frame, relation_lookup[key], evidence, measures, images)
+            for frame, key, evidence, measures, images in rows
+        ]
+        rows.sort(
+            key=lambda row: (
+                row[0],
+                row[1],
+                () if row[4] is None else tuple(row[4].flat),
+                row[2],
+                tuple(sorted(row[3].items())),
+            )
+        )
         has_images = any(row[4] is not None for row in rows)
         if has_images and any(row[4] is None for row in rows):
             raise ValueError(
@@ -493,22 +614,33 @@ class Interactions:
                 image_vectors.extend(images)
                 image_offsets.append(len(image_vectors))
         return cls(
-            n_atoms=n_atoms, n_structures=n_structures,
-            evaluated_structure_indices=coverage, relation_types=relation_types,
+            n_atoms=n_atoms,
+            n_structures=n_structures,
+            evaluated_structure_indices=coverage,
+            relation_types=relation_types,
             relation_participant_offsets=relation_participant_offsets,
-            participant_roles=roles, participant_atom_offsets=participant_atom_offsets,
+            participant_roles=roles,
+            participant_atom_offsets=participant_atom_offsets,
             participant_atoms=atoms,
             occurrence_structures=[row[0] for row in rows],
             occurrence_relations=[row[1] for row in rows],
             occurrence_evidence=[row[2] for row in rows],
-            measurements={name: [row[3].get(name, np.nan) for row in rows]
-                          for name in units}, measure_units=units, method=method,
-            parameters=parameters, source_id=source_id, software=software,
-            execution=execution, execution_records=execution_records,
-            occurrence_image_offsets=image_offsets, image_vectors=image_vectors,
+            measurements={
+                name: [row[3].get(name, np.nan) for row in rows] for name in units
+            },
+            measure_units=units,
+            method=method,
+            parameters=parameters,
+            source_id=source_id,
+            software=software,
+            execution=execution,
+            execution_records=execution_records,
+            occurrence_image_offsets=image_offsets,
+            image_vectors=image_vectors,
             atom_source_indices=atom_source_indices,
             structure_source_indices=structure_source_indices,
-            source_n_atoms=source_n_atoms, source_n_structures=source_n_structures,
+            source_n_atoms=source_n_atoms,
+            source_n_structures=source_n_structures,
             evaluation_mode=evaluation_mode,
             evaluation_atom_indices=evaluation_atom_indices,
             evaluation_atom_indices_b=evaluation_atom_indices_b,
@@ -531,7 +663,8 @@ class Interactions:
             "mode": self.evaluation_mode,
             "atom_indices": self._scope_selected().copy(),
             "atom_indices_b": (
-                None if self.evaluation_atom_indices_b is None
+                None
+                if self.evaluation_atom_indices_b is None
                 else self.evaluation_atom_indices_b.copy()
             ),
             "universe_indices": self._scope_axis(
@@ -589,11 +722,15 @@ class Interactions:
             self._positions,
             self.atom_source_indices,
             self.structure_source_indices,
-            *(value for value in (
-                self.evaluation_atom_indices,
-                self.evaluation_atom_indices_b,
-                self.evaluation_universe_indices,
-            ) if value is not None),
+            *(
+                value
+                for value in (
+                    self.evaluation_atom_indices,
+                    self.evaluation_atom_indices_b,
+                    self.evaluation_universe_indices,
+                )
+                if value is not None
+            ),
             *self.measurements.values(),
             *(frames for frames, _ in self._execution_records),
         )
@@ -620,16 +757,22 @@ class Interactions:
         for item in range(begin, end):
             start = self.participant_atom_offsets[item]
             stop = self.participant_atom_offsets[item + 1]
-            participants.append({"role": self.participant_roles[item],
-                                 "atom_indices": self.participant_atoms[start:stop].copy()})
-        return {"interaction_type": self.relation_types[index],
-                "participants": participants}
+            participants.append(
+                {
+                    "role": self.participant_roles[item],
+                    "atom_indices": self.participant_atoms[start:stop].copy(),
+                }
+            )
+        return {
+            "interaction_type": self.relation_types[index],
+            "participants": participants,
+        }
 
     def _relation_atoms(self, index):
         first = self.relation_participant_offsets[index]
         last = self.relation_participant_offsets[index + 1]
         return self.participant_atoms[
-            self.participant_atom_offsets[first]:self.participant_atom_offsets[last]
+            self.participant_atom_offsets[first] : self.participant_atom_offsets[last]
         ]
 
     def _build_indexes(self):
@@ -644,7 +787,9 @@ class Interactions:
         if posting_atoms:
             order = np.lexsort((posting_relations, posting_atoms))
             atoms_sorted = np.asarray(posting_atoms, dtype=np.int64)[order]
-            self._atom_relation_ids = np.asarray(posting_relations, dtype=np.int64)[order]
+            self._atom_relation_ids = np.asarray(posting_relations, dtype=np.int64)[
+                order
+            ]
             counts = np.bincount(atoms_sorted, minlength=self.n_atoms)
         else:
             self._atom_relation_ids = np.empty(0, dtype=np.int64)
@@ -652,8 +797,9 @@ class Interactions:
         self._atom_relation_offsets = np.r_[0, np.cumsum(counts)]
         order = np.argsort(self.occurrence_relations, kind="stable")
         self._relation_occurrence_ids = order.astype(np.int64, copy=False)
-        counts = np.bincount(self.occurrence_relations,
-                             minlength=len(self.relation_types))
+        counts = np.bincount(
+            self.occurrence_relations, minlength=len(self.relation_types)
+        )
         self._relation_occurrence_offsets = np.r_[0, np.cumsum(counts)]
 
     def _view(self, positions, coverage):
@@ -664,8 +810,13 @@ class Interactions:
         view._is_full = False
         return view
 
-    def query(self, structure_indices=None, atom_indices=None, mode="incident",
-              interaction_types=None):
+    def query(
+        self,
+        structure_indices=None,
+        atom_indices=None,
+        mode="incident",
+        interaction_types=None,
+    ):
         """Selecting occurrences by structures, atoms, and interaction kind.
 
         Parameters
@@ -691,9 +842,9 @@ class Interactions:
         if structure_indices is None:
             coverage = self._coverage
         else:
-            requested = _unique_in_order(_indices(
-                structure_indices, self.n_structures, "structure_indices"
-            ))
+            requested = _unique_in_order(
+                _indices(structure_indices, self.n_structures, "structure_indices")
+            )
             coverage = requested[np.isin(requested, self._coverage)]
         if atom_indices is None and interaction_types is None:
             if structure_indices is None:
@@ -701,18 +852,27 @@ class Interactions:
             elif self._is_full:
                 chunks = []
                 for frame in coverage:
-                    begin = np.searchsorted(self.occurrence_structures, frame, side="left")
-                    end = np.searchsorted(self.occurrence_structures, frame, side="right")
+                    begin = np.searchsorted(
+                        self.occurrence_structures, frame, side="left"
+                    )
+                    end = np.searchsorted(
+                        self.occurrence_structures, frame, side="right"
+                    )
                     chunks.append(np.arange(begin, end, dtype=np.int64))
-                frame_positions = (np.concatenate(chunks) if chunks else
-                                   np.empty(0, dtype=np.int64))
+                frame_positions = (
+                    np.concatenate(chunks) if chunks else np.empty(0, dtype=np.int64)
+                )
             else:
                 frames = self.occurrence_structures[self._positions]
                 positions = self._positions[np.isin(frames, coverage)]
-                frame_order = {int(frame): index for index, frame in enumerate(coverage)}
+                frame_order = {
+                    int(frame): index for index, frame in enumerate(coverage)
+                }
                 priorities = np.fromiter(
-                    (frame_order[int(frame)]
-                     for frame in self.occurrence_structures[positions]),
+                    (
+                        frame_order[int(frame)]
+                        for frame in self.occurrence_structures[positions]
+                    ),
                     dtype=np.int64,
                 )
                 frame_positions = positions[np.lexsort((positions, priorities))]
@@ -723,60 +883,85 @@ class Interactions:
         else:
             atoms = np.unique(_indices(atom_indices, self.n_atoms, "atom_indices"))
             if len(atoms):
-                incident = np.unique(np.concatenate(
-                    [self._atom_relation_ids[
-                        self._atom_relation_offsets[atom]:
-                        self._atom_relation_offsets[atom + 1]
-                    ] for atom in atoms]
-                ))
+                incident = np.unique(
+                    np.concatenate(
+                        [
+                            self._atom_relation_ids[
+                                self._atom_relation_offsets[
+                                    atom
+                                ] : self._atom_relation_offsets[atom + 1]
+                            ]
+                            for atom in atoms
+                        ]
+                    )
+                )
             else:
                 incident = np.empty(0, dtype=np.int64)
             if mode == "incident":
                 relations = incident
             else:
                 internal = np.asarray(
-                    [relation for relation in incident
-                     if np.all(np.isin(self._relation_atoms(relation), atoms))],
+                    [
+                        relation
+                        for relation in incident
+                        if np.all(np.isin(self._relation_atoms(relation), atoms))
+                    ],
                     dtype=np.int64,
                 )
-                relations = internal if mode == "internal" else np.setdiff1d(
-                    incident, internal, assume_unique=True
+                relations = (
+                    internal
+                    if mode == "internal"
+                    else np.setdiff1d(incident, internal, assume_unique=True)
                 )
         if interaction_types is not None:
-            allowed = ({interaction_types} if isinstance(interaction_types, str)
-                       else set(interaction_types))
-            relations = relations[[self.relation_types[index] in allowed
-                                   for index in relations]]
+            allowed = (
+                {interaction_types}
+                if isinstance(interaction_types, str)
+                else set(interaction_types)
+            )
+            relations = relations[
+                [self.relation_types[index] in allowed for index in relations]
+            ]
         if not len(coverage) or not len(relations):
             return self._view([], coverage)
         if structure_indices is not None:
-            bounds = [(
-                np.searchsorted(self.occurrence_structures, frame, side="left"),
-                np.searchsorted(self.occurrence_structures, frame, side="right"),
-            ) for frame in coverage]
+            bounds = [
+                (
+                    np.searchsorted(self.occurrence_structures, frame, side="left"),
+                    np.searchsorted(self.occurrence_structures, frame, side="right"),
+                )
+                for frame in coverage
+            ]
             frame_count = sum(end - begin for begin, end in bounds)
             relation_count = np.sum(
                 self._relation_occurrence_offsets[relations + 1]
                 - self._relation_occurrence_offsets[relations]
             )
             if frame_count < relation_count:
-                chunks = [np.arange(begin, end, dtype=np.int64)
-                          for begin, end in bounds]
-                positions = np.concatenate(chunks) if chunks else np.empty(
-                    0, dtype=np.int64
+                chunks = [
+                    np.arange(begin, end, dtype=np.int64) for begin, end in bounds
+                ]
+                positions = (
+                    np.concatenate(chunks) if chunks else np.empty(0, dtype=np.int64)
                 )
                 if not self._is_full:
                     positions = positions[np.isin(positions, self._positions)]
-                positions = positions[np.isin(
-                    self.occurrence_relations[positions], relations
-                )]
+                positions = positions[
+                    np.isin(self.occurrence_relations[positions], relations)
+                ]
                 return self._view(positions, coverage)
-        relevant = np.unique(np.concatenate([
-            self._relation_occurrence_ids[
-                self._relation_occurrence_offsets[relation]:
-                self._relation_occurrence_offsets[relation + 1]
-            ] for relation in relations
-        ]))
+        relevant = np.unique(
+            np.concatenate(
+                [
+                    self._relation_occurrence_ids[
+                        self._relation_occurrence_offsets[
+                            relation
+                        ] : self._relation_occurrence_offsets[relation + 1]
+                    ]
+                    for relation in relations
+                ]
+            )
+        )
         if structure_indices is None and self._is_full:
             positions = relevant
         elif structure_indices is None:
@@ -788,15 +973,23 @@ class Interactions:
             positions = relevant[np.isin(frames, coverage)]
             frame_order = {int(frame): index for index, frame in enumerate(coverage)}
             priorities = np.fromiter(
-                (frame_order[int(frame)]
-                 for frame in self.occurrence_structures[positions]),
+                (
+                    frame_order[int(frame)]
+                    for frame in self.occurrence_structures[positions]
+                ),
                 dtype=np.int64,
             )
             positions = positions[np.lexsort((positions, priorities))]
         return self._view(positions, coverage)
 
-    def between(self, atom_indices_a, atom_indices_b, structure_indices=None,
-                exclusive=False, interaction_types=None):
+    def between(
+        self,
+        atom_indices_a,
+        atom_indices_b,
+        structure_indices=None,
+        exclusive=False,
+        interaction_types=None,
+    ):
         """Selecting relations that involve atoms from each disjoint set.
 
         Parameters
@@ -823,19 +1016,26 @@ class Interactions:
         b = np.unique(_indices(atom_indices_b, self.n_atoms, "atom_indices_b"))
         if np.intersect1d(a, b).size:
             raise ValueError("atom_indices_a and atom_indices_b must be disjoint")
-        candidates = self.query(structure_indices=structure_indices,
-                                atom_indices=a, interaction_types=interaction_types)
+        candidates = self.query(
+            structure_indices=structure_indices,
+            atom_indices=a,
+            interaction_types=interaction_types,
+        )
         relations = np.unique(self.occurrence_relations[candidates._positions])
-        allowed = [int(relation) for relation in relations
-                   if np.intersect1d(self._relation_atoms(relation), b).size
-                   and (not exclusive or np.all(np.isin(
-                       self._relation_atoms(relation), np.union1d(a, b)
-                   )))]
+        allowed = [
+            int(relation)
+            for relation in relations
+            if np.intersect1d(self._relation_atoms(relation), b).size
+            and (
+                not exclusive
+                or np.all(np.isin(self._relation_atoms(relation), np.union1d(a, b)))
+            )
+        ]
         if not allowed:
             return candidates._view([], candidates._coverage)
-        positions = candidates._positions[np.isin(
-            self.occurrence_relations[candidates._positions], allowed
-        )]
+        positions = candidates._positions[
+            np.isin(self.occurrence_relations[candidates._positions], allowed)
+        ]
         return candidates._view(positions, candidates._coverage)
 
     def to_dict(self):
@@ -851,22 +1051,34 @@ class Interactions:
             image_offsets = None
             image_vectors = None
         else:
-            lengths = (self.occurrence_image_offsets[positions + 1]
-                       - self.occurrence_image_offsets[positions])
+            lengths = (
+                self.occurrence_image_offsets[positions + 1]
+                - self.occurrence_image_offsets[positions]
+            )
             image_offsets = np.r_[0, np.cumsum(lengths)]
-            image_vectors = np.concatenate([
-                self.image_vectors[
-                    self.occurrence_image_offsets[index]:
-                    self.occurrence_image_offsets[index + 1]
-                ] for index in positions
-            ]) if len(positions) else np.empty((0, 3), dtype=np.int32)
+            image_vectors = (
+                np.concatenate(
+                    [
+                        self.image_vectors[
+                            self.occurrence_image_offsets[
+                                index
+                            ] : self.occurrence_image_offsets[index + 1]
+                        ]
+                        for index in positions
+                    ]
+                )
+                if len(positions)
+                else np.empty((0, 3), dtype=np.int32)
+            )
         occurrence_indices = positions.copy()
         if hasattr(self, "_public_occurrence_indices"):
             occurrence_indices = self._public_occurrence_indices[positions].copy()
         removal = getattr(self, "_row_removal", None)
         if removal is not None:
             ends, cumulative = removal
-            occurrence_indices -= cumulative[np.searchsorted(ends, positions, side="right")]
+            occurrence_indices -= cumulative[
+                np.searchsorted(ends, positions, side="right")
+            ]
         return {
             "n_atoms": self.n_atoms,
             "n_structures": self.n_structures,
@@ -882,8 +1094,10 @@ class Interactions:
             "evidence": np.asarray(self.evidence_labels, dtype=str)[
                 self.occurrence_evidence[positions]
             ],
-            "measurements": {name: values[positions].copy()
-                             for name, values in self.measurements.items()},
+            "measurements": {
+                name: values[positions].copy()
+                for name, values in self.measurements.items()
+            },
             "measure_units": self.measure_units.copy(),
             "image_offsets": image_offsets,
             "image_vectors": image_vectors,
@@ -923,18 +1137,20 @@ class Interactions:
             raise ValueError("Remapping requires a full interaction result.")
         atoms = (
             np.arange(self.n_atoms, dtype=np.int64)
-            if is_all(atom_indices) else _indices(atom_indices, self.n_atoms, "atom_indices")
+            if is_all(atom_indices)
+            else _indices(atom_indices, self.n_atoms, "atom_indices")
         )
         frames = (
             np.arange(self.n_structures, dtype=np.int64)
-            if is_all(structure_indices) else
-            _indices(structure_indices, self.n_structures, "structure_indices")
+            if is_all(structure_indices)
+            else _indices(structure_indices, self.n_structures, "structure_indices")
         )
         if np.unique(atoms).size != atoms.size:
             raise ValueError("atom_indices must not contain duplicates")
 
         atom_map = np.full(self.n_atoms, -1, dtype=np.int64)
         atom_map[atoms] = np.arange(atoms.size, dtype=np.int64)
+
         def mapped_scope(values):
             mapped = atom_map[values]
             return np.unique(mapped[mapped >= 0])
@@ -944,14 +1160,14 @@ class Interactions:
         )
         mapped_selected = mapped_scope(self._scope_selected())
         mapped_b = (
-            None if self.evaluation_atom_indices_b is None else
-            mapped_scope(self.evaluation_atom_indices_b)
+            None
+            if self.evaluation_atom_indices_b is None
+            else mapped_scope(self.evaluation_atom_indices_b)
         )
-        universe_arg = (
-            None if mapped_universe.size == atoms.size else mapped_universe
-        )
+        universe_arg = None if mapped_universe.size == atoms.size else mapped_universe
         selected_arg = (
-            None if self.evaluation_mode == "internal"
+            None
+            if self.evaluation_mode == "internal"
             and np.array_equal(mapped_selected, mapped_universe)
             else mapped_selected
         )
@@ -965,18 +1181,26 @@ class Interactions:
         for old_relation, relation_type in enumerate(self.relation_types):
             first = self.relation_participant_offsets[old_relation]
             last = self.relation_participant_offsets[old_relation + 1]
-            if any(np.any(mapped_participant_atoms[
-                self.participant_atom_offsets[participant]:
-                self.participant_atom_offsets[participant + 1]
-            ] < 0) for participant in range(first, last)):
+            if any(
+                np.any(
+                    mapped_participant_atoms[
+                        self.participant_atom_offsets[
+                            participant
+                        ] : self.participant_atom_offsets[participant + 1]
+                    ]
+                    < 0
+                )
+                for participant in range(first, last)
+            ):
                 continue
             relation_map[old_relation] = len(relation_types)
             relation_types.append(relation_type)
             for participant in range(first, last):
                 participant_roles.append(self.participant_roles[participant])
                 mapped = mapped_participant_atoms[
-                    self.participant_atom_offsets[participant]:
-                    self.participant_atom_offsets[participant + 1]
+                    self.participant_atom_offsets[
+                        participant
+                    ] : self.participant_atom_offsets[participant + 1]
                 ]
                 participant_atoms.extend(mapped)
                 participant_offsets.append(len(participant_atoms))
@@ -996,12 +1220,14 @@ class Interactions:
                 position_chunks.append(selected)
                 frame_chunks.append(np.full(selected.size, new_frame, dtype=np.int64))
         positions = (
-            np.concatenate(position_chunks) if position_chunks else
-            np.empty(0, dtype=np.int64)
+            np.concatenate(position_chunks)
+            if position_chunks
+            else np.empty(0, dtype=np.int64)
         )
         occurrence_structures = (
-            np.concatenate(frame_chunks) if frame_chunks else
-            np.empty(0, dtype=np.int64)
+            np.concatenate(frame_chunks)
+            if frame_chunks
+            else np.empty(0, dtype=np.int64)
         )
         if self.image_vectors is None:
             image_offsets = None
@@ -1031,8 +1257,10 @@ class Interactions:
             occurrence_relations=relation_map[self.occurrence_relations[positions]],
             occurrence_evidence=self.occurrence_evidence[positions].copy(),
             evidence_labels=self.evidence_labels,
-            measurements={name: values[positions].copy()
-                          for name, values in self.measurements.items()},
+            measurements={
+                name: values[positions].copy()
+                for name, values in self.measurements.items()
+            },
             measure_units=self.measure_units,
             method=self.method,
             parameters=self.parameters,
@@ -1147,9 +1375,9 @@ class Interactions:
         """
         if not self._is_full:
             raise ValueError("Invalidation requires a full interaction result")
-        frames = np.unique(_indices(
-            structure_indices, self.n_structures, "structure_indices"
-        ))
+        frames = np.unique(
+            _indices(structure_indices, self.n_structures, "structure_indices")
+        )
         from ._frame_validity import _invalidate
 
         return _invalidate(self, frames)
@@ -1300,53 +1528,67 @@ class Interactions:
         type_labels = group["labels/relation_types"].asstr()[:]
         role_labels = group["labels/participant_roles"].asstr()[:]
         return cls(
-            n_atoms=metadata["n_atoms"], n_structures=metadata["n_structures"],
+            n_atoms=metadata["n_atoms"],
+            n_structures=metadata["n_structures"],
             source_n_atoms=metadata.get("source_n_atoms", metadata["n_atoms"]),
             source_n_structures=metadata.get(
                 "source_n_structures", metadata["n_structures"]
             ),
             atom_source_indices=(
-                group["atom_source_indices"][:] if "atom_source_indices" in group
+                group["atom_source_indices"][:]
+                if "atom_source_indices" in group
                 else None
             ),
             structure_source_indices=(
                 group["structure_source_indices"][:]
-                if "structure_source_indices" in group else None
+                if "structure_source_indices" in group
+                else None
             ),
             evaluation_mode=metadata.get("evaluation_mode", "internal"),
             evaluation_atom_indices=(
                 group["evaluation_atom_indices"][:]
-                if "evaluation_atom_indices" in group else None
+                if "evaluation_atom_indices" in group
+                else None
             ),
             evaluation_atom_indices_b=(
                 group["evaluation_atom_indices_b"][:]
-                if "evaluation_atom_indices_b" in group else None
+                if "evaluation_atom_indices_b" in group
+                else None
             ),
             evaluation_universe_indices=(
                 group["evaluation_universe_indices"][:]
-                if "evaluation_universe_indices" in group else None
+                if "evaluation_universe_indices" in group
+                else None
             ),
             evaluated_structure_indices=group["evaluated_structure_indices"][:],
-            relation_types=[type_labels[index]
-                            for index in group["relation_types_codes"][:]],
+            relation_types=[
+                type_labels[index] for index in group["relation_types_codes"][:]
+            ],
             relation_participant_offsets=group["relation_participant_offsets"][:],
-            participant_roles=[role_labels[index]
-                               for index in group["participant_roles_codes"][:]],
+            participant_roles=[
+                role_labels[index] for index in group["participant_roles_codes"][:]
+            ],
             participant_atom_offsets=group["participant_atom_offsets"][:],
             participant_atoms=group["participant_atoms"][:],
             occurrence_structures=group["occurrence_structures"][:],
             occurrence_relations=group["occurrence_relations"][:],
-            occurrence_evidence=[evidence_labels[index]
-                                 for index in group["occurrence_evidence"][:]],
-            measurements={name: dataset[:] for name, dataset
-                          in group["measurements"].items()},
-            measure_units=metadata["measure_units"], method=metadata["method"],
-            parameters=metadata["parameters"], source_id=metadata["source_id"],
+            occurrence_evidence=[
+                evidence_labels[index] for index in group["occurrence_evidence"][:]
+            ],
+            measurements={
+                name: dataset[:] for name, dataset in group["measurements"].items()
+            },
+            measure_units=metadata["measure_units"],
+            method=metadata["method"],
+            parameters=metadata["parameters"],
+            source_id=metadata["source_id"],
             software=metadata.get("software"),
-            execution=execution, execution_records=records,
+            execution=execution,
+            execution_records=records,
             occurrence_image_offsets=(
                 group["occurrence_image_offsets"][:]
-                if "occurrence_image_offsets" in group else None
+                if "occurrence_image_offsets" in group
+                else None
             ),
             image_vectors=(
                 group["image_vectors"][:] if "image_vectors" in group else None

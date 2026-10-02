@@ -289,7 +289,11 @@ def test_future_promotion_requires_the_four_platform_pair_gate():
     )["run"]
     assert "linux-64|linux-aarch64|osx-arm64|win-64" in promotion_script
     assert "--jq .total_count" not in promotion_script
-    step = _step(promotion["jobs"]["promote"], "Verify every declared installed-pair cell and evidence step")
+    step = _step(
+        promotion["jobs"]["promote"],
+        "Verify every declared installed-pair cell and evidence step",
+    )
     import json
+
     assert set(json.loads(step["with"]["profile"])["platforms"]) == expected
     assert "20-cell" not in PROMOTION_WORKFLOW.read_text(encoding="utf-8")

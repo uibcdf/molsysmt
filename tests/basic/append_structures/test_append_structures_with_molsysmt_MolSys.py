@@ -24,8 +24,11 @@ def test_direct_coordinate_append_keeps_interaction_coverage_aligned():
     )
     molsys.interactions = {
         "pairs": msm.Interactions.from_records(
-            [], n_atoms=2, n_structures=1,
-            evaluated_structure_indices=[0], method="example",
+            [],
+            n_atoms=2,
+            n_structures=1,
+            evaluated_structure_indices=[0],
+            method="example",
         )
     }
 
@@ -39,9 +42,12 @@ def test_direct_coordinate_append_keeps_interaction_coverage_aligned():
     assert result.n_structures == 2
     np.testing.assert_array_equal(result.evaluated_structure_indices, [0])
     np.testing.assert_array_equal(result.structure_source_indices, [0, -1])
-    assert result.query(structure_indices=[1]).to_dict()[
-        "evaluated_structure_indices"
-    ].size == 0
+    assert (
+        result.query(structure_indices=[1])
+        .to_dict()["evaluated_structure_indices"]
+        .size
+        == 0
+    )
 
 
 def test_append_structures_with_molsysmt_MolSys_1(proline_molsys):

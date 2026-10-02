@@ -80,9 +80,7 @@ def _encode_packed_interactions(result):
     )
     if np.array_equal(result.atom_source_indices, np.arange(result.n_atoms)):
         data["atom_source_indices"] = None
-    if np.array_equal(
-        result.structure_source_indices, np.arange(result.n_structures)
-    ):
+    if np.array_equal(result.structure_source_indices, np.arange(result.n_structures)):
         data["structure_source_indices"] = None
     return InteractionsDict(data)
 
@@ -91,7 +89,9 @@ def _decode_interactions(payload):
     from molsysmt.interactions.result import Interactions
 
     data = payload.data
-    if data.get("schema") != "molsysmt.interactions_dict" or data.get("version") not in (1, 2):
+    if data.get("schema") != "molsysmt.interactions_dict" or data.get(
+        "version"
+    ) not in (1, 2):
         raise ValueError("Unsupported InteractionsDict schema or version.")
     from molsysmt.interactions._execution_provenance import legacy
 
@@ -115,23 +115,28 @@ def _decode_interactions(payload):
         source_n_structures=data.get("source_n_structures", data["n_structures"]),
         evaluation_mode=data.get("evaluation_mode", "internal"),
         evaluation_atom_indices=(
-            None if data.get("evaluation_atom_indices") is None
+            None
+            if data.get("evaluation_atom_indices") is None
             else data["evaluation_atom_indices"].copy()
         ),
         evaluation_atom_indices_b=(
-            None if data.get("evaluation_atom_indices_b") is None
+            None
+            if data.get("evaluation_atom_indices_b") is None
             else data["evaluation_atom_indices_b"].copy()
         ),
         evaluation_universe_indices=(
-            None if data.get("evaluation_universe_indices") is None
+            None
+            if data.get("evaluation_universe_indices") is None
             else data["evaluation_universe_indices"].copy()
         ),
         atom_source_indices=(
-            None if data.get("atom_source_indices") is None
+            None
+            if data.get("atom_source_indices") is None
             else data["atom_source_indices"].copy()
         ),
         structure_source_indices=(
-            None if data.get("structure_source_indices") is None
+            None
+            if data.get("structure_source_indices") is None
             else data["structure_source_indices"].copy()
         ),
         evaluated_structure_indices=data["evaluated_structure_indices"].copy(),
@@ -150,11 +155,13 @@ def _decode_interactions(payload):
         measure_units=dict(data["measure_units"]),
         method=data["method"],
         parameters=deepcopy(parameters),
-        execution=execution, execution_records=records,
+        execution=execution,
+        execution_records=records,
         source_id=data["source_id"],
         software=data.get("software"),
         occurrence_image_offsets=(
-            None if data["occurrence_image_offsets"] is None
+            None
+            if data["occurrence_image_offsets"] is None
             else data["occurrence_image_offsets"].copy()
         ),
         image_vectors=(

@@ -31,4 +31,6 @@ _multiple_conversion_shortcuts[
 for chemical_form in ("molsysmt.ChemicalStates", "molsysmt.ChemicalStatesDict"):
     _multiple_conversion_shortcuts[
         tuple(sorted([chemical_form, "molsysmt.Structures"]))
-    ] = {"molsysmt.MolSys": molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys}
+    ] = {
+        "molsysmt.MolSys": molsysmt_ChemicalStates_and_molsysmt_Structures_to_molsysmt_MolSys
+    }

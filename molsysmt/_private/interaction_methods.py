@@ -9,22 +9,18 @@ from molsysmt._private.smonitor import ArgumentError
 
 PROFILES = {
     "water_sites": {
-        ('explicit_water_graph', None): 'explicit_water_graph',
+        ("explicit_water_graph", None): "explicit_water_graph",
     },
-
     "water_bridges": {
-        ('two_hbonds_one_water', 'indexed_water'): 'two_hbonds_one_water',
-        ('hbond_water_path', 'indexed_water'): 'hbond_water_path',
+        ("two_hbonds_one_water", "indexed_water"): "two_hbonds_one_water",
+        ("hbond_water_path", "indexed_water"): "hbond_water_path",
     },
-
     "metal_coordination_sites": {
-        ('smarts_metal_ligand', None): 'smarts_metal_ligand',
+        ("smarts_metal_ligand", None): "smarts_metal_ligand",
     },
-
     "metal_coordination": {
-        ('metal_ligand_distance', 'smarts_metal_ligand'): 'metal_ligand_distance',
+        ("metal_ligand_distance", "smarts_metal_ligand"): "metal_ligand_distance",
     },
-
     "hydrophobic": {
         ("atom_pair_distance", "smarts_hydrophobic_atoms"): "atom_pair_distance",
     },
@@ -67,21 +63,17 @@ DEFAULT_PROFILES = {
     "two_hbonds_one_water": "indexed_water",
     "hbond_water_path": "indexed_water",
     "water_sites": {
-        ('explicit_water_graph', None): 'explicit_water_graph',
+        ("explicit_water_graph", None): "explicit_water_graph",
     },
-
     "water_bridges": {
-        ('two_hbonds_one_water', 'indexed_water'): 'two_hbonds_one_water',
+        ("two_hbonds_one_water", "indexed_water"): "two_hbonds_one_water",
     },
-
     "metal_coordination_sites": {
-        ('smarts_metal_ligand', None): 'smarts_metal_ligand',
+        ("smarts_metal_ligand", None): "smarts_metal_ligand",
     },
-
     "metal_coordination": {
-        ('metal_ligand_distance', 'smarts_metal_ligand'): 'metal_ligand_distance',
+        ("metal_ligand_distance", "smarts_metal_ligand"): "metal_ligand_distance",
     },
-
     "atom_pair_distance": "smarts_hydrophobic_atoms",
     "distance_two_angles": "smarts_donor_acceptor",
     "baker_hubbard": "nitrogen_oxygen",
@@ -110,13 +102,25 @@ def resolve_method(family, method, profile=None, *, caller=None):
             raise ArgumentError("method", value=method, caller=caller)
         name, implied = matches[0]
         if profile is not None and profile != implied:
-            raise ArgumentError("profile", value=profile, caller=caller,
-                                message="A compatibility alias already fixes its profile.")
+            raise ArgumentError(
+                "profile",
+                value=profile,
+                caller=caller,
+                message="A compatibility alias already fixes its profile.",
+            )
         pair = (name, implied)
     else:
         pair = (method, DEFAULT_PROFILES.get(method) if profile is None else profile)
     if pair not in definitions:
-        raise ArgumentError("profile", value=profile, caller=caller,
-                            message="Choose a documented profile for this scientific method.")
-    return dict(method=pair[0], profile=pair[1], implementation=definitions[pair],
-                definition=f"molsysmt.{family}.{pair[0]}.{pair[1] or 'default'}@1")
+        raise ArgumentError(
+            "profile",
+            value=profile,
+            caller=caller,
+            message="Choose a documented profile for this scientific method.",
+        )
+    return dict(
+        method=pair[0],
+        profile=pair[1],
+        implementation=definitions[pair],
+        definition=f"molsysmt.{family}.{pair[0]}.{pair[1] or 'default'}@1",
+    )

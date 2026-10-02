@@ -44,7 +44,9 @@ def _structure_id_kind(value):
     ):
         if all("\x00" not in str(item) for item in array):
             return "string"
-    raise ValueError("Structural series 'structure_id' cannot be stored as int64 or string.")
+    raise ValueError(
+        "Structural series 'structure_id' cannot be stored as int64 or string."
+    )
 
 
 def _selection(indices, size, name):
@@ -71,7 +73,8 @@ def _atom_rows(dataset, frame_indices, atom_indices):
     """Read only requested atoms, preserving both requested axis orders."""
     frames = (
         np.arange(dataset.shape[0], dtype=np.int64)
-        if frame_indices is None else frame_indices
+        if frame_indices is None
+        else frame_indices
     )
     shape = (len(frames), len(atom_indices), *dataset.shape[2:])
     if not len(frames) or not len(atom_indices):
@@ -90,8 +93,7 @@ def _prepared_series(structures):
     prepare_bioassembly(structures.bioassembly)
     n_structures, n_atoms = structures._validate_alignment()
     values = {
-        name: getattr(structures, source)
-        for name, (source, _, _, _) in _FIELDS.items()
+        name: getattr(structures, source) for name, (source, _, _, _) in _FIELDS.items()
     }
     atom_domain_known = any(values[name] is not None for name in _ATOM_FIELDS)
     for name, (_, _, ndim, dtype) in _FIELDS.items():
@@ -107,17 +109,23 @@ def _prepared_series(structures):
         if name == "box":
             expected += (3,)
         if array.ndim != ndim or array.shape != expected:
-            raise ValueError(f"Structural series {name!r} has shape {array.shape}, expected {expected}.")
+            raise ValueError(
+                f"Structural series {name!r} has shape {array.shape}, expected {expected}."
+            )
         if name == "structure_id":
             _structure_id_kind(array)
         elif array.dtype.kind not in "iuf":
-            raise ValueError(f"Structural series {name!r} cannot be stored as {np.dtype(dtype)}.")
+            raise ValueError(
+                f"Structural series {name!r} cannot be stored as {np.dtype(dtype)}."
+            )
     n_atoms = n_atoms if atom_domain_known else -1
     prepare_alternate_location(structures.alternate_location, n_structures, n_atoms)
     return n_structures, n_atoms, values
 
 
-def write_independent_structures(root, structures, *, compression="gzip", block_size=256):
+def write_independent_structures(
+    root, structures, *, compression="gzip", block_size=256
+):
     """Write numeric structural series without creating a topology scaffold."""
     if "structures" in root:
         raise ValueError("The structures layer already exists.")
@@ -130,8 +138,14 @@ def write_independent_structures(root, structures, *, compression="gzip", block_
     group.attrs["n_structures"] = n_structures
     group.attrs["n_atoms"] = n_atoms
     group.attrs["constant_time_step"] = bool(structures.constant_time_step)
-    id_kind = None if values["structure_id"] is None else _structure_id_kind(values["structure_id"])
-    group.attrs["constant_id_step"] = bool(structures.constant_id_step) and id_kind == "int64"
+    id_kind = (
+        None
+        if values["structure_id"] is None
+        else _structure_id_kind(values["structure_id"])
+    )
+    group.attrs["constant_id_step"] = (
+        bool(structures.constant_id_step) and id_kind == "int64"
+    )
     group.attrs["constant_box"] = bool(structures.constant_box)
     if structures.time_step is not None:
         group.attrs["time_step_ps"] = float(structures._time_step)
@@ -146,10 +160,17 @@ def write_independent_structures(root, structures, *, compression="gzip", block_
         if name == "structure_id" and id_kind == "string":
             array = array.astype(object)
         options = {"compression": compression} if compression is not None else {}
-        stored_dtype = h5py.string_dtype("utf-8") if name == "structure_id" and id_kind == "string" else dtype
+        stored_dtype = (
+            h5py.string_dtype("utf-8")
+            if name == "structure_id" and id_kind == "string"
+            else dtype
+        )
         dataset = group.create_dataset(
-            name, shape=array.shape, maxshape=(None, *array.shape[1:]),
-            dtype=stored_dtype, **options
+            name,
+            shape=array.shape,
+            maxshape=(None, *array.shape[1:]),
+            dtype=stored_dtype,
+            **options,
         )
         if name == "structure_id":
             dataset.attrs["value_kind"] = id_kind
@@ -163,7 +184,9 @@ def write_independent_structures(root, structures, *, compression="gzip", block_
     if structures.alternate_location is not None:
         write_alternate_location(
             group,
-            prepare_alternate_location(structures.alternate_location, n_structures, n_atoms),
+            prepare_alternate_location(
+                structures.alternate_location, n_structures, n_atoms
+            ),
         )
 
 
@@ -177,12 +200,18 @@ def _append_flags(group, structures, values, old_count):
             "constant_time_step": bool(structures.constant_time_step),
             "constant_id_step": bool(structures.constant_id_step) and integer_ids,
             "constant_box": bool(structures.constant_box),
-            "time_step_ps": None if structures.time_step is None else float(structures._time_step),
-            "id_step": None if structures.id_step is None or not integer_ids else int(structures.id_step),
+            "time_step_ps": None
+            if structures.time_step is None
+            else float(structures._time_step),
+            "id_step": None
+            if structures.id_step is None or not integer_ids
+            else int(structures.id_step),
         }
 
     def continuous(name, flag, step_key, step):
-        if not bool(group.attrs.get(flag, False)) or not bool(getattr(structures, flag)):
+        if not bool(group.attrs.get(flag, False)) or not bool(
+            getattr(structures, flag)
+        ):
             return False
         if name not in group or values[name] is None or step is None:
             return False
@@ -239,18 +268,24 @@ def append_independent_structures(root, structures, *, block_size=256):
     if structures.bioassembly is not None and not same_bioassembly(
         stored_bioassembly, structures.bioassembly
     ):
-        raise ValueError("Appended bioassembly metadata differ from the stored assemblies.")
+        raise ValueError(
+            "Appended bioassembly metadata differ from the stored assemblies."
+        )
     stored_alternates = "alternate_location" in group
     incoming_alternates = structures.alternate_location is not None
     if stored_alternates != incoming_alternates:
-        raise ValueError("Appending structures requires matching alternate_location presence.")
+        raise ValueError(
+            "Appending structures requires matching alternate_location presence."
+        )
     old_count = int(group.attrs["n_structures"])
     old_atoms = int(group.attrs["n_atoms"])
     if old_count < 0 or old_atoms < -1 or old_atoms != n_atoms:
         raise ValueError("The appended structures have an incompatible atom axis.")
     fields = {name for name, value in values.items() if value is not None}
     if set(group) - {"bioassembly", "alternate_location"} != fields:
-        raise ValueError("The appended structures must contain the same series as the stored layer.")
+        raise ValueError(
+            "The appended structures must contain the same series as the stored layer."
+        )
     for name in fields:
         _, unit, ndim, dtype = _FIELDS[name]
         dataset = group[name]
@@ -259,14 +294,20 @@ def append_independent_structures(root, structures, *, block_size=256):
             incoming_kind = _structure_id_kind(array)
             stored_kind = dataset.attrs.get("value_kind", "int64")
             if stored_kind != incoming_kind or (
-                stored_kind == "string" and h5py.check_string_dtype(dataset.dtype) is None
+                stored_kind == "string"
+                and h5py.check_string_dtype(dataset.dtype) is None
             ):
-                raise ValueError("Stored structure_id cannot be appended with a different type.")
+                raise ValueError(
+                    "Stored structure_id cannot be appended with a different type."
+                )
             dtype = dataset.dtype
-        if (dataset.ndim != ndim or dataset.shape != (old_count, *array.shape[1:])
-                or dataset.dtype != np.dtype(dtype)
-                or (unit is not None and dataset.attrs.get("unit") != unit)
-                or dataset.maxshape[0] is not None):
+        if (
+            dataset.ndim != ndim
+            or dataset.shape != (old_count, *array.shape[1:])
+            or dataset.dtype != np.dtype(dtype)
+            or (unit is not None and dataset.attrs.get("unit") != unit)
+            or dataset.maxshape[0] is not None
+        ):
             raise ValueError(f"Stored structural series {name!r} cannot be appended.")
     incoming_alt_prepared = None
     if stored_alternates:
@@ -285,7 +326,7 @@ def append_independent_structures(root, structures, *, block_size=256):
         dataset.resize(old_count + count, axis=0)
         for start in range(0, count, block_size):
             stop = min(start + block_size, count)
-            dataset[old_count + start:old_count + stop] = array[start:stop]
+            dataset[old_count + start : old_count + stop] = array[start:stop]
     if stored_alternates:
         append_alternate_location(group, incoming_alt_prepared)
     group.attrs["n_structures"] = old_count + count
@@ -320,9 +361,13 @@ def _validate_structure_series(group, name, n_structures, n_atoms):
         kind = dataset.attrs.get("value_kind", "int64")
         if kind == "string":
             if h5py.check_string_dtype(dataset.dtype) is None:
-                raise ValueError("Structural series 'structure_id' has an invalid string type.")
+                raise ValueError(
+                    "Structural series 'structure_id' has an invalid string type."
+                )
         elif kind != "int64" or dataset.dtype != np.dtype("int64"):
-            raise ValueError("Structural series 'structure_id' has an invalid integer type.")
+            raise ValueError(
+                "Structural series 'structure_id' has an invalid integer type."
+            )
 
 
 def read_independent_structures(root, *, structure_indices=None, atom_indices=None):
@@ -342,11 +387,19 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
     frame_selection = _selection(structure_indices, n_structures, "structure_indices")
     if n_atoms == -1 and atom_indices is not None:
         raise ValueError("Cannot select atoms from an unknown atom domain.")
-    atom_selection = None if atom_indices is None else _selection(atom_indices, n_atoms, "atom_indices")
-    if "bioassembly" in group and atom_selection is not None and not np.array_equal(
-        atom_selection, np.arange(n_atoms)
+    atom_selection = (
+        None
+        if atom_indices is None
+        else _selection(atom_indices, n_atoms, "atom_indices")
+    )
+    if (
+        "bioassembly" in group
+        and atom_selection is not None
+        and not np.array_equal(atom_selection, np.arange(n_atoms))
     ):
-        raise ValueError("Selecting atoms cannot remap bioassembly chain indices in a structures-only read.")
+        raise ValueError(
+            "Selecting atoms cannot remap bioassembly chain indices in a structures-only read."
+        )
 
     data = {}
     for name, (_, unit, ndim, _) in _FIELDS.items():
@@ -359,10 +412,13 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
         else:
             values = _rows(dataset, frame_selection)
         if name == "structure_id" and dataset.attrs.get("value_kind") == "string":
-            values = np.asarray([
-                item.decode("utf-8") if isinstance(item, bytes) else str(item)
-                for item in values
-            ], dtype=object)
+            values = np.asarray(
+                [
+                    item.decode("utf-8") if isinstance(item, bytes) else str(item)
+                    for item in values
+                ],
+                dtype=object,
+            )
         data[name] = values
 
     data["bioassembly"] = read_bioassembly(group)

@@ -5,8 +5,13 @@ import h5py
 from molsysmt._private.argdigest import arg_digest
 
 __all__ = [
-    "read", "write", "read_layers", "write_layers", "append_structures",
-    "migrate_04_to_05", "migrate_to_05",
+    "read",
+    "write",
+    "read_layers",
+    "write_layers",
+    "append_structures",
+    "migrate_04_to_05",
+    "migrate_to_05",
 ]
 
 
@@ -135,8 +140,14 @@ def read_layers(filename, layers=None, analysis_names=None, skip_digestion=False
 
 @arg_digest()
 def write_layers(
-    output_filename, *, topology=None, chemical_states=None, structures=None,
-    interactions=None, associations=None, skip_digestion=False,
+    output_filename,
+    *,
+    topology=None,
+    chemical_states=None,
+    structures=None,
+    interactions=None,
+    associations=None,
+    skip_digestion=False,
 ):
     """Writing independently owned H5MSM 0.5 domain layers.
 
@@ -167,15 +178,23 @@ def write_layers(
     from molsysmt.form._h5msm05_modular import write_modular_file
 
     write_modular_file(
-        output_filename, topology=topology, chemical_states=chemical_states,
-        structures=structures, interactions=interactions, associations=associations,
+        output_filename,
+        topology=topology,
+        chemical_states=chemical_states,
+        structures=structures,
+        interactions=interactions,
+        associations=associations,
     )
     return output_filename
 
 
 @arg_digest()
 def append_structures(
-    filename, structures, *, structure_state_indices=None, block_size=256,
+    filename,
+    structures,
+    *,
+    structure_state_indices=None,
+    block_size=256,
     skip_digestion=False,
 ):
     """Appending complete frames to a topology-free H5MSM 0.5 file.
@@ -211,7 +230,9 @@ def append_structures(
     from molsysmt.form._h5msm05_modular import append_modular_structures
 
     append_modular_structures(
-        filename, structures, structure_state_indices=structure_state_indices,
+        filename,
+        structures,
+        structure_state_indices=structure_state_indices,
         block_size=block_size,
     )
     return filename

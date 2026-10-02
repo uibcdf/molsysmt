@@ -17,18 +17,25 @@ def _topology(n_atoms, pairs):
     molsys = Topology(n_atoms=n_atoms)
     molsys.atoms["atom_id"] = [f"atom-{100 + i}" for i in range(n_atoms)]
     if len(pairs):
-        molsys.bonds = pd.DataFrame({
-            "atom1_index": [a for a, _ in pairs], "atom2_index": [b for _, b in pairs],
-            "bond_type": ["covalent"] * len(pairs),
-        })
+        molsys.bonds = pd.DataFrame(
+            {
+                "atom1_index": [a for a, _ in pairs],
+                "atom2_index": [b for _, b in pairs],
+                "bond_type": ["covalent"] * len(pairs),
+            }
+        )
     molsys._reference_chemical_state.connectivity_completeness = "complete"
     return molsys
 
 
 def _memberships(result):
-    return [tuple(result["atom_indices"][a:b]) for a, b in zip(
-        result["atom_offsets"][:-1], result["atom_offsets"][1:],
-    )]
+    return [
+        tuple(result["atom_indices"][a:b])
+        for a, b in zip(
+            result["atom_offsets"][:-1],
+            result["atom_offsets"][1:],
+        )
+    ]
 
 
 def test_two_fused_cycles_do_not_expand_to_all_cycles():
@@ -86,7 +93,9 @@ def test_explicit_assumption_does_not_change_source_metadata():
 def test_explicit_nonreference_state_changes_cycles_without_changing_reference():
     molsys = _topology(3, [(0, 1), (1, 2), (2, 0)])
     second = molsys._append_chemical_state(state_id="open")
-    molsys._append_chemical_state_bonds([(0, 1), (1, 2)], types="covalent", state_index=second)
+    molsys._append_chemical_state_bonds(
+        [(0, 1), (1, 2)], types="covalent", state_index=second
+    )
     molsys._chemical_states[second].connectivity_completeness = "complete"
     before = msm.topology.get_rings(molsys)
     after = msm.topology.get_rings(molsys, chemical_state=second)
@@ -107,10 +116,14 @@ def test_block_limit_applies_to_cycles_instead_of_acyclic_component_size():
     result = msm.topology.get_rings(_topology(1000, pairs), max_cyclic_block_size=3)
     assert _memberships(result) == [(0, 1, 2)]
     with pytest.raises(UnsupportedHeavyOperationError, match="max_cyclic_block_size"):
-        msm.topology.get_rings(_topology(4, [(0, 1), (1, 2), (2, 3), (3, 0)]), max_cyclic_block_size=3)
+        msm.topology.get_rings(
+            _topology(4, [(0, 1), (1, 2), (2, 3), (3, 0)]), max_cyclic_block_size=3
+        )
 
 
-@pytest.mark.parametrize("defect", ["missing_type", "unknown_type", "duplicate", "self", "out_of_range"])
+@pytest.mark.parametrize(
+    "defect", ["missing_type", "unknown_type", "duplicate", "self", "out_of_range"]
+)
 def test_invalid_connectivity_cannot_masquerade_as_an_evaluated_empty_result(defect):
     molsys = _topology(3, [(0, 1), (1, 2), (2, 0)])
     if defect == "missing_type":

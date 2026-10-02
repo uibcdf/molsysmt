@@ -265,7 +265,8 @@ def test_chunked_file_projection_does_not_load_analyses_or_full_coordinates(
             item, pbc=False, heavy_mode="force"
         )
         assert (
-            result.n_interactions == 100 and result.execution_records[0]["details"]["execution_chunks"] == 15
+            result.n_interactions == 100
+            and result.execution_records[0]["details"]["execution_chunks"] == 15
         )
     selected = msm.interactions.hydrophobic.get_hydrophobic_interactions(
         path, pbc=False, heavy_mode="force", structure_indices=[98, 1, 50, 1]

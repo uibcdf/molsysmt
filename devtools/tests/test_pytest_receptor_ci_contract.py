@@ -1,5 +1,6 @@
 """Regression tests for the agent-oriented GitHub Actions test output."""
 
+import re
 from pathlib import Path
 
 import yaml
@@ -66,7 +67,7 @@ def test_ci_validates_controlled_runtime_versions_before_pytest():
         workflow = yaml.safe_load(path.read_text(encoding="utf-8"))
         guarded_jobs = 0
         for job in workflow["jobs"].values():
-            steps = [step.get("run", "") for step in job["steps"]]
+            steps = [step.get("run", "") for step in job.get("steps", [])]
             source_installs = [
                 index
                 for index, run in enumerate(steps)
@@ -96,12 +97,13 @@ def test_ci_pytest_commands_use_the_ci_receptor():
     for path in WORKFLOWS:
         workflow = yaml.safe_load(path.read_text(encoding="utf-8"))
         for job in workflow["jobs"].values():
-            for step in job["steps"]:
+            for step in job.get("steps", []):
                 run = step.get("run", "")
                 commands.extend(
                     line.strip()
                     for line in run.splitlines()
-                    if "pytest" in line and not line.strip().startswith("#")
+                    if re.search(r"\bpytest(?:\s|$)", line)
+                    and not line.strip().startswith("#")
                 )
 
     assert commands

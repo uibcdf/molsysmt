@@ -20,14 +20,25 @@ MANIFEST = ROOT / "devtools/data/pi_pi_validation_systems.json"
 
 def prepare_system(name):
     reference = json.loads(MANIFEST.read_text())["systems"][name]
-    if hashlib.sha256((ROOT / reference["path"]).read_bytes()).hexdigest() != reference["sha256"]:
+    if (
+        hashlib.sha256((ROOT / reference["path"]).read_bytes()).hexdigest()
+        != reference["sha256"]
+    ):
         raise ValueError("Pi-pi validation coordinates disagree with their checksum.")
     system, _, coordinates, molecule = prepare_protein(name)
     return system, reference, coordinates, molecule
 
 
-def cartesian_reference(reference, coordinates, *, distance=.6, angle=np.pi / 6,
-                        offset=.2, planarity=.02, frames=None):
+def cartesian_reference(
+    reference,
+    coordinates,
+    *,
+    distance=0.6,
+    angle=np.pi / 6,
+    offset=0.2,
+    planarity=0.02,
+    frames=None,
+):
     """Return exhaustive nonperiodic observations without production helpers."""
     rings = reference["rings"]
     observations = {}
@@ -41,7 +52,9 @@ def cartesian_reference(reference, coordinates, *, distance=.6, angle=np.pi / 6,
             _, vectors = np.linalg.eigh(centered.T @ centered)
             normal = vectors[:, 0]
             deviations = np.abs(centered @ normal)
-            planes.append((center, normal, np.sqrt(np.mean(deviations ** 2)), deviations.max()))
+            planes.append(
+                (center, normal, np.sqrt(np.mean(deviations**2)), deviations.max())
+            )
         for a, b in combinations(range(len(rings)), 2):
             if set(rings[a]) & set(rings[b]):
                 continue
@@ -54,9 +67,21 @@ def cartesian_reference(reference, coordinates, *, distance=.6, angle=np.pi / 6,
             ob = np.sqrt(np.dot(d - np.dot(d, nb) * nb, d - np.dot(d, nb) * nb))
             parallel = alpha <= angle and oa <= offset and ob <= offset
             edge = np.pi / 2 - alpha <= angle and min(oa, ob) <= offset
-            if 0 < length <= distance and max(ma, mb) <= planarity and (parallel or edge):
+            if (
+                0 < length <= distance
+                and max(ma, mb) <= planarity
+                and (parallel or edge)
+            ):
                 observations[frame, tuple(rings[a]), tuple(rings[b])] = (
-                    length, alpha, oa, ob, ra, rb, ma, mb, int(edge),
+                    length,
+                    alpha,
+                    oa,
+                    ob,
+                    ra,
+                    rb,
+                    ma,
+                    mb,
+                    int(edge),
                 )
     return observations
 
@@ -65,9 +90,25 @@ def observation_columns(result):
     relations = []
     for index in range(len(result.relation_types)):
         relation = result.relation(index)
-        relations.append(tuple(tuple(part["atom_indices"]) for part in relation["participants"]))
-    names = ("distance", "plane_angle", "offset_a", "offset_b", "rms_deviation_a",
-             "rms_deviation_b", "max_deviation_a", "max_deviation_b")
-    return {(int(frame), *relations[relation]): tuple(result.measurements[name][index] for name in names)
-            + (int(result.occurrence_evidence[index]),)
-            for index, (frame, relation) in enumerate(zip(result.occurrence_structures, result.occurrence_relations))}
+        relations.append(
+            tuple(tuple(part["atom_indices"]) for part in relation["participants"])
+        )
+    names = (
+        "distance",
+        "plane_angle",
+        "offset_a",
+        "offset_b",
+        "rms_deviation_a",
+        "rms_deviation_b",
+        "max_deviation_a",
+        "max_deviation_b",
+    )
+    return {
+        (int(frame), *relations[relation]): tuple(
+            result.measurements[name][index] for name in names
+        )
+        + (int(result.occurrence_evidence[index]),)
+        for index, (frame, relation) in enumerate(
+            zip(result.occurrence_structures, result.occurrence_relations)
+        )
+    }

@@ -48,27 +48,31 @@ def test_source_indices_nonconsecutive_repeated_partial_chunks(heavy):
     selected = np.array([4, 1, 4, 0, 3], dtype=np.int64)
     reducer = _Collector()
     executor = ChunkedExecutor(
-        object(), "synthetic", "identity_test", reducer=reducer,
-        structure_indices=selected, chunk_size=2,
+        object(),
+        "synthetic",
+        "identity_test",
+        reducer=reducer,
+        structure_indices=selected,
+        chunk_size=2,
     )
 
     def iterator(structure_indices, chunk_size):
         assert np.array_equal(structure_indices, selected)
         chunks = []
         for start in range(0, len(selected), chunk_size):
-            indices = selected[start:start + chunk_size]
-            chunks.append({
-                "coordinates": puw.quantity(
-                    np.repeat(indices[:, None, None], 3, axis=2), "nm"
-                ),
-                "structure_id": np.array([f"external-{100 + i}" for i in indices]),
-            })
+            indices = selected[start : start + chunk_size]
+            chunks.append(
+                {
+                    "coordinates": puw.quantity(
+                        np.repeat(indices[:, None, None], 3, axis=2), "nm"
+                    ),
+                    "structure_id": np.array([f"external-{100 + i}" for i in indices]),
+                }
+            )
         return nullcontext(iter(chunks))
 
     executor._get_form_iterator = iterator
-    chunks = (
-        executor._execute_heavy(1, 6) if heavy else executor._execute_eager(1, 6)
-    )
+    chunks = executor._execute_heavy(1, 6) if heavy else executor._execute_eager(1, 6)
     np.testing.assert_array_equal(
         np.concatenate([chunk["structure_indices"] for chunk in chunks]), selected
     )
@@ -83,8 +87,12 @@ def test_source_indices_nonconsecutive_repeated_partial_chunks(heavy):
 def test_empty_selection_finalizes_without_opening_a_source(heavy):
     reducer = _Collector()
     executor = ChunkedExecutor(
-        object(), "synthetic", "empty_test", reducer=reducer,
-        structure_indices=np.empty(0, dtype=np.int64), chunk_size=2,
+        object(),
+        "synthetic",
+        "empty_test",
+        reducer=reducer,
+        structure_indices=np.empty(0, dtype=np.int64),
+        chunk_size=2,
     )
 
     def forbidden(*args):
@@ -98,12 +106,18 @@ def test_empty_selection_finalizes_without_opening_a_source(heavy):
     assert reducer.metadata["n_chunks"] == 0
 
 
-@pytest.mark.parametrize("fault", ["short", "extra", "wrong_indices", "misaligned", "noninteger_indices"])
+@pytest.mark.parametrize(
+    "fault", ["short", "extra", "wrong_indices", "misaligned", "noninteger_indices"]
+)
 def test_invalid_traversal_never_finalizes_partial_results(fault):
     reducer = _Collector()
     executor = ChunkedExecutor(
-        object(), "synthetic", "invalid_test", reducer=reducer,
-        structure_indices=np.array([2, 0]), chunk_size=1,
+        object(),
+        "synthetic",
+        "invalid_test",
+        reducer=reducer,
+        structure_indices=np.array([2, 0]),
+        chunk_size=1,
     )
     raw = {"coordinates": puw.quantity(np.zeros((2, 1, 3)), "nm")}
     if fault == "short":
@@ -126,7 +140,11 @@ def test_invalid_traversal_never_finalizes_partial_results(fault):
 def test_zero_structure_source_does_not_open_an_iterator(heavy):
     reducer = _Collector()
     executor = ChunkedExecutor(
-        object(), "synthetic", "zero_test", reducer=reducer, chunk_size=2,
+        object(),
+        "synthetic",
+        "zero_test",
+        reducer=reducer,
+        chunk_size=2,
     )
 
     def forbidden(*args):

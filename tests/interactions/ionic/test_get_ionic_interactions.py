@@ -434,7 +434,9 @@ def test_modular_file_prepares_chemistry_once_without_materializing_structures(
         return original(filename, **kwargs)
 
     def forbidden(*args, **kwargs):
-        raise AssertionError("Ionic detection must not materialize full structural or interaction domains.")
+        raise AssertionError(
+            "Ionic detection must not materialize full structural or interaction domains."
+        )
 
     monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", forbidden)
     monkeypatch.setattr(_h5msm05_modular, "read_independent_structures", forbidden)

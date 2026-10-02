@@ -239,11 +239,18 @@ def _set_bond_state_attribute(item, attribute, indices, value):
 
     topology_set = import_module("molsysmt.form.molsysmt_Topology.set")
     function = getattr(topology_set, f"set_{attribute}_to_bond")
-    if (attribute == "bond_id" or (not is_all(indices) and len(indices) == 0)
-            or (is_all(indices) and item.topology.n_bonds == 0)):
-        return function(item.topology, indices=indices, value=value, skip_digestion=True)
+    if (
+        attribute == "bond_id"
+        or (not is_all(indices) and len(indices) == 0)
+        or (is_all(indices) and item.topology.n_bonds == 0)
+    ):
+        return function(
+            item.topology, indices=indices, value=value, skip_digestion=True
+        )
     with item._invalidating_interaction_frames("all"):
-        return function(item.topology, indices=indices, value=value, skip_digestion=True)
+        return function(
+            item.topology, indices=indices, value=value, skip_digestion=True
+        )
 
 
 @arg_digest(form=form)
@@ -1225,8 +1232,12 @@ def set_coordinates_to_atom(
                 caller="molsysmt.form.molsysmt_MolSys.set",
             )
 
-    if (item.interactions and is_all(indices) and is_all(structure_indices)
-            and value.shape[0] != item.structures.n_structures):
+    if (
+        item.interactions
+        and is_all(indices)
+        and is_all(structure_indices)
+        and value.shape[0] != item.structures.n_structures
+    ):
         raise StructuralInconsistencyError(
             "Geometry setters cannot resize a structure axis with attached interactions; use extraction or append_structures.",
             caller="molsysmt.form.molsysmt_MolSys.set",
@@ -3051,8 +3062,12 @@ def set_box_to_system(item, structure_indices="all", value=None, skip_digestion=
     """
     from ..molsysmt_Structures.set import set_box_to_system as aux_set
 
-    if (item.interactions and is_all(structure_indices) and value is not None
-            and value.shape[0] != item.structures.n_structures):
+    if (
+        item.interactions
+        and is_all(structure_indices)
+        and value is not None
+        and value.shape[0] != item.structures.n_structures
+    ):
         raise StructuralInconsistencyError(
             "Geometry setters cannot resize a structure axis with attached interactions; use extraction or append_structures.",
             caller="molsysmt.form.molsysmt_MolSys.set",

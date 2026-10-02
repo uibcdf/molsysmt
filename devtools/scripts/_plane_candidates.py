@@ -53,7 +53,12 @@ def _numpy_grouped(coordinates, offsets, positions, *, caller):
 def _numpy_batched(coordinates, offsets, positions, *, workspace_bytes=8 * 1024**2):
     """Tile frames/groups of equal length under a numerical workspace estimate."""
     ns, ng = len(coordinates), len(offsets) - 1
-    outputs = (np.empty((ns, ng, 3)), np.empty((ns, ng, 3)), np.empty((ns, ng)), np.empty((ns, ng)))
+    outputs = (
+        np.empty((ns, ng, 3)),
+        np.empty((ns, ng, 3)),
+        np.empty((ns, ng)),
+        np.empty((ns, ng)),
+    )
     lengths = np.diff(offsets)
     for length in np.unique(lengths):
         indices = np.flatnonzero(lengths == length)
@@ -62,8 +67,10 @@ def _numpy_batched(coordinates, offsets, positions, *, workspace_bytes=8 * 1024*
             end = min(ns, begin + frame_size)
             group_size = max(1, workspace_bytes // (192 * int(length) * (end - begin)))
             for start in range(0, len(indices), group_size):
-                selected = indices[start:start + group_size]
-                membership = np.stack([positions[offsets[i]:offsets[i + 1]] for i in selected])
+                selected = indices[start : start + group_size]
+                membership = np.stack(
+                    [positions[offsets[i] : offsets[i + 1]] for i in selected]
+                )
                 xyz = coordinates[begin:end, membership]
                 relative = xyz - xyz[:, :, :1]
                 center = relative.mean(axis=2)
@@ -73,15 +80,21 @@ def _numpy_batched(coordinates, offsets, positions, *, workspace_bytes=8 * 1024*
                     raise ValueError("Coincident or unrepresentable geometry.")
                 scaled = centered / scale[:, :, None, None]
                 _, singular, axes = np.linalg.svd(scaled, full_matrices=False)
-                if np.any(singular[:, :, 1] - singular[:, :, 2] <= 1e-12 * singular[:, :, 0]):
+                if np.any(
+                    singular[:, :, 1] - singular[:, :, 2] <= 1e-12 * singular[:, :, 0]
+                ):
                     raise ValueError("No unique plane normal.")
                 normal = axes[:, :, -1]
                 pivot = np.argmax(np.abs(normal), axis=2)
                 lead = np.take_along_axis(normal, pivot[:, :, None], axis=2)[:, :, 0]
-                normal *= np.where(lead < 0, -1., 1.)[:, :, None]
+                normal *= np.where(lead < 0, -1.0, 1.0)[:, :, None]
                 residual = np.einsum("fgaj,fgj->fga", scaled, normal)
                 outputs[0][begin:end, selected] = xyz[:, :, 0] + center
                 outputs[1][begin:end, selected] = normal
-                outputs[2][begin:end, selected] = np.sqrt(np.mean(residual * residual, axis=2)) * scale
-                outputs[3][begin:end, selected] = np.max(np.abs(residual), axis=2) * scale
+                outputs[2][begin:end, selected] = (
+                    np.sqrt(np.mean(residual * residual, axis=2)) * scale
+                )
+                outputs[3][begin:end, selected] = (
+                    np.max(np.abs(residual), axis=2) * scale
+                )
     return outputs

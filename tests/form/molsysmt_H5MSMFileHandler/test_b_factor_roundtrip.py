@@ -9,9 +9,10 @@ def test_molsysmt_H5MSMFileHandler_preserves_b_factor_roundtrip(
 
     output_path = tmp_path / "tctim_bfactor_handler.h5msm"
 
-    msm.convert(
-        tctim_bcif_molsys, to_form="file:h5msm", output_filename=str(output_path)
-    )
+    # This handler owns the legacy 0.3/0.4 layout; public convert writes 0.5.
+    from molsysmt.form.molsysmt_MolSys.to_file_h5msm import to_file_h5msm
+
+    to_file_h5msm(tctim_bcif_molsys, output_filename=str(output_path))
 
     handler = msm.convert(str(output_path), to_form="molsysmt.H5MSMFileHandler")
     structures = msm.convert(handler, to_form="molsysmt.Structures")

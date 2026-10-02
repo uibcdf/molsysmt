@@ -88,7 +88,7 @@ def test_a_string_that_is_not_a_quantity_is_refused_as_an_argument():
     parsers = [
         path.stem
         for path in sorted(argument_root.glob("*.py"))
-        if path.stem != "_quantity_parsing"
+        if not path.stem.startswith("_")
         and (
             "parse_quantity_string(" in path.read_text(encoding="utf-8")
             or "puw.parse.parse(" in path.read_text(encoding="utf-8")

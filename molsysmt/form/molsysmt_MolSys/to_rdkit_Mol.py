@@ -130,7 +130,9 @@ def to_rdkit_Mol(
             atom.SetNoImplicit(not bool(allows_implicit.iloc[atom_index]))
         if aromatic is not None and not pd.isna(aromatic.iloc[atom_index]):
             atom.SetIsAromatic(bool(aromatic.iloc[atom_index]))
-        if explicit_hydrogens is not None and not pd.isna(explicit_hydrogens.iloc[atom_index]):
+        if explicit_hydrogens is not None and not pd.isna(
+            explicit_hydrogens.iloc[atom_index]
+        ):
             atom.SetNumExplicitHs(int(explicit_hydrogens.iloc[atom_index]))
         editable.AddAtom(atom)
 

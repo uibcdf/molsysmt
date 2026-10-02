@@ -15,9 +15,16 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 @dep_digest("rdkit", when={"method": "smarts_donor_acceptor"})
 @attributed("hbond_sites")
 def get_hbond_sites(
-    molecular_system, selection="all", structure_indices="all",
-    chemical_state="reference", method="elemental_nitrogen_oxygen", assume_complete_connectivity=False,
-    syntax="MolSysMT", skip_digestion=False, *, max_matches=100000,
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    chemical_state="reference",
+    method="elemental_nitrogen_oxygen",
+    assume_complete_connectivity=False,
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    max_matches=100000,
 ):
     """Recognizing donor-hydrogen pairs and acceptors with an attributed rule.
 
@@ -122,38 +129,78 @@ def get_hbond_sites(
 
     method = resolve_method("hbond_sites", method, caller=caller)["implementation"]
     source, states, _, state_index, _, bonds, frames = chemical_graph_context(
-        molecular_system, chemical_state, structure_indices, assume_complete_connectivity, caller)
-    selected = select_chemical_atoms(source, states, state_index, selection, frames, syntax)
+        molecular_system,
+        chemical_state,
+        structure_indices,
+        assume_complete_connectivity,
+        caller,
+    )
+    selected = select_chemical_atoms(
+        source, states, state_index, selection, frames, syntax
+    )
     if method == "prolif":
         from molsysmt.physchem._prolif import PROLIF_HBOND_PATTERNS, PROLIF_REFERENCE
         from molsysmt.topology import get_substructure_matches
 
-        matches = get_substructure_matches(source, PROLIF_HBOND_PATTERNS, chemical_state=state_index,
-                                          assume_complete_connectivity=assume_complete_connectivity,
-                                          max_matches=max_matches)
+        matches = get_substructure_matches(
+            source,
+            PROLIF_HBOND_PATTERNS,
+            chemical_state=state_index,
+            assume_complete_connectivity=assume_complete_connectivity,
+            max_matches=max_matches,
+        )
         pairs = matches["matches"][0].reshape(-1, 2)
         acceptors = matches["matches"][1].ravel()
-        reference, software, evidence = PROLIF_REFERENCE, matches["software"], matches["evidence"]
+        reference, software, evidence = (
+            PROLIF_REFERENCE,
+            matches["software"],
+            matches["evidence"],
+        )
         patterns = list(PROLIF_HBOND_PATTERNS)
     else:
         from molsysmt.physchem.atoms.mass import physical as elements
 
         symbols = np.asarray(get(source, element="atom", atom_type=True), dtype=object)
-        if symbols.shape != (states.n_atoms,) or any(not isinstance(item, str) or item not in elements for item in symbols):
-            raise StructuralInconsistencyError(reason="An explicit element symbol is required for every atom.", caller=caller)
-        eligible = np.isin(symbols, ["N", "O", "F"] if method == "cpptraj" else ["N", "O"])
+        if symbols.shape != (states.n_atoms,) or any(
+            not isinstance(item, str) or item not in elements for item in symbols
+        ):
+            raise StructuralInconsistencyError(
+                reason="An explicit element symbol is required for every atom.",
+                caller=caller,
+            )
+        eligible = np.isin(
+            symbols, ["N", "O", "F"] if method == "cpptraj" else ["N", "O"]
+        )
         hydrogen = symbols == "H"
-        pairs = np.concatenate((bonds[eligible[bonds[:, 0]] & hydrogen[bonds[:, 1]]],
-                                bonds[eligible[bonds[:, 1]] & hydrogen[bonds[:, 0]], ::-1]))
+        pairs = np.concatenate(
+            (
+                bonds[eligible[bonds[:, 0]] & hydrogen[bonds[:, 1]]],
+                bonds[eligible[bonds[:, 1]] & hydrogen[bonds[:, 0]], ::-1],
+            )
+        )
         acceptors = np.flatnonzero(eligible)
         reference = CPPTRAJ_REFERENCE if method == "cpptraj" else MDTRAJ_REFERENCE
-        software, evidence, patterns = {"molsysmt": __version__}, "declared_elements_and_covalent_bonds", None
+        software, evidence, patterns = (
+            {"molsysmt": __version__},
+            "declared_elements_and_covalent_bonds",
+            None,
+        )
     pairs = np.unique(pairs, axis=0)
     pairs = pairs[np.isin(pairs, selected).all(axis=1)]
     acceptors = np.intersect1d(acceptors, selected)
-    return dict(donor_hydrogen_pairs=pairs, acceptor_atom_indices=acceptors,
-                atom_source_indices=np.arange(states.n_atoms, dtype=np.int64),
-                selected_atom_indices=selected, chemical_state_index=state_index,
-                method=method, method_reference=reference, smarts_patterns=patterns,
-                evidence=evidence, software=software, assume_complete_connectivity=assume_complete_connectivity,
-                scope="full_source_recognition_then_selection", water_policy="included", hydrogen_policy="indexed_atoms_only")
+    return dict(
+        donor_hydrogen_pairs=pairs,
+        acceptor_atom_indices=acceptors,
+        atom_source_indices=np.arange(states.n_atoms, dtype=np.int64),
+        selected_atom_indices=selected,
+        chemical_state_index=state_index,
+        method=method,
+        method_reference=reference,
+        smarts_patterns=patterns,
+        evidence=evidence,
+        software=software,
+        assume_complete_connectivity=assume_complete_connectivity,
+        scope="full_source_recognition_then_selection",
+        water_policy="included",
+        hydrogen_policy="indexed_atoms_only",
+    )

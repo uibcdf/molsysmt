@@ -33,24 +33,39 @@ import molsysmt as msm
 
 def _reorder_frames(records, evaluated, order):
     inverse = {old: new for new, old in enumerate(order)}
-    transformed = [{**row, "structure_index": inverse[row["structure_index"]]}
-                   for row in records]
+    transformed = [
+        {**row, "structure_index": inverse[row["structure_index"]]} for row in records
+    ]
     coverage = sorted(inverse[frame] for frame in evaluated)
     return transformed, coverage
 
 
 def _reorder_atoms(records, order):
     inverse = {old: new for new, old in enumerate(order)}
-    return [{**row, "participants": [
-        {**part, "atom_indices": [inverse[atom]
-                                    for atom in part["atom_indices"]]}
-        for part in row["participants"]
-    ]} for row in records]
+    return [
+        {
+            **row,
+            "participants": [
+                {
+                    **part,
+                    "atom_indices": [inverse[atom] for atom in part["atom_indices"]],
+                }
+                for part in row["participants"]
+            ],
+        }
+        for row in records
+    ]
 
 
 def _insert_frame(records, evaluated, position, evaluated_new):
-    transformed = [{**row, "structure_index": row["structure_index"]
-                    + (row["structure_index"] >= position)} for row in records]
+    transformed = [
+        {
+            **row,
+            "structure_index": row["structure_index"]
+            + (row["structure_index"] >= position),
+        }
+        for row in records
+    ]
     coverage = [frame + (frame >= position) for frame in evaluated]
     if evaluated_new:
         coverage.append(position)
@@ -61,33 +76,46 @@ def _save_maps(path, view):
     with h5py.File(path, "r+") as file:
         group = file.create_group("remap_probe")
         group.attrs["schema_version"] = 1
-        group.create_dataset("current_to_storage_frames", data=np.asarray([
-            -1 if value is None else value
-            for value in view.current_to_storage_frames
-        ], dtype=np.int64))
-        group.create_dataset("current_to_storage_atoms",
-                             data=np.asarray(view.current_to_storage_atoms,
-                                             dtype=np.int64))
-        group.create_dataset("appended_empty_frames",
-                             data=np.asarray(sorted(view.appended), dtype=np.int64))
-        group.create_dataset("invalidated_storage_frames",
-                             data=np.asarray(sorted(view.invalidated), dtype=np.int64))
+        group.create_dataset(
+            "current_to_storage_frames",
+            data=np.asarray(
+                [
+                    -1 if value is None else value
+                    for value in view.current_to_storage_frames
+                ],
+                dtype=np.int64,
+            ),
+        )
+        group.create_dataset(
+            "current_to_storage_atoms",
+            data=np.asarray(view.current_to_storage_atoms, dtype=np.int64),
+        )
+        group.create_dataset(
+            "appended_empty_frames",
+            data=np.asarray(sorted(view.appended), dtype=np.int64),
+        )
+        group.create_dataset(
+            "invalidated_storage_frames",
+            data=np.asarray(sorted(view.invalidated), dtype=np.int64),
+        )
 
 
 def _load_maps(reader):
     group = reader.file["remap_probe"]
     if group.attrs["schema_version"] != 1:
         raise AssertionError("unsupported prototype remap schema")
-    frames = [None if value == -1 else int(value)
-              for value in group["current_to_storage_frames"][:]]
+    frames = [
+        None if value == -1 else int(value)
+        for value in group["current_to_storage_frames"][:]
+    ]
     atoms = group["current_to_storage_atoms"][:].tolist()
     view = RemappedView(reader, len(atoms), len(frames))
     view.current_to_storage_frames = frames
     view.current_to_storage_atoms = atoms
-    view.appended = {int(frame): []
-                     for frame in group["appended_empty_frames"][:]}
-    view.invalidated = set(int(frame)
-                           for frame in group["invalidated_storage_frames"][:])
+    view.appended = {int(frame): [] for frame in group["appended_empty_frames"][:]}
+    view.invalidated = set(
+        int(frame) for frame in group["invalidated_storage_frames"][:]
+    )
     view._refresh()
     return view
 
@@ -99,8 +127,9 @@ def main():
     if len(parallel) != 2 or parallel[0]["participants"] != parallel[1]["participants"]:
         raise AssertionError("fixture has no parallel observation pair")
     protected = _record_atoms(parallel[0])
-    atoms_to_drop = [atom for atom in (41, 0, 100, 200, 300)
-                     if atom not in protected][:2]
+    atoms_to_drop = [atom for atom in (41, 0, 100, 200, 300) if atom not in protected][
+        :2
+    ]
     if len(atoms_to_drop) != 2:
         raise AssertionError("cannot select atoms outside parallel relation")
     with tempfile.TemporaryDirectory() as directory:
@@ -140,8 +169,10 @@ def main():
             _check(view, records, evaluated, "reorder_atoms")
             for position, evaluated_new in ((5, True), (6, False)):
                 view.current_to_storage_frames.insert(position, None)
-                view.appended = {frame + (frame >= position): rows
-                                 for frame, rows in view.appended.items()}
+                view.appended = {
+                    frame + (frame >= position): rows
+                    for frame, rows in view.appended.items()
+                }
                 if evaluated_new:
                     view.appended[position] = []
                 view._refresh()
@@ -169,10 +200,14 @@ def main():
         finally:
             reader.close()
         compacted = msm.Interactions.from_records(
-            records, n_atoms=n_atoms, n_structures=n_frames,
+            records,
+            n_atoms=n_atoms,
+            n_structures=n_frames,
             evaluated_structure_indices=evaluated,
-            method=METHOD, measure_units=UNITS,
-            parameters={"seed": 251}, source_id="synthetic_contract",
+            method=METHOD,
+            measure_units=UNITS,
+            parameters={"seed": 251},
+            source_id="synthetic_contract",
         )
         compacted_path = Path(directory) / "compacted.h5i"
         compacted.save(compacted_path)
@@ -187,29 +222,51 @@ def main():
                 records, evaluated, atoms=[atom]
             ):
                 raise AssertionError("compacted atom query differs")
-        mapped_parallel = [{
-            "role": part["role"],
-            "atom_indices": [view.storage_to_current_atoms[atom]
-                             for atom in part["atom_indices"]],
-        } for part in parallel[0]["participants"]]
-        parallel_after = [row for row in records if row["structure_index"] == 2
-                          and row["interaction_type"] == parallel[0]["interaction_type"]
-                          and row["participants"] == mapped_parallel]
+        mapped_parallel = [
+            {
+                "role": part["role"],
+                "atom_indices": [
+                    view.storage_to_current_atoms[atom] for atom in part["atom_indices"]
+                ],
+            }
+            for part in parallel[0]["participants"]
+        ]
+        parallel_after = [
+            row
+            for row in records
+            if row["structure_index"] == 2
+            and row["interaction_type"] == parallel[0]["interaction_type"]
+            and row["participants"] == mapped_parallel
+        ]
         if len(parallel_after) != 2:
             raise AssertionError("parallel observations were lost")
-        print(json.dumps({
-            "platform": platform.platform(), "atoms": n_atoms,
-            "structures": n_frames, "evaluated": len(evaluated),
-            "occurrences": len(records), "removed_original_atoms": atoms_to_drop,
-            "base_file_bytes": base_file_bytes,
-            "typed_map_file_bytes": path.stat().st_size,
-            "compacted_file_bytes": compacted_path.stat().st_size,
-            "parallel_observations_retained": len(parallel_after),
-            "operations": ["drop_atom_twice", "drop_frame_twice",
-                           "reorder_frames", "reorder_atoms",
-                           "insert_evaluated_empty", "insert_unevaluated",
-                           "save_load_maps", "compact_save_load"],
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "atoms": n_atoms,
+                    "structures": n_frames,
+                    "evaluated": len(evaluated),
+                    "occurrences": len(records),
+                    "removed_original_atoms": atoms_to_drop,
+                    "base_file_bytes": base_file_bytes,
+                    "typed_map_file_bytes": path.stat().st_size,
+                    "compacted_file_bytes": compacted_path.stat().st_size,
+                    "parallel_observations_retained": len(parallel_after),
+                    "operations": [
+                        "drop_atom_twice",
+                        "drop_frame_twice",
+                        "reorder_frames",
+                        "reorder_atoms",
+                        "insert_evaluated_empty",
+                        "insert_unevaluated",
+                        "save_load_maps",
+                        "compact_save_load",
+                    ],
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

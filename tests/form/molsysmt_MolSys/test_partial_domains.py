@@ -39,9 +39,7 @@ def test_topology_free_molsys_exposes_stored_structures_and_associations():
     frames = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
     )
-    system = MolSys._from_partial_domains(
-        chemical_states=states, structures=frames
-    )
+    system = MolSys._from_partial_domains(chemical_states=states, structures=frames)
     system._set_structure_chemical_state_indices([0, 1])
 
     assert msm.get(system, n_structures=True) == 2
@@ -55,14 +53,15 @@ def test_topology_free_molsys_exposes_stored_structures_and_associations():
 
 
 def test_missing_domain_conversions_fail_before_creating_output(tmp_path):
-    system = MolSys._from_partial_domains(
-        chemical_states=msm.ChemicalStates(n_atoms=2)
-    )
+    system = MolSys._from_partial_domains(chemical_states=msm.ChemicalStates(n_atoms=2))
     with pytest.raises(ValueError, match="no topology domain"):
         msm.convert(system, to_form="molsysmt.Topology")
     with pytest.raises(ValueError, match="no structures domain"):
         msm.convert(system, to_form="molsysmt.Structures")
-    with pytest.raises(ValueError, match="MolSysDict 0.1 requires topology, chemical states, and structures"):
+    with pytest.raises(
+        ValueError,
+        match="MolSysDict 0.1 requires topology, chemical states, and structures",
+    ):
         msm.convert(system, to_form="molsysmt.MolSysDict")
 
     filename = tmp_path / "state_only.h5msm"

@@ -113,15 +113,19 @@ def test_disulfide_candidates_apply_periodic_boundary_conditions(tmp_path):
     filename = tmp_path / "disulfide_candidates.h5msm"
     msm.h5msm.write(molsys, str(filename))
     restored = msm.h5msm.read(str(filename)).interactions["disulfide_candidates"]
-    np.testing.assert_array_equal(restored.to_dict()["image_vectors"],
-                                  observation["image_vectors"])
+    np.testing.assert_array_equal(
+        restored.to_dict()["image_vectors"], observation["image_vectors"]
+    )
     assert restored.method == analysis.method
 
 
 def test_disulfide_analysis_preserves_empty_coverage_and_actual_atom_scope():
     molsys = _two_frame_sulfur_system()
     analysis = msm.interactions.disulfides.get_disulfide_candidates(
-        molsys, selection=[0, 1], structure_indices=[1, 0, 1], pbc=False,
+        molsys,
+        selection=[0, 1],
+        structure_indices=[1, 0, 1],
+        pbc=False,
         output_type="molsysmt.Interactions",
     )
 
@@ -132,12 +136,16 @@ def test_disulfide_analysis_preserves_empty_coverage_and_actual_atom_scope():
     observed = analysis.query(structure_indices=[0]).to_dict()
     assert observed["structure_indices"].tolist() == [0]
     assert observed["image_vectors"] is None
-    assert analysis.method == "molsysmt.interactions.disulfides.get_disulfide_candidates"
+    assert (
+        analysis.method == "molsysmt.interactions.disulfides.get_disulfide_candidates"
+    )
     assert np.isclose(analysis.parameters["max_bond_length_nm"], 0.205)
     assert analysis.parameters["group_names"] == ["CYS"]
 
     repeated = msm.interactions.disulfides.get_disulfide_candidates(
-        molsys, structure_indices=[0, 0], pbc=False,
+        molsys,
+        structure_indices=[0, 0],
+        pbc=False,
         output_type="molsysmt.Interactions",
     )
     assert repeated.n_interactions == 1
@@ -150,13 +158,14 @@ def test_disulfide_analysis_uses_rotated_box_image():
         builder.add_group([atom], group_name="CYS")
     diagonal = 2**-0.5
     builder.set_coordinates(
-        puw.quantity([[0.0, 0.0, 0.0], [diagonal + 0.10, diagonal, 0.0]],
-                     "nanometers")
+        puw.quantity([[0.0, 0.0, 0.0], [diagonal + 0.10, diagonal, 0.0]], "nanometers")
     )
-    builder.set_box(puw.quantity(
-        [[diagonal, diagonal, 0.0], [-diagonal, diagonal, 0.0], [0.0, 0.0, 1.0]],
-        "nanometers",
-    ))
+    builder.set_box(
+        puw.quantity(
+            [[diagonal, diagonal, 0.0], [-diagonal, diagonal, 0.0], [0.0, 0.0, 1.0]],
+            "nanometers",
+        )
+    )
     analysis = msm.interactions.disulfides.get_disulfide_candidates(
         builder.build(), output_type="molsysmt.Interactions"
     )
@@ -165,3 +174,18 @@ def test_disulfide_analysis_uses_rotated_box_image():
     assert observed["structure_indices"].tolist() == [0]
     np.testing.assert_allclose(observed["measurements"]["distance"], [0.10])
     np.testing.assert_array_equal(observed["image_vectors"], [[0, 0, 0], [-1, 0, 0]])
+
+
+def test_new_output_option_preserves_legacy_positional_skip_argument(hp35_molsys):
+    actual = msm.interactions.disulfides.get_disulfide_candidates(
+        hp35_molsys, "all", "all", None, None, False, "MolSysMT", True, False
+    )
+    expected = msm.interactions.disulfides.get_disulfide_candidates(
+        hp35_molsys, pbc=False
+    )
+    for observed, reference in zip(actual[0], expected[0]):
+        np.testing.assert_array_equal(observed, reference)
+    for observed, reference in zip(actual[1], expected[1]):
+        np.testing.assert_allclose(
+            msm.pyunitwizard.get_value(observed), msm.pyunitwizard.get_value(reference)
+        )

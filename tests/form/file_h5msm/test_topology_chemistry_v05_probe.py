@@ -23,9 +23,7 @@ def _domains():
 
 def test_topology_and_chemistry_roundtrip_without_structures(tmp_path):
     topology, states = _domains()
-    system = MolSys._from_partial_domains(
-        topology=topology, chemical_states=states
-    )
+    system = MolSys._from_partial_domains(topology=topology, chemical_states=states)
     filename = tmp_path / "topology_chemistry.h5msm"
     write_topology_chemistry_molsys_file(filename, system)
     with h5py.File(filename, "r") as file:
@@ -50,12 +48,24 @@ def test_topology_and_chemistry_roundtrip_without_structures(tmp_path):
 def test_reader_requires_one_identity_atom_link(tmp_path, indices):
     topology, states = _domains()
     filename = tmp_path / "unrepresentable.h5msm"
-    associations = None if indices is None else [{
-        "axis": "atom", "source": "chemical_states", "target": "topology",
-        "source_name": None, "target_name": None, "indices": indices,
-    }]
+    associations = (
+        None
+        if indices is None
+        else [
+            {
+                "axis": "atom",
+                "source": "chemical_states",
+                "target": "topology",
+                "source_name": None,
+                "target_name": None,
+                "indices": indices,
+            }
+        ]
+    )
     write_modular_file(
-        filename, topology=topology, chemical_states=states,
+        filename,
+        topology=topology,
+        chemical_states=states,
         associations=associations,
     )
     with pytest.raises(ValueError, match="declared identity atom-axis link"):

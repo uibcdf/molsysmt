@@ -132,47 +132,77 @@ def get_aromatic_rings(
     if method != "minimum_cycle_basis":
         raise ArgumentError("method", value=method, caller=caller)
     source, states, state, state_index, _, pairs, frames = ring_context(
-        molecular_system, chemical_state, structure_indices, assume_complete_connectivity, caller,
+        molecular_system,
+        chemical_state,
+        structure_indices,
+        assume_complete_connectivity,
+        caller,
     )
     attributes = state.atom_attributes
     if states.n_atoms and (
         "is_aromatic" not in attributes or attributes["is_aromatic"].isna().any()
     ):
         raise StructuralInconsistencyError(
-            reason="Every atom requires an explicit is_aromatic flag.", caller=caller,
+            reason="Every atom requires an explicit is_aromatic flag.",
+            caller=caller,
         )
     bonds = state.bonds
     if len(bonds) and ("is_aromatic" not in bonds or bonds["is_aromatic"].isna().any()):
         raise StructuralInconsistencyError(
-            reason="Every bond requires an explicit is_aromatic flag.", caller=caller,
+            reason="Every bond requires an explicit is_aromatic flag.",
+            caller=caller,
         )
-    atom_aromatic = attributes["is_aromatic"].to_numpy(dtype=bool) if states.n_atoms else np.empty(0, dtype=bool)
+    atom_aromatic = (
+        attributes["is_aromatic"].to_numpy(dtype=bool)
+        if states.n_atoms
+        else np.empty(0, dtype=bool)
+    )
     if len(bonds) and np.any(bonds["is_aromatic"] & (bonds["bond_type"] != "covalent")):
         raise StructuralInconsistencyError(
-            reason="A dative bond cannot be a declared aromatic covalent bond.", caller=caller,
+            reason="A dative bond cannot be a declared aromatic covalent bond.",
+            caller=caller,
         )
     covalent = bonds.loc[bonds["bond_type"] == "covalent"] if len(bonds) else bonds
-    flags = covalent["is_aromatic"].to_numpy(dtype=bool) if len(covalent) else np.empty(0, dtype=bool)
+    flags = (
+        covalent["is_aromatic"].to_numpy(dtype=bool)
+        if len(covalent)
+        else np.empty(0, dtype=bool)
+    )
     aromatic_pairs = pairs[flags]
     if not np.all(atom_aromatic[aromatic_pairs]):
         raise StructuralInconsistencyError(
-            reason="An aromatic covalent bond requires aromatic endpoint atoms.", caller=caller,
+            reason="An aromatic covalent bond requires aromatic endpoint atoms.",
+            caller=caller,
         )
     graph = nx.Graph()
     graph.add_edges_from(aromatic_pairs.tolist())
-    if list(nx.bridges(graph)) or set(np.flatnonzero(atom_aromatic)) != set(graph.nodes):
+    if list(nx.bridges(graph)) or set(np.flatnonzero(atom_aromatic)) != set(
+        graph.nodes
+    ):
         raise StructuralInconsistencyError(
-            reason="Declared aromatic atoms and bonds must belong to aromatic cycles.", caller=caller,
+            reason="Declared aromatic atoms and bonds must belong to aromatic cycles.",
+            caller=caller,
         )
     rings = minimum_cycle_memberships(aromatic_pairs, max_cyclic_block_size, caller)
     result = ring_result(
-        rings, molecular_system=source, states=states, state=state, state_index=state_index,
-        selection=selection, selection_frames=frames, syntax=syntax,
-        assume_complete=assume_complete_connectivity, method=method, caller=caller,
+        rings,
+        molecular_system=source,
+        states=states,
+        state=state,
+        state_index=state_index,
+        selection=selection,
+        selection_frames=frames,
+        syntax=syntax,
+        assume_complete=assume_complete_connectivity,
+        method=method,
+        caller=caller,
     )
-    result.update({
-        "definition": definition, "rule_version": "stored_aromatic_bond_cycles@1",
-        "max_cyclic_block_size": max_cyclic_block_size,
-    })
+    result.update(
+        {
+            "definition": definition,
+            "rule_version": "stored_aromatic_bond_cycles@1",
+            "max_cyclic_block_size": max_cyclic_block_size,
+        }
+    )
     result["evidence"]["kind"] = "chemical_states.is_aromatic"
     return result

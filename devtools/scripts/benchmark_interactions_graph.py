@@ -55,8 +55,10 @@ def add_participants(graph, relation_node, participants, prefix):
 
 
 def build_layers(events, n_frames, n_atoms):
-    graphs = [nx.MultiGraph(frame_index=frame, n_atoms=n_atoms, n_occurrences=0)
-              for frame in range(n_frames)]
+    graphs = [
+        nx.MultiGraph(frame_index=frame, n_atoms=n_atoms, n_occurrences=0)
+        for frame in range(n_frames)
+    ]
     atom_postings = [[] for _ in range(n_atoms)]
     local_counts = np.zeros(n_frames, dtype=np.int32)
     for frame, (kind, participants), evidence, distance, image in events:
@@ -65,8 +67,13 @@ def build_layers(events, n_frames, n_atoms):
         occurrence = ("occ", local)
         graph = graphs[frame]
         graph.graph["n_occurrences"] += 1
-        graph.add_node(occurrence, kind=kind, evidence=evidence,
-                       distance_nm=distance, image=image_key(image))
+        graph.add_node(
+            occurrence,
+            kind=kind,
+            evidence=evidence,
+            distance_nm=distance,
+            image=image_key(image),
+        )
         add_participants(graph, occurrence, participants, "part")
         for atom in {int(atom) for _, atoms in participants for atom in atoms}:
             atom_postings[atom].append((frame, local))
@@ -89,8 +96,13 @@ def build_shared(events, n_frames, n_atoms):
         else:
             relation_node = ("relation", relation)
         occurrence = ("occ", event)
-        graph.add_node(occurrence, frame_index=frame, evidence=evidence,
-                       distance_nm=distance, image=image_key(image))
+        graph.add_node(
+            occurrence,
+            frame_index=frame,
+            evidence=evidence,
+            distance_nm=distance,
+            image=image_key(image),
+        )
         graph.add_edge(("frame", frame), occurrence)
         graph.add_edge(occurrence, relation_node)
     return graph
@@ -98,20 +110,24 @@ def build_shared(events, n_frames, n_atoms):
 
 def participant_signature(graph, relation_node, prefix):
     participant_nodes = sorted(
-        neighbor for neighbor in graph.neighbors(relation_node)
+        neighbor
+        for neighbor in graph.neighbors(relation_node)
         if isinstance(neighbor, tuple) and neighbor[0] == prefix
     )
     participants = []
     for part_node in participant_nodes:
         ordered_atoms = sorted(
             (int(data["ordinal"]), int(atom))
-            for atom in graph.neighbors(part_node) if isinstance(atom, int)
+            for atom in graph.neighbors(part_node)
+            if isinstance(atom, int)
             for data in graph[part_node][atom].values()
         )
-        participants.append((
-            int(graph.nodes[part_node]["role"]),
-            tuple(atom for _, atom in ordered_atoms),
-        ))
+        participants.append(
+            (
+                int(graph.nodes[part_node]["role"]),
+                tuple(atom for _, atom in ordered_atoms),
+            )
+        )
     return tuple(participants)
 
 
@@ -119,9 +135,11 @@ def layer_signature(graph, frame, local):
     occurrence = ("occ", local)
     attributes = graph.nodes[occurrence]
     return (
-        frame, int(attributes["kind"]),
+        frame,
+        int(attributes["kind"]),
         participant_signature(graph, occurrence, "part"),
-        int(attributes["evidence"]), float(attributes["distance_nm"]),
+        int(attributes["evidence"]),
+        float(attributes["distance_nm"]),
         attributes["image"],
     )
 
@@ -130,13 +148,16 @@ def shared_signature(graph, event):
     occurrence = ("occ", event)
     attributes = graph.nodes[occurrence]
     relation = next(
-        neighbor for neighbor in graph.neighbors(occurrence)
+        neighbor
+        for neighbor in graph.neighbors(occurrence)
         if neighbor[0] == "relation"
     )
     return (
-        int(attributes["frame_index"]), int(graph.nodes[relation]["kind"]),
+        int(attributes["frame_index"]),
+        int(graph.nodes[relation]["kind"]),
         participant_signature(graph, relation, "part"),
-        int(attributes["evidence"]), float(attributes["distance_nm"]),
+        int(attributes["evidence"]),
+        float(attributes["distance_nm"]),
         attributes["image"],
     )
 
@@ -147,12 +168,16 @@ def graph_queries(mode, result, n_frames):
 
         def frame_query(frame):
             graph = graphs[frame]
-            return [layer_signature(graph, frame, local)
-                    for local in range(graph.graph["n_occurrences"])]
+            return [
+                layer_signature(graph, frame, local)
+                for local in range(graph.graph["n_occurrences"])
+            ]
 
         def atom_query(atom):
-            return [layer_signature(graphs[frame], frame, local)
-                    for frame, local in atom_postings[atom]]
+            return [
+                layer_signature(graphs[frame], frame, local)
+                for frame, local in atom_postings[atom]
+            ]
 
         return frame_query, atom_query
 
@@ -169,8 +194,11 @@ def graph_queries(mode, result, n_frames):
         for part in graph.neighbors(atom):
             for relation in graph.neighbors(part):
                 if isinstance(relation, tuple) and relation[0] == "relation":
-                    events.update(node[1] for node in graph.neighbors(relation)
-                                  if isinstance(node, tuple) and node[0] == "occ")
+                    events.update(
+                        node[1]
+                        for node in graph.neighbors(relation)
+                        if isinstance(node, tuple) and node[0] == "occ"
+                    )
         return [shared_signature(graph, event) for event in sorted(events)]
 
     return frame_query, atom_query
@@ -187,10 +215,14 @@ def columnar_queries(events, n_frames, n_atoms, scope):
 
     def atom_query(atom):
         events = query_atom_columnar(arrays, index, atom, "event")
-        return [event_signature(
-            arrays, int(event),
-            int(np.searchsorted(arrays["frame_offsets"], event, side="right") - 1),
-        ) for event in events]
+        return [
+            event_signature(
+                arrays,
+                int(event),
+                int(np.searchsorted(arrays["frame_offsets"], event, side="right") - 1),
+            )
+            for event in events
+        ]
 
     return (arrays, index), frame_query, atom_query
 
@@ -209,8 +241,11 @@ def timed(query, requests):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("layers", "shared", "columnar_global",
-                                            "columnar_event"), required=True)
+    parser.add_argument(
+        "--mode",
+        choices=("layers", "shared", "columnar_global", "columnar_event"),
+        required=True,
+    )
     parser.add_argument("--frames", type=int, default=1000)
     parser.add_argument("--atoms", type=int, default=1000)
     parser.add_argument("--churn", action="store_true")
@@ -228,8 +263,11 @@ def main():
         )
         numeric_bytes = payload_bytes(result[0]) + payload_bytes(result[1])
     else:
-        result = (build_layers(events, args.frames, args.atoms) if args.mode == "layers"
-                  else build_shared(events, args.frames, args.atoms))
+        result = (
+            build_layers(events, args.frames, args.atoms)
+            if args.mode == "layers"
+            else build_shared(events, args.frames, args.atoms)
+        )
         frame_query, atom_query = graph_queries(args.mode, result, args.frames)
         numeric_bytes = None
     build_s = time.perf_counter() - start
@@ -256,9 +294,11 @@ def main():
     output = {
         "config": vars(args),
         "events": len(events),
-        "evaluated_empty_frames": int(np.count_nonzero(
-            np.bincount([event[0] for event in events], minlength=args.frames) == 0
-        )),
+        "evaluated_empty_frames": int(
+            np.count_nonzero(
+                np.bincount([event[0] for event in events], minlength=args.frames) == 0
+            )
+        ),
         "build_s": round(build_s, 3),
         "baseline_rss_bytes": baseline_rss,
         "after_build_rss_bytes": after_rss,

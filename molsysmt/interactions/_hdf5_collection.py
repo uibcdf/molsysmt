@@ -30,13 +30,17 @@ def write_named_analyses(group, analyses):
 def read_named_analyses(group, names=None):
     """Read selected named analyses from a versioned HDF5 collection."""
 
-    if (group.attrs.get("schema") != _SCHEMA
-            or group.attrs.get("schema_version") != _VERSION):
+    if (
+        group.attrs.get("schema") != _SCHEMA
+        or group.attrs.get("schema_version") != _VERSION
+    ):
         raise ValueError("unsupported interaction collection schema or version")
     count = int(group.attrs["n_analyses"])
     if count < 0 or set(group) != {str(index) for index in range(count)}:
         raise ValueError("interaction collection has inconsistent analysis groups")
-    requested = None if names is None else ({names} if isinstance(names, str) else set(names))
+    requested = (
+        None if names is None else ({names} if isinstance(names, str) else set(names))
+    )
     if requested is not None and any(
         not isinstance(name, str) or not name for name in requested
     ):

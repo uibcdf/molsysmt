@@ -239,12 +239,17 @@ def get_ionic_interactions(
     supported_source = isinstance(molecular_system, MolSys) or modular_source
     if mode == "heavy" and not (supported_source and index_selections):
         raise UnsupportedHeavyOperationError(
-            operation=_CALLER, form="ionic detection",
+            operation=_CALLER,
+            form="ionic detection",
             reason="Chunked ionic detection requires native MolSys or H5MSM 0.5 and atom-index selections or all.",
         )
-    if mode == "eager" and estimate_footprint(n_atoms, n_structures) > config.max_ram_usage:
+    if (
+        mode == "eager"
+        and estimate_footprint(n_atoms, n_structures) > config.max_ram_usage
+    ):
         raise UnsupportedHeavyOperationError(
-            operation=_CALLER, form="eager ionic detection",
+            operation=_CALLER,
+            form="eager ionic detection",
             reason="The source coordinate estimate exceeds the RAM budget with heavy_mode='off'.",
         )
     coordinate_source = molecular_system
@@ -253,14 +258,18 @@ def get_ionic_interactions(
         from molsysmt.form._h5msm05_modular import _read_calculation_chemistry
 
         molecular_system, chemical_state = _read_calculation_chemistry(
-            molecular_system, chemical_state=chemical_state, structure_indices=frames,
+            molecular_system,
+            chemical_state=chemical_state,
+            structure_indices=frames,
         )
         selection_frames = "all"
     else:
         molecular_system = maybe_read_modular_h5msm(molecular_system)
         coordinate_source = molecular_system
         if chemical_state == "structure" and isinstance(molecular_system, MolSys):
-            chemical_state = molecular_system._resolve_structure_chemical_state_index(frames)
+            chemical_state = molecular_system._resolve_structure_chemical_state_index(
+                frames
+            )
     centers = get_charge_centers(
         molecular_system,
         chemical_state=chemical_state,
@@ -358,7 +367,8 @@ def get_ionic_interactions(
     searches = _search_sets(positive, negative, in_first, in_second, selection_mode)
     if len(frames) and searches:
         topology = (
-            molecular_system.topology if isinstance(molecular_system, MolSys)
+            molecular_system.topology
+            if isinstance(molecular_system, MolSys)
             else convert(molecular_system, to_form="molsysmt.Topology")
         )
         state = topology._chemical_states[centers["chemical_state_index"]]
@@ -376,9 +386,14 @@ def get_ionic_interactions(
             if ca >= 0 and cb >= 0 and ca != cb:
                 excluded.add(tuple(sorted((int(ca), int(cb)))))
         reducer = _IonicReducer(
-            centers=centers, members=members, universe=universe,
-            active=np.concatenate((positive, negative)), searches=searches,
-            threshold=threshold, excluded=excluded, metadata=metadata,
+            centers=centers,
+            members=members,
+            universe=universe,
+            active=np.concatenate((positive, negative)),
+            searches=searches,
+            threshold=threshold,
+            excluded=excluded,
+            metadata=metadata,
             budget_bytes=config.max_ram_usage,
         )
         if supported_source:
@@ -399,10 +414,13 @@ def get_ionic_interactions(
                 )
             frame_working_bytes = 4 * (24 * len(universe) + (72 if pbc else 0))
             block_budget = config.max_ram_usage // 4
-            max_chunk_size = min(config.chunk_size, block_budget // max(1, frame_working_bytes))
+            max_chunk_size = min(
+                config.chunk_size, block_budget // max(1, frame_working_bytes)
+            )
             if max_chunk_size < 1:
                 raise UnsupportedHeavyOperationError(
-                    operation=_CALLER, form="ionic coordinate blocks",
+                    operation=_CALLER,
+                    form="ionic coordinate blocks",
                     reason="One selected coordinate frame exceeds the block working-memory estimate.",
                 )
             if mode == "eager" and len(frames) * frame_working_bytes > block_budget:
@@ -411,32 +429,60 @@ def get_ionic_interactions(
                     metadata["execution"]["execution"] = "chunked"
                 else:
                     raise UnsupportedHeavyOperationError(
-                        operation=_CALLER, form="eager ionic coordinate blocks",
+                        operation=_CALLER,
+                        form="eager ionic coordinate blocks",
                         reason="Selected eager coordinates exceed the block working-memory estimate; request chunked execution.",
                     )
             result = ChunkedExecutor(
                 coordinate_source,
-                "file:h5msm" if modular_source and index_selections else "molsysmt.MolSys",
-                _CALLER, reducer=reducer, atom_indices=universe,
+                "file:h5msm"
+                if modular_source and index_selections
+                else "molsysmt.MolSys",
+                _CALLER,
+                reducer=reducer,
+                atom_indices=universe,
                 structure_indices=frames,
                 heavy_mode="force" if mode == "heavy" else "off",
                 attributes=["coordinates", "box"] if pbc else ["coordinates"],
                 max_chunk_size=max_chunk_size,
             ).execute()
         else:
-            if 4 * len(frames) * (24 * len(universe) + (72 if pbc else 0)) > config.max_ram_usage // 4:
+            if (
+                4 * len(frames) * (24 * len(universe) + (72 if pbc else 0))
+                > config.max_ram_usage // 4
+            ):
                 raise UnsupportedHeavyOperationError(
-                    operation=_CALLER, form="eager ionic coordinate blocks",
+                    operation=_CALLER,
+                    form="eager ionic coordinate blocks",
                     reason="Selected eager coordinates exceed the block working-memory estimate.",
                 )
-            coordinates = get(molecular_system, selection=universe, structure_indices=frames, coordinates=True)
-            boxes = get(molecular_system, structure_indices=frames, box=True) if pbc else None
+            coordinates = get(
+                molecular_system,
+                selection=universe,
+                structure_indices=frames,
+                coordinates=True,
+            )
+            boxes = (
+                get(molecular_system, structure_indices=frames, box=True)
+                if pbc
+                else None
+            )
             reducer.initialize({})
-            reducer.consume({
-                "coordinates": None if coordinates is None else np.asarray(puw.get_value(coordinates, to_unit="nm"), dtype=np.float64),
-                "box": None if boxes is None else np.asarray(puw.get_value(boxes, to_unit="nm"), dtype=np.float64),
-                "structure_indices": frames,
-            })
+            reducer.consume(
+                {
+                    "coordinates": None
+                    if coordinates is None
+                    else np.asarray(
+                        puw.get_value(coordinates, to_unit="nm"), dtype=np.float64
+                    ),
+                    "box": None
+                    if boxes is None
+                    else np.asarray(
+                        puw.get_value(boxes, to_unit="nm"), dtype=np.float64
+                    ),
+                    "structure_indices": frames,
+                }
+            )
             result = reducer.finalize()
     else:
         from molsysmt._private.execution.sparse_accumulator import (
@@ -444,7 +490,8 @@ def get_ionic_interactions(
         )
 
         SparseColumnAccumulator(
-            {}, budget_bytes=config.max_ram_usage // 2,
+            {},
+            budget_bytes=config.max_ram_usage // 2,
             fixed_bytes=8 * (2 * n_atoms + 4 * n_structures),
         ).check_budget()
         metadata["execution"]["execution_chunks"] = 0
@@ -457,8 +504,9 @@ def get_ionic_interactions(
 
 
 def _whole_selection(members, selected):
-    return whole_group_selection(members, selected, caller=_CALLER,
-                                 description="compound charge center")
+    return whole_group_selection(
+        members, selected, caller=_CALLER, description="compound charge center"
+    )
 
 
 def _search_sets(positive, negative, in_first, in_second, mode):

@@ -14,9 +14,18 @@ def _interleaved_pairs_system():
     builder.add_group([0, 1, 2, 3, 4], group_name="ALA")
     builder.add_bond(0, 3)
     builder.add_bond(2, 1)
-    builder.set_coordinates(puw.quantity([
-        [0, 0, 0], [0.7, 0, 0], [0.8, 0, 0], [0.1, 0, 0], [0.3, 0, 0],
-    ], "nanometers"))
+    builder.set_coordinates(
+        puw.quantity(
+            [
+                [0, 0, 0],
+                [0.7, 0, 0],
+                [0.8, 0, 0],
+                [0.1, 0, 0],
+                [0.3, 0, 0],
+            ],
+            "nanometers",
+        )
+    )
     return builder.build()
 
 
@@ -26,7 +35,9 @@ def test_donor_hydrogen_pairs_keep_declared_covalent_membership():
     np.testing.assert_array_equal(pairs, [[0, 3], [2, 1]])
 
 
-@pytest.mark.parametrize("method_name", ["get_buch_hbonds", "get_luzard_chandler_hbonds"])
+@pytest.mark.parametrize(
+    "method_name", ["get_buch_hbonds", "get_luzard_chandler_hbonds"]
+)
 def test_hbond_triples_keep_the_hydrogen_of_their_donor(method_name):
     method = getattr(msm.interactions.hbonds, method_name)
     triples, *_ = method(_interleaved_pairs_system(), pbc=False)
@@ -35,7 +46,9 @@ def test_hbond_triples_keep_the_hydrogen_of_their_donor(method_name):
 
 def test_buch_analysis_queries_the_actual_covalent_hydrogen():
     result = msm.interactions.hbonds.get_buch_hbonds(
-        _interleaved_pairs_system(), pbc=False, output_type="molsysmt.Interactions",
+        _interleaved_pairs_system(),
+        pbc=False,
+        output_type="molsysmt.Interactions",
     )
     assert result.query(atom_indices=[3]).n_interactions == 1
     assert result.query(atom_indices=[1]).n_interactions == 0

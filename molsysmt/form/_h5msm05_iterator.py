@@ -19,12 +19,24 @@ class _StructuresIterator05:
     """Own one file handle and read only requested series and atom/frame rows."""
 
     def __init__(
-        self, filename, *, atom_indices="all", structure_indices=None,
-        start=0, stop=None, step=1, chunk=1, output_type="values", **attributes,
+        self,
+        filename,
+        *,
+        atom_indices="all",
+        structure_indices=None,
+        start=0,
+        stop=None,
+        step=1,
+        chunk=1,
+        output_type="values",
+        **attributes,
     ):
         self._file = h5py.File(filename, "r")
         try:
-            if self._file.attrs.get("type") != "h5msm" or self._file.attrs.get("version") != "0.5":
+            if (
+                self._file.attrs.get("type") != "h5msm"
+                or self._file.attrs.get("version") != "0.5"
+            ):
                 raise ValueError("Expected an H5MSM 0.5 modular file.")
             self._group = self._file["structures"]
             if self._group.attrs.get("schema_version") != 1:
@@ -33,14 +45,18 @@ class _StructuresIterator05:
             n_atoms = int(self._group.attrs["n_atoms"])
             if n_frames < 0 or n_atoms < -1:
                 raise ValueError("Invalid structures layer axis cardinality.")
-            unknown = set(self._group) - set(_FIELDS) - {"bioassembly", "alternate_location"}
+            unknown = (
+                set(self._group) - set(_FIELDS) - {"bioassembly", "alternate_location"}
+            )
             if unknown:
                 raise ValueError(f"Unknown structural series {sorted(unknown)}.")
             for name in set(self._group) & set(_FIELDS):
                 _validate_structure_series(self._group, name, n_frames, n_atoms)
             self._attributes = [name for name, enabled in attributes.items() if enabled]
             if set(self._attributes) - {"coordinates", "box", "time", "structure_id"}:
-                raise ValueError("The H5MSM 0.5 iterator supports coordinates, box, time, and structure_id.")
+                raise ValueError(
+                    "The H5MSM 0.5 iterator supports coordinates, box, time, and structure_id."
+                )
             indices = (
                 np.arange(n_frames, dtype=np.int64)
                 if structure_indices is None or is_all(structure_indices)
@@ -48,7 +64,8 @@ class _StructuresIterator05:
             )
             self._frames = indices[slice(start, stop, step)]
             self._atoms = (
-                None if is_all(atom_indices)
+                None
+                if is_all(atom_indices)
                 else _selection(atom_indices, n_atoms, "atom_indices")
             )
             if not isinstance(chunk, int) or chunk < 1:
@@ -69,7 +86,7 @@ class _StructuresIterator05:
         if self._offset >= len(self._frames):
             self._file.close()
             raise StopIteration
-        frames = self._frames[self._offset:self._offset + self._chunk]
+        frames = self._frames[self._offset : self._offset + self._chunk]
         self._offset += len(frames)
         result = {}
         for name in self._attributes:
@@ -83,10 +100,15 @@ class _StructuresIterator05:
                 else _rows(dataset, frames)
             )
             if name == "structure_id" and dataset.attrs.get("value_kind") == "string":
-                values = np.asarray([
-                    value.decode("utf-8") if isinstance(value, bytes) else str(value)
-                    for value in values
-                ], dtype=object)
+                values = np.asarray(
+                    [
+                        value.decode("utf-8")
+                        if isinstance(value, bytes)
+                        else str(value)
+                        for value in values
+                    ],
+                    dtype=object,
+                )
             unit = _FIELDS[name][1]
             result[name] = values if unit is None else puw.quantity(values, unit)
         if self._output_type == "dictionary":

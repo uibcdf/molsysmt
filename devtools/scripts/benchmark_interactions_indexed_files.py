@@ -73,22 +73,36 @@ def _check_index(path, result, records, evaluated):
         atom_offsets = group["atom_offsets"][:]
         atom_occurrences = group["atom_occurrences"][:]
         atom_count = group["occurrence_atom_count"][:]
-        if not np.array_equal(frame_offsets, np.searchsorted(
-            loaded.occurrence_structures,
-            np.arange(loaded.n_structures + 1), side="left",
-        )):
+        if not np.array_equal(
+            frame_offsets,
+            np.searchsorted(
+                loaded.occurrence_structures,
+                np.arange(loaded.n_structures + 1),
+                side="left",
+            ),
+        ):
             raise AssertionError("HDF5 frame offsets changed")
         for atom in range(loaded.n_atoms):
-            positions = atom_occurrences[atom_offsets[atom]:atom_offsets[atom + 1]]
+            positions = atom_occurrences[atom_offsets[atom] : atom_offsets[atom + 1]]
             if np.any(np.diff(positions) <= 0):
                 raise AssertionError("atom postings are not sorted and unique")
-            if any(atom not in loaded._relation_atoms(
-                loaded.occurrence_relations[position]
-            ) for position in positions):
+            if any(
+                atom
+                not in loaded._relation_atoms(loaded.occurrence_relations[position])
+                for position in positions
+            ):
                 raise AssertionError("atom posting points to an unrelated occurrence")
-        if not np.array_equal(atom_count, [len(_record_atoms({
-            "participants": loaded.relation(relation)["participants"]
-        })) for relation in loaded.occurrence_relations]):
+        if not np.array_equal(
+            atom_count,
+            [
+                len(
+                    _record_atoms(
+                        {"participants": loaded.relation(relation)["participants"]}
+                    )
+                )
+                for relation in loaded.occurrence_relations
+            ],
+        ):
             raise AssertionError("distinct atom counts changed")
         if len(atom_occurrences) != int(np.sum(atom_count)):
             raise AssertionError("atom postings do not cover all participants")
@@ -99,8 +113,11 @@ def main():
     parser.add_argument("--frames", type=int, default=1000)
     parser.add_argument("--atoms", type=int, default=500)
     parser.add_argument("--per-frame", type=int, default=8)
-    parser.add_argument("--distribution", choices=("stable", "churn", "mixed",
-                                                 "persistent"), default="stable")
+    parser.add_argument(
+        "--distribution",
+        choices=("stable", "churn", "mixed", "persistent"),
+        default="stable",
+    )
     parser.add_argument("--seed", type=int, default=251)
     args = parser.parse_args()
     if args.frames < 30 or args.atoms < 30 or not 1 <= args.per_frame <= 119:
@@ -112,9 +129,13 @@ def main():
         args.frames, args.atoms, args.per_frame, args.distribution, args.seed
     )
     result = msm.Interactions.from_records(
-        records, n_atoms=args.atoms, n_structures=args.frames,
-        evaluated_structure_indices=evaluated, method=METHOD,
-        measure_units=UNITS, parameters={"seed": args.seed},
+        records,
+        n_atoms=args.atoms,
+        n_structures=args.frames,
+        evaluated_structure_indices=evaluated,
+        method=METHOD,
+        measure_units=UNITS,
+        parameters={"seed": args.seed},
         source_id="synthetic_contract",
     )
     with tempfile.TemporaryDirectory() as directory:
@@ -131,30 +152,42 @@ def main():
         sqlite = SQLiteProbe.create(
             sqlite_path, records, evaluated, args.atoms, args.frames
         )
-        if sqlite.metadata["n_atoms"] != args.atoms or sqlite.metadata[
-            "n_structures"
-        ] != args.frames or sqlite.metadata["method"] != METHOD:
+        if (
+            sqlite.metadata["n_atoms"] != args.atoms
+            or sqlite.metadata["n_structures"] != args.frames
+            or sqlite.metadata["method"] != METHOD
+        ):
             raise AssertionError("SQLite analysis metadata changed")
         if sqlite.materialize(sqlite.select({})) != expected(records, evaluated):
             raise AssertionError("SQLite full result differs from record oracle")
         sqlite.close()
         sqlite_bytes = sqlite_path.stat().st_size
-        print(json.dumps({
-            "platform": platform.platform(), "h5py": h5py.__version__,
-            "sqlite": sqlite3.sqlite_version,
-            "frames": args.frames, "atoms": args.atoms,
-            "distribution": args.distribution,
-            "evaluated_frames": len(evaluated), "occurrences": len(records),
-            "hdf_without_index_bytes": hdf_without_index,
-            "hdf_with_index_bytes": hdf_with_index,
-            "hdf_index_file_delta_bytes": hdf_with_index - hdf_without_index,
-            "hdf_index_numeric_bytes": sum(array.nbytes for array in arrays.values()),
-            "hdf_index_dataset_storage_bytes": sum(stored.values()),
-            "hdf_index_dataset_storage_by_column": stored,
-            "hdf_index_write_s": index_write_s,
-            "sqlite_indexed_file_bytes": sqlite_bytes,
-            "sqlite_to_hdf_indexed_file_ratio": sqlite_bytes / hdf_with_index,
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "h5py": h5py.__version__,
+                    "sqlite": sqlite3.sqlite_version,
+                    "frames": args.frames,
+                    "atoms": args.atoms,
+                    "distribution": args.distribution,
+                    "evaluated_frames": len(evaluated),
+                    "occurrences": len(records),
+                    "hdf_without_index_bytes": hdf_without_index,
+                    "hdf_with_index_bytes": hdf_with_index,
+                    "hdf_index_file_delta_bytes": hdf_with_index - hdf_without_index,
+                    "hdf_index_numeric_bytes": sum(
+                        array.nbytes for array in arrays.values()
+                    ),
+                    "hdf_index_dataset_storage_bytes": sum(stored.values()),
+                    "hdf_index_dataset_storage_by_column": stored,
+                    "hdf_index_write_s": index_write_s,
+                    "sqlite_indexed_file_bytes": sqlite_bytes,
+                    "sqlite_to_hdf_indexed_file_ratio": sqlite_bytes / hdf_with_index,
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

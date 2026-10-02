@@ -83,8 +83,9 @@ def main():
     parser.add_argument("--frames", type=int, default=1000)
     parser.add_argument("--atoms", type=int, default=500)
     parser.add_argument("--per-frame", type=int, default=8)
-    parser.add_argument("--distribution", choices=("stable", "mixed", "churn"),
-                        default="churn")
+    parser.add_argument(
+        "--distribution", choices=("stable", "mixed", "churn"), default="churn"
+    )
     parser.add_argument("--block-size", type=int, default=100)
     parser.add_argument("--repeats", type=int, default=3)
     args = parser.parse_args()
@@ -102,10 +103,15 @@ def main():
         path = Path(directory) / "interactions.h5i"
         scratch = Path(directory) / "postings.sqlite"
         info = write_streaming_flat_file(
-            path, iter_fixture(args.frames, args.atoms, args.per_frame,
-                               args.distribution, 251),
+            path,
+            iter_fixture(
+                args.frames, args.atoms, args.per_frame, args.distribution, 251
+            ),
             (frame for frame in range(args.frames) if frame % 29 != 0),
-            args.frames, args.atoms, args.block_size, scratch,
+            args.frames,
+            args.atoms,
+            args.block_size,
+            scratch,
         )
         coverage, oracle = _oracle(
             args.frames, args.atoms, args.per_frame, args.distribution, frames
@@ -115,35 +121,60 @@ def main():
         for _ in range(args.repeats):
             for plan in measurements:
                 command = [
-                    sys.executable, str(Path(__file__).resolve()), "--child",
-                    "--path", str(path), "--planner", plan,
-                    "--frames", str(args.frames),
+                    sys.executable,
+                    str(Path(__file__).resolve()),
+                    "--child",
+                    "--path",
+                    str(path),
+                    "--planner",
+                    plan,
+                    "--frames",
+                    str(args.frames),
                 ]
                 process = subprocess.run(
                     command, check=True, capture_output=True, text=True
                 )
                 result = json.loads(process.stdout)
-                if (result["coverage"] != coverage
-                        or result["rows"] != sum(oracle.values())
-                        or result["rows_digest"] != oracle_digest):
+                if (
+                    result["coverage"] != coverage
+                    or result["rows"] != sum(oracle.values())
+                    or result["rows_digest"] != oracle_digest
+                ):
                     raise AssertionError(f"{plan} differs from record oracle")
                 measurements[plan].append(result)
-        print(json.dumps({
-            "platform": platform.platform(),
-            "frames": args.frames, "atoms": args.atoms,
-            "per_frame": args.per_frame, "distribution": args.distribution,
-            "selected_frames": frames, "returned_rows": sum(oracle.values()),
-            "file_bytes": info["file_bytes"], "repeats": args.repeats,
-            "plans": {plan: {
-                "median_query_ms": round(statistics.median(
-                    result["query_ms"] for result in results
-                ), 3),
-                "median_hwm_growth_bytes": int(statistics.median(
-                    result["hwm_growth_bytes"] for result in results
-                )),
-                "payload_bytes": results[0]["payload_bytes"],
-            } for plan, results in measurements.items()},
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "frames": args.frames,
+                    "atoms": args.atoms,
+                    "per_frame": args.per_frame,
+                    "distribution": args.distribution,
+                    "selected_frames": frames,
+                    "returned_rows": sum(oracle.values()),
+                    "file_bytes": info["file_bytes"],
+                    "repeats": args.repeats,
+                    "plans": {
+                        plan: {
+                            "median_query_ms": round(
+                                statistics.median(
+                                    result["query_ms"] for result in results
+                                ),
+                                3,
+                            ),
+                            "median_hwm_growth_bytes": int(
+                                statistics.median(
+                                    result["hwm_growth_bytes"] for result in results
+                                )
+                            ),
+                            "payload_bytes": results[0]["payload_bytes"],
+                        }
+                        for plan, results in measurements.items()
+                    },
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

@@ -22,8 +22,10 @@ def _axis_sizes(topology, chemical_states, structures, interactions):
     if structures is not None:
         sizes[("structures", None, "structure")] = structures.n_structures
         payload = structures._frame_payload()
-        if any(payload[name] is not None for name in
-               ("coordinates", "velocities", "b_factor", "occupancy")):
+        if any(
+            payload[name] is not None
+            for name in ("coordinates", "velocities", "b_factor", "occupancy")
+        ):
             sizes[("structures", None, "atom")] = structures.n_atoms
     if interactions is not None:
         for name, result in interactions.items():
@@ -40,7 +42,9 @@ def _axis_sizes_from_file(root):
     if "chemical_states" in root:
         group = root["chemical_states"]
         sizes[("chemical_states", None, "atom")] = int(group.attrs["n_atoms"])
-        sizes[("chemical_states", None, "state")] = int(group.attrs["n_chemical_states"])
+        sizes[("chemical_states", None, "state")] = int(
+            group.attrs["n_chemical_states"]
+        )
     if "structures" in root:
         group = root["structures"]
         sizes[("structures", None, "structure")] = int(group.attrs["n_structures"])
@@ -60,7 +64,14 @@ def _axis_sizes_from_file(root):
 def _normalize_link(link, sizes):
     if not isinstance(link, dict):
         raise TypeError("Each axis link must be a dictionary.")
-    if set(link) != {"axis", "source", "target", "indices", "source_name", "target_name"}:
+    if set(link) != {
+        "axis",
+        "source",
+        "target",
+        "indices",
+        "source_name",
+        "target_name",
+    }:
         raise ValueError("Axis links require axis, source, target, names, and indices.")
     axis = link["axis"]
     source = link["source"]
@@ -92,7 +103,11 @@ def _normalize_link(link, sizes):
         values = np.asarray(indices)
         if values.size == 0:
             values = np.asarray(indices, dtype=np.int64)
-        if values.ndim != 1 or values.shape != (source_size,) or values.dtype.kind not in "iu":
+        if (
+            values.ndim != 1
+            or values.shape != (source_size,)
+            or values.dtype.kind not in "iu"
+        ):
             raise ValueError("Axis link indices must match the source axis length.")
         values = values.astype(np.int64, copy=True)
         if np.any(values < -1) or np.any(values >= target_size):
@@ -100,10 +115,15 @@ def _normalize_link(link, sizes):
         known = values[values >= 0]
         if axis == "atom" and np.unique(known).size != known.size:
             raise ValueError("Atom axis links cannot map distinct atoms to one atom.")
-        normalized = "identity" if np.array_equal(values, np.arange(source_size)) else values
+        normalized = (
+            "identity" if np.array_equal(values, np.arange(source_size)) else values
+        )
     return {
-        "axis": axis, "source": source, "target": target,
-        "source_name": source_name, "target_name": target_name,
+        "axis": axis,
+        "source": source,
+        "target": target,
+        "source_name": source_name,
+        "target_name": target_name,
         "indices": normalized,
     }
 
@@ -114,8 +134,13 @@ def normalize_associations(links, sizes):
         return None
     normalized = [_normalize_link(link, sizes) for link in links]
     identities = [
-        (item["axis"], item["source"], item["source_name"],
-         item["target"], item["target_name"])
+        (
+            item["axis"],
+            item["source"],
+            item["source_name"],
+            item["target"],
+            item["target_name"],
+        )
         for item in normalized
     ]
     if len(set(identities)) != len(identities):
@@ -138,9 +163,12 @@ def _check_redundant_paths(links, sizes):
     """Reject contradictory direct, reverse, and two-step axis mappings."""
     for axis in ("atom", "structure"):
         edges = {
-            ((link["source"], link["source_name"]),
-             (link["target"], link["target_name"])): link
-            for link in links if link["axis"] == axis
+            (
+                (link["source"], link["source_name"]),
+                (link["target"], link["target_name"]),
+            ): link
+            for link in links
+            if link["axis"] == axis
         }
         for (source, middle), first in edges.items():
             forward = _link_array(first, sizes)
@@ -165,11 +193,12 @@ def _check_redundant_paths(links, sizes):
                 composed[known] = second_map[forward[known]]
                 direct_map = _link_array(direct, sizes)
                 conflict = (
-                    (composed >= 0) & (direct_map >= 0)
-                    & (composed != direct_map)
+                    (composed >= 0) & (direct_map >= 0) & (composed != direct_map)
                 )
                 if np.any(conflict):
-                    raise ValueError("Direct and composed axis links disagree on an index.")
+                    raise ValueError(
+                        "Direct and composed axis links disagree on an index."
+                    )
 
 
 def write_associations(root, links):
@@ -217,12 +246,14 @@ def read_associations(root, sizes):
             indices = child["indices"][:]
         else:
             raise ValueError("Axis link has an invalid mapping encoding.")
-        links.append({
-            "axis": child.attrs["axis"],
-            "source": child.attrs["source"],
-            "target": child.attrs["target"],
-            "source_name": child.attrs.get("source_name"),
-            "target_name": child.attrs.get("target_name"),
-            "indices": indices,
-        })
+        links.append(
+            {
+                "axis": child.attrs["axis"],
+                "source": child.attrs["source"],
+                "target": child.attrs["target"],
+                "source_name": child.attrs.get("source_name"),
+                "target_name": child.attrs.get("target_name"),
+                "indices": indices,
+            }
+        )
     return normalize_associations(links, sizes)

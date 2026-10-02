@@ -13,7 +13,9 @@ def test_three_leg_join_rejects_inconsistent_repeated_atom_images():
     right[0, 2] = [1, 0, 0]
     atoms = np.array([[0, 1, 2, 3, 4, 5, 5, 6, 0]], dtype=np.int64)
     with pytest.raises(StructuralInconsistencyError):
-        join_shared_images(left, right, np.array([5]), np.array([0]), atoms=atoms, caller='test')
+        join_shared_images(
+            left, right, np.array([5]), np.array([0]), atoms=atoms, caller="test"
+        )
 
 
 def test_arbitrary_role_join_preserves_relative_images_and_rejects_overflow():
@@ -21,9 +23,11 @@ def test_arbitrary_role_join_preserves_relative_images_and_rejects_overflow():
     left[5] = [3, 0, 0]
     right = np.array([[[2, 0, 0], [3, 0, 0], [4, 0, 0]]], dtype=np.int64)
     atoms = np.array([[0, 1, 2, 3, 4, 5, 5, 6, 7]], dtype=np.int64)
-    joined = join_shared_images(left, right, 5, np.array([0]), atoms=atoms, caller='test')
+    joined = join_shared_images(
+        left, right, 5, np.array([0]), atoms=atoms, caller="test"
+    )
     assert joined.shape == (1, 9, 3) and joined.dtype == np.int32
     np.testing.assert_array_equal(joined[0, 6:, 0], [3, 4, 5])
     right[0, 2, 0] = np.iinfo(np.int32).max
     with pytest.raises(StructuralInconsistencyError):
-        join_shared_images(left, right, 5, np.array([0]), atoms=atoms, caller='test')
+        join_shared_images(left, right, 5, np.array([0]), atoms=atoms, caller="test")

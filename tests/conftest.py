@@ -351,7 +351,8 @@ def _base_builder_h5msm_file(_base_builder_pdb_molsys, tmp_path_factory):
         tmp_path_factory.mktemp("builder_h5msm_assets") / "builder_fixture.h5msm"
     )
     write_legacy_h5msm(
-        _base_builder_pdb_molsys, output_filename=str(output_path),
+        _base_builder_pdb_molsys,
+        output_filename=str(output_path),
         skip_digestion=True,
     )
     assert output_path.is_file()

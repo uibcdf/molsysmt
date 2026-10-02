@@ -170,7 +170,8 @@ def select(
         )
         getter = getattr(_dict_modules[aux_form], f"get_{attribute}_from_system", None)
         n_elements = (
-            getter(aux_item) if getter is not None
+            getter(aux_item)
+            if getter is not None
             else get(aux_item, skip_digestion=True, **{attribute: True})
         )
 

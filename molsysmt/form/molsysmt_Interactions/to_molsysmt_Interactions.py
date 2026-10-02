@@ -4,7 +4,10 @@ from molsysmt.form._domain_conversion import require_full_domain
 
 @arg_digest(form="molsysmt.Interactions")
 def to_molsysmt_Interactions(
-    item, atom_indices="all", structure_indices="all", copy_if_all=True,
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
     skip_digestion=False,
 ):
     """Converting an interaction result to an independent full result."""

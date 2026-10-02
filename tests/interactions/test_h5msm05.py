@@ -15,21 +15,28 @@ from molsysmt.native import H5MSMFileHandler
 
 def test_interaction_only_file_preserves_maps_scope_images_and_empty_frames(tmp_path):
     result = msm.Interactions.from_records(
-        [{
-            "structure_index": 2,
-            "interaction_type": "hbond",
-            "participants": [
-                {"role": "donor", "atom_indices": [0]},
-                {"role": "hydrogen", "atom_indices": [1]},
-                {"role": "acceptor", "atom_indices": [2]},
-            ],
-            "measurements": {"distance": 0.2},
-            "images": [[0, 0, 0], [0, 0, 0], [1, 0, 0]],
-        }],
-        n_atoms=4, n_structures=3, evaluated_structure_indices=[0, 2],
-        method="candidate", measure_units={"distance": "nm"},
-        atom_source_indices=[6, 4, 2, 1], source_n_atoms=7,
-        evaluation_mode="incident", evaluation_atom_indices=[0],
+        [
+            {
+                "structure_index": 2,
+                "interaction_type": "hbond",
+                "participants": [
+                    {"role": "donor", "atom_indices": [0]},
+                    {"role": "hydrogen", "atom_indices": [1]},
+                    {"role": "acceptor", "atom_indices": [2]},
+                ],
+                "measurements": {"distance": 0.2},
+                "images": [[0, 0, 0], [0, 0, 0], [1, 0, 0]],
+            }
+        ],
+        n_atoms=4,
+        n_structures=3,
+        evaluated_structure_indices=[0, 2],
+        method="candidate",
+        measure_units={"distance": "nm"},
+        atom_source_indices=[6, 4, 2, 1],
+        source_n_atoms=7,
+        evaluation_mode="incident",
+        evaluation_atom_indices=[0],
         evaluation_universe_indices=[0, 1, 2],
     )
     filename = tmp_path / "interactions_only.h5msm"
@@ -42,8 +49,9 @@ def test_interaction_only_file_preserves_maps_scope_images_and_empty_frames(tmp_
     assert list(restored) == ["hydrogen/bonds"]
     observed = restored["hydrogen/bonds"]
     np.testing.assert_array_equal(observed.atom_source_indices, [6, 4, 2, 1])
-    np.testing.assert_array_equal(observed.evaluation_scope["universe_indices"],
-                                  [0, 1, 2])
+    np.testing.assert_array_equal(
+        observed.evaluation_scope["universe_indices"], [0, 1, 2]
+    )
     np.testing.assert_array_equal(observed.image_vectors[-1], [1, 0, 0])
     np.testing.assert_array_equal(observed.evaluated_structure_indices, [0, 2])
     assert observed.query(structure_indices=[0]).n_interactions == 0

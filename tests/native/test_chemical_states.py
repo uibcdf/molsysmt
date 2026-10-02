@@ -82,7 +82,10 @@ def test_replacement_rejects_a_different_atom_domain_without_mutation():
 def test_partial_replacement_rejects_an_attached_interaction_axis():
     states = ChemicalStates(n_atoms=3)
     analysis = msm.Interactions.from_records(
-        [], n_atoms=3, n_structures=0, evaluated_structure_indices=[],
+        [],
+        n_atoms=3,
+        n_structures=0,
+        evaluated_structure_indices=[],
         method="candidate",
     )
     system = MolSys._from_partial_domains(
@@ -117,7 +120,9 @@ def test_molsys_replacement_detaches_old_topology_and_owns_new_states():
     system.topology = replacement_topology
 
     assert system.chemical_states is replacement_topology._chemical_states_domain
-    assert system._chemical_states_domain is replacement_topology._chemical_states_domain
+    assert (
+        system._chemical_states_domain is replacement_topology._chemical_states_domain
+    )
     previous_topology.add_bonds([[0, 1]])
     assert len(system.chemical_states.get_bonds()) == 1
 

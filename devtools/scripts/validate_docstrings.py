@@ -232,7 +232,9 @@ def validate() -> int:
     # Discover the public lazy families so adding a detector cannot silently
     # bypass lifecycle validation. Import failures remain visible to the gate.
     for family in msm.interactions.__all__:
-        public_modules[f"molsysmt.interactions.{family}"] = getattr(msm.interactions, family)
+        public_modules[f"molsysmt.interactions.{family}"] = getattr(
+            msm.interactions, family
+        )
 
     errors = []
     total_checked = 0

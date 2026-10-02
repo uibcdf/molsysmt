@@ -25,7 +25,9 @@ def test_structures_only_roundtrip_and_nonconsecutive_selection(tmp_path):
         time_step=msm.pyunitwizard.quantity(1.0, "ps"),
         structure_id=[10, 11, 12],
         time=msm.pyunitwizard.quantity([0.0, 1.0, 2.0], "ps"),
-        coordinates=msm.pyunitwizard.quantity(np.arange(36).reshape(3, 4, 3), "angstrom"),
+        coordinates=msm.pyunitwizard.quantity(
+            np.arange(36).reshape(3, 4, 3), "angstrom"
+        ),
         velocities=msm.pyunitwizard.quantity(np.ones((3, 4, 3)), "nm/ps"),
         box=msm.pyunitwizard.quantity(np.ones((3, 3, 3)), "nm"),
         b_factor=msm.pyunitwizard.quantity(np.ones((3, 4)), "nm**2"),
@@ -54,7 +56,9 @@ def test_structures_only_roundtrip_and_nonconsecutive_selection(tmp_path):
     assert observed.time_step is None
     np.testing.assert_allclose(
         msm.pyunitwizard.get_value(observed.coordinates, to_unit="nm"),
-        msm.pyunitwizard.get_value(source.coordinates, to_unit="nm")[[2, 0, 2]][:, [3, 1]],
+        msm.pyunitwizard.get_value(source.coordinates, to_unit="nm")[[2, 0, 2]][
+            :, [3, 1]
+        ],
     )
     np.testing.assert_allclose(
         msm.pyunitwizard.get_value(observed.temperature, to_unit="K"),
@@ -90,18 +94,27 @@ def test_alternate_locations_roundtrip_sparse_sites_and_selected_axes(tmp_path):
     source = Structures(
         coordinates=puw.quantity(np.zeros((3, 3, 3)), "nm"),
         alternate_location=[
-            {2: {
-                "location_id": np.array(["A", "B"]),
-                "atom_id": np.array(["7", "8"], dtype=object),
-                "occupancy": np.array([0.6, 0.4]),
-                "b_factor": puw.quantity([10.0, 20.0], "angstrom**2"),
-                "coordinates": puw.quantity([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "angstrom"),
-            }},
+            {
+                2: {
+                    "location_id": np.array(["A", "B"]),
+                    "atom_id": np.array(["7", "8"], dtype=object),
+                    "occupancy": np.array([0.6, 0.4]),
+                    "b_factor": puw.quantity([10.0, 20.0], "angstrom**2"),
+                    "coordinates": puw.quantity(
+                        [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "angstrom"
+                    ),
+                }
+            },
             {},
-            {0: {
-                "location_id": ["C"], "atom_id": [9],
-                "occupancy": None, "b_factor": None, "coordinates": None,
-            }},
+            {
+                0: {
+                    "location_id": ["C"],
+                    "atom_id": [9],
+                    "occupancy": None,
+                    "b_factor": None,
+                    "coordinates": None,
+                }
+            },
         ],
         skip_digestion=True,
     )
@@ -129,7 +142,9 @@ def test_alternate_locations_roundtrip_sparse_sites_and_selected_axes(tmp_path):
         puw.get_value(first["coordinates"], to_unit="nm"),
         [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]],
     )
-    np.testing.assert_allclose(puw.get_value(first["b_factor"], to_unit="nm**2"), [0.1, 0.2])
+    np.testing.assert_allclose(
+        puw.get_value(first["b_factor"], to_unit="nm**2"), [0.1, 0.2]
+    )
 
     incoming = Structures(
         coordinates=puw.quantity(np.zeros((1, 3, 3)), "nm"),
@@ -150,7 +165,9 @@ def test_alternate_locations_roundtrip_sparse_sites_and_selected_axes(tmp_path):
     missing_alternates = Structures(coordinates=puw.quantity(np.zeros((1, 3, 3)), "nm"))
     with pytest.raises(ValueError, match="matching alternate_location presence"):
         msm.h5msm.append_structures(str(filename), missing_alternates)
-    assert read_modular_file(filename, layers="structures")["structures"].n_structures == 4
+    assert (
+        read_modular_file(filename, layers="structures")["structures"].n_structures == 4
+    )
     with h5py.File(filename, "r+") as file:
         file["structures/alternate_location/coordinates"].attrs["unit"] = "angstrom"
     with pytest.raises(ValueError, match="unsupported unit"):
@@ -166,7 +183,8 @@ def test_empty_alternate_locations_remain_present_and_bad_offsets_fail(tmp_path)
     puw = msm.pyunitwizard
     source = Structures(
         coordinates=puw.quantity(np.zeros((2, 1, 3)), "nm"),
-        alternate_location=[{}, {}], skip_digestion=True,
+        alternate_location=[{}, {}],
+        skip_digestion=True,
     )
     filename = tmp_path / "empty_alternates.h5msm"
     write_modular_file(filename, structures=source)
@@ -205,8 +223,12 @@ def test_bioassembly_roundtrip_preserves_chain_scopes_and_translation_units(tmp_
     with h5py.File(filename, "r") as file:
         collection = file["structures/bioassembly"]
         assert collection.attrs["schema_version"] == 1
-        assert all(child["translations"].attrs["unit"] == "nm" for child in collection.values())
-    observed = read_modular_file(filename, layers="structures")["structures"].bioassembly
+        assert all(
+            child["translations"].attrs["unit"] == "nm" for child in collection.values()
+        )
+    observed = read_modular_file(filename, layers="structures")[
+        "structures"
+    ].bioassembly
     assert observed["common"]["chain_indices"] == [0, 2]
     assert observed["per_operation"]["chain_indices"] == [[0], [1, 2]]
     np.testing.assert_allclose(
@@ -221,7 +243,9 @@ def test_bioassembly_roundtrip_preserves_chain_scopes_and_translation_units(tmp_
         skip_digestion=True,
     )
     append_modular_structures(filename, appended)
-    assert read_modular_file(filename, layers="structures")["structures"].n_structures == 2
+    assert (
+        read_modular_file(filename, layers="structures")["structures"].n_structures == 2
+    )
     with h5py.File(filename, "r") as file:
         with pytest.raises(ValueError, match="cannot remap bioassembly chain indices"):
             read_independent_structures(file, atom_indices=[1, 0])
@@ -233,12 +257,18 @@ def test_bioassembly_roundtrip_preserves_chain_scopes_and_translation_units(tmp_
     )
     with pytest.raises(ValueError, match="bioassembly metadata differ"):
         append_modular_structures(filename, incompatible)
-    assert read_modular_file(filename, layers="structures")["structures"].n_structures == 2
+    assert (
+        read_modular_file(filename, layers="structures")["structures"].n_structures == 2
+    )
 
     subset_filename = tmp_path / "assembly_subset.h5msm"
-    with pytest.raises(ValueError, match="cannot write an atom selection with bioassembly"):
+    with pytest.raises(
+        ValueError, match="cannot write an atom selection with bioassembly"
+    ):
         msm.convert(
-            source, to_form="file:h5msm", selection=[0, 1],
+            source,
+            to_form="file:h5msm",
+            selection=[0, 1],
             output_filename=str(subset_filename),
         )
     assert not subset_filename.exists()
@@ -253,7 +283,9 @@ def test_absent_empty_and_unsupported_structures_are_explicit(tmp_path):
     filename = tmp_path / "empty.h5msm"
     with h5py.File(filename, "w") as file:
         assert read_independent_structures(file) is None
-        with pytest.raises(ValueError, match="Alternate locations require a known atom axis"):
+        with pytest.raises(
+            ValueError, match="Alternate locations require a known atom axis"
+        ):
             write_independent_structures(
                 file, Structures(alternate_location=[{0: {}}], skip_digestion=True)
             )
@@ -301,7 +333,9 @@ def _trajectory_part(ids, times, n_atoms=2):
 def test_structures_only_append_preserves_axes_and_metadata(tmp_path):
     filename = tmp_path / "append.h5msm"
     write_modular_file(filename, structures=_trajectory_part([10, 11], [0.0, 1.0]))
-    append_modular_structures(filename, _trajectory_part([12, 13, 14], [2.0, 3.0, 4.0]), block_size=1)
+    append_modular_structures(
+        filename, _trajectory_part([12, 13, 14], [2.0, 3.0, 4.0]), block_size=1
+    )
 
     full = read_modular_file(filename, layers="structures")["structures"]
     assert full.n_structures == 5
@@ -346,7 +380,8 @@ def test_append_rejects_incompatible_payload_before_resizing(tmp_path):
     filename = tmp_path / "append_reject.h5msm"
     write_modular_file(filename, structures=_trajectory_part([10, 11], [0.0, 1.0]))
     missing_box = Structures(
-        structure_id=[12], time=msm.pyunitwizard.quantity([2.0], "ps"),
+        structure_id=[12],
+        time=msm.pyunitwizard.quantity([2.0], "ps"),
         coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm"),
         skip_digestion=True,
     )
@@ -377,7 +412,8 @@ def test_append_clears_discontinuous_metadata_and_rejects_other_layers(tmp_path)
 
     other = tmp_path / "not_structures_only.h5msm"
     write_modular_file(
-        other, topology=Topology(n_atoms=2),
+        other,
+        topology=Topology(n_atoms=2),
         structures=_trajectory_part([10], [0.0]),
     )
     with pytest.raises(ValueError, match="topology-free"):
@@ -411,12 +447,17 @@ def test_append_to_zero_frame_and_unknown_atom_axis(tmp_path):
 def test_topology_free_append_keeps_atom_link_and_extends_state_map(tmp_path):
     states = msm.convert(Topology(n_atoms=2), to_form="molsysmt.ChemicalStates")
     atom_link = {
-        "axis": "atom", "source": "structures", "target": "chemical_states",
-        "source_name": None, "target_name": None, "indices": "identity",
+        "axis": "atom",
+        "source": "structures",
+        "target": "chemical_states",
+        "source_name": None,
+        "target_name": None,
+        "indices": "identity",
     }
     filename = tmp_path / "chemistry_and_structures.h5msm"
     write_modular_file(
-        filename, chemical_states=states,
+        filename,
+        chemical_states=states,
         structures=_trajectory_part([10, 11], [0.0, 1.0]),
         associations=[atom_link],
     )
@@ -428,13 +469,20 @@ def test_topology_free_append_keeps_atom_link_and_extends_state_map(tmp_path):
 
     linked = tmp_path / "frame_linked.h5msm"
     write_modular_file(
-        linked, chemical_states=states,
+        linked,
+        chemical_states=states,
         structures=_trajectory_part([10, 11], [0.0, 1.0]),
-        associations=[atom_link, {
-            "axis": "structure_state", "source": "structures",
-            "target": "chemical_states", "source_name": None,
-            "target_name": None, "indices": [0, 0],
-        }],
+        associations=[
+            atom_link,
+            {
+                "axis": "structure_state",
+                "source": "structures",
+                "target": "chemical_states",
+                "source_name": None,
+                "target_name": None,
+                "indices": [0, 0],
+            },
+        ],
     )
     with pytest.raises(ValueError, match="structure_state_indices are required"):
         append_modular_structures(linked, _trajectory_part([12], [2.0]))
@@ -446,7 +494,8 @@ def test_topology_free_append_keeps_atom_link_and_extends_state_map(tmp_path):
         assert file["structures"].attrs["n_structures"] == 2
         assert file["associations/1/indices"].shape == (2,)
     append_modular_structures(
-        linked, _trajectory_part([12, 13], [2.0, 3.0]),
+        linked,
+        _trajectory_part([12, 13], [2.0, 3.0]),
         structure_state_indices=[-1, 0],
     )
     mapped = read_modular_file(linked)
@@ -455,7 +504,10 @@ def test_topology_free_append_keeps_atom_link_and_extends_state_map(tmp_path):
     native = read_topology_free_molsys_file(linked)
     assert native._structure_chemical_state_indices.tolist()[:2] == [0, 0]
     assert native._structure_chemical_state_indices.isna().tolist() == [
-        False, False, True, False
+        False,
+        False,
+        True,
+        False,
     ]
     assert native._structure_chemical_state_indices[3] == 0
 
@@ -466,12 +518,16 @@ def test_append_converts_identity_state_map_when_new_frame_reuses_a_state(tmp_pa
     states.append_state()
     filename = tmp_path / "identity_state_map.h5msm"
     link = {
-        "axis": "structure_state", "source": "structures",
-        "target": "chemical_states", "source_name": None,
-        "target_name": None, "indices": "identity",
+        "axis": "structure_state",
+        "source": "structures",
+        "target": "chemical_states",
+        "source_name": None,
+        "target_name": None,
+        "indices": "identity",
     }
     write_modular_file(
-        filename, chemical_states=states,
+        filename,
+        chemical_states=states,
         structures=_trajectory_part([10, 11], [0.0, 1.0]),
         associations=[link],
     )

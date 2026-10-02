@@ -15,7 +15,8 @@ from molsysmt.interactions._hdf5_query import (
 def _result():
     records = [
         {
-            "structure_index": 0, "interaction_type": "hbond",
+            "structure_index": 0,
+            "interaction_type": "hbond",
             "participants": [
                 {"role": "donor", "atom_indices": [0]},
                 {"role": "hydrogen", "atom_indices": [1]},
@@ -25,7 +26,8 @@ def _result():
             "images": [[0, 0, 0], [0, 0, 0], [1, 0, 0]],
         },
         {
-            "structure_index": 2, "interaction_type": "pi_pi",
+            "structure_index": 2,
+            "interaction_type": "pi_pi",
             "participants": [
                 {"role": "ring", "atom_indices": [3, 4, 5]},
                 {"role": "ring", "atom_indices": [6, 7, 8]},
@@ -34,7 +36,8 @@ def _result():
             "images": [[0, 0, 0], [0, 0, 0]],
         },
         {
-            "structure_index": 4, "interaction_type": "hbond",
+            "structure_index": 4,
+            "interaction_type": "hbond",
             "participants": [
                 {"role": "donor", "atom_indices": [0]},
                 {"role": "hydrogen", "atom_indices": [1]},
@@ -45,12 +48,16 @@ def _result():
         },
     ]
     return msm.Interactions.from_records(
-        records, n_atoms=9, n_structures=6,
+        records,
+        n_atoms=9,
+        n_structures=6,
         evaluated_structure_indices=[0, 1, 2, 4],
-        method="candidate", measure_units={"distance": "nm"},
+        method="candidate",
+        measure_units={"distance": "nm"},
         atom_source_indices=[8, 7, 6, 5, 4, 3, 2, 1, 0],
         structure_source_indices=[6, 5, 4, 3, 2, 1],
-        source_n_atoms=9, source_n_structures=7,
+        source_n_atoms=9,
+        source_n_structures=7,
     )
 
 
@@ -58,9 +65,13 @@ def _assert_matches_memory(filename, result, frames, **filters):
     observed = query_named_interactions_file(filename, "mixed", frames, **filters)
     expected = result.query(structure_indices=frames, **filters).to_dict()
     for key in (
-        "evaluated_structure_indices", "occurrence_indices",
-        "structure_indices", "relation_indices",
-        "evidence", "image_offsets", "image_vectors",
+        "evaluated_structure_indices",
+        "occurrence_indices",
+        "structure_indices",
+        "relation_indices",
+        "evidence",
+        "image_offsets",
+        "image_vectors",
     ):
         if expected[key] is None:
             assert observed[key] is None
@@ -72,7 +83,9 @@ def _assert_matches_memory(filename, result, frames, **filters):
     for relation, descriptor in observed["relations"].items():
         expected_descriptor = result.relation(relation)
         assert descriptor["interaction_type"] == expected_descriptor["interaction_type"]
-        for left, right in zip(descriptor["participants"], expected_descriptor["participants"]):
+        for left, right in zip(
+            descriptor["participants"], expected_descriptor["participants"]
+        ):
             assert left["role"] == right["role"]
             np.testing.assert_array_equal(left["atom_indices"], right["atom_indices"])
     return observed
@@ -85,7 +98,14 @@ def test_file_query_matches_memory_for_frames_atoms_types_and_images(tmp_path):
     with h5py.File(filename, "r") as file:
         index = file["interactions/0/query_index"]
         assert index["frame_offsets"][:].tolist() == [0, 1, 1, 2, 2, 3, 3]
-        assert index["evaluated_mask"][:].tolist() == [True, True, True, False, True, False]
+        assert index["evaluated_mask"][:].tolist() == [
+            True,
+            True,
+            True,
+            False,
+            True,
+            False,
+        ]
 
     selected = _assert_matches_memory(filename, result, [4, 1, 0, 4, 3])
     assert selected["structure_indices"].tolist() == [4, 0]
@@ -96,11 +116,17 @@ def test_file_query_matches_memory_for_frames_atoms_types_and_images(tmp_path):
         selected["participant_atom_source_indices"],
         result.atom_source_indices[selected["participant_atom_indices"]],
     )
-    _assert_matches_memory(filename, result, [2, 0, 4], atom_indices=[0], mode="incident")
+    _assert_matches_memory(
+        filename, result, [2, 0, 4], atom_indices=[0], mode="incident"
+    )
     _assert_matches_memory(filename, result, [2, 0, 4], atom_indices=[0], mode="cross")
-    _assert_matches_memory(filename, result, [2, 0, 4], atom_indices=[0, 1, 2], mode="internal")
+    _assert_matches_memory(
+        filename, result, [2, 0, 4], atom_indices=[0, 1, 2], mode="internal"
+    )
     _assert_matches_memory(filename, result, [2, 0, 4], interaction_types="pi_pi")
-    _assert_matches_memory(filename, result, [2], atom_indices=[3, 4, 5], mode="internal")
+    _assert_matches_memory(
+        filename, result, [2], atom_indices=[3, 4, 5], mode="internal"
+    )
     _assert_matches_memory(filename, result, [1])
     _assert_matches_memory(filename, result, [3])
 

@@ -120,13 +120,25 @@ def get_rings(
     if method != "minimum_cycle_basis":
         raise ArgumentError("method", value=method, caller=caller)
     source, states, state, state_index, _, pairs, frames = ring_context(
-        molecular_system, chemical_state, structure_indices, assume_complete_connectivity, caller,
+        molecular_system,
+        chemical_state,
+        structure_indices,
+        assume_complete_connectivity,
+        caller,
     )
     rings = minimum_cycle_memberships(pairs, max_cyclic_block_size, caller)
     result = ring_result(
-        rings, molecular_system=source, states=states, state=state, state_index=state_index,
-        selection=selection, selection_frames=frames, syntax=syntax,
-        assume_complete=assume_complete_connectivity, method=method, caller=caller,
+        rings,
+        molecular_system=source,
+        states=states,
+        state=state,
+        state_index=state_index,
+        selection=selection,
+        selection_frames=frames,
+        syntax=syntax,
+        assume_complete=assume_complete_connectivity,
+        method=method,
+        caller=caller,
     )
     result["max_cyclic_block_size"] = max_cyclic_block_size
     return result

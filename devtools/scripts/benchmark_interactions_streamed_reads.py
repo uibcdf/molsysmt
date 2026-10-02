@@ -45,19 +45,23 @@ def _read(path, kind, index, backend):
     reader = FlatReader(path) if backend == "flat" else PackedReader(path)
     try:
         if kind == "frame":
-            coverage, result = (reader.query_frame(index) if backend == "flat"
-                                else reader.query_frame_columns(index))
+            coverage, result = (
+                reader.query_frame(index)
+                if backend == "flat"
+                else reader.query_frame_columns(index)
+            )
         else:
-            coverage, result = (reader.query_atom(index) if backend == "flat"
-                                else reader.query_atom_columns(index))
+            coverage, result = (
+                reader.query_atom(index)
+                if backend == "flat"
+                else reader.query_atom_columns(index)
+            )
     finally:
         reader.close()
     query_ms = round((time.perf_counter() - start) * 1000, 3)
     final_memory = _rss()
     payload_bytes = None if backend == "flat" else column_bytes(result)
-    rows = result if backend == "flat" else decoded_counter(
-        result, reader.labels
-    )
+    rows = result if backend == "flat" else decoded_counter(result, reader.labels)
     return {
         "query_ms": query_ms,
         "coverage_count": len(coverage),
@@ -72,12 +76,12 @@ def _read(path, kind, index, backend):
     }
 
 
-def _oracle(n_frames, n_atoms, per_frame, distribution, frame_indices,
-            atom_indices):
-    expected = {(kind, index): Counter()
-                for kind, indices in (("frame", frame_indices),
-                                      ("atom", atom_indices))
-                for index in indices}
+def _oracle(n_frames, n_atoms, per_frame, distribution, frame_indices, atom_indices):
+    expected = {
+        (kind, index): Counter()
+        for kind, indices in (("frame", frame_indices), ("atom", atom_indices))
+        for index in indices
+    }
     frame_set = set(frame_indices)
     atom_set = set(atom_indices)
     records_seen = 0
@@ -97,9 +101,19 @@ def _oracle(n_frames, n_atoms, per_frame, distribution, frame_indices,
 
 
 def _child(path, kind, index, backend):
-    command = [sys.executable, str(Path(__file__).resolve()), "--child",
-               "--path", str(path), "--kind", kind, "--index", str(index),
-               "--backend", backend]
+    command = [
+        sys.executable,
+        str(Path(__file__).resolve()),
+        "--child",
+        "--path",
+        str(path),
+        "--kind",
+        kind,
+        "--index",
+        str(index),
+        "--backend",
+        backend,
+    ]
     start = time.perf_counter()
     process = subprocess.run(command, check=True, capture_output=True, text=True)
     result = json.loads(process.stdout)
@@ -118,28 +132,35 @@ def main():
     parser.add_argument("--frames", type=int, default=1000)
     parser.add_argument("--atoms", type=int, default=500)
     parser.add_argument("--per-frame", type=int, default=8)
-    parser.add_argument("--distribution", choices=("stable", "churn", "mixed"),
-                        default="mixed")
+    parser.add_argument(
+        "--distribution", choices=("stable", "churn", "mixed"), default="mixed"
+    )
     parser.add_argument("--block-size", type=int, default=100)
     args = parser.parse_args()
     if args.child:
-        if (args.path is None or args.kind is None or args.index is None
-                or args.backend is None):
+        if (
+            args.path is None
+            or args.kind is None
+            or args.index is None
+            or args.backend is None
+        ):
             parser.error("child reads require path, kind, index, and backend")
         print(json.dumps(_read(args.path, args.kind, args.index, args.backend)))
         return
     backends = tuple(args.backends.split(","))
-    if not backends or len(set(backends)) != len(backends) or any(
-        backend not in {"flat", "packed"} for backend in backends
+    if (
+        not backends
+        or len(set(backends)) != len(backends)
+        or any(backend not in {"flat", "packed"} for backend in backends)
     ):
         parser.error("backends must be a unique comma-separated subset of flat,packed")
     if args.frames < 30 or args.per_frame < 1:
         parser.error("frames must be at least 30 and per-frame must be positive")
     if args.atoms < 43 or args.block_size < 30:
         parser.error("atoms must be at least 43 and block size at least 30")
-    frame_indices = tuple(dict.fromkeys(
-        (0, 1, 2, 10, args.frames // 2, args.frames - 1)
-    ))
+    frame_indices = tuple(
+        dict.fromkeys((0, 1, 2, 10, args.frames // 2, args.frames - 1))
+    )
     atom_indices = tuple(dict.fromkeys((0, 42, args.atoms - 1)))
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "interactions.h5i"
@@ -147,57 +168,83 @@ def main():
         start = time.perf_counter()
         write_info = write_streaming_flat_file(
             path,
-            iter_fixture(args.frames, args.atoms, args.per_frame,
-                         args.distribution, 251),
+            iter_fixture(
+                args.frames, args.atoms, args.per_frame, args.distribution, 251
+            ),
             (frame for frame in range(args.frames) if frame % 29 != 0),
-            args.frames, args.atoms, args.block_size, scratch,
+            args.frames,
+            args.atoms,
+            args.block_size,
+            scratch,
         )
         write_ms = round((time.perf_counter() - start) * 1000, 3)
         expected, evaluated, records_seen = _oracle(
-            args.frames, args.atoms, args.per_frame, args.distribution,
-            frame_indices, atom_indices,
+            args.frames,
+            args.atoms,
+            args.per_frame,
+            args.distribution,
+            frame_indices,
+            atom_indices,
         )
         queries = []
         for kind, indices in (("frame", frame_indices), ("atom", atom_indices)):
             for index in indices:
                 coverage = (
-                    [index] if index in evaluated else []
-                ) if kind == "frame" else evaluated
+                    ([index] if index in evaluated else [])
+                    if kind == "frame"
+                    else evaluated
+                )
                 oracle = expected[kind, index]
                 for backend in backends:
                     actual = _child(path, kind, index, backend)
-                    if (actual["coverage_count"] != len(coverage)
-                            or actual["coverage_digest"] != _digest(coverage)
-                            or actual["rows"] != sum(oracle.values())
-                            or actual["rows_digest"] != _digest(sorted(oracle.items()))):
+                    if (
+                        actual["coverage_count"] != len(coverage)
+                        or actual["coverage_digest"] != _digest(coverage)
+                        or actual["rows"] != sum(oracle.values())
+                        or actual["rows_digest"] != _digest(sorted(oracle.items()))
+                    ):
                         raise AssertionError(
                             f"{backend} {kind} {index} differs from oracle"
                         )
-                    queries.append({"backend": backend, "kind": kind,
-                                    "index": index, "rows": actual["rows"],
-                                    "query_ms": actual["query_ms"],
-                                    "process_wall_ms": actual["process_wall_ms"],
-                                    "payload_bytes": actual["payload_bytes"],
-                                    "initial_rss_bytes": actual["initial_rss_bytes"],
-                                    "final_rss_bytes": actual["final_rss_bytes"],
-                                    "initial_hwm_bytes": actual["initial_hwm_bytes"],
-                                    "final_hwm_bytes": actual["final_hwm_bytes"]})
-        print(json.dumps({
-            "platform": platform.platform(),
-            "frames": args.frames, "atoms": args.atoms,
-            "per_frame": args.per_frame, "distribution": args.distribution,
-            "block_size": args.block_size, "records_seen": records_seen,
-            "write_ms": write_ms,
-            "file_bytes": write_info["file_bytes"],
-            "scratch_bytes": write_info["scratch_bytes"],
-            "mode_counts": {
-                "global": write_info["choices"].count(0),
-                "event": write_info["choices"].count(1),
-            },
-            "sampled_requests_verified": len(frame_indices) + len(atom_indices),
-            "reader_checks_verified": len(queries),
-            "queries": queries,
-        }, indent=2))
+                    queries.append(
+                        {
+                            "backend": backend,
+                            "kind": kind,
+                            "index": index,
+                            "rows": actual["rows"],
+                            "query_ms": actual["query_ms"],
+                            "process_wall_ms": actual["process_wall_ms"],
+                            "payload_bytes": actual["payload_bytes"],
+                            "initial_rss_bytes": actual["initial_rss_bytes"],
+                            "final_rss_bytes": actual["final_rss_bytes"],
+                            "initial_hwm_bytes": actual["initial_hwm_bytes"],
+                            "final_hwm_bytes": actual["final_hwm_bytes"],
+                        }
+                    )
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "frames": args.frames,
+                    "atoms": args.atoms,
+                    "per_frame": args.per_frame,
+                    "distribution": args.distribution,
+                    "block_size": args.block_size,
+                    "records_seen": records_seen,
+                    "write_ms": write_ms,
+                    "file_bytes": write_info["file_bytes"],
+                    "scratch_bytes": write_info["scratch_bytes"],
+                    "mode_counts": {
+                        "global": write_info["choices"].count(0),
+                        "event": write_info["choices"].count(1),
+                    },
+                    "sampled_requests_verified": len(frame_indices) + len(atom_indices),
+                    "reader_checks_verified": len(queries),
+                    "queries": queries,
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

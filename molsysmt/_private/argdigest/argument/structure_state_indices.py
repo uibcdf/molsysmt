@@ -7,7 +7,10 @@ from molsysmt._private.smonitor import ArgumentError
 
 
 def digest_structure_state_indices(structure_state_indices, caller=None):
-    if not caller_matches(caller, "append_structures") or structure_state_indices is None:
+    if (
+        not caller_matches(caller, "append_structures")
+        or structure_state_indices is None
+    ):
         return structure_state_indices
     values = np.asarray(structure_state_indices)
     if values.size == 0:

@@ -25,15 +25,33 @@ _CALLER = "molsysmt.interactions.pi_pi.get_pi_pi_interactions"
 @arg_digest()
 @dep_digest("rdkit", when={"method": "prolif"})
 @dep_digest("rdkit", when={"method": "plane_angle_intersection", "profile": None})
-@dep_digest("rdkit", when={"method": "plane_angle_intersection", "profile": "smarts_5_6"})
+@dep_digest(
+    "rdkit", when={"method": "plane_angle_intersection", "profile": "smarts_5_6"}
+)
 @attributed("pi_pi")
 def get_pi_pi_interactions(
-    molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None,
-    planarity_threshold=None, selection="all", selection_2=None, structure_indices="all",
-    chemical_state="reference", method="centroid_angle_offset",
-    selection_mode="internal", pbc=True, assume_complete_connectivity=False,
-    output_type="molsysmt.Interactions", syntax="MolSysMT", skip_digestion=False,
-    *, geometry="both", max_cyclic_block_size=256, max_matches=100000, heavy_mode="auto", profile=None,
+    molecular_system,
+    distance_threshold=None,
+    angle_threshold=None,
+    offset_threshold=None,
+    planarity_threshold=None,
+    selection="all",
+    selection_2=None,
+    structure_indices="all",
+    chemical_state="reference",
+    method="centroid_angle_offset",
+    selection_mode="internal",
+    pbc=True,
+    assume_complete_connectivity=False,
+    output_type="molsysmt.Interactions",
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    geometry="both",
+    max_cyclic_block_size=256,
+    max_matches=100000,
+    heavy_mode="auto",
+    profile=None,
 ):
     """Detecting aromatic ring geometries with explicit attributed criteria.
 
@@ -259,19 +277,50 @@ def get_pi_pi_interactions(
     from molsysmt.topology._rings import ring_context
 
     thresholds = {}
-    reference_thresholds = {"face_distance": .55, "edge_distance": .65}
+    reference_thresholds = {"face_distance": 0.55, "edge_distance": 0.65}
     if method == "centroid_angle_offset":
-        if any(value is None for value in (distance_threshold, angle_threshold, offset_threshold, planarity_threshold)):
-            raise ArgumentError("method", caller=_CALLER, message="The custom method requires all four explicit cutoffs.")
+        if any(
+            value is None
+            for value in (
+                distance_threshold,
+                angle_threshold,
+                offset_threshold,
+                planarity_threshold,
+            )
+        ):
+            raise ArgumentError(
+                "method",
+                caller=_CALLER,
+                message="The custom method requires all four explicit cutoffs.",
+            )
     elif method == "molstar_geometry":
         if planarity_threshold is not None:
-            raise ArgumentError("planarity_threshold", caller=_CALLER, message="Mol* geometry has no planarity filter.")
-        distance_threshold = puw.quantity(.55, "nm") if distance_threshold is None else distance_threshold
-        angle_threshold = puw.quantity(30, "degrees") if angle_threshold is None else angle_threshold
-        offset_threshold = puw.quantity(.2, "nm") if offset_threshold is None else offset_threshold
+            raise ArgumentError(
+                "planarity_threshold",
+                caller=_CALLER,
+                message="Mol* geometry has no planarity filter.",
+            )
+        distance_threshold = (
+            puw.quantity(0.55, "nm")
+            if distance_threshold is None
+            else distance_threshold
+        )
+        angle_threshold = (
+            puw.quantity(30, "degrees") if angle_threshold is None else angle_threshold
+        )
+        offset_threshold = (
+            puw.quantity(0.2, "nm") if offset_threshold is None else offset_threshold
+        )
     else:
-        if any(value is not None for value in (angle_threshold, offset_threshold, planarity_threshold)):
-            raise ArgumentError("method", caller=_CALLER, message="ProLIF and MDTraj profiles use their named default angular/intersection criteria; leave angle, offset and planarity None.")
+        if any(
+            value is not None
+            for value in (angle_threshold, offset_threshold, planarity_threshold)
+        ):
+            raise ArgumentError(
+                "method",
+                caller=_CALLER,
+                message="ProLIF and MDTraj profiles use their named default angular/intersection criteria; leave angle, offset and planarity None.",
+            )
     for name, value, unit, positive in (
         ("distance_threshold", distance_threshold, "nm", True),
         ("angle_threshold", angle_threshold, "radians", False),
@@ -281,98 +330,205 @@ def get_pi_pi_interactions(
         if value is None:
             continue
         number = np.asarray(puw.get_value(value, to_unit=unit))
-        if number.shape != () or not np.isfinite(number) or number < 0 or (positive and number == 0):
-            raise ArgumentError(name, value=value, caller=_CALLER, message="Use a finite scalar cutoff with the required units and range.")
+        if (
+            number.shape != ()
+            or not np.isfinite(number)
+            or number < 0
+            or (positive and number == 0)
+        ):
+            raise ArgumentError(
+                name,
+                value=value,
+                caller=_CALLER,
+                message="Use a finite scalar cutoff with the required units and range.",
+            )
         thresholds[name] = float(number)
     if "angle_threshold" in thresholds and thresholds["angle_threshold"] >= np.pi / 4:
-        raise ArgumentError("angle_threshold", caller=_CALLER, message="Angular deviation must be strictly below 45 degrees.")
+        raise ArgumentError(
+            "angle_threshold",
+            caller=_CALLER,
+            message="Angular deviation must be strictly below 45 degrees.",
+        )
     if method in {"prolif", "mdtraj_geometry"}:
         if distance_threshold is not None:
-            reference_thresholds = dict.fromkeys(reference_thresholds, thresholds["distance_threshold"])
+            reference_thresholds = dict.fromkeys(
+                reference_thresholds, thresholds["distance_threshold"]
+            )
         thresholds.update(reference_thresholds)
         thresholds["distance_threshold"] = max(reference_thresholds.values())
     if (selection_mode == "between") != (selection_2 is not None):
-        raise ArgumentError("selection_2", caller=_CALLER, message="Supply a second selection only for between searches.")
+        raise ArgumentError(
+            "selection_2",
+            caller=_CALLER,
+            message="Supply a second selection only for between searches.",
+        )
 
     dimensions = modular_h5msm_dimensions(molecular_system)
     modular = dimensions is not None
     if dimensions is None:
         dimensions = get(molecular_system, n_atoms=True, n_structures=True)
     if any(size is None for size in dimensions):
-        raise StructuralInconsistencyError(reason="Declared atom and structure axes are required for pi-pi geometry.", caller=_CALLER)
+        raise StructuralInconsistencyError(
+            reason="Declared atom and structure axes are required for pi-pi geometry.",
+            caller=_CALLER,
+        )
     n_atoms, n_structures = map(int, dimensions)
-    frames = np.arange(n_structures, dtype=np.int64) if is_all(structure_indices) else np.unique(structure_indices)
+    frames = (
+        np.arange(n_structures, dtype=np.int64)
+        if is_all(structure_indices)
+        else np.unique(structure_indices)
+    )
     frames = frames.astype(np.int64)
     if np.any((frames < 0) | (frames >= n_structures)):
-        raise ArgumentError("structure_indices", value=structure_indices, caller=_CALLER)
+        raise ArgumentError(
+            "structure_indices", value=structure_indices, caller=_CALLER
+        )
     fixed_bytes = 8 * (2 * n_atoms + 4 * n_structures)
-    SparseColumnAccumulator({}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed_bytes).check_budget()
+    SparseColumnAccumulator(
+        {}, budget_bytes=configure.max_ram_usage // 2, fixed_bytes=fixed_bytes
+    ).check_budget()
     coordinate_source = molecular_system
-    index_selections = all(value is None or not isinstance(value, str) or is_all(value)
-                           for value in (selection, selection_2))
+    index_selections = all(
+        value is None or not isinstance(value, str) or is_all(value)
+        for value in (selection, selection_2)
+    )
     if modular and not index_selections:
         from molsysmt._private.execution.memory_policy import estimate_footprint
         from molsysmt._private.h5msm import maybe_read_modular_h5msm
 
-        if heavy_mode == "force" or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage:
-            raise UnsupportedHeavyOperationError(operation=_CALLER, form="H5MSM rich selections",
-                                                 reason="Use atom-index selections or all for bounded file calculations; rich selection requires eager source materialization within budget.")
+        if (
+            heavy_mode == "force"
+            or estimate_footprint(n_atoms, n_structures) > configure.max_ram_usage
+        ):
+            raise UnsupportedHeavyOperationError(
+                operation=_CALLER,
+                form="H5MSM rich selections",
+                reason="Use atom-index selections or all for bounded file calculations; rich selection requires eager source materialization within budget.",
+            )
         molecular_system = maybe_read_modular_h5msm(molecular_system)
         coordinate_source = molecular_system
     source, states, _, state_index, _, covalent, selection_frames = ring_context(
-        molecular_system, chemical_state, frames, assume_complete_connectivity, _CALLER,
+        molecular_system,
+        chemical_state,
+        frames,
+        assume_complete_connectivity,
+        _CALLER,
     )
     if method == "prolif":
         from molsysmt.physchem._prolif import PROLIF_PATTERNS, PROLIF_REFERENCE
         from molsysmt.topology import get_substructure_matches
 
-        matches = get_substructure_matches(source, PROLIF_PATTERNS[1:], chemical_state=state_index,
-                                          assume_complete_connectivity=assume_complete_connectivity,
-                                          max_matches=max_matches)
-        members = sorted([row for matrix in matches["matches"] for row in matrix],
-                         key=lambda row: tuple(sorted(row)))
+        matches = get_substructure_matches(
+            source,
+            PROLIF_PATTERNS[1:],
+            chemical_state=state_index,
+            assume_complete_connectivity=assume_complete_connectivity,
+            max_matches=max_matches,
+        )
+        members = sorted(
+            [row for matrix in matches["matches"] for row in matrix],
+            key=lambda row: tuple(sorted(row)),
+        )
         software = matches["software"]
-        recognition = dict(participant_definition="prolif_default_5_6_membered_ring_smarts",
-                           smarts_patterns=list(PROLIF_PATTERNS[1:]), max_matches=max_matches,
-                           aromatic_evidence=matches["evidence"], method_reference=PROLIF_REFERENCE,
-                           plane_method="cross_of_centroid_to_first_two_smarts_atoms",
-                           adaptation="single_source_sparse_scopes_coherent_mic_no_full_fingerprint")
+        recognition = dict(
+            participant_definition="prolif_default_5_6_membered_ring_smarts",
+            smarts_patterns=list(PROLIF_PATTERNS[1:]),
+            max_matches=max_matches,
+            aromatic_evidence=matches["evidence"],
+            method_reference=PROLIF_REFERENCE,
+            plane_method="cross_of_centroid_to_first_two_smarts_atoms",
+            adaptation="single_source_sparse_scopes_coherent_mic_no_full_fingerprint",
+        )
     else:
-        rings = get_aromatic_rings(states, chemical_state=state_index,
-                                  assume_complete_connectivity=assume_complete_connectivity,
-                                  max_cyclic_block_size=max_cyclic_block_size)
-        members = [rings["atom_indices"][a:b] for a, b in zip(rings["atom_offsets"][:-1], rings["atom_offsets"][1:])]
+        rings = get_aromatic_rings(
+            states,
+            chemical_state=state_index,
+            assume_complete_connectivity=assume_complete_connectivity,
+            max_cyclic_block_size=max_cyclic_block_size,
+        )
+        members = [
+            rings["atom_indices"][a:b]
+            for a, b in zip(rings["atom_offsets"][:-1], rings["atom_offsets"][1:])
+        ]
         software = rings["software"]
-        recognition = dict(participant_definition=rings["definition"], recognition_rule_version=rings["rule_version"],
-                           ring_method=rings["method"], aromatic_evidence=rings["evidence"],
-                           plane_method="unweighted_orthogonal_least_squares", method_reference=None)
+        recognition = dict(
+            participant_definition=rings["definition"],
+            recognition_rule_version=rings["rule_version"],
+            ring_method=rings["method"],
+            aromatic_evidence=rings["evidence"],
+            plane_method="unweighted_orthogonal_least_squares",
+            method_reference=None,
+        )
         if method == "molstar_geometry":
             from molsysmt._private.scientific_references import MOLSTAR_REFERENCE
-            recognition.update(method_reference=MOLSTAR_REFERENCE,
-                               plane_method="cross_of_first_three_basis_member_atoms",
-                               adaptation="geometry_only_declared_molsysmt_ring_basis_no_molstar_valence_or_refinement")
+
+            recognition.update(
+                method_reference=MOLSTAR_REFERENCE,
+                plane_method="cross_of_first_three_basis_member_atoms",
+                adaptation="geometry_only_declared_molsysmt_ring_basis_no_molstar_valence_or_refinement",
+            )
         elif method == "mdtraj_geometry":
             from molsysmt._private.scientific_references import MDTRAJ_REFERENCE
-            recognition.update(method_reference=MDTRAJ_REFERENCE,
-                               plane_method="cross_of_centroid_to_first_two_basis_member_atoms",
-                               adaptation="supplied_declared_molsysmt_ring_basis_no_first_frame_pruning")
+
+            recognition.update(
+                method_reference=MDTRAJ_REFERENCE,
+                plane_method="cross_of_centroid_to_first_two_basis_member_atoms",
+                adaptation="supplied_declared_molsysmt_ring_basis_no_first_frame_pruning",
+            )
     if index_selections:
         selection_source = copy(states)
         selection_source._reference_index = state_index
         selection_state = "reference"
     else:
-        selection_source = source if isinstance(source, MolSys) else convert(source, to_form="molsysmt.MolSys")
+        selection_source = (
+            source
+            if isinstance(source, MolSys)
+            else convert(source, to_form="molsysmt.MolSys")
+        )
         selection_state = state_index
-    first = np.unique(select(selection_source, selection=selection, structure_indices=selection_frames,
-                             chemical_state=selection_state, syntax=syntax)).astype(np.int64)
-    second = None if selection_2 is None else np.unique(select(
-        selection_source, selection=selection_2, structure_indices=selection_frames,
-        chemical_state=selection_state, syntax=syntax)).astype(np.int64)
+    first = np.unique(
+        select(
+            selection_source,
+            selection=selection,
+            structure_indices=selection_frames,
+            chemical_state=selection_state,
+            syntax=syntax,
+        )
+    ).astype(np.int64)
+    second = (
+        None
+        if selection_2 is None
+        else np.unique(
+            select(
+                selection_source,
+                selection=selection_2,
+                structure_indices=selection_frames,
+                chemical_state=selection_state,
+                syntax=syntax,
+            )
+        ).astype(np.int64)
+    )
     if second is not None and np.intersect1d(first, second).size:
-        raise ArgumentError("selection_2", caller=_CALLER, message="Between selections must be disjoint.")
+        raise ArgumentError(
+            "selection_2",
+            caller=_CALLER,
+            message="Between selections must be disjoint.",
+        )
     in_first = whole_group_selection(members, first, caller=_CALLER)
-    in_second = None if second is None else whole_group_selection(members, second, caller=_CALLER, argument="selection_2")
-    active = in_first if selection_mode == "internal" else np.ones(len(members), dtype=bool) if selection_mode == "incident" else in_first | in_second
+    in_second = (
+        None
+        if second is None
+        else whole_group_selection(
+            members, second, caller=_CALLER, argument="selection_2"
+        )
+    )
+    active = (
+        in_first
+        if selection_mode == "internal"
+        else np.ones(len(members), dtype=bool)
+        if selection_mode == "incident"
+        else in_first | in_second
+    )
     active_indices = np.flatnonzero(active)
     selected = np.flatnonzero(in_first)
     if selection_mode == "between":
@@ -381,54 +537,143 @@ def get_pi_pi_interactions(
         searches = [(selected, selected, True)]
         if selection_mode == "incident":
             searches.append((selected, np.flatnonzero(~in_first), False))
-    searches = [(a, b, triangular) for a, b, triangular in searches
-                if len(a) and len(b) and (not triangular or len(a) > 1)]
-    universe = np.unique(np.concatenate([members[i] for i in active_indices])) if len(active_indices) else np.empty(0, dtype=np.int64)
+    searches = [
+        (a, b, triangular)
+        for a, b, triangular in searches
+        if len(a) and len(b) and (not triangular or len(a) > 1)
+    ]
+    universe = (
+        np.unique(np.concatenate([members[i] for i in active_indices]))
+        if len(active_indices)
+        else np.empty(0, dtype=np.int64)
+    )
     metadata = dict(
-        n_atoms=n_atoms, n_structures=n_structures, evaluated_structure_indices=frames,
-        method=_CALLER, software=software,
-        measure_units={"distance": "nm", "plane_angle": "radians", "offset_a": "nm", "offset_b": "nm",
-                       "rms_deviation_a": "nm", "rms_deviation_b": "nm", "max_deviation_a": "nm", "max_deviation_b": "nm",
-                       **({"normal_angle_a": "radians", "normal_angle_b": "radians", "intersection_distance": "nm"}
-                          if method != "centroid_angle_offset" else {})},
-        parameters={
-            "method": method, "geometry": geometry, "geometry_rule_version": "centroid_angle_offset@1" if method == "centroid_angle_offset" else method + "_pi_pi@1",
-            **{name: {"value": value, "unit": "radians" if name == "angle_threshold" else "nm"}
-               for name, value in thresholds.items()},
-            "cutoff_roundoff": "one_float64_ulp", "distance_comparison": "positive_and_less_than_or_equal",
-            "angular_roundoff_cap": "strictly_below_pi_over_4",
-            "parallel_offsets": "both", "edge_to_face_offsets": "at_least_one",
-            "max_cyclic_block_size": max_cyclic_block_size, "recognition_scope": "full_source_chemical_state",
-            "chemical_state_index": state_index, "pbc": pbc, **recognition,
-            "canonical_roles": "ring_a_has_lexicographically_smaller_source_membership",
-            "intersection_projection": "ring_a_centroid" if method in {"prolif", "mdtraj_geometry"} else None,
-            **({"face_plane_angle_degrees": [0, 35], "edge_plane_angle_degrees": [50, 90],
-                "face_normal_angle_degrees": [0, 33], "edge_normal_angle_degrees": [0, 30],
-                "intersection_radius": {"value": .15, "unit": "nm"},
-                "normal_angle_policy": "at_least_one", "near_singular_intersection": method == "mdtraj_geometry"}
-               if method in {"prolif", "mdtraj_geometry"} else {}),
-            "image_policy": "whole_participants_anchor_relative_mic", "pbc_policy": "mic_when_box_available",
-            "exclude_overlap": method == "centroid_angle_offset", "exclude_direct_covalent": method == "centroid_angle_offset", "intramolecular": "included",
+        n_atoms=n_atoms,
+        n_structures=n_structures,
+        evaluated_structure_indices=frames,
+        method=_CALLER,
+        software=software,
+        measure_units={
+            "distance": "nm",
+            "plane_angle": "radians",
+            "offset_a": "nm",
+            "offset_b": "nm",
+            "rms_deviation_a": "nm",
+            "rms_deviation_b": "nm",
+            "max_deviation_a": "nm",
+            "max_deviation_b": "nm",
+            **(
+                {
+                    "normal_angle_a": "radians",
+                    "normal_angle_b": "radians",
+                    "intersection_distance": "nm",
+                }
+                if method != "centroid_angle_offset"
+                else {}
+            ),
         },
-        evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
-        evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
+        parameters={
+            "method": method,
+            "geometry": geometry,
+            "geometry_rule_version": "centroid_angle_offset@1"
+            if method == "centroid_angle_offset"
+            else method + "_pi_pi@1",
+            **{
+                name: {
+                    "value": value,
+                    "unit": "radians" if name == "angle_threshold" else "nm",
+                }
+                for name, value in thresholds.items()
+            },
+            "cutoff_roundoff": "one_float64_ulp",
+            "distance_comparison": "positive_and_less_than_or_equal",
+            "angular_roundoff_cap": "strictly_below_pi_over_4",
+            "parallel_offsets": "both",
+            "edge_to_face_offsets": "at_least_one",
+            "max_cyclic_block_size": max_cyclic_block_size,
+            "recognition_scope": "full_source_chemical_state",
+            "chemical_state_index": state_index,
+            "pbc": pbc,
+            **recognition,
+            "canonical_roles": "ring_a_has_lexicographically_smaller_source_membership",
+            "intersection_projection": "ring_a_centroid"
+            if method in {"prolif", "mdtraj_geometry"}
+            else None,
+            **(
+                {
+                    "face_plane_angle_degrees": [0, 35],
+                    "edge_plane_angle_degrees": [50, 90],
+                    "face_normal_angle_degrees": [0, 33],
+                    "edge_normal_angle_degrees": [0, 30],
+                    "intersection_radius": {"value": 0.15, "unit": "nm"},
+                    "normal_angle_policy": "at_least_one",
+                    "near_singular_intersection": method == "mdtraj_geometry",
+                }
+                if method in {"prolif", "mdtraj_geometry"}
+                else {}
+            ),
+            "image_policy": "whole_participants_anchor_relative_mic",
+            "pbc_policy": "mic_when_box_available",
+            "exclude_overlap": method == "centroid_angle_offset",
+            "exclude_direct_covalent": method == "centroid_angle_offset",
+            "intramolecular": "included",
+        },
+        evaluation_mode=selection_mode,
+        evaluation_atom_indices=np.intersect1d(first, universe),
+        evaluation_atom_indices_b=None
+        if second is None
+        else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
     )
     metadata["execution"] = {"memory_policy": "numeric_working_estimates@1"}
     if method != "centroid_angle_offset":
-        metadata["parameters"].update(cutoff_roundoff="none", angular_roundoff_cap=None,
-                                      parallel_offsets="at_least_one" if method == "molstar_geometry" else "not_used",
-                                      edge_to_face_offsets="at_least_one" if method == "molstar_geometry" else "not_used")
+        metadata["parameters"].update(
+            cutoff_roundoff="none",
+            angular_roundoff_cap=None,
+            parallel_offsets="at_least_one"
+            if method == "molstar_geometry"
+            else "not_used",
+            edge_to_face_offsets="at_least_one"
+            if method == "molstar_geometry"
+            else "not_used",
+        )
     if not len(frames) or not searches:
         metadata["execution"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
-        per_frame = 4 * 24 * len(universe) + 256 * len(active_indices) + 192 * max(len(members[i]) for i in active_indices) + 2048 + (288 if pbc else 0)
-        reducer = _PiPiReducer(members=members, active=active_indices, universe=universe, searches=searches,
-                              excluded=connected_group_pairs(members, covalent) if method == "centroid_angle_offset" else set(), thresholds=thresholds,
-                              method=method,
-                              geometry=geometry, metadata=metadata, budget_bytes=configure.max_ram_usage)
-        result = execute_projected_geometry(coordinate_source, universe=universe, frames=frames,
-                                            reducer=reducer, per_frame_bytes=per_frame,
-                                            pbc=pbc, heavy_mode=heavy_mode, caller=_CALLER)
-    return result if output_type == "molsysmt.interactions" else convert(result, to_form="molsysmt.InteractionsDict")
+        per_frame = (
+            4 * 24 * len(universe)
+            + 256 * len(active_indices)
+            + 192 * max(len(members[i]) for i in active_indices)
+            + 2048
+            + (288 if pbc else 0)
+        )
+        reducer = _PiPiReducer(
+            members=members,
+            active=active_indices,
+            universe=universe,
+            searches=searches,
+            excluded=connected_group_pairs(members, covalent)
+            if method == "centroid_angle_offset"
+            else set(),
+            thresholds=thresholds,
+            method=method,
+            geometry=geometry,
+            metadata=metadata,
+            budget_bytes=configure.max_ram_usage,
+        )
+        result = execute_projected_geometry(
+            coordinate_source,
+            universe=universe,
+            frames=frames,
+            reducer=reducer,
+            per_frame_bytes=per_frame,
+            pbc=pbc,
+            heavy_mode=heavy_mode,
+            caller=_CALLER,
+        )
+    return (
+        result
+        if output_type == "molsysmt.interactions"
+        else convert(result, to_form="molsysmt.InteractionsDict")
+    )

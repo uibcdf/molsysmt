@@ -49,13 +49,18 @@ def _extendible(group, name, sample):
     tail = sample.shape[1:]
     first_chunk = min(4096, max(128, len(sample)))
     return group.create_dataset(
-        name, shape=(0, *tail), maxshape=(None, *tail),
-        chunks=(first_chunk, *tail), dtype=sample.dtype, compression="gzip",
+        name,
+        shape=(0, *tail),
+        maxshape=(None, *tail),
+        chunks=(first_chunk, *tail),
+        dtype=sample.dtype,
+        compression="gzip",
     )
 
 
-def write_streaming_flat_file(path, records, evaluated, n_frames, n_atoms,
-                              block_size, scratch):
+def write_streaming_flat_file(
+    path, records, evaluated, n_frames, n_atoms, block_size, scratch
+):
     """Write the flat-block probe from sorted one-pass input iterators."""
     records = iter(records)
     evaluated = iter(evaluated)
@@ -80,8 +85,12 @@ def write_streaming_flat_file(path, records, evaluated, n_frames, n_atoms,
         file.attrs["schema_version"] = 1
         data = file.create_group("data")
         coverage_data = file.create_dataset(
-            "evaluated_structure_indices", shape=(0,), maxshape=(None,),
-            chunks=(4096,), dtype=np.int64, compression="gzip",
+            "evaluated_structure_indices",
+            shape=(0,),
+            maxshape=(None,),
+            chunks=(4096,),
+            dtype=np.int64,
+            compression="gzip",
         )
         for start in range(0, n_frames, block_size):
             stop = min(start + block_size, n_frames)
@@ -112,28 +121,38 @@ def write_streaming_flat_file(path, records, evaluated, n_frames, n_atoms,
                             seen[name].add(value)
                             labels[name].append(value)
             result = msm.Interactions.from_records(
-                rows, n_atoms=n_atoms, n_structures=n_frames,
-                evaluated_structure_indices=coverage, method=METHOD,
-                measure_units=UNITS, parameters={"seed": 251},
+                rows,
+                n_atoms=n_atoms,
+                n_structures=n_frames,
+                evaluated_structure_indices=coverage,
+                method=METHOD,
+                measure_units=UNITS,
+                parameters={"seed": 251},
                 source_id="synthetic_contract",
             )
             descriptors = {
                 mode: _descriptor_arrays(result, labels, mode)
                 for mode in ("global", "event")
             }
-            mode = min(descriptors, key=lambda item: sum(
-                array.nbytes for array in descriptors[item].values()
-            ))
+            mode = min(
+                descriptors,
+                key=lambda item: sum(
+                    array.nbytes for array in descriptors[item].values()
+                ),
+            )
             scopes.append(0 if mode == "global" else 1)
             arrays = {
                 **_common_arrays(result, labels, start, stop),
                 **descriptors[mode],
             }
             if columns is None:
-                columns = sorted(set(arrays) | set(descriptors["global"])
-                                 | set(descriptors["event"]))
+                columns = sorted(
+                    set(arrays) | set(descriptors["global"]) | set(descriptors["event"])
+                )
                 samples = {
-                    **arrays, **descriptors["global"], **descriptors["event"],
+                    **arrays,
+                    **descriptors["global"],
+                    **descriptors["event"],
                 }
                 offsets = {name: [0] for name in columns}
                 for name in columns:
@@ -160,32 +179,47 @@ def write_streaming_flat_file(path, records, evaluated, n_frames, n_atoms,
             block_event_offsets.append(base + result.n_interactions)
         if next_record is not None or next_evaluated is not None:
             raise ValueError("record or coverage index exceeds n_frames")
-        file.attrs["metadata"] = json.dumps({
-            "n_atoms": n_atoms, "n_structures": n_frames,
-            "block_size": block_size, "method": METHOD,
-            "parameters": {"seed": 251}, "source_id": "synthetic_contract",
-            "measure_units": UNITS, "columns": columns,
-        })
+        file.attrs["metadata"] = json.dumps(
+            {
+                "n_atoms": n_atoms,
+                "n_structures": n_frames,
+                "block_size": block_size,
+                "method": METHOD,
+                "parameters": {"seed": 251},
+                "source_id": "synthetic_contract",
+                "measure_units": UNITS,
+                "columns": columns,
+            }
+        )
         label_group = file.create_group("labels")
         string_dtype = h5py.string_dtype(encoding="utf-8")
         for name, values in labels.items():
-            label_group.create_dataset(name,
-                                       data=np.asarray(values, dtype=string_dtype))
+            label_group.create_dataset(
+                name, data=np.asarray(values, dtype=string_dtype)
+            )
         file.create_dataset("block_scope", data=np.asarray(scopes, dtype=np.uint8))
-        file.create_dataset("column_offsets", data=np.asarray(
-            [offsets[name] for name in columns], dtype=np.int64
-        ), compression="gzip")
+        file.create_dataset(
+            "column_offsets",
+            data=np.asarray([offsets[name] for name in columns], dtype=np.int64),
+            compression="gzip",
+        )
         index = file.create_group("index")
-        index.create_dataset("block_event_offsets", data=_smallest_unsigned(
-            block_event_offsets
-        ), compression="gzip")
+        index.create_dataset(
+            "block_event_offsets",
+            data=_smallest_unsigned(block_event_offsets),
+            compression="gzip",
+        )
         db.commit()
         db.execute("CREATE INDEX postings_by_atom ON postings(atom, event)")
         atom_offset_data = np.zeros(n_atoms + 1, dtype=np.int64)
         occurrence_dtype = _smallest_unsigned([block_event_offsets[-1]]).dtype
         posting_data = index.create_dataset(
-            "atom_occurrences", shape=(0,), maxshape=(None,),
-            chunks=(8192,), dtype=occurrence_dtype, compression="gzip",
+            "atom_occurrences",
+            shape=(0,),
+            maxshape=(None,),
+            chunks=(8192,),
+            dtype=occurrence_dtype,
+            compression="gzip",
         )
         current_atom = 0
         batch = []
@@ -206,12 +240,17 @@ def write_streaming_flat_file(path, records, evaluated, n_frames, n_atoms,
             current_atom += 1
         if posting_data.shape[0] != posting_count:
             raise AssertionError("posting index lost an atom occurrence")
-        index.create_dataset("atom_offsets", data=_smallest_unsigned(
-            atom_offset_data
-        ), compression="gzip")
-    return {"file_bytes": path.stat().st_size,
-            "postings": posting_count, "choices": scopes,
-            "scratch_bytes": scratch.stat().st_size}
+        index.create_dataset(
+            "atom_offsets",
+            data=_smallest_unsigned(atom_offset_data),
+            compression="gzip",
+        )
+    return {
+        "file_bytes": path.stat().st_size,
+        "postings": posting_count,
+        "choices": scopes,
+        "scratch_bytes": scratch.stat().st_size,
+    }
 
 
 def _verify(path, n_frames, n_atoms, distribution, per_frame):
@@ -236,19 +275,25 @@ def _verify(path, n_frames, n_atoms, distribution, per_frame):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("streaming", "eager"),
-                        default="streaming")
+    parser.add_argument("--mode", choices=("streaming", "eager"), default="streaming")
     parser.add_argument("--frames", type=int, default=1000)
     parser.add_argument("--atoms", type=int, default=500)
     parser.add_argument("--per-frame", type=int, default=8)
     parser.add_argument("--block-size", type=int, default=100)
-    parser.add_argument("--distribution", choices=("stable", "churn", "mixed"),
-                        default="mixed")
+    parser.add_argument(
+        "--distribution", choices=("stable", "churn", "mixed"), default="mixed"
+    )
     parser.add_argument("--verify", action="store_true")
     args = parser.parse_args()
-    if (args.frames < 30 or args.atoms < 30 or args.block_size < 30
-            or args.per_frame < 1):
-        parser.error("frames, atoms and block size must be at least 30; per-frame positive")
+    if (
+        args.frames < 30
+        or args.atoms < 30
+        or args.block_size < 30
+        or args.per_frame < 1
+    ):
+        parser.error(
+            "frames, atoms and block size must be at least 30; per-frame positive"
+        )
     initial_rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "interactions.h5i"
@@ -257,42 +302,65 @@ def main():
         if args.mode == "streaming":
             coverage = (frame for frame in range(args.frames) if frame % 29 != 0)
             info = write_streaming_flat_file(
-                path, iter_fixture(args.frames, args.atoms, args.per_frame,
-                                   args.distribution, 251),
-                coverage, args.frames, args.atoms, args.block_size, scratch,
+                path,
+                iter_fixture(
+                    args.frames, args.atoms, args.per_frame, args.distribution, 251
+                ),
+                coverage,
+                args.frames,
+                args.atoms,
+                args.block_size,
+                scratch,
             )
         else:
             records, coverage = generate_fixture(
                 args.frames, args.atoms, args.per_frame, args.distribution, 251
             )
             info = write_flat_file(
-                path, records, coverage, args.frames, args.atoms,
+                path,
+                records,
+                coverage,
+                args.frames,
+                args.atoms,
                 args.block_size,
             )
         build_s = time.perf_counter() - start
         peak_rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         if args.verify:
-            _verify(path, args.frames, args.atoms, args.distribution,
-                    args.per_frame)
+            _verify(path, args.frames, args.atoms, args.distribution, args.per_frame)
         choices = info.pop("choices")
-        normalized = ["global" if mode == 0 else "event" if mode == 1 else mode
-                      for mode in choices]
+        normalized = [
+            "global" if mode == 0 else "event" if mode == 1 else mode
+            for mode in choices
+        ]
         counts = {mode: normalized.count(mode) for mode in ("global", "event")}
-        transitions = [block for block in range(1, len(normalized))
-                       if normalized[block] != normalized[block - 1]]
-        print(json.dumps({
-            "platform": platform.platform(), "mode": args.mode,
-            "frames": args.frames, "atoms": args.atoms,
-            "per_frame": args.per_frame,
-            "distribution": args.distribution, "block_size": args.block_size,
-            "build_s": round(build_s, 3),
-            "initial_peak_rss_kib": initial_rss,
-            "post_write_peak_rss_kib": peak_rss,
-            "peak_rss_delta_kib": peak_rss - initial_rss,
-            **info,
-            "mode_counts": counts, "mode_transitions": transitions,
-            "verified": args.verify,
-        }, indent=2))
+        transitions = [
+            block
+            for block in range(1, len(normalized))
+            if normalized[block] != normalized[block - 1]
+        ]
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "mode": args.mode,
+                    "frames": args.frames,
+                    "atoms": args.atoms,
+                    "per_frame": args.per_frame,
+                    "distribution": args.distribution,
+                    "block_size": args.block_size,
+                    "build_s": round(build_s, 3),
+                    "initial_peak_rss_kib": initial_rss,
+                    "post_write_peak_rss_kib": peak_rss,
+                    "peak_rss_delta_kib": peak_rss - initial_rss,
+                    **info,
+                    "mode_counts": counts,
+                    "mode_transitions": transitions,
+                    "verified": args.verify,
+                },
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

@@ -30,10 +30,24 @@ def main():
     import molsysmt as msm
     from molsysmt import _ackredit
 
-    molsys = msm.convert(Chem.AddHs(Chem.MolFromSmiles("O.O")), to_form="molsysmt.MolSys")
-    xyz = np.array([[0, 0, 0], [.28, 0, 0], [.1, 0, 0], [0, .1, 0], [.28, .1, 0], [.28, 0, .1]])
-    molsys.structures.append(coordinates=msm.pyunitwizard.quantity(
-        np.repeat(xyz[None], options.structures, axis=0), "nm"))
+    molsys = msm.convert(
+        Chem.AddHs(Chem.MolFromSmiles("O.O")), to_form="molsysmt.MolSys"
+    )
+    xyz = np.array(
+        [
+            [0, 0, 0],
+            [0.28, 0, 0],
+            [0.1, 0, 0],
+            [0, 0.1, 0],
+            [0.28, 0.1, 0],
+            [0.28, 0, 0.1],
+        ]
+    )
+    molsys.structures.append(
+        coordinates=msm.pyunitwizard.quantity(
+            np.repeat(xyz[None], options.structures, axis=0), "nm"
+        )
+    )
 
     def calculate():
         return msm.interactions.hbonds.get_hbonds(molsys, pbc=False)
@@ -55,15 +69,28 @@ def main():
                 assert result.n_interactions == options.structures
         used_items = len(ackredit.get_used_items())
     medians = {mode: median(values) for mode, values in times.items()}
-    print(json.dumps(dict(
-        python=platform.python_version(), platform=platform.platform(),
-        molsysmt=msm.__version__, ackredit=ackredit.__version__,
-        repetitions=options.repetitions, atoms=6, structures=options.structures,
-        median_ms=medians, provider_delta_ms=medians["with_provider"] - medians["without_provider"],
-        bibliography_bytes=len(json.dumps(result.parameters["attribution"]).encode()),
-        workflow_items=used_items,
-        limitations="Both modes retain bibliography; fixed-call fixture, no large-trajectory claim.",
-    ), indent=2))
+    print(
+        json.dumps(
+            dict(
+                python=platform.python_version(),
+                platform=platform.platform(),
+                molsysmt=msm.__version__,
+                ackredit=ackredit.__version__,
+                repetitions=options.repetitions,
+                atoms=6,
+                structures=options.structures,
+                median_ms=medians,
+                provider_delta_ms=medians["with_provider"]
+                - medians["without_provider"],
+                bibliography_bytes=len(
+                    json.dumps(result.parameters["attribution"]).encode()
+                ),
+                workflow_items=used_items,
+                limitations="Both modes retain bibliography; fixed-call fixture, no large-trajectory claim.",
+            ),
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -47,7 +47,9 @@ def memory_high_water_bytes():
 
 def write_arrays(group, arrays):
     for name, array in arrays.items():
-        group.create_dataset(name, data=array, compression="gzip" if array.size else None)
+        group.create_dataset(
+            name, data=array, compression="gzip" if array.size else None
+        )
 
 
 def read_arrays(group):
@@ -63,10 +65,15 @@ def event_signature(arrays, event, source_frame):
     for part in range(first_part, last_part):
         first_atom = int(arrays["participant_atom_offsets"][part])
         last_atom = int(arrays["participant_atom_offsets"][part + 1])
-        participants.append((
-            int(arrays["participant_roles"][part]),
-            tuple(int(atom) for atom in arrays["participant_atoms"][first_atom:last_atom]),
-        ))
+        participants.append(
+            (
+                int(arrays["participant_roles"][part]),
+                tuple(
+                    int(atom)
+                    for atom in arrays["participant_atoms"][first_atom:last_atom]
+                ),
+            )
+        )
     first_image = int(arrays["image_offsets"][event])
     last_image = int(arrays["image_offsets"][event + 1])
     return (
@@ -75,22 +82,30 @@ def event_signature(arrays, event, source_frame):
         tuple(participants),
         int(arrays["occurrence_evidence"][event]),
         float(arrays["distance_nm"][event]),
-        tuple(tuple(int(x) for x in vector) for vector in
-              arrays["image_vectors"][first_image:last_image]),
+        tuple(
+            tuple(int(x) for x in vector)
+            for vector in arrays["image_vectors"][first_image:last_image]
+        ),
     )
 
 
 def source_signature(event):
     frame, (kind, participants), evidence, distance, images = event
     return (
-        frame, kind, participants, evidence, distance,
+        frame,
+        kind,
+        participants,
+        evidence,
+        distance,
         tuple(tuple(int(x) for x in vector) for vector in images),
     )
 
 
 def choose_block(events, n_frames, n_atoms, source_start):
-    local_events = [(frame - source_start, key, evidence, distance, image)
-                    for frame, key, evidence, distance, image in events]
+    local_events = [
+        (frame - source_start, key, evidence, distance, image)
+        for frame, key, evidence, distance, image in events
+    ]
     choices = []
     for scope in ("global", "event"):
         arrays = encode(local_events, n_frames, n_atoms, scope)
@@ -124,9 +139,9 @@ def write_blocks(path, n_frames, n_atoms, block_size, churn, duplicates, hot_ato
         file.create_dataset("source_atom_map", data=np.arange(n_atoms, dtype=np.int32))
         groups = file.create_group("blocks")
         batch = []
-        for frame, frame_events in enumerate(iter_event_frames(
-            n_frames, n_atoms, churn, duplicates, hot_atom
-        )):
+        for frame, frame_events in enumerate(
+            iter_event_frames(n_frames, n_atoms, churn, duplicates, hot_atom)
+        ):
             empty_frames += not frame_events
             n_events += len(frame_events)
             batch.extend(frame_events)
@@ -155,8 +170,9 @@ def write_blocks(path, n_frames, n_atoms, block_size, churn, duplicates, hot_ato
         file.create_dataset("atom_block_offsets", data=offsets, compression="gzip")
         file.create_dataset(
             "atom_block_postings",
-            data=np.asarray([block for blocks in atom_blocks for block in blocks],
-                            dtype=np.int32),
+            data=np.asarray(
+                [block for blocks in atom_blocks for block in blocks], dtype=np.int32
+            ),
             compression="gzip",
         )
     return {
@@ -174,13 +190,20 @@ def write_blocks(path, n_frames, n_atoms, block_size, churn, duplicates, hot_ato
 
 def read_block(file, block_number):
     group = file["blocks"][str(block_number)]
-    return group.attrs["scope"], read_arrays(group["payload"]), read_arrays(group["index"])
+    return (
+        group.attrs["scope"],
+        read_arrays(group["payload"]),
+        read_arrays(group["index"]),
+    )
 
 
 def query_frame(file, frame, block_reader=None):
     block_number = frame // int(file.attrs["block_size"])
-    _, arrays, _ = (read_block(file, block_number) if block_reader is None
-                    else block_reader(block_number))
+    _, arrays, _ = (
+        read_block(file, block_number)
+        if block_reader is None
+        else block_reader(block_number)
+    )
     local_frame = frame - block_number * int(file.attrs["block_size"])
     first = int(arrays["frame_offsets"][local_frame])
     last = int(arrays["frame_offsets"][local_frame + 1])
@@ -193,36 +216,43 @@ def query_frame_projected(file, frame):
     block = file["blocks"][str(block_number)]
     payload = block["payload"]
     local_frame = frame - block_number * int(file.attrs["block_size"])
-    first, last = (int(x) for x in payload["frame_offsets"][local_frame:local_frame + 2])
+    first, last = (
+        int(x) for x in payload["frame_offsets"][local_frame : local_frame + 2]
+    )
     if first == last:
         return []
     arrays = {
         "occurrence_evidence": payload["occurrence_evidence"][first:last],
         "distance_nm": payload["distance_nm"][first:last],
     }
-    image_offsets = payload["image_offsets"][first:last + 1]
+    image_offsets = payload["image_offsets"][first : last + 1]
     arrays["image_vectors"] = payload["image_vectors"][
-        int(image_offsets[0]):int(image_offsets[-1])
+        int(image_offsets[0]) : int(image_offsets[-1])
     ]
     arrays["image_offsets"] = image_offsets - image_offsets[0]
     if block.attrs["scope"] == "event":
-        relation_offsets = payload["relation_participant_offsets"][first:last + 1]
+        relation_offsets = payload["relation_participant_offsets"][first : last + 1]
         part_first, part_last = int(relation_offsets[0]), int(relation_offsets[-1])
-        atom_offsets = payload["participant_atom_offsets"][part_first:part_last + 1]
-        arrays.update({
-            "relation_types": payload["relation_types"][first:last],
-            "relation_participant_offsets": relation_offsets - part_first,
-            "participant_roles": payload["participant_roles"][part_first:part_last],
-            "participant_atom_offsets": atom_offsets - atom_offsets[0],
-            "participant_atoms": payload["participant_atoms"][
-                int(atom_offsets[0]):int(atom_offsets[-1])
-            ],
-        })
+        atom_offsets = payload["participant_atom_offsets"][part_first : part_last + 1]
+        arrays.update(
+            {
+                "relation_types": payload["relation_types"][first:last],
+                "relation_participant_offsets": relation_offsets - part_first,
+                "participant_roles": payload["participant_roles"][part_first:part_last],
+                "participant_atom_offsets": atom_offsets - atom_offsets[0],
+                "participant_atoms": payload["participant_atoms"][
+                    int(atom_offsets[0]) : int(atom_offsets[-1])
+                ],
+            }
+        )
     else:
         arrays["occurrence_relations"] = payload["occurrence_relations"][first:last]
         for name in (
-            "relation_types", "relation_participant_offsets", "participant_roles",
-            "participant_atom_offsets", "participant_atoms",
+            "relation_types",
+            "relation_participant_offsets",
+            "participant_roles",
+            "participant_atom_offsets",
+            "participant_atoms",
         ):
             arrays[name] = payload[name][:]
     return [event_signature(arrays, event, frame) for event in range(last - first)]
@@ -230,21 +260,27 @@ def query_frame_projected(file, frame):
 
 def query_atom(file, atom, frames=None, block_reader=None):
     offsets = file["atom_block_offsets"]
-    first, last = offsets[atom:atom + 2]
+    first, last = offsets[atom : atom + 2]
     blocks = file["atom_block_postings"][first:last]
     selected = None if frames is None else set(int(frame) for frame in frames)
-    selected_blocks = None if selected is None else {
-        frame // int(file.attrs["block_size"]) for frame in selected
-    }
+    selected_blocks = (
+        None
+        if selected is None
+        else {frame // int(file.attrs["block_size"]) for frame in selected}
+    )
     results = []
     for block_number in blocks:
         if selected_blocks is not None and int(block_number) not in selected_blocks:
             continue
-        scope, arrays, index = (read_block(file, int(block_number))
-                                if block_reader is None else block_reader(int(block_number)))
+        scope, arrays, index = (
+            read_block(file, int(block_number))
+            if block_reader is None
+            else block_reader(int(block_number))
+        )
         for event in query_atom_local(arrays, index, atom, scope):
-            local_frame = int(np.searchsorted(arrays["frame_offsets"], event,
-                                              side="right") - 1)
+            local_frame = int(
+                np.searchsorted(arrays["frame_offsets"], event, side="right") - 1
+            )
             source_frame = int(arrays["source_frame_map"][local_frame])
             if selected is None or source_frame in selected:
                 results.append(event_signature(arrays, int(event), source_frame))
@@ -274,15 +310,25 @@ def main():
     parser.add_argument("--churn", action="store_true")
     parser.add_argument("--duplicates", action="store_true")
     parser.add_argument("--hot-atom", action="store_true")
-    parser.add_argument("--write-only", action="store_true",
-                        help="Skip verification and queries for write scaling runs")
+    parser.add_argument(
+        "--write-only",
+        action="store_true",
+        help="Skip verification and queries for write scaling runs",
+    )
     args = parser.parse_args()
     if args.frames < 2 or args.atoms < 20 or args.block_size < 1:
         parser.error("frames >= 2, atoms >= 20, and positive block-size required")
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "interactions.h5i"
-        result = write_blocks(path, args.frames, args.atoms, args.block_size,
-                              args.churn, args.duplicates, args.hot_atom)
+        result = write_blocks(
+            path,
+            args.frames,
+            args.atoms,
+            args.block_size,
+            args.churn,
+            args.duplicates,
+            args.hot_atom,
+        )
         if args.write_only:
             result["config"] = vars(args)
             print(json.dumps(result, indent=2))

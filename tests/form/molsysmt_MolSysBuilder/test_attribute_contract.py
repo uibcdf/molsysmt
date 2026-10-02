@@ -21,7 +21,8 @@ def test_builder_declares_exactly_its_two_stored_native_components():
     )
     observed = _declared_attributes("molsysmt.MolSysBuilder")
 
-    assert len(expected) == 96
+    assert len(expected) == 97
+    assert "n_explicit_hydrogens" in observed
     assert observed == expected
     assert "partial_charge" not in observed
     assert "structure_chemical_state_index" not in observed

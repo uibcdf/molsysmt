@@ -36,7 +36,14 @@ def validate_periodic_boxes(boxes, n_frames, *, caller):
     from molsysmt._private.smonitor import StructuralInconsistencyError
 
     if boxes.shape != (n_frames, 3, 3) or not np.isfinite(boxes).all():
-        raise StructuralInconsistencyError(reason="Periodic boxes must be finite and nonsingular.", caller=caller)
+        raise StructuralInconsistencyError(
+            reason="Periodic boxes must be finite and nonsingular.", caller=caller
+        )
     scale = np.max(np.abs(boxes), axis=(1, 2))
-    if np.any(scale == 0) or np.any(np.abs(np.linalg.det(boxes / scale[:, None, None])) <= 1e-12):
-        raise StructuralInconsistencyError(reason="Periodic boxes are numerically singular after scale normalization.", caller=caller)
+    if np.any(scale == 0) or np.any(
+        np.abs(np.linalg.det(boxes / scale[:, None, None])) <= 1e-12
+    ):
+        raise StructuralInconsistencyError(
+            reason="Periodic boxes are numerically singular after scale normalization.",
+            caller=caller,
+        )

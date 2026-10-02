@@ -130,8 +130,11 @@ def write_chemical_states(topology, topology_group, dataset_options):
     states_group = topology_group.create_group("chemical_states")
     reference_index = topology._reference_chemical_state_index
     _write_states_group(
-        states_group, topology._chemical_states, topology.n_atoms,
-        reference_index, dataset_options,
+        states_group,
+        topology._chemical_states,
+        topology.n_atoms,
+        reference_index,
+        dataset_options,
     )
 
     for legacy_name in ("components", "bonds"):
@@ -165,7 +168,9 @@ def write_chemical_states(topology, topology_group, dataset_options):
         topology_group.attrs["n_bonds"] = -1
 
 
-def _write_states_group(states_group, states, n_atoms, reference_index, dataset_options):
+def _write_states_group(
+    states_group, states, n_atoms, reference_index, dataset_options
+):
     """Write state records without depending on their position in the file."""
     states_group.attrs["n_chemical_states"] = len(states)
     states_group.attrs["reference_chemical_state_index"] = (
@@ -200,6 +205,7 @@ def _write_states_group(states_group, states, n_atoms, reference_index, dataset_
 
         bonds = group.create_group("bonds")
         _write_nullable_table(bonds, state.bonds, _BOND_DTYPES, dataset_options)
+
 
 def read_chemical_states(topology_group, n_atoms):
     """
@@ -305,7 +311,10 @@ def write_independent_chemical_states(root, states, dataset_options=None):
     group.attrs["schema_version"] = 1
     group.attrs["n_atoms"] = states.n_atoms
     _write_states_group(
-        group, states._states, states.n_atoms, states._reference_index,
+        group,
+        states._states,
+        states.n_atoms,
+        states._reference_index,
         {} if dataset_options is None else dataset_options,
     )
 

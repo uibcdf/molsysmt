@@ -1539,7 +1539,10 @@ class Topology:
                 chemical_state.bonds, n_atoms=self.n_atoms
             )
 
-        if self._reference_chemical_state_index is None and len(self._chemical_states) == 1:
+        if (
+            self._reference_chemical_state_index is None
+            and len(self._chemical_states) == 1
+        ):
             self._reference_chemical_state_index = (
                 0 if len(self._chemical_states) == 1 else None
             )

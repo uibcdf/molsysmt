@@ -15,7 +15,15 @@ def digest_angle_range(value, argument, caller):
         value = parse_quantity_string(argument, value, caller=caller)
     if puw.is_quantity(value) and puw.are_compatible(value, "0 radians"):
         values = np.asarray(puw.get_value(value, to_unit="radians"))
-        if values.shape == (2,) and np.isfinite(values).all() and 0 <= values[0] <= values[1] <= np.pi:
+        if (
+            values.shape == (2,)
+            and np.isfinite(values).all()
+            and 0 <= values[0] <= values[1] <= np.pi
+        ):
             return puw.standardize(value)
-    raise ArgumentError(argument, value=value, caller=caller,
-                        message="Supply a finite ordered two-value angular quantity within zero to pi radians.")
+    raise ArgumentError(
+        argument,
+        value=value,
+        caller=caller,
+        message="Supply a finite ordered two-value angular quantity within zero to pi radians.",
+    )

@@ -7,10 +7,20 @@ import numpy as np
 
 from molsysmt import pyunitwizard as puw
 
-_FIELDS = frozenset({
-    "frame_offsets", "atom_indices", "site_offsets", "present", "location_id",
-    "atom_id", "atom_id_kind", "occupancy", "b_factor", "coordinates",
-})
+_FIELDS = frozenset(
+    {
+        "frame_offsets",
+        "atom_indices",
+        "site_offsets",
+        "present",
+        "location_id",
+        "atom_id",
+        "atom_id_kind",
+        "occupancy",
+        "b_factor",
+        "coordinates",
+    }
+)
 
 
 def _strings(value, count, name):
@@ -56,24 +66,39 @@ def prepare_alternate_location(value, n_structures, n_atoms):
 
     for frame in value:
         if not isinstance(frame, Mapping):
-            raise ValueError("Alternate-location frames must be mappings of atom indices.")
+            raise ValueError(
+                "Alternate-location frames must be mappings of atom indices."
+            )
         if frame and n_atoms < 0:
             raise ValueError("Alternate locations require a known atom axis.")
         if any(
-            not isinstance(index, (int, np.integer)) or isinstance(index, (bool, np.bool_))
-            or index < 0 or index >= n_atoms for index in frame
+            not isinstance(index, (int, np.integer))
+            or isinstance(index, (bool, np.bool_))
+            or index < 0
+            or index >= n_atoms
+            for index in frame
         ):
-            raise ValueError("Alternate-location atom indices are outside the atom axis.")
+            raise ValueError(
+                "Alternate-location atom indices are outside the atom axis."
+            )
         for atom_index in sorted(frame):
             entry = frame[atom_index]
             if not isinstance(entry, Mapping) or set(entry) != {
-                "location_id", "occupancy", "b_factor", "atom_id", "coordinates"
+                "location_id",
+                "occupancy",
+                "b_factor",
+                "atom_id",
+                "coordinates",
             }:
-                raise ValueError("Alternate-location entries require five named fields.")
+                raise ValueError(
+                    "Alternate-location entries require five named fields."
+                )
             location = entry["location_id"]
             location = [location] if isinstance(location, str) else list(location)
             if not location:
-                raise ValueError("Alternate-location entries require at least one site.")
+                raise ValueError(
+                    "Alternate-location entries require at least one site."
+                )
             location = _strings(location, len(location), "location_id")
             count = len(location)
             occ = _numeric(entry["occupancy"], (count,), "occupancy")
@@ -84,7 +109,9 @@ def prepare_alternate_location(value, n_structures, n_atoms):
             if ids is not None:
                 ids = list(ids)
                 if len(ids) != count:
-                    raise ValueError("Alternate-location atom_id length does not match sites.")
+                    raise ValueError(
+                        "Alternate-location atom_id length does not match sites."
+                    )
             for site in range(count):
                 if ids is None:
                     atom_ids.append("")
@@ -97,18 +124,26 @@ def prepare_alternate_location(value, n_structures, n_atoms):
                 ):
                     number = int(ids[site])
                     if not np.iinfo(np.int64).min <= number <= np.iinfo(np.int64).max:
-                        raise ValueError("Alternate-location atom_id exceeds int64 range.")
+                        raise ValueError(
+                            "Alternate-location atom_id exceeds int64 range."
+                        )
                     atom_ids.append(str(number))
                     atom_id_kinds.append(1)
                 else:
-                    raise ValueError("Alternate-location atom_id values must be strings or integers.")
+                    raise ValueError(
+                        "Alternate-location atom_id values must be strings or integers."
+                    )
             atom_indices.append(int(atom_index))
             site_offsets.append(site_offsets[-1] + count)
-            present.append([occ is not None, bfac is not None, ids is not None, coords is not None])
+            present.append(
+                [occ is not None, bfac is not None, ids is not None, coords is not None]
+            )
             location_ids.extend(location)
             occupancy.extend(occ if occ is not None else np.full(count, np.nan))
             b_factor.extend(bfac if bfac is not None else np.full(count, np.nan))
-            coordinates.extend(coords if coords is not None else np.full((count, 3), np.nan))
+            coordinates.extend(
+                coords if coords is not None else np.full((count, 3), np.nan)
+            )
         frame_offsets.append(len(atom_indices))
 
     return {
@@ -134,7 +169,10 @@ def write_alternate_location(group, prepared):
         dtype = string_dtype if name in {"location_id", "atom_id"} else None
         shape = np.shape(values)
         dataset = child.create_dataset(
-            name, data=values, dtype=dtype, compression="gzip",
+            name,
+            data=values,
+            dtype=dtype,
+            compression="gzip",
             maxshape=(None, *shape[1:]),
         )
         if name == "coordinates":
@@ -150,15 +188,18 @@ def _check_dataset(child, name, dtype, shape):
     return dataset
 
 
-def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
-                            atom_selection=None):
+def read_alternate_location(
+    group, n_structures, n_atoms, frame_selection=None, atom_selection=None
+):
     """Read only requested frames and remap their sparse atom keys."""
     if "alternate_location" not in group:
         return None
     child = group["alternate_location"]
     if child.attrs.get("schema_version") != 1 or set(child) != _FIELDS:
         raise ValueError("Unsupported H5MSM 0.5 alternate-location schema.")
-    frame_offsets = _check_dataset(child, "frame_offsets", "int64", (n_structures + 1,))[:]
+    frame_offsets = _check_dataset(
+        child, "frame_offsets", "int64", (n_structures + 1,)
+    )[:]
     n_entries = len(child["atom_indices"])
     n_sites = len(child["location_id"])
     atoms = _check_dataset(child, "atom_indices", "int64", (n_entries,))
@@ -170,13 +211,22 @@ def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
     coordinates = _check_dataset(child, "coordinates", "float64", (n_sites, 3))
     for name in ("location_id", "atom_id"):
         dataset = child[name]
-        if dataset.shape != (n_sites,) or h5py.check_string_dtype(dataset.dtype) is None:
+        if (
+            dataset.shape != (n_sites,)
+            or h5py.check_string_dtype(dataset.dtype) is None
+        ):
             raise ValueError(f"Alternate-location {name} has an invalid shape or type.")
     if coordinates.attrs.get("unit") != "nm" or b_factor.attrs.get("unit") != "nm**2":
-        raise ValueError("Alternate-location coordinates or B factors have an unsupported unit.")
-    if (frame_offsets[0] != 0 or frame_offsets[-1] != n_entries
-            or np.any(np.diff(frame_offsets) < 0)
-            or sites[0] != 0 or sites[-1] != n_sites):
+        raise ValueError(
+            "Alternate-location coordinates or B factors have an unsupported unit."
+        )
+    if (
+        frame_offsets[0] != 0
+        or frame_offsets[-1] != n_entries
+        or np.any(np.diff(frame_offsets) < 0)
+        or sites[0] != 0
+        or sites[-1] != n_sites
+    ):
         raise ValueError("Alternate-location offsets are inconsistent.")
 
     frames = range(n_structures) if frame_selection is None else frame_selection
@@ -187,17 +237,24 @@ def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
             atom_map.setdefault(int(old_index), []).append(new_index)
     result = []
     for frame_index in frames:
-        start, stop = frame_offsets[int(frame_index):int(frame_index) + 2]
+        start, stop = frame_offsets[int(frame_index) : int(frame_index) + 2]
         frame_atoms = atoms[start:stop]
-        frame_sites = sites[start:stop + 1]
+        frame_sites = sites[start : stop + 1]
         frame_present = present[start:stop]
-        if (np.any(frame_atoms < 0) or (n_atoms >= 0 and np.any(frame_atoms >= n_atoms))
-                or np.any(np.diff(frame_atoms) <= 0)
-                or np.any(np.diff(frame_sites) <= 0)):
-            raise ValueError("Alternate-location atom indices or site offsets are invalid.")
+        if (
+            np.any(frame_atoms < 0)
+            or (n_atoms >= 0 and np.any(frame_atoms >= n_atoms))
+            or np.any(np.diff(frame_atoms) <= 0)
+            or np.any(np.diff(frame_sites) <= 0)
+        ):
+            raise ValueError(
+                "Alternate-location atom indices or site offsets are invalid."
+            )
         site_start, site_stop = frame_sites[0], frame_sites[-1]
         if site_start < 0 or site_stop > n_sites:
-            raise ValueError("Alternate-location site offsets are outside the site axis.")
+            raise ValueError(
+                "Alternate-location site offsets are outside the site axis."
+            )
         ids = child["atom_id"].asstr()[site_start:site_stop]
         locations = child["location_id"].asstr()[site_start:site_stop]
         site_kinds = kinds[site_start:site_stop]
@@ -206,7 +263,9 @@ def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
         coords = coordinates[site_start:site_stop]
         output = {}
         for position, old_atom in enumerate(frame_atoms):
-            targets = [int(old_atom)] if atom_map is None else atom_map.get(int(old_atom), [])
+            targets = (
+                [int(old_atom)] if atom_map is None else atom_map.get(int(old_atom), [])
+            )
             if not targets:
                 continue
             flags = frame_present[position]
@@ -215,9 +274,11 @@ def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
             first = frame_sites[position] - site_start
             last = frame_sites[position + 1] - site_start
             kinds_for_entry = site_kinds[first:last]
-            if np.any(~np.isin(kinds_for_entry, [0, 1, 255])) or (
-                bool(flags[2]) and np.any(kinds_for_entry == 255)
-            ) or (not flags[2] and np.any(kinds_for_entry != 255)):
+            if (
+                np.any(~np.isin(kinds_for_entry, [0, 1, 255]))
+                or (bool(flags[2]) and np.any(kinds_for_entry == 255))
+                or (not flags[2] and np.any(kinds_for_entry != 255))
+            ):
                 raise ValueError("Alternate-location atom ID types are invalid.")
             values = [
                 int(identifier) if kind == 1 else identifier
@@ -226,9 +287,13 @@ def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
             entry = {
                 "location_id": np.asarray(locations[first:last], dtype=object),
                 "occupancy": occ[first:last].copy() if flags[0] else None,
-                "b_factor": puw.quantity(bfac[first:last].copy(), "nm**2") if flags[1] else None,
+                "b_factor": puw.quantity(bfac[first:last].copy(), "nm**2")
+                if flags[1]
+                else None,
                 "atom_id": np.asarray(values, dtype=object) if flags[2] else None,
-                "coordinates": puw.quantity(coords[first:last].copy(), "nm") if flags[3] else None,
+                "coordinates": puw.quantity(coords[first:last].copy(), "nm")
+                if flags[3]
+                else None,
             }
             for new_atom in targets:
                 output[new_atom] = entry.copy()
@@ -239,7 +304,9 @@ def read_alternate_location(group, n_structures, n_atoms, frame_selection=None,
 def validate_alternate_location_append(group, old_n_structures, n_atoms):
     """Validate the stored sparse columns before resizing any series."""
     read_alternate_location(
-        group, old_n_structures, n_atoms,
+        group,
+        old_n_structures,
+        n_atoms,
         frame_selection=np.asarray([], dtype=np.int64),
     )
     child = group["alternate_location"]

@@ -24,17 +24,21 @@ def _system():
     system._set_structure_chemical_state_indices([0, 1])
     system.interactions = {
         "hbonds": msm.Interactions.from_records(
-            [{
-                "structure_index": 1,
-                "interaction_type": "hbond",
-                "participants": [
-                    {"role": "donor", "atom_indices": [0]},
-                    {"role": "hydrogen", "atom_indices": [1]},
-                    {"role": "acceptor", "atom_indices": [2]},
-                ],
-            }],
-            n_atoms=3, n_structures=2,
-            evaluated_structure_indices=[0, 1], method="candidate",
+            [
+                {
+                    "structure_index": 1,
+                    "interaction_type": "hbond",
+                    "participants": [
+                        {"role": "donor", "atom_indices": [0]},
+                        {"role": "hydrogen", "atom_indices": [1]},
+                        {"role": "acceptor", "atom_indices": [2]},
+                    ],
+                }
+            ],
+            n_atoms=3,
+            n_structures=2,
+            evaluated_structure_indices=[0, 1],
+            method="candidate",
         )
     }
     return system
@@ -69,8 +73,11 @@ def test_complete_molsys_reader_rejects_undeclared_shared_axes(tmp_path):
     system = _system()
     filename = tmp_path / "unlinked_complete.h5msm"
     write_modular_file(
-        filename, topology=system.topology, chemical_states=system.chemical_states,
-        structures=system.structures, interactions=dict(system.interactions),
+        filename,
+        topology=system.topology,
+        chemical_states=system.chemical_states,
+        structures=system.structures,
+        interactions=dict(system.interactions),
     )
     with pytest.raises(ValueError, match="explicit atom-axis associations"):
         read_complete_molsys_file(filename)
@@ -80,24 +87,43 @@ def test_complete_molsys_reader_rejects_a_reordered_atom_axis(tmp_path):
     system = _system()
     filename = tmp_path / "reordered_axis.h5msm"
     write_modular_file(
-        filename, topology=system.topology, chemical_states=system.chemical_states,
-        structures=system.structures, interactions=dict(system.interactions),
+        filename,
+        topology=system.topology,
+        chemical_states=system.chemical_states,
+        structures=system.structures,
+        interactions=dict(system.interactions),
         associations=[
             {
-                "axis": "atom", "source": "chemical_states", "target": "topology",
-                "source_name": None, "target_name": None, "indices": [2, 0, 1],
+                "axis": "atom",
+                "source": "chemical_states",
+                "target": "topology",
+                "source_name": None,
+                "target_name": None,
+                "indices": [2, 0, 1],
             },
             {
-                "axis": "atom", "source": "structures", "target": "topology",
-                "source_name": None, "target_name": None, "indices": "identity",
+                "axis": "atom",
+                "source": "structures",
+                "target": "topology",
+                "source_name": None,
+                "target_name": None,
+                "indices": "identity",
             },
             {
-                "axis": "atom", "source": "interactions", "target": "topology",
-                "source_name": "hbonds", "target_name": None, "indices": "identity",
+                "axis": "atom",
+                "source": "interactions",
+                "target": "topology",
+                "source_name": "hbonds",
+                "target_name": None,
+                "indices": "identity",
             },
             {
-                "axis": "structure", "source": "interactions", "target": "structures",
-                "source_name": "hbonds", "target_name": None, "indices": "identity",
+                "axis": "structure",
+                "source": "interactions",
+                "target": "structures",
+                "source_name": "hbonds",
+                "target_name": None,
+                "indices": "identity",
             },
         ],
     )
@@ -115,9 +141,11 @@ def test_selective_layer_read_does_not_load_omitted_topology(tmp_path):
     assert set(selected) == {"interactions", "associations"}
     assert selected["interactions"]["hbonds"].n_interactions == 1
     assert selected["associations"] is not None
-    assert list(read_modular_file(
-        filename, layers="interactions", analysis_names="hbonds"
-    )["interactions"]) == ["hbonds"]
+    assert list(
+        read_modular_file(filename, layers="interactions", analysis_names="hbonds")[
+            "interactions"
+        ]
+    ) == ["hbonds"]
     with pytest.raises(KeyError, match="missing"):
         read_modular_file(filename, layers="interactions", analysis_names="missing")
     with pytest.raises(ValueError, match="topology layer schema"):

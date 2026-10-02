@@ -15,7 +15,11 @@ def _failed(operation, error):
     from molsysmt._private.smonitor.emitter import warn
     from molsysmt._private.smonitor.warnings import AckreditTrackingWarning
 
-    warn(AckreditTrackingWarning(extra={"operation": operation, "reason": f"{type(error).__name__}: {error}"}))
+    warn(
+        AckreditTrackingWarning(
+            extra={"operation": operation, "reason": f"{type(error).__name__}: {error}"}
+        )
+    )
 
 
 @dep_digest("ackredit")
@@ -60,7 +64,9 @@ def credit(ackredit, items, target):
         return
     try:
         for item in items:
-            record = deepcopy({key: value for key, value in item.items() if key != "roles"})
+            record = deepcopy(
+                {key: value for key, value in item.items() if key != "roles"}
+            )
             ackredit.register_item(**record)
             ackredit.track_item(record["id"], used_by=target)
     except Exception as error:

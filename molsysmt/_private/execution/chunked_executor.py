@@ -260,7 +260,9 @@ class ChunkedExecutor:
         _EMA_ALPHA = 0.3  # exponential moving-average weight for ETA
 
         n_selected = (
-            n_structures if self.structure_indices is None else len(self.structure_indices)
+            n_structures
+            if self.structure_indices is None
+            else len(self.structure_indices)
         )
         n_chunks = int(np.ceil(n_selected / self.chunk_size))
 
@@ -404,7 +406,9 @@ class ChunkedExecutor:
                 chunk_index += 1
 
         if frame_offset != n_structures_selected:
-            raise ValueError("Trajectory iterator did not deliver every requested structure.")
+            raise ValueError(
+                "Trajectory iterator did not deliver every requested structure."
+            )
 
         results = [r.finalize() for r in self._reducers]
         return results[0] if self._single else results
@@ -415,7 +419,9 @@ class ChunkedExecutor:
         Used when heavy_mode='off' or footprint is within RAM budget.
         """
         n_selected = (
-            n_structures if self.structure_indices is None else len(self.structure_indices)
+            n_structures
+            if self.structure_indices is None
+            else len(self.structure_indices)
         )
         meta = {
             "n_atoms": n_atoms,
@@ -430,7 +436,9 @@ class ChunkedExecutor:
         for reducer in self._reducers:
             reducer.initialize(dict(meta))
 
-        with self._chunk_source(self.structure_indices, max(1, n_selected), n_structures) as it:
+        with self._chunk_source(
+            self.structure_indices, max(1, n_selected), n_structures
+        ) as it:
             frame_offset = 0
             for raw_chunk in it:
                 chunk = self._build_chunk(raw_chunk)
@@ -441,7 +449,9 @@ class ChunkedExecutor:
                     reducer.consume(chunk)
 
         if frame_offset != n_selected:
-            raise ValueError("Trajectory iterator did not deliver every requested structure.")
+            raise ValueError(
+                "Trajectory iterator did not deliver every requested structure."
+            )
 
         results = [r.finalize() for r in self._reducers]
         return results[0] if self._single else results
@@ -450,37 +460,53 @@ class ChunkedExecutor:
         """Avoid opening a trajectory when no structures are requested."""
         from contextlib import nullcontext
 
-        if n_structures == 0 or (structure_indices is not None and len(structure_indices) == 0):
+        if n_structures == 0 or (
+            structure_indices is not None and len(structure_indices) == 0
+        ):
             return nullcontext(iter(()))
         return self._get_form_iterator(structure_indices, chunk_size)
 
     @staticmethod
     def _set_chunk_indices(chunk, selected, offset, total):
         """Assign source indices from the requested traversal, never from IDs."""
-        series = next((
-            chunk[name] for name in ("coordinates", "box", "time", "structure_id")
-            if chunk.get(name) is not None
-        ), None)
+        series = next(
+            (
+                chunk[name]
+                for name in ("coordinates", "box", "time", "structure_id")
+                if chunk.get(name) is not None
+            ),
+            None,
+        )
         if series is None or series.ndim == 0:
             raise ValueError("A trajectory chunk must contain a structural series.")
         size = len(series)
         for name in ("coordinates", "box", "time", "structure_id"):
             values = chunk.get(name)
             if values is not None and (values.ndim == 0 or len(values) != size):
-                raise ValueError("Trajectory chunk series have incompatible structure axes.")
+                raise ValueError(
+                    "Trajectory chunk series have incompatible structure axes."
+                )
         expected = (
             np.arange(offset, offset + size, dtype=np.int64)
             if selected is None
-            else np.asarray(selected[offset:offset + size], dtype=np.int64)
+            else np.asarray(selected[offset : offset + size], dtype=np.int64)
         )
-        if len(expected) != size or offset + size > (total if selected is None else len(selected)):
-            raise ValueError("Trajectory iterator delivered more structures than requested.")
+        if len(expected) != size or offset + size > (
+            total if selected is None else len(selected)
+        ):
+            raise ValueError(
+                "Trajectory iterator delivered more structures than requested."
+            )
         observed = chunk.get("structure_indices")
         if observed is not None:
             if observed.ndim != 1 or observed.dtype.kind not in "iu":
-                raise ValueError("Trajectory chunk indices must be a one-dimensional integer array.")
+                raise ValueError(
+                    "Trajectory chunk indices must be a one-dimensional integer array."
+                )
             if not np.array_equal(observed, expected):
-                raise ValueError("Trajectory chunk indices disagree with the requested traversal.")
+                raise ValueError(
+                    "Trajectory chunk indices disagree with the requested traversal."
+                )
         expected = expected.view()
         expected.flags.writeable = False
         chunk["structure_indices"] = expected
@@ -533,7 +559,9 @@ class ChunkedExecutor:
             "coordinates": coords,
             "box": box,
             "time": time_,
-            "structure_id": np.asarray(structure_id).view() if structure_id is not None else None,
+            "structure_id": np.asarray(structure_id).view()
+            if structure_id is not None
+            else None,
             "structure_indices": np.asarray(raw_chunk["structure_indices"]).view()
             if raw_chunk.get("structure_indices") is not None
             else None,

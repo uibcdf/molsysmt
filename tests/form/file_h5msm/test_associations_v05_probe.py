@@ -11,8 +11,11 @@ from molsysmt.native import Structures, Topology
 
 def _link(axis, source, target, indices, *, source_name=None, target_name=None):
     return {
-        "axis": axis, "source": source, "target": target,
-        "source_name": source_name, "target_name": target_name,
+        "axis": axis,
+        "source": source,
+        "target": target,
+        "source_name": source_name,
+        "target_name": target_name,
         "indices": indices,
     }
 
@@ -24,7 +27,10 @@ def _domains():
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
     )
     interactions = msm.Interactions.from_records(
-        [], n_atoms=3, n_structures=2, evaluated_structure_indices=[0, 1],
+        [],
+        n_atoms=3,
+        n_structures=2,
+        evaluated_structure_indices=[0, 1],
         method="candidate",
     )
     return topology, structures, interactions
@@ -37,18 +43,26 @@ def test_identity_and_reordered_links_are_explicit_and_compact(tmp_path):
         _link("atom", "chemical_states", "topology", "identity"),
         _link("atom", "structures", "topology", [2, 0, 1]),
         _link("atom", "interactions", "topology", "identity", source_name="hbonds"),
-        _link("structure", "interactions", "structures", "identity", source_name="hbonds"),
+        _link(
+            "structure", "interactions", "structures", "identity", source_name="hbonds"
+        ),
         _link("structure_state", "structures", "chemical_states", [0, 0]),
     ]
     write_modular_file(
-        filename, topology=topology,
+        filename,
+        topology=topology,
         chemical_states=msm.convert(topology, to_form="molsysmt.ChemicalStates"),
-        structures=structures, interactions={"hbonds": interactions},
+        structures=structures,
+        interactions={"hbonds": interactions},
         associations=links,
     )
     with h5py.File(filename, "r") as file:
         assert set(file) == {
-            "topology", "chemical_states", "structures", "interactions", "associations"
+            "topology",
+            "chemical_states",
+            "structures",
+            "interactions",
+            "associations",
         }
         assert file["associations/0"].attrs["mapping"] == "identity"
         assert "indices" not in file["associations/0"]
@@ -81,19 +95,25 @@ def test_invalid_link_fails_before_file_creation_and_tampering_is_rejected(tmp_p
     filename = tmp_path / "invalid.h5msm"
     with pytest.raises(ValueError, match="outside the target axis"):
         write_modular_file(
-            filename, topology=topology, structures=structures,
+            filename,
+            topology=topology,
+            structures=structures,
             associations=[_link("atom", "structures", "topology", [0, 1, 3])],
         )
     assert not filename.exists()
     with pytest.raises(ValueError, match="cannot map distinct atoms"):
         write_modular_file(
-            filename, topology=topology, structures=structures,
+            filename,
+            topology=topology,
+            structures=structures,
             associations=[_link("atom", "structures", "topology", [0, 0, 1])],
         )
     assert not filename.exists()
 
     write_modular_file(
-        filename, topology=topology, structures=structures,
+        filename,
+        topology=topology,
+        structures=structures,
         associations=[_link("atom", "structures", "topology", [2, 0, 1])],
     )
     with h5py.File(filename, "r+") as file:
@@ -107,7 +127,8 @@ def test_contradictory_direct_and_indirect_atom_maps_are_rejected(tmp_path):
     filename = tmp_path / "contradictory.h5msm"
     with pytest.raises(ValueError, match="Direct and composed axis links disagree"):
         write_modular_file(
-            filename, topology=topology,
+            filename,
+            topology=topology,
             chemical_states=msm.convert(topology, to_form="molsysmt.ChemicalStates"),
             structures=structures,
             associations=[
@@ -122,8 +143,12 @@ def test_contradictory_direct_and_indirect_atom_maps_are_rejected(tmp_path):
 @pytest.mark.parametrize(
     ("has_topology", "has_states", "has_structures"),
     [
-        (True, False, False), (False, True, False), (False, False, True),
-        (True, True, False), (True, False, True), (False, True, True),
+        (True, False, False),
+        (False, True, False),
+        (False, False, True),
+        (True, True, False),
+        (True, False, True),
+        (False, True, True),
         (True, True, True),
     ],
 )
@@ -137,7 +162,8 @@ def test_every_nonempty_primary_domain_combination_roundtrips(
         topology=topology if has_topology else None,
         chemical_states=(
             msm.convert(topology, to_form="molsysmt.ChemicalStates")
-            if has_states else None
+            if has_states
+            else None
         ),
         structures=structures if has_structures else None,
     )

@@ -40,7 +40,8 @@ def iter_event_frames(n_frames, n_atoms, churn, duplicates=False, hot_atom=False
         use_hot = hot_atom and template_index % 2 == 0
         chosen = rng.choice(
             n_atoms - 1 if use_hot else n_atoms,
-            size=sum(sizes), replace=False,
+            size=sum(sizes),
+            replace=False,
         )
         if use_hot:
             chosen += 1
@@ -48,7 +49,9 @@ def iter_event_frames(n_frames, n_atoms, churn, duplicates=False, hot_atom=False
         cursor = 0
         participants = []
         for role, size in zip(roles, sizes):
-            participants.append((role, tuple(int(x) for x in chosen[cursor:cursor + size])))
+            participants.append(
+                (role, tuple(int(x) for x in chosen[cursor : cursor + size]))
+            )
             cursor += size
         pool.append((kind, tuple(participants)))
     counts = rng.integers(5, 16, size=n_frames)
@@ -63,7 +66,8 @@ def iter_event_frames(n_frames, n_atoms, churn, duplicates=False, hot_atom=False
                 use_hot = hot_atom and int(template_index) % 2 == 0
                 chosen = rng.choice(
                     n_atoms - 1 if use_hot else n_atoms,
-                    size=sum(sizes), replace=False,
+                    size=sum(sizes),
+                    replace=False,
                 )
                 if use_hot:
                     chosen += 1
@@ -71,7 +75,9 @@ def iter_event_frames(n_frames, n_atoms, churn, duplicates=False, hot_atom=False
                 cursor = 0
                 participants = []
                 for role, size in zip(roles, sizes):
-                    participants.append((role, tuple(int(x) for x in chosen[cursor:cursor + size])))
+                    participants.append(
+                        (role, tuple(int(x) for x in chosen[cursor : cursor + size]))
+                    )
                     cursor += size
                 key = (kind, tuple(participants))
             images = rng.integers(-1, 2, size=(len(key[1]), 3), dtype=np.int8)
@@ -87,9 +93,11 @@ def iter_event_frames(n_frames, n_atoms, churn, duplicates=False, hot_atom=False
 
 def make_events(n_frames, n_atoms, churn, duplicates=False, hot_atom=False):
     """Generate the complete trajectory for in-memory layout comparisons."""
-    return [event for frame in iter_event_frames(
-        n_frames, n_atoms, churn, duplicates, hot_atom
-    ) for event in frame]
+    return [
+        event
+        for frame in iter_event_frames(n_frames, n_atoms, churn, duplicates, hot_atom)
+        for event in frame
+    ]
 
 
 def encode(events, n_frames, n_atoms, scope, block_size=100):
@@ -108,9 +116,11 @@ def encode(events, n_frames, n_atoms, scope, block_size=100):
     image_offsets = [0]
     image_vectors = []
     occurrence_counts = np.zeros(n_frames, dtype=np.int32)
-    block_relation_counts = np.zeros(
-        (n_frames + block_size - 1) // block_size, dtype=np.int32
-    ) if scope == "block" else None
+    block_relation_counts = (
+        np.zeros((n_frames + block_size - 1) // block_size, dtype=np.int32)
+        if scope == "block"
+        else None
+    )
     for event_index, (frame, key, evidence, distance, images) in enumerate(events):
         global_id = canonical.setdefault(key, event_index)
         if scope == "global":
@@ -157,11 +167,15 @@ def encode(events, n_frames, n_atoms, scope, block_size=100):
             relation_participant_offsets, dtype=np.int32
         ),
         "participant_roles": np.asarray(participant_roles, dtype=np.int8),
-        "participant_atom_offsets": np.asarray(participant_atom_offsets, dtype=np.int32),
+        "participant_atom_offsets": np.asarray(
+            participant_atom_offsets, dtype=np.int32
+        ),
         "participant_atoms": np.asarray(participant_atoms, dtype=np.int32),
     }
     if scope != "event":
-        arrays["occurrence_relations"] = np.asarray(occurrence_relations, dtype=np.int32)
+        arrays["occurrence_relations"] = np.asarray(
+            occurrence_relations, dtype=np.int32
+        )
     if scope == "block":
         arrays["canonical_relation_ids"] = np.asarray(canonical_ids, dtype=np.int32)
     elif scope == "event":
@@ -250,7 +264,7 @@ def build_atom_index(arrays, n_atoms, scope):
 
 def query_frame(arrays, frame):
     offsets = arrays["frame_offsets"]
-    return arrays["event_id"][offsets[frame]:offsets[frame + 1]]
+    return arrays["event_id"][offsets[frame] : offsets[frame + 1]]
 
 
 def query_frames(arrays, frames):
@@ -266,21 +280,32 @@ def query_atom(arrays, index, atom, scope):
         return postings
     offsets = index["relation_offsets"]
     events = index["relation_postings"]
-    return np.sort(np.concatenate([
-        events[offsets[relation]:offsets[relation + 1]]
-        for relation in postings
-    ])) if len(postings) else np.empty(0, dtype=np.int32)
+    return (
+        np.sort(
+            np.concatenate(
+                [
+                    events[offsets[relation] : offsets[relation + 1]]
+                    for relation in postings
+                ]
+            )
+        )
+        if len(postings)
+        else np.empty(0, dtype=np.int32)
+    )
 
 
 def query_atom_frames(arrays, index, atom, frames, scope):
     events = query_atom(arrays, index, atom, scope)
     selected = list(dict.fromkeys(int(frame) for frame in frames))
     frame_offsets = arrays["frame_offsets"]
-    return np.concatenate([
-        events[(events >= frame_offsets[frame]) &
-               (events < frame_offsets[frame + 1])]
-        for frame in selected
-    ])
+    return np.concatenate(
+        [
+            events[
+                (events >= frame_offsets[frame]) & (events < frame_offsets[frame + 1])
+            ]
+            for frame in selected
+        ]
+    )
 
 
 def query_set(arrays, index, atoms, mode, scope):
@@ -288,52 +313,75 @@ def query_set(arrays, index, atoms, mode, scope):
     if scope != "event":
         offsets = index["atom_offsets"]
         relation_groups = [
-            index["atom_postings"][offsets[atom]:offsets[atom + 1]]
+            index["atom_postings"][offsets[atom] : offsets[atom + 1]]
             for atom in selection
         ]
-        relations = np.unique(np.concatenate(relation_groups)) if relation_groups else (
-            np.empty(0, dtype=np.int32)
+        relations = (
+            np.unique(np.concatenate(relation_groups))
+            if relation_groups
+            else (np.empty(0, dtype=np.int32))
         )
         if mode != "incident":
             membership = set(selection.tolist())
-            internal = np.asarray([
-                all(int(atom) in membership for atom in relation_atoms(arrays, relation))
-                for relation in relations
-            ], dtype=bool)
+            internal = np.asarray(
+                [
+                    all(
+                        int(atom) in membership
+                        for atom in relation_atoms(arrays, relation)
+                    )
+                    for relation in relations
+                ],
+                dtype=bool,
+            )
             relations = relations[internal if mode == "internal" else ~internal]
         offsets = index["relation_offsets"]
         groups = [
-            index["relation_postings"][offsets[relation]:offsets[relation + 1]]
+            index["relation_postings"][offsets[relation] : offsets[relation + 1]]
             for relation in relations
         ]
-        return np.sort(np.concatenate(groups)) if groups else np.empty(0, dtype=np.int32)
-    candidates = np.unique(np.concatenate([
-        query_atom(arrays, index, int(atom), scope) for atom in selection
-    ])) if len(selection) else np.empty(0, dtype=np.int32)
+        return (
+            np.sort(np.concatenate(groups)) if groups else np.empty(0, dtype=np.int32)
+        )
+    candidates = (
+        np.unique(
+            np.concatenate(
+                [query_atom(arrays, index, int(atom), scope) for atom in selection]
+            )
+        )
+        if len(selection)
+        else np.empty(0, dtype=np.int32)
+    )
     if mode == "incident":
         return candidates
     membership = set(selection.tolist())
-    internal = np.asarray([
-        all(int(atom) in membership for atom in relation_atoms(
-            arrays, event_relation(arrays, event)
-        )) for event in candidates
-    ], dtype=bool)
+    internal = np.asarray(
+        [
+            all(
+                int(atom) in membership
+                for atom in relation_atoms(arrays, event_relation(arrays, event))
+            )
+            for event in candidates
+        ],
+        dtype=bool,
+    )
     return candidates[internal if mode == "internal" else ~internal]
 
 
 def relation_atom_cardinalities(arrays):
-    return np.asarray([
-        len(np.unique(relation_atoms(arrays, relation)))
-        for relation in range(len(arrays["relation_types"]))
-    ], dtype=np.int32)
+    return np.asarray(
+        [
+            len(np.unique(relation_atoms(arrays, relation)))
+            for relation in range(len(arrays["relation_types"]))
+        ],
+        dtype=np.int32,
+    )
 
 
 def query_set_counted(arrays, index, atoms, mode, scope, cardinalities):
     selection = np.unique(np.asarray(atoms, dtype=np.int32))
     offsets = index["atom_offsets"]
     groups = [
-        index["atom_postings"][offsets[atom]:offsets[atom + 1]]
-        for atom in selection
+        index["atom_postings"][offsets[atom] : offsets[atom + 1]] for atom in selection
     ]
     if not groups:
         return np.empty(0, dtype=np.int32)
@@ -353,11 +401,14 @@ def query_set_counted(arrays, index, atoms, mode, scope, cardinalities):
     relation_offsets = index["relation_offsets"]
     event_groups = [
         index["relation_postings"][
-            relation_offsets[relation]:relation_offsets[relation + 1]
-        ] for relation in candidates
+            relation_offsets[relation] : relation_offsets[relation + 1]
+        ]
+        for relation in candidates
     ]
-    return np.sort(np.concatenate(event_groups)) if event_groups else (
-        np.empty(0, dtype=np.int32)
+    return (
+        np.sort(np.concatenate(event_groups))
+        if event_groups
+        else (np.empty(0, dtype=np.int32))
     )
 
 
@@ -374,12 +425,23 @@ def time_queries(query, requests):
         start = time.perf_counter_ns()
         query(request)
         samples.append((time.perf_counter_ns() - start) / 1e6)
-    return {"median_ms": round(statistics.median(samples), 4),
-            "p95_ms": round(sorted(samples)[int(0.95 * (len(samples) - 1))], 4)}
+    return {
+        "median_ms": round(statistics.median(samples), 4),
+        "p95_ms": round(sorted(samples)[int(0.95 * (len(samples) - 1))], 4),
+    }
 
 
-def benchmark_queries(arrays, index, scope, frames, atoms, frame_groups,
-                      atom_groups, complete_groups, cardinalities):
+def benchmark_queries(
+    arrays,
+    index,
+    scope,
+    frames,
+    atoms,
+    frame_groups,
+    atom_groups,
+    complete_groups,
+    cardinalities,
+):
     return {
         "frame_query": time_queries(
             lambda frame: query_frame(arrays, int(frame)), frames
@@ -393,7 +455,8 @@ def benchmark_queries(arrays, index, scope, frames, atoms, frame_groups,
         "atom_four_frame_query": time_queries(
             lambda request: query_atom_frames(
                 arrays, index, int(request[0]), request[1], scope
-            ), list(zip(atoms, frame_groups))
+            ),
+            list(zip(atoms, frame_groups)),
         ),
         "five_atom_internal_query": time_queries(
             lambda group: query_set(arrays, index, group, "internal", scope),
@@ -406,12 +469,14 @@ def benchmark_queries(arrays, index, scope, frames, atoms, frame_groups,
         "counted_five_atom_internal_query": time_queries(
             lambda group: query_set_counted(
                 arrays, index, group, "internal", scope, cardinalities
-            ), atom_groups,
+            ),
+            atom_groups,
         ),
         "counted_complete_relation_internal_query": time_queries(
             lambda group: query_set_counted(
                 arrays, index, group, "internal", scope, cardinalities
-            ), complete_groups,
+            ),
+            complete_groups,
         ),
     }
 
@@ -426,15 +491,19 @@ def save_arrays(path, arrays, scope, block_size):
         file.attrs["scope"] = scope
         file.attrs["block_size"] = block_size
         file.attrs["canonical_encoding"] = (
-            "full" if "canonical_relation_ids" in arrays else
-            "exceptions" if "duplicate_event_ids" in arrays else "implicit"
+            "full"
+            if "canonical_relation_ids" in arrays
+            else "exceptions"
+            if "duplicate_event_ids" in arrays
+            else "implicit"
         )
         file.attrs["occurrence_relations_implicit"] = (
             "occurrence_relations" not in arrays
         )
         for name, array in arrays.items():
-            file.create_dataset(name, data=array,
-                                compression="gzip" if array.size else None)
+            file.create_dataset(
+                name, data=array, compression="gzip" if array.size else None
+            )
 
 
 def check_lossless(arrays, events, n_frames):
@@ -443,7 +512,9 @@ def check_lossless(arrays, events, n_frames):
     for event in (0, len(events) // 2, len(events) - 1):
         frame, key, evidence, distance, images = events[event]
         relation = event_relation(arrays, event)
-        assert arrays["frame_offsets"][frame] <= event < arrays["frame_offsets"][frame + 1]
+        assert (
+            arrays["frame_offsets"][frame] <= event < arrays["frame_offsets"][frame + 1]
+        )
         assert arrays["relation_types"][relation] == key[0]
         part_start = arrays["relation_participant_offsets"][relation]
         part_end = arrays["relation_participant_offsets"][relation + 1]
@@ -476,10 +547,13 @@ def main():
         args.frames, args.atoms, args.churn, args.duplicates, args.hot_atom
     )
     first_event_by_relation = {}
-    expected_canonical_ids = np.asarray([
-        first_event_by_relation.setdefault(event[1], event_id)
-        for event_id, event in enumerate(events)
-    ], dtype=np.int32)
+    expected_canonical_ids = np.asarray(
+        [
+            first_event_by_relation.setdefault(event[1], event_id)
+            for event_id, event in enumerate(events)
+        ],
+        dtype=np.int32,
+    )
     duplicate_events = sum(
         events[index][0] == events[index - 1][0]
         and events[index][1] == events[index - 1][1]
@@ -493,8 +567,16 @@ def main():
     frame_groups = rng.integers(0, args.frames, size=(200, 4))
     atom_groups = rng.integers(0, args.atoms, size=(50, 5))
     complete_groups = [
-        np.asarray(sorted({atom for _, member_atoms in events[event][1][1]
-                           for atom in member_atoms}), dtype=np.int32)
+        np.asarray(
+            sorted(
+                {
+                    atom
+                    for _, member_atoms in events[event][1][1]
+                    for atom in member_atoms
+                }
+            ),
+            dtype=np.int32,
+        )
         for event in np.linspace(0, len(events) - 1, 50, dtype=np.int32)
     ]
     result = {}
@@ -516,17 +598,20 @@ def main():
         for mode in ("incident", "internal", "cross"):
             for group in [*atom_groups[:3], *complete_groups[:3]]:
                 np.testing.assert_array_equal(
-                    query_set_counted(arrays, index, group, mode, scope,
-                                      cardinalities),
+                    query_set_counted(arrays, index, group, mode, scope, cardinalities),
                     query_set(arrays, index, group, mode, scope),
                 )
         signatures = (
             tuple(query_frame(arrays, int(frame)).tolist() for frame in frames[:5]),
-            tuple(query_atom(arrays, index, int(atom), scope).tolist()
-                  for atom in atoms[:5]),
-            tuple(query_set(arrays, index, group, mode, scope).tolist()
-                  for mode in ("incident", "internal", "cross")
-                  for group in [*atom_groups[:3], *complete_groups[:3]]),
+            tuple(
+                query_atom(arrays, index, int(atom), scope).tolist()
+                for atom in atoms[:5]
+            ),
+            tuple(
+                query_set(arrays, index, group, mode, scope).tolist()
+                for mode in ("incident", "internal", "cross")
+                for group in [*atom_groups[:3], *complete_groups[:3]]
+            ),
         )
         if reference is None:
             reference = signatures
@@ -543,14 +628,16 @@ def main():
                 file_events = file["event_id"]
                 start = time.perf_counter_ns()
                 first_frame_ids = file_events[
-                    file_offsets[int(frames[0])]:file_offsets[int(frames[0]) + 1]
+                    file_offsets[int(frames[0])] : file_offsets[int(frames[0]) + 1]
                 ]
                 first_file_frame_ms = (time.perf_counter_ns() - start) / 1e6
                 np.testing.assert_array_equal(
                     first_frame_ids, query_frame(arrays, int(frames[0]))
                 )
+
                 def read_file_frame(frame, dataset=file_events, offsets=file_offsets):
-                    return dataset[offsets[int(frame)]:offsets[int(frame) + 1]]
+                    return dataset[offsets[int(frame)] : offsets[int(frame) + 1]]
+
                 file_frame_query = time_queries(read_file_frame, frames)
             start = time.perf_counter()
             with h5py.File(path, "r") as file:
@@ -568,13 +655,22 @@ def main():
             "hot_atom_query": time_queries(
                 lambda _request, arrays=arrays, index=index, scope=scope: query_atom(
                     arrays, index, 0, scope
-                ), frames,
+                ),
+                frames,
             ),
             "cardinality_bytes": cardinalities.nbytes,
             "cardinality_build_s": round(cardinalities_s, 3),
-            **benchmark_queries(arrays, index, scope, frames, atoms,
-                                frame_groups, atom_groups, complete_groups,
-                                cardinalities),
+            **benchmark_queries(
+                arrays,
+                index,
+                scope,
+                frames,
+                atoms,
+                frame_groups,
+                atom_groups,
+                complete_groups,
+                cardinalities,
+            ),
             "file_bytes": disk_bytes,
             "save_s": round(save_s, 3),
             "load_s": round(load_s, 3),
@@ -591,15 +687,23 @@ def main():
                     query_atom(arrays, index, int(atom), scope),
                 )
             direct_timings = benchmark_queries(
-                arrays, direct_index, "event", frames, atoms,
-                frame_groups, atom_groups, complete_groups, cardinalities,
+                arrays,
+                direct_index,
+                "event",
+                frames,
+                atoms,
+                frame_groups,
+                atom_groups,
+                complete_groups,
+                cardinalities,
             )
             result[scope]["direct_atom_index_bytes"] = payload_bytes(direct_index)
             result[scope]["direct_atom_index_build_s"] = round(direct_index_s, 3)
             result[scope]["direct_hot_atom_query"] = time_queries(
                 lambda _request, arrays=arrays, index=direct_index: query_atom(
                     arrays, index, 0, "event"
-                ), frames,
+                ),
+                frames,
             )
             result[scope]["direct_atom_query"] = direct_timings["atom_query"]
             result[scope]["direct_atom_four_frame_query"] = direct_timings[
@@ -615,21 +719,41 @@ def main():
                 direct_timings["counted_complete_relation_internal_query"]
             )
     cpu_info = Path("/proc/cpuinfo")
-    cpu_model = next((line.split(":", 1)[1].strip()
-                      for line in cpu_info.read_text().splitlines()
-                      if line.startswith("model name")), None) if cpu_info.exists() else None
-    print(json.dumps({
-        "platform": platform.platform(), "python": platform.python_version(),
-        "cpu_model": cpu_model, "numpy": np.__version__, "h5py": h5py.__version__,
-        "frames": args.frames, "atoms": args.atoms, "events": len(events),
-        "evaluated_empty_frames": int(sum(np.diff(
-            result_arrays_frame_offsets(events, args.frames)
-        ) == 0)),
-        "block_size": args.block_size, "churn": args.churn,
-        "hot_atom": args.hot_atom,
-        "duplicate_events": duplicate_events,
-        "comparison": result,
-    }, indent=2))
+    cpu_model = (
+        next(
+            (
+                line.split(":", 1)[1].strip()
+                for line in cpu_info.read_text().splitlines()
+                if line.startswith("model name")
+            ),
+            None,
+        )
+        if cpu_info.exists()
+        else None
+    )
+    print(
+        json.dumps(
+            {
+                "platform": platform.platform(),
+                "python": platform.python_version(),
+                "cpu_model": cpu_model,
+                "numpy": np.__version__,
+                "h5py": h5py.__version__,
+                "frames": args.frames,
+                "atoms": args.atoms,
+                "events": len(events),
+                "evaluated_empty_frames": int(
+                    sum(np.diff(result_arrays_frame_offsets(events, args.frames)) == 0)
+                ),
+                "block_size": args.block_size,
+                "churn": args.churn,
+                "hot_atom": args.hot_atom,
+                "duplicate_events": duplicate_events,
+                "comparison": result,
+            },
+            indent=2,
+        )
+    )
 
 
 def result_arrays_frame_offsets(events, n_frames):

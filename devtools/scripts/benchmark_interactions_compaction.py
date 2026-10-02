@@ -18,9 +18,14 @@ from benchmark_interactions_frame_replacement import patch
 from benchmark_interactions_invalidation_memory import make_result, process_memory
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCES = ("molsysmt/interactions/result.py", "molsysmt/interactions/_compaction.py",
-           "molsysmt/interactions/_hdf5_writer.py", "molsysmt/interactions/_frame_validity.py",
-           "molsysmt/interactions/_frame_replacement.py", "molsysmt/interactions/_execution_provenance.py")
+SOURCES = (
+    "molsysmt/interactions/result.py",
+    "molsysmt/interactions/_compaction.py",
+    "molsysmt/interactions/_hdf5_writer.py",
+    "molsysmt/interactions/_frame_validity.py",
+    "molsysmt/interactions/_frame_replacement.py",
+    "molsysmt/interactions/_execution_provenance.py",
+)
 
 
 def packed(source):
@@ -32,8 +37,14 @@ def packed(source):
 
 def fingerprint(result):
     digest = hashlib.sha256()
-    for name in ("evaluated_structure_indices", "occurrence_structures", "occurrence_relations",
-                 "occurrence_evidence", "occurrence_image_offsets", "image_vectors"):
+    for name in (
+        "evaluated_structure_indices",
+        "occurrence_structures",
+        "occurrence_relations",
+        "occurrence_evidence",
+        "occurrence_image_offsets",
+        "image_vectors",
+    ):
         value = getattr(result, name)
         digest.update(name.encode())
         digest.update(b"None" if value is None else value.tobytes())
@@ -72,13 +83,24 @@ def worker(count, images, kind, variant, samples):
     assert source._packed_result is None
     assert result.n_interactions == source.n_interactions
     assert not hasattr(result, "_segments") and not hasattr(result, "_root")
-    return dict(input_occurrences=count, active_occurrences=result.n_interactions,
-                atoms=source.n_atoms, structures=source.n_structures, periodic_images=images,
-                representation=kind, method=variant, untraced_seconds=timings,
-                median_seconds=float(np.median(timings)), additional_traced_live_bytes=live,
-                additional_traced_peak_bytes=peak, numeric_before_bytes=source.numeric_nbytes,
-                numeric_after_bytes=result.numeric_nbytes, process_memory_before=before,
-                process_memory_after=after, active_fingerprint=fingerprint(result))
+    return dict(
+        input_occurrences=count,
+        active_occurrences=result.n_interactions,
+        atoms=source.n_atoms,
+        structures=source.n_structures,
+        periodic_images=images,
+        representation=kind,
+        method=variant,
+        untraced_seconds=timings,
+        median_seconds=float(np.median(timings)),
+        additional_traced_live_bytes=live,
+        additional_traced_peak_bytes=peak,
+        numeric_before_bytes=source.numeric_nbytes,
+        numeric_after_bytes=result.numeric_nbytes,
+        process_memory_before=before,
+        process_memory_after=after,
+        active_fingerprint=fingerprint(result),
+    )
 
 
 def main():
@@ -91,25 +113,56 @@ def main():
         parser.error("--samples must be positive")
     if args.worker:
         count, images, kind, variant = args.worker
-        print(json.dumps(worker(int(count), bool(int(images)), kind, variant, args.samples)))
+        print(
+            json.dumps(
+                worker(int(count), bool(int(images)), kind, variant, args.samples)
+            )
+        )
         return
     cases = []
     for count in (100_000, 1_000_000):
         for images in (False, True):
             for kind in ("filtered", "patched"):
-                pair = [json.loads(subprocess.check_output([
-                    sys.executable, str(Path(__file__).resolve()), "--samples", str(args.samples),
-                    "--worker", str(count), str(int(images)), kind, variant], text=True))
-                        for variant in ("projection", "compact")]
+                pair = [
+                    json.loads(
+                        subprocess.check_output(
+                            [
+                                sys.executable,
+                                str(Path(__file__).resolve()),
+                                "--samples",
+                                str(args.samples),
+                                "--worker",
+                                str(count),
+                                str(int(images)),
+                                kind,
+                                variant,
+                            ],
+                            text=True,
+                        )
+                    )
+                    for variant in ("projection", "compact")
+                ]
                 assert pair[0]["active_fingerprint"] == pair[1]["active_fingerprint"]
                 cases.extend(pair)
-                print(f"{count} {kind} images={images}: {pair[0]['additional_traced_peak_bytes']} -> {pair[1]['additional_traced_peak_bytes']} bytes", flush=True)
-    report = dict(timestamp_utc=datetime.now(timezone.utc).isoformat(),
-                  working_reference=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                  methodology="Fresh worker for each case/variant. Discarded warm-up. Separate repeated untraced timings and traced allocation sample. Inputs excluded; destination retained in traced live allocation. Half the frame indices invalidated, one frame restored in patched cases. Constant measures and zero images are synthetic. No coordinates or disk IO. RSS/lifetime HWM are not isolated allocation peaks. Active column/provenance fingerprints compared outside measurement.",
-                  environment=dict(python=sys.version, platform=platform.platform(), numpy=np.__version__),
-                  source_sha256={name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in SOURCES},
-                  cases=cases)
+                print(
+                    f"{count} {kind} images={images}: {pair[0]['additional_traced_peak_bytes']} -> {pair[1]['additional_traced_peak_bytes']} bytes",
+                    flush=True,
+                )
+    report = dict(
+        timestamp_utc=datetime.now(timezone.utc).isoformat(),
+        working_reference=subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+        ).strip(),
+        methodology="Fresh worker for each case/variant. Discarded warm-up. Separate repeated untraced timings and traced allocation sample. Inputs excluded; destination retained in traced live allocation. Half the frame indices invalidated, one frame restored in patched cases. Constant measures and zero images are synthetic. No coordinates or disk IO. RSS/lifetime HWM are not isolated allocation peaks. Active column/provenance fingerprints compared outside measurement.",
+        environment=dict(
+            python=sys.version, platform=platform.platform(), numpy=np.__version__
+        ),
+        source_sha256={
+            name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+            for name in SOURCES
+        },
+        cases=cases,
+    )
     if args.output is not None:
         args.output.write_text(json.dumps(report, indent=2) + "\n")
     else:

@@ -43,7 +43,11 @@ def test_topology_only_has_no_chemical_state_or_covalent_records(tmp_path):
         write_independent_topology(file, source)
         assert set(file) == {"topology"}
         assert set(file["topology"]) == {
-            "atoms", "groups", "molecules", "entities", "chains"
+            "atoms",
+            "groups",
+            "molecules",
+            "entities",
+            "chains",
         }
 
     with h5py.File(filename, "r") as file:

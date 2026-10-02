@@ -27,27 +27,42 @@ def fixture(atoms, structures, rings):
     molsys = MolSys()
     molsys.topology = Topology(n_atoms=atoms)
     molsys.topology.atoms["atom_type"] = "C"
-    pairs = np.column_stack((np.arange(6 * rings), np.arange(6 * rings).reshape(-1, 6)[:, [1, 2, 3, 4, 5, 0]].ravel()))
-    molsys.topology.bonds = pd.DataFrame({"atom1_index": pairs[:, 0], "atom2_index": pairs[:, 1],
-                                         "bond_type": "covalent", "is_aromatic": True})
-    molsys.topology._set_chemical_state_atom_attribute("is_aromatic", [True] * (6 * rings) + [False] * (atoms - 6 * rings))
+    pairs = np.column_stack(
+        (
+            np.arange(6 * rings),
+            np.arange(6 * rings).reshape(-1, 6)[:, [1, 2, 3, 4, 5, 0]].ravel(),
+        )
+    )
+    molsys.topology.bonds = pd.DataFrame(
+        {
+            "atom1_index": pairs[:, 0],
+            "atom2_index": pairs[:, 1],
+            "bond_type": "covalent",
+            "is_aromatic": True,
+        }
+    )
+    molsys.topology._set_chemical_state_atom_attribute(
+        "is_aromatic", [True] * (6 * rings) + [False] * (atoms - 6 * rings)
+    )
     molsys.chemical_states._states[0].connectivity_completeness = "complete"
     phase = np.arange(6) * np.pi / 3
-    ring = .14 * np.column_stack((np.cos(phase), np.sin(phase), np.zeros(6)))
-    centers = np.column_stack((np.arange(rings) * 3., np.zeros((rings, 2))))
+    ring = 0.14 * np.column_stack((np.cos(phase), np.sin(phase), np.zeros(6)))
+    centers = np.column_stack((np.arange(rings) * 3.0, np.zeros((rings, 2))))
     xyz = np.zeros((structures, atoms, 3))
-    xyz[:, :6 * rings] = (centers[:, None] + ring).reshape(-1, 3)
-    xyz[:, 6 * rings:7 * rings] = centers + [0, 0, .35]
-    molsys.topology.atoms.loc[6 * rings:7 * rings - 1, "atom_type"] = "N"
+    xyz[:, : 6 * rings] = (centers[:, None] + ring).reshape(-1, 3)
+    xyz[:, 6 * rings : 7 * rings] = centers + [0, 0, 0.35]
+    molsys.topology.atoms.loc[6 * rings : 7 * rings - 1, "atom_type"] = "N"
     charges = np.zeros(atoms, dtype=int)
-    charges[6 * rings:7 * rings] = 1
+    charges[6 * rings : 7 * rings] = 1
     explicit_hydrogens = np.zeros(atoms, dtype=int)
-    explicit_hydrogens[6 * rings:7 * rings] = 4
+    explicit_hydrogens[6 * rings : 7 * rings] = 4
     molsys.topology._set_chemical_state_atom_attribute("formal_charge", charges)
-    molsys.topology._set_chemical_state_atom_attribute("n_explicit_hydrogens", explicit_hydrogens)
+    molsys.topology._set_chemical_state_atom_attribute(
+        "n_explicit_hydrogens", explicit_hydrogens
+    )
     for frame in range(structures):
         if frame % 5 == 1:
-            xyz[frame, 6 * rings:7 * rings, 2] += 2
+            xyz[frame, 6 * rings : 7 * rings, 2] += 2
         elif frame % 5 == 2:
             xyz[frame, 6 * rings + np.arange(0, rings, 3), 2] += 2
     molsys.structures.append(coordinates=msm.pyunitwizard.quantity(xyz, "nm"))
@@ -60,15 +75,35 @@ def worker(args):
 
     def calculate(source):
         return msm.interactions.cation_pi.get_cation_pi_interactions(
-            source, pbc=False, heavy_mode=args.mode, method=args.method,
-            **({} if args.method == "prolif" else dict(distance_threshold=".45 nm", angle_threshold="30 degrees",
-                                                       offset_threshold=".2 nm", planarity_threshold=".02 nm")))
+            source,
+            pbc=False,
+            heavy_mode=args.mode,
+            method=args.method,
+            **(
+                {}
+                if args.method == "prolif"
+                else dict(
+                    distance_threshold=".45 nm",
+                    angle_threshold="30 degrees",
+                    offset_threshold=".2 nm",
+                    planarity_threshold=".02 nm",
+                )
+            ),
+        )
 
     calculate(fixture(7, 1, 1))
-    source = msm.convert(args.input, to_form="molsysmt.MolSys") if args.source == "native" else args.input
+    source = (
+        msm.convert(args.input, to_form="molsysmt.MolSys")
+        if args.source == "native"
+        else args.input
+    )
     times, rss = [], []
-    with msm.configure.context(chunk_size=args.chunk, chunk_memory_fraction=0, max_ram_usage=args.budget,
-                               emit_heavy_telemetry=False):
+    with msm.configure.context(
+        chunk_size=args.chunk,
+        chunk_memory_fraction=0,
+        max_ram_usage=args.budget,
+        emit_heavy_telemetry=False,
+    ):
         for _ in range(args.repetitions):
             result = None
             gc.collect()
@@ -76,10 +111,18 @@ def worker(args):
             start = time.perf_counter()
             result = calculate(source)
             times.append(time.perf_counter() - start)
-    expected = sum(0 if frame % 5 == 1 else args.rings - (args.rings + 2) // 3
-                   if frame % 5 == 2 else args.rings for frame in range(args.structures))
+    expected = sum(
+        0
+        if frame % 5 == 1
+        else args.rings - (args.rings + 2) // 3
+        if frame % 5 == 2
+        else args.rings
+        for frame in range(args.structures)
+    )
     assert result.n_interactions == expected
-    np.testing.assert_allclose(result.measurements["distance"], .35, atol=1e-10, rtol=0)
+    np.testing.assert_allclose(
+        result.measurements["distance"], 0.35, atol=1e-10, rtol=0
+    )
     numeric_before = result.numeric_nbytes
 
     def query_time(function, repetitions=50):
@@ -100,17 +143,37 @@ def worker(args):
         write = time.perf_counter() - start
         disk_bytes = Path(path).stat().st_size
         start = time.perf_counter()
-        restored = msm.h5msm.read_layers(path, layers="interactions")["interactions"]["cation"]
+        restored = msm.h5msm.read_layers(path, layers="interactions")["interactions"][
+            "cation"
+        ]
         read = time.perf_counter() - start
-        np.testing.assert_array_equal(restored.occurrence_structures, result.occurrence_structures)
+        np.testing.assert_array_equal(
+            restored.occurrence_structures, result.occurrence_structures
+        )
         for name in result.measurements:
-            np.testing.assert_array_equal(restored.measurements[name], result.measurements[name])
-    return dict(source=args.source, method=args.method, heavy_mode=args.mode, samples_seconds=times, median_seconds=float(np.median(times)),
-                occurrences=result.n_interactions, relations=len(result.relation_types), chunks=result.execution_records[0]["details"]["execution_chunks"],
-                numeric_bytes_before_index=numeric_before, numeric_bytes_after_index=result.numeric_nbytes,
-                rss_before_calculation_bytes=rss, process_peak_rss_bytes=_rss_bytes("VmHWM"),
-                first_atom_query_s=first_query, atom_query_median_s=atom_query, frame_query_median_s=frame_query,
-                h5msm_write_s=write, h5msm_read_s=read, h5msm_bytes=disk_bytes)
+            np.testing.assert_array_equal(
+                restored.measurements[name], result.measurements[name]
+            )
+    return dict(
+        source=args.source,
+        method=args.method,
+        heavy_mode=args.mode,
+        samples_seconds=times,
+        median_seconds=float(np.median(times)),
+        occurrences=result.n_interactions,
+        relations=len(result.relation_types),
+        chunks=result.execution_records[0]["details"]["execution_chunks"],
+        numeric_bytes_before_index=numeric_before,
+        numeric_bytes_after_index=result.numeric_nbytes,
+        rss_before_calculation_bytes=rss,
+        process_peak_rss_bytes=_rss_bytes("VmHWM"),
+        first_atom_query_s=first_query,
+        atom_query_median_s=atom_query,
+        frame_query_median_s=frame_query,
+        h5msm_write_s=write,
+        h5msm_read_s=read,
+        h5msm_bytes=disk_bytes,
+    )
 
 
 def main():
@@ -120,15 +183,22 @@ def main():
     parser.add_argument("--rings", type=int, default=1000)
     parser.add_argument("--repetitions", type=int, default=3)
     parser.add_argument("--chunk", type=int, default=16)
-    parser.add_argument("--budget", type=int, default=1024 ** 3)
+    parser.add_argument("--budget", type=int, default=1024**3)
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--method", choices=["prolif", "centroid_angle_offset"], default="prolif")
+    parser.add_argument(
+        "--method", choices=["prolif", "centroid_angle_offset"], default="prolif"
+    )
     parser.add_argument("--input")
     parser.add_argument("--source", choices=["native", "file"])
     parser.add_argument("--mode", choices=["off", "force"])
     args = parser.parse_args()
-    if min(args.structures, args.rings, args.repetitions, args.chunk, args.budget) < 1 or args.atoms < args.rings * 7:
-        parser.error("Require positive counts and at least seven atoms per ring/cation pair.")
+    if (
+        min(args.structures, args.rings, args.repetitions, args.chunk, args.budget) < 1
+        or args.atoms < args.rings * 7
+    ):
+        parser.error(
+            "Require positive counts and at least seven atoms per ring/cation pair."
+        )
     if args.input:
         print(json.dumps(worker(args)))
         return
@@ -147,37 +217,108 @@ def main():
         gc.collect()
         for source in ("native", "file"):
             for mode in ("off", "force"):
-                command = [sys.executable, str(Path(__file__).resolve()), "--input", path, "--source", source, "--mode", mode,
-                           "--atoms", str(args.atoms), "--structures", str(args.structures), "--rings", str(args.rings),
-                           "--method", args.method, "--repetitions", str(args.repetitions), "--chunk", str(args.chunk), "--budget", str(args.budget)]
-                completed = subprocess.run(command, check=True, capture_output=True, text=True)
+                command = [
+                    sys.executable,
+                    str(Path(__file__).resolve()),
+                    "--input",
+                    path,
+                    "--source",
+                    source,
+                    "--mode",
+                    mode,
+                    "--atoms",
+                    str(args.atoms),
+                    "--structures",
+                    str(args.structures),
+                    "--rings",
+                    str(args.rings),
+                    "--method",
+                    args.method,
+                    "--repetitions",
+                    str(args.repetitions),
+                    "--chunk",
+                    str(args.chunk),
+                    "--budget",
+                    str(args.budget),
+                ]
+                completed = subprocess.run(
+                    command, check=True, capture_output=True, text=True
+                )
                 results.append(json.loads(completed.stdout))
                 print(f"Completed {source}/{mode}", file=sys.stderr, flush=True)
-    paths = [Path(__file__).resolve(), ROOT / "molsysmt/interactions/cation_pi/get_cation_pi_interactions.py",
-             ROOT / "molsysmt/interactions/cation_pi/_reducer.py", ROOT / "molsysmt/structure/_plane.py",
-             ROOT / "molsysmt/structure/_group_minimum_contacts.py", ROOT / "molsysmt/_private/sparse_membership.py",
-             ROOT / "molsysmt/topology/get_substructure_matches.py", ROOT / "molsysmt/interactions/cation_pi/_prolif.py",
-             ROOT / "molsysmt/_private/execution/projected_geometry.py", ROOT / "molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py",
-             ROOT / "molsysmt/structure/_centroid.py", ROOT / "molsysmt/pbc/_whole_participants.py"]
+    paths = [
+        Path(__file__).resolve(),
+        ROOT / "molsysmt/interactions/cation_pi/get_cation_pi_interactions.py",
+        ROOT / "molsysmt/interactions/cation_pi/_reducer.py",
+        ROOT / "molsysmt/structure/_plane.py",
+        ROOT / "molsysmt/structure/_group_minimum_contacts.py",
+        ROOT / "molsysmt/_private/sparse_membership.py",
+        ROOT / "molsysmt/topology/get_substructure_matches.py",
+        ROOT / "molsysmt/interactions/cation_pi/_prolif.py",
+        ROOT / "molsysmt/_private/execution/projected_geometry.py",
+        ROOT / "molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py",
+        ROOT / "molsysmt/structure/_centroid.py",
+        ROOT / "molsysmt/pbc/_whole_participants.py",
+    ]
     from rdkit import rdBase
 
-    record = dict(rdkit=rdBase.rdkitVersion, record_version="cation_pi_benchmark@1", date=time.strftime("%Y-%m-%d"),
-                  git_head=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                  dirty_worktree=bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True)),
-                  source_hashes={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
-                  extension_sha256=hashlib.sha256(Path(rust.__file__).read_bytes()).hexdigest(),
-                  platform=platform.platform(), python=platform.python_version(), numpy=np.__version__, molsysmt=msm.__version__,
-                  cpu=next((line.split(":", 1)[1].strip() for line in Path("/proc/cpuinfo").read_text().splitlines()
-                            if line.startswith("model name")), "unknown"),
-                  thread_environment={key: os.environ.get(key) for key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")},
-                  parallel_configuration={key: getattr(msm.configure, key) for key in ("num_threads", "parallel_mode", "parallel_threshold", "min_payload_per_thread")},
-                  method=args.method, atoms=args.atoms, structures=args.structures, rings=args.rings, coordinate_bytes=24 * args.atoms * args.structures,
-                  chunk_size_limit=args.chunk, ram_budget_bytes=args.budget, repetitions=args.repetitions,
-                  fixture="Separated hexagon/ammonium pairs, variable counts and every fifth frame empty; no PBC; declared synthetic chemistry.",
-                  timing="Full public detector, including chemistry preparation, projection, geometry and sparse packing; source creation/loading excluded.",
-                  warmup="One tiny calculation per isolated worker; OS page cache uncontrolled.",
-                  rss="Linux VmHWM since worker exec, including imports, source loading, calculations, indexing, serialization and reload; not allocation delta.",
-                  disk="Standalone interactions layer in H5MSM 0.5; coordinate source write is not timed.", results=results)
+    record = dict(
+        rdkit=rdBase.rdkitVersion,
+        record_version="cation_pi_benchmark@1",
+        date=time.strftime("%Y-%m-%d"),
+        git_head=subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+        ).strip(),
+        dirty_worktree=bool(
+            subprocess.check_output(
+                ["git", "status", "--porcelain"], cwd=ROOT, text=True
+            )
+        ),
+        source_hashes={
+            str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in paths
+        },
+        extension_sha256=hashlib.sha256(Path(rust.__file__).read_bytes()).hexdigest(),
+        platform=platform.platform(),
+        python=platform.python_version(),
+        numpy=np.__version__,
+        molsysmt=msm.__version__,
+        cpu=next(
+            (
+                line.split(":", 1)[1].strip()
+                for line in Path("/proc/cpuinfo").read_text().splitlines()
+                if line.startswith("model name")
+            ),
+            "unknown",
+        ),
+        thread_environment={
+            key: os.environ.get(key)
+            for key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")
+        },
+        parallel_configuration={
+            key: getattr(msm.configure, key)
+            for key in (
+                "num_threads",
+                "parallel_mode",
+                "parallel_threshold",
+                "min_payload_per_thread",
+            )
+        },
+        method=args.method,
+        atoms=args.atoms,
+        structures=args.structures,
+        rings=args.rings,
+        coordinate_bytes=24 * args.atoms * args.structures,
+        chunk_size_limit=args.chunk,
+        ram_budget_bytes=args.budget,
+        repetitions=args.repetitions,
+        fixture="Separated hexagon/ammonium pairs, variable counts and every fifth frame empty; no PBC; declared synthetic chemistry.",
+        timing="Full public detector, including chemistry preparation, projection, geometry and sparse packing; source creation/loading excluded.",
+        warmup="One tiny calculation per isolated worker; OS page cache uncontrolled.",
+        rss="Linux VmHWM since worker exec, including imports, source loading, calculations, indexing, serialization and reload; not allocation delta.",
+        disk="Standalone interactions layer in H5MSM 0.5; coordinate source write is not timed.",
+        results=results,
+    )
     args.output.write_text(json.dumps(record, indent=2) + "\n")
     print(json.dumps({"output": str(args.output), "results": results}, indent=2))
 

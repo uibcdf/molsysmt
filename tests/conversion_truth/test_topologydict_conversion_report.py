@@ -77,6 +77,7 @@ def test_rich_state_losses_are_scoped_and_strictly_rejected(rich_molsys):
         "is_aromatic": pd.array([False, True, False, False], dtype="boolean"),
         "n_unpaired_electrons": pd.array([0, 1, 0, 0], dtype="UInt8"),
         "n_implicit_hydrogens": pd.array([0, 1, 0, 0], dtype="UInt8"),
+        "n_explicit_hydrogens": pd.array([1, 0, 0, 0], dtype="UInt8"),
         "allows_implicit_hydrogens": pd.array(
             [False, True, False, False],
             dtype="boolean",

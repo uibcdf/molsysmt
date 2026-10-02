@@ -10,7 +10,12 @@ from molsysmt._private.smonitor import InternalAlgorithmError
 
 
 def bounded_group_minimum_contacts(
-    coordinates_a, groups_a, coordinates_b, groups_b, threshold, box,
+    coordinates_a,
+    groups_a,
+    coordinates_b,
+    groups_b,
+    threshold,
+    box,
     max_candidate_bytes,
 ):
     """Bound source batches using a conservative dense-neighbor upper estimate.
@@ -23,7 +28,8 @@ def bounded_group_minimum_contacts(
 
     if not len(coordinates_a) or not len(coordinates_b):
         return (
-            np.empty((0, 2), dtype=np.int64), np.empty(0, dtype=np.float64),
+            np.empty((0, 2), dtype=np.int64),
+            np.empty(0, dtype=np.float64),
             np.empty((0, 3), dtype=np.int32),
         )
     per_source = len(coordinates_b) * 128
@@ -31,15 +37,20 @@ def bounded_group_minimum_contacts(
     if batch_size < 1:
         raise MemoryBudgetExceededError(
             reason="One source-atom neighbor batch exceeds the candidate memory estimate.",
-            predicted_bytes=2 * per_source, available_bytes=max_candidate_bytes,
+            predicted_bytes=2 * per_source,
+            available_bytes=max_candidate_bytes,
         )
     blocks = []
     retained_rows = 0
     for start in range(0, len(coordinates_a), batch_size):
         stop = min(start + batch_size, len(coordinates_a))
         block = group_minimum_contacts(
-            coordinates_a[start:stop], groups_a[start:stop],
-            coordinates_b, groups_b, threshold, box,
+            coordinates_a[start:stop],
+            groups_a[start:stop],
+            coordinates_b,
+            groups_b,
+            threshold,
+            box,
         )
         retained_rows += len(block[0])
         if retained_rows * 128 > max_candidate_bytes // 2:

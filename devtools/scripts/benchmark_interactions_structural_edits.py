@@ -35,9 +35,15 @@ def _replace_frame(records, frame, replacement):
 
 
 def _drop_frame(records, evaluated, frame):
-    transformed = [{**row, "structure_index": row["structure_index"]
-                    - (row["structure_index"] > frame)}
-                   for row in records if row["structure_index"] != frame]
+    transformed = [
+        {
+            **row,
+            "structure_index": row["structure_index"]
+            - (row["structure_index"] > frame),
+        }
+        for row in records
+        if row["structure_index"] != frame
+    ]
     coverage = [item - (item > frame) for item in evaluated if item != frame]
     return transformed, coverage
 
@@ -47,9 +53,15 @@ def _drop_atom(records, atom):
     for row in records:
         if atom in _record_atoms(row):
             continue
-        participants = [{**part, "atom_indices": [
-            index - (index > atom) for index in part["atom_indices"]
-        ]} for part in row["participants"]]
+        participants = [
+            {
+                **part,
+                "atom_indices": [
+                    index - (index > atom) for index in part["atom_indices"]
+                ],
+            }
+            for part in row["participants"]
+        ]
         transformed.append({**row, "participants": participants})
     return transformed
 
@@ -67,14 +79,13 @@ class RemappedView:
 
     def _refresh(self):
         self.storage_to_current_frames = {
-            storage: current for current, storage in enumerate(
-                self.current_to_storage_frames
-            ) if storage is not None
+            storage: current
+            for current, storage in enumerate(self.current_to_storage_frames)
+            if storage is not None
         }
         self.storage_to_current_atoms = {
-            storage: current for current, storage in enumerate(
-                self.current_to_storage_atoms
-            )
+            storage: current
+            for current, storage in enumerate(self.current_to_storage_atoms)
         }
 
     def _covered(self, current):
@@ -84,8 +95,11 @@ class RemappedView:
         return storage in self.reader.covered and storage not in self.invalidated
 
     def coverage(self):
-        return [current for current in range(len(self.current_to_storage_frames))
-                if self._covered(current)]
+        return [
+            current
+            for current in range(len(self.current_to_storage_frames))
+            if self._covered(current)
+        ]
 
     def _map_base(self, row):
         frame, kind, participants, evidence, measures, images = row
@@ -96,8 +110,9 @@ class RemappedView:
         for role, atoms in participants:
             if any(atom not in self.storage_to_current_atoms for atom in atoms):
                 return None
-            mapped.append((role, tuple(self.storage_to_current_atoms[atom]
-                                       for atom in atoms)))
+            mapped.append(
+                (role, tuple(self.storage_to_current_atoms[atom] for atom in atoms))
+            )
         return (current_frame, kind, tuple(mapped), evidence, measures, images)
 
     def query_frame(self, current):
@@ -132,8 +147,9 @@ class RemappedView:
             if mapped is not None:
                 output[mapped] += count
         for rows in self.appended.values():
-            output.update(row for row in rows
-                          if any(current in atoms for _, atoms in row[2]))
+            output.update(
+                row for row in rows if any(current in atoms for _, atoms in row[2])
+            )
         return self.coverage(), output
 
     def drop_frame(self, current):
@@ -143,7 +159,9 @@ class RemappedView:
         self.appended = {
             index - (index > current): [
                 (row[0] - (row[0] > current), *row[1:]) for row in rows
-            ] for index, rows in self.appended.items() if index != current
+            ]
+            for index, rows in self.appended.items()
+            if index != current
         }
         self._refresh()
 
@@ -155,9 +173,10 @@ class RemappedView:
             for row in rows:
                 if any(current in atoms for _, atoms in row[2]):
                     continue
-                parts = tuple((role, tuple(atom - (atom > current)
-                                           for atom in atoms))
-                              for role, atoms in row[2])
+                parts = tuple(
+                    (role, tuple(atom - (atom > current) for atom in atoms))
+                    for role, atoms in row[2]
+                )
                 kept.append((row[0], row[1], parts, *row[3:]))
             updated[frame] = kept
         self.appended = updated
@@ -166,8 +185,9 @@ class RemappedView:
     def append_frame(self, records):
         current = len(self.current_to_storage_frames)
         self.current_to_storage_frames.append(None)
-        self.appended[current] = [_signature({**row, "structure_index": current})
-                                  for row in records]
+        self.appended[current] = [
+            _signature({**row, "structure_index": current}) for row in records
+        ]
         self._refresh()
         return current
 
@@ -179,8 +199,9 @@ class RemappedView:
             self.invalidated.add(storage)
 
     def raw_map_bytes_lower_bound(self):
-        return 8 * (len(self.current_to_storage_frames)
-                    + len(self.current_to_storage_atoms))
+        return 8 * (
+            len(self.current_to_storage_frames) + len(self.current_to_storage_atoms)
+        )
 
 
 def _check(view, records, evaluated, stage):
@@ -205,17 +226,17 @@ def main():
     records, evaluated = generate_fixture(n_frames, n_atoms, 8, "mixed", 251)
     frame = 2
     original_rows = [row for row in records if row["structure_index"] == frame]
-    if (len(original_rows) < 2
-            or original_rows[0]["interaction_type"]
-            != original_rows[1]["interaction_type"]
-            or original_rows[0]["participants"]
-            != original_rows[1]["participants"]
-            or original_rows[0]["measurements"]
-            == original_rows[1]["measurements"]):
+    if (
+        len(original_rows) < 2
+        or original_rows[0]["interaction_type"] != original_rows[1]["interaction_type"]
+        or original_rows[0]["participants"] != original_rows[1]["participants"]
+        or original_rows[0]["measurements"] == original_rows[1]["measurements"]
+    ):
         raise AssertionError("expected distinguishable parallel observations")
     after_remove = _replace_frame(records, frame, original_rows[1:])
     added = {
-        "structure_index": frame, "interaction_type": "hbond",
+        "structure_index": frame,
+        "interaction_type": "hbond",
         "participants": [
             {"role": "donor", "atom_indices": [400]},
             {"role": "hydrogen", "atom_indices": [401]},
@@ -242,9 +263,7 @@ def main():
         start = time.perf_counter_ns()
         view.drop_frame(frame)
         drop_frame_ms = (time.perf_counter_ns() - start) / 1e6
-        current_records, current_evaluated = _drop_frame(
-            after_add, evaluated, frame
-        )
+        current_records, current_evaluated = _drop_frame(after_add, evaluated, frame)
         _check(view, current_records, current_evaluated, "after_drop_frame")
 
         start = time.perf_counter_ns()
@@ -255,7 +274,8 @@ def main():
 
         new_frame = len(view.current_to_storage_frames)
         appended_record = {
-            **added, "structure_index": new_frame,
+            **added,
+            "structure_index": new_frame,
             "interaction_type": "new_type_after_snapshot",
         }
         assert view.append_frame([appended_record]) == new_frame
@@ -264,34 +284,50 @@ def main():
         _check(view, current_records, current_evaluated, "after_append_frame")
 
         view.invalidate_frame(10)
-        current_records = [row for row in current_records
-                           if row["structure_index"] != 10]
+        current_records = [
+            row for row in current_records if row["structure_index"] != 10
+        ]
         current_evaluated.remove(10)
         _check(view, current_records, current_evaluated, "after_invalidate")
         rebuilt = msm.Interactions.from_records(
-            current_records, n_atoms=n_atoms - 1, n_structures=n_frames,
+            current_records,
+            n_atoms=n_atoms - 1,
+            n_structures=n_frames,
             evaluated_structure_indices=current_evaluated,
-            method="synthetic_full_contract", measure_units=UNITS,
+            method="synthetic_full_contract",
+            measure_units=UNITS,
         )
         if rebuilt.query(structure_indices=[new_frame]).n_interactions != 1:
             raise AssertionError("rebuilt append frame lost its interaction")
         reader.close()
-        print(json.dumps({
-            "platform": platform.platform(), "initial_occurrences": len(records),
-            "removed_parallel_observation": True,
-            "after_remove_occurrences": len(after_remove),
-            "after_add_occurrences": len(after_add),
-            "final_occurrences": len(current_records),
-            "final_evaluated_frames": len(current_evaluated),
-            "drop_frame_map_ms": round(drop_frame_ms, 3),
-            "drop_atom_map_ms": round(drop_atom_ms, 3),
-            "raw_int64_map_bytes_lower_bound": view.raw_map_bytes_lower_bound(),
-            "checked_stages": ["remove_observation", "add_relation",
-                               "drop_structure", "drop_atom", "append_structure",
-                               "invalidate_evaluation"],
-            "public_mutation_api": False,
-            "remapping_serialized": False,
-        }, indent=2, default=str))
+        print(
+            json.dumps(
+                {
+                    "platform": platform.platform(),
+                    "initial_occurrences": len(records),
+                    "removed_parallel_observation": True,
+                    "after_remove_occurrences": len(after_remove),
+                    "after_add_occurrences": len(after_add),
+                    "final_occurrences": len(current_records),
+                    "final_evaluated_frames": len(current_evaluated),
+                    "drop_frame_map_ms": round(drop_frame_ms, 3),
+                    "drop_atom_map_ms": round(drop_atom_ms, 3),
+                    "raw_int64_map_bytes_lower_bound": view.raw_map_bytes_lower_bound(),
+                    "checked_stages": [
+                        "remove_observation",
+                        "add_relation",
+                        "drop_structure",
+                        "drop_atom",
+                        "append_structure",
+                        "invalidate_evaluation",
+                    ],
+                    "public_mutation_api": False,
+                    "remapping_serialized": False,
+                },
+                indent=2,
+                default=str,
+            )
+        )
 
 
 if __name__ == "__main__":

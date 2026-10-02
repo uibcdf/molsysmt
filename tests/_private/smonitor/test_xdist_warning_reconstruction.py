@@ -95,7 +95,12 @@ def _cross_chain_system():
 # transformed its message again, which is the other half of #158.
 SAMPLES = {
     "AckreditTrackingWarning": (
-        {"extra": {"operation": "record scientific references", "reason": "simulated provider failure"}},
+        {
+            "extra": {
+                "operation": "record scientific references",
+                "reason": "simulated provider failure",
+            }
+        },
         "simulated provider failure",
     ),
     "MolSysMTCatalogWarning": (

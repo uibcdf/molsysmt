@@ -16,8 +16,12 @@ from molsysmt.native import ChemicalStates, MolSys, Structures, Topology
 @pytest.mark.parametrize(
     ("has_topology", "has_chemistry", "has_structures"),
     [
-        (True, False, False), (False, True, False), (False, False, True),
-        (True, True, False), (True, False, True), (False, True, True),
+        (True, False, False),
+        (False, True, False),
+        (False, False, True),
+        (True, True, False),
+        (True, False, True),
+        (False, True, True),
         (True, True, True),
     ],
 )
@@ -26,7 +30,11 @@ def test_generic_molsys_route_preserves_each_domain_combination(
 ):
     topology = Topology(n_atoms=2) if has_topology else None
     if has_chemistry:
-        states = topology._chemical_states_domain if topology is not None else ChemicalStates(n_atoms=2)
+        states = (
+            topology._chemical_states_domain
+            if topology is not None
+            else ChemicalStates(n_atoms=2)
+        )
         if states.n_chemical_states == 0:
             states.append_state()
     else:
@@ -35,7 +43,8 @@ def test_generic_molsys_route_preserves_each_domain_combination(
             topology._clear_chemical_states()
     structures = (
         Structures(coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm"))
-        if has_structures else None
+        if has_structures
+        else None
     )
     source = MolSys._from_partial_domains(
         topology=topology, chemical_states=states, structures=structures

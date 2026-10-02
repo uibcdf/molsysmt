@@ -10,7 +10,6 @@ common_functions_with_angle_threshold = [
 
 common_functions_with_angle_threshold_and_None = [
     "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges",
-
     "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions",
     "molsysmt.interactions.hbonds.get_hbonds.get_hbonds",
     "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions",
