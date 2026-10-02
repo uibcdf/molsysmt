@@ -9,6 +9,7 @@ from .get_label import get_label
 from .get_form import get_form
 from .select import select
 from .convert import convert
+from .get_conversion_report import get_conversion_report
 from .conversion_report import ConversionIssue, ConversionReport
 from .copy import copy
 from .extract import extract

@@ -140,3 +140,24 @@ molsysmt.interactions.hbonds.get_hbonds:
   summary: "Calculates sparse per-structure hydrogen bonds with named criteria."
   doc_ref: "{func}`molsysmt.interactions.hbonds.get_hbonds`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.hbonds.get_hbonds()**: Calculates sparse per-structure hydrogen bonds with named criteria. See {func}`molsysmt.interactions.hbonds.get_hbonds`.\n:::"
+
+molsysmt.basic.get_conversion_report:
+  name: "msm.get_conversion_report"
+  summary: "Inspects detected conversion losses without writing a destination."
+  first_introduced_in: "Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"
+  doc_ref: "{func}`molsysmt.basic.get_conversion_report`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.get_conversion_report()**: Inspects detected conversion losses without writing a destination. See API doc: {func}`molsysmt.basic.get_conversion_report`.\n:::"
+
+molsysmt.element.atom.is_atom_type:
+  name: "msm.element.atom.is_atom_type"
+  summary: "Checks canonical chemical element symbols."
+  first_introduced_in: "Common_Core/02_Molecular_Attributes.ipynb"
+  doc_ref: "{func}`molsysmt.element.atom.is_atom_type`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.element.atom.is_atom_type()**: Checks canonical chemical element symbols. See API doc: {func}`molsysmt.element.atom.is_atom_type`.\n:::"
+
+molsysmt.element.atom.normalize_atom_types:
+  name: "msm.element.atom.normalize_atom_types"
+  summary: "Normalizes explicit element symbols and hydrogen isotope aliases."
+  first_introduced_in: "Common_Core/02_Molecular_Attributes.ipynb"
+  doc_ref: "{func}`molsysmt.element.atom.normalize_atom_types`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.element.atom.normalize_atom_types()**: Normalizes explicit element symbols and hydrogen isotope aliases. See API doc: {func}`molsysmt.element.atom.normalize_atom_types`.\n:::"

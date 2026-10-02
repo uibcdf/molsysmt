@@ -32,7 +32,7 @@ or optional dependencies. CI fails when an export is added without a decision,
 when a registered export disappears, or when the generated table is stale.
 
 The exact member inventories currently tracked are `molsysmt`, `basic`,
-`structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`,
+`structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`, `element.atom`,
 `interactions`, `interactions.hbonds`, `interactions.disulfides`, `interactions.ionic`, and
 `molecular_mechanics`. The canonical hydrogen-bond functions live under
 `interactions.hbonds`; `hbonds` retains the same function objects as an
@@ -67,6 +67,30 @@ catalog prose may improve, but their import paths and intended exception roles
 belong to the `1.x` compatibility contract.
 
 ## Evolution rules
+
+### Shared chemical value tools and conversion queries
+
+`element.atom.is_atom_type` checks genuine canonical chemical element symbols.
+`element.atom.normalize_atom_types` normalizes explicit D/T hydrogen isotope
+aliases and preserves nullable mass numbers. `atom_type` means a chemical
+element, independently of `atom_name` and `atom_ff_type`; neither tool infers
+elements from atom names or force-field labels. Public wrappers validate scalar
+or one-dimensional inputs. Native readers reuse the private primitive without
+public dispatch. Format-specific conventions such as CTAB reference isotopes
+remain owned by the reader.
+
+`basic.get_conversion_report` (also exported at the root) performs the same
+preflight as `convert` strict/report mode without writing the destination or
+mutating source molecular data. It accepts normal source forms, selections and
+flat target lists, but not converter-specific options. Audit scopes and
+`is_exhaustive` bound its preservation claims; the query does not validate
+converter availability or successful writing.
+
+See [chemical atom-type tools](../docs/content/user/tools/element/atom/atom_types.md)
+and [conversion report queries](../docs/content/user/tools/basic/get_conversion_report.md)
+in the User Guide for scalar/collection results and inspection semantics.
+
+### Public additions
 
 For a new or changed public function:
 

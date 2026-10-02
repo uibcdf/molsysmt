@@ -14,9 +14,17 @@ def digest_isotope(isotope, caller=None):
     if caller in {"molsysmt.basic.get.get", "molsysmt.basic.compare.compare"}:
         if isinstance(isotope, (bool, np.bool_)):
             return bool(isotope)
-    elif caller == "molsysmt.basic.set.set" or caller.endswith("set_isotope_to_atom"):
+    elif caller in {
+        "molsysmt.basic.set.set",
+        "molsysmt.element.atom.normalize_atom_types.normalize_atom_types",
+    } or (caller is not None and caller.endswith("set_isotope_to_atom")):
         if isotope is None or isotope is pd.NA:
             return isotope
+        if caller == "molsysmt.element.atom.normalize_atom_types.normalize_atom_types":
+            if not np.isscalar(isotope) and not isinstance(isotope, (list, tuple, np.ndarray)):
+                raise ArgumentError("isotope", value=isotope, caller=caller)
+            if isinstance(isotope, np.ndarray) and isotope.ndim != 1:
+                raise ArgumentError("isotope", value=isotope, caller=caller)
         values = [isotope] if np.isscalar(isotope) else list(isotope)
         if all(
             value is None

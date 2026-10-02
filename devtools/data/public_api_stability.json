@@ -81,6 +81,10 @@
     "molsysmt.interactions.water_bridges": {
       "source": "molsysmt/interactions/water_bridges/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.element.atom": {
+      "source": "molsysmt/element/atom/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -1779,6 +1783,41 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_water_sites.ipynb",
       "contract_tests": "tests/physchem/test_get_water_sites.py"
+    },
+    "molsysmt.basic.get_conversion_report": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "basic",
+      "documentation": "docs/content/user/tools/basic/get_conversion_report.md",
+      "contract_tests": "tests/basic/test_get_conversion_report.py"
+    },
+    "molsysmt.element.atom.get_atom_type_from_atom_name": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element.atom",
+      "documentation": "docs/content/user/tools/element/atom/atom_types.md",
+      "contract_tests": "tests/element/atom/test_atom_types.py"
+    },
+    "molsysmt.element.atom.is_atom_type": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element.atom",
+      "documentation": "docs/content/user/tools/element/atom/atom_types.md",
+      "contract_tests": "tests/element/atom/test_atom_types.py"
+    },
+    "molsysmt.element.atom.normalize_atom_types": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element.atom",
+      "documentation": "docs/content/user/tools/element/atom/atom_types.md",
+      "contract_tests": "tests/element/atom/test_atom_types.py"
+    },
+    "molsysmt.get_conversion_report": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "basic",
+      "documentation": "docs/content/user/tools/basic/get_conversion_report.md",
+      "contract_tests": "tests/basic/test_get_conversion_report.py"
     }
   }
 }

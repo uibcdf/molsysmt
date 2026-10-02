@@ -9,3 +9,5 @@ API Atom
    :toctree: autosummary
 
    get_atom_type_from_atom_name
+   is_atom_type
+   normalize_atom_types

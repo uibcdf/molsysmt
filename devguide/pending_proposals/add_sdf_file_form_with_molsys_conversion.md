@@ -131,6 +131,14 @@ tools for valence/hydrogen/CIP perception. These tools belong to their general
 owners, not hidden inside the SDF adapter. Performance remains unbenchmarked.
 The parser is a format utility with no new scientific attribution boundary.
 
+**Shared-tool continuation, 2026-10-02:** The maintainer approved general
+chemical atom-type validation and explicit isotope normalization, tracked in
+uibcdf/molsysmt#296. Public wrappers live in `element.atom`; the SDF reader
+reuses their private explicit-symbol primitive. The read-only public conversion
+preflight in uibcdf/molsysmt#297 uses the existing audit core without writing
+the destination. Neither change enables stereo perception, atomic-number
+conversion, force-field typing or PDBQT parsing.
+
 The next stereo stage must distinguish relative CTAB wedge/parity from absolute
 CIP labels. RDKit's `finishMolProcessing` explicitly performs geometry/graph
 interpretation before assigning chemical stereo; copying CTAB integers into

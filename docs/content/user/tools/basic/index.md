@@ -12,6 +12,7 @@
 | [Copy](copy.ipynb) | Making copies of molecular systems |
 | [Extract](extract.ipynb) | Extracting a portion of a molecular system |
 | [Get attributes](get_attributes.ipynb) | Getting the list of attributes of a molecular system |
+| [Get conversion report](get_conversion_report.md) | Inspecting conversion losses without writing the destination |
 | [Get form](get_form.ipynb) | Getting the form of a molecular system |
 | [Get label](get_label.ipynb) | Getting label strings for elements |
 | [Get](get.ipynb) | Getting attribute values from a molecular system |
@@ -44,6 +45,7 @@
    copy.ipynb
    extract.ipynb
    get_attributes.ipynb
+   get_conversion_report.md
    get_form.ipynb
    get_label.ipynb
    get.ipynb

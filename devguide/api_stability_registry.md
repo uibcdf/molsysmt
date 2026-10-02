@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 106 |
+| experimental | 111 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -70,6 +70,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.form` | experimental | active | pre-1.0 |
 | `molsysmt.get` | stable | active | pre-1.0 |
 | `molsysmt.get_attributes` | stable | active | pre-1.0 |
+| `molsysmt.get_conversion_report` | experimental | active | pre-1.0 |
 | `molsysmt.get_form` | stable | active | pre-1.0 |
 | `molsysmt.get_label` | stable | active | pre-1.0 |
 | `molsysmt.h5msm` | experimental | active | 1.0.0 |
@@ -116,6 +117,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.basic.extract` | stable | active | pre-1.0 |
 | `molsysmt.basic.get` | stable | active | pre-1.0 |
 | `molsysmt.basic.get_attributes` | stable | active | pre-1.0 |
+| `molsysmt.basic.get_conversion_report` | experimental | active | pre-1.0 |
 | `molsysmt.basic.get_form` | stable | active | pre-1.0 |
 | `molsysmt.basic.get_label` | stable | active | pre-1.0 |
 | `molsysmt.basic.has_attribute` | stable | active | pre-1.0 |
@@ -354,3 +356,11 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
 | `molsysmt.interactions.water_bridges.get_water_bridges` | experimental | active | pre-1.0 |
+
+### `molsysmt.element.atom`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.element.atom.get_atom_type_from_atom_name` | experimental | active | pre-1.0 |
+| `molsysmt.element.atom.is_atom_type` | experimental | active | pre-1.0 |
+| `molsysmt.element.atom.normalize_atom_types` | experimental | active | pre-1.0 |

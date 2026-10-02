@@ -14,15 +14,10 @@ from pathlib import Path
 
 import numpy as np
 
+from molsysmt._private.atom_types import CHEMICAL_ATOM_TYPES, normalize_atom_type
 from molsysmt._private.smonitor import FormatError
 
-_ELEMENTS = frozenset(
-    "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni "
-    "Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I "
-    "Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir "
-    "Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md "
-    "No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og".split()
-)
+_ELEMENTS = CHEMICAL_ATOM_TYPES
 # CTAB's mass-difference field uses the rounded reference isotope, not an
 # arbitrary application mass. Other elements require absolute M ISO / MASS.
 _REFERENCE_ISOTOPES = {
@@ -83,11 +78,10 @@ class CTRecord:
 
 
 def _atom(serial, element, coordinates, *, isotope=None):
-    if element in {"D", "T"}:
-        isotope = {"D": 2, "T": 3}[element]
-        element = "H"
-    if element not in _ELEMENTS:
-        _fail(f"Unsupported atom symbol {element!r}; query atoms are not elements.")
+    try:
+        element, isotope = normalize_atom_type(element, isotope)
+    except ValueError as error:
+        _fail(str(error))
     values = [value.strip() or "0" for value in coordinates]
     if any(
         re.fullmatch(

@@ -33,6 +33,19 @@ def digest_atom_type(atom_type, caller=None):
         If the given `atom_type` has not of the correct type or value.
     """
 
+    if caller in {
+        "molsysmt.element.atom.is_atom_type.is_atom_type",
+        "molsysmt.element.atom.normalize_atom_types.normalize_atom_types",
+    }:
+        if isinstance(atom_type, str):
+            return atom_type
+        if isinstance(atom_type, (list, tuple, ndarray)):
+            if isinstance(atom_type, ndarray) and atom_type.ndim != 1:
+                raise ArgumentError("atom_type", value=atom_type, caller=caller)
+            if all(isinstance(value, str) for value in atom_type):
+                return list(atom_type)
+        raise ArgumentError("atom_type", value=atom_type, caller=caller)
+
     if atom_type is None and caller_matches(caller, "add_atom"):
         return None
 

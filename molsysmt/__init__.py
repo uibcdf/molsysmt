@@ -72,6 +72,7 @@ _LAZY_ATTRIBUTES = {
     "get_form": (".basic", "get_form"),
     "select": (".basic", "select"),
     "convert": (".basic", "convert"),
+    "get_conversion_report": (".basic", "get_conversion_report"),
     "ConversionIssue": (".basic", "ConversionIssue"),
     "ConversionReport": (".basic", "ConversionReport"),
     "copy": (".basic", "copy"),

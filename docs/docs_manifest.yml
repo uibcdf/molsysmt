@@ -73,6 +73,9 @@ sections:
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
+          - name: get_conversion_report
+            file: docs/content/user/tools/basic/get_conversion_report.md
+            agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
       - name: build
         path: docs/content/user/tools/build
         agents_file: docs/content/user/tools/build/AGENTS.md
@@ -190,6 +193,10 @@ sections:
         index_file: docs/content/user/tools/element/index.md
         index_agents_file: docs/content/user/tools/element/index.AGENTS.md
         status: pending_review
+        pages:
+          - name: atom_types
+            file: docs/content/user/tools/element/atom/atom_types.md
+            agents_file: docs/content/user/tools/element/atom/atom_types.md.AGENTS.md
       - name: form
         path: docs/content/user/tools/form
         agents_file: docs/content/user/tools/form/AGENTS.md

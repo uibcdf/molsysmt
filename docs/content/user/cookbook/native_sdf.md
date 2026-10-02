@@ -57,6 +57,11 @@ loss. Byte-preserving source copies retain them.
 ## Inspecting information loss
 
 ```python
+report = msm.get_conversion_report(molsys, to_form='caffeine_report.sdf')
+assert report.to_form == 'file:sdf'
+# The report query does not create caffeine_report.sdf.
+print(report.outcome, report.is_exhaustive)
+
 output, report = msm.convert(molsys, to_form='caffeine_report.sdf',
                              return_report=True)
 print(report.outcome, report.is_exhaustive)
@@ -74,6 +79,25 @@ authorize their loss with `discard_properties=True`; `return_report=True`
 lists that loss, and strict mode still rejects it. To preserve source bytes and
 properties, use `msm.copy(source, output_filename='source_copy.sdf')`.
 
+## Checking chemical atom types
+
+You can check extracted atom types independently of their source form. Atom
+types are chemical element symbols, distinct from atom names and force-field
+types. Normalization preserves unspecified isotopes and recognizes the source
+hydrogen aliases `D` and `T`:
+
+```python
+atom_types = msm.get(molsys, element='atom', atom_type=True)
+assert msm.element.atom.is_atom_type(atom_types).all()
+assert msm.element.atom.normalize_atom_types(['D', 'T', 'C']) == (
+    ['H', 'H', 'C'], [2, 3, None]
+)
+```
+
+The SDF reader uses the same explicit-symbol normalization internally. It
+does not infer elements from atom names or AutoDock labels. The public tools
+inspect values; they do not modify `molsys`.
+
 :::{warning}
 The native subset rejects active stereochemical flags/labels, query atoms/bonds,
 valence overrides, reaction maps, Sgroups and unsupported radical/bond types.
@@ -90,6 +114,8 @@ are rejected. Keep the original file when it carries unsupported information.
 :class: dropdown
 
 - {func}`molsysmt.basic.convert` for form conversion and reports.
+- {ref}`Tutorial_Get_Conversion_Report` for a query without destination writes.
+- {ref}`Tutorial_Atom_Types` for chemical elements and isotope aliases.
 - {func}`molsysmt.basic.get` for form-independent attribute queries.
 - {ref}`user-foundations-support-forms-files` for supported file forms.
 :::

@@ -42,6 +42,7 @@ COLLIDING_BASIC_SYMBOLS = [
     "extract",
     "get",
     "get_attributes",
+    "get_conversion_report",
     "get_form",
     "get_label",
     "has_attribute",
