@@ -97,6 +97,9 @@ class _FrameFilteredInteractions(Interactions):
     def numeric_nbytes(self):
         # Includes referenced shared storage once; this is not incremental RAM.
         arrays = [self.evaluated_structure_indices, *self._row_removal]
+        index = getattr(self, "_relation_key_index", None)
+        if index is not None and index is not getattr(self._root, "_relation_key_index", None):
+            arrays.extend(index)
         return (self._root.numeric_nbytes + sum(value.nbytes for value in arrays)
                 + (0 if self._packed_result is None else self._packed_result.numeric_nbytes))
 

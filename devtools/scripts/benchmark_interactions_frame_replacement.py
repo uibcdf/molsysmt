@@ -23,7 +23,7 @@ from benchmark_interactions_invalidation_memory import make_result
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def patch(images, value=.31):
+def patch(images, value=.31, relation_start=0):
     from molsysmt import Interactions
 
     return Interactions.from_records([
@@ -32,7 +32,7 @@ def patch(images, value=.31):
             for item, role in enumerate(('donor', 'hydrogen', 'acceptor'))],
             evidence='synthetic_geometry', measurements={'distance': value, 'angle': 2.9},
             **({'images': [[0, 0, 0]] * 3} if images else {}))
-        for relation in range(10)], n_atoms=100_000, n_structures=10_000,
+        for relation in range(relation_start, relation_start + 10)], n_atoms=100_000, n_structures=10_000,
         evaluated_structure_indices=[10], measure_units={'distance': 'nm', 'angle': 'radian'},
         method='synthetic_memory_probe', software={'molsysmt': version('molsysmt')})
 

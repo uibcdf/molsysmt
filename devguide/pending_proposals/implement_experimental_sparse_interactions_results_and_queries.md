@@ -14,6 +14,80 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Shared registry and replacement optimization — 2026-10-02
+
+**Implemented and contract-tested:** frame replacement now shares unchanged
+relation catalog columns, existing relation/evidence block maps, unchanged frame
+vectors and unchanged coverage. Identity translations need no vector. Coverage
+union uses array membership rather than building a Python dictionary of every
+frame. Frame bookkeeping uses an in-place cumulative sum and int32 owner indices
+when the number of active blocks allows it, preserving public index types.
+
+The incoming catalog is matched through a lazy sorted numeric fingerprint/index
+pair (16 raw numeric bytes per registered relation), retained by the returned
+registry. Each candidate is checked against the complete type/role/participant
+key: hashes never define identity. Forced collisions are contract-tested. Index
+extension and catalog allocation occur only when new definitions require them;
+whole matching catalogs avoid constructing the index. Existing snapshots and
+scientific metadata remain unchanged. The cache is process-local and absent from
+serialization. Cold index creation and actual catalog growth still scale with
+catalog size; the frame axis still requires linear bookkeeping. Automatic
+compaction and bounded full-column persistence remain pending.
+
+**Benchmarked:** compare the kernel in `c4f2ee884` with the optimized kernel on
+identical preconstructed operands, with the base atom index built beforehand.
+Fresh workers measure additional traced allocations separately from seven
+alternating, untraced timing samples for each version. The lazy catalog index's
+first construction is included. Existing and newly introduced relation cases
+are both measured. No coordinate, detector or disk IO cost is included.
+
+| Case | Additional peak before / after | Untraced median before / after |
+| --- | ---: | ---: |
+| One frame, existing relations, 100k–1M rows | 1.19 / 0.50 MiB | 15.9–17.9 / 7.4–8.9 ms |
+| Twenty retained edits, existing relations, periodic 1M rows | 8.93 / 2.69 MiB | 348.7 / 42.2 ms |
+| One frame introducing ten relations, periodic 1M rows | 1.21 / 0.59 MiB | 16.3 / 8.8 ms |
+| Twenty retained edits after introducing ten relations, periodic 1M rows | 8.94 / 2.78 MiB | 312.5 / 38.9 ms |
+
+Additional traced live allocation for one existing-relation replacement falls
+from about 0.73 to 0.28 MiB, and for twenty retained edits from 8.38 to 2.54 MiB.
+These paired measurements qualify roughly 2x faster cold replacement and 8x
+faster twenty-edit sequences for this fixture; they are not general complexity
+or hardware-independent speed factors. First-index allocation is included and
+repeated reuse is measured explicitly. Full-column materialization was not
+optimized in this milestone and retains its earlier linear cost.
+
+The [raw paired artifact](../../devtools/data/interactions_frame_replacement_comparison_20261002.json)
+records all timing samples, allocation stages, semantic checks, platform and
+versions, reference source hash and candidate working-tree hashes. This is local
+provider evidence, not a portable speed or whole-process RSS guarantee.
+
+Reproduce from the repository root:
+
+```bash
+python devtools/scripts/benchmark_interactions_frame_replacement_comparison.py \
+    --baseline c4f2ee884 --output /tmp/interactions_frame_replacement_comparison.json
+```
+
+Guards in `tests/interactions/test_frame_replacement.py` cover registry/map/frame
+sharing, cache reuse, forced hash collisions with distinct kinds/roles/compound
+participants, evidence-only additions, parallel rows, immutable index buffers
+and HDF5 persistence. The existing full round-trip, remap, frame validity and real
+Buch owner-edit tests remain active. Public signatures and file schemas are
+unchanged. Durable rules are in [Interaction Analysis API](../interactions_api.md)
+and the result User Guide. The earlier allocation numbers below describe their
+original implementation; this checkpoint supersedes its performance premises.
+
+**Validation:** the affected interaction/native/form/H5MSM selection and result
+doctest passed 645 tests. The final evidence-only addition guard and focal
+frame replacement/validity, native geometry and result doctest selection passed
+59 tests. Warnings in the broad run are expected memory-budget fixture and
+legacy H5MSM warnings. Eleven result-guide blocks and eight sparse-recipe blocks
+executed successfully. Course Module 10 was reviewed; its existing edit and
+replacement instructions, code and outputs remain unchanged. Ruff, dependency,
+public signature and developer-guide/index checks passed. Sphinx HTML built
+with 17 preexisting navigation/reference warnings in the incremental build.
+No new client canvas or exact-release qualification is claimed.
+
 ## Compatible frame replacement implementation — 2026-10-01
 
 **Implemented and contract-tested:** `Interactions.replace_structures(replacement,

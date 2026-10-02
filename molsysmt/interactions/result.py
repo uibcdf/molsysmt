@@ -553,6 +553,7 @@ class Interactions:
                 self._relation_occurrence_offsets,
                 self._relation_occurrence_ids,
             )
+        arrays += tuple(getattr(self, "_relation_key_index", ()))
         return sum(array.nbytes for array in arrays)
 
     def relation(self, relation_index):

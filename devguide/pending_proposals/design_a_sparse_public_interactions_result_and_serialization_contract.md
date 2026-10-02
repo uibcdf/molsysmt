@@ -22,6 +22,21 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Shared registry optimization — 2026-10-02
+
+Frame replacement now reuses unchanged catalog buffers and block maps, implicit
+identity translations, unaffected frame vectors and unchanged coverage. A compact
+lazy process-local relation index verifies complete participant keys, including
+forced collisions, and is excluded from serialization. Cold index creation and
+catalog additions retain their linear catalog cost. Frame bookkeeping remains
+linear in the structure axis; automatic compaction and bounded writers remain
+pending. Public signatures, scientific semantics and typed/H5MSM schemas are
+unchanged. One-frame additional peak is about 0.50 MiB instead of 1.19 MiB;
+twenty retained edits peak around 2.69 MiB instead of 8.93 MiB. Untraced medians
+are approximately 2x faster for a cold replacement and 8x for twenty edits on
+the qualified fixture. Paired evidence, including new-relation cases, belongs in [the implementation record](implement_experimental_sparse_interactions_results_and_queries.md#shared-registry-and-replacement-optimization--2026-10-02).
+This is an optimization of the selected backend, with no revised candidate ranking.
+
 ## Compatible frame replacement delivered — 2026-10-01
 
 The public class now also replaces incoming evaluated frames within a compatible

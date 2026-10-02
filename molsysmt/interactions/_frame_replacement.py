@@ -11,7 +11,7 @@ from types import MappingProxyType
 import numpy as np
 
 from ._frame_validity import _FrameFilteredInteractions, _interchange_result, _metadata
-from .result import Interactions, _immutable_array, _indices, _unique_in_order
+from .result import Interactions, _immutable_array, _indices
 
 
 def _equal(a, b):
@@ -54,10 +54,10 @@ def _compatible(source, replacement):
 
 def _parts(source):
     if isinstance(source, _FramePatchedInteractions):
-        return [(base, frames) for base, frames, _, _ in source._segments]
+        return list(source._segments)
     if isinstance(source, _FrameFilteredInteractions):
-        return [(source._root, source._coverage)]
-    return [(source, source._coverage)]
+        return [(source._root, source._coverage, None, None)]
+    return [(source, source._coverage, None, None)]
 
 
 def _key(source, index):
@@ -69,57 +69,130 @@ def _key(source, index):
     ))
 
 
-def _registry(source, bases):
-    """Retain existing relation indices and append new typed definitions."""
-    lookup = {}
-    for index in range(len(source.relation_types)):
-        lookup.setdefault(_key(source, index), index)
-    types = list(source.relation_types)
-    roles = list(source.participant_roles)
-    relation_offsets = list(source.relation_participant_offsets)
-    atom_offsets = list(source.participant_atom_offsets)
-    atoms = list(source.participant_atoms)
-    labels = list(source.evidence_labels)
-    maps = []
-    for base in bases:
-        relations = []
-        for index in range(len(base.relation_types)):
-            key = _key(base, index)
-            if key not in lookup:
-                lookup[key] = len(types)
-                types.append(key[0])
-                for role, members in key[1]:
-                    roles.append(role)
-                    atoms.extend(members)
-                    atom_offsets.append(len(atoms))
-                relation_offsets.append(len(roles))
-            relations.append(lookup[key])
-        for label in base.evidence_labels:
+def _fingerprint(key):
+    # Process-local accelerator only; equality always checks the full key.
+    return hash(key)
+
+
+def _relation_index(source):
+    index = getattr(source, "_relation_key_index", None)
+    if index is None:
+        values = np.fromiter((_fingerprint(_key(source, item))
+                              for item in range(len(source.relation_types))),
+                             dtype=np.int64, count=len(source.relation_types))
+        order = np.argsort(values, kind="stable")
+        index = (_immutable_array(values[order]), _immutable_array(order))
+    return index
+
+
+def _same_relations(source, incoming):
+    for name in ("relation_types", "participant_roles", "relation_participant_offsets",
+                 "participant_atom_offsets", "participant_atoms"):
+        a, b = getattr(source, name), getattr(incoming, name)
+        if a is not b and not _equal(a, b):
+            return False
+    return True
+
+
+def _implicit_identity(values):
+    # None means local indices already equal the registry indices. This avoids
+    # allocating an identity vector for an unchanged base or matching prefix.
+    values = np.asarray(values)
+    if all(int(value) == index for index, value in enumerate(values)):
+        return None
+    return _immutable_array(values)
+
+
+def _registry(source, incoming):
+    """Share existing definitions and translate only the incoming catalog."""
+    fields = {}
+    added = {}
+    index = getattr(source, "_relation_key_index", None)
+    if _same_relations(source, incoming):
+        relations = None
+    else:
+        relations = np.empty(len(incoming.relation_types), dtype=np.int64)
+        if len(relations):
+            index = _relation_index(source)
+            hashes, indices = index
+            fields["_relation_key_index"] = index
+        for item in range(len(relations)):
+            key = _key(incoming, item)
+            fingerprint = _fingerprint(key)
+            first, last = np.searchsorted(hashes, fingerprint, side="left"), np.searchsorted(hashes, fingerprint, side="right")
+            match = next((int(candidate) for candidate in indices[first:last]
+                          if _key(source, candidate) == key), None)
+            if match is None:
+                if key not in added:
+                    added[key] = len(source.relation_types) + len(added)
+                match = added[key]
+            relations[item] = match
+        relations = _implicit_identity(relations)
+    if added:
+        types = list(source.relation_types)
+        roles = list(source.participant_roles)
+        relation_offsets = list(source.relation_participant_offsets)
+        atom_offsets = list(source.participant_atom_offsets)
+        atoms = list(source.participant_atoms)
+        for kind, participants in added:
+            types.append(kind)
+            for role, members in participants:
+                roles.append(role)
+                atoms.extend(members)
+                atom_offsets.append(len(atoms))
+            relation_offsets.append(len(roles))
+        fields.update(relation_types=tuple(types), participant_roles=tuple(roles))
+        for name, values in (("relation_participant_offsets", relation_offsets),
+                             ("participant_atom_offsets", atom_offsets),
+                             ("participant_atoms", atoms)):
+            fields[name] = _immutable_array(np.asarray(values, dtype=np.int64))
+        # Extend the numeric accelerator without regenerating old key tuples.
+        values = np.r_[index[0], np.fromiter((_fingerprint(key) for key in added), dtype=np.int64)]
+        indices = np.r_[index[1], np.arange(len(source.relation_types), len(types), dtype=np.int64)]
+        order = np.argsort(values, kind="stable")
+        fields["_relation_key_index"] = (_immutable_array(values[order]), _immutable_array(indices[order]))
+    if incoming.evidence_labels == source.evidence_labels:
+        evidence = None
+    else:
+        labels = list(source.evidence_labels)
+        evidence = []
+        for label in incoming.evidence_labels:
             if label not in labels:
                 labels.append(label)
-        maps.append((_immutable_array(np.asarray(relations, dtype=np.int64)),
-                     _immutable_array(np.asarray([labels.index(label) for label in base.evidence_labels],
-                                                 dtype=np.int32))))
-    fields = {"relation_types": tuple(types), "participant_roles": tuple(roles),
-              "evidence_labels": tuple(labels)}
-    for name, values in (("relation_participant_offsets", relation_offsets),
-                         ("participant_atom_offsets", atom_offsets),
-                         ("participant_atoms", atoms)):
-        fields[name] = _immutable_array(np.asarray(values, dtype=np.int64))
-    return fields, maps
+            evidence.append(labels.index(label))
+        evidence = _implicit_identity(np.asarray(evidence, dtype=np.int32))
+        if len(labels) != len(source.evidence_labels):
+            fields["evidence_labels"] = tuple(labels)
+    return fields, relations, evidence
 
 
-def _snapshot(source, parts, coverage):
-    # O(frame axis + relation definitions), independent of occurrence count.
-    parts = [(base, _immutable_array(np.sort(frames))) for base, frames in parts if len(frames)]
-    fields, maps = _registry(source, [base for base, _ in parts])
-    counts = np.zeros(source.n_structures, dtype=np.int64)
-    owners = np.full(source.n_structures, -1, dtype=np.int64)
+def _without(active, removed):
+    mask = np.isin(active, removed)
+    return active[~mask] if mask.any() else active
+
+
+def _ordered_frames(frames):
+    if len(frames) > 1 and np.any(frames[1:] < frames[:-1]):
+        return _immutable_array(np.sort(frames))
+    return _immutable_array(frames) if frames.flags.writeable else frames
+
+
+def _mapped(mapping, values):
+    return values if mapping is None else mapping[values]
+
+
+def _snapshot(source, parts, coverage, fields=None):
+    # Keep registry buffers, existing translations and unaffected frame vectors.
+    parts = [(base, _ordered_frames(frames), relations, evidence)
+             for base, frames, relations, evidence in parts if len(frames)]
+    offsets = np.zeros(source.n_structures + 1, dtype=np.int64)
+    counts = offsets[1:]
+    owners = np.full(source.n_structures, -1, dtype=np.int32 if len(parts) < 2**31 else np.int64)
     image_presence = set()
-    for index, (base, frames) in enumerate(parts):
+    for index, (base, frames, _, _) in enumerate(parts):
         owners[frames] = index
-        lengths = (np.searchsorted(base.occurrence_structures, frames, side="right")
-                   - np.searchsorted(base.occurrence_structures, frames, side="left"))
+        lengths = np.searchsorted(base.occurrence_structures, frames, side="right")
+        lengths -= np.searchsorted(base.occurrence_structures, frames, side="left")
         counts[frames] = lengths
         if lengths.sum():
             image_presence.add(base.image_vectors is not None)
@@ -129,15 +202,16 @@ def _snapshot(source, parts, coverage):
     result.__dict__ = source.__dict__.copy()
     for name in ("_root", "_row_removal", "_public_occurrence_indices"):
         result.__dict__.pop(name, None)
-    result.__dict__.update(fields)
+    result.__dict__.update(fields or {})
     result.__dict__.update(_metadata(source))
-    result.__dict__["evaluated_structure_indices"] = _immutable_array(coverage)
+    result.__dict__["evaluated_structure_indices"] = (source.evaluated_structure_indices
+        if coverage is source._coverage else _immutable_array(coverage))
     result._coverage = result.evaluated_structure_indices
-    result._segments = tuple((base, frames, *mapping)
-                             for (base, frames), mapping in zip(parts, maps))
-    result._frame_offsets = _immutable_array(np.r_[0, np.cumsum(counts)])
+    result._segments = tuple(parts)
+    np.cumsum(counts, out=counts)
+    result._frame_offsets = _immutable_array(offsets)
     result._frame_owners = _immutable_array(owners)
-    result._active_count = int(counts.sum())
+    result._active_count = int(offsets[-1])
     result._has_images = True in image_presence
     result._packed_result = None
     # Source columns are reached only through active segments, not through an
@@ -158,15 +232,19 @@ def _replace(source, replacement):
     _compatible(source, replacement)
     with _interchange_result(replacement) as incoming:
         frames = incoming.evaluated_structure_indices
-        parts = [(base, active[~np.isin(active, frames)]) for base, active in _parts(source)]
-        parts.append((incoming, frames))
-        coverage = _unique_in_order(np.r_[source._coverage, frames])
-        return _snapshot(source, parts, coverage)
+        fields, relations, evidence = _registry(source, incoming)
+        parts = [(base, _without(active, frames), rel, ev)
+                 for base, active, rel, ev in _parts(source)]
+        parts.append((incoming, frames, relations, evidence))
+        extra = frames[~np.isin(frames, source._coverage)]
+        coverage = np.r_[source._coverage, extra] if len(extra) else source._coverage
+        return _snapshot(source, parts, coverage, fields)
 
 
 def _invalidate_patch(source, frames):
-    coverage = source._coverage[~np.isin(source._coverage, frames)]
-    parts = [(base, active[~np.isin(active, frames)]) for base, active in _parts(source)]
+    coverage = _without(source._coverage, frames)
+    parts = [(base, _without(active, frames), rel, ev)
+             for base, active, rel, ev in _parts(source)]
     return _snapshot(source, parts, coverage)
 
 
@@ -239,9 +317,9 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
     def _projection(self, columns, coverage, requested_order):
         structures = np.concatenate([item[2] for item in columns]) if columns else np.empty(0, dtype=np.int64)
         order = np.argsort(structures, kind="stable")
-        relations = np.concatenate([mapping[base.occurrence_relations[pos]]
+        relations = np.concatenate([_mapped(mapping, base.occurrence_relations[pos])
                                     for base, pos, _, _, mapping, _ in columns]) if columns else np.empty(0, dtype=np.int64)
-        evidence = np.concatenate([mapping[base.occurrence_evidence[pos]]
+        evidence = np.concatenate([_mapped(mapping, base.occurrence_evidence[pos])
                                    for base, pos, _, _, _, mapping in columns]) if columns else np.empty(0, dtype=np.int32)
         measurements = {name: (np.concatenate([base.measurements[name][pos]
                                                for base, pos, *_ in columns])[order]

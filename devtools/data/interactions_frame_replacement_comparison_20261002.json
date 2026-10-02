@@ -1,0 +1,338 @@
+{
+  "schema": "molsysmt.interactions_frame_replacement_comparison@1",
+  "recorded_at": "2026-10-02T06:49:39.199580+00:00",
+  "baseline_ref": "c4f2ee884",
+  "source_commit": "c4f2ee8846b6ce252251053595a1b05de1565b4e",
+  "source_sha256": {
+    "molsysmt/interactions/_frame_replacement.py": "fd026b10bc6600819ee4e99c40c5c0a65fb8171629ddcc1e8db2d092ac293b9e",
+    "molsysmt/interactions/_frame_validity.py": "ae3591144eaaf82e2b9c8d1eb84910f0defb9d68b15d7ce144103db0c5e19d84",
+    "molsysmt/interactions/result.py": "3647dd29d8d1c91340f39f16c46fb07258cfe4b73c0bdaa11f89c8b330635435",
+    "devtools/scripts/benchmark_interactions_frame_replacement.py": "8a96dbf2a8f3c8c8bc00e63402f9f873efc8ce6cfa83507f774023cf45216773",
+    "devtools/scripts/benchmark_interactions_frame_replacement_comparison.py": "6e4bc419e083b9c691cf5e44b8fd148b9927e38fcb6c3e25b2ab90c73874e697",
+    "devtools/scripts/benchmark_interactions_invalidation_memory.py": "4bbe0c8cf96051e31dda0ad8e1ff6e5b108bcdf8ec49fdcc6d5289b6a02abcf7"
+  },
+  "python": "3.13.14 | packaged by conda-forge | (main, Jun 12 2026, 09:50:25) [GCC 14.3.0]",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "versions": {
+    "molsysmt": "0.21.0+606.ga03eb4bf6",
+    "numpy": "2.4.6"
+  },
+  "description": "Same operands; private kernels; base inverse index prebuilt; fresh workers; first registry index included in allocation; no coordinates/detector/disk IO; seven alternating untraced timing samples per version; snapshots retained during each run.",
+  "cases": [
+    {
+      "occurrences": 100000,
+      "periodic_images": false,
+      "retained_snapshots": 1,
+      "novel_relations": false,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 0.13207780197262764,
+          "additional_live_bytes": 759791,
+          "additional_peak_bytes": 1251657
+        },
+        "after": {
+          "seconds": 0.05335323419421911,
+          "additional_live_bytes": 290080,
+          "additional_peak_bytes": 528444
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.015910323709249496,
+          0.018299810588359833,
+          0.01649224478751421,
+          0.01586398109793663,
+          0.018018449656665325,
+          0.015551509335637093,
+          0.015749616548419
+        ],
+        "after": [
+          0.007427358068525791,
+          0.007376340217888355,
+          0.007089763879776001,
+          0.00716516375541687,
+          0.007895143702626228,
+          0.007064740173518658,
+          0.008006620220839977
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.015910323709249496,
+        "after": 0.007376340217888355
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    },
+    {
+      "occurrences": 100000,
+      "periodic_images": true,
+      "retained_snapshots": 1,
+      "novel_relations": false,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 0.12110254168510437,
+          "additional_live_bytes": 759791,
+          "additional_peak_bytes": 1251657
+        },
+        "after": {
+          "seconds": 0.04517342336475849,
+          "additional_live_bytes": 290080,
+          "additional_peak_bytes": 528444
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.015515505336225033,
+          0.01608373038470745,
+          0.015373309142887592,
+          0.017013349570333958,
+          0.015433709137141705,
+          0.015978394076228142,
+          0.01588316261768341
+        ],
+        "after": [
+          0.0073802052065730095,
+          0.007495271973311901,
+          0.008351178839802742,
+          0.008646609261631966,
+          0.007228674367070198,
+          0.007822482846677303,
+          0.007250746712088585
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.01588316261768341,
+        "after": 0.007495271973311901
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": false,
+      "retained_snapshots": 1,
+      "novel_relations": false,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 0.12346076592803001,
+          "additional_live_bytes": 759791,
+          "additional_peak_bytes": 1251657
+        },
+        "after": {
+          "seconds": 0.04754610359668732,
+          "additional_live_bytes": 290080,
+          "additional_peak_bytes": 528444
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.017572768032550812,
+          0.01767822913825512,
+          0.018011795356869698,
+          0.017854810692369938,
+          0.017571129836142063,
+          0.01793612912297249,
+          0.018127444200217724
+        ],
+        "after": [
+          0.008415781892836094,
+          0.008865034207701683,
+          0.009209520183503628,
+          0.009088610298931599,
+          0.008704924955964088,
+          0.0088966591283679,
+          0.009092740714550018
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.017854810692369938,
+        "after": 0.0088966591283679
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": true,
+      "retained_snapshots": 1,
+      "novel_relations": false,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 0.12920425925403833,
+          "additional_live_bytes": 759791,
+          "additional_peak_bytes": 1251657
+        },
+        "after": {
+          "seconds": 0.048458400182425976,
+          "additional_live_bytes": 290080,
+          "additional_peak_bytes": 528444
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.01709998305886984,
+          0.017239196226000786,
+          0.0173225412145257,
+          0.01714612077921629,
+          0.01737148594111204,
+          0.017022871412336826,
+          0.01752507407218218
+        ],
+        "after": [
+          0.008777685463428497,
+          0.008611948229372501,
+          0.008627369999885559,
+          0.008550998754799366,
+          0.008775710128247738,
+          0.008749619126319885,
+          0.008789196610450745
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.017239196226000786,
+        "after": 0.008749619126319885
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": true,
+      "retained_snapshots": 20,
+      "novel_relations": false,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 2.5420737890526652,
+          "additional_live_bytes": 8787654,
+          "additional_peak_bytes": 9361080
+        },
+        "after": {
+          "seconds": 0.10719574708491564,
+          "additional_live_bytes": 2660039,
+          "additional_peak_bytes": 2819116
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.34873404633253813,
+          0.36212925799191,
+          0.3668606420978904,
+          0.3598479647189379,
+          0.3451674319803715,
+          0.31078388541936874,
+          0.31072214618325233
+        ],
+        "after": [
+          0.04322531167417765,
+          0.042209860868752,
+          0.042908601462841034,
+          0.042597100138664246,
+          0.0414371257647872,
+          0.04127014707773924,
+          0.03789407853037119
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.34873404633253813,
+        "after": 0.042209860868752
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": true,
+      "retained_snapshots": 1,
+      "novel_relations": true,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 0.11772039625793695,
+          "additional_live_bytes": 760671,
+          "additional_peak_bytes": 1269273
+        },
+        "after": {
+          "seconds": 0.06930800061672926,
+          "additional_live_bytes": 383156,
+          "additional_peak_bytes": 621808
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.01641743164509535,
+          0.016341544687747955,
+          0.016398591920733452,
+          0.016335426829755306,
+          0.015846634283661842,
+          0.01599035505205393,
+          0.01607876643538475
+        ],
+        "after": [
+          0.008698522113263607,
+          0.008716482669115067,
+          0.008805242367088795,
+          0.008982055820524693,
+          0.00879809632897377,
+          0.008826223202049732,
+          0.009037728421390057
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.016335426829755306,
+        "after": 0.008805242367088795
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    },
+    {
+      "occurrences": 1000000,
+      "periodic_images": true,
+      "retained_snapshots": 20,
+      "novel_relations": true,
+      "replacement_rows": 10,
+      "allocation": {
+        "before": {
+          "seconds": 2.323205449618399,
+          "additional_live_bytes": 8805254,
+          "additional_peak_bytes": 9377800
+        },
+        "after": {
+          "seconds": 0.12503265030682087,
+          "additional_live_bytes": 2758283,
+          "additional_peak_bytes": 2917384
+        }
+      },
+      "untraced_seconds": {
+        "before": [
+          0.31253764778375626,
+          0.313846655189991,
+          0.3110751863569021,
+          0.31313827261328697,
+          0.31177813094109297,
+          0.32290582824498415,
+          0.3100094450637698
+        ],
+        "after": [
+          0.03860038798302412,
+          0.039127182215452194,
+          0.03894528280943632,
+          0.03901931829750538,
+          0.038613456301391125,
+          0.039285619743168354,
+          0.03862642403692007
+        ]
+      },
+      "untraced_median_seconds": {
+        "before": 0.31253764778375626,
+        "after": 0.03894528280943632
+      },
+      "reference_implementation_sha256": "a23c22a39a9f9a4172e4a19380df7cbdfd3aa7856e3dbedf013b16364477a6f9",
+      "checks_passed": true
+    }
+  ]
+}

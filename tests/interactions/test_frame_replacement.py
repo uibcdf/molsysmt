@@ -224,3 +224,80 @@ def test_replacing_one_frame_does_not_copy_large_occurrence_tables():
         assert edited.query(structure_indices=[0]).n_interactions == 1
     assert max(peaks) < 100_000
     assert abs(peaks[1] - peaks[0]) < 30_000
+
+
+def test_unchanged_registry_and_block_maps_are_shared_across_edits_and_invalidation():
+    old = result([record(0, .1), record(4, .4)], [0, 1, 4])
+    first = old.replace_structures(result([record(0, .2, (2, 3))], [0]))
+    second = first.replace_structures(result([record(1, .3, (2, 3))], [1]))
+    for name in ('relation_types', 'participant_roles', 'relation_participant_offsets',
+                 'participant_atom_offsets', 'participant_atoms', 'evidence_labels'):
+        assert getattr(second, name) is getattr(first, name)
+    assert second.evaluated_structure_indices is first.evaluated_structure_indices
+    assert second._relation_key_index is first._relation_key_index
+    for first_segment, second_segment in zip(first._segments, second._segments):
+        assert first_segment[2] is second_segment[2]
+        assert first_segment[3] is second_segment[3]
+    # First patch owns only frame 0, so its frame vector is unchanged too.
+    assert first._segments[1][1] is second._segments[1][1]
+    invalid = second.invalidate_structures([0])
+    assert invalid.participant_atoms is second.participant_atoms
+    assert invalid._relation_key_index is second._relation_key_index
+    assert invalid.query().to_dict()['measurements']['distance'].tolist() == [.3, .4]
+    for array in second._relation_key_index:
+        with pytest.raises(ValueError):
+            array.flags.writeable = True
+
+
+def test_fingerprint_collisions_never_merge_distinct_typed_relations(monkeypatch, tmp_path):
+    from molsysmt.interactions import _frame_replacement
+
+    monkeypatch.setattr(_frame_replacement, '_fingerprint', lambda key: 0)
+    old = result([record(0, .1), record(4, .4, (2, 3))], [0, 4])
+    changed_role = record(0, .35, (2, 3))
+    changed_role['participants'][0]['role'] = 'ring'
+    first = old.replace_structures(result([
+        record(0, .2, (2, 3)), record(0, .3, (1, 2, 3)), changed_role,
+    ], [0]))
+    second = first.replace_structures(result([
+        record(1, .5, (1, 2, 3)), record(1, .6, (2, 3), kind='ring'),
+    ], [1]))
+    assert len(first.relation_types) == 4
+    assert len(second.relation_types) == 5
+    assert second.query(atom_indices=[1, 2, 3], mode='internal').n_interactions == 6
+    observed = second.query(structure_indices=[1, 0, 4]).to_dict()
+    path = tmp_path / 'collision.h5i'
+    second.save(path)
+    restored = msm.Interactions.load(path)
+    np.testing.assert_array_equal(restored.query(structure_indices=[1, 0, 4]).to_dict()['relation_indices'],
+                                  observed['relation_indices'])
+    for index in range(5):
+        a, b = second.relation(index), restored.relation(index)
+        assert a['interaction_type'] == b['interaction_type']
+        for ap, bp in zip(a['participants'], b['participants']):
+            assert ap['role'] == bp['role']
+            np.testing.assert_array_equal(ap['atom_indices'], bp['atom_indices'])
+    assert first.query(structure_indices=[1]).n_interactions == 0
+
+
+def test_equivalent_complete_catalog_uses_implicit_identity_without_key_index():
+    old = result([record(0, .1)], [0])
+    edited = old.replace_structures(result([record(1, .2)], [1]))
+    assert edited._segments[0][2] is None
+    assert edited._segments[1][2] is None
+    assert not hasattr(edited, '_relation_key_index')
+    assert edited.participant_atoms is old.participant_atoms
+    assert edited.query().to_dict()['relation_indices'].tolist() == [0, 0]
+
+
+def test_new_evidence_keeps_relation_buffers_and_translates_parallel_observations():
+    old = result([record(0, .1), record(4, .4)], [0, 4])
+    fresh = result([record(0, .2, evidence='external'), record(0, .3)], [0])
+    edited = old.replace_structures(fresh)
+    assert edited.participant_atoms is old.participant_atoms
+    assert not hasattr(edited, '_relation_key_index')
+    assert edited.evidence_labels == ('synthetic', 'external')
+    data = edited.query().to_dict()
+    assert data['evidence'].tolist() == ['external', 'synthetic', 'synthetic']
+    np.testing.assert_allclose(data['measurements']['distance'], [.2, .3, .4])
+    assert old.evidence_labels == ('synthetic',)

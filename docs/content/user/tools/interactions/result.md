@@ -274,6 +274,14 @@ Populated frames cannot mix known periodic images with unknown images. Empty
 frames do not invent images or impose missing observations.
 
 Replacement shares immutable source blocks and indexes the owner of each frame.
+When the relation catalog is unchanged, its buffers and existing block maps are
+shared too. Identity maps require no stored vector. Recognizing incoming relations
+can build a compact lazy index with 16 numeric bytes per registered relation;
+subsequent edits reuse it. Full participant/role equality is always checked,
+including hash collisions. This process-local cache is not serialized or used as
+an interaction identifier. New definitions extend the catalog and may allocate
+new catalog buffers. Frame bookkeeping still requires memory proportional to the
+number of structures, and complete-column export can allocate all active rows.
 A selected-frame query visits its owners and copies only the selected occurrence
 columns, while sharing the relation registry. Atom queries reuse each active
 source block's lazy inverse indexes. These selected projections differ from

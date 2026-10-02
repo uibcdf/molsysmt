@@ -783,6 +783,19 @@ registry. Atom queries reuse block-local inverse indexes, creating indexes for
 new blocks only as needed. Replacement allocation depends on the frame axis,
 relation registry and active block count, without copying unaffected occurrence
 columns. Previously requested packed caches are not retained by new edits.
+Unchanged catalog columns, existing block relation/evidence maps and unaffected
+sorted frame vectors are shared. Coverage unions preserve first-seen order using
+array membership, without a Python dictionary containing the whole frame axis.
+Identity maps are implicit. A private sorted fingerprint/index pair uses 16
+numeric bytes per relation and is created lazily when incoming definitions need
+matching. Fingerprints are process-local accelerators: every hit compares the
+full typed participant key, so collisions never identify different relations.
+The cache is retained by the returned registry and extended on additions; it is
+not persisted or part of public relation identity. Fully matching catalogs avoid
+building it. Adding definitions still allocates catalog buffers, and the cold
+index build remains proportional to the catalog size. Owner indices use int32
+when the number of active blocks permits it, with an int64 fallback; public atom,
+structure, relation and occurrence indices keep their existing types.
 
 Edits flatten ownership rather than referencing earlier patched snapshots, and
 fully superseded blocks are released unless another result retains them. A
