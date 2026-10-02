@@ -63,6 +63,5 @@ jobs:
           fail_ci_if_error: true
           override_commit: ${{ steps.source.outputs.source_sha }}
           override_branch: main
-          flags: unittests
           name: codecov-ubuntu-py3.13
           use_oidc: true

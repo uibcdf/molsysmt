@@ -218,3 +218,23 @@ and publisher-only runs cannot repay debt. The dedicated regression guard is
 `test_publisher_failure_does_not_repeat_an_already_successful_full_matrix` in
 `devtools/tests/test_nightly_full_gate.py`. OIDC hosted replay and independent
 service acceptance will be recorded after execution.
+
+
+### OIDC transport succeeded; service processing still pending
+
+[36980687004](https://github.com/uibcdf/molsysmt/actions/runs/36980687004)
+completed successfully for publisher source `3eb3bc82fb489c2e838059105fd00f93ac74de1d`.
+It transmitted the same XML digest and original measured source using OIDC at
+`2026-10-02T07:51:03Z`. At `2026-10-02T08:37:24.905483+00:00`, the independent
+public API still has null report state/totals and all three coverage uploads
+remain `started`; JUnit remains separately processed. OIDC therefore does not
+establish a fix or service acceptance. No scientific execution was repeated.
+
+The publisher now also matches the three new producers' unflagged whole-XML
+submission. Current `.codecov.yml` removes the obsolete single-group carryforward
+block to avoid inheriting March's group on future source reports. Existing Python
+selection, coverage omissions, local thresholds and original XML/SHA remain
+unchanged. The measured-source historical configuration is not rewritten. Any
+processed report must still be inspected for sessions, scope and actual totals
+before live-badge adoption. The next controlled replay will test this remaining
+publication difference, without attributing the service failure to it beforehand.

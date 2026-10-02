@@ -178,5 +178,6 @@ def test_retry_uploads_only_validated_xml_for_measured_commit():
     )
     assert upload["with"]["use_oidc"] == "true"
     assert "token" not in upload["with"]
+    assert "flags" not in upload["with"]
     assert workflow["permissions"]["id-token"] == "write"
     assert not any("pytest" in s.get("run", "") for s in steps)

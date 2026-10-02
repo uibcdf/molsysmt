@@ -82,8 +82,10 @@ as the publisher's commit. The downloaded XML stays outside the checkout so the
 source switch cannot delete it. The first controlled replay retained the existing
 token and `unittests` flag but remained unprocessed. The reusable publisher now
 uses OIDC, automatically after the full test job group or through this explicit
-manual replay. The component's existing `unittests` flag and coverage selections
-are preserved. Test debt follows actual matrix success independently of transport.
+manual replay. Like the three new suite producers it sends the specified complete
+XML without a flag. The obsolete single `unittests` carry-forward declaration
+is removed from current configuration so future reports do not silently inherit
+that historic group; Python selections, exclusions and local thresholds remain. Test debt follows actual matrix success independently of transport.
 Independent service processing is still required after successful transport.
 
 Artifact retention is 14 days; it does not override Codecov's default 12-hour
