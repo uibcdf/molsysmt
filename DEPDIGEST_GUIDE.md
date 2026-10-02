@@ -158,8 +158,43 @@ depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm
 
 ## Required behavior (non-negotiable)
 
+### Optional original engines
+
+Guard the narrowest external backend and keep imports inside the guarded function.
+Native implementations, persisted results, and web-service reachability are distinct
+capabilities. A provider's absence must not silently switch the requested method.
+
+Declare installation routes explicitly. `pypi: None` and `conda: None` disable their
+respective routes; omission retains legacy defaults. Use `channel` for the declared
+Conda channel. Diagnostics and `get_info` honor disabled routes and the channel.
+
+Executable dependencies use a logical key with `kind: 'executable'`, optionally
+`executable: 'command-or-path'`. Their checks use the current PATH and permissions,
+not Python import discovery, and never run or install the engine. For example:
+
+```python
+LIBRARIES = {
+    "pocketeer": {"type": "soft", "pypi": "pocketeer", "conda": None},
+    "fpocket": {
+        "type": "soft",
+        "kind": "executable",
+        "executable": "fpocket",
+        "pypi": None,
+        "conda": "fpocket",
+        "channel": "conda-forge",
+    },
+}
+```
+
+`@dep_digest` and `LazyRegistry` use the same availability rules. Module keys remain
+import names for `kind: 'python'` (the default); executable keys are capability names.
+Availability does not certify transitive imports, versions, ABI, service state, or
+scientific correctness. Preserve those failures at the consumer boundary and test
+the adapter against a direct upstream run. Full adoption examples are in
+`docs/content/user/optional-engines.md` in the DepDigest repository.
+
 1.  **Lazy Imports**: Never import a soft dependency at the module top-level. Always inside the guarded function.
-2.  **Package Identity**: Always use the importable package name as the key in `LIBRARIES` (e.g., `'openmm.unit'`).
+2.  **Package Identity**: Use the importable package name for Python keys in `LIBRARIES` (e.g., `'openmm.unit'`); executable entries use a capability key and declare `kind: 'executable'`.
 3.  **Standardization**: Use `@dep_digest` even for internal utility functions that depend on optional tools.
 
 ## SMonitor Integration
@@ -167,4 +202,4 @@ depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm
 DepDigest is instrumented with `@smonitor.signal(tags=["dependency"])`. Every dependency check and automated loading process is traceable in the breadcrumb trail.
 
 ---
-*Document created on February 6, 2026, as the authority for DepDigest integration. Updated on February 27, 2026.*
+*Document created on February 6, 2026, as the authority for DepDigest integration. Updated on September 30, 2026.*

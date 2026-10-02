@@ -1,127 +1,67 @@
-"""Guards for exact-file public Conda verification without registry writes."""
+"""Protect actual adoption of the shared, read-only public Conda verifier."""
 
-from __future__ import annotations
-
-import importlib.util
 from pathlib import Path
-
-import pytest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = ROOT / "devtools" / "conda-build" / "verify_public_package.py"
-PROMOTION = ROOT / ".github" / "workflows" / "promote_conda_package.yaml"
-READ_ONLY = ROOT / ".github" / "workflows" / "verify_public_conda_package.yaml"
-PACKAGE = "molsysmt"
-VERSION = "0.22.4"
-SUBDIR = "linux-64"
-FILENAME = "molsysmt-0.22.4-pyabi3h03bb3b7_3.conda"
-SHA256 = "e2ac3c779f17b2ca2aa7655fc6a2a349de558de229f479525826b5deaa6f8d3e"
-
-spec = importlib.util.spec_from_file_location("conda_public_verifier", SCRIPT)
-assert spec is not None and spec.loader is not None
-verifier = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(verifier)
+PROVIDER = "uibcdf/molsyssuite/.github/actions/verify-public-conda@399d33a4ee0da148571cba7cfc004e3f3a2e71e7"
 
 
-def _records(*, labels=("staging", "main"), release_sha=SHA256, index_sha=SHA256):
-    release = {
-        "distributions": [
-            {
-                "basename": f"{SUBDIR}/{FILENAME}",
-                "sha256": release_sha,
-                "labels": list(labels),
-                "attrs": {"subdir": SUBDIR},
-            }
-        ]
-    }
-    index = {
-        "info": {"subdir": SUBDIR},
-        "packages.conda": {
-            FILENAME: {
-                "name": PACKAGE,
-                "version": VERSION,
-                "sha256": index_sha,
-            }
-        },
-    }
-    return release, index
+def test_workflows_call_the_pinned_common_verifier_and_retain_evidence():
+    for workflow in ("promote_conda_package.yaml", "verify_public_conda_package.yaml"):
+        data = yaml.safe_load((ROOT / ".github/workflows" / workflow).read_text())
+        job = data["jobs"]["promote" if workflow.startswith("promote") else "verify"]
+        steps = job["steps"]
+        calls = [step for step in steps if step.get("uses") == PROVIDER]
+        assert len(calls) == 1
+        call = calls[0]
+        assert call["id"] == "public_verification"
+        assert call["with"] == {"package": "molsysmt", "version": "${{ inputs.version }}",
+                                "subdir": "${{ inputs.target }}", "filename": "${{ inputs.filename }}",
+                                "sha256": "${{ inputs.sha256 }}"}
+        receipts = [step for step in steps if step.get("with", {}).get("path") ==
+                    "${{ steps.public_verification.outputs.evidence-path }}"]
+        assert len(receipts) == 1
+        assert "always()" in receipts[0]["if"]
+        assert "outputs.evidence-path != ''" in receipts[0]["if"]
+        assert receipts[0]["with"]["if-no-files-found"] == "error"
 
 
-def test_exact_public_record_requires_label_and_solver_index():
-    release, index = _records()
-    assert (
-        verifier.verify_snapshot(
-            release, index, PACKAGE, VERSION, SUBDIR, FILENAME, SHA256
-        )
-        == f"https://conda.anaconda.org/uibcdf/{SUBDIR}/{FILENAME}"
-    )
-
-    release["distributions"][0]["labels"] = ["staging"]
-    with pytest.raises(verifier.VerificationPending, match="main label"):
-        verifier.verify_snapshot(
-            release, index, PACKAGE, VERSION, SUBDIR, FILENAME, SHA256
-        )
-    release["distributions"][0]["labels"].append("main")
-    del index["packages.conda"][FILENAME]
-    with pytest.raises(verifier.VerificationPending, match="solver-visible"):
-        verifier.verify_snapshot(
-            release, index, PACKAGE, VERSION, SUBDIR, FILENAME, SHA256
-        )
-
-
-@pytest.mark.parametrize("changed", ["release", "index"])
-def test_digest_mismatch_is_a_hard_failure(changed):
-    kwargs = {f"{changed}_sha": "0" * 64}
-    release, index = _records(**kwargs)
-    with pytest.raises(verifier.VerificationError, match="SHA-256 differs"):
-        verifier.verify_snapshot(
-            release, index, PACKAGE, VERSION, SUBDIR, FILENAME, SHA256
-        )
-
-
-def test_rejects_ambiguous_or_unsafe_coordinates():
-    release, index = _records()
-    release["distributions"].append(release["distributions"][0].copy())
-    with pytest.raises(verifier.VerificationError, match="duplicate"):
-        verifier.verify_snapshot(
-            release, index, PACKAGE, VERSION, SUBDIR, FILENAME, SHA256
-        )
-    with pytest.raises(verifier.VerificationError, match="single Conda coordinate"):
-        verifier.validate_coordinate(PACKAGE, VERSION, SUBDIR, "../wrong.conda", SHA256)
-
-
-def test_bounded_retry_then_success(monkeypatch):
-    release, index = _records()
-    release["distributions"][0]["labels"] = ["staging"]
-    ready, ready_index = _records()
-    documents = iter((release, index, ready, ready_index))
-    urls = []
-    sleeps = []
-
-    def fetch(url):
-        urls.append(url)
-        return next(documents)
-
-    monkeypatch.setattr(verifier, "fetch_json", fetch)
-    monkeypatch.setattr(verifier.time, "sleep", sleeps.append)
-    assert verifier.verify_public(
-        PACKAGE, VERSION, SUBDIR, FILENAME, SHA256, attempts=2, interval=0.5
-    ).endswith(FILENAME)
-    assert len(urls) == 4
-    assert sleeps == [0.5]
-
-
-def test_workflows_share_a_read_only_verifier():
-    promotion = yaml.safe_load(PROMOTION.read_text(encoding="utf-8"))
-    verify_step = promotion["jobs"]["promote"]["steps"][-1]
-    assert "verify_public_package.py" in verify_step["run"]
-    assert "conda search" not in verify_step["run"]
-    assert "--package molsysmt" in verify_step["run"]
-
-    read_only = yaml.safe_load(READ_ONLY.read_text(encoding="utf-8"))
-    assert read_only["permissions"] == {"contents": "read"}
-    steps = read_only["jobs"]["verify"]["steps"]
-    assert any("verify_public_package.py" in step.get("run", "") for step in steps)
+def test_independent_recheck_has_no_mutation_credentials_or_promotion():
+    data = yaml.safe_load((ROOT / ".github/workflows/verify_public_conda_package.yaml").read_text())
+    assert data["permissions"] == {"contents": "read"}
+    steps = data["jobs"]["verify"]["steps"]
     assert all("/promote@" not in step.get("uses", "") for step in steps)
     assert all("ANACONDA_UIBCDF_TOKEN" not in str(step) for step in steps)
+    assert not (ROOT / "devtools/conda-build/verify_public_package.py").exists()
+
+
+def test_publication_guard_is_pinned_and_runs_without_scientific_jobs():
+    data = yaml.load((ROOT / ".github/workflows/check-conda-publication.yml").read_text(), Loader=yaml.BaseLoader)
+    assert set(data["on"]) == {"push", "pull_request", "workflow_dispatch"}
+    assert data["permissions"] == {"contents": "read"}
+    assert data["jobs"] == {"publication": {"uses": "uibcdf/molsyssuite/.github/workflows/check-conda-publication.yaml@2a63a15d67d2e72724b6349e89f9f026b25e860f"}}
+
+
+def test_promotion_checks_native_cells_and_steps_instead_of_a_job_count():
+    import json
+    data = yaml.safe_load((ROOT / ".github/workflows/promote_conda_package.yaml").read_text())
+    steps = data["jobs"]["promote"]["steps"]
+    source = "uibcdf/molsyssuite/.github/actions/verify-installed-matrix@778c918b37a1c2c2fa03ed387a000bff0edf1b3d"
+    calls = [step for step in steps if step.get("uses") == source]
+    assert len(calls) == 1
+    call = calls[0]
+    assert call["with"]["candidate-sha"] == "${{ inputs.candidate_sha }}"
+    assert call["with"]["run-id"] == "${{ inputs.pair_run_id }}"
+    assert call["with"]["title"] == "MT ${{ inputs.version }} build ${{ inputs.build_number }} + Viewer ${{ inputs.molsysviewer_version }} build ${{ inputs.molsysviewer_build_number }} | Python 3.14 | all"
+    profile = json.loads(call["with"]["profile"])
+    assert profile["platforms"] == ["linux-64", "linux-aarch64", "osx-arm64", "win-64"]
+    assert profile["python_versions"] == ["3.11", "3.12", "3.13", "3.14"]
+    assert len(profile["required_steps"]) == 4
+    assert "--jq .total_count" not in str(steps)
+    assert any("always()" in step.get("if", "") and
+               "steps.installed_matrix.outputs.evidence-path" in str(step.get("with", {}).get("path", ""))
+               for step in steps)
+    recheck = yaml.safe_load((ROOT / ".github/workflows/verify_installed_conda_pair.yaml").read_text())
+    assert any(step.get("uses") == source for step in recheck["jobs"]["verify"]["steps"])
+    assert "ANACONDA_UIBCDF_TOKEN" not in str(recheck)

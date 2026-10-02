@@ -62,6 +62,26 @@ copies were synchronized. Use the central `devtools/scripts/adoption_status.py` 
 and `devguide/adoption_lifecycle.md` procedure to find the responsible consumer, observed
 state and next action for each relationship.
 
+## Durable working instructions
+
+Follow the [durable working-instruction policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/working_instructions_policy.md).
+Keep technical findings in owning issues, fixes, tests and maintained technical
+guidance. When normal review accepts a lasting contributor or agent action,
+place repository-wide instructions in root `AGENTS.md` and directory-specific
+actions in the relevant nested file. Include the accepted action with its
+decision, or track distinct adoption work with an owned issue; a defect does
+not automatically require another instruction or issue.
+
+For work in `devguide/`, read `devguide/AGENTS.md`, the root instructions and
+the local reporting protocol. Start with current guidance and relevant active
+queues; use archive indexes for orientation and open historical records for a
+stated question. Preserve local queue layouts and commands. Propose working
+rules useful to other members in `uibcdf/molsyssuite` with local evidence;
+cross-MOLI contracts belong in `uibcdf/moli`. Upstream changes require explicit
+suite adoption. Mechanical checks verify active routes, not prose quality;
+bounded exceptions and member adoption are recorded by the policy. Future
+human-facing reporting integration remains uibcdf/molsyssuite#65.
+
 ## Cross-repository working state
 
 Before work spanning components, use the MolSysSuite checkout to refresh and inspect every
@@ -188,9 +208,119 @@ During an accepted Python transition, `suite.toml` may authorize named component
 
 Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
+## Modular reusable tools
+
+Before implementing a new or changed capability, inspect existing tools and identify
+the owning domain/module or MolSysSuite provider. Reuse supported operations. Implement
+or extend missing independently useful operations as documented general tools in that
+owner, with their own contracts and tests, and have consumers call them. Keep feature
+selection, interpretation, rendering and orchestration in the consumer; implementation
+helpers remain private behind supported tools.
+
+Apply the [modular reusable tools policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/modular_reusable_tools.md)
+to every registered component, including support libraries, scientific components,
+developer tools and specialist subsystems. Every root `AGENTS.md` must explicitly route
+this requirement through this section. New Python members receive it from the starter
+kit. Existing public APIs, scientific definitions, units/index mappings, dependency
+direction and special environments retain their owning component contracts.
+
+Report missing sibling capabilities to the provider with linked consumer evidence.
+The provider chooses its supported backend and justifies performance changes from
+measurements. Apply the existing CI/recovery and release policies. This rule governs
+relevant new or changed work; discovered historical duplication receives an owned
+migration decision. Scientific defects remain with component development teams.
+
+A temporary duplication or workaround records the affected operation/rule, provider and
+consumer issues, rationale, responsible owner, interim impact, review/expiry date and
+removal condition. Keep the instruction visible during an implementation exception.
+Guide and instruction checks verify delivery/routing only. Architectural review must
+inspect the standalone tool contract and actual consumer call, distinguishing source
+inspection from executed compatibility evidence. Adoption is tracked in
+[MolSysSuite #61](https://github.com/uibcdf/molsyssuite/issues/61).
+
+## Optional engines and external methods
+
+Whenever a component exposes an optional external library, executable, accelerator,
+service or saved-result adapter, apply the
+[optional engine integration contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/optional_engine_integration.md).
+This applies to new integrations and changes to existing boundaries. Record
+non-applicability when no such boundary exists; do not add unused dependencies.
+
+Distinguish the selected method/provider from its access route: Python library,
+CLI, service, files or local implementation. Keep existing public APIs and justified
+environments while recording their adoption. Guard only the selected route, import
+optional Python engines lazily, declare actual installer routes and disabled routes,
+and keep saved-result and local routes independent of the original engine. An absent
+requested engine must not silently choose another method. An intentional automatic
+selection must expose its rule and actual choice.
+
+For Python boundaries, use DepDigest for availability/dependency declarations and
+SMonitor for diagnostic events, following their canonical guides. The consumer owns
+execution, service configuration, conversions and scientific validation. Preserve
+transitive import, command, service and parser failures separately from absence.
+When accepting a custom executable, check and execute that same command/path.
+Verify the published provider version before requiring a new capability publicly;
+a controlled source pin is integration evidence, not a public installation route.
+
+Keep method/backend identity, submitted input mappings, original output provenance,
+measurement definitions/units and transformations explicit at consumer result
+boundaries. Result schemas and scientific tolerances remain component-owned.
+Availability, installed-adapter verification, live service checks and receiving-member
+compatibility are separate evidence. Ordinary justified absence skips do not replace
+a designated installed-engine gate, which must reject missing, shadowed or unexecuted
+engines. Follow the existing CI lane/recovery policy and local verification schedule.
+
+Link the member ecosystem review and complete the starter's
+`devguide/optional_engine_review.md` worksheet or a documented local equivalent.
+Any exception records the affected route/rule, reason, owning member/provider issues,
+interim behavior/evidence, responsible maintainer, removal condition and dated review
+deadline. Source implementation, synchronized guidance, provider publication and
+runtime adoption are independent states. Shared rollout is tracked in
+[MolSysSuite #62](https://github.com/uibcdf/molsyssuite/issues/62).
+
 ## Public release versions
 
 MolSysSuite defines member release identity in its [release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md), enforces it, and maintains the historical-tag inventory and separate `policy-vX.Y.Z` governance-release namespace.
+
+## Conda staging and publication
+
+When preparing or changing Conda publication, apply the
+[shared publication contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/conda_publication_policy.md).
+Classify native ABI3, noarch Python or metapackage artifacts; retain the
+component's actual platform/Python matrix, recipe, installed-resource/launcher
+checks, secrets and scientific gates. A member without Conda publication records
+non-applicability.
+
+For qualifying new or changed Conda routes, apply `noarch: python` when Python
+code and resources are independent of OS/architecture/ABI. Third-party native
+dependencies alone do not disqualify the consumer; bundled extensions/platform
+binaries or selectors changing payload require a different profile. Use the
+[shared noarch workflow](https://github.com/uibcdf/molsyssuite/blob/main/devguide/noarch_conda_workflow.md),
+a reviewed tested equivalent or a bounded policy exception. Build one file once,
+inspect versions/resources before upload, and preserve the claimed installed
+matrix. The first migration requires staging and installed qualification. Pinned
+wrappers reuse common build/upload and exact-file promotion; components own their
+scientific installed gates. A green probe with skipped tests cannot authorize
+publication. These controls add no suite to ordinary internal pushes.
+
+Commit a reviewed route decision before tagging. Stage candidates that require
+pre-public installed/pair validation, add unvalidated compatibility, are coupled
+or already have files registered under any label. Eligible ordinary direct
+releases keep automatic publication, after exact-source native gates and a fresh
+conclusive all-label absence check. Manual builds are staging-only; public builds
+never use `--no-test` or overwrite immutable coordinates. A bootstrap exception
+identifies the cycle, exact candidate, counterpart gate, owner and expiry.
+
+Promote the exact validated files by SHA-256 with retained receipts; use additive
+build repairs and the reviewed dependency-first order. Verify public main labels
+and solver-index records independently with the pinned common Conda verifier.
+After a verifier/index failure, rerun that read-only boundary without repeating
+promotion. Its file/inventory evidence, producer receipts and installed-pair
+tests remain separate claims. Adopt the lightweight publication guard or a
+documented tested equivalent before affected release work; it adds no general
+scientific suite to internal development pushes. Scope, versioned templates,
+commands, existing-profile adoption and dated exceptions are in the policy and
+its [rollout inventory](https://github.com/uibcdf/molsyssuite/blob/main/devguide/rollouts/conda_publication.md).
 
 ## Repository badges
 
@@ -206,6 +336,69 @@ and must not be hidden; a static green replacement is not. Omit stale or unverif
 capabilities and track concrete remediation in the component repository. The common
 repository policy gate enforces the offline identity baseline; service freshness still
 requires a separate networked audit under `devguide/repository_badges.md`.
+
+When meaningful coverage reporting is maintained, the README displays Codecov's
+live repository-specific percentage between tests and documentation. Explain
+report scope and cadence: the last uploaded report may lag later direct/skip
+commits and does not certify a full matrix or scientific correctness. Review the
+complete report and actual upload, not only a numeric cached badge. Missing or
+stale evidence needs an owner-local issue; justified non-applicability and bounded
+exceptions remain visible in the central inventory, including auxiliary tools.
+Use the common badge generator and public coverage probe in MolSysSuite. This
+rule adds no full suite to internal pushes and no common coverage floor. Follow
+the [coverage evidence contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md#coverage-percentage-applicability-and-cadence).
+
+## Quantities crossing boundaries
+
+Follow the [quantity boundary contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/quantity_boundaries.md)
+for new or changed persistence, backend, message and frontend routes. PyUnitWizard
+owns interchange design (`uibcdf/pyunitwizard#83`) and implementation (#82);
+members own scientific schemas and migration. Use its shared record/codec route
+for general quantity interchange. Fixed-unit numerical protocols extract with
+explicit `to_unit=` matching the receiver's declared contract; do not strip a
+standardized quantity and assume its unit.
+
+Applicable boundaries need a real regression under a non-default application
+policy, with explicit output classification and reader unit validation. Provider
+API promotion and published compatibility remain separate from source pilots.
+Existing schema/provider limitations need reviewed member exceptions with interim
+unit-preserving controls, owner, expiry and removal condition. These focused
+compatibility checks do not require full scientific suites at every internal push.
+Complete adoption remains tracked in `uibcdf/molsyssuite#46` and #18.
+
+## macOS support boundary
+
+macOS support is currently limited to Apple Silicon (arm64). Intel-based macOS
+(x86_64) is not part of the supported platform matrix. Support may be
+reconsidered if there is demonstrated user demand. Apply this boundary to current
+support statements, future CI/release targets and installed-package gates.
+Historical artifacts and dated evidence retain their original identity.
+
+An eligible architecture is not proof of member compatibility: a component must
+provide its own installed/runtime evidence before claiming macOS arm64 support.
+Incubating members may make no platform claim. See the
+[CI policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md#platforms-and-experimental-versions)
+and [member rollout](https://github.com/uibcdf/molsyssuite/blob/main/devguide/rollouts/macos_arm64.md).
+Reconsideration requires a concrete user need in a MolSysSuite issue and an
+explicit support decision with component evidence and ownership.
+
+## Optional scientific attribution
+
+For new or changed optional scientific attribution boundaries, follow the
+[Ackredit client policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ackredit_client_policy.md)
+and the synchronized `ACKREDIT_GUIDE.md` where present. Defer provider imports and
+registration until use, credit the executed branch, contribute to the application's
+session and keep detached bibliography and original versions in results. Provider
+absence or diagnosed failure preserves completed scientific results. Libraries
+must not automatically enable hooks, enrichment, journals or reminders.
+
+Evidence must observe a real provider, reused references, enclosing workflows,
+absence/failure and fresh readers; pilot evidence does not certify published
+dependency closure. Ackredit owns portable attribution APIs; members own their
+scientific schemas and runtime adoption. Utilities without attribution boundaries
+record non-applicability. Different initialization/session semantics require a
+reviewed member exception with its rule, reason, owner, interim controls, expiry
+and removal condition. Guide distribution alone does not establish adoption.
 
 ## GitHub Actions inspection
 
@@ -230,6 +423,12 @@ metadata; Zenodo gives `.zenodo.json` precedence during GitHub archiving. Never 
 retain credential-bearing webhook configuration. Follow the complete
 [Zenodo archival and DOI policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/zenodo_policy.md)
 and its central inventory before publishing or changing a DOI claim.
+
+Use bounded probes with scheduled/manual follow-up for delayed ingestion. The
+default intervention window is 72 hours from original publication; pending and
+service-unavailable states never establish archival. Adopt the common pinned
+recovery workflow or a documented equivalent before the next applicable release;
+the policy specifies complete discovery, evidence and tracked exceptions.
 
 ## Member classification and planning
 

@@ -82,7 +82,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (8)
+### Partially resolved (9)
 
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(measured)*
@@ -91,6 +91,7 @@ Entries carrying front matter under
 - [`pilot_ackredit_in_interaction_calculations.md`](pilot_ackredit_in_interaction_calculations.md) — [#27](https://github.com/uibcdf/molsysmt/issues/27) — Pilot Ackredit in interaction calculations *(measured)*
 - [`promote_chemical_states_to_a_native_molsys_domain.md`](promote_chemical_states_to_a_native_molsys_domain.md) — [#254](https://github.com/uibcdf/molsysmt/issues/254) — Promote ChemicalStates to an independent native MolSys domain *(measured)*
 - [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
+- [`restore_current_coverage_reporting.md`](restore_current_coverage_reporting.md) — [#286](https://github.com/uibcdf/molsysmt/issues/286) — Restore current Codecov evidence before reintroducing the coverage badge. *(measured)*
 - [`review_python_ecosystem_policy_adoption.md`](review_python_ecosystem_policy_adoption.md) — [#244](https://github.com/uibcdf/molsysmt/issues/244) — Review inherited Python ecosystem policy in MolSysMT. *(inspected)*
 
 <!-- /generated -->

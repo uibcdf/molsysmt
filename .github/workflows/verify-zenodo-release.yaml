@@ -2,12 +2,15 @@ name: Verify Zenodo release
 
 on:
   release:
-    types: [released]
+    types: [published]
+  schedule:
+    - cron: "17 */6 * * *"
   workflow_dispatch:
     inputs:
       version:
-        description: "Release tag/version to verify"
-        required: true
+        description: "Exact public tag; leave empty to scan all covered releases"
+        required: false
+        default: ""
         type: string
 
 permissions:
@@ -15,21 +18,9 @@ permissions:
 
 jobs:
   verify:
-    name: Verify archived release
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 1
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.13"
-
-      - name: Wait for and verify the Zenodo record
-        env:
-          RELEASE_VERSION: ${{ github.event.release.tag_name || inputs.version }}
-        run: >-
-          python devtools/scripts/verify_zenodo_release.py
-          "$RELEASE_VERSION" --timeout 900 --interval 30
+    name: Probe archived releases
+    uses: uibcdf/molsyssuite/.github/workflows/verify-zenodo-releases.yaml@2cc2d9bfe80f14a981d40bc109ecdf2af39b693b
+    with:
+      concept-doi: 10.5281/zenodo.1298752
+      since: "2026-09-25T00:00:00Z"
+      tag: ${{ github.event.release.tag_name || inputs.version || '' }}

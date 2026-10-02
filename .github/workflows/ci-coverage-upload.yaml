@@ -1,0 +1,76 @@
+name: Publish retained coverage
+
+on:
+  workflow_call:
+    inputs:
+      source_run_id:
+        description: "Owning full-Linux run that retained the measured Python 3.13 report"
+        type: string
+        required: true
+      legacy_upload:
+        description: "Explicit transport compatibility probe; normal publication uses the current endpoint"
+        type: boolean
+        default: false
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Completed main full-Linux run whose Python 3.13 XML will be republished; no tests run"
+        type: string
+        required: true
+      legacy_upload:
+        description: "Explicit transport compatibility probe; normal publication uses the current endpoint"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish the retained Python report
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out trusted publication controls
+        uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Resolve the producer and immutable artifact
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+        run: python -m devtools.scripts.coverage_artifact
+      - name: Download only the validated retained report
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.source.outputs.artifact_id }}
+          merge-multiple: true
+          path: ${{ runner.temp }}/molsysmt-coverage-report
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run_id }}
+      - name: Verify XML and record its digest
+        id: xml
+        env:
+          REPORT_PATH: ${{ runner.temp }}/molsysmt-coverage-report/coverage.xml
+        run: python -m devtools.scripts.coverage_artifact --xml "$REPORT_PATH"
+      - name: Check out the measured source for path mapping
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.source.outputs.source_sha }}
+          fetch-depth: 0
+      - name: Upload the measured report to Codecov
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          files: ${{ runner.temp }}/molsysmt-coverage-report/coverage.xml
+          disable_search: true
+          fail_ci_if_error: true
+          override_commit: ${{ steps.source.outputs.source_sha }}
+          override_branch: main
+          name: codecov-ubuntu-py3.13
+          use_oidc: true
+          use_legacy_upload_endpoint: ${{ inputs.legacy_upload }}

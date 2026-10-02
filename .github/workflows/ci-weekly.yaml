@@ -3,6 +3,7 @@ name: CI full Linux
 # Runs every Monday at 09:00 UTC and on manual dispatch.
 # At 00:17 America/Mexico_City it runs only when skipped commits still need
 # a successful full matrix. The backlog survives a missed or failed night.
+# Manual probe_backlog checks the decision without launching the test matrix.
 # Executes the full test suite with coverage on ubuntu-latest × {3.11, 3.12, 3.13}.
 # Coverage report is uploaded to Codecov from the Python 3.13 run only.
 # Supported Python versions are 3.11, 3.12, and 3.13.
@@ -13,6 +14,17 @@ on:
     - cron: "17 0 * * *"
       timezone: "America/Mexico_City"
   workflow_dispatch:
+    inputs:
+      python_313_only:
+        description: "Run the complete suite only on Linux/Python 3.13 for coverage; does not clear full-matrix debt"
+        type: boolean
+        required: false
+        default: false
+      probe_backlog:
+        description: "Check the skipped-commit backlog without running tests"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   actions: read
@@ -21,7 +33,9 @@ permissions:
 jobs:
   nightly-decision:
     name: Check skipped-commit backlog
-    if: github.event_name == 'schedule' && github.event.schedule == '17 0 * * *'
+    if: >-
+      (github.event_name == 'schedule' && github.event.schedule == '17 0 * * *')
+      || (github.event_name == 'workflow_dispatch' && inputs.probe_backlog == true)
     runs-on: ubuntu-latest
     outputs:
       run_full: ${{ steps.decide.outputs.run_full }}
@@ -38,16 +52,17 @@ jobs:
   full:
     name: Full test — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
     needs: nightly-decision
-    if: always() && (needs.nightly-decision.result != 'success' || needs.nightly-decision.outputs.run_full == 'true')
+    if: >-
+      always() && inputs.probe_backlog != true
+      && (needs.nightly-decision.result != 'success' || needs.nightly-decision.outputs.run_full == 'true')
     runs-on: ${{ matrix.cfg.os }}
     timeout-minutes: 180
     strategy:
       fail-fast: false
       matrix:
-        cfg:
-          - { os: ubuntu-latest, python-version: "3.11" }
-          - { os: ubuntu-latest, python-version: "3.12" }
-          - { os: ubuntu-latest, python-version: "3.13" }
+        # The scheduled/default route keeps all three supported Linux minors.
+        # Only an explicit manual request selects the coverage uploader alone.
+        cfg: ${{ fromJSON(github.event_name == 'workflow_dispatch' && inputs.python_313_only == true && '[{"os":"ubuntu-latest","python-version":"3.13"}]' || '[{"os":"ubuntu-latest","python-version":"3.11"},{"os":"ubuntu-latest","python-version":"3.12"},{"os":"ubuntu-latest","python-version":"3.13"}]') }}
 
     steps:
       - uses: actions/checkout@v7
@@ -122,23 +137,30 @@ jobs:
           retention-days: 14
 
       - name: Run full test suite with coverage
+        id: suite
         shell: bash -l {0}
         run: |
+          set +e
           python -m pytest --receptor=ci \
             --cov-config=.coveragerc \
             --cov=molsysmt \
             --cov-report=xml \
             --junitxml=junit.xml
+          pytest_status=$?
+          echo "exit_code=$pytest_status" >> "$GITHUB_OUTPUT"
+          exit "$pytest_status"
 
-      - name: Upload coverage to Codecov
-        if: matrix.cfg.python-version == '3.13'
-        uses: codecov/codecov-action@v7
+      - name: Retain coverage and test results
+        if: >-
+          !cancelled() && (steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1')
+        uses: actions/upload-artifact@v7
         with:
-          verbose: true
-          files: ./coverage.xml
-          flags: unittests
-          name: codecov-ubuntu-py3.13
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: full-suite-coverage-py${{ matrix.cfg.python-version }}
+          path: |
+            coverage.xml
+            junit.xml
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Upload test results to Codecov
         if: matrix.cfg.python-version == '3.13' && !cancelled()
@@ -150,3 +172,19 @@ jobs:
         if: failure() && github.event_name == 'schedule'
         run: |
           echo "::error title=Scheduled Full CI Failed::The scheduled full CI run on ${{ matrix.cfg.os }} (Python ${{ matrix.cfg.python-version }}) failed. Inspect the workflow logs to triage."
+
+  coverage-upload:
+    name: Publish default-branch coverage
+    needs: full
+    # Failed completed tests retain reports; the original test job stays failed.
+    # Native provenance rejects aborted suites and missing artifacts.
+    if: >-
+      always() && !cancelled() && github.ref == 'refs/heads/main'
+      && (needs.full.result == 'success' || needs.full.result == 'failure')
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    uses: ./.github/workflows/ci-coverage-upload.yaml
+    with:
+      source_run_id: ${{ github.run_id }}

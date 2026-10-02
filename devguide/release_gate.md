@@ -16,10 +16,10 @@ tagged**. Green gates on an earlier commit or a dirty tree do not count.
 
 - **Clean working tree.** `git status --porcelain` is empty on the tag commit. A release
   cannot be cut from a tree with uncommitted work (audit blocker B1).
-- **The tag commit must actually run CI.** Day-to-day commits use `[skip ci]`; the release
-  candidate commit (and the tag) **must not** carry `[skip ci]`, or the smoke/weekly
-  workflows are silently skipped and nothing is validated. Trigger CI explicitly if
-  needed.
+- **The tag commit must actually run CI.** Ordinary direct pushes run the bounded
+  smoke tier; maintainers may deliberately use `[skip ci]` during development.
+  The release candidate commit (and the tag) **must not** carry `[skip ci]`.
+  Run the full release matrix explicitly on the exact candidate commit.
 - **Version metadata is consistent** with the intended tag (versioningit derives it from
   the tag; `pyproject.toml` `requires-python` and classifiers list 3.11–3.14).
 
@@ -77,7 +77,9 @@ be green on the exact committed candidate**:
   through pytest-receptor's CI mode (doctests included via `pytest.ini`); pytest
   remains the result authority. The scientific step must emit a certificate with
   every registered node collected and zero failures, errors, or skips.
-- Equivalently, a green `ci-weekly.yaml` run pinned to the candidate commit.
+
+The three-cell Linux-only `ci-weekly.yaml` run is a recovery signal for skipped
+commits. It does not replace the six-cell release matrix.
 
 Do not substitute a partial or single-platform run.
 
@@ -149,8 +151,9 @@ Do not substitute a partial or single-platform run.
 Only then tag the release.
 
 After publishing the GitHub Release, F6 is complete only when Zenodo has archived the
-tag and `python devtools/scripts/verify_zenodo_release.py <tag>` resolves a distinct
-version DOI inside the declared concept family. The DOI of a not-yet-published version
+tag and the shared verifier reports `verified`, with a distinct version DOI
+inside the declared concept family and exact source file evidence. A green probe
+with `ingestion_pending` does not complete F6. The DOI of a not-yet-published version
 cannot be a pre-tag gate unless it was deliberately pre-reserved through the Zenodo API.
 
 ## Notes

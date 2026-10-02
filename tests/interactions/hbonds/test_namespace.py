@@ -21,14 +21,18 @@ def test_hbonds_namespace_preserves_legacy_function_identity(hp35_molsys):
     assert distances.shape == (1, len(triples[0]))
 
 
-@pytest.mark.parametrize("method_name", ["get_buch_hbonds", "get_luzard_chandler_hbonds"])
+@pytest.mark.parametrize(
+    "method_name", ["get_buch_hbonds", "get_luzard_chandler_hbonds"]
+)
 def test_second_system_is_rejected_visibly(hp35_molsys, method_name):
     method = getattr(msm.interactions.hbonds, method_name)
     with pytest.raises(NotImplementedMethodError):
         method(hp35_molsys, molecular_system_2=hp35_molsys)
 
 
-@pytest.mark.parametrize("method_name", ["get_buch_hbonds", "get_luzard_chandler_hbonds"])
+@pytest.mark.parametrize(
+    "method_name", ["get_buch_hbonds", "get_luzard_chandler_hbonds"]
+)
 def test_empty_selection_has_an_evaluated_structure(hp35_molsys, method_name):
     method = getattr(msm.interactions.hbonds, method_name)
     atoms, *measurements = method(hp35_molsys, selection=[0])

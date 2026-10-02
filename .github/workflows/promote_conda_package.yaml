@@ -97,13 +97,26 @@ jobs:
           python devtools/conda-build/release_route.py \
             --version "$RELEASE_VERSION" --event release \
             --github-output "$RUNNER_TEMP/conda-route-output"
-          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .conclusion)" = success
-          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .head_sha)" = "$CANDIDATE_SHA"
-          run_path="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .path)"
-          [[ "$run_path" == .github/workflows/validate_conda_staging.yaml* ]]
-          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID/jobs?per_page=100" --jq .total_count)" = 17
-          expected_run_title="MT $RELEASE_VERSION build $BUILD_NUMBER + Viewer $VIEWER_VERSION build $VIEWER_BUILD | Python 3.14 | all"
-          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PAIR_RUN_ID" --jq .display_title)" = "$expected_run_title"
+
+      - name: Verify every declared installed-pair cell and evidence step
+        id: installed_matrix
+        uses: uibcdf/molsyssuite/.github/actions/verify-installed-matrix@778c918b37a1c2c2fa03ed387a000bff0edf1b3d
+        with:
+          repository: uibcdf/molsysmt
+          run-id: ${{ inputs.pair_run_id }}
+          candidate-sha: ${{ inputs.candidate_sha }}
+          workflow: .github/workflows/validate_conda_staging.yaml
+          title: 'MT ${{ inputs.version }} build ${{ inputs.build_number }} + Viewer ${{ inputs.molsysviewer_version }} build ${{ inputs.molsysviewer_build_number }} | Python 3.14 | all'
+          profile: '{"platforms":["linux-64","linux-aarch64","osx-arm64","win-64"],"python_versions":["3.11","3.12","3.13","3.14"],"prepare_job":"Validate the requested package versions","required_steps":["Install the selected package pair","Validate versions, provenance, native code, BCIF, PDB text, and viewer resources","Record the exact environment","Retain the environment record"]}'
+
+      - name: Retain independent installed-matrix evidence
+        if: ${{ always() && steps.installed_matrix.outputs.evidence-path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: molsysmt-installed-matrix-${{ inputs.version }}
+          path: ${{ steps.installed_matrix.outputs.evidence-path }}
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Set up the authenticated Anaconda client
         uses: mamba-org/setup-micromamba@v3.2.1
@@ -140,17 +153,20 @@ jobs:
           retention-days: 30
 
       - name: Independently verify the public package record
-        shell: bash
-        env:
-          RELEASE_VERSION: ${{ inputs.version }}
-          TARGET: ${{ inputs.target }}
-          FILENAME: ${{ inputs.filename }}
-          EXPECTED_SHA256: ${{ inputs.sha256 }}
-        run: |
-          set -euo pipefail
-          python3 devtools/conda-build/verify_public_package.py \
-            --package molsysmt \
-            --version "$RELEASE_VERSION" \
-            --subdir "$TARGET" \
-            --filename "$FILENAME" \
-            --sha256 "$EXPECTED_SHA256"
+        id: public_verification
+        uses: uibcdf/molsyssuite/.github/actions/verify-public-conda@399d33a4ee0da148571cba7cfc004e3f3a2e71e7
+        with:
+          package: molsysmt
+          version: ${{ inputs.version }}
+          subdir: ${{ inputs.target }}
+          filename: ${{ inputs.filename }}
+          sha256: ${{ inputs.sha256 }}
+
+      - name: Retain independent public verification evidence
+        if: ${{ always() && steps.public_verification.outputs.evidence-path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: molsysmt-independent-public-conda-${{ inputs.version }}
+          path: ${{ steps.public_verification.outputs.evidence-path }}
+          if-no-files-found: error
+          retention-days: 30

@@ -19,12 +19,6 @@ comment:
   flags: null
   paths: null
 
-flags:
-  unittests:
-    paths:
-      - molsysmt/
-    carryforward: true
-
 ignore:
   - "molsysmt/molecular_dynamics/**"
   # Piped getter files — generated delegation code, excluded from coverage

@@ -195,9 +195,11 @@ editors, unused-registry pruning and public lazy file queries remain absent.
 Keep `uibcdf/molsysmt#250`, `#251` and `#252` open until their respective
 consumer/acceptance gates are met. Once feedback settles the experimental
 contract, synchronize durable rules and close with the applicable guards.
-Integration into `main` requires incorporating its current remote changes and
-passing the repository's PR CI on the resulting revision. Local consumer
-checks are not the full platform/interpreter matrix or release qualification.
+On 2026-10-02, the maintainer authorized direct local integration into `main`,
+local test validation, a normal push, and removal of incorporated development
+branches without requiring a pull request. Incorporate current remote changes
+and run the repository's local test and validation gates before publication.
+These local checks do not certify the full platform/interpreter release matrix.
 The consumer must commit its current implementation before its SHA can identify
 the tested clean dependency in the controlled integration workflow. The inspected
 dirty checkout's HEAD alone is not that candidate. Delete development branches

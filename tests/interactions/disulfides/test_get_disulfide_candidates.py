@@ -39,7 +39,9 @@ def test_disulfide_candidates_are_aligned_with_requested_structures():
 
     assert [value.shape for value in pairs] == [(0, 2), (1, 2)]
     assert pairs[1].tolist() == [[0, 1]]
-    assert [puw.get_value(value, to_unit="nanometers").shape for value in distances] == [
+    assert [
+        puw.get_value(value, to_unit="nanometers").shape for value in distances
+    ] == [
         (0,),
         (1,),
     ]
@@ -54,7 +56,9 @@ def test_disulfide_candidates_remain_candidates_when_bond_is_recorded():
     )
 
     assert pairs[0].tolist() == [[0, 1]]
-    assert msm.build.get_disulfide_bonds(molsys, structure_index=0, pbc=False) == [[0, 1]]
+    assert msm.build.get_disulfide_bonds(molsys, structure_index=0, pbc=False) == [
+        [0, 1]
+    ]
 
 
 def test_disulfide_candidates_respect_group_filter_and_selection():

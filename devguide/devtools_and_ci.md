@@ -108,9 +108,17 @@ These targets reproduce locally what the GitHub Actions workflows do:
 
 | Target | Description |
 |--------|-------------|
-| `make smoke` | Run the smoke tier (~4 tests). Mirrors `ci-smoke.yaml`. |
+| `make smoke` | Run the four selected smoke files. Mirrors `ci-smoke.yaml`. |
 | `make weekly` | Full suite with coverage — produces `coverage.xml` and `junit.xml`. Mirrors `ci-weekly.yaml`. |
 | `CODECOV_TOKEN=<token> make upload-codecov` | Upload `coverage.xml` to Codecov manually. See procedure below. |
+
+The hosted smoke workflow runs those four files on ordinary pushes. A deliberate
+`[skip ci]` commit bypasses push CI and enters the nightly backlog until a full
+Linux matrix succeeds. The 00:17 `America/Mexico_City` schedule checks that
+backlog; the Monday 09:00 UTC schedule always runs the full matrix. To inspect
+the backlog decision without starting three long test jobs, dispatch
+`ci-weekly.yaml` with `probe_backlog=true`. A plain manual dispatch still runs
+the full matrix. A probe only verifies the decision and never clears backlog.
 
 ### Manual Codecov upload procedure
 

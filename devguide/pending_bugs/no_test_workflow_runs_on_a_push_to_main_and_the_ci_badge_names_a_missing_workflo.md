@@ -181,6 +181,39 @@ four test files from `devtools/tests/run_tiers.sh smoke` explicitly. The
 local guard compares the two selections so the direct-push lane remains
 bounded. The initial unbounded run was cancelled after inspection.
 
+Manual full run `36403213916` reached pytest on Linux Python 3.11, 3.12,
+and 3.13. Each cell reported 4 failed, 10279 passed, 2 skipped, and 40
+deselected. Three failures in the cross-component unit-policy tests match
+the preceding full run `36105275495`; the fourth says a committed converter
+table differs from its generators. These failures are component work, and the
+full run remains red. The smoke result at `36403598162` is 13 passed on the
+four explicitly selected files. It covers neither the rest of pytest nor
+doctests in other paths.
+
+`ci-weekly.yaml` also offers a manual `probe_backlog=true` input. This runs
+the same detector used by the nightly schedule and skips the heavy matrix,
+so the API/history wiring can be checked on GitHub without another full run.
+It is a diagnostic only: its successful conclusion cannot serve as the
+full-suite watermark.
+
+The hosted MolSysViewer backlog probe under `uibcdf/molsysviewer#116`
+exposed an API-query defect in the same watermark pattern: combining
+`branch=main` with `status=success` returned no workflow runs despite
+successful runs being returned without that filter. This detector now reads
+branch runs and checks each run's conclusion and executed full jobs itself.
+It also accepts an executed successful `ci-full.yaml` manual candidate matrix
+as a watermark: the six-cell run `36120923064` at `e28ceb9` is such a run,
+although skipped commits after it still leave the backlog due. The initial
+probe's "no prior successful full matrix" message described the old detector's
+limited search, not the full GitHub run history. Without these corrections,
+the backlog could remain due indefinitely after a green candidate matrix.
+
+Hosted probe `36426806753` passed at `ffe30e6ea`: the detector selected
+`run`, found skipped commits in history, and the full matrix job was skipped
+because the dispatch requested a probe. No successful, executed full Linux
+matrix was found to anchor the backlog. The detector now reports the pending
+count and only five recent hashes to keep diagnostic logs readable.
+
 ## Acceptance criteria
 
 1. Direct pushes use the smoke suite by default, while the two internal
