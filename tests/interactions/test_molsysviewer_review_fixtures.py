@@ -50,7 +50,8 @@ def test_review_files_include_explicit_run_membership_and_lifecycle(tmp_path):
             np.testing.assert_array_equal(
                 msm.pyunitwizard.get_value(molsys.structures.box, to_unit="nm"),
                 np.repeat(np.eye(3)[None], 6, axis=0))
-            assert [p["role"] for p in review.relation(1)["participants"]] == ["ring_a", "ring_b"]
+            ring_index = review.relation_types.index("pi_pi")
+            assert [p["role"] for p in review.relation(ring_index)["participants"]] == ["ring_a", "ring_b"]
         else:
             assert molsys.structures is None
     with pytest.raises(FileExistsError):
