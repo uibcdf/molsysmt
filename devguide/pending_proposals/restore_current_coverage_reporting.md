@@ -163,7 +163,7 @@ scientific execution or package publication is requested by this pending state.
 
 ## Guard relevance and verification
 
-The ten tests in `devtools/tests/test_nightly_full_gate.py` pass. In particular,
+The eleven tests in `devtools/tests/test_nightly_full_gate.py` pass. In particular,
 `test_coverage_retention_preserves_failures_and_rejects_aborted_suites` exercises
 the actual pytest exit-status wrapper and upload/retention conditions;
 `test_only_an_explicit_manual_request_selects_the_single_coverage_lane` protects
@@ -184,12 +184,12 @@ also permits publisher-only retries. The first MolSysMT replay preserves token
 and flag, validates retained source provenance, and submits the unchanged XML for
 source `98e0d7832026df1f03320003d47ab9c4a6df2188`. Its own documentation/workflow
 commit is not the measured source. No scientific suite is rerun by this operation.
-The replay run and observed service outcome will be recorded after execution.
+The replay outcomes below distinguish transport from service acceptance.
 
 The new local reusable artifact profile is contract-tested in
 `devtools/tests/test_coverage_artifact.py`, including failed completed suites,
 source identity, fork/branch/workflow rejection, aborted/missing/expired/ambiguous
-artifacts, input safety and original-SHA publication. Existing ten suite/debt
+artifacts, input safety and original-SHA publication. Existing suite/debt
 guards continue to protect completed-suite retention and the full-matrix watermark.
 
 
@@ -207,8 +207,8 @@ publisher automatically after the complete test job group, with the original run
 ID. Completed failing suites remain reportable through successful artifact
 retention; they remain failed. The routine test jobs do not receive OIDC write
 permissions. Manual publication uses the same reusable workflow and existing
-artifact, and preserves the original source SHA and XML timestamp. The component
-coverage selections and `unittests` flag remain unchanged.
+artifact, and preserves the original source SHA and XML timestamp. This first OIDC replay preserved the component coverage selections and
+`unittests` flag; the later unflagged replay is recorded below.
 
 The nightly watermark now examines actual executed full-matrix jobs even if the
 separate publisher failed. This prevents a coverage-service failure from forcing
@@ -216,8 +216,8 @@ an already successful scientific matrix to run again. All three successful
 executed Linux minors are still required; scientific failures, aborted suites
 and publisher-only runs cannot repay debt. The dedicated regression guard is
 `test_publisher_failure_does_not_repeat_an_already_successful_full_matrix` in
-`devtools/tests/test_nightly_full_gate.py`. OIDC hosted replay and independent
-service acceptance will be recorded after execution.
+`devtools/tests/test_nightly_full_gate.py`. OIDC hosted replay is recorded below; independent service acceptance remains
+pending.
 
 
 ### OIDC transport succeeded; service processing still pending
@@ -236,5 +236,32 @@ block to avoid inheriting March's group on future source reports. Existing Pytho
 selection, coverage omissions, local thresholds and original XML/SHA remain
 unchanged. The measured-source historical configuration is not rewritten. Any
 processed report must still be inspected for sessions, scope and actual totals
-before live-badge adoption. The next controlled replay will test this remaining
-publication difference, without attributing the service failure to it beforehand.
+before live-badge adoption. The controlled unflagged replay below tests this publication difference without
+attributing the service failure to it beforehand.
+
+
+### Unflagged replay and authenticated UI evidence
+
+[36985514288](https://github.com/uibcdf/molsysmt/actions/runs/36985514288)
+completed successfully on publisher source
+`57050077465e1b385ea6b8efc10bc1fe01e559ad`, using OIDC and no upload flag.
+Native logs confirm the unchanged XML digest and measured source. Transport
+completed at `2026-10-02T08:42:33Z`; the independent probe at
+`2026-10-02T08:44:45.489955+00:00` still found null totals and all four coverage
+uploads in `started`.
+
+The maintainer's authenticated Codecov commit page likewise shows `No Status`
+and `Missing Head Report` for measured source `98e0d78`, with no report available
+for comparison. This corroborates missing processing but supplies no processing
+error or causal diagnosis. Token versus OIDC, job separation and removing the
+flag have not resolved processing. XML validity, source mapping and public
+repository activation have been checked; none proves backend acceptance.
+
+A final bounded transport compatibility probe uses the pinned official action's
+supported `use_legacy_upload_endpoint` input. The reusable publisher exposes it
+as optional `legacy_upload`, default `false` for both triggers, so routine
+automatic publication keeps the strategy used by the other producers. The
+probe reuses the identical XML, source SHA and timestamp without executing tests.
+Its native result and independent service state must be recorded separately.
+All 33 local artifact/provenance and suite/debt tests pass; workflow lint, Ruff
+and local developer-guide validation also pass.

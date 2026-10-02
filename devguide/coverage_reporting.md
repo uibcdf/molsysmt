@@ -93,3 +93,12 @@ report-age check. A replay preserves the original XML timestamp. See the
 [official age setting](https://docs.codecov.com/docs/codecov-yaml#expired-reports)
 when an explicitly reviewed older report needs a separately bounded service
 configuration; do not regenerate timestamps to imply a fresh execution.
+
+For a diagnosed transport compatibility probe, manual replay accepts
+`-f legacy_upload=true`, using the official action's supported
+[`use_legacy_upload_endpoint`](https://github.com/codecov/codecov-action/blob/303a32d7a59b442fa8d48b6a1cc6825c09c847a5/action.yml)
+input. Both triggers default to `false`; automatic publication keeps the current
+endpoint. This switch does not change authentication, measured source, XML,
+report age or test results. A successful upload still requires independent
+processing confirmation. Record the native run and service result in #286
+before choosing a different routine transport.

@@ -7,12 +7,20 @@ on:
         description: "Owning full-Linux run that retained the measured Python 3.13 report"
         type: string
         required: true
+      legacy_upload:
+        description: "Explicit transport compatibility probe; normal publication uses the current endpoint"
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       source_run_id:
         description: "Completed main full-Linux run whose Python 3.13 XML will be republished; no tests run"
         type: string
         required: true
+      legacy_upload:
+        description: "Explicit transport compatibility probe; normal publication uses the current endpoint"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -65,3 +73,4 @@ jobs:
           override_branch: main
           name: codecov-ubuntu-py3.13
           use_oidc: true
+          use_legacy_upload_endpoint: ${{ inputs.legacy_upload }}

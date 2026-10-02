@@ -177,6 +177,10 @@ def test_retry_uploads_only_validated_xml_for_measured_commit():
         upload["with"]["disable_search"] == upload["with"]["fail_ci_if_error"] == "true"
     )
     assert upload["with"]["use_oidc"] == "true"
+    assert upload["with"]["use_legacy_upload_endpoint"] == "${{ inputs.legacy_upload }}"
+    for trigger in workflow["on"].values():
+        assert trigger["inputs"]["legacy_upload"]["type"] == "boolean"
+        assert trigger["inputs"]["legacy_upload"]["default"] == "false"
     assert "token" not in upload["with"]
     assert "flags" not in upload["with"]
     assert workflow["permissions"]["id-token"] == "write"
