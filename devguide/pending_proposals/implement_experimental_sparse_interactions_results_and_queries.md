@@ -14,6 +14,42 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Pinned consumer review packet — 2026-10-02
+
+**Prepared and contract-tested:** the updated
+[MolSysViewer review packet](../interactions_molsysviewer_review.md) is pinned
+to clean provider commit `1986027c353cdcf290e0402b1d8fa23fee6ea637`. Its
+complete and interaction-only H5MSM fixtures contain original, invalidated,
+recalculated, compacted and empty named analyses, declared source maps,
+producer versions and explicit synthetic run membership. The review guard is
+`tests/interactions/test_molsysviewer_review_fixtures.py`. The exact clean
+provider selection passed 58 tests; the prior 701-test core checkpoint is a
+separate observation, not a new full-suite run on this revision.
+
+**Local consumer parity-tested:** MolSysViewer's existing real qualification
+command completed its four scientific/query/persistence workloads. Its current
+family-scene generator also completed ten scenarios across the nine families
+and both water orders; all supported observations were projected, and initial
+and session-restored frame payloads matched. A separate lifecycle-session check
+preserved all five analyses' execution records, producer versions and scene
+state. The synthetic zero-coordinate fixture has a partial frame-4 projection
+because one coincident endpoint is skipped; it is not a geometric reference.
+
+The [dated artifact](../../devtools/data/interactions_review_packet_20261002.json)
+records commands, versions, source hashes, fixture fingerprints and precise
+scope. Viewer had 322 pre-existing edits and Ackredit nine; they were preserved.
+This is editable-source Python compatibility, not a new browser/WebGL run,
+published-pair certification or complete release/platform matrix. No external
+message was sent. The maintainer can pass on the packet and request feedback.
+
+**Remaining closure:** obtain the consumer's explicit feedback on the updated
+contract and its actual canvas/frame/selection/export/session workflow. Align
+the development branch with remote `main` and run the applicable full PR CI
+before merging. The observed branch had 51 commits absent from remote `main`,
+which had 29 commits absent from the branch; local `main` was an ancestor of
+the branch. No merge or branch deletion was performed. `#250`/`#251`/`#252`
+remain partial until their own acceptance conditions are met.
+
 ## Explicit observation compaction — 2026-10-02
 
 **Implemented and contract-tested:** `Interactions.compact()` returns an
@@ -59,9 +95,9 @@ resident export and explicit row compaction are implemented. Nine detector
 families already produce the common experimental result. No further family
 is implicit in this checkpoint.
 
-Before treating the consumer contract as stabilized, provide MolSysViewer with
-an updated exact-commit packet covering codec 2 and execution records, and
-collect its feedback on the agreed frame/selection/session workflow. Final
+An updated exact-commit packet covering codec 2 and execution records is
+prepared above. Before treating the consumer contract as stabilized, collect
+feedback on the agreed frame/selection/session workflow. Final
 release recertification must run against that chosen commit. Direct
 detector-to-file accumulation, resumable append, unused-registry pruning,
 individual-observation editors and public lazy file queries are still absent;

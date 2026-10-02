@@ -22,6 +22,19 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Updated consumer packet — 2026-10-02
+
+The [operational review packet](../interactions_molsysviewer_review.md) fixes
+provider commit `1986027c353cdcf290e0402b1d8fa23fee6ea637` and provides
+codec-2 lifecycle fixtures plus repeatable provider/consumer commands.
+The clean provider review selection passed 58 tests. Local real Viewer
+qualification and ten family/session scenarios passed; five named lifecycle
+analyses retained execution membership and original producer versions.
+The exact evidence and editable-source/browser/release limitations belong in
+[the implementation record](implement_experimental_sparse_interactions_results_and_queries.md#pinned-consumer-review-packet--2026-10-02).
+Explicit consumer feedback and full integration CI remain open. No message,
+merge or branch deletion was performed as part of packet preparation.
+
 ## Explicit observation compaction — 2026-10-02
 
 `Interactions.compact()` now releases references to retired observation blocks

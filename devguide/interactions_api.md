@@ -999,6 +999,8 @@ classifier is implied by these family methods. Client
 libraries can call the family-specific APIs and should preserve method
 identity and units in any presentation or derived analysis. A stable
 cross-system result contract requires a separate decision.
+The [MolSysViewer review packet](interactions_molsysviewer_review.md) supplies
+pinned fixture/test commands and states the scope of local consumer evidence.
 
 ## Associating analyses with a system
 

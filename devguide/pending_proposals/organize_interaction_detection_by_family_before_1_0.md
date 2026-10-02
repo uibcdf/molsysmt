@@ -19,6 +19,19 @@ MolSysSuite consumers.
 **Status:** Namespace, detector migration and persistent result routes implemented;
 final consumer and exact-candidate recertification remain open.
 
+## Consumer review checkpoint — 2026-10-02
+
+The [updated packet](../interactions_molsysviewer_review.md) pins clean provider
+`1986027c353cdcf290e0402b1d8fa23fee6ea637`. The current editable Viewer generated
+positive frame scenes for all nine families and both water mediator orders,
+with initial/session-restored protocol payload parity. This supersedes the older
+two-family projection observation for this particular local consumer checkout.
+It does not establish a clean published consumer pair or browser/WebGL support.
+Source states, hashes, tests and limits are retained in
+[the implementation evidence](implement_experimental_sparse_interactions_results_and_queries.md#pinned-consumer-review-packet--2026-10-02).
+The inventory below is unchanged; consumer feedback and full integration CI
+remain required before treating the experimental contract as settled.
+
 ## Current checkpoint — 2026-10-01
 
 The current inventory contains nine implemented experimental families. Their
