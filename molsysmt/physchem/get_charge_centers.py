@@ -195,7 +195,9 @@ def get_charge_centers(
     covalent = bonds.loc[relationships == "covalent"]
     pairs = covalent[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
     orders = covalent.reindex(columns=["bond_order", "fractional_bond_order"])
-    bond_orders = orders["bond_order"].to_numpy(dtype=np.float64, na_value=np.nan)
+    bond_orders = orders["bond_order"].to_numpy(
+        dtype=np.float64, na_value=np.nan, copy=True
+    )
     fractional = orders["fractional_bond_order"].to_numpy(
         dtype=np.float64, na_value=np.nan
     )

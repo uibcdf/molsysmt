@@ -29,6 +29,28 @@ def _values(result):
     return puw.get_value(result["charges"], to_unit="e")
 
 
+def test_read_only_bond_orders_preserve_charge_center_chemistry(monkeypatch):
+    molsys = _topology(["C", "O", "O"], [0, -1, 0], [(0, 1), (0, 2)], [1, 2])
+    state = molsys._reference_chemical_state
+    state.bonds["fractional_bond_order"] = state.bonds["bond_order"].astype(float)
+    state.bonds["bond_order"] = np.nan
+    before = state.bonds.copy(deep=True)
+    to_numpy = pd.Series.to_numpy
+
+    def read_only(series, *args, **kwargs):
+        array = to_numpy(series, *args, **kwargs)
+        if not kwargs.get("copy", False):
+            array = array.view()
+            array.setflags(write=False)
+        return array
+
+    monkeypatch.setattr(pd.Series, "to_numpy", read_only)
+    centers = msm.physchem.get_charge_centers(molsys)
+    assert centers["center_types"].tolist() == ["carboxylate"]
+    assert centers["atom_indices"].tolist() == [0, 1, 2]
+    pd.testing.assert_frame_equal(state.bonds, before)
+
+
 @pytest.mark.parametrize("charges", [[0, -1, 0, 0], [0, 0, -1, 0]])
 def test_carboxylate_membership_is_independent_of_resonance_localization(charges):
     orders = [1, 2, 1] if charges[1] == -1 else [2, 1, 1]

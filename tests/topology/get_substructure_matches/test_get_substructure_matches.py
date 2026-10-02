@@ -1,6 +1,7 @@
 """Exercise general chemical matching without truncated graphs or matches."""
 
 import numpy as np
+import pandas as pd
 import pytest
 from rdkit import Chem
 
@@ -10,6 +11,43 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
+
+
+@pytest.mark.parametrize("fractional", [False, True])
+def test_read_only_bond_arrays_preserve_source_chemistry(monkeypatch, fractional):
+    source = msm.convert(
+        Chem.MolFromSmiles("c1ccccc1.[NH4+].CCO"), to_form="molsysmt.MolSys"
+    )
+    state = source.chemical_states._states[
+        source.chemical_states.reference_chemical_state_index
+    ]
+    if fractional:
+        orders = state.bonds.reindex(columns=["bond_order", "fractional_bond_order"])
+        state.bonds["fractional_bond_order"] = (
+            orders["bond_order"]
+            .astype(float)
+            .fillna(orders["fractional_bond_order"].astype(float))
+        )
+        state.bonds["bond_order"] = np.nan
+    original_atoms = state.atom_attributes.copy(deep=True)
+    original_bonds = state.bonds.copy(deep=True)
+    to_numpy = pd.Series.to_numpy
+
+    def read_only(series, *args, **kwargs):
+        array = to_numpy(series, *args, **kwargs)
+        if not kwargs.get("copy", False):
+            array = array.view()
+            array.setflags(write=False)
+        return array
+
+    monkeypatch.setattr(pd.Series, "to_numpy", read_only)
+    result = msm.topology.get_substructure_matches(
+        source, ["[a;r6]1:[a;r6]:[a;r6]:[a;r6]:[a;r6]:[a;r6]:1", "[N+]"]
+    )
+    assert result["matches"][0].tolist() == [[0, 1, 2, 3, 4, 5]]
+    assert result["matches"][1].tolist() == [[6]]
+    pd.testing.assert_frame_equal(state.atom_attributes, original_atoms)
+    pd.testing.assert_frame_equal(state.bonds, original_bonds)
 
 
 @pytest.mark.parametrize("native", [False, True])

@@ -9,6 +9,31 @@ are `interactions.hbonds`, `interactions.disulfides`, and the experimental
 `interactions.metal_coordination` and `interactions.water_bridges`. Other families need
 separate scientific contracts and decisions.
 
+## Relevant-frame queries and bounded inspection
+
+Explicit structure selections constrain relation candidates before atom or type
+membership tests. They preserve requested nonconsecutive frame order, remove
+duplicate frame requests and retain parallel observations. Trajectory-wide atom
+queries continue to use optional postings rather than scanning dense atom pairs.
+
+`Interactions.to_page(offset=0, limit=50, max_participant_atoms=10000)` exposes the
+experimental typed `molsysmt.interactions.page@1` inspection boundary. The page
+contains total_count and next_offset, stable complete-analysis occurrence_indices
+and relation_indices, compact relation_catalog_indices and participant arrays,
+and aligned measures, units, evidence and PBC vectors. Catalog offsets index the
+compact catalog, not global relation indices. Coverage and source maps are shared
+read-only arrays. A constituent-atom bound counts memberships per occurrence and
+is checked before copying participant definitions or images. Empty pages retain
+typed arrays and distinguish evaluated-empty from unevaluated frames.
+
+Query construction retains its own positions and possible secondary indexes.
+Paging bounds occurrence and participant copies after that construction; metadata
+may scale with frames. Invalidated and replaced analyses select active source row
+windows using frame offsets, without packing all active columns. A page is not a
+complete persistence codec. Existing full `to_dict()` semantics and H5MSM 0.5
+remain unchanged. See [the result tutorial](../docs/content/user/tools/interactions/result.md)
+and the dated reports for uibcdf/molsysmt#288 and uibcdf/molsysmt#264.
+
 ## Scientific method names and attribution
 
 Public method selectors name a scientific criterion or its geometric operations,

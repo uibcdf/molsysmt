@@ -49,6 +49,24 @@ reconstructed = msm.convert(columns, to_form="molsysmt.Interactions")
 assert reconstructed.query(structure_indices=[1]).n_interactions == 0
 ```
 
+For an inspector, keep `view` and materialize only the rows being displayed:
+
+```python
+page = view.to_page(limit=1)
+assert page["occurrence_indices"].tolist() == [1]
+assert page["participant_atoms"].tolist() == [3, 4, 5, 6, 7, 8]
+assert page["measure_units"]["distance"] == "nm"
+next_page = view.to_page(offset=page["next_offset"], limit=1)
+assert next_page["occurrence_indices"].tolist() == [0]
+assert next_page["next_offset"] is None
+```
+
+The page retains complete-analysis occurrence indices, while its offset counts
+rows in the query's order. Count and evaluated coverage remain available even
+for empty pages. A participant-atom budget guards large compound groups before
+copying them. See {ref}`Inspecting bounded pages <user-tools-interactions-pages>`
+for the compact relation catalog and the separate query/index memory costs.
+
 Attach the complete result to a native molecular system to keep its atom and
 structure index spaces together. H5MSM 0.5 stores the named analysis alongside
 the structures. The same query works after loading it:

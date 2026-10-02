@@ -1,0 +1,273 @@
+{
+  "schema": "molsysmt.interactions_reported_bugs@1",
+  "date": "2026-10-02",
+  "issues": [
+    "uibcdf/molsysmt#289",
+    "uibcdf/molsysmt#288",
+    "uibcdf/molsysmt#264"
+  ],
+  "source_base_commit": "18536a793188d8721e5a5cd5debc0405d16f70aa",
+  "source_state": "Working-tree fixes over the base commit; final runtime file hashes below identify the tested contents.",
+  "runtime_files_sha256": {
+    "molsysmt/_private/argdigest/argument/limit.py": "fb079adaa107d272429189c78b72af5f47309b85e06f4625608e1bac13a99330",
+    "molsysmt/_private/argdigest/argument/max_participant_atoms.py": "4de473aa0bb63d5218462b6df0b4dc93ea86610b91593b9a2e50551c5aefb871",
+    "molsysmt/_private/argdigest/argument/offset.py": "1b396d70b693981bd99c2ab111eb43dca94d57af75b5efc70e2e6016ab47d2b7",
+    "molsysmt/interactions/_pages.py": "70aff11aa37224269d233b1d65542737363bff89eb22a7ed33587e243697ca07",
+    "molsysmt/interactions/result.py": "486b9c2c70268970e5ef725f6a96f633245dfc0d713c63d7f1d1ee3018ee1c01",
+    "molsysmt/physchem/get_charge_centers.py": "e52a1606cc5267d08ef725dc9227345b789ca9a640863d8b09f7194f7b81e700",
+    "molsysmt/topology/get_substructure_matches.py": "9eef9bea0f940c03f526c57a05c09a04d09867d2b4c4dbf1dd6d599b8d1e8b29"
+  },
+  "cpu": "Intel Xeon E5-2630 v4 @ 2.20GHz",
+  "query_before": {
+    "python": "3.13.14",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "numpy": "2.4.6",
+    "molsysmt": "0.22.4+118.g03b318549.dirty",
+    "warmup": "one untimed call per operation; five timed repetitions; median",
+    "analysis_numeric_bytes": 3090348,
+    "queries": {
+      "incident_frame0": {
+        "median_ms": 3.171059302985668,
+        "allocation_peak_bytes": 510000,
+        "count": 5
+      },
+      "incident_nonconsecutive": {
+        "median_ms": 3.099510446190834,
+        "allocation_peak_bytes": 510032,
+        "count": 10
+      },
+      "incident_all": {
+        "median_ms": 14.752153307199478,
+        "allocation_peak_bytes": 1805880,
+        "count": 11248
+      },
+      "internal_frame0": {
+        "median_ms": 816.2003792822361,
+        "allocation_peak_bytes": 1263928,
+        "count": 5
+      },
+      "internal_nonconsecutive": {
+        "median_ms": 810.9561260789633,
+        "allocation_peak_bytes": 1263960,
+        "count": 10
+      },
+      "internal_all": {
+        "median_ms": 837.119460105896,
+        "allocation_peak_bytes": 3794680,
+        "count": 22495
+      },
+      "cross_frame0": {
+        "median_ms": 400.20833536982536,
+        "allocation_peak_bytes": 510000,
+        "count": 0
+      },
+      "cross_nonconsecutive": {
+        "median_ms": 403.72505877166986,
+        "allocation_peak_bytes": 510032,
+        "count": 1
+      },
+      "cross_all": {
+        "median_ms": 436.4363197237253,
+        "allocation_peak_bytes": 1252568,
+        "count": 7030
+      }
+    },
+    "parallel_analysis_numeric_bytes": 1800132,
+    "query_positions_bytes": 400008,
+    "full_projection": {
+      "median_ms": 1.086425967514515,
+      "allocation_peak_bytes": 3801588
+    }
+  },
+  "query_after": {
+    "python": "3.13.14",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "numpy": "2.4.6",
+    "molsysmt": "0.22.4+118.g03b318549.dirty",
+    "source_base_commit": "18536a793188d8721e5a5cd5debc0405d16f70aa",
+    "warmup": "one untimed call per operation; five timed repetitions; median",
+    "analysis_numeric_bytes": 2190036,
+    "queries": {
+      "incident_frame0": {
+        "median_ms": 0.4143752157688141,
+        "allocation_peak_bytes": 46192,
+        "count": 5
+      },
+      "incident_nonconsecutive": {
+        "median_ms": 0.6397701799869537,
+        "allocation_peak_bytes": 46242,
+        "count": 10
+      },
+      "incident_all": {
+        "median_ms": 13.288620859384537,
+        "allocation_peak_bytes": 1805880,
+        "count": 11248
+      },
+      "internal_frame0": {
+        "median_ms": 0.440782867372036,
+        "allocation_peak_bytes": 46192,
+        "count": 5
+      },
+      "internal_nonconsecutive": {
+        "median_ms": 0.6139874458312988,
+        "allocation_peak_bytes": 46242,
+        "count": 10
+      },
+      "internal_all": {
+        "median_ms": 741.5300430729985,
+        "allocation_peak_bytes": 3794680,
+        "count": 22495
+      },
+      "cross_frame0": {
+        "median_ms": 0.3839954733848572,
+        "allocation_peak_bytes": 46192,
+        "count": 0
+      },
+      "cross_nonconsecutive": {
+        "median_ms": 0.5807057023048401,
+        "allocation_peak_bytes": 46114,
+        "count": 1
+      },
+      "cross_all": {
+        "median_ms": 351.0546237230301,
+        "allocation_peak_bytes": 1252568,
+        "count": 7030
+      }
+    },
+    "recurring_queries": {
+      "incident_frame0": {
+        "median_ms": 0.40222425013780594,
+        "allocation_peak_bytes": 46064,
+        "count": 5
+      },
+      "incident_nonconsecutive": {
+        "median_ms": 0.48389751464128494,
+        "allocation_peak_bytes": 46114,
+        "count": 10
+      },
+      "incident_all": {
+        "median_ms": 1.920897513628006,
+        "allocation_peak_bytes": 273744,
+        "count": 11248
+      },
+      "internal_frame0": {
+        "median_ms": 0.4014689475297928,
+        "allocation_peak_bytes": 46064,
+        "count": 5
+      },
+      "internal_nonconsecutive": {
+        "median_ms": 0.4804367199540138,
+        "allocation_peak_bytes": 46114,
+        "count": 10
+      },
+      "internal_all": {
+        "median_ms": 5.153515376150608,
+        "allocation_peak_bytes": 544536,
+        "count": 22495
+      },
+      "cross_frame0": {
+        "median_ms": 0.436161644756794,
+        "allocation_peak_bytes": 46064,
+        "count": 0
+      },
+      "cross_nonconsecutive": {
+        "median_ms": 0.476284883916378,
+        "allocation_peak_bytes": 46114,
+        "count": 1
+      },
+      "cross_all": {
+        "median_ms": 1.785225234925747,
+        "allocation_peak_bytes": 172864,
+        "count": 7030
+      }
+    },
+    "parallel_analysis_numeric_bytes": 1800132,
+    "query_positions_bytes": 400008,
+    "full_projection": {
+      "median_ms": 1.2865765020251274,
+      "allocation_peak_bytes": 4201987
+    },
+    "one_row_page": {
+      "median_ms": 0.20486954599618912,
+      "allocation_peak_bytes": 7152
+    },
+    "fifty_row_page": {
+      "median_ms": 0.21545588970184326,
+      "allocation_peak_bytes": 11613
+    }
+  },
+  "measurement_scope": "Synthetic in-memory data; warmed medians, tracemalloc operation allocation peaks, separately retained numeric arrays. Not detector throughput, RSS or release qualification.",
+  "verification": [
+    {
+      "command": "python -m pytest --receptor=llm -n 12 --dist loadfile --junitxml=/tmp/molsysmt-reported-bugs-20261002.xml",
+      "passed": 11744,
+      "skipped": 11,
+      "failed": 0,
+      "seconds": 341.85,
+      "junit_summary": {
+        "tests": 11755,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 11
+      },
+      "scope": "Configured default suite, including basic doctests; Pandas 2.3.3."
+    },
+    {
+      "command": "python -m pytest --receptor=llm -n 12 --dist loadfile tests/interactions tests/topology/get_substructure_matches tests/physchem/test_get_charge_centers.py molsysmt/interactions/result.py",
+      "passed": 723,
+      "failed": 0,
+      "seconds": 30.51
+    },
+    {
+      "command": "python -m pytest --receptor=llm tests/topology/get_substructure_matches tests/physchem/test_get_charge_centers.py tests/interactions/cation_pi tests/interactions/ionic",
+      "environment": "Isolated temporary venv using Pandas 3.0.6 with Python 3.13.14 and shared remaining scientific dependencies.",
+      "passed": 161,
+      "failed": 0,
+      "seconds": 32.61
+    },
+    {
+      "command": "python -m pytest --receptor=llm -n 4 --dist loadfile devtools/tests molsysmt/interactions/result.py",
+      "passed": 260,
+      "failed": 0,
+      "seconds": 5.07
+    },
+    {
+      "command": "python devtools/scripts/release_gate.py",
+      "passed": 14,
+      "failed": 0,
+      "scope": "Fast gates only; not a release platform matrix."
+    },
+    {
+      "scope": "Documentation",
+      "executed_python_blocks": {
+        "result_guide": 14,
+        "sparse_query_cookbook": 9
+      },
+      "course_code_and_saved_outputs_preserved": true
+    },
+    {
+      "command": "ruff check molsysmt",
+      "outcome": "pass"
+    },
+    {
+      "command": "python devtools/scripts/validate_docstrings.py",
+      "outcome": "pass"
+    },
+    {
+      "command": "python devtools/scripts/validate_public_api_stability.py",
+      "outcome": "pass"
+    }
+  ],
+  "known_skips": [
+    "Nine obsolete installed PyTraj extension finalizer cases",
+    "RDKit accepts CCO as a valid SMILES",
+    "CuPy unavailable"
+  ],
+  "limitations": [
+    "No installed-wheel/client qualification is claimed.",
+    "Pandas 3 verification covers the focused chemistry and interaction paths rather than the entire suite.",
+    "Query construction and optional indexes remain separate retained costs from page projection.",
+    "Metadata can scale with frame coverage; compound membership is bounded per page."
+  ],
+  "post_suite_documentation_only_change": "Clarified that page occurrences remain in numeric columns, without claiming the absence of bounded temporary image slices; result doctests were rerun."
+}

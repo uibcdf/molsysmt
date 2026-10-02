@@ -877,6 +877,43 @@ class Interactions:
                 )
                 frame_positions = positions[np.lexsort((positions, priorities))]
             return self._view(frame_positions, coverage)
+        if structure_indices is not None:
+            # Frame postings bound membership work before any trajectory-wide
+            # atom index is constructed or unrelated relation is inspected.
+            scoped = self.query(structure_indices=coverage)
+            candidates = np.unique(self.occurrence_relations[scoped._positions])
+            atoms = (
+                None
+                if atom_indices is None
+                else np.unique(_indices(atom_indices, self.n_atoms, "atom_indices"))
+            )
+            allowed = (
+                None
+                if interaction_types is None
+                else {interaction_types}
+                if isinstance(interaction_types, str)
+                else set(interaction_types)
+            )
+            retained = []
+            for relation in candidates:
+                if allowed is not None and self.relation_types[relation] not in allowed:
+                    continue
+                if atoms is not None:
+                    membership = np.isin(self._relation_atoms(relation), atoms)
+                    matches = (
+                        membership.any()
+                        if mode == "incident"
+                        else membership.all()
+                        if mode == "internal"
+                        else membership.any() and not membership.all()
+                    )
+                    if not matches:
+                        continue
+                retained.append(relation)
+            positions = scoped._positions[
+                np.isin(self.occurrence_relations[scoped._positions], retained)
+            ]
+            return self._view(positions, coverage)
         self._build_indexes()
         if atom_indices is None:
             relations = np.arange(len(self.relation_types), dtype=np.int64)
@@ -924,32 +961,6 @@ class Interactions:
             ]
         if not len(coverage) or not len(relations):
             return self._view([], coverage)
-        if structure_indices is not None:
-            bounds = [
-                (
-                    np.searchsorted(self.occurrence_structures, frame, side="left"),
-                    np.searchsorted(self.occurrence_structures, frame, side="right"),
-                )
-                for frame in coverage
-            ]
-            frame_count = sum(end - begin for begin, end in bounds)
-            relation_count = np.sum(
-                self._relation_occurrence_offsets[relations + 1]
-                - self._relation_occurrence_offsets[relations]
-            )
-            if frame_count < relation_count:
-                chunks = [
-                    np.arange(begin, end, dtype=np.int64) for begin, end in bounds
-                ]
-                positions = (
-                    np.concatenate(chunks) if chunks else np.empty(0, dtype=np.int64)
-                )
-                if not self._is_full:
-                    positions = positions[np.isin(positions, self._positions)]
-                positions = positions[
-                    np.isin(self.occurrence_relations[positions], relations)
-                ]
-                return self._view(positions, coverage)
         relevant = np.unique(
             np.concatenate(
                 [
@@ -962,24 +973,11 @@ class Interactions:
                 ]
             )
         )
-        if structure_indices is None and self._is_full:
-            positions = relevant
-        elif structure_indices is None:
-            positions = self._positions[np.isin(self._positions, relevant)]
-        else:
-            if not self._is_full:
-                relevant = relevant[np.isin(relevant, self._positions)]
-            frames = self.occurrence_structures[relevant]
-            positions = relevant[np.isin(frames, coverage)]
-            frame_order = {int(frame): index for index, frame in enumerate(coverage)}
-            priorities = np.fromiter(
-                (
-                    frame_order[int(frame)]
-                    for frame in self.occurrence_structures[positions]
-                ),
-                dtype=np.int64,
-            )
-            positions = positions[np.lexsort((positions, priorities))]
+        positions = (
+            relevant
+            if self._is_full
+            else self._positions[np.isin(self._positions, relevant)]
+        )
         return self._view(positions, coverage)
 
     def between(
@@ -1046,7 +1044,9 @@ class Interactions:
         structure and relation. A remap or edit creates a new analysis with
         newly assigned positions.
         """
-        positions = self._positions
+        return self._occurrence_dict(self._positions)
+
+    def _occurrence_dict(self, positions, *, copy_coverage=True):
         if self.image_vectors is None:
             image_offsets = None
             image_vectors = None
@@ -1079,6 +1079,9 @@ class Interactions:
             occurrence_indices -= cumulative[
                 np.searchsorted(ends, positions, side="right")
             ]
+        evidence_indices, evidence_inverse = np.unique(
+            self.occurrence_evidence[positions], return_inverse=True
+        )
         return {
             "n_atoms": self.n_atoms,
             "n_structures": self.n_structures,
@@ -1087,13 +1090,16 @@ class Interactions:
             "source_id": self.source_id,
             "software": self.software.copy(),
             "execution_records": self.execution_records,
-            "evaluated_structure_indices": self._coverage.copy(),
+            "evaluated_structure_indices": self._coverage.copy()
+            if copy_coverage
+            else self._coverage,
             "occurrence_indices": occurrence_indices,
             "structure_indices": self.occurrence_structures[positions].copy(),
             "relation_indices": self.occurrence_relations[positions].copy(),
-            "evidence": np.asarray(self.evidence_labels, dtype=str)[
-                self.occurrence_evidence[positions]
-            ],
+            "evidence": np.asarray(
+                [self.evidence_labels[index] for index in evidence_indices],
+                dtype=str,
+            )[evidence_inverse],
             "measurements": {
                 name: values[positions].copy()
                 for name, values in self.measurements.items()
@@ -1102,6 +1108,82 @@ class Interactions:
             "image_offsets": image_offsets,
             "image_vectors": image_vectors,
         }
+
+    @arg_digest()
+    def to_page(
+        self, offset=0, limit=50, max_participant_atoms=10000, skip_digestion=False
+    ):
+        """Projecting a bounded occurrence page with its participant definitions.
+
+        Parameters
+        ----------
+        offset : int, default=0
+            Zero-based row position in this query's deterministic occurrence order.
+        limit : int, default=50
+            Maximum rows to copy. Zero returns an empty page with count and coverage.
+        max_participant_atoms : int, default=10000
+            Maximum sum of constituent atom counts over the page's occurrences,
+            counting reused relations once per occurrence. Exceeding this bound
+            raises before copying participant atom vectors or periodic images.
+        skip_digestion : bool, default=False
+            Whether to skip internal argument validation.
+
+        Returns
+        -------
+        dict
+            Typed columns with schema ``molsysmt.interactions.page@1``; total_count,
+            offset and next_offset; stable complete-analysis occurrence_indices
+            and relation_indices; compact relation_catalog_indices, relation_types,
+            roles and participant offsets/atoms; aligned measurements, units,
+            evidence and optional image vectors. Coverage and source maps are
+            shared read-only arrays. Occurrences remain in aligned numeric columns.
+
+        Raises
+        ------
+        ArgumentError
+            If a bound is negative, noninteger or boolean.
+        ValueError
+            If the page exceeds max_participant_atoms.
+
+        Notes
+        -----
+        Construct a query once, then page it repeatedly. Query positions and
+        optional indexes have a separate retained cost. Occurrence and participant
+        copies scale with the requested page, not all selected occurrences.
+        Edited analyses use frame offsets without packing their complete columns.
+        Metadata can scale with evaluated frames; source maps and coverage are
+        shared. This inspection projection is not an InteractionsDict or a
+        standalone persistence codec. Inspect the full analysis's evaluation_scope
+        separately when interpreting evaluated-empty coverage.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> result = msm.Interactions.from_records([], n_atoms=2, n_structures=3,
+        ...     evaluated_structure_indices=[0, 2], method='synthetic')
+        >>> page = result.query(structure_indices=[2, 1]).to_page(limit=1)
+        >>> page['total_count'], page['next_offset']
+        (0, None)
+        >>> page['evaluated_structure_indices'].tolist()
+        [2]
+        >>> page['participant_atom_offsets'].tolist()
+        [0]
+
+        .. admonition:: User guide
+
+           See :ref:`Querying interaction results <user-tools-interactions-result>`.
+
+        .. versionadded:: 1.0.0
+        """
+        if not isinstance(skip_digestion, bool):
+            from molsysmt._private.argdigest.argument.skip_digestion import (
+                digest_skip_digestion,
+            )
+
+            digest_skip_digestion(skip_digestion)
+        from ._pages import occurrence_page
+
+        return occurrence_page(self, offset, limit, max_participant_atoms)
 
     def remap(self, atom_indices="all", structure_indices="all"):
         """Extracting interactions into new atom and structure index spaces.

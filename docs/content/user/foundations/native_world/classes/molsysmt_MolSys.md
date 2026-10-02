@@ -45,6 +45,14 @@ independent `molsysmt.Interactions` analysis with
 This retains previous named results and checks that all analyses match the
 system's atom and structure axes.
 
+An analysis owns sparse relations and occurrences. A query retains selected row
+indices and shares the analysis's numeric storage. Its experimental `to_page()`
+projection copies a bounded set of observations and their referenced participant
+definitions; it preserves complete-analysis occurrence indices. Coverage and
+source maps remain shared read-only data. Query indexes, frame metadata and page
+copies have distinct memory costs. See
+{ref}`Inspecting bounded pages <user-tools-interactions-pages>`.
+
 This assignment declares that the analysis's local atom and structure indices
 correspond to the system. MolSysMT checks compatible axes and valid results;
 you are responsible for the correspondence of independently loaded data.

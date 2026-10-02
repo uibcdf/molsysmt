@@ -111,8 +111,6 @@ def get_substructure_matches(
 
     .. versionadded:: 1.0.0
     """
-    from copy import copy
-
     import pandas as pd
     from rdkit import Chem, rdBase
 
@@ -145,7 +143,7 @@ def get_substructure_matches(
     if len(bonds):
         covalent = bonds.loc[bonds["bond_type"] == "covalent"]
         orders = covalent.reindex(columns=["bond_order", "fractional_bond_order"])
-        values = orders["bond_order"].to_numpy(dtype=float, na_value=np.nan)
+        values = orders["bond_order"].to_numpy(dtype=float, na_value=np.nan, copy=True)
         fractional = orders["fractional_bond_order"].to_numpy(
             dtype=float, na_value=np.nan
         )
@@ -177,7 +175,11 @@ def get_substructure_matches(
             raise StructuralInconsistencyError(
                 reason="Every atom requires an explicit element symbol.", caller=caller
             )
-        view, state_view = copy(topology), copy(states)
+        # copy.copy(Topology) invokes compatibility restoration on shared
+        # chemistry. Construct the read-only inventory view without that hook.
+        view = object.__new__(type(topology))
+        view.__dict__ = topology.__getstate__()
+        state_view = states.copy()
         state_view._reference_index = state_index
         view._chemical_states_domain = state_view
         chemical_source = MolSys._from_partial_domains(
@@ -210,7 +212,7 @@ def get_substructure_matches(
                     reason="RDKit changed declared bond aromaticity.", caller=caller
                 )
     if not isinstance(selection, str) or is_all(selection):
-        selection_source = copy(states)
+        selection_source = states.copy()
         selection_source._reference_index = state_index
         selection_state = "reference"
     else:

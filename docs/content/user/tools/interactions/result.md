@@ -75,6 +75,50 @@ Each query returns a lightweight view. `to_dict()` provides typed occurrence
 columns, explicit evaluated-structure indices, measurement units, and optional
 periodic-image vectors. Use `relation(index)` to inspect the type and roles
 referenced by a result's `relation_indices` column.
+
+(user-tools-interactions-pages)=
+## Inspecting bounded pages
+
+Keep a query and project a small page instead of copying all its occurrences:
+
+```python
+view = interactions.query(structure_indices=[2, 0])
+page = view.to_page(offset=0, limit=50, max_participant_atoms=10000)
+assert page["total_count"] == view.n_interactions
+assert page["occurrence_indices"].tolist() == [0]
+assert page["participant_roles"] == ("donor", "hydrogen", "acceptor")
+assert page["next_offset"] is None
+```
+
+`offset` refers to rows in this query's order, rather than complete-analysis
+occurrence indices. Use `next_offset` to request the next page; it is `None`
+when the current page is empty or reaches the end. A zero `limit` gives an empty
+page with count and coverage. Negative, boolean and noninteger bounds raise.
+
+The experimental schema `molsysmt.interactions.page@1` contains the occurrence
+columns provided by `to_dict()`, plus a compact catalog of the page's relations.
+`relation_catalog_indices` contains complete-analysis relation indices;
+`relation_types` and `relation_participant_offsets` use positions in that compact
+catalog. `participant_roles`, `participant_atom_offsets` and `participant_atoms`
+encode its participant groups. Occurrence `relation_indices` remain in the
+complete analysis's space; find their catalog positions with
+`numpy.searchsorted(page["relation_catalog_indices"], page["relation_indices"])`.
+Parallel observations retain distinct `occurrence_indices`. Measurements,
+units, evidence and periodic images follow the page's occurrence order.
+
+`max_participant_atoms` bounds the sum of constituent atoms over page occurrences,
+counting a reused relation once per occurrence. An oversized page raises before
+copying its participant definitions or images; reduce `limit` or explicitly
+increase that budget. Empty arrays retain their dtypes and offsets start at zero.
+Source maps and evaluated coverage share read-only arrays with the analysis.
+
+Paging bounds additional occurrence and participant copies. Constructing the
+query retains its own row-index array; optional query indexes and frame metadata
+have separate costs. Edited analyses can page without packing all surviving
+columns. `to_dict()` continues to copy every selected occurrence. A page is for
+inspection; use `InteractionsDict` or H5MSM for complete persistence. Evaluated
+coverage still refers to the analysis's declared `evaluation_scope`.
+
 The aligned `occurrence_indices` column identifies each observation within
 this named analysis, even when two observations share a structure and relation.
 Filtering and an H5MSM round trip preserve these indices. Extracting or editing

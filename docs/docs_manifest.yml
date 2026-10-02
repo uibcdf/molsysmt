@@ -150,7 +150,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, provenance, partial replacement, explicit compaction and bounded HDF5 writing.
+            description: Sparse queries, bounded occurrence pages, provenance, partial replacement, explicit compaction and bounded HDF5 writing.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbonds
