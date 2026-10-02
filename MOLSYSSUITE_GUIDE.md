@@ -26,7 +26,7 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 
 A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
 
-The current central member-policy release is MolSysSuite `policy-v1.5.2`, as
+The current central member-policy release is MolSysSuite `policy-v1.5.3`, as
 recorded in `suite.toml`. Each member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
 the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
@@ -204,7 +204,20 @@ Their publication does not establish adoption by a member. `suite.toml` records
 each Python member's separate review states, and
 `devtools/scripts/python_ecosystem_status.py` displays them.
 
-During an accepted Python transition, `suite.toml` may authorize named components after component-specific evidence. Only components marked `admitted` may claim the wider target support.
+Every registered Python package must adopt Python 3.11–3.14 support
+(`>=3.11,<3.15`) in its metadata, environments, recipes, required full CI and
+installed-package gates. Routine development remains on Python 3.13. This
+requirement applies to incubating and auxiliary components too; joining an
+initial transition cohort is not a prerequisite. Track incomplete adoption in
+the owning component and the central rollout `uibcdf/molsyssuite#51`; a
+temporary deviation needs a reason, owner and expiry/removal condition.
+
+The common requirement does not certify an untested interpreter or a public
+release. `suite.toml` records component-specific qualification; only components
+marked `admitted` may advertise delivered 3.14 support. Preserve truthful
+release/badge evidence while completing the required migration. Follow the
+existing internal direct-push and deferred-test routes; this range change does
+not require a full suite after every internal push.
 
 Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
