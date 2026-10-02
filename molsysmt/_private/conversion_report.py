@@ -1227,13 +1227,22 @@ def build_conversion_report(
         ):
             from molsysmt._private.ctfile import read_sdf
 
-            properties = read_sdf(source_item).properties
+            record = read_sdf(source_item)
+            properties = record.properties
             if properties:
                 issues.append(
                     ConversionIssue(
                         attribute="sdf_properties",
                         reason="Native domains cannot retain SD property blocks: "
                         + ", ".join(name for name, _ in properties),
+                        scope="source_metadata",
+                    )
+                )
+            if any(bond.display is not None for bond in record.bonds):
+                issues.append(
+                    ConversionIssue(
+                        attribute="sdf_bond_display",
+                        reason="Native domains retain coordination roles but not the CTAB DISP drawing style.",
                         scope="source_metadata",
                     )
                 )

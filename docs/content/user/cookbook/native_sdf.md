@@ -37,6 +37,23 @@ same map. Output atom/bond serials are newly assigned sequential integers;
 they are read back as string IDs. V2000 writes four decimal places in coordinate
 fields and supports at most 999 atoms or bonds. Use V3000 for larger tables.
 
+## Preserving coordination
+
+V3000 coordination bonds (type 9) become `bond_type='dative'`. The adapter uses
+the first source endpoint as `bond_donor_atom_index` and the second as
+`bond_acceptor_atom_index`, matching the RDKit endpoint convention. This preserves
+declared orientation; it does not determine whether the atoms are suitable
+electronic donors or acceptors. Dative bonds do not merge native covalent
+components. Reading does not invent a covalent multiplicity for type 9.
+
+Writing these relationships requires `ctfile_version='V3000'` and explicit
+donor/acceptor indices. It follows those roles even if the native table sorts
+the endpoints in the opposite order. Native numeric dative orders and custom
+component-joining assignments cannot be encoded; conversion reports identify
+their loss and strict mode rejects it. `DISP=COORD` and `DISP=DATIVE` source
+drawing styles are accepted but lost on native conversion, which reports the
+loss. Byte-preserving source copies retain them.
+
 ## Inspecting information loss
 
 ```python
@@ -58,8 +75,11 @@ lists that loss, and strict mode still rejects it. To preserve source bytes and
 properties, use `msm.copy(source, output_filename='source_copy.sdf')`.
 
 :::{warning}
-The native subset rejects stereochemical flags/labels, query atoms/bonds,
+The native subset rejects active stereochemical flags/labels, query atoms/bonds,
 valence overrides, reaction maps, Sgroups and unsupported radical/bond types.
+Explicit V3000 flags with their documented inactive value of zero are accepted;
+an unknown field with value zero is still an error. Coordination type 9 is
+supported only in V3000, not as a nonstandard V2000 extension.
 Writing rejects atom aromaticity that the supplied bond types cannot retain.
 It does not sanitize valence, infer hydrogen counts, perceive aromaticity from
 Kekule bonds or derive CIP labels from 3D coordinates. Multiple SDF records

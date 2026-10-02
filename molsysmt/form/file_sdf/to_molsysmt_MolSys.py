@@ -40,6 +40,11 @@ def to_molsysmt_MolSys(
     -----
     No RDKit installation is needed. No sanitization, hydrogen removal, implicit
     hydrogen assignment, CIP assignment or Kekule aromaticity perception occurs.
+    V3000 coordination type 9 becomes a dative relationship. The first source
+    endpoint is the donor and the second is the acceptor, following the adapter's
+    direction convention; electronic donor suitability is not inferred. These
+    bonds do not join native covalent components. CTAB drawing styles are not
+    retained in native domains and conversion reports identify their loss.
 
     Examples
     --------

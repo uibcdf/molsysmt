@@ -70,6 +70,7 @@ class BondRecord:
     atom1: int
     atom2: int
     order: int
+    display: str | None = None
 
 
 @dataclass
@@ -138,8 +139,16 @@ def _validate(record):
         if bond.atom1 == bond.atom2 or pair in pairs:
             _fail(f"Self or duplicate bond {bond.serial}.")
         pairs.add(pair)
-        if bond.order not in {1, 2, 3, 4}:
+        if bond.order == 9 and record.version != "V3000":
+            _fail("Coordination bonds require ctfile_version='V3000'.")
+        if bond.order not in {1, 2, 3, 4, 9}:
             _fail(f"Unsupported bond type {bond.order}; no query order is inferred.")
+        if bond.display is not None and (
+            record.version != "V3000"
+            or bond.order != 9
+            or bond.display not in {"COORD", "DATIVE"}
+        ):
+            _fail("Only V3000 coordination display styles COORD and DATIVE are supported.")
 
 
 def _v2000(lines):
@@ -291,7 +300,21 @@ def _v3000(lines):
                     key, separator, value = token.partition("=")
                     if (
                         not separator
-                        or key not in {"CHG", "MASS", "RAD"}
+                        or key
+                        not in {
+                            "CHG",
+                            "MASS",
+                            "RAD",
+                            "CFG",
+                            "VAL",
+                            "HCOUNT",
+                            "STBOX",
+                            "INVRET",
+                            "EXACHG",
+                            "SUBST",
+                            "UNSAT",
+                            "RBCNT",
+                        }
                         or key in seen
                     ):
                         _fail(f"Unsupported or repeated V3000 atom property {token!r}.")
@@ -301,18 +324,38 @@ def _v3000(lines):
                         atom.formal_charge = value
                     elif key == "MASS":
                         atom.isotope = value or None
-                    else:
+                    elif key == "RAD":
                         atom.n_unpaired_electrons = _radical(value)
+                    elif value != 0:
+                        _fail(
+                            f"Unsupported V3000 atom property {token!r}; only its inactive default is supported."
+                        )
                 record.atoms.append(atom)
             else:
-                if len(tokens) != 4:
-                    _fail(
-                        "Unsupported V3000 bond properties (including stereo/query data)."
-                    )
+                if len(tokens) < 4:
+                    _fail("Truncated V3000 bond.")
                 serial, order, atom1, atom2 = [
-                    _integer(i, "V3000 bond") for i in tokens
+                    _integer(i, "V3000 bond") for i in tokens[:4]
                 ]
-                record.bonds.append(BondRecord(serial, atom1, atom2, order))
+                seen = set()
+                display = None
+                for token in tokens[4:]:
+                    key, separator, value = token.partition("=")
+                    if not separator or key in seen:
+                        _fail(f"Malformed or repeated V3000 bond property {token!r}.")
+                    seen.add(key)
+                    if key == "DISP" and order == 9 and value in {"COORD", "DATIVE"}:
+                        # Drawing style only; retain endpoint order for both.
+                        display = value
+                        continue
+                    if (
+                        key not in {"CFG", "TOPO", "RXCTR", "STBOX"}
+                        or _integer(value, key) != 0
+                    ):
+                        _fail(
+                            f"Unsupported V3000 bond property {token!r} (including stereo/query data)."
+                        )
+                record.bonds.append(BondRecord(serial, atom1, atom2, order, display))
         if position >= len(logical) or logical[position] != ["END", name]:
             _fail(f"Missing V3000 END {name} or mismatched count.")
         position += 1
@@ -430,7 +473,10 @@ def write_sdf(record):
             )
         lines.extend(["M  V30 END ATOM", "M  V30 BEGIN BOND"])
         for bond in record.bonds:
-            lines.append(f"M  V30 {bond.serial} {bond.order} {bond.atom1} {bond.atom2}")
+            lines.append(
+                f"M  V30 {bond.serial} {bond.order} {bond.atom1} {bond.atom2}"
+                + (f" DISP={bond.display}" if bond.display is not None else "")
+            )
         lines.extend(["M  V30 END BOND", "M  V30 END CTAB"])
     else:
         _fail("ctfile_version must be 'V2000' or 'V3000'.")

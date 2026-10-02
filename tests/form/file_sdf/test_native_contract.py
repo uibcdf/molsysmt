@@ -236,6 +236,55 @@ def test_unsupported_v3000_is_rejected(tmp_path, replacement):
         msm.convert(source, to_form="molsysmt.MolSys")
 
 
+def test_v3000_accepts_explicit_inactive_defaults_without_guessing_chemistry(tmp_path):
+    source = tmp_path / "defaults.sdf"
+    atom_defaults = (
+        " CFG=0 VAL=0 HCOUNT=0 STBOX=0 INVRET=0 EXACHG=0 SUBST=0 UNSAT=0 RBCNT=0"
+    )
+    source.write_text(
+        V3000.replace("30 O 1.2 0 0 0", "30 O 1.2 0 0 0" + atom_defaults).replace(
+            "12 2 10 30", "12 2 10 30 CFG=0 TOPO=0 RXCTR=0 STBOX=0"
+        )
+    )
+    molsys = msm.convert(source, to_form="molsysmt.MolSys")
+    assert molsys.topology.n_bonds == 3
+    assert msm.get(molsys, formal_charge=True) == [0, 0, -1, 1, 0]
+    assert not msm.has_attribute(molsys, "n_implicit_hydrogens")
+    assert not msm.has_attribute(molsys, "atom_stereochemistry")
+
+
+@pytest.mark.parametrize(
+    "property", ["VAL=-1", "CFG=3", "HCOUNT=-1", "UNKNOWN=0", "CFG=0 CFG=0", "VAL=bad"]
+)
+def test_v3000_default_support_does_not_swallow_active_unknown_or_repeated_atom_fields(
+    tmp_path, property
+):
+    source = tmp_path / "invalid-default.sdf"
+    source.write_text(V3000.replace("30 O 1.2 0 0 0", "30 O 1.2 0 0 0 " + property))
+    with pytest.raises(FormatError):
+        msm.convert(source, to_form="molsysmt.MolSys")
+
+
+@pytest.mark.parametrize(
+    "property",
+    ["CFG=2", "TOPO=1", "RXCTR=4", "UNKNOWN=0", "STBOX=0 STBOX=0", "DISP=COORD"],
+)
+def test_v3000_default_support_does_not_swallow_active_unknown_or_repeated_bond_fields(
+    tmp_path, property
+):
+    source = tmp_path / "invalid-default.sdf"
+    source.write_text(V3000.replace("12 2 10 30", "12 2 10 30 " + property))
+    with pytest.raises(FormatError):
+        msm.convert(source, to_form="molsysmt.MolSys")
+
+
+def test_v2000_coordination_extension_requires_supported_v3000_syntax(tmp_path):
+    source = tmp_path / "nonstandard.sdf"
+    source.write_text(V2000.replace("  1  2  2  0", "  1  2  9  0"))
+    with pytest.raises(FormatError, match="require.*V3000"):
+        msm.convert(source, to_form="molsysmt.MolSys")
+
+
 def test_native_reader_writer_work_when_rdkit_import_is_blocked(tmp_path):
     target = tmp_path / "without-rdkit.sdf"
     script = r"""

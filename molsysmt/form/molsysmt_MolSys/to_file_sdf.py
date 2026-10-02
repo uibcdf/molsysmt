@@ -26,6 +26,7 @@ def to_file_sdf(
         Destination SDF path. It is opened only after complete validation.
     ctfile_version : {'V2000', 'V3000'}, default='V2000'
         Explicit connection-table syntax. V2000 supports at most 999 atoms/bonds.
+        Dative relationships require V3000 and explicit donor/acceptor indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -46,6 +47,9 @@ def to_file_sdf(
     Coordinates are converted explicitly to angstroms, regardless of unit policy.
     Atom aromaticity must be recoverable from the supplied explicit aromatic
     bond types; unencodable or contradictory assignments fail explicitly.
+    V3000 coordination writes donor first and acceptor second, independently of
+    sorted native endpoints. Type 9 does not encode a separate numeric order;
+    reports identify its loss and loss of component-joining overrides.
 
     .. admonition:: Tutorial with more examples
 

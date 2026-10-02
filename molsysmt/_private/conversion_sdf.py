@@ -46,6 +46,27 @@ def audit_sdf_write(item, selection, structure_indices, syntax):
                 "topology",
             )
         bonds = topology._get_chemical_state_bonds()
+        if {"joins_components", "bond_type"} <= set(bonds.columns):
+            defaults = bonds["bond_type"].map({"covalent": True, "dative": False})
+            overrides = bonds["joins_components"].notna() & bonds[
+                "joins_components"
+            ].ne(defaults)
+            if overrides.any():
+                dropped(
+                    "bond_joins_components",
+                    "SDF cannot retain native component-joining overrides; covalent bonds join components and dative bonds do not on reading.",
+                    "chemical_state",
+                )
+        if "bond_order" in bonds.columns and "bond_type" in bonds.columns:
+            dative_orders = (
+                bonds["bond_type"].eq("dative") & bonds["bond_order"].notna()
+            )
+            if dative_orders.any():
+                dropped(
+                    "bond_order",
+                    "V3000 coordination type 9 retains direction and relationship kind, not a separately assigned numeric order.",
+                    "chemical_state",
+                )
         bond_ids = [] if bonds.empty else bonds["bond_id"].tolist()
         if bond_ids != [str(i) for i in range(1, len(bonds) + 1)]:
             dropped(

@@ -46,10 +46,12 @@ def to_native(record, *, discard_properties=False):
             "atom1_index": mapping[bond.atom1],
             "atom2_index": mapping[bond.atom2],
             "bond_id": str(bond.serial),
-            "bond_type": "covalent",
-            "bond_order": bond.order if bond.order != 4 else pd.NA,
+            "bond_type": "dative" if bond.order == 9 else "covalent",
+            "bond_order": bond.order if bond.order in {1, 2, 3} else pd.NA,
             "fractional_bond_order": 1.5 if bond.order == 4 else pd.NA,
             "is_aromatic": True if bond.order == 4 else pd.NA,
+            "donor_atom_index": mapping[bond.atom1] if bond.order == 9 else pd.NA,
+            "acceptor_atom_index": mapping[bond.atom2] if bond.order == 9 else pd.NA,
             "evidence": "explicit",
         }
         for bond in record.bonds
@@ -132,32 +134,63 @@ def from_native(item, version):
         )
     encoded_aromatic_atoms = set()
     for i, bond in topology._get_chemical_state_bonds().iterrows():
-        if bond["bond_type"] != "covalent":
-            _fail(
-                "Only ordinary covalent bonds are supported by the native SDF writer."
-            )
+        atom1, atom2 = int(bond["atom1_index"]), int(bond["atom2_index"])
+        bond_type = bond.get("bond_type", None)
         if pd.notna(bond.get("stereochemistry", pd.NA)):
             _fail(
                 "Native bond stereochemistry cannot yet be encoded by the native SDF writer."
             )
         aromatic_flag = bond.get("is_aromatic", pd.NA)
         aromatic = pd.notna(aromatic_flag) and bool(aromatic_flag)
-        if aromatic:
+        bond_order = bond.get("bond_order", pd.NA)
+        if bond_type == "dative":
+            if version != "V3000":
+                _fail("Coordination bonds require ctfile_version='V3000'.")
+            donor = bond.get("donor_atom_index", pd.NA)
+            acceptor = bond.get("acceptor_atom_index", pd.NA)
+            if pd.isna(donor) or pd.isna(acceptor):
+                _fail(
+                    "SDF coordination output requires explicit donor and acceptor indices."
+                )
+            if {int(donor), int(acceptor)} != {atom1, atom2}:
+                _fail(
+                    "SDF coordination donor and acceptor must be distinct bond endpoints."
+                )
+            if (
+                aromatic
+                or pd.notna(bond.get("fractional_bond_order", pd.NA))
+                or (pd.notna(bond_order) and int(bond_order) != 1)
+            ):
+                _fail(
+                    "SDF coordination type 9 cannot encode an additional bond multiplicity."
+                )
+            # Native tables sort endpoints. The serialized direction follows
+            # explicit roles rather than the sorted storage order.
+            atom1, atom2 = int(donor), int(acceptor)
+            order = 9
+        elif bond_type != "covalent":
+            _fail(
+                "Only covalent and directed dative bonds are supported by the native SDF writer."
+            )
+        elif aromatic:
             order = 4
             encoded_aromatic_atoms.update(
                 (int(bond["atom1_index"]), int(bond["atom2_index"]))
             )
-        elif pd.notna(bond["bond_order"]) and int(bond["bond_order"]) in {1, 2, 3}:
+        elif pd.notna(bond_order) and int(bond_order) in {1, 2, 3}:
             if pd.notna(bond.get("fractional_bond_order", pd.NA)):
                 _fail("A nonaromatic fractional bond order cannot be encoded in SDF.")
-            order = int(bond["bond_order"])
+            order = int(bond_order)
         else:
             _fail("SDF output requires a supported explicit bond order.")
-        record.bonds.append(
-            BondRecord(
-                i + 1, int(bond["atom1_index"]) + 1, int(bond["atom2_index"]) + 1, order
+        if bond_type == "covalent" and any(
+            pd.notna(bond.get(field, pd.NA))
+            for field in ("donor_atom_index", "acceptor_atom_index")
+        ):
+            _fail(
+                "SDF covalent bond types cannot retain donor or acceptor assignments."
             )
-        )
+        record.bonds.append(BondRecord(i + 1, atom1 + 1, atom2 + 1, order))
     for i, value in atoms_state.get("is_aromatic", pd.Series(dtype="boolean")).items():
         if pd.notna(value) and bool(value) != (i in encoded_aromatic_atoms):
             _fail(

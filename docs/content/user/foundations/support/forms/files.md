@@ -50,7 +50,9 @@ MolSysMT seamlessly reads, parses, and writes major third-party disk file format
 
 The native SDF adapter retains all explicitly drawn hydrogens, ordinary and
 explicit aromatic bonds, formal charges, supported radical counts, isotopes
-and coordinates. It rejects unsupported stereo, queries and multiple records.
+and coordinates. V3000 also retains coordination relationships and endpoint
+direction through native dative roles. It rejects unsupported stereo, active
+queries and multiple records.
 No implicit-hydrogen, valence or CIP perception is performed. SD property blocks
 need explicit authorization to discard when converting into native objects.
 See {ref}`cookbook-native-sdf` for selections, units and conversion reports.

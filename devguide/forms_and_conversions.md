@@ -377,11 +377,25 @@ ordinary covalent orders and aromatic type 4; it does not assign implicit
 hydrogens, sanitize valence, perceive aromaticity from Kekule orders or assign
 CIP labels from coordinates.
 
-The supported subset rejects stereo flags, queries, valence overrides,
+V3000 coordination type 9 maps to `bond_type='dative'`, with the first source
+endpoint as donor and the second as acceptor. This is the adapter's explicit
+orientation convention, consistent with RDKit; it is not chemical donor
+perception. Native dative bonds default to `joins_components=False`. No covalent
+order is invented for type 9. Writing requires V3000 and both roles, then orders
+the serialized endpoints by those roles rather than by native sorted storage.
+V2000 type 9 is rejected as an unsupported extension. The reader accepts the
+COORD/DATIVE display options, but native conversion reports losing `DISP` style;
+identity copies retain the original bytes. Type 10 hydrogen relationships and
+multi-endpoint coordination remain unsupported.
+
+The supported subset rejects active stereo flags, queries, valence overrides,
 reaction maps, Sgroups, singlet spin, unsupported bond types and unknown CTAB
 extensions. The chemical state owns explicit chemistry; the format reader does
 not create an alternative chemical store. Unsupported data never becomes a
 fabricated default. These limitations keep uibcdf/molsysmt#215 open.
+Documented inactive zero values of V3000 atom/bond flags are accepted, without
+creating query, stereo or hydrogen assignments. Unknown and repeated fields
+still fail, even with zero values.
 
 An SDF writer needs a complete graph, explicit formal-charge and radical-count
 vectors, one chemical state and exactly one selected structure. It validates
@@ -393,6 +407,8 @@ Atom selections follow native MolSys extraction order (ascending source atom
 indices when topology is present); bonds and coordinates follow that same map.
 Writing assigns sequential one-based serials and cannot preserve arbitrary
 native IDs/names, hierarchy, interactions, mechanics or extra structural fields.
+Reports identify non-default component-joining assignments and separate numeric
+dative orders that cannot survive SDF serialization; strict mode rejects them.
 
 SD property blocks have no general native schema yet. Conversion into native
 objects rejects them unless `discard_properties=True` explicitly authorizes
@@ -404,7 +420,13 @@ SDF reports remain non-exhaustive for cross-form conversion. Multi-record files
 and unselected multi-frame output fail instead of taking the first entry.
 
 Contract and optional differential evidence:
-`tests/form/file_sdf/test_native_contract.py`. BIOVIA's
+`tests/form/file_sdf/test_native_contract.py`, `test_coordination.py` and
+`test_reference_corpus.py` in that directory. The committed synthetic corpus
+tests 17 molecular graphs in 46 supported source encodings without a runtime
+toolkit; three valence-override records exercise required rejection. Generation
+instructions and producer version are stored with the corpus. This is bounded
+compatibility evidence rather than chemical perception or stereo coverage.
+BIOVIA's
 [CTFile Formats 2020](https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf)
 defines the syntax and precedence. RDKit's reader is a reference implementation,
 not an additional required dependency or a claim of full compatibility.

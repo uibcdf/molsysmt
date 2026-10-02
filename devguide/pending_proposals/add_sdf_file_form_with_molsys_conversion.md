@@ -86,6 +86,36 @@ records, non-default unit policy, existing-file preservation and a subprocess
 that blocks RDKit imports. These are bounded compatibility results, not a claim
 of complete RDKit parity or a measured speed advantage.
 
+**Implemented and contract-tested continuation, 2026-10-02:** V3000 coordination
+type 9 uses existing native dative relationships and donor/acceptor roles,
+preserving direction through native endpoint sorting and extraction. It does not
+join covalent components or fabricate a covalent order. Output needs V3000 and
+explicit roles. Reports cover separate numeric dative orders, component-joining
+overrides and source drawing-style loss; strict mode rejects detected losses.
+Documented inactive V3000 flags are accepted, while active, unknown or repeated
+fields still fail. No new chemistry store, parser fallback or runtime dependency
+was introduced.
+
+`tests/form/file_sdf/test_coordination.py` covers independent hand-written inputs,
+role remapping, source display options, ambiguous native roles, destination
+preservation, strict reports and an optional RDKit reader. A committed corpus
+contains 46 supported encodings of 17 synthetic molecular graphs covering
+aromatic/Kekule bonds, nitrogen heterocycles, fused rings, nitro, phosphate,
+sulfate, zwitterion, charged groups, isotopes and other ligand chemistry. The
+snapshot producer is RDKit 2025.09.5; `generate_sdf_reference_corpus.py` regenerates
+it without consulting the MolSysMT parser. Counts/net charges are independently
+specified. Tests run from the snapshot without RDKit and optionally compare
+source and native-written files with a live unsanitized reader. Three legitimate
+reference records with valence overrides are rejection tests, not counted as
+successful conversion coverage. This is not broad real-database validation.
+
+Validation checkpoint: the SDF/conversion-truth/report-audit selection passed
+392 tests; the final coordination follow-up passed 18 tests (overlapping that
+selection, not additive). The public SDF doctest passed. Ruff, form-adapter
+delivery, dependency, developer-guide and maintained course-structure checks
+passed. Only Markdown changed in the affected notebooks; their code and outputs
+were retained. No speed or memory benchmark was performed.
+
 **Inspected references:** BIOVIA's
 [CTFile Formats 2020](https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf)
 defines field meanings and precedence. RDKit commit
@@ -96,10 +126,18 @@ comparisons distinguish declared CTAB aromaticity from RDKit sanitization.
 
 **Pending:** Native stereo interpretation and encoding (tetrahedral
 wedge/parity, E/Z reference atoms, and enhanced stereo policy), a larger curated
-ligand compatibility corpus, and a decision about independent reusable chemistry
+real-ligand and stereochemical corpus, and a decision about independent reusable chemistry
 tools for valence/hydrogen/CIP perception. These tools belong to their general
 owners, not hidden inside the SDF adapter. Performance remains unbenchmarked.
 The parser is a format utility with no new scientific attribution boundary.
+
+The next stereo stage must distinguish relative CTAB wedge/parity from absolute
+CIP labels. RDKit's `finishMolProcessing` explicitly performs geometry/graph
+interpretation before assigning chemical stereo; copying CTAB integers into
+native R/S fields is not a faithful alternative. General graph ranking and
+valence/hydrogen interpretation belong to `physchem`, connectivity traversal to
+`topology`, and geometry to `structure`. The current corpus is intentionally
+achiral and cannot justify enabling native tetrahedral or E/Z perception.
 
 **Assumed:** Single-record conversion is useful before the broader metadata
 and multi-record model is settled. Representative fixtures must establish
