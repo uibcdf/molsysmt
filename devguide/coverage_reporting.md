@@ -34,3 +34,13 @@ later lightweight/skip pushes; it is not a statement that all tests passed.
 
 Scientific failures are routed to the component's existing owning issues and team.
 The reporting repair is uibcdf/molsysmt#286, coordinated by uibcdf/molsyssuite#69.
+
+
+## Latest measured execution
+
+The explicitly authorized [2026-10-01 execution](https://github.com/uibcdf/molsysmt/actions/runs/36939842865)
+retained full Linux/Python 3.13 XML. The [owning report](pending_proposals/restore_current_coverage_reporting.md#measured-execution-recorded-2026-10-02)
+records line/branch measures, area breakdown, actual test failures and successful
+transport separately from pending Codecov processing. Until the independent
+service exposes a complete report for the tested SHA, the live README badge
+remains withheld under uibcdf/molsysmt#286.

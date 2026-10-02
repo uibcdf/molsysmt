@@ -4,7 +4,7 @@ issue: uibcdf/molsysmt#286
 status: partial
 opened: 2026-10-01
 closed:
-verification: inspected
+verification: measured
 area: [governance, ci, coverage]
 guard: devtools/tests/test_nightly_full_gate.py
 normative: coverage_reporting.md
@@ -39,9 +39,10 @@ tests failed. A coverage report and scientific pass are separate facts.
 
 ## What is measured and what is assumed
 
-Read-only native job/log inspection establishes the prior execution and skipped
-upload. Current source is being prepared for the authorized manual run; neither
-a new accepted report nor a passing full matrix is claimed yet.
+Native job/log inspection and downloaded XML establish both executions. The
+authorized refresh completed and retained its report, with four test failures.
+The native uploader succeeded, but independent Codecov processing remains
+unconfirmed; no accepted service report or passing full matrix is claimed.
 
 ## What was refuted
 
@@ -68,4 +69,107 @@ contract specifies failure and abort handling.
 
 2026-10-01, host nauta for read-only preparation; prior hosted run
 https://github.com/uibcdf/molsysmt/actions/runs/36868722733. The new hosted identity
-and actual report/source observation will be added after execution.
+and actual report/source observation are recorded below.
+
+
+## Measured execution (recorded 2026-10-02)
+
+[Run 36939842865](https://github.com/uibcdf/molsysmt/actions/runs/36939842865)
+executed source `98e0d7832026df1f03320003d47ab9c4a6df2188` on Linux/Python
+3.13 only. Native logs report pytest exit 1 after 2,338.79 seconds: 10,298 passed,
+4 failed, 2 skipped, 40 deselected and 153 warnings. JUnit independently records
+10,304 selected cases, 4 failures, 2 skips and no errors. The preceding scientific
+truth gate passed 54 cases; that gate does not cancel the package-test failures.
+The full test job and workflow correctly concluded `failure`.
+
+The retained `full-suite-coverage-py3.13` artifact contains actual `coverage.xml`
+and `junit.xml`, available from the run for 14 days. Parsing the Cobertura XML
+with Python's standard `xml.etree.ElementTree` gives:
+
+| Measure | Executed / measured | Coverage |
+| --- | ---: | ---: |
+| Python lines | 63,586 / 73,923 | 86.02% |
+| Python branches | 15,152 / 21,240 | 71.34% |
+
+There are 2,470 reported Python files. These are **coverage.py XML measures**,
+not an accepted Codecov project percentage. The configured exclusions and
+uninstrumented Rust execution remain as documented in the maintained procedure.
+Counts below are obtained by grouping XML class filenames by their first path
+segment and counting executable lines with nonzero hits; their totals were
+checked against the XML root. Zero executable lines are not 100% coverage.
+
+| Python area | Files | Executed / measured lines | Line coverage |
+| --- | ---: | ---: | ---: |
+| `form` | 1,665 | 41,105 / 47,401 | 86.72% |
+| `_private` | 453 | 6,375 / 7,438 | 85.71% |
+| `native` | 22 | 4,520 / 5,323 | 84.91% |
+| `build` | 27 | 3,043 / 3,508 | 86.74% |
+| `basic` | 37 | 2,130 / 2,459 | 86.62% |
+| `structure` | 26 | 1,596 / 1,973 | 80.89% |
+| `element` | 104 | 1,365 / 1,735 | 78.67% |
+| `third_party` | 39 | 1,109 / 1,438 | 77.12% |
+| `physchem` | 26 | 544 / 611 | 89.03% |
+| `molecular_mechanics` | 8 | 317 / 436 | 72.71% |
+| `interactions` | 9 | 307 / 326 | 94.17% |
+| `pbc` | 14 | 281 / 309 | 90.94% |
+| `topology` | 7 | 218 / 236 | 92.37% |
+| `attribute` | 9 | 199 / 200 | 99.50% |
+| `configure` | 3 | 188 / 196 | 95.92% |
+| `(package root)` | 7 | 155 / 161 | 96.27% |
+| `supported` | 7 | 127 / 151 | 84.11% |
+| `core` | 1 | 5 / 12 | 41.67% |
+| `hbonds` | 5 | 2 / 10 | 20.00% |
+| `data` | 1 | 0 / 0 | No executable lines |
+
+
+XML SHA-256:
+`9615b46264936cd8c80d2618919ab53f666b1f217b2a9223eaba0affe7726f3d`.
+
+### Actual failing contracts
+
+| Selected test | Observed failure | Ownership |
+| --- | --- | --- |
+| `test_any_import_order_yields_the_shared_policy[molsysmt]` | `unified_atomic_mass_unit` differs from the expected `dalton` representation | Existing unit-policy adoption follow-up in uibcdf/molsysmt#244 and uibcdf/molsyssuite#18 |
+| `test_any_import_order_yields_the_shared_policy[molsysviewer]` | Same representation mismatch in the reverse import order | Same existing unit-policy follow-up |
+| `test_a_later_import_does_not_undo_the_user_choice` | Importing the pinned MolSysViewer changes the application's angstrom policy to nanometers | Same existing unit-policy follow-up |
+| `test_the_converter_table_still_matches_the_converters` | The committed converter-argument table differs for `file:h5msm` | Component-owned converter contract; no repair included in this reporting task |
+
+The unit-policy tests reside in `tests/cross_repo/test_unit_policy_authority.py`;
+the table test resides in `tests/test_argument_contract.py`. The workflow's
+controlled MolSysViewer source remains
+`7a1522662e30575caf580a9447e3e6d80b628e07`; these results do not establish the
+behavior of newer untested sibling sources. Assertions and scientific code were
+not changed to obtain the report.
+
+### Upload and independent processing evidence
+
+Artifact retention succeeded at `2026-10-01T23:58:08Z`. The native Codecov upload
+step succeeded at `2026-10-01T23:58:11Z`, with HTTP 200 after sending the report.
+The source commit timestamp is `2026-10-01T23:15:38Z`, a separate fact.
+
+At `2026-10-02T06:47:07.185353+00:00`, the central read-only probe
+(`python devtools/scripts/coverage_audit.py --repository uibcdf/molsysmt`)
+observed this exact source in the branch cache with null state/totals. The
+independent commit endpoint likewise has no processed report, and the uploads
+endpoint lists coverage as `started` with no totals; test-results ingestion is
+separately `processed`. The public SVG has no numeric percentage. The newest
+explicitly complete service report still observed belongs to March 24, not this
+refresh. Successful transport is not acceptance.
+
+The report is generated and retained; #286 remains partial specifically for
+independent service acceptance and live-badge adoption. The README explains scope
+and links the procedure while withholding the percentage badge. No second full
+scientific execution or package publication is requested by this pending state.
+
+## Guard relevance and verification
+
+The ten tests in `devtools/tests/test_nightly_full_gate.py` pass. In particular,
+`test_coverage_retention_preserves_failures_and_rejects_aborted_suites` exercises
+the actual pytest exit-status wrapper and upload/retention conditions;
+`test_only_an_explicit_manual_request_selects_the_single_coverage_lane` protects
+the three-minor default, and
+`test_single_python_coverage_cannot_clear_the_full_matrix_backlog` rejects debt
+repayment by one successful interpreter. Hosted evidence independently confirms
+only the requested interpreter ran and failed tests remained failed while XML
+retention and transport succeeded. Service completion is deliberately not
+inferred from those guards.

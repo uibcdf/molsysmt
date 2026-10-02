@@ -27,6 +27,14 @@ through one uniform API.**
 
 </div>
 
+Coverage reporting measures Python lines and branches with the existing
+`.coveragerc` exclusions, using complete Linux/Python 3.13 runs within the weekly
+and conditional nightly cadence. It does not instrument Rust execution. The
+[reporting procedure and measured report](devguide/coverage_reporting.md) explain
+scope and actual test outcomes. The live percentage badge remains withheld while
+Codecov processing is pending under [#286](https://github.com/uibcdf/molsysmt/issues/286).
+Reports may lag later direct or skip-CI commits and do not certify a full matrix.
+
 ---
 
 MolSysMT is a toolkit for working with molecular systems. One uniform API lets you

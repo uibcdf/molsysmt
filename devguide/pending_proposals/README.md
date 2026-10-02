@@ -83,7 +83,7 @@ Entries carrying front matter under
 ### Partially resolved (3)
 
 - [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
-- [`restore_current_coverage_reporting.md`](restore_current_coverage_reporting.md) — [#286](https://github.com/uibcdf/molsysmt/issues/286) — Restore current Codecov evidence before reintroducing the coverage badge. *(inspected)*
+- [`restore_current_coverage_reporting.md`](restore_current_coverage_reporting.md) — [#286](https://github.com/uibcdf/molsysmt/issues/286) — Restore current Codecov evidence before reintroducing the coverage badge. *(measured)*
 - [`review_python_ecosystem_policy_adoption.md`](review_python_ecosystem_policy_adoption.md) — [#244](https://github.com/uibcdf/molsysmt/issues/244) — Review inherited Python ecosystem policy in MolSysMT. *(inspected)*
 
 <!-- /generated -->
