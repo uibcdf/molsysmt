@@ -1153,7 +1153,51 @@ class Interactions:
         return _invalidate(self, frames)
 
     def save(self, filename):
-        """Writing the full result to a versioned standalone HDF5 file."""
+        """Writing the full result to a versioned standalone HDF5 file.
+
+        Parameters
+        ----------
+        filename : str or pathlib.Path
+            Destination for the complete analysis. An existing file is replaced.
+
+        Returns
+        -------
+        None
+            The result is written to disk without changing the analysis.
+
+        Raises
+        ------
+        ValueError
+            If the result is a query view rather than a full analysis.
+
+        Notes
+        -----
+        Active observations are written in bounded numeric windows, including
+        invalidated or recalculated analyses. Saving does not pack complete
+        occurrence columns or populate a materialization cache. Existing
+        source buffers, frame metadata and HDF5 caches remain in memory.
+        This writes resident data; detector-to-file output and append/resume
+        semantics are not provided.
+
+        See Also
+        --------
+        load, replace_structures, invalidate_structures
+
+        Examples
+        --------
+        >>> from tempfile import TemporaryDirectory
+        >>> result = Interactions.from_records(
+        ...     [], n_atoms=0, n_structures=1,
+        ...     evaluated_structure_indices=[0], method="example")
+        >>> with TemporaryDirectory() as directory:
+        ...     filename = Path(directory) / "observations.h5i"
+        ...     result.save(filename)
+        ...     restored = Interactions.load(filename)
+        >>> restored.evaluated_structure_indices.tolist()
+        [0]
+
+        .. versionadded:: 1.0.0
+        """
         if not self._is_full:
             raise ValueError("save the full result, not a query view")
         import h5py
@@ -1162,94 +1206,10 @@ class Interactions:
             self._write_group(file)
 
     def _write_group(self, group):
-        """Write the typed result into one HDF5 file or group."""
-        if not self._is_full:
-            raise ValueError("write the full result, not a query view")
-        import h5py
+        """Write the typed result without packing edited occurrence columns."""
+        from ._hdf5_writer import write_group
 
-        group.attrs["format"] = "molsysmt.interactions"
-        group.attrs["schema_version"] = 2
-        group.attrs["metadata"] = json.dumps({
-            "n_atoms": self.n_atoms, "n_structures": self.n_structures,
-            "source_n_atoms": self.source_n_atoms,
-            "source_n_structures": self.source_n_structures,
-            "method": self.method, "parameters": self.parameters,
-            "source_id": self.source_id, "measure_units": self.measure_units,
-            "software": self.software,
-            "evaluation_mode": self.evaluation_mode,
-        })
-        from ._execution_provenance import write_group
-
-        write_group(group, self.execution_records)
-        query_index = group.create_group("query_index")
-        query_index.attrs["schema_version"] = 1
-        frame_counts = np.bincount(
-            self.occurrence_structures, minlength=self.n_structures
-        )
-        frame_offsets = np.r_[0, np.cumsum(frame_counts, dtype=np.int64)]
-        evaluated_mask = np.zeros(self.n_structures, dtype=np.bool_)
-        evaluated_mask[self.evaluated_structure_indices] = True
-        query_index.create_dataset(
-            "frame_offsets", data=frame_offsets,
-            compression="gzip" if frame_offsets.size else None,
-        )
-        query_index.create_dataset(
-            "evaluated_mask", data=evaluated_mask,
-            compression="gzip" if evaluated_mask.size else None,
-        )
-        labels = group.create_group("labels")
-        string_dtype = h5py.string_dtype(encoding="utf-8")
-        for name, values in (
-            ("relation_types", self.relation_types),
-            ("participant_roles", self.participant_roles),
-        ):
-            unique = tuple(dict.fromkeys(values))
-            lookup = {value: index for index, value in enumerate(unique)}
-            codes = np.fromiter((lookup[value] for value in values), dtype=np.uint32)
-            labels.create_dataset(
-                name, data=np.asarray(unique, dtype=string_dtype),
-                compression="gzip" if unique else None,
-            )
-            group.create_dataset(f"{name}_codes", data=codes,
-                                 compression="gzip" if codes.size else None)
-        labels.create_dataset("evidence",
-                              data=np.asarray(self.evidence_labels, dtype=string_dtype),
-                              compression="gzip" if self.evidence_labels else None)
-        arrays = {
-            "evaluated_structure_indices": self.evaluated_structure_indices,
-            "atom_source_indices": self.atom_source_indices,
-            "structure_source_indices": self.structure_source_indices,
-            "relation_participant_offsets": self.relation_participant_offsets,
-            "participant_atom_offsets": self.participant_atom_offsets,
-            "participant_atoms": self.participant_atoms,
-            "occurrence_structures": self.occurrence_structures,
-            "occurrence_relations": self.occurrence_relations,
-            "occurrence_evidence": self.occurrence_evidence,
-        }
-        for name in (
-            "evaluation_atom_indices", "evaluation_atom_indices_b",
-            "evaluation_universe_indices",
-        ):
-            value = getattr(self, name)
-            if value is not None:
-                group.create_dataset(name, data=value,
-                                     compression="gzip" if value.size else None)
-        if np.array_equal(self.atom_source_indices, np.arange(self.n_atoms)):
-            del arrays["atom_source_indices"]
-        if np.array_equal(self.structure_source_indices, np.arange(self.n_structures)):
-            del arrays["structure_source_indices"]
-        for name, value in arrays.items():
-            group.create_dataset(name, data=value,
-                                 compression="gzip" if value.size else None)
-        if self.image_vectors is not None:
-            group.create_dataset("occurrence_image_offsets",
-                                 data=self.occurrence_image_offsets, compression="gzip")
-            group.create_dataset("image_vectors", data=self.image_vectors,
-                                 compression="gzip")
-        measures = group.create_group("measurements")
-        for name, value in self.measurements.items():
-            measures.create_dataset(name, data=value,
-                                    compression="gzip" if value.size else None)
+        write_group(self, group)
 
     @classmethod
     def load(cls, filename):

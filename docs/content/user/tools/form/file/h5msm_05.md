@@ -29,7 +29,11 @@ Frame-scoped `execution_records` preserve how retained and recalculated observat
 were produced, including structures evaluated without occurrences. New files use
 interaction codec 2 inside H5MSM 0.5. Current MolSysMT also reads codec 1 and
 migrates its recorded runtime fields; older builds supporting only codec 1 need
-updating to read new analyses. See {ref}`user-tools-interactions-result`.
+updating to read new analyses. Full-axis native writes traverse resident active
+interaction blocks in bounded numeric windows, without packing edited analyses.
+This bound covers observation-column writes, not total RAM or other domains;
+selection/remapping before writing can still materialize data.
+See {ref}`user-tools-interactions-result`.
 
 ## Writing and reading a molecular system
 

@@ -14,6 +14,44 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Bounded active-column HDF5 writing — 2026-10-02
+
+**Implemented and contract-tested:** standalone save, named H5MSM layers and
+full-axis native conversion write packed, invalidated and recalculated analyses
+without packing complete active occurrence columns. Existing materialization
+caches remain untouched. Active source spans are coalesced and written in numeric
+windows, including dense single frames and variable participant arity. Relation
+and evidence translations happen within each window. Codec 2/H5MSM 0.5 are unchanged.
+
+Public round trips preserve parallel occurrence handles, compound participants,
+periodic images, evaluated-empty coverage, source/scope maps, units, method/producer
+metadata and execution records. Tiny-window tests exercise multiple writes;
+allocation guards compare 20,000 and 300,000 source observations with an active
+dense frame. They prohibit the complete-column packing boundary and check stored
+row counts and final values, so skipping data cannot satisfy the memory gate.
+Guard: `tests/interactions/test_bounded_hdf5_writer.py`.
+
+**Benchmarked:** the historical writer from `59ec05b9a` and the candidate produce
+matching logical dataset fingerprints on every packed/filtered/patched case,
+with/without images, at 100k and 1M observations on 100k atoms/10k structures.
+The [H5MSM benchmark guide](../benchmarking/h5msm.md#writing-active-observations-without-packing)
+contains the reproducible method and dated memory/time table. Kernel hashes,
+versions and untraced samples are retained in the linked artifact. Traced peaks
+exclude resident sources and do not establish a process-RSS bound. Packed-input
+throughput can be slightly slower; edited analyses benefit from avoiding packing.
+
+**Checkpoint evidence:** 684 tests passed across interaction families, native
+attachment, typed/H5MSM routes, coordinate/chemistry workflows and result doctests.
+A final 20-test selection passed with the bounded-writer guards and completed
+result doctests. All 12 executable result-guide blocks and 8 sparse Cookbook
+blocks passed. Module 10's protected code cells and outputs remain unchanged.
+Ruff, dependency, signature, developer-guide and queue-index checks passed.
+Sphinx HTML built successfully with existing documentation warnings.
+Direct detector-to-file accumulation, resumability, explicit compaction and updated
+consumer handoff remain pending. Typed dictionaries, pickle, remapping and input
+selection can still materialize data; other domains and string/frame metadata
+have separate memory costs. No browser/canvas qualification was performed here.
+
 ## Frame-scoped execution provenance — 2026-10-02
 
 **Implemented and contract-tested:** scientific criteria and attribution remain

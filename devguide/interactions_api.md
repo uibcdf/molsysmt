@@ -717,8 +717,9 @@ automatic roles, one selection or disjoint participant universes, or identical
 role selections; supplied roles, a second structure axis, and partially
 overlapping universes raise explicit unsupported-method errors.
 
-The experimental class has no lazy file-backed query, streaming writer, or
-incremental add/remove editor. `invalidate_structures()` returns an independent
+The experimental class has no public lazy file-backed query, direct detector-to-file
+stream or incremental add/remove editor. Saving an existing analysis uses bounded
+HDF5 windows without packing edited occurrence columns. `invalidate_structures()` returns an independent
 snapshot with the selected frames unevaluated and their occurrences removed;
 it shares immutable numeric storage and does not replace an incremental editor. It represents one
 molecular-system index space and one method per instance. `MolSys.interactions`
@@ -743,7 +744,8 @@ cannot be returned as active observations. If no observations survive, the new
 result releases its occurrence-base reference. Earlier results/views can still
 retain that storage. Complete occurrence/image/measurement attribute access
 materializes and caches a packed active result; remapping, pickling and typed
-or HDF5 serialization may materialize it temporarily. Interchange-only packing
+serialization may materialize it temporarily. HDF5 writing traverses active
+blocks directly, without using or changing a packed cache. Interchange-only packing
 is released after success or failure unless a caller previously requested the
 cached complete columns. These operations are not bounded incremental writers.
 No coordinates are copied and invalidation triggers no disk write. Owner
@@ -757,6 +759,49 @@ explicit merge policy and currently fails. H5MSM 0.4 and
 MolSysDict 0.1 exports reject a system with attached analyses because those
 formats cannot store them. The design and remaining gates are
 tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+
+### Bounded HDF5 writing
+
+`Interactions.save`, `h5msm.write_layers`, `h5msm.write` and native full-axis
+`convert(..., to_form='file:h5msm')` use one interaction-group writer. Codec 2,
+H5MSM 0.5 and named collection schema 1 are unchanged. Packed, invalidated and
+recalculated results retain their global relation/evidence indices, canonical
+frame/row order, parallel observations, participant image vectors, evaluated-empty
+coverage, scope/maps, units, software and execution records.
+
+The writer traverses contiguous active source slices, coalescing adjacent ranges
+without constructing a complete occurrence-position array. Recalculated slices
+translate relation/evidence codes only in the current window. Each observation-column write
+has a ceiling of 1 MiB, reduced by `max_ram_usage * chunk_memory_fraction`, with
+an irreducible 16-byte floor. Image vectors have their own windows, so one very
+populated frame or a high-arity relation cannot force a frame-sized image copy.
+This byte policy is for serialization, not the coordinate-frame `chunk_size`.
+Registry buffers and source maps are also written in windows. Identity maps are
+checked in windows; label codes do not require a complete numeric code array.
+
+Frame offsets, coverage and execution membership metadata still require
+work/storage proportional to the structure axis; execution-table preparation
+can concatenate its frame vectors. Existing registry/string tables, source observations and
+coordinate domains remain resident; HDF5/compression caches and Python overhead
+are outside this numeric-window bound. Temporary arithmetic can hold multiple
+windows. This is not a total-RSS guarantee, compaction, resumable append writer or
+a detector-to-disk output route. No `ChunkedExecutor` coordinate traversal is
+performed by serialization. Detector input streaming remains owned by that executor.
+
+Saving never calls the edited result's complete-column packing boundary, even
+when a packed cache already exists. Such a cache is preserved as requested by its
+caller. Loading still materializes a selected named analysis. Typed dictionaries,
+pickle and remap may still pack all active observations. Nontrivial atom/frame
+selections or form conversion can materialize/remap before the writer is reached.
+Existing standalone overwrite and H5MSM new-path policies are unchanged. A failed
+write raises rather than returning a completed analysis; partially written files
+are not checkpoints and are not automatically removed.
+
+Guards are `tests/interactions/test_bounded_hdf5_writer.py`: full read-back
+semantics, public paths, forbidden packing, preserved caches, tiny numeric
+windows and dense single-frame traced-allocation scaling. The reproducible
+comparison with the previous writer is maintained in
+[the H5MSM benchmark guide](benchmarking/h5msm.md).
 
 ### Frame-scoped execution provenance
 
@@ -845,9 +890,10 @@ structure, relation and occurrence indices keep their existing types.
 Edits flatten ownership rather than referencing earlier patched snapshots, and
 fully superseded blocks are released unless another result retains them. A
 partially active block still retains its old rows; unused relation definitions
-are retained. Automatic block/registry compaction and bounded writers remain
-pending. Complete columns, remap, pickle and typed/HDF5 export can pack the full
-active analysis, with interchange-only caches released afterward. Selected views
+are retained. Automatic block/registry compaction and direct detector-to-file
+accumulation remain pending. Complete columns, remap, pickle and typed export can
+pack the full active analysis, with interchange-only caches released afterward.
+HDF5 export writes active source blocks directly in bounded numeric windows. Selected views
 own their projected rows; existing packed-base views still share base rows.
 Guards are `tests/interactions/test_frame_replacement.py` and the real Buch
 recalculation workflow in

@@ -148,7 +148,9 @@ selected frames on the original axes and scope, use
 Compatible recalculations may use different coordinate block sizes or execution
 policies. Each analysis keeps their frame membership and details in
 `execution_records`, including evaluated-empty structures; scientific parameters,
-producer versions and atom scope must still agree.
+producer versions and atom scope must still agree. Saving the full system in
+H5MSM writes these analyses from their active blocks without packing all their
+observations. Remapping or typed dictionary conversion can still materialize them.
 
 This preserves other frames and checks calculation compatibility; attaching
 `fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain

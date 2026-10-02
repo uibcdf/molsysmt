@@ -166,8 +166,10 @@ The unchanged observation blocks are shared. New occurrence handles belong to
 the updated version; old views remain snapshots of the earlier result.
 
 Frame invalidation shares read-only columns and does not recalculate anything.
-Selected queries avoid packing the complete surviving analysis; export may
-materialize it temporarily. Earlier snapshots can keep shared storage alive.
+Selected queries and HDF5 saving avoid packing the complete surviving analysis.
+Saving traverses active blocks in numeric windows and preserves any existing
+complete-column cache. Typed dictionary export, pickle and remapping may still
+materialize all active rows temporarily. Earlier snapshots can keep shared storage alive.
 For direct domain/array writes, explicit invalidation and recalculation/attachment
 rules, see {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 

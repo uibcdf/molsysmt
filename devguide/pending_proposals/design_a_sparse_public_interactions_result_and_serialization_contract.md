@@ -22,6 +22,17 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Bounded HDF5 export — 2026-10-02
+
+Standalone and named H5MSM writes now traverse resident active source blocks in
+numeric windows rather than packing all edited observations. Public round trips,
+forbidden-packing and dense-frame allocation guards cover unchanged codec-2
+semantics. The [H5MSM benchmark guide](../benchmarking/h5msm.md#writing-active-observations-without-packing)
+compares the previous writer with matching logical fingerprints and records the
+allocation/latency tradeoff. This removes an export copy; it does not supply a
+streaming detector sink, total-RSS bound, compaction or resumable append API.
+Those distinctions and consumer feedback remain part of the implementation plan.
+
 ## Execution provenance separation — 2026-10-02
 
 The result contract separates scientific criteria from frame-scoped execution

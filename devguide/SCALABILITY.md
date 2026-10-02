@@ -138,8 +138,8 @@ These are numeric working estimates, not a process RSS limit. Caller-owned
 coordinates, full chemistry tables, Python objects, library caches, and the
 runtime are outside the estimates. All output occurrences and final indexes
 must fit in memory. Ionic delivery has no incremental writer, checkpoint, or
-resume contract. Its parameters record execution mode, block count, and memory
-policy. Tests cover eager/chunked parity, scope, source indices, empty frames,
+resume contract. Its `execution_records` retain execution mode, block count and memory
+policy independently of scientific parameters. Tests cover eager/chunked parity, scope, source indices, empty frames,
 periodic images, H5MSM round trips, and failure integrity. Independent molecular
 controls are described in [Interaction Analysis API](interactions_api.md);
 dated performance evidence and its limits are in the
@@ -306,3 +306,15 @@ is performed. Resident leg columns, join arrays and bridge packing have a shared
 output fails its budget explicitly; process RSS and graph overhead are not fully
 modeled. `heavy_mode='force'` selects supported leg coordinate streaming, not an
 incremental bridge writer. Public file queries/rendering remain separate work.
+
+## Saving resident interaction analyses
+
+HDF5 serialization of an existing `Interactions` result writes active occurrence
+blocks in numeric windows without packing invalidated/recalculated columns.
+The writer preserves codec-2 records and images in standalone and named H5MSM
+0.5 files. This serializes resident data; it does not add direct detector-to-file
+accumulation or resumability. Frame metadata, string tables and other molecular
+domains have separate memory costs; the window bound is not a process RSS limit.
+Typed dictionaries, pickle and remapping can still materialize all active rows.
+See [the interaction contract](interactions_api.md#bounded-hdf5-writing) for the
+byte policy and [the H5MSM benchmark guide](benchmarking/h5msm.md) for dated evidence.

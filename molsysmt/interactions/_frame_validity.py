@@ -224,5 +224,4 @@ class _FrameFilteredInteractions(Interactions):
             return packed.remap(atom_indices=atom_indices, structure_indices=structure_indices)
 
     def _write_group(self, group):
-        with _interchange_result(self) as packed:
-            packed._write_group(group)
+        super()._write_group(group)

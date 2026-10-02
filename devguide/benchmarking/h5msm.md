@@ -134,6 +134,60 @@ cold-storage latency, peak process memory, or performance for a dense analysis.
 - Treat file size, NumPy array bytes, Python allocation peaks, and process RSS
   as different measurements. None substitutes for the others.
 
+## Writing active observations without packing
+
+`Interactions.save`, native full-axis H5MSM conversion and the named layer writer
+now traverse resident active observation blocks directly. They do not create a
+complete packed copy of invalidated or recalculated observations. The
+[interaction contract](../interactions_api.md#bounded-hdf5-writing) defines the
+numeric-window policy, metadata costs and remaining materialization boundaries.
+This is distinct from direct detector-to-file output, which remains pending.
+
+Reproduce the dated comparison with the previous codec-2 writer:
+
+```bash
+python devtools/scripts/benchmark_interactions_hdf5_writing.py \
+    --baseline 59ec05b9a --samples 3 --output /tmp/interactions-hdf5-writing.json
+```
+
+**Benchmarked checkpoint, 2026-10-02:** the stored
+[measurement artifact](../../devtools/data/interactions_bounded_hdf5_writing_20261002.json)
+contains Python/NumPy/h5py/HDF5 versions, kernel source hashes, three untraced
+samples per case, a separate traced write, file sizes and logical fingerprints.
+Fresh workers discard a small warm-up. Construction and already resident source
+buffers are excluded from additional traced allocation. Filesystem cache state
+is uncontrolled; timing samples are warm writes in temporary storage. Native
+HDF5/compression buffers are not fully captured by tracemalloc. Process RSS and
+lifetime high-water marks are reported separately and are not isolated write peaks.
+
+The synthetic cases use 100,000 atoms, 10,000 evaluated structures, 1,000 reused
+relations, 100,000 or 1,000,000 occurrences, variable frame counts and empty frames.
+Filtered cases invalidate structure index 10; patched cases replace that structure
+with 10 observations. Known periodic cases have three image vectors per occurrence.
+Distances/angles are constant and images are zero, giving favorable compression;
+these are storage fixtures, not detector validation or realistic disk-size forecasts.
+Logical dataset fingerprints match across both writers in every case, including
+units, maps, relation/evidence codes, occurrence ordering and execution membership.
+File sizes are close but are not required to be byte-identical.
+
+For the million-occurrence cases with periodic images:
+
+| Analysis | Additional traced peak: previous / bounded | Untraced median: previous / bounded |
+| --- | ---: | ---: |
+| Packed | 7.71 / 1.13 MiB | 0.854 / 0.649 s |
+| Filtered | 184.30 / 1.36 MiB | 0.866 / 0.644 s |
+| Patched | 320.50 / 1.33 MiB | 1.062 / 0.659 s |
+
+Edited analyses avoid the large temporary packing allocation and improve write
+latency in this fixture. Packed-input throughput is similar and can be slightly
+slower because numeric windows add calls; no universal speedup is claimed. The
+numeric-window size does not scale with observation count. Frame metadata and
+string/registry tables still have axis-dependent costs; source buffers, other
+molecular domains and HDF5 caches remain resident. Atom/frame extraction before
+writing, typed dictionaries, pickle and remapping can still materialize data.
+The guard is `tests/interactions/test_bounded_hdf5_writer.py`: semantic read-back,
+forbidden packing, cache preservation and dense single-frame allocation scaling.
+
 ## Next measurements before stabilizing H5MSM 0.5
 
 The interaction case is a starting point. The acceptance benchmark needs

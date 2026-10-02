@@ -145,8 +145,12 @@ restored = msm.Interactions.load("observations.h5i")
 ```
 
 The standalone HDF5 file is versioned and separate from H5MSM. `load` reads
-the complete result into memory. The current version has no streaming writer,
-lazy file-backed queries, or incremental add/remove editor. The disulfide
+the complete result into memory. Saving writes active observations in small
+numeric windows, including analyses with invalidated or recalculated structures.
+It does not create or change a cache of complete occurrence columns. Existing
+observations, frame metadata and HDF5 caches still occupy memory. Detectors
+continue to return resident results; direct detector-to-file output,
+append/resume and public lazy file-backed queries remain unavailable. The disulfide
 candidate and both hydrogen-bond detectors have optional `Interactions`
 outputs.
 
@@ -305,7 +309,10 @@ subsequent edits reuse it. Full participant/role equality is always checked,
 including hash collisions. This process-local cache is not serialized or used as
 an interaction identifier. New definitions extend the catalog and may allocate
 new catalog buffers. Frame bookkeeping still requires memory proportional to the
-number of structures, and complete-column export can allocate all active rows.
+number of structures. Typed dictionary/pickle export and remapping can allocate
+all active rows. HDF5 export instead writes directly from the active blocks,
+including a structure with many observations. Selecting or converting a system
+before writing can still materialize data through those separate operations.
 A selected-frame query visits its owners and copies only the selected occurrence
 columns, while sharing the relation registry. Atom queries reuse each active
 source block's lazy inverse indexes. These selected projections differ from
@@ -317,8 +324,9 @@ therefore accumulate blocks; automatic compaction is still pending.
 
 New occurrence indices belong to the updated analysis version and survive its
 H5MSM/typed round trip. Replacing a frame does not preserve its old canvas handles.
-Reading complete columns, remapping or exporting can materialize all active data;
-these operations are not yet bounded writers or editors of individual rows.
+Reading complete columns, remapping, pickle and typed dictionary export can
+materialize all active data. HDF5 saving avoids that packing step; it does not
+provide editing of individual rows or resumable output.
 Assigning `fresh` directly under an existing name still replaces the **whole**
 analysis: use `replace_structures` to preserve other frames.
 
