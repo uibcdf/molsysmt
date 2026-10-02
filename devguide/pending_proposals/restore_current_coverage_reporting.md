@@ -191,3 +191,30 @@ The new local reusable artifact profile is contract-tested in
 source identity, fork/branch/workflow rejection, aborted/missing/expired/ambiguous
 artifacts, input safety and original-SHA publication. Existing ten suite/debt
 guards continue to protect completed-suite retention and the full-matrix watermark.
+
+
+### Token replay outcome and automatic OIDC adoption
+
+[36979661341](https://github.com/uibcdf/molsysmt/actions/runs/36979661341)
+completed successfully on publisher source `8a616e95f`. Native logs confirm the
+original XML digest and measured source `98e0d7832026df1f03320003d47ab9c4a6df2188`.
+The token upload ended at `2026-10-02T07:39:38Z`; at `07:43:41 UTC` the uploads
+API still lists both coverage uploads as `started` without totals. No scientific
+tests were run and no newly accepted service report is claimed by this replay.
+
+As authorized, the weekly workflow now invokes an independent reusable OIDC
+publisher automatically after the complete test job group, with the original run
+ID. Completed failing suites remain reportable through successful artifact
+retention; they remain failed. The routine test jobs do not receive OIDC write
+permissions. Manual publication uses the same reusable workflow and existing
+artifact, and preserves the original source SHA and XML timestamp. The component
+coverage selections and `unittests` flag remain unchanged.
+
+The nightly watermark now examines actual executed full-matrix jobs even if the
+separate publisher failed. This prevents a coverage-service failure from forcing
+an already successful scientific matrix to run again. All three successful
+executed Linux minors are still required; scientific failures, aborted suites
+and publisher-only runs cannot repay debt. The dedicated regression guard is
+`test_publisher_failure_does_not_repeat_an_already_successful_full_matrix` in
+`devtools/tests/test_nightly_full_gate.py`. OIDC hosted replay and independent
+service acceptance will be recorded after execution.

@@ -163,7 +163,7 @@ def test_retry_uploads_only_validated_xml_for_measured_commit():
         (root / ".github/workflows/ci-coverage-upload.yaml").read_text(),
         Loader=yaml.BaseLoader,
     )
-    assert set(workflow["on"]) == {"workflow_dispatch"}
+    assert set(workflow["on"]) == {"workflow_dispatch", "workflow_call"}
     job = workflow["jobs"]["publish"]
     assert "github.ref == 'refs/heads/main'" in job["if"]
     steps = job["steps"]
@@ -176,4 +176,7 @@ def test_retry_uploads_only_validated_xml_for_measured_commit():
     assert (
         upload["with"]["disable_search"] == upload["with"]["fail_ci_if_error"] == "true"
     )
+    assert upload["with"]["use_oidc"] == "true"
+    assert "token" not in upload["with"]
+    assert workflow["permissions"]["id-token"] == "write"
     assert not any("pytest" in s.get("run", "") for s in steps)

@@ -80,7 +80,9 @@ def last_full_success(repository: str, head: str, token: str) -> str | None:
                 token,
             )["workflow_runs"]
             for run in runs:
-                if run["conclusion"] != "success":
+                # A separate reporting job can fail after every full suite passed.
+                # The executed matrix below, not publication health, pays test debt.
+                if run["conclusion"] not in {"success", "failure"}:
                     continue
                 if run["event"] not in {"schedule", "workflow_dispatch"}:
                     continue

@@ -1,6 +1,12 @@
 name: Publish retained coverage
 
 on:
+  workflow_call:
+    inputs:
+      source_run_id:
+        description: "Owning full-Linux run that retained the measured Python 3.13 report"
+        type: string
+        required: true
   workflow_dispatch:
     inputs:
       source_run_id:
@@ -11,6 +17,7 @@ on:
 permissions:
   contents: read
   actions: read
+  id-token: write
 
 jobs:
   publish:
@@ -57,5 +64,5 @@ jobs:
           override_commit: ${{ steps.source.outputs.source_sha }}
           override_branch: main
           flags: unittests
-          name: codecov-ubuntu-py3.13-retry
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: codecov-ubuntu-py3.13
+          use_oidc: true

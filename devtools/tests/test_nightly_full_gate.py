@@ -73,7 +73,7 @@ def test_only_executed_successful_full_matrix_clears_backlog(monkeypatch):
             "jobs": [
                 {
                     "name": f"{prefix} — ubuntu-latest, Python {version}",
-                    "conclusion": "success",
+                    "conclusion": "failure" if run_id == 3 else "success",
                     "steps": [
                         {
                             "name": test_step,
@@ -106,6 +106,46 @@ def test_api_uncertainty_runs_full_suite(tmp_path, monkeypatch):
     monkeypatch.setattr(gate, "last_full_success", offline)
     assert gate.main() == 0
     assert "run_full=true" in output.read_text(encoding="utf-8")
+
+
+def test_publisher_failure_does_not_repeat_an_already_successful_full_matrix(
+    monkeypatch,
+):
+    def api(path, _token):
+        if "/runs?" in path:
+            return (
+                {
+                    "workflow_runs": [
+                        {
+                            "id": 1,
+                            "event": "schedule",
+                            "head_sha": "matrix",
+                            "conclusion": "failure",
+                        }
+                    ]
+                }
+                if "ci-weekly.yaml" in path
+                else {"workflow_runs": []}
+            )
+        return {
+            "jobs": [
+                {
+                    "name": f"Full test — ubuntu-latest, Python {version}",
+                    "conclusion": "success",
+                    "steps": [
+                        {
+                            "name": "Run full test suite with coverage",
+                            "conclusion": "success",
+                        }
+                    ],
+                }
+                for version in gate.FULL_VERSIONS
+            ]
+        }
+
+    monkeypatch.setattr(gate, "api_json", api)
+    monkeypatch.setattr(gate, "is_ancestor", lambda *_: True)
+    assert gate.last_full_success("uibcdf/molsysmt", "head", "token") == "matrix"
 
 
 def test_probe_output_binds_large_backlogs(tmp_path, monkeypatch, capsys):
@@ -240,18 +280,21 @@ def test_coverage_retention_preserves_failures_and_rejects_aborted_suites(tmp_pa
     retain = next(
         step for step in steps if step.get("name") == "Retain coverage and test results"
     )
-    upload = next(
-        step for step in steps if step.get("name") == "Upload coverage to Codecov"
+    assert (
+        "steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1'"
+        in retain["if"]
     )
-    for step in (retain, upload):
-        assert (
-            "steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1'"
-            in step["if"]
-        )
-        assert "!cancelled()" in step["if"]
-    assert "github.ref == 'refs/heads/main'" in upload["if"]
-    assert upload["with"]["fail_ci_if_error"] == "true"
-    assert upload["with"]["disable_search"] == "true"
+    assert "!cancelled()" in retain["if"]
+    publisher = workflow["jobs"]["coverage-upload"]
+    assert publisher["needs"] == "full"
+    assert "always()" in publisher["if"] and "!cancelled()" in publisher["if"]
+    assert "github.ref == 'refs/heads/main'" in publisher["if"]
+    assert "needs.full.result == 'failure'" in publisher["if"]
+    assert publisher["with"]["source_run_id"] == "${{ github.run_id }}"
+    assert publisher["uses"] == "./.github/workflows/ci-coverage-upload.yaml"
+    assert not any("codecov/codecov-action" in s.get("uses", "") for s in steps)
+    assert "id-token" not in workflow["permissions"]
+    assert publisher["permissions"]["id-token"] == "write"
 
 
 def test_only_an_explicit_manual_request_selects_the_single_coverage_lane():

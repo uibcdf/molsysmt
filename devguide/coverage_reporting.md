@@ -3,7 +3,8 @@
 `ci-weekly.yaml` runs the existing complete suite (including configured doctests)
 under pytest-cov using the maintained `.coveragerc`. It measures Python source
 for `molsysmt` with the existing declared exclusions; it does not instrument Rust
-execution or silently change the denominator. Linux/Python 3.13 uploads to Codecov.
+execution or silently change the denominator. Its retained Linux/Python 3.13 XML
+is published by an independent OIDC job.
 The normal weekly/nightly Linux matrix retains Python 3.11, 3.12 and 3.13.
 
 For an explicitly authorized single coverage refresh:
@@ -21,10 +22,19 @@ It also does not qualify a release or establish support for untested platforms.
 
 The pytest step preserves its actual exit code. After exit 0 (passed) or exit 1
 (completed with test failures), XML and JUnit results are retained for 14 days and
-the selected main-branch uploader may publish coverage. Failed tests keep the job
+the independent main-branch uploader may publish coverage. Failed tests keep the job
 and workflow failed. Collection errors, interruption, internal errors or no tests
 (exit 2–5) do not publish coverage. Missing XML or service errors fail the upload.
 There is no `continue-on-error` and no common percentage floor.
+
+After the full matrix completes, `coverage-upload` automatically calls the
+reusable `ci-coverage-upload.yaml` publisher using this run ID. No manual action
+is needed for eligible weekly, conditional-nightly or full manual runs. The
+test jobs have read-only permissions; only the publisher receives `id-token:
+write` and authenticates with OIDC. Test failures remain visible. Aborted or
+missing producer artifacts fail provenance validation and cannot publish.
+A successful executed three-minor matrix pays test debt even if the separate
+publisher fails; a failed scientific matrix or publisher-only replay cannot.
 
 The action pins official Codecov v7.1.1 with signature checks enabled and uploads
 only the specified XML. Independent service inspection must match a complete
@@ -69,8 +79,11 @@ Neither operation executes artifact contents or changes coverage selections.
 The uploader checks out the measured source for path mapping and explicitly
 submits its original commit SHA and branch, rather than relabelling old coverage
 as the publisher's commit. The downloaded XML stays outside the checkout so the
-source switch cannot delete it. This first controlled replay retains the existing
-token and `unittests` flag. It does not alter routine suite cadence or CI debt.
+source switch cannot delete it. The first controlled replay retained the existing
+token and `unittests` flag but remained unprocessed. The reusable publisher now
+uses OIDC, automatically after the full test job group or through this explicit
+manual replay. The component's existing `unittests` flag and coverage selections
+are preserved. Test debt follows actual matrix success independently of transport.
 Independent service processing is still required after successful transport.
 
 Artifact retention is 14 days; it does not override Codecov's default 12-hour
