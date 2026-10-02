@@ -1,13 +1,13 @@
 ---
 summary: Empty interaction registry validates transient structure axes during updates
 issue: uibcdf/molsysmt#290
-status: active
+status: resolved
 opened: 2026-10-02
-closed:
+closed: 2026-10-02
 severity: high
 verification: reproduced
 area: [native, structure]
-guard:
+guard: tests/basic/iterator/test_iterator.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,8 @@ supersedes: []
 
 **Reported:** 2026-10-02, during the complete local suite after merging Interactions
 and current remote main into `03b3185497426676ba4a7d10b05351952401881b`.
-**Status:** Corrected; final integrated validation pending.
+**Status:** Resolved in `a50daad4a`; the complete local suite passed 11,699 tests
+with 11 existing environment skips. The extra tools/doctest suite passed 259 tests.
 
 ## What
 
@@ -58,3 +59,6 @@ The correction does not make inconsistent structural series valid for other APIs
 
 Linux x86_64, Python 3.13.14, local editable suite environment, 2026-10-02.
 The recorded full-suite command used 12 xdist workers and loadfile distribution.
+
+The integrated checkpoint is recorded in
+[the dated validation artifact](../../../devtools/data/interactions_main_integration_20261002.json).

@@ -1,13 +1,13 @@
 ---
 summary: Topology-free H5MSM loading invalidates stored interactions with state associations
 issue: uibcdf/molsysmt#291
-status: active
+status: resolved
 opened: 2026-10-02
-closed:
+closed: 2026-10-02
 severity: high
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/form/file_h5msm/test_topology_free_molsys_v05_probe.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,8 @@ supersedes: []
 # Topology-free H5MSM loading invalidates stored interactions with state associations
 
 **Reported:** 2026-10-02, integrated local full-suite validation.
-**Status:** Corrected; final integrated validation pending.
+**Status:** Resolved in `a50daad4a`; the complete local suite passed 11,699 tests
+with 11 existing environment skips. The extra tools/doctest suite passed 259 tests.
 
 ## What
 
@@ -53,3 +54,6 @@ without changing the H5MSM schema or weakening association validation.
 ## Provenance
 
 Linux x86_64, Python 3.13.14, local editable suite environment, 2026-10-02.
+
+The integrated checkpoint is recorded in
+[the dated validation artifact](../../../devtools/data/interactions_main_integration_20261002.json).

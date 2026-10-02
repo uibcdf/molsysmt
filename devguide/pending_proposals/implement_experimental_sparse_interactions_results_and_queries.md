@@ -26,8 +26,12 @@ Luzar–Chandler implementation; the current scientific implementation is retain
 
 The first integrated complete suite passed 11,661 tests, failed 23 and skipped
 11. Focused repairs then passed 562 tests with two PyTraj skips; 81 native Rust
-tests passed. This is an intermediate checkpoint; final complete validation is
-still required before pushing. Two confirmed runtime defects are tracked by
+tests passed. Final clean-source validation on `a50daad4ae457630131ea1a17ee42d06a538e601`
+passed 11,699 tests with 11 existing environment skips in 511.23 seconds.
+The extra development-tools and Interactions doctest suite passed 259 tests;
+all 14 fast gates, Ruff lint/format and the public signature guard passed.
+[The dated integration artifact](../../devtools/data/interactions_main_integration_20261002.json)
+records the initial failures, final outcomes, local dependencies and scope limits. Two confirmed runtime defects are tracked by
 `uibcdf/molsysmt#290` and `uibcdf/molsysmt#291`.
 
 The other repairs update actual form-census fixtures, the generated converter

@@ -5,11 +5,13 @@ This operational packet belongs to `uibcdf/molsysmt#251` and
 The [Interaction Analysis API](interactions_api.md) defines the current contract;
 this page provides a reproducible review checkpoint and requested feedback.
 
-## Pinned provider checkpoint
+## Historical pinned provider checkpoint
 
 Use a clean MolSysMT checkout at
 **`1986027c353cdcf290e0402b1d8fa23fee6ea637`**, on
-`review/interaction-attribution-20261001`. This includes explicit compaction
+`review/interaction-attribution-20261001` at the time of the review. The branch
+is retired after integration into `main`; the pinned commit remains in its history.
+This includes explicit compaction
 from `4148220a9` and the updated lifecycle fixture generator. The installed
 distribution version does not identify this editable source revision.
 
@@ -174,7 +176,7 @@ editors, unused-registry pruning and public lazy file queries remain absent.
 
 > We have prepared the updated experimental Interactions review at MolSysMT
 > `1986027c353cdcf290e0402b1d8fa23fee6ea637`, on
-> `review/interaction-attribution-20261001`. The packet provides H5MSM 0.5/codec-2
+> the historical review branch, now integrated into `main`. The packet provides H5MSM 0.5/codec-2
 > fixtures for original, invalidated, partially recalculated, compacted and empty
 > named analyses, with frame-scoped execution records and original producer versions.
 >
@@ -204,3 +206,15 @@ The consumer must commit its current implementation before its SHA can identify
 the tested clean dependency in the controlled integration workflow. The inspected
 dirty checkout's HEAD alone is not that candidate. Delete development branches
 only after verifying their work is integrated and preserving unrelated work.
+
+
+## Main integration checkpoint — 2026-10-02
+
+Clean-source revision `a50daad4ae457630131ea1a17ee42d06a538e601` passed the
+complete local suite: 11,699 passed, 11 existing optional/environment skips,
+zero failures. The additional developer-tools and Interactions doctest suite
+passed 259 tests, native Rust passed 81 tests, and all 14 fast gates passed.
+The [integration artifact](../devtools/data/interactions_main_integration_20261002.json)
+records commands, source identity, dependency versions and scope limits.
+This supersedes the earlier no-merge working-state observation, without changing
+the historical review fixture fingerprints or claiming consumer acceptance.
