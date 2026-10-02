@@ -37,12 +37,11 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (28)
+### Open (27)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(inspected)*
-- [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(inspected)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
 - [`assign_and_validate_autodock_atom_types_under_a_named_scheme.md`](assign_and_validate_autodock_atom_types_under_a_named_scheme.md) — [#222](https://github.com/uibcdf/molsysmt/issues/222) — Assign and validate AutoDock atom types under a named scheme *(inspected)*
 - [`assign_partial_charges_with_an_explicit_named_model.md`](assign_partial_charges_with_an_explicit_named_model.md) — [#221](https://github.com/uibcdf/molsysmt/issues/221) — Assign partial charges with an explicit named model *(inspected)*
@@ -82,8 +81,9 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (9)
+### Partially resolved (10)
 
+- [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(measured)*
 - [`implement_experimental_sparse_interactions_results_and_queries.md`](implement_experimental_sparse_interactions_results_and_queries.md) — [#252](https://github.com/uibcdf/molsysmt/issues/252) — Implement experimental sparse Interactions results and queries *(measured)*

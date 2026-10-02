@@ -53,6 +53,7 @@ ROUTES = {
     "file:h5msm": ("system", "alanine dipeptide", "alanine_dipeptide.h5msm"),
     "file:inpcrd": ("system", "pentalanine", "pentalanine.inpcrd"),
     "file:mol2": ("system", "caffeine", "caffeine.mol2"),
+    "file:sdf": ("system", "caffeine", "caffeine.sdf"),
     "file:pdb": ("system", "Met-enkephalin", "met_enkephalin.pdb"),
     "file:prmtop": ("system", "pentalanine", "pentalanine.prmtop"),
     "file:psf": ("system", "POPC", "popc.psf"),

@@ -4,6 +4,10 @@ from molsysmt._private.argdigest import arg_digest
 
 form_name = "molsysviewer.MolSysView"
 form_type = "class"
+item_class_keys = [
+    ["molsysviewer", "MolSysView"],
+    ["molsysviewer", "IframeMarkup"],
+]
 form_info = ["MolSysViewer visualization native object."]
 
 piped_topological_attribute = "molsysmt.MolSys"

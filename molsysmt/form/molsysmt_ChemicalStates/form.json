@@ -1,1 +1,8 @@
-{"form_name": "molsysmt.ChemicalStates", "form_type": "class", "item_class_key": ["molsysmt", "ChemicalStates"]}
+{
+    "form_name": "molsysmt.ChemicalStates",
+    "form_type": "class",
+    "item_class_key": [
+        "molsysmt",
+        "ChemicalStates"
+    ]
+}

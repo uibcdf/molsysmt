@@ -43,7 +43,14 @@ MolSysMT seamlessly reads, parses, and writes major third-party disk file format
 | **`file:pir`** | `.pir` | PIR sequence alignment file | Internal Sequence Parser | Sequence Parsing |
 | **`file:xyz`** | `.xyz` | Cartesian XYZ coordinate file | Third-Party Adapter | Coordinate Parsing |
 | **`file:xyznpy`** | `.xyz.npy` | NumPy array XYZ trajectory file | Internal Parser | Array Parsing |
-| **`file:sdf`** | `.sdf` | Structure-Data File (small molecules) | Third-Party Adapter | In-Memory Parsing |
+| **`file:sdf`** | `.sdf` | Single-record V2000/V3000, experimental subset | Native CTAB Parser, no RDKit required | One Record |
 | **`file:molsys_yaml`** | `.molsys.yaml` | Declarative system YAML specification | Internal YAML Parser | Declarative Parsing |
 | **`file:topology_yaml`** | `.topology.yaml` | Declarative topology YAML specification | Internal YAML Parser | Declarative Parsing |
 | **`file:structures_yaml`** | `.structures.yaml` | Declarative structures YAML specification | Internal YAML Parser | Declarative Parsing |
+
+The native SDF adapter retains all explicitly drawn hydrogens, ordinary and
+explicit aromatic bonds, formal charges, supported radical counts, isotopes
+and coordinates. It rejects unsupported stereo, queries and multiple records.
+No implicit-hydrogen, valence or CIP perception is performed. SD property blocks
+need explicit authorization to discard when converting into native objects.
+See {ref}`cookbook-native-sdf` for selections, units and conversion reports.

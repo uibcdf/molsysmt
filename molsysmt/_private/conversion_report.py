@@ -1218,6 +1218,35 @@ def build_conversion_report(
     issues = []
 
     if source_item is not None:
+        from molsysmt._private.variables import is_all
+
+        if source_form == "file:sdf" and (
+            target_form != "file:sdf"
+            or not is_all(selection)
+            or not is_all(structure_indices)
+        ):
+            from molsysmt._private.ctfile import read_sdf
+
+            properties = read_sdf(source_item).properties
+            if properties:
+                issues.append(
+                    ConversionIssue(
+                        attribute="sdf_properties",
+                        reason="Native domains cannot retain SD property blocks: "
+                        + ", ".join(name for name, _ in properties),
+                        scope="source_metadata",
+                    )
+                )
+        if target_form == "file:sdf" and source_form in {"molsysmt.MolSys", "file:sdf"}:
+            from molsysmt._private.conversion_sdf import audit_sdf_write
+
+            if source_form == "molsysmt.MolSys":
+                issues.extend(audit_sdf_write(source_item, selection, structure_indices, syntax))
+            elif not is_all(selection) or not is_all(structure_indices):
+                from molsysmt.form.file_sdf.to_molsysmt_MolSys import to_molsysmt_MolSys
+
+                native = to_molsysmt_MolSys(source_item, discard_properties=True, skip_digestion=True)
+                issues.extend(audit_sdf_write(native, selection, structure_indices, syntax))
         registered_profile = (
             source_form,
             target_form,
@@ -1390,6 +1419,10 @@ def build_conversion_report(
                 )
     same_form = source_form == target_form
     audited_scopes = get_conversion_audit_scopes(source_form, target_form)
+    if source_form == "file:sdf" or target_form == "file:sdf":
+        audited_scopes = tuple(
+            dict.fromkeys((*audited_scopes, *(issue.scope for issue in issues)))
+        )
     is_exhaustive = is_conversion_audit_exhaustive(source_form, target_form)
 
     # Static graph audits cannot assume that every third-party identity
@@ -1399,6 +1432,13 @@ def build_conversion_report(
     if source_item is not None and same_form:
         audited_scopes = ("all",)
         is_exhaustive = True
+        if source_form == "file:sdf" and (
+            not is_all(selection) or not is_all(structure_indices)
+        ):
+            audited_scopes = tuple(
+                dict.fromkeys(("chemical_state", "source_metadata", *(issue.scope for issue in issues)))
+            )
+            is_exhaustive = False
 
     outcome = "lossy" if issues else ("exact" if same_form else "equivalent")
     return ConversionReport(

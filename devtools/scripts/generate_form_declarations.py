@@ -65,6 +65,9 @@ def declaration(module, form_name):
     key = item_class_key(form_name)
     if key is not None:
         entry["item_class_key"] = key
+    aliases = getattr(module, "item_class_keys", None)
+    if aliases is not None:
+        entry["item_class_keys"] = [list(alias) for alias in aliases]
     return entry
 
 

@@ -15,7 +15,8 @@ supersedes: []
 # Add PDBQT file and string forms with MolSys conversion
 
 **Reported:** 2026-09-22, from the DockingMT Vina integration discussion and inspection of the form registry.
-**Status:** Open, post-1.0 proposal; no PDBQT form is implemented in MolSysMT.
+**Status:** Open. The maintainer brought this work forward on 2026-10-02,
+after the native SDF work in uibcdf/molsysmt#215. No PDBQT adapter is implemented.
 
 ## What
 

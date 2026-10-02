@@ -1,10 +1,10 @@
 ---
 summary: Add SDF file form with MolSys conversion
 issue: uibcdf/molsysmt#215
-status: open
+status: partial
 opened: 2026-09-22
 closed:
-verification: inspected
+verification: reproduced
 area: [form, convert]
 guard:
 normative:
@@ -15,7 +15,9 @@ supersedes: []
 # Add SDF file form with MolSys conversion
 
 **Reported:** 2026-09-22, from the DockingMT ligand-interchange discussion and inspection of the form registry.
-**Status:** Open, post-1.0 proposal; no SDF file form is implemented in MolSysMT.
+**Status:** Partial. The maintainer brought this work forward on 2026-10-02.
+A native, experimental single-record adapter is implemented; faithful native
+stereochemical interpretation remains pending before the full proposal can close.
 
 ## What
 
@@ -30,9 +32,9 @@ DockingMT consumer in uibcdf/dockingmt#3.
 ## How
 
 - Register file:sdf in the form catalog with working public conversion routes
-  to and from MolSys. Reuse an existing optional chemical toolkit internally
-  where appropriate, without exposing its object as the result or importing it
-  eagerly.
+  to and from MolSys. The accepted implementation direction is a native CTAB
+  reader/writer, with no RDKit runtime dependency. RDKit is an optional reference
+  for differential tests rather than an implicit parser fallback.
 - Define one-record semantics for molecular graph, atom and bond identity,
   bond order and aromaticity, formal charge, stereochemistry, and coordinates
   where the selected SDF variant represents them. Convert angstroms to
@@ -58,10 +60,46 @@ architectural judgement, not a measured performance claim.
 
 ## What is measured and what is assumed
 
-**Inspected:** molsysmt/form has no SDF adapter.
+**Inspected at filing:** molsysmt/form had no SDF adapter.
 [forms_and_conversions.md](../forms_and_conversions.md) explicitly leaves
 property blocks and a multi-record SDF/MOL2 model to a separate schema
-decision. No round-trip fidelity or performance measurement was made.
+decision. No round-trip fidelity or performance measurement existed at filing.
+
+**Implemented and contract-tested, 2026-10-02:** `file:sdf` is a registered Tier 3
+form with public native conversion, getter piping, explicit count getters and
+byte-preserving identity copies. The reusable CTAB syntax layer lives in
+`molsysmt/_private/ctfile.py`; native-domain assembly remains in the adapter.
+Reading retains every explicit hydrogen. V2000/V3000 ordinary covalent and
+explicit aromatic bonds, finite coordinates, formal charges, absolute isotopes,
+D/T, common-element mass differences and doublet/triplet radical counts are
+handled without chemical sanitization. Query rules, maps, valence overrides,
+stereo, Sgroups, singlet spin, unknown extensions and multiple records fail
+explicitly. The writer validates before opening the destination. SD properties
+are parsed, retained by identity copies, and rejected on native conversion unless
+the caller explicitly requests `discard_properties=True`; reports identify the
+loss and strict mode still rejects it.
+
+Evidence is in `tests/form/file_sdf/test_native_contract.py`: independent
+hand-written V2000/V3000 inputs, a bundled explicit-hydrogen molecule, an optional
+independent RDKit reader, malformed/unsupported inputs, source selections, empty
+records, non-default unit policy, existing-file preservation and a subprocess
+that blocks RDKit imports. These are bounded compatibility results, not a claim
+of complete RDKit parity or a measured speed advantage.
+
+**Inspected references:** BIOVIA's
+[CTFile Formats 2020](https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf)
+defines field meanings and precedence. RDKit commit
+`a24ed4f06a4f73ef419e9b6347999d0abfbacabd` supplied a comparison of reader/writer
+and stereo-processing boundaries; its implementation was not copied. The
+reference supplier is explicitly configured with `removeHs=False`, and graph
+comparisons distinguish declared CTAB aromaticity from RDKit sanitization.
+
+**Pending:** Native stereo interpretation and encoding (tetrahedral
+wedge/parity, E/Z reference atoms, and enhanced stereo policy), a larger curated
+ligand compatibility corpus, and a decision about independent reusable chemistry
+tools for valence/hydrogen/CIP perception. These tools belong to their general
+owners, not hidden inside the SDF adapter. Performance remains unbenchmarked.
+The parser is a format utility with no new scientific attribution boundary.
 
 **Assumed:** Single-record conversion is useful before the broader metadata
 and multi-record model is settled. Representative fixtures must establish
@@ -82,8 +120,8 @@ record-to-MolSys schema remain in the existing broader proposal. DockingMT's
 ligand preparation and Vina protocol are outside this adapter. A string:sdf
 form may be proposed separately if a consumer needs it. This is new form
 coverage, not a prerequisite for the currently defined MolSysMT 1.0 contract;
-schedule it after the 1.0 release unless a separate correctness defect changes
-that assessment.
+the maintainer explicitly scheduled this bounded implementation before 1.0.
+The wider metadata/multi-record schema remains deferred.
 
 ## Acceptance criteria
 

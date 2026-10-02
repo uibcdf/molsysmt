@@ -64,6 +64,13 @@ Three consequences worth knowing before changing anything here:
   which imports the adapters once, offline. Nothing at runtime does, and a declaration that
   stops matching its module fails the suite.
 
+Adapters accepting multiple class names declare `item_class_keys` as string
+pairs in their module metadata, including the primary class. The declaration
+generator retains these aliases. They must not exist only in a hand-edited
+`form.json`, where regeneration would erase them. Runtime catalogue recognition
+and regeneration are guarded by
+`devtools/tests/test_generate_form_declarations.py`.
+
 `molsysmt/basic/get_form.py` resolves from those indexes and imports **one** adapter to
 confirm: the index says which detector is worth asking, the detector still decides. Only
 when no index can decide does it sweep, and then only the category that could apply -- an
@@ -357,6 +364,50 @@ chemical contracts:
 
 These contracts do not imply arbitrary property-block preservation or a
 multi-record SDF/MOL2 model. Those require a separate post-1.0 schema decision.
+
+### Experimental native SDF interoperability
+
+`file:sdf` is Tier 3 and reads/writes one V2000 or V3000 connection table with
+no RDKit runtime dependency. Source atom and bond serials become string IDs;
+all explicitly drawn hydrogens remain atoms. Coordinates are interpreted as
+angstroms and converted through PyUnitWizard into native nanometers. Writing
+extracts values explicitly in angstroms even under a different application unit
+policy. Reading records explicit charge, isotope, supported radical counts,
+ordinary covalent orders and aromatic type 4; it does not assign implicit
+hydrogens, sanitize valence, perceive aromaticity from Kekule orders or assign
+CIP labels from coordinates.
+
+The supported subset rejects stereo flags, queries, valence overrides,
+reaction maps, Sgroups, singlet spin, unsupported bond types and unknown CTAB
+extensions. The chemical state owns explicit chemistry; the format reader does
+not create an alternative chemical store. Unsupported data never becomes a
+fabricated default. These limitations keep uibcdf/molsysmt#215 open.
+
+An SDF writer needs a complete graph, explicit formal-charge and radical-count
+vectors, one chemical state and exactly one selected structure. It validates
+the full payload before opening the destination. `ctfile_version='V3000'`
+removes the V2000 limit of 999 atoms or bonds and fixed coordinate widths.
+Native atom aromaticity must agree with the explicit aromatic bond types that
+the format can carry; unencodable or contradictory assignments fail explicitly.
+Atom selections follow native MolSys extraction order (ascending source atom
+indices when topology is present); bonds and coordinates follow that same map.
+Writing assigns sequential one-based serials and cannot preserve arbitrary
+native IDs/names, hierarchy, interactions, mechanics or extra structural fields.
+
+SD property blocks have no general native schema yet. Conversion into native
+objects rejects them unless `discard_properties=True` explicitly authorizes
+their loss. `return_report=True` identifies this loss; `strict=True` rejects it
+even when discarding was requested. Full-axis SDF identity conversion and
+`copy(..., output_filename=...)` preserve the original bytes and properties.
+Subset file output requires an explicit path and the native supported subset.
+SDF reports remain non-exhaustive for cross-form conversion. Multi-record files
+and unselected multi-frame output fail instead of taking the first entry.
+
+Contract and optional differential evidence:
+`tests/form/file_sdf/test_native_contract.py`. BIOVIA's
+[CTFile Formats 2020](https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf)
+defines the syntax and precedence. RDKit's reader is a reference implementation,
+not an additional required dependency or a claim of full compatibility.
 
 ## Validation obligations
 

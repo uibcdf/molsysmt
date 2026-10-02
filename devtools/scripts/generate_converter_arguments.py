@@ -23,9 +23,9 @@ Usage:
 
 import argparse
 import inspect
+import json
 import os
 import sys
-import textwrap
 import warnings
 from importlib import import_module
 
@@ -81,10 +81,10 @@ FOOTER = """}
 
 
 domain = Domain(
-    name='converter_arguments',
-    depends_on='to_form',
+    name="converter_arguments",
+    depends_on="to_form",
     by_value=CONVERTER_ARGUMENTS,
-    description='keywords the converters into a given target form accept',
+    description="keywords the converters into a given target form accept",
 )
 """
 
@@ -137,11 +137,10 @@ def derive():
 def render(table):
     lines = [HEADER]
     for to_form, names in table.items():
-        body = ", ".join(repr(name) for name in names)
-        wrapped = textwrap.fill(
-            body, width=92, initial_indent=" " * 8, subsequent_indent=" " * 8
-        )
-        lines.append(f"    {to_form!r}: (\n{wrapped}\n    ),\n")
+        # Match the repository formatter so regeneration remains reproducible
+        # after formatting the generated Python table.
+        body = "".join(f"        {json.dumps(name)},\n" for name in names)
+        lines.append(f"    {json.dumps(to_form)}: (\n{body}    ),\n")
     lines.append(FOOTER)
     return "".join(lines)
 

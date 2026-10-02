@@ -187,6 +187,7 @@ systems["benzamidine"]["benzamidine.pdb"] = path("molsysmt.data.pdb", "benzamidi
 
 systems["caffeine"] = {}
 systems["caffeine"]["caffeine.mol2"] = path("molsysmt.data.mol2", "caffeine.mol2")
+systems["caffeine"]["caffeine.sdf"] = path("molsysmt.data.sdf", "caffeine.sdf")
 
 
 # -----------------------------------------------------------------------------
@@ -413,7 +414,8 @@ systems.info = {
         "category": "Small Molecules & Ligands",
         "summary": "Caffeine xanthine alkaloid small molecule.",
         "files": {
-            "caffeine.mol2": "Tripos MOL2 format file containing bond types, atom types, and partial charges."
+            "caffeine.mol2": "Tripos MOL2 format file containing bond types, atom types, and partial charges.",
+            "caffeine.sdf": "Single-record V2000 SDF with all 24 atoms, including explicit hydrogens."
         },
     },
     # Lipids & Membranes

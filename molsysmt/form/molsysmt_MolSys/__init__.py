@@ -73,9 +73,11 @@ _convert_to = {
     "file:molsys_yaml": "to_file_molsys_yaml",
     "file:pdb": "to_file_pdb",
     "file:psf": "to_file_psf",
+    "file:sdf": "to_file_sdf",
 }
 
 _conversion_opt_kwargs = {
+    "file:sdf": ["ctfile_version"],
     "string:pdb_text": ["pdb_chain_id"],
     "pdbfixer.PDBFixer": ["pdb_chain_id"],
     "openmm.Simulation": ["collisions_rate", "integration_timestep"],

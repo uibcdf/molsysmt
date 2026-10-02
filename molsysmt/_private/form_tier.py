@@ -105,6 +105,7 @@ _TIER_3_FORMS = (
     "file:inpcrd",
     "file:pir",
     "file:prmtop",
+    "file:sdf",
     "file:trjpk",
     "molsysmt.ChemicalStates",
     "molsysmt.ChemicalStatesDict",

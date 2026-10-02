@@ -218,6 +218,10 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: native_sdf
+        file: docs/content/user/cookbook/native_sdf.md
+        agents_file: docs/content/user/cookbook/native_sdf.md.AGENTS.md
+        status: in_progress
       - name: building_complex_dimers
         file: docs/content/user/cookbook/building_complex_dimers.ipynb
         agents_file: docs/content/user/cookbook/building_complex_dimers.ipynb.AGENTS.md
