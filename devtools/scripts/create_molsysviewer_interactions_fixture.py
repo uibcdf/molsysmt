@@ -40,7 +40,7 @@ def make_analysis():
     records = [
         _record(0, "hbond", hydrogen_bond, 0.20, "geometry"),
         _record(0, "pi_pi", [
-            ("ring", [3, 4, 5]), ("ring", [6, 7, 8]),
+            ("ring_a", [3, 4, 5]), ("ring_b", [6, 7, 8]),
         ], 0.36, "geometry"),
         _record(2, "disulfide_candidate", [
             ("sulfur", [9]), ("sulfur", [10]),
@@ -61,7 +61,36 @@ def make_analysis():
         structure_source_indices=[8, 6, 4, 2, 0, -1],
         source_n_atoms=12,
         source_n_structures=9,
+        software={"molsysmt": msm.__version__},
+        execution_records=[
+            {"structure_indices": [0, 1, 2],
+             "details": {"data_kind": "synthetic_fixture", "execution": "chunked", "execution_chunks": 2}},
+            {"structure_indices": [4],
+             "details": {"data_kind": "synthetic_fixture", "execution": "eager", "execution_chunks": 1}},
+        ],
     )
+
+
+def make_lifecycle_analyses():
+    """Build named synthetic snapshots for execution and edit review."""
+    original = make_analysis()
+    metadata = {name: getattr(original, name) for name in (
+        "n_atoms", "n_structures", "method", "measure_units", "parameters", "source_id",
+        "atom_source_indices", "structure_source_indices", "source_n_atoms", "source_n_structures", "software",
+    )}
+    participants = [("donor", [0]), ("hydrogen", [1]), ("acceptor", [2])]
+    fresh = msm.Interactions.from_records([
+        _record(4, "hbond", participants, .23, "geometry",
+                images=[[0, 0, 0], [0, 0, 0], [1, 0, 0]]),
+        _record(4, "hbond", participants, .24, "independent_observation"),
+    ], **metadata, evaluated_structure_indices=[1, 4],
+        execution={"data_kind": "synthetic_fixture", "execution": "chunked", "execution_chunks": 3})
+    invalidated = original.invalidate_structures([4])
+    recalculated = invalidated.replace_structures(fresh)
+    empty = msm.Interactions.from_records([], **metadata, evaluated_structure_indices=[1, 5],
+        execution={"data_kind": "synthetic_fixture", "execution": "eager", "execution_chunks": 1})
+    return {"review": original, "invalidated": invalidated, "recalculated": recalculated,
+            "compacted": recalculated.compact(), "empty": empty}
 
 
 def create_files(output_directory):
@@ -75,19 +104,35 @@ def create_files(output_directory):
         if path.exists():
             raise FileExistsError(f"Refusing to overwrite {path}")
 
-    analysis = make_analysis()
+    analyses = make_lifecycle_analyses()
+    analysis = analyses["review"]
     system = MolSys(n_atoms=analysis.n_atoms)
     system.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(
             np.zeros((analysis.n_structures, analysis.n_atoms, 3)), "nm"
-        )
+        ),
+        box=msm.pyunitwizard.quantity(
+            np.repeat(np.eye(3)[None], analysis.n_structures, axis=0), "nm"
+        ),
     )
-    system.interactions = {"review": analysis}
+    system.interactions = analyses
 
     msm.h5msm.write(system, str(full_file))
-    msm.h5msm.write_layers(str(analysis_file), interactions={"review": analysis})
+    msm.h5msm.write_layers(str(analysis_file), interactions=analyses)
     for path in (full_file, analysis_file):
         loaded = msm.h5msm.read(str(path))
+        assert set(loaded.interactions) == set(analyses)
+        for name, expected in analyses.items():
+            observed = loaded.interactions[name]
+            assert observed.software == expected.software
+            assert [(record["structure_indices"].tolist(), record["details"])
+                    for record in observed.execution_records] == [
+                        (record["structure_indices"].tolist(), record["details"])
+                        for record in expected.execution_records]
+            actual, wanted = observed.query().to_dict(), expected.query().to_dict()
+            for column in ("occurrence_indices", "structure_indices", "relation_indices", "image_offsets", "image_vectors"):
+                np.testing.assert_array_equal(actual[column], wanted[column])
+            np.testing.assert_allclose(actual["measurements"]["distance"], wanted["measurements"]["distance"])
         result = loaded.interactions["review"]
         selected = result.query(structure_indices=[4, 1, 0, 4, 3]).to_dict()
         np.testing.assert_array_equal(selected["structure_indices"], [4, 4, 0, 0])

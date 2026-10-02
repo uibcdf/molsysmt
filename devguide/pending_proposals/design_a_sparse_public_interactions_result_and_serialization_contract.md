@@ -366,7 +366,7 @@ python devtools/scripts/create_molsysviewer_interactions_fixture.py /tmp/msm-vie
 python -m pytest --receptor=llm tests/interactions/test_public_molsys_h5msm_workflow.py
 ```
 
-The generator refuses to overwrite either output file. It writes
+**Updated on 2026-10-02:** the generator refuses to overwrite either output file. It writes
 `molsysviewer_full.h5msm` with topology, chemical states, structures, and a
 named `review` analysis, plus `molsysviewer_interactions_only.h5msm` whose
 named analysis declares the atom and structure index spaces without the other
@@ -385,6 +385,16 @@ analyses with matching local axes; extraction remaps them. Public
 `molsysmt.h5msm.read` reconstructs a native `MolSys` from either generated
 file, and `read_layers` can load only the named interaction layer.
 
+Both files now include `review`, `invalidated`, `recalculated`, `compacted` and
+`empty` analyses. Execution records explicitly label their observations as
+synthetic and distinguish producing runs, including evaluated-empty frames.
+The recalculated/compacted results preserve handles and identical active columns;
+the invalidated result removes frame 4 from evaluated coverage. The complete file
+includes a unit cubic box so image vectors have a declared lattice. Its zero
+coordinates and arbitrary measures are contract fixtures, not scientifically
+consistent geometry. Use real detector workloads for geometry qualification.
+The executable guard is `tests/interactions/test_molsysviewer_review_fixtures.py`.
+
 The generator checks that a query of `[4, 1, 0, 4, 3]` yields observations in
 frames `[4, 4, 0, 0]` and evaluated coverage `[4, 1, 0]`; frame 1 is
 evaluated-empty and frame 3 is unevaluated. It also checks a one-atom query,
@@ -394,9 +404,10 @@ results more fully, including periodic images and invalidation.
 
 Current limits matter to the review: public H5MSM readers materialize the
 selected analysis; the selective file reader remains internal. The result has
-no incremental add/remove editor. The disulfide candidate detector has an
-opt-in `Interactions` output; hydrogen-bond detectors retain only their
-method-specific arrays. MolSysViewer accepted the in-memory named-result
+no incremental individual-observation add/remove editor. Compatible frame
+replacement, invalidation and explicit compaction are supported. All nine
+implemented experimental families have `Interactions` output; legacy hydrogen-bond
+and disulfide defaults remain available. MolSysViewer accepted the in-memory named-result
 route for its initial integration and supplied representative sizes above.
 
 ## What
