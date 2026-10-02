@@ -158,7 +158,9 @@ with TemporaryDirectory() as directory:
 
 `replace_structures` replaces every frame evaluated by the new result, including
 frames recalculated with zero observations. It checks axes, source maps, method,
-parameters, producer versions, units and atom scope. Recalculation must retain
+scientific parameters, producer versions, units and atom scope. Execution mode
+and block counts may differ; `restored.execution_records` preserves the producing
+calculation for each evaluated frame, including empty ones. Recalculation must retain
 the original system axes and scope; an extracted frame has different local axes.
 The unchanged observation blocks are shared. New occurrence handles belong to
 the updated version; old views remain snapshots of the earlier result.

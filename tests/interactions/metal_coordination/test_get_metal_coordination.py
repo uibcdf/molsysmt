@@ -126,7 +126,7 @@ def test_streamed_h5_projection_and_budget(monkeypatch, tmp_path):
     monkeypatch.setattr(_h5msm05_modular, 'read_molsys_file', lambda *a, **k: pytest.fail('Full file load'))
     for item in (source, path):
         result = msm.interactions.metal_coordination.get_metal_coordination(item, pbc=False, heavy_mode='force')
-        assert result.n_interactions == 100 and result.parameters['execution_chunks'] == 8
+        assert result.n_interactions == 100 and result.execution_records[0]["details"]['execution_chunks'] == 8
     monkeypatch.setattr(msm.configure, 'max_ram_usage', 100)
     with pytest.raises(MemoryBudgetExceededError):
         msm.interactions.metal_coordination.get_metal_coordination(source, pbc=False)

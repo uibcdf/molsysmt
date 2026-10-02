@@ -172,7 +172,7 @@ def test_simultaneity_empty_shapes_and_streaming_budget(monkeypatch, tmp_path):
     monkeypatch.setattr(msm.configure, 'chunk_size', 7)
     for item in [source, path]:
         result = msm.interactions.water_bridges.get_water_bridges(item, order=2, pbc=False, heavy_mode='force')
-        assert result.n_interactions == 50 and result.parameters['execution_chunks'] == 8
+        assert result.n_interactions == 50 and result.execution_records[0]["details"]['execution_chunks'] == 8
     selected = msm.interactions.water_bridges.get_water_bridges(path, order=2,
         structure_indices=[49, 0, 25, 49], pbc=False, heavy_mode='force')
     assert selected.occurrence_structures.tolist() == [0, 25, 49]

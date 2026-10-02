@@ -131,7 +131,7 @@ class _CationPiReducer(Reducer):
                 })
 
     def finalize(self):
-        self.metadata["parameters"]["execution_chunks"] = self.chunks
+        self.metadata["execution"]["execution_chunks"] = self.chunks
         if not self.columns.n_rows:
             return Interactions.from_records([], **self.metadata)
         relation_pairs, occurrence_relations = np.unique(self.columns.concatenate("pairs"), axis=0, return_inverse=True)

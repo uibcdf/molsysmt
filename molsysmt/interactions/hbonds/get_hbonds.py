@@ -314,10 +314,10 @@ def get_hbonds(
                                     image_policy="donor_centered_mic" if method == "wernet_nilsson" else "donor_hydrogen_then_hydrogen_acceptor_mic",
                                     periodic_triangle_policy="reject_inconsistent_independent_da_image",
                                     water_policy="included", occupancy_policy="individual_frame_observations",
-                                    adaptation="single_source_sparse_scopes_no_residue_solvent_frequency_pruning",
-                                    memory_policy="numeric_working_estimates@1"))
+                                    adaptation="single_source_sparse_scopes_no_residue_solvent_frequency_pruning"))
+    metadata["execution"] = {"memory_policy": "numeric_working_estimates@1"}
     if not len(frames) or not searches:
-        metadata["parameters"].update(execution="none", execution_chunks=0)
+        metadata["execution"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
         reducer = _HBondReducer(donors=donors, acceptors=acceptors, universe=universe, searches=searches,

@@ -434,14 +434,14 @@ def get_cation_pi_interactions(
             "chemical_state_index": state_index, "pbc": pbc,
             "image_policy": "whole_participants_anchor_relative_mic", "pbc_policy": "mic_when_box_available",
             "exclude_overlap": method == "centroid_angle_offset", "exclude_direct_covalent": method == "centroid_angle_offset", "intramolecular": "included",
-            "memory_policy": "numeric_working_estimates@1",
         },
         evaluation_mode=selection_mode, evaluation_atom_indices=np.intersect1d(first, universe),
         evaluation_atom_indices_b=None if second is None else np.intersect1d(second, universe),
         evaluation_universe_indices=universe,
     )
+    metadata["execution"] = {"memory_policy": "numeric_working_estimates@1"}
     if not len(frames) or not searches:
-        metadata["parameters"].update(execution="none", execution_chunks=0)
+        metadata["execution"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
         per_frame = 4 * 24 * len(universe) + 256 * len(active_indices) + 192 * max(len(members[i]) for i in active_indices) + 2048 + (288 if pbc else 0)

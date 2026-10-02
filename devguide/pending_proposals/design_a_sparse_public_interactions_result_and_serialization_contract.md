@@ -22,6 +22,18 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## Execution provenance separation — 2026-10-02
+
+The result contract separates scientific criteria from frame-scoped execution
+records. Compatible partial recalculation may change eager/chunked policy and
+block size while preserving provenance of retained and incoming evaluated frames,
+including empty frames. Interaction codec 2 retains these records in H5MSM 0.5;
+current readers migrate codec-1 runtime fields. Old provider builds require an
+update to read new payloads. Details and guards are maintained in the
+[Interaction Analysis API](../interactions_api.md) and the
+[implementation report](implement_experimental_sparse_interactions_results_and_queries.md).
+Bounded writing, compaction and consumer feedback remain open.
+
 ## Shared registry optimization — 2026-10-02
 
 Frame replacement now reuses unchanged catalog buffers and block maps, implicit

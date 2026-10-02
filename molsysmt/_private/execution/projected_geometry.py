@@ -24,7 +24,7 @@ def execute_projected_geometry(source, *, universe, frames, reducer, per_frame_b
     if mode == "eager" and per_frame_bytes * len(frames) > block_budget:
         raise MemoryBudgetExceededError(reason="Selected eager geometry work exceeds the block budget; use streaming.",
                                         predicted_bytes=per_frame_bytes * len(frames), available_bytes=block_budget, caller=caller)
-    reducer.metadata["parameters"]["execution"] = "chunked" if mode == "heavy" else "eager"
+    reducer.metadata["execution"]["execution"] = "chunked" if mode == "heavy" else "eager"
     form = get_form(source)
     attributes = ["coordinates", "box"] if pbc else ["coordinates"]
     if isinstance(form, str) and getattr(_dict_modules[form], "_heavy_support", {}).get("coordinates", False):

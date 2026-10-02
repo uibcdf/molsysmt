@@ -108,12 +108,27 @@ def query_interactions_group(group, structure_indices, *, atom_indices=None,
     """Read only requested frames and their relevant relation descriptions."""
     if group.attrs.get("format") != "molsysmt.interactions" or group.attrs.get(
         "schema_version"
-    ) != 1:
+    ) not in (1, 2):
         raise ValueError("Unsupported Interactions group schema or version.")
     metadata = (
         _cache["metadata"] if _cache is not None
         else json.loads(group.attrs["metadata"])
     )
+    from ._execution_provenance import legacy, normalize, project, read_group
+
+    if _cache is not None and "execution_records" in _cache:
+        records = _cache["execution_records"]
+    else:
+        if group.attrs["schema_version"] == 1:
+            metadata = dict(metadata)
+            metadata["parameters"], execution = legacy(metadata["parameters"])
+            incoming = None
+        else:
+            execution, incoming = None, read_group(group)
+        records = normalize(incoming, execution,
+                            group["evaluated_structure_indices"][:], int(metadata["n_structures"]))
+        if _cache is not None:
+            _cache.update(execution_records=records, metadata=metadata)
     n_atoms = int(metadata["n_atoms"])
     n_structures = int(metadata["n_structures"])
     frames = _unique_in_order(_indices(
@@ -248,6 +263,7 @@ def query_interactions_group(group, structure_indices, *, atom_indices=None,
         "source_n_structures": int(metadata.get("source_n_structures", n_structures)),
         "source_id": metadata.get("source_id"),
         "software": _software_versions(metadata.get("software")),
+        "execution_records": project(records, coverage),
         "method": metadata["method"],
         "parameters": metadata["parameters"],
         "evaluation_mode": metadata["evaluation_mode"],
@@ -309,7 +325,7 @@ class HDF5InteractionsReader:
             if self.group is None:
                 raise KeyError(f"Unknown interaction analysis {analysis_name!r}.")
             if (self.group.attrs.get("format") != "molsysmt.interactions"
-                    or self.group.attrs.get("schema_version") != 1):
+                    or self.group.attrs.get("schema_version") not in (1, 2)):
                 raise ValueError("Unsupported Interactions group schema or version.")
             metadata = json.loads(self.group.attrs["metadata"])
             self._cache = {

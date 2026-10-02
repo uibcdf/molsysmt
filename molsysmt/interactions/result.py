@@ -108,6 +108,8 @@ class Interactions:
     and the optional ``source_id`` label do not authenticate molecular origin.
     ``software`` records producer versions declared when observations were
     calculated. Missing versions remain unknown when loading older payloads.
+    Scientific criteria live in ``parameters``. Frame-scoped execution details
+    live in ``execution_records`` and survive partial compatible recalculation.
     Numeric storage is owned and read-only, including measurement columns.
     Construct a new result to change observations. Invalidation shares that
     storage with independent frame validity; complete-column access or
@@ -132,6 +134,7 @@ class Interactions:
         base = object.__new__(Interactions)
         base.__dict__ = self.__dict__.copy()
         base._is_full = True
+        base._coverage = base.evaluated_structure_indices
         return _restore_view, (
             _encode_interactions(base), self._positions, self._coverage,
             getattr(self, "_row_removal", None),
@@ -148,7 +151,8 @@ class Interactions:
                  structure_source_indices=None, source_n_atoms=None,
                  source_n_structures=None, evaluation_mode="internal",
                  evaluation_atom_indices=None, evaluation_atom_indices_b=None,
-                 evaluation_universe_indices=None, software=None):
+                 evaluation_universe_indices=None, software=None,
+                 execution=None, execution_records=None):
         self.n_atoms = int(n_atoms)
         self.n_structures = int(n_structures)
         self.source_n_atoms = (
@@ -225,6 +229,10 @@ class Interactions:
         self._atom_relation_ids = None
         self._relation_occurrence_offsets = None
         self._relation_occurrence_ids = None
+        from ._execution_provenance import normalize
+
+        self._execution_records = normalize(execution_records, execution,
+                                            self._coverage, self.n_structures)
         self._validate()
         for name in _STORAGE_FIELDS:
             value = getattr(self, name)
@@ -345,7 +353,8 @@ class Interactions:
                      structure_source_indices=None, source_n_atoms=None,
                      source_n_structures=None, evaluation_mode="internal",
                      evaluation_atom_indices=None, evaluation_atom_indices_b=None,
-                     evaluation_universe_indices=None, software=None):
+                     evaluation_universe_indices=None, software=None,
+                     execution=None, execution_records=None):
         """Building a sparse result from frame-specific interaction records.
 
         Parameters
@@ -370,12 +379,22 @@ class Interactions:
         measure_units : dict or None, default=None
             Unit for every measurement column; use ``"dimensionless"`` for scores.
         parameters : dict or None, default=None
-            Method parameters used for this result.
+            Scientific method parameters used for this result, excluding
+            execution policy and block counts.
         software : dict or None, default=None
             Software names mapped to the version strings that produced the
             observations. None records unknown versions, without using the
             installed reader version. MolSysMT detector adapters capture
             ``{"molsysmt": molsysmt.__version__}`` when calculating the result.
+        execution : dict or None, default=None
+            Execution details for this calculation, such as ``execution``
+            (eager or chunked), ``execution_chunks`` and ``memory_policy``.
+            Applies to all evaluated structures, including empty ones.
+            None means unknown execution details.
+        execution_records : iterable of dict or None, default=None
+            Alternative for multiple calculations. Each record contains
+            ``structure_indices`` and ``details``; the frame sets must partition
+            the evaluated structures exactly. Mutually exclusive with execution.
         source_id : str or None, default=None
             Optional provenance label supplied by the caller. It is not a verified
             fingerprint of the molecular system.
@@ -484,6 +503,7 @@ class Interactions:
             measurements={name: [row[3].get(name, np.nan) for row in rows]
                           for name in units}, measure_units=units, method=method,
             parameters=parameters, source_id=source_id, software=software,
+            execution=execution, execution_records=execution_records,
             occurrence_image_offsets=image_offsets, image_vectors=image_vectors,
             atom_source_indices=atom_source_indices,
             structure_source_indices=structure_source_indices,
@@ -519,6 +539,37 @@ class Interactions:
         }
 
     @property
+    def execution_records(self):
+        """Returning execution details partitioned by evaluated structure indices.
+
+        Each record contains a copied ``structure_indices`` integer array and
+        a ``details`` dictionary. Queries restrict records to their coverage;
+        evaluated frames without occurrences retain their execution record.
+        An empty dictionary means that execution details are unknown. Changing
+        the returned records does not modify the analysis.
+
+        Returns
+        -------
+        tuple of dict
+            Execution details with local evaluated-frame membership, including
+            evaluated frames that have no occurrences.
+
+        Examples
+        --------
+        >>> result = Interactions.from_records(
+        ...     [], n_atoms=0, n_structures=1,
+        ...     evaluated_structure_indices=[0], method="example",
+        ...     execution={"execution_chunks": 0})
+        >>> result.execution_records[0]["structure_indices"].tolist()
+        [0]
+        >>> result.execution_records[0]["details"]
+        {'execution_chunks': 0}
+        """
+        from ._execution_provenance import project
+
+        return project(self._execution_records, self._coverage)
+
+    @property
     def n_interactions(self):
         """Returning the number of selected occurrences."""
         return len(self._positions)
@@ -543,6 +594,7 @@ class Interactions:
                 self.evaluation_universe_indices,
             ) if value is not None),
             *self.measurements.values(),
+            *(frames for frames, _ in self._execution_records),
         )
         if self.image_vectors is not None:
             arrays += (self.occurrence_image_offsets, self.image_vectors)
@@ -821,6 +873,7 @@ class Interactions:
             "source_n_structures": self.source_n_structures,
             "source_id": self.source_id,
             "software": self.software.copy(),
+            "execution_records": self.execution_records,
             "evaluated_structure_indices": self._coverage.copy(),
             "occurrence_indices": occurrence_indices,
             "structure_indices": self.occurrence_structures[positions].copy(),
@@ -962,6 +1015,8 @@ class Interactions:
             )
             image_vectors = self.image_vectors[image_positions].copy()
 
+        from ._execution_provenance import remap
+
         return Interactions(
             n_atoms=atoms.size,
             n_structures=frames.size,
@@ -982,6 +1037,7 @@ class Interactions:
             parameters=self.parameters,
             source_id=self.source_id,
             software=self.software,
+            execution_records=remap(self, frames),
             atom_source_indices=self.atom_source_indices[atoms].copy(),
             structure_source_indices=self.structure_source_indices[frames].copy(),
             source_n_atoms=self.source_n_atoms,
@@ -1002,7 +1058,8 @@ class Interactions:
         including evaluated frames with zero observations. Other frames remain
         unchanged. Both operands must be full analyses on the same local and
         source axes with matching method, parameters, producer versions, units
-        and atom evaluation scope. This operation returns a new analysis and
+        and atom evaluation scope. Execution details may differ and are retained
+        per evaluated frame in ``execution_records``. This operation returns a new analysis and
         does not attach it to a molecular system or run a detector.
 
         Parameters
@@ -1111,7 +1168,7 @@ class Interactions:
         import h5py
 
         group.attrs["format"] = "molsysmt.interactions"
-        group.attrs["schema_version"] = 1
+        group.attrs["schema_version"] = 2
         group.attrs["metadata"] = json.dumps({
             "n_atoms": self.n_atoms, "n_structures": self.n_structures,
             "source_n_atoms": self.source_n_atoms,
@@ -1121,6 +1178,9 @@ class Interactions:
             "software": self.software,
             "evaluation_mode": self.evaluation_mode,
         })
+        from ._execution_provenance import write_group
+
+        write_group(group, self.execution_records)
         query_index = group.create_group("query_index")
         query_index.attrs["schema_version"] = 1
         frame_counts = np.bincount(
@@ -1204,9 +1264,16 @@ class Interactions:
         """Read one versioned typed result from an HDF5 file or group."""
         if group.attrs.get("format") != "molsysmt.interactions" or group.attrs.get(
             "schema_version"
-        ) != 1:
+        ) not in (1, 2):
             raise ValueError("unsupported Interactions file format or schema version")
         metadata = json.loads(group.attrs["metadata"])
+        from ._execution_provenance import legacy, read_group
+
+        if group.attrs["schema_version"] == 1:
+            metadata["parameters"], execution = legacy(metadata["parameters"])
+            records = None
+        else:
+            execution, records = None, read_group(group)
         evidence_labels = group["labels/evidence"].asstr()[:]
         type_labels = group["labels/relation_types"].asstr()[:]
         role_labels = group["labels/participant_roles"].asstr()[:]
@@ -1254,6 +1321,7 @@ class Interactions:
             measure_units=metadata["measure_units"], method=metadata["method"],
             parameters=metadata["parameters"], source_id=metadata["source_id"],
             software=metadata.get("software"),
+            execution=execution, execution_records=records,
             occurrence_image_offsets=(
                 group["occurrence_image_offsets"][:]
                 if "occurrence_image_offsets" in group else None

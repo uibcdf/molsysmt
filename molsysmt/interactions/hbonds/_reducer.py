@@ -87,7 +87,7 @@ class _HBondReducer(Reducer):
                                              hydrogen_acceptor_distance=ha[keep], dha_angle=dha[keep], hda_angle=hda[keep]))
 
     def finalize(self):
-        self.metadata["parameters"]["execution_chunks"] = self.chunks
+        self.metadata["execution"]["execution_chunks"] = self.chunks
         if not self.columns.n_rows:
             return Interactions.from_records([], **self.metadata)
         relations, occurrence_relations = np.unique(self.columns.concatenate("triples"), axis=0, return_inverse=True)

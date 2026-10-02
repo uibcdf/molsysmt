@@ -57,9 +57,9 @@ def test_eager_chunked_scopes_and_empty_nonconsecutive_frames(file_source, scope
         eager = _calculate(source, heavy_mode="off", **kwargs)
         chunked = _calculate(source, heavy_mode="force", **kwargs)
     _assert_same(eager, chunked)
-    assert chunked.parameters["execution"] == "chunked"
-    assert chunked.parameters["execution_chunks"] == 2
-    assert eager.parameters["execution_chunks"] == 1
+    assert chunked.execution_records[0]["details"]["execution"] == "chunked"
+    assert chunked.execution_records[0]["details"]["execution_chunks"] == 2
+    assert eager.execution_records[0]["details"]["execution_chunks"] == 1
     assert chunked.query(structure_indices=1).n_interactions == 0
     assert chunked.query(structure_indices=1).to_dict()["evaluated_structure_indices"].tolist() == [1]
 
@@ -79,7 +79,7 @@ def test_compound_triclinic_images_queries_and_named_roundtrip(file_source, tmp_
         eager = msm.interactions.ionic.get_ionic_interactions(source, ".4 nm", heavy_mode="off")
         chunked = msm.interactions.ionic.get_ionic_interactions(source, ".4 nm", heavy_mode="force")
     _assert_same(eager, chunked)
-    assert chunked.parameters["execution_chunks"] == 3
+    assert chunked.execution_records[0]["details"]["execution_chunks"] == 3
     assert chunked.query(atom_indices=[0], structure_indices=[4, 1]).n_interactions == 2
     assert chunked.query(atom_indices=[0, 1, 2], mode="internal").n_interactions == 0
     molsys.interactions = {"ionic": chunked}
@@ -136,8 +136,8 @@ def test_auto_coordinate_working_estimate_selects_small_blocks():
     ))
     with msm.configure.context(max_ram_usage=6000, chunk_size=2):
         result = _calculate(molsys)
-    assert result.parameters["execution"] == "chunked"
-    assert result.parameters["execution_chunks"] == 3
+    assert result.execution_records[0]["details"]["execution"] == "chunked"
+    assert result.execution_records[0]["details"]["execution_chunks"] == 3
     assert result.n_interactions == 6
 
 

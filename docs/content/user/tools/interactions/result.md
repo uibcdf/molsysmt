@@ -115,6 +115,30 @@ not replace the producer version. Older results without this metadata expose
 `{}`, meaning unknown. When constructing an analysis from an external
 detector, you can declare its versions with `software={"detector_name": "1.2"}`.
 
+## Inspecting execution provenance
+
+`parameters` contains scientific criteria. `execution_records` describes how each
+set of evaluated structures was calculated. Each record has a `structure_indices`
+integer array and a `details` dictionary. Projected detectors record execution
+mode, coordinate block count and memory policy. Unknown details appear as `{}`.
+
+```python
+runs = interactions.execution_records
+assert runs[0]["structure_indices"].tolist() == sorted(
+    interactions.evaluated_structure_indices.tolist())
+assert runs[0]["details"] == {}  # This example declares no execution details.
+```
+
+A frame query restricts these records even when it has zero occurrences. After
+partial recalculation, an analysis can contain records from several executions.
+Changing a returned record does not modify the analysis. A stored block count
+continues to describe the original execution after extraction or invalidation;
+it is not a count of frames still present. H5MSM preserves these records.
+
+New interaction payloads use codec version 2 inside H5MSM 0.5. Current readers
+also load version 1 and move its recorded execution keys out of `parameters`.
+Older MolSysMT builds supporting only codec 1 must be updated to read new files.
+
 ```python
 interactions.save("observations.h5i")
 restored = msm.Interactions.load("observations.h5i")
@@ -267,9 +291,9 @@ Both operands must be full analyses with the same local/source axes and maps,
 source label, method, parameters, producer versions, measurement names/units,
 and effective atom evaluation scope. A query view or an extracted subsystem
 is not a replacement operand. Differences raise an error; use a separate name
-for a different calculation. Parameter equality is strict, including attribution
-and execution metadata: detectors that change those records between runs require
-separate analyses until a distinct execution-provenance contract is introduced.
+for a different scientific calculation. Parameter equality is strict, including
+scientific attribution. Execution mode and block counts may differ: they are
+preserved per set of evaluated frames in `updated.execution_records`.
 Populated frames cannot mix known periodic images with unknown images. Empty
 frames do not invent images or impose missing observations.
 

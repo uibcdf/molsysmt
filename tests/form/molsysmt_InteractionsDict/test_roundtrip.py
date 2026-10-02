@@ -18,7 +18,7 @@ def test_empty_evaluated_frames_roundtrip_without_occurrence_objects():
     assert msm.get_form(result) == "molsysmt.Interactions"
     assert msm.get_form(encoded) == "molsysmt.InteractionsDict"
     assert encoded.data["schema"] == "molsysmt.interactions_dict"
-    assert encoded.data["version"] == 1
+    assert encoded.data["version"] == 2
     assert encoded.data["occurrence_structures"].shape == (0,)
     assert encoded.data["atom_source_indices"] is None
     assert encoded.data["structure_source_indices"] is None

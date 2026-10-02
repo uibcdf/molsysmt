@@ -208,7 +208,7 @@ def test_coordinate_file_route_does_not_load_saved_analyses(method, tmp_path, mo
     with msm.configure.context(chunk_size=1):
         result = _calculate(path, method=method, structure_indices=[2, 0, 2], heavy_mode='force')
     assert result.occurrence_structures.tolist() == [0, 2]
-    assert result.parameters['execution_chunks'] == 2
+    assert result.execution_records[0]["details"]['execution_chunks'] == 2
 
 
 @pytest.mark.parametrize('method', ['prolif', 'centroid_angle_offset'])

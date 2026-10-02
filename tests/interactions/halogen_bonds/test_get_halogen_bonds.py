@@ -160,7 +160,7 @@ def test_chunked_h5msm_projects_selected_frames_without_loading_saved_analyses(m
     monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", lambda *args, **kwargs: pytest.fail("Full file loaded."))
     for item in (source, path):
         result = msm.interactions.halogen_bonds.get_halogen_bonds(item, pbc=False, heavy_mode="force")
-        assert result.n_interactions == 100 and result.parameters["execution_chunks"] == 15
+        assert result.n_interactions == 100 and result.execution_records[0]["details"]["execution_chunks"] == 15
     selected = msm.interactions.halogen_bonds.get_halogen_bonds(path, pbc=False, heavy_mode="force", structure_indices=[98, 1, 50, 1])
     assert selected.occurrence_structures.tolist() == [1, 50, 98]
     monkeypatch.setattr(msm.configure, "max_ram_usage", 100)

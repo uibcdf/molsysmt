@@ -238,7 +238,11 @@ def _replace(source, replacement):
         parts.append((incoming, frames, relations, evidence))
         extra = frames[~np.isin(frames, source._coverage)]
         coverage = np.r_[source._coverage, extra] if len(extra) else source._coverage
-        return _snapshot(source, parts, coverage, fields)
+        from ._execution_provenance import replace
+
+        result = _snapshot(source, parts, coverage, fields)
+        result._execution_records = replace(source, incoming, frames)
+        return result
 
 
 def _invalidate_patch(source, frames):

@@ -163,7 +163,7 @@ def _worker(args):
         "source": args.source, "mode": args.mode, "source_load_s": source_load_s,
         "calculation_samples_s": durations, "calculation_median_s": float(np.median(durations)),
         "stage_medians": grouped, "occurrences": result.n_interactions,
-        "relations": len(result.relation_types), "chunks": result.parameters["execution_chunks"],
+        "relations": len(result.relation_types), "chunks": result.execution_records[0]["details"]["execution_chunks"],
         "numeric_bytes_before_index": bytes_before_index, "numeric_bytes_after_index": bytes_after_index,
         "rss_before_calculation_bytes": rss_before,
         # Linux VmHWM belongs to this address space. ru_maxrss can also include

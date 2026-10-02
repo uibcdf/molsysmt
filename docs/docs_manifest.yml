@@ -150,7 +150,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, shared immutable catalogs and partial frame replacement after coordinate edits.
+            description: Sparse queries, shared immutable catalogs, frame-scoped execution provenance and partial replacement after coordinate edits.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbonds

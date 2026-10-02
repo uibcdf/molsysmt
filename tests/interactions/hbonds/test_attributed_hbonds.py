@@ -101,8 +101,8 @@ def test_chunked_native_and_h5msm_never_materialize_full_trajectory(monkeypatch,
     for input_system in (source, path):
         result = _calculate(input_system, "baker_hubbard", heavy_mode="force", pbc=False)
         assert result.n_interactions == 1000
-        assert result.parameters["execution_chunks"] == 143
-        assert result.parameters["execution"] == "chunked"
+        assert result.execution_records[0]["details"]["execution_chunks"] == 143
+        assert result.execution_records[0]["details"]["execution"] == "chunked"
     from molsysmt.form import _h5msm05_modular
 
     monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", lambda *args, **kwargs: pytest.fail("Full H5MSM load was attempted."))

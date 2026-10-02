@@ -73,7 +73,7 @@ class _HalogenReducer(Reducer):
                     ))
 
     def finalize(self):
-        self.metadata["parameters"]["execution_chunks"] = self.chunks
+        self.metadata["execution"]["execution_chunks"] = self.chunks
         if not self.columns.n_rows:
             return Interactions.from_records([], **self.metadata)
         relations, occurrence_relations = np.unique(self.columns.concatenate("chains"), axis=0, return_inverse=True)

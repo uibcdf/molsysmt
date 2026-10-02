@@ -84,6 +84,7 @@
     }
   },
   "signature_waivers": {
+    "molsysmt/interactions/result.py:from_records": "Accepted experimental extension under uibcdf/molsysmt#251 and #252: add optional execution and execution_records for frame-scoped provenance; existing arguments/defaults retained. Guard: tests/interactions/test_execution_provenance.py.",
     "molsysmt/physchem/_charge_centers.py:pack_membership": "Move an unexported private packing helper to molsysmt/_private/sparse_membership.py for shared chemical-feature and interaction use; no public callable is removed",
     "molsysmt/form/file_dcd/copy.py:copy": "Add missing output_filename parameter used in function body",
     "molsysmt/form/file_dcd/extract.py:extract": "Add missing output_filename parameter used in function body",

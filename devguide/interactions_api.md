@@ -657,7 +657,7 @@ versions that produced the observations. Both hydrogen-bond and disulfide adapte
 `{"molsysmt": molsysmt.__version__}` during calculation. Views, remapping,
 invalidation, InteractionsDict, standalone HDF5, selective HDF5 projections,
 and H5MSM 0.5 preserve this metadata. The optional field is stored once per
-analysis in schema-1 metadata, without a per-occurrence column. Readers of
+analysis in versioned metadata, without a per-occurrence column. Readers of
 older payloads with no field return `{}`: unknown producer versions are never
 filled from the installed reader version. External producers may supply their
 own name/version entries through `from_records(software=...)`. Its
@@ -667,7 +667,8 @@ own name/version entries through `from_records(software=...)`. Its
 `replace_structures`, `save`, and
 `load` provide construction,
 inspection, and standalone HDF5 round trips. The current file schema version
-is 1 and is distinct from H5MSM 0.4. `load` materializes the result in memory.
+is 2; readers also accept schema 1. It is independent of H5MSM 0.5.
+`load` materializes the result in memory.
 `to_dict()` exposes `occurrence_indices`, the `int64` row positions in the
 complete analysis. They distinguish parallel observations with the same
 structure and relation, remain unchanged in filtered views and H5MSM round
@@ -757,6 +758,51 @@ MolSysDict 0.1 exports reject a system with attached analyses because those
 formats cannot store them. The design and remaining gates are
 tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
 
+### Frame-scoped execution provenance
+
+`parameters` stores scientific criteria, chemical recognition, periodic conventions
+and attribution. `execution_records` returns a tuple of dictionaries, each with an
+int64 `structure_indices` vector and a `details` dictionary. Frame sets partition
+the current evaluated coverage exactly, including zero-row frames. Each vector is
+sorted. Projected detectors record `execution`, `execution_chunks` and
+`memory_policy`. Water paths additionally retain `hbond_execution`. Legacy eager
+adapters expose unknown details (`{}`); no runtime information is invented.
+
+Construct a single calculation with `execution={...}` or supply explicit
+`execution_records`; these arguments are mutually exclusive. Returned vectors
+and details are independent copies. Internal storage holds one frame vector per
+execution, without columns or Python objects per occurrence. Query projection
+uses binary searches in sorted run vectors. Its work depends on requested
+coverage and execution record count, rather than scanning all occurrence rows
+or each complete run's frame vector. Numeric byte accounting includes these
+vectors; Python metadata overhead remains excluded.
+
+Queries clip records to selected evaluated frames, even when atom/type filters
+yield no observations. Invalidation drops invalid frames from exposed provenance.
+Replacement keeps source run membership for surviving frames and appends incoming
+records. A stored `execution_chunks` continues to describe the original calculation,
+whose frame membership may have been reduced by later edits; it is not a count of
+retained frames. Remap transforms membership into new local frame indices, including
+repeated extraction. Producer versions remain analysis-wide and must match for
+replacement. No geometry hashes or automatic recalculations are introduced.
+
+InteractionsDict and the embedded/standalone interaction group write codec version
+2. H5MSM remains 0.5; its named-analysis collection remains schema 1. The dictionary
+stores records with NumPy frame vectors. HDF5 stores `execution/details` as JSON
+strings plus int64 `execution/structure_offsets` and `execution/structure_indices`;
+offsets delimit each record's frame set. An analysis with no evaluated frames writes zero records and
+offsets `[0]`. Readers validate exact coverage partitioning. Older MolSysMT builds
+supporting only codec 1 reject codec-2 analyses and need updating before reading
+newly written files.
+
+Current readers accept version 1 and migrate only the historical runtime keys
+`execution`, `execution_chunks`, `memory_policy` from parameters, plus these keys
+in water-path `hbond_parameters`, into execution details. Scientific criteria and
+references are preserved. Missing details remain unknown. Pickle, typed conversion,
+named H5MSM round trips and private selective HDF5 projections preserve the records.
+The guard is `tests/interactions/test_execution_provenance.py`, including real
+detector recalculation with changed execution policy and native coordinate edits.
+
 ### Compatible frame replacement
 
 `Interactions.replace_structures(replacement, skip_digestion=False)` is a
@@ -765,10 +811,9 @@ replacement must be another full result with matching local/source dimensions,
 source maps/label, method, parameters, software producer versions, measure units
 and effective evaluation scope. It replaces every incoming evaluated frame,
 including zero-row frames, and unions coverage. Query views and extracted axes
-are rejected. Parameter equality includes execution and attribution metadata;
-this first contract rejects differing run metadata rather than erasing evidence.
-A distinct per-execution provenance model remains pending for detectors whose
-run descriptors differ between partial calculations. Known/unknown periodic
+are rejected. Parameter equality includes scientific criteria and attribution.
+Execution policy and block counts may differ; frame-scoped provenance preserves
+how retained and incoming observations were calculated. Known/unknown periodic
 images cannot coexist in populated active blocks; empty coverage does not
 synthesize images.
 

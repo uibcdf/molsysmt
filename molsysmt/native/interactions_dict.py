@@ -55,7 +55,7 @@ def _encode_packed_interactions(result):
     )
     data = {
         "schema": "molsysmt.interactions_dict",
-        "version": 1,
+        "version": 2,
         "n_atoms": result.n_atoms,
         "n_structures": result.n_structures,
         "source_n_atoms": result.source_n_atoms,
@@ -72,6 +72,7 @@ def _encode_packed_interactions(result):
         "parameters": deepcopy(result.parameters),
         "source_id": result.source_id,
         "software": result.software.copy(),
+        "execution_records": result.execution_records,
     }
     data.update(
         (name, None if getattr(result, name) is None else getattr(result, name).copy())
@@ -90,8 +91,19 @@ def _decode_interactions(payload):
     from molsysmt.interactions.result import Interactions
 
     data = payload.data
-    if data.get("schema") != "molsysmt.interactions_dict" or data.get("version") != 1:
+    if data.get("schema") != "molsysmt.interactions_dict" or data.get("version") not in (1, 2):
         raise ValueError("Unsupported InteractionsDict schema or version.")
+    from molsysmt.interactions._execution_provenance import legacy
+
+    parameters = data["parameters"]
+    execution = None
+    if data["version"] == 1:
+        parameters, execution = legacy(parameters)
+        records = None
+    else:
+        records = data["execution_records"]
+        if records is None:
+            raise ValueError("Version-2 interaction payloads require execution_records")
     labels = tuple(data["evidence_labels"])
     codes = np.asarray(data["occurrence_evidence"], dtype=np.int64)
     if np.any(codes < 0) or np.any(codes >= len(labels)):
@@ -137,7 +149,8 @@ def _decode_interactions(payload):
         },
         measure_units=dict(data["measure_units"]),
         method=data["method"],
-        parameters=deepcopy(data["parameters"]),
+        parameters=deepcopy(parameters),
+        execution=execution, execution_records=records,
         source_id=data["source_id"],
         software=data.get("software"),
         occurrence_image_offsets=(

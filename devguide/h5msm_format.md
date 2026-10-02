@@ -34,7 +34,9 @@ search scope, source maps, units, evidence and periodic images. The full contrac
 is [Interaction Analysis API](interactions_api.md); the existing interaction
 codec schema is independent of the H5MSM root version.
 
-Each analysis stores producer `software` versions once in metadata. Scientific
+Each analysis stores producer `software` versions once in metadata. Interaction
+codec 2 also stores frame-scoped execution records separately from scientific
+parameters; codec-1 input is migrated on reading. The H5MSM root remains 0.5. Scientific
 selectors, profiles, definition labels and detached bibliography are ordinary
 versioned analysis parameters. The optional `parameters["attribution"]` payload
 uses `molsysmt.scientific_attribution@1`; it adds no per-occurrence columns and

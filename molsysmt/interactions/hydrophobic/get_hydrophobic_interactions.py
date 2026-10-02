@@ -233,11 +233,11 @@ def get_hydrophobic_interactions(
             pbc=pbc, pbc_policy="mic_when_box_available", image_policy="pair_mic_anchored_on_lower_atom_index",
             pair_identity="distinct_unordered_source_atom_indices", intramolecular="included", covalent_exclusion="none",
             occupancy_policy="individual_frame_observations", adaptation="single_source_sparse_scopes_no_residue_pruning_canonical_pair_mic",
-            memory_policy="numeric_working_estimates@1",
         ),
     )
+    metadata["execution"] = {"memory_policy": "numeric_working_estimates@1"}
     if not len(frames) or not searches:
-        metadata["parameters"].update(execution="none", execution_chunks=0)
+        metadata["execution"].update(execution="none", execution_chunks=0)
         result = Interactions.from_records([], **metadata)
     else:
         reducer = _HydrophobicReducer(universe=universe, searches=searches, distance=float(distance),

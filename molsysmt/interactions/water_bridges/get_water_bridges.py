@@ -253,10 +253,13 @@ def get_water_bridges(
             branch_identity="distinct_external_heavy_atom_then_directed_dha",
             selection_policy="all_actual_leg_participants", mediator_order=order,
             hydrogen_policy="indexed_atoms_only", image_policy="align_shared_water_oxygen_then_anchor_first_role",
-            execution=legs.parameters["execution"], execution_chunks=legs.parameters["execution_chunks"],
-            memory_policy="resident_legs_and_sparse_join_numeric_estimates@1",
         ),
     )
+    leg_execution = legs.execution_records[0]["details"] if legs.execution_records else {}
+    metadata["execution"] = {
+        **leg_execution, "hbond_execution": leg_execution,
+        "memory_policy": "resident_legs_and_sparse_join_numeric_estimates@1",
+    }
     result = join_water_legs(legs, all_water_oxygen=waters["water_atom_indices"][:, 0],
                              first=first, second=second, metadata=metadata, budget_bytes=configure.max_ram_usage)
     return result if output_type == "molsysmt.interactions" else convert(result, to_form="molsysmt.InteractionsDict")

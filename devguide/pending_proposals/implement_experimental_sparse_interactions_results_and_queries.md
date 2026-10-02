@@ -14,6 +14,42 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+## Frame-scoped execution provenance — 2026-10-02
+
+**Implemented and contract-tested:** scientific criteria and attribution remain
+in `parameters`; execution mode, block count and memory policy now live in
+`execution_records`, partitioned by evaluated local structure indices. Empty
+frames retain their producer record. Queries, invalidation, repeated remapping,
+partial replacement, pickle and typed/HDF5 persistence preserve the association.
+The three legacy eager adapters retain unknown details rather than inventing them.
+
+Real tests cover eager/chunked replacement for ionic, pi-pi, cation-pi, hydrophobic,
+halogen and metal candidates, single/two-water paths and all five attributed
+hydrogen-bond profiles. They move coordinates through the public native setter,
+restore invalidated frames with a fresh detector result, and preserve unaffected
+observations. Buch, Luzard–Chandler and disulfide partial replacement are covered.
+Scientific criteria, attribution, software, axes and atom-scope incompatibilities
+remain errors. No detector runs or attaches automatically.
+
+Interaction codecs now write version 2 within unchanged H5MSM 0.5. Current readers
+accept codec 1 and migrate its known runtime keys, preserving scientific criteria
+and references. Older provider builds reject version 2. This deliberate experimental
+extension requires consumers to update MolSysMT before reading new files. The
+normative contract is [Interaction Analysis API](../interactions_api.md).
+Guard: `tests/interactions/test_execution_provenance.py`.
+
+**Checkpoint evidence:** 667 tests passed across interaction families, native
+attachment, typed and H5MSM conversion, geometry/chemistry edit workflows and
+result doctests. A further 215-test selection passed, covering frame replacement,
+execution records and independent curated detector truths. The final codec and
+new property-doctest selection passed 31 tests. All 12 executable result-guide
+blocks, 8 sparse Cookbook blocks and code cells of 9 changed User Guide notebooks
+passed without overwriting their stored outputs. Module 10's protected code and
+outputs remain unchanged. Ruff, dependency, signature and developer-guide gates
+passed. Sphinx HTML built successfully with existing documentation warnings;
+no new canvas/browser qualification was performed. Bounded
+writers, explicit compaction and the updated MolSysViewer handoff remain pending.
+
 ## Shared registry and replacement optimization — 2026-10-02
 
 **Implemented and contract-tested:** frame replacement now shares unchanged

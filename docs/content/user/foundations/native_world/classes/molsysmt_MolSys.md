@@ -145,6 +145,11 @@ without duplicating the surviving observations. Complete-column access,
 remapping or export may materialize active columns later. After recalculating
 selected frames on the original axes and scope, use
 `current.replace_structures(fresh)` and attach its result under the same name.
+Compatible recalculations may use different coordinate block sizes or execution
+policies. Each analysis keeps their frame membership and details in
+`execution_records`, including evaluated-empty structures; scientific parameters,
+producer versions and atom scope must still agree.
+
 This preserves other frames and checks calculation compatibility; attaching
 `fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain
 unevaluated coverage because a partial write may have occurred.

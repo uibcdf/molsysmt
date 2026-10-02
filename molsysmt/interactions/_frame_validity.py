@@ -15,7 +15,7 @@ from .result import Interactions, _immutable_array, _indices, _unique_in_order
 
 
 def _metadata(source):
-    return {"parameters": deepcopy(source.parameters),
+    return {"_execution_records": source._execution_records, "parameters": deepcopy(source.parameters),
             "measure_units": source.measure_units.copy(),
             "software": source.software.copy(),
             "method": source.method, "source_id": deepcopy(source.source_id)}
@@ -117,6 +117,7 @@ class _FrameFilteredInteractions(Interactions):
         else:
             view = view._view([], coverage)
         view._row_removal = self._row_removal
+        view._execution_records = self._execution_records
         view.parameters = self.parameters
         view.measure_units = self.measure_units
         view.software = self.software
@@ -187,6 +188,7 @@ class _FrameFilteredInteractions(Interactions):
                 measure_units=self.measure_units, method=self.method,
                 parameters=self.parameters, software=self.software, source_id=self.source_id,
                 occurrence_image_offsets=offsets, image_vectors=vectors,
+                execution_records=self.execution_records,
             )
         # Attribution may be attached after construction. Keep the packed
         # interchange projection consistent with this analysis's metadata.

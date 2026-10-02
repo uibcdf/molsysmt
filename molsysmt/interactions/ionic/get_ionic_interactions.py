@@ -345,8 +345,6 @@ def get_ionic_interactions(
             "image_policy": "whole_participants_anchor_relative_mic",
             "pbc_policy": "mic_when_box_available",
             "recognition_scope": "full_source_chemical_state",
-            "execution": "chunked" if mode == "heavy" else "eager",
-            "memory_policy": "numeric_working_estimates@1",
             "intramolecular": "included",
             "exclude_direct_covalent": True,
         },
@@ -355,6 +353,8 @@ def get_ionic_interactions(
         evaluation_atom_indices_b=scope_second,
         evaluation_universe_indices=universe,
     )
+    metadata["execution"] = {"memory_policy": "numeric_working_estimates@1"}
+    metadata["execution"]["execution"] = "chunked" if mode == "heavy" else "eager"
     searches = _search_sets(positive, negative, in_first, in_second, selection_mode)
     if len(frames) and searches:
         topology = (
@@ -408,7 +408,7 @@ def get_ionic_interactions(
             if mode == "eager" and len(frames) * frame_working_bytes > block_budget:
                 if heavy_mode == "auto" and index_selections:
                     mode = "heavy"
-                    metadata["parameters"]["execution"] = "chunked"
+                    metadata["execution"]["execution"] = "chunked"
                 else:
                     raise UnsupportedHeavyOperationError(
                         operation=_CALLER, form="eager ionic coordinate blocks",
@@ -447,7 +447,7 @@ def get_ionic_interactions(
             {}, budget_bytes=config.max_ram_usage // 2,
             fixed_bytes=8 * (2 * n_atoms + 4 * n_structures),
         ).check_budget()
-        metadata["parameters"]["execution_chunks"] = 0
+        metadata["execution"]["execution_chunks"] = 0
         result = Interactions.from_records([], **metadata)
     return (
         result

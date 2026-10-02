@@ -106,7 +106,7 @@ def worker(args):
         for name in result.measurements:
             np.testing.assert_array_equal(restored.measurements[name], result.measurements[name])
     return dict(source=args.source, method=args.method, heavy_mode=args.mode, samples_seconds=times, median_seconds=float(np.median(times)),
-                occurrences=result.n_interactions, relations=len(result.relation_types), chunks=result.parameters["execution_chunks"],
+                occurrences=result.n_interactions, relations=len(result.relation_types), chunks=result.execution_records[0]["details"]["execution_chunks"],
                 numeric_bytes_before_index=numeric_before, numeric_bytes_after_index=result.numeric_nbytes,
                 rss_before_calculation_bytes=rss, process_peak_rss_bytes=_rss_bytes("VmHWM"),
                 first_atom_query_s=first_query, atom_query_median_s=atom_query, frame_query_median_s=frame_query,

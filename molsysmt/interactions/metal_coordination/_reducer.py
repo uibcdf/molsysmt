@@ -58,7 +58,7 @@ class _MetalCoordinationReducer(Reducer):
                         distance=distances[keep], images=images[keep]))
 
     def finalize(self):
-        self.metadata["parameters"]["execution_chunks"] = self.chunks
+        self.metadata["execution"]["execution_chunks"] = self.chunks
         if not self.columns.n_rows:
             return Interactions.from_records([], **self.metadata)
         pairs, occurrence_relations = np.unique(self.columns.concatenate("pairs"), axis=0, return_inverse=True)

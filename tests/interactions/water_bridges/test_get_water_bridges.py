@@ -165,7 +165,7 @@ def test_streaming_legs_from_h5_without_full_coordinate_loading(monkeypatch, tmp
     monkeypatch.setattr(_h5msm05_modular, 'read_molsys_file', lambda *a, **k: pytest.fail('Full file load'))
     for item in (source, path):
         result = msm.interactions.water_bridges.get_water_bridges(item, pbc=False, heavy_mode='force')
-        assert result.n_interactions == 50 and result.parameters['execution_chunks'] == 8
+        assert result.n_interactions == 50 and result.execution_records[0]["details"]['execution_chunks'] == 8
     selected = msm.interactions.water_bridges.get_water_bridges(path, pbc=False, heavy_mode='force', structure_indices=[49, 0, 25, 49])
     assert selected.occurrence_structures.tolist() == [0, 25, 49]
     monkeypatch.setattr(msm.configure, 'max_ram_usage', 100)
