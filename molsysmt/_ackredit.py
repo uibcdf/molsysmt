@@ -3,6 +3,8 @@
 No import hooks, reminders, DOI enrichment or journal are enabled by MolSysMT.
 Hosts and applications own those choices. Bibliographic result metadata does
 not depend on Ackredit being installed.
+Catalog diagnostics remain emitted under strict warning filters; their own
+promotion cannot replace completed results or scientific exceptions.
 """
 
 from contextlib import contextmanager
@@ -15,11 +17,17 @@ def _failed(operation, error):
     from molsysmt._private.smonitor.emitter import warn
     from molsysmt._private.smonitor.warnings import AckreditTrackingWarning
 
-    warn(
-        AckreditTrackingWarning(
-            extra={"operation": operation, "reason": f"{type(error).__name__}: {error}"}
-        )
+    diagnostic = AckreditTrackingWarning(
+        extra={"operation": operation, "reason": f"{type(error).__name__}: {error}"}
     )
+    try:
+        warn(diagnostic)
+    except AckreditTrackingWarning as promoted:
+        # SMonitor emits the catalog event before applying Python's warning
+        # filter. Optional attribution cannot replace science under an error
+        # filter; only this diagnostic's promotion is isolated here.
+        if promoted is not diagnostic:
+            raise
 
 
 @dep_digest("ackredit")

@@ -343,9 +343,14 @@ def test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_cr
         assert not ackredit.get_used_items()
 
 
+@pytest.mark.parametrize("strict_warnings", [False, True])
 def test_optional_attribution_failure_does_not_change_completed_preparation(
     monkeypatch,
+    strict_warnings,
 ):
+    import warnings
+    from contextlib import nullcontext
+
     from molsysmt import _ackredit
     from molsysmt._private.smonitor.warnings import AckreditTrackingWarning
 
@@ -353,8 +358,14 @@ def test_optional_attribution_failure_does_not_change_completed_preparation(
         raise RuntimeError("controlled provider failure")
 
     monkeypatch.setattr(_ackredit, "backend", failed)
-    with pytest.warns(AckreditTrackingWarning):
-        output = msm.physchem.apply_chemical_template(_source(), **_options(None))
+    with warnings.catch_warnings():
+        if strict_warnings:
+            warnings.simplefilter("error", AckreditTrackingWarning)
+        expected_warning = (
+            nullcontext() if strict_warnings else pytest.warns(AckreditTrackingWarning)
+        )
+        with expected_warning:
+            output = msm.physchem.apply_chemical_template(_source(), **_options(None))
     assert output["report"]["status"] == "applied"
     assert output["report"]["attribution"]["items"]
 
