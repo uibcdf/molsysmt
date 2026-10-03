@@ -118,6 +118,9 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_chemical_readiness
+            file: docs/content/user/tools/physchem/get_chemical_readiness.md
+            agents_file: docs/content/user/tools/physchem/get_chemical_readiness.md.AGENTS.md
           - name: get_cip_stereochemistry
             file: docs/content/user/tools/physchem/get_cip_stereochemistry.md
             agents_file: docs/content/user/tools/physchem/get_cip_stereochemistry.md.AGENTS.md

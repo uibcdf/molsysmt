@@ -331,6 +331,31 @@ topology attributes, transformations, auxiliary readers, analysis caches, or
 custom trajectory-reader state. Those features require separate evidence before
 they can be advertised as contractual.
 
+### Read-only chemical coverage assessment
+
+`physchem.get_chemical_readiness` is an experimental form-agnostic stored-field
+audit for one state and at most one structure. It accepts incomplete native
+domains rather than invoking the complete-graph guard used for CIP and rings.
+The versioned detached dictionary reports source indices, per-field coverage,
+unsupported encodings, limited integrity conflicts and declared edge evidence.
+Selections include incident bonds and report their crossing boundary. Native
+state resolution remains authoritative; an ambiguous reference or absent
+structure-state association leaves chemistry unassessed rather than selecting
+the first state.
+
+The audit creates no chemical store and performs no repair or perception.
+Stored availability, connectivity completeness and edge evidence do not certify
+valence, protonation, aromaticity, stereogenicity or docking readiness. Unknown
+property origins stay unassessed. Explicit H atoms and stored virtual/implicit
+H counts are separate observations. Coordinate finiteness uses explicit nm
+conversion through PyUnitWizard, not a conformer-quality or periodicity test.
+H5MSM 0.5 numeric selections reuse the bounded form iterator and read only the
+selected coordinate frame/atom rows; independently combined layers need declared
+identity atom-axis links. Rich string selection retains existing public
+selection behavior. Native inspection adds no optional engine or attribution
+boundary. See the [user contract](../docs/content/user/tools/physchem/get_chemical_readiness.md)
+and `tests/physchem/test_get_chemical_readiness.py`.
+
 ### Contractual chemical interoperability forms
 
 `rdkit.Mol`, `openff.Molecule`, `openff.Topology`, `parmed.Structure`,

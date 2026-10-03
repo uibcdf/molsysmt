@@ -21,6 +21,7 @@ from .get_volume import get_volume
 from molsysmt.physchem.atoms.protor import get_protor_atom_type, get_protor_vdw_radius
 # isort: on
 
+from .get_chemical_readiness import get_chemical_readiness
 from .get_cip_stereochemistry import get_cip_stereochemistry
 from .get_metal_coordination_sites import get_metal_coordination_sites
 from .get_water_sites import get_water_sites

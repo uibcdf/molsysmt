@@ -37,14 +37,13 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (24)
+### Open (23)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
 - [`assign_partial_charges_with_an_explicit_named_model.md`](assign_partial_charges_with_an_explicit_named_model.md) — [#221](https://github.com/uibcdf/molsysmt/issues/221) — Assign partial charges with an explicit named model *(inspected)*
 - [`define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md`](define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md) — [#220](https://github.com/uibcdf/molsysmt/issues/220) — Define small-molecule chemical-state enumeration with atom correspondence *(inspected)*
-- [`diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md`](diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md) — [#217](https://github.com/uibcdf/molsysmt/issues/217) — Diagnose ligand chemical readiness for a selected molecular state *(inspected)*
 - [`energy_minimized_placement_for_ambiguous_modified_residue_gaps.md`](energy_minimized_placement_for_ambiguous_modified_residue_gaps.md) — [#249](https://github.com/uibcdf/molsysmt/issues/249) — Energy-minimized placement for ambiguous modified-residue gaps *(measured)*
 - [`evaluate_a_native_aminoacidsequence_value_object.md`](evaluate_a_native_aminoacidsequence_value_object.md) — [#242](https://github.com/uibcdf/molsysmt/issues/242) — Evaluate a native AminoAcidSequence value object *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*

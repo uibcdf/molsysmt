@@ -23,6 +23,23 @@ to `chemical_states`; coordinates belong to `structures`. SDF declares
 coordinates in angstroms. Native structures store nanometers, and writing
 converts explicitly back to angstroms regardless of your unit policy.
 
+## Inspecting chemistry before preparation
+
+```python
+assessment = msm.physchem.get_chemical_readiness(molsys)
+assert assessment['fields']['formal_charge']['status'] == 'present'
+assert assessment['connectivity']['declared_completeness'] == 'complete'
+assert assessment['fields']['n_implicit_hydrogens']['status'] == 'missing'
+```
+
+The native reader retains explicit source chemistry. Its absent implicit-H
+counts remain unknown, even when all ten source H atoms have coordinates.
+The assessment neither adds atoms nor validates valence or chooses protonation.
+Use the {ref}`chemical readiness guide <Tutorial_Chemical_Readiness>` to review
+coverage, source indices, declared evidence and unassessed checks before
+choosing a separate preparation operation. Select one structure explicitly
+when inspecting a trajectory.
+
 ## Writing and selecting
 
 ```python

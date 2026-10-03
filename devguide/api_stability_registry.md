@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 114 |
+| experimental | 115 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -216,6 +216,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_buried_fraction` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_charge` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_charge_centers` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_chemical_readiness` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_cip_stereochemistry` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_electronegativity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_halogen_bond_sites` | experimental | active | pre-1.0 |

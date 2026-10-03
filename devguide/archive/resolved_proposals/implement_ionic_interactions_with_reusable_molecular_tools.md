@@ -731,7 +731,7 @@ candidates:
 - Missing charges do not justify silent reparameterization or a switch to a
   different charge definition.
 - Successful RDKit sanitization does not prove the source state was explicit
-  and chemically sufficient; see the [readiness proposal](../../pending_proposals/diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md).
+  and chemically sufficient; see the [readiness proposal](diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md).
 - Mol* and its NGL antecedents do not form two independent scientific oracles.
 - Compacting coordinates does not preserve internal images in today's result
   encoding automatically.

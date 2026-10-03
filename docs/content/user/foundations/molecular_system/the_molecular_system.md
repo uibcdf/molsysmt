@@ -53,6 +53,15 @@ limits.
 
 ## Independent Analysis Results
 
+Available chemistry and validated chemistry are different properties of a
+model. An experimental read-only assessment with
+`msm.physchem.get_chemical_readiness()` reports stored field coverage and limited
+consistency checks for one selected state and structure. Missing fields and
+ambiguous state associations remain unknown; the assessment does not repair
+the system. Its {ref}`chemical readiness guide <Tutorial_Chemical_Readiness>`
+explains why stored formal charges, bond orders or H counts alone do not
+certify protonation, valence or readiness for a downstream calculation.
+
 Some analyses produce data associated with a molecular system without changing
 its topology or structures. The experimental `molsysmt.Interactions` class is
 one such result: it records chemically classified observations and the source

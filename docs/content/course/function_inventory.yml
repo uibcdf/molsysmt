@@ -1,6 +1,13 @@
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.physchem.get_chemical_readiness:
+  name: "msm.physchem.get_chemical_readiness"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Inspects stored chemical coverage without repairing or certifying chemistry."
+  doc_ref: "{func}`molsysmt.physchem.get_chemical_readiness`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_chemical_readiness()**: Inspects stored field coverage and limited consistency checks.\n:::"
+
 molsysmt.basic.convert:
   name: "msm.convert"
   first_introduced_in: "Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"

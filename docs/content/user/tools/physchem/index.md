@@ -9,6 +9,7 @@
 | [Get CIP stereochemistry](get_cip_stereochemistry.md) | Getting absolute CIP labels from declared stereo or one structure |
 | [Get charge](get_charge.ipynb) | Getting the formal, tabulated, or partial force field charge of elements |
 | [Get charge centers](get_charge_centers.ipynb) | Recognizing sparse formal-charge centers in one chemical state |
+| [Get chemical readiness](get_chemical_readiness.md) | Inspecting stored field coverage before explicit chemical preparation |
 | [Get electronegativity](get_electronegativity.ipynb) | Getting Pauling electronegativities for constituent atoms |
 | [Get halogen-bond sites](get_halogen_bond_sites.ipynb) | Recognizing ordered donor–halogen and acceptor–reference pairs |
 | [Get hydrogen-bond sites](get_hbond_sites.ipynb) | Recognizing attributed donor–hydrogen pairs and acceptors |
@@ -39,6 +40,7 @@
    get_cip_stereochemistry.md
    get_charge.ipynb
    get_charge_centers.ipynb
+   get_chemical_readiness.md
    get_electronegativity.ipynb
    get_hbond_sites.ipynb
    get_hydrophobicity.ipynb

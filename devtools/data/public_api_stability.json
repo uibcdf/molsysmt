@@ -1849,6 +1849,14 @@
       "owner": "topology",
       "documentation": "docs/content/user/tools/topology/get_rigid_fragments.md",
       "contract_tests": "tests/topology/test_get_rigid_fragments.py"
+    },
+    "molsysmt.physchem.get_chemical_readiness": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_chemical_readiness.md",
+      "contract_tests": "tests/physchem/test_get_chemical_readiness.py"
     }
   }
 }

@@ -14,6 +14,7 @@ API Physical and Chemical Properties
    get_cip_stereochemistry
    get_charge
    get_charge_centers
+   get_chemical_readiness
    get_electronegativity
    get_hbond_sites
    get_halogen_bond_sites
