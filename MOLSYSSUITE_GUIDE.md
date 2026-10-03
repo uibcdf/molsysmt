@@ -153,6 +153,17 @@ own triage and priority, while the discovering contributor owns a clear evidence
 A local workaround may unblock work, but it must name the provider issue and its removal
 condition. Do not silently fork sibling functionality.
 
+For a fix in another owner's repository, use its issue for a nonurgent need
+without a ready fix, or submit a concrete fix as a linked pull request for owner
+review. For urgent work by or directly supervised by Diego (`dprada`) or Liliana
+(`LMMV`), ask which route to use; direct commit and push require their explicit
+authorization. Authorization already given for the same work remains valid
+within its scope; do not request it again for every commit. Other contributors
+do not inherit it. Owner-local development and the accepted internal-maintainer
+direct-push/CI routes retain their own rules. Follow the
+[cross-repository contribution route](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md#contributing-a-fix-to-another-repository)
+for applicability and bounded exceptions.
+
 When changing any shared auxiliary library, reusable workflow, development/publication
 action or canonical guide with plausible consumer impact, open or update a linked
 MolSysSuite impact issue. Give notice before publication or rollout when foreseeable,
