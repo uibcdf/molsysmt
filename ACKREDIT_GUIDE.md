@@ -63,12 +63,67 @@ does not establish runtime adoption or published compatibility.
   minor. Keep the client's existing support range; editable pilot evidence does not
   authorize a public extra or installation claim.
 
-Portable capture/export/import remains pending in uibcdf/ackredit#75. No new API is
-promised here. Until supported, bounded host adapters use public operations and
-host-owned result schemas. Do not read private registries, copy renderers or treat
-journals of IDs as a portable bibliography. The MolSysMT pilot at
+The reviewed API under uibcdf/ackredit#75 provides `capture`,
+`Attribution` and `get_attribution` operations. Consumer adoption and published
+installation remain separate gates. The first reviewed contract is assigned to
+the **0.9.0 candidate**, pending immutable public delivery; older tags do not
+contain it. Its [compatibility contract](https://github.com/uibcdf/ackredit/blob/main/docs/content/user_guide/portable_attribution.md)
+keeps schema 1 readable in later releases and versions structural changes with
+a new schema ID. Do not read private registries, copy renderers
+or treat journals of IDs as a portable bibliography. The MolSysMT pilot at
 `e21f03d9992b87af2cc9285211adee888462be41` is consumer evidence; its
 `molsysmt.scientific_attribution@1` schema remains local.
+
+### Portable calculation capture (reviewed contract)
+
+Applications own the session and may capture each result without replacing it:
+
+```python
+import ackredit
+
+with ackredit.session("workflow"):
+    with ackredit.capture(
+        "conversion", context={"producer": "client", "version": "1"}
+    ) as run:
+        with ackredit.scope("client.convert"):
+            ackredit.register_item(
+                id="software:example:2", type="software", title="Example", version="2"
+            )
+            ackredit.track_item(
+                "software:example:2",
+                roles=["executed_software"],
+                context={"software": "example", "version": "2"},
+            )
+    result_references = run.attribution.to_dict()
+    workflow_references = ackredit.get_attribution().to_dict()
+
+saved = ackredit.Attribution.from_dict(result_references)
+bibliography = saved.report(format="bibtex")
+```
+
+Each enclosing capture observes reused references even if the session already
+credited them. Nested captures observe completed child work in the same session;
+explicit isolated sessions are independent. Exceptions propagate and completed
+child credits remain; a partial capture is not proof of successful science.
+
+The `ackredit.attribution@1` object carries `name`, producer `context`, complete
+`items`, contextual `uses` and a `usage_tree`, alongside its `schema` field.
+Use entries carry `item_id`, `used_by`, `roles` and JSON `context`. Roles belong
+to uses, not the bibliographic work: `scientific_criterion`,
+`reference_implementation`, `executed_software` and `software_description` are
+recommended conventions, not an exhaustive vocabulary. A software reference
+and its description articles share `context.software` and `context.version`;
+articles alone can also be cited with that context. Distinct software versions
+use distinct bibliographic IDs. Conflicting metadata for one observed ID raises
+catalog-backed `ACKREDIT-E011` instead of overwriting original provenance.
+
+Export/import detaches JSON data. Reading or rendering never registers or credits
+records, loads scientific backends, or enriches DOIs. Unknown schema versions and
+invalid payloads are refused with `ACKREDIT-E010`. Store this payload beside a
+host's scientific data without changing the host's serialization contract.
+Journals continue to store identifiers; they do not persist contextual uses.
+Legacy plain credits resolve bibliography at workflow snapshot time; captured
+or contextual credits retain the records observed at use time.
 
 A MolSysSuite client needing other initialization/session semantics records a
 reviewed member-owned exception with the affected rule, reason, owner and issue,
@@ -134,7 +189,7 @@ except ImportError:
     def credit_bound(target):
         return []
 
-    def track_item(item_id, used_by=None):
+    def track_item(item_id, used_by=None, *, roles=(), context=None):
         pass
 
     def scoped_usage(target, credit_bound=False):
