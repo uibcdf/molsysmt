@@ -134,7 +134,9 @@ ledger authoritative for release scope.
    declared chemistry/stereo. It rejects unsupported source scope, invalidates
    interactions only on the expanded output, and returns detached provenance.
    Local geometry is not an optimized receptor orientation; consumer acceptance
-   and any later native ligand engine remain separate evidence.
+   and a [future native ligand engine #308](pending_proposals/add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md)
+   remain separate evidence. #308 does not block continuing with the explicit
+   RDKit route.
 4. **Assign charges and chemical AutoDock types explicitly.**
    [Named charges #221](pending_proposals/assign_partial_charges_with_an_explicit_named_model.md)
    and [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)
