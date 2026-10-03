@@ -20,6 +20,7 @@ API Build
    get_missing_residues
    get_missing_terminal_cappings
    get_non_standard_residues
+   get_residue_chemical_coverage
    has_hydrogens
    is_solvated
    make_bioassembly

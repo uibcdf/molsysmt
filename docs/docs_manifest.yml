@@ -82,6 +82,11 @@ sections:
         index_file: docs/content/user/tools/build/index.md
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
+        pages:
+          - name: get_residue_chemical_coverage
+            file: docs/content/user/tools/build/get_residue_chemical_coverage.md
+            agents_file: docs/content/user/tools/build/get_residue_chemical_coverage.md.AGENTS.md
+            status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
         agents_file: docs/content/user/tools/topology/AGENTS.md
@@ -235,6 +240,10 @@ sections:
         file: docs/content/user/cookbook/native_sdf.md
         agents_file: docs/content/user/cookbook/native_sdf.md.AGENTS.md
         status: in_progress
+      - name: auditing_residue_chemistry
+        file: docs/content/user/cookbook/auditing_residue_chemistry.md
+        agents_file: docs/content/user/cookbook/auditing_residue_chemistry.md.AGENTS.md
+        status: reviewed
       - name: building_complex_dimers
         file: docs/content/user/cookbook/building_complex_dimers.ipynb
         agents_file: docs/content/user/cookbook/building_complex_dimers.ipynb.AGENTS.md

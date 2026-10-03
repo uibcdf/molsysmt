@@ -242,13 +242,33 @@ def _state(source, states, requested, frame, links, caller):
 def assess(
     molecular_system, selection, structure_indices, chemical_state, syntax, caller
 ):
+    return _assess_from_domains(
+        molecular_system,
+        selection,
+        structure_indices,
+        chemical_state,
+        syntax,
+        caller,
+        _domains(molecular_system, caller),
+    )
+
+
+def _assess_from_domains(
+    molecular_system,
+    selection,
+    structure_indices,
+    chemical_state,
+    syntax,
+    caller,
+    domains,
+):
     from molsysmt import __version__
     from molsysmt import pyunitwizard as puw
     from molsysmt.basic import get, get_form, has_attribute, select
     from molsysmt.element.atom import is_atom_type
 
     frame = _frame(molecular_system, structure_indices, caller)
-    source, topology, states, n_atoms, links = _domains(molecular_system, caller)
+    source, topology, states, n_atoms, links = domains
     if n_atoms is None or n_atoms < 0:
         raise StructuralInconsistencyError(
             reason="Chemical readiness requires a declared atom-index domain.",

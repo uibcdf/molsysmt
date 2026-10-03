@@ -1,6 +1,13 @@
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.build.get_residue_chemical_coverage:
+  name: "msm.build.get_residue_chemical_coverage"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Compares exact residue templates while retaining unassessed chemical dimensions."
+  doc_ref: "{func}`molsysmt.build.get_residue_chemical_coverage`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.get_residue_chemical_coverage()**: Compares bounded residue inventories and stored connectivity.\n:::"
+
 molsysmt.physchem.get_chemical_readiness:
   name: "msm.physchem.get_chemical_readiness"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

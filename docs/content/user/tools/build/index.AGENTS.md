@@ -5,7 +5,7 @@ Governance rules for `docs/content/user/tools/build/index.md` (the Build Tools s
 
 ## Structural Invariants
 1. **Title**: `# Build`
-2. **Catalog Table**: 2-column catalog table listing all 20 build tools with Markdown link titles and brief gerund descriptions.
+2. **Catalog Table**: 2-column catalog table listing the public build tools with Markdown link titles and brief gerund descriptions. Preserve the existing entries and the residue chemical coverage report.
 3. **Hidden toctree**:
    ```rst
    .. toctree::
@@ -24,6 +24,7 @@ Governance rules for `docs/content/user/tools/build/index.md` (the Build Tools s
       get_missing_residues.ipynb
       get_missing_terminal_cappings.ipynb
       get_non_standard_residues.ipynb
+      get_residue_chemical_coverage.md
       has_hydrogens.ipynb
       is_solvated.ipynb
       make_bioassembly.ipynb

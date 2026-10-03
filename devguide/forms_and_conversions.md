@@ -356,6 +356,41 @@ selection behavior. Native inspection adds no optional engine or attribution
 boundary. See the [user contract](../docs/content/user/tools/physchem/get_chemical_readiness.md)
 and `tests/physchem/test_get_chemical_readiness.py`.
 
+### Exact residue template coverage
+
+`build.get_residue_chemical_coverage` adds a read-only group report to the shared
+stored-field audit. Numeric selections are source group indices; rich selections
+resolve atoms and inspect their whole groups. Required atom-to-group membership
+is validated without synthesizing hierarchy for coordinate-only or ungrouped
+sources. Each selected group remains represented, including unsupported cofactors.
+
+Exact amino-acid database names and curated MSE/SEP/TPO/MLY heavy templates define
+the supported comparison scope. Sequence aliases never justify parent templates.
+Unique atom names provide correspondence. Candidate H inventories are retained
+without choosing protonation from a missing-H score. Missing terminal OXT, chemical
+valence, environmental protonation, inter-group chemistry and repair placement
+remain unassessed. Curated modified templates support declared order comparison;
+legacy amino-acid variants do not provide reference orders. Unknown source edges
+and orders cannot become covalent relationships or fabricated values.
+
+Template provenance records packaged hashes and available upstream evidence;
+property origins remain unknown unless declared. The nested chemical-readiness
+report preserves its state, frame, units and bounded H5MSM access contract.
+Template resources and bond-field lookups are reused within one assessment;
+connectivity compares each group's partitioned records without repeatedly scanning
+the whole selected bond table. No new optional provider or attribution boundary
+is introduced. See the [user contract](../docs/content/user/tools/build/get_residue_chemical_coverage.md)
+and `tests/build/test_get_residue_chemical_coverage.py`.
+
+### Hierarchy selection delivery
+
+After resolving atom selections, `basic.select` projects group/component/chain/
+molecule/entity indices through public `basic.get`, including empty and nested
+selections. A declared attribute can be delivered through conversion rather than
+a direct form getter. Projection must honor that route instead of assuming a
+`get_X_index_from_atom` callable exists. This reuses the existing source-axis
+contract without inferring hierarchy. See `tests/basic/select/test_hierarchy_fallback.py`.
+
 ### Contractual chemical interoperability forms
 
 `rdkit.Mol`, `openff.Molecule`, `openff.Topology`, `parmed.Structure`,

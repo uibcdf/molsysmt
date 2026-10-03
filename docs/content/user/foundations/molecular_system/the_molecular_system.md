@@ -62,6 +62,13 @@ the system. Its {ref}`chemical readiness guide <Tutorial_Chemical_Readiness>`
 explains why stored formal charges, bond orders or H counts alone do not
 certify protonation, valence or readiness for a downstream calculation.
 
+For grouped residues, `msm.build.get_residue_chemical_coverage()` adds a bounded
+comparison against exact supported templates. Unsupported groups appear explicitly
+as unassessed, and modified residues retain their own chemical identity. Its
+{ref}`residue coverage guide <Tutorial_Residue_Chemical_Coverage>` explains why
+heavy-atom completeness and candidate H inventories do not establish environmental
+protonation, terminal context or repair quality.
+
 Some analyses produce data associated with a molecular system without changing
 its topology or structures. The experimental `molsysmt.Interactions` class is
 one such result: it records chemically classified observations and the source

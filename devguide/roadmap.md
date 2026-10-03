@@ -104,7 +104,7 @@ ledger authoritative for release scope.
    chemical preparation remain separate pending work.
 2. **Assess chemical readiness and coverage before transformations.**
    [Ligand readiness #217](archive/resolved_proposals/diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md)
-   and [receptor coverage #218](pending_proposals/report_receptor_residue_chemistry_and_preparation_coverage.md)
+   and [receptor coverage #218](archive/resolved_proposals/report_receptor_residue_chemistry_and_preparation_coverage.md)
    must distinguish declared, inferred, missing, conflicting and unassessed
    information. A successful conversion, an empty missing-atom list or the
    presence of hydrogens is insufficient. Start with one explicitly selected
@@ -112,8 +112,10 @@ ledger authoritative for release scope.
    public predicates and reports before choosing or extending a public boundary.
    The experimental `physchem.get_chemical_readiness` now reports stored field
    coverage, declared edge evidence and limited conflicts without repair or a
-   universal ready flag. Receptor template coverage remains pending in #218;
-   scientific valence/protonation validation is not established by field presence.
+   universal ready flag. The experimental `build.get_residue_chemical_coverage`
+   now adds exact residue-template inventories and stored-graph comparisons,
+   retaining unsupported groups and unresolved H/protonation dimensions. Scientific
+   valence/protonation validation is not established by either assessment.
 3. **Complete selected chemistry and missing H through reusable tools.**
    uibcdf/molsysmt#298 owns explicit template assessment/application with
    caller-declared atom correspondence; uibcdf/molsysmt#300 owns fixed-state

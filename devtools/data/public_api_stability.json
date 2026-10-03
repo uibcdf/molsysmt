@@ -1857,6 +1857,14 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_chemical_readiness.md",
       "contract_tests": "tests/physchem/test_get_chemical_readiness.py"
+    },
+    "molsysmt.build.get_residue_chemical_coverage": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "build",
+      "documentation": "docs/content/user/tools/build/get_residue_chemical_coverage.md",
+      "contract_tests": "tests/build/test_get_residue_chemical_coverage.py"
     }
   }
 }

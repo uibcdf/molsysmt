@@ -33,6 +33,7 @@ Houses tutorial units for system building, topology construction, missing heavy 
 - `get_missing_residues.ipynb` ➔ `get_missing_residues.ipynb.AGENTS.md`
 - `get_missing_terminal_cappings.ipynb` ➔ `get_missing_terminal_cappings.ipynb.AGENTS.md`
 - `get_non_standard_residues.ipynb` ➔ `get_non_standard_residues.ipynb.AGENTS.md`
+- `get_residue_chemical_coverage.md` ➔ `get_residue_chemical_coverage.md.AGENTS.md`: Read-only exact template coverage and explicit unassessed chemistry.
 - `has_hydrogens.ipynb` ➔ `has_hydrogens.ipynb.AGENTS.md`
 - `is_solvated.ipynb` ➔ `is_solvated.ipynb.AGENTS.md`
 - `make_bioassembly.ipynb` ➔ `make_bioassembly.ipynb.AGENTS.md`

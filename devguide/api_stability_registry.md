@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 115 |
+| experimental | 116 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -178,6 +178,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.get_missing_residues` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_missing_terminal_cappings` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_non_standard_residues` | experimental | active | pre-1.0 |
+| `molsysmt.build.get_residue_chemical_coverage` | experimental | active | pre-1.0 |
 | `molsysmt.build.has_hydrogens` | experimental | active | pre-1.0 |
 | `molsysmt.build.is_solvated` | experimental | active | pre-1.0 |
 | `molsysmt.build.make_bioassembly` | experimental | active | pre-1.0 |
