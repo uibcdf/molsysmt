@@ -48,6 +48,7 @@ whose bond table is empty.
 | [Get substructure matches](get_substructure_matches.ipynb) | Matching complete chemical SMARTS with {func}`molsysmt.topology.get_substructure_matches` |
 | [Get rings](get_rings.ipynb) | Perceiving a sparse covalent cycle basis |
 | [Get bondgraph](get_bondgraph.ipynb) | Getting the bondgraph of a molecular system |
+| [Get rigid fragments](get_rigid_fragments.md) | Partitioning complete connectivity at explicit active bonds |
 | [Get covalent blocks](get_covalent_blocks.ipynb) | Getting the covalent blocks of a molecular system |
 | [Get covalent paths](get_covalent_paths.ipynb) | Getting covalent paths between atoms in a molecular system |
 | [Get dihedral quartets](get_dihedral_quartets.ipynb) | Getting the quartets of atoms defining specific dihedral angles |
@@ -60,6 +61,7 @@ whose bond table is empty.
    :maxdepth: 2
    :hidden:
 
+   get_rigid_fragments.md
    get_rings.ipynb
    get_substructure_matches.ipynb
    get_bondgraph.ipynb

@@ -1,10 +1,10 @@
 ---
 summary: Add PDBQT file and string forms with MolSys conversion
 issue: uibcdf/molsysmt#214
-status: open
+status: partial
 opened: 2026-09-22
 closed:
-verification: inspected
+verification: reproduced
 area: [form, convert]
 guard:
 normative:
@@ -15,8 +15,10 @@ supersedes: []
 # Add PDBQT file and string forms with MolSys conversion
 
 **Reported:** 2026-09-22, from the DockingMT Vina integration discussion and inspection of the form registry.
-**Status:** Open. The maintainer brought this work forward on 2026-10-02,
-after the native SDF work in uibcdf/molsysmt#215. No PDBQT adapter is implemented.
+**Status:** Partial. The maintainer brought the bounded adapter work forward
+on 2026-10-02. Experimental native file/string adapters now read rigid receptors
+and single ligand trees and write explicitly supplied data. Chemical preparation
+and wider acceptance validation remain pending.
 
 ## What
 
@@ -126,3 +128,82 @@ unrelated native field. Ordinary chemical-symbol normalization is reusable
 under uibcdf/molsysmt#296; general explicit typing/profile and rigid-fragment
 capabilities remain owned by uibcdf/molsysmt#222 and #224. No PDBQT form has
 been delivered by the CIP/SDF stage.
+
+
+
+## Implementation checkpoint — 2026-10-03
+
+**Implemented / Contract-tested:** `file:pdbqt` and explicit
+`string:pdbqt_text` (`pdbqt_text:` prefix), native MolSys and reduced-domain
+projections, declared AutoDock4 charge/type parsing, fixed-column writing,
+partial BRANCH connectivity, source serial IDs, residue/chain fields,
+coordinates/occupancy/B factors, typed declared tree access, native writer
+validation, selected rigid projections, conservative reports and strict mode.
+File/string identity routes retain payload, line endings, tree and remarks,
+including explicit complete index selections. A full native ligand conversion
+requires explicit authorization to omit the tree. No general native torsion
+store was introduced. The public format `get_torsion_tree` dictionary is bound
+to source atom IDs and indices and can be supplied to the writer separately.
+
+The writer requires explicit `typing_scheme='autodock4'`, supplied types and
+partial charges, one structure and valid field widths/IDs. Tree consistency is
+validated before destination mutation. For a complete native graph, it calls
+the public `topology.get_rigid_fragments` tool to verify branch cuts and fragment
+memberships. Geometry is explicitly serialized in angstrom, B factors in
+angstrom squared and charges in elementary charge, irrespective of session
+unit policy. Every present hydrogen is retained; hydrogen merging, charge
+aggregation, chemical typing and torsion perception are deliberately separate
+preparation capabilities. Tree traversal may reorder atom lines; stable source
+serial IDs carry the correspondence. Source MolSys domains are not modified.
+
+Known source metadata and full native chemistry/domain losses are reported.
+Strict mode cannot be bypassed by `discard_torsion_tree=True`. The bounded
+native writer audit remains conservative, not exhaustive. Arbitrary remarks,
+record kinds, full connectivity and chemistry cannot be claimed to survive a
+native projection. MolecularMechanics remains excluded from H5MSM 0.5, so
+that format does not preserve PDBQT charges/type labels for later writing.
+
+**References inspected:** AutoDock4.2.6 manual, Vina parse_pdbqt.cpp and atom
+constants, and Meeko's documented PDBQT grammar. An existing Vina basic-docking
+ligand (40 atoms, seven branches) was read and serialized as a source check;
+its data are not added as a dependency or copied into bundled systems.
+Independent MDAnalysis comparisons cover atom IDs, coordinates, charges and
+labels on committed hand-written rigid/ligand fixtures. These are bounded
+format parity checks, not validation of a preparation algorithm.
+
+**Guards:** `tests/form/file_pdbqt/test_native_contract.py` covers identity and
+native routes, tree roles/indices, ROOT-only and nested/sibling layouts, source
+immutability, all-H retention, explicit selections and frame bounds, malformed
+records, extended-dialect rejection, invalid writer input/tree before file
+mutation, full-graph agreement, strict losses and a non-default unit policy.
+No speed or memory benchmark has been performed.
+
+**Pending before closure:** curated prepared receptor/ligand coverage and
+supported-profile review with DockingMT; broader writer completeness/report
+validation; an explicit decision on the general native torsion/preparation
+model. AutoDock chemical assignment (#222), charge models (#221), nonpolar-H
+projection/aggregation (#223), rotatable-bond perception (#224), flexible
+receptors (#225) and pose ensembles (#226) remain separate work. The current
+all-H-preserving profile does not satisfy the acceptance checks for a future
+merging profile; no claim of such preparation is made.
+
+## Verification summary — 2026-10-03
+
+The combined atom-type/PDBQT/SDF/conversion-report/plugin regression passed
+415 tests in 80.23 seconds. This includes the two new public tool doctests.
+The final focused selection passed 73 tests in 9.27 seconds, including
+follow-up mechanical getter index bounds and a tree writer with an atom domain
+but no evaluated chemical state. Its count overlaps the combined selection
+and is not additive.
+Ruff, API stability, docstrings, form delivery, dependency imports/contracts,
+developer-guide and maintained course-structure gates passed. Sphinx HTML
+compiled with existing repository warnings and no new PDBQT/tool reference
+warnings. The maintained devtools course-structure validator passes.
+
+**Combined-query follow-up:** The final integration inspection exposed a
+general get dispatcher defect: it grouped topology/structure requests but
+omitted mechanical attributes from mixed results. Resolved under
+uibcdf/molsysmt#301 with a central dispatcher fix and a source-value/selection
+regression guard. The subsequent PDBQT and existing-query selection passed
+292 tests in 37.21 seconds, including reduced and shared native pipes. This
+selection overlaps earlier counts and must not be added to them.

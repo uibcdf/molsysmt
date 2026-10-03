@@ -168,3 +168,17 @@ molsysmt.physchem.get_cip_stereochemistry:
   summary: "Analyzes full-graph CIP labels without changing stored chemistry."
   doc_ref: "{func}`molsysmt.physchem.get_cip_stereochemistry`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_cip_stereochemistry()**: Analyzes full-graph CIP labels. See {func}`molsysmt.physchem.get_cip_stereochemistry`.\n:::"
+
+molsysmt.element.atom.get_atom_type_from_atom_ff_type:
+  name: "msm.element.atom.get_atom_type_from_atom_ff_type"
+  first_introduced_in: "Common_Core/02_Molecular_Attributes.ipynb"
+  summary: "Decodes chemical elements from existing labels under a named typing scheme."
+  doc_ref: "{func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.element.atom.get_atom_type_from_atom_ff_type()**: Decodes labels without assigning chemistry.\n:::"
+
+molsysmt.topology.get_rigid_fragments:
+  name: "msm.topology.get_rigid_fragments"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Partitions complete covalent connectivity at explicit source bond indices."
+  doc_ref: "{func}`molsysmt.topology.get_rigid_fragments`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rigid_fragments()**: Derives packed rigid fragments from explicit cuts.\n:::"

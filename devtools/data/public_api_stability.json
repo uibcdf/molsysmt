@@ -1833,6 +1833,22 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_cip_stereochemistry.md",
       "contract_tests": "tests/physchem/test_get_cip_stereochemistry.py"
+    },
+    "molsysmt.element.atom.get_atom_type_from_atom_ff_type": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "element.atom",
+      "documentation": "docs/content/user/tools/element/atom/atom_types.md",
+      "contract_tests": "tests/element/atom/test_get_atom_type_from_atom_ff_type.py"
+    },
+    "molsysmt.topology.get_rigid_fragments": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "topology",
+      "documentation": "docs/content/user/tools/topology/get_rigid_fragments.md",
+      "contract_tests": "tests/topology/test_get_rigid_fragments.py"
     }
   }
 }

@@ -105,6 +105,7 @@ _TIER_3_FORMS = (
     "file:inpcrd",
     "file:pir",
     "file:prmtop",
+    "file:pdbqt",
     "file:sdf",
     "file:trjpk",
     "molsysmt.ChemicalStates",
@@ -115,6 +116,7 @@ _TIER_3_FORMS = (
     "molsysmt.MolecularMechanicsDict",
     "pytraj.Topology",
     "pytraj.Trajectory",
+    "string:pdbqt_text",
 )
 
 FORM_TIERS: dict[str, int] = {

@@ -459,3 +459,54 @@ For every supported conversion edge, tests should cover:
 
 The adapter linter checks structural conformance. It is not evidence of semantic
 parity or scientific correctness.
+
+## Native AutoDock4 PDBQT subset
+
+The experimental `file:pdbqt` and explicit `string:pdbqt_text` forms support a
+rigid receptor and a single balanced ligand torsion tree. Prefix strings with
+`pdbqt_text:`. No third-party parser or preparation package is required.
+The adapters retain every source hydrogen, explicit mechanical labels/charges,
+stable atom names/IDs and supported hierarchy/structural fields. Length and
+area boundaries explicitly use angstrom and angstrom squared through PyUnitWizard.
+AutoDock labels decode to chemical element `atom_type`; they remain separate
+`atom_ff_type` data. Formal charges and aromaticity are not inferred.
+
+Only BRANCH edges are declared covalent evidence, with unknown order.
+Connectivity is always partial. Native domains have no general torsion store;
+public format `get_torsion_tree` returns a detached typed/indexed dictionary
+(`molsysmt.pdbqt-torsion-tree@1`), separate from native molecular data. Full
+MolSys conversion requires explicit `discard_torsion_tree=True` for ROOT inputs.
+Reduced domains project their own supported fields and omit format metadata.
+General attribute queries use reduced-domain routes and direct mechanics getters.
+
+Native writing requires one selected structure, supported explicit charges and
+labels, canonical positive integer string IDs within field width, and explicit
+`typing_scheme='autodock4'`. A tree writes ligand layout; None requests rigid
+layout. Validate exact selected atom-ID correspondence, a rooted partition and
+branch roles before writing. Complete native graphs additionally validate cuts
+and fragments through the public `topology.get_rigid_fragments` tool. Tree
+traversal may reorder atom lines while serial IDs preserve correspondence.
+Serialization uses the format's fixed precision; preparation and hydrogen
+merging never occur implicitly. All validation precedes destination mutation.
+
+File/string identity bridges preserve the original payload and support strict
+mode. Native conversions report known tree/remark/kind losses; native writers
+report loss of full chemistry and other unsupported domains. Reports remain
+conservative, not exhaustive for native output. Explicitly authorizing tree
+omission does not waive strict loss checks. Rigid atom subsets are supported;
+tree projection requires explicit remapping. Extended dialects, flexible
+receptors and multi-model ensembles remain separate proposals. This stage does
+not implement AutoDock type assignment (#222), hydrogen merging/maps (#223),
+or chemical rotatable-bond perception (#224). MolecularMechanics stays excluded
+from H5MSM 0.5, so its labels/charges cannot be claimed to survive that route.
+
+User contract: [prepared PDBQT recipe](../docs/content/user/cookbook/native_pdbqt.md).
+Implementation and acceptance debt: uibcdf/molsysmt#214.
+
+Mixed public queries preserve requested mechanical fields alongside topology
+and structures. Reduced-domain pipes cover their own fields; the dispatcher
+queries other requested domains on the original source, retaining the same
+selected source atom-index order. It does not silently omit those result keys
+or force charge/type data into Topology. Guard:
+`tests/basic/get/test_mixed_mechanical_pipes.py`; resolved defect:
+uibcdf/molsysmt#301.

@@ -50,3 +50,21 @@ Neither tool changes its input or assigns chemistry to a system. To validate
 values from any supported molecular-system form, first obtain `atom_type`
 through {func}`molsysmt.basic.get`. Inferring elements from standard atom names
 is a separate operation: {func}`molsysmt.element.atom.get_atom_type_from_atom_name`.
+
+## Decoding named model labels
+
+Use {func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type` to decode
+labels already assigned under the explicit `autodock4` dictionary:
+
+```python
+msm.element.atom.get_atom_type_from_atom_ff_type(
+    ['A', 'NA', 'OA', 'HD', 'Cl'], typing_scheme='autodock4')
+# ['C', 'N', 'O', 'H', 'Cl']
+```
+
+A string yields a string; a one-dimensional collection yields a new list.
+Names are case sensitive. Unknown schemes, custom labels, macrocycle glue
+labels (`G0`, `CG0`, etc.) and the hydrated-ligand pseudoatom `W` raise an
+argument error. This operation does not assign labels to atoms or infer
+aromaticity, hydrogen polarity or charges. An empty collection still requires
+a supported named scheme.

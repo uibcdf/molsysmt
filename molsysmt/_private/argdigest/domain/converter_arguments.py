@@ -27,6 +27,14 @@ from argdigest import Domain
 
 #: to_form -> the keywords some converter into that form accepts.
 CONVERTER_ARGUMENTS = {
+    "file:pdbqt": (
+        "atom_indices", "structure_indices", "output_filename", "skip_digestion",
+        "typing_scheme", "torsion_tree", "copy_if_all", "get_missing_bonds",
+    ),
+    "string:pdbqt_text": (
+        "atom_indices", "structure_indices", "skip_digestion", "typing_scheme",
+        "torsion_tree", "copy_if_all", "get_missing_bonds",
+    ),
     "MDAnalysis.AtomGroup": (
         "atom_indices",
         "compression",
@@ -645,6 +653,7 @@ CONVERTER_ARGUMENTS = {
         "structure_indices",
     ),
     "molsysmt.MolSys": (
+        "discard_torsion_tree",
         "atom_indices",
         "box",
         "compression",
@@ -682,6 +691,7 @@ CONVERTER_ARGUMENTS = {
         "structure_indices",
     ),
     "molsysmt.MolecularMechanics": (
+        "discard_torsion_tree",
         "atom_indices",
         "compression",
         "compression_opts",
@@ -714,6 +724,7 @@ CONVERTER_ARGUMENTS = {
         "structure_indices",
     ),
     "molsysmt.Structures": (
+        "discard_torsion_tree",
         "atom_indices",
         "compression",
         "compression_opts",
@@ -738,6 +749,7 @@ CONVERTER_ARGUMENTS = {
         "structure_indices",
     ),
     "molsysmt.Topology": (
+        "discard_torsion_tree",
         "atom_indices",
         "compression",
         "compression_opts",

@@ -58,3 +58,14 @@ for supported tetrahedral and double-bond stereo, without removing source
 hydrogens. Enhanced and unsupported stereo remain errors. SD property blocks
 need explicit authorization to discard when converting into native objects.
 See {ref}`cookbook-native-sdf` for selections, units and conversion reports.
+
+## Prepared docking records
+
+`file:pdbqt` reads the experimental native AutoDock4 subset: one rigid receptor
+or one ligand tree, with explicit charges and types. The explicit string form
+is `string:pdbqt_text`, using the prefix `pdbqt_text:`. Input coordinates and B
+factors are angstrom and angstrom squared; the native boundary uses PyUnitWizard.
+PDBQT does not contain complete connectivity. A ligand's torsion tree must be
+retained separately and explicitly omitted when projecting to MolSys. No
+chemical preparation is performed. See {ref}`cookbook-native-pdbqt` for writer
+requirements, hydrogen policy, selection, strict reports and unsupported dialects.

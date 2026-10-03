@@ -1,0 +1,43 @@
+from molsysmt.attribute.attributes import attributes as _catalogue
+
+attributes = dict.fromkeys(_catalogue, False)
+for _name in (
+    "atom_index",
+    "atom_id",
+    "atom_name",
+    "atom_type",
+    "group_index",
+    "group_id",
+    "group_name",
+    "chain_index",
+    "chain_id",
+    "bond_index",
+    "bond_type",
+    "bonded_atom_pairs",
+    "inner_bond_index",
+    "inner_bonded_atom_pairs",
+    "connectivity_completeness",
+    "component_index",
+    "component_completeness",
+    "component_evidence",
+    "molecule_index",
+    "entity_index",
+    "n_atoms",
+    "n_groups",
+    "n_chains",
+    "n_bonds",
+    "n_inner_bonds",
+    "n_components",
+    "n_molecules",
+    "n_entities",
+    "coordinates",
+    "occupancy",
+    "b_factor",
+    "structure_index",
+    "structure_id",
+    "n_structures",
+    "partial_charge",
+    "atom_ff_type",
+):
+    attributes[_name] = True
+del _name, _catalogue

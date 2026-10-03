@@ -1,10 +1,10 @@
 ---
 summary: Assign and validate AutoDock atom types under a named scheme
 issue: uibcdf/molsysmt#222
-status: open
+status: partial
 opened: 2026-09-22
 closed:
-verification: inspected
+verification: reproduced
 area: [build, attribute]
 guard:
 normative:
@@ -15,7 +15,9 @@ supersedes: []
 # Assign and validate AutoDock atom types under a named scheme
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
-**Status:** Open; MolSysMT proposal is post-1.0.
+**Status:** Partial. Explicit label decoding and bounded writer validation
+are implemented; chemical assignment and a stored named-scheme contract remain
+post-1.0.
 
 ## What
 
@@ -53,3 +55,23 @@ Atom typing and scheme provenance; no partial-charge calculation or DockingMT sc
 Related tracked work: uibcdf/molsysmt#214
 Cross-component implementation links: uibcdf/dockingmt#5.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.
+
+
+
+## Explicit label decoding checkpoint — 2026-10-03
+
+`molsysmt.element.atom.get_atom_type_from_atom_ff_type` decodes an existing
+label or one-dimensional label collection under `typing_scheme='autodock4'`.
+Standard labels map to chemical element symbols, independently of atom names.
+Custom, macrocycle glue and hydrated-ligand pseudoatom labels fail explicitly.
+An empty collection still requires a supported named scheme. Tests are in
+`tests/element/atom/test_get_atom_type_from_atom_ff_type.py` and the public
+contract is documented in the atom-type tutorial and Master course.
+
+A shared private scalar primitive supplies both the public value tool and
+PDBQT parsing/writing. The PDBQT writer requires the scheme declaration and
+checks each label against the stored chemical element. It performs no new
+assignment, aromaticity perception or donor/acceptor classification. AutoDock
+labels remain separate atom_ff_type assignments; no competing chemical store
+or placeholder scheme attribute was introduced. General scheme provenance in
+native storage and chemically justified label assignment remain outstanding.

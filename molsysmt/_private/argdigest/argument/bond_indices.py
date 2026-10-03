@@ -28,6 +28,10 @@ def digest_bond_indices(bond_indices, caller=None):
         If the given indices are not of the correct type.
     """
 
+    if caller == 'molsysmt.topology.get_rigid_fragments.get_rigid_fragments' and bond_indices is not None:
+        values = np.asarray(bond_indices, dtype=object)
+        if any(isinstance(value, (bool, np.bool_)) for value in values.flat):
+            raise ArgumentError('bond_indices', value=bond_indices, caller=caller)
     if bond_indices is None:
         return None
     elif is_all(bond_indices):

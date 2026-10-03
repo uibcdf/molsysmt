@@ -16,8 +16,9 @@ supersedes: []
 
 **Reported:** 2026-09-22, from the DockingMT ligand-interchange discussion and inspection of the form registry.
 **Status:** Partial. The maintainer brought this work forward on 2026-10-02.
-A native, experimental single-record adapter is implemented; faithful native
-stereochemical interpretation remains pending before the full proposal can close.
+A native, experimental single-record adapter is implemented. Explicit optional
+RDKit stereo reading/writing and reusable accurate CIP analysis are available;
+broader real-ligand/stereochemical validation remains pending before closure.
 
 ## What
 
@@ -124,10 +125,10 @@ and stereo-processing boundaries; its implementation was not copied. The
 reference supplier is explicitly configured with `removeHs=False`, and graph
 comparisons distinguish declared CTAB aromaticity from RDKit sanitization.
 
-**Pending:** Native stereo interpretation and encoding (tetrahedral
-wedge/parity, E/Z reference atoms, and enhanced stereo policy), a larger curated
-real-ligand and stereochemical corpus, and a decision about independent reusable chemistry
-tools for valence/hydrogen/CIP perception. These tools belong to their general
+**Pending:** A larger curated real-ligand and stereochemical corpus, enhanced
+stereo scope/policy, and independent reusable valence/hydrogen perception tools.
+The explicit optional stereo provider and reusable accurate CIP tool have since
+been implemented under uibcdf/molsysmt#299; see the checkpoint below. These tools belong to their general
 owners, not hidden inside the SDF adapter. Performance remains unbenchmarked.
 The parser is a format utility with no new scientific attribution boundary.
 
