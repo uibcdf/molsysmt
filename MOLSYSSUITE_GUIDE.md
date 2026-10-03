@@ -153,6 +153,22 @@ own triage and priority, while the discovering contributor owns a clear evidence
 A local workaround may unblock work, but it must name the provider issue and its removal
 condition. Do not silently fork sibling functionality.
 
+When changing any shared auxiliary library, reusable workflow, development/publication
+action or canonical guide with plausible consumer impact, open or update a linked
+MolSysSuite impact issue. Give notice before publication or rollout when foreseeable,
+and promptly after a later discovery. Identify affected/candidate consumers from the
+registered guide, dependency and publisher inventories; include exact old/new versions
+or commits, observable effects, migration/fallback, evidence, unknowns and follow-up
+owners. Deliver the handoff to affected members' owner issues and record notices,
+adoption commits and tested/public artifacts separately. Reuse the issue for the same
+theme. Provider implementation and release ownership, internal direct pushes and the
+accepted CI lanes follow their existing policies.
+
+Use the [shared-provider impact rule](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md#shared-provider-changes-and-consumer-impact)
+for applicability, timing and bounded exceptions. Cross-link MOLI when its direct
+components or platform contracts are affected. One-consumer findings stay local until
+wider impact becomes plausible; confidential findings use private reporting first.
+
 ## UIBCDF development support
 
 MOLI [catalogs four UIBCDF-owned support resources](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/support_infrastructure.md):
