@@ -1,0 +1,363 @@
+{
+  "schema": "molsysmt.vina-reference-corpus@1",
+  "source_repository": "ccsb-scripps/AutoDock-Vina",
+  "source_commit": "3c65c0b3e6c2c1d183f6a175ecb65e3c5ba91645",
+  "license": "Apache-2.0",
+  "records": [
+    {
+      "name": "1iep",
+      "files": {
+        "sdf": {
+          "filename": "1iep_ligand.sdf",
+          "source_path": "example/basic_docking/solution/1iep_ligand.sdf",
+          "sha256": "051b8742c32adc05c07fb486a4e7c9327f84e131cee33ac4e6a568d07553eb38"
+        },
+        "pdbqt": {
+          "filename": "1iep_ligand.pdbqt",
+          "source_path": "example/basic_docking/solution/1iep_ligand.pdbqt",
+          "sha256": "15fb35648d8c18c70317842f3a0631b73a19429c710a037ab07310084d579bb8"
+        }
+      },
+      "sdf_n_atoms": 69,
+      "sdf_n_bonds": 73,
+      "pdbqt_n_atoms": 40,
+      "n_branches": 7,
+      "torsdof": 7,
+      "branch_serial_pairs": [
+        [
+          1,
+          5
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          20
+        ],
+        [
+          2,
+          26
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          32,
+          33
+        ]
+      ],
+      "fragment_serials": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ],
+        [
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32
+        ],
+        [
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40
+        ]
+      ],
+      "sdf_status": "unsupported_valence",
+      "sdf_net_formal_charge": 1
+    },
+    {
+      "name": "1s63",
+      "files": {
+        "sdf": {
+          "filename": "1s63_ligand.sdf",
+          "source_path": "example/docking_with_zinc_metalloproteins/data/1s63_ligand.sdf",
+          "sha256": "6eb488b5770df7f132745249e64000fcfe394acf938b45f0e082f44365f59119"
+        },
+        "pdbqt": {
+          "filename": "1s63_ligand.pdbqt",
+          "source_path": "example/docking_with_zinc_metalloproteins/solution/1s63_ligand.pdbqt",
+          "sha256": "04fb28c75bc5a8b32fd7f985ef8ac9a9b4581a40141f4f5b1b3951c2051fb7dc"
+        }
+      },
+      "sdf_n_atoms": 29,
+      "sdf_n_bonds": 32,
+      "pdbqt_n_atoms": 30,
+      "n_branches": 6,
+      "torsdof": 6,
+      "branch_serial_pairs": [
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          2,
+          22
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          28,
+          29
+        ]
+      ],
+      "fragment_serials": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        [
+          22
+        ],
+        [
+          23,
+          24,
+          25,
+          26,
+          27,
+          28
+        ],
+        [
+          29,
+          30
+        ]
+      ],
+      "sdf_status": "unsupported_versionless",
+      "sdf_net_formal_charge": 0
+    },
+    {
+      "name": "5x72-p59",
+      "files": {
+        "sdf": {
+          "filename": "5x72_ligand_p59H.sdf",
+          "source_path": "example/mulitple_ligands_docking/solution/5x72_ligand_p59H.sdf",
+          "sha256": "ef26c05a198a16972efcf8baae644f6b38fd953561f130ee230626088766b08a"
+        },
+        "pdbqt": {
+          "filename": "5x72_ligand_p59.pdbqt",
+          "source_path": "example/mulitple_ligands_docking/solution/5x72_ligand_p59.pdbqt",
+          "sha256": "67cf462419372e365b8129bc1047f94598f3a1f3c495375781c1c1100e95c92e"
+        }
+      },
+      "sdf_n_atoms": 39,
+      "sdf_n_bonds": 42,
+      "pdbqt_n_atoms": 25,
+      "n_branches": 2,
+      "torsdof": 2,
+      "branch_serial_pairs": [
+        [
+          1,
+          13
+        ],
+        [
+          11,
+          20
+        ]
+      ],
+      "fragment_serials": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        [
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ]
+      ],
+      "sdf_status": "requires_explicit_stereo_engine",
+      "sdf_net_formal_charge": 0,
+      "sdf_atom_stereochemistry": {
+        "7": "R"
+      }
+    },
+    {
+      "name": "5x72-p69",
+      "files": {
+        "sdf": {
+          "filename": "5x72_ligand_p69H.sdf",
+          "source_path": "example/mulitple_ligands_docking/solution/5x72_ligand_p69H.sdf",
+          "sha256": "637a992134b2038a0ea3cff0c1f8355ea232720c9eae5347100b7186170fcdf1"
+        },
+        "pdbqt": {
+          "filename": "5x72_ligand_p69.pdbqt",
+          "source_path": "example/mulitple_ligands_docking/solution/5x72_ligand_p69.pdbqt",
+          "sha256": "276a991d56ddc7778ed36c10aba6b7231de00b87294a7f77e2fceb9a96ae08e5"
+        }
+      },
+      "sdf_n_atoms": 39,
+      "sdf_n_bonds": 42,
+      "pdbqt_n_atoms": 25,
+      "n_branches": 2,
+      "torsdof": 2,
+      "branch_serial_pairs": [
+        [
+          1,
+          13
+        ],
+        [
+          11,
+          20
+        ]
+      ],
+      "fragment_serials": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        [
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ]
+      ],
+      "sdf_status": "requires_explicit_stereo_engine",
+      "sdf_net_formal_charge": 0,
+      "sdf_atom_stereochemistry": {
+        "7": "S"
+      }
+    },
+    {
+      "name": "1iep-receptor",
+      "files": {
+        "pdbqt": {
+          "filename": "1iep_receptor.pdbqt",
+          "source_path": "example/basic_docking/solution/1iep_receptor.pdbqt",
+          "sha256": "f13cf3b36f61d87c3b58983e0b8ecf1c3456a685eb86dfe9ccfb139c7bdc2586"
+        }
+      },
+      "pdbqt_n_atoms": 2702,
+      "n_branches": 0,
+      "torsdof": null,
+      "branch_serial_pairs": [],
+      "fragment_serials": []
+    }
+  ]
+}

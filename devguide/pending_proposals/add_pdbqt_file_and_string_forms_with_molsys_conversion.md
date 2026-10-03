@@ -228,3 +228,28 @@ precision, source preservation and deliberate rejection controls. Record hashes
 and independent reader/engine versions before extending fidelity claims. This
 checkpoint is an inspected plan and consumer request; it contains no additional
 executed validation or scientific preparation result.
+
+## Original Vina corpus checkpoint — 2026-10-03
+
+**Contract-tested and bounded reference comparison:** the four ligand records
+and the 2,702-atom rigid 1IEP receptor are now committed, byte-unmodified, in
+`tests/form/data/vina_examples`, with licensing, source hashes and a literal
+manifest. `tests/form/file_pdbqt/test_real_vina_examples.py` checks public getters,
+nm/pm unit policies, partial chemical connectivity, exact source identity,
+supplied typing/charges, branches/fragments, source immutability and independent
+MDAnalysis parsing. All five native outputs are accepted by Vina 1.2.7's parser;
+this is parsing, not docking, affinity validation or preparation.
+
+`tests/topology/test_rigid_fragments_real_vina_examples.py` verifies explicit
+source-bond cuts against the published ligand trees. Coordinate-based atom
+projection is limited to these pinned, already aligned sources, requires unique
+same-element matches within 0.002 angstrom and explicitly accounts for 1S63's
+one reference-only H. Its aryl–nitrile branch (source indices 26/27) is preserved
+as declared, without adopting that torsion as a universal chemical policy.
+
+The combined relevant regression passed 418 tests in 104.48 seconds. Environment,
+command and warning details are recorded in
+[the #302 resolution](../archive/resolved_bugs/sdf_identity_copies_require_native_chemical_interpretation.md).
+This extends adapter evidence without resolving #221/#222/#223/#224 preparation
+policy or claiming automatic chemical typing, charge assignment or H merging.
+Consumer review under uibcdf/dockingmt#33 remains pending; this issue stays partial.

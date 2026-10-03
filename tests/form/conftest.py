@@ -1,7 +1,23 @@
 """Providing shared deterministic fixtures for form-adapter contracts."""
 
+import hashlib
+import json
+from pathlib import Path
+
 import numpy as np
 import pytest
+
+
+@pytest.fixture(scope="session")
+def vina_reference_corpus():
+    """Loading byte-verified original examples without network or another checkout."""
+    root = Path(__file__).parent / "data/vina_examples"
+    manifest = json.loads((root / "manifest.json").read_text())
+    for record in manifest["records"]:
+        for source in record["files"].values():
+            path = root / source["filename"]
+            assert hashlib.sha256(path.read_bytes()).hexdigest() == source["sha256"]
+    return root, {record["name"]: record for record in manifest["records"]}
 
 
 @pytest.fixture

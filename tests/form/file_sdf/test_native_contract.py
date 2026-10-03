@@ -69,6 +69,61 @@ def source(tmp_path, request):
     return path
 
 
+def test_identity_preserves_unrepresented_chemistry_without_inspection(
+    tmp_path, monkeypatch
+):
+    from molsysmt._private import ctfile
+
+    lines = V2000.splitlines(keepends=True)
+    lines[4] = lines[4][:48] + "  4" + lines[4][51:]
+    payload = "".join(lines).replace("\n", "\r\n").encode()
+    path = tmp_path / "explicit_valence.sdf"
+    path.write_bytes(payload)
+
+    def reject_semantic_read(*args, **kwargs):
+        raise AssertionError("An opaque identity copy must not inspect CTAB chemistry.")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(ctfile, "read_sdf", reject_semantic_read)
+        report = msm.get_conversion_report(path, to_form="file:sdf")
+        assert report.is_exhaustive and not report.is_lossy
+        assert report.outcome == "exact" and report.audited_scopes == ("all",)
+        output = tmp_path / "identity.sdf"
+        msm.convert(path, to_form=output, strict=True)
+        assert output.read_bytes() == payload
+        copy = tmp_path / "copied.sdf"
+        msm.copy(path, output_filename=copy)
+        assert copy.read_bytes() == payload
+    with pytest.raises(FormatError, match="atom flag"):
+        msm.convert(path, to_form="molsysmt.MolSys")
+    for selection in ([0], [0, 1, 2, 3, 4]):
+        with pytest.raises(FormatError, match="atom flag"):
+            msm.convert(path, selection=selection, to_form=tmp_path / "subset.sdf")
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        V2000.replace("$$$$\n", ""),
+        V2000 + V2000,
+        V2000.replace("M  END\n", ""),
+        "header\n$$$$\n",
+        V2000.replace("  5  3", " -1  3", 1),
+    ],
+)
+def test_invalid_identity_envelope_fails_before_destination_mutation(tmp_path, payload):
+    source = tmp_path / "invalid_envelope.sdf"
+    source.write_text(payload)
+    output = tmp_path / "preserved.sdf"
+    output.write_bytes(b"original destination")
+    with pytest.raises(FormatError):
+        msm.convert(source, to_form=output, strict=True)
+    assert output.read_bytes() == b"original destination"
+    with pytest.raises(FormatError):
+        msm.copy(source, output_filename=output)
+    assert output.read_bytes() == b"original destination"
+
+
 def test_public_native_domains_and_direct_getters(source):
     assert msm.get_form(source) == "file:sdf"
     molsys = msm.convert(source, to_form="molsysmt.MolSys")

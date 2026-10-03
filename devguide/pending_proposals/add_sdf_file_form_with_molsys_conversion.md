@@ -224,3 +224,33 @@ checksums and distinguish input parsing from chemical sanitization, implicit-H
 inventory and preparation. Inputs outside the bounded profile need documented
 rejection or an owned extension, not a silent RDKit fallback. No new real-file
 test execution is claimed by this planning checkpoint.
+
+## Original Vina corpus checkpoint — 2026-10-03
+
+**Contract-tested and bounded reference comparison:** nine unmodified upstream
+files are committed under `tests/form/data/vina_examples`, with Apache licensing,
+upstream commit, SHA-256 and independent literal controls. Real SDF tests live in
+`tests/form/file_sdf/test_real_vina_examples.py`.
+
+- 5X72 P59/P69 retain 39 atoms and 42 bonds, coordinates and opposite R/S labels
+  at source atom index 7, using explicit `stereo_engine='rdkit'` and authorized
+  source-property loss. Both V2000 and V3000 output are checked independently.
+  Source bond IDs and Kekule encodings differ; equivalence is checked through
+  independent chemical normalization rather than raw bond-table equality.
+- 1IEP's declared atom valence (index 31) and 1S63's versionless counts line
+  remain unsupported native semantics, with deliberate rejection controls.
+  Independent RDKit accepts these sources; rejection is a bounded implementation
+  gap, not evidence that the files are malformed. Extend their semantics under
+  this issue before claiming their native conversion coverage.
+- Opaque unselected copies now preserve all four source records without semantic
+  decoding, including properties and unsupported fields. The discovered defect
+  and guard are recorded in
+  [the #302 resolution](../archive/resolved_bugs/sdf_identity_copies_require_native_chemical_interpretation.md).
+
+The focused SDF/PDBQT/fragments/conversion-report regression passed 418 tests in
+104.48 seconds on Linux / Python 3.13.14, with NumPy 2.4.6, RDKit 2025.9.5,
+MDAnalysis 2.10.0 and Vina 1.2.7. The executable command and warnings are recorded
+in #302's local resolution; this is not a full-suite or preparation result.
+Source bytes are not rewritten to achieve coverage, and no optional toolkit is
+used as a silent parsing fallback. Consumer acceptance and broader native SDF
+coverage remain pending; this issue stays partial.

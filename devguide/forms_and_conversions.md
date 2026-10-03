@@ -429,6 +429,14 @@ objects rejects them unless `discard_properties=True` explicitly authorizes
 their loss. `return_report=True` identifies this loss; `strict=True` rejects it
 even when discarding was requested. Full-axis SDF identity conversion and
 `copy(..., output_filename=...)` preserve the original bytes and properties.
+For literal `selection='all'` and `structure_indices='all'`, the identity route
+checks only the single-record envelope (header/count fields, `M  END`, `$$$$`),
+not CTAB chemistry or property grammar. Source valence overrides, legacy
+versionless records and other unsupported chemical encodings can therefore be
+copied unchanged without an optional provider. Its exhaustive `exact` report
+certifies byte preservation, not chemical validity or native readability.
+Malformed envelopes fail before destination mutation. Explicit index lists
+and native/attribute routes remain subject to native interpretation.
 Subset file output requires an explicit path and the native supported subset.
 SDF reports remain non-exhaustive for cross-form conversion. Multi-record files
 and unselected multi-frame output fail instead of taking the first entry.

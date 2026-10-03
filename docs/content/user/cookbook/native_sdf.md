@@ -79,6 +79,16 @@ authorize their loss with `discard_properties=True`; `return_report=True`
 lists that loss, and strict mode still rejects it. To preserve source bytes and
 properties, use `msm.copy(source, output_filename='source_copy.sdf')`.
 
+An unselected SDF-to-SDF conversion (`selection='all'` and
+`structure_indices='all'`) or file copy validates only the single-record
+envelope: header/count fields, `M  END` and `$$$$`. It preserves the original
+bytes even when their chemistry or legacy version marker is outside the
+native parser profile. For this identity operation, `strict=True` and an
+exhaustive `exact` report certify byte preservation, not chemical validity
+or docking readiness. Native conversion, attribute queries and selected
+copies still require supported chemical interpretation. Multiple records
+and malformed envelopes remain errors before the destination is opened.
+
 ## Enabling stereochemistry explicitly
 
 Ordinary parsing remains native and rejects active stereo flags. To interpret

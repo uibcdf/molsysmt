@@ -42,16 +42,23 @@ def to_file_sdf(
     str or pathlib.Path
         Source or destination path according to the requested operation.
 
+    Notes
+    -----
+    An unselected identity copy validates only the single-record SDF envelope,
+    retaining even chemistry outside the native parser profile. Byte preservation
+    does not certify chemical validity or native readability. Selected copies
+    require native interpretation and its documented prerequisites.
+
     .. versionadded:: 1.0.0
     """
-    from molsysmt._private.ctfile import _fail, read_sdf
+    from molsysmt._private.ctfile import _fail, validate_sdf_envelope
     from molsysmt._private.variables import is_all
     from molsysmt.form.molsysmt_MolSys.to_file_sdf import to_file_sdf as native_write
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     if is_all(atom_indices) and is_all(structure_indices):
-        read_sdf(item, allow_stereo=True)
+        validate_sdf_envelope(item)
         if output_filename is None:
             return item
         payload = Path(item).read_bytes()

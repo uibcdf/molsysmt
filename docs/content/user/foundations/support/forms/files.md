@@ -57,6 +57,10 @@ native route. Explicit `stereo_engine='rdkit'` enables the optional CIP provider
 for supported tetrahedral and double-bond stereo, without removing source
 hydrogens. Enhanced and unsupported stereo remain errors. SD property blocks
 need explicit authorization to discard when converting into native objects.
+Unselected SDF identity copies preserve bytes after checking only the
+single-record envelope, including source chemistry outside the native profile.
+Their exact conversion reports certify preservation rather than chemical
+validity. Native projection and subset output still require supported parsing.
 See {ref}`cookbook-native-sdf` for selections, units and conversion reports.
 
 ## Prepared docking records

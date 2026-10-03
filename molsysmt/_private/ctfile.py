@@ -377,8 +377,8 @@ def _v3000(lines, *, allow_stereo=False):
     return record, cursor + 1
 
 
-def read_sdf(filename, *, allow_stereo=False):
-    """Read exactly one record, retaining SD properties separately from chemistry."""
+def _single_sdf_lines(filename):
+    """Read one record envelope without interpreting CTAB or SD properties."""
     # Read one record at a time; a multi-record database is never materialized.
     lines = []
     terminated = False
@@ -397,6 +397,29 @@ def read_sdf(filename, *, allow_stereo=False):
         _fail("Missing $$$$ SDF record terminator.")
     if len(lines) < 5:
         _fail("Truncated SDF header or connection table.")
+    return lines
+
+
+def validate_sdf_envelope(filename):
+    """Check the single-record framing needed for opaque byte-preserving copies.
+
+    This does not validate atom/bond semantics, property grammar or chemical
+    readiness. Native projection and selected copies still require read_sdf.
+    """
+    lines = _single_sdf_lines(filename)
+    counts = lines[3]
+    if len(counts) < 6 or any(
+        _integer(counts[start : start + 3], "atom/bond count", blank=True) < 0
+        for start in (0, 3)
+    ):
+        _fail("Missing or malformed SDF counts line.")
+    if "M  END" not in lines[4:]:
+        _fail("Missing M  END CTAB terminator.")
+
+
+def read_sdf(filename, *, allow_stereo=False):
+    """Read exactly one record, retaining SD properties separately from chemistry."""
+    lines = _single_sdf_lines(filename)
     if lines[3].rstrip().endswith("V2000"):
         record, cursor = _v2000(lines, allow_stereo=allow_stereo)
     elif lines[3].rstrip().endswith("V3000"):

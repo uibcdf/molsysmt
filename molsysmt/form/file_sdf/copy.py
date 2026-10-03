@@ -4,7 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 @arg_digest(form="file:sdf")
 def copy(item, output_filename=None, skip_digestion=False):
-    """Copying a supported SDF record without changing its source bytes.
+    """Copying a single SDF record without changing its source bytes.
 
     Parameters
     ----------
@@ -19,6 +19,11 @@ def copy(item, output_filename=None, skip_digestion=False):
     -------
     str or pathlib.Path
         Destination path, preserving source property blocks and syntax.
+
+    Notes
+    -----
+    Only the single-record envelope is checked. The source chemistry may be
+    outside the native parser profile; copying does not certify chemical validity.
 
     .. versionadded:: 1.0.0
     """

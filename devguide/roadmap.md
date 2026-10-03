@@ -95,6 +95,13 @@ ledger authoritative for release scope.
    integration and profile feedback are requested in uibcdf/dockingmt#33;
    uibcdf/dockingmt#17 owns differing torsion policies. Existing published
    preparations are comparison inputs, not chemical ground truth.
+   The first provider corpus is now committed in
+   `tests/form/data/vina_examples`; dated execution evidence and remaining
+   admission limits are in the two linked reports. PDBQT parser fidelity and
+   explicit-fragment projection have bounded reference coverage. Native SDF
+   still rejects 1IEP's valence override and 1S63's missing version marker;
+   exact source copies preserve both unchanged. Consumer acceptance and
+   chemical preparation remain separate pending work.
 2. **Assess chemical readiness and coverage before transformations.**
    [Ligand readiness #217](pending_proposals/diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md)
    and [receptor coverage #218](pending_proposals/report_receptor_residue_chemistry_and_preparation_coverage.md)

@@ -1219,6 +1219,27 @@ def build_conversion_report(
     issues = []
     pdbqt_identity = False
 
+    if (
+        source_item is not None
+        and source_form == target_form == "file:sdf"
+    ):
+        from molsysmt._private.variables import is_all
+
+        if is_all(selection) and is_all(structure_indices):
+            from molsysmt._private.ctfile import validate_sdf_envelope
+
+            # The converter preserves bytes, including unknown chemistry. An
+            # exhaustive byte-preservation report needs no native attribute audit.
+            validate_sdf_envelope(source_item)
+            return ConversionReport(
+                from_form=source_form,
+                to_form=target_form,
+                outcome="exact",
+                audited_scopes=("all",),
+                is_exhaustive=True,
+                issues=(),
+            )
+
     if source_item is not None:
         from molsysmt._private.conversion_pdbqt import PDBQT_FORMS, audit_pdbqt
         from molsysmt._private.variables import is_all
