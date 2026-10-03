@@ -40,6 +40,19 @@ analyses = payload["interactions"]
 An absent layer has value `None`. An interaction layer can also contain an
 analysis whose evaluated structures have zero observed interactions.
 
+If a 0.5 file contains topology and chemical states without structures, load it
+as a native `MolSys` before selecting atoms:
+
+```python
+molsys = msm.h5msm.read("topology_chemistry_05.h5msm")
+subset = msm.extract(molsys, selection=[0])
+assert subset.structures is None
+msm.convert(subset, to_form="file:h5msm", output_filename="selected_05.h5msm")
+```
+
+The output retains the selected chemistry without fabricating coordinates.
+Do not select structure indices unless a present domain declares that axis.
+
 :::{seealso}
 See {doc}`H5MSM 0.5 <../tools/form/file/h5msm_05>` for the schema API and
 {ref}`the molecular system model <user-foundations-molecular-system-definition>`

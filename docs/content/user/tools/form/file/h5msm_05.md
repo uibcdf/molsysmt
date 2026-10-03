@@ -114,6 +114,19 @@ assert subset.structures.coordinates.shape == (2, 2, 3)
 A frame-only `Structures` layer with time but no atom-aligned arrays likewise
 loads without inventing an atom count.
 
+A topology-and-chemistry-only file likewise loads with `molsys.structures is None`.
+Use `msm.extract(molsys, selection=[...])` or
+`msm.convert(filename, to_form='molsysmt.MolSys', selection=[...])` to retain
+selected atoms and remap the present chemistry. With topology, selected atoms
+follow sorted source indices. An explicit `structure_indices` selection requires
+a declared structure-index domain; topology and chemical states alone do not
+declare one. Save the selected native system through the public 0.5 conversion;
+its absent Structures layer stays absent.
+
+The native reader/writer currently rejects topology plus chemical states plus
+named interactions when Structures is absent. That persistence combination is
+pending even though native extraction can remap such analyses in memory.
+
 `msm.h5msm.write_layers` accepts independent native domains and explicit
 associations. It can also store an interaction analysis without a topology or
 coordinate layer. This is useful when an analysis refers to source atom and

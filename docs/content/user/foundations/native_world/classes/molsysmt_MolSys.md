@@ -38,6 +38,12 @@ index domains. `extract(atom_indices=[...], structure_indices=[...])` remaps
 the present domains and keeps the selected structure order. An axis with no
 declared domain cannot be selected explicitly.
 
+A system with topology and chemical states can also select atoms while
+`structures is None`; extraction keeps the coordinates absent and remaps the
+available chemistry. With topology, atom subsets use sorted source indices.
+Without a Structures domain, named analyses may still declare a structure-index
+domain; otherwise an explicit structure selection raises `ValueError`.
+
 Both hydrogen-bond detectors and the disulfide candidate detector can return an
 independent `molsysmt.Interactions` analysis with
 `output_type="molsysmt.Interactions"`. Attach it under a name by assigning

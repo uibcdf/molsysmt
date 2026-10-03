@@ -54,6 +54,31 @@ def test_extract_keeps_per_atom_mechanics_aligned_with_sorted_subset():
     assert extracted.molecular_mechanics.atom_ff_type.tolist() == ["B", "D"]
 
 
+def test_extract_topology_chemistry_without_structures_preserves_domains():
+    source = build_minimal_molsys()
+    topology = source.topology.copy()
+    partial = MolSys._from_partial_domains(
+        topology=topology, chemical_states=topology._chemical_states_domain
+    )
+    partial.molecular_mechanics.partial_charge = [0.1, 0.2, 0.3, 0.4]
+    partial.molecular_mechanics.atom_ff_type = ["A", "B", "C", "D"]
+
+    extracted = partial.extract(atom_indices=[3, 1])
+
+    assert extracted.structures is None
+    assert msm.get(extracted, n_structures=True) is None
+    assert extracted.topology.atoms["atom_id"].tolist() == ["1", "3"]
+    assert extracted.chemical_states is extracted.topology._chemical_states_domain
+    assert extracted.chemical_states.n_atoms == 2
+    assert extracted.chemical_states.n_chemical_states == 1
+    assert extracted.molecular_mechanics.partial_charge.tolist() == [0.2, 0.4]
+    assert extracted.molecular_mechanics.atom_ff_type.tolist() == ["B", "D"]
+    extracted.topology.atoms.at[0, "atom_name"] = "CHANGED"
+    assert partial.topology.atoms["atom_name"].tolist() == ["N", "CA", "O", "H"]
+    assert partial.chemical_states.n_atoms == 4
+    assert partial.structures is None
+
+
 def test_merge_drops_incomplete_per_atom_mechanics_without_stale_rows():
     left = build_minimal_molsys(n_structures=1)
     right = build_minimal_molsys(n_structures=1)

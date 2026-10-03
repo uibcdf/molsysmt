@@ -1320,3 +1320,29 @@ The reported runs used the three commands shown above in this repository on
 2026-09-28. The script prints CPU model, platform, Python, NumPy and h5py
 versions, dataset sizes, timing summary, numeric and reachable object bytes,
 and file size.
+
+## Partial persistence boundary discovered during #307 — 2026-10-03
+
+**Measured, incomplete:** Native atom/frame extraction can remap topology,
+chemical states and named analyses while Structures is absent after the #307
+correction. Public 0.5 persistence of that combination still fails. In
+`form._h5msm05_modular.write_topology_chemistry_molsys_file`, nonempty analyses
+raise `ValueError: This H5MSM probe cannot encode interaction analyses yet.`
+The matching native reader also rejects an interactions layer in that combination.
+
+Reproduce by constructing the system used in
+`tests/form/file_h5msm/test_topology_chemistry_v05_probe.py::test_structure_axis_from_interactions_is_selectable_without_coordinates`
+and calling `msm.convert(system, to_form='file:h5msm', output_filename=...)`.
+The attempted roundtrip failed during the first 25-test #307 run. After separating
+this unsupported persistence boundary from extraction, the focused 80-test run
+passed, including native no-coordinate interaction selection and the supported
+real-pentalanine topology/chemistry-only H5MSM roundtrip.
+
+The User Guide now states this limitation. It remains owned by this open
+implementation issue; #307 does not claim to resolve it. Implement the missing
+reader/writer association route, retain named analyses and their structure axes,
+and qualify both public conversion directions without inventing Structures.
+Existing independent `read_layers`/`write_layers` support does not qualify native
+MolSys composition of those layers. Evidence: local Linux x86_64, Python 3.13.14
+under uibcdf/molsysmt#237, released ArgDigest 0.13.0, 2026-10-03; no Viewer canvas
+or session compatibility claim is made.

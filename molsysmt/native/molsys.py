@@ -751,6 +751,10 @@ class MolSys:
         Named interactions can declare both index domains even when the
         system has no topology or structures. For H5MSM 0.5 examples, see
         :doc:`/user/tools/form/file/h5msm_05`.
+        A topology-and-chemistry system can select atoms without structures;
+        absent domains stay absent. With topology, atom subsets retain the
+        established sorted-index order. Without a Structures domain, explicit structure
+        selection requires a structure-index domain declared by interactions.
 
         Examples
         --------
@@ -769,7 +773,7 @@ class MolSys:
                 return self
 
         else:
-            if self.topology is None:
+            if self.topology is None or self.structures is None:
                 n_atoms = self._get_n_atoms()
                 if not is_all(atom_indices):
                     if n_atoms is None:
@@ -791,13 +795,14 @@ class MolSys:
                         )
                     atom_indices = atoms.astype(np.int64, copy=False)
                     if (
-                        self.structures is not None
+                        self.topology is None
+                        and self.structures is not None
                         and self.structures.bioassembly is not None
                     ):
                         raise ValueError(
                             "Atom extraction cannot remap a bioassembly without topology."
                         )
-                    if any(
+                    if self.topology is None and any(
                         value is not None
                         for value in self.molecular_mechanics.to_dict().values()
                     ):
@@ -805,6 +810,8 @@ class MolSys:
                             "Atom extraction cannot remap molecular mechanics "
                             "without topology."
                         )
+                    if self.topology is not None:
+                        atom_indices = np.sort(atom_indices)
                 if not is_all(structure_indices):
                     n_structures = self._get_n_structures()
                     if n_structures is None:
@@ -825,14 +832,23 @@ class MolSys:
                         )
                     structure_indices = frames.astype(np.int64, copy=False)
 
+                topology = None
                 states = None
-                if self.chemical_states is not None:
+                if self.topology is not None:
+                    topology = self.topology.extract(
+                        atom_indices=atom_indices, copy_if_all=True,
+                        skip_digestion=True,
+                    )
+                    if self.chemical_states is not None:
+                        states = topology._chemical_states_domain
+                elif self.chemical_states is not None:
                     states = (
                         self.chemical_states.copy()
                         if is_all(atom_indices)
                         else self.chemical_states._extract_atoms(atom_indices)
                     )
                 extracted = MolSys._from_partial_domains(
+                    topology=topology,
                     chemical_states=states,
                     structures=(
                         None
@@ -853,6 +869,15 @@ class MolSys:
                     },
                 )
                 extracted.molecular_mechanics = self.molecular_mechanics.copy()
+                if (
+                    not is_all(atom_indices)
+                    and extracted.molecular_mechanics.atoms_ff is not None
+                ):
+                    extracted.molecular_mechanics.atoms_ff = (
+                        extracted.molecular_mechanics.atoms_ff.iloc[atom_indices]
+                        .reset_index(drop=True)
+                        .copy()
+                    )
                 if self._structure_chemical_state_indices is not None:
                     if is_all(structure_indices):
                         extracted._structure_chemical_state_indices = (
