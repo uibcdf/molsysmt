@@ -52,6 +52,28 @@ Disulfide and metal-coordination observations must not replace that authority.
 H5MSM 0.5 excludes `MolecularMechanics`; nonempty mechanics data are rejected
 rather than silently lost. Mechanics persistence belongs to 0.6 after 1.0.
 
+### Native composition without Structures
+
+A native system containing topology, chemical states and named analyses can be
+serialized without a Structures layer. It requires a declared identity atom link
+from chemical states to topology and from each analysis to topology. When multiple
+analyses are present, identity structure links must connect all their named axes.
+The writer emits a star rooted at the first sorted analysis name; the reader
+accepts any connected identity graph. One analysis needs no inter-analysis link.
+Equal cardinalities or matching source labels do not replace these declarations.
+
+The reader rejects missing, nonidentity or unrepresentable associations rather
+than composing ambiguous axes. Independent layer reading still preserves such
+domains. No coordinates, periodic boxes or structure-to-state association are
+created. Analyses retain their declared search scope, coverage (including evaluated
+empty frames), sparse observations, periodic images and original producer versions.
+Complete-axis scope may be normalized to its compact implicit representation by
+native remapping; the public `evaluation_scope` remains equivalent. A named empty
+analysis is supported, including a zero-length structure axis. A present-empty
+interaction layer remains distinguishable through `read_layers` and is rejected
+by native composition. Guard:
+`tests/form/file_h5msm/test_topology_chemistry_interactions_v05.py`.
+
 ## Version 0.4 topology
 
 `/topology` stores stable atom identity and semantic hierarchy:

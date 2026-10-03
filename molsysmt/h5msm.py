@@ -42,7 +42,10 @@ def read(filename, skip_digestion=False):
     Reading 0.3 or 0.4 emits a warning with the migration helper. Writing uses
     0.5; legacy files remain readable without changing them. An H5MSM 0.5
     file containing named interactions can be read as a partial MolSys even
-    without topology, chemical states, or structures. A present-empty
+    without topology, chemical states, or structures. Topology, chemical states
+    and named analyses can also coexist without Structures when their shared
+    axes have declared identity links. Coordinates and chemical-state assignments
+    to structures are not inferred. A present-empty
     interaction layer has no index domains and requires :func:`read_layers`.
 
     .. versionadded:: 1.0.0
@@ -84,6 +87,13 @@ def write(molecular_system, output_filename, skip_digestion=False):
         If the native system contains data that the 0.5 codec cannot encode
         without loss. Nonempty molecular-mechanics data are rejected because
         H5MSM 0.5 has no mechanics layer.
+
+    Notes
+    -----
+    Topology, chemical states and named interactions can be written without
+    Structures. The writer records identity links for the native system's shared
+    atom and structure axes. Analysis coverage, source maps and original producer
+    versions are retained; absent coordinates and periodic boxes stay absent.
 
     Examples
     --------

@@ -149,6 +149,55 @@ def normalize_associations(links, sizes):
     return normalized
 
 
+def _shared_interaction_structure_links(analyses):
+    """Declare one shared structure axis when no Structures layer supplies it."""
+    names = sorted(analyses)
+    return [
+        {
+            "axis": "structure",
+            "source": "interactions",
+            "target": "interactions",
+            "source_name": name,
+            "target_name": names[0],
+            "indices": "identity",
+        }
+        for name in names[1:]
+    ]
+
+
+def _validate_shared_interaction_structures(links, analyses):
+    """Require connected identity declarations for the named structure axes."""
+    neighbors = {name: set() for name in analyses}
+    for link in links:
+        if (
+            link["axis"] != "structure"
+            or link["source"] != "interactions"
+            or link["target"] != "interactions"
+            or link["source_name"] not in neighbors
+            or link["target_name"] not in neighbors
+            or not isinstance(link["indices"], str)
+            or link["indices"] != "identity"
+        ):
+            raise ValueError(
+                "MolSys requires declared identity links for shared structure axes."
+            )
+        neighbors[link["source_name"]].add(link["target_name"])
+        neighbors[link["target_name"]].add(link["source_name"])
+    if not neighbors:
+        return
+    pending = [next(iter(neighbors))]
+    visited = set()
+    while pending:
+        name = pending.pop()
+        if name not in visited:
+            visited.add(name)
+            pending.extend(neighbors[name] - visited)
+    if len(visited) != len(neighbors):
+        raise ValueError(
+            "MolSys requires declared identity links for shared structure axes."
+        )
+
+
 def _link_array(link, sizes):
     """Materialize only the map needed for one consistency comparison."""
     indices = link["indices"]

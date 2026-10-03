@@ -53,6 +53,35 @@ msm.convert(subset, to_form="file:h5msm", output_filename="selected_05.h5msm")
 The output retains the selected chemistry without fabricating coordinates.
 Do not select structure indices unless a present domain declares that axis.
 
+## Keeping analyses without coordinates
+
+Named analyses can declare a structure-index domain even when coordinates are
+absent. For example, starting from the topology-and-chemistry-only system above:
+
+```python
+analysis = msm.Interactions.from_records(
+    [], n_atoms=msm.get(molsys, n_atoms=True), n_structures=3,
+    evaluated_structure_indices=[0, 2], method="imported_example",
+)
+molsys.interactions = {**molsys.interactions, "example": analysis}
+msm.convert(
+    molsys, to_form="file:h5msm", output_filename="analyses_without_coordinates.h5msm"
+)
+restored = msm.h5msm.read("analyses_without_coordinates.h5msm")
+assert restored.structures is None
+columns = restored.interactions["example"].query(
+    structure_indices=[2, 1, 0]
+).to_dict()
+assert columns["evaluated_structure_indices"].tolist() == [2, 0]
+assert columns["occurrence_indices"].size == 0
+```
+
+Structures 0 and 2 were evaluated without observations; structure 1 was not
+evaluated. Attaching an independently loaded analysis declares its correspondence
+to the current atom indices. Confirm that correspondence before attachment.
+The native writer records the declared axis links and retains original producer
+versions. Displaying these observations still requires compatible coordinates.
+
 :::{seealso}
 See {doc}`H5MSM 0.5 <../tools/form/file/h5msm_05>` for the schema API and
 {ref}`the molecular system model <user-foundations-molecular-system-definition>`

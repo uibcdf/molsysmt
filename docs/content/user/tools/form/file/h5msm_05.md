@@ -123,9 +123,21 @@ a declared structure-index domain; topology and chemical states alone do not
 declare one. Save the selected native system through the public 0.5 conversion;
 its absent Structures layer stays absent.
 
-The native reader/writer currently rejects topology plus chemical states plus
-named interactions when Structures is absent. That persistence combination is
-pending even though native extraction can remap such analyses in memory.
+Topology, chemical states and named interactions can round-trip together while
+`molsys.structures is None`. Analyses supply the structure-index domain, including
+evaluated structures with zero occurrences. Atom and nonconsecutive structure
+selections remap the analyses without fabricating coordinates or a periodic box.
+Chemical states are not automatically assigned to those structures.
+
+The native writer declares chemistry-to-topology and analysis-to-topology identity
+atom links. When several analyses share the structure axis, it also declares
+identity links connecting them. The native reader accepts any connected graph of
+these identity structure links; matching counts alone are insufficient. Independent
+`write_layers` callers must supply these associations to compose the layers as
+one native system. Missing or nonidentity links raise an error; `read_layers`
+remains available for independent domains. Source labels and maps are provenance,
+not proof of correspondence. A named empty analysis retains its axes and coverage;
+a present-empty interaction layer requires `read_layers`.
 
 `msm.h5msm.write_layers` accepts independent native domains and explicit
 associations. It can also store an interaction analysis without a topology or

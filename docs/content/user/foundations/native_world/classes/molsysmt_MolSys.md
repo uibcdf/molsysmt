@@ -43,6 +43,11 @@ A system with topology and chemical states can also select atoms while
 available chemistry. With topology, atom subsets use sorted source indices.
 Without a Structures domain, named analyses may still declare a structure-index
 domain; otherwise an explicit structure selection raises `ValueError`.
+Public H5MSM 0.5 reads and writes preserve this combination, including several
+named analyses and evaluated structures without observations. The stored axis
+associations declare correspondence; they do not supply missing coordinates,
+periodic boxes or per-structure chemical-state assignments. See
+{ref}`H5MSM 0.5 <user-tools-form-h5msm-05>`.
 
 Both hydrogen-bond detectors and the disulfide candidate detector can return an
 independent `molsysmt.Interactions` analysis with

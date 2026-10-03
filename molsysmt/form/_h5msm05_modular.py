@@ -13,6 +13,8 @@ from molsysmt.interactions._hdf5_collection import (
 from ._h5msm05_associations import (
     _axis_sizes,
     _axis_sizes_from_file,
+    _shared_interaction_structure_links,
+    _validate_shared_interaction_structures,
     normalize_associations,
     read_associations,
     write_associations,
@@ -646,7 +648,7 @@ def read_no_chemical_states_molsys_file(filename):
 
 
 def write_topology_chemistry_molsys_file(filename, molsys):
-    """Probe a topology and chemical states with no structures layer."""
+    """Write topology, chemistry and optional analyses without Structures."""
 
     from molsysmt.native import MolSys
 
@@ -656,27 +658,35 @@ def write_topology_chemistry_molsys_file(filename, molsys):
         or molsys.chemical_states is None
         or molsys.structures is not None
     ):
-        raise TypeError("This H5MSM probe requires topology and chemistry only.")
+        raise TypeError(
+            "This H5MSM route requires topology and chemistry without Structures."
+        )
     if molsys.topology._chemical_states_domain is not molsys.chemical_states:
         raise ValueError(
             "Topology and MolSys disagree on the chemical-state authority."
         )
-    if molsys.interactions:
-        raise ValueError("This H5MSM probe cannot encode interaction analyses yet.")
     if any(
         value is not None for value in molsys.molecular_mechanics.to_dict().values()
     ):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
+    analyses = dict(molsys.interactions)
+    links = [_identity_link("atom", "chemical_states", "topology")]
+    links.extend(
+        _identity_link("atom", "interactions", "topology", source_name=name)
+        for name in sorted(analyses)
+    )
+    links.extend(_shared_interaction_structure_links(analyses))
     write_modular_file(
         filename,
         topology=molsys.topology,
         chemical_states=molsys.chemical_states,
-        associations=[_identity_link("atom", "chemical_states", "topology")],
+        interactions=analyses or None,
+        associations=links,
     )
 
 
 def read_topology_chemistry_molsys_file(filename):
-    """Rebuild native topology and chemistry only for one declared atom axis."""
+    """Rebuild topology, chemistry and analyses on explicitly shared axes."""
 
     from molsysmt.native import MolSys
 
@@ -685,22 +695,44 @@ def read_topology_chemistry_molsys_file(filename):
         payload["topology"] is None
         or payload["chemical_states"] is None
         or payload["structures"] is not None
-        or payload["interactions"] is not None
     ):
-        raise ValueError("This reader requires topology and chemistry only.")
+        raise ValueError(
+            "This reader requires topology and chemistry without Structures."
+        )
+    analyses = payload["interactions"]
+    if analyses is not None and not analyses:
+        raise ValueError(
+            "MolSys cannot represent a present-empty interaction layer yet."
+        )
+    analyses = analyses or {}
     expected = _identity_link("atom", "chemical_states", "topology")
     links = payload["associations"] or []
-    if (
-        len(links) != 1
-        or _link_key(links[0]) != _link_key(expected)
-        or not (
-            isinstance(links[0]["indices"], str) and links[0]["indices"] == "identity"
-        )
+    by_key = {_link_key(link): link for link in links}
+    observed = by_key.get(_link_key(expected))
+    if observed is None or not (
+        isinstance(observed["indices"], str) and observed["indices"] == "identity"
     ):
         raise ValueError("MolSys requires one declared identity atom-axis link.")
+    required = [expected]
+    for name in sorted(analyses):
+        link = _identity_link("atom", "interactions", "topology", source_name=name)
+        required.append(link)
+        observed = by_key.get(_link_key(link))
+        if observed is None or not (
+            isinstance(observed["indices"], str) and observed["indices"] == "identity"
+        ):
+            raise ValueError(
+                "MolSys requires declared identity links for shared atom axes."
+            )
+    structure_links = [link for link in links if link["axis"] == "structure"]
+    allowed_keys = {_link_key(link) for link in required + structure_links}
+    if set(by_key) - allowed_keys:
+        raise ValueError("MolSys cannot represent an extra H5MSM axis association.")
+    _validate_shared_interaction_structures(structure_links, analyses)
     return MolSys._from_partial_domains(
         topology=payload["topology"],
         chemical_states=payload["chemical_states"],
+        interactions=analyses,
     )
 
 

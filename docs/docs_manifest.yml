@@ -31,7 +31,7 @@ sections:
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
           - name: molsys
-            description: Native domains, declared correspondence, coordinate invalidation and compatible frame replacement.
+            description: Native domains, no-coordinate analysis persistence, declared correspondence and coordinate invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -231,6 +231,7 @@ sections:
         pages:
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
+            description: Modular persistence with optional coordinates, declared shared axes and legacy migration.
       - name: thirds
         path: docs/content/user/tools/thirds
         agents_file: docs/content/user/tools/thirds/AGENTS.md
@@ -326,6 +327,7 @@ sections:
         description: Named aromatic analyses from composed chemical and structural domains.
       - file: docs/content/user/cookbook/migrating_h5msm.md
         agents_file: docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md
+        description: Source-preserving legacy migration and retaining analyses without coordinates.
   showcase:
     path: docs/content/showcase
     status: in_progress

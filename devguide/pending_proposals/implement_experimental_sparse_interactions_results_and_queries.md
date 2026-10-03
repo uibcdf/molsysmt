@@ -1323,12 +1323,12 @@ and file size.
 
 ## Partial persistence boundary discovered during #307 — 2026-10-03
 
-**Measured, incomplete:** Native atom/frame extraction can remap topology,
-chemical states and named analyses while Structures is absent after the #307
-correction. Public 0.5 persistence of that combination still fails. In
+**Initial reproduction:** Native atom/frame extraction could remap topology,
+chemical states and named analyses while Structures was absent after the #307
+correction. Public 0.5 persistence of that combination still failed. In
 `form._h5msm05_modular.write_topology_chemistry_molsys_file`, nonempty analyses
 raise `ValueError: This H5MSM probe cannot encode interaction analyses yet.`
-The matching native reader also rejects an interactions layer in that combination.
+The matching native reader also rejected an interactions layer in that combination.
 
 Reproduce by constructing the system used in
 `tests/form/file_h5msm/test_topology_chemistry_v05_probe.py::test_structure_axis_from_interactions_is_selectable_without_coordinates`
@@ -1338,11 +1338,72 @@ this unsupported persistence boundary from extraction, the focused 80-test run
 passed, including native no-coordinate interaction selection and the supported
 real-pentalanine topology/chemistry-only H5MSM roundtrip.
 
-The User Guide now states this limitation. It remains owned by this open
-implementation issue; #307 does not claim to resolve it. Implement the missing
-reader/writer association route, retain named analyses and their structure axes,
-and qualify both public conversion directions without inventing Structures.
+The initial User Guide stated this limitation. It remained owned by this open
+implementation issue; #307 did not claim to resolve it. The required correction
+was a reader/writer association route retaining named analyses and their structure
+axes in both public conversion directions without inventing Structures.
 Existing independent `read_layers`/`write_layers` support does not qualify native
 MolSys composition of those layers. Evidence: local Linux x86_64, Python 3.13.14
 under uibcdf/molsysmt#237, released ArgDigest 0.13.0, 2026-10-03; no Viewer canvas
 or session compatibility claim is made.
+
+### Implemented and contract-tested checkpoint — 2026-10-03
+
+The topology/chemistry route now reuses the typed named-analysis codec and bounded
+active-block writer. Public `h5msm.write`/`read` and `convert` in both directions
+preserve named analyses while Structures remains absent. The native writer declares
+identity atom links to topology and a connected set of identity structure links
+between analyses. The reader accepts any connected identity structure graph, not
+only the writer's sorted star. Missing or nonidentity links, disconnected axes and
+unrepresentable extra links are rejected; independent `read_layers` still works.
+No atom-by-atom interaction matrix, coordinate buffer, periodic box or inferred
+structure-to-chemical-state association is introduced. MolecularMechanics remains
+excluded from 0.5.
+
+Guard: `tests/form/file_h5msm/test_topology_chemistry_interactions_v05.py` checks
+both public writing and reading routes, repeated/nonconsecutive structure selection,
+sorted topology atom selection, parallel occurrence indices, participant roles,
+evidence, image vectors, units, source maps, original producer versions, execution
+records, evaluated-empty coverage and invalidated frames. Multiple analyses exercise
+internal, incident and between search scopes with full and restricted universes.
+Named zero-occurrence and zero-structure results are retained; a present-empty layer
+remains available through `read_layers` and fails native composition explicitly.
+
+The initial four public roundtrip tests reproduced the writer rejection. After the
+route was implemented, a scope assertion incorrectly compared explicit complete-axis
+storage with the compact `None` produced by native remapping. Existing remap tests
+and the public `evaluation_scope` contract establish their equivalence. The guard
+compares actual selected atom/universe sets and retains restricted-universe cases;
+no scientific scope was lost and no codec change was needed.
+
+The H5MSM regression selection passed **808 tests in 81.00 seconds**, including all
+`tests/form/file_h5msm`, the interaction result/codec/producer/execution/attribution
+guards below and the public H5MSM doctest. Its 611 warnings are expected legacy
+0.3/0.4 deprecation warnings. The final additional scope cases and public doctest
+passed **21 tests in 8.81 seconds**. These are separate runs, not 829 unique tests.
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+  tests/form/file_h5msm tests/interactions/test_result.py \
+  tests/interactions/test_h5msm05.py tests/interactions/test_hdf5_collection.py \
+  tests/interactions/test_bounded_hdf5_writer.py \
+  tests/interactions/test_public_molsys_h5msm_workflow.py \
+  tests/interactions/test_software_provenance.py \
+  tests/interactions/test_execution_provenance.py \
+  tests/interactions/test_scientific_attribution.py \
+  --doctest-modules molsysmt/h5msm.py
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+  tests/form/file_h5msm/test_topology_chemistry_interactions_v05.py \
+  --doctest-modules molsysmt/h5msm.py
+```
+
+Environment: Linux x86_64, Python 3.13.14 under uibcdf/molsysmt#237, NumPy 2.4.6,
+h5py 3.16.0 and the released ArgDigest 0.13.0 snapshot
+`9880fa7b990fd0987ff0de715b665eb9e11c11b2`. Ruff, the public signature guard,
+docstring validation (232 functions), developer-guide validation and canonical
+course validation (156 notebooks) pass. Foundations, Toolbox, Cookbook, public
+docstrings and Module 04 reflect this supported combination; course changes are
+prose-only and preserve executed outputs. Durable format rules are in
+[`h5msm_format.md`](../h5msm_format.md). No new dependency or schema version is
+required. This qualifies persistence, not new performance measurements, Viewer
+canvas/session acceptance or a release-platform matrix; #252 remains partial.
