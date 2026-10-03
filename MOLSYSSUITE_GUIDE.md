@@ -247,6 +247,33 @@ release/badge evidence while completing the required migration. Follow the
 existing internal direct-push and deferred-test routes; this range change does
 not require a full suite after every internal push.
 
+### Local development workspace
+
+For routine Linux development use the qualified `molsyssuite@uibcdf_3.14`
+Conda environment created from the suite's
+[canonical recipe](https://github.com/uibcdf/molsyssuite/blob/main/devtools/conda-envs/molsyssuite-dev-py314.yaml).
+Install every participating eligible local clone with `python -m pip install
+--no-deps --editable PATH`; Conda supplies its dependencies. Where native builds
+need the declared in-environment tools, add `--no-build-isolation`. Verify Python
+3.14, `python -m pip check` and actual editable import origins, then run the
+selected tests with `python -m pytest --receptor=llm` in that environment.
+Ordinary Python source edits are visible without reinstalling; changes to
+metadata, entry points or compiled extensions can require reinstalling/rebuilding.
+
+Eligibility comes from the registered development profile; the automated
+installer selects the complete current cohort. The measured Linux profile
+currently integrates fourteen Python members, with TopoMT still outside that
+cohort. A member not yet qualified uses its own compatible Python 3.14 Conda
+development environment and tracks the shared-environment gap and exit condition
+in its owning issue. An older interpreter requires the existing bounded migration
+exception. MolSys-AI's umbrella is not an installable Python package; a MOLI
+component such as Sabueso retains its own membership and qualification owner.
+
+Use the [development workspace contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/development_workspace.md)
+and registered profile/receipts for current eligibility, bootstrap, exclusions and
+cross-domain work. An editable installation or development probe does not qualify
+a public artifact, full scientific suite, GUI rendering or another platform.
+
 Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
 ## Modular reusable tools
