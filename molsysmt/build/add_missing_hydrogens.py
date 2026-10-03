@@ -3,7 +3,9 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def add_missing_hydrogens(
-    molecular_system, pH=7.4, engine="OpenMM", skip_digestion=False
+    molecular_system, pH=7.4, engine="OpenMM", skip_digestion=False,
+    *, mode="pH", chemical_state="reference", structure_indices="all",
+    return_report=False, attribute_policy="intersection"
 ):
     """
     Adding missing hydrogen atoms to a molecular system.
@@ -18,18 +20,35 @@ def add_missing_hydrogens(
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    pH : object, default=7.4
-        Argument pH.
-    engine : object, default='OpenMM'
-        Argument engine.
+    pH : float or None, default=7.4
+        pH passed to the legacy engine. Fixed-state mode requires None: it
+        materializes a prepared inventory without choosing a protonation state.
+    engine : str, default='OpenMM'
+        Legacy engines are OpenMM, PDBFixer and MolSysMT. Explicit RDKit is
+        required for fixed-state mode; missing RDKit never selects a fallback.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    mode : {'pH', 'fixed_chemical_state'}, default='pH'
+        Keyword-only choice between existing residue/pH behavior and adding H
+        to one isolated prepared ligand with one state and one coordinate frame.
+    chemical_state : str or int, default='reference'
+        State selected in fixed-state mode; 'structure' resolves the frame link.
+    structure_indices : int, list, tuple or numpy.ndarray, default='all'
+        Selected frame in fixed-state mode. Extract multiple source frames first.
+    return_report : bool, default=False
+        In fixed-state mode, return a dictionary containing molecular_system
+        and a detached versioned preparation report instead of just the system.
+    attribute_policy : {'intersection', 'strict'}, default='intersection'
+        Fixed-state handling of attributes that cannot cover added atoms:
+        intersection drops them with a diagnostic; strict rejects the input.
 
     Returns
     -------
-    molecular system
-        A new molecular system with hydrogens added, returned in the same form
-        as the input.
+    molecular system or dict
+        Legacy mode returns the input form. Fixed-state mode returns a new
+        native MolSys, or that system and hydrogen_addition@1 report when
+        return_report=True. Existing atom indices and coordinate values are
+        retained; appended H have deterministic string IDs and parent maps.
 
 
     Raises
@@ -40,13 +59,29 @@ def add_missing_hydrogens(
     ArgumentError
         Raised if an input argument does not meet the expected format or conditions.
 
-    EngineError
-        Raised if the selected engine fails to perform hydrogen addition.
+    StructuralInconsistencyError
+        If fixed-state chemistry, geometry or atom-domain preservation is invalid.
+
+    ImportError
+        If an explicitly requested optional engine is unavailable.
 
 
     Notes
     -----
-    Hydrogen atoms are added based on standard residue templates and general
+    Fixed-state mode requires explicit elements, complete covalent connectivity,
+    bond orders, aromaticity, formal charges, closed-shell assignments and virtual
+    H counts. The optional RDKit AddHs(addCoords=True) primitive generates local
+    H coordinates on the supplied pose. Backend reinterpretation of the declared
+    inventory fails. Source inputs remain unchanged on success and failure.
+    Missing H are appended; existing H are never removed or repositioned.
+    No receptor refinement, minimization or heavy-atom conformer generation runs.
+    Supply compact periodic coordinates; split molecules are rejected rather than
+    reconstructed implicitly. Named interactions become unevaluated on an expanded
+    output; no-addition outputs retain their analyses. Multiple states/frames,
+    metals, radicals, query atoms and virtual isotopic additions are unsupported.
+    See :ref:`Tutorial_Fixed_State_Hydrogens` for the experimental contract.
+
+    In legacy pH mode, hydrogen atoms are added based on standard residue templates and general
     rules for protonation. Ionizable side chains (e.g., ASP, GLU, HIS) and both
     chain termini are adjusted according to the provided pH.
 
@@ -83,15 +118,17 @@ def add_missing_hydrogens(
 
     Examples
     --------
-    The following example illustrates the use of the function:
-
     >>> import molsysmt as msm
-    >>> molsys = msm.convert('181L', selection='molecule_type=="protein"')
-    >>> msm.build.has_hydrogens(molecular_system)
-    False
-    >>> molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
-    >>> msm.build.has_hydrogens(molsys)
-    True
+    >>> from rdkit import Chem
+    >>> molsys = Chem.MolFromSmiles('C')
+    >>> conf = Chem.Conformer(1)
+    >>> _ = molsys.AddConformer(conf)
+    >>> result = msm.build.add_missing_hydrogens(molsys, mode='fixed_chemical_state',
+    ...     pH=None, engine='RDKit', return_report=True)
+    >>> result['molecular_system'].get_n_atoms()
+    5
+    >>> result['report']['n_added_hydrogens']
+    4
 
 
     .. admonition:: User guide
@@ -101,6 +138,32 @@ def add_missing_hydrogens(
 
     .. versionadded:: 1.0.0
     """
+
+    if not isinstance(skip_digestion, bool):
+        from molsysmt._private.argdigest.argument.skip_digestion import (
+            digest_skip_digestion,
+        )
+        digest_skip_digestion(skip_digestion, caller=__name__ + '.add_missing_hydrogens')
+    from molsysmt._private.smonitor import ArgumentError
+    from molsysmt._private.variables import is_all
+    caller = 'molsysmt.build.add_missing_hydrogens'
+    if mode == 'fixed_chemical_state':
+        if pH is not None:
+            raise ArgumentError('pH', value=pH, caller=caller,
+                                message='Fixed-state mode requires pH=None.')
+        if engine != 'RDKit':
+            raise ArgumentError('engine', value=engine, caller=caller,
+                                message='Fixed-state mode requires the explicit RDKit engine.')
+        from molsysmt._private.fixed_hydrogens import add
+        result = add(molecular_system, chemical_state, structure_indices, attribute_policy)
+        return result if return_report else result['molecular_system']
+    if mode != 'pH' or pH is None or engine == 'RDKit':
+        raise ArgumentError('mode', value=mode, caller=caller,
+                            message='RDKit and pH=None require explicit fixed_chemical_state mode.')
+    if (chemical_state != 'reference' or not is_all(structure_indices)
+            or return_report or attribute_policy != 'intersection'):
+        raise ArgumentError('mode', value=mode, caller=caller,
+                            message='State, frame, report and attribute-policy options require fixed-state mode.')
 
     from molsysmt.basic import convert, get, get_form
 

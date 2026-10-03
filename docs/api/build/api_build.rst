@@ -11,6 +11,7 @@ API Build
    add_missing_bonds
    add_missing_heavy_atoms
    add_missing_hydrogens
+   add_terminal_atoms
    add_missing_terminal_cappings
    build_peptide
    editable

@@ -118,8 +118,8 @@ ledger authoritative for release scope.
    valence/protonation validation is not established by either assessment.
 3. **Complete selected chemistry and missing H through reusable tools.**
    uibcdf/molsysmt#298 owns explicit template assessment/application with
-   caller-declared atom correspondence; uibcdf/molsysmt#300 owns fixed-state
-   ligand hydrogen addition and local placement. Experimental template tools now
+   caller-declared atom correspondence; [Fixed-state hydrogen addition #300](archive/resolved_proposals/add_ligand_hydrogens_for_a_fixed_chemical_state.md)
+   delivers the initial RDKit ligand placement route. Experimental template tools now
    provide the bounded same-graph, absent-field-only contract, copy semantics and
    a detached provenance report. Unsupported representation normalization,
    native report attachment and real consumer acceptance remain open under #298.
@@ -128,7 +128,13 @@ ledger authoritative for release scope.
    reject conflicting assignments and retain preparation provenance. Template
    application cannot add absent atoms; local H placement cannot select a
    protomer or establish an energy-minimized orientation. Review native-domain
-   reconstruction and metadata contracts before implementing hydrogen placement.
+   reconstruction and metadata contracts before extending hydrogen placement.
+   The experimental fixed-state RDKit route now reuses public hydrogen-inventory
+   and terminal-attachment tools, preserving old indices/coordinates and checking
+   declared chemistry/stereo. It rejects unsupported source scope, invalidates
+   interactions only on the expanded output, and returns detached provenance.
+   Local geometry is not an optimized receptor orientation; consumer acceptance
+   and any later native ligand engine remain separate evidence.
 4. **Assign charges and chemical AutoDock types explicitly.**
    [Named charges #221](pending_proposals/assign_partial_charges_with_an_explicit_named_model.md)
    and [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)

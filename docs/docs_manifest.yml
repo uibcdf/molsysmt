@@ -83,6 +83,14 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: fixed_state_hydrogens
+            file: docs/content/user/tools/build/fixed_state_hydrogens.md
+            agents_file: docs/content/user/tools/build/fixed_state_hydrogens.md.AGENTS.md
+            status: reviewed
+          - name: add_terminal_atoms
+            file: docs/content/user/tools/build/add_terminal_atoms.md
+            agents_file: docs/content/user/tools/build/add_terminal_atoms.md.AGENTS.md
+            status: reviewed
           - name: get_residue_chemical_coverage
             file: docs/content/user/tools/build/get_residue_chemical_coverage.md
             agents_file: docs/content/user/tools/build/get_residue_chemical_coverage.md.AGENTS.md
@@ -123,6 +131,9 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_hydrogen_inventory
+            file: docs/content/user/tools/physchem/get_hydrogen_inventory.md
+            agents_file: docs/content/user/tools/physchem/get_hydrogen_inventory.md.AGENTS.md
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md

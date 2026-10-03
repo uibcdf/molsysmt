@@ -39,6 +39,10 @@ def digest_engine(engine, caller=None):
             return 'rdkit'
         raise ArgumentError('engine', value=engine, caller=caller)
 
+    if (caller == 'molsysmt.build.add_missing_hydrogens.add_missing_hydrogens'
+            and isinstance(engine, str) and engine.lower() == 'rdkit'):
+        return 'RDKit'
+
     from molsysmt.supported.engines import lowercase_engines
 
     if isinstance(engine, str):

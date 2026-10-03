@@ -12,8 +12,8 @@ Properties describing individual atoms, elements, isotopes, and core physical in
 | Attribute / Property | Target Scope | Description | Canonical Unit |
 | :--- | :--- | :--- | :--- |
 | **`atom_name`** | Atom | IUPAC/PDB atom identifier string (e.g., `"CA"`, `"N"`, `"OG"`). | N/A |
-| **`atom_type`** | Atom | Forcefield-specific or ProTor atom type code. | N/A |
-| **`element_symbol`** | Atom | Chemical element symbol (e.g., `"C"`, `"N"`, `"O"`, `"Fe"`). | N/A |
+| **`atom_type`** | Atom | Canonical chemical element symbol, such as `C`, `N`, `O` or `Fe`. | N/A |
+| **`element_symbol`** | Atom | External spelling in some libraries; MolSysMT uses `atom_type` for this meaning. | N/A |
 | **`atomic_number`** | Atom | Nuclear proton count ($Z$). | N/A |
 | **`mass`** | Atom / Group / System | Atomic, residue, or total molecular system mass. | `dalton` (`Da`) |
 | **`isotope`** | Atom | Isotope mass number ($A$). | N/A |
@@ -36,6 +36,12 @@ Properties defining electronic states, formal/partial charges, and protonation:
 | **`n_explicit_hydrogens`** | Atom | Atom-level hydrogen annotations such as RDKit bracket H counts; these do not add indexed H atoms. | Integer |
 | **`n_unpaired_electrons`** | Atom | Radical or free electron count. | Integer |
 | **`pka`** | Group | Acid dissociation constant value for ionizable groups. | N/A |
+
+Stored H counts describe virtual annotations. Existing H atoms have their own indices
+and covalent bonds; counts are not their coordinates. Inspect both with
+{ref}`Tutorial_Hydrogen_Inventory`, and explicitly materialize a chosen state using
+{ref}`Tutorial_Fixed_State_Hydrogens`. That operation retains the existing pose and
+does not predict a pH-dependent state or optimize the receptor environment.
 
 ---
 

@@ -210,3 +210,17 @@ molsysmt.topology.get_rigid_fragments:
   summary: "Partitions complete covalent connectivity at explicit source bond indices."
   doc_ref: "{func}`molsysmt.topology.get_rigid_fragments`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rigid_fragments()**: Derives packed rigid fragments from explicit cuts.\n:::"
+
+molsysmt.physchem.get_hydrogen_inventory:
+  name: "msm.physchem.get_hydrogen_inventory"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Separates indexed H neighbors from stored virtual H counts."
+  doc_ref: "{func}`molsysmt.physchem.get_hydrogen_inventory`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_hydrogen_inventory()**: Separates indexed H neighbors from stored virtual H counts.\n:::"
+
+molsysmt.build.add_terminal_atoms:
+  name: "msm.build.add_terminal_atoms"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Appends explicitly declared atoms and full-frame coordinates to an independent native system."
+  doc_ref: "{func}`molsysmt.build.add_terminal_atoms`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_terminal_atoms()**: Appends explicitly declared atoms and full-frame coordinates to an independent native system.\n:::"

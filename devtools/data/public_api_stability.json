@@ -115,7 +115,8 @@
     "molsysmt/form/file_sdf/to_molsysmt_MolSys.py:to_molsysmt_MolSys": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
     "molsysmt/form/file_sdf/to_molsysmt_Topology.py:to_molsysmt_Topology": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
     "molsysmt/form/file_sdf/to_molsysmt_Structures.py:to_molsysmt_Structures": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
-    "molsysmt/form/molsysmt_MolSys/to_file_sdf.py:to_file_sdf": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py."
+    "molsysmt/form/molsysmt_MolSys/to_file_sdf.py:to_file_sdf": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/build/add_missing_hydrogens.py:add_missing_hydrogens": "uibcdf/molsysmt#300: append explicit keyword-only fixed-state options; preserve all existing positional parameters and defaults."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {
@@ -1881,6 +1882,22 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
       "contract_tests": "tests/physchem/test_chemical_template.py"
+    },
+    "molsysmt.build.add_terminal_atoms": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "build",
+      "documentation": "docs/content/user/tools/build/add_terminal_atoms.md",
+      "contract_tests": "tests/build/add_terminal_atoms/test_add_terminal_atoms.py"
+    },
+    "molsysmt.physchem.get_hydrogen_inventory": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_hydrogen_inventory.md",
+      "contract_tests": "tests/physchem/get_hydrogen_inventory/test_inventory.py"
     }
   }
 }

@@ -59,6 +59,17 @@ template fills the 20 observed atoms, retaining their pose and 23 heavy bonds.
 Recognition yields the six-atom aromatic ring and acceptors O3/O17. Its 24 stored
 H counts do not provide explicit donor-H pairs or H positions.
 
+After selecting that chemical state, request the separate
+{ref}`fixed-state hydrogen operation <Tutorial_Fixed_State_Hydrogens>` with
+`mode='fixed_chemical_state'`, `pH=None`, `engine='RDKit'` and `return_report=True`.
+For the pinned EST pose, the regression produces 44 atoms and 47 bonds, retains
+all 20 original coordinate values and five CIP centers, and exposes donor-H
+pairs for O3/O17. Those new H positions are modeled local geometry; no receptor
+optimization or minimization has been performed. The roundtrip is protected by
+`tests/build/add_missing_hydrogens/test_fixed_state.py`. B-factors are reported
+as dropped when expanding this observed structure; strict attribute policy
+rejects that loss. Keep both detached preparation reports with the input provenance.
+
 Choose the stereochemical source explicitly when reference fields disagree.
 For the pinned EST definition, the CACTVS canonical descriptor and independent
 CIP assignment from the deposited pose agree at five centers; the atom-level CCD
