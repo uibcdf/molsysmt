@@ -77,7 +77,7 @@ _convert_to = {
 }
 
 _conversion_opt_kwargs = {
-    "file:sdf": ["ctfile_version"],
+    "file:sdf": ["ctfile_version", "stereo_engine"],
     "string:pdb_text": ["pdb_chain_id"],
     "pdbfixer.PDBFixer": ["pdb_chain_id"],
     "openmm.Simulation": ["collisions_rate", "integration_timestep"],

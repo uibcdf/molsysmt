@@ -28,8 +28,8 @@ _convert_to = {
 }
 
 _conversion_opt_kwargs = {
-    "molsysmt.MolSys": ["discard_properties"],
-    "molsysmt.Topology": ["discard_properties"],
-    "molsysmt.Structures": ["discard_properties"],
-    "file:sdf": ["ctfile_version", "discard_properties"],
+    "molsysmt.MolSys": ["discard_properties", "stereo_engine"],
+    "molsysmt.Topology": ["discard_properties", "stereo_engine"],
+    "molsysmt.Structures": ["discard_properties", "stereo_engine"],
+    "file:sdf": ["ctfile_version", "discard_properties", "stereo_engine"],
 }

@@ -79,7 +79,28 @@ def to_native(record, *, discard_properties=False):
     return result
 
 
-def from_native(item, version):
+def store_stereochemistry(item, report):
+    """Store aligned chemical assignments, without retaining toolkit objects."""
+    item.topology._set_chemical_state_atom_attribute(
+        "stereochemistry",
+        [
+            label if label is not None else "unspecified"
+            for label in report["atom_stereochemistry"]
+        ],
+    )
+    bonds = item.chemical_states._states[0].bonds.copy()
+    for index, label, refs in zip(
+        report["bond_indices"],
+        report["bond_reference_stereochemistry"],
+        report["bond_stereo_atom_indices"],
+    ):
+        if label is not None:
+            bonds.loc[index, "stereochemistry"] = label
+            bonds.loc[index, ["stereo_atom1_index", "stereo_atom2_index"]] = refs
+    item.topology._set_chemical_state_bonds(bonds)
+
+
+def from_native(item, version, *, allow_stereo=False):
     """Validate a selected native graph without mutating it or guessing chemistry."""
     if version not in {"V2000", "V3000"}:
         _fail("ctfile_version must be 'V2000' or 'V3000'.")
@@ -104,7 +125,9 @@ def from_native(item, version):
     # Inspect explicit CIP labels before serializing: wedge/parity output cannot
     # be approximated by copying a label into a CTAB integer field.
     stereo = atoms_state.get("stereochemistry", pd.Series(dtype="string")).dropna()
-    if not stereo.isin(["unspecified"]).all():
+    if not stereo.isin(
+        ["unspecified", "R", "S", "r", "s"] if allow_stereo else ["unspecified"]
+    ).all():
         _fail(
             "Native atom stereochemistry cannot yet be encoded by the native SDF writer."
         )
@@ -136,7 +159,9 @@ def from_native(item, version):
     for i, bond in topology._get_chemical_state_bonds().iterrows():
         atom1, atom2 = int(bond["atom1_index"]), int(bond["atom2_index"])
         bond_type = bond.get("bond_type", None)
-        if pd.notna(bond.get("stereochemistry", pd.NA)):
+        if pd.notna(bond.get("stereochemistry", pd.NA)) and not (
+            allow_stereo and bond["stereochemistry"] in {"cis", "trans", "E", "Z"}
+        ):
             _fail(
                 "Native bond stereochemistry cannot yet be encoded by the native SDF writer."
             )

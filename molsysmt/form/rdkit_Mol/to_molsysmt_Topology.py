@@ -87,10 +87,23 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
 
     from rdkit import Chem
 
+    from molsysmt._private.stereochemistry import assign_cip
     from molsysmt._private.variables import is_all
     from molsysmt.native import Topology
 
+    item = Chem.Mol(item)
     Chem.AssignStereochemistry(item, cleanIt=False, force=True)
+    declared_bond_stereo = [
+        (bond.GetStereo(), list(bond.GetStereoAtoms())) for bond in item.GetBonds()
+    ]
+    assign_cip(item)
+    # Accurate CIP labeling can normalize E/Z tags into reference-relative
+    # cis/trans. Preserve the input adapter's declared bond representation;
+    # atom labels above still come from the accurate labeler.
+    for bond, (stereo, references) in zip(item.GetBonds(), declared_bond_stereo):
+        if len(references) == 2:
+            bond.SetStereoAtoms(*references)
+        bond.SetStereo(stereo)
     tmp_item = Topology(n_atoms=item.GetNumAtoms())
 
     atoms = list(item.GetAtoms())

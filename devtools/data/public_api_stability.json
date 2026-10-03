@@ -107,7 +107,15 @@
     "molsysmt/interactions/water_bridges/get_water_bridges.py:get_water_bridges": "Add keyword-only exact order=1/2 and generalize the experimental default method to hbond_water_path. Default single-water numerical behavior and explicit two_hbonds_one_water calls remain supported. Tracked by uibcdf/molsysmt#282.",
     "molsysmt/interactions/hbonds/get_buch_hbonds.py:get_buch_hbonds": "Accepted optional Interactions output under uibcdf/molsysmt#250 and #252: add keyword-only output_type while preserving the established positional skip_digestion slot. Tuple remains the default. Guard: tests/interactions/hbonds/test_namespace.py and tests/interactions/disulfides/test_get_disulfide_candidates.py.",
     "molsysmt/interactions/disulfides/get_disulfide_candidates.py:get_disulfide_candidates": "Accepted optional Interactions output under uibcdf/molsysmt#250 and #252: add keyword-only output_type while preserving the established positional skip_digestion slot. Tuple remains the default. Guard: tests/interactions/hbonds/test_namespace.py and tests/interactions/disulfides/test_get_disulfide_candidates.py.",
-    "molsysmt/interactions/hbonds/get_luzard_chandler_hbonds.py:get_luzard_chandler_hbonds": "Accepted optional Interactions output under uibcdf/molsysmt#250 and #252: add keyword-only output_type and skip_digestion without changing established positional parameters. Tuple remains the default. Guard: tests/interactions/hbonds/test_namespace.py and tests/interactions/disulfides/test_get_disulfide_candidates.py."
+    "molsysmt/interactions/hbonds/get_luzard_chandler_hbonds.py:get_luzard_chandler_hbonds": "Accepted optional Interactions output under uibcdf/molsysmt#250 and #252: add keyword-only output_type and skip_digestion without changing established positional parameters. Tuple remains the default. Guard: tests/interactions/hbonds/test_namespace.py and tests/interactions/disulfides/test_get_disulfide_candidates.py.",
+    "molsysmt/_private/conversion_report.py:build_conversion_report": "Internal converter-option context for accurate SDF stereo reports; public preflight signature unchanged. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/_private/ctfile.py:read_sdf": "Private parser flag for explicitly delegated stereo interpretation; native default unchanged. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/form/file_sdf/_native.py:from_native": "Private validated encoding flag for the explicitly requested stereo writer. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/form/file_sdf/to_file_sdf.py:to_file_sdf": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/form/file_sdf/to_molsysmt_MolSys.py:to_molsysmt_MolSys": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/form/file_sdf/to_molsysmt_Topology.py:to_molsysmt_Topology": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/form/file_sdf/to_molsysmt_Structures.py:to_molsysmt_Structures": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
+    "molsysmt/form/molsysmt_MolSys/to_file_sdf.py:to_file_sdf": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {
@@ -1818,6 +1826,13 @@
       "owner": "basic",
       "documentation": "docs/content/user/tools/basic/get_conversion_report.md",
       "contract_tests": "tests/basic/test_get_conversion_report.py"
+    },
+    "molsysmt.physchem.get_cip_stereochemistry": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_cip_stereochemistry.md",
+      "contract_tests": "tests/physchem/test_get_cip_stereochemistry.py"
     }
   }
 }

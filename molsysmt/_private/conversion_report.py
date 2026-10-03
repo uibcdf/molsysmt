@@ -1208,6 +1208,7 @@ def build_conversion_report(
     selection="all",
     structure_indices="all",
     syntax="MolSysMT",
+    converter_options=None,
 ):
     """Build a conservative preflight report without mutating either system."""
 
@@ -1227,7 +1228,7 @@ def build_conversion_report(
         ):
             from molsysmt._private.ctfile import read_sdf
 
-            record = read_sdf(source_item)
+            record = read_sdf(source_item, allow_stereo=True)
             properties = record.properties
             if properties:
                 issues.append(
@@ -1252,9 +1253,9 @@ def build_conversion_report(
             if source_form == "molsysmt.MolSys":
                 issues.extend(audit_sdf_write(source_item, selection, structure_indices, syntax))
             elif not is_all(selection) or not is_all(structure_indices):
-                from molsysmt.form.file_sdf.to_molsysmt_MolSys import to_molsysmt_MolSys
 
-                native = to_molsysmt_MolSys(source_item, discard_properties=True, skip_digestion=True)
+                from molsysmt.form.file_sdf._native import to_native
+                native = to_native(read_sdf(source_item, allow_stereo=True), discard_properties=True)
                 issues.extend(audit_sdf_write(native, selection, structure_indices, syntax))
         registered_profile = (
             source_form,
@@ -1293,6 +1294,11 @@ def build_conversion_report(
         if not registered_profile:
             target_attributes = _dict_modules[target_form].attributes
             for attribute in _CHEMICAL_ATTRIBUTES:
+                if target_form == 'file:sdf' and attribute in {'atom_stereochemistry', 'bond_stereochemistry', 'bond_stereo_atom_indices'} and (converter_options or {}).get('stereo_engine') == 'rdkit':
+                    # The explicit writer verifies this bounded stereo route
+                    # before opening the destination. Ordinary capability
+                    # reports still describe the dependency-free default.
+                    continue
                 if _instance_has(
                     inspection_module, inspection_item, attribute, inspection_form
                 ) and not target_attributes.get(attribute, False):

@@ -375,7 +375,12 @@ extracts values explicitly in angstroms even under a different application unit
 policy. Reading records explicit charge, isotope, supported radical counts,
 ordinary covalent orders and aromatic type 4; it does not assign implicit
 hydrogens, sanitize valence, perceive aromaticity from Kekule orders or assign
-CIP labels from coordinates.
+CIP labels from coordinates by default. An explicit keyword-only
+`stereo_engine='rdkit'` opts into the optional scientific provider for supported
+tetrahedral and double-bond stereo; the native parser still validates the graph
+and retains the atom axis. `physchem.get_cip_stereochemistry` owns accurate
+Hanson 2018 CIP analysis, including pseudoasymmetry. It is form-agnostic and
+read-only, with full-graph ranking before output selection.
 
 V3000 coordination type 9 maps to `bond_type='dative'`, with the first source
 endpoint as donor and the second as acceptor. This is the adapter's explicit
@@ -388,11 +393,20 @@ COORD/DATIVE display options, but native conversion reports losing `DISP` style;
 identity copies retain the original bytes. Type 10 hydrogen relationships and
 multi-endpoint coordination remain unsupported.
 
-The supported subset rejects active stereo flags, queries, valence overrides,
+The default subset rejects active stereo flags. Both routes reject queries, valence overrides,
 reaction maps, Sgroups, singlet spin, unsupported bond types and unknown CTAB
 extensions. The chemical state owns explicit chemistry; the format reader does
 not create an alternative chemical store. Unsupported data never becomes a
-fabricated default. These limitations keep uibcdf/molsysmt#215 open.
+fabricated default. The optional provider supports 2D wedges and supported 3D
+representations, stores R/S or r/s in ChemicalStates, and preserves cis/trans
+with source reference atoms on double bonds. Absolute E/Z is a separate CIP
+analysis output, not a claim about the reference pair. Unsupported enhanced,
+non-tetrahedral and uninterpretable parity-only stereo remain errors. The writer
+verifies serialized configurations before touching the destination. A verified
+stereo route is accounted for in `convert(..., return_report=True)`;
+`get_conversion_report` has no converter-option arguments and describes the
+ordinary default route. These bounded limits keep uibcdf/molsysmt#215 open
+pending the broader representative-source validation.
 Documented inactive zero values of V3000 atom/bond flags are accepted, without
 creating query, stereo or hydrogen assignments. Unknown and repeated fields
 still fail, even with zero values.

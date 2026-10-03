@@ -79,6 +79,30 @@ authorize their loss with `discard_properties=True`; `return_report=True`
 lists that loss, and strict mode still rejects it. To preserve source bytes and
 properties, use `msm.copy(source, output_filename='source_copy.sdf')`.
 
+## Enabling stereochemistry explicitly
+
+Ordinary parsing remains native and rejects active stereo flags. To interpret
+tetrahedral and double-bond configurations, explicitly request the optional
+RDKit provider. All source hydrogen atoms remain on the same atom axis:
+
+```python
+molsys = msm.convert('stereo.sdf', to_form='molsysmt.MolSys',
+                     stereo_engine='rdkit')
+msm.convert(molsys, to_form='stereo_out.sdf', ctfile_version='V3000',
+            stereo_engine='rdkit')
+```
+
+Assignment is performed on the full graph before atom extraction. Absolute
+atom labels are stored in `chemical_states`; double bonds retain the relative
+cis/trans relation and explicit reference atoms. Use
+{ref}`Tutorial_Get_CIP_stereochemistry` to query absolute E/Z independently.
+Writing verifies the encoded configuration by reading the payload back before
+opening the destination. Incompatible geometry or unencodable labels raise
+instead of overwriting the file. Byte-preserving identity copies need no stereo
+provider. Converter options are not validated by the public preflight report.
+Native subset extraction can invalidate a center's chemical configuration;
+requesting serialization does not repair or guess the missing chemistry.
+
 ## Checking chemical atom types
 
 You can check extracted atom types independently of their source form. Atom
@@ -99,14 +123,19 @@ does not infer elements from atom names or AutoDock labels. The public tools
 inspect values; they do not modify `molsys`.
 
 :::{warning}
-The native subset rejects active stereochemical flags/labels, query atoms/bonds,
+The default native subset rejects active stereo flags/labels. The explicitly
+enabled provider interprets supported tetrahedral and double-bond encodings,
+including wedges and supported 3D source configurations. Both routes reject
+query atoms/bonds,
 valence overrides, reaction maps, Sgroups and unsupported radical/bond types.
 Explicit V3000 flags with their documented inactive value of zero are accepted;
 an unknown field with value zero is still an error. Coordination type 9 is
 supported only in V3000, not as a nonstandard V2000 extension.
 Writing rejects atom aromaticity that the supplied bond types cannot retain.
 It does not sanitize valence, infer hydrogen counts, perceive aromaticity from
-Kekule bonds or derive CIP labels from 3D coordinates. Multiple SDF records
+Kekule bonds or derive CIP labels from 3D coordinates by default. The optional provider
+performs the requested CIP analysis; enhanced stereo and parity-only encodings
+without a supported wedge/3D interpretation remain unsupported. Multiple SDF records
 are rejected. Keep the original file when it carries unsupported information.
 :::
 

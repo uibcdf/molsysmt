@@ -943,6 +943,7 @@ def convert(
             selection=selection,
             structure_indices=structure_indices,
             syntax=syntax,
+            converter_options=kwargs,
         )
         if strict and report.is_lossy:
             raise NotCompatibleConversionError(

@@ -25,17 +25,18 @@ def has_attribute(
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt._private.ctfile import read_sdf
     from molsysmt.form.molsysmt_MolSys.has_attribute import has_attribute as native_has
 
+    from ._native import to_native
     from .attributes import attributes
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     if not attributes.get(attribute, False):
         return False
     if include_none:
         return True
-    item = to_molsysmt_MolSys(
-        molecular_system, discard_properties=True, skip_digestion=True
+    item = to_native(
+        read_sdf(molecular_system, allow_stereo=True), discard_properties=True
     )
     return native_has(
         item, attribute=attribute, include_none=False, skip_digestion=True

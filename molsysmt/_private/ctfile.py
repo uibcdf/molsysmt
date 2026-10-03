@@ -75,6 +75,8 @@ class CTRecord:
     atoms: list = field(default_factory=list)
     bonds: list = field(default_factory=list)
     properties: list = field(default_factory=list)
+    stereo_present: bool = False
+    stereo_atom_serials: list = field(default_factory=list)
 
 
 def _atom(serial, element, coordinates, *, isotope=None):
@@ -145,7 +147,7 @@ def _validate(record):
             _fail("Only V3000 coordination display styles COORD and DATIVE are supported.")
 
 
-def _v2000(lines):
+def _v2000(lines, *, allow_stereo=False):
     counts = lines[3]
     if len(counts) < 39 or counts[33:39].strip() != "V2000":
         _fail("Missing or malformed V2000 counts line.")
@@ -155,11 +157,13 @@ def _v2000(lines):
         _fail("Negative counts or truncated V2000 connection table.")
     # Atom lists, chiral flag, Stext, and obsolete entries need their own model.
     for start in (6, 9, 12, 15, 18, 21, 24, 27):
-        if _integer(counts[start : start + 3], "counts flags", blank=True):
+        value = _integer(counts[start : start + 3], "counts flags", blank=True)
+        if value and not (allow_stereo and start == 12 and value == 1):
             _fail(
                 "Unsupported nonzero V2000 counts flag (including stereo/query data)."
             )
     record = CTRecord(lines[0], "V2000")
+    record.stereo_present = bool(_integer(counts[12:15], "chiral flag", blank=True))
     mass_differences = []
     for i, line in enumerate(lines[4 : 4 + n_atoms], 1):
         if len(line) < 39:
@@ -176,7 +180,12 @@ def _v2000(lines):
         atom.formal_charge = 4 - charge if charge and charge != 4 else 0
         atom.n_unpaired_electrons = int(charge == 4)
         for start in range(39, max(len(line), 69), 3):
-            if _integer(line[start : start + 3], "atom flags", blank=True):
+            value = _integer(line[start : start + 3], "atom flags", blank=True)
+            if allow_stereo and start == 39 and value in {1, 2}:
+                record.stereo_present = True
+                record.stereo_atom_serials.append(i)
+                continue
+            if value:
                 _fail(
                     f"Unsupported atom flag on atom {i} (stereo, query, valence or map)."
                 )
@@ -188,6 +197,9 @@ def _v2000(lines):
             _integer(line[start : start + 3], "bond", blank=True)
             for start in range(0, max(len(line), 21), 3)
         ]
+        if allow_stereo and values[3] in {1, 6} and values[2] == 1:
+            record.stereo_present = True
+            values[3] = 0
         if any(values[3:]):
             _fail(
                 f"Unsupported bond flag on bond {i} (stereo, query or reaction data)."
@@ -239,7 +251,7 @@ def _v2000(lines):
     return record, cursor + 1
 
 
-def _v3000(lines):
+def _v3000(lines, *, allow_stereo=False):
     logical = []
     cursor = 4
     while cursor < len(lines) and lines[cursor] != "M  END":
@@ -265,9 +277,10 @@ def _v3000(lines):
     if len(counts) != 6 or counts[0] != "COUNTS":
         _fail("Malformed V3000 COUNTS.")
     n_atoms, n_bonds, *flags = [_integer(i, "V3000 counts") for i in counts[1:]]
-    if n_atoms < 0 or n_bonds < 0 or any(flags):
+    if n_atoms < 0 or n_bonds < 0 or any(flags[:2]) or (flags[2] and not (allow_stereo and flags[2] == 1)):
         _fail("Unsupported V3000 counts (query, groups or stereo).")
     record = CTRecord(lines[0], "V3000")
+    record.stereo_present = bool(flags[2])
     position = 2
     for name, count in (("ATOM", n_atoms), ("BOND", n_bonds)):
         # Empty sections may be omitted by conforming writers.
@@ -320,6 +333,9 @@ def _v3000(lines):
                         atom.isotope = value or None
                     elif key == "RAD":
                         atom.n_unpaired_electrons = _radical(value)
+                    elif key == 'CFG' and allow_stereo and value in {1, 2}:
+                        record.stereo_present = True
+                        record.stereo_atom_serials.append(atom.serial)
                     elif value != 0:
                         _fail(
                             f"Unsupported V3000 atom property {token!r}; only its inactive default is supported."
@@ -342,6 +358,9 @@ def _v3000(lines):
                         # Drawing style only; retain endpoint order for both.
                         display = value
                         continue
+                    if key == 'CFG' and allow_stereo and order == 1 and _integer(value, key) in {1, 3}:
+                        record.stereo_present = True
+                        continue
                     if (
                         key not in {"CFG", "TOPO", "RXCTR", "STBOX"}
                         or _integer(value, key) != 0
@@ -358,7 +377,7 @@ def _v3000(lines):
     return record, cursor + 1
 
 
-def read_sdf(filename):
+def read_sdf(filename, *, allow_stereo=False):
     """Read exactly one record, retaining SD properties separately from chemistry."""
     # Read one record at a time; a multi-record database is never materialized.
     lines = []
@@ -379,9 +398,9 @@ def read_sdf(filename):
     if len(lines) < 5:
         _fail("Truncated SDF header or connection table.")
     if lines[3].rstrip().endswith("V2000"):
-        record, cursor = _v2000(lines)
+        record, cursor = _v2000(lines, allow_stereo=allow_stereo)
     elif lines[3].rstrip().endswith("V3000"):
-        record, cursor = _v3000(lines)
+        record, cursor = _v3000(lines, allow_stereo=allow_stereo)
     else:
         _fail("Only explicitly versioned V2000 and V3000 CTAB records are supported.")
     _validate(record)
@@ -404,6 +423,8 @@ def read_sdf(filename):
 def write_sdf(record):
     """Render a validated explicit record before opening any destination file."""
     _validate(record)
+    if record.stereo_present:
+        _fail('Explicit CTAB stereo requires the selected scientific stereo engine; ordinary rendering would discard it.')
     if "\n" in record.title or "\r" in record.title:
         _fail("An SDF molecule title must occupy one line.")
     if record.properties:

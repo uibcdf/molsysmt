@@ -11,6 +11,8 @@ def to_file_sdf(
     output_filename=None,
     ctfile_version="V2000",
     skip_digestion=False,
+    *,
+    stereo_engine=None,
 ):
     """Writing one native molecular structure as an explicit SDF record.
 
@@ -29,6 +31,9 @@ def to_file_sdf(
         Dative relationships require V3000 and explicit donor/acceptor indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    stereo_engine : str or None, default=None
+        Keyword-only optional 'rdkit' provider for verified tetrahedral and
+        double-bond encoding. None rejects nonempty stereo assignments.
 
     Returns
     -------
@@ -77,7 +82,15 @@ def to_file_sdf(
             structure_indices=structure_indices,
             skip_digestion=True,
         )
-    payload = write_sdf(from_native(selected, ctfile_version))
+    record = from_native(
+        selected, ctfile_version, allow_stereo=stereo_engine == "rdkit"
+    )
+    if stereo_engine is None:
+        payload = write_sdf(record)
+    else:
+        from molsysmt._private.stereochemistry import write_stereo_sdf
+
+        payload = write_stereo_sdf(selected, record)
     try:
         encoded = payload.encode("utf-8")
     except UnicodeEncodeError:

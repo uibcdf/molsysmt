@@ -8,6 +8,8 @@ def to_molsysmt_Structures(
     structure_indices="all",
     discard_properties=False,
     skip_digestion=False,
+    *,
+    stereo_engine=None,
 ):
     """Converting a single SDF record into native coordinates.
 
@@ -24,6 +26,10 @@ def to_molsysmt_Structures(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    stereo_engine : str or None, default=None
+        Keyword-only optional 'rdkit' provider for explicit stereo interpretation.
+        None retains native dependency-free parsing and rejects stereo flags.
+
     Returns
     -------
     molsysmt.Structures
@@ -38,5 +44,6 @@ def to_molsysmt_Structures(
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         discard_properties=discard_properties,
+        stereo_engine=stereo_engine,
         skip_digestion=True,
     ).structures

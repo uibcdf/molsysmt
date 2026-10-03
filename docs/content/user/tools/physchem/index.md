@@ -6,6 +6,7 @@
 | [Get area buried](get_area_buried.ipynb) | Getting the buried surface area of elements in a molecular system |
 | [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |
 | [Get buried fraction](get_buried_fraction.ipynb) | Getting the fraction of buried surface area for elements in a molecular system |
+| [Get CIP stereochemistry](get_cip_stereochemistry.md) | Getting absolute CIP labels from declared stereo or one structure |
 | [Get charge](get_charge.ipynb) | Getting the formal, tabulated, or partial force field charge of elements |
 | [Get charge centers](get_charge_centers.ipynb) | Recognizing sparse formal-charge centers in one chemical state |
 | [Get electronegativity](get_electronegativity.ipynb) | Getting Pauling electronegativities for constituent atoms |
@@ -35,6 +36,7 @@
    get_area_buried.ipynb
    get_atomic_radius.ipynb
    get_buried_fraction.ipynb
+   get_cip_stereochemistry.md
    get_charge.ipynb
    get_charge_centers.ipynb
    get_electronegativity.ipynb

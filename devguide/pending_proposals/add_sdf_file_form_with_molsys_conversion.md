@@ -147,6 +147,22 @@ valence/hydrogen interpretation belong to `physchem`, connectivity traversal to
 `topology`, and geometry to `structure`. The current corpus is intentionally
 achiral and cannot justify enabling native tetrahedral or E/Z perception.
 
+On 2026-10-03, uibcdf/molsysmt#299 supplies public read-only full-graph CIP
+analysis under `physchem`. Explicit `stereo_engine='rdkit'` enables supported
+SDF tetrahedral and double-bond reading/writing without changing the default
+native route. Source atom axes and explicit hydrogens remain intact; CTAB
+wedge/parity is interpreted rather than copied into R/S. Native bond storage
+retains cis/trans with reference atoms; absolute E/Z is queried independently.
+The verified writer rejects conflicting geometry before touching a destination.
+RDKit adapters share the accurate assignment primitive and work on copies.
+
+Focused fixtures cover L-alanine, L-cysteine, isotopic tie-breaking, E/Z,
+pseudoasymmetric full-graph ranking (RDKit's Salome Rieder example), both CTAB
+versions, empty selections, coordinate-unit conversion and real Ackredit credit.
+The existing 46-record corpus remains achiral. A diverse curated stereo source
+corpus and validation of explicitly out-of-scope encodings are still pending;
+this implementation does not claim native toolkit-independent universal CIP.
+
 **Assumed:** Single-record conversion is useful before the broader metadata
 and multi-record model is settled. Representative fixtures must establish
 which SDF features the first adapter supports faithfully.

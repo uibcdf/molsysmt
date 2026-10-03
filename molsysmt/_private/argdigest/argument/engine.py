@@ -34,6 +34,11 @@ def digest_engine(engine, caller=None):
 
     """
 
+    if caller == 'molsysmt.physchem.get_cip_stereochemistry.get_cip_stereochemistry':
+        if isinstance(engine, str) and engine.lower() == 'rdkit':
+            return 'rdkit'
+        raise ArgumentError('engine', value=engine, caller=caller)
+
     from molsysmt.supported.engines import lowercase_engines
 
     if isinstance(engine, str):

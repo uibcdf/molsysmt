@@ -8,6 +8,8 @@ def to_molsysmt_MolSys(
     structure_indices="all",
     discard_properties=False,
     skip_digestion=False,
+    *,
+    stereo_engine=None,
 ):
     """Converting a single explicit SDF record into native molecular domains.
 
@@ -24,6 +26,10 @@ def to_molsysmt_MolSys(
         Strict conversion still reports and rejects their loss.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    stereo_engine : str or None, default=None
+        Keyword-only optional 'rdkit' provider for explicit tetrahedral and
+        double-bond interpretation. None retains dependency-free native parsing
+        and rejects stereo flags. Query and enhanced stereo remain unsupported.
 
     Returns
     -------
@@ -38,8 +44,10 @@ def to_molsysmt_MolSys(
 
     Notes
     -----
-    No RDKit installation is needed. No sanitization, hydrogen removal, implicit
-    hydrogen assignment, CIP assignment or Kekule aromaticity perception occurs.
+    The default needs no RDKit installation and performs no sanitization,
+    hydrogen removal, implicit-hydrogen assignment, CIP assignment or Kekule
+    aromaticity perception. Explicit stereo_engine='rdkit' invokes the public
+    CIP tool before atom extraction, retaining every source hydrogen atom.
     V3000 coordination type 9 becomes a dative relationship. The first source
     endpoint is the donor and the second is the acceptor, following the adapter's
     direction convention; electronic donor suitability is not inferred. These
@@ -70,7 +78,17 @@ def to_molsysmt_MolSys(
 
     from ._native import to_native
 
-    output = to_native(read_sdf(item), discard_properties=discard_properties)
+    output = to_native(
+        read_sdf(item, allow_stereo=stereo_engine == "rdkit"),
+        discard_properties=discard_properties,
+    )
+    if stereo_engine is not None:
+        from molsysmt.physchem import get_cip_stereochemistry
+
+        report = get_cip_stereochemistry(item, engine=stereo_engine)
+        from ._native import store_stereochemistry
+
+        store_stereochemistry(output, report)
     if not is_all(atom_indices):
         atom_indices = validate_element_indices(
             output, atom_indices, "atom", "atom_indices", "file:sdf"

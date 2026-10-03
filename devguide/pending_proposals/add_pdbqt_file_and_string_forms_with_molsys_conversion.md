@@ -81,10 +81,9 @@ This issue owns PDBQT recognition, parsing, writing, capability metadata,
 conversion semantics, and fidelity tests. It does not own general charge
 assignment, hydrogen placement, atom typing, or rotatable-bond perception;
 those are separate preparation capabilities to specify later. It does not
-own DockingMT protocol decisions or Vina execution. This is new form coverage,
-not a prerequisite for the currently defined MolSysMT 1.0 contract; schedule
-it after the 1.0 release unless a separate correctness defect changes that
-assessment.
+own DockingMT protocol decisions or Vina execution. This is new form coverage. The maintainer brought the bounded adapter work
+forward before 1.0 on 2026-10-02; the broader preparation model remains separately
+tracked.
 
 ## Acceptance criteria
 
@@ -116,3 +115,14 @@ not necessarily general force-field atom types; their mapping must be explicit
 uibcdf/molsysmt#223. Flexible receptors and multi-model pose output remain
 separate in uibcdf/molsysmt#225 and uibcdf/molsysmt#226. The downstream
 consumer is tracked in uibcdf/dockingmt#3.
+
+## Current representation boundary (2026-10-03)
+
+Source inspection distinguishes AutoDock atom types from chemical element
+symbols (`atom_type`), and declared BRANCH torsion edges from complete covalent
+connectivity. PDBQT contains no complete bond-order inventory. Parsing must not
+claim a complete graph, fabricate charges, or store torsion records in an
+unrelated native field. Ordinary chemical-symbol normalization is reusable
+under uibcdf/molsysmt#296; general explicit typing/profile and rigid-fragment
+capabilities remain owned by uibcdf/molsysmt#222 and #224. No PDBQT form has
+been delivered by the CIP/SDF stage.

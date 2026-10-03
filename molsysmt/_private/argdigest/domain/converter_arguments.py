@@ -362,6 +362,7 @@ CONVERTER_ARGUMENTS = {
         "compression",
         "compression_opts",
         "ctfile_version",
+        "stereo_engine",
         "discard_properties",
         "float_precision",
         "get_missing_bonds",
@@ -655,6 +656,7 @@ CONVERTER_ARGUMENTS = {
         "get_missing_bonds",
         "int_precision",
         "skip_digestion",
+        "stereo_engine",
         "structure_id",
         "structure_indices",
         "time",
@@ -721,6 +723,7 @@ CONVERTER_ARGUMENTS = {
         "get_missing_bonds",
         "int_precision",
         "skip_digestion",
+        "stereo_engine",
         "structure_indices",
     ),
     "molsysmt.StructuresDict": (
@@ -744,6 +747,7 @@ CONVERTER_ARGUMENTS = {
         "get_missing_bonds",
         "int_precision",
         "skip_digestion",
+        "stereo_engine",
         "structure_indices",
     ),
     "molsysmt.TopologyDict": (

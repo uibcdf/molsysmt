@@ -30,10 +30,18 @@ def pytest_configure(config):
     later added. See
     ``devguide/archive/resolved_bugs/doctest_module_collection_can_shadow_public_convert.md``.
     """
-    for raw in config.getini("testpaths"):
-        parts = Path(raw).parts
-        if parts[:1] == ("molsysmt",) and (_ROOT / raw).is_dir():
-            importlib.import_module(".".join(parts))
+    for raw in [*config.getini("testpaths"), *config.args]:
+        path = Path(raw.split("::", 1)[0])
+        if path.is_absolute():
+            try:
+                path = path.relative_to(_ROOT)
+            except ValueError:
+                continue
+        parts = path.parts
+        if parts[:1] == ("molsysmt",):
+            directory = path.parent if path.suffix == ".py" else path
+            if (_ROOT / directory / "__init__.py").is_file():
+                importlib.import_module(".".join(directory.parts))
 
 
 # These developer command-line utilities are executable scripts rather than

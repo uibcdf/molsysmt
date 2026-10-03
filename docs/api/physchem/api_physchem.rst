@@ -11,6 +11,7 @@ API Physical and Chemical Properties
    get_area_buried
    get_atomic_radius
    get_buried_fraction
+   get_cip_stereochemistry
    get_charge
    get_charge_centers
    get_electronegativity

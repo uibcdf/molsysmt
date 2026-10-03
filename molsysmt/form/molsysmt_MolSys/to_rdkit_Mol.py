@@ -190,26 +190,6 @@ def to_rdkit_Mol(
             message=f"RDKit could not sanitize the converted chemical graph: {error}",
         ) from error
 
-    if stereochemistry is not None:
-        desired_stereochemistry = {}
-        for atom_index, desired in enumerate(stereochemistry):
-            if not _has_value(desired) or desired not in {"R", "S"}:
-                continue
-            desired_stereochemistry[atom_index] = desired
-            molecule.GetAtomWithIdx(atom_index).SetChiralTag(
-                Chem.ChiralType.CHI_TETRAHEDRAL_CW
-            )
-        if desired_stereochemistry:
-            Chem.AssignStereochemistry(molecule, cleanIt=True, force=True)
-            for atom_index, desired in desired_stereochemistry.items():
-                atom = molecule.GetAtomWithIdx(atom_index)
-                observed = (
-                    atom.GetProp("_CIPCode") if atom.HasProp("_CIPCode") else None
-                )
-                if observed != desired:
-                    atom.SetChiralTag(Chem.ChiralType.CHI_TETRAHEDRAL_CCW)
-            Chem.AssignStereochemistry(molecule, cleanIt=True, force=True)
-
     for atom1, atom2, row in bond_rows:
         bond = molecule.GetBondBetweenAtoms(atom1, atom2)
         if bond is None:
@@ -235,7 +215,15 @@ def to_rdkit_Mol(
             bond.SetStereoAtoms(int(stereo_atom1), int(stereo_atom2))
             bond.SetStereo(stereo_map[stereo])
 
-    Chem.AssignStereochemistry(molecule, cleanIt=False, force=True)
+    from molsysmt._private.stereochemistry import apply_atom_labels, assign_cip
+
+    if stereochemistry is not None:
+        apply_atom_labels(
+            molecule,
+            [value if isinstance(value, str) else None for value in stereochemistry],
+        )
+    else:
+        assign_cip(molecule)
 
     mechanics = source.molecular_mechanics
     partial_charge = None if mechanics is None else mechanics.partial_charge
@@ -264,7 +252,7 @@ def to_rdkit_Mol(
                     )
             molecule.AddConformer(conformer, assignId=False)
 
-    Chem.AssignStereochemistry(molecule, cleanIt=False, force=True)
+    assign_cip(molecule)
     Chem.SetDoubleBondNeighborDirections(molecule)
 
     return molecule

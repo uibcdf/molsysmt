@@ -12,6 +12,8 @@ def to_file_sdf(
     ctfile_version="V2000",
     discard_properties=False,
     skip_digestion=False,
+    *,
+    stereo_engine=None,
 ):
     """Copying an SDF file or serializing an explicitly selected native subset.
 
@@ -31,6 +33,9 @@ def to_file_sdf(
         Explicitly authorize dropping SD properties when projecting a subset.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    stereo_engine : str or None, default=None
+        Keyword-only optional 'rdkit' provider for stereo in projected subsets.
+        Identity copies preserve bytes without chemical interpretation.
 
     Returns
     -------
@@ -46,7 +51,7 @@ def to_file_sdf(
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     if is_all(atom_indices) and is_all(structure_indices):
-        read_sdf(item)
+        read_sdf(item, allow_stereo=True)
         if output_filename is None:
             return item
         payload = Path(item).read_bytes()
@@ -59,11 +64,13 @@ def to_file_sdf(
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         discard_properties=discard_properties,
+        stereo_engine=stereo_engine,
         skip_digestion=True,
     )
     return native_write(
         native,
         output_filename=output_filename,
         ctfile_version=ctfile_version,
+        stereo_engine=stereo_engine,
         skip_digestion=True,
     )

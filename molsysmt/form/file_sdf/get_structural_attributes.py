@@ -23,5 +23,5 @@ def get_n_structures_from_system(item, skip_digestion=False):
     """
     from molsysmt._private.ctfile import read_sdf
 
-    read_sdf(item)
+    read_sdf(item, allow_stereo=True)
     return 1

@@ -161,3 +161,10 @@ molsysmt.element.atom.normalize_atom_types:
   first_introduced_in: "Common_Core/02_Molecular_Attributes.ipynb"
   doc_ref: "{func}`molsysmt.element.atom.normalize_atom_types`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.element.atom.normalize_atom_types()**: Normalizes explicit element symbols and hydrogen isotope aliases. See API doc: {func}`molsysmt.element.atom.normalize_atom_types`.\n:::"
+
+molsysmt.physchem.get_cip_stereochemistry:
+  name: "msm.physchem.get_cip_stereochemistry"
+  first_introduced_in: "Common_Core/02_Molecular_Attributes.ipynb"
+  summary: "Analyzes full-graph CIP labels without changing stored chemistry."
+  doc_ref: "{func}`molsysmt.physchem.get_cip_stereochemistry`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_cip_stereochemistry()**: Analyzes full-graph CIP labels. See {func}`molsysmt.physchem.get_cip_stereochemistry`.\n:::"

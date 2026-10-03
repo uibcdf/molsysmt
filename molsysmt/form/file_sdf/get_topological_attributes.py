@@ -23,4 +23,4 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     from molsysmt._private.ctfile import read_sdf
 
-    return len(read_sdf(item).atoms)
+    return len(read_sdf(item, allow_stereo=True).atoms)
