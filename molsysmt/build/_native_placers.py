@@ -1079,8 +1079,9 @@ def place_hydrogens_on_parent(
                 results[0][frame] = P + bond_length * np.array([0.0, 0.0, 1.0])
                 continue
             perp = _get_arbitrary_perpendicular(vAP)
-            # tetrahedral: 109.5° from A-P axis
-            theta = np.deg2rad(109.5 - 90.0)  # tilt from perpendicular
+            # vAP points away from the neighbor. Its cone angle is arccos(1/3),
+            # giving arccos(-1/3) to the actual parent-to-neighbor vector.
+            theta = np.arccos(1.0 / 3.0)
             v = _normalize(np.cos(theta) * vAP + np.sin(theta) * perp)
             if v is None:
                 v = vAP
@@ -1095,7 +1096,7 @@ def place_hydrogens_on_parent(
                     results[k][frame] = P + bond_length * np.array([0.0, float(k), 1.0])
                 continue
             perp = _get_arbitrary_perpendicular(vAP)
-            theta = np.deg2rad(109.5 - 90.0)
+            theta = np.arccos(1.0 / 3.0)
             base = np.cos(theta) * vAP + np.sin(theta) * perp
             for k, delta in enumerate([0.0, 2 * np.pi / 3 * 2]):
                 v = _normalize(_rotate_around_axis(base, vAP, delta))
@@ -1112,7 +1113,7 @@ def place_hydrogens_on_parent(
                     results[k][frame] = P + bond_length * np.array([0.0, float(k), 1.0])
                 continue
             perp = _get_arbitrary_perpendicular(vAP)
-            theta = np.deg2rad(109.5 - 90.0)
+            theta = np.arccos(1.0 / 3.0)
             base = np.cos(theta) * vAP + np.sin(theta) * perp
             for k in range(3):
                 angle = k * 2.0 * np.pi / 3.0
@@ -1122,7 +1123,14 @@ def place_hydrogens_on_parent(
                 results[k][frame] = P + bond_length * v
 
         elif n_neigh == 0:
-            # Isolated atom — place H along z
+            if hybridization == 'sp3' and n_hs <= 4:
+                # A tetrahedron has pairwise unit-vector products of -1/3.
+                directions = np.array([[1., 1., 1.], [1., -1., -1.],
+                                       [-1., 1., -1.], [-1., -1., 1.]]) / np.sqrt(3.)
+                for k in range(n_hs):
+                    results[k][frame] = P + bond_length * directions[k]
+                continue
+            # Other isolated geometries retain their planar distribution.
             for k in range(n_hs):
                 angle = k * 2.0 * np.pi / max(n_hs, 1)
                 v = np.array([np.cos(angle), np.sin(angle), 0.0])

@@ -415,3 +415,39 @@ class TestRebuildMolsysWithNewGroups:
         # Original bonds must be preserved (remapped) + ACE intra-group + ACE–ALA peptide bond
         n_bonds_result = result.topology.bonds.shape[0]
         assert n_bonds_result > n_bonds_orig
+
+
+@pytest.mark.parametrize("n_hs", [1, 2, 3])
+def test_sp3_one_neighbor_has_analytic_tetrahedral_angles(n_hs):
+    from molsysmt.build._native_placers import place_hydrogens_on_parent
+
+    parents = np.array([[0.0, 0.0, 0.0], [0.2, -0.1, 0.7]])
+    offsets = np.array([[0.15, 0.0, 0.0], [0.05, 0.08, 0.11]])
+    neighbors = parents + offsets
+    generated = np.asarray(
+        place_hydrogens_on_parent(parents, [neighbors], n_hs, "sp3", 0.109, 2)
+    )
+    for frame in range(2):
+        vectors = generated[:, frame] - parents[frame]
+        unit = vectors / np.linalg.norm(vectors, axis=1)[:, None]
+        np.testing.assert_allclose(np.linalg.norm(vectors, axis=1), 0.109, atol=1e-14)
+        np.testing.assert_allclose(
+            unit @ (offsets[frame] / np.linalg.norm(offsets[frame])), -1 / 3, atol=1e-14
+        )
+        if n_hs > 1:
+            np.testing.assert_allclose(
+                (unit @ unit.T)[np.triu_indices(n_hs, 1)], -1 / 3, atol=1e-14
+            )
+
+
+def test_sp3_isolated_four_hydrogens_form_analytic_tetrahedron():
+    from molsysmt.build._native_placers import place_hydrogens_on_parent
+
+    parent = np.array([[0.3, 0.2, -0.1]])
+    generated = np.asarray(place_hydrogens_on_parent(parent, [], 4, "sp3", 0.109, 1))
+    vectors = generated[:, 0] - parent[0]
+    unit = vectors / np.linalg.norm(vectors, axis=1)[:, None]
+    np.testing.assert_allclose(np.linalg.norm(vectors, axis=1), 0.109, atol=1e-14)
+    np.testing.assert_allclose(
+        (unit @ unit.T)[np.triu_indices(4, 1)], -1 / 3, atol=1e-14
+    )
