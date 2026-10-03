@@ -170,6 +170,35 @@ explicit atom and structure indices, including nonconsecutive and repeated
 structure indices. A present-empty interaction layer has no index domains;
 read that layer with `read_layers`.
 
+## Composing complementary files
+
+You can load complementary partial files through `msm.convert`:
+
+```python
+molsys = msm.convert(
+    ["matching_topology_chemistry.h5msm", "matching_structures.h5msm"],
+    selection=[0, 1], structure_indices=[2, 0],
+)
+```
+
+Supplying the list declares that both files' local indices correspond. Check and
+explicitly align the inputs before loading if their order differs; equal counts
+and source labels do not establish that correspondence. Each file's internal
+associations are validated by its ordinary reader. Composition requires one
+provider for each topology, chemistry and Structures domain; disjoint named
+analyses may come from additional partial files. Repeated domains or analysis
+names and incompatible full axes fail before selections or output creation.
+Both file orders are accepted, as are their already loaded partial `MolSys` objects.
+
+Selections operate on the composed system, so an input without Structures is not
+asked to select frames. Existing structure-to-state declarations are preserved;
+splitting chemistry and coordinates into separate files does not invent one.
+The default output is independent. `copy_if_all=False` can share structural arrays
+on full-axis conversion, but topology is copied for its single-owner contract.
+Classification inspects metadata; conversion loads the stored arrays. Complete
+system files and established legacy input combinations retain their existing
+conversion rules. This bounded partial-domain route rejects nonempty mechanics.
+
 ## Migrating a 0.3 or 0.4 file
 
 ```python

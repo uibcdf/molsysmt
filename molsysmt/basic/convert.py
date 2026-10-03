@@ -836,6 +836,15 @@ def convert(
       The reference chemical state is preserved, but multiple states acquire
       no inferred per-structure assignment. The default result is independent;
       ``copy_if_all=False`` shares native domains only for full-axis conversion.
+    - Complementary partial MolSys objects or H5MSM 0.5 files are composed
+      before selections. Supplying their list declares positional atom and
+      structure correspondence; matching counts do not establish origin.
+      Each topology, chemistry and Structures domain must have one provider;
+      interaction names must be distinct and full axes must agree. Missing
+      domains and unknown structure-to-state assignments stay absent/unknown.
+      The default output is independent. Topology is always copied for its
+      single-owner contract, even with ``copy_if_all=False``. This route loads
+      stored arrays and rejects molecular mechanics rather than discarding it.
 
 
     See Also
@@ -894,6 +903,9 @@ def convert(
     output = None
 
     molecular_system = maybe_read_modular_h5msm(molecular_system)
+    from molsysmt._private.native_composition import compose_partial_molsys
+
+    molecular_system = compose_partial_molsys(molecular_system)
     from_form = get_form(molecular_system)
 
     if isinstance(from_form, (list, tuple)):

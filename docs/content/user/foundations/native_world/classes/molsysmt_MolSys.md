@@ -48,6 +48,12 @@ named analyses and evaluated structures without observations. The stored axis
 associations declare correspondence; they do not supply missing coordinates,
 periodic boxes or per-structure chemical-state assignments. See
 {ref}`H5MSM 0.5 <user-tools-form-h5msm-05>`.
+Complementary partial systems or matching H5MSM 0.5 files can be consolidated
+with `msm.convert([molsys_A, molsys_B])` before selecting atoms/structures.
+The list declares positional correspondence; each native domain has one provider
+and analysis names are distinct. Full-axis conflicts fail before extraction.
+Topology is copied to preserve its input owner's binding, while full-axis
+`copy_if_all=False` can share structural arrays. See {ref}`Tutorial_Convert`.
 
 Both hydrogen-bond detectors and the disulfide candidate detector can return an
 independent `molsysmt.Interactions` analysis with

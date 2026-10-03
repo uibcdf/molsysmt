@@ -53,6 +53,27 @@ msm.convert(subset, to_form="file:h5msm", output_filename="selected_05.h5msm")
 The output retains the selected chemistry without fabricating coordinates.
 Do not select structure indices unless a present domain declares that axis.
 
+## Consolidating complementary files
+
+If your matching topology/chemistry and Structures domains are stored separately,
+declare their positional correspondence by supplying a list. For example, for
+files containing at least two atoms and three corresponding structures:
+
+```python
+molsys = msm.convert(
+    ["matching_topology_chemistry.h5msm", "matching_structures.h5msm"],
+    selection=[0, 1], structure_indices=[2, 0],
+)
+assert msm.get(molsys, n_atoms=True, n_structures=True) == [2, 2]
+msm.convert(molsys, to_form="file:h5msm", output_filename="consolidated_05.h5msm")
+```
+
+Compose full domains first: selecting each partial file independently can ask
+the topology-only input for a nonexistent structure axis. Counts are checked
+before selection, and each domain must have one provider. You remain responsible
+for the declared index correspondence. This example assumes the selected atoms
+are not coupled to stored assembly metadata requiring additional chain remapping.
+
 ## Keeping analyses without coordinates
 
 Named analyses can declare a structure-index domain even when coordinates are

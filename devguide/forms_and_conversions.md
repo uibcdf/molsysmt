@@ -257,6 +257,26 @@ public conversion with the full-domain sharing policy for a read-only context.
 
 ## Forms with partial source information
 
+### Complementary partial native systems
+
+Public conversion composes lists/tuples of complementary partial MolSys objects,
+including materialized H5MSM 0.5 files, before selection. The input container is a
+declaration of positional atom/frame correspondence; it is not authentication or
+an atom-matching procedure. Classification inspects actual native domain presence
+and H5MSM 0.5 axis metadata rather than assuming every file provides topology.
+Readers still validate each file's own associations. Full-file conversion loads
+arrays; metadata-only classification is not a streaming conversion contract.
+
+Require one topology, chemistry and Structures provider, distinct analysis names
+and compatible full axes before selection. Native extraction then owns sorted
+topology atom indices, ordered/repeated frame selection and interaction remapping.
+Preserve declared state/frame assignments; do not synthesize an assignment from
+the chemical reference state. Topology is copied for its single-owner binding,
+even if full-axis `copy_if_all=False` shares structural arrays. This bounded route
+rejects mechanics rather than losing it. Complete-system and legacy-form routes
+retain their existing rules. Guard:
+`tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py`.
+
 A source containing coordinates but no topology must not invent semantic
 topology. Likewise, a topology-only form must not advertise structures. Where a
 format contains only partial labels, a converter may construct only the topology

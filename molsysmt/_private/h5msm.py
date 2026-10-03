@@ -3,12 +3,8 @@
 from pathlib import Path
 
 
-def modular_h5msm_dimensions(item):
-    """Return source axis sizes from 0.5 metadata without loading domain arrays.
-
-    Return None for other forms. This preflight is not a schema validation;
-    the materializing reader remains responsible for domain associations.
-    """
+def modular_h5msm_axes(item):
+    """Read present 0.5 layer axes without materializing any domain arrays."""
     if not isinstance(item, (str, Path)) or not str(item).endswith(".h5msm"):
         return None
     import h5py
@@ -21,7 +17,18 @@ def modular_h5msm_dimensions(item):
             version = version.decode()
         if version != "0.5":
             return None
-        sizes = _axis_sizes_from_file(file)
+        return _axis_sizes_from_file(file)
+
+
+def modular_h5msm_dimensions(item):
+    """Return source axis sizes from 0.5 metadata without loading domain arrays.
+
+    Return None for other forms. This preflight is not a schema validation;
+    the materializing reader remains responsible for domain associations.
+    """
+    sizes = modular_h5msm_axes(item)
+    if sizes is None:
+        return None
     n_atoms = sizes.get(
         ("structures", None, "atom"),
         sizes.get(

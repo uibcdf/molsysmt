@@ -106,9 +106,33 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
             forms=forms,
         )
 
-    topology_items = sum(
-        _provides_primary_topology(_dict_modules[form]) for form in forms
-    )
+    from molsysmt._private.h5msm import modular_h5msm_axes
+    from molsysmt.native import MolSys
+
+    topology_items = 0
+    instance_counts = []
+    try:
+        for item, form in zip(items, forms):
+            axes = modular_h5msm_axes(item) if form == "file:h5msm" else None
+            if axes is not None:
+                topology_items += ("topology", None, "atom") in axes
+                instance_counts.append(
+                    [size for (_, _, axis), size in axes.items() if axis == "atom"]
+                )
+            elif isinstance(item, MolSys):
+                topology_items += item.topology is not None
+                count = item._get_n_atoms()
+                instance_counts.append([] if count is None else [count])
+            else:
+                topology_items += _provides_primary_topology(_dict_modules[form])
+                instance_counts.append(None)
+    except Exception as error:
+        return MolecularSystemAssessment(
+            MolecularSystemKind.SINGLE,
+            ValidationStatus.UNVERIFIED,
+            forms=forms,
+            reason=f"Could not inspect domain axes: {type(error).__name__}: {error}",
+        )
     if topology_items > 1:
         return MolecularSystemAssessment(
             MolecularSystemKind.MULTIPLE,
@@ -118,7 +142,10 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
         )
 
     atom_counts = []
-    for item, form in zip(items, forms):
+    for item, form, counts in zip(items, forms, instance_counts):
+        if counts is not None:
+            atom_counts.extend(int(count) for count in counts)
+            continue
         form_module = _dict_modules[form]
         if not (
             _provides_topology(form_module)
