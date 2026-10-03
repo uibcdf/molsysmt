@@ -479,6 +479,9 @@ observations still belongs to that calculation. MolSysMT imports Ackredit lazily
 and enables no import hooks, DOI enrichment, persistent journal or reminders.
 Without Ackredit, the same result-level metadata is produced. A broken optional
 provider emits a diagnostic while preserving the scientific result.
+This also applies when warnings are promoted to errors. If creating or emitting
+that diagnostic fails, a fallback log retains `MSM-WARN-ATTR-001`, the operation
+and both failures. Scientific errors and unrelated warnings still propagate.
 The caller owns workflow sessions and report destinations:
 
 ```python

@@ -88,7 +88,13 @@ deduplication, and survives views, typed conversion and H5MSM persistence.
 Ackredit is loaded lazily and remains optional. Import hooks, reminders, journals
 and network enrichment are not enabled by MolSysMT. Missing Ackredit preserves
 the result bibliography; a broken optional provider emits `MSM-WARN-ATTR-001`
-without discarding a completed calculation. Reading, querying or remapping a
+without discarding a completed calculation. Strict warning filters do not
+discard completed science when they promote that same optional-attribution event.
+If diagnostic import, construction or emission itself fails, the boundary emits
+a fallback log with code `MSM-WARN-ATTR-001`, caller, operation and provider/diagnostic
+errors. The science body and unrelated scientific warnings remain outside this
+handler. Guards are `tests/test_ackredit.py` and the real-provider recognition
+cases in `tests/physchem/test_get_cip_stereochemistry.py`. Reading, querying or remapping a
 saved analysis does not credit a new calculation. Portable provider capture and
 suite adoption remain tracked by `uibcdf/ackredit#75` and
 `uibcdf/molsyssuite#68`; this is not whole-library instrumentation. The guard is

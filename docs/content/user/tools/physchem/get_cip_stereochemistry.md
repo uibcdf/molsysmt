@@ -62,6 +62,11 @@ versions and bibliographic records. When Ackredit is available, successful
 analysis contributes to the application's current session, including evaluated
 empty selections. Reading the dictionary does not register another calculation.
 The result and its bibliography remain available without Ackredit.
+Failed optional tracking preserves completed labels under strict warning filters.
+If its catalog diagnostic cannot be imported, created or emitted, a fallback log
+retains the signal code, operation and both failures. Inspect the diagnostic before
+claiming successful session tracking. Scientific errors and unrelated warnings
+still propagate.
 
 The experimental contract covers tetrahedral atom and double-bond descriptors.
 Query, enhanced stereo, non-tetrahedral descriptors and parity-only encodings

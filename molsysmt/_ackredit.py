@@ -14,20 +14,44 @@ from depdigest import dep_digest, is_installed
 
 
 def _failed(operation, error):
-    from molsysmt._private.smonitor.emitter import warn
-    from molsysmt._private.smonitor.warnings import AckreditTrackingWarning
-
-    diagnostic = AckreditTrackingWarning(
-        extra={"operation": operation, "reason": f"{type(error).__name__}: {error}"}
-    )
+    diagnostic = None
     try:
+        from molsysmt._private.smonitor.emitter import warn
+        from molsysmt._private.smonitor.warnings import AckreditTrackingWarning
+
+        diagnostic = AckreditTrackingWarning(
+            extra={"operation": operation, "reason": _failure_text(error)}
+        )
         warn(diagnostic)
-    except AckreditTrackingWarning as promoted:
+    except Exception as failure:
         # SMonitor emits the catalog event before applying Python's warning
-        # filter. Optional attribution cannot replace science under an error
-        # filter; only this diagnostic's promotion is isolated here.
-        if promoted is not diagnostic:
-            raise
+        # filter. Promotion of this same event needs no second diagnostic.
+        if failure is diagnostic:
+            return
+        import logging
+
+        logging.getLogger("molsysmt.attribution").warning(
+            "MSM-WARN-ATTR-001: optional attribution diagnostic failed during %s; "
+            "provider failure: %s; diagnostic failure: %s",
+            operation,
+            _failure_text(error),
+            _failure_text(failure),
+            extra={
+                "code": "MSM-WARN-ATTR-001",
+                "caller": "molsysmt._ackredit",
+                "operation": operation,
+                "provider_error": _failure_text(error),
+                "diagnostic_error": _failure_text(failure),
+            },
+        )
+
+
+def _failure_text(error):
+    """Keep a diagnostic useful even when a provider exception cannot format."""
+    try:
+        return f"{type(error).__name__}: {error}"
+    except Exception:
+        return type(error).__name__
 
 
 @dep_digest("ackredit")

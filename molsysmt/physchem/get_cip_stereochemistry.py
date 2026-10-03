@@ -80,6 +80,9 @@ def get_cip_stereochemistry(
     compatible compact coordinates before requesting geometry inference.
     Explicit SDF directions are interpreted by the provider; query, enhanced
     stereo and unsupported relative-only encodings remain rejected.
+    Optional Ackredit failures preserve completed labels and detached references,
+    including under warnings-as-errors. Diagnostic failures use a fallback log;
+    scientific exceptions and unrelated scientific warnings remain unchanged.
 
     See Also
     --------

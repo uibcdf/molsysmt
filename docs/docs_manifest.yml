@@ -144,6 +144,7 @@ sections:
           - name: get_cip_stereochemistry
             file: docs/content/user/tools/physchem/get_cip_stereochemistry.md
             agents_file: docs/content/user/tools/physchem/get_cip_stereochemistry.md.AGENTS.md
+            description: Absolute configurations, producer provenance and isolated optional-attribution failures.
           - name: get_halogen_bond_sites
             file: docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_halogen_bond_sites.ipynb.AGENTS.md
@@ -179,7 +180,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, bounded occurrence pages, provenance, partial replacement, explicit compaction and bounded HDF5 writing.
+            description: Sparse queries, bounded pages, provenance, optional tracking diagnostics, frame replacement and HDF5 writing.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbonds
@@ -294,7 +295,7 @@ sections:
         file: docs/content/user/cookbook/form_teleportation.ipynb
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, coordinate invalidation, frame replacement, explicit compaction and H5MSM persistence.
+        description: Sparse queries, coordinate invalidation, frame replacement, H5MSM persistence and optional tracking diagnostics.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

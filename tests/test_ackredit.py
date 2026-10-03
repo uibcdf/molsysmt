@@ -92,3 +92,31 @@ def test_unrelated_scientific_warning_still_obeys_strict_filter(monkeypatch):
         with pytest.raises(UserWarning, match="scientific warning"):
             with _ackredit.scope("scientific-control"):
                 warnings.warn("scientific warning", UserWarning)
+
+
+def test_diagnostic_failure_during_cleanup_preserves_original_scientific_error(
+    monkeypatch, caplog
+):
+    from molsysmt._private.smonitor import emitter
+
+    monkeypatch.setattr(_ackredit, "backend", lambda: BrokenProvider("exit"))
+
+    def failed_diagnostic(*args, **kwargs):
+        raise RuntimeError("controlled diagnostic emission failure")
+
+    monkeypatch.setattr(emitter, "warn", failed_diagnostic)
+    scientific_error = ValueError("original scientific failure")
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        with pytest.raises(ValueError) as raised:
+            with _ackredit.scope("scientific-control"):
+                raise scientific_error
+    assert raised.value is scientific_error
+    records = [
+        record
+        for record in caplog.records
+        if getattr(record, "code", None) == "MSM-WARN-ATTR-001"
+    ]
+    assert len(records) == 1
+    assert records[0].operation == "finish attribution tracking"
+    assert "provider exit failure" in records[0].provider_error

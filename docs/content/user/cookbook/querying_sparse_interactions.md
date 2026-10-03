@@ -222,6 +222,11 @@ reading the file. Loading does not credit a new calculation. The synthetic
 records in this recipe have no attribution because no scientific detector was
 run. See {ref}`Methods and attribution <user-tools-interactions-attribution>`
 for method/profile names and optional workflow reporting.
+If optional tracking fails, the scientific result and detached bibliography remain
+available, including under warnings-as-errors. A failed attribution diagnostic
+uses a fallback log carrying its signal code and both error reasons. Inspect that
+diagnostic rather than assuming session tracking succeeded. Scientific errors and
+unrelated warnings retain their usual behavior.
 
 The synthetic records above show the container without requiring a detector.
 For a molecular system with eligible cysteine sulfur atoms, the disulfide

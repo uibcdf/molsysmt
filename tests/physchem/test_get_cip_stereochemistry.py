@@ -33,6 +33,83 @@ def test_broken_ackredit_preserves_completed_science(monkeypatch):
     assert result["atom_stereochemistry"][1] == "S"
 
 
+@pytest.mark.parametrize(
+    "diagnostic_failure", [None, "import", "construction", "emission"]
+)
+def test_real_ackredit_failure_preserves_recognition_under_strict_warnings(
+    monkeypatch, caplog, diagnostic_failure
+):
+    import warnings
+
+    import smonitor
+    from smonitor.handlers import MemoryHandler
+
+    ackredit = pytest.importorskip("ackredit")
+    source = Chem.MolFromSmiles("N[C@@H](C)C(=O)O")
+    source_bytes = source.ToBinary()
+
+    def failed_provider(**kwargs):
+        raise RuntimeError("controlled real Ackredit registration failure")
+
+    def failed_diagnostic(*args, **kwargs):
+        raise RuntimeError(f"controlled diagnostic {diagnostic_failure} failure")
+
+    monkeypatch.setattr(ackredit, "register_item", failed_provider)
+    if diagnostic_failure == "import":
+        import builtins
+
+        original_import = builtins.__import__
+
+        def blocked_import(name, *args, **kwargs):
+            if name == "molsysmt._private.smonitor.emitter":
+                return failed_diagnostic()
+            return original_import(name, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "__import__", blocked_import)
+    elif diagnostic_failure == "construction":
+        from molsysmt._private.smonitor import warnings as catalog_warnings
+
+        monkeypatch.setattr(
+            catalog_warnings, "AckreditTrackingWarning", failed_diagnostic
+        )
+    elif diagnostic_failure == "emission":
+        from molsysmt._private.smonitor import emitter
+
+        monkeypatch.setattr(emitter, "warn", failed_diagnostic)
+    manager = smonitor.get_manager()
+    handler = MemoryHandler()
+    manager.add_handler(handler)
+    try:
+        with ackredit.session("provider recognition failure"):
+            with warnings.catch_warnings():
+                warnings.simplefilter("error")
+                result = msm.physchem.get_cip_stereochemistry(source)
+            assert not ackredit.get_used_items()
+    finally:
+        manager.remove_handler(handler)
+    assert result["atom_stereochemistry"][1] == "S"
+    assert result["references"][0]["doi"] == "10.1021/acs.jcim.8b00324"
+    assert source.ToBinary() == source_bytes
+    if diagnostic_failure is None:
+        events = [
+            event
+            for event in handler.events
+            if event.get("code") == "MSM-WARN-ATTR-001"
+        ]
+        assert len(events) == 1
+        assert "registration failure" in events[0]["extra"]["reason"]
+    else:
+        events = [
+            record
+            for record in caplog.records
+            if getattr(record, "code", None) == "MSM-WARN-ATTR-001"
+        ]
+        assert len(events) == 1
+        assert events[0].operation == "record scientific references"
+        assert "registration failure" in events[0].provider_error
+        assert diagnostic_failure in events[0].diagnostic_error
+
+
 def test_lazy_import_and_genuine_ackredit_absence():
     import subprocess
     import sys

@@ -89,6 +89,9 @@ roles in `analysis.parameters["attribution"]`, once per named analysis.
 These records accompany the system through H5MSM and extraction. Optional
 Ackredit sessions collect references from completed calculations; opening a
 saved system does not claim those calculations were performed again.
+Optional attribution failures preserve completed science under strict warning
+filters. Failed diagnostic delivery uses a fallback log with its code, operation
+and both error reasons; it does not change the scientific exception policy.
 Method names identify authors or criteria, and profiles identify the reproduced
 recognition/geometry conventions. See
 {ref}`Methods and attribution <user-tools-interactions-attribution>`.
