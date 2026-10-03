@@ -15,7 +15,8 @@ supersedes: []
 # Preserve atom correspondence through lossy molecular exports
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
-**Status:** Open; MolSysMT proposal is post-1.0.
+**Status:** Open. Bounded prepared-state projection is prioritized in the
+current chemical-preparation sequence; implementation remains pending.
 
 ## What
 
@@ -53,3 +54,13 @@ Reusable mapping contract and PDBQT exemplar; no universal atom matching between
 Related tracked work: uibcdf/molsysmt#214
 Cross-component implementation links: uibcdf/dockingmt#5, uibcdf/dockingmt#8.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.
+
+## Preparation work ordering — 2026-10-03
+
+The maintainer requested chemical preparation alongside real SDF/PDBQT
+validation. Follow [the maintained sequence](../roadmap.md) and the consumer
+profile review in uibcdf/dockingmt#33. Related template and fixed-state H
+capabilities are owned by uibcdf/molsysmt#298 and uibcdf/molsysmt#300.
+Prioritization does not establish implementation, scientific coverage or a new
+blanket 1.0 gate. Keep this issue's acceptance criteria and general-tool owner
+distinct from format parsing and DockingMT protocol decisions.

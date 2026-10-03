@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
 **Status:** Partial. Explicit chosen-bond fragment partitioning was brought
-forward for PDBQT validation; chemical rotatable-bond classification remains
-post-1.0.
+forward for PDBQT validation; bounded chemical rotatable-bond classification
+is prioritized in the current preparation sequence and remains pending.
 
 ## What
 
@@ -81,3 +81,13 @@ explain source indices, completeness and rigidity by explicit graph cuts.
 **Remaining:** chemical torsion eligibility, ring/amide and bond-order criteria,
 selection policy and explanatory exclusions on representative chemistry. No
 heavy-workload measurement or Rust optimization claim is made in this stage.
+
+## Preparation work ordering — 2026-10-03
+
+The maintainer requested chemical preparation alongside real SDF/PDBQT
+validation. Follow [the maintained sequence](../roadmap.md) and the consumer
+profile review in uibcdf/dockingmt#33. Related template and fixed-state H
+capabilities are owned by uibcdf/molsysmt#298 and uibcdf/molsysmt#300.
+Prioritization does not establish implementation, scientific coverage or a new
+blanket 1.0 gate. Keep this issue's acceptance criteria and general-tool owner
+distinct from format parsing and DockingMT protocol decisions.

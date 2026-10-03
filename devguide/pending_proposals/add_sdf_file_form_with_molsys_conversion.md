@@ -209,3 +209,18 @@ Stereochemistry and aromaticity can change under parser normalization rules;
 fixtures and fidelity claims must distinguish source information from inferred
 chemistry. The deferred metadata proposal remains the owner of any broader
 SDF property and multi-record schema.
+
+## Real-input and preparation follow-up — 2026-10-03
+
+Consumer acceptance of the adapter is requested in uibcdf/dockingmt#33,
+against `eb0549b50`; reusable preparation remains separately owned. Follow
+[the maintained work sequence](../roadmap.md#current-sdfpdbqt-and-chemical-preparation-sequence--2026-10-03)
+and the linked #214 validation matrix. Curate the pinned Vina 1IEP/1S63/5X72
+SDF inputs without rewriting unsupported flags to make tests pass. The 5X72
+pair supplies real stereo controls for explicit optional interpretation;
+1S63 requires separate handling of the additional prepared-reference H.
+Evaluate SD-property and stereo policy per file, preserve exact source
+checksums and distinguish input parsing from chemical sanitization, implicit-H
+inventory and preparation. Inputs outside the bounded profile need documented
+rejection or an owned extension, not a silent RDKit fallback. No new real-file
+test execution is claimed by this planning checkpoint.

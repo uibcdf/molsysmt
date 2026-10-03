@@ -62,7 +62,7 @@ source inspection, not a performance claim.
 
 ## What is measured and what is assumed
 
-**Inspected:** molsysmt/form has no PDBQT form. Existing file and string forms
+**Inspected at filing:** molsysmt/form had no PDBQT form. Existing file and string forms
 use registered conversion edges and capability declarations. DockingMT's
 dockingmt/engines/vina.py supplies PDBQT inputs to Vina. No timing or
 chemical-fidelity measurement was made.
@@ -207,3 +207,24 @@ uibcdf/molsysmt#301 with a central dispatcher fix and a source-value/selection
 regression guard. The subsequent PDBQT and existing-query selection passed
 292 tests in 37.21 seconds, including reduced and shared native pipes. This
 selection overlaps earlier counts and must not be added to them.
+
+## Consumer review and next validation — 2026-10-03
+
+The maintainer requested review of related pending capabilities and chemical
+preparation alongside real-input validation. uibcdf/dockingmt#33 asks the
+consumer to test the delivered adapters at `eb0549b50` and review its actual
+required profile. The ordered provider work is maintained in
+[the roadmap](../roadmap.md#current-sdfpdbqt-and-chemical-preparation-sequence--2026-10-03),
+with preparation retaining its separate owners (#217/#218/#298/#300 and
+#221/#222/#223/#224). Do not close those capabilities through parser acceptance.
+
+Start the real-input matrix with pinned 1IEP, 1S63 and both 5X72 stereoisomers
+already curated by DockingMT and a conventional rigid receptor. In particular,
+1S63 has a reference-only hydrogen and a published aryl–nitrile branch absent
+from the compared RDKit Strict policy. Test those differences explicitly rather
+than deriving correspondence from equal counts. Compare branch bonds/fragment
+sets, actual source serial-ID and index axes, supported charge/type values,
+precision, source preservation and deliberate rejection controls. Record hashes
+and independent reader/engine versions before extending fidelity claims. This
+checkpoint is an inspected plan and consumer request; it contains no additional
+executed validation or scientific preparation result.

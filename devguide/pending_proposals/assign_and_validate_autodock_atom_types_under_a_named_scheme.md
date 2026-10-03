@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
 **Status:** Partial. Explicit label decoding and bounded writer validation
-are implemented; chemical assignment and a stored named-scheme contract remain
-post-1.0.
+are implemented; chemical assignment and an inspectable named-scheme contract
+are prioritized in the current preparation sequence and remain pending.
 
 ## What
 
@@ -75,3 +75,13 @@ assignment, aromaticity perception or donor/acceptor classification. AutoDock
 labels remain separate atom_ff_type assignments; no competing chemical store
 or placeholder scheme attribute was introduced. General scheme provenance in
 native storage and chemically justified label assignment remain outstanding.
+
+## Preparation work ordering — 2026-10-03
+
+The maintainer requested chemical preparation alongside real SDF/PDBQT
+validation. Follow [the maintained sequence](../roadmap.md) and the consumer
+profile review in uibcdf/dockingmt#33. Related template and fixed-state H
+capabilities are owned by uibcdf/molsysmt#298 and uibcdf/molsysmt#300.
+Prioritization does not establish implementation, scientific coverage or a new
+blanket 1.0 gate. Keep this issue's acceptance criteria and general-tool owner
+distinct from format parsing and DockingMT protocol decisions.

@@ -75,6 +75,84 @@ Only after the preceding contracts are reliable:
 - improve device backends and transfer-aware execution;
 - add integrations whose maintenance and fidelity can be sustained.
 
+### Current SDF/PDBQT and chemical-preparation sequence — 2026-10-03
+
+The maintainer requested real-input validation and chemical preparation as the
+next connected work. Native SDF/PDBQT serialization is implemented within a
+bounded experimental profile; general chemical preparation is still pending.
+This ordering brings bounded preparation work into current development without
+making every chemical-state horizon a new 1.0 release gate. Keep the execution
+ledger authoritative for release scope.
+
+1. **Validate prepared real inputs and agree the consumer profile.** Extend
+   [PDBQT #214](pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md)
+   and [SDF #215](pending_proposals/add_sdf_file_form_with_molsys_conversion.md)
+   using pinned 1IEP, 1S63 and both 5X72 stereoisomers already curated by
+   DockingMT, plus a real rigid receptor. Track checksums, source atom indices
+   separately from serial IDs, geometry units/precision, supported stereo,
+   charges/types, branch bonds and fragment memberships. Classify each actual
+   encoding as supported, explicitly unsupported or defective. Consumer
+   integration and profile feedback are requested in uibcdf/dockingmt#33;
+   uibcdf/dockingmt#17 owns differing torsion policies. Existing published
+   preparations are comparison inputs, not chemical ground truth.
+2. **Assess chemical readiness and coverage before transformations.**
+   [Ligand readiness #217](pending_proposals/diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md)
+   and [receptor coverage #218](pending_proposals/report_receptor_residue_chemistry_and_preparation_coverage.md)
+   must distinguish declared, inferred, missing, conflicting and unassessed
+   information. A successful conversion, an empty missing-atom list or the
+   presence of hydrogens is insufficient. Start with one explicitly selected
+   state/frame and report unsupported residues/cofactors. Inspect existing
+   public predicates and reports before choosing or extending a public boundary.
+3. **Complete selected chemistry and missing H through reusable tools.**
+   uibcdf/molsysmt#298 owns explicit template assessment/application with
+   caller-declared atom correspondence; uibcdf/molsysmt#300 owns fixed-state
+   ligand hydrogen addition and local placement. Complete prepared inputs may
+   bypass template application. Preserve existing atom identity and coordinates,
+   reject conflicting assignments and retain preparation provenance. Template
+   application cannot add absent atoms; local H placement cannot select a
+   protomer or establish an energy-minimized orientation. Review native-domain
+   reconstruction and metadata contracts before implementing either public API.
+4. **Assign charges and chemical AutoDock types explicitly.**
+   [Named charges #221](pending_proposals/assign_partial_charges_with_an_explicit_named_model.md)
+   and [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)
+   need methods, original software versions, state association, coverage and
+   independent chemical controls. Resolve their inspectable assignment/provenance
+   contract without introducing competing stores. Chemical interpretation belongs
+   in `physchem`; reconstruction belongs in `build`; chemical assignments remain
+   in `ChemicalStates` and current mechanical values in `MolecularMechanics`.
+   Test conventional receptors separately from small molecules. Charge-model
+   fidelity is not proven by agreement with one prepared file; missing values
+   must not become zeros. Label decoding is not chemical type assignment.
+5. **Project a prepared state under an agreed docking profile.**
+   [Atom projection #223](pending_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
+   owns retained/omitted/merged/added atom correspondence and charge accounting;
+   [torsions #224](pending_proposals/classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md)
+   owns general chemical eligibility and fragment output. Keep the current
+   all-H-preserving writer distinct from a future nonpolar-H merging profile.
+   Choose eligibility rules explicitly, explain exclusions and preserve source
+   bond indices. Reuse the delivered explicit-cut fragment tool. DockingMT owns
+   active torsion selection and ROOT policy. Serialization consumes prepared
+   data and must not quietly perform any preceding step.
+6. **Accept the composed workflow on real receptor/ligand cases.** Compare
+   chemistry/coverage, atom maps, charge conservation, stereo, exact retention
+   of existing coordinates, failure immutability and non-default session units;
+   separately test Vina parser acceptance and downstream pose correspondence.
+   Include 1S63's reference-only H and aryl–nitrile torsion, the 5X72 stereo
+   pair, and ester/amide/ring controls. Remove consumer-side temporary molecular
+   operations only after the shared tools pass equivalent contracts. Keep
+   docstrings, User Guide and course material aligned with each delivered slice.
+
+Preparation is a shared need: uibcdf/pharmacophoremt#22 motivates the explicit
+template/H contracts, and uibcdf/dockingmt#4/#5/#6 motivate state, parameter and
+torsion use. Preserve other components' concurrent work while coordinating
+these owned issues. Do not require all enumeration (#220/#229/#230), new
+heavy-atom conformers (#219), environmental pKa (#177), flexible receptors
+(#225), pose ensembles (#226) or H5MSM mechanics persistence (#256) to accept
+the first supported fixed-state workflow. Record any real dependency discovered
+during implementation in its owning issue. H5MSM 0.5 continues to exclude
+MolecularMechanics; this plan does not promise persistence of charge/type data
+there.
+
 Completed proposals should be moved to an archive or replaced by a concise
 decision record. A checked box or dated prose is not completion evidence without
 code, tests, and documentation.

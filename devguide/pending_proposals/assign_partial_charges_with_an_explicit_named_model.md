@@ -15,7 +15,9 @@ supersedes: []
 # Assign partial charges with an explicit named model
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
-**Status:** Open; MolSysMT proposal is post-1.0.
+**Status:** Open. A bounded named-charge route is prioritized in the current
+chemical-preparation sequence; implementation and assignment/provenance storage
+review remain pending.
 
 ## What
 
@@ -53,3 +55,13 @@ Named charge assignment and diagnostics, not AutoDock atom typing or selection o
 Related tracked work: uibcdf/molsysmt#214
 Cross-component implementation links: uibcdf/dockingmt#5.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.
+
+## Preparation work ordering — 2026-10-03
+
+The maintainer requested chemical preparation alongside real SDF/PDBQT
+validation. Follow [the maintained sequence](../roadmap.md) and the consumer
+profile review in uibcdf/dockingmt#33. Related template and fixed-state H
+capabilities are owned by uibcdf/molsysmt#298 and uibcdf/molsysmt#300.
+Prioritization does not establish implementation, scientific coverage or a new
+blanket 1.0 gate. Keep this issue's acceptance criteria and general-tool owner
+distinct from format parsing and DockingMT protocol decisions.
