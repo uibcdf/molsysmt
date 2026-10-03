@@ -198,8 +198,28 @@ executed native/H5MSM controls with an independently known methanol OH donor and
 oxygen acceptor, permuted indices, multiple frames/states, nondefault units,
 conflict/unresolved failures, stereo-reference remapping and conservative named-
 analysis invalidation. The tutorial separately executes a public builder/RDKit
-template workflow. No chemically prepared native ERalpha result, biological
-validation or performance measurement is claimed.
+template workflow. The real EST provider control below supplies a prepared native
+ligand; no complete ERalpha consumer workflow, biological validation or performance
+measurement is claimed.
+
+**Contract-tested and independent chemistry/pose controls, 2026-10-03:**
+`tests/physchem/test_chemical_template_est.py` applies an explicitly curated native
+H5MSM template to EST from 1QKU, native chain D. The returned ligand preserves all
+20 heavy atoms, 23 bonds and exact deposited coordinates/units. Recognition returns
+the known six-atom aromatic ring and O3/O17 acceptors. H5MSM roundtrip preserves the
+chemical values and pose. Its 24 stored H counts do not create explicit donor-H
+pairs. Five canonical-descriptor CIP centers agree with independent assignment
+from the 3D pose: C8 R, C9 S, C13 S, C14 S and C17 S.
+
+The pinned CCD atom-level flag for C8 is S. The fixture explicitly selects the
+CACTVS 3.341 canonical SMILES and records this disagreement; it does not substitute
+the atom flag or infer its cause. The curation verifies charge/aromatic declarations,
+the full heavy graph and H counts independently against CCD fields/bonds. Exact
+source bytes, checksums, source atom indices and declared map are committed under
+`tests/physchem/data/chemical_templates/`. The fixture-specific generator is
+`devtools/scripts/curate_est_template_fixture.py`; it refuses different revisions
+and ambiguous graph correspondence. This is a provider transfer control, not
+consumer end-to-end acceptance or general automatic CCD interpretation.
 
 ## What was refuted
 
@@ -275,8 +295,8 @@ conversion, but the report is not embedded in native objects or that format.
 Remaining work is explicit:
 
 - Review the bounded API with the real PharmacophoreMT/DockingMT consumer inputs
-  and a separately accepted atom correspondence; synthetic methanol acceptance
-  does not certify ERalpha preparation.
+  and a separately accepted atom correspondence. Synthetic methanol and the pinned
+  EST provider controls do not certify the complete ERalpha consumer workflow.
 - Establish a provider-owned representation-normalization method before accepting
   differing aromatic/Kekule or stereo-reference representations as equivalent.
 - Decide the native/versioned preparation-provenance attachment contract without
@@ -345,3 +365,36 @@ PyUnitWizard source `2ffe1885675f47c76af03c08e51bc889a5e99a05`, existing scienti
 dependencies. RCSB sources, checksums and exact selections are retained in the
 consumer's `tests/data/eralpha_rcsb/manifest.json`. No published installation or
 hosted compatibility matrix is claimed.
+
+## Real EST validation checkpoint — 2026-10-03
+
+The pinned 1QKU/EST fixtures and two public real-input controls are committed with
+an offline reproducible curation script. Recuration from the committed compressed
+entry and verbatim CCD succeeds; the committed checksum manifest remains the
+identity of the original artifact, not a promise of byte-identical future HDF5
+files. Native template application consumes its H5MSM chemical state independently
+of the RDKit used during fixture production. The Cookbook records both the accepted
+stereo source and the limit on hydrogen geometry.
+
+The combined regression completed **98 passed in 34.94 s**, covering template
+assessment/application, the real EST pose and stereo controls, CIP recognition,
+interaction attribution and the shared optional-attribution boundary:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+  tests/test_ackredit.py tests/physchem/test_chemical_template_est.py \
+  tests/physchem/test_chemical_template.py tests/physchem/test_get_cip_stereochemistry.py \
+  tests/interactions/test_scientific_attribution.py
+```
+
+This run found and resolved #305: promotion of optional Ackredit warnings could
+otherwise discard completed preparation or mask a scientific exception. Its guard
+requires actual catalog events and unchanged scientific outcomes under strict
+warning filters. Two existing pandas FutureWarnings remain in the H5MSM state
+reader. Ruff, dependency import/contract checks, docstring validation, course
+structure and developer-guide/index validation pass. The Sphinx HTML build exits
+0 with existing documentation diagnostics, including docutils errors in unrelated
+legacy pages; this is not a globally clean documentation gate. The debt is recorded
+in [the Sphinx baseline report](../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md).
+Neither template page emits a warning. These are Python 3.13 source-checkout observations under #237, not a full
+supported-interpreter matrix or consumer biological acceptance.

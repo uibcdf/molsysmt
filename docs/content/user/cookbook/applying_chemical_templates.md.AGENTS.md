@@ -7,3 +7,6 @@ H5MSM value persistence and separate preparation-report retention must remain
 explicit. Executed regression evidence belongs to
 `tests/physchem/test_chemical_template.py`; consumer biological acceptance is not
 implied by the synthetic control. This page is a narrative Markdown recipe.
+Preserve the pinned EST distinction between provider transfer/pose controls and
+consumer biological acceptance, the explicit choice of canonical stereo when the
+CCD atom flag differs, and the absence of donor-H geometry from stored H counts.

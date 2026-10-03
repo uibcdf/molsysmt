@@ -51,10 +51,32 @@ supported. Application raises a catalog-backed structural error containing that
 report and changes neither input. Do not hide it with an empty interaction result,
 neutral-charge fallback or an unconditional `complete` assignment.
 
+## Checking a deposited ligand
+
+The offline EST control from RCSB entry 1QKU illustrates the distinction between
+chemical assignment and coordinate generation. A separately curated heavy-only
+template fills the 20 observed atoms, retaining their pose and 23 heavy bonds.
+Recognition yields the six-atom aromatic ring and acceptors O3/O17. Its 24 stored
+H counts do not provide explicit donor-H pairs or H positions.
+
+Choose the stereochemical source explicitly when reference fields disagree.
+For the pinned EST definition, the CACTVS canonical descriptor and independent
+CIP assignment from the deposited pose agree at five centers; the atom-level CCD
+flag differs at C8. The fixture records that difference and the selected descriptor.
+It does not silently substitute conflicting fields or infer the cause.
+
+The source revisions, atom maps and checksums are recorded in
+`tests/physchem/data/chemical_templates/manifest.json`; the reproducible curation
+and its limits are described in the adjacent README. Native application can read
+the curated H5MSM template without the RDKit used to produce it. This is evidence
+for chemical transfer and pose preservation, not biological acceptance of the
+consumer's complete ERalpha workflow.
+
 The bounded public regression workflow covers reordered atoms, multiple frames
 and states, nondefault units, H5MSM roundtrips and an independent methanol
 recognition control in `tests/physchem/test_chemical_template.py`. Consumer-specific
-biological acceptance, including ERalpha preparation, remains separate evidence.
+biological acceptance remains separate evidence. The real EST control is in
+`tests/physchem/test_chemical_template_est.py`.
 
 :::{seealso}
 :class: dropdown
