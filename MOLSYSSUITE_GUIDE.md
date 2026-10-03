@@ -26,7 +26,7 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 
 A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
 
-The current central member-policy release is MolSysSuite `policy-v1.5.3`, as
+The current central member-policy release is MolSysSuite `policy-v1.5.4`, as
 recorded in `suite.toml`. Each member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
 the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
@@ -206,7 +206,8 @@ each Python member's separate review states, and
 
 Every registered Python package must adopt Python 3.11–3.14 support
 (`>=3.11,<3.15`) in its metadata, environments, recipes, required full CI and
-installed-package gates. Routine development remains on Python 3.13. This
+installed-package gates. Routine local development and push/PR tests use Python
+3.14. The full matrix still covers every supported minor. This
 requirement applies to incubating and auxiliary components too; joining an
 initial transition cohort is not a prerequisite. Track incomplete adoption in
 the owning component and the central rollout `uibcdf/molsyssuite#51`; a

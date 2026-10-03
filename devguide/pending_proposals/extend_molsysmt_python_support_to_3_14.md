@@ -252,3 +252,25 @@ Linux x86_64; CPython 3.14.7 from conda-forge; MolSysMT commit
 the named public UIBCDF support libraries from a clean Conda
 environment; 2026-09-22. The temporary wheel was built only for
 this local feasibility test and was not published.
+
+## Policy 1.5.4 adoption and deferred routine route — 2026-10-03
+
+The maintainer authorized the published policy-v1.5.4 and synchronized guide
+under uibcdf/molsyssuite#39. The component's policy caller is now pinned to
+that immutable release. Policy conformance and Ruff checks use Python 3.14;
+the suite's required routine development and test target is also 3.14.
+
+The current scientific workflows and rich development profile still select
+3.13. This is an explicit temporary migration route under
+uibcdf/molsysmt#237, owned by the component maintainers, with review by
+2026-12-31. The latest source and controlled dependency closure have changed
+during active component development. The user has deferred scientific
+suite execution; the older routine route is not accepted 3.14 test evidence.
+Exit requires reviewing the current dependency/environment closure, moving
+the routine route and full required matrices to include 3.14, and passing
+the exact-source tests without bypassing metadata. Prior paired-installation
+evidence remains scoped to the commits and coordinates recorded above.
+
+This checkpoint changes the caller and guide only. It does not run the scientific suite
+or certify the current scientific branch or every optional backend.
+
