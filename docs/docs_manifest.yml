@@ -123,6 +123,9 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: chemical_templates
+            file: docs/content/user/tools/physchem/chemical_templates.md
+            agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
             agents_file: docs/content/user/tools/physchem/get_chemical_readiness.md.AGENTS.md
@@ -236,6 +239,10 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: applying_chemical_templates
+        file: docs/content/user/cookbook/applying_chemical_templates.md
+        agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
+        status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md
         agents_file: docs/content/user/cookbook/native_sdf.md.AGENTS.md

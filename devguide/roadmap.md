@@ -119,12 +119,16 @@ ledger authoritative for release scope.
 3. **Complete selected chemistry and missing H through reusable tools.**
    uibcdf/molsysmt#298 owns explicit template assessment/application with
    caller-declared atom correspondence; uibcdf/molsysmt#300 owns fixed-state
-   ligand hydrogen addition and local placement. Complete prepared inputs may
+   ligand hydrogen addition and local placement. Experimental template tools now
+   provide the bounded same-graph, absent-field-only contract, copy semantics and
+   a detached provenance report. Unsupported representation normalization,
+   native report attachment and real consumer acceptance remain open under #298.
+   Complete prepared inputs may
    bypass template application. Preserve existing atom identity and coordinates,
    reject conflicting assignments and retain preparation provenance. Template
    application cannot add absent atoms; local H placement cannot select a
    protomer or establish an energy-minimized orientation. Review native-domain
-   reconstruction and metadata contracts before implementing either public API.
+   reconstruction and metadata contracts before implementing hydrogen placement.
 4. **Assign charges and chemical AutoDock types explicitly.**
    [Named charges #221](pending_proposals/assign_partial_charges_with_an_explicit_named_model.md)
    and [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)

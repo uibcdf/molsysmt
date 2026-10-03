@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Assess and apply chemical templates](chemical_templates.md) | Transferring missing assignments through an exhaustive declared atom map |
 | [Get aromatic rings](get_aromatic_rings.ipynb) | Preparing rings from declared aromatic bonds |
 | [Get area buried](get_area_buried.ipynb) | Getting the buried surface area of elements in a molecular system |
 | [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |
@@ -30,6 +31,7 @@
    :hidden:
 
    get_metal_coordination_sites.ipynb
+   chemical_templates.md
    get_water_sites.ipynb
    get_hydrophobic_sites.ipynb
    get_halogen_bond_sites.ipynb

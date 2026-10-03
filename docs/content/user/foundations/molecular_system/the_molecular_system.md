@@ -69,6 +69,15 @@ as unassessed, and modified residues retain their own chemical identity. Its
 heavy-atom completeness and candidate H inventories do not establish environmental
 protonation, terminal context or repair quality.
 
+An explicit preparation operation can fill
+missing chemical assignments on an independent system through a declared
+template-to-source atom map. It preserves the source pose and identity, rejects
+conflicting assignments and keeps a detached preparation report. It does not
+generate missing hydrogens or certify the selected template. See the
+{ref}`chemical-template guide <Tutorial_Chemical_Templates>` for this experimental
+boundary. Chemical changes invalidate named interaction observations on the
+prepared copy; the original input remains unchanged.
+
 Some analyses produce data associated with a molecular system without changing
 its topology or structures. The experimental `molsysmt.Interactions` class is
 one such result: it records chemically classified observations and the source

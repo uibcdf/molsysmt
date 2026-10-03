@@ -7,6 +7,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
 | Recipe | Objective |
 | :--- | :--- |
+| **{doc}`applying_chemical_templates`** | Filling declared chemical assignments while preserving a ligand pose. |
 | **{doc}`building_complex_dimers`** | Harvesting, superimposing, and merging monomers from multi-chain PDBs into a complete complex. |
 | **{doc}`spectacular_visualizations`** | Rendering molecular scenes with cartoon ribbons, pocket surfaces, and annotation vectors in NGLView. |
 | **{doc}`simulation_workflow`** | Setting up, solvating, and executing an OpenMM molecular dynamics simulation with in-memory frame streaming. |
@@ -37,6 +38,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    :hidden:
 
    saving_mediated_interactions
+   applying_chemical_templates.md
    saving_hydrophobic_interactions.ipynb
    saving_halogen_bonds.ipynb
    building_complex_dimers.ipynb

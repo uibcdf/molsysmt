@@ -382,6 +382,42 @@ the whole selected bond table. No new optional provider or attribution boundary
 is introduced. See the [user contract](../docs/content/user/tools/build/get_residue_chemical_coverage.md)
 and `tests/build/test_get_residue_chemical_coverage.py`.
 
+### Explicit chemical-template preparation
+
+The experimental `physchem.assess_chemical_template` and
+`physchem.apply_chemical_template` accept supported forms through the existing
+chemical-domain conversion routes. Assessment reads no coordinates; native and
+H5MSM 0.5 inputs reuse the shared chemistry reader. Explicit state selection is
+independent for source and template. The exhaustive `(n_atoms, 2)` map contains
+template indices then source indices, including existing explicit H atoms.
+
+The bounded operation requires one connected component, the same stored covalent
+graph and complete declared template assignments. It fills absent fields only;
+explicit conflicts fail, and aromatic/stereo encodings requiring normalization
+remain unassessed. It does not add edges/atoms, choose protonation, authenticate
+templates or establish chemical validity. Completeness is justified by exhaustive
+mapping to the declared complete template, not by conversion success.
+
+Application creates an independent MolSys, retaining stable atom identity,
+structures/units/box and frame-state associations. Only the selected state is
+replaced. Chemical changes conservatively invalidate named interactions on the
+returned copy through its native lifecycle; an identical repeat preserves them.
+Failed preflight changes neither input and carries a detached assessment in the
+catalog-backed error. Chemical-state assignments remain in `ChemicalStates`.
+
+The detached `molsysmt.chemical_template@1` report retains indexed assignments,
+source/template states, correspondence, declared identity/version/checksum,
+hydrogen policy, original producer version and elementary-charge units. Existing
+edge evidence remains unchanged. H5MSM stores applied chemical values but does
+not embed this preparation report or invent a provenance table. Successful
+application credits executed MolSysMT through optional Ackredit; inspection and
+failed application do not. Absence/provider failure cannot alter the science.
+
+See the [public contract](../docs/content/user/tools/physchem/chemical_templates.md)
+and `tests/physchem/test_chemical_template.py`. Template normalization, native
+report attachment and real consumer acceptance remain tracked in #298; fixed-
+state hydrogen placement is independent work in #300.
+
 ### Hierarchy selection delivery
 
 After resolving atom selections, `basic.select` projects group/component/chain/

@@ -1,6 +1,20 @@
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.physchem.assess_chemical_template:
+  name: "msm.physchem.assess_chemical_template"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Checks explicit template/source correspondence before preparation."
+  doc_ref: "{func}`molsysmt.physchem.assess_chemical_template`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.assess_chemical_template()**: Assesses declared template compatibility without mutation.\n:::"
+
+molsysmt.physchem.apply_chemical_template:
+  name: "msm.physchem.apply_chemical_template"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Fills missing chemical assignments on an independent pose-preserving system."
+  doc_ref: "{func}`molsysmt.physchem.apply_chemical_template`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.apply_chemical_template()**: Applies compatible missing assignments to a copy.\n:::"
+
 molsysmt.build.get_residue_chemical_coverage:
   name: "msm.build.get_residue_chemical_coverage"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

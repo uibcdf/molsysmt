@@ -9,6 +9,8 @@ API Physical and Chemical Properties
    :toctree: autosummary
    
    get_area_buried
+   assess_chemical_template
+   apply_chemical_template
    get_atomic_radius
    get_buried_fraction
    get_cip_stereochemistry
