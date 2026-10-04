@@ -169,6 +169,12 @@ ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-lev
 explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native
 and H5MSM round trips preserve the annotations without adding coordinate rows.
 
+The explicit {ref}`fixed-state H operation <Tutorial_Fixed_State_Hydrogens>`
+can materialize those counts on a prepared ligand. Declared aromatic bonds may
+use fractional order 1.5 without an integer order; nonaromatic bonds still need
+supported integer orders. The operation preserves the original atom indices,
+pose and aromatic state on its returned copy.
+
 ## Evidence Updates
 
 Editing coordinates or periodic boxes with `msm.set(molsys, ...)` removes

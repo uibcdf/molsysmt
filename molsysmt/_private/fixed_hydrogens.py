@@ -167,14 +167,13 @@ def add(source_input, chemical_state, structure_indices, attribute_policy):
         _fail("Radical states are outside the fixed-state hydrogen addition contract.")
     bonds = state.bonds
     if len(bonds):
-        if not {"bond_order", "is_aromatic"} <= set(bonds):
+        if "is_aromatic" not in bonds or bonds["is_aromatic"].isna().any():
             _fail(
                 "Every covalent bond requires explicit supported order and aromaticity."
             )
-        known_orders = bonds["bond_order"].isin([1, 2, 3]) | bonds[
-            "is_aromatic"
-        ].fillna(False)
-        if not known_orders.all() or bonds["is_aromatic"].isna().any():
+        orders = bonds.get("bond_order", pd.Series(pd.NA, index=bonds.index))
+        known_orders = orders.isin([1, 2, 3]) | bonds["is_aromatic"].eq(True)
+        if not known_orders.all():
             _fail(
                 "Every covalent bond requires explicit supported order and aromaticity."
             )

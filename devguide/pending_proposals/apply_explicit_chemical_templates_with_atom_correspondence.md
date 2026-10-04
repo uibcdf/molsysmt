@@ -422,9 +422,12 @@ controls before the observed receptor; preserve coordinates/identities and
 transactional failure. Scoped completeness must not certify unevaluated groups
 or unprepared full-system components used by full-graph recognition.
 
-DockingMT's separate uibcdf/dockingmt#41 feedback still reports that template-
-prepared original 181L BNZ cannot pass fixed-state H addition with missing bond
-aromaticity. Resolved #314 delivers detached perception, not attachment. A
-supported explicit assignment/composition step must be qualified before claiming
-that consumer is unblocked; no local consumer repair or implicit perception
-inside converters is authorized by the existing fixed-state contract.
+DockingMT's separate uibcdf/dockingmt#41 feedback reported a fixed-state H
+rejection for template-prepared original 181L BNZ. Independent provider
+reproduction on 2026-10-04 shows that all six bond aromatic flags and fractional
+orders of 1.5 are already assigned by the template. The actual defect is an
+unconditional integer bond_order column requirement, tracked by
+uibcdf/molsysmt#318. No new perception/attachment API or guessed Kekule orders
+are required to correct this rejection. Detached perception under resolved #314
+remains independent; positive provider and consumer composition must be qualified
+before declaring the complete docking workflow ready.

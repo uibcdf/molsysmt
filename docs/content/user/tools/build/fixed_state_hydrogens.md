@@ -30,6 +30,12 @@ formal charges, zero unpaired electrons and stored implicit/explicit H counts.
 This slice supports H, C, N, O, F, P, S, Cl, Br and I. It rejects metals, radicals,
 query chemistry and virtual isotopic additions. Existing isotopic atoms are retained.
 
+Every bond needs explicit aromaticity. A nonaromatic bond needs a declared integer
+order of 1, 2 or 3. An explicitly aromatic bond can retain fractional order 1.5
+without an integer order, including a table consisting entirely of aromatic bonds.
+You do not need to invent alternating Kekule orders before adding H. Existing
+aromatic assignments and the chosen chemical state are preserved.
+
 The {ref}`inventory tool <Tutorial_Hydrogen_Inventory>` separates existing indexed
 H atoms from virtual H annotations. Unknown counts are unresolved, not zero.
 Sanitation that changes the inventory or declared chemistry causes an error.

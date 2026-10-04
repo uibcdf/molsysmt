@@ -70,6 +70,13 @@ optimization or minimization has been performed. The roundtrip is protected by
 as dropped when expanding this observed structure; strict attribute policy
 rejects that loss. Keep both detached preparation reports with the input provenance.
 
+The same public template-to-H composition accepts observed 181L BNZ with an
+explicitly mapped heavy-only benzene template. Its six aromatic bonds retain
+their flags and fractional orders of 1.5 without guessed integer Kekule orders.
+H addition produces C6H6 with the six observed carbon IDs and positions unchanged.
+This provider control validates the prepared ligand representation and local H
+placement; final DockingMT scoring and receptor preparation remain separate.
+
 Choose the stereochemical source explicitly when reference fields disagree.
 For the pinned EST definition, the CACTVS canonical descriptor and independent
 CIP assignment from the deposited pose agree at five centers; the atom-level CCD

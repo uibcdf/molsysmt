@@ -76,8 +76,11 @@ def add_missing_hydrogens(
     Notes
     -----
     Fixed-state mode requires explicit elements, complete covalent connectivity,
-    bond orders, aromaticity, formal charges, closed-shell assignments and virtual
-    H counts. The optional RDKit AddHs(addCoords=True) primitive generates local
+    atom/bond aromaticity, formal charges, closed-shell assignments and virtual
+    H counts. Nonaromatic bonds require declared integer orders of 1, 2 or 3;
+    explicitly aromatic bonds may retain fractional order 1.5 without an integer
+    bond_order column. No alternating Kekule orders are invented. The optional
+    RDKit AddHs(addCoords=True) primitive generates local
     H coordinates on the supplied pose. Backend reinterpretation of the declared
     inventory fails. Source inputs remain unchanged on success and failure.
     Missing H are appended; existing H are never removed or repositioned.

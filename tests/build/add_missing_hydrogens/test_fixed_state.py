@@ -1,5 +1,6 @@
 """Checking fixed-state H geometry against independent molecular expectations."""
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -140,6 +141,99 @@ def test_methane_is_tetrahedral_and_idempotent():
     np.testing.assert_array_equal(
         puw.get_value(second["molecular_system"].structures.coordinates),
         puw.get_value(full.structures.coordinates),
+    )
+
+
+def test_observed_benzene_template_aromatic_only_bonds_gain_six_hydrogens(tmp_path):
+    full = msm.convert(
+        msm.systems["T4 lysozyme L99A"]["181l.pdb"], to_form="molsysmt.MolSys"
+    )
+    source = msm.extract(full, selection="group_name=='BNZ'")
+    assert msm.get(source, element="atom", atom_name=True) == [
+        f"C{i}" for i in range(1, 7)
+    ]
+    template = msm.convert(Chem.MolFromSmiles("c1ccccc1"), to_form="molsysmt.MolSys")
+    applied = msm.physchem.apply_chemical_template(
+        source,
+        template=template,
+        atom_correspondence=np.column_stack((np.arange(6), np.arange(6))),
+        template_provenance=dict(
+            identity="Explicit heavy-only benzene SMILES template",
+            version="1",
+            source_uri="smiles:c1ccccc1",
+            checksum="sha256:" + hashlib.sha256(b"c1ccccc1").hexdigest(),
+            hydrogen_policy="stored_counts",
+        ),
+    )["molecular_system"]
+    before = applied.copy()
+    bonds = before.chemical_states._states[0].bonds
+    assert "bond_order" not in bonds
+    assert bonds["is_aromatic"].tolist() == [True] * 6
+    assert bonds["fractional_bond_order"].tolist() == [1.5] * 6
+    result = hydrogenate(applied)
+    output, report = result["molecular_system"], result["report"]
+    assert output.get_n_atoms() == 12
+    assert report["n_added_hydrogens"] == 6
+    assert sorted(report["parent_hydrogen_pairs"][:, 0].tolist()) == list(range(6))
+    assert sorted(report["parent_hydrogen_pairs"][:, 1].tolist()) == list(range(6, 12))
+    np.testing.assert_array_equal(
+        output.topology.atoms["atom_id"].iloc[:6], source.topology.atoms["atom_id"]
+    )
+    xyz = puw.get_value(output.structures.coordinates, to_unit="angstrom")[0]
+    observed = puw.get_value(source.structures.coordinates, to_unit="angstrom")[0]
+    np.testing.assert_array_equal(xyz[:6], observed)
+    for parent, h in report["parent_hydrogen_pairs"]:
+        assert 1.0 < np.linalg.norm(xyz[h] - xyz[parent]) < 1.15
+    pd.testing.assert_frame_equal(applied.chemical_states._states[0].bonds, bonds)
+    np.testing.assert_array_equal(
+        puw.get_value(applied.structures.coordinates),
+        puw.get_value(before.structures.coordinates),
+    )
+    expanded_bonds = output.chemical_states._states[0].bonds
+    old_bonds = expanded_bonds["atom1_index"].lt(6) & expanded_bonds["atom2_index"].lt(
+        6
+    )
+    np.testing.assert_array_equal(
+        expanded_bonds.loc[old_bonds, ["atom1_index", "atom2_index"]],
+        bonds[["atom1_index", "atom2_index"]],
+    )
+    assert expanded_bonds.loc[old_bonds, "is_aromatic"].tolist() == [True] * 6
+    assert expanded_bonds.loc[old_bonds, "fractional_bond_order"].tolist() == [1.5] * 6
+    assert expanded_bonds.loc[old_bonds, "bond_order"].isna().all()
+    assert expanded_bonds.loc[~old_bonds, "is_aromatic"].tolist() == [False] * 6
+    assert expanded_bonds.loc[~old_bonds, "bond_order"].tolist() == [1] * 6
+    path = tmp_path / "hydrogenated-benzene.h5msm"
+    msm.convert(output, to_form=path)
+    restored = msm.convert(path, to_form="molsysmt.MolSys")
+    assert restored.get_n_atoms() == 12
+    np.testing.assert_array_equal(
+        puw.get_value(restored.structures.coordinates),
+        puw.get_value(output.structures.coordinates),
+    )
+    np.testing.assert_array_equal(
+        restored.chemical_states._states[0].bonds["is_aromatic"],
+        expanded_bonds["is_aromatic"],
+    )
+    assert (
+        msm.physchem.get_hydrogen_inventory(restored)[
+            "missing_hydrogen_counts"
+        ].tolist()
+        == [0] * 12
+    )
+
+
+@pytest.mark.parametrize("field", ["bond_order", "is_aromatic"])
+def test_missing_nonaromatic_bond_evidence_still_fails_unchanged(field):
+    source = prepared("CC", [[0, 0, 0], [1.5, 0, 0]])
+    state = source.chemical_states._states[0]
+    state.bonds.drop(columns=field, inplace=True)
+    before = source.copy()
+    with pytest.raises(StructuralInconsistencyError, match="order and aromaticity"):
+        hydrogenate(source)
+    pd.testing.assert_frame_equal(state.bonds, before.chemical_states._states[0].bonds)
+    np.testing.assert_array_equal(
+        puw.get_value(source.structures.coordinates),
+        puw.get_value(before.structures.coordinates),
     )
 
 
