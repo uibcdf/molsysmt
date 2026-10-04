@@ -37,6 +37,10 @@ assert assessment['fields']['n_implicit_hydrogens']['status'] == 'missing'
 The native reader retains explicit source chemistry. Its absent implicit-H
 counts remain unknown, even when all ten source H atoms have coordinates.
 The assessment neither adds atoms nor validates valence or chooses protonation.
+For complete supported graphs, optional detached aromatic perception is available
+through {func}`molsysmt.physchem.get_aromaticity`; see
+{ref}`Tutorial_Get_Aromaticity`. It returns source-indexed atom/bond flags without
+filling the stored chemical state. Known contradictory flags fail.
 Use the {ref}`chemical readiness guide <Tutorial_Chemical_Readiness>` to review
 coverage, source indices, declared evidence and unassessed checks before
 choosing a separate preparation operation. Select one structure explicitly

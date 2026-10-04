@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Get aromaticity](get_aromaticity.md) | Perceiving detached source-indexed atom and bond flags |
 | [Get partial charges](get_partial_charges.md) | Calculating named models with charge conservation, coverage and producer provenance |
 | [Get hydrogen inventory](get_hydrogen_inventory.md) | Separating indexed H neighbors from stored virtual H counts |
 | [Assess and apply chemical templates](chemical_templates.md) | Transferring missing assignments through an exhaustive declared atom map |
@@ -35,6 +36,7 @@
    get_metal_coordination_sites.ipynb
    chemical_templates.md
    get_hydrogen_inventory.md
+   get_aromaticity.md
    get_partial_charges.md
    get_water_sites.ipynb
    get_hydrophobic_sites.ipynb

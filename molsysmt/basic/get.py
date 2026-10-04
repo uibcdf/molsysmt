@@ -57,12 +57,10 @@ def get(
     Returns
     -------
     Any or list or dict or None
-        Depending on `output_type`:
-        - If ``output_type == 'values'`` and a single attribute is requested: the attribute value. This value can be
-        `None` if the attribute is not found in the system.
-        - If ``output_type == 'values'`` and multiple attributes are requested: a list with values
-          in the order given by `**kwargs`.
-        - If ``output_type == 'dictionary'``: a dictionary ``{attribute_name: value}``.
+        With output_type='values', a single requested attribute returns its value
+        (including None when absent). Multiple attributes return a list of values
+        in their requested order. With output_type='dictionary', the result maps
+        each requested attribute name to its value.
 
 
     Raises

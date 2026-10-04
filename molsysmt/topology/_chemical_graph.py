@@ -155,3 +155,46 @@ def select_chemical_atoms(source, states, state_index, selection, frames, syntax
             syntax=syntax,
         )
     ).astype(np.int64)
+
+
+def detached_chemical_graph_view(source, states, state_index, caller):
+    """Detach chemistry and its element inventory without structural series."""
+    from molsysmt.basic import convert
+    from molsysmt.native import MolSys, Topology
+
+    topology = (
+        source.topology
+        if isinstance(source, MolSys)
+        else source
+        if isinstance(source, Topology)
+        else convert(source, to_form="molsysmt.Topology")
+    )
+    if topology is None:
+        raise StructuralInconsistencyError(
+            reason="Chemical perception requires a chemical element inventory.",
+            caller=caller,
+        )
+    topology = topology.copy()
+    chemistry = states.copy()
+    chemistry._reference_index = state_index
+    topology._chemical_states_domain = chemistry
+    return MolSys._from_partial_domains(topology=topology, chemical_states=chemistry)
+
+
+def validate_chemical_frames(source, frames, caller):
+    """Validate explicit structure indices before structural domains are detached."""
+    from molsysmt._private.variables import is_all
+    from molsysmt.basic import convert
+    from molsysmt.basic._index_validation import _get_count, validate_structure_indices
+
+    if not is_all(frames) and frames is not None:
+        if _get_count(source, "structure") is None:
+            source = convert(source, to_form="molsysmt.MolSys")
+        if _get_count(source, "structure") is None:
+            raise ArgumentError(
+                "structure_indices",
+                value=frames,
+                caller=caller,
+                message="Explicit structure_indices require a known source structure axis.",
+            )
+    return validate_structure_indices(source, frames, caller)

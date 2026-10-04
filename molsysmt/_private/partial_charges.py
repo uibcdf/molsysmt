@@ -69,24 +69,9 @@ def _total(state, n_atoms, expected):
 
 
 def _state_view(source, states, state_index):
-    """Detach chemical tables without copying or materializing coordinates."""
-    from molsysmt.basic import convert
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.topology._chemical_graph import detached_chemical_graph_view
 
-    topology = (
-        source.topology
-        if isinstance(source, MolSys)
-        else source
-        if isinstance(source, Topology)
-        else convert(source, to_form="molsysmt.Topology")
-    )
-    if topology is None:
-        _fail("Charge calculation requires a chemical element inventory.")
-    topology = topology.copy()
-    chemistry = states.copy()
-    chemistry._reference_index = state_index
-    topology._chemical_states_domain = chemistry
-    return MolSys._from_partial_domains(topology=topology, chemical_states=chemistry)
+    return detached_chemical_graph_view(source, states, state_index, _CALLER)
 
 
 @dep_digest("rdkit")
@@ -333,24 +318,9 @@ def calculate(
         molecular_system, chemical_state, frames, method == "forcefield", _CALLER
     )
     from molsysmt._private.variables import is_all
-    from molsysmt.basic._index_validation import _get_count, validate_structure_indices
+    from molsysmt.topology._chemical_graph import validate_chemical_frames
 
-    frame_source = source
-    if not is_all(selection_frames) and selection_frames is not None:
-        if _get_count(source, "structure") is None:
-            from molsysmt.basic import convert
-
-            frame_source = convert(source, to_form="molsysmt.MolSys")
-        if _get_count(frame_source, "structure") is None:
-            raise ArgumentError(
-                "structure_indices",
-                value=frames,
-                caller=_CALLER,
-                message="Explicit structure_indices require a known source structure axis.",
-            )
-    selection_frames = validate_structure_indices(
-        frame_source, selection_frames, _CALLER
-    )
+    selection_frames = validate_chemical_frames(source, selection_frames, _CALLER)
     if not states.n_atoms:
         _fail("Charge assignment requires at least one source atom.")
     total, total_source = _total(state, states.n_atoms, expected)

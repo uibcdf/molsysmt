@@ -251,3 +251,10 @@ independent analyses in `molsys.interactions`. Their observed geometry does not
 change declared chemical-state bonds. See {ref}`Getting metal coordination
 <Tutorial_Get_metal_coordination>` and {ref}`Getting water bridges
 <Tutorial_Get_water_bridges>` for exact chemical requirements and atom scopes.
+
+### Detached aromaticity
+
+ChemicalStates owns declared aromatic flags. Optional
+{func}`molsysmt.physchem.get_aromaticity` returns detached model-dependent flags
+on a complete selected graph; it does not fill missing stored assignments.
+See {ref}`Tutorial_Get_Aromaticity` for prerequisites and source-axis evidence.

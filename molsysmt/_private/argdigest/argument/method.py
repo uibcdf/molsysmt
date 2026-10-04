@@ -26,6 +26,11 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    if caller == "molsysmt.physchem.get_aromaticity.get_aromaticity":
+        if isinstance(method, str) and method == "fused_ring_electron_count":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if caller in {
         "molsysmt.physchem.get_partial_charges.get_partial_charges",
         "molsysmt.build.assign_partial_charges.assign_partial_charges",
