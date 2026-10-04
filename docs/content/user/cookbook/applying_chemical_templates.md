@@ -126,6 +126,136 @@ the detached preparation report requires separate retention. On reload, inspect
 the stored chemical state and pose, rather than interpreting the installed
 software version as the original producer version.
 
+(cookbook-component-hydrogen-reinsertion)=
+## Reinserting generated H
+
+You can append a prepared component's generated H to the original atom domain
+using existing public tools. The following continuation assumes `molsys_A` is
+the chemically updated complex from {ref}`Retaining the original complex
+<cookbook-component-chemical-transfer>`, with **one chemical state and one
+structure**. The reviewed template and the two retained index maps are the same
+as in that example. They declare correspondence; neither matching atom IDs nor
+matching axis lengths proves it.
+
+Extract the component and explicitly apply its exhaustive template again:
+extraction conservatively inherits the parent connectivity status. Fixed-state
+H generation requires a declared complete isolated graph. The `intersection`
+policy below deliberately accepts reported attribute removal. On observed
+1QKU it removes `b_factor`; choose `strict` to reject that loss instead.
+
+```python
+import numpy as np
+
+prepared_complex = molsys_A
+isolated = msm.extract(prepared_complex, selection=source_atom_indices)
+isolated = msm.physchem.apply_chemical_template(
+    isolated, template=template, atom_correspondence=atom_correspondence,
+    template_provenance=template_provenance,
+)['molecular_system']
+generated = msm.build.add_missing_hydrogens(
+    isolated, pH=None, engine='RDKit', mode='fixed_chemical_state',
+    return_report=True, attribute_policy='intersection',
+)
+hydrogenated = generated['molecular_system']
+generation_report = generated['report']
+pairs = generation_report['parent_hydrogen_pairs']
+n_original = len(source_atom_indices)
+np.testing.assert_array_equal(
+    generation_report['atom_correspondence'],
+    np.column_stack((np.arange(n_original), np.arange(n_original))),
+)
+np.testing.assert_array_equal(
+    pairs[:, 1], np.arange(n_original, msm.get(hydrogenated, n_atoms=True)),
+)
+if (len(np.unique(source_atom_indices)) != n_original
+        or np.any(source_atom_indices < 0)
+        or np.any(source_atom_indices >= msm.get(prepared_complex, n_atoms=True))):
+    raise ValueError('The declared component-to-source map is not one-to-one.')
+original_pose = msm.get(prepared_complex, selection=source_atom_indices,
+                       coordinates=True)
+retained_pose = msm.get(hydrogenated, selection=np.arange(n_original),
+                       coordinates=True)
+np.testing.assert_array_equal(
+    msm.pyunitwizard.get_value(original_pose, to_unit='nm'),
+    msm.pyunitwizard.get_value(retained_pose, to_unit='nm'),
+)
+implicit, explicit = msm.get(
+    prepared_complex, selection=source_atom_indices,
+    n_implicit_hydrogens=True, n_explicit_hydrogens=True,
+)
+np.testing.assert_array_equal(
+    np.asarray(implicit, dtype=int) + np.asarray(explicit, dtype=int),
+    np.bincount(pairs[:, 0], minlength=n_original),
+)
+```
+
+Map each generated H's parent through the retained source indices and copy its
+declared chemical fields from the producer result. Omit the isolated system's
+atom IDs: the attachment tool synthesizes unique string IDs in the destination.
+It appends atoms without moving or reordering the existing atom axis.
+
+```python
+fields = {
+    'formal_charge': 'formal_charge', 'atom_is_aromatic': 'is_aromatic',
+    'n_unpaired_electrons': 'n_unpaired_electrons',
+    'n_implicit_hydrogens': 'n_implicit_hydrogens',
+    'n_explicit_hydrogens': 'n_explicit_hydrogens',
+    'allows_implicit_hydrogens': 'allows_implicit_hydrogens',
+    'atom_stereochemistry': 'stereochemistry',
+}
+values = msm.get(hydrogenated, selection=pairs[:, 1],
+                 **{field: True for field in fields})
+types, names = msm.get(hydrogenated, selection=pairs[:, 1],
+                      atom_type=True, atom_name=True)
+records = [
+    dict(parent_atom_index=int(source_atom_indices[parent]),
+         atom_type=types[k], atom_name=names[k],
+         chemical_attributes={field: column[k]
+                              for field, column in zip(fields.values(), values)})
+    for k, (parent, _) in enumerate(pairs)
+]
+attached = msm.build.add_terminal_atoms(
+    prepared_complex, records,
+    msm.get(hydrogenated, selection=pairs[:, 1], coordinates=True),
+    attribute_policy='intersection',
+)
+molsys_B = attached['molecular_system']
+parents = np.unique(source_atom_indices[pairs[:, 0]])
+if len(parents):
+    msm.set(molsys_B, selection=parents,
+            n_implicit_hydrogens=np.zeros(len(parents), dtype=int),
+            n_explicit_hydrogens=np.zeros(len(parents), dtype=int))
+msm.convert(molsys_B, to_form='file:h5msm',
+            output_filename='complex_with_generated_hydrogens.h5msm')
+```
+
+The indexed H now replace their parents' virtual counts: leaving both in place
+would count the same H twice. Only parents whose complete virtual inventory was
+materialized are updated; unrelated chemical assignments stay unchanged.
+The attachment preserves the parent global connectivity status. A prepared
+ligand does not establish complete chemistry for the rest of the complex.
+Named analyses become unevaluated, and each new atom has source index `-1`.
+No additions preserve evaluated coverage. This workflow has no implicit alignment,
+protonation choice or environmental minimization.
+
+The observed EST control appends 24 H to 6,596 existing atoms, yielding 6,620,
+with every deposited coordinate retained and global connectivity still partial.
+Its extracted 44-atom ligand has the known six-member aromatic ring and no
+remaining virtual H after an explicit complete-template reassessment. Synthetic
+methanol and ammonium controls cover implicit/explicit counts, charged chemistry,
+ID collisions, native/H5MSM inputs, invalid maps/inventories and no-op repetition.
+See `tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py`.
+
+Retain **both** `generation_report` and `attached['report']`, together with
+`source_atom_indices`: one describes local geometry and original producer
+versions, the other destination parents, new indices, generated IDs and dropped
+attributes. H5MSM 0.5 saves the expanded system and analysis provenance but does
+not embed these detached preparation reports. This is a bounded terminal-H
+workflow; arbitrary heavy-atom replacement, bonds between new atoms, multiple
+states/structures and receptor-fragment boundary reconciliation require separate
+contracts. A cut peptide's artificial terminal H cannot be reinserted into the
+uncut chain through this recipe.
+
 ## Handling unresolved cases
 
 Keep an unresolved assessment when chemistry conflicts, required fields are

@@ -957,3 +957,88 @@ including observed EST and receptor controls. The 62 warnings are intentional
 legacy H5MSM notices and existing pandas future warnings. Dependency, Ruff,
 docstring, course and API gates passed; Sphinx HTML built with existing warnings.
 No speed, RAM or biological-quality benchmark is claimed by these checks.
+
+## Public terminal-H reinsertion workflow — 2026-10-04
+
+**Implemented as public composition and contract-tested:** reuse existing
+`extract`, explicit template application, `build.add_missing_hydrogens`,
+`build.add_terminal_atoms` and `set`. No new library reinsertion kernel or
+placeholder API is introduced. The owning general attachment tool already
+accepts atom declarations, mapped existing parents and length quantities; it
+preserves the original axis and invalidates named analyses on expansion.
+
+The bounded route has one chemical state and one structure. Prepare the closed
+component inside the original system, extract it with retained full-source
+indices, and explicitly justify complete isolated connectivity with the same
+reviewed template before generating H. Check exhaustive retained identity,
+unique/range-valid destination indices, exact retained pose and per-parent
+virtual inventory against the reported generated parent pairs. Copy generated
+chemical fields through public `get`, omit isolated atom IDs and let attachment
+synthesize unique destination string IDs. New atoms append to the original
+inventory; they are not original observed atoms.
+
+After successful attachment on a detached output, use public `set` to zero
+implicit/bracket-explicit virtual counts only for parents whose complete
+inventory was materialized. Leaving virtual counts alongside indexed H would
+double count the same hydrogens. Unrelated chemistry remains untouched and
+parent global completeness remains partial when the original source was partial.
+Repetition with no additions retains evaluated interaction coverage.
+
+**Observed control:** EST in deposited 1QKU contributes 24 H to 6,596 original
+atoms, producing 6,620. Every original coordinate and unrelated chemical value
+is retained. The independently extracted 44-atom ligand recovers the known
+six-member aromatic ring and zero remaining virtual H after explicit template
+reassessment. This does not prepare the remaining receptor or establish
+biological acceptance. Synthetic methanol/ammonium cases cover implicit and
+bracket-explicit counts, neutral/charged chemistry, native/H5MSM input, colliding
+isolated IDs, malformed/reordered maps, mismatched inventories and no-op replay.
+
+**Attribute boundary:** 1QKU includes B-factors. Current general attachment
+cannot supply values for added atoms: `strict` rejects before expansion;
+explicit `intersection` reports removal of the B-factor table from the result.
+The input retains its original table. The recipe does not claim lossless
+retention of unsupported structural/mechanical attributes or invent B-factors
+for generated H. Both generation and attachment reports, and the retained
+component-to-source map, remain separate evidence. Original producer versions
+and local-coordinate limitations belong to the generation report, not to the
+version installed on H5MSM read.
+
+Durable workflow controls live in
+`tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py`.
+`test_cookbook_reinsertion_blocks_execute_on_the_pinned_real_control` executes
+the two exact public recipe blocks on the pinned source and reloads the written
+H5MSM, checking atom count, conserved deposited pose, partial status and updated
+H counts. It protects actual executable behavior rather than matching prose or
+helper implementation. Existing provider tests independently cover placement,
+attachment, units, metadata and interaction lifecycle.
+
+The mapped-H recipe, attachment Toolbox page, MolSys Foundations and course
+Module 12 now describe the public route. Arbitrary heavy-atom replacement,
+bonds between new atoms, multiple states/structures and polymer-cut boundaries
+remain outside it. General component replacement/reinsertion is still pending;
+#223's export projection is not that capability. Native report persistence,
+representation/context handling, excluded lysine repair and consumer complete
+receptor/biological acceptance keep #298 partial. Environmental refinement is
+still future work under uibcdf/molsysmt#323.
+
+Validation command:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/build/add_terminal_atoms \
+    tests/build/add_missing_hydrogens/test_fixed_state.py \
+    tests/physchem/test_chemical_template_selection.py \
+    tests/physchem/test_chemical_template_est.py \
+    --doctest-modules molsysmt/build/add_terminal_atoms.py
+```
+
+Result: **91 passed in 49.13 s**, including the literal Cookbook blocks.
+The 15 warnings comprise 12 existing pandas future warnings and three expected
+attribute-drop notices from existing controls. New 1QKU strict/intersection
+checks capture their expected B-factor diagnostics explicitly. Ruff, dependency
+validation, public docstrings, API classification/signature stability, course
+structure and devguide passed. Sphinx HTML built with the pre-existing warning
+baseline. Environment: Linux, Python 3.13.14 under #237, released ArgDigest
+0.13.0, NumPy 2.4.6, pandas 2.3.3 and RDKit 2025.09.5; source base
+`3fa506bf0006f9f4c06c75229ff85eab5afca8ba`. This is contract evidence,
+not a speed/memory or biological-quality benchmark.

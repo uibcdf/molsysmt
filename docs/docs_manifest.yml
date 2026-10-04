@@ -296,7 +296,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer and scoped bond completion in original complexes, bounded 1QKU preparation, prepared interface source maps and separate H geometry.
+        description: Explicit template transfer, scoped bond completion and mapped H reinsertion in original complexes, bounded 1QKU preparation and prepared interface source maps.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

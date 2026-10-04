@@ -27,7 +27,7 @@ Atoms are appended in record order. Explicit IDs must not collide; absent IDs
 are synthesized deterministically and stored as strings. Existing IDs are retained.
 
 Provide a length quantity with shape `(n_structures, n_new_atoms, 3)` covering
-**every** source frame. PyUnitWizard converts units explicitly to native nm.
+**every** source structure. PyUnitWizard converts units explicitly to native nm.
 Existing positions and indices are retained, and `atom_correspondence` and
 `parent_atom_pairs` have integer shape `(n_original, 2)` and `(n_new, 2)`.
 This boundary deliberately does not accept a multi-state source or bonds between
@@ -39,6 +39,14 @@ intersection reports their removal, and analyses become unevaluated after atom
 expansion. Sparse alternate locations retain their old indices. Empty records
 with coordinates of shape `(n_structures, 0, 3)` return an unchanged independent
 copy. Success and failure leave the source unchanged.
+
+Attachment preserves existing parent chemical fields, including virtual H
+counts. When materializing a declared H inventory, explicitly update those counts
+after checking the generated-parent map; indexed H and virtual H are distinct.
+The public {ref}`reinsertion recipe <cookbook-component-hydrogen-reinsertion>`
+composes this tool with fixed-state generation and `msm.set()` without moving
+existing atoms. It also makes attribute-loss and global-completeness limits
+explicit. No general component-replacement engine is implied by this tool.
 
 :::{seealso}
 

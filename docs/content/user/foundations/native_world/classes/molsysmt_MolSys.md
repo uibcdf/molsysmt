@@ -172,7 +172,9 @@ and H5MSM round trips preserve the annotations without adding coordinate rows.
 {ref}`Explicit template preparation <Tutorial_Chemical_Templates>` can fill missing
 assignments in a selected state. With explicit `complete_from_template` policy,
 it can also add missing declared covalent edges to an incomplete graph. Components
-are then rebuilt in that state, with new indices/IDs and unknown names/types;
+are then rebuilt in that state. Indices can change; whole-input completion
+regenerates IDs, while scoped completion retains IDs for unchanged atom sets.
+Names/types are retained for unchanged memberships and missing for merged/split sets;
 stable atom order, group/molecule inventory, other states and structures stay
 intact. This returns an independent MolSys, invalidates its named interaction
 observations when chemistry changes, and supplies a detached bond-index map.
@@ -184,6 +186,15 @@ global flag; the detached preparation report still needs separate retention.
 Stored external relationships are unassessed, so a protein cut is not silently
 treated as a complete molecule. See {ref}`Updating a selected component
 <Tutorial_Selected_Chemical_Template>`.
+
+The {ref}`mapped-H reinsertion recipe <cookbook-component-hydrogen-reinsertion>`
+composes public extraction, fixed-state H generation, terminal attachment and
+`msm.set()` to retain the original atom axis. Indexed H replace their parents'
+materialized virtual counts. The one-state, one-structure route preserves existing
+coordinates and unrelated chemical assignments, retains global completeness,
+and invalidates analyses after expansion. Strict attribute policy rejects loss;
+intersection reports it. Generation/attachment reports remain separate from
+H5MSM chemical values and do not certify environmental H orientation.
 
 The original system remains unchanged. Template transfer does not select
 protonation, create missing atoms or supply hydrogen coordinates.
