@@ -13,6 +13,7 @@ API Build
    add_missing_hydrogens
    add_terminal_atoms
    add_missing_terminal_cappings
+   assign_autodock_atom_types
    assign_partial_charges
    build_peptide
    editable

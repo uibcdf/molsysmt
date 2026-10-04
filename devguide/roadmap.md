@@ -142,10 +142,11 @@ ledger authoritative for release scope.
    are implemented with detached Gasteiger-Marsili and matched-force-field routes,
    original provenance, native projection and stale-binding checks. Mechanical
    persistence remains outside H5MSM 0.5.
-   [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)
-   still needs methods, original software versions, state association, coverage and
-   independent chemical controls. Resolve their inspectable assignment/provenance
-   contract without introducing competing stores. Chemical interpretation belongs
+   [AutoDock typing #222](archive/resolved_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)
+   now provides the experimental chemical_environment@1 full-graph profile,
+   detached single-state attachment, rule winners, original producer versions,
+   parent-label projection and stale-binding checks. Its bounded chemical and
+   original-ligand controls are separate from consumer profile acceptance. Chemical interpretation belongs
    in `physchem`; reconstruction belongs in `build`; chemical assignments remain
    in `ChemicalStates` and current mechanical values in `MolecularMechanics`.
    Test conventional receptors separately from small molecules. Charge-model

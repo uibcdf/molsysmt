@@ -1898,6 +1898,46 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_hydrogen_inventory.md",
       "contract_tests": "tests/physchem/get_hydrogen_inventory/test_inventory.py"
+    },
+    "molsysmt.physchem.get_partial_charges": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "1.0.0",
+      "documentation": "docs/content/user/tools/physchem/get_partial_charges.md",
+      "contract_tests": "tests/physchem/test_get_partial_charges.py",
+      "owner": "physchem"
+    },
+    "molsysmt.build.assign_partial_charges": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "1.0.0",
+      "documentation": "docs/content/user/tools/build/assign_partial_charges.md",
+      "contract_tests": "tests/build/test_assign_partial_charges.py",
+      "owner": "build"
+    },
+    "molsysmt.physchem.get_aromaticity": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "1.0.0",
+      "documentation": "docs/content/user/tools/physchem/get_aromaticity.md",
+      "contract_tests": "tests/physchem/test_get_aromaticity.py",
+      "owner": "physchem"
+    },
+    "molsysmt.physchem.get_autodock_atom_types": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "1.0.0",
+      "documentation": "docs/content/user/tools/physchem/get_autodock_atom_types.md",
+      "contract_tests": "tests/physchem/test_get_autodock_atom_types.py",
+      "owner": "physchem"
+    },
+    "molsysmt.build.assign_autodock_atom_types": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "1.0.0",
+      "documentation": "docs/content/user/tools/build/assign_autodock_atom_types.md",
+      "contract_tests": "tests/build/test_assign_autodock_atom_types.py",
+      "owner": "build"
     }
   }
 }

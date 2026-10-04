@@ -16,7 +16,8 @@ class MolecularMechanics:
     atom position (0..n_atoms-1).  The DataFrame is None when no per-atom
     FF data has been assigned. Native partial-charge values use elementary charge.
     ``partial_charge_assignment`` holds an optional detached named-model report;
-    ordinary property replacement clears it. Copying retains producer versions.
+    ``atom_type_assignment`` holds optional named chemical typing provenance.
+    Replacing either property clears its report. Copying retains producer versions.
     This experimental domain is not persisted by H5MSM 0.5.
     """
 
@@ -59,6 +60,7 @@ class MolecularMechanics:
         # Per-atom FF parameters: stored in atoms_ff DataFrame
         self.atoms_ff = None
         self.partial_charge_assignment = None
+        self.atom_type_assignment = None
         if formal_charge is not None:
             self.formal_charge = formal_charge
         if partial_charge is not None:
@@ -160,6 +162,7 @@ class MolecularMechanics:
     @atom_ff_type.setter
     def atom_ff_type(self, value):
         self._set_atoms_ff_column("atom_ff_type", value)
+        self.atom_type_assignment = None
 
     # ------------------------------------------------------------------
 
@@ -198,6 +201,10 @@ class MolecularMechanics:
         tmp_molecular_mechanics.atoms_ff = deepcopy(self.atoms_ff)
         tmp_molecular_mechanics.partial_charge_assignment = deepcopy(
             self.partial_charge_assignment
+        )
+
+        tmp_molecular_mechanics.atom_type_assignment = deepcopy(
+            self.atom_type_assignment
         )
 
         tmp_molecular_mechanics.forcefield = deepcopy(self.forcefield)

@@ -258,3 +258,16 @@ ChemicalStates owns declared aromatic flags. Optional
 {func}`molsysmt.physchem.get_aromaticity` returns detached model-dependent flags
 on a complete selected graph; it does not fill missing stored assignments.
 See {ref}`Tutorial_Get_Aromaticity` for prerequisites and source-axis evidence.
+
+
+### Named chemical types
+
+Chemical element symbols remain in `atom_type`. Mechanical `atom_ff_type`
+labels are separate parameter assignments. A named chemical-environment profile
+can attach labels with an `atom_type_assignment` report in MolecularMechanics.
+It records the original rule/provider versions and binds labels to chemistry.
+Extraction projects parent labels; manual replacement clears their attribution.
+The PDBQT writer rejects stale named reports before writing. Charges and typing
+are independent operations; neither establishes full parameterization. Both
+mechanical reports are excluded from H5MSM 0.5. See
+{ref}`Tutorial_AutoDock_Typing` and {ref}`Tutorial_Assign_AutoDock_Types`.

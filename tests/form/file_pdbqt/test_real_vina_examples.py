@@ -199,3 +199,71 @@ def test_real_native_output_is_accepted_by_vina_parser(pdbqt_case, tmp_path):
             torsion_tree=tree,
         )
         engine.set_ligand_from_string(text[len("pdbqt_text:") :])
+
+
+@pytest.mark.parametrize("name", ["1iep", "1s63", "5x72-p59", "5x72-p69"])
+def test_named_typing_on_original_ligand_graphs_keeps_reference_differences_explicit(
+    vina_reference_corpus, name, tmp_path
+):
+    Chem = pytest.importorskip("rdkit.Chem")
+    root, records = vina_reference_corpus
+    record = records[name]
+    # This is an explicitly selected RDKit input route. It does not expand
+    # the native CTfile parser's version/valence/stereo profile.
+    molecule = Chem.SDMolSupplier(
+        str(root / record["files"]["sdf"]["filename"]),
+        removeHs=False,
+        strictParsing=True,
+    )[0]
+    assert molecule is not None
+    source = msm.convert(molecule, to_form="molsysmt.MolSys")
+    inventory = msm.physchem.get_hydrogen_inventory(source)
+    if np.any(inventory["missing_hydrogen_counts"] > 0):
+        source = msm.build.add_missing_hydrogens(
+            source, engine="RDKit", mode="fixed_chemical_state", pH=None
+        )
+    # PDBQT serials require positive integer strings. This explicit caller
+    # preparation is separate from the classifier, which preserves source IDs.
+    source.topology.atoms["atom_id"] = pd.array(
+        [str(i + 1) for i in range(source.get_n_atoms())], dtype="string"
+    )
+    typed = msm.build.assign_autodock_atom_types(source, typing_scheme="autodock4")
+    labels = typed.molecular_mechanics.atom_ff_type
+    reference = msm.convert(
+        root / record["files"]["pdbqt"]["filename"],
+        to_form="molsysmt.MolSys",
+        discard_torsion_tree=True,
+    )
+    heavy = np.asarray(reference.topology.atoms["atom_type"] != "H")
+    reference_xyz = msm.pyunitwizard.get_value(
+        reference.structures.coordinates, to_unit="angstrom"
+    )[0, heavy]
+    source_xyz = msm.pyunitwizard.get_value(
+        source.structures.coordinates, to_unit="angstrom"
+    )[0]
+    squared = np.sum((reference_xyz[:, None] - source_xyz[None, :]) ** 2, axis=-1)
+    mapping = np.argmin(squared, axis=1)
+    assert len(np.unique(mapping)) == len(mapping)
+    assert np.sqrt(squared[np.arange(len(mapping)), mapping]).max() < 0.001
+    wanted = reference.molecular_mechanics.atom_ff_type[heavy]
+    differences = [
+        (int(i), str(labels[i]), str(label))
+        for i, label in zip(mapping, wanted)
+        if labels[i] != label
+    ]
+    # The supplied 1S63 SDF has a neutral tertiary amine. This profile calls
+    # it NA; the original prepared PDBQT calls it N. Neither file is silently
+    # relabeled or treated as a universal chemical reference.
+    assert differences == ([(0, "NA", "N")] if name == "1s63" else [])
+    if name == "1s63":
+        assert (
+            typed.chemical_states._states[0].atom_attributes.loc[0, "formal_charge"]
+            == 0
+        )
+        assert typed.molecular_mechanics.atom_type_assignment["rule_indices"][0] == 0
+    destination = tmp_path / f"{name}.pdbqt"
+    typed = msm.build.assign_partial_charges(typed, method="gasteiger_marsili")
+    msm.convert(typed, to_form=destination, typing_scheme="autodock4")
+    loaded = msm.convert(destination, to_form="molsysmt.MolSys")
+    assert loaded.get_n_atoms() == typed.get_n_atoms()
+    np.testing.assert_array_equal(loaded.molecular_mechanics.atom_ff_type, labels)

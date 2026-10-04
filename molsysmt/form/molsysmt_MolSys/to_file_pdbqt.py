@@ -44,8 +44,8 @@ def to_file_pdbqt(
         For missing charges/types/coordinates, invalid field widths or tree,
         unsupported isotopes, nonnumeric atom IDs or multiple selected frames.
     StructuralInconsistencyError
-        For a named partial-charge assignment that no longer matches its bound
-        chemical graph, ordered charge values or associated chemical state.
+        For named charge/type assignments that no longer match bound chemistry,
+        ordered values, associated chemical state or requested typing scheme.
 
     Notes
     -----
@@ -61,7 +61,9 @@ def to_file_pdbqt(
     does not persist the AutoDock labels and charges in MolecularMechanics.
     Named assignments emit a REMARK MOLSYSMT_PARTIAL_CHARGES JSON summary with
     the original producer versions, source coverage and total before rounding.
-    Reading PDBQT does not restore the complete charge-assignment provenance.
+    Named typing emits a REMARK MOLSYSMT_ATOM_TYPES JSON summary with its
+    scheme, rule version and original software. Reading PDBQT does not restore
+    either complete mechanical assignment report.
 
     .. admonition:: Tutorial with more examples
 

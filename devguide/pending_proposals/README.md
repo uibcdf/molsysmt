@@ -76,12 +76,11 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (14)
+### Partially resolved (13)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
 - [`apply_explicit_chemical_templates_with_atom_correspondence.md`](apply_explicit_chemical_templates_with_atom_correspondence.md) — [#298](https://github.com/uibcdf/molsysmt/issues/298) — Apply explicit chemical templates while preserving source atom correspondence and coordinates. *(measured)*
-- [`assign_and_validate_autodock_atom_types_under_a_named_scheme.md`](assign_and_validate_autodock_atom_types_under_a_named_scheme.md) — [#222](https://github.com/uibcdf/molsysmt/issues/222) — Assign and validate AutoDock atom types under a named scheme *(reproduced)*
 - [`classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md`](classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md) — [#224](https://github.com/uibcdf/molsysmt/issues/224) — Classify rotatable bonds and derive rigid molecular fragments *(reproduced)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(measured)*

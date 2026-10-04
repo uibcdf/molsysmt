@@ -84,6 +84,10 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: assign_autodock_atom_types
+            file: docs/content/user/tools/build/assign_autodock_atom_types.md
+            agents_file: docs/content/user/tools/build/assign_autodock_atom_types.md.AGENTS.md
+            status: reviewed
           - name: assign_partial_charges
             file: docs/content/user/tools/build/assign_partial_charges.md
             agents_file: docs/content/user/tools/build/assign_partial_charges.md.AGENTS.md
@@ -136,6 +140,10 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_autodock_atom_types
+            file: docs/content/user/tools/physchem/get_autodock_atom_types.md
+            agents_file: docs/content/user/tools/physchem/get_autodock_atom_types.md.AGENTS.md
+            status: reviewed
           - name: get_aromaticity
             file: docs/content/user/tools/physchem/get_aromaticity.md
             agents_file: docs/content/user/tools/physchem/get_aromaticity.md.AGENTS.md

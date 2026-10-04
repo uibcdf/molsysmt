@@ -181,3 +181,14 @@ are rejected. Keep the original file when it carries unsupported information.
 - {func}`molsysmt.basic.get` for form-independent attribute queries.
 - {ref}`user-foundations-support-forms-files` for supported file forms.
 :::
+
+
+## Assigning named parameter types
+
+Once the graph, chemical state and indexed H satisfy the explicit prerequisites,
+use {func}`molsysmt.physchem.get_autodock_atom_types` for detached auditable labels
+or {func}`molsysmt.build.assign_autodock_atom_types` for a new native MolSys with
+named mechanical provenance. These tools classify chemical context; they do not
+prepare missing chemistry, calculate partial charges or merge H. See
+{ref}`Tutorial_AutoDock_Typing` for the exact bounded rules and
+{ref}`Tutorial_Assign_AutoDock_Types` for projections and PDBQT summaries.

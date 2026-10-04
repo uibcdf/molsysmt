@@ -1,7 +1,6 @@
 """Implementing bounded named charge models and native assignment bookkeeping."""
 
 import hashlib
-import json
 from copy import deepcopy
 
 import numpy as np
@@ -406,34 +405,11 @@ def calculate(
 
 
 def _digest(source, state_index, method):
-    """Bind stored provenance to ordered chemical data, not coordinates or IDs."""
-    state = source.chemical_states._states[state_index]
+    from molsysmt.topology._chemical_graph import chemical_graph_digest
 
-    def table(frame):
-        return frame.astype(object).where(frame.notna(), None).to_dict(orient="list")
-
-    data = dict(
-        elements=source.topology.atoms["atom_type"].tolist(),
-        isotope=table(source.topology.atoms[["isotope"]]),
-        atoms=table(state.atom_attributes),
-        bonds=table(state.bonds.drop(columns=["bond_id"], errors="ignore")),
-        completeness=state.connectivity_completeness,
+    return chemical_graph_digest(
+        source, state_index, include_template_names=method == "forcefield"
     )
-    if method == "forcefield":
-        data["atom_template_inputs"] = table(
-            source.topology.atoms[["atom_name", "group_index", "chain_index"]]
-        )
-        data["residue_names"] = table(source.topology.groups[["group_name"]])
-    payload = json.dumps(
-        data,
-        sort_keys=True,
-        separators=(",", ":"),
-        default=lambda value: (
-            value.item() if isinstance(value, np.generic) else str(value)
-        ),
-    )
-    return hashlib.sha256(payload.encode()).hexdigest()
-
 
 def _values_digest(values):
     return hashlib.sha256(np.asarray(values, dtype="<f8").tobytes()).hexdigest()

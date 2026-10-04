@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 120 |
+| experimental | 125 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -171,6 +171,8 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.add_missing_hydrogens` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_terminal_cappings` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_terminal_atoms` | experimental | active | pre-1.0 |
+| `molsysmt.build.assign_autodock_atom_types` | experimental | active | 1.0.0 |
+| `molsysmt.build.assign_partial_charges` | experimental | active | 1.0.0 |
 | `molsysmt.build.build_peptide` | experimental | active | pre-1.0 |
 | `molsysmt.build.editable` | stable | active | pre-1.0 |
 | `molsysmt.build.get_disulfide_bonds` | experimental | active | pre-1.0 |
@@ -216,7 +218,9 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.assess_chemical_template` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_area_buried` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_aromatic_rings` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_aromaticity` | experimental | active | 1.0.0 |
 | `molsysmt.physchem.get_atomic_radius` | stable | active | pre-1.0 |
+| `molsysmt.physchem.get_autodock_atom_types` | experimental | active | 1.0.0 |
 | `molsysmt.physchem.get_buried_fraction` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_charge` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_charge_centers` | experimental | active | pre-1.0 |
@@ -230,6 +234,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_hydrophobicity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_mass` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_metal_coordination_sites` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_partial_charges` | experimental | active | 1.0.0 |
 | `molsysmt.physchem.get_polarity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_atom_type` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_vdw_radius` | experimental | active | pre-1.0 |

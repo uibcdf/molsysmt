@@ -98,24 +98,28 @@ def _merged_molecular_mechanics(target, source, attribute_policy):
 
     merged = target.copy()
     merged.atoms_ff = pd.concat([target_ff, source_ff], ignore_index=True)
-    if (
-        getattr(target, "partial_charge_assignment", None) is not None
-        or getattr(source, "partial_charge_assignment", None) is not None
-    ):
+    assignments = [
+        name
+        for name in ("partial_charge_assignment", "atom_type_assignment")
+        if getattr(target, name, None) is not None
+        or getattr(source, name, None) is not None
+    ]
+    if assignments:
         if attribute_policy == "strict":
             raise StructuralInconsistencyError(
-                reason="Combining separate charge assignments needs an explicit joint calculation; their original provenance cannot describe the merged graph.",
+                reason="Combining separate mechanical assignments needs an explicit joint calculation; their original provenance cannot describe the merged graph.",
                 caller="molsysmt.native.MolSys.add",
             )
         from molsysmt._private.smonitor import warn
 
         warn(
             StructuralAttributeDropWarning(
-                attributes=["partial_charge_assignment"], caller="molsysmt.add"
+                attributes=assignments, caller="molsysmt.add"
             ),
             stacklevel=2,
         )
-        merged.partial_charge_assignment = None
+        for name in assignments:
+            setattr(merged, name, None)
     return merged
 
 
@@ -910,6 +914,11 @@ class MolSys:
                 from molsysmt._private.partial_charges import project_assignment
 
                 project_assignment(self, extracted, atom_indices)
+                from molsysmt._private.autodock_assignment import (
+                    project_assignment as project_types,
+                )
+
+                project_types(self, extracted, atom_indices)
                 return extracted
             if not is_all(atom_indices):
                 atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
@@ -996,6 +1005,11 @@ class MolSys:
             from molsysmt._private.partial_charges import project_assignment
 
             project_assignment(self, tmp_item, atom_indices)
+            from molsysmt._private.autodock_assignment import (
+                project_assignment as project_types,
+            )
+
+            project_types(self, tmp_item, atom_indices)
             if self._structure_chemical_state_indices is not None:
                 if is_all(structure_indices):
                     tmp_item._structure_chemical_state_indices = (

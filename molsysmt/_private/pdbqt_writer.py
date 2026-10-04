@@ -119,6 +119,11 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
     from molsysmt._private.partial_charges import validate_assignment
 
     validate_assignment(item)
+    from molsysmt._private.autodock_assignment import (
+        validate_assignment as validate_types,
+    )
+
+    validate_types(item, typing_scheme)
     topology, structures, mechanics = (
         item.topology,
         item.structures,
@@ -281,10 +286,11 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
         output.append(f"TORSDOF {torsdof}")
         payload = "\n".join([*output, ""])
     parse(payload)
+    import json
+
+    remarks = []
     report = getattr(mechanics, "partial_charge_assignment", None)
     if report is not None:
-        import json
-
         provenance = {
             name: report[name]
             for name in (
@@ -304,10 +310,32 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
             decimal_places=3,
             parameters=report["parameters"],
         )
-        payload = (
+        remarks.append(
             "REMARK MOLSYSMT_PARTIAL_CHARGES "
             + json.dumps(provenance, sort_keys=True, separators=(",", ":"))
-            + "\n"
-            + payload
         )
-    return payload
+    report = getattr(mechanics, "atom_type_assignment", None)
+    if report is not None:
+        provenance = {
+            name: report[name]
+            for name in (
+                "typing_scheme",
+                "method",
+                "rule_version",
+                "software",
+                "chemical_state_index",
+                "status",
+                "hydrogen_policy",
+                "parameters",
+            )
+        }
+        provenance.update(
+            source_coverage=report["coverage"],
+            n_source_atoms=report["n_atoms"],
+            n_written_atoms=n_atoms,
+        )
+        remarks.append(
+            "REMARK MOLSYSMT_ATOM_TYPES "
+            + json.dumps(provenance, sort_keys=True, separators=(",", ":"))
+        )
+    return "\n".join([*remarks, payload]) if remarks else payload

@@ -198,3 +198,36 @@ def validate_chemical_frames(source, frames, caller):
                 message="Explicit structure_indices require a known source structure axis.",
             )
     return validate_structure_indices(source, frames, caller)
+
+
+def chemical_graph_digest(source, state_index, include_template_names=False):
+    """Bind stored provenance to ordered chemical data, not coordinates or IDs."""
+    import hashlib
+    import json
+
+    state = source.chemical_states._states[state_index]
+
+    def table(frame):
+        return frame.astype(object).where(frame.notna(), None).to_dict(orient="list")
+
+    data = dict(
+        elements=source.topology.atoms["atom_type"].tolist(),
+        isotope=table(source.topology.atoms[["isotope"]]),
+        atoms=table(state.atom_attributes),
+        bonds=table(state.bonds.drop(columns=["bond_id"], errors="ignore")),
+        completeness=state.connectivity_completeness,
+    )
+    if include_template_names:
+        data["atom_template_inputs"] = table(
+            source.topology.atoms[["atom_name", "group_index", "chain_index"]]
+        )
+        data["residue_names"] = table(source.topology.groups[["group_name"]])
+    payload = json.dumps(
+        data,
+        sort_keys=True,
+        separators=(",", ":"),
+        default=lambda value: (
+            value.item() if isinstance(value, np.generic) else str(value)
+        ),
+    )
+    return hashlib.sha256(payload.encode()).hexdigest()
