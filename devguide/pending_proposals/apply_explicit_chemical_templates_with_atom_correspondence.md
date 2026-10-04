@@ -19,8 +19,9 @@ supersedes: []
 2026-10-03, extended with explicit graph completion and a versioned native peptide
 reference factory and declared-aromatic normalization on 2026-10-04. A bounded
 observed 1QKU fragment and its explicit composition with prepared EST are
-contract-tested. Consumer-reported isolated-ligand integration is
-available. General polymer context/repair/mapping/reinsertion, other representation
+contract-tested. Closed-component assignment inside a larger source is implemented
+and real EST transfer is contract-tested. Consumer-reported isolated-ligand integration is
+available. General polymer context/repair/mapping and atom-changing reinsertion, other representation
 normalization, native preparation-report attachment and complete receptor/biological
 acceptance remain pending; this issue remains partial.
 
@@ -798,3 +799,92 @@ chemistry reinsertion, native preparation-report attachment/persistence, and
 consumer complete receptor/biological acceptance. Keep #298 partial. The future
 refinement proposal is not a silent prerequisite or a claim that minimization
 has already run.
+
+## Closed-component assignment in the original source — 2026-10-04
+
+**Implemented and contract-tested:** extend the existing experimental assessment
+and application tools with keyword-only `selection='all'` and `syntax='MolSysMT'`.
+Default positions, values and whole-input graph behavior remain unchanged. A
+proper subset must cover one closed stored component and every template atom.
+The map still names indices in both full input axes; local extracted-ligand
+indices must be explicitly composed with their retained source map.
+
+Reuse the public selection boundary and the compiled component primitive.
+Topological string selections use the resolved canonical topology/state without
+reading all structures during assessment. Numeric selections are range-checked,
+flattened only if already one-dimensional, and deduplicated. Template operations
+neither infer source matching nor accept a stored bond crossing the scope.
+Outside bond criteria and chemical assignments are not assessed or modified;
+invalid stored endpoints still fail the structural preflight.
+
+The detached report retains full-source selected indices and original global
+connectivity completeness, whole-input versus selected-component scope,
+checked boundary status and crossing source bond indices. Scoped application
+uses rule version 3 under `molsysmt.chemical_template@1`. Adding fields is an
+experimental extension, not a new competing chemical evidence store. A proper
+subset retains the source state's `unavailable`, `partial` or `complete` flag;
+only an exhaustive whole-input application justifies elevating it to complete.
+Chemical changes invalidate named coverage on the returned copy, while an
+unchanged repeated application retains coverage and the input stays untouched.
+
+**Bounded graph policy:** source/template selected internal pairs must agree.
+Missing selected bonds remain `unassessed`, including under the explicit
+`complete_from_template` policy. Whole-input completion remains supported.
+Inspection of `Topology.rebuild_components` shows that redefining indices replaces
+its entire component table, regenerating IDs and leaving names/types unknown when
+not re-inferred. Calling that after a scoped edge addition would change unrelated
+component metadata. Extend the general native rebuild capability with verified
+preservation of unchanged component memberships/metadata before permitting this
+path; do not duplicate a component-rebuild engine inside preparation. The guard
+`test_selected_missing_bond_completion_remains_unassessed_without_mutation`
+protects this limit and identifies the proposed missing pair.
+
+**Real-input control:** EST from observed 1QKU updates exactly 20 atoms at full
+source indices 5,940–5,959, using the previously curated same-atom H5MSM template.
+The result retains all 6,596 atoms, every coordinate and unrelated relationship,
+and leaves unselected atom chemistry unknown and global connectivity partial.
+Native and public H5MSM input/output controls preserve these assignments. Extracted
+EST inherits the conservative parent completeness flag; a subsequent explicit
+whole-ligand application of the reviewed template justifies complete ligand
+connectivity and the known six-atom aromatic ring. This does not insert the 24
+generated H, prepare the receptor or establish consumer biological acceptance.
+
+The synthetic scope controls exercise independent source state preservation,
+multiple structures, pm/fs/coulomb session settings, topology-only input,
+full-index bond stereo reference transfer, noncovalent outside relationships,
+map coverage failures, crossing edges, conservative completeness and no-op
+coverage. Existing tests also cover attribution absence/failure and native
+operation without optional RDKit. No new dependency or public placeholder is added.
+
+Durable tests: `tests/physchem/test_chemical_template_selection.py` and
+`tests/physchem/test_chemical_template_est.py`, with the existing whole-input,
+connectivity, receptor and public doctest controls. Command:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/physchem/test_chemical_template.py \
+    tests/physchem/test_chemical_template_connectivity.py \
+    tests/physchem/test_chemical_template_selection.py \
+    tests/physchem/test_chemical_template_est.py \
+    tests/physchem/test_chemical_template_receptor.py \
+    --doctest-modules molsysmt/physchem/apply_chemical_template.py \
+    molsysmt/physchem/assess_chemical_template.py
+```
+
+The final affected suite and public doctests passed 95 tests in 57.91 s, with
+15 existing pandas future warnings from the H5MSM chemical-state reader. The
+full-complex cookbook continuation was independently executed through its explicit
+map composition and public H5MSM output/read. Ruff, dependency-import validation,
+docstring fidelity, course structure, API classification and the signature guard
+passed. Sphinx HTML completed with the existing course label and MolSys API-page
+warnings; no new selected-template reference warning appeared.
+
+Environment: Linux local development, Python 3.13.14 under the bounded #237
+exception, released ArgDigest 0.13.0, NumPy 2.4.6, pandas 2.3.3 and RDKit
+2025.09.5; base source `a3c78881a11825a25de0ef74df95182024aaef10` plus this
+checkpoint. These are contract controls, not memory/speed or biological benchmarks.
+
+Remaining: polymer boundary/context choices, supported repair of the excluded
+lysine gaps, representation/stereo reconciliation, scoped edge-completion metadata
+preservation, generated-atom reinsertion, native preparation-report attachment
+and consumer complete receptor/biological acceptance. Keep #298 partial.

@@ -49,6 +49,80 @@ def _prepare(ligand, manifest):
     )
 
 
+@pytest.mark.parametrize("source_form", ["native", "h5msm"])
+def test_real_est_assignment_in_full_complex_preserves_unassessed_receptor(
+    est_case,
+    tmp_path,
+    source_form,
+):
+    ligand, manifest = est_case
+    source = msm.convert(DATA / "1qku.cif.gz", to_form="molsysmt.MolSys")
+    before_atoms = source.topology.atoms.copy(deep=True)
+    before_bonds = source.chemical_states.get_bonds().copy(deep=True)
+    molecular_system = source
+    if source_form == "h5msm":
+        molecular_system = tmp_path / "full-source.h5msm"
+        msm.convert(source, to_form=molecular_system)
+    local_map = np.asarray(manifest["atom_correspondence"], dtype=np.int64)
+    indices = np.asarray(manifest["source_atom_indices"], dtype=np.int64)
+    full_map = local_map.copy()
+    full_map[:, 1] = indices[local_map[:, 1]]
+    output = msm.physchem.apply_chemical_template(
+        molecular_system,
+        template=DATA / "est_template.h5msm",
+        atom_correspondence=full_map,
+        template_provenance=manifest["template_provenance"],
+        selection=manifest["source_selection"],
+    )
+    prepared = output["molecular_system"]
+    assert prepared.get_n_atoms() == 6596
+    assert prepared.chemical_states._states[0].connectivity_completeness == "partial"
+    assert output["report"]["coverage"]["scope"] == "selected_component"
+    np.testing.assert_array_equal(output["report"]["source"]["atom_indices"], indices)
+    pd.testing.assert_frame_equal(prepared.topology.atoms, before_atoms)
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(prepared.structures.coordinates, to_unit="nm"),
+        msm.pyunitwizard.get_value(source.structures.coordinates, to_unit="nm"),
+    )
+    attrs = prepared.chemical_states._states[0].atom_attributes
+    outside = np.setdiff1d(np.arange(6596), indices)
+    assert attrs.iloc[outside].isna().all().all()
+    original_pairs = before_bonds[["atom1_index", "atom2_index"]]
+    pd.testing.assert_frame_equal(
+        prepared.chemical_states.get_bonds()[["atom1_index", "atom2_index"]],
+        original_pairs,
+    )
+    selected_bonds = before_bonds.atom1_index.isin(
+        indices
+    ) & before_bonds.atom2_index.isin(indices)
+    pd.testing.assert_frame_equal(
+        prepared.chemical_states.get_bonds().loc[~selected_bonds, before_bonds.columns],
+        before_bonds.loc[~selected_bonds],
+    )
+    assert source.chemical_states._states[0].atom_attributes.empty
+    path = tmp_path / "prepared-complex.h5msm"
+    msm.convert(prepared, to_form=path)
+    restored = msm.convert(path, to_form="molsysmt.MolSys")
+    assert restored.chemical_states._states[0].connectivity_completeness == "partial"
+    pd.testing.assert_frame_equal(
+        restored.chemical_states._states[0].atom_attributes, attrs
+    )
+    extracted = msm.extract(restored, selection=manifest["source_selection"])
+    isolated = _prepare(ligand, manifest)["molecular_system"]
+    pd.testing.assert_frame_equal(
+        extracted.chemical_states._states[0].atom_attributes,
+        isolated.chemical_states._states[0].atom_attributes,
+    )
+    # Extraction preserves the parent's conservative global connectivity status.
+    assert extracted.chemical_states._states[0].connectivity_completeness == "partial"
+    reassessed = _prepare(extracted, manifest)["molecular_system"]
+    assert reassessed.chemical_states._states[0].connectivity_completeness == "complete"
+    assert msm.physchem.get_aromatic_rings(reassessed)["atom_offsets"].tolist() == [
+        0,
+        6,
+    ]
+
+
 def test_real_est_native_template_preserves_pose_and_known_chemical_controls(
     est_case, tmp_path
 ):

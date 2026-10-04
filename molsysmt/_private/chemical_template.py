@@ -48,7 +48,7 @@ def _context(system, state_selection, argument, caller):
             argument,
             value=state_selection,
             caller=caller,
-            message="Template operations require a state index or resolved reference, independent of coordinate frames.",
+            message="Template operations require a state index or resolved reference, independent of coordinate structures.",
         )
     domains = _domains(system, caller)
     source, topology, states, n_atoms, links = domains
@@ -86,6 +86,11 @@ def _edges(context, report, side, *, allow_fragments=False):
     if state is None:
         return None
     table, edges = state.bonds, {}
+    selected = context.get("atom_indices")
+    if selected is None:
+        selected = np.arange(n_atoms, dtype=np.int64)
+    selected_set = None if len(selected) == n_atoms else set(selected.tolist())
+    boundary_indices = []
     for index in table.index:
         a, b = _value(table, "atom1_index", index), _value(table, "atom2_index", index)
         if (
@@ -108,7 +113,22 @@ def _edges(context, report, side, *, allow_fragments=False):
                 index=index,
             )
             return None
-        edges[tuple(sorted((a, b)))] = int(index)
+        pair = tuple(sorted((a, b)))
+        inside_a = selected_set is None or a in selected_set
+        inside_b = selected_set is None or b in selected_set
+        if inside_a != inside_b:
+            boundary_indices.append(int(index))
+            _issue(
+                report,
+                "unassessed",
+                "external_relationship_outside_scope",
+                side=side,
+                index=index,
+            )
+            continue
+        if not inside_a:
+            continue
+        edges[pair] = int(index)
         kind = _value(table, "bond_type", index)
         if kind not in {None, "covalent"}:
             _issue(
@@ -126,8 +146,23 @@ def _edges(context, report, side, *, allow_fragments=False):
                 side=side,
                 index=index,
             )
-    pairs = np.asarray(list(edges), dtype=np.int64).reshape(-1, 2)
-    for index in table.index:
+    if side == "source":
+        report["coverage"]["boundary"] = (
+            "external_relationships"
+            if boundary_indices
+            else "no_stored_external_relationships"
+        )
+        report["coverage"]["external_source_bond_indices"] = np.asarray(
+            boundary_indices, dtype=np.int64
+        )
+    if selected_set is None:
+        pairs = np.asarray(list(edges), dtype=np.int64).reshape(-1, 2)
+    else:
+        local = {int(atom): i for i, atom in enumerate(selected)}
+        pairs = np.asarray(
+            [(local[a], local[b]) for a, b in edges], dtype=np.int64
+        ).reshape(-1, 2)
+    for index in edges.values():
         label = _value(table, "stereochemistry", index)
         refs = [
             _value(table, field, index)
@@ -164,11 +199,45 @@ def _edges(context, report, side, *, allow_fragments=False):
                     side=side,
                     index=index,
                 )
-    components = get_component_index_from_bonded_atom_pairs(pairs, np.int64(n_atoms))
-    if not n_atoms or (not allow_fragments and len(np.unique(components)) != 1):
+    components = get_component_index_from_bonded_atom_pairs(
+        pairs, np.int64(len(selected))
+    )
+    if not len(selected) or (not allow_fragments and len(np.unique(components)) != 1):
         _issue(report, "unassessed", "isolated_connected_component_required", side=side)
     context["edges"] = edges
     return edges
+
+
+def _selected_atoms(molecular_system, source, selection, syntax, caller):
+    """Resolve one flat atom scope through the existing selection boundary."""
+    from molsysmt._private.variables import is_all
+    from molsysmt.basic import select
+
+    if is_all(selection):
+        return np.arange(source["n_atoms"], dtype=np.int64)
+    selection_system = molecular_system
+    options = {}
+    if isinstance(selection, str) and source["topology"] is not None:
+        # A canonical topology gives every supported form the same state-aware
+        # topological selection semantics, without reading structural ensembles.
+        selection_system = source["topology"].copy()
+        if (
+            source["states"] is not None
+            and source["topology"]._chemical_states_domain is not source["states"]
+        ):
+            selection_system._chemical_states_domain = source["states"].copy()
+        if source["chemical_state_index"] is not None:
+            options["chemical_state"] = source["chemical_state_index"]
+    indices = select(selection_system, selection=selection, syntax=syntax, **options)
+    values = np.asarray(indices)
+    if values.ndim != 1 or (values.size and values.dtype.kind not in "iu"):
+        raise ArgumentError(
+            "selection",
+            value=selection,
+            caller=caller,
+            message="Template scope requires one flat atom-index selection.",
+        )
+    return np.unique(values.astype(np.int64))
 
 
 def _compare(
@@ -220,6 +289,8 @@ def evaluate(
     template_chemical_state,
     caller,
     connectivity_policy="require_same_graph",
+    selection="all",
+    syntax="MolSysMT",
 ):
     """Return a detached preflight plus private contexts; mutate neither input."""
     from molsysmt import __version__
@@ -234,17 +305,19 @@ def evaluate(
         template, template_chemical_state, "template_chemical_state", caller
     )
     ns, nt = source["n_atoms"], reference["n_atoms"]
+    selected = _selected_atoms(molecular_system, source, selection, syntax, caller)
+    source["atom_indices"] = selected
     if (
-        ns != nt
-        or len(mapping) != ns
+        len(selected) != nt
+        or len(mapping) != nt
         or set(mapping[:, 0]) != set(range(nt))
-        or set(mapping[:, 1]) != set(range(ns))
+        or set(mapping[:, 1]) != set(selected.tolist())
     ):
         raise ArgumentError(
             "atom_correspondence",
             value=atom_correspondence,
             caller=caller,
-            message="The map must cover every source and template atom exactly once, including explicit hydrogens.",
+            message="The map must cover every selected source atom and every template atom exactly once, using full input indices and including explicit hydrogens.",
         )
     mapping = mapping.astype(np.int64)
     atom_map = dict(mapping.tolist())
@@ -256,12 +329,24 @@ def evaluate(
             if connectivity_policy == "complete_from_template"
             else "explicit_template_correspondence"
         ),
-        rule_version=2 if connectivity_policy == "complete_from_template" else 1,
+        rule_version=(
+            3
+            if len(selected) != ns
+            else 2
+            if connectivity_policy == "complete_from_template"
+            else 1
+        ),
         source=dict(
             forms=get_form(molecular_system),
             n_atoms=ns,
+            atom_indices=selected.copy(),
             chemical_state_index=source["chemical_state_index"],
             chemical_state_status=source["chemical_state_status"],
+            connectivity_completeness=(
+                source["state"].connectivity_completeness
+                if source["state"] is not None
+                else "unavailable"
+            ),
         ),
         template=dict(
             forms=get_form(template),
@@ -278,6 +363,8 @@ def evaluate(
         issues=[],
         coverage=dict(
             atom_map="exhaustive_bijection",
+            scope="whole_system" if len(selected) == ns else "selected_component",
+            boundary="unassessed",
             graph="unassessed",
             hydrogen_policy=provenance["hydrogen_policy"],
             explicit_hydrogen_atom_indices=np.empty(0, dtype=np.int64),
@@ -411,7 +498,19 @@ def evaluate(
             and state.connectivity_completeness != "complete"
             and not unexpected
         )
-        if unexpected or (missing and not can_complete):
+        scoped_completion = bool(missing) and can_complete and len(selected) != ns
+        if scoped_completion:
+            _issue(
+                report,
+                "unassessed",
+                "selected_graph_completion_outside_scope",
+                side="source",
+            )
+            report["coverage"]["missing_source_atom_pairs"] = np.asarray(
+                sorted(missing), dtype=np.int64
+            ).reshape(-1, 2)
+            can_complete = False
+        if unexpected or (missing and not can_complete and not scoped_completion):
             _issue(
                 report,
                 "conflict",
@@ -424,7 +523,7 @@ def evaluate(
             report["coverage"]["unexpected_source_atom_pairs"] = np.asarray(
                 sorted(set(source_edges) - set(mapped_edges)), dtype=np.int64
             ).reshape(-1, 2)
-        else:
+        elif not scoped_completion:
             report["coverage"]["graph"] = (
                 "completion_from_declared_template"
                 if missing
@@ -562,12 +661,17 @@ def apply(molecular_system, report, source, caller):
             ]
         )
         state.bonds = Topology._concatenate_bond_tables(state.bonds, added_table)
+    completeness = (
+        "complete"
+        if report["coverage"]["scope"] == "whole_system"
+        else state.connectivity_completeness
+    )
     changed = (
         bool(report["assigned_fields"])
         or bool(added_bonds)
-        or state.connectivity_completeness != "complete"
+        or state.connectivity_completeness != completeness
     )
-    state.connectivity_completeness = "complete"
+    state.connectivity_completeness = completeness
     invalidated = sorted(result.interactions) if changed else []
     if changed:
         result.chemical_states = states
@@ -579,6 +683,7 @@ def apply(molecular_system, report, source, caller):
     applied = deepcopy(report)
     applied["status"] = "applied"
     applied["invalidated_analysis_names"] = invalidated
+    applied["coverage"]["result_connectivity_completeness"] = completeness
     if added_bonds:
         final_pairs = state.bonds[["atom1_index", "atom2_index"]].to_numpy(
             dtype=np.int64

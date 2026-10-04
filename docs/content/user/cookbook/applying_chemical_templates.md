@@ -15,8 +15,9 @@ template construction. This narrative recipe records the decisions for real inpu
 
 ## Establishing the input
 
-1. Extract the atoms of one intended component; retain their map to the complete
-   system. The default requires its stored graph to be connected.
+1. Extract one intended component and retain its map to the complete system, or
+   select that component explicitly inside the original system. The default
+   requires its stored graph to be connected; stored external edges are unassessed.
 2. Identify the intended source and template chemical states explicitly.
 3. Curate the template's identity, revision, source URI/checksum and hydrogen policy.
 4. Supply an exhaustive map from template indices to source indices, including all
@@ -27,6 +28,51 @@ For a heavy-only deposited ligand, a heavy-only template with declared stored H
 counts is a different input from a hydrogen-complete template. Applying it does
 not create donor-H coordinates. Hydrogen placement must be a separate fixed-state
 operation; importing ideal template coordinates would change the observed pose.
+
+(cookbook-component-chemical-transfer)=
+## Retaining the original complex
+
+To update the observed complex instead of keeping only an extracted ligand,
+compose the previously reviewed template-to-ligand map with the retained
+ligand-to-source map. In the continuation below, `molsys` is the original system,
+`template` is the curated same-atom template, `source_atom_indices` contains the
+original indices in extracted-ligand order, and `atom_correspondence` is the
+exhaustive template-to-extracted-ligand map. All maps contain indices, not IDs.
+
+```python
+full_map = atom_correspondence.copy()
+full_map[:, 1] = source_atom_indices[atom_correspondence[:, 1]]
+options = dict(
+    template=template, atom_correspondence=full_map,
+    template_provenance=template_provenance, selection=source_atom_indices,
+)
+assessment = msm.physchem.assess_chemical_template(molsys, **options)
+# Inspect issues and coverage before the transactional application.
+result = msm.physchem.apply_chemical_template(molsys, **options)
+molsys_A = result['molecular_system']
+msm.convert(molsys_A, to_form='file:h5msm',
+            output_filename='chemically_updated_complex.h5msm')
+```
+
+The pinned EST control applies 20 heavy atoms to full-source indices 5,940–5,959
+of 1QKU, retaining all 6,596 atoms, their original positions and every unrelated
+relationship. The remaining chemical atom fields stay unknown; global connectivity
+stays `partial`. Native and H5MSM inputs, full-complex persistence, and extraction
+of the assigned EST are checked in `tests/physchem/test_chemical_template_est.py`.
+The extracted ligand still inherits `partial`; explicitly applying the reviewed
+whole-ligand template again justifies its own complete connectivity for recognition.
+
+This route requires the same stored internal atom pairs. Missing selected bonds
+remain unassessed, including with `complete_from_template`; complete an extracted
+component instead until global component metadata can be preserved.
+This route transfers chemical assignments to existing atoms. It does not insert
+generated H or missing heavy atoms, reconcile representation differences, or
+prepare excluded receptor regions. A peptide fragment whose stored bonds reach
+outside the selection remains unassessed; its artificial terminal chemistry
+cannot be inserted across that cut. Retain the detached preparation report with
+the map. Named observations are invalidated on a changed output copy, while the
+original complex remains unchanged. Full-graph interaction recognizers can still
+reject this partially prepared complex even if participants select only EST.
 
 ## Declaring missing connectivity
 

@@ -31,7 +31,7 @@ sections:
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
           - name: molsys
-            description: Native domain composition, prepared component source axes, analysis persistence, coordinate invalidation and bounded atom expansion.
+            description: Native domain composition, scoped chemical transfer, prepared component source axes, analysis persistence and coordinate invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -172,7 +172,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit template transfer, peptide references, aromatic normalization and prepared interface scope.
+            description: Explicit whole-input and closed-component template transfer, peptide references, aromatic normalization and prepared interface scope.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
@@ -296,7 +296,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer, bounded 1QKU preparation, unassessed residue gaps, prepared interface analysis with source maps and separate H geometry.
+        description: Explicit template transfer in original complexes, bounded 1QKU preparation, residue gaps, prepared interface source maps and separate H geometry.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

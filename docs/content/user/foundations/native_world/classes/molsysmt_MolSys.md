@@ -176,6 +176,15 @@ are then rebuilt in that state, with new indices/IDs and unknown names/types;
 stable atom order, group/molecule inventory, other states and structures stay
 intact. This returns an independent MolSys, invalidates its named interaction
 observations when chemistry changes, and supplies a detached bond-index map.
+With an explicit closed-component `selection`, you can also fill assignments
+inside the original atom domain. Its map uses full-system indices, and a proper
+subset leaves global connectivity completeness unchanged. Other components stay
+outside that assessment. H5MSM retains the scoped values and the conservative
+global flag; the detached preparation report still needs separate retention.
+Stored external relationships are unassessed, so a protein cut is not silently
+treated as a complete molecule. See {ref}`Updating a selected component
+<Tutorial_Selected_Chemical_Template>`.
+
 The original system remains unchanged. Template transfer does not select
 protonation, create missing atoms or supply hydrogen coordinates.
 

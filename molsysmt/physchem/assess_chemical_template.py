@@ -17,6 +17,8 @@ def assess_chemical_template(
     skip_digestion=False,
     *,
     connectivity_policy="require_same_graph",
+    selection="all",
+    syntax="MolSysMT",
 ):
     """Assessing chemical compatibility through an exhaustive declared atom map.
 
@@ -31,8 +33,9 @@ def assess_chemical_template(
         required. Its selected state must declare complete covalent connectivity,
         formal charges, aromatic flags, radical and hydrogen-count assignments.
     atom_correspondence : list, tuple or numpy.ndarray
-        Exhaustive bijection of shape (n_atoms, 2): template indices followed by
-        source indices, both zero-based. Includes every explicit hydrogen.
+        Exhaustive bijection of shape (n_selected_atoms, 2): template indices followed by
+        full source indices, both zero-based. Covers every selected source atom
+        and every template atom, including explicit hydrogens.
     template_provenance : dict
         JSON-compatible declaration with nonempty identity, version, source_uri,
         checksum and hydrogen_policy strings. Policy is 'explicit_atoms' for zero
@@ -50,6 +53,15 @@ def assess_chemical_template(
         Explicit completion proposes missing template bonds in an incomplete
         source graph. Unexpected edges, declared complete-graph differences and
         conflicting assignments fail; no stored edge is removed or overwritten.
+        Missing bonds on a proper source subset remain unassessed; complete an
+        extracted component explicitly.
+
+    selection : str, list, tuple or numpy.ndarray, default='all'
+        One full stored component to assess or update. Strings use topological
+        selections. The template map covers precisely these atoms, using indices
+        in the full source input. Stored external relationships stay unassessed.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to select source atoms.
 
     Returns
     -------
@@ -79,7 +91,11 @@ def assess_chemical_template(
     no equivalent chemical state is inferred. This is correspondence checking,
     not template validation, protonation selection, hydrogen placement or docking
     certification. Unknown template fields cannot authorize a source overwrite.
-    All coordinates are irrelevant to this assessment and remain untouched.
+    A selected component must have no stored relationship to external atoms.
+    Unrelated components remain outside the assessment; global completeness is
+    not elevated by a successful selected-component application. The report
+    records full-source indices and the assessed scope. All coordinates remain
+    untouched; coordinate-dependent selections are not supported.
 
     See Also
     --------
@@ -126,4 +142,6 @@ def assess_chemical_template(
         template_chemical_state,
         "molsysmt.physchem.assess_chemical_template",
         connectivity_policy,
+        selection,
+        syntax,
     )[0]

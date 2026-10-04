@@ -17,28 +17,31 @@ def apply_chemical_template(
     skip_digestion=False,
     *,
     connectivity_policy="require_same_graph",
+    selection="all",
+    syntax="MolSysMT",
 ):
     """Applying compatible declared template assignments to an independent system.
 
     Parameters
     ----------
     molecular_system : molecular system
-        Source in any supported form supplying one mapped component, possibly
+        Source in any supported form supplying one selected mapped component, possibly
         fragmented when explicit template completion is requested. Existing
-        atoms, relationships and all coordinate frames are preserved.
+        atoms, relationships and all coordinate structures are preserved.
     template : molecular system
         Prepared template in a supported form with complete explicit chemical
         assignments and the same atoms. Its coordinates are never transferred.
     atom_correspondence : list, tuple or numpy.ndarray
-        Exhaustive bijection of shape (n_atoms, 2), with template and source
-        atom indices in the first and second columns. Includes explicit H atoms.
+        Exhaustive bijection of shape (n_selected_atoms, 2), with template and source
+        atom indices in the first and second columns, in their full input axes.
+        Covers every selected source atom and template atom, including explicit H.
     template_provenance : dict
         Detached JSON-compatible identity, version, source_uri, checksum and
         hydrogen_policy declaration; see assess_chemical_template. Policy is
         'explicit_atoms' or 'stored_counts'. This does not authenticate the data.
     chemical_state : str, int or None, default='reference'
         Source state index or resolved reference to update. Other states remain
-        unchanged. 'structure' requires a different frame-based operation.
+        unchanged. 'structure' requires a different structure-based operation.
     template_chemical_state : str, int or None, default='reference'
         Independent template state index or resolved reference.
     skip_digestion : bool, default=False
@@ -46,7 +49,16 @@ def apply_chemical_template(
     connectivity_policy : {'require_same_graph', 'complete_from_template'}, default='require_same_graph'
         Keyword-only choice. Explicit completion adds missing bonds from the
         declared complete template to an incomplete source graph. Default behavior
-        still requires identical edges. Conflicts and unexpected source edges fail.
+        still requires identical edges within the selection. Conflicts and
+        unexpected selected source edges fail. Missing bonds on a proper source
+        subset remain unassessed; complete an extracted component explicitly.
+
+    selection : str, list, tuple or numpy.ndarray, default='all'
+        One full stored component to assess or update. Strings use topological
+        selections. The template map covers precisely these atoms, using indices
+        in the full source input. Stored external relationships stay unassessed.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to select source atoms.
 
     Returns
     -------
@@ -81,9 +93,12 @@ def apply_chemical_template(
     Connectivity coverage
     is justified by the exhaustive map to the declared complete template; this
     does not independently certify valence or template correctness. Stable atom
-    identity/membership, structures, units, box and frame/state associations are
+    identity/membership, structures, units, box and structure/state associations are
     preserved. State replacement invalidates analyses through the existing native
     lifecycle. Mechanical parameters are copied but are not reparameterized.
+    A proper atom subset leaves global connectivity completeness unchanged and
+    records scoped evidence in the report; it does not certify unrelated atoms.
+    No new atom is inserted and no selected atom is moved.
     The returned report retains template provenance separately; native/H5MSM
     chemical values do not yet embed that report or a new provenance table.
     Optional Ackredit absence/failure never changes the scientific outcome.
@@ -134,5 +149,7 @@ def apply_chemical_template(
         template_chemical_state,
         caller,
         connectivity_policy,
+        selection,
+        syntax,
     )
     return apply(molecular_system, report, source, caller)

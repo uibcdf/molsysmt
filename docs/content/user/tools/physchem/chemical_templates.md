@@ -4,7 +4,8 @@
 *Transferring declared chemical assignments through an explicit atom correspondence.*
 
 Use `msm.physchem.assess_chemical_template()` to check a prepared template against
-one isolated component. Use `msm.physchem.apply_chemical_template()` to fill missing
+one isolated component, either as the full input or selected inside a larger
+system. Use `msm.physchem.apply_chemical_template()` to fill missing
 assignments on an independent native system after the same preflight succeeds.
 Both experimental functions accept supported molecular forms. Native templates
 need neither coordinates nor RDKit. Converting other forms retains their existing
@@ -24,20 +25,56 @@ dependency requirements.
 
 ## Declaring the correspondence
 
-`atom_correspondence` is an exhaustive integer array of shape `(n_atoms, 2)`.
+`atom_correspondence` is an exhaustive integer array of shape `(n_selected_atoms, 2)`.
 Column zero contains **template atom indices**; column one contains **source atom
 indices**. Both refer to the full respective inputs, starting at zero. Each atom
-occurs exactly once in each column, including every explicit H atom. Names and
+in the selected source scope and every template atom occurs exactly once in its
+column, including every explicit H atom. Names and
 IDs do not substitute for indices. An identity map is valid only when you know
 the orders correspond; neither function performs automatic matching.
 
 Elements and declared isotopes must agree. The default
 `connectivity_policy='require_same_graph'` requires the same stored covalent graph
-and one connected component. Extract a ligand from its complex first if you need
-this bounded operation; keep the extraction's map back to the full system.
+and one connected component within the scope. The default `selection='all'`
+retains the whole-input contract. You can extract a ligand and retain its source
+map, or explicitly select its complete stored component in the original complex.
 Explicit template completion can add missing covalent edges as described below.
 Dative relationships, component-cut bonds and unexpected source edges remain
 outside the supported repair boundary.
+
+(Tutorial_Selected_Chemical_Template)=
+## Updating a selected component
+
+Pass `selection` and optionally `syntax` to both assessment and application when
+the source contains other components. Numeric selections are deduplicated;
+strings use topological selections in the requested chemical state. The map's
+second column still uses **full source indices**, not indices in an extracted
+ligand. Every template atom and exactly the selected source atoms must be mapped.
+Nested selections, mismatched coverage and stored relationships crossing the
+selection are rejected or remain explicitly unassessed before any application.
+Coordinate-dependent selections are outside this coordinate-independent operation.
+
+Only selected atom assignments and internal bond fields can be filled. Unrelated
+atoms and relationships, other states, original atom order/IDs and all structures
+remain unchanged. A proper subset retains the source state's global connectivity
+completeness, including `partial` or `unavailable`. The detached report records
+`source.atom_indices`, original completeness, `coverage.scope`, boundary evidence
+and result completeness. The initial subset route requires the same stored internal atom pairs; even
+`complete_from_template` leaves missing selected bonds unassessed. Complete an
+extracted component instead. Global component rebuilding after new edges needs
+separate preservation of unrelated component metadata. Scoped template evidence
+does not become a new native
+per-component completeness store. H5MSM persists the updated assignments and
+global status, while this preparation report remains a separate record.
+
+Changing chemistry conservatively invalidates named interaction coverage on the
+returned copy. Repeating an unchanged application retains coverage. Applying
+chemistry to a ligand does not make the complete raw complex recognizable; the
+unprepared receptor and other components still need their own assessments.
+An extraction preserves its parent's conservative completeness flag. You can
+explicitly reassess/apply the same exhaustive template to the extracted component
+to justify its whole-input connectivity coverage. See the
+{ref}`full-complex recipe <cookbook-component-chemical-transfer>` for map composition.
 
 `template_provenance` must be JSON compatible and declare nonempty `identity`,
 `version`, `source_uri`, `checksum` and `hydrogen_policy` strings. Supply the
