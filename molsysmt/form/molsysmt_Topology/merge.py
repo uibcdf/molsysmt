@@ -156,6 +156,13 @@ def merge(items, atom_indices="all", keep_ids=True, skip_digestion=False):
         return "partial"
 
     output_state = output._chemical_states[0]
+    from copy import deepcopy
+
+    output_state._preparation_history = [
+        deepcopy(record)
+        for state in source_states
+        for record in state._preparation_history
+    ]
     output_state.state_id = (
         source_states[0].state_id
         if all(state.state_id == source_states[0].state_id for state in source_states)

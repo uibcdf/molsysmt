@@ -205,6 +205,10 @@ def _write_states_group(
 
         bonds = group.create_group("bonds")
         _write_nullable_table(bonds, state.bonds, _BOND_DTYPES, dataset_options)
+        if state._preparation_history:
+            from ._h5msm_preparation_history import write_history
+
+            write_history(group, state._preparation_history)
 
 
 def read_chemical_states(topology_group, n_atoms):
@@ -279,6 +283,8 @@ def _read_states_group(states_group, n_atoms):
             bonds[name] = bond_table[name]
 
         provenance_index = int(group.attrs.get("provenance_index", -1))
+        from ._h5msm_preparation_history import read_history
+
         state = _ChemicalStateStorage(
             n_atoms=n_atoms,
             bonds=bonds,
@@ -289,6 +295,7 @@ def _read_states_group(states_group, n_atoms):
             component_completeness=group.attrs["component_completeness"],
             component_evidence=group.attrs["component_evidence"],
             provenance_index=None if provenance_index < 0 else provenance_index,
+            preparation_history=read_history(group),
         )
         state.atom_attributes = atom_attributes
         state._ensure_compatibility(n_atoms)
@@ -308,7 +315,9 @@ def write_independent_chemical_states(root, states, dataset_options=None):
     if "chemical_states" in root:
         raise ValueError("The chemical_states layer already exists.")
     group = root.create_group("chemical_states")
-    group.attrs["schema_version"] = 1
+    group.attrs["schema_version"] = (
+        2 if any(state._preparation_history for state in states._states) else 1
+    )
     group.attrs["n_atoms"] = states.n_atoms
     _write_states_group(
         group,
@@ -326,8 +335,12 @@ def read_independent_chemical_states(root):
     if "chemical_states" not in root:
         return None
     group = root["chemical_states"]
-    if group.attrs.get("schema_version") != 1 or "n_atoms" not in group.attrs:
+    if group.attrs.get("schema_version") not in {1, 2} or "n_atoms" not in group.attrs:
         raise ValueError("Unsupported H5MSM 0.5 chemical-state layer schema.")
+    if group.attrs["schema_version"] == 1 and any(
+        "preparation_history" in state for state in group.values()
+    ):
+        raise ValueError("Preparation history requires chemical-state layer schema 2.")
     n_atoms = int(group.attrs["n_atoms"])
     if n_atoms < 0:
         raise ValueError("Chemical-state atom count must be nonnegative.")

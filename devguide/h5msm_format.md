@@ -74,6 +74,28 @@ interaction layer remains distinguishable through `read_layers` and is rejected
 by native composition. Guard:
 `tests/form/file_h5msm/test_topology_chemistry_interactions_v05.py`.
 
+## Version 0.5 preparation history
+
+ChemicalStates owns historical preparation records alongside its assignments;
+history does not create another chemical store. Successful template application
+appends an independent `molsysmt.preparation_record@1` envelope, retaining original
+output dimensions, provider report, indices, units and producer versions. Its
+`index_scope='operation'` explicitly excludes interpreting those indices as a
+live map after extraction, reordering, merging or edits. Merge concatenates
+histories in input order. Reading does not credit a new calculation.
+
+The chemical-state layer uses schema 2 when history exists, otherwise schema 1.
+Readers accept both; older schema-1-only readers reject schema 2. Each state's
+optional `preparation_history` group has its own schema version 1, a compressed
+UTF-8 manifest and typed numeric/string datasets with explicit NumPy dtype/shape
+declarations. No pickle or object-array decoding is supported. The public layout
+is specified in [H5MSM 0.5](../docs/content/user/tools/form/file/h5msm_05.md).
+ChemicalStatesDict similarly writes version 2 for history-bearing states and
+reads versions 1/2. MolSysDict 0.1 rejects histories it cannot retain. Detached
+H-generation, terminal-attachment, normalization and peptide-factory reports
+are outside this first automatic attachment route. Guard:
+`tests/native/test_preparation_history.py`.
+
 ## Version 0.4 topology
 
 `/topology` stores stable atom identity and semantic hierarchy:

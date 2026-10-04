@@ -324,6 +324,7 @@ class _ChemicalStateStorage:
         component_completeness="unavailable",
         component_evidence="unknown",
         provenance_index=None,
+        preparation_history=None,
     ):
         self.state_id = None if state_id is None else str(state_id)
         self.atom_attributes = pd.DataFrame(index=range(n_atoms))
@@ -340,6 +341,13 @@ class _ChemicalStateStorage:
         self.component_completeness = component_completeness
         self.component_evidence = component_evidence
         self.provenance_index = provenance_index
+        from copy import deepcopy
+
+        from molsysmt._private.preparation_history import validate_history
+
+        history = [] if preparation_history is None else preparation_history
+        validate_history(history)
+        self._preparation_history = deepcopy(list(history))
 
     @staticmethod
     def _validate_choice(field, value, choices):
@@ -442,6 +450,8 @@ class _ChemicalStateStorage:
             self._component_evidence = "unknown"
         if not hasattr(self, "_provenance_index"):
             self._provenance_index = None
+        if not hasattr(self, "_preparation_history"):
+            self._preparation_history = []
 
         self._normalize_atom_attribute_columns()
 
@@ -637,6 +647,7 @@ class _ChemicalStateStorage:
             component_completeness=self.component_completeness,
             component_evidence=self.component_evidence,
             provenance_index=self.provenance_index,
+            preparation_history=self._preparation_history,
         )
         output.atom_attributes = self.atom_attributes.copy(deep=True)
         return output
@@ -2056,6 +2067,11 @@ class Topology:
             self._get_chemical_state_bonds(), tmp_bonds
         )
         self._set_chemical_state_bonds(combined_bonds)
+        from copy import deepcopy
+
+        self._reference_chemical_state._preparation_history.extend(
+            deepcopy(tmp_item._reference_chemical_state._preparation_history)
+        )
 
         if not keep_ids:
             self.rebuild_atoms(redefine_ids=True, redefine_types=False)

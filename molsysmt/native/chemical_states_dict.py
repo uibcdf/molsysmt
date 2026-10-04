@@ -55,10 +55,18 @@ def _decode_series(payload):
     return result
 
 
-def _encode_table(table):
+def _encode_table(table, column_dtypes=None):
+    column_dtypes = {} if column_dtypes is None else column_dtypes
     return {
         "n_rows": len(table),
-        "columns": {name: _encode_series(table[name]) for name in table.columns},
+        "columns": {
+            name: _encode_series(
+                table[name].astype(column_dtypes[name])
+                if name in column_dtypes
+                else table[name]
+            )
+            for name in table.columns
+        },
     }
 
 
@@ -74,6 +82,15 @@ def _decode_table(payload):
 
 
 def _encode_chemical_states(states):
+    from molsysmt._private.preparation_history import encode_history
+
+    from .topology import _BOND_OPTIONAL_DTYPES, _BOND_REQUIRED_COLUMNS
+
+    bond_dtypes = {
+        **_BOND_OPTIONAL_DTYPES,
+        **dict.fromkeys(_BOND_REQUIRED_COLUMNS, "Int64"),
+    }
+
     records = []
     for state in states._states:
         records.append(
@@ -83,16 +100,23 @@ def _encode_chemical_states(states):
                 "component_completeness": state.component_completeness,
                 "component_evidence": state.component_evidence,
                 "provenance_index": state.provenance_index,
+                **(
+                    {"preparation_history": encode_history(state._preparation_history)}
+                    if state._preparation_history
+                    else {}
+                ),
                 "component_indices": _encode_series(state.component_indices),
                 "components": _encode_table(state.components),
                 "atom_attributes": _encode_table(state.atom_attributes),
-                "bonds": _encode_table(state.bonds),
+                "bonds": _encode_table(state.bonds, bond_dtypes),
             }
         )
     return ChemicalStatesDict(
         {
             "schema": "molsysmt.chemical_states_dict",
-            "version": 1,
+            "version": 2
+            if any(state._preparation_history for state in states._states)
+            else 1,
             "n_atoms": states.n_atoms,
             "reference_chemical_state_index": states._reference_index,
             "states": records,
@@ -101,19 +125,24 @@ def _encode_chemical_states(states):
 
 
 def _decode_chemical_states(payload):
+    from molsysmt._private.preparation_history import decode_history
+
     from .chemical_states import ChemicalStates
     from .topology import Bonds_DataFrame, Components_DataFrame, _ChemicalStateStorage
 
     data = payload.data
-    if (
-        data.get("schema") != "molsysmt.chemical_states_dict"
-        or data.get("version") != 1
-    ):
+    if data.get("schema") != "molsysmt.chemical_states_dict" or data.get(
+        "version"
+    ) not in {1, 2}:
         raise ValueError("Unsupported ChemicalStatesDict schema or version.")
     n_atoms = int(data["n_atoms"])
     collection = ChemicalStates(n_atoms=n_atoms)
     records = []
     for record in data["states"]:
+        if "preparation_history" in record and data["version"] != 2:
+            raise ValueError(
+                "Preparation history requires ChemicalStatesDict version 2."
+            )
         components_table = _decode_table(record["components"])
         components = Components_DataFrame(n_components=len(components_table))
         for name in components_table:
@@ -139,6 +168,11 @@ def _decode_chemical_states(payload):
             component_completeness=record["component_completeness"],
             component_evidence=record["component_evidence"],
             provenance_index=record["provenance_index"],
+            preparation_history=(
+                decode_history(record["preparation_history"])
+                if "preparation_history" in record
+                else None
+            ),
         )
         state.atom_attributes = _decode_table(record["atom_attributes"])
         state._ensure_compatibility(n_atoms)

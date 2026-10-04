@@ -22,8 +22,9 @@ observed 1QKU fragment and its explicit composition with prepared EST are
 contract-tested. Closed-component assignment inside a larger source is implemented
 and real EST transfer is contract-tested. Consumer-reported isolated-ligand integration is
 available. General polymer context/repair/mapping and atom-changing reinsertion, other representation
-normalization, native preparation-report attachment and complete receptor/biological
-acceptance remain pending; this issue remains partial.
+normalization, attachment of other preparation reports and complete receptor/biological
+acceptance remain pending. Historical template reports now persist in ChemicalStates,
+ChemicalStatesDict and H5MSM 0.5; this issue remains partial.
 
 ## What
 
@@ -1042,3 +1043,84 @@ baseline. Environment: Linux, Python 3.13.14 under #237, released ArgDigest
 0.13.0, NumPy 2.4.6, pandas 2.3.3 and RDKit 2025.09.5; source base
 `3fa506bf0006f9f4c06c75229ff85eab5afca8ba`. This is contract evidence,
 not a speed/memory or biological-quality benchmark.
+
+## Historical template evidence checkpoint — 2026-10-04
+
+**Implemented and contract-tested:** successful template application retains a
+copy of its completed report in the selected ChemicalStates record. The public
+`get_preparation_history(chemical_state='reference')` method returns independent
+historical envelopes, in operation order. Assessment/failure do not append a
+record; successful repetition does, even without another chemical change.
+The original input and separately returned report remain independent.
+
+Each `molsysmt.preparation_record@1` envelope declares
+`index_scope='operation'`, original output atom/bond counts and state index, and
+its provider-owned report. Maps, units, template declarations, unassessed checks,
+original producer versions and attribution survive persistence. These are
+historical operations, not a competing chemical assignment store or a live
+certification of current assignments. Existing state/bond `provenance_index`
+fields are not repurposed into this record sequence.
+
+Copy, extraction, reordering, atom expansion and edits retain original evidence;
+merge concatenates source histories in input order. **Report indices are never
+silently rewritten into a derived system.** Original dimensions can legitimately
+differ from the current state. Callers retain intervening extraction/reinsertion
+maps separately. A live projection/verification API is not provided by this
+checkpoint. Other automatic report attachment routes remain pending.
+
+H5MSM root 0.5 uses chemical-state layer schema 2 for history-bearing collections,
+otherwise schema 1. ChemicalStatesDict similarly emits versions 2/1. Current
+readers accept both; older schema-1-only readers must update for history-bearing
+files. The compressed UTF-8 manifest records typed tree nodes and array references;
+separate datasets retain NumPy dtypes/shapes, including empty arrays. Malformed
+versions, inconsistent shape/dtype/reference data and orphan arrays raise.
+No pickle or arbitrary Python class reconstruction is involved. Loading preserves
+original software provenance and does not credit another preparation operation.
+MolSysDict 0.1 rejects history loss, and conversion preflight identifies the
+limitation; explicit TopologyDict projection reports it as a schema limitation.
+The maintained layout is [H5MSM Format Contract](../h5msm_format.md).
+
+A separate existing bond-dictionary failure surfaced in this work:
+`uibcdf/molsysmt#325`. Object-backed boolean/numeric bond columns were stringified.
+The encoder now uses native bond dtype declarations; its independent guard
+preserves values/null masks and source tables without invoking history.
+
+Validation on Linux, Python 3.13.14 under #237, released ArgDigest 0.13.0,
+NumPy 2.4.6, pandas 2.3.3 and RDKit 2025.09.5; source base
+`9d379a95c72eb38dee782bfe9405aa208d46954a`:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/native/test_preparation_history.py tests/native/test_chemical_states.py \
+    tests/form/molsysmt_ChemicalStatesDict tests/form/file_h5msm \
+    tests/physchem/test_chemical_template.py \
+    tests/physchem/test_chemical_template_selection.py \
+    tests/physchem/test_chemical_template_connectivity.py \
+    tests/physchem/test_chemical_template_est.py \
+    tests/physchem/test_chemical_template_receptor.py \
+    tests/build/add_terminal_atoms \
+    tests/conversion_truth/test_molsysdict_conversion_report.py \
+    --doctest-modules molsysmt/native/chemical_states.py \
+    molsysmt/physchem/apply_chemical_template.py
+```
+
+Result: **887 passed in 151.97 s**, 611 expected legacy H5MSM warnings and
+29 existing pandas future warnings. Final typed-codec/preflight follow-up:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/native/test_preparation_history.py \
+    tests/conversion_truth/test_molsysdict_conversion_report.py \
+    tests/conversion_truth/test_topologydict_conversion_report.py
+```
+
+Result: **30 passed in 9.61 s**, 14 existing pandas future warnings. Ruff,
+dependency imports, public docstrings, API classification/signature checks,
+course structure and devguide gates pass. Sphinx HTML builds with the recorded
+pre-existing warning baseline. This is contract/parity evidence; no new
+performance or biological-quality benchmark is claimed.
+
+Next: extend report attachment to fixed-state H generation and terminal
+reinsertion, reconcile those geometry operations' structure axes explicitly,
+and continue the remaining consumer receptor/preparation acceptance. #298 stays
+partial; environmental H refinement remains separate under #323.

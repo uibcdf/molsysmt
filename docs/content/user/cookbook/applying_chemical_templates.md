@@ -121,10 +121,17 @@ comparison. Named interactions invalidated on the returned copy require explicit
 recalculation before use.
 
 Save the prepared system through `msm.convert(..., to_form='file:h5msm',
-output_filename=...)`. H5MSM 0.5 preserves its chemical values and structures;
-the detached preparation report requires separate retention. On reload, inspect
+output_filename=...)`. H5MSM 0.5 preserves chemical values, structures and
+template-application history. On reload, inspect
 the stored chemical state and pose, rather than interpreting the installed
-software version as the original producer version.
+software version as the original producer version. Retrieve template history with
+`molsys.chemical_states.get_preparation_history()`. Each record's `report` holds
+the provider report and `output` holds the original output dimensions.
+
+These are the original operation's indices, even if you later extract, reorder,
+merge or edit the system. Retain intervening maps separately; history is evidence
+of the operation, not a certificate for current assignments. Hydrogen-generation
+and terminal-attachment reports still require separate retention.
 
 (cookbook-component-hydrogen-reinsertion)=
 ## Reinserting generated H
@@ -439,8 +446,9 @@ The native and H5MSM-input controls verify queries by structure and atoms, betwe
 selections, independent hydrophobic pair distances, named-result roundtrips,
 occurrence indices, source maps, parameters, units and producer attribution in
 `tests/physchem/test_chemical_template_receptor.py`. H5MSM saves the new system
-and its analyses; it does not reinsert chemistry into the raw complex or attach
-the detached preparation reports. Complete receptor preparation and consumer
+and its analyses, including histories of applied chemical templates; it does not
+reinsert chemistry into the raw complex or attach detached H-placement reports.
+Complete receptor preparation and consumer
 biological acceptance remain separate work.
 
 The bounded public regression workflow covers reordered atoms, multiple structures

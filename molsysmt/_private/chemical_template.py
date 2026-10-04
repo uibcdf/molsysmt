@@ -739,4 +739,7 @@ def apply(molecular_system, report, source, caller):
     )
     with _ackredit.scope(caller) as provider:
         _ackredit.credit(provider, items, caller)
+    from molsysmt._private.preparation_history import append_report
+
+    append_report(result.chemical_states._states[index], applied, index)
     return dict(molecular_system=result, report=applied)

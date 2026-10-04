@@ -87,6 +87,33 @@ ProLIF's SMARTS membership order remains available to reconstruct its ring norma
 
 ## Reading optional layers
 
+### Preparation history
+
+Chemical-state layer schema 2 extends schema 1 with optional historical records
+under `/chemical_states/<state_index>/preparation_history`. Writers use schema 2
+when a state has history and keep schema 1 when none has it. Current readers
+accept both; older builds that only support schema 1 require updating for files
+with history. The H5MSM root version remains 0.5.
+
+The history group uses `schema_version=1`, a gzip-compressed UTF-8 byte-vector
+`manifest`, and typed `arrays/<index>` datasets. The manifest declares a
+`molsysmt.preparation_history` version-1 tree with explicit node kinds, array
+shapes and NumPy dtypes. Each array dataset carries `numpy_dtype`; readers reject
+inconsistent shapes, dtypes, duplicate references, orphan arrays and unknown
+schemas. No pickle or arbitrary Python object reconstruction is used.
+`ChemicalStatesDict` uses version 2 when history is present and version 1 otherwise.
+
+Successful chemical-template applications attach `molsysmt.preparation_record@1`
+envelopes. They preserve the provider report, original producer version and units,
+`index_scope='operation'`, and the original output's `n_atoms`, `n_bonds` and
+`chemical_state_index`. Copy, extraction, merging and edits retain original
+operation indices; no current-axis map or current-chemistry certification is
+implied. Access independent copies through
+`molsys.chemical_states.get_preparation_history(chemical_state='reference')`.
+Other preparation reports remain detached. See {ref}`Tutorial_Chemical_Templates`.
+
+### Layer access
+
 `msm.h5msm.read_layers` returns a dictionary. Each requested layer is present
 under its schema name; an absent layer has value `None`. For example:
 

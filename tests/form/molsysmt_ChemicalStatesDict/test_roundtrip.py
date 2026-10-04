@@ -23,6 +23,30 @@ def test_empty_collection_roundtrip_preserves_absence():
         decoded.get_bonds()
 
 
+def test_object_backed_bond_fields_preserve_boolean_numeric_values_and_nulls():
+    topology = Topology(n_atoms=3)
+    topology.bonds = pd.DataFrame(dict(atom1_index=[0, 1], atom2_index=[1, 2]))
+    state = topology._chemical_states[0]
+    state.bonds["bond_order"] = pd.Series([1, pd.NA], dtype=object)
+    state.bonds["is_aromatic"] = pd.Series([False, pd.NA], dtype=object)
+    state.bonds["joins_components"] = pd.Series([True, False], dtype=object)
+    original = state.bonds.copy(deep=True)
+    encoded = msm.convert(topology, to_form="molsysmt.ChemicalStatesDict")
+    columns = encoded.data["states"][0]["bonds"]["columns"]
+    assert columns["bond_order"]["dtype"] == "UInt8"
+    assert columns["bond_order"]["values"].tolist() == [1, 0]
+    assert columns["bond_order"]["null_mask"].tolist() == [False, True]
+    assert columns["is_aromatic"]["values"].dtype == np.dtype("bool")
+    restored = msm.convert(encoded, to_form="molsysmt.ChemicalStates")
+    bonds = restored.get_bonds()
+    assert bonds["bond_order"].iloc[0] == 1
+    assert pd.isna(bonds["bond_order"].iloc[1])
+    assert not bonds["is_aromatic"].iloc[0]
+    assert pd.isna(bonds["is_aromatic"].iloc[1])
+    assert bonds["joins_components"].tolist() == [True, False]
+    pd.testing.assert_frame_equal(state.bonds, original)
+
+
 def test_multistate_roundtrip_preserves_nullable_chemistry_and_reference():
     topology = Topology(n_atoms=3)
     topology._append_chemical_state_bonds(

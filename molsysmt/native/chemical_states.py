@@ -201,6 +201,51 @@ class ChemicalStates:
         state_index = None if chemical_state == "reference" else chemical_state
         return self._states[self._resolve_index(state_index)].bonds
 
+    @arg_digest()
+    def get_preparation_history(self, chemical_state="reference", skip_digestion=False):
+        """Returning historical preparation evidence from one chemical state.
+
+        Parameters
+        ----------
+        chemical_state : int or {'reference'}, default='reference'
+            State index or the reference state.
+        skip_digestion : bool, default=False
+            Whether to skip internal argument validation.
+
+        Returns
+        -------
+        tuple of dict
+            Independent records in operation order, empty if none were recorded.
+            Each envelope declares ``index_scope='operation'`` and original
+            output dimensions. Its report retains original indices, units,
+            template declarations and producer versions.
+
+        Notes
+        -----
+        These records describe past operations. Extraction, reordering, merging
+        and later edits retain their original index domains; they do not remap
+        report indices or certify current assignments. Do not use a historical
+        report index directly to address the current system. Currently successful
+        chemical-template applications attach reports automatically; detached
+        hydrogen-generation and terminal-attachment reports remain separate.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> states = msm.ChemicalStates(n_atoms=2)
+        >>> states.append_state()
+        0
+        >>> states.get_preparation_history()
+        ()
+
+        .. versionadded:: 1.0.0
+        """
+        from copy import deepcopy
+
+        state_index = None if chemical_state == "reference" else chemical_state
+        state = self._states[self._resolve_index(state_index)]
+        return tuple(deepcopy(getattr(state, "_preparation_history", [])))
+
     def copy(self):
         """Returning an independent copy of the collection."""
 
@@ -256,6 +301,7 @@ class ChemicalStates:
                 component_completeness=source_state.component_completeness,
                 component_evidence=source_state.component_evidence,
                 provenance_index=source_state.provenance_index,
+                preparation_history=source_state._preparation_history,
             )
             state.atom_attributes = source_state.atom_attributes.iloc[atoms].copy()
             state.atom_attributes.reset_index(drop=True, inplace=True)

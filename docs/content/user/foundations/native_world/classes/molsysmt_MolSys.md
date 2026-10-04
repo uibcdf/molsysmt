@@ -182,7 +182,12 @@ With an explicit closed-component `selection`, you can also fill assignments
 inside the original atom domain. Its map uses full-system indices, and a proper
 subset leaves global connectivity completeness unchanged. Other components stay
 outside that assessment. H5MSM retains the scoped values and the conservative
-global flag; the detached preparation report still needs separate retention.
+global flag. The selected ChemicalStates record retains template-application
+history, accessible with `molsys.chemical_states.get_preparation_history()` and
+preserved by H5MSM 0.5. Each historical envelope declares the original operation's
+indices and output dimensions; it is not a certificate for current assignments.
+Copy, extraction, reordering, merging and later edits retain that original
+evidence without rewriting it. Returned history values are independent copies.
 Stored external relationships are unassessed, so a protein cut is not silently
 treated as a complete molecule. See {ref}`Updating a selected component
 <Tutorial_Selected_Chemical_Template>`.
@@ -217,7 +222,9 @@ Separately prepared components can form a new analysis system through
 describes only the included graph. Preserve extraction maps to the original
 system and mark generated H with unknown source indices. Atom IDs are labels
 and may repeat across input components. The original partial complex remains
-unchanged, and detached preparation reports still need separate retention.
+unchanged. Merge concatenates applied-template histories in source order, with
+each original operation domain intact. Detached H-generation, terminal-attachment
+and normalization reports still need separate retention.
 See {ref}`Composing a prepared interface <cookbook-prepared-interface>` for a
 bounded receptor/ligand example with named interaction persistence. Local H
 placement does not establish an environment-optimized pose.

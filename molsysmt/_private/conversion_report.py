@@ -445,6 +445,8 @@ def _audit_native_topology_to_dict(
 
     states = item._chemical_states
     issues = []
+    if any(state._preparation_history for state in states):
+        issues.append(_schema_limitation("preparation_history", target_form))
 
     if len(states) != 1:
         issues.append(

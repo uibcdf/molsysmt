@@ -59,6 +59,10 @@ def to_molsysmt_MolSysDict(
         )
     if item.interactions:
         raise ValueError("MolSysDict 0.1 cannot store MolSys interaction analyses.")
+    if any(state._preparation_history for state in item.chemical_states._states):
+        raise ValueError(
+            "MolSysDict 0.1 cannot store preparation history; use H5MSM 0.5 or ChemicalStatesDict instead."
+        )
 
     item = extract(
         item,

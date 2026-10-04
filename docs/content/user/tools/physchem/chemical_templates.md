@@ -68,7 +68,8 @@ If unrelated stored component membership disagrees with its connectivity, the
 assessment remains `unassessed` rather than reconciling it during scoped completion.
 Scoped template evidence does not become a new native
 per-component completeness store. H5MSM persists the updated assignments and
-global status, while this preparation report remains a separate record.
+global status, while this preparation report remains historical evidence of the
+selected operation.
 
 Changing chemistry conservatively invalidates named interaction coverage on the
 returned copy. Repeating an unchanged application retains coverage. Applying
@@ -357,11 +358,30 @@ edge evidence remains inferred after assignment; it does not become an explicit
 bond declaration. `unassessed_checks` records limits including valence, environmental
 protonation, stereogenicity, conformer quality and force-field/docking readiness.
 
-Public conversion of the prepared system to H5MSM 0.5 preserves the chemical
-values, states and structures. **The preparation report is currently returned
-separately and is not embedded in MolSys or H5MSM.** Keep it with your workflow
-record if you need template-specific provenance. The report contains NumPy arrays
-and is not directly JSON serializable.
+Each successful application also attaches an independent copy of the report to
+the selected state. Use `molsys.chemical_states.get_preparation_history()` (or
+pass `chemical_state=index`) to obtain a tuple of historical records. Each
+record declares `index_scope='operation'`, the original output atom/bond counts
+and state index, and the complete provider report under `report`. Assessment
+and failed application do not append records. A successful repetition appends
+another operation, including when no chemical field changed.
+
+Public H5MSM 0.5 conversion and `ChemicalStatesDict` preserve this history,
+including typed NumPy maps, units, template declarations and original producer
+versions. Reading does not repeat preparation or credit another calculation.
+The returned tuple and nested values are independent copies: editing them or
+the separately returned `report` cannot change stored evidence.
+
+**History retains the indices of the original operation.** Copying, extraction,
+reordering, merging and later edits do not rewrite those maps or certify the
+current chemistry. After extraction, the historical output count may differ
+from the current count. Retain your extraction/reinsertion maps separately; do
+not address the current system directly with an index from an old report.
+Merge concatenates source histories in input order, preserving each record's
+original domain. Hydrogen generation, terminal attachment, aromatic normalization
+and peptide-template creation still return detached reports; their automatic
+attachment is pending. `MolSysDict` 0.1 cannot store history and rejects its loss;
+use H5MSM or `ChemicalStatesDict`. The reports are not directly JSON serializable.
 
 After preparing components separately, you can use `msm.merge()` to construct a
 new analysis system. Its atom indices differ from the original complex; retain

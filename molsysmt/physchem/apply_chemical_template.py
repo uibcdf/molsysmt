@@ -102,8 +102,11 @@ def apply_chemical_template(
     unchanged atom sets. Merged/split sets lose those labels. Unrelated stored
     partitions needing reconciliation remain unassessed during preflight.
     No new atom is inserted and no selected atom is moved.
-    The returned report retains template provenance separately; native/H5MSM
-    chemical values do not yet embed that report or a new provenance table.
+    The returned report is also retained in the selected ChemicalStates record.
+    ``result.chemical_states.get_preparation_history()`` returns independent
+    historical envelopes with original operation indices and output dimensions.
+    H5MSM 0.5 and ChemicalStatesDict preserve this history. Subsequent edits,
+    extraction or merging do not rewrite those indices or certify current chemistry.
     Optional Ackredit absence/failure never changes the scientific outcome.
 
     See Also
