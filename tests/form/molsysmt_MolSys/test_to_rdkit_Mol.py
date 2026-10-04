@@ -8,9 +8,28 @@ Covers:
 - Coordinate conformers: shape and dtype
 """
 
+import numpy as np
 import pytest
 
 import molsysmt as msm
+
+
+@pytest.mark.parametrize("residue_name", ["HID", "HIE", "TRP"])
+def test_declared_no_implicit_hydrogen_policy_survives_aromatic_nh_sanitization(
+    residue_name,
+):
+    pytest.importorskip("rdkit")
+    molsys = msm.physchem.get_peptide_chemical_template(
+        [residue_name], "ammonium", "carboxylate"
+    )["template"]
+    fields = molsys.chemical_states._states[0].atom_attributes
+    expected_counts = fields["n_explicit_hydrogens"].to_numpy(dtype=int)
+    result = msm.convert(molsys, to_form="rdkit.Mol")
+    assert all(atom.GetNoImplicit() for atom in result.GetAtoms())
+    np.testing.assert_array_equal(
+        [atom.GetNumExplicitHs() for atom in result.GetAtoms()], expected_counts
+    )
+    assert all(atom.GetNumImplicitHs() == 0 for atom in result.GetAtoms())
 
 
 @pytest.mark.tier3

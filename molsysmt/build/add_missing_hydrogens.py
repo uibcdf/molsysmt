@@ -37,11 +37,13 @@ def add_missing_hydrogens(
         Whether to skip MolSysMT's internal argument digestion mechanism.
     mode : {'pH', 'fixed_chemical_state'}, default='pH'
         Keyword-only choice between existing residue/pH behavior and adding H
-        to one isolated prepared ligand with one state and one coordinate frame.
+        to one isolated prepared component with one chemical state and one
+        structure.
     chemical_state : str or int, default='reference'
-        State selected in fixed-state mode; 'structure' resolves the frame link.
+        State selected in fixed-state mode; 'structure' resolves the structure link.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
-        Selected frame in fixed-state mode. Extract multiple source frames first.
+        Selected structure in fixed-state mode. Extract multiple source
+        structures first.
     return_report : bool, default=False
         In fixed-state mode, return a dictionary containing molecular_system
         and a detached versioned preparation report instead of just the system.
@@ -87,7 +89,7 @@ def add_missing_hydrogens(
     No receptor refinement, minimization or heavy-atom conformer generation runs.
     Supply compact periodic coordinates; split molecules are rejected rather than
     reconstructed implicitly. Named interactions become unevaluated on an expanded
-    output; no-addition outputs retain their analyses. Multiple states/frames,
+    output; no-addition outputs retain their analyses. Multiple states/structures,
     metals, radicals, query atoms and virtual isotopic additions are unsupported.
     See :ref:`Tutorial_Fixed_State_Hydrogens` for the experimental contract.
 
@@ -199,7 +201,7 @@ def add_missing_hydrogens(
             "mode",
             value=mode,
             caller=caller,
-            message="State, frame, report and attribute-policy options require fixed-state mode.",
+            message="State, structure, report and attribute-policy options require fixed-state mode.",
         )
 
     from molsysmt.basic import convert, get, get_form

@@ -30,6 +30,7 @@ API Physical and Chemical Properties
    get_mass
    get_partial_charges
    get_peptide_chemical_template
+   normalize_aromatic_bond_orders
    get_polarity
    get_protor_atom_type
    get_protor_vdw_radius

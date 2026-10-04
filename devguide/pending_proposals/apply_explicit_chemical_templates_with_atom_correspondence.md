@@ -17,8 +17,9 @@ supersedes: []
 **Reported:** 2026-10-02, from uibcdf/pharmacophoremt#22.
 **Status:** Bounded experimental public tools implemented and contract-tested on
 2026-10-03, extended with explicit graph completion and a versioned native peptide
-reference factory on 2026-10-04. Consumer-reported isolated-ligand integration is
-available. Observed polymer context/repair/mapping/reinsertion, representation
+reference factory and declared-aromatic normalization on 2026-10-04. A bounded
+observed 1QKU fragment is contract-tested. Consumer-reported isolated-ligand integration is
+available. General polymer context/repair/mapping/reinsertion, other representation
 normalization, native preparation-report attachment and complete receptor/biological
 acceptance remain pending; this issue remains partial.
 
@@ -90,7 +91,7 @@ policy recorded; missing hydrogens must not be silently declared present.
 Require an isolated component and an explicit state; do not initially edit an
 arbitrary subgraph of a protein/ligand complex. Consumers can extract a component
 through MolSysMT and retain the full-source map. This bounds external bonds,
-completeness, frame/state association and source-index ambiguity. Extending to a
+completeness, structure/state association and source-index ambiguity. Extending to a
 whole complex must preserve unrelated components and cannot elevate incomplete
 receptor chemistry to complete because its ligand was prepared.
 
@@ -116,7 +117,7 @@ Validate before applying anything:
 
 Always return a new native molecular system after successful preflight. Copy its
 structure/topology domains, preserve atom order/IDs/membership, all coordinate
-frames, box, units and frame/state associations, and replace only the selected
+structures, box, units and structure/state associations, and replace only the selected
 chemical state. No in-place option is needed in the first slice. Failure leaves
 source and template unchanged. Use existing catalog-backed molecular diagnostics;
 include the offending atom/bond and reason without swallowing scientific errors.
@@ -167,14 +168,14 @@ kernel only when warranted.
 
 **Measured, 2026-10-02:** With MolSysMT source
 `4d490427e38c5836be82472348fdf61934442bda`, the consumer's OpenMM PDB snapshot has
-54,437 atoms/one frame. Its unnamed ligand has 44 atoms/47 bonds. Native classical
+54,437 atoms/one structure. Its unnamed ligand has 44 atoms/47 bonds. Native classical
 recognition rejects partial declared connectivity. Public PDB-text/RDKit/native
 conversion preserves counts but leaves unsupported order-zero bonds and is also
 rejected. Both use `MSM-ERR-STRUCT-003`; the consumer audit is in
 uibcdf/pharmacophoremt#22.
 
 **Measured, 2026-10-03:** A separately downloaded RCSB 1QKU mmCIF input has
-6,596 atoms, 1,343 groups and one frame under native conversion. It contains three
+6,596 atoms, 1,343 groups and one structure under native conversion. It contains three
 20-heavy-atom EST instances. The selected native chain ID `D` is the ligand with
 label asymmetry ID D (author chain A). The current CCD EST definition has 44 atoms
 and 47 bonds and is exposed as a supported PDBx data container through MolSysMT.
@@ -198,7 +199,7 @@ print(ccd.getObj('chem_comp_atom').getRowCount())
 
 **Contract-tested, 2026-10-03:** The new isolated-component implementation has
 executed native/H5MSM controls with an independently known methanol OH donor and
-oxygen acceptor, permuted indices, multiple frames/states, nondefault units,
+oxygen acceptor, permuted indices, multiple structures/states, nondefault units,
 conflict/unresolved failures, stereo-reference remapping and conservative named-
 analysis invalidation. The tutorial separately executes a public builder/RDKit
 template workflow. The real EST provider control below supplies a prepared native
@@ -253,7 +254,7 @@ independently closable follow-up issues when an excluded capability is required.
 - Independently documented/tested public provider tool with supported input/result,
   state, map, completeness, conflict and failure contracts.
 - A permuted valid atom map transfers chemistry while preserving exact source
-  coordinates, units, atom identity and frame/state associations.
+  coordinates, units, atom identity and structure/state associations.
 - Duplicate/out-of-range/partial maps, wrong elements, graph/charge/stereo conflicts,
   unsupported chemistry, absent hydrogen correspondence and cut/external bonds fail
   before mutation. Nondefault/multiple states and independent input copies are tested.
@@ -284,7 +285,7 @@ Unknown template fields, dative/cut graphs, ambiguous references, and representa
 requiring normalization cannot produce a compatible report. Supported bond-stereo
 reference atoms follow remapped endpoint orientation and validated neighborhoods.
 
-Source atom identity, all structures, units/box and frame/state associations are
+Source atom identity, all structures, units/box and structure/state associations are
 preserved on the returned copy. Chemical changes invalidate evaluated observations
 in its named analyses through the existing native lifecycle; input snapshots remain
 unchanged. An identical application without chemical changes keeps its analyses.
@@ -327,7 +328,7 @@ Hydrogen addition is tracked independently in [#300](https://github.com/uibcdf/m
 
 The controlled source run completed **118 passed in 49.03 s**, including public
 doctests, the new template module and regression contracts for stored readiness,
-residue coverage, native ChemicalStates, MolSys frame/state associations and named
+residue coverage, native ChemicalStates, MolSys structure/state associations and named
 interaction lifecycle:
 
 ```bash
@@ -469,7 +470,7 @@ edge lookup dictionary. This is an implementation observation, not a benchmark.
 Only the chosen state's graph/assignments/components change. Native component
 indices/IDs are rebuilt and component names/types remain unknown; stable atom
 order/IDs, group/molecule/chain/entity inventory, unselected states, structures,
-units/box/time and frame/state associations are preserved. Named analyses on the
+units/box/time and structure/state associations are preserved. Named analyses on the
 returned copy are invalidated through the existing ChemicalStates lifecycle.
 Repeated preparation without changes preserves attached analyses. The report stays
 detached; chemical fields and component membership persist through public H5MSM 0.5.
@@ -639,3 +640,56 @@ hosted smoke installation/import/contracts/tests and its five applicable
 administrative controls. No peptide-source behavior changed between these commits;
 the local chemical results remain applicable. This clears the smoke failure,
 not the remaining observed-receptor or full-matrix acceptance.
+
+
+## Observed 1QKU fragment checkpoint — 2026-10-04
+
+**Implemented and contract-tested:** the separately owned
+`physchem.normalize_aromatic_bond_orders()` changes only the representation of
+bonds already declared aromatic. It preserves atom assignments, other states,
+pose/units and connectivity completeness, returns original orders in a detached
+report and invalidates named interactions only on a changed output copy.
+It does not perceive aromaticity, validate valence or normalize general resonance.
+Native MolSys, Topology, ChemicalStates and ChemicalStatesDict parity is tested.
+
+The pinned fixture's label-chain A receptor has 250 residues. The first three
+(SER301, LYS302, LYS303) lack heavy atoms. An explicitly bounded contiguous
+304–550 scenario has 247 residues, 1,975 heavy atoms and 2,013 existing edges.
+The caller chooses HIE for every HIS, ammonium at the artificial 304 N-terminal
+cut, and carboxylate at the observed 550 terminal OXT. These are declared scenario
+choices, not environmental protonation or a full receptor repair.
+
+Raw assessment found 167 incompatible aromatic representations; name-preserving
+mapping also exposes opposite single/double drawings at the eleven ARG terminal
+nitrogen pairs. Normalization canonicalizes only those already aromatic bonds.
+The caller explicitly exchanges template NH1/NH2 correspondence within those ARG
+groups to match equivalent nitrogens in the deposited drawing. No source atom is
+renamed/moved and no automatic matching is introduced. With that exhaustive map,
+the default require_same_graph policy is compatible and adds no bonds.
+
+The prepared fragment retains its original atoms and pose, has 31 recognized
+aromatic rings, and passes independent SMARTS-site controls: backbone amide N and
+cationic guanidinium N are not acceptors, whereas backbone carbonyl O are.
+Elemental N/O recognition is deliberately broader and must not be treated as this
+chemical validation. The separate fixed-state build operation adds 2,028 H with
+RDKit, leaving all 1,975 heavy-atom positions and IDs unchanged; it reports dropped
+B-factors under intersection policy. Both heavy-only and H-added chemical states
+and coordinates survive public H5MSM round trips.
+
+The aromatic NH implicit-H permission bug discovered in this composition was
+fixed at the native/RDKit converter boundary in uibcdf/molsysmt#320. The strict H
+preflight remains unchanged. Generated H remain local modeled coordinates;
+stereo, environmental refinement and consumer biological acceptance are excluded.
+Source atom-index maps remain distinct from string residue/atom IDs.
+
+Evidence: `tests/physchem/test_chemical_template_receptor.py` and
+`tests/physchem/test_normalize_aromatic_bond_orders.py`; together with affected
+factory/template/converter/H contracts and public doctests, 234 tests passed in
+61.38 s on Python 3.13.14 with released ArgDigest 0.13.0 and RDKit 2025.09.5.
+The exact command and warning accounting are retained in the #320 archived record.
+This is contract evidence, not a performance or biological benchmark.
+
+Remaining: repair/explain the three excluded residues, general polymer context
+and boundary mapping, general representation/stereo reconciliation, full-system
+chemical reinsertion (uibcdf/molsysmt#223), report attachment/persistence and
+PharmacophoreMT's complete receptor/biological acceptance. Keep #298 partial.

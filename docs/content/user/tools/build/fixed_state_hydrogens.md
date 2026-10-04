@@ -5,7 +5,7 @@
 
 Use {func}`molsysmt.build.add_missing_hydrogens` with
 `mode='fixed_chemical_state'`, `pH=None` and `engine='RDKit'` when you have already
-chosen the ligand's chemistry. This experimental mode returns a new native
+chosen the component's chemistry. This experimental mode returns a new native
 `MolSys`, regardless of the supported input form. Set `return_report=True` to
 receive `{'molecular_system': ..., 'report': ...}`. RDKit is optional and loaded
 only when this engine is requested. An unavailable engine raises; no fallback runs.
@@ -22,8 +22,8 @@ only when this engine is requested. An unavailable engine raises; no fallback ru
 
 ## Choosing chemistry before geometry
 
-Supply one isolated connected ligand, one chemical state and one finite coordinate
-frame. Explicitly extract other states/frames first; selecting a frame alone does
+Supply one isolated connected component, one chemical state and one finite coordinate
+structure. Explicitly extract other states/structures first; selecting a structure alone does
 not authorize their removal. Required assignments are element symbols (`atom_type`),
 complete covalent connectivity, supported bond orders, atom/bond aromaticity,
 formal charges, zero unpaired electrons and stored implicit/explicit H counts.
@@ -35,6 +35,12 @@ order of 1, 2 or 3. An explicitly aromatic bond can retain fractional order 1.5
 without an integer order, including a table consisting entirely of aromatic bonds.
 You do not need to invent alternating Kekule orders before adding H. Existing
 aromatic assignments and the chosen chemical state are preserved.
+
+Native-to-RDKit conversion retains a declared prohibition of implicit H after
+sanitation, including aromatic NH. Forbidden inferred H still cause failure.
+The same prepared-component boundary covers the explicitly chosen 1QKU peptide
+fragment in {ref}`the preparation recipe <Cookbook_Applying_Chemical_Templates>`;
+it does not supply polymer boundary chemistry or repair missing heavy atoms.
 
 The {ref}`inventory tool <Tutorial_Hydrogen_Inventory>` separates existing indexed
 H atoms from virtual H annotations. Unknown counts are unresolved, not zero.
@@ -57,7 +63,7 @@ molsys_with_h = result['molecular_system']
 report = result['report']
 ```
 
-The `molsysmt.hydrogen_addition@1` report retains the state/frame indices, state ID,
+The `molsysmt.hydrogen_addition@1` report retains the state/structure indices, state ID,
 chemical readiness, per-parent inventory, generated IDs, original producer/engine
 versions, method, parameters, references and portable scientific attribution.
 `atom_correspondence` maps original to output indices, shape `(n_original_atoms, 2)`;
@@ -66,7 +72,7 @@ The latter is empty with shape `(0, 2)` when no addition is needed.
 The report's units are explicit; native coordinate storage is in nm.
 Stored virtual H counts become zero after their atoms have been materialized.
 Original atom indices, IDs, isotope assignments, memberships, coordinate values,
-box, frame/state links and existing bond chemistry are retained on a detached copy.
+box, structure/state links and existing bond chemistry are retained on a detached copy.
 
 This method is `local_hydrogen_placement`, provided by
 [RDKit AddHs(addCoords=True)](https://www.rdkit.org/docs/source/rdkit.Chem.rdmolops.html#rdkit.Chem.rdmolops.AddHs).

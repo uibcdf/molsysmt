@@ -1,7 +1,8 @@
 # Fixed-state hydrogen placement contract
 
 Preserve `Tutorial_Fixed_State_Hydrogens`, explicit mode/pH/engine selection,
-one-state/one-frame ligand scope, exact old atom/pose preservation, virtual versus
+one-state/one-structure connected-component scope (ligands and explicitly prepared
+bounded peptides), exact old atom/pose preservation, virtual versus
 indexed H distinction, PBC compactness and declared stereo checks. Generated local
 geometry must not imply receptor refinement, pKa prediction or energy minimization.
 Keep report maps/units/producer versions, attribute policies, interaction invalidation,

@@ -57,7 +57,7 @@ report as two distinct records alongside the original observed system.
 After adding bonds, inspect the old-to-final `source_bond_correspondence` and new
 edge indices in the detached report. Connected-component indices/IDs are rebuilt
 in the selected state; component names/types become unknown. Group and molecule
-inventory, other states, existing frame/state associations and pose remain intact.
+inventory, other states, existing structure/state associations and pose remain intact.
 
 ## Applying, recognizing and saving
 
@@ -82,6 +82,49 @@ missing, the graph needs unsupported reconciliation or aromatic/stereo normaliza
 supported. Application raises a catalog-backed structural error containing that
 report and changes neither input. Do not hide it with an empty interaction result,
 neutral-charge fallback or an unconditional `complete` assignment.
+
+## Preparing a bounded observed peptide
+
+The pinned 1QKU receptor control uses label chain A. Residues with IDs 301–303
+have missing heavy atoms and are excluded from this scenario. The contiguous
+304–550 fragment contains 247 residues, 1,975 observed heavy atoms and 2,013
+stored bonds, including terminal OXT. Keep the extraction's source atom-index
+map: those residue IDs are strings, not group or atom indices.
+
+Declare the fragment's chemistry explicitly: the regression chooses HIE for
+every HIS, ammonium at the artificial N-terminal cut at residue 304, and
+carboxylate at residue 550. These are scenario choices, not an assignment of the
+receptor's environmental protonation. Build that reference with
+`msm.physchem.get_peptide_chemical_template()`.
+
+The deposited aromatic bonds use an encoding that differs from the reference.
+Call {ref}`the aromatic normalization tool <Tutorial_Normalize_Aromatic_Bond_Orders>`
+as a separate recorded representation choice before assessment. For the eleven
+ARG groups, explicitly map template NH1 to source NH2 and template NH2 to source
+NH1: their equivalent terminal guanidinium nitrogens use opposite single/double
+drawings. This map does not rename or move observed atoms, and the tool does not
+guess it. Other atoms use the declared group/name correspondence. Review the
+exhaustive map and assessment; the default identical-graph policy suffices and
+no missing edge is added in this fragment.
+
+Applying the reference retains every heavy atom's ID and pose. Recognition finds
+31 aromatic rings. Use `get_hbond_sites(method='smarts_donor_acceptor')` when you
+need the attributed chemical rules; the default elemental N/O method deliberately
+includes amide and positively charged nitrogens as candidate acceptors.
+
+The separate `build.add_missing_hydrogens()` fixed-state operation adds 2,028 H
+with RDKit, preserving the 1,975 heavy-atom coordinates. It reports the loss of
+observed B-factors under the intersection attribute policy. H5MSM retains the
+resulting chemical state and coordinates. New H geometry has no environmental
+optimization; stereo and biological acceptance remain unvalidated. Native to
+RDKit conversion retains declared prohibitions of implicit H after sanitation,
+including aromatic NH; do not relax the fixed-state checks to bypass conflicts.
+
+This offline path is protected by
+`tests/physchem/test_chemical_template_receptor.py`. It does not repair excluded
+residues, prepare the complete receptor, or reinsert the fragment into the source.
+Keep normalization, template and hydrogen-placement reports separately alongside
+the extraction map and your explicit boundary/protonation choices.
 
 ## Checking a deposited ligand
 
@@ -122,7 +165,7 @@ the curated H5MSM template without the RDKit used to produce it. This is evidenc
 for chemical transfer and pose preservation, not biological acceptance of the
 consumer's complete ERalpha workflow.
 
-The bounded public regression workflow covers reordered atoms, multiple frames
+The bounded public regression workflow covers reordered atoms, multiple structures
 and states, nondefault units, H5MSM roundtrips and an independent methanol
 recognition control in `tests/physchem/test_chemical_template.py`. Consumer-specific
 biological acceptance remains separate evidence. The real EST control is in

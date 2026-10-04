@@ -74,6 +74,14 @@ def to_rdkit_Mol(
     rdkit.Mol
         Resulting object in rdkit.Mol form.
 
+    Notes
+    -----
+    Declared prohibitions of implicit hydrogens are retained after sanitation,
+    including aromatic NH atoms whose RDKit Kekule conversion resets that flag.
+    If sanitation inferred forbidden implicit hydrogens, conversion fails rather
+    than removing them. Charges, stored hydrogen counts and aromaticity are not
+    replaced to accommodate sanitation. A later external RDKit sanitation can
+    reinterpret its returned molecule independently of this conversion.
 
     .. versionadded:: 1.0.0
     """
@@ -189,6 +197,23 @@ def to_rdkit_Mol(
             caller="molsysmt.form.molsysmt_MolSys.to_rdkit_Mol",
             message=f"RDKit could not sanitize the converted chemical graph: {error}",
         ) from error
+
+    # Kekulization temporarily permits implicit H on neutral aromatic NH atoms.
+    # Restore a declared prohibition only after sanitation retained zero implicit H;
+    # never erase newly inferred H to make a fixed-state input appear compatible.
+    if allows_implicit is not None:
+        for atom_index, atom in enumerate(molecule.GetAtoms()):
+            declared = allows_implicit.iloc[atom_index]
+            if not pd.isna(declared) and not bool(declared):
+                if atom.GetNumImplicitHs() != 0:
+                    raise NotCompatibleConversionError(
+                        "molsysmt.MolSys",
+                        "rdkit.Mol",
+                        {"chemical_state"},
+                        caller="molsysmt.form.molsysmt_MolSys.to_rdkit_Mol",
+                        message=f"RDKit introduced implicit hydrogens forbidden on atom {atom_index}.",
+                    )
+                atom.SetNoImplicit(True)
 
     for atom1, atom2, row in bond_rows:
         bond = molecule.GetBondBetweenAtoms(atom1, atom2)

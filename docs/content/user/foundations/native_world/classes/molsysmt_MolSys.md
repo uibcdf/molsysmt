@@ -27,7 +27,7 @@ The native container exposes these domains:
 | Attribute | Internal Object Class | Description |
 | :--- | :--- | :--- |
 | **`topology`** | `molsysmt.Topology` | Topological graph containing atom, residue, group, component, molecule, and chain inventories. |
-| **`structures`** | `molsysmt.Structures` | Structural container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and frame timestamps. |
+| **`structures`** | `molsysmt.Structures` | Structural container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and structure timestamps. |
 | **`chemical_states`** | `molsysmt.ChemicalStates` | State-dependent covalent bonds and atom-level chemical assignments. |
 | **`interactions`** | Named `molsysmt.Interactions` results | Sparse observations with declared atom and structure index domains. |
 | **`molecular_mechanics`** | `molsysmt.MolecularMechanics` | Forcefield parameters, partial charges, atom masses, and non-bonded interaction rules. |
@@ -66,7 +66,7 @@ An analysis owns sparse relations and occurrences. A query retains selected row
 indices and shares the analysis's numeric storage. Its experimental `to_page()`
 projection copies a bounded set of observations and their referenced participant
 definitions; it preserves complete-analysis occurrence indices. Coverage and
-source maps remain shared read-only data. Query indexes, frame metadata and page
+source maps remain shared read-only data. Query indexes, structure metadata and page
 copies have distinct memory costs. See
 {ref}`Inspecting bounded pages <user-tools-interactions-pages>`.
 
@@ -186,8 +186,14 @@ system. A caller-declared map establishes that correspondence before template
 transfer. The reference has no coordinates or specified stereochemistry; it is
 not a modeled pose or an independently certified biological chain.
 
+The {ref}`aromatic normalization tool <Tutorial_Normalize_Aromatic_Bond_Orders>`
+can canonicalize already declared aromatic bond orders on a copy, preserving
+connectivity completeness and all atom assignments. It does not perceive
+aromaticity. Retain its original-order report separately from H5MSM chemical
+values; changing the representation invalidates named interactions on the copy.
+
 The explicit {ref}`fixed-state H operation <Tutorial_Fixed_State_Hydrogens>`
-can materialize those counts on a prepared ligand. Declared aromatic bonds may
+can materialize those counts on a prepared isolated component. Declared aromatic bonds may
 use fractional order 1.5 without an integer order; nonaromatic bonds still need
 supported integer orders. The operation preserves the original atom indices,
 pose and aromatic state on its returned copy.
@@ -196,21 +202,21 @@ pose and aromatic state on its returned copy.
 
 Editing coordinates or periodic boxes with `msm.set(molsys, ...)` removes
 observations and evaluated coverage for the selected structures in every named
-analysis. Even a previously evaluated frame with zero observations becomes
+analysis. Even a previously evaluated structure with zero observations becomes
 unevaluated after its geometry changes. Other structures and previously held
 result/query snapshots remain intact. Recalculate the changed structures before
 claiming new observations or evaluated-empty coverage.
 
-Empty atom/frame selections and identifier/time changes do not
+Empty atom/structure selections and identifier/time changes do not
 invalidate analyses. With attached results, full geometry assignment preserves
 the structure axis; use extraction or append operations to change that axis.
-Invalidation shares read-only observation columns and changes frame validity
+Invalidation shares read-only observation columns and changes structure validity
 without duplicating the surviving observations. Complete-column access,
 remapping or export may materialize active columns later. After recalculating
-selected frames on the original axes and scope, use
+selected structures on the original axes and scope, use
 `current.replace_structures(fresh)` and attach its result under the same name.
 Compatible recalculations may use different coordinate block sizes or execution
-policies. Each analysis keeps their frame membership and details in
+policies. Each analysis keeps their structure membership and details in
 `execution_records`, including evaluated-empty structures; scientific parameters,
 producer versions and atom scope must still agree. Saving the full system in
 H5MSM writes these analyses from their active blocks without packing all their
@@ -221,7 +227,7 @@ Compaction preserves the indices and coverage; it needs memory for new columns
 and keeps unused relation definitions. See
 {ref}`Reclaiming retired observations <user-tools-interactions-compaction>`.
 
-This preserves other frames and checks calculation compatibility; attaching
+This preserves other structures and checks calculation compatibility; attaching
 `fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain
 unevaluated coverage because a partial write may have occurred.
 
@@ -232,7 +238,7 @@ setters do not infer changes made through independent objects or aliased data.
 
 Invalidation applies even when the moved atom did not participate in a previous
 interaction: moving it can create a new one. No detector runs automatically.
-Use frame coverage, not a zero occurrence count alone, to distinguish a pending
+Use structure coverage, not a zero occurrence count alone, to distinguish a pending
 calculation from a calculated absence. See
 {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>` for a
 copyable example and the complete edit policy.

@@ -1,6 +1,13 @@
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.physchem.normalize_aromatic_bond_orders:
+  name: "msm.physchem.normalize_aromatic_bond_orders"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Normalizes already declared aromatic bond orders without aromaticity perception."
+  doc_ref: "{func}`molsysmt.physchem.normalize_aromatic_bond_orders`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.normalize_aromatic_bond_orders()**: Normalizes the representation of declared aromatic bonds.\n:::"
+
 molsysmt.physchem.get_peptide_chemical_template:
   name: "msm.physchem.get_peptide_chemical_template"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

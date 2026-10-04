@@ -37,7 +37,11 @@ cross-component feedback, and issue ownership.
 
 ## Data conventions
 
-- Coordinates: NumPy arrays with shape `(n_structures, n_atoms, 3)` (or `(n_frames, n_atoms, 3)` for iterators); units: nanometers.
+- Use **structures** for MolSysMT's general coordinate axis in public API text and
+  documentation. Reserve **frames** for molecular-dynamics-specific context or
+  external APIs that explicitly use that term; structures also cover ensembles
+  and independent conformations.
+- Coordinates: NumPy arrays with shape `(n_structures, n_atoms, 3)`, including iterator chunks; units: nanometers.
 - Box: NumPy arrays with shape `(n_structures, 3, 3)`; lengths in nanometers, angles handled in radians when derived.
 - Time: arrays in picoseconds.
 - Charges: expressed in units of the elementary charge.

@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 127 |
+| experimental | 128 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -244,6 +244,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_transmembrane_tendency` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_volume` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_water_sites` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.normalize_aromatic_bond_orders` | experimental | active | pre-1.0 |
 
 ### `molsysmt.topology`
 

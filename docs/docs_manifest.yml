@@ -162,6 +162,8 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
+            description: Explicit template transfer, peptide references and separate declared-aromatic representation normalization.
+            status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
             agents_file: docs/content/user/tools/physchem/get_chemical_readiness.md.AGENTS.md
@@ -284,7 +286,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer and peptide references, graph completion, pinned EST controls, and separate H geometry.
+        description: Explicit template transfer, bounded observed 1QKU peptide preparation, aromatic normalization, pinned EST controls and separate H geometry.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

@@ -32,3 +32,4 @@ from .get_metal_coordination_sites import get_metal_coordination_sites
 from .get_partial_charges import get_partial_charges
 from .get_peptide_chemical_template import get_peptide_chemical_template
 from .get_water_sites import get_water_sites
+from .normalize_aromatic_bond_orders import normalize_aromatic_bond_orders

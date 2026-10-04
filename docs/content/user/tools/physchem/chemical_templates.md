@@ -19,6 +19,7 @@ dependency requirements.
 - {func}`molsysmt.physchem.assess_chemical_template`
 - {func}`molsysmt.physchem.apply_chemical_template`
 - {func}`molsysmt.physchem.get_peptide_chemical_template`
+- {func}`molsysmt.physchem.normalize_aromatic_bond_orders`
 :::
 
 ## Declaring the correspondence
@@ -51,6 +52,41 @@ declaration; MolSysMT does not authenticate the template or verify the checksum.
 A hydrogen-complete template cannot map onto a heavy-only source. Choose an
 explicitly prepared heavy-only template with `stored_counts` if that is the
 chemical state you intend to transfer. Counts do not supply donor–H geometry.
+
+(Tutorial_Normalize_Aromatic_Bond_Orders)=
+## Normalizing declared aromatic bond orders
+
+Use `msm.physchem.normalize_aromatic_bond_orders(molsys)` when already declared
+aromatic bonds carry integer single/double orders and your chosen template uses
+fractional orders. This experimental representation operation returns a copy in
+`molecular_system` and a detached `report`. It replaces integer orders only on
+bonds marked `is_aromatic=True`, setting their fractional order to 1.5. Unknown
+aromatic flags remain unknown; it does not perceive aromaticity or certify valence.
+
+```python
+import molsysmt as msm
+molsys = msm.physchem.get_peptide_chemical_template(
+    ['PHE'], 'ammonium', 'carboxylate')['template']
+normalization = msm.physchem.normalize_aromatic_bond_orders(molsys)
+assert normalization['report']['status'] == 'unchanged'
+assert normalization['report']['bonded_atom_pairs'].shape == (6, 2)
+```
+
+Native systems, topologies and chemical-state domains do not require RDKit.
+Other forms must supply the stored declarations through their existing adapters.
+Choose a state index or the resolved reference; coordinates do not select states
+in this operation. Nonselected states and the source remain unchanged. A known
+nonaromatic endpoint, unsupported bond stereo, noncovalent aromatic relationship,
+invalid endpoints or incompatible orders cause an error before mutation.
+
+The report keeps source bond indices/pairs, original orders, changed indices,
+unknown aromatic flags and producer version. Bond orders are dimensionless.
+Normalization retains coordinates and units, atom identity, all atom assignments
+and connectivity completeness. Changed chemistry invalidates named interactions
+on the returned copy. Repeating it on a canonical representation makes no changes.
+H5MSM stores normalized chemical values; retain this report separately to recover
+the original encoding. Guanidinium/carboxylate resonance and unknown chemistry
+require separate decisions; template assessment still rejects known conflicts.
 
 (Tutorial_Get_Peptide_Chemical_Template)=
 ## Constructing a peptide template
@@ -231,12 +267,12 @@ assert sites['acceptor_atom_indices'].tolist() == [1]
 ```
 
 The source and template remain unchanged. The result preserves source atom
-order, string IDs, membership, all coordinate frames, units, box and frame/state
+order, string IDs, membership, all coordinate structures, units, box and structure/state
 associations. Only absent supported chemical fields in the chosen state are
 filled. Existing mechanical parameters are copied, without reparameterization.
 
 If chemistry or its completeness declaration changes, every named interaction
-analysis on the returned copy loses its observations and evaluated-frame coverage.
+analysis on the returned copy loses its observations and evaluated-structure coverage.
 The names remain available for recalculation. The original system's analyses
 remain intact. `report['invalidated_analysis_names']` identifies the affected
 analyses. An identical application with no chemical changes preserves analyses.
@@ -247,7 +283,7 @@ Choose source and template states independently with `chemical_state=index` and
 `template_chemical_state=index`. The default `'reference'` uses each input's
 resolved reference; `None` has the same meaning. Ambiguous references are
 `unassessed`, and invalid explicit indices raise. `'structure'` is unavailable:
-this operation selects chemical states independently of frames. Unselected states
+this operation selects chemical states independently of structures. Unselected states
 and existing structure-to-state associations remain unchanged.
 
 The assessment uses schema `molsysmt.chemical_template@1`:

@@ -1956,6 +1956,14 @@
       "documentation": "docs/content/user/tools/topology/get_rotatable_bonds.md",
       "contract_tests": "tests/topology/test_get_rotatable_bonds.py",
       "introduced": "1.0.0"
+    },
+    "molsysmt.physchem.normalize_aromatic_bond_orders": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
+      "contract_tests": "tests/physchem/test_normalize_aromatic_bond_orders.py"
     }
   }
 }
