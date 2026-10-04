@@ -633,3 +633,9 @@ controls. Its smoke job failed before compilation/tests because Rustup collided
 with an existing Clippy binary. The separate source-build provisioning defect is
 tracked in uibcdf/molsysmt#319; local chemical evidence above remains applicable,
 but this original hosted run provides no smoke acceptance.
+
+The provisioning fix at `800477575291124f6421f49e2fb9f15cde7d81d2` then passed
+hosted smoke installation/import/contracts/tests and its five applicable
+administrative controls. No peptide-source behavior changed between these commits;
+the local chemical results remain applicable. This clears the smoke failure,
+not the remaining observed-receptor or full-matrix acceptance.

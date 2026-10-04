@@ -1,13 +1,13 @@
 ---
 summary: Source-build CI must select the pinned minimal Rust toolchain explicitly
 issue: uibcdf/molsysmt#319
-status: active
+status: resolved
 opened: 2026-10-04
-closed:
+closed: 2026-10-04
 severity: high
 verification: reproduced
 area: [ci, deps]
-guard:
+guard: devtools/tests/test_source_build_toolchain.py::test_source_build_selects_pinned_minimal_rust
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,7 @@ supersedes: []
 # Source-build CI requests conflicting development components
 
 **Reported:** 2026-10-04, while checking the #298 peptide-reference commit.
-**Status:** Source-build jobs now select the pinned minimal compiler; hosted
-acceptance is pending.
+**Status:** Resolved; local orchestration controls and the hosted smoke build pass.
 
 ## What
 
@@ -51,7 +50,7 @@ compiler lookup.
 These four workflows now explicitly install `1.97.1 --profile minimal`, verify
 `rustc +1.97.1 --version`, and use `RUSTUP_TOOLCHAIN=1.97.1` on the package build.
 This reuses the already exercised documentation workflow's solution recorded in
-[the earlier installed-extension report](../archive/resolved_bugs/ci_shadows_the_installed_rust_extension_with_the_source_checkout.md).
+[the earlier installed-extension report](ci_shadows_the_installed_rust_extension_with_the_source_checkout.md).
 The developer manifest and the dedicated Rust quality campaign retain their
 Clippy/rustfmt checks. No compiler version or runtime dependency floor changes.
 
@@ -103,3 +102,21 @@ The four workflow controls must pass locally; a new unskipped commit must pass
 the hosted smoke installation/import/test sequence and applicable administrative
 controls. Record exact hosted evidence before closure. Full Linux/macOS matrices
 and Python 3.14 qualification remain separately tracked work.
+
+## Resolution — 2026-10-04
+
+Implemented in `800477575291124f6421f49e2fb9f15cde7d81d2`. Hosted
+[smoke run 37209449854](https://github.com/uibcdf/molsysmt/actions/runs/37209449854)
+completed successfully, including explicit minimal compiler selection, installation,
+controlled-dependency checks, import, API/docstring/form contracts, Rust-only audit
+and the unchanged smoke tests. Dependency contract, developer-guide integrity,
+Ruff, MolSysSuite policy and Conda publication governance also pass on that commit.
+The preceding peptide-reference commit's bundled-data check separately succeeded.
+
+The guard executes the four workflow command sequences with recording tools and
+asserts that the native source build actually receives the compiler pin. It fails
+if provisioning/checking disappears, follows installation, the provisioning
+command requests development components, changes the pin or leaves implicit
+manifest selection on the build.
+The independent hosted build confirms the correction on Ubuntu; this does not
+claim a completed full Linux/macOS matrix or Python 3.14 qualification.

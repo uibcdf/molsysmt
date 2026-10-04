@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### In progress (1)
-
-- [`source_build_ci_must_select_the_pinned_minimal_rust_toolchain_explicitly.md`](source_build_ci_must_select_the_pinned_minimal_rust_toolchain_explicitly.md) — [#319](https://github.com/uibcdf/molsysmt/issues/319) — Source-build CI must select the pinned minimal Rust toolchain explicitly *(high, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
