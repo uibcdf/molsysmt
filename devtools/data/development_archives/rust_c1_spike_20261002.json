@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "issue": "uibcdf/molsysmt#317",
+  "preserves": "uibcdf/molsysmt#252",
+  "created": "2026-10-04",
+  "bundle": "rust_c1_spike_20261002.bundle",
+  "sha256": "cd963a13360bf15ed59989bc507e750a90f6668a312b432b516fba5ae5d3fff7",
+  "original_ref": "refs/tags/archive/rust-c1-spike-20261002",
+  "tag_object": "6456293bb980e32b15b885c5b38a344af4cafd03",
+  "commit": "87317ba766e8d99e6b5129e25eebb83ffb089c0d",
+  "prerequisite": "cb3341fd5cd9f205b9813d60e708a61895f95918",
+  "purpose": "Preserve the nonproduction Rust C1 packaging experiment without a release tag; do not merge this spike into production."
+}

@@ -1,7 +1,7 @@
 ---
 summary: Development archive tag violates the active release-tag policy gate
 issue: uibcdf/molsysmt#317
-status: open
+status: active
 opened: 2026-10-04
 closed:
 severity: medium
@@ -16,7 +16,7 @@ supersedes: []
 # Development archive tag violates the active release-tag policy gate
 
 **Reported:** 2026-10-04 while checking the published chemical-typing checkpoint.
-**Status:** Open. The historical reference is preserved; its archival route needs an owner decision consistent with release-tag policy.
+**Status:** Active. Exact-object restoration is verified; publication and maintainer review of the mistaken development-marker retirement remain.
 
 ## What
 
@@ -94,3 +94,31 @@ Review the archival-reference route with the maintainer before changing the
 published tag. Record any central rule/provider proposal in MolSysSuite only
 if a change to shared policy is actually required. The current observation does
 not show a defect in the policy implementation.
+
+## Replacement archive — 2026-10-04
+
+**Implemented and contract-tested:** the 6,200-byte incremental Git bundle in
+`devtools/data/development_archives/rust_c1_spike_20261002.bundle` retains the
+original annotated tag object and the unmerged experiment. Its adjacent JSON
+manifest records SHA-256, original ref, commit and prerequisite
+`cb3341fd5cd9f205b9813d60e708a61895f95918`, an ancestor of current main.
+The [development archive contract](../development_archives.md) defines
+preservation and inspection outside the active release namespace.
+
+The restoration validator creates temporary bare Git storage, borrows only
+prerequisite history, restores the bundle and verifies that every archive-specific
+object is physically in the restored pack. The guard also rejects corrupted
+payloads, wrong identities and a checksummed empty pack even when source storage
+still contains the old experiment. The live #252 record points to this replacement;
+the original dated integration JSON is intentionally unchanged.
+
+The local and remote annotated-tag identities agree. `gh release view` reports
+no GitHub Release for this development marker. Latest published main
+`ececfba5067859d7a18d6068be40b5c494a0d3a4` passes smoke, Ruff, developer-guide
+integrity and Conda governance. Policy run 37196462010 fails on the same
+noncanonical marker; native failed logs confirm the diagnosis. These observations
+do not qualify the full release matrix or change the separate scientific backlog.
+
+**Remaining:** publish the replacement, obtain maintainer review of this exact
+development ref, retire only that marker and require a successful conformance
+run on the resulting published head. Historical release tags remain untouched.

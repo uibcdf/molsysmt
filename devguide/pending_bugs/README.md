@@ -20,7 +20,7 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### In progress (1)
 
 - [`development_archive_tag_violates_the_active_release_tag_policy_gate.md`](development_archive_tag_violates_the_active_release_tag_policy_gate.md) — [#317](https://github.com/uibcdf/molsysmt/issues/317) — Development archive tag violates the active release-tag policy gate *(medium, reproduced)*
 

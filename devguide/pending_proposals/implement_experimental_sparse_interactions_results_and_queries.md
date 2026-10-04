@@ -44,8 +44,12 @@ The repository format gate required a mechanical Ruff normalization of the
 new interaction, chemistry, form, benchmark and test files.
 
 All other development branches are ancestors of the merged main except the
-Rust C1 packaging spike. Its document explicitly says not to merge the spike;
-preserve its tip under `archive/rust-c1-spike-20261002` before branch deletion.
+Rust C1 packaging spike. Its document explicitly says not to merge the spike.
+The original branch-retirement receipt used `archive/rust-c1-spike-20261002`.
+The adopted release-tag gate rejects that development marker; uibcdf/molsysmt#317
+preserves its exact annotated tag and source commit in a verified Git bundle
+under the [development archive contract](../development_archives.md) before
+retiring the live marker. The dated integration receipt remains unchanged.
 Publication branches remain outside development cleanup. Consumer acceptance
 and release-platform certification remain separate from this local merge.
 
