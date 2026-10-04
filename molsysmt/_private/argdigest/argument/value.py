@@ -161,6 +161,11 @@ def digest_value(value, caller=None):
 
             return digest_formal_charge(value, caller=caller)
 
+        if caller.endswith("set_partial_charge_to_atom"):
+            from .partial_charge import digest_partial_charge
+
+            return digest_partial_charge(value, caller=caller)
+
         if caller.endswith("set_atom_is_aromatic_to_atom"):
             from .atom_is_aromatic import digest_atom_is_aromatic
 

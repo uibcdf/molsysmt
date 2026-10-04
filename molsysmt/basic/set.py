@@ -69,6 +69,10 @@ def set(
       compatible with elementary charge.
     - ``isotope`` sets the stable nullable isotope mass number. It does not set
       atomic mass and is independent of ``chemical_state``.
+    - ``partial_charge`` on a native MolSys writes MolecularMechanics, independently
+      of formal charges. Supply a finite one-dimensional charge quantity or
+      numerical values in elementary charge, aligned with the selected atoms.
+      Unknown unselected values remain missing; None clears the full charge column.
     - Rich bond order, fractional order, type, aromaticity, conjugation,
       stereochemistry and reference atoms, direction, component participation,
       and evidence are independent attributes; setting one does not infer the

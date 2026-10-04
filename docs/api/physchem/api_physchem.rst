@@ -26,6 +26,7 @@ API Physical and Chemical Properties
    get_metal_coordination_sites
    get_water_sites
    get_mass
+   get_partial_charges
    get_polarity
    get_protor_atom_type
    get_protor_vdw_radius

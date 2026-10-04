@@ -138,9 +138,12 @@ ledger authoritative for release scope.
    remain separate evidence. #308 does not block continuing with the explicit
    RDKit route.
 4. **Assign charges and chemical AutoDock types explicitly.**
-   [Named charges #221](pending_proposals/assign_partial_charges_with_an_explicit_named_model.md)
-   and [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)
-   need methods, original software versions, state association, coverage and
+   [Named charges #221](archive/resolved_proposals/assign_partial_charges_with_an_explicit_named_model.md)
+   are implemented with detached Gasteiger-Marsili and matched-force-field routes,
+   original provenance, native projection and stale-binding checks. Mechanical
+   persistence remains outside H5MSM 0.5.
+   [AutoDock typing #222](pending_proposals/assign_and_validate_autodock_atom_types_under_a_named_scheme.md)
+   still needs methods, original software versions, state association, coverage and
    independent chemical controls. Resolve their inspectable assignment/provenance
    contract without introducing competing stores. Chemical interpretation belongs
    in `physchem`; reconstruction belongs in `build`; chemical assignments remain

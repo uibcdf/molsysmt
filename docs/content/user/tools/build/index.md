@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Assign partial charges](assign_partial_charges.md) | Attaching a validated full-atom mechanical assignment to a detached MolSys |
 | [Add fixed-state ligand hydrogens](fixed_state_hydrogens.md) | Materializing a prepared H inventory while retaining the source pose |
 | [Add terminal atoms](add_terminal_atoms.md) | Appending declared atoms with full-frame coordinates and stable original indices |
 | [Add missing bonds](add_missing_bonds.ipynb) | Adding the missing bonds in a molecular system |
@@ -36,6 +37,7 @@
    add_missing_heavy_atoms.ipynb
    add_missing_hydrogens.ipynb
    fixed_state_hydrogens.md
+   assign_partial_charges.md
    add_terminal_atoms.md
    add_missing_terminal_cappings.ipynb
    build_peptide.ipynb

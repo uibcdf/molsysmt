@@ -27,4 +27,5 @@ from .get_chemical_readiness import get_chemical_readiness
 from .get_cip_stereochemistry import get_cip_stereochemistry
 from .get_hydrogen_inventory import get_hydrogen_inventory
 from .get_metal_coordination_sites import get_metal_coordination_sites
+from .get_partial_charges import get_partial_charges
 from .get_water_sites import get_water_sites

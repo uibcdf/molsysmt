@@ -27,6 +27,14 @@ def digest_method(method, caller=None):
     """
 
     if caller in {
+        "molsysmt.physchem.get_partial_charges.get_partial_charges",
+        "molsysmt.build.assign_partial_charges.assign_partial_charges",
+    }:
+        if isinstance(method, str) and method in {"gasteiger_marsili", "forcefield"}:
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
+    if caller in {
         "molsysmt.topology.get_rings.get_rings",
         "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
     }:

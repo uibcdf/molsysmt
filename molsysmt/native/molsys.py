@@ -98,6 +98,24 @@ def _merged_molecular_mechanics(target, source, attribute_policy):
 
     merged = target.copy()
     merged.atoms_ff = pd.concat([target_ff, source_ff], ignore_index=True)
+    if (
+        getattr(target, "partial_charge_assignment", None) is not None
+        or getattr(source, "partial_charge_assignment", None) is not None
+    ):
+        if attribute_policy == "strict":
+            raise StructuralInconsistencyError(
+                reason="Combining separate charge assignments needs an explicit joint calculation; their original provenance cannot describe the merged graph.",
+                caller="molsysmt.native.MolSys.add",
+            )
+        from molsysmt._private.smonitor import warn
+
+        warn(
+            StructuralAttributeDropWarning(
+                attributes=["partial_charge_assignment"], caller="molsysmt.add"
+            ),
+            stacklevel=2,
+        )
+        merged.partial_charge_assignment = None
     return merged
 
 
@@ -836,7 +854,8 @@ class MolSys:
                 states = None
                 if self.topology is not None:
                     topology = self.topology.extract(
-                        atom_indices=atom_indices, copy_if_all=True,
+                        atom_indices=atom_indices,
+                        copy_if_all=True,
                         skip_digestion=True,
                     )
                     if self.chemical_states is not None:
@@ -888,6 +907,9 @@ class MolSys:
                             self._structure_chemical_state_indices[structure_indices],
                             dtype="Int64",
                         )
+                from molsysmt._private.partial_charges import project_assignment
+
+                project_assignment(self, extracted, atom_indices)
                 return extracted
             if not is_all(atom_indices):
                 atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
@@ -971,6 +993,9 @@ class MolSys:
                     .reset_index(drop=True)
                     .copy()
                 )
+            from molsysmt._private.partial_charges import project_assignment
+
+            project_assignment(self, tmp_item, atom_indices)
             if self._structure_chemical_state_indices is not None:
                 if is_all(structure_indices):
                     tmp_item._structure_chemical_state_indices = (

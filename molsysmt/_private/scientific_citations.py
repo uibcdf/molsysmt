@@ -6,6 +6,31 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "gasteiger_marsili": dict(
+        doi="10.1016/0040-4020(80)80168-2",
+        title="Iterative partial equalization of orbital electronegativity—a rapid access to atomic charges",
+        authors=["Gasteiger, Johann", "Marsili, Mario"],
+        year=1980,
+        journal="Tetrahedron",
+        volume="36",
+        pages="3219-3228",
+    ),
+    "ff14sb": dict(
+        doi="10.1021/acs.jctc.5b00255",
+        title="ff14SB: Improving the Accuracy of Protein Side Chain and Backbone Parameters from ff99SB",
+        authors=[
+            "Maier, James A.",
+            "Martinez, Carmenza",
+            "Kasavajhala, Koushik",
+            "Wickstrom, Lauren",
+            "Hauser, Kevin E.",
+            "Simmerling, Carlos",
+        ],
+        year=2015,
+        journal="Journal of Chemical Theory and Computation",
+        volume="11",
+        pages="3696-3713",
+    ),
     "auffinger_2004": dict(
         doi="10.1073/pnas.0407607101",
         title="Halogen bonds in biological molecules",

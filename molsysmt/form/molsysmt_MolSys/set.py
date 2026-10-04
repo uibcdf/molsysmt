@@ -34,6 +34,50 @@ def _set_atom_state_attribute(item, attribute, indices, value):
 
 
 @arg_digest(form=form)
+def set_partial_charge_to_atom(item, indices="all", value=None, skip_digestion=False):
+    """Setting mechanical partial charges in elementary-charge units.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Native system owning the complete atom inventory and mechanical store.
+    indices : str, list, tuple or numpy.ndarray, default='all'
+        Atom indices (0-based) to assign. An empty selection changes nothing.
+    value : quantity, list or numpy.ndarray, default=None
+        Finite one-dimensional charges aligned with selected atoms. Bare values
+        use elementary charge. None clears charges only for indices='all'.
+    skip_digestion : bool, default=False
+        Whether to skip argument digestion.
+
+    Notes
+    -----
+    Writes MolecularMechanics without changing formal charges in ChemicalStates.
+    Native storage uses elementary charge regardless of configured output units.
+    Explicit replacement clears named charge-assignment provenance.
+
+    .. versionadded:: 1.0.0
+    """
+    import numpy as np
+
+    from molsysmt._private.smonitor import ArgumentError
+    from molsysmt.form.molsysmt_MolecularMechanics.set import (
+        set_partial_charge_to_atom as assign,
+    )
+
+    if not is_all(indices) and not len(indices):
+        return
+    n_atoms = item.get_n_atoms()
+    expected = n_atoms if is_all(indices) else len(indices)
+    if value is not None and np.shape(value) != (expected,):
+        raise ArgumentError("value", value=value, caller="set_partial_charge_to_atom")
+    if value is not None:
+        item.molecular_mechanics._ensure_atoms_ff(n_atoms)
+    assign(
+        item.molecular_mechanics, atom_indices=indices, value=value, skip_digestion=True
+    )
+
+
+@arg_digest(form=form)
 def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=False):
     """
     Setting formal charge to atom on form molsysmt.MolSys.

@@ -84,6 +84,10 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: assign_partial_charges
+            file: docs/content/user/tools/build/assign_partial_charges.md
+            agents_file: docs/content/user/tools/build/assign_partial_charges.md.AGENTS.md
+            status: reviewed
           - name: fixed_state_hydrogens
             file: docs/content/user/tools/build/fixed_state_hydrogens.md
             agents_file: docs/content/user/tools/build/fixed_state_hydrogens.md.AGENTS.md
@@ -132,6 +136,10 @@ sections:
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_partial_charges
+            file: docs/content/user/tools/physchem/get_partial_charges.md
+            agents_file: docs/content/user/tools/physchem/get_partial_charges.md.AGENTS.md
+            status: reviewed
           - name: get_hydrogen_inventory
             file: docs/content/user/tools/physchem/get_hydrogen_inventory.md
             agents_file: docs/content/user/tools/physchem/get_hydrogen_inventory.md.AGENTS.md
@@ -253,6 +261,10 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: assigning_partial_charges
+        file: docs/content/user/cookbook/assigning_partial_charges.md
+        agents_file: docs/content/user/cookbook/assigning_partial_charges.md.AGENTS.md
+        status: reviewed
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md

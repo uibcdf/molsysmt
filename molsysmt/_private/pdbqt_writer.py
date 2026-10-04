@@ -116,6 +116,9 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
         fail(
             "PDBQT writing requires explicit typing_scheme='autodock4'. No atom types are assigned."
         )
+    from molsysmt._private.partial_charges import validate_assignment
+
+    validate_assignment(item)
     topology, structures, mechanics = (
         item.topology,
         item.structures,
@@ -278,4 +281,33 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
         output.append(f"TORSDOF {torsdof}")
         payload = "\n".join([*output, ""])
     parse(payload)
+    report = getattr(mechanics, "partial_charge_assignment", None)
+    if report is not None:
+        import json
+
+        provenance = {
+            name: report[name]
+            for name in (
+                "method",
+                "engine",
+                "software",
+                "chemical_state_index",
+                "charge_unit",
+                "status",
+            )
+        }
+        provenance.update(
+            source_coverage=report["coverage"],
+            n_source_atoms=report["n_atoms"],
+            n_written_atoms=n_atoms,
+            total_charge_before_rounding=float(np.sum(charges)),
+            decimal_places=3,
+            parameters=report["parameters"],
+        )
+        payload = (
+            "REMARK MOLSYSMT_PARTIAL_CHARGES "
+            + json.dumps(provenance, sort_keys=True, separators=(",", ":"))
+            + "\n"
+            + payload
+        )
     return payload

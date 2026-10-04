@@ -107,6 +107,19 @@ Formal charges describe a selected chemical state. Force-field partial charges
 are molecular mechanics parameters. Residue descriptors or protonation assumptions
 are named interpretations and do not replace either stored source automatically.
 
+The experimental {func}`molsysmt.physchem.get_partial_charges` calculates an
+explicit Gasteiger-Marsili or named force-field model on the full chemical graph.
+{func}`molsysmt.build.assign_partial_charges` attaches one validated single-state
+assignment to a detached MolSys, preserving source atoms, IDs, coordinates and
+analyses. Native mechanical values use elementary charge; provenance records
+original producer versions and projected source indices. PDBQT checks stored
+assignment consistency and records a bounded summary before export rounding.
+These mechanical values and reports are excluded from H5MSM 0.5. See
+{ref}`Tutorial_Partial_Charge_Assignment` and {ref}`cookbook-assigning-partial-charges`.
+Manual native writes through `msm.set(..., partial_charge=...)` accept finite
+vectors or charge quantities, preserve formal charges and retain missing values
+for unassigned atoms. Setter values follow an explicit index selection's order.
+
 The experimental {func}`molsysmt.physchem.get_charge_centers` tool produces
 sparse chemical features for one state, with whole-center atom membership,
 distance-reference atoms, unitful charges, original input indices and evidence.

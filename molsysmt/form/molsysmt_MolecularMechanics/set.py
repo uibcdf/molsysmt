@@ -55,13 +55,40 @@ def set_partial_charge_to_atom(
         Source item in molsysmt.MolecularMechanics form.
     atom_indices : str, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    value : object
-        Argument value.
+    value : quantity, list or numpy.ndarray, default=None
+        Finite one-dimensional charges, aligned with selected atoms. Quantities
+        are converted to elementary charge; bare numerical values use that unit.
+        None clears the full charge column.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     .. versionadded:: 1.0.0
     """
+    import numpy as np
+
+    from molsysmt._private.smonitor import ArgumentError
+
+    if not is_all(atom_indices) and not len(atom_indices):
+        return
+    if value is not None and puw.is_quantity(value):
+        value = puw.get_value(value, to_unit="elementary_charge")
+    n_atoms = None if item.atoms_ff is None else len(item.atoms_ff)
+    if not is_all(atom_indices) and (
+        n_atoms is None
+        or np.any(np.asarray(atom_indices) < 0)
+        or np.any(np.asarray(atom_indices) >= n_atoms)
+    ):
+        raise ArgumentError(
+            "atom_indices",
+            value=atom_indices,
+            caller="set_partial_charge_to_atom",
+            message="Partial mechanical assignment requires an existing atom axis and valid indices.",
+        )
+    expected = n_atoms if is_all(atom_indices) else len(atom_indices)
+    if (value is None and not is_all(atom_indices)) or (
+        value is not None and expected is not None and np.shape(value) != (expected,)
+    ):
+        raise ArgumentError("value", value=value, caller="set_partial_charge_to_atom")
     if is_all(atom_indices):
         item.partial_charge = value
     else:
@@ -69,6 +96,7 @@ def set_partial_charge_to_atom(
             len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices)
         )
         item.atoms_ff.loc[atom_indices, "partial_charge"] = value
+        item.partial_charge_assignment = None
 
     pass
 

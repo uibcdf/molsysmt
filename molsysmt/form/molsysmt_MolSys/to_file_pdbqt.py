@@ -43,6 +43,9 @@ def to_file_pdbqt(
     FormatError
         For missing charges/types/coordinates, invalid field widths or tree,
         unsupported isotopes, nonnumeric atom IDs or multiple selected frames.
+    StructuralInconsistencyError
+        For a named partial-charge assignment that no longer matches its bound
+        chemical graph, ordered charge values or associated chemical state.
 
     Notes
     -----
@@ -56,6 +59,9 @@ def to_file_pdbqt(
     states, interactions or arbitrary mechanics settings. Use conversion
     reports and strict mode to inspect representational losses. H5MSM 0.5
     does not persist the AutoDock labels and charges in MolecularMechanics.
+    Named assignments emit a REMARK MOLSYSMT_PARTIAL_CHARGES JSON summary with
+    the original producer versions, source coverage and total before rounding.
+    Reading PDBQT does not restore the complete charge-assignment provenance.
 
     .. admonition:: Tutorial with more examples
 

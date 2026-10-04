@@ -13,6 +13,7 @@ API Build
    add_missing_hydrogens
    add_terminal_atoms
    add_missing_terminal_cappings
+   assign_partial_charges
    build_peptide
    editable
    get_disulfide_bonds
