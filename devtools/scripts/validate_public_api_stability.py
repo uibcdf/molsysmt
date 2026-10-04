@@ -63,13 +63,36 @@ def format_ast_default(node: ast.AST | None) -> str:
 def extract_function_signatures(tree: ast.AST) -> dict[str, dict]:
     """Extract public function signatures and defaults from an AST."""
     signatures = {}
+    parents = {
+        child: parent
+        for parent in ast.walk(tree)
+        for child in ast.iter_child_nodes(parent)
+    }
 
     for node in ast.walk(tree):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             name = node.name
-            # Only track public functions (not starting with _)
             if name.startswith("_"):
                 continue
+            parent = parents.get(node)
+            classes = []
+            hidden = False
+            while parent is not None:
+                if isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    hidden = True
+                    break
+                if isinstance(parent, ast.ClassDef):
+                    if parent.name.startswith("_"):
+                        hidden = True
+                        break
+                    classes.append(parent.name)
+                parent = parents.get(parent)
+            # Local closures/classes are internal; module-level conditionals
+            # do not make a public definition private.
+            if hidden:
+                continue
+            if classes:
+                name = ".".join([*reversed(classes), name])
 
             args = node.args
             pos_args = [a.arg for a in args.args]
@@ -241,6 +264,11 @@ def validate_api_stability(
 
     for file_path in changed_files:
         rel_path = file_path.relative_to(repo_root).as_posix()
+        parts = Path(rel_path).parts
+        if "_private" in parts or any(
+            part.startswith("_") and part != "__init__.py" for part in parts
+        ):
+            continue
         old_content = get_git_file_content(base_ref, rel_path)
         if old_content is None:
             # Newly added file, no regression against parent
