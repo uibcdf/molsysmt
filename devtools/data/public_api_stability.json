@@ -118,7 +118,8 @@
     "molsysmt/form/file_sdf/to_molsysmt_Topology.py:to_molsysmt_Topology": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
     "molsysmt/form/file_sdf/to_molsysmt_Structures.py:to_molsysmt_Structures": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
     "molsysmt/form/molsysmt_MolSys/to_file_sdf.py:to_file_sdf": "Accepted experimental keyword-only stereo_engine extension; all existing positions/defaults retained. Tracked by uibcdf/molsysmt#299 and #215. Guard: tests/form/file_sdf/test_stereochemistry.py.",
-    "molsysmt/build/add_missing_hydrogens.py:add_missing_hydrogens": "uibcdf/molsysmt#300: append explicit keyword-only fixed-state options; preserve all existing positional parameters and defaults."
+    "molsysmt/build/add_missing_hydrogens.py:add_missing_hydrogens": "uibcdf/molsysmt#300: append explicit keyword-only fixed-state options; preserve all existing positional parameters and defaults.",
+    "molsysmt/build/add_missing_heavy_atoms.py:add_missing_heavy_atoms": "Accepted experimental native repair correction under uibcdf/molsysmt#321: add keyword-only attribute_policy to reject unsupported attribute loss explicitly; existing positional parameters and defaults remain unchanged. Guard: tests/build/add_missing_heavy_atoms/test_domain_preservation.py."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {

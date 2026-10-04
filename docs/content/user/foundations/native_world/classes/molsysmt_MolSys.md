@@ -300,3 +300,13 @@ The PDBQT writer rejects stale named reports before writing. Charges and typing
 are independent operations; neither establishes full parameterization. Both
 mechanical reports are excluded from H5MSM 0.5. See
 {ref}`Tutorial_AutoDock_Typing` and {ref}`Tutorial_Assign_AutoDock_Types`.
+
+Native heavy-atom repair and terminal insertion retain the selected state's
+known atom assignments and provenance while leaving new chemical fields unknown
+and marking connectivity partial. They require one chemical state for expansion.
+Atom IDs survive; group sorting or inserted groups can change indices. Named
+interaction definitions and source-axis maps are retained and remapped, while
+occurrences and evaluated coverage are cleared for recalculation. Atom-aligned
+structural observables and force-field parameters without new values are reported
+as dropped. The heavy-atom tool offers strict rejection of that loss. See
+{ref}`Tutorial_Add_missing_heavy_atoms` for repair limits and attribute policy.

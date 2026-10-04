@@ -31,7 +31,7 @@ sections:
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
           - name: molsys
-            description: Native domain composition, no-coordinate analysis persistence and coordinate invalidation.
+            description: Native domain composition, no-coordinate analysis persistence, coordinate invalidation and bounded atom expansion.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -84,6 +84,16 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: add_missing_heavy_atoms
+            file: docs/content/user/tools/build/add_missing_heavy_atoms.ipynb
+            agents_file: docs/content/user/tools/build/add_missing_heavy_atoms.ipynb.AGENTS.md
+            description: Bounded local heavy-atom repair, unassessed gaps, preserved native domains and strict attribute policy.
+            status: reviewed
+          - name: add_missing_terminal_cappings
+            file: docs/content/user/tools/build/add_missing_terminal_cappings.ipynb
+            agents_file: docs/content/user/tools/build/add_missing_terminal_cappings.ipynb.AGENTS.md
+            description: Native terminal insertion with preserved declarations and pending interaction analyses.
+            status: reviewed
           - name: assign_autodock_atom_types
             file: docs/content/user/tools/build/assign_autodock_atom_types.md
             agents_file: docs/content/user/tools/build/assign_autodock_atom_types.md.AGENTS.md
@@ -286,7 +296,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer, bounded observed 1QKU peptide preparation, aromatic normalization, pinned EST controls and separate H geometry.
+        description: Explicit template transfer, bounded observed 1QKU peptide preparation, unassessed residue gaps, aromatic normalization, pinned EST controls and separate H geometry.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

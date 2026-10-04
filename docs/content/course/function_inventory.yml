@@ -245,3 +245,10 @@ molsysmt.topology.get_rotatable_bonds:
   summary: "Classifies full-graph torsion candidates with named criteria and exclusion evidence."
   doc_ref: "{func}`molsysmt.topology.get_rotatable_bonds`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rotatable_bonds()**: Classifies source torsion candidates with explicit criteria.\n:::"
+
+molsysmt.build.add_missing_heavy_atoms:
+  name: "msm.build.add_missing_heavy_atoms"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Reconstructs bounded missing-heavy gaps while preserving declared native domains."
+  doc_ref: "{func}`molsysmt.build.add_missing_heavy_atoms`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_missing_heavy_atoms()**: Reconstructs bounded missing-heavy gaps and reports unassessed residues.\n:::"

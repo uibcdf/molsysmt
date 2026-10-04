@@ -269,12 +269,12 @@ order rather than sequence order.
 missing heavy atoms, calls `load_residue_template` to load the JSON
 coordinate template, then `place_missing_in_group` which uses
 `get_least_rmsd_rotation_and_translation_single_structure` (Kabsch alignment)
-to overlay the template onto the residue's present backbone atoms. Missing
+to overlay the template onto validated local graph-neighbor anchors. Missing
 atoms are appended to the MolSys topology and coordinates, and bonds are
 resolved from the template. Logic lives in
 `molsysmt/build/_native_placers.py`.
 
-For MSE, SEP, TPO, and MLY, `build/_modified_residue_repair.py` checks observed atom
+For standard residues and MSE, SEP, TPO, and MLY, `build/_residue_repair.py` checks observed atom
 names, elements, and intra-residue connectivity against the exact component
 template before placement. Local graph-neighbor anchors limit Kabsch fitting
 to the affected chemical group. The route carries explicit atom elements and
@@ -282,6 +282,12 @@ bond orders from the CCD source, retains existing atom coordinates and residue
 identity, and reports ambiguous or unsupported modified residues with
 `UnassessedResidueWarning`. It skips a modified residue when its observed
 chemistry conflicts with the template or its placed bond lengths are implausible.
+Standard residue gaps also reject duplicate names, nonfinite/collinear anchors,
+multiple missing side-chain atoms without validated placement, and new-to-observed
+bond lengths differing by more than 0.04 nm from their template in any structure.
+Unassessed groups remain unchanged. A complete atom count does not certify
+geometry or imply parity with PDBFixer's reconstruction of larger gaps.
+
 The template snapshots and their SHA-256 checksums live under
 `molsysmt/data/_make/ccd_components/`; the offline generator writes the four
 modified-residue JSON files. TPO placement is limited to a single missing P,
@@ -292,16 +298,29 @@ energy-based reconstruction is tracked in uibcdf/molsysmt#249. This route
 estimates coordinates; its bounded regression fixtures do not establish
 experimental accuracy across all conformations.
 
+Native append and terminal-group insertion retain known atom chemistry, state
+identity/provenance and structure-state links in one selected chemical state.
+New chemical fields remain unknown and connectivity completeness is partial.
+Existing atom IDs are retained, while group sorting or insertion can change
+indices. The shared `_assemble_expanded_molsys` retains named interaction
+definitions and remapped source axes, clearing all occurrences and evaluated
+coverage for recalculation. Structural attributes and force-field atom parameters
+without new values are reported as dropped; global mechanical settings remain.
+The heavy-atom tool's keyword-only `attribute_policy='strict'` rejects that loss
+transactionally. Terminal insertion keeps reported intersection behavior.
+PDBFixer does not support this strict option or inherit these native guarantees.
+These corrections are guarded under uibcdf/molsysmt#321 and #322.
+
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms` +
 `pdbfixer.addMissingAtoms`.
 
 Key helpers in `build/_native_placers.py`:
 - `load_residue_template(name)` — load JSON template from `residue_templates/`
-- `place_missing_in_group(tmp, group_index, template)` — Kabsch-align + append
-- `append_atoms_to_molsys(tmp, new_atoms_df, new_coords)` — low-level append
+- `place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, template, anchor_names=None)` — local Kabsch placement
+- `append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info, attribute_policy='intersection')` — native domain-preserving atom append
 - `place_oxt_atom(C_pos, CA_pos, O_pos, n_structures)` — mirror O through C→CA axis
 - `place_ace_group / place_nme_group` — geometry-based capping placement
-- `rebuild_molsys_with_new_groups` — full topology rebuild when inserting new groups
+- `rebuild_molsys_with_new_groups` — native domain-preserving terminal-group insertion
 
 ### `build.add_missing_terminal_cappings`
 

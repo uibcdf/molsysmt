@@ -1,4 +1,4 @@
-"""Preflight exact chemical templates before native modified-residue repair."""
+"""Preflight exact residue templates before native heavy-atom repair."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import pandas as pd
 from molsysmt._private.residue_templates import VALIDATED_MISSING_ATOMS
 
 
-def assess_modified_residue(topo, group_idx, missing_names, template, coordinates):
+def assess_residue(topo, group_idx, missing_names, template, coordinates):
     """Return local anchors and a reason when repair cannot be assessed."""
 
     permitted = VALIDATED_MISSING_ATOMS.get(template["name"])
@@ -22,8 +22,15 @@ def assess_modified_residue(topo, group_idx, missing_names, template, coordinate
     rows = topo.atoms[topo.atoms["group_index"] == group_idx]
     names = rows["atom_name"].tolist()
     heavy_rows = rows[~rows["atom_name"].str.match(r"^(?:H|[0-9]H)")]
+    if "elements" not in template:
+        heavy_rows = heavy_rows[~heavy_rows["atom_name"].eq("OXT")]
     heavy_names = heavy_rows["atom_name"].tolist()
-    atom_to_element = dict(zip(template["atoms"], template["elements"]))
+    from molsysmt.element.atom import get_atom_type_from_atom_name
+
+    elements = template.get("elements")
+    if elements is None:
+        elements = [get_atom_type_from_atom_name(name) for name in template["atoms"]]
+    atom_to_element = dict(zip(template["atoms"], elements))
     if len(names) != len(set(names)):
         return None, "duplicate atom names"
     if not set(heavy_names) <= set(atom_to_element):
@@ -32,10 +39,10 @@ def assess_modified_residue(topo, group_idx, missing_names, template, coordinate
         if str(row.atom_type).capitalize() != atom_to_element[row.atom_name]:
             return None, f"element mismatch for {row.atom_name}"
 
-    # Multiple missing branch atoms admit rotamers or equivalent oxygen labels.
+    # Multiple missing side-chain atoms lack a validated local placement contract.
     sidechain = set(template["atoms"]) - {"N", "CA", "C", "O", "OXT"}
     if len(sidechain.intersection(missing_names)) > 1:
-        return None, "multiple missing side-chain atoms have ambiguous placement"
+        return None, "multiple missing side-chain atoms lack validated placement"
 
     adjacency = {name: set() for name in template["atoms"]}
     for atom1, atom2 in template["bonds"]:
@@ -44,9 +51,10 @@ def assess_modified_residue(topo, group_idx, missing_names, template, coordinate
 
     current_bonds = topo._get_chemical_state_bonds()
     group_indices = set(rows.index)
+    template_pairs = {frozenset(pair) for pair in template["bonds"]}
     template_orders = {
         frozenset(pair): order
-        for pair, order in zip(template["bonds"], template["bond_orders"])
+        for pair, order in zip(template["bonds"], template.get("bond_orders", []))
     }
     for bond in current_bonds.itertuples():
         atom1, atom2 = int(bond.atom1_index), int(bond.atom2_index)
@@ -57,10 +65,14 @@ def assess_modified_residue(topo, group_idx, missing_names, template, coordinate
         )
         if any(name not in atom_to_element for name in pair):
             continue  # The curated template contains heavy-atom bonds only.
-        if pair not in template_orders:
+        if pair not in template_pairs:
             return None, "observed connectivity conflicts with the exact template"
         observed_order = getattr(bond, "bond_order", pd.NA)
-        if not pd.isna(observed_order) and int(observed_order) != template_orders[pair]:
+        if (
+            pair in template_orders
+            and not pd.isna(observed_order)
+            and int(observed_order) != template_orders[pair]
+        ):
             return None, "observed bond order conflicts with the exact template"
 
     anchors_by_atom = {}
@@ -96,8 +108,8 @@ def assess_modified_residue(topo, group_idx, missing_names, template, coordinate
         ):
             return None, f"collinear template anchors for {missing}"
         actual_indices = [rows.index[names.index(name)] for name in anchors]
-        for frame in coordinates:
-            points = frame[actual_indices]
+        for structure in coordinates:
+            points = structure[actual_indices]
             if (
                 not np.isfinite(points).all()
                 or np.linalg.matrix_rank(points - points[0], tol=1e-4) < 2

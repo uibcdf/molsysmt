@@ -9,6 +9,10 @@ import shutil
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import (
+    StructuralAttributeDropWarning,
+    UnassessedResidueWarning,
+)
 
 pytestmark = pytest.mark.skipif(
     shutil.which("tleap") is None, reason="tleap is not available in PATH"
@@ -22,7 +26,8 @@ def test_add_hydrogens_molsysmt_MolSys_1():
     molsys = msm.build.build_peptide("AceHisThrNme")
     molsys = msm.remove(molsys, selection='atom_name in ["NE2", "CD2", "OG1"]')
     missing_heavy_atoms = msm.build.get_missing_heavy_atoms(molsys)
-    molsys = msm.build.add_missing_heavy_atoms(molsys)
+    with pytest.warns((UnassessedResidueWarning, StructuralAttributeDropWarning)):
+        molsys = msm.build.add_missing_heavy_atoms(molsys)
     n_atoms = msm.get(
         molsys,
         element="atom",
@@ -34,4 +39,5 @@ def test_add_hydrogens_molsysmt_MolSys_1():
         1: {"NE2", "CD2"},
         2: {"OG1"},
     }
-    assert n_atoms == 3
+    assert n_atoms == 1
+    assert msm.build.get_missing_heavy_atoms(molsys) == {1: ["CD2", "NE2"]}

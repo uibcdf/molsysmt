@@ -9,6 +9,8 @@ def add_missing_heavy_atoms(
     syntax="MolSysMT",
     engine="MolSysMT",
     skip_digestion=False,
+    *,
+    attribute_policy="intersection",
 ):
     """
     Adding missing non-hydrogen atoms to a molecular system.
@@ -22,15 +24,21 @@ def add_missing_heavy_atoms(
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported MolSysMT format.
+        Molecular system in any supported form providing residue identity,
+        connectivity, element assignments and coordinates for the repair.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : object, default='MolSysMT'
-        Argument engine.
+        Placement engine. MolSysMT uses bounded exact residue-template alignment;
+        PDBFixer delegates reconstruction to the optional external library.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    attribute_policy : {'intersection', 'strict'}, default='intersection'
+        Keyword-only native-engine policy for attributes without values for
+        added atoms. Intersection drops them with a diagnostic; strict fails
+        without changing the source. PDBFixer supports only intersection here.
 
     Returns
     -------
@@ -49,6 +57,13 @@ def add_missing_heavy_atoms(
     EngineError
         Raised if the specified engine fails to rebuild the atoms.
 
+    StructuralInconsistencyError
+        Raised if native atom expansion has multiple chemical states, or strict
+        attribute policy cannot retain an existing attribute.
+
+    NotImplementedMethodError
+        Raised if strict attribute policy is requested with PDBFixer.
+
 
     Notes
     -----
@@ -57,11 +72,30 @@ def add_missing_heavy_atoms(
     are matched by atom name, element, and connectivity; supported missing atoms
     are placed from local coordinates. MLY has an exact heavy-atom inventory,
     but its missing atoms remain unassessed because no placement is validated.
-    Residues with ambiguous side-chain gaps or conflicting chemistry are left
+    Standard residues use the same bounded local preflight: duplicate names,
+    element/connectivity conflicts, nonfinite or collinear anchors, and multiple
+    missing side-chain atoms are unassessed. New-to-observed template bonds must
+    agree within 0.04 nm of reference lengths in every structure. These checks
+    do not validate clashes, stereochemistry, rotamers or an energy minimum.
+    Residues with unvalidated side-chain gaps or conflicting chemistry are left
     unchanged with an ``UnassessedResidueWarning``. Modified residues without
     curated templates are also reported as unassessed. Hydrogen atoms require a
     separate operation. Coordinate placement is an estimate and does not replace
     experimental refinement.
+
+    Native expansion preserves existing atom IDs and chemical assignments in
+    one selected state, including its ID and provenance. New chemical values
+    remain unknown and connectivity completeness becomes partial. Sorting atoms
+    by group can change their indices. Named analyses retain their definitions
+    and remapped source axes; all occurrences and evaluated coverage are cleared
+    because the atom domain changed. Recalculate them on the repaired system.
+    Coordinates of observed atoms, time and box are retained. Atom-aligned
+    structural attributes without new values and existing force-field atom
+    parameters are dropped with a diagnostic under intersection policy; strict
+    rejects that loss. No force-field parameters are assigned for new atoms.
+    These preservation guarantees apply to the native result; conversion to
+    another form follows that form's supported attributes. PDBFixer is a separate
+    reconstruction route with its own capabilities.
 
     The list of supported molecular systems' forms is detailed in:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
@@ -88,7 +122,7 @@ def add_missing_heavy_atoms(
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.build.build_peptide('AAA')
+    >>> molsys = msm.build.build_peptide('AAA', engine='MolSysMT')
     >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
     3
     >>> molsys = msm.remove(molsys, selection='atom_name=="CB"')
@@ -114,6 +148,11 @@ def add_missing_heavy_atoms(
     form_out = form_in
 
     if engine == "PDBFixer":
+        if attribute_policy != "intersection":
+            raise NotImplementedMethodError(
+                method="PDBFixer with strict attribute_policy",
+                caller="molsysmt.build.add_missing_heavy_atoms",
+            )
         temp_molecular_system = convert(
             molecular_system,
             to_form="pdbfixer.PDBFixer",
@@ -251,12 +290,12 @@ def add_missing_heavy_atoms(
         from molsysmt._private.residue_templates import CURATED_MODIFIED_RESIDUES
         from molsysmt._private.smonitor import UnassessedResidueWarning
         from molsysmt.basic import convert, get_form, select
-        from molsysmt.build._modified_residue_repair import assess_modified_residue
         from molsysmt.build._native_placers import (
             append_atoms_to_molsys,
             load_residue_template,
             place_missing_in_group,
         )
+        from molsysmt.build._residue_repair import assess_residue
         from molsysmt.build.get_missing_heavy_atoms import get_missing_heavy_atoms
 
         # Work in native form
@@ -305,7 +344,7 @@ def add_missing_heavy_atoms(
                 or group_idx in missing_atoms
             ):
                 continue
-            _, reason = assess_modified_residue(
+            _, reason = assess_residue(
                 topo, group_idx, [], load_residue_template(group_name), None
             )
             if reason:
@@ -353,26 +392,25 @@ def add_missing_heavy_atoms(
                 continue
 
             curated = group_name in CURATED_MODIFIED_RESIDUES
-            if curated:
-                if len(topo._chemical_states) != 1:
-                    reason = (
-                        "multiple chemical states cannot be preserved by this repair"
-                    )
-                    anchors = None
-                else:
-                    anchors, reason = assess_modified_residue(
-                        topo, group_idx, missing_names, template, all_coords
-                    )
-                if reason:
-                    warn(
-                        UnassessedResidueWarning(
-                            group_name=group_name,
-                            group_index=group_idx,
-                            reason=reason,
-                        ),
-                        stacklevel=2,
-                    )
-                    continue
+            if curated and len(topo._chemical_states) != 1:
+                anchors, reason = (
+                    None,
+                    "multiple chemical states cannot be preserved by this repair",
+                )
+            else:
+                anchors, reason = assess_residue(
+                    topo, group_idx, missing_names, template, all_coords
+                )
+            if reason:
+                warn(
+                    UnassessedResidueWarning(
+                        group_name=group_name,
+                        group_index=group_idx,
+                        reason=reason,
+                    ),
+                    stacklevel=2,
+                )
+                continue
 
             placed = {}
             for atom_name in missing_names:
@@ -383,47 +421,44 @@ def add_missing_heavy_atoms(
                         group_idx,
                         [atom_name],
                         template,
-                        anchor_names=anchors[atom_name] if curated else None,
+                        anchor_names=anchors[atom_name],
                     )
                 )
             if not placed:
                 continue
 
-            if curated:
-                name_to_idx = dict(
-                    zip(template["atoms"], range(len(template["atoms"])))
-                )
-                bad_geometry = False
-                for atom1, atom2 in template["bonds"]:
-                    for new_name, neighbor in ((atom1, atom2), (atom2, atom1)):
-                        if new_name not in placed:
-                            continue
-                        existing_rows = topo.atoms[
-                            (topo.atoms["group_index"] == group_idx)
-                            & (topo.atoms["atom_name"] == neighbor)
-                        ]
-                        if existing_rows.empty:
-                            continue
-                        ideal = np.linalg.norm(
-                            np.asarray(template["coords_nm"])[name_to_idx[new_name]]
-                            - np.asarray(template["coords_nm"])[name_to_idx[neighbor]]
-                        )
-                        actual = np.linalg.norm(
-                            placed[new_name] - all_coords[:, existing_rows.index[0], :],
-                            axis=1,
-                        )
-                        if np.any(np.abs(actual - ideal) > 0.04):
-                            bad_geometry = True
-                if bad_geometry:
-                    warn(
-                        UnassessedResidueWarning(
-                            group_name=group_name,
-                            group_index=group_idx,
-                            reason="placed bond geometry conflicts with observed coordinates",
-                        ),
-                        stacklevel=2,
+            name_to_idx = dict(zip(template["atoms"], range(len(template["atoms"]))))
+            bad_geometry = False
+            for atom1, atom2 in template["bonds"]:
+                for new_name, neighbor in ((atom1, atom2), (atom2, atom1)):
+                    if new_name not in placed:
+                        continue
+                    existing_rows = topo.atoms[
+                        (topo.atoms["group_index"] == group_idx)
+                        & (topo.atoms["atom_name"] == neighbor)
+                    ]
+                    if existing_rows.empty:
+                        continue
+                    ideal = np.linalg.norm(
+                        np.asarray(template["coords_nm"])[name_to_idx[new_name]]
+                        - np.asarray(template["coords_nm"])[name_to_idx[neighbor]]
                     )
-                    continue
+                    actual = np.linalg.norm(
+                        placed[new_name] - all_coords[:, existing_rows.index[0], :],
+                        axis=1,
+                    )
+                    if np.any(np.abs(actual - ideal) > 0.04):
+                        bad_geometry = True
+            if bad_geometry:
+                warn(
+                    UnassessedResidueWarning(
+                        group_name=group_name,
+                        group_index=group_idx,
+                        reason="placed bond geometry conflicts with observed coordinates",
+                    ),
+                    stacklevel=2,
+                )
+                continue
 
             for atom_name in missing_names:
                 if atom_name not in placed:
@@ -492,7 +527,12 @@ def add_missing_heavy_atoms(
                 else output_molecular_system
             )
 
-        native_out = append_atoms_to_molsys(native_ms, new_atom_info, new_bonds_info)
+        native_out = append_atoms_to_molsys(
+            native_ms,
+            new_atom_info,
+            new_bonds_info,
+            attribute_policy=attribute_policy,
+        )
         output_molecular_system = (
             convert(native_out, to_form=form_out, skip_digestion=True)
             if form_in != "molsysmt.MolSys"

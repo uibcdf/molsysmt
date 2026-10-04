@@ -67,6 +67,16 @@ def add_missing_terminal_cappings(
     If no capping residues are provided, the function only completes missing terminal atoms
     in the native residues (which are often charged).
 
+    Native atom expansion requires one selected chemical state. Existing atom
+    assignments, state identity/provenance and observed coordinates survive.
+    Added chemical fields remain unknown and connectivity is partial; capping
+    geometry does not assign a complete chemical state. Existing atom IDs are
+    retained, but inserted groups can change indices. Named interaction analyses
+    retain their definitions and remapped axes while observations and evaluated
+    coverage are cleared for recalculation. Unsupported structural attributes
+    and force-field atom parameters are dropped with a diagnostic. Assign and
+    validate the intended terminal chemistry separately before further preparation.
+
     The list of supported molecular system forms is detailed in:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 

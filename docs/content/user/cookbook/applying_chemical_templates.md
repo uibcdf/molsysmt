@@ -126,6 +126,25 @@ residues, prepare the complete receptor, or reinsert the fragment into the sourc
 Keep normalization, template and hydrogen-placement reports separately alongside
 the extraction map and your explicit boundary/protonation choices.
 
+## Assessing excluded residue gaps
+
+Before expanding the bounded fragment, audit the full label-chain A inventory.
+Native `msm.build.add_missing_heavy_atoms()` reconstructs SER301 OG as an initial
+local-template estimate, retaining observed coordinates and IDs. Its four-atom
+gaps in each of LYS302 and LYS303 remain unassessed; a guessed lysine rotamer is
+not a validated reconstruction. Query `get_missing_heavy_atoms()` again and retain
+the warnings. This is not preparation of the complete receptor.
+
+If you already assigned chemistry, native expansion preserves known fields and
+state provenance but leaves added fields unknown and connectivity partial.
+Reassess and apply your explicit chemical template after reconstruction. Named
+interactions become pending for recalculation, with their definitions and axes
+preserved. Under `attribute_policy='intersection'`, missing values for added
+atoms cause existing B-factors or force-field atom parameters to be reported as
+dropped. Use `attribute_policy='strict'` to reject such loss transactionally.
+The source is unchanged in either case. The bounds above still deliberately
+exclude all three residues and retain their original regression evidence.
+
 ## Checking a deposited ligand
 
 The offline EST control from RCSB entry 1QKU illustrates the distinction between

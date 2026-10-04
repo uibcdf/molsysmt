@@ -691,5 +691,32 @@ This is contract evidence, not a performance or biological benchmark.
 
 Remaining: repair/explain the three excluded residues, general polymer context
 and boundary mapping, general representation/stereo reconciliation, full-system
-chemical reinsertion (uibcdf/molsysmt#223), report attachment/persistence and
+chemical reinsertion (related atom-projection identity concerns in uibcdf/molsysmt#223;
+that issue does not supply a chemical reinsertion API), report attachment/persistence and
 PharmacophoreMT's complete receptor/biological acceptance. Keep #298 partial.
+
+## Native repair boundary checkpoint — 2026-10-04
+
+The full label-chain A heavy-only input has 1,990 observed atoms. Native bounded
+repair can add SER301 OG as an initial local-template estimate, producing 1,991.
+LYS302 and LYS303 retain their four missing side-chain atoms each, with explicit
+unassessed diagnostics. Their rotamers and local environment are not validated;
+a complete inventory was not accepted as evidence of a correct pose. The old
+unconditional path and its short LYS303 CB-CG bond motivated uibcdf/molsysmt#322.
+The bounded 304–550 preparation above remains unchanged and deliberately excludes
+all three residues; this checkpoint does not claim preparation of the full chain.
+
+The operation also exposed loss of atom chemical assignments, state metadata and
+named analyses in native atom repair and terminal-group rebuilding, corrected
+under uibcdf/molsysmt#321. These native operations preserve existing assignments,
+IDs and pose, leave added fields unknown, mark connectivity partial, and remap
+named analyses while clearing occurrences and evaluated coverage. The heavy-atom
+tool's strict attribute policy rejects unsupported B-factor/force-field parameter
+loss. Chemical assessment/application and interaction recalculation remain
+explicit subsequent steps. Geometry placement does not assign a complete state.
+
+Remaining work is still full-context chemical preparation and correspondence,
+validated handling of the lysine gaps, full-system chemistry reinsertion,
+report attachment/persistence and consumer biological acceptance. #223 covers
+loss-aware PDBQT atom projection, not a general chemistry reinsertion operation.
+Keep #298 partial and do not reinterpret that issue's scope as this missing API.

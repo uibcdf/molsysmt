@@ -146,7 +146,7 @@ def _remap_alternate_locations(series, old_to_new):
 
 
 def carry_structures_through_atom_change(
-    structs, new_coordinates_nm, old_to_new, caller
+    structs, new_coordinates_nm, old_to_new, caller, attribute_policy="intersection"
 ):
     """Return the structural block for a system whose atom axis has just changed.
 
@@ -170,7 +170,10 @@ def carry_structures_through_atom_change(
     from warnings import warn
 
     from molsysmt import pyunitwizard as puw
-    from molsysmt._private.smonitor import StructuralAttributeDropWarning
+    from molsysmt._private.smonitor import (
+        StructuralAttributeDropWarning,
+        StructuralInconsistencyError,
+    )
     from molsysmt.native.structures import (
         _ATOM_ALIGNED_ATTRIBUTES,
         _SYSTEM_LEVEL_OBSERVABLES,
@@ -200,6 +203,12 @@ def carry_structures_through_atom_change(
         )
 
     if dropped:
+        if attribute_policy == "strict":
+            raise StructuralInconsistencyError(
+                reason="Atom-domain expansion cannot retain attributes without new values: "
+                + ", ".join(dropped),
+                caller=caller,
+            )
         warn(
             StructuralAttributeDropWarning(attributes=dropped, caller=caller),
             stacklevel=3,
@@ -208,7 +217,9 @@ def carry_structures_through_atom_change(
     return new_structs
 
 
-def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
+def append_atoms_to_molsys(
+    native_molsys, new_atom_info, new_bonds_info, attribute_policy="intersection"
+):
     """
     Return a new MolSys with extra atoms appended after the existing ones.
 
@@ -227,12 +238,27 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     molsysmt.MolSys
     """
     from molsysmt import pyunitwizard as puw
+    from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.element.atom import get_atom_type_from_atom_name
-    from molsysmt.native import MolSys, Topology
     from molsysmt.native.topology import Bonds_DataFrame
 
     topo = native_molsys.topology
     structs = native_molsys.structures
+    if native_molsys.chemical_states.n_chemical_states != 1:
+        raise StructuralInconsistencyError(
+            reason="Native atom repair requires one chemical state; extract it explicitly first.",
+            caller="molsysmt.build._native_placers.append_atoms_to_molsys",
+        )
+    mechanics = native_molsys.molecular_mechanics
+    if (
+        attribute_policy == "strict"
+        and mechanics is not None
+        and mechanics.atoms_ff is not None
+    ):
+        raise StructuralInconsistencyError(
+            reason="Atom-domain expansion cannot retain atoms_ff without new parameters.",
+            caller="molsysmt.build._native_placers.append_atoms_to_molsys",
+        )
     n_orig = topo.n_atoms
     component_indices = topo._get_component_indices()
 
@@ -299,14 +325,18 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_all_coords = all_coords_combined[:, new_order, :]
 
     new_component_indices = new_atoms["component_index"].copy()
-    new_topo = Topology(n_atoms=len(new_atoms), skip_digestion=True)
+    new_topo = topo.copy()
+    state = new_topo._chemical_states_domain._states[0]
+    state.atom_attributes = (
+        state.atom_attributes.reindex(range(len(new_atoms)))
+        .iloc[new_order]
+        .reset_index(drop=True)
+    )
+    state.component_indices = new_component_indices.reset_index(drop=True)
     new_topo.atoms = new_atoms.drop(columns="component_index")
-    new_topo._set_component_indices(new_component_indices)
-    new_topo.groups = topo.groups.copy()
-    new_topo.components = topo.components.copy()
-    new_topo.molecules = topo.molecules.copy()
-    new_topo.entities = topo.entities.copy()
-    new_topo.chains = topo.chains.copy()
+    new_topo._chemical_states_domain._resize_atom_domain(len(new_atoms))
+    # Placement does not assign all chemical fields for the new atoms or edges.
+    state.connectivity_completeness = "partial"
 
     # Build new bonds: first combine old bonds and new bonds, then remap indices.
     bonds_copy = topo._get_chemical_state_bonds().copy()
@@ -329,14 +359,68 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_topo._set_chemical_state_bonds(new_bonds)
 
     # --- Assemble new MolSys ---
-    new_molsys = MolSys()
-    new_molsys.topology = new_topo
-    new_molsys.structures = carry_structures_through_atom_change(
+    new_structures = carry_structures_through_atom_change(
         structs,
         new_all_coords,
         old_to_new,
         caller="molsysmt.build._native_placers.append_atoms_to_molsys",
+        attribute_policy=attribute_policy,
     )
+
+    return _assemble_expanded_molsys(
+        native_molsys,
+        new_topo,
+        new_structures,
+        {old: new for old, new in old_to_new.items() if old < n_orig},
+    )
+
+
+def _assemble_expanded_molsys(native_molsys, new_topo, new_structures, old_to_new):
+    """Retain independent domains and invalidate observations after atom expansion."""
+    from molsysmt.native import MolSys
+    from molsysmt.native.molsys import _extend_interaction_atoms
+
+    expanded_order = np.empty(new_topo.n_atoms, dtype=np.int64)
+    existing = np.zeros(new_topo.n_atoms, dtype=bool)
+    for old, new in old_to_new.items():
+        expanded_order[new] = old
+        existing[new] = True
+    expanded_order[~existing] = np.arange(native_molsys.get_n_atoms(), new_topo.n_atoms)
+    analyses = {}
+    for name, analysis in native_molsys.interactions.items():
+        pending = analysis.invalidate_structures(np.arange(analysis.n_structures))
+        expanded = _extend_interaction_atoms(pending, new_topo.n_atoms)
+        analyses[name] = expanded.remap(atom_indices=expanded_order)
+    new_molsys = MolSys._from_partial_domains(
+        topology=new_topo,
+        chemical_states=new_topo._chemical_states_domain,
+        structures=new_structures,
+        interactions=analyses,
+    )
+    links = native_molsys._structure_chemical_state_indices
+    new_molsys._structure_chemical_state_indices = (
+        None if links is None else links.copy()
+    )
+    mechanics = native_molsys.molecular_mechanics
+    if mechanics is not None:
+        new_molsys.molecular_mechanics = mechanics.copy()
+        if mechanics.atoms_ff is not None:
+            from warnings import warn
+
+            from molsysmt._private.smonitor import StructuralAttributeDropWarning
+
+            new_molsys.molecular_mechanics.atoms_ff = None
+            new_molsys.molecular_mechanics.partial_charge_assignment = None
+            new_molsys.molecular_mechanics.atom_type_assignment = None
+            warn(
+                StructuralAttributeDropWarning(
+                    attributes=["atoms_ff"],
+                    caller="molsysmt.build._native_placers._assemble_expanded_molsys",
+                ),
+                stacklevel=3,
+            )
+    else:
+        new_molsys.molecular_mechanics = None
 
     return new_molsys
 
@@ -638,12 +722,19 @@ def rebuild_molsys_with_new_groups(
     molsysmt.MolSys
     """
     from molsysmt import pyunitwizard as puw
+    from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.element.atom import get_atom_type_from_atom_name
-    from molsysmt.native import MolSys, Topology
     from molsysmt.native.topology import Bonds_DataFrame
 
     topo = native_molsys.topology
     structs = native_molsys.structures
+    if native_molsys.chemical_states.n_chemical_states != 1:
+        raise StructuralInconsistencyError(
+            reason="Native atom repair requires one chemical state; extract it explicitly first.",
+            caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
+        )
+    if not extra_groups_before and not extra_groups_after:
+        return native_molsys.copy()
     component_indices = topo._get_component_indices()
 
     all_coords = puw.get_value(structs.coordinates, to_unit="nm")  # (n_s, n_orig, 3)
@@ -668,16 +759,24 @@ def rebuild_molsys_with_new_groups(
     new_group_to_old_group = {}  # new_g → old_g (or None for inserted)
     new_group_mol = []  # new_g → mol_idx
 
+    used_atom_ids = set(topo.atoms["atom_id"].dropna().astype(str))
+    next_atom_id = topo.n_atoms
+
     def _add_group_from_dict(
         group_name, group_id, group_type, atoms_dict, comp_idx, chain_idx, mol_idx
     ):
         """Append an entirely new group (ACE or NME) from a name→coords dict."""
+        nonlocal next_atom_id
         new_g = len(new_group_rows)
         for atom_name, atom_coords_arr in atoms_dict.items():
-            new_idx = len(new_atom_rows)
+            while str(next_atom_id) in used_atom_ids:
+                next_atom_id += 1
+            atom_id = str(next_atom_id)
+            used_atom_ids.add(atom_id)
+            next_atom_id += 1
             new_atom_rows.append(
                 {
-                    "atom_id": str(new_idx),
+                    "atom_id": atom_id,
                     "atom_name": atom_name,
                     "atom_type": get_atom_type_from_atom_name(atom_name),
                     "group_index": new_g,
@@ -871,10 +970,19 @@ def rebuild_molsys_with_new_groups(
     new_coords = np.stack(new_atom_coords, axis=1)  # (n_structures, n_new_atoms, 3)
 
     # --- Assemble Topology ---
-    new_topo = Topology(n_atoms=len(atoms_df), skip_digestion=True)
+    new_topo = topo.copy()
+    new_to_old = np.full(len(atoms_df), -1, dtype=np.int64)
+    for old, new in old_to_new_atom.items():
+        new_to_old[new] = old
+    state = new_topo._chemical_states_domain._states[0]
+    state.atom_attributes = state.atom_attributes.reindex(new_to_old).reset_index(
+        drop=True
+    )
+    state.connectivity_completeness = "partial"
     new_component_indices = atoms_df["component_index"].copy()
     new_topo.atoms = atoms_df.drop(columns="component_index")
-    new_topo._set_component_indices(new_component_indices)
+    state.component_indices = new_component_indices.reset_index(drop=True)
+    new_topo._chemical_states_domain._resize_atom_domain(len(atoms_df))
     new_topo.groups = groups_df
     new_topo.components = topo.components.copy()
     new_topo.molecules = topo.molecules.copy()
@@ -883,16 +991,16 @@ def rebuild_molsys_with_new_groups(
     new_topo._set_chemical_state_bonds(bonds_df)
 
     # --- Assemble MolSys ---
-    new_molsys = MolSys()
-    new_molsys.topology = new_topo
-    new_molsys.structures = carry_structures_through_atom_change(
+    new_structures = carry_structures_through_atom_change(
         structs,
         new_coords,
         old_to_new_atom,
         caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
     )
 
-    return new_molsys
+    return _assemble_expanded_molsys(
+        native_molsys, new_topo, new_structures, old_to_new_atom
+    )
 
 
 # ---------------------------------------------------------------------------
