@@ -1,14 +1,14 @@
 ---
 summary: Development archive tag violates the active release-tag policy gate
 issue: uibcdf/molsysmt#317
-status: active
+status: resolved
 opened: 2026-10-04
-closed:
+closed: 2026-10-04
 severity: medium
 verification: reproduced
 area: [ci]
-guard:
-normative:
+guard: devtools/tests/test_development_archives.py::test_rust_spike_archive_replaces_nonrelease_tag
+normative: devguide/development_archives.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,7 +16,7 @@ supersedes: []
 # Development archive tag violates the active release-tag policy gate
 
 **Reported:** 2026-10-04 while checking the published chemical-typing checkpoint.
-**Status:** Active. Exact-object restoration is verified; publication and maintainer review of the mistaken development-marker retirement remain.
+**Status:** Resolved. The exact experiment is published in a verified bundle; the maintainer approved retirement of the mistaken development marker, and the hosted policy gate passes.
 
 ## What
 
@@ -88,12 +88,11 @@ report. Chemical typing and rotatable-bond work keep their own tracked scope.
 - Published references conform to the actual adopted release-tag policy.
 - An exact-head MolSysSuite conformance run passes without disabling the check.
 
-## Next action
+## Policy ownership
 
-Review the archival-reference route with the maintainer before changing the
-published tag. Record any central rule/provider proposal in MolSysSuite only
-if a change to shared policy is actually required. The current observation does
-not show a defect in the policy implementation.
+The correction preserves experiment evidence outside the live tag namespace.
+No change to shared policy is required; the reproduced observation does not
+show a defect in its implementation.
 
 ## Replacement archive — 2026-10-04
 
@@ -102,7 +101,7 @@ not show a defect in the policy implementation.
 original annotated tag object and the unmerged experiment. Its adjacent JSON
 manifest records SHA-256, original ref, commit and prerequisite
 `cb3341fd5cd9f205b9813d60e708a61895f95918`, an ancestor of current main.
-The [development archive contract](../development_archives.md) defines
+The [development archive contract](../../development_archives.md) defines
 preservation and inspection outside the active release namespace.
 
 The restoration validator creates temporary bare Git storage, borrows only
@@ -119,6 +118,21 @@ integrity and Conda governance. Policy run 37196462010 fails on the same
 noncanonical marker; native failed logs confirm the diagnosis. These observations
 do not qualify the full release matrix or change the separate scientific backlog.
 
-**Remaining:** publish the replacement, obtain maintainer review of this exact
-development ref, retire only that marker and require a successful conformance
-run on the resulting published head. Historical release tags remain untouched.
+## Resolution — 2026-10-04
+
+The replacement archive was published in
+`3844330d9d1696dd7b3d0592c06a83593dfd233a` before changing refs. The maintainer
+explicitly approved retirement of only `archive/rust-c1-spike-20261002` locally
+and on origin after reviewing preservation and restoration evidence. The remote
+object was rechecked against the manifest immediately before its deletion.
+Historical release tags were not changed.
+
+All six archive tests pass, including the guard which requires exact-object
+restoration and absence of the rejected live marker. The checksummed empty-pack
+negative demonstrates that metadata and source-object availability cannot stand
+in for an actual archived payload. Ruff, format and developer-guide validation
+pass. The dispatched [MolSysSuite conformance run
+37201989689](https://github.com/uibcdf/molsysmt/actions/runs/37201989689)
+succeeds on that exact published commit after ref retirement. This corrects the
+reported gate failure without policy exceptions or a production merge of the
+experiment. Full scientific/release qualification remains separate.

@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### In progress (1)
-
-- [`development_archive_tag_violates_the_active_release_tag_policy_gate.md`](development_archive_tag_violates_the_active_release_tag_policy_gate.md) — [#317](https://github.com/uibcdf/molsysmt/issues/317) — Development archive tag violates the active release-tag policy gate *(medium, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

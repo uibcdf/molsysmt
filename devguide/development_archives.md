@@ -69,4 +69,5 @@ The regression guard
 `devtools/tests/test_development_archives.py::test_rust_spike_archive_replaces_nonrelease_tag`
 requires both successful restoration and absence of the rejected live tag.
 The hosted MolSysSuite conformance job checks published refs; archive tests
-alone do not certify that remote state.
+alone do not certify that remote state. Developer-guide CI also runs the
+restoration validator whenever the guide, archive or validator changes.
