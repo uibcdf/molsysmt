@@ -249,6 +249,33 @@ release/badge evidence while completing the required migration. Follow the
 existing internal direct-push and deferred-test routes; this range change does
 not require a full suite after every internal push.
 
+### Direct pushes and validation checkpoints
+
+For authorized internal direct pushes by `dprada` and `LMMV`, keep focused
+commits local and batch pushes when collaboration, backup or current CI evidence
+does not need a checkpoint. A permitted interim skip is conditional, never the
+default after every locally checked change. Select local checks by affected
+code, inputs and scope; reuse completed results only while they remain applicable.
+Documentation and evidence need their relevant governance checks, scientific
+hypotheses their informative cases, and executable or integration changes their
+relevant code/contract checks. Reconcile contradictory local instructions in
+the owning repository before claiming adoption.
+
+Normally finish with an unskipped head and inspect its applicable CI, or use
+an explicitly authorized manual execution and verification of those exact-head
+gates. Record missing evidence, untested scope, owning issue and recovery route.
+Administrative checks and smoke runs do not clear full-suite backlog. Preserve
+daily recovery, weekly full matrices and tracked scientific deferrals.
+
+External PRs and admission/release/publication keep all mandatory executed gates.
+A producer commit carrying a skip marker can qualify through the authorized
+manual route only with every required gate verified for the exact candidate,
+installed bytes and dependency closure. Keep its original producer identity and
+artifact digest; a workflow correction does not authorize rebuilding the file.
+Follow the [CI checkpoint policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md#direct-push-decisions-and-validation-checkpoints)
+for applicability, result-reuse limits and bounded owner-linked exceptions.
+This adds no complete suite before each internal push.
+
 ### Local development workspace
 
 For routine Linux development use the qualified `molsyssuite@uibcdf_3.14`
