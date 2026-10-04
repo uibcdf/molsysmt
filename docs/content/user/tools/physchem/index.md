@@ -7,6 +7,7 @@
 | [Get partial charges](get_partial_charges.md) | Calculating named models with charge conservation, coverage and producer provenance |
 | [Get hydrogen inventory](get_hydrogen_inventory.md) | Separating indexed H neighbors from stored virtual H counts |
 | [Assess and apply chemical templates](chemical_templates.md) | Transferring missing assignments through an exhaustive declared atom map |
+| [Get peptide chemical template](chemical_templates.md#constructing-a-peptide-template) | Constructing declared residue, terminal and disulfide chemistry without coordinates |
 | [Get aromatic rings](get_aromatic_rings.ipynb) | Preparing rings from declared aromatic bonds |
 | [Get area buried](get_area_buried.ipynb) | Getting the buried surface area of elements in a molecular system |
 | [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |

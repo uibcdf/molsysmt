@@ -1877,6 +1877,14 @@
       "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
       "contract_tests": "tests/physchem/test_chemical_template.py"
     },
+    "molsysmt.physchem.get_peptide_chemical_template": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
+      "contract_tests": "tests/physchem/test_get_peptide_chemical_template.py"
+    },
     "molsysmt.physchem.apply_chemical_template": {
       "stability": "experimental",
       "lifecycle": "active",

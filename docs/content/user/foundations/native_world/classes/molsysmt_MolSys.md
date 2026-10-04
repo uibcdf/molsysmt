@@ -179,6 +179,13 @@ observations when chemistry changes, and supplies a detached bond-index map.
 The original system remains unchanged. Template transfer does not select
 protonation, create missing atoms or supply hydrogen coordinates.
 
+The {ref}`peptide-template factory <Tutorial_Get_Peptide_Chemical_Template>` builds
+a separate reference MolSys with explicit residue/terminal/link chemistry and
+stored H counts. Its synthetic indices/IDs do not identify atoms in an observed
+system. A caller-declared map establishes that correspondence before template
+transfer. The reference has no coordinates or specified stereochemistry; it is
+not a modeled pose or an independently certified biological chain.
+
 The explicit {ref}`fixed-state H operation <Tutorial_Fixed_State_Hydrogens>`
 can materialize those counts on a prepared ligand. Declared aromatic bonds may
 use fractional order 1.5 without an integer order; nonaromatic bonds still need

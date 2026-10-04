@@ -18,6 +18,7 @@ dependency requirements.
 
 - {func}`molsysmt.physchem.assess_chemical_template`
 - {func}`molsysmt.physchem.apply_chemical_template`
+- {func}`molsysmt.physchem.get_peptide_chemical_template`
 :::
 
 ## Declaring the correspondence
@@ -50,6 +51,87 @@ declaration; MolSysMT does not authenticate the template or verify the checksum.
 A hydrogen-complete template cannot map onto a heavy-only source. Choose an
 explicitly prepared heavy-only template with `stored_counts` if that is the
 chemical state you intend to transfer. Counts do not supply donor–H geometry.
+
+(Tutorial_Get_Peptide_Chemical_Template)=
+## Constructing a peptide template
+
+`msm.physchem.get_peptide_chemical_template()` constructs one linear peptide's
+heavy graph from bundled, versioned residue fragments. You supply ordered states
+and both terminal choices. It returns a coordinate-free native template,
+`template_provenance` and a construction report. No source atoms are matched,
+no coordinates generated, and no chemical state chosen from pH or a residue alias.
+
+```python
+import molsysmt as msm
+
+peptide_definition = msm.physchem.get_peptide_chemical_template(
+    ['GLY', 'GLY'], n_terminal_state='ammonium',
+    c_terminal_state='carboxylate')
+assert peptide_definition['template'].get_n_atoms() == 9
+assert peptide_definition['report']['n_stored_hydrogens'] == 8
+assert peptide_definition['report']['n_indexed_hydrogens'] == 0
+```
+
+This declares C4H8N2O3 with charged termini. The eight H are counts on its nine
+heavy atoms, not coordinate rows. The template always contains a terminal OXT;
+an absent source OXT or sidechain atom requires a separate repair before an
+exhaustive correspondence can succeed.
+
+Supported exact, case-sensitive states are:
+
+| Residue family | Explicit state names |
+| --- | --- |
+| Histidine | HID (ND1 H), HIE (NE2 H), HIP (both H, charge +1). HIS is ambiguous and rejected. |
+| Aspartate / glutamate | ASP / GLU (carboxylate, −1), ASH / GLH (carboxylic acid, neutral). |
+| Lysine | LYS (ammonium, +1), LYN (amine, neutral). |
+| Cysteine | CYS (thiol), CYM (thiolate, −1), CYX (declared disulfide). |
+| Arginine | ARG (guanidinium, +1). |
+| Other supported states | ALA, ASN, GLN, GLY, ILE, LEU, MET, PHE, PRO, SER, THR, TRP, TYR and VAL. |
+
+The first amino terminus is explicitly `ammonium` or `amine`; the last carboxyl
+terminus is `carboxylate` or `carboxylic_acid`. Proline uses the corresponding
+secondary-amine H inventory. These choices apply even for one residue. This
+factory does not add caps, model an unobserved biological terminus or select
+histidine tautomers from their environment.
+
+For disulfides, declare pairs of **template group indices**, starting at zero:
+
+```python
+disulfide_definition = msm.physchem.get_peptide_chemical_template(
+    ['CYX', 'GLY', 'CYX'], n_terminal_state='ammonium',
+    c_terminal_state='carboxylate', disulfide_group_pairs=[[0, 2]])
+assert disulfide_definition['report']['disulfide_bond_pairs'].shape == (1, 2)
+```
+
+Every CYX must be paired exactly once; CYS/CYM cannot be silently turned into
+CYX. Sulfur proximity is not a bond declaration. Pair order is normalized for a
+deterministic result. The report gives actual template atom pairs for peptide and
+disulfide links, with empty int64 arrays of shape `(0, 2)` when appropriate.
+
+The factory uses a pinned Meeko data snapshot and native assembly; neither Meeko
+nor RDKit is needed at runtime. Snapshot identity/hash, the curated fragment hash,
+offline curation software and the requested assembly are retained separately.
+`checksum` hashes the declared assembled graph definition, not an H5MSM file.
+The copied/derived source data retain their separate upstream license under
+`molsysmt/data/databases/peptide_templates/`. Backbone amide/carboxyl conjugation
+is declared during assembly; other assignments use the curated fragment model.
+
+**Stereochemistry remains unspecified**, including residue enantiomers and
+peptide cis/trans: this factory does not certify an L peptide. An already declared
+source stereo assignment needs a compatible, explicitly prepared template rather
+than being overwritten. Modified residues, caps, cyclic backbones, arbitrary
+crosslinks and multiple chains are outside this factory's current scope.
+
+Supply `peptide_definition['template']` and its `template_provenance` to the
+existing assessment/application tools, together with your independently accepted
+exhaustive map. Their source remains form agnostic. Counts alone still cannot
+supply donor-H geometry; use the separately chosen fixed-state H operation after
+chemical preparation and pose validation.
+
+Successful factory construction credits MolSysMT as executed software and the
+reference snapshot as data in an optional Ackredit scope. RDKit's offline curation
+version is provenance, not an executed runtime credit. The report/provenance stay
+detached sidecars; H5MSM stores chemical values and states.
 
 ## Preparing an independent example
 

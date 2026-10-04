@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 126 |
+| experimental | 127 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -235,6 +235,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_mass` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_metal_coordination_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_partial_charges` | experimental | active | 1.0.0 |
+| `molsysmt.physchem.get_peptide_chemical_template` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_polarity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_atom_type` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_vdw_radius` | experimental | active | pre-1.0 |

@@ -16,8 +16,9 @@ supersedes: []
 
 **Reported:** 2026-10-02, from uibcdf/pharmacophoremt#22.
 **Status:** Bounded experimental public tools implemented and contract-tested on
-2026-10-03, extended with explicit graph completion on 2026-10-04. Consumer-reported
-isolated-ligand integration is available. Curated polymer preparation, representation
+2026-10-03, extended with explicit graph completion and a versioned native peptide
+reference factory on 2026-10-04. Consumer-reported isolated-ligand integration is
+available. Observed polymer context/repair/mapping/reinsertion, representation
 normalization, native preparation-report attachment and complete receptor/biological
 acceptance remain pending; this issue remains partial.
 
@@ -450,10 +451,11 @@ source edges, known chemical conflicts, incomplete/disconnected templates and
 unsupported representations still block application before changing either input.
 
 This is a general prerequisite for residue/polymer preparation, not a residue
-template generator. Existing standard-residue references primarily supply heavy
+template generator. Legacy standard-residue references primarily supply heavy
 geometry/connectivity, not complete charges/orders/aromaticity and explicit
-terminal/HIS/protonation states. A curated chemical dataset and assembly policy
-remain necessary. No residue chemistry is guessed by this extension.
+terminal/HIS/protonation states. The separate reference factory described below
+supplies a versioned chemical dataset and an explicit assembly policy. No residue
+chemistry is guessed by connectivity completion.
 
 The operation reuses native bond-table normalization and compiled connectivity
 reconstruction. New edges have `user_defined` evidence, backed by the caller's
@@ -517,8 +519,110 @@ integration from PharmacophoreMT and DockingMT. Those receipts qualify template
 transfer for their declared inputs; they do not complete the requested receptor
 scope. No sibling source was changed during this provider extension.
 
-**Next:** Establish provider-owned, versioned residue chemical templates with
-explicit terminal/protonation/HIS choices, compose declared polymer links, retain
-actual dataset provenance, and exercise the observed receptor through a supported
-scope. Preserve unsupported/heavy-incomplete portions as unassessed. Partial
-template preparation must not certify unrelated full-system chemistry.
+**Next:** Apply the versioned reference factory through an explicit, accepted map
+and supported observed polymer context, then exercise the requested receptor.
+Preserve unsupported/heavy-incomplete portions as unassessed. Partial template
+preparation must not certify unrelated full-system chemistry.
+
+## Native peptide chemical references — 2026-10-04
+
+**Implemented and contract-tested:** The experimental public
+`physchem.get_peptide_chemical_template(residue_names, n_terminal_state,
+c_terminal_state, *, disulfide_group_pairs=None)` constructs a coordinate-free
+native `MolSys` reference for one linear peptide chain. Its detached result contains
+`template`, `template_provenance` and a typed `molsysmt.peptide_template@1` report.
+It is a factory, not an observed-system selector or preparation command. Apply the
+result through the existing form-agnostic assessment/application tools with a
+caller-declared exhaustive atom map.
+
+The ordered names select 27 exact chemical states: ALA, ARG, ASN, ASP, ASH, CYS,
+CYM, CYX, GLN, GLU, GLH, GLY, HID, HIE, HIP, ILE, LEU, LYS, LYN, MET, PHE, PRO,
+SER, THR, TRP, TYR and VAL. Ambiguous HIS fails; no pH inference or implicit alias
+selection occurs. N-terminal ammonium/amine and C-terminal
+carboxylate/carboxylic_acid are mandatory choices. Every CYX must participate in
+exactly one explicitly declared intrachain disulfide group-index pair. CYS/CYM
+are not implicitly converted. The heavy graph includes terminal OXT; a missing
+observed OXT needs a separate repair, not a guessed atom correspondence.
+
+The versioned `molsysmt.peptide_fragments@1` dataset is curated from Meeko's
+`meeko/data/residue_chem_templates.json` at commit
+`1eac18bd6d1111f35f9f1abaa8af502c2668d054`, source SHA-256
+`535dc75a2cc5db579a3114090c9ab1273892c556cb7cc1a850ce2c4cd57c7cde`.
+The original source bytes are retained as a deterministic compressed snapshot;
+the original LGPL 2.1 license and a data README accompany the curated library.
+No sibling source was changed. The offline generator uses RDKit 2025.09.5 and
+records that original producer version, independently of a later runtime.
+The normal native construction path imports neither Meeko nor RDKit and adds
+no optional dependency floor. Existing package-data rules include the assets.
+
+The generator retains heavy-atom names, exact charge assignments, aromaticity and
+real hydrogen inventories. Virtual hydrogens at declared link ports are excluded
+before polymer assembly. CYM explicitly selects the upstream CYX- fragment.
+Aromatic orders remain 1.5; no integer Kekule assignment is guessed. Source
+conjugation flags are curated, while backbone carbonyl and assembled peptide/
+terminal links follow the declared assembly model. The reader verifies both the
+schema and formal-charge unit declaration (`elementary_charge`); native charges
+remain integer multiples of that unit under non-default session unit policies.
+
+The implementation reuses `ChemicalStates`, native bond-table normalization and
+compiled connectivity reconstruction. Stored H counts do not create indexed
+hydrogen atoms or geometry. Atom/group IDs are strings derived from template
+indices; they are synthetic identities, not identities of an observed receptor.
+Provenance distinguishes the original source hash, curated asset hash and graph-
+definition digest. These are not H5MSM byte hashes or source-system authentication.
+Optional Ackredit records the executed MolSysMT software and the referenced data
+only after successful construction; it does not claim execution of Meeko/RDKit.
+
+**Analytical controls:** Glycylglycine has the declared C4H8N2O3 inventory with
+ammonium/carboxylate termini. Four terminal combinations, proline's secondary
+amine, C8H13N3O4S2 for a declared CYX–GLY–CYX disulfide, all 26 non-CYX states
+as monomers and internal residues, and histidine ring/H-count variants are covered.
+Independent RDKit sanitization recomputes valence/conjugation rather than trusting
+cached conversion flags. A mapped glycylglycine source receives the peptide bond
+and exact assignments while preserving its coordinates, box, time and IDs.
+Coordinate-free and prepared native results round trip through public H5MSM 0.5.
+Controls reject ambiguous states, invalid ports, missing OXT and incompatible maps.
+Fresh-process native construction succeeds with RDKit, Meeko and Ackredit imports
+denied. Dataset mutation cannot alter the cached reference library.
+
+The combined regression completed **175 passed in 32.39 s**, with two existing
+pandas FutureWarnings in the H5MSM ChemicalStates reader:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+  tests/physchem/test_get_peptide_chemical_template.py \
+  tests/physchem/test_chemical_template.py \
+  tests/physchem/test_chemical_template_connectivity.py \
+  tests/physchem/test_chemical_template_est.py \
+  tests/native/test_chemical_states.py \
+  tests/native/test_molsys_chemical_state_association.py \
+  tests/native/test_molsys_interactions.py --doctest-modules \
+  molsysmt/physchem/get_peptide_chemical_template.py \
+  molsysmt/physchem/assess_chemical_template.py \
+  molsysmt/physchem/apply_chemical_template.py
+```
+
+A subsequent boundary correction canonicalizes already valid disulfide inputs in
+the assembler, so trusted delegation also supports `None` and list inputs. Its
+focused regression completed **17 passed, 63 deselected in 4.28 s** with the new
+module and `-k 'trusted_delegation or declared_disulfide or invalid_ports'`.
+Evidence uses Python 3.13.14 under the bounded uibcdf/molsysmt#237 migration route,
+the released ArgDigest 0.13.0 override recorded above and RDKit 2025.09.5 where
+explicitly used as an oracle. It does not qualify Python 3.14, an installed release,
+biological receptor preparation or runtime performance.
+
+Foundations, Toolbox, Cookbook, API entries and course Module 12 describe the
+factory and its limits. All five tutorial Python blocks execute in sequence.
+Docstrings, maintained course, dependency imports, public API registry/signature
+checks and repository-wide Ruff check/format checks pass. Sphinx HTML exits 0 with
+existing course/navigation/native-class reference warnings and no warning for the
+new factory or chemical-template tutorial; this is not a globally clean docs gate.
+
+**Remaining acceptance:** Stereochemistry is deliberately unspecified, including
+L/D and cis/trans choices. The factory does not certify L residues and cannot
+overwrite known source stereo with missing declarations. Modified residues, caps,
+cyclic backbones, multiple chains and arbitrary crosslinks are outside this
+factory. Observed context selection, missing-heavy/OXT repair, hydrogen placement,
+correspondence, reinsertion, scoped full-system chemistry and native report
+attachment still need acceptance on the requested receptor. uibcdf/molsysmt#298
+remains partial and open.

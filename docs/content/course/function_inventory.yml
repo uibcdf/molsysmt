@@ -1,6 +1,13 @@
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.physchem.get_peptide_chemical_template:
+  name: "msm.physchem.get_peptide_chemical_template"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Constructs a coordinate-free peptide template with explicit residue, terminal and disulfide choices."
+  doc_ref: "{func}`molsysmt.physchem.get_peptide_chemical_template`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_peptide_chemical_template()**: Constructs an explicitly declared peptide chemical reference without geometry.\n:::"
+
 molsysmt.physchem.assess_chemical_template:
   name: "msm.physchem.assess_chemical_template"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

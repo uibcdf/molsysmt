@@ -37,12 +37,22 @@ over the existing atoms. Review its proposed `added_bonds` before applying. No
 extra source edge is removed, known assignment overwritten, or missing atom created.
 Keep `require_same_graph` when missing bonds are not part of your preparation decision.
 
-For a peptide, the template must declare the peptide links, terminal chemistry
-and protonation choices, including histidine variants when present. An extracted
+For a linear peptide, construct a coordinate-free reference with
+`msm.physchem.get_peptide_chemical_template()` and explicit ordered residue states,
+terminal chemistry and any disulfide group pairs. Inspect the
+{ref}`factory contract <Tutorial_Get_Peptide_Chemical_Template>` before mapping
+observed atoms. HIS alone is insufficient: choose HID, HIE or HIP explicitly.
+The factory includes terminal OXT and no indexed H; missing observed heavy atoms
+must be repaired separately. It leaves stereochemistry unspecified and does not
+certify L residues or peptide cis/trans. Use a separately prepared template when
+your workflow requires those assignments.
+
+An extracted
 pocket is not necessarily a chemically closed polymer: decide its boundary chemistry
 explicitly rather than treating cut peptide bonds as complete residues. The tools
-currently transfer your prepared template; they do not generate residue/polymer
-chemical templates or certify coverage of the remainder of a receptor.
+transfer the prepared template; a compatible local map does not certify chemistry
+of the remainder of a receptor. Preserve the factory provenance and application
+report as two distinct records alongside the original observed system.
 
 After adding bonds, inspect the old-to-final `source_bond_correspondence` and new
 edge indices in the detached report. Connected-component indices/IDs are rebuilt
