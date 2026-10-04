@@ -26,7 +26,7 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 
 A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
 
-The current central member-policy release is MolSysSuite `policy-v1.5.6`, as
+The current central member-policy release is MolSysSuite `policy-v1.5.7`, as
 recorded in `suite.toml`. Each member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
 the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
@@ -378,6 +378,20 @@ runtime adoption are independent states. Shared rollout is tracked in
 ## Public release versions
 
 MolSysSuite defines member release identity in its [release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md), enforces it, and maintains the historical-tag inventory and separate `policy-vX.Y.Z` governance-release namespace.
+
+Use `archive/<description>` to retain an experiment or another historical commit
+without presenting it as a public release. Record the preserved commit, purpose
+and owner in the tag annotation or an owning issue. Keep the tag stable. An
+archive tag is never a package version, GitHub Release, public-release receipt
+or publication authorization. Public versions and release tags remain exact
+`X.Y.Z`; publishers must reject other identities before any registry write.
+Keep an unconditional conformance caller on all tag pushes, normally with
+`tags: ["**"]` so names containing `/` are included. A Python member using archive
+tags adopts `policy-v1.5.7` or a compatible newer caller first; other members may
+retain their compatible callers. Preserve exact-candidate gates and immutable
+public artifacts. Exceptions use the release policy's owning issue, reason and
+expiry mechanism. This capability is accepted under
+[MolSysSuite #84](https://github.com/uibcdf/molsyssuite/issues/84).
 
 ## Conda staging and publication
 
