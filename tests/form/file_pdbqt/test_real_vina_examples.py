@@ -267,3 +267,81 @@ def test_named_typing_on_original_ligand_graphs_keeps_reference_differences_expl
     loaded = msm.convert(destination, to_form="molsysmt.MolSys")
     assert loaded.get_n_atoms() == typed.get_n_atoms()
     np.testing.assert_array_equal(loaded.molecular_mechanics.atom_ff_type, labels)
+
+
+@pytest.mark.parametrize("name", ["1iep", "1s63", "5x72-p59", "5x72-p69"])
+def test_rotatable_source_pairs_preserve_original_vina_policy_differences(
+    vina_reference_corpus, name
+):
+    Chem = pytest.importorskip("rdkit.Chem")
+    descriptors = pytest.importorskip("rdkit.Chem.rdMolDescriptors")
+    root, records = vina_reference_corpus
+    record = records[name]
+    molecule = Chem.SDMolSupplier(
+        str(root / record["files"]["sdf"]["filename"]), removeHs=False
+    )[0]
+    original = Chem.MolToMolBlock(molecule)
+    native = msm.convert(Chem.Mol(molecule), to_form="molsysmt.MolSys")
+    result = msm.topology.get_rotatable_bonds(native)
+    broad = msm.topology.get_rotatable_bonds(native, method="acyclic_single")
+    candidates = set(map(tuple, np.sort(result["rotatable_bonded_atom_pairs"], axis=1)))
+    broad_candidates = set(
+        map(tuple, np.sort(broad["rotatable_bonded_atom_pairs"], axis=1))
+    )
+    assert broad_candidates - candidates == ({(19, 20)} if name == "1iep" else set())
+    assert len(candidates) == {"1iep": 7, "1s63": 5, "5x72-p59": 2, "5x72-p69": 2}[name]
+    # Descriptor equality is a bounded comparison on these four graphs, not
+    # a guarantee that this independently named policy reproduces RDKit Strict.
+    assert len(candidates) == descriptors.CalcNumRotatableBonds(
+        Chem.RemoveHs(molecule), descriptors.NumRotatableBondsOptions.Strict
+    )
+    reference_path = root / record["files"]["pdbqt"]["filename"]
+    reference = msm.convert(
+        reference_path, to_form="molsysmt.MolSys", discard_torsion_tree=True
+    )
+    tree = get_torsion_tree(reference_path)
+    reference_xyz = msm.pyunitwizard.get_value(
+        reference.structures.coordinates, to_unit="angstrom"
+    )[0]
+    source_xyz = np.asarray(molecule.GetConformer().GetPositions())
+    distances = np.linalg.norm(reference_xyz[:, None] - source_xyz[None, :], axis=-1)
+    mapping = np.argmin(distances, axis=1)
+    heavy = np.asarray(reference.topology.atoms["atom_type"] != "H")
+    assert len(np.unique(mapping[heavy])) == int(heavy.sum())
+    assert distances[np.flatnonzero(heavy), mapping[heavy]].max() < 0.001
+    assert heavy[tree["branch_atom_pairs"]].all()
+    expected = {
+        tuple(sorted(map(int, mapping[pair]))) for pair in tree["branch_atom_pairs"]
+    }
+    assert not candidates - expected
+    assert expected - candidates == ({(26, 27)} if name == "1s63" else set())
+    if name == "1s63":
+        selected = np.flatnonzero(
+            np.all(result["bonded_atom_pairs"] == [26, 27], axis=1)
+        )[0]
+        assert (
+            result["exclusion_mask"][selected]
+            & result["exclusion_bits"]["adjacent_triple_bond"]
+        )
+    else:
+        # Compare memberships, independently of root and atom serialization order.
+        fragments = msm.topology.get_rigid_fragments(
+            native, bond_indices=result["rotatable_bond_indices"]
+        )
+        observed_blocks = {
+            frozenset(block)
+            for block in np.split(
+                fragments["fragment_atom_indices"], fragments["fragment_offsets"][1:-1]
+            )
+        }
+        observed_heavy = {
+            frozenset(block & set(mapping[heavy])) for block in observed_blocks
+        }
+        reference_blocks = []
+        for start, stop in zip(
+            tree["fragment_offsets"][:-1], tree["fragment_offsets"][1:]
+        ):
+            members = tree["fragment_atom_indices"][start:stop]
+            reference_blocks.append(frozenset(mapping[members[heavy[members]]]))
+        assert observed_heavy == set(reference_blocks)
+    assert Chem.MolToMolBlock(molecule) == original

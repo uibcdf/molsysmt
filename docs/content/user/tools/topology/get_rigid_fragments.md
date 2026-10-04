@@ -4,7 +4,7 @@
 Use {func}`molsysmt.topology.get_rigid_fragments` to partition a complete
 covalent graph at explicitly chosen source **bond indices**. This identifies
 connected fragments after those cuts; chemical rotatable-bond classification
-remains a separate preparation task.
+is provided separately by {func}`molsysmt.topology.get_rotatable_bonds`.
 
 ```python
 import molsysmt as msm

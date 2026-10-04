@@ -224,3 +224,10 @@ molsysmt.build.add_terminal_atoms:
   summary: "Appends explicitly declared atoms and full-frame coordinates to an independent native system."
   doc_ref: "{func}`molsysmt.build.add_terminal_atoms`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_terminal_atoms()**: Appends explicitly declared atoms and full-frame coordinates to an independent native system.\n:::"
+
+molsysmt.topology.get_rotatable_bonds:
+  name: "msm.topology.get_rotatable_bonds"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Classifies full-graph torsion candidates with named criteria and exclusion evidence."
+  doc_ref: "{func}`molsysmt.topology.get_rotatable_bonds`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rotatable_bonds()**: Classifies source torsion candidates with explicit criteria.\n:::"

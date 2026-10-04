@@ -155,8 +155,9 @@ ledger authoritative for release scope.
 5. **Project a prepared state under an agreed docking profile.**
    [Atom projection #223](pending_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
    owns retained/omitted/merged/added atom correspondence and charge accounting;
-   [torsions #224](pending_proposals/classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md)
-   owns general chemical eligibility and fragment output. Keep the current
+   [torsions #224](archive/resolved_proposals/classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md)
+   now supplies versioned native acyclic-single and conjugation-restricted
+   eligibility, per-bond exclusions and explicit-cut fragments. Keep the current
    all-H-preserving writer distinct from a future nonpolar-H merging profile.
    Choose eligibility rules explicitly, explain exclusions and preserve source
    bond indices. Reuse the delivered explicit-cut fragment tool. DockingMT owns
@@ -185,3 +186,25 @@ there.
 Completed proposals should be moved to an archive or replaced by a concise
 decision record. A checked box or dated prose is not completion evidence without
 code, tests, and documentation.
+
+### Consumer continuation — 2026-10-04
+
+After bounded #221/#222/#224 delivery, preserve both preparation tracks:
+
+- DockingMT uibcdf/dockingmt#41 still needs a qualified explicit attachment of
+  detached aromatic perception to template-prepared original 181L BNZ before
+  fixed-state H addition. #314 implemented perception, not assignment. Keep
+  source preservation, original criterion/producer provenance and transaction
+  controls; no hidden consumer/converter repair. #223 remains the general
+  retained/omitted/merged/added-axis and charge-accounting continuation.
+- PharmacophoreMT uibcdf/pharmacophoremt#22 requires the polymer extension of
+  [#298](pending_proposals/apply_explicit_chemical_templates_with_atom_correspondence.md):
+  supported residue/state/terminal templates and mapped inter-residue chemistry,
+  including explicit HIS/protonation choices. Heavy completeness alone does not
+  certify chemistry. Qualify analytical peptides before the observed 1QKU
+  receptor; H placement, heavy repair and prepared-component reinsertion remain
+  explicit separate operations.
+
+Consumer feedback is source-reported in #298, not independently rerun here.
+Keep full-graph detector readiness distinct from a chemically prepared ligand
+or a selected heavy-complete receptor shell. Retain consumer dirty worktrees.

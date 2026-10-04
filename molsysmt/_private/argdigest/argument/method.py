@@ -26,6 +26,14 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    if caller == "molsysmt.topology.get_rotatable_bonds.get_rotatable_bonds":
+        if isinstance(method, str) and method in {
+            "acyclic_single",
+            "conjugation_restricted",
+        }:
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if caller in {
         "molsysmt.physchem.get_autodock_atom_types.get_autodock_atom_types",
         "molsysmt.build.assign_autodock_atom_types.assign_autodock_atom_types",

@@ -111,6 +111,10 @@ sections:
         index_agents_file: docs/content/user/tools/topology/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_rotatable_bonds
+            file: docs/content/user/tools/topology/get_rotatable_bonds.md
+            agents_file: docs/content/user/tools/topology/get_rotatable_bonds.md.AGENTS.md
+            status: reviewed
           - name: get_rings
             file: docs/content/user/tools/topology/get_rings.ipynb
             agents_file: docs/content/user/tools/topology/get_rings.ipynb.AGENTS.md

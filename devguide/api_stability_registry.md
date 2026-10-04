@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 125 |
+| experimental | 126 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -254,6 +254,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.topology.get_dihedral_quartets` | stable | active | pre-1.0 |
 | `molsysmt.topology.get_rigid_fragments` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_rings` | experimental | active | pre-1.0 |
+| `molsysmt.topology.get_rotatable_bonds` | experimental | active | 1.0.0 |
 | `molsysmt.topology.get_sequence_alignment` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_identity` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_substructure_matches` | experimental | active | pre-1.0 |

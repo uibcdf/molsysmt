@@ -398,3 +398,33 @@ legacy pages; this is not a globally clean documentation gate. The debt is recor
 in [the Sphinx baseline report](../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md).
 Neither template page emits a warning. These are Python 3.13 source-checkout observations under #237, not a full
 supported-interpreter matrix or consumer biological acceptance.
+
+## Consumer receptor continuation — 2026-10-04
+
+**Consumer-reported:** uibcdf/pharmacophoremt#22 and the latest feedback on #298
+identify a separate remaining polymer boundary. The observed 1QKU label-chain A
+receptor has 1,990 atoms/250 groups: 247 heavy-assessed groups and three incomplete
+SER301/LYS302/LYS303 groups. Its 0.4/0.5/0.6 nm whole-residue ligand shells contain
+12/19/23 groups without reported heavy-atom gaps, but formal charges/aromaticity,
+bond orders, indexed H and complete polymer connectivity remain unavailable.
+This is source-reported evidence; this continuation has not independently rerun
+the consumer audit. Earlier native isolated-ligand template and H delivery does
+not certify receptor readiness or turn failed detectors into empty observations.
+
+Next implementation slice: reusable residue/polymer template assignment with
+explicit terminal/protonation/HIS choices, mapped source atoms, declared peptide
+and other inter-residue links, conflicts/unsupported portions and actual dataset
+provenance. Extend the general template machinery and ChemicalStates ownership;
+do not create a residue-only chemical store or duplicate chemistry downstream.
+Heavy repair, fixed-state H geometry, environmental orientation and reinserting
+prepared components are distinct operations. Qualify analytical peptide/terminal
+controls before the observed receptor; preserve coordinates/identities and
+transactional failure. Scoped completeness must not certify unevaluated groups
+or unprepared full-system components used by full-graph recognition.
+
+DockingMT's separate uibcdf/dockingmt#41 feedback still reports that template-
+prepared original 181L BNZ cannot pass fixed-state H addition with missing bond
+aromaticity. Resolved #314 delivers detached perception, not attachment. A
+supported explicit assignment/composition step must be qualified before claiming
+that consumer is unblocked; no local consumer repair or implicit perception
+inside converters is authorized by the existing fixed-state contract.

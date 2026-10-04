@@ -1938,6 +1938,14 @@
       "documentation": "docs/content/user/tools/build/assign_autodock_atom_types.md",
       "contract_tests": "tests/build/test_assign_autodock_atom_types.py",
       "owner": "build"
+    },
+    "molsysmt.topology.get_rotatable_bonds": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "owner": "topology",
+      "documentation": "docs/content/user/tools/topology/get_rotatable_bonds.md",
+      "contract_tests": "tests/topology/test_get_rotatable_bonds.py",
+      "introduced": "1.0.0"
     }
   }
 }

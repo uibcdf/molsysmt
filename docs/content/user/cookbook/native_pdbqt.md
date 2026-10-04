@@ -9,6 +9,15 @@ PDB-like atom records can otherwise be confused with ordinary PDB.
 
 ## Reading explicit data
 
+For a complete chemically declared ligand, classify torsion candidates with
+{func}`molsysmt.topology.get_rotatable_bonds`, inspect its versioned criteria
+and exclusions, then choose active source bond indices and call
+{func}`molsysmt.topology.get_rigid_fragments`. The resulting fragment graph is
+unrooted; the docking workflow must still choose ROOT, branch orientation,
+retained atom mappings and TORSDOF. See {ref}`Tutorial_Rotatable_Bonds`.
+This calculation cannot run on a PDBQT read's partial graph: prepared PDBQT
+supplies declared branch edges, not complete covalent chemistry.
+
 The input in this recipe is a **previously prepared** ligand. It must already
 carry valid AutoDock4 labels and finite partial charges.
 

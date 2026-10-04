@@ -69,6 +69,15 @@ operations do not calculate contacts or alter the source state. See
 
 ---
 
+## Torsion Candidates
+
+{func}`molsysmt.topology.get_rotatable_bonds` classifies the complete state graph
+before filtering source bond indices. Its named criteria and exclusions do not
+assign chemical data or measure energy barriers. Pass explicitly chosen eligible
+cuts to {func}`molsysmt.topology.get_rigid_fragments` to obtain deterministic
+packed memberships. Docking workflows choose active cuts and rooted export
+separately. See {ref}`Tutorial_Rotatable_Bonds` for exact criteria and limits.
+
 ## API Documentation
 
 All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].
