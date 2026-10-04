@@ -15,6 +15,8 @@ def assess_chemical_template(
     chemical_state="reference",
     template_chemical_state="reference",
     skip_digestion=False,
+    *,
+    connectivity_policy="require_same_graph",
 ):
     """Assessing chemical compatibility through an exhaustive declared atom map.
 
@@ -22,7 +24,8 @@ def assess_chemical_template(
     ----------
     molecular_system : molecular system
         Source in any supported form providing elements and stored relationships.
-        The complete input must represent one isolated connected component.
+        The default requires one isolated connected component. Explicit template
+        completion can assess disconnected fragments of that same mapped component.
     template : molecular system
         Explicitly prepared template in any supported form. Coordinates are not
         required. Its selected state must declare complete covalent connectivity,
@@ -42,6 +45,11 @@ def assess_chemical_template(
         Independent template state index or resolved reference.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    connectivity_policy : {'require_same_graph', 'complete_from_template'}, default='require_same_graph'
+        Keyword-only policy. The default requires identical stored atom pairs.
+        Explicit completion proposes missing template bonds in an incomplete
+        source graph. Unexpected edges, declared complete-graph differences and
+        conflicting assignments fail; no stored edge is removed or overwritten.
 
     Returns
     -------
@@ -64,7 +72,9 @@ def assess_chemical_template(
     Notes
     -----
     Neither input is changed. Elements/isotopes, stored graph and explicit fields
-    must agree. Missing fields can be proposed; absent edges cannot be added.
+    must agree. Missing fields can be proposed. Only explicit template completion
+    can propose absent edges, with original template bond indices and source pairs
+    in added_bonds. The exhaustive template must remain one connected component.
     Aromatic or stereo-reference encodings needing normalization stay unassessed;
     no equivalent chemical state is inferred. This is correspondence checking,
     not template validation, protonation selection, hydrogen placement or docking
@@ -115,4 +125,5 @@ def assess_chemical_template(
         chemical_state,
         template_chemical_state,
         "molsysmt.physchem.assess_chemical_template",
+        connectivity_policy,
     )[0]

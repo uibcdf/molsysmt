@@ -284,7 +284,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer, pinned EST stereo and pose controls, and separate hydrogen geometry.
+        description: Explicit template transfer and graph completion, pinned EST pose/stereo controls, and separate hydrogen geometry.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

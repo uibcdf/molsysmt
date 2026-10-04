@@ -29,11 +29,13 @@ occurs exactly once in each column, including every explicit H atom. Names and
 IDs do not substitute for indices. An identity map is valid only when you know
 the orders correspond; neither function performs automatic matching.
 
-Elements and declared isotopes must agree. Both inputs must contain the same
-stored covalent graph and one connected component. Extract a ligand from its
-complex first if you need this bounded operation; keep the extraction's map back
-to the full system. Missing edges, dative relationships and component-cut bonds
-cannot be repaired by applying a template.
+Elements and declared isotopes must agree. The default
+`connectivity_policy='require_same_graph'` requires the same stored covalent graph
+and one connected component. Extract a ligand from its complex first if you need
+this bounded operation; keep the extraction's map back to the full system.
+Explicit template completion can add missing covalent edges as described below.
+Dative relationships, component-cut bonds and unexpected source edges remain
+outside the supported repair boundary.
 
 `template_provenance` must be JSON compatible and declare nonempty `identity`,
 `version`, `source_uri`, `checksum` and `hydrogen_policy` strings. Supply the
@@ -84,6 +86,48 @@ assert assessment['status'] == 'compatible'
 
 The illustrative coordinates are a preservation control, not an optimized
 conformer or a docking pose. The assessment does not inspect coordinates.
+
+## Completing a declared graph
+
+Choose `connectivity_policy='complete_from_template'` explicitly when the source
+has missing edges and declares incomplete or unknown connectivity. The template
+must still declare a complete connected covalent graph over **all mapped atoms**.
+The source may contain disconnected fragments of that graph. A source claiming
+complete connectivity cannot have its missing edges silently reconciled.
+
+For example, remove the oxygen–hydrogen bond from the independent source above:
+
+```python
+molsys_fragmented = molsys.copy()
+molsys_fragmented.topology.remove_bonds([4])
+completion = msm.physchem.assess_chemical_template(
+    molsys_fragmented, template=template, atom_correspondence=correspondence,
+    template_provenance=provenance, connectivity_policy='complete_from_template')
+assert completion['status'] == 'compatible'
+assert len(completion['added_bonds']) == 1
+assert completion['added_bonds'][0]['atom1_index'] == 1
+assert completion['added_bonds'][0]['atom2_index'] == 5
+completed = msm.physchem.apply_chemical_template(
+    molsys_fragmented, template=template, atom_correspondence=correspondence,
+    template_provenance=provenance, connectivity_policy='complete_from_template')
+assert completed['molecular_system'].get_n_atoms() == 6
+assert msm.get(completed['molecular_system'], n_bonds=True) == 5
+```
+
+The operation adds declared edges, not atoms or coordinates. It retains existing
+edge evidence and records new edges as `user_defined`, backed by your detached
+template declaration. Known chemical conflicts still fail before application.
+The same boundary can transfer a caller-prepared peptide or disulfide link; it
+does not choose terminal/protonation states or supply curated polymer templates.
+
+New edges can reorder the canonical bond table. In an applied report,
+`source_bond_correspondence` is an integer array `(n_original_bonds, 2)` mapping
+old to final bond indices. Each `added_bonds` record contains the original
+`template_bond_index`, mapped atom pair, chemical fields and final `bond_index`.
+After adding edges, the selected state's components are rebuilt: component
+indices and IDs can change, and component names/types are left unknown. Stable
+atom order, group/molecule inventory and other states remain unchanged. Retain
+the map when referring to original bond indices after this operation.
 
 ## Applying and inspecting the result
 

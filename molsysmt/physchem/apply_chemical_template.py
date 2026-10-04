@@ -15,14 +15,17 @@ def apply_chemical_template(
     chemical_state="reference",
     template_chemical_state="reference",
     skip_digestion=False,
+    *,
+    connectivity_policy="require_same_graph",
 ):
     """Applying compatible declared template assignments to an independent system.
 
     Parameters
     ----------
     molecular_system : molecular system
-        Source in any supported form supplying one isolated connected component.
-        Existing atoms, relationships and all coordinate frames are preserved.
+        Source in any supported form supplying one mapped component, possibly
+        fragmented when explicit template completion is requested. Existing
+        atoms, relationships and all coordinate frames are preserved.
     template : molecular system
         Prepared template in a supported form with complete explicit chemical
         assignments and the same atoms. Its coordinates are never transferred.
@@ -40,6 +43,10 @@ def apply_chemical_template(
         Independent template state index or resolved reference.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    connectivity_policy : {'require_same_graph', 'complete_from_template'}, default='require_same_graph'
+        Keyword-only choice. Explicit completion adds missing bonds from the
+        declared complete template to an incomplete source graph. Default behavior
+        still requires identical edges. Conflicts and unexpected source edges fail.
 
     Returns
     -------
@@ -49,6 +56,11 @@ def apply_chemical_template(
         preserved fields, original provenance/software and optional attribution.
         Formal charges use elementary charge units. The report identifies named
         analyses invalidated by chemical-state replacement on the returned copy.
+        Added bonds carry template indices, remapped source pairs, user_defined
+        evidence and final bond indices; existing bond indices may reorder and are
+        mapped by source_bond_correspondence. Components are rebuilt only after
+        adding bonds, with new indices/IDs and unknown names/types; group/molecule
+        inventory and all other states are preserved.
 
     Raises
     ------
@@ -64,7 +76,9 @@ def apply_chemical_template(
     -----
     Runs the same preflight as assess_chemical_template before copying or assigning.
     Only absent supported state fields are filled; explicit conflicts fail. No
-    atom, edge, isotope, protomer or geometry is generated. Connectivity coverage
+    atom, isotope, protomer or geometry is generated. The default adds no edge;
+    explicit completion transfers missing template edges with declared provenance.
+    Connectivity coverage
     is justified by the exhaustive map to the declared complete template; this
     does not independently certify valence or template correctness. Stable atom
     identity/membership, structures, units, box and frame/state associations are
@@ -119,5 +133,6 @@ def apply_chemical_template(
         chemical_state,
         template_chemical_state,
         caller,
+        connectivity_policy,
     )
     return apply(molecular_system, report, source, caller)

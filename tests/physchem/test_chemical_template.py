@@ -544,6 +544,12 @@ source = fixture['_source']()
 output = msm.physchem.apply_chemical_template(source, **fixture['_options'](source))
 assert output['report']['status'] == 'applied'
 assert output['report']['attribution']['items']
+source.topology.remove_bonds([4])
+output = msm.physchem.apply_chemical_template(
+    source, **fixture['_options'](source), connectivity_policy='complete_from_template')
+assert output['report']['status'] == 'applied'
+assert len(output['report']['added_bonds']) == 1
+assert output['molecular_system'].get_n_atoms() == 6
 assert 'rdkit' not in sys.modules and 'ackredit' not in sys.modules
 """
     run = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True)

@@ -169,6 +169,16 @@ ChemicalStates distinguishes implicit hydrogen counts, bracket-declared atom-lev
 explicit hydrogen counts (`n_explicit_hydrogens`), and real indexed H atoms. Native
 and H5MSM round trips preserve the annotations without adding coordinate rows.
 
+{ref}`Explicit template preparation <Tutorial_Chemical_Templates>` can fill missing
+assignments in a selected state. With explicit `complete_from_template` policy,
+it can also add missing declared covalent edges to an incomplete graph. Components
+are then rebuilt in that state, with new indices/IDs and unknown names/types;
+stable atom order, group/molecule inventory, other states and structures stay
+intact. This returns an independent MolSys, invalidates its named interaction
+observations when chemistry changes, and supplies a detached bond-index map.
+The original system remains unchanged. Template transfer does not select
+protonation, create missing atoms or supply hydrogen coordinates.
+
 The explicit {ref}`fixed-state H operation <Tutorial_Fixed_State_Hydrogens>`
 can materialize those counts on a prepared ligand. Declared aromatic bonds may
 use fractional order 1.5 without an integer order; nonaromatic bonds still need

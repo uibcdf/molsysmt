@@ -16,8 +16,10 @@ supersedes: []
 
 **Reported:** 2026-10-02, from uibcdf/pharmacophoremt#22.
 **Status:** Bounded experimental public tools implemented and contract-tested on
-2026-10-03. Representation normalization, native preparation-report attachment
-and real consumer acceptance remain pending; this issue remains partial.
+2026-10-03, extended with explicit graph completion on 2026-10-04. Consumer-reported
+isolated-ligand integration is available. Curated polymer preparation, representation
+normalization, native preparation-report attachment and complete receptor/biological
+acceptance remain pending; this issue remains partial.
 
 ## What
 
@@ -274,7 +276,9 @@ the compiled connectivity primitive instead of adding a separate graph engine.
 
 The `explicit_atoms` policy requires zero stored virtual H counts. A separately
 declared `stored_counts` template permits a heavy-only input without inventing H
-atoms or geometry. Neither operation reconciles missing/conflicting edges.
+atoms or geometry. The initial/default policy reconciles neither missing nor
+conflicting edges. The explicit completion extension below adds absent declared
+template edges; conflicting source relationships remain unsupported.
 Unknown template fields, dative/cut graphs, ambiguous references, and representations
 requiring normalization cannot produce a compatible report. Supported bond-stereo
 reference atoms follow remapped endpoint orientation and validated neighborhoods.
@@ -301,8 +305,9 @@ Remaining work is explicit:
   differing aromatic/Kekule or stereo-reference representations as equivalent.
 - Decide the native/versioned preparation-provenance attachment contract without
   competing chemical stores; retain the detached report externally meanwhile.
-- Complete fixed-state H placement separately in #300; no template-coordinate
-  adoption is introduced as a shortcut.
+- Compose the separately delivered fixed-state H placement under resolved #300;
+  no template-coordinate adoption is introduced as a shortcut. Polymer H geometry
+  and consumer receptor acceptance remain distinct from the ligand controls.
 
 Public lifecycle documentation covers Foundations, the paired Toolbox/Cookbook
 contracts, API autosummary/stability registry and the narrative/function inventory
@@ -427,7 +432,93 @@ rejection for template-prepared original 181L BNZ. Independent provider
 reproduction on 2026-10-04 shows that all six bond aromatic flags and fractional
 orders of 1.5 are already assigned by the template. The actual defect is an
 unconditional integer bond_order column requirement, tracked by
-uibcdf/molsysmt#318. No new perception/attachment API or guessed Kekule orders
-are required to correct this rejection. Detached perception under resolved #314
-remains independent; positive provider and consumer composition must be qualified
-before declaring the complete docking workflow ready.
+resolved uibcdf/molsysmt#318. Positive provider tests and a public DockingMT
+preparation probe now pass with the original six-carbon pose preserved. No new
+perception/attachment API or guessed Kekule orders were required. Detached
+perception under resolved #314 remains independent; this is not complete docking
+workflow acceptance.
+
+## Explicit connectivity completion — 2026-10-04
+
+**Implemented and contract-tested:** Both experimental public tools now accept
+keyword-only `connectivity_policy`. `require_same_graph` remains the default and
+preserves all previous positional arguments/defaults. Explicit
+`complete_from_template` adds only missing declared covalent edges from a complete
+connected template with an exhaustive atom map. The source can contain disconnected
+fragments, but cannot claim complete connectivity when its edges differ. Unexpected
+source edges, known chemical conflicts, incomplete/disconnected templates and
+unsupported representations still block application before changing either input.
+
+This is a general prerequisite for residue/polymer preparation, not a residue
+template generator. Existing standard-residue references primarily supply heavy
+geometry/connectivity, not complete charges/orders/aromaticity and explicit
+terminal/HIS/protonation states. A curated chemical dataset and assembly policy
+remain necessary. No residue chemistry is guessed by this extension.
+
+The operation reuses native bond-table normalization and compiled connectivity
+reconstruction. New edges have `user_defined` evidence, backed by the caller's
+detached template declaration; existing source edge evidence stays intact.
+Assessment records original template bond indices and mapped source pairs.
+Application adds final bond indices and an int64 `(n_original_bonds, 2)`
+`source_bond_correspondence`, because canonical insertion can reorder existing
+bonds. The unchanged-graph route constructs an identity map without an extra
+edge lookup dictionary. This is an implementation observation, not a benchmark.
+
+Only the chosen state's graph/assignments/components change. Native component
+indices/IDs are rebuilt and component names/types remain unknown; stable atom
+order/IDs, group/molecule/chain/entity inventory, unselected states, structures,
+units/box/time and frame/state associations are preserved. Named analyses on the
+returned copy are invalidated through the existing ChemicalStates lifecycle.
+Repeated preparation without changes preserves attached analyses. The report stays
+detached; chemical fields and component membership persist through public H5MSM 0.5.
+
+**Analytical and contract controls:** A caller-declared zwitterionic glycylglycine
+heavy template specifies C4H8N2O3, ammonium/carboxylate terminal choices and one
+peptide C–N bond. Completing that absent bond joins two source fragments, retains
+both GLY groups and all coordinate values, and transfers exactly the declared
+charges/H counts. Stored counts do not generate H atoms. Synthetic coordinates
+are preservation controls, not physically optimized peptide conformations.
+Additional controls cover a source without edges, a nonreference target state,
+permuted axes, coordinate-free native/H5MSM forms, newly added trans-2-butene
+double-bond stereo references and transactional conflict failures. A fresh
+subprocess denies RDKit/Ackredit imports while successfully completing a native
+template graph. No environmental protonation, conformer or performance claim
+is made.
+
+The combined regression completed **96 passed in 21.55 s**, with two existing
+pandas FutureWarnings in the H5MSM ChemicalStates reader:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+  tests/physchem/test_chemical_template_connectivity.py \
+  tests/physchem/test_chemical_template.py tests/physchem/test_chemical_template_est.py \
+  tests/native/test_chemical_states.py \
+  tests/native/test_molsys_chemical_state_association.py \
+  tests/native/test_molsys_interactions.py --doctest-modules \
+  molsysmt/physchem/assess_chemical_template.py \
+  molsysmt/physchem/apply_chemical_template.py
+```
+
+This is Python 3.13.14 source-checkout evidence under the bounded #237 migration
+route, with the same released ArgDigest 0.13.0 override recorded above. It is not
+required Python 3.14 matrix qualification or immutable installed delivery.
+
+All three Python blocks in the updated Toolbox tutorial execute successfully in
+sequence. Foundations, Cookbook and course Module 12 explain explicit completion,
+component rebuilding and bond remapping. Docstrings, the maintained course
+validator, public API registry/signature checks, dependency imports, developer-guide
+validation/indexes and repository-wide Ruff check/format checks pass. Sphinx HTML
+build exits 0 with existing course/navigation/native-class reference warnings;
+the chemical-template tutorial and API entries emit no warnings. This is not a
+globally clean documentation gate; the tracked baseline debt remains unchanged.
+
+**Consumer-reported checkpoint:** Feedback on #298 records public isolated-ligand
+integration from PharmacophoreMT and DockingMT. Those receipts qualify template
+transfer for their declared inputs; they do not complete the requested receptor
+scope. No sibling source was changed during this provider extension.
+
+**Next:** Establish provider-owned, versioned residue chemical templates with
+explicit terminal/protonation/HIS choices, compose declared polymer links, retain
+actual dataset provenance, and exercise the observed receptor through a supported
+scope. Preserve unsupported/heavy-incomplete portions as unassessed. Partial
+template preparation must not certify unrelated full-system chemistry.

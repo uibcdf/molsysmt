@@ -77,7 +77,7 @@ def _issue(report, status, reason, *, side=None, field=None, index=None):
     )
 
 
-def _edges(context, report, side):
+def _edges(context, report, side, *, allow_fragments=False):
     from molsysmt._private.rust_backend import (
         get_component_index_from_bonded_atom_pairs,
     )
@@ -165,7 +165,7 @@ def _edges(context, report, side):
                     index=index,
                 )
     components = get_component_index_from_bonded_atom_pairs(pairs, np.int64(n_atoms))
-    if not n_atoms or len(np.unique(components)) != 1:
+    if not n_atoms or (not allow_fragments and len(np.unique(components)) != 1):
         _issue(report, "unassessed", "isolated_connected_component_required", side=side)
     context["edges"] = edges
     return edges
@@ -219,6 +219,7 @@ def evaluate(
     chemical_state,
     template_chemical_state,
     caller,
+    connectivity_policy="require_same_graph",
 ):
     """Return a detached preflight plus private contexts; mutate neither input."""
     from molsysmt import __version__
@@ -250,8 +251,12 @@ def evaluate(
     report = dict(
         schema="molsysmt.chemical_template@1",
         status="unassessed",
-        method="explicit_template_correspondence",
-        rule_version=1,
+        method=(
+            "explicit_template_graph_completion"
+            if connectivity_policy == "complete_from_template"
+            else "explicit_template_correspondence"
+        ),
+        rule_version=2 if connectivity_policy == "complete_from_template" else 1,
         source=dict(
             forms=get_form(molecular_system),
             n_atoms=ns,
@@ -266,6 +271,8 @@ def evaluate(
         ),
         atom_correspondence=mapping.copy(),
         template_provenance=provenance,
+        connectivity_policy=connectivity_policy,
+        added_bonds=[],
         assigned_fields=[],
         preserved_fields=[],
         issues=[],
@@ -380,7 +387,12 @@ def evaluate(
         sorted(hydrogen_indices), dtype=np.int64
     )
     source_edges, template_edges = (
-        _edges(source, report, "source"),
+        _edges(
+            source,
+            report,
+            "source",
+            allow_fragments=connectivity_policy == "complete_from_template",
+        ),
         _edges(reference, report, "template"),
     )
     if ref_state.connectivity_completeness != "complete":
@@ -392,7 +404,14 @@ def evaluate(
             tuple(sorted((atom_map[a], atom_map[b]))): (a, b, index)
             for (a, b), index in template_edges.items()
         }
-        if set(mapped_edges) != set(source_edges):
+        missing = set(mapped_edges) - set(source_edges)
+        unexpected = set(source_edges) - set(mapped_edges)
+        can_complete = (
+            connectivity_policy == "complete_from_template"
+            and state.connectivity_completeness != "complete"
+            and not unexpected
+        )
+        if unexpected or (missing and not can_complete):
             _issue(
                 report,
                 "conflict",
@@ -406,15 +425,19 @@ def evaluate(
                 sorted(set(source_edges) - set(mapped_edges)), dtype=np.int64
             ).reshape(-1, 2)
         else:
-            report["coverage"]["graph"] = "same_stored_relationships"
+            report["coverage"]["graph"] = (
+                "completion_from_declared_template"
+                if missing
+                else "same_stored_relationships"
+            )
             report["coverage"]["completeness_justification"] = (
                 "exhaustive_mapping_to_declared_complete_template"
             )
-        for pair in sorted(set(mapped_edges) & set(source_edges)):
+        for pair in sorted(set(mapped_edges)):
             _, _, ti = mapped_edges[pair]
-            si = source_edges[pair]
+            si = source_edges.get(pair)
             ta = _value(ref_state.bonds, "is_aromatic", ti)
-            sa = _value(state.bonds, "is_aromatic", si)
+            sa = None if si is None else _value(state.bonds, "is_aromatic", si)
             aromatic_difference = ta is True or sa is True
             kind = _value(ref_state.bonds, "bond_type", ti)
             order = _value(ref_state.bonds, "bond_order", ti)
@@ -440,10 +463,20 @@ def evaluate(
                     side="template",
                     index=ti,
                 )
+            added = dict(
+                template_bond_index=ti,
+                atom1_index=int(pair[0]),
+                atom2_index=int(pair[1]),
+                evidence="user_defined",
+            )
             for field in _BOND_FIELDS:
                 value = _value(ref_state.bonds, field, ti)
                 if field in {"stereo_atom1_index", "stereo_atom2_index"}:
-                    source_first = _value(state.bonds, "atom1_index", si)
+                    source_first = (
+                        pair[0]
+                        if si is None
+                        else _value(state.bonds, "atom1_index", si)
+                    )
                     template_first = atom_map[
                         _value(ref_state.bonds, "atom1_index", ti)
                     ]
@@ -458,6 +491,10 @@ def evaluate(
                     )
                     value = _value(ref_state.bonds, column, ti)
                     value = None if value is None else atom_map.get(value)
+                if si is None:
+                    if value is not None:
+                        added[field] = value
+                    continue
                 _compare(
                     report,
                     state.bonds,
@@ -468,6 +505,8 @@ def evaluate(
                     aromatic=aromatic_difference
                     and field in {"bond_order", "fractional_bond_order", "is_aromatic"},
                 )
+            if si is None and can_complete:
+                report["added_bonds"].append(added)
     report["status"] = (
         "conflict"
         if any(i["status"] == "conflict" for i in report["issues"])
@@ -510,16 +549,55 @@ def apply(molecular_system, report, source, caller):
             table[record["field"]] = pd.NA
         table.at[record["index"], record["field"]] = record["value"]
     state._normalize_atom_attribute_columns()
+    added_bonds = report["added_bonds"]
+    original_count = len(state.bonds)
+    if added_bonds:
+        original_pairs = state.bonds[["atom1_index", "atom2_index"]].to_numpy(
+            dtype=np.int64
+        )
+        added_table = pd.DataFrame(
+            [
+                {k: v for k, v in bond.items() if k != "template_bond_index"}
+                for bond in added_bonds
+            ]
+        )
+        state.bonds = Topology._concatenate_bond_tables(state.bonds, added_table)
     changed = (
-        bool(report["assigned_fields"]) or state.connectivity_completeness != "complete"
+        bool(report["assigned_fields"])
+        or bool(added_bonds)
+        or state.connectivity_completeness != "complete"
     )
     state.connectivity_completeness = "complete"
     invalidated = sorted(result.interactions) if changed else []
     if changed:
         result.chemical_states = states
+    if added_bonds:
+        with result.topology._using_chemical_state(index):
+            result.topology.rebuild_components(
+                redefine_types=False, redefine_names=False
+            )
     applied = deepcopy(report)
     applied["status"] = "applied"
     applied["invalidated_analysis_names"] = invalidated
+    if added_bonds:
+        final_pairs = state.bonds[["atom1_index", "atom2_index"]].to_numpy(
+            dtype=np.int64
+        )
+        final_index = {
+            tuple(sorted(pair)): i for i, pair in enumerate(final_pairs.tolist())
+        }
+        applied["source_bond_correspondence"] = np.asarray(
+            [
+                (i, final_index[tuple(sorted(pair))])
+                for i, pair in enumerate(original_pairs.tolist())
+            ],
+            dtype=np.int64,
+        ).reshape(-1, 2)
+        for bond in applied["added_bonds"]:
+            bond["bond_index"] = final_index[(bond["atom1_index"], bond["atom2_index"])]
+    else:
+        indices = np.arange(original_count, dtype=np.int64)
+        applied["source_bond_correspondence"] = np.column_stack((indices, indices))
     from molsysmt import _ackredit
     from molsysmt._private.scientific_citations import SOFTWARE
 

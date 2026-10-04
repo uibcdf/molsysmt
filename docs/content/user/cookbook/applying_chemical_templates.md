@@ -15,7 +15,8 @@ template construction. This narrative recipe records the decisions for real inpu
 
 ## Establishing the input
 
-1. Extract one isolated connected component; retain its map to the complete system.
+1. Extract the atoms of one intended component; retain their map to the complete
+   system. The default requires its stored graph to be connected.
 2. Identify the intended source and template chemical states explicitly.
 3. Curate the template's identity, revision, source URI/checksum and hydrogen policy.
 4. Supply an exhaustive map from template indices to source indices, including all
@@ -26,6 +27,27 @@ For a heavy-only deposited ligand, a heavy-only template with declared stored H
 counts is a different input from a hydrogen-complete template. Applying it does
 not create donor-H coordinates. Hydrogen placement must be a separate fixed-state
 operation; importing ideal template coordinates would change the observed pose.
+
+## Declaring missing connectivity
+
+If the source graph is incomplete, you can explicitly pass
+`connectivity_policy='complete_from_template'` to both assessment and application.
+Supply a connected, chemically prepared template with exhaustive correspondence
+over the existing atoms. Review its proposed `added_bonds` before applying. No
+extra source edge is removed, known assignment overwritten, or missing atom created.
+Keep `require_same_graph` when missing bonds are not part of your preparation decision.
+
+For a peptide, the template must declare the peptide links, terminal chemistry
+and protonation choices, including histidine variants when present. An extracted
+pocket is not necessarily a chemically closed polymer: decide its boundary chemistry
+explicitly rather than treating cut peptide bonds as complete residues. The tools
+currently transfer your prepared template; they do not generate residue/polymer
+chemical templates or certify coverage of the remainder of a receptor.
+
+After adding bonds, inspect the old-to-final `source_bond_correspondence` and new
+edge indices in the detached report. Connected-component indices/IDs are rebuilt
+in the selected state; component names/types become unknown. Group and molecule
+inventory, other states, existing frame/state associations and pose remain intact.
 
 ## Applying, recognizing and saving
 
@@ -46,7 +68,7 @@ software version as the original producer version.
 ## Handling unresolved cases
 
 Keep an unresolved assessment when chemistry conflicts, required fields are
-missing, the graph needs reconciliation or aromatic/stereo normalization is not
+missing, the graph needs unsupported reconciliation or aromatic/stereo normalization is not
 supported. Application raises a catalog-backed structural error containing that
 report and changes neither input. Do not hide it with an empty interaction result,
 neutral-charge fallback or an unconditional `complete` assignment.
