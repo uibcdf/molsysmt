@@ -92,8 +92,16 @@ jobs:
           create-args: >-
             python=${{ matrix.cfg.python-version }}
 
+      - name: Select the pinned minimal Rust toolchain
+        shell: bash -l {0}
+        run: |
+          rustup toolchain install 1.97.1 --profile minimal
+          rustc +1.97.1 --version
+
       - name: Install package
         shell: bash -l {0}
+        env:
+          RUSTUP_TOOLCHAIN: 1.97.1
         run: |
           set -euo pipefail
           python -m pip install --no-deps \

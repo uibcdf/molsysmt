@@ -626,3 +626,10 @@ factory. Observed context selection, missing-heavy/OXT repair, hydrogen placemen
 correspondence, reinsertion, scoped full-system chemistry and native report
 attachment still need acceptance on the requested receptor. uibcdf/molsysmt#298
 remains partial and open.
+
+**Hosted checkpoint:** Commit `9615bf1fe96e0ea6922b0cdc2365d25223d5a701`
+passed bundled-data, Ruff, developer-guide, MolSysSuite-policy and Conda-governance
+controls. Its smoke job failed before compilation/tests because Rustup collided
+with an existing Clippy binary. The separate source-build provisioning defect is
+tracked in uibcdf/molsysmt#319; local chemical evidence above remains applicable,
+but this original hosted run provides no smoke acceptance.
