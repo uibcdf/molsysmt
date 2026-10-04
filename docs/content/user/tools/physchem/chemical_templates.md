@@ -321,6 +321,16 @@ separately and is not embedded in MolSys or H5MSM.** Keep it with your workflow
 record if you need template-specific provenance. The report contains NumPy arrays
 and is not directly JSON serializable.
 
+After preparing components separately, you can use `msm.merge()` to construct a
+new analysis system. Its atom indices differ from the original complex; retain
+the extraction maps and mark generated atoms as having no deposited source index.
+Full-graph recognizers can then examine the included declared chemistry before
+filtering an interface. The {ref}`prepared-interface recipe
+<cookbook-prepared-interface>` demonstrates named interactions and H5MSM
+roundtrips. This does not extend the exhaustive template-map contract to partial
+assignment on an arbitrary complex, certify excluded chemistry or refine H
+geometry in the environment.
+
 Successful application returns portable executed-MolSysMT attribution and credits
 it inside an optional Ackredit scope. Assessment and failed application do not
 credit completed preparation. Loading chemistry or inspecting a saved report

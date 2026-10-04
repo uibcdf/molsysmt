@@ -18,7 +18,8 @@ supersedes: []
 **Status:** Bounded experimental public tools implemented and contract-tested on
 2026-10-03, extended with explicit graph completion and a versioned native peptide
 reference factory and declared-aromatic normalization on 2026-10-04. A bounded
-observed 1QKU fragment is contract-tested. Consumer-reported isolated-ligand integration is
+observed 1QKU fragment and its explicit composition with prepared EST are
+contract-tested. Consumer-reported isolated-ligand integration is
 available. General polymer context/repair/mapping/reinsertion, other representation
 normalization, native preparation-report attachment and complete receptor/biological
 acceptance remain pending; this issue remains partial.
@@ -720,3 +721,80 @@ validated handling of the lysine gaps, full-system chemistry reinsertion,
 report attachment/persistence and consumer biological acceptance. #223 covers
 loss-aware PDBQT atom projection, not a general chemistry reinsertion operation.
 Keep #298 partial and do not reinterpret that issue's scope as this missing API.
+
+## Prepared interface composition checkpoint — 2026-10-04
+
+**Contract-tested:** reuse public `msm.merge` to compose the separately prepared
+304–550 receptor fragment and EST after fixed-state H addition. This distinct
+analysis system has 4,047 atoms, 4,088 bonds and 32 aromatic rings. The receptor
+occupies indices 0–4,002; EST occupies 4,003–4,046. All 1,995 observed heavy-atom
+positions and their IDs remain unchanged. The original 6,596-atom source stays
+chemically partial and unmodified. This does not implement full-source chemical
+reinsertion or assess excluded receptor residues.
+
+The declared source map retains the original deposited atom indices for 1,975
+receptor and 20 EST atoms, with `-1` for 2,028 receptor H and 24 ligand H. IDs
+retained across independent expansions may repeat; they are not an index map.
+Declare the inspected map using the public `InteractionsDict` conversion boundary,
+with `source_n_atoms=6596` and `source_id='rcsb:1QKU:deposited-atom-order'`.
+Typed validation checks the map's bounds and uniqueness of known source indices;
+the declaration does not authenticate the source. Local participant axes,
+producer software and evaluated coverage stay unchanged.
+
+Public full-graph chemical recognizers can assess the included declared graph,
+then limit geometric detection to the explicit receptor/EST interface. Native
+and H5MSM file inputs are tested with `selection_mode='between'`, `pbc=False`
+and repeated structure selection `[0, 0]`, deduplicated to evaluated structure 0.
+The selected definitions give these geometry checkpoints:
+
+| Named analysis | Method / profile | Occurrences |
+| --- | --- | ---: |
+| hydrophobic | `atom_pair_distance` / default chemical profile | 12 |
+| hbonds | `donor_acceptor_distance_angle` / `smarts_donor_acceptor` | 0 |
+| pi_pi | `plane_angle_intersection` / `smarts_5_6` | 0 |
+
+Hydrophobic pair distances are independently recalculated from coordinates and
+checked against the 0.45 nm cutoff and stored measures. Ligand `incident` queries
+retain every interface occurrence, `internal` yields none, and explicit
+`between(..., exclusive=True)` queries agree. Both zero-result analyses retain
+evaluated-empty structure coverage. These counts do not establish biological
+absence, method parity or a validated conformer. Generated H have only local
+geometry, with no environment optimization. Independent site/coordinate inspection
+found nearby donor–acceptor pairs failing the H-angle criterion; future explicit
+environment-aware refinement is recorded in
+[uibcdf/molsysmt#323](refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md).
+
+Public H5MSM 0.5 roundtrip retains the composed system and all three named
+analyses, occurrence indices, participant arrays, declared source maps, evaluated
+coverage, original producer versions, attribution, parameters, measure units and
+values. The preparation reports remain detached sidecars; merging does not attach
+their template-specific provenance to MolSys or H5MSM. Source chemical completeness
+cannot be elevated by preparing only this selected graph.
+
+Durable evidence: `tests/physchem/test_chemical_template_receptor.py`. Executed:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/physchem/test_chemical_template_receptor.py
+```
+
+The expanded composition checkpoint passed six tests in 34.36 s, with
+one pre-existing pandas H5MSM reader future warning. These are contract controls,
+not a memory/timing benchmark or consumer biological acceptance. Linux local
+environment, Python 3.13.14 under the bounded #237 exception, released ArgDigest
+0.13.0, NumPy 2.4.6, pandas 2.3.3 and RDKit 2025.09.5; base source
+`879c13894fbea7c09dd6b3c62f4ec458e61c1780` plus this checkpoint's test/doc changes.
+The public recipe was independently executed through its query and named H5MSM
+roundtrip. Ruff checks and formatting, developer-guide validation, course structure
+and the API stability registry passed. The Sphinx HTML build exited successfully;
+it retains the pre-existing course label and MolSys API-document warnings, without
+a new prepared-interface reference warning. The public recipe, tool guide, MolSys
+foundation and Module 12 now explain the
+new analysis axis and scope. No new runtime API was needed for this composition.
+
+Remaining: general polymer context and boundary mapping, supported handling of
+the excluded lysine gaps, general representation/stereo reconciliation, full-system
+chemistry reinsertion, native preparation-report attachment/persistence, and
+consumer complete receptor/biological acceptance. Keep #298 partial. The future
+refinement proposal is not a silent prerequisite or a claim that minimization
+has already run.

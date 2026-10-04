@@ -184,6 +184,84 @@ the curated H5MSM template without the RDKit used to produce it. This is evidenc
 for chemical transfer and pose preservation, not biological acceptance of the
 consumer's complete ERalpha workflow.
 
+(cookbook-prepared-interface)=
+## Composing a prepared interface
+
+You can compose the separately prepared receptor fragment and ligand with
+`msm.merge()` and calculate interactions on that new system. This gives the
+recognizers a declared chemical graph for every included atom. A selection of
+participants alone does not restrict full-graph chemical recognition on the raw
+complex; unprepared components can still prevent that calculation.
+
+For the bounded 1QKU scenario above, fixed-state H addition followed by merging
+produces 4,047 atoms: 4,003 in the receptor fragment and 44 in EST. All 1,995
+deposited heavy-atom coordinates remain unchanged. The included chemical graph
+has 4,088 bonds and 32 aromatic rings. Connectivity completeness applies to
+this new system, not to the original 6,596-atom complex or excluded residues.
+
+The following continuation assumes `molsys_A` and `molsys_B` are those prepared,
+H-added native systems, and `molsys` is the original observed complex. Retain
+each extraction's source atom indices and extend its map with `-1` for each
+appended H. The supplied `atom_source_indices_A` and `atom_source_indices_B`
+therefore map every local atom, including generated atoms, to that same original
+index domain. String atom IDs can repeat across independently expanded systems;
+IDs do not establish this correspondence. Use matching structures and compatible
+states when merging, and retain the separate preparation reports.
+
+```python
+import numpy as np
+
+n_A = molsys_A.get_n_atoms()
+n_B = molsys_B.get_n_atoms()
+molsys_C = msm.merge([molsys_A, molsys_B], to_form='molsysmt.MolSys')
+indices_A = np.arange(n_A)
+indices_B = np.arange(n_A, n_A + n_B)
+analysis = msm.interactions.hydrophobic.get_hydrophobic_interactions(
+    molsys_C, selection=indices_A, selection_2=indices_B,
+    selection_mode='between', structure_indices=[0], pbc=False,
+)
+
+# Declare the inspected local-to-source map through the typed public form.
+payload = msm.convert(analysis, to_form='molsysmt.InteractionsDict')
+payload.data['atom_source_indices'] = np.concatenate(
+    [atom_source_indices_A, atom_source_indices_B]
+)
+payload.data['source_n_atoms'] = molsys.get_n_atoms()
+payload.data['source_id'] = 'rcsb:1QKU:deposited-atom-order'
+analysis = msm.convert(payload, to_form='molsysmt.Interactions')
+molsys_C.interactions = {**molsys_C.interactions, 'hydrophobic': analysis}
+
+visible = analysis.query(
+    structure_indices=[0], atom_indices=indices_B, mode='incident'
+)
+msm.convert(molsys_C, to_form='file:h5msm',
+            output_filename='prepared_interface.h5msm')
+```
+
+This source label is a caller declaration, not authentication. Typed conversion
+checks map bounds and uniqueness of known source indices; it retains the local
+participant indices, evaluated coverage and original producer versions. A
+missing source index (`-1`) does not make a generated atom an observed atom.
+
+The offline control produces 12 hydrophobic observations using the default
+`atom_pair_distance` method and its chemical profile. H-bond detection with
+`method='donor_acceptor_distance_angle', profile='smarts_donor_acceptor'` and
+π–π detection with `method='plane_angle_intersection', profile='smarts_5_6'`
+produce zero observations for this locally H-added geometry, with structure 0
+explicitly evaluated. Store these as separate named analyses using the same
+source map; zero observations must remain distinct from an unevaluated structure.
+Local H geometry has not been refined in the environment, so these counts do not
+establish biological absence. Future refinement is tracked by
+[MolSysMT #323](https://github.com/uibcdf/molsysmt/issues/323).
+
+The native and H5MSM-input controls verify queries by structure and atoms, between
+selections, independent hydrophobic pair distances, named-result roundtrips,
+occurrence indices, source maps, parameters, units and producer attribution in
+`tests/physchem/test_chemical_template_receptor.py`. H5MSM saves the new system
+and its analyses; it does not reinsert chemistry into the raw complex or attach
+the detached preparation reports. Complete receptor preparation and consumer
+biological acceptance remain separate work.
+
 The bounded public regression workflow covers reordered atoms, multiple structures
 and states, nondefault units, H5MSM roundtrips and an independent methanol
 recognition control in `tests/physchem/test_chemical_template.py`. Consumer-specific

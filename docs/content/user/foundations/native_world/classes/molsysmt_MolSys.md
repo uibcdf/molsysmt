@@ -192,6 +192,16 @@ connectivity completeness and all atom assignments. It does not perceive
 aromaticity. Retain its original-order report separately from H5MSM chemical
 values; changing the representation invalidates named interactions on the copy.
 
+Separately prepared components can form a new analysis system through
+`msm.merge()`. This concatenates their atom axes and declared chemistry; completeness
+describes only the included graph. Preserve extraction maps to the original
+system and mark generated H with unknown source indices. Atom IDs are labels
+and may repeat across input components. The original partial complex remains
+unchanged, and detached preparation reports still need separate retention.
+See {ref}`Composing a prepared interface <cookbook-prepared-interface>` for a
+bounded receptor/ligand example with named interaction persistence. Local H
+placement does not establish an environment-optimized pose.
+
 The explicit {ref}`fixed-state H operation <Tutorial_Fixed_State_Hydrogens>`
 can materialize those counts on a prepared isolated component. Declared aromatic bonds may
 use fractional order 1.5 without an integer order; nonaromatic bonds still need
