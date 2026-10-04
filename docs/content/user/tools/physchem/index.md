@@ -8,6 +8,7 @@
 | [Get hydrogen inventory](get_hydrogen_inventory.md) | Separating indexed H neighbors from stored virtual H counts |
 | [Assess and apply chemical templates](chemical_templates.md) | Transferring missing assignments through an exhaustive declared atom map |
 | [Get peptide chemical template](chemical_templates.md#constructing-a-peptide-template) | Constructing declared residue, terminal and disulfide chemistry without coordinates |
+| {ref}`Normalize aromatic bond orders <Tutorial_Normalize_Aromatic_Bond_Orders>` | Canonicalizing already declared aromatic bonds while retaining original orders in a report |
 | [Get aromatic rings](get_aromatic_rings.ipynb) | Preparing rings from declared aromatic bonds |
 | [Get area buried](get_area_buried.ipynb) | Getting the buried surface area of elements in a molecular system |
 | [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |

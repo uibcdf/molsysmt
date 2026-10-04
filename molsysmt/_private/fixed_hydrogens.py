@@ -28,7 +28,7 @@ def _validate_pose(source, pairs):
         positions.shape != (1, source.get_n_atoms(), 3)
         or not np.isfinite(positions).all()
     ):
-        _fail("Fixed-state hydrogen addition needs one finite coordinate frame.")
+        _fail("Fixed-state hydrogen addition needs one finite coordinate structure.")
     displacement = positions[0, pairs[:, 1]] - positions[0, pairs[:, 0]]
     if np.any(np.linalg.norm(displacement, axis=1) <= 1e-10):
         _fail("Existing bonded atoms have coincident coordinates.")
