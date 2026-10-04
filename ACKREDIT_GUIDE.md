@@ -65,9 +65,13 @@ does not establish runtime adoption or published compatibility.
 
 The reviewed API under uibcdf/ackredit#75 provides `capture`,
 `Attribution` and `get_attribution` operations. Consumer adoption and published
-installation remain separate gates. The first reviewed contract is assigned to
-the **0.9.0 candidate**, pending immutable public delivery; older tags do not
-contain it. Its [compatibility contract](https://github.com/uibcdf/ackredit/blob/main/docs/content/user_guide/portable_attribution.md)
+installation remain separate gates. The first reviewed contract ships in
+public **Ackredit 0.9.0** on the `uibcdf` Conda channel; use `ackredit>=0.9.0`
+as its minimum version. The [installation evidence](https://github.com/uibcdf/ackredit/blob/main/docs/content/about/installation.md)
+records the exact noarch archive, Linux/macOS arm64 × Python 3.11–3.14 installed
+matrix and clean public Linux/Python 3.14 receiving check. Clients still qualify
+their own supported environments and releases. Older tags do not contain this
+API. Its [compatibility contract](https://github.com/uibcdf/ackredit/blob/main/docs/content/user_guide/portable_attribution.md)
 keeps schema 1 readable in later releases and versions structural changes with
 a new schema ID. Do not read private registries, copy renderers
 or treat journals of IDs as a portable bibliography. The MolSysMT pilot at

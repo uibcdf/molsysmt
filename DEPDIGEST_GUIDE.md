@@ -10,8 +10,10 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.5.0-dev`
-- Last synced: 2026-02-27
+- Source version: `depdigest@0.13.0`
+- Publication tracking: `uibcdf/depdigest#29`; source audit change: `uibcdf/depdigest#27`
+- Last source update: 2026-10-04
+- Consumer synchronization: tracked separately in `uibcdf/molsyssuite#95`
 
 ## What is DepDigest
 
@@ -155,6 +157,22 @@ Use the audit command to detect top-level imports of soft dependencies:
 ```bash
 depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm
 ```
+
+The scanner includes module/class control flow (`if`, `try`, loops, `with`,
+`match`) and retains original source lines. Function and async-function bodies
+remain delayed. Simple guards using explicit, unrebound `typing.TYPE_CHECKING`
+imports (including aliases and negation) exclude only their typing branch;
+other conditions are scanned conservatively. Rebindings, attribute assignments
+or wildcard imports disable that exemption. Compound guards are not evaluated.
+
+The audit scans source syntax, not call graphs or module reachability. Requested
+adapter modules may need a narrowly documented `--exempt-file` decision. Dynamic
+imports are outside its scope, and syntax-error files retain their historical
+empty result. Pair static checks with syntax checks and import regressions.
+Existing JSON keys, `--allow-violations` and explicit exemptions are preserved.
+Provider change and guide adoption are tracked in `uibcdf/depdigest#27` and
+`uibcdf/molsyssuite#95`; a provider source change does not update installed
+consumer versions or synchronized guide copies by itself.
 
 ## Required behavior (non-negotiable)
 
