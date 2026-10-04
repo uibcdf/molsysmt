@@ -82,6 +82,11 @@ def get(
 
     Notes
     -----
+    Native atom-level group identities preserve missing parent membership as
+    None per selected atom when the hierarchy is partially populated. The same
+    missing-parent mapping applies to group-based molecule/entity identities.
+    A wholly absent group table retains its group-identity None result.
+
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.

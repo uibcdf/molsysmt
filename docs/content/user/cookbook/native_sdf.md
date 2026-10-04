@@ -16,6 +16,8 @@ source = msm.systems['caffeine']['caffeine.sdf']
 molsys = msm.convert(source, to_form='molsysmt.MolSys')
 assert molsys.topology.n_atoms == 24
 assert molsys.topology.n_bonds == 25
+assert msm.get(source, n_structures=True) == 1
+assert msm.get(source, structure_indices=[], n_structures=True) == 0
 ```
 
 The ten source hydrogens remain atoms. Formal charges and bond orders belong

@@ -33,6 +33,29 @@ def _get_atom_state_attribute(item, attribute, indices="all"):
     return values.iloc[indices].to_list()
 
 
+def _get_hierarchy_from_atom(item, level, attribute, indices):
+    """Map nullable parent indices without assigning missing atoms to a group."""
+    if level == "group" and item.n_groups == 0:
+        return None
+    parents = item.atoms["group_index"]
+    if not is_all(indices):
+        parents = parents.iloc[indices]
+    if level in {"molecule", "entity"}:
+        parents = parents.map(item.groups["molecule_index"])
+    if level == "entity":
+        parents = parents.map(item.molecules["entity_index"])
+    if attribute != "index":
+        table = getattr(
+            item,
+            {"group": "groups", "molecule": "molecules", "entity": "entities"}[level],
+        )
+        parents = parents.map(table[level + "_" + attribute])
+    return [
+        None if pd.isna(value) else int(value) if attribute == "index" else value
+        for value in parents
+    ]
+
+
 @arg_digest(form=form)
 def get_formal_charge_from_atom(item, indices="all", skip_digestion=False):
     """
@@ -648,26 +671,13 @@ def get_group_id_from_atom(item, indices="all", skip_digestion=False):
     Returns
     -------
     list or None
-        The group IDs mapped to selected atoms, or None when no groups exist.
+        The group IDs mapped to selected atoms. Missing
+        parent membership yields None per atom; no groups yields None.
 
 
     .. versionadded:: 1.0.0
     """
-    if item.n_groups == 0:
-        return None
-
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    group_id_from_group = item.groups["group_id"].to_numpy()
-
-    if indices == "all":
-        output = group_id_from_group[group_index_from_atom].tolist()
-    else:
-        aux = group_index_from_atom[indices]
-        output = group_id_from_group[aux].tolist()
-
-    del group_index_from_atom, group_id_from_group
-
-    return output
+    return _get_hierarchy_from_atom(item, "group", "id", indices)
 
 
 @arg_digest(form=form)
@@ -688,26 +698,13 @@ def get_group_name_from_atom(item, indices="all", skip_digestion=False):
     Returns
     -------
     list or None
-        The group names mapped to selected atoms, or None when no groups exist.
+        The group names mapped to selected atoms. Missing
+        parent membership yields None per atom; no groups yields None.
 
 
     .. versionadded:: 1.0.0
     """
-    if item.n_groups == 0:
-        return None
-
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    group_name_from_group = item.groups["group_name"].to_numpy()
-
-    if indices == "all":
-        output = group_name_from_group[group_index_from_atom].tolist()
-    else:
-        aux = group_index_from_atom[indices]
-        output = group_name_from_group[aux].tolist()
-
-    del group_index_from_atom, group_name_from_group
-
-    return output
+    return _get_hierarchy_from_atom(item, "group", "name", indices)
 
 
 @arg_digest(form=form)
@@ -728,26 +725,13 @@ def get_group_type_from_atom(item, indices="all", skip_digestion=False):
     Returns
     -------
     list or None
-        The group types mapped to selected atoms, or None when no groups exist.
+        The group types mapped to selected atoms. Missing
+        parent membership yields None per atom; no groups yields None.
 
 
     .. versionadded:: 1.0.0
     """
-    if item.n_groups == 0:
-        return None
-
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    group_type_from_group = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = group_type_from_group[group_index_from_atom].tolist()
-    else:
-        aux = group_index_from_atom[indices]
-        output = group_type_from_group[aux].tolist()
-
-    del group_index_from_atom, group_type_from_group
-
-    return output
+    return _get_hierarchy_from_atom(item, "group", "type", indices)
 
 
 @arg_digest(form=form)
@@ -773,19 +757,7 @@ def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom].tolist()
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux].tolist()
-        del aux
-
-    del group_index_from_atom, molecule_index_from_group
-
-    return output
+    return _get_hierarchy_from_atom(item, "molecule", "index", indices)
 
 
 @arg_digest(form=form)
@@ -811,22 +783,7 @@ def get_molecule_id_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = molecule_id_from_molecule[output].tolist()
-
-    del group_index_from_atom, molecule_index_from_group, molecule_id_from_molecule
-
-    return output
+    return _get_hierarchy_from_atom(item, "molecule", "id", indices)
 
 
 @arg_digest(form=form)
@@ -852,22 +809,7 @@ def get_molecule_name_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = molecule_name_from_molecule[output].tolist()
-
-    del group_index_from_atom, molecule_index_from_group, molecule_name_from_molecule
-
-    return output
+    return _get_hierarchy_from_atom(item, "molecule", "name", indices)
 
 
 @arg_digest(form=form)
@@ -893,22 +835,7 @@ def get_molecule_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = molecule_type_from_molecule[output].tolist()
-
-    del group_index_from_atom, molecule_index_from_group, molecule_type_from_molecule
-
-    return output
+    return _get_hierarchy_from_atom(item, "molecule", "type", indices)
 
 
 @arg_digest(form=form)
@@ -934,22 +861,7 @@ def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = entity_index_from_molecule[output].tolist()
-
-    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-
-    return output
+    return _get_hierarchy_from_atom(item, "entity", "index", indices)
 
 
 @arg_digest(form=form)
@@ -975,29 +887,7 @@ def get_entity_id_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_id_from_entity = item.entities["entity_id"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = entity_index_from_molecule[output]
-    output = entity_id_from_entity[output].tolist()
-
-    del (
-        group_index_from_atom,
-        molecule_index_from_group,
-        entity_index_from_molecule,
-        entity_id_from_entity,
-    )
-
-    return output
+    return _get_hierarchy_from_atom(item, "entity", "id", indices)
 
 
 @arg_digest(form=form)
@@ -1023,29 +913,7 @@ def get_entity_name_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_name_from_entity = item.entities["entity_name"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = entity_index_from_molecule[output]
-    output = entity_name_from_entity[output].tolist()
-
-    del (
-        group_index_from_atom,
-        molecule_index_from_group,
-        entity_index_from_molecule,
-        entity_name_from_entity,
-    )
-
-    return output
+    return _get_hierarchy_from_atom(item, "entity", "name", indices)
 
 
 @arg_digest(form=form)
@@ -1071,29 +939,7 @@ def get_entity_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_type_from_entity = item.entities["entity_type"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group[group_index_from_atom]
-    else:
-        aux = group_index_from_atom[indices]
-        output = molecule_index_from_group[aux]
-        del aux
-
-    output = entity_index_from_molecule[output]
-    output = entity_type_from_entity[output].tolist()
-
-    del (
-        group_index_from_atom,
-        molecule_index_from_group,
-        entity_index_from_molecule,
-        entity_type_from_entity,
-    )
-
-    return output
+    return _get_hierarchy_from_atom(item, "entity", "type", indices)
 
 
 @arg_digest(form=form)

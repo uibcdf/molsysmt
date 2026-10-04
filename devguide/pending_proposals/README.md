@@ -63,11 +63,12 @@ Entries carrying front matter under
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
 
-### In progress (3)
+### In progress (4)
 
 - [`audit_dependency_contracts_across_packaging_environments_and_ci.md`](audit_dependency_contracts_across_packaging_environments_and_ci.md) — [#245](https://github.com/uibcdf/molsysmt/issues/245) — Audit dependency contracts across packaging, environments, and CI *(reproduced)*
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`extend_molsysmt_python_support_to_3_14.md`](extend_molsysmt_python_support_to_3_14.md) — [#237](https://github.com/uibcdf/molsysmt/issues/237) — Extend MolSysMT Python support to 3.14. *(measured)*
+- [`perceive_aromatic_atom_and_bond_flags_on_a_detached_declared_chemical_graph.md`](perceive_aromatic_atom_and_bond_flags_on_a_detached_declared_chemical_graph.md) — [#314](https://github.com/uibcdf/molsysmt/issues/314) — Perceive aromatic atom and bond flags on a detached declared chemical graph *(inspected)*
 
 ### Blocked (2)
 
