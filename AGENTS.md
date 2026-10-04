@@ -138,8 +138,10 @@ release gate. The short version:
   iteration warrants deferring tests. Omit it by default so the short smoke
   suite runs. Every skipped commit remains in the nightly full-suite backlog
   until a complete Linux matrix passes. Do not use `[skip ci]` on a pull
-  request or on a release candidate; pull requests run the full platform
-  matrix and candidate validation needs evidence for its exact commit.
+  request. Release candidates require all mandatory exact-candidate gates
+  executed and verified, including through the authorized manual route when
+  recovering an original producer and recorded artifact. A marker alone is not
+  a gate waiver or a reason to reject complete exact-candidate evidence.
 
 ## Releases, citation, and Zenodo
 
@@ -166,7 +168,9 @@ release gate. The short version:
 - Avoid adding new external dependencies without considering their impact; reuse existing libraries and utilities already in the project when possible.
 - Automated agents must respect sandboxing and should avoid network access unless explicitly required and permitted by the execution environment.
 - In native MolSysMT objects (for example, `molsysmt.Topology` and `molsysmt.MolSys`), element IDs (`*_id` fields) are stored as strings; normalize incoming numeric IDs to strings and keep this invariant in converters, rebuilders, and tests.
-- Always verify style and syntax safety using Ruff before committing or pushing. You must run the check command locally (e.g., `ruff check molsysmt`) or execute it via standard development environment scripts as needed.
+- Verify style and syntax safety using applicable Ruff checks before committing
+  or pushing executable/code changes (for example, `ruff check molsysmt`).
+  For prose-only changes, select the relevant documentation/governance checks.
 
 For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `devguide/`, `docs/`, `coding/`, `molsysmt/form/`, and `tests/`.
 
@@ -184,6 +188,21 @@ These guides are required reading for anyone developing this library. They descr
   GitHub Actions runs and the native-command fallback.
 - `PYTEST_RECEPTOR_GUIDE.md` — Required guide for compact, truth-preserving pytest output
   in local and hosted development.
+
+## Direct pushes and scoped local validation
+
+Follow [the common checkpoint policy](MOLSYSSUITE_GUIDE.md#direct-pushes-and-validation-checkpoints)
+for authorized internal direct pushes by `dprada` and `LMMV`. Batch focused local
+commits when remote visibility is unnecessary; a permitted interim CI skip is
+conditional, never the default after every locally checked change. Retain local
+results while tested code, inputs, environment and scope remain applicable.
+Normally finish with an unskipped head and inspect its applicable CI, or explicitly
+execute and verify those exact-head gates manually. Record missing evidence,
+untested scope, owning issue and recovery route; administrative checks do not
+clear full-suite backlog. External PRs, admission and publication require all
+mandatory executed gates for the exact candidate and required installed file.
+An authorized manual qualification retains the original producer and artifact
+bytes/digest; a marker alone neither waives a gate nor disqualifies that evidence.
 
 ## Modular reusable tools
 
