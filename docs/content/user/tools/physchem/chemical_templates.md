@@ -59,11 +59,14 @@ atoms and relationships, other states, original atom order/IDs and all structure
 remain unchanged. A proper subset retains the source state's global connectivity
 completeness, including `partial` or `unavailable`. The detached report records
 `source.atom_indices`, original completeness, `coverage.scope`, boundary evidence
-and result completeness. The initial subset route requires the same stored internal atom pairs; even
-`complete_from_template` leaves missing selected bonds unassessed. Complete an
-extracted component instead. Global component rebuilding after new edges needs
-separate preservation of unrelated component metadata. Scoped template evidence
-does not become a new native
+and result completeness. The default requires the same stored internal atom pairs.
+Explicit `complete_from_template` can add missing selected covalent edges in an
+incomplete state, including links between its fragments. Component indices can be
+renumbered; IDs, names and types are preserved for unchanged atom sets. Merged or
+split selected components lose labels that no longer describe the same atom set.
+If unrelated stored component membership disagrees with its connectivity, the
+assessment remains `unassessed` rather than reconciling it during scoped completion.
+Scoped template evidence does not become a new native
 per-component completeness store. H5MSM persists the updated assignments and
 global status, while this preparation report remains a separate record.
 
@@ -280,7 +283,9 @@ New edges can reorder the canonical bond table. In an applied report,
 old to final bond indices. Each `added_bonds` record contains the original
 `template_bond_index`, mapped atom pair, chemical fields and final `bond_index`.
 After adding edges, the selected state's components are rebuilt: component
-indices and IDs can change, and component names/types are left unknown. Stable
+indices can change. Whole-input completion regenerates IDs; selected-component
+completion retains IDs for unchanged atom sets. Names/types are retained only
+for unchanged atom sets and remain missing for merged or split components. Stable
 atom order, group/molecule inventory and other states remain unchanged. Retain
 the map when referring to original bond indices after this operation.
 

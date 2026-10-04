@@ -96,6 +96,8 @@ def assess_chemical_template(
     not elevated by a successful selected-component application. The report
     records full-source indices and the assessed scope. All coordinates remain
     untouched; coordinate-dependent selections are not supported.
+    Selected edge completion also checks that rebuilding will preserve unrelated
+    component memberships; an inconsistent outside partition stays unassessed.
 
     See Also
     --------

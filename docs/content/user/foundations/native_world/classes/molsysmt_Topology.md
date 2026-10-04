@@ -53,6 +53,21 @@ geometry for a topology-only system.
 
 ---
 
+## Rebuilding Components
+
+`topology.rebuild_components()` reconstructs the resolved chemical state's
+atom-level component indices from stored bond participation. Its default flags
+regenerate local string IDs and infer names/types. Set `redefine_ids=False`,
+`redefine_names=False` and `redefine_types=False` to retain those fields for
+components whose atom sets are exactly unchanged, even if component row indices
+are reordered. Merged, split or unresolved components cannot inherit those labels;
+their unrequested metadata remains missing. Other chemical states are untouched.
+Preserving labels does not certify complete connectivity or chemical identity.
+`molsys.rebuild_components(redefine_ids=False, redefine_types=False)` delegates to
+the same operation while continuing to infer names.
+
+---
+
 ## Ring Participants
 
 Covalent connectivity and aromatic flags belong to the selected `ChemicalStates`

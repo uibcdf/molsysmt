@@ -98,6 +98,9 @@ def apply_chemical_template(
     lifecycle. Mechanical parameters are copied but are not reparameterized.
     A proper atom subset leaves global connectivity completeness unchanged and
     records scoped evidence in the report; it does not certify unrelated atoms.
+    Completing selected bonds can renumber components but retains labels of
+    unchanged atom sets. Merged/split sets lose those labels. Unrelated stored
+    partitions needing reconciliation remain unassessed during preflight.
     No new atom is inserted and no selected atom is moved.
     The returned report retains template provenance separately; native/H5MSM
     chemical values do not yet embed that report or a new provenance table.

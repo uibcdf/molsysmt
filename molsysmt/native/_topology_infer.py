@@ -78,12 +78,17 @@ def infer_component_indices_from_topology(topology):
     topology : object
         Argument topology.
     """
+    return _component_indices_from_bonds(
+        topology.n_atoms, topology._get_chemical_state_bonds()
+    )
+
+
+def _component_indices_from_bonds(n_atoms, bonds):
+    """Infer the partition from one resolved state's stored participation flags."""
     from molsysmt._private.rust_backend import (
         get_component_index_from_bonded_atom_pairs,
     )
 
-    n_atoms = topology.n_atoms
-    bonds = topology._get_chemical_state_bonds()
     if "joins_components" in bonds.columns:
         participates = ~bonds["joins_components"].eq(False).fillna(False)
         bonds = bonds.loc[participates]
@@ -98,6 +103,29 @@ def infer_component_indices_from_topology(topology):
     return get_component_index_from_bonded_atom_pairs(
         bonded_atom_pairs, np.int64(n_atoms)
     ).astype(np.int64)
+
+
+def _unchanged_component_rows(old_indices, new_indices, n_old, n_new):
+    """Match component rows with identical atom sets in linear memory and time.
+
+    Unknown or out-of-table old memberships cannot justify metadata transfer.
+    A unique old row per new component excludes merges; equal atom counts exclude
+    splits. Component row numbers themselves are not component identity.
+    """
+    if not n_old or not n_new:
+        return np.empty(0, dtype=np.int64), np.empty(0, dtype=np.int64)
+    valid = (old_indices >= 0) & (old_indices < n_old)
+    known_indices = np.where(valid, old_indices, -1)
+    minimum = np.full(n_new, n_old, dtype=np.int64)
+    maximum = np.full(n_new, -1, dtype=np.int64)
+    np.minimum.at(minimum, new_indices, known_indices)
+    np.maximum.at(maximum, new_indices, known_indices)
+    new_rows = np.flatnonzero((minimum >= 0) & (minimum == maximum))
+    old_rows = minimum[new_rows]
+    old_counts = np.bincount(old_indices[valid], minlength=n_old)
+    new_counts = np.bincount(new_indices, minlength=n_new)
+    unchanged = new_counts[new_rows] == old_counts[old_rows]
+    return new_rows[unchanged], old_rows[unchanged]
 
 
 def _component_index_per_group(topology):

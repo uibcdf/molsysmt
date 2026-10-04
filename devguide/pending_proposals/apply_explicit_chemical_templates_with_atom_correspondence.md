@@ -827,7 +827,7 @@ only an exhaustive whole-input application justifies elevating it to complete.
 Chemical changes invalidate named coverage on the returned copy, while an
 unchanged repeated application retains coverage and the input stays untouched.
 
-**Bounded graph policy:** source/template selected internal pairs must agree.
+**Graph policy at this checkpoint (superseded below):** source/template selected internal pairs had to agree.
 Missing selected bonds remain `unassessed`, including under the explicit
 `complete_from_template` policy. Whole-input completion remains supported.
 Inspection of `Topology.rebuild_components` shows that redefining indices replaces
@@ -885,6 +885,75 @@ exception, released ArgDigest 0.13.0, NumPy 2.4.6, pandas 2.3.3 and RDKit
 checkpoint. These are contract controls, not memory/speed or biological benchmarks.
 
 Remaining: polymer boundary/context choices, supported repair of the excluded
-lysine gaps, representation/stereo reconciliation, scoped edge-completion metadata
-preservation, generated-atom reinsertion, native preparation-report attachment
+lysine gaps, representation/stereo reconciliation, generated-atom reinsertion,
+native preparation-report attachment
 and consumer complete receptor/biological acceptance. Keep #298 partial.
+
+## Scoped edge completion and reusable metadata preservation — 2026-10-04
+
+**Implemented and contract-tested:** selected `complete_from_template` now
+proposes and applies missing internal covalent edges on existing mapped atoms.
+The previous `selected_graph_completion_outside_scope` limit is removed; the old
+negative guard is replaced by positive native/Topology/H5MSM controls in
+`test_selected_missing_bond_completion_preserves_outside_metadata`.
+
+The provider defect uibcdf/molsysmt#324 fixes the general public native
+`Topology.rebuild_components` operation. False metadata flags now retain labels
+for exactly unchanged atom sets, independent of row indices. Merged, split,
+unknown or out-of-table memberships cannot inherit arbitrary old labels. The
+consumer calls this shared native tool rather than implementing a competing
+component reconstruction algorithm. Its existing Rust connectivity kernel and
+compact NumPy membership reductions remain the providers.
+
+Scoped completion preserves IDs, names and types for unchanged memberships;
+component indices can be renumbered. Joining selected fragments leaves the new
+component labels missing. Whole-input completion retains its local ID
+regeneration policy while preserving names/types for unchanged atom sets.
+No atom is created or moved. Existing bond indices are tracked through the
+old-to-final map; all unrelated relationships/chemical values, other chemical
+states, group/molecule inventory and structures stay unchanged. Named interaction
+coverage is invalidated only on the changed output copy. A proper subset still
+cannot elevate the state's global connectivity completeness.
+
+**Conservative preflight:** before a scoped edge completion, the shared
+connectivity/membership helpers verify that the global rebuild will not reconcile
+unrelated stored partitions. Missing, invalid or inconsistent outside membership
+remains `unassessed` with
+`external_component_membership_requires_reconciliation`. Resolve that hierarchy
+separately; selected template evidence is not authority to repair it. No unknown
+bond participation is converted into asserted chemical completeness. This
+additional check does not load coordinate arrays and costs one full native graph
+partition only when selected missing-edge completion is proposed.
+
+The detached report retains schema `molsysmt.chemical_template@1`; selected
+`complete_from_template` uses rule version 4. Default same-graph selected transfer
+remains version 3, and whole-input policies retain versions 1/2. H5MSM persists
+chemical values, component labels and conservative global status; preparation
+provenance remains a separate report. Public signatures and default policies do
+not change.
+
+Durable controls:
+
+- `tests/native/test_component_metadata_rebuild.py`: row reordering, independent
+  flags, merge/split rejection, unknown/out-of-table membership, forced rebuilds,
+  empty domains, independent chemical states and the MolSys wrapper.
+- `tests/physchem/test_chemical_template_selection.py`: native/Topology/H5MSM
+  selected completion, unchanged outside labels/values, fragment merging without
+  stale labels, policy opt-in, conservative completeness, unrelated partition
+  rejection, bond correspondence, copy semantics and analysis invalidation.
+- Existing whole-input completion and observed EST/receptor controls remain
+  separate from consumer biological acceptance.
+
+Remaining #298 scope: polymer boundary/context decisions, unsupported lysine gap
+repair, representation/stereo reconciliation, generated-atom reinsertion,
+preparation-report native persistence, and complete consumer receptor/biological
+acceptance. Environment-aware H refinement remains uibcdf/molsysmt#323. Keep
+#298 partial; the independently closed native provider bug does not close it.
+
+Validation command and environment are recorded in the resolved provider report
+`devguide/archive/resolved_bugs/component_rebuild_discards_unchanged_metadata_despite_preservation_flags.md`.
+The final affected suite passed **216 tests and public doctests in 81.46 s**,
+including observed EST and receptor controls. The 62 warnings are intentional
+legacy H5MSM notices and existing pandas future warnings. Dependency, Ruff,
+docstring, course and API gates passed; Sphinx HTML built with existing warnings.
+No speed, RAM or biological-quality benchmark is claimed by these checks.

@@ -160,23 +160,166 @@ def test_stored_cross_boundary_bond_is_unassessed_without_mutation():
     pd.testing.assert_frame_equal(state.bonds, before)
 
 
-def test_selected_missing_bond_completion_remains_unassessed_without_mutation():
+@pytest.mark.parametrize("form", ["native", "topology", "h5msm"])
+def test_selected_missing_bond_completion_preserves_outside_metadata(tmp_path, form):
     source, template = component_case()
     state = source.chemical_states._states[0]
     state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
+    # Labels refer to the original atom sets, even while stored connectivity is partial.
+    source.topology._set_component_indices([1] * 6 + [0] * 6)
+    source.topology.components["component_id"] = ["target", "outside"]
+    source.topology.components["component_name"] = ["Target", "Outside"]
+    source.topology.components["component_type"] = ["small molecule", "small molecule"]
     args = options(template, connectivity_policy="complete_from_template")
-    before = state.bonds.copy(deep=True)
-    assessment = msm.physchem.assess_chemical_template(source, **args)
-    assert assessment["status"] == "unassessed"
-    assert any(
-        item["reason_code"] == "selected_graph_completion_outside_scope"
-        for item in assessment["issues"]
+    before = source.copy()
+    molecular_system = source if form == "native" else source.topology
+    if form == "h5msm":
+        molecular_system = tmp_path / "incomplete.h5msm"
+        msm.convert(source, to_form=molecular_system)
+    assessment = msm.physchem.assess_chemical_template(molecular_system, **args)
+    assert assessment["status"] == "compatible"
+    assert [
+        (bond["atom1_index"], bond["atom2_index"]) for bond in assessment["added_bonds"]
+    ] == [(6, 7)]
+    output = msm.physchem.apply_chemical_template(molecular_system, **args)
+    result, report = output["molecular_system"], output["report"]
+    assert report["coverage"]["result_connectivity_completeness"] == "partial"
+    assert report["coverage"]["graph"] == "completion_from_declared_template"
+    assert result.topology.components.component_id.tolist() == ["outside", "target"]
+    assert result.topology.components.component_name.tolist() == ["Outside", "Target"]
+    assert result.topology.components.component_type.tolist() == ["small molecule"] * 2
+    np.testing.assert_array_equal(
+        result.topology._get_component_indices(), [0] * 6 + [1] * 6
     )
-    assert assessment["coverage"]["missing_source_atom_pairs"].tolist() == [[6, 7]]
+    old_pairs = before.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].to_numpy()
+    final_bonds = result.chemical_states.get_bonds()
+    correspondence = report["source_bond_correspondence"]
+    np.testing.assert_array_equal(correspondence[:, 0], np.arange(9))
+    np.testing.assert_array_equal(
+        final_bonds.iloc[correspondence[:, 1]][["atom1_index", "atom2_index"]],
+        old_pairs,
+    )
+    assert len(final_bonds) == 10
+    for table in ("atoms", "groups", "molecules", "chains", "entities"):
+        pd.testing.assert_frame_equal(
+            getattr(result.topology, table), getattr(before.topology, table)
+        )
+    pd.testing.assert_frame_equal(
+        final_bonds.iloc[:5][before.chemical_states.get_bonds().columns],
+        before.chemical_states.get_bonds().iloc[:5],
+    )
+    new_columns = final_bonds.columns.difference(
+        before.chemical_states.get_bonds().columns
+    )
+    assert final_bonds.iloc[:5][new_columns].isna().all().all()
+    pd.testing.assert_frame_equal(state.bonds, before.chemical_states.get_bonds())
+    pd.testing.assert_frame_equal(
+        source.topology.components, before.topology.components
+    )
+    for field in ("atom_attributes", "bonds", "components", "component_indices"):
+        original, retained = (
+            getattr(before.chemical_states._states[1], field),
+            getattr(result.chemical_states._states[1], field),
+        )
+        if isinstance(original, pd.Series):
+            pd.testing.assert_series_equal(retained, original)
+        else:
+            # H5MSM decodes text columns to nullable strings.
+            pd.testing.assert_frame_equal(
+                retained, original, check_dtype=form != "h5msm"
+            )
+    if form != "topology":
+        np.testing.assert_array_equal(
+            msm.pyunitwizard.get_value(result.structures.coordinates),
+            msm.pyunitwizard.get_value(before.structures.coordinates),
+        )
+        assert result.interactions["old"].evaluated_structure_indices.size == 0
+    path = tmp_path / "completed.h5msm"
+    msm.convert(result, to_form=path)
+    loaded = msm.convert(path, to_form="molsysmt.MolSys")
+    pd.testing.assert_frame_equal(
+        loaded.topology.components,
+        result.topology.components,
+        check_dtype=False,
+        check_frame_type=False,
+    )
+    assert loaded.chemical_states._states[0].connectivity_completeness == "partial"
+
+
+@pytest.mark.parametrize("completeness", ["unavailable", "partial", "complete"])
+def test_selected_completion_rejects_reconciliation_and_requires_opt_in(completeness):
+    source, template = component_case()
+    state = source.chemical_states._states[0]
+    state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
+    state.connectivity_completeness = completeness
+    source.topology.reset_components(n_components=2)
+    source.topology._set_component_indices([0] * 6 + [1] * 6)
+    default = msm.physchem.assess_chemical_template(source, **options(template))
+    assert default["status"] == "conflict"
+    args = options(template, connectivity_policy="complete_from_template")
+    if completeness == "complete":
+        with pytest.raises(StructuralInconsistencyError):
+            msm.physchem.apply_chemical_template(source, **args)
+    else:
+        completed = msm.physchem.apply_chemical_template(source, **args)[
+            "molecular_system"
+        ]
+        assert (
+            completed.chemical_states._states[0].connectivity_completeness
+            == completeness
+        )
+    assert len(state.bonds) == 9
+
+
+def test_selected_completion_does_not_reconcile_unrelated_component_partition():
+    source, template = component_case()
+    state = source.chemical_states._states[0]
+    state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
+    source.topology._set_component_indices([0, 0, 0, 0, 1, 1] + [2] * 6)
+    args = options(template, connectivity_policy="complete_from_template")
+    before = source.copy()
+    report = msm.physchem.assess_chemical_template(source, **args)
+    assert report["status"] == "unassessed"
+    assert "external_component_membership_requires_reconciliation" in {
+        issue["reason_code"] for issue in report["issues"]
+    }
     with pytest.raises(StructuralInconsistencyError):
         msm.physchem.apply_chemical_template(source, **args)
-    pd.testing.assert_frame_equal(state.bonds, before)
-    assert len(state.bonds) == 9
+    pd.testing.assert_series_equal(
+        state.component_indices, before.chemical_states._states[0].component_indices
+    )
+    pd.testing.assert_frame_equal(state.bonds, before.chemical_states.get_bonds())
+
+
+def test_selected_completion_merges_fragments_without_inheriting_their_labels():
+    source, template = component_case()
+    state = source.chemical_states._states[0]
+    state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
+    source.topology.reset_components(n_components=3)
+    source.topology._set_component_indices([0] * 6 + [1, 2, 1, 1, 1, 2])
+    source.topology.components["component_id"] = [
+        "outside",
+        "carbon fragment",
+        "oxygen fragment",
+    ]
+    source.topology.components["component_name"] = [
+        "Outside",
+        "Carbon fragment",
+        "Oxygen fragment",
+    ]
+    source.topology.components["component_type"] = ["small molecule"] * 3
+    result = msm.physchem.apply_chemical_template(
+        source, **options(template, connectivity_policy="complete_from_template")
+    )["molecular_system"]
+    assert result.topology.components.loc[0].tolist() == [
+        "outside",
+        "Outside",
+        "small molecule",
+    ]
+    assert result.topology.components.loc[1].isna().all()
+    assert state.component_indices.tolist() == [0] * 6 + [1, 2, 1, 1, 1, 2]
 
 
 @pytest.mark.parametrize("completeness", ["unavailable", "partial", "complete"])

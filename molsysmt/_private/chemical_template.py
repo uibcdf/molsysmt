@@ -330,7 +330,9 @@ def evaluate(
             else "explicit_template_correspondence"
         ),
         rule_version=(
-            3
+            4
+            if len(selected) != ns and connectivity_policy == "complete_from_template"
+            else 3
             if len(selected) != ns
             else 2
             if connectivity_policy == "complete_from_template"
@@ -498,19 +500,33 @@ def evaluate(
             and state.connectivity_completeness != "complete"
             and not unexpected
         )
-        scoped_completion = bool(missing) and can_complete and len(selected) != ns
-        if scoped_completion:
-            _issue(
-                report,
-                "unassessed",
-                "selected_graph_completion_outside_scope",
-                side="source",
+        if missing and can_complete and len(selected) != ns:
+            from molsysmt.native._topology_infer import (
+                _component_indices_from_bonds,
+                _unchanged_component_rows,
             )
-            report["coverage"]["missing_source_atom_pairs"] = np.asarray(
-                sorted(missing), dtype=np.int64
-            ).reshape(-1, 2)
-            can_complete = False
-        if unexpected or (missing and not can_complete and not scoped_completion):
+
+            # A global rebuild must not reconcile unrelated stored partitions.
+            inferred = _component_indices_from_bonds(ns, state.bonds)
+            n_components = int(inferred.max()) + 1
+            unchanged, _ = _unchanged_component_rows(
+                state.component_indices.to_numpy(dtype=np.int64, na_value=-1),
+                inferred,
+                len(state.components),
+                n_components,
+            )
+            matching = np.zeros(n_components, dtype=bool)
+            matching[unchanged] = True
+            outside = np.ones(ns, dtype=bool)
+            outside[selected] = False
+            if not matching[inferred[outside]].all():
+                _issue(
+                    report,
+                    "unassessed",
+                    "external_component_membership_requires_reconciliation",
+                    side="source",
+                )
+        if unexpected or (missing and not can_complete):
             _issue(
                 report,
                 "conflict",
@@ -523,7 +539,7 @@ def evaluate(
             report["coverage"]["unexpected_source_atom_pairs"] = np.asarray(
                 sorted(set(source_edges) - set(mapped_edges)), dtype=np.int64
             ).reshape(-1, 2)
-        elif not scoped_completion:
+        else:
             report["coverage"]["graph"] = (
                 "completion_from_declared_template"
                 if missing
@@ -678,7 +694,9 @@ def apply(molecular_system, report, source, caller):
     if added_bonds:
         with result.topology._using_chemical_state(index):
             result.topology.rebuild_components(
-                redefine_types=False, redefine_names=False
+                redefine_ids=report["coverage"]["scope"] == "whole_system",
+                redefine_types=False,
+                redefine_names=False,
             )
     applied = deepcopy(report)
     applied["status"] = "applied"

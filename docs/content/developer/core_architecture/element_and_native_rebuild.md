@@ -54,6 +54,15 @@ Current canonical local fallbacks are:
 - water molecules collapse into a single entity key,
 - generated ids are deterministic strings.
 
+Component reconstruction matches old and new rows by exact atom-set equality.
+False `redefine_ids`, `redefine_names` or `redefine_types` flags preserve the
+corresponding field only for matching sets. Row numbers are not component
+identity. Merges, splits, missing memberships and out-of-table memberships
+cannot justify label transfer. The matching uses linear NumPy reductions and
+counts alongside the existing Rust connectivity primitive. See the current
+component contract in `devguide/ALGORITHMS.md` and
+{ref}`Topology <user-foundations-native-world-classes-molsysmt-topology>`.
+
 ## Current Consolidation Status
 
 The public element families currently aligned with native fast paths are:

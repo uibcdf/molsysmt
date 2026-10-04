@@ -52,6 +52,18 @@ With no bonds, the connectivity routine determines the fallback component
 partition. Callers must not infer semantic molecules from components without the
 separate molecule-rebuild rules.
 
+`Topology.rebuild_components()` treats its redefinition flags independently.
+When reconstructing indices, false metadata flags preserve component IDs, names
+or types only for exactly unchanged atom memberships. Matching ignores row
+numbers: per-new-component minimum/maximum old row reductions exclude merges,
+and equality of old/new atom counts excludes splits. Missing and out-of-table old
+indices cannot authorize transfer. The helper costs linear time and memory in
+the atom/component counts and uses no Python object per atom or component set.
+Unmatched fields remain genuinely missing; the legacy constructor's string
+`"nan"` is not a newly inferred name/type. True flags retain their regeneration
+or inference behavior. Only the resolved chemical state is rebuilt. Labels
+preserve declared metadata, not chemical identity or completeness evidence.
+
 ## Molecule inference
 
 Molecule inference operates over ordered groups and their atom-level chain

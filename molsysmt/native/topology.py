@@ -2219,15 +2219,52 @@ class Topology:
     ):
         """Rebuilding native component membership and metadata from local evidence.
 
+        Parameters
+        ----------
+        redefine_indices : bool
+            Recompute atom-level component indices from stored connectivity.
+            Default True.
+        redefine_ids : bool
+            Generate local string IDs. If False, retain IDs only for components
+            whose atom membership is unchanged by index reconstruction. Default True.
+        redefine_types : bool
+            Infer types from native group data. If False, retain types only for
+            components whose atom membership is unchanged. Default True.
+        redefine_names : bool
+            Infer names from native group data. If False, retain names only for
+            components whose atom membership is unchanged. Default True.
+        force : bool
+            Reconstruct component indices even if redefine_indices is False.
+            Default False.
+
+        Returns
+        -------
+        None
+            Update the resolved chemical state's component tables in place.
+
         Notes
         -----
         Component indices are inferred from connectivity. Component ids are
         synthesized as stable local string ids when requested. Component types
         and names are inferred from the current native group/component content.
+        Matching unchanged components uses exact atom-set equality, independently
+        of component row numbers. Merged or split components have unknown metadata
+        unless the corresponding redefinition is requested. No connectivity
+        completeness claim follows from preserving labels.
         This method is a native API and is not form-agnostic.
+
+        Examples
+        --------
+        >>> topology = Topology(n_atoms=1)
+        >>> topology.rebuild_components()
+        >>> topology.components["component_id"] = ["ion"]
+        >>> topology.rebuild_components(redefine_ids=False, redefine_types=False, redefine_names=False)
+        >>> topology.components.component_id.tolist()
+        ['ion']
         """
         from ._topology_infer import (
             _needs_columns,
+            _unchanged_component_rows,
             fallback_ids,
             infer_component_indices_from_topology,
             infer_component_names_from_topology,
@@ -2242,6 +2279,21 @@ class Topology:
         ) and self._component_indices_are_missing()
 
         if redefine_indices or force or need_component_indices:
+            preserved_columns = [
+                column
+                for column, redefine in (
+                    ("component_id", redefine_ids),
+                    ("component_type", redefine_types),
+                    ("component_name", redefine_names),
+                )
+                if not redefine
+            ]
+            old_components = self.components if preserved_columns else None
+            old_indices = (
+                self._get_component_indices().to_numpy(dtype=np.int64, na_value=-1)
+                if preserved_columns
+                else None
+            )
             component_index_of_atoms = infer_component_indices_from_topology(self)
             self._set_component_indices(component_index_of_atoms)
 
@@ -2250,6 +2302,19 @@ class Topology:
             else:
                 n_components = 0
             self.components = Components_DataFrame(n_components=n_components)
+            if preserved_columns:
+                new_rows, old_rows = _unchanged_component_rows(
+                    old_indices,
+                    component_index_of_atoms,
+                    len(old_components),
+                    n_components,
+                )
+                for column in preserved_columns:
+                    # Missing labels must not become the legacy string "nan".
+                    self.components[column] = np.full(n_components, pd.NA, dtype=object)
+                    self.components.loc[new_rows, column] = (
+                        old_components[column].iloc[old_rows].to_numpy()
+                    )
 
             del component_index_of_atoms
 

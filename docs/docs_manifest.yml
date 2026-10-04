@@ -172,7 +172,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit whole-input and closed-component template transfer, peptide references, aromatic normalization and prepared interface scope.
+            description: Explicit whole-input and closed-component template transfer, scoped bond completion with membership-based label preservation, peptide references and prepared interface scope.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
@@ -296,7 +296,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer in original complexes, bounded 1QKU preparation, residue gaps, prepared interface source maps and separate H geometry.
+        description: Explicit template transfer and scoped bond completion in original complexes, bounded 1QKU preparation, prepared interface source maps and separate H geometry.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

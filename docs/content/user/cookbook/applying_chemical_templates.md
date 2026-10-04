@@ -62,9 +62,12 @@ of the assigned EST are checked in `tests/physchem/test_chemical_template_est.py
 The extracted ligand still inherits `partial`; explicitly applying the reviewed
 whole-ligand template again justifies its own complete connectivity for recognition.
 
-This route requires the same stored internal atom pairs. Missing selected bonds
-remain unassessed, including with `complete_from_template`; complete an extracted
-component instead until global component metadata can be preserved.
+The default requires the same stored internal atom pairs. To fill a reviewed
+missing selected bond, explicitly choose `complete_from_template`. Inspect the
+proposed edges first. Rebuilding can renumber component indices but preserves
+IDs, names and types of unchanged atom sets, including unrelated components.
+Merged or split selected components have missing labels. An inconsistent unrelated
+stored partition remains unassessed; resolve it separately before scoped completion.
 This route transfers chemical assignments to existing atoms. It does not insert
 generated H or missing heavy atoms, reconcile representation differences, or
 prepare excluded receptor regions. A peptide fragment whose stored bonds reach
@@ -101,8 +104,10 @@ of the remainder of a receptor. Preserve the factory provenance and application
 report as two distinct records alongside the original observed system.
 
 After adding bonds, inspect the old-to-final `source_bond_correspondence` and new
-edge indices in the detached report. Connected-component indices/IDs are rebuilt
-in the selected state; component names/types become unknown. Group and molecule
+edge indices in the detached report. Connected-component indices are rebuilt
+in the selected state. Whole-input completion regenerates IDs; scoped completion
+preserves them for unchanged atom sets. Names/types of unchanged atom sets are
+preserved; labels of merged or split components become missing. Group and molecule
 inventory, other states, existing structure/state associations and pose remain intact.
 
 ## Applying, recognizing and saving
