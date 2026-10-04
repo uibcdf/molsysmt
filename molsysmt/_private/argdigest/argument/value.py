@@ -161,6 +161,17 @@ def digest_value(value, caller=None):
 
             return digest_formal_charge(value, caller=caller)
 
+        if caller.endswith("set_atom_ff_type_to_atom"):
+            import numpy as np
+
+            if value is None:
+                return None
+            if isinstance(value, (list, tuple, np.ndarray)):
+                values = np.asarray(value, dtype=object)
+                if values.ndim == 1 and all(isinstance(x, str) for x in values):
+                    return values
+            raise ArgumentError("value", value=value, caller=caller)
+
         if caller.endswith("set_partial_charge_to_atom"):
             from .partial_charge import digest_partial_charge
 

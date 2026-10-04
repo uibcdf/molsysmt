@@ -58,6 +58,12 @@ def set(
 
     Notes
     -----
+    Native MolecularMechanics atom assignments accept one-dimensional string
+    atom_ff_type labels or explicit partial-charge vectors. Values follow the
+    selected atom order. A subset requires an existing mechanical atom axis;
+    invalid lengths fail before mutation. Manual replacement clears the named
+    provenance of the replaced mechanical attribute.
+
     - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - If `element` is not specified, it is inferred from the attribute definition.
@@ -211,6 +217,8 @@ def set(
             set_function = getattr(
                 _dict_modules[form], f"set_{in_attribute}_to_{element}"
             )
+            if form == "molsysmt.MolecularMechanics" and "indices" in dict_indices:
+                dict_indices["atom_indices"] = dict_indices.pop("indices")
             set_function(item, **dict_indices, value=in_value)
 
     else:
@@ -242,6 +250,8 @@ def set(
             set_function = getattr(
                 _dict_modules[form], f"set_{in_attribute}_to_{element}"
             )
+            if form == "molsysmt.MolecularMechanics" and "indices" in dict_indices:
+                dict_indices["atom_indices"] = dict_indices.pop("indices")
             set_function(item, **dict_indices, value=in_value)
 
     pass

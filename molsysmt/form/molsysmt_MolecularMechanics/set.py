@@ -114,13 +114,34 @@ def set_atom_ff_type_to_atom(
         Source item in molsysmt.MolecularMechanics form.
     atom_indices : str, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    value : object
-        Argument value.
+    value : list or numpy.ndarray, default=None
+        One-dimensional string labels aligned with selected atoms. None clears
+        the full column. Manual replacement clears named typing provenance.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     .. versionadded:: 1.0.0
     """
+    import numpy as np
+
+    from molsysmt._private.smonitor import ArgumentError
+
+    if not is_all(atom_indices) and not len(atom_indices):
+        return
+    n_atoms = None if item.atoms_ff is None else len(item.atoms_ff)
+    if not is_all(atom_indices) and (
+        n_atoms is None
+        or np.any(np.asarray(atom_indices) < 0)
+        or np.any(np.asarray(atom_indices) >= n_atoms)
+    ):
+        raise ArgumentError(
+            "atom_indices", value=atom_indices, caller="set_atom_ff_type_to_atom"
+        )
+    expected = n_atoms if is_all(atom_indices) else len(atom_indices)
+    if (value is None and not is_all(atom_indices)) or (
+        value is not None and expected is not None and np.shape(value) != (expected,)
+    ):
+        raise ArgumentError("value", value=value, caller="set_atom_ff_type_to_atom")
     if is_all(atom_indices):
         item.atom_ff_type = value
     else:
@@ -128,6 +149,7 @@ def set_atom_ff_type_to_atom(
             len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices)
         )
         item.atoms_ff.loc[atom_indices, "atom_ff_type"] = value
+        item.atom_type_assignment = None
 
     pass
 
