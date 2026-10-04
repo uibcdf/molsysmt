@@ -21,7 +21,9 @@ def digest_isotope(isotope, caller=None):
         if isotope is None or isotope is pd.NA:
             return isotope
         if caller == "molsysmt.element.atom.normalize_atom_types.normalize_atom_types":
-            if not np.isscalar(isotope) and not isinstance(isotope, (list, tuple, np.ndarray)):
+            if not np.isscalar(isotope) and not isinstance(
+                isotope, (list, tuple, np.ndarray)
+            ):
                 raise ArgumentError("isotope", value=isotope, caller=caller)
             if isinstance(isotope, np.ndarray) and isotope.ndim != 1:
                 raise ArgumentError("isotope", value=isotope, caller=caller)

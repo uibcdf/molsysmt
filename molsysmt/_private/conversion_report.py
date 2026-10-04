@@ -1219,10 +1219,7 @@ def build_conversion_report(
     issues = []
     pdbqt_identity = False
 
-    if (
-        source_item is not None
-        and source_form == target_form == "file:sdf"
-    ):
+    if source_item is not None and source_form == target_form == "file:sdf":
         from molsysmt._private.variables import is_all
 
         if is_all(selection) and is_all(structure_indices):
@@ -1245,11 +1242,22 @@ def build_conversion_report(
         from molsysmt._private.variables import is_all
 
         if source_form in PDBQT_FORMS or target_form in PDBQT_FORMS:
-            issues.extend(audit_pdbqt(source_item, source_form, target_form, selection, structure_indices, syntax))
+            issues.extend(
+                audit_pdbqt(
+                    source_item,
+                    source_form,
+                    target_form,
+                    selection,
+                    structure_indices,
+                    syntax,
+                )
+            )
             if source_form in PDBQT_FORMS and target_form in PDBQT_FORMS:
                 from molsysmt._private.pdbqt_adapter import identity_selection
 
-                pdbqt_identity = identity_selection(source_item, source_form, selection, structure_indices, syntax)
+                pdbqt_identity = identity_selection(
+                    source_item, source_form, selection, structure_indices, syntax
+                )
 
         if source_form == "file:sdf" and (
             target_form != "file:sdf"
@@ -1281,12 +1289,18 @@ def build_conversion_report(
             from molsysmt._private.conversion_sdf import audit_sdf_write
 
             if source_form == "molsysmt.MolSys":
-                issues.extend(audit_sdf_write(source_item, selection, structure_indices, syntax))
+                issues.extend(
+                    audit_sdf_write(source_item, selection, structure_indices, syntax)
+                )
             elif not is_all(selection) or not is_all(structure_indices):
-
                 from molsysmt.form.file_sdf._native import to_native
-                native = to_native(read_sdf(source_item, allow_stereo=True), discard_properties=True)
-                issues.extend(audit_sdf_write(native, selection, structure_indices, syntax))
+
+                native = to_native(
+                    read_sdf(source_item, allow_stereo=True), discard_properties=True
+                )
+                issues.extend(
+                    audit_sdf_write(native, selection, structure_indices, syntax)
+                )
         registered_profile = (
             source_form,
             target_form,
@@ -1308,8 +1322,11 @@ def build_conversion_report(
         if source_form in PDBQT_FORMS:
             from molsysmt._private.pdbqt import read, to_native
 
-            inspection_item = to_native(read(source_item, text=source_form == 'string:pdbqt_text'), discard_torsion_tree=True)
-            inspection_form = 'molsysmt.MolSys'
+            inspection_item = to_native(
+                read(source_item, text=source_form == "string:pdbqt_text"),
+                discard_torsion_tree=True,
+            )
+            inspection_form = "molsysmt.MolSys"
             inspection_module = _dict_modules[inspection_form]
         if not registered_profile and source_form in {
             "file:h5msm",
@@ -1332,7 +1349,16 @@ def build_conversion_report(
             for attribute in _CHEMICAL_ATTRIBUTES:
                 if pdbqt_identity:
                     continue
-                if target_form == 'file:sdf' and attribute in {'atom_stereochemistry', 'bond_stereochemistry', 'bond_stereo_atom_indices'} and (converter_options or {}).get('stereo_engine') == 'rdkit':
+                if (
+                    target_form == "file:sdf"
+                    and attribute
+                    in {
+                        "atom_stereochemistry",
+                        "bond_stereochemistry",
+                        "bond_stereo_atom_indices",
+                    }
+                    and (converter_options or {}).get("stereo_engine") == "rdkit"
+                ):
                     # The explicit writer verifies this bounded stereo route
                     # before opening the destination. Ordinary capability
                     # reports still describe the dependency-free default.
@@ -1472,13 +1498,18 @@ def build_conversion_report(
                 )
     same_form = source_form == target_form
     audited_scopes = get_conversion_audit_scopes(source_form, target_form)
-    if source_form == "file:sdf" or target_form == "file:sdf" or source_form in {'file:pdbqt', 'string:pdbqt_text'} or target_form in {'file:pdbqt', 'string:pdbqt_text'}:
+    if (
+        source_form == "file:sdf"
+        or target_form == "file:sdf"
+        or source_form in {"file:pdbqt", "string:pdbqt_text"}
+        or target_form in {"file:pdbqt", "string:pdbqt_text"}
+    ):
         audited_scopes = tuple(
             dict.fromkeys((*audited_scopes, *(issue.scope for issue in issues)))
         )
     is_exhaustive = is_conversion_audit_exhaustive(source_form, target_form)
     if pdbqt_identity:
-        audited_scopes = ('all',)
+        audited_scopes = ("all",)
         is_exhaustive = True
 
     # Static graph audits cannot assume that every third-party identity
@@ -1492,11 +1523,19 @@ def build_conversion_report(
             not is_all(selection) or not is_all(structure_indices)
         ):
             audited_scopes = tuple(
-                dict.fromkeys(("chemical_state", "source_metadata", *(issue.scope for issue in issues)))
+                dict.fromkeys(
+                    (
+                        "chemical_state",
+                        "source_metadata",
+                        *(issue.scope for issue in issues),
+                    )
+                )
             )
             is_exhaustive = False
-        if source_form in {'file:pdbqt', 'string:pdbqt_text'} and not pdbqt_identity:
-            audited_scopes = tuple(dict.fromkeys(('source_metadata', *(issue.scope for issue in issues))))
+        if source_form in {"file:pdbqt", "string:pdbqt_text"} and not pdbqt_identity:
+            audited_scopes = tuple(
+                dict.fromkeys(("source_metadata", *(issue.scope for issue in issues)))
+            )
             is_exhaustive = False
 
     outcome = "lossy" if issues else ("exact" if same_form else "equivalent")

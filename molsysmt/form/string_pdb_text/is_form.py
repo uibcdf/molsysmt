@@ -23,7 +23,7 @@ def is_form(string):
     output = False
 
     if type(string) is str:
-        if string.startswith('pdbqt_text:'):
+        if string.startswith("pdbqt_text:"):
             return False
         pattern_1 = r"((ATOM||HETATM)+\s+\d+\s+\w+\s+\w+\s+\w+\s+\d+(\s+[+-]?([0-9]+([.][0-9]*))){5})"
         pattern_2 = r"((ATOM||HETATM)+\s+\d+\s+\w+\s+\w+\s+\w+\s+(\s+[+-]?([0-9]+([.][0-9]*))){5})"

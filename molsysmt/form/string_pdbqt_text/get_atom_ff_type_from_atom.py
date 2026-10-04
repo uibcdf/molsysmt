@@ -23,4 +23,4 @@ def get_atom_ff_type_from_atom(item, indices="all", skip_digestion=False):
     """
     from molsysmt._private.pdbqt_adapter import atom_attribute
 
-    return atom_attribute(item, 'atom_ff_type', indices, text=True)
+    return atom_attribute(item, "atom_ff_type", indices, text=True)

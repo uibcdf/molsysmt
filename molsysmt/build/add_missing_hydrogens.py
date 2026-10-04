@@ -3,9 +3,16 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def add_missing_hydrogens(
-    molecular_system, pH=7.4, engine="OpenMM", skip_digestion=False,
-    *, mode="pH", chemical_state="reference", structure_indices="all",
-    return_report=False, attribute_policy="intersection"
+    molecular_system,
+    pH=7.4,
+    engine="OpenMM",
+    skip_digestion=False,
+    *,
+    mode="pH",
+    chemical_state="reference",
+    structure_indices="all",
+    return_report=False,
+    attribute_policy="intersection",
 ):
     """
     Adding missing hydrogen atoms to a molecular system.
@@ -143,27 +150,54 @@ def add_missing_hydrogens(
         from molsysmt._private.argdigest.argument.skip_digestion import (
             digest_skip_digestion,
         )
-        digest_skip_digestion(skip_digestion, caller=__name__ + '.add_missing_hydrogens')
+
+        digest_skip_digestion(
+            skip_digestion, caller=__name__ + ".add_missing_hydrogens"
+        )
     from molsysmt._private.smonitor import ArgumentError
     from molsysmt._private.variables import is_all
-    caller = 'molsysmt.build.add_missing_hydrogens'
-    if mode == 'fixed_chemical_state':
+
+    caller = "molsysmt.build.add_missing_hydrogens"
+    if mode == "fixed_chemical_state":
         if pH is not None:
-            raise ArgumentError('pH', value=pH, caller=caller,
-                                message='Fixed-state mode requires pH=None.')
-        if engine != 'RDKit':
-            raise ArgumentError('engine', value=engine, caller=caller,
-                                message='Fixed-state mode requires the explicit RDKit engine.')
+            raise ArgumentError(
+                "pH",
+                value=pH,
+                caller=caller,
+                message="Fixed-state mode requires pH=None.",
+            )
+        if engine != "RDKit":
+            raise ArgumentError(
+                "engine",
+                value=engine,
+                caller=caller,
+                message="Fixed-state mode requires the explicit RDKit engine.",
+            )
         from molsysmt._private.fixed_hydrogens import add
-        result = add(molecular_system, chemical_state, structure_indices, attribute_policy)
-        return result if return_report else result['molecular_system']
-    if mode != 'pH' or pH is None or engine == 'RDKit':
-        raise ArgumentError('mode', value=mode, caller=caller,
-                            message='RDKit and pH=None require explicit fixed_chemical_state mode.')
-    if (chemical_state != 'reference' or not is_all(structure_indices)
-            or return_report or attribute_policy != 'intersection'):
-        raise ArgumentError('mode', value=mode, caller=caller,
-                            message='State, frame, report and attribute-policy options require fixed-state mode.')
+
+        result = add(
+            molecular_system, chemical_state, structure_indices, attribute_policy
+        )
+        return result if return_report else result["molecular_system"]
+    if mode != "pH" or pH is None or engine == "RDKit":
+        raise ArgumentError(
+            "mode",
+            value=mode,
+            caller=caller,
+            message="RDKit and pH=None require explicit fixed_chemical_state mode.",
+        )
+    if (
+        chemical_state != "reference"
+        or not is_all(structure_indices)
+        or return_report
+        or attribute_policy != "intersection"
+    ):
+        raise ArgumentError(
+            "mode",
+            value=mode,
+            caller=caller,
+            message="State, frame, report and attribute-policy options require fixed-state mode.",
+        )
 
     from molsysmt.basic import convert, get, get_form
 

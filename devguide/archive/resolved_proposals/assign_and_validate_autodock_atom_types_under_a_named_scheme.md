@@ -203,3 +203,20 @@ invalid label vectors without mutation. The generated stability view classifies
 HTML build after the setter documentation changes also succeeded, retaining
 course heading/directive and reference warnings. These observations are bounded
 local evidence, not an exact-commit hosted CI result or scientific release gate.
+
+
+## Post-publication CI observation — 2026-10-04
+
+At `68c924d842870536857b409aa7eabe6c368962b0`, hosted CI smoke, developer-guide
+integrity and Conda publication governance passed. Ruff correctness also passed
+inside its run, but its formatting step rejected 24 files: two from this
+checkpoint and inherited formatting debt. The subsequent maintenance change
+formats exactly these files, with identical parsed ASTs before/after; no new
+scientific behavior or broadened test claim is inferred from formatting.
+
+The MolSysSuite conformance run failed on an intentional historical development
+archive tag, not scientific code. The preserved object and required archival
+migration review are tracked by uibcdf/molsysmt#317. Hosted smoke and local
+contract evidence do not establish a full Linux/platform matrix or clear its
+backlog. GH Run Receptor summaries were inspected first; native failed-step logs
+supplied the concrete formatter/tag diagnostics absent from those summaries.

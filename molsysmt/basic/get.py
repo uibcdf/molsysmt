@@ -772,7 +772,9 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
 
     if output_systems is not None:
         covered = {attribute for group in output_attributes for attribute in group}
-        remaining = [attribute for attribute in in_attributes if attribute not in covered]
+        remaining = [
+            attribute for attribute in in_attributes if attribute not in covered
+        ]
         if remaining:
             # Reduced topology/structure pipes cannot deliver other domains.
             # Query them on the original source instead of omitting their keys.

@@ -144,7 +144,9 @@ def _validate(record):
             or bond.order != 9
             or bond.display not in {"COORD", "DATIVE"}
         ):
-            _fail("Only V3000 coordination display styles COORD and DATIVE are supported.")
+            _fail(
+                "Only V3000 coordination display styles COORD and DATIVE are supported."
+            )
 
 
 def _v2000(lines, *, allow_stereo=False):
@@ -277,7 +279,12 @@ def _v3000(lines, *, allow_stereo=False):
     if len(counts) != 6 or counts[0] != "COUNTS":
         _fail("Malformed V3000 COUNTS.")
     n_atoms, n_bonds, *flags = [_integer(i, "V3000 counts") for i in counts[1:]]
-    if n_atoms < 0 or n_bonds < 0 or any(flags[:2]) or (flags[2] and not (allow_stereo and flags[2] == 1)):
+    if (
+        n_atoms < 0
+        or n_bonds < 0
+        or any(flags[:2])
+        or (flags[2] and not (allow_stereo and flags[2] == 1))
+    ):
         _fail("Unsupported V3000 counts (query, groups or stereo).")
     record = CTRecord(lines[0], "V3000")
     record.stereo_present = bool(flags[2])
@@ -333,7 +340,7 @@ def _v3000(lines, *, allow_stereo=False):
                         atom.isotope = value or None
                     elif key == "RAD":
                         atom.n_unpaired_electrons = _radical(value)
-                    elif key == 'CFG' and allow_stereo and value in {1, 2}:
+                    elif key == "CFG" and allow_stereo and value in {1, 2}:
                         record.stereo_present = True
                         record.stereo_atom_serials.append(atom.serial)
                     elif value != 0:
@@ -358,7 +365,12 @@ def _v3000(lines, *, allow_stereo=False):
                         # Drawing style only; retain endpoint order for both.
                         display = value
                         continue
-                    if key == 'CFG' and allow_stereo and order == 1 and _integer(value, key) in {1, 3}:
+                    if (
+                        key == "CFG"
+                        and allow_stereo
+                        and order == 1
+                        and _integer(value, key) in {1, 3}
+                    ):
                         record.stereo_present = True
                         continue
                     if (
@@ -447,7 +459,9 @@ def write_sdf(record):
     """Render a validated explicit record before opening any destination file."""
     _validate(record)
     if record.stereo_present:
-        _fail('Explicit CTAB stereo requires the selected scientific stereo engine; ordinary rendering would discard it.')
+        _fail(
+            "Explicit CTAB stereo requires the selected scientific stereo engine; ordinary rendering would discard it."
+        )
     if "\n" in record.title or "\r" in record.title:
         _fail("An SDF molecule title must occupy one line.")
     if record.properties:

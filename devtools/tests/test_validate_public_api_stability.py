@@ -150,7 +150,12 @@ if True:
         pass
 """
     signatures = extract_function_signatures(ast.parse(source))
-    assert set(signatures) == {"calculate", "First.copy", "Second.copy", "conditional_public"}
+    assert set(signatures) == {
+        "calculate",
+        "First.copy",
+        "Second.copy",
+        "conditional_public",
+    }
     assert signatures["First.copy"]["pos_defaults"] == {"value": "None"}
     assert signatures["Second.copy"]["pos_args"] == ["self", "count"]
 

@@ -411,6 +411,7 @@ def _digest(source, state_index, method):
         source, state_index, include_template_names=method == "forcefield"
     )
 
+
 def _values_digest(values):
     return hashlib.sha256(np.asarray(values, dtype="<f8").tobytes()).hexdigest()
 

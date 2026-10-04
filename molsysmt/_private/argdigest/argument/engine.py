@@ -34,14 +34,17 @@ def digest_engine(engine, caller=None):
 
     """
 
-    if caller == 'molsysmt.physchem.get_cip_stereochemistry.get_cip_stereochemistry':
-        if isinstance(engine, str) and engine.lower() == 'rdkit':
-            return 'rdkit'
-        raise ArgumentError('engine', value=engine, caller=caller)
+    if caller == "molsysmt.physchem.get_cip_stereochemistry.get_cip_stereochemistry":
+        if isinstance(engine, str) and engine.lower() == "rdkit":
+            return "rdkit"
+        raise ArgumentError("engine", value=engine, caller=caller)
 
-    if (caller == 'molsysmt.build.add_missing_hydrogens.add_missing_hydrogens'
-            and isinstance(engine, str) and engine.lower() == 'rdkit'):
-        return 'RDKit'
+    if (
+        caller == "molsysmt.build.add_missing_hydrogens.add_missing_hydrogens"
+        and isinstance(engine, str)
+        and engine.lower() == "rdkit"
+    ):
+        return "RDKit"
 
     from molsysmt.supported.engines import lowercase_engines
 

@@ -28,12 +28,23 @@ from argdigest import Domain
 #: to_form -> the keywords some converter into that form accepts.
 CONVERTER_ARGUMENTS = {
     "file:pdbqt": (
-        "atom_indices", "structure_indices", "output_filename", "skip_digestion",
-        "typing_scheme", "torsion_tree", "copy_if_all", "get_missing_bonds",
+        "atom_indices",
+        "structure_indices",
+        "output_filename",
+        "skip_digestion",
+        "typing_scheme",
+        "torsion_tree",
+        "copy_if_all",
+        "get_missing_bonds",
     ),
     "string:pdbqt_text": (
-        "atom_indices", "structure_indices", "skip_digestion", "typing_scheme",
-        "torsion_tree", "copy_if_all", "get_missing_bonds",
+        "atom_indices",
+        "structure_indices",
+        "skip_digestion",
+        "typing_scheme",
+        "torsion_tree",
+        "copy_if_all",
+        "get_missing_bonds",
     ),
     "MDAnalysis.AtomGroup": (
         "atom_indices",

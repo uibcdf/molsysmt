@@ -1123,10 +1123,16 @@ def place_hydrogens_on_parent(
                 results[k][frame] = P + bond_length * v
 
         elif n_neigh == 0:
-            if hybridization == 'sp3' and n_hs <= 4:
+            if hybridization == "sp3" and n_hs <= 4:
                 # A tetrahedron has pairwise unit-vector products of -1/3.
-                directions = np.array([[1., 1., 1.], [1., -1., -1.],
-                                       [-1., 1., -1.], [-1., -1., 1.]]) / np.sqrt(3.)
+                directions = np.array(
+                    [
+                        [1.0, 1.0, 1.0],
+                        [1.0, -1.0, -1.0],
+                        [-1.0, 1.0, -1.0],
+                        [-1.0, -1.0, 1.0],
+                    ]
+                ) / np.sqrt(3.0)
                 for k in range(n_hs):
                     results[k][frame] = P + bond_length * directions[k]
                 continue

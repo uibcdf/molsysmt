@@ -415,7 +415,7 @@ systems.info = {
         "summary": "Caffeine xanthine alkaloid small molecule.",
         "files": {
             "caffeine.mol2": "Tripos MOL2 format file containing bond types, atom types, and partial charges.",
-            "caffeine.sdf": "Single-record V2000 SDF with all 24 atoms, including explicit hydrogens."
+            "caffeine.sdf": "Single-record V2000 SDF with all 24 atoms, including explicit hydrogens.",
         },
     },
     # Lipids & Membranes
