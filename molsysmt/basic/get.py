@@ -130,6 +130,12 @@ def get(
     - Form-independent attributes such as box lengths, angles, shape, and volume
       are derived from the box matrix when the source form exposes that matrix
       but does not implement a dedicated getter.
+    - Sparse ``alternate_location`` mappings are keyed by integer atom indices
+      in the source system. Atom selections filter these keys without renumbering
+      them. The outer list follows ``structure_indices``, including repeated
+      indices and structures with no alternate sites (empty dictionaries).
+      Each entry's ``atom_id`` values remain string labels. An absent
+      alternate-location attribute returns ``None``.
 
 
     See Also
@@ -179,6 +185,21 @@ def get(
     0
     >>> msm.get(molsys, element='atom', group_name=True) is None
     True
+
+    >>> from molsysmt.native import Structures
+    >>> molsys = Structures(
+    ...     coordinates=msm.pyunitwizard.quantity(np.zeros((1, 3, 3)), 'nm'),
+    ...     alternate_location=[{2: {
+    ...         'location_id': np.array(['A', 'B']), 'atom_id': [10, 11],
+    ...         'occupancy': np.array([0.6, 0.4]),
+    ...         'b_factor': msm.pyunitwizard.quantity(np.zeros(2), 'nm**2'),
+    ...         'coordinates': msm.pyunitwizard.quantity(np.zeros((2, 3)), 'nm'),
+    ...     }}])
+    >>> sites = msm.get(molsys, selection=[2], alternate_location=True)
+    >>> list(sites[0])
+    [2]
+    >>> sites[0][2]['atom_id']
+    ['10', '11']
 
 
     .. admonition:: Tutorial with more examples
@@ -516,7 +537,7 @@ def _coerce_ids_to_string(value):
 
 
 def _coerce_alternate_location_ids(value):
-    """Ensure alternate_location entries carry string atom_id keys/values."""
+    """Normalize atom ID labels without changing source atom-index keys."""
     output = []
     for structure_dict in value:
         if structure_dict is None:
@@ -527,7 +548,7 @@ def _coerce_alternate_location_ids(value):
             new_entry = dict(entry)
             if "atom_id" in new_entry:
                 new_entry["atom_id"] = _coerce_ids_to_string(new_entry["atom_id"])
-            new_struct[str(key)] = new_entry
+            new_struct[key] = new_entry
         output.append(new_struct)
     return output
 

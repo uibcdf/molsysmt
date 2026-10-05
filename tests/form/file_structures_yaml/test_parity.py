@@ -72,4 +72,4 @@ def test_optional_atom_fields_are_delivered(builder_pdb_molsys, tmp_path):
     alternate_location = msm.get(path, element="atom", alternate_location=True)
 
     assert np.allclose(occupancy, [[0.8, 0.4]])
-    assert list(alternate_location[0]) == ["1"]
+    assert list(alternate_location[0]) == [1]

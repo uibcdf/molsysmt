@@ -1,13 +1,13 @@
 ---
 summary: Public alternate-location queries stringify atom-index keys as IDs
 issue: uibcdf/molsysmt#329
-status: open
+status: resolved
 opened: 2026-10-05
-closed:
+closed: 2026-10-05
 severity: medium
 verification: reproduced
 area: [basic, attribute]
-guard:
+guard: tests/basic/get/test_alternate_location_indices.py::test_public_alternate_location_preserves_source_atom_indices
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Public alternate-location queries stringify atom-index keys as IDs
 
 **Reported:** 2026-10-05 during uibcdf/molsysmt#304 peptide-candidate controls.
-**Status:** Reproduced; public-query normalization correction remains pending.
+**Status:** Resolved; source atom-index keys remain integers in public queries.
 
 ## What
 
@@ -89,3 +89,43 @@ user documentation, then close with a concrete guard selector.
 Linux x86_64, 2026-10-05, Python 3.14.7, NumPy 2.4.6 and released ArgDigest 0.13.0
 source overlay. Source is based on `c2f16cbc2` plus #304 candidate work; this is
 editable-source evidence, not installed-release qualification.
+
+## Resolution — 2026-10-05
+
+The public getter copies each sparse mapping and entry while retaining the
+source atom-index key. Only `atom_id` labels are normalized to strings. Existing
+dictionary, YAML, deposited PDB and alternate-conformer controls now assert the
+integer-index contract instead of preserving the former defect. No stored
+coordinates, alternate-site arrays or H5MSM schema are rewritten.
+
+**Contract-tested and parity-tested:** 147 focused controls pass, including the
+public getter doctest, native Structures/MolSys, StructuresDict, label-only YAML,
+H5MSM 0.5, real PDB alternate sites, alternate-conformer resolution and the #304
+peptide report. The named guard independently specifies keys `[4]`, `[2]`, `[4]`
+and an empty dictionary for a nonconsecutive repeated structure selection. It
+also verifies string IDs, geometry/units when supported, unchanged stored data
+and independent edits to returned mappings/ID lists. Empty selections and absent
+evidence have separate controls. General numeric buffers are not promised as
+independent copies.
+
+These controls exposed two distinct defects: uibcdf/molsysmt#331's system-level
+structure selection is corrected in this checkpoint; uibcdf/molsysmt#332's YAML
+physical-quantity persistence remains pending. The YAML index guard explicitly
+uses optional coordinate/B-factor fields set to None and does not claim that
+pending roundtrip. Sixteen warnings remain visible: fifteen expected legacy
+H5MSM deprecation warnings and one existing pandas setter FutureWarning.
+
+The public docstring, Toolbox, Foundations, chemical-template Cookbook and
+Common Core module 8 now explain source indices versus site IDs. Notebook code
+and saved outputs are unchanged. No full suite, installed-file qualification,
+performance benchmark or complete legacy-format inventory is claimed.
+
+Validation also passes Ruff, the current normative course gate
+(`devtools/scripts/validate_course.py`: 156 notebooks), docstring validation,
+public-signature stability and developer-guide integrity. Sphinx HTML compiles
+with 30 warnings in this incremental build, including legacy course heading
+levels, an unknown key-takeaway directive, existing admonition syntax and the
+undefined user-foundations label. The changed notebooks retain that preexisting
+markup. Incremental builds read different page sets; the prior checkpoint's
+27 warnings do not establish a matched warning baseline. This does not claim
+a warning-free build or zero new warning messages.

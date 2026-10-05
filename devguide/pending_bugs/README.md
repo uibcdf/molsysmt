@@ -22,7 +22,7 @@ that front matter -- edit the entries, not this list.
 
 ### Open (1)
 
-- [`public_alternate_location_queries_stringify_atom_index_keys_as_ids.md`](public_alternate_location_queries_stringify_atom_index_keys_as_ids.md) — [#329](https://github.com/uibcdf/molsysmt/issues/329) — Public alternate-location queries stringify atom-index keys as IDs *(medium, reproduced)*
+- [`structures_yaml_cannot_serialize_physical_quantities_in_alternate_sites.md`](structures_yaml_cannot_serialize_physical_quantities_in_alternate_sites.md) — [#332](https://github.com/uibcdf/molsysmt/issues/332) — Structures YAML cannot serialize physical quantities in alternate sites *(medium, reproduced)*
 
 ### Partially resolved (2)
 

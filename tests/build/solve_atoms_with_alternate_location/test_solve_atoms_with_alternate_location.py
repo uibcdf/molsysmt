@@ -17,9 +17,9 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_1():
         systems["Barnase-Barstar"]["1brs.bcif.gz"], to_form="molsysmt.MolSys"
     )
     alt_loc = msm.get(molecular_system, alternate_location=True)
-    assert np.all(list(alt_loc[0].keys()) == ["2686", "2687"])
+    assert list(alt_loc[0].keys()) == [2686, 2687]
 
-    alt_loc_1 = alt_loc[0]["2686"]
+    alt_loc_1 = alt_loc[0][2686]
     assert np.all(alt_loc_1["location_id"] == np.array(["A", "B"]))
     assert np.all(alt_loc_1["occupancy"] == np.array([0.5, 0.5]))
     assert np.all(alt_loc_1["atom_id"] == np.array(["2687", "2688"]))
@@ -30,7 +30,7 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_1():
     aux_b_factor = puw.quantity(np.array([0.2466, 0.2467]), "nm**2")
     assert puw.are_close(alt_loc_1["b_factor"], aux_b_factor)
 
-    alt_loc_2 = alt_loc[0]["2687"]
+    alt_loc_2 = alt_loc[0][2687]
     assert np.all(alt_loc_2["location_id"] == np.array(["A", "B"]))
     assert np.all(alt_loc_2["occupancy"] == np.array([0.5, 0.5]))
     assert np.all(alt_loc_2["atom_id"] == np.array(["2689", "2690"]))

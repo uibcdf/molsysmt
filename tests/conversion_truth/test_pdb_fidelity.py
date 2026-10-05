@@ -276,7 +276,7 @@ def test_pdb_reader_materializes_alternate_locations_as_canonical_atom_sites():
 
     assert restored.topology.n_atoms == 2747
     assert len(alternate_locations[0]) == 24
-    assert alternate_locations[0]["480"]["location_id"].tolist() == ["A", "B"]
+    assert alternate_locations[0][480]["location_id"].tolist() == ["A", "B"]
     assert restored.structures.coordinates.shape == (1, 2747, 3)
     assert len(restored.structures.alternate_location[0]) == 24
 

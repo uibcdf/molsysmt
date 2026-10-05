@@ -90,7 +90,7 @@ def test_structures_dict_optional_atom_fields(structures_dict):
     )
 
     assert np.allclose(occupancy, [[0.8, 0.4]])
-    assert list(alternate_location[0]) == ["1"]
+    assert list(alternate_location[0]) == [1]
 
 
 def test_structures_dict_thermodynamic_series_are_queryable(

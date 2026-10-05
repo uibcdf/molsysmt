@@ -338,6 +338,15 @@ supported. Application raises a catalog-backed structural error containing that
 report and changes neither input. Do not hide it with an empty interaction result,
 neutral-charge fallback or an unconditional `complete` assignment.
 
+Before applying chemistry, inspect stored alternate-site evidence with
+`msm.get(molsys, selection=source_atom_indices, structure_indices=[0],
+alternate_location=True)`. Sparse dictionary keys remain integer atom indices
+in `molsys`, even when the inspection selection is reordered. Site `atom_id`
+values are string labels. Keep the extraction map when switching to a fragment's
+atom domain. An empty dictionary means no alternate sites in that structure;
+`None` means no stored alternate-site attribute. This inspection does not resolve
+alternate conformations or certify a preparation geometry.
+
 ## Preparing a bounded observed peptide
 
 The pinned 1QKU receptor control uses label chain A. Residues with IDs 301–303

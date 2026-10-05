@@ -372,10 +372,10 @@ Stored-edge collision checks use an atom-to-incident-edge index built once;
 geometry evaluates eligible pairs, never a Cartesian atom-pair matrix. These
 are algorithmic properties, not measured throughput or RSS claims.
 
-Two independent adapter/query findings were reported. uibcdf/molsysmt#329 remains
-open: public `get` stringifies alternate mapping indices as though they were IDs.
-The candidate tool uses source-preserving native/form iterators, without copying
-or changing the public normalizer. uibcdf/molsysmt#330 fixes legacy iterator reads
+Two independent adapter/query findings were reported. uibcdf/molsysmt#329 corrected
+public `get` stringification of alternate mapping indices as though they were IDs.
+The candidate tool continues using source-preserving native/form iterators for
+bounded geometry access. uibcdf/molsysmt#330 fixes legacy iterator reads
 of an absent box and is recorded in the
 [resolved report](../archive/resolved_bugs/legacy_h5msm_iterator_indexes_an_absent_periodic_box.md).
 Legacy alternate-label arrays unsupported by the sparse-site contract remain
@@ -453,5 +453,9 @@ reader engine selector, precise optional-engine absence/failure diagnostics and
 persisted inference provenance are still pending. Retain the current reader
 default and OpenMM route. Compare original-source edge inventories and measure
 representative time/memory workloads before claiming native receptor preparation.
-Resolve the separately reported public alternate-index defect in #329. #304
-remains partial.
+The separately reported public alternate-index defect in #329 and the MolSys
+system-query structure-selection defect in uibcdf/molsysmt#331 are corrected.
+The corresponding 147-control checkpoint includes peptide candidates, real PDB
+alternate sites and alternate-conformer resolution. YAML persistence of physical
+alternate-site quantities remains tracked independently in uibcdf/molsysmt#332;
+label-only YAML index controls do not qualify that boundary. #304 remains partial.

@@ -786,7 +786,9 @@ def get_alternate_location_from_system(
         get_alternate_location_from_system as aux_get,
     )
 
-    return aux_get(item.structures, structure_indices="all", skip_digestion=True)
+    return aux_get(
+        item.structures, structure_indices=structure_indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
