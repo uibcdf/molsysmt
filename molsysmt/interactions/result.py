@@ -11,6 +11,12 @@ import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 
+_RESULT_DIGEST = {
+    "digestion_source": "molsysmt._private.argdigest.interactions_result",
+    "digestion_style": "registry",
+    "strictness": "error",
+}
+
 _STORAGE_FIELDS = frozenset(
     {
         "n_atoms",
@@ -38,6 +44,17 @@ _STORAGE_FIELDS = frozenset(
         "measurements",
     }
 )
+
+
+def _check_skip_digestion(value):
+    # ArgDigest bypasses value digestion for a truthy skip flag. Refuse an
+    # invalid flag even on that route, without repeating normal digestion.
+    if not isinstance(value, bool):
+        from molsysmt._private.argdigest.argument.skip_digestion import (
+            digest_skip_digestion,
+        )
+
+        digest_skip_digestion(value)
 
 
 def _immutable_array(value):
@@ -167,6 +184,7 @@ class Interactions:
             getattr(self, "_public_occurrence_indices", None),
         )
 
+    @arg_digest(**_RESULT_DIGEST)
     def __init__(
         self,
         *,
@@ -200,7 +218,92 @@ class Interactions:
         software=None,
         execution=None,
         execution_records=None,
+        skip_digestion=False,
     ):
+        """Constructing an immutable result from aligned typed columns.
+
+        Prefer ``from_records`` for individual observations. This constructor
+        accepts an already ordered sparse catalog and occurrence columns.
+        Integer columns are checked before conversion; floats and booleans
+        cannot silently become atom, structure or relation indices.
+
+        Parameters
+        ----------
+        n_atoms : int
+            Cardinality of the local atom axis, including unobserved atoms.
+        n_structures : int
+            Cardinality of the local structure axis, including unevaluated structures.
+        evaluated_structure_indices : array-like of int
+            Evaluated local structures, including those without observations.
+        relation_types : iterable of str
+            Interaction kind of each catalog relation.
+        relation_participant_offsets : array-like of int
+            Catalog offsets into participants, with one final sentinel.
+        participant_roles : iterable of str
+            Role of each participant in its relation.
+        participant_atom_offsets : array-like of int
+            Offsets into constituent atoms, with one final sentinel.
+        participant_atoms : array-like of int
+            Local atom indices of all participants, including compound groups.
+        occurrence_structures : array-like of int
+            Local structure index of each observation, in nondecreasing order.
+        occurrence_relations : array-like of int
+            Catalog relation index of each observation.
+        occurrence_evidence : array-like of int or iterable of str
+            Evidence codes when evidence_labels is supplied, otherwise labels.
+        measurements : mapping
+            Named numeric columns aligned with occurrences; units are explicit.
+        measure_units : mapping
+            Unit string for every measure, such as nm or radians.
+        method : str
+            Nonempty name of the method that produced this analysis.
+        parameters : mapping or None, default=None
+            Scientific criteria, copied independently of caller metadata.
+        source_id : str or None, default=None
+            Declared provenance label; it does not authenticate correspondence.
+        occurrence_image_offsets : array-like of int or None, default=None
+            Offsets into image vectors, one sentinel beyond the last occurrence.
+        image_vectors : array-like of int or None, default=None
+            Integer lattice shifts with shape (n_occurrence_participants, 3).
+        evidence_labels : iterable of str or None, default=None
+            Label catalog for coded evidence; None means evidence contains labels.
+        atom_source_indices : array-like of int or None, default=None
+            One source atom index per local atom; -1 denotes an unknown counterpart.
+        structure_source_indices : array-like of int or None, default=None
+            One source structure index per local structure; -1 denotes unknown.
+        source_n_atoms : int or None, default=None
+            Source atom-axis cardinality; None uses n_atoms.
+        source_n_structures : int or None, default=None
+            Source structure-axis cardinality; None uses n_structures.
+        evaluation_mode : {'internal', 'incident', 'between'}, default='internal'
+            Atom search semantics shared by evaluated structures.
+        evaluation_atom_indices : array-like of int or None, default=None
+            First searched atom set; None means the universe in internal mode.
+        evaluation_atom_indices_b : array-like of int or None, default=None
+            Disjoint second atom set, required for between mode.
+        evaluation_universe_indices : array-like of int or None, default=None
+            Complete searched participant universe; None means all local atoms.
+        software : mapping or None, default=None
+            Original producer names and version strings; None records unknown.
+        execution : mapping or None, default=None
+            Run details shared by the entire evaluated coverage.
+        execution_records : iterable of dict or None, default=None
+            Run descriptors partitioning coverage; mutually exclusive with execution.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        None
+            Initializes owned read-only storage after checking cross-column invariants.
+
+        See Also
+        --------
+        from_records
+
+        .. versionadded:: 1.0.0
+        """
+        _check_skip_digestion(skip_digestion)
         self.n_atoms = int(n_atoms)
         self.n_structures = int(n_structures)
         self.source_n_atoms = (
@@ -430,6 +533,7 @@ class Interactions:
                 raise ValueError("each occurrence needs one image per participant")
 
     @classmethod
+    @arg_digest(**_RESULT_DIGEST)
     def from_records(
         cls,
         records,
@@ -452,8 +556,9 @@ class Interactions:
         software=None,
         execution=None,
         execution_records=None,
+        skip_digestion=False,
     ):
-        """Building a sparse result from frame-specific interaction records.
+        """Building a sparse result from structure-specific interaction records.
 
         Parameters
         ----------
@@ -512,6 +617,8 @@ class Interactions:
             Required disjoint second atom set for ``between``.
         evaluation_universe_indices : array-like of int or None, default=None
             Atoms searched for participants; ``None`` means all local atoms.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
         Returns
         -------
@@ -528,6 +635,7 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         units = dict(measure_units or {})
         coverage = _unique_in_order(
             _indices(
@@ -540,11 +648,25 @@ class Interactions:
         coverage_set = set(coverage.tolist())
         rows = []
         for record in records:
-            frame = int(record["structure_index"])
+            raw_frame = record["structure_index"]
+            if isinstance(raw_frame, (bool, np.bool_)) or not isinstance(
+                raw_frame, (int, np.integer)
+            ):
+                raise ValueError("structure_index must be an integer index")
+            frame = int(raw_frame)
             if frame not in coverage_set:
                 raise ValueError("an occurrence belongs to an unevaluated structure")
             participants = tuple(
-                (str(item["role"]), tuple(int(atom) for atom in item["atom_indices"]))
+                (
+                    str(item["role"]),
+                    tuple(
+                        _indices(
+                            item["atom_indices"],
+                            int(n_atoms),
+                            "participant atom_indices",
+                        ).tolist()
+                    ),
+                )
                 for item in record["participants"]
             )
             if not participants or any(not indices for _, indices in participants):
@@ -563,6 +685,11 @@ class Interactions:
                 ):
                     raise ValueError(
                         "images must contain an integer vector per participant"
+                    )
+                bounds = np.iinfo(np.int32)
+                if np.any(images < bounds.min) or np.any(images > bounds.max):
+                    raise ValueError(
+                        "images contain an integer outside the int32 range"
                     )
                 images = images.astype(np.int32)
             rows.append(
@@ -645,6 +772,7 @@ class Interactions:
             evaluation_atom_indices=evaluation_atom_indices,
             evaluation_atom_indices_b=evaluation_atom_indices_b,
             evaluation_universe_indices=evaluation_universe_indices,
+            skip_digestion=True,
         )
 
     def _scope_axis(self, values):
@@ -746,8 +874,30 @@ class Interactions:
         arrays += tuple(getattr(self, "_relation_key_index", ()))
         return sum(array.nbytes for array in arrays)
 
-    def relation(self, relation_index):
-        """Returning the kind and participants of one relation."""
+    @arg_digest(**_RESULT_DIGEST)
+    def relation(self, relation_index, *, skip_digestion=False):
+        """Returning the kind and participants of one catalog relation.
+
+        Parameters
+        ----------
+        relation_index : int
+            Position in the relation catalog, independent of occurrence indices.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        dict
+            Interaction kind and ordered roles with copied constituent atom arrays.
+
+        Raises
+        ------
+        IndexError
+            If the relation index is outside the catalog.
+
+        .. versionadded:: 1.0.0
+        """
+        _check_skip_digestion(skip_digestion)
         index = int(relation_index)
         if index < 0 or index >= len(self.relation_types):
             raise IndexError("relation_index is out of range")
@@ -810,12 +960,15 @@ class Interactions:
         view._is_full = False
         return view
 
+    @arg_digest(**_RESULT_DIGEST)
     def query(
         self,
         structure_indices=None,
         atom_indices=None,
         mode="incident",
         interaction_types=None,
+        *,
+        skip_digestion=False,
     ):
         """Selecting occurrences by structures, atoms, and interaction kind.
 
@@ -829,6 +982,8 @@ class Interactions:
             Whether any, all, or only some relation atoms belong to the set.
         interaction_types : iterable of str or None, default=None
             Kinds to retain. ``None`` retains every kind.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
         Returns
         -------
@@ -837,6 +992,7 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         if mode not in {"incident", "internal", "cross"}:
             raise ValueError("mode must be 'incident', 'internal', or 'cross'")
         if structure_indices is None:
@@ -880,7 +1036,7 @@ class Interactions:
         if structure_indices is not None:
             # Frame postings bound membership work before any trajectory-wide
             # atom index is constructed or unrelated relation is inspected.
-            scoped = self.query(structure_indices=coverage)
+            scoped = self.query(structure_indices=coverage, skip_digestion=True)
             candidates = np.unique(self.occurrence_relations[scoped._positions])
             atoms = (
                 None
@@ -980,6 +1136,7 @@ class Interactions:
         )
         return self._view(positions, coverage)
 
+    @arg_digest(**_RESULT_DIGEST)
     def between(
         self,
         atom_indices_a,
@@ -987,6 +1144,8 @@ class Interactions:
         structure_indices=None,
         exclusive=False,
         interaction_types=None,
+        *,
+        skip_digestion=False,
     ):
         """Selecting relations that involve atoms from each disjoint set.
 
@@ -1002,6 +1161,8 @@ class Interactions:
             Require all relation atoms to belong to the union of both sets.
         interaction_types : iterable of str or None, default=None
             Interaction kinds to retain.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
         Returns
         -------
@@ -1010,6 +1171,7 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         a = np.unique(_indices(atom_indices_a, self.n_atoms, "atom_indices_a"))
         b = np.unique(_indices(atom_indices_b, self.n_atoms, "atom_indices_b"))
         if np.intersect1d(a, b).size:
@@ -1018,6 +1180,7 @@ class Interactions:
             structure_indices=structure_indices,
             atom_indices=a,
             interaction_types=interaction_types,
+            skip_digestion=True,
         )
         relations = np.unique(self.occurrence_relations[candidates._positions])
         allowed = [
@@ -1036,14 +1199,30 @@ class Interactions:
         ]
         return candidates._view(positions, candidates._coverage)
 
-    def to_dict(self):
+    @arg_digest(**_RESULT_DIGEST)
+    def to_dict(self, *, skip_digestion=False):
         """Returning selected occurrence columns and explicit coverage.
 
         ``occurrence_indices`` are row positions in this complete analysis.
         Queries retain them, including when parallel observations share a
         structure and relation. A remap or edit creates a new analysis with
         newly assigned positions.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        dict
+            Selected numeric occurrence columns, source maps, coverage and metadata.
+            Participant definitions are inspected through relation indices; use
+            InteractionsDict for complete typed serialization.
+
+        .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         return self._occurrence_dict(self._positions)
 
     def _occurrence_dict(self, positions, *, copy_coverage=True):
@@ -1185,7 +1364,10 @@ class Interactions:
 
         return occurrence_page(self, offset, limit, max_participant_atoms)
 
-    def remap(self, atom_indices="all", structure_indices="all"):
+    @arg_digest(**_RESULT_DIGEST)
+    def remap(
+        self, atom_indices="all", structure_indices="all", *, skip_digestion=False
+    ):
         """Extracting interactions into new atom and structure index spaces.
 
         Relations are retained only when every atom of every participant is
@@ -1200,6 +1382,8 @@ class Interactions:
             Local atoms in their desired output order, without duplicates.
         structure_indices : array-like of int or 'all', default='all'
             Local structures in their desired output order; repeats are allowed.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
         Returns
         -------
@@ -1213,6 +1397,7 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         from molsysmt._private.variables import is_all
 
         if not self._is_full:
@@ -1412,11 +1597,13 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         from ._frame_replacement import _replace
 
         return _replace(self, replacement)
 
-    def invalidate_structures(self, structure_indices):
+    @arg_digest(**_RESULT_DIGEST)
+    def invalidate_structures(self, structure_indices, *, skip_digestion=False):
         """Marking selected structures unevaluated and removing their observations.
 
         A new result shares read-only numeric storage and excludes the selected
@@ -1434,6 +1621,8 @@ class Interactions:
         ----------
         structure_indices : array-like of int
             Local structure indices whose analysis is no longer valid.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
         Returns
         -------
@@ -1455,6 +1644,7 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         if not self._is_full:
             raise ValueError("Invalidation requires a full interaction result")
         frames = np.unique(
@@ -1524,13 +1714,16 @@ class Interactions:
 
         return compact(self)
 
-    def save(self, filename):
+    @arg_digest(**_RESULT_DIGEST)
+    def save(self, filename, *, skip_digestion=False):
         """Writing the full result to a versioned standalone HDF5 file.
 
         Parameters
         ----------
         filename : str or pathlib.Path
             Destination for the complete analysis. An existing file is replaced.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
         Returns
         -------
@@ -1570,6 +1763,7 @@ class Interactions:
 
         .. versionadded:: 1.0.0
         """
+        _check_skip_digestion(skip_digestion)
         if not self._is_full:
             raise ValueError("save the full result, not a query view")
         import h5py
@@ -1584,8 +1778,34 @@ class Interactions:
         write_group(self, group)
 
     @classmethod
-    def load(cls, filename):
-        """Loading a versioned standalone interaction result into memory."""
+    @arg_digest(**_RESULT_DIGEST)
+    def load(cls, filename, *, skip_digestion=False):
+        """Loading a versioned standalone interaction result into memory.
+
+        Parameters
+        ----------
+        filename : str or pathlib.Path
+            Existing standalone analysis written with save, not a named H5MSM collection.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        Interactions
+            Complete resident analysis retaining the original producer metadata.
+
+        Notes
+        -----
+        Typed cross-column invariants are checked while decoding. Skipping filename
+        digestion does not disable file/schema validation or introduce lazy queries.
+
+        See Also
+        --------
+        save
+
+        .. versionadded:: 1.0.0
+        """
+        _check_skip_digestion(skip_digestion)
         import h5py
 
         with h5py.File(Path(filename), "r") as file:

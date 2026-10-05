@@ -11,7 +11,16 @@ from types import MappingProxyType
 
 import numpy as np
 
-from .result import Interactions, _immutable_array, _indices, _unique_in_order
+from molsysmt._private.argdigest import arg_digest
+
+from .result import (
+    _RESULT_DIGEST,
+    Interactions,
+    _check_skip_digestion,
+    _immutable_array,
+    _indices,
+    _unique_in_order,
+)
 
 
 def _metadata(source):
@@ -151,13 +160,17 @@ class _FrameFilteredInteractions(Interactions):
         view.source_id = self.source_id
         return view
 
+    @arg_digest(**_RESULT_DIGEST)
     def query(
         self,
         structure_indices=None,
         atom_indices=None,
         mode="incident",
         interaction_types=None,
+        *,
+        skip_digestion=False,
     ):
+        _check_skip_digestion(skip_digestion)
         frames = self._query_frames(structure_indices)
         if (
             structure_indices is None
@@ -165,7 +178,9 @@ class _FrameFilteredInteractions(Interactions):
             and interaction_types is None
         ):
             view = self._root.query(
-                structure_indices=np.sort(self._coverage), mode=mode
+                structure_indices=np.sort(self._coverage),
+                mode=mode,
+                skip_digestion=True,
             )
             view._coverage = self._coverage
         else:
@@ -174,9 +189,11 @@ class _FrameFilteredInteractions(Interactions):
                 atom_indices=atom_indices,
                 mode=mode,
                 interaction_types=interaction_types,
+                skip_digestion=True,
             )
         return self._project(view)
 
+    @arg_digest(**_RESULT_DIGEST)
     def between(
         self,
         atom_indices_a,
@@ -184,7 +201,10 @@ class _FrameFilteredInteractions(Interactions):
         structure_indices=None,
         exclusive=False,
         interaction_types=None,
+        *,
+        skip_digestion=False,
     ):
+        _check_skip_digestion(skip_digestion)
         return self._project(
             self._root.between(
                 atom_indices_a,
@@ -192,11 +212,14 @@ class _FrameFilteredInteractions(Interactions):
                 structure_indices=self._query_frames(structure_indices),
                 exclusive=exclusive,
                 interaction_types=interaction_types,
+                skip_digestion=True,
             )
         )
 
-    def to_dict(self):
-        return self.query().to_dict()
+    @arg_digest(**_RESULT_DIGEST)
+    def to_dict(self, *, skip_digestion=False):
+        _check_skip_digestion(skip_digestion)
+        return self.query(skip_digestion=True).to_dict(skip_digestion=True)
 
     def _packed(self):
         if self._packed_result is None:
@@ -283,10 +306,16 @@ class _FrameFilteredInteractions(Interactions):
     def measurements(self):
         return self._packed().measurements
 
-    def remap(self, atom_indices="all", structure_indices="all"):
+    @arg_digest(**_RESULT_DIGEST)
+    def remap(
+        self, atom_indices="all", structure_indices="all", *, skip_digestion=False
+    ):
+        _check_skip_digestion(skip_digestion)
         with _interchange_result(self) as packed:
             return packed.remap(
-                atom_indices=atom_indices, structure_indices=structure_indices
+                atom_indices=atom_indices,
+                structure_indices=structure_indices,
+                skip_digestion=True,
             )
 
     def _write_group(self, group):

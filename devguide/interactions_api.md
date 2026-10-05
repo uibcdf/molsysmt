@@ -680,6 +680,18 @@ for the implementation inventory and release boundary.
 
 ## Current result behavior and 1.0 target
 
+All public result methods, including construction, queries on invalidated or
+recalculated snapshots, remapping and standalone persistence, use ArgDigest.
+Original methods add keyword-only `skip_digestion=False` while preserving their
+existing positional arguments. A family-specific explicit digester registry
+keeps local sparse-axis rules separate from general molecular selections:
+integer counts/indices refuse booleans and fractions before encoding, and image
+vectors refuse int32 overflow. Record generators are not exhausted by digestion.
+Controlled internal delegation skips digestion only after the public arguments
+satisfy the callee's contract. Constructor cross-column invariants and file
+schema validation remain active, including on the trusted skip route.
+Guard: `tests/interactions/test_argument_validation.py`.
+
 The experimental `molsysmt.Interactions` class stores one method's typed observations,
 relation participants and roles, explicit evaluated-structure coverage,
 declared atom search scope, measurement units, evidence labels, and optional

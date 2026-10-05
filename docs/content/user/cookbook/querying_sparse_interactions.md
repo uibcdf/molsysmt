@@ -33,6 +33,12 @@ The selected structures may be nonconsecutive. Repeating structure 3 does not
 duplicate its occurrence; structure 1 remains present in coverage with zero
 occurrences. Structure 2 was never evaluated.
 
+Keep these selections as integer indices. A fractional value such as `3.5`
+raises instead of selecting structure 3. Leave `skip_digestion` at its default
+`False` when accepting input from a user or a file; it is a trusted-delegation
+option, not a way to repair malformed data. See
+{ref}`Querying interaction results <user-tools-interactions-result>`.
+
 ```python
 view = interactions.query(structure_indices=[3, 1, 0, 3])
 columns = view.to_dict()

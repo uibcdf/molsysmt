@@ -3,6 +3,13 @@
 
 `molsysmt.MolSys` is the primary native molecular system container in MolSysMT. It can combine topology, chemical states, a 3D structures sequence or ensemble, named interaction results, and molecular mechanics data.
 
+Each named `Interactions` analysis uses positional integer atom and structure
+indices. Its public construction and query methods validate those arguments;
+fractional numbers and booleans cannot silently designate another position.
+Validation also applies after invalidation or partial recalculation. The
+`skip_digestion` option is reserved for inputs already checked against the
+complete contract. See {ref}`user-tools-interactions-result`.
+
 ---
 
 ## Overview and Role

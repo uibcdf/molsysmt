@@ -10,8 +10,16 @@ from types import MappingProxyType
 
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+
 from ._frame_validity import _FrameFilteredInteractions, _interchange_result, _metadata
-from .result import Interactions, _immutable_array, _indices
+from .result import (
+    _RESULT_DIGEST,
+    Interactions,
+    _check_skip_digestion,
+    _immutable_array,
+    _indices,
+)
 
 
 def _equal(a, b):
@@ -415,9 +423,13 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
             if requested is not None and not len(requested):
                 continue
             view = (
-                base.between(structure_indices=requested, **query_arguments)
+                base.between(
+                    structure_indices=requested, skip_digestion=True, **query_arguments
+                )
                 if between
-                else base.query(structure_indices=requested, **query_arguments)
+                else base.query(
+                    structure_indices=requested, skip_digestion=True, **query_arguments
+                )
             )
             positions = view._positions
             positions = np.sort(
@@ -537,13 +549,17 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
             positions = positions[np.argsort(ranks, kind="stable")]
         return result._view(positions, coverage)
 
+    @arg_digest(**_RESULT_DIGEST)
     def query(
         self,
         structure_indices=None,
         atom_indices=None,
         mode="incident",
         interaction_types=None,
+        *,
+        skip_digestion=False,
     ):
+        _check_skip_digestion(skip_digestion)
         if mode not in {"incident", "internal", "cross"}:
             raise ValueError("mode must be 'incident', 'internal', or 'cross'")
         if atom_indices is not None:
@@ -557,6 +573,7 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
             ),
         )
 
+    @arg_digest(**_RESULT_DIGEST)
     def between(
         self,
         atom_indices_a,
@@ -564,7 +581,10 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
         structure_indices=None,
         exclusive=False,
         interaction_types=None,
+        *,
+        skip_digestion=False,
     ):
+        _check_skip_digestion(skip_digestion)
         a = _indices(atom_indices_a, self.n_atoms, "atom_indices_a")
         b = _indices(atom_indices_b, self.n_atoms, "atom_indices_b")
         if np.intersect1d(a, b).size:

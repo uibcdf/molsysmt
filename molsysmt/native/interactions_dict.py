@@ -105,7 +105,9 @@ def _decode_interactions(payload):
         if records is None:
             raise ValueError("Version-2 interaction payloads require execution_records")
     labels = tuple(data["evidence_labels"])
-    codes = np.asarray(data["occurrence_evidence"], dtype=np.int64)
+    codes = np.asarray(data["occurrence_evidence"])
+    if codes.ndim != 1 or codes.dtype.kind not in "iu":
+        raise ValueError("InteractionsDict evidence codes must be integer columns.")
     if np.any(codes < 0) or np.any(codes >= len(labels)):
         raise ValueError("InteractionsDict evidence codes are outside the label table.")
     return Interactions(

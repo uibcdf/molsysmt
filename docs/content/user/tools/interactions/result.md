@@ -7,6 +7,15 @@ system's indices; explicit source maps support a selected or reordered domain.
 This class stores the
 observations; it does not detect interactions or declare covalent bonds.
 
+Construction and queries validate their arguments through ArgDigest. Counts and
+indices must be integers: booleans and fractional values are rejected before
+they can become different atom or structure indices. Integer lists, NumPy
+arrays, empty selections and record generators remain supported. Existing
+positional calls keep their argument order. The keyword-only
+`skip_digestion=False` defaults to validation; use `True` only inside a pipeline
+that has already checked the complete input contract. Stored cross-column
+invariants and file/schema checks remain active on that route.
+
 ```python
 import molsysmt as msm
 
