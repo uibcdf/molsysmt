@@ -456,6 +456,10 @@ representative time/memory workloads before claiming native receptor preparation
 The separately reported public alternate-index defect in #329 and the MolSys
 system-query structure-selection defect in uibcdf/molsysmt#331 are corrected.
 The corresponding 147-control checkpoint includes peptide candidates, real PDB
-alternate sites and alternate-conformer resolution. YAML persistence of physical
-alternate-site quantities remains tracked independently in uibcdf/molsysmt#332;
-label-only YAML index controls do not qualify that boundary. #304 remains partial.
+alternate sites and alternate-conformer resolution. The subsequent
+uibcdf/molsysmt#332 checkpoint preserves physical alternate-site quantities in
+Structures YAML 0.2 with explicit field/unit validation; uibcdf/molsysmt#333
+remaps sparse keys in supported selected structural conversions. Its 107 focused
+controls include full YAML geometry, not only labels. #304 remains partial:
+source polymer order, hydrogen handling and native-reader integration are still
+pending.

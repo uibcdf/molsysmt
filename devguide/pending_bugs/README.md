@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`structures_yaml_cannot_serialize_physical_quantities_in_alternate_sites.md`](structures_yaml_cannot_serialize_physical_quantities_in_alternate_sites.md) — [#332](https://github.com/uibcdf/molsysmt/issues/332) — Structures YAML cannot serialize physical quantities in alternate sites *(medium, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

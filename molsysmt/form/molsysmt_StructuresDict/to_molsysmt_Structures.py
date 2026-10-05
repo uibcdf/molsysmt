@@ -25,6 +25,10 @@ def to_molsysmt_Structures(
     molsysmt.Structures
         Resulting object in molsysmt.Structures form.
 
+    Notes
+    -----
+    Atom selections remap sparse alternate-site keys to the resulting local
+    atom axis. Source dictionary keys and entry atom IDs are unchanged.
 
     .. versionadded:: 1.0.0
     """
@@ -86,6 +90,9 @@ def to_molsysmt_Structures(
         structure_indices=structure_indices,
         skip_digestion=True,
     )
+    from molsysmt.native.structures import _remap_alternate_atom_indices
+
+    alternate_location = _remap_alternate_atom_indices(alternate_location, atom_indices)
     temperature = get_temperature_from_system(
         item,
         structure_indices=structure_indices,

@@ -25,6 +25,11 @@ def to_molsysmt_StructuresDict(
     molsysmt.StructuresDict
         Resulting object in molsysmt.StructuresDict form.
 
+    Notes
+    -----
+    Atom selections create a local atom axis. Sparse alternate-site keys are
+    remapped to that axis; entry atom IDs remain labels. Structure selections
+    preserve the requested order, including repetitions.
 
     .. versionadded:: 1.0.0
     """
@@ -98,6 +103,9 @@ def to_molsysmt_StructuresDict(
         if getattr(item, "alternate_location", None) is not None
         else None
     )
+    from molsysmt.native.structures import _remap_alternate_atom_indices
+
+    alternate_location = _remap_alternate_atom_indices(alternate_location, atom_indices)
     temperature = get_temperature_from_system(
         item,
         structure_indices=structure_indices,

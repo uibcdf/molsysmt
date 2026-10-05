@@ -1,23 +1,6 @@
 from depdigest import dep_digest
 
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-
-
-def _to_builtin(value):
-    if hasattr(value, "tolist"):
-        value = value.tolist()
-    if isinstance(value, dict):
-        return {key: _to_builtin(item) for key, item in value.items()}
-    if isinstance(value, (list, tuple)):
-        return [_to_builtin(item) for item in value]
-    return value
-
-
-def _serialize_quantity(value, unit):
-    if value is None:
-        return None
-    return puw.get_value(value, to_unit=unit).tolist()
 
 
 @dep_digest("yaml")
@@ -41,41 +24,39 @@ def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     file:structures_yaml
         Resulting object in file:structures_yaml form.
 
+    Raises
+    ------
+    FormatError
+        If a physical field lacks compatible units or sparse alternate-site
+        indices, fields or shapes are invalid.
+
+    Notes
+    -----
+    Writing schema 0.2 with verified PyUnitWizard quantity records, including
+    sparse alternate coordinates and B factors. Atom keys are local integer
+    indices. The reader retains support for schema 0.1 canonical units.
+
+    Examples
+    --------
+    >>> import tempfile
+    >>> from pathlib import Path
+    >>> import numpy as np
+    >>> import molsysmt as msm
+    >>> molsys = {'coordinates': msm.pyunitwizard.quantity(np.zeros((1, 1, 3)), 'nm')}
+    >>> with tempfile.TemporaryDirectory() as directory:
+    ...     filename = to_file_structures_yaml(molsys, str(Path(directory) / 'example.yaml'))
+    ...     restored = msm.convert(filename, to_form='molsysmt.StructuresDict')
+    ...     restored['coordinates'].shape
+    (1, 1, 3)
 
     .. versionadded:: 1.0.0
     """
 
     import yaml
 
-    structures = {}
+    from molsysmt.form._structures_yaml import encode_structures
 
-    for key in ["structure_id", "alternate_location"]:
-        value = item.get(key, None)
-        if value is not None:
-            structures[key] = _to_builtin(value)
-
-    for key, unit in [
-        ("time", "ps"),
-        ("box", "nm"),
-        ("coordinates", "nm"),
-        ("velocities", "nm/ps"),
-        ("b_factor", "nm**2"),
-    ]:
-        value = item.get(key, None)
-        if value is not None:
-            structures[key] = _serialize_quantity(value, unit)
-
-    occupancy = item.get("occupancy", None)
-    if occupancy is not None:
-        structures["occupancy"] = _to_builtin(occupancy)
-
-    data = {
-        "format": "molsysmt",
-        "kind": "structures",
-        "version": "0.1",
-        "metadata": {},
-        "structures": structures,
-    }
+    data = encode_structures(item)
 
     with open(output_filename, "w", encoding="utf-8") as file_handle:
         yaml.safe_dump(data, file_handle, sort_keys=False)

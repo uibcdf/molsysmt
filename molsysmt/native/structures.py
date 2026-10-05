@@ -79,6 +79,26 @@ def _box_mismatch_reason(target_box, source_box):
     )
 
 
+def _remap_alternate_atom_indices(value, atom_indices):
+    """Move already-selected sparse keys to the selected local atom domain."""
+    if value is None or is_all(atom_indices):
+        return value
+    index_map = {int(old): new for new, old in enumerate(atom_indices)}
+    remapped = [
+        {
+            index_map[int(old)]: entry
+            for old, entry in sites.items()
+            if int(old) in index_map
+        }
+        if isinstance(sites, dict)
+        else deepcopy(sites)
+        for sites in value
+    ]
+    if isinstance(value, np.ndarray):
+        return np.asarray(remapped, dtype=value.dtype)
+    return remapped
+
+
 def _merge_alternate_locations(target_value, source_value, atom_offset, n_structures):
     """Merging two alternate-location series, whose keys are atom indices.
 
@@ -878,29 +898,9 @@ class Structures:
                     deepcopy(self.alternate_location[index])
                     for index in structure_indices
                 ]
-            if not is_all(atom_indices):
-                atom_index_map = {
-                    int(old_index): new_index
-                    for new_index, old_index in enumerate(atom_indices)
-                }
-                remapped = []
-                for structure_alternates in tmp_item.alternate_location:
-                    if isinstance(structure_alternates, dict):
-                        remapped.append(
-                            {
-                                atom_index_map[int(old_index)]: value
-                                for old_index, value in structure_alternates.items()
-                                if int(old_index) in atom_index_map
-                            }
-                        )
-                    else:
-                        remapped.append(deepcopy(structure_alternates))
-                if isinstance(tmp_item.alternate_location, np.ndarray):
-                    remapped = np.asarray(
-                        remapped,
-                        dtype=tmp_item.alternate_location.dtype,
-                    )
-                tmp_item.alternate_location = remapped
+            tmp_item.alternate_location = _remap_alternate_atom_indices(
+                tmp_item.alternate_location, atom_indices
+            )
 
         if self._occupancy is not None:
             if is_all(structure_indices):

@@ -40,16 +40,6 @@ def alternate_source(request, tmp_path):
     elif kind == "dictionary":
         source = msm.convert(structures, to_form="molsysmt.StructuresDict")
     else:
-        if kind == "yaml":
-            # YAML physical alternate-site serialization is tracked by #332.
-            # Exercise its supported label-only records for the index contract.
-            structures.alternate_location = [
-                {
-                    int(key): dict(entry, b_factor=None, coordinates=None)
-                    for key, entry in sites.items()
-                }
-                for sites in structures.alternate_location
-            ]
         extension = "yaml" if kind == "yaml" else "h5msm"
         source = str(tmp_path / f"alternate-sites.{extension}")
         msm.convert(

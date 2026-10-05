@@ -22,7 +22,7 @@ sections:
         index_agents_file: docs/content/user/foundations/molecular_system/index.AGENTS.md
         pages:
           - name: attributes
-            description: Attribute presence, empty data and chemical-completeness limits.
+            description: Attribute presence, sparse source versus local atom indices, unit-bearing YAML records, empty data and chemical-completeness limits.
             file: docs/content/user/foundations/molecular_system/attributes.ipynb
             agents_file: docs/content/user/foundations/molecular_system/attributes.AGENTS.md
       - name: native_world
@@ -282,6 +282,9 @@ sections:
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
             description: Modular persistence, typed construction, normalization and geometry history, complementary file composition, shared axes and legacy migration.
+          - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
+            agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
+            description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.
       - name: thirds
         path: docs/content/user/tools/thirds
         agents_file: docs/content/user/tools/thirds/AGENTS.md

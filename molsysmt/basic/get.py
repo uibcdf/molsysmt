@@ -71,7 +71,8 @@ def get(
         If any input argument is invalid or inconsistent, including malformed
         selections and out-of-range element, mask, or structure indices.
     FormatError
-        If a legacy H5MSM file has missing, invalid, or contradictory units.
+        If a legacy H5MSM file has missing, invalid, or contradictory units,
+        or structures YAML has an unsupported schema or invalid quantity record.
     NotWithThisFormError
         If a form declares a requested attribute but provides neither a
         compatible direct getter, registered derivation, nor usable attribute

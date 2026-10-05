@@ -347,6 +347,15 @@ atom domain. An empty dictionary means no alternate sites in that structure;
 `None` means no stored alternate-site attribute. This inspection does not resolve
 alternate conformations or certify a preparation geometry.
 
+For a small snapshot of a native system's structural evidence, write
+`msm.convert(molsys.structures, to_form='file:structures_yaml',
+output_filename='structural_evidence.yaml')`. Schema 0.2 preserves alternate
+geometry with verified physical units. If you select atoms while writing, site
+keys belong to the file's new local atom axis; retain the source correspondence
+separately. H5MSM remains the complete archive for chemical states, preparation
+history and named interaction analyses. See {ref}`Structures YAML
+<Tutorial_Form_file_structures_yaml>` for reading older snapshots.
+
 ## Preparing a bounded observed peptide
 
 The pinned 1QKU receptor control uses label chain A. Residues with IDs 301–303

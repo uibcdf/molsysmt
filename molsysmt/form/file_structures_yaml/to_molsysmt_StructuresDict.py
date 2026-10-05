@@ -1,14 +1,6 @@
-import numpy as np
 from depdigest import dep_digest
 
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-
-
-def _load_quantity(value, unit):
-    if value is None:
-        return None
-    return puw.quantity(value, unit)
 
 
 @dep_digest("yaml")
@@ -31,6 +23,18 @@ def to_molsysmt_StructuresDict(item, skip_digestion=False):
         Resulting object in molsysmt.StructuresDict form.
 
 
+    Raises
+    ------
+    FormatError
+        If the schema version is unsupported or a quantity record, unit,
+        field binding or sparse-site axis is invalid. Legacy alternate
+        coordinates and B factors without negotiated units are rejected.
+
+    Notes
+    -----
+    Schema 0.1 uses its historical canonical units for top-level fields;
+    schema 0.2 verifies each quantity record and its expected field and unit.
+
     .. versionadded:: 1.0.0
     """
 
@@ -39,25 +43,6 @@ def to_molsysmt_StructuresDict(item, skip_digestion=False):
     with open(item, "r", encoding="utf-8") as file_handle:
         data = yaml.safe_load(file_handle)
 
-    payload = data.get("structures", {})
-    output = {}
+    from molsysmt.form._structures_yaml import decode_structures
 
-    if payload.get("structure_id", None) is not None:
-        output["structure_id"] = payload["structure_id"]
-    if payload.get("alternate_location", None) is not None:
-        output["alternate_location"] = payload["alternate_location"]
-
-    for key, unit in [
-        ("time", "ps"),
-        ("box", "nm"),
-        ("coordinates", "nm"),
-        ("velocities", "nm/ps"),
-        ("b_factor", "nm**2"),
-    ]:
-        if payload.get(key, None) is not None:
-            output[key] = _load_quantity(payload[key], unit)
-
-    if payload.get("occupancy", None) is not None:
-        output["occupancy"] = np.asarray(payload["occupancy"])
-
-    return output
+    return decode_structures(data)
