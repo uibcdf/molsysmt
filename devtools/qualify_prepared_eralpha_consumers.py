@@ -53,9 +53,7 @@ def _prepare(msm, artifacts):
     raw = gzip.decompress((DATA / "1qku.cif.gz").read_bytes())
     if hashlib.sha256(raw).hexdigest() != manifest["source_sha256"]:
         raise ValueError("The observed input no longer matches the qualified source.")
-    source_path = artifacts / "observed-source.cif"
-    source_path.write_bytes(raw)
-    molecular_system = msm.convert(source_path, to_form="molsysmt.MolSys")
+    molecular_system = msm.convert(DATA / "1qku.cif.gz", to_form="molsysmt.MolSys")
     original_xyz = msm.pyunitwizard.get_value(
         msm.get(molecular_system, coordinates=True), to_unit="nm"
     ).copy()

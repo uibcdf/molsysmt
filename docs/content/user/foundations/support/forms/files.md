@@ -23,7 +23,7 @@ MolSysMT seamlessly reads, parses, and writes major third-party disk file format
 | :--- | :--- | :--- | :--- | :--- |
 | **`file:pdb`** | `.pdb` | Protein Data Bank file | `PDBFileHandler` | Iterative Streaming (`TopologyIterator`, `StructuresIterator`) |
 | **`file:cif`** | `.cif` / `.mmcif` | Macromolecular Crystallographic Info | `CIFFileHandler` | Iterative Streaming |
-| **`file:cif_gz`** | `.cif.gz` | Gzipped mmCIF file | `CIFFileHandler` | Iterative Streaming |
+| **`file:cif.gz`** | `.cif.gz` | Gzipped mmCIF file | `CIFFileHandler` | Iterative Streaming |
 | **`file:bcif`** | `.bcif` | Binary mmCIF file | Internal BCIF Parser | In-Memory Parsing |
 | **`file:bcif_gz`** | `.bcif.gz` | Gzipped Binary mmCIF file | Internal BCIF Parser | In-Memory Parsing |
 | **`file:gro`** | `.gro` | GROMACS structure file | `GROFileHandler` | Iterative Streaming |
@@ -47,6 +47,11 @@ MolSysMT seamlessly reads, parses, and writes major third-party disk file format
 | **`file:molsys_yaml`** | `.molsys.yaml` | Declarative system YAML specification | Internal YAML Parser | Declarative Parsing |
 | **`file:topology_yaml`** | `.topology.yaml` | Declarative topology YAML specification | Internal YAML Parser | Declarative Parsing |
 | **`file:structures_yaml`** | `.structures.yaml` | Declarative structures YAML specification | Internal YAML Parser | Declarative Parsing |
+
+Reading a local compressed CIF preserves the source and neighboring files.
+Each read uses independent temporary storage, allowing concurrent reads from an
+input directory without write permission. Temporary artifacts are removed after
+success or failure. Parsing remains eager; see {ref}`Tutorial_Form_file_cif_gz`.
 
 The native SDF adapter retains all explicitly drawn hydrogens, ordinary and
 explicit aromatic bonds, formal charges, supported radical counts, isotopes

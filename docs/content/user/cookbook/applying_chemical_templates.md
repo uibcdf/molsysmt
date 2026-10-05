@@ -13,6 +13,11 @@ template construction. This narrative recipe records the decisions for real inpu
 :::{versionadded} 1.0.0
 :::
 
+Reading a local `.cif.gz` through `msm.convert()` uses independent temporary
+storage without modifying the source directory. Concurrent preparation jobs can
+read the same source file; no manual decompression beside it is needed.
+Temporary storage must be available, and parsing remains eager.
+
 ## Establishing the input
 
 1. Extract one intended component and retain its map to the complete system, or

@@ -44,8 +44,11 @@ The provider source HEAD is authoritative for this source run. Its editable
 package version string may describe an earlier installed build and is retained
 honestly; this is not a public distribution or installed-artifact qualification.
 
-The decompressed fixture is staged into caller-owned storage because concurrent
-input-adjacent CIF.GZ decompression is tracked by uibcdf/molsysmt#326. No new
+The retained receipts describe the earlier driver, which staged decompressed
+input into caller-owned storage. After the uibcdf/molsysmt#326 fix, the current
+driver reads the same compressed fixture directly in concurrent consumer jobs.
+Its parser has independent temporary storage. Historical receipt hashes describe
+the original qualified sources, not every later driver revision. No new
 provider API, chemistry implementation, dependency or compiled routine is added.
 
 The patches use zero context. Check the recorded baseline file hashes before

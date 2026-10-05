@@ -1475,3 +1475,19 @@ partial: scoped transfer and the closed-fragment consumer flow are qualified,
 but the original complete receptor still has nine missing reference heavy atoms.
 Native arbitrary-ligand H generation (#308), environmental refinement (#323)
 and the remaining unsupported lysine reconstruction are separate capabilities.
+
+
+## Compressed-source consumer follow-up, 2026-10-05
+
+The #326 adapter fix removes the manual-decompression workaround from the
+maintained driver. Both isolated consumer drivers pass together while reading
+the same compressed 1QKU fixture through public conversion. Their chemistry,
+H5MSM recovery, exact historical values, source maps and bounded observation/feature
+results remain those of the previous checkpoint. Eight new parser-isolation
+controls plus existing CIF conversions/parity and the public adapter doctest
+produce **27 passed in 6.32 s** on Python 3.14.7 / mmcif 1.1.1.
+See the [resolved reader defect](../archive/resolved_bugs/concurrent_cif_gz_readers_share_decompression_path.md)
+for independent temporary ownership, source-neighbor preservation and error cleanup.
+The earlier JSON/patch receipts remain dated evidence; their original driver
+hash does not identify the later implementation. The full-receptor and owner
+acceptance limits are unchanged, so #298 remains partial.
