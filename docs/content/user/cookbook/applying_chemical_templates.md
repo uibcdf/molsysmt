@@ -38,6 +38,14 @@ OpenMM inference and can retain only declared edges if that legacy inference
 fails or is unavailable. Review the returned chemical coverage rather than
 assuming that a loaded structure is chemically complete.
 
+For a separate native audit, `msm.build.get_missing_bonds(molsys)` returns
+template/geometric candidates without changing the source. Peptide candidates
+require consecutive source group indices in the same defined chain; selections
+cannot invent adjacency. Integer selections refer to atom indices. Review these
+candidates before using `msm.build.add_missing_bonds(molsys, in_place=False)`.
+These build tools do not establish complete chemistry or replace the explicit
+choice of a PDB reader inference policy.
+
 Template application remains a separate explicit operation. Its supported
 `complete_from_template` policy can fill reviewed missing edges under an
 exhaustive atom map; it does not make an unknown component compatible or place

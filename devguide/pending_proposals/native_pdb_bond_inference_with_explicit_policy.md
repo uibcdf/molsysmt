@@ -222,3 +222,13 @@ unknown groups, actual chain segments and declared alternative sites; compare
 literal expected edges and retain original 1IEP disagreements. Keep geometric
 fallback and modified chemistry as explicit scientific policies rather than
 calling the current mixed heuristic a chemically complete reader.
+
+### Native candidate prerequisite — 2026-10-05
+
+Review of the general build tool reproduced peptide candidates across declared
+chains, selected source-group gaps and nearby nonadjacent groups. Integer atom
+selections also reached the nested group query on the wrong axis. This is tracked
+as uibcdf/molsysmt#328 with public regression controls in
+`tests/build/get_missing_bonds/test_peptide_candidates.py`. Correcting that tool
+is a prerequisite to native reader qualification; it does not add a reader
+engine selector, coverage/provenance report or file-segment/alternative-site policy.

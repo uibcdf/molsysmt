@@ -23,12 +23,14 @@ def get_missing_bonds(
     skip_digestion=False,
 ):
     """
-    Identify bonds that are present in the chemical structure but absent from the topology.
+    Identifying candidate missing covalent bonds.
 
-    This function compares the bonds inferred from residue templates and/or distance-based
+    This function compares the bonds inferred from group templates and/or distance-based
     neighbor searches against the bonds already recorded in the topology of the molecular
-    system and returns those that are missing. Peptidic bonds between consecutive amino
-    acids and, optionally, disulfide bonds between cysteine residues are also detected.
+    system and returns candidate missing pairs. Peptidic bonds are considered only
+    between consecutive source groups in the same declared chain. Selecting separated
+    groups does not make them consecutive. These criteria are heuristics and do not
+    establish a complete or chemically validated molecular graph.
 
 
     Parameters
@@ -36,21 +38,25 @@ def get_missing_bonds(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
-    structure_index : object, default=0
-        Argument structure_index.
-    max_bond_length : object, default='2 angstroms'
-        Argument max_bond_length.
-    disulfide_bonds : object, default=False
-        Argument disulfide_bonds.
-    disulfide_group_names : object, default=None
-        Argument disulfide_group_names.
+        Atom selection. Integer lists refer to source atom indices. Both atoms of
+        each returned pair must belong to the selection. Defaults to 'all'.
+    structure_index : int, default=0
+        Source structure index used for distance-based candidates. Defaults to 0.
+    max_bond_length : quantity or str, default='2 angstroms'
+        Distance cutoff for geometric candidates, with explicit length units.
+        Peptide candidates must also satisfy the element-pair threshold.
+        Defaults to '2 angstroms'.
+    disulfide_bonds : bool, default=False
+        Whether to include geometric disulfide candidates. Defaults to False.
+    disulfide_group_names : list of str or None, default=None
+        Group names examined for disulfide candidates. None uses ['CYS'].
     pbc : bool, default=True
         Whether to take periodic boundary conditions into account.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Candidate engine: 'MolSysMT' or the optional 'pytraj' backend.
+        Defaults to 'MolSysMT'.
     sorted : bool, default=True
         Whether to sort the returned bonded atom pairs.
     skip_digestion : bool, default=False
@@ -60,8 +66,9 @@ def get_missing_bonds(
     -------
     list of [int, int]
         List of ``[atom_index_1, atom_index_2]`` pairs representing bonds that are
-        present according to chemical templates or distance criteria but not yet
-        recorded in the molecular system topology.
+        inferred from templates or distance criteria but not yet recorded in the
+        molecular system topology. Indices refer to the source atom axis. An empty
+        result is an empty list; this function does not modify the source.
 
 
     Raises
@@ -81,8 +88,23 @@ def get_missing_bonds(
     neighbor search using ``max_bond_length`` and element-pair thresholds stored in
     ``molsysmt.element.bond``.
 
-    Peptidic C–N bonds between consecutive residues are detected via a distance
-    filter applied to the backbone C and N atoms of adjacent groups.
+    Peptidic C–N candidates connect source group indices ``g`` and ``g + 1``
+    only when both have one defined, identical chain index. Missing or ambiguous
+    chain membership is not used to infer peptide bonds. Distances are evaluated
+    only for these pairs, using the requested structure and PBC setting.
+    Group IDs need not be consecutive. Chain membership alone cannot preserve
+    file-specific segment breaks that a source adapter has not retained.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> system = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'])
+    >>> msm.build.get_missing_bonds(system)
+    []
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Get_missing_bonds` for auditing missing connectivity.
 
 
     .. versionadded:: 1.0.0
@@ -116,14 +138,34 @@ def get_missing_bonds(
             get_bonded_atom_pairs as _bonds_in_water,
         )
 
+        atom_mask = None
+        group_selection = "all"
+        if not is_all(selection):
+            atom_mask = select(molecular_system, selection=selection, syntax=syntax)
+            selected_groups = get(
+                molecular_system,
+                element="atom",
+                selection=atom_mask,
+                group_index=True,
+                skip_digestion=True,
+            )
+            group_selection = list(
+                dict.fromkeys(index for index in selected_groups if index is not None)
+            )
+
         old_bonds = get(
-            molecular_system, selection=selection, inner_bonded_atom_pairs=True
+            molecular_system,
+            selection="all" if atom_mask is None else atom_mask,
+            inner_bonded_atom_pairs=True,
+            skip_digestion=True,
         )
 
         aux_lists = get(
             molecular_system,
             element="group",
-            selection=selection,
+            selection=group_selection,
+            group_index=True,
+            chain_index=True,
             group_name=True,
             group_type=True,
             atom_index=True,
@@ -132,17 +174,22 @@ def get_missing_bonds(
             skip_digestion=True,
         )
 
-        group_index = -1
-
+        group_chains = {}
         aux_peptidic_bonds_C = {}
         aux_peptidic_bonds_N = {}
 
         bonds = []
 
-        for group_name, group_type, atom_indices, atom_names, atom_types in zip(
-            *aux_lists
-        ):
-            group_index += 1
+        for (
+            group_index,
+            chain_index,
+            group_name,
+            group_type,
+            atom_indices,
+            atom_names,
+            atom_types,
+        ) in zip(*aux_lists):
+            group_chains[group_index] = chain_index
 
             aux_bonds = None
 
@@ -222,6 +269,7 @@ def get_missing_bonds(
             molecular_system,
             aux_peptidic_bonds_C,
             aux_peptidic_bonds_N,
+            group_chains,
             structure_index=structure_index,
             max_bond_length=max_bond_length,
             pbc=pbc,
@@ -250,8 +298,8 @@ def get_missing_bonds(
 
         # mask with selection
 
-        if not is_all(selection):
-            mask = select(molecular_system, element="atom", selection=selection)
+        if atom_mask is not None:
+            mask = set(atom_mask)
             tmp_bonds = []
             for bond in bonds:
                 if (bond[0] in mask) and (bond[1] in mask):
@@ -405,15 +453,17 @@ def _get_peptidic_bonds(
     molecular_system,
     aux_peptidic_bonds_C,
     aux_peptidic_bonds_N,
-    selection="all",
+    group_chains,
     structure_index=0,
     max_bond_length="2 angstroms",
     pbc=True,
     sorted=True,
 ):
-    """Infer peptidic C–N bonds between consecutive residues via distance filtering."""
+    """Filter explicit adjacent, same-chain backbone pairs by distance."""
 
-    from molsysmt.structure import get_neighbors
+    from numbers import Integral
+
+    from molsysmt.structure import get_distances
 
     bonds = []
 
@@ -421,29 +471,35 @@ def _get_peptidic_bonds(
     aux_N = []
 
     for group_index in aux_peptidic_bonds_C.keys():
-        if group_index + 1 in aux_peptidic_bonds_N:
+        chain_index = group_chains[group_index]
+        next_chain_index = group_chains.get(group_index + 1)
+        if (
+            group_index + 1 in aux_peptidic_bonds_N
+            and isinstance(chain_index, Integral)
+            and isinstance(next_chain_index, Integral)
+            and chain_index >= 0
+            and chain_index == next_chain_index
+        ):
             aux_C.append(aux_peptidic_bonds_C[group_index])
             aux_N.append(aux_peptidic_bonds_N[group_index + 1])
 
     if len(aux_C):
-        pairs, dists = get_neighbors(
+        dists = get_distances(
             molecular_system,
             selection=aux_C,
             selection_2=aux_N,
             structure_indices=structure_index,
-            threshold=max_bond_length,
-            output_type="pairs",
-            output_indices="atom",
+            pairs=True,
             pbc=pbc,
-            sorted=False,
             skip_digestion=True,
         )
-        for pair, dist in zip(pairs[0], dists[0]):
+        for atom_C, atom_N, dist in zip(aux_C, aux_N, dists[0]):
             if (
-                dist
+                dist <= max_bond_length
+                and dist
                 <= max_expected_bond_length["protein"]["C"]["N"] + bond_length_tolerance
             ):
-                bonds.append(pair)
+                bonds.append([atom_C, atom_N])
 
     if sorted:
         bonds = sorted_list_of_pairs(bonds)

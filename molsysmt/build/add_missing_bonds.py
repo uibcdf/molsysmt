@@ -15,28 +15,32 @@ def add_missing_bonds(
     """
     Adding missing covalent bonds based on atomic distances and types.
 
-    This function analyzes the atomic coordinates and element types in a molecular system
-    to infer and add covalent bonds between atoms that are close enough based on standard
-    bonding distances. The new bonds are added to the `bonded_atoms` attribute. No bond types
-    or orders are assigned. The procedure can be applied in-place or return a modified copy.
+    This function adds candidates returned by ``get_missing_bonds`` from group
+    templates and distance criteria. Peptide candidates require consecutive source
+    group indices with one identical, defined chain index. Selecting separated
+    groups does not make them adjacent. No bond types or orders are assigned.
+    The procedure can be applied in-place or return a modified copy; its heuristics
+    do not certify a complete or chemically validated molecular graph.
 
 
     Parameters
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    max_bond_length : object, default='2 angstroms'
-        Argument max_bond_length.
+    max_bond_length : quantity or str, default='2 angstroms'
+        Distance cutoff for geometric candidates, with explicit length units.
+        Defaults to '2 angstroms'.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
-    structure_index : object, default=0
-        Argument structure_index.
+        Atom selection. Integer lists refer to source atom indices. Both endpoints
+        of each added pair must belong to the selection. Defaults to 'all'.
+    structure_index : int, default=0
+        Source structure index used for distance-based candidates. Defaults to 0.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    in_place : object, default=True
-        Argument in_place.
+    engine : str, default='MolSysMT'
+        Reconstruction engine. Defaults to 'MolSysMT'.
+    in_place : bool, default=True
+        Whether to modify the source or return a modified copy. Defaults to True.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -62,7 +66,7 @@ def add_missing_bonds(
     are assigned.
 
     This function is useful when working with coordinate files that lack bond information
-    (e.g., `.xyz`, `.pdb`, or trajectory frames).
+    (e.g., `.xyz`, `.pdb`, or trajectory structures).
 
     The list of supported molecular systems' forms is detailed in the documentation section:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
@@ -73,6 +77,9 @@ def add_missing_bonds(
 
     See Also
     --------
+    :func:`molsysmt.build.get_missing_bonds`
+        Inspect candidates and their selection and chain constraints before adding them.
+
     :meth:`molsysmt.Topology.add_bonds`
         Manually add specific bonds to a native topology.
 
@@ -93,10 +100,8 @@ def add_missing_bonds(
     >>> system = msm.convert(molsys)
     >>> system.topology.remove_bonds('all')
     >>> msm.build.add_missing_bonds(system)
-    >>> msm.get(system, bonded_atoms=True)[:3]
-    array([[0, 1],
-           [1, 2],
-           [2, 3]])
+    >>> msm.get(system, bonded_atom_pairs=True)[:3]
+    [[0, 1], [1, 2], [1, 3]]
 
 
     .. admonition:: User guide
