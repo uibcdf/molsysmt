@@ -31,7 +31,7 @@ sections:
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
           - name: molsys
-            description: Native domain composition, scoped chemical transfer, historical preparation evidence, analysis persistence and coordinate invalidation.
+            description: Native domain composition, scoped chemical transfer, historical preparation import, analysis persistence and coordinate invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -103,10 +103,12 @@ sections:
             agents_file: docs/content/user/tools/build/assign_partial_charges.md.AGENTS.md
             status: reviewed
           - name: fixed_state_hydrogens
+            description: Fixed-state local H generation, original domains, typed report persistence and explicit component history import.
             file: docs/content/user/tools/build/fixed_state_hydrogens.md
             agents_file: docs/content/user/tools/build/fixed_state_hydrogens.md.AGENTS.md
             status: reviewed
           - name: add_terminal_atoms
+            description: Declared terminal attachment, retained original axes and supplied-coordinate preparation evidence.
             file: docs/content/user/tools/build/add_terminal_atoms.md
             agents_file: docs/content/user/tools/build/add_terminal_atoms.md.AGENTS.md
             status: reviewed
@@ -269,7 +271,7 @@ sections:
         pages:
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, typed historical preparation records, complementary file composition, shared axes and legacy migration.
+            description: Modular persistence, typed template and geometry preparation history, complementary file composition, shared axes and legacy migration.
       - name: thirds
         path: docs/content/user/tools/thirds
         agents_file: docs/content/user/tools/thirds/AGENTS.md
@@ -296,7 +298,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer with historical evidence, scoped bond completion, mapped H reinsertion and bounded 1QKU preparation.
+        description: Explicit template transfer, scoped bond completion, mapped H reinsertion with retained producer reports and bounded 1QKU preparation.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

@@ -50,7 +50,7 @@ def append_report(state, report, chemical_state_index):
     state._preparation_history.append(record)
 
 
-def encode_history(records):
+def encode_history(records, *, copy_arrays=True):
     """Encode a typed tree and separate arrays without pickle or object arrays."""
     validate_history(records)
     arrays = {}
@@ -60,7 +60,7 @@ def encode_history(records):
             if value.dtype.kind not in "biufUS":
                 raise ValueError("Unsupported preparation-history array dtype.")
             key = str(len(arrays))
-            arrays[key] = value.copy()
+            arrays[key] = value.copy() if copy_arrays else value
             return dict(
                 kind="array", key=key, dtype=value.dtype.str, shape=list(value.shape)
             )

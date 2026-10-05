@@ -188,6 +188,10 @@ preserved by H5MSM 0.5. Each historical envelope declares the original operation
 indices and output dimensions; it is not a certificate for current assignments.
 Copy, extraction, reordering, merging and later edits retain that original
 evidence without rewriting it. Returned history values are independent copies.
+Successful fixed-state H generation and terminal attachment also retain historical
+reports, including original source structure counts and evaluated indices.
+`append_preparation_history(records)` archives caller-selected records in append
+order without applying chemistry, aligning axes or verifying source authenticity.
 Stored external relationships are unassessed, so a protein cut is not silently
 treated as a complete molecule. See {ref}`Updating a selected component
 <Tutorial_Selected_Chemical_Template>`.
@@ -198,8 +202,10 @@ composes public extraction, fixed-state H generation, terminal attachment and
 materialized virtual counts. The one-state, one-structure route preserves existing
 coordinates and unrelated chemical assignments, retains global completeness,
 and invalidates analyses after expansion. Strict attribute policy rejects loss;
-intersection reports it. Generation/attachment reports remain separate from
-H5MSM chemical values and do not certify environmental H orientation.
+intersection reports it. The recipe explicitly imports the isolated H-generation
+record into destination history, retaining its original component domain alongside
+the full-complex attachment record. H5MSM saves both without copying coordinates
+into the reports. This history does not certify environmental H orientation.
 
 The original system remains unchanged. Template transfer does not select
 protonation, create missing atoms or supply hydrogen coordinates.
@@ -222,9 +228,9 @@ Separately prepared components can form a new analysis system through
 describes only the included graph. Preserve extraction maps to the original
 system and mark generated H with unknown source indices. Atom IDs are labels
 and may repeat across input components. The original partial complex remains
-unchanged. Merge concatenates applied-template histories in source order, with
-each original operation domain intact. Detached H-generation, terminal-attachment
-and normalization reports still need separate retention.
+unchanged. Merge concatenates preparation histories in source order, with
+each original operation domain intact. Normalization and peptide-factory reports
+still need separate retention.
 See {ref}`Composing a prepared interface <cookbook-prepared-interface>` for a
 bounded receptor/ligand example with named interaction persistence. Local H
 placement does not establish an environment-optimized pose.

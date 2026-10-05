@@ -12,8 +12,36 @@ from molsysmt._private.smonitor import (
 )
 
 
+def _report(
+    n_atoms, n_structures, attribute_policy, status, pairs, ids, dropped, analyses
+):
+    """Declare the original domains and supplied-coordinate provenance once."""
+    from molsysmt import __version__
+
+    return dict(
+        schema="molsysmt.terminal_attachment@1",
+        status=status,
+        method="explicit_terminal_attachment",
+        rule_version=1,
+        parameters=dict(attribute_policy=attribute_policy),
+        source=dict(n_atoms=n_atoms, n_structures=n_structures, chemical_state_index=0),
+        structure_indices=np.arange(n_structures, dtype=np.int64),
+        atom_correspondence=np.column_stack(
+            (np.arange(n_atoms), np.arange(n_atoms))
+        ).astype(np.int64),
+        parent_atom_pairs=np.asarray(pairs, dtype=np.int64).reshape(-1, 2),
+        generated_atom_ids=ids,
+        coordinate_unit="nm",
+        coordinate_evidence="supplied_coordinates",
+        dropped_attributes=dropped,
+        invalidated_interactions=analyses,
+        software=dict(molsysmt=__version__),
+    )
+
+
 def attach(source, records, coordinates, attribute_policy, caller):
     from molsysmt import pyunitwizard as puw
+    from molsysmt._private.preparation_history import append_report
     from molsysmt.element.atom import is_atom_type
     from molsysmt.native import MolecularMechanics, MolSys
     from molsysmt.native.molsys import _extend_interaction_atoms
@@ -48,7 +76,7 @@ def attach(source, records, coordinates, attribute_policy, caller):
         or not np.isfinite(positions).all()
     ):
         fail(
-            "New coordinates must be finite and aligned to all source frames and declared atoms."
+            "New coordinates must be finite and aligned to all source structures and declared atoms."
         )
     if not np.isfinite(original_values).all():
         fail("Existing coordinates must be finite.")
@@ -57,21 +85,19 @@ def attach(source, records, coordinates, attribute_policy, caller):
     if not np.all(is_atom_type([record["atom_type"] for record in records])):
         fail("Terminal atom_type must be a supported chemical element symbol.")
     if not n_new:
-        return {
-            "molecular_system": source.copy(),
-            "report": dict(
-                schema="molsysmt.terminal_attachment@1",
-                status="unchanged",
-                atom_correspondence=np.column_stack(
-                    (np.arange(n_atoms), np.arange(n_atoms))
-                ).astype(np.int64),
-                parent_atom_pairs=np.empty((0, 2), dtype=np.int64),
-                generated_atom_ids=[],
-                coordinate_unit="nm",
-                dropped_attributes=[],
-                invalidated_interactions=[],
-            ),
-        }
+        output = source.copy()
+        report = _report(
+            n_atoms,
+            source.structures.n_structures,
+            attribute_policy,
+            "unchanged",
+            [],
+            [],
+            [],
+            [],
+        )
+        append_report(output.chemical_states._states[0], report, 0)
+        return dict(molecular_system=output, report=report)
     dropped = [
         name
         for name in _ATOM_ALIGNED_ATTRIBUTES + _SYSTEM_LEVEL_OBSERVABLES
@@ -184,18 +210,17 @@ def attach(source, records, coordinates, attribute_policy, caller):
         if mechanics is None
         else mechanics.copy()
     )
-    report = dict(
-        schema="molsysmt.terminal_attachment@1",
-        status="attached",
-        atom_correspondence=np.column_stack(
-            (np.arange(n_atoms), np.arange(n_atoms))
-        ).astype(np.int64),
-        parent_atom_pairs=np.asarray(parent_pairs, dtype=np.int64).reshape(-1, 2),
-        generated_atom_ids=ids,
-        coordinate_unit="nm",
-        dropped_attributes=dropped,
-        invalidated_interactions=list(analyses),
+    report = _report(
+        n_atoms,
+        source.structures.n_structures,
+        attribute_policy,
+        "attached",
+        parent_pairs,
+        ids,
+        dropped,
+        list(analyses),
     )
     if dropped:
         warn(StructuralAttributeDropWarning(attributes=dropped, caller=caller))
+    append_report(output.chemical_states._states[0], report, 0)
     return {"molecular_system": output, "report": deepcopy(report)}

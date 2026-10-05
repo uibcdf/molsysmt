@@ -14,6 +14,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
 )
 from tests.build.add_missing_hydrogens.test_fixed_state import hydrogenate, prepared
+from tests.native.test_preparation_history import assert_tree
 from tests.physchem import test_chemical_template_est as est_controls
 
 DATA = est_controls.DATA
@@ -106,6 +107,10 @@ def _attach_generated_hydrogens(
             n_implicit_hydrogens=np.zeros(len(affected_parents), dtype=int),
             n_explicit_hydrogens=np.zeros(len(affected_parents), dtype=int),
         )
+    # Import the producer's evidence with its original component indices.
+    result["molecular_system"].chemical_states.append_preparation_history(
+        hydrogenated.chemical_states.get_preparation_history()[-1:]
+    )
     return result
 
 
@@ -205,6 +210,13 @@ def test_reinsertion_preserves_original_axis_and_materializes_counts(
     path = tmp_path / "reinserted.h5msm"
     msm.convert(output, to_form=path)
     loaded = msm.convert(path, to_form="molsysmt.MolSys")
+    history = output.chemical_states.get_preparation_history()
+    assert_tree(loaded.chemical_states.get_preparation_history(), history)
+    assert history[-2]["report"]["schema"] == "molsysmt.terminal_attachment@1"
+    assert history[-2]["output"]["n_atoms"] == n_old + 4
+    assert history[-1]["report"]["schema"] == "molsysmt.hydrogen_addition@1"
+    assert history[-1]["output"]["n_atoms"] == ligand.get_n_atoms() + 4
+    assert history[-1]["report"]["source"]["n_atoms"] == ligand.get_n_atoms()
     pd.testing.assert_frame_equal(
         loaded.chemical_states._states[0].atom_attributes,
         output.chemical_states._states[0].atom_attributes,
@@ -369,6 +381,13 @@ def test_real_est_reinsertion_preserves_partial_complex_and_source_pose(
     loaded = msm.convert(path, to_form="molsysmt.MolSys")
     assert loaded.get_n_atoms() == 6620
     assert loaded.chemical_states._states[0].connectivity_completeness == "partial"
+    history = loaded.chemical_states.get_preparation_history()
+    assert_tree(history, output.chemical_states.get_preparation_history())
+    assert_tree(history[-1]["report"], original_report)
+    assert history[-2]["output"]["n_atoms"] == 6620
+    assert history[-2]["report"]["source"]["n_atoms"] == 6596
+    assert history[-1]["output"]["n_atoms"] == 44
+    assert history[-1]["report"]["source"]["n_atoms"] == 20
     pd.testing.assert_frame_equal(
         loaded.chemical_states._states[0].atom_attributes,
         output.chemical_states._states[0].atom_attributes,
@@ -420,6 +439,15 @@ def test_cookbook_reinsertion_blocks_execute_on_the_pinned_real_control(
     )
     assert loaded.get_n_atoms() == 6620
     assert loaded.chemical_states._states[0].connectivity_completeness == "partial"
+    history = loaded.chemical_states.get_preparation_history()
+    assert_tree(
+        history, namespace["molsys_B"].chemical_states.get_preparation_history()
+    )
+    assert_tree(history[-1]["report"], namespace["generation_report"])
+    assert_tree(history[-2]["report"], namespace["attached"]["report"])
+    assert history[-2]["output"]["n_atoms"] == 6620
+    assert history[-1]["output"]["n_atoms"] == 44
+    assert history[-1]["report"]["structure_indices"].tolist() == [0]
     np.testing.assert_array_equal(
         msm.pyunitwizard.get_value(loaded.structures.coordinates, to_unit="nm")[
             :, :6596

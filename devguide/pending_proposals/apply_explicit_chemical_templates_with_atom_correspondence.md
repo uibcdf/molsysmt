@@ -21,9 +21,11 @@ reference factory and declared-aromatic normalization on 2026-10-04. A bounded
 observed 1QKU fragment and its explicit composition with prepared EST are
 contract-tested. Closed-component assignment inside a larger source is implemented
 and real EST transfer is contract-tested. Consumer-reported isolated-ligand integration is
-available. General polymer context/repair/mapping and atom-changing reinsertion, other representation
-normalization, attachment of other preparation reports and complete receptor/biological
-acceptance remain pending. Historical template reports now persist in ChemicalStates,
+available. Mapped terminal-H reinsertion preserves the original complex atom domain.
+General polymer context/repair/mapping and arbitrary atom-changing reinsertion,
+other representation normalization, normalization/factory report attachment and
+complete receptor/biological acceptance remain pending. Historical template,
+fixed-state H-generation and terminal-attachment reports persist in ChemicalStates,
 ChemicalStatesDict and H5MSM 0.5; this issue remains partial.
 
 ## What
@@ -1124,3 +1126,94 @@ Next: extend report attachment to fixed-state H generation and terminal
 reinsertion, reconcile those geometry operations' structure axes explicitly,
 and continue the remaining consumer receptor/preparation acceptance. #298 stays
 partial; environmental H refinement remains separate under #323.
+
+## Geometry-report persistence checkpoint, 2026-10-04
+
+**Contract-tested.** Successful fixed-state `build.add_missing_hydrogens()` and
+`build.add_terminal_atoms()` now append independent provider reports to the
+returned ChemicalStates history, including successful no-addition operations.
+`return_report=False` does not discard evidence. Failures leave source history
+unchanged. Fixed-state generation retains two records: the supplied-coordinate
+attachment primitive and the RDKit local-geometry calculation that used it.
+The reports retain producing software versions, units, original atom/structure
+counts and int64 evaluated structure indices. Neither contains a coordinate
+snapshot, and the fixed-state geometry/refinement contract is unchanged.
+
+The public native `ChemicalStates.append_preparation_history()` archives selected
+records from an isolated component into a destination without applying chemistry,
+aligning atoms/structures or authenticating declarations. The ArgDigest boundary
+validates operation envelopes and portable typed values; it rejects unsupported
+objects before mutation. Imported records are independent copies appended in
+caller order. Their original output dimensions need not match the destination.
+Intervening correspondence maps remain separate caller records. Repetition does
+not deduplicate records or recertify current chemistry. Reading/importing does
+not credit another scientific calculation.
+
+The typed history codec, record envelope, ChemicalStatesDict and H5MSM schemas
+are unchanged from the preceding checkpoint. The embedded readiness audit
+normalizes nullable/mixed object columns to scalar lists and origin columns to
+Unicode arrays; integer indices and coverage arrays retain explicit types.
+Null values, booleans and numbers remain distinct rather than becoming strings.
+The standalone readiness tool keeps its existing output. The serializer still
+rejects arbitrary objects and object arrays; it does not use pickle.
+
+The actual Cookbook reinsertion blocks explicitly import the isolated producer's
+last H-generation record into the final complex. The observed EST control and
+its H5MSM roundtrip retain both that report (20 source atoms, 44 output atoms)
+and destination attachment (6,596 source atoms, 6,620 output atoms). Original
+coordinates, chemical assignments outside the ligand and conservative global
+connectivity remain protected. Record indices stay in the original operation
+domain, including after nonconsecutive structure extraction and atom reordering.
+The Cookbook, User Guide foundations/toolbox, course and H5MSM specification
+describe the historical rather than live-map semantics.
+
+Validation on Linux, Python 3.13.14 under #237, released ArgDigest 0.13.0,
+NumPy 2.4.6, pandas 2.3.3 and RDKit 2025.09.5; source base
+`ce0b83196faf81b1999b320995f303f8da818111`:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/build/add_missing_hydrogens/test_fixed_state.py \
+    tests/build/add_missing_hydrogens/test_preparation_history.py \
+    tests/build/add_terminal_atoms \
+    tests/native/test_preparation_history.py tests/native/test_chemical_states.py \
+    tests/form/molsysmt_ChemicalStatesDict \
+    tests/form/file_h5msm/test_chemical_states_v05_probe.py \
+    tests/form/file_h5msm/test_topology_free_molsys_v05_probe.py \
+    tests/physchem/test_chemical_template_receptor.py \
+    --doctest-modules molsysmt/native/chemical_states.py \
+    molsysmt/build/add_missing_hydrogens.py molsysmt/build/add_terminal_atoms.py
+```
+
+Result: **130 passed in 88.85 s**, 15 existing pandas future warnings and three
+expected attribute-loss diagnostics. Final semantic-value follow-up:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/build/add_missing_hydrogens/test_preparation_history.py
+```
+
+Result: **7 passed in 7.54 s**. The focused tests assert retained producer versions
+under a different reader version, no read/import-time scientific credit,
+transactional rejection, independent editable copies, nullable scalar types,
+successful no-addition history and original structure scope after extraction.
+Ruff, dependency imports, public docstrings, API classification/signature checks,
+course and devguide gates pass. Sphinx HTML builds with the recorded existing
+warning baseline (#144). This is bounded contract evidence, not a full release
+matrix, memory benchmark or biological validation.
+
+### Remaining #298 work
+
+This closes the report-retention checkpoint for the existing fixed-state H and
+terminal reinsertion workflow. #298 remains partial because the consumer request
+also includes explicit receptor polymer context: residue/state/terminal/HIS
+choices, inter-residue bond coverage, scoped completeness, missing-heavy-atom
+gaps and reassessment without hidden protonation or downstream chemistry.
+The bounded peptide factory, residue coverage tools and 1QKU fragment already
+provide parts of that path; qualify their coordinated use on the consumer's
+full-chain and ligand-shell scenarios before claiming complete receptor coverage.
+Then request consumer validation of the published provider behavior. General
+native ligand H generation (#308) and environmental H geometry optimization
+(#323) remain separate future work, not requirements to reimplement the current
+RDKit-backed fixed-state operation. Normalization/factory report attachment and
+arbitrary heavy-atom replacement also remain separate incomplete capabilities.

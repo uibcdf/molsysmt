@@ -103,12 +103,31 @@ attributes. Failure leaves the source unchanged.
 ## Saving and retaining provenance
 
 Save `molsys_with_h` using the public H5MSM 0.5 conversion. It preserves the
-expanded chemical/coordinate domains and invalidated named analyses. Retain the
-detached report separately; it is not implicitly attached or serialized as a
-preparation-history layer. A state's provenance index is retained when supplied,
-but it does not replace the caller's template/input provenance records.
-The report contains NumPy arrays; convert those fields explicitly when using a
-JSON writer rather than assuming the entire dictionary is directly serializable.
+expanded chemical/coordinate domains, invalidated named analyses and historical
+preparation reports, even with `return_report=False`. Inspect independent copies
+through `molsys_with_h.chemical_states.get_preparation_history()`. Successful
+no-addition calls also append evidence; failures leave source history unchanged.
+
+The final two records describe the general terminal-attachment operation and the
+RDKit H-generation operation that used it. Attachment records supplied coordinates;
+generation records local generated geometry, its original MolSysMT/RDKit versions,
+inventory and readiness audit. Nullable/mixed audit values are scalar lists;
+indices, masks and homogeneous columns retain explicit NumPy types. Both reports
+declare the original source atom/structure counts and evaluated `structure_indices`
+as an `int64` array. They contain no coordinate snapshot.
+
+Each envelope declares `index_scope='operation'`: extraction, reordering or later
+edits do not remap historical indices or certify the current system. A state's
+provenance index is not a pointer into this history. Retain intervening maps and
+caller template/input provenance separately. To carry an isolated component's
+generation evidence into a larger destination, explicitly use
+`destination.chemical_states.append_preparation_history(
+    molsys_with_h.chemical_states.get_preparation_history()[-1:])`.
+This archives evidence; it does not apply chemistry or align axes. See the
+{ref}`reinsertion recipe <cookbook-component-hydrogen-reinsertion>`.
+
+The report contains NumPy arrays. Use the typed `ChemicalStatesDict` or H5MSM
+route, rather than assuming the dictionary is directly JSON serializable.
 
 The existing default `mode='pH'`, `pH=7.4`, `engine='OpenMM'` retains the legacy
 residue-oriented behavior. RDKit and report/state options require the explicit

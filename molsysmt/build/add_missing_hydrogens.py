@@ -47,6 +47,8 @@ def add_missing_hydrogens(
     return_report : bool, default=False
         In fixed-state mode, return a dictionary containing molecular_system
         and a detached versioned preparation report instead of just the system.
+        Successful reports are retained in the output's preparation history
+        regardless of this option.
     attribute_policy : {'intersection', 'strict'}, default='intersection'
         Fixed-state handling of attributes that cannot cover added atoms:
         intersection drops them with a diagnostic; strict rejects the input.
@@ -91,6 +93,14 @@ def add_missing_hydrogens(
     reconstructed implicitly. Named interactions become unevaluated on an expanded
     output; no-addition outputs retain their analyses. Multiple states/structures,
     metals, radicals, query atoms and virtual isotopic additions are unsupported.
+    Successful fixed-state operations retain both terminal-attachment and
+    hydrogen-generation evidence in ChemicalStates preparation history, including
+    no-addition results. H5MSM preserves original operation indices, structure
+    counts, units and producer versions without storing another coordinate array.
+    The embedded readiness audit uses scalar lists for nullable/mixed values
+    and typed arrays for indices and coverage. History is not a live index map
+    or a certificate after later edits. Import a component's historical records
+    explicitly with ChemicalStates.append_preparation_history when reinserting H.
     See :ref:`Tutorial_Fixed_State_Hydrogens` for the experimental contract.
 
     In legacy pH mode, hydrogen atoms are added based on standard residue templates and general

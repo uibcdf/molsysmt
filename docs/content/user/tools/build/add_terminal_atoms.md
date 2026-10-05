@@ -40,6 +40,22 @@ expansion. Sparse alternate locations retain their old indices. Empty records
 with coordinates of shape `(n_structures, 0, 3)` return an unchanged independent
 copy. Success and failure leave the source unchanged.
 
+Each successful operation, including empty addition, also retains an independent
+report in the output's ChemicalStates preparation history. Retrieve it with
+`output.chemical_states.get_preparation_history()`. The report declares the
+original source atom/structure counts, all examined `structure_indices` as `int64`,
+attribute policy, producing MolSysMT version and `coordinate_evidence='supplied_coordinates'`.
+Coordinates use the report's fixed `nm` protocol; the report does not duplicate
+coordinate arrays. This records attachment, not a new scientific geometry calculation.
+H5MSM 0.5 and `ChemicalStatesDict` preserve these records without recalculating them.
+
+Historical indices belong to the original operation, even after extraction or
+reordering. They are not remapped or certified as current. Import an isolated
+producer's evidence with `output.chemical_states.append_preparation_history(records)`
+when needed; this archives independent copies without applying chemistry, aligning
+atoms/structures or verifying authenticity. Records append in caller order and
+retain their original dimensions. Keep intervening maps separately.
+
 Attachment preserves existing parent chemical fields, including virtual H
 counts. When materializing a declared H inventory, explicitly update those counts
 after checking the generated-parent map; indexed H and virtual H are distinct.

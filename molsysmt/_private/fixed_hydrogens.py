@@ -97,6 +97,7 @@ def add(source_input, chemical_state, structure_indices, attribute_policy):
 
     from molsysmt import __version__, _ackredit
     from molsysmt import pyunitwizard as puw
+    from molsysmt._private.preparation_history import append_report
     from molsysmt._private.scientific_citations import SOFTWARE
     from molsysmt._private.stereochemistry import REFERENCE
     from molsysmt.basic import convert
@@ -360,6 +361,14 @@ def add(source_input, chemical_state, structure_indices, attribute_policy):
         )
         for name, version in software.items()
     )
+    # Store nullable or mixed audit columns as scalar lists. The standalone audit
+    # uses object arrays; historical serialization never admits arbitrary objects.
+    for field in readiness["fields"].values():
+        field["values"] = field["values"].tolist()
+        field["origin"] = field["origin"].astype("U")
+    readiness["connectivity"]["evidence"] = readiness["connectivity"][
+        "evidence"
+    ].tolist()
     report = dict(
         schema="molsysmt.hydrogen_addition@1",
         status="added" if n_new else "unchanged",
@@ -370,6 +379,8 @@ def add(source_input, chemical_state, structure_indices, attribute_policy):
         chemical_state_index=state_index,
         chemical_state_id=state.state_id,
         structure_index=inventory["structure_index"],
+        source=dict(n_atoms=n_atoms, n_structures=source.structures.n_structures),
+        structure_indices=np.asarray([inventory["structure_index"]], dtype=np.int64),
         inventory=inventory,
         chemical_readiness=readiness,
         n_added_hydrogens=n_new,
@@ -396,4 +407,5 @@ def add(source_input, chemical_state, structure_indices, attribute_policy):
     )
     with _ackredit.scope(_CALLER) as provider:
         _ackredit.credit(provider, items, _CALLER)
+    append_report(output.chemical_states._states[state_index], report, state_index)
     return dict(molecular_system=output, report=deepcopy(report))

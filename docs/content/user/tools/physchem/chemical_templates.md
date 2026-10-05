@@ -378,9 +378,14 @@ current chemistry. After extraction, the historical output count may differ
 from the current count. Retain your extraction/reinsertion maps separately; do
 not address the current system directly with an index from an old report.
 Merge concatenates source histories in input order, preserving each record's
-original domain. Hydrogen generation, terminal attachment, aromatic normalization
-and peptide-template creation still return detached reports; their automatic
-attachment is pending. `MolSysDict` 0.1 cannot store history and rejects its loss;
+original domain. Fixed-state H generation and terminal attachment also attach
+their reports automatically, with original source structure counts and evaluated
+structure indices. When reinserting H generated on an isolated component, use
+`destination.chemical_states.append_preparation_history(records)` to archive
+selected producer records explicitly. Import retains original domains and append
+order; it does not align axes, apply chemistry or validate authenticity.
+Aromatic normalization and peptide-template creation still require separate
+report retention. `MolSysDict` 0.1 cannot store history and rejects its loss;
 use H5MSM or `ChemicalStatesDict`. The reports are not directly JSON serializable.
 
 After preparing components separately, you can use `msm.merge()` to construct a

@@ -130,8 +130,10 @@ the provider report and `output` holds the original output dimensions.
 
 These are the original operation's indices, even if you later extract, reorder,
 merge or edit the system. Retain intervening maps separately; history is evidence
-of the operation, not a certificate for current assignments. Hydrogen-generation
-and terminal-attachment reports still require separate retention.
+of the operation, not a certificate for current assignments. Fixed-state
+hydrogen-generation and terminal-attachment reports also attach automatically
+to their own results. Archive a component's selected historical records in a
+destination explicitly when reinserting its generated H.
 
 (cookbook-component-hydrogen-reinsertion)=
 ## Reinserting generated H
@@ -232,6 +234,9 @@ if len(parents):
     msm.set(molsys_B, selection=parents,
             n_implicit_hydrogens=np.zeros(len(parents), dtype=int),
             n_explicit_hydrogens=np.zeros(len(parents), dtype=int))
+# Retain the isolated producer's original report in the destination history.
+molsys_B.chemical_states.append_preparation_history(
+    hydrogenated.chemical_states.get_preparation_history()[-1:])
 msm.convert(molsys_B, to_form='file:h5msm',
             output_filename='complex_with_generated_hydrogens.h5msm')
 ```
@@ -253,11 +258,17 @@ methanol and ammonium controls cover implicit/explicit counts, charged chemistry
 ID collisions, native/H5MSM inputs, invalid maps/inventories and no-op repetition.
 See `tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py`.
 
-Retain **both** `generation_report` and `attached['report']`, together with
-`source_atom_indices`: one describes local geometry and original producer
-versions, the other destination parents, new indices, generated IDs and dropped
-attributes. H5MSM 0.5 saves the expanded system and analysis provenance but does
-not embed these detached preparation reports. This is a bounded terminal-H
+The attachment result already retains its report. The explicit
+`append_preparation_history()` above also archives the isolated producer's last
+H-generation record, so H5MSM 0.5 retains **both** reports with original units
+and producer versions. On reload, inspect `molsys_B.chemical_states.get_preparation_history()`.
+The final generation record still describes a 44-atom output with 20 original
+ligand atoms; the preceding attachment record describes the 6,620-atom complex
+with 6,596 original atoms. Record order is append order, including imports.
+Their indices are historical and are not remapped or certified as current.
+Retain `source_atom_indices` separately: generation describes local geometry,
+attachment destination parents/new indices, IDs and dropped attributes. The
+reports store no duplicate coordinate arrays. This is a bounded terminal-H
 workflow; arbitrary heavy-atom replacement, bonds between new atoms, multiple
 states/structures and receptor-fragment boundary reconciliation require separate
 contracts. A cut peptide's artificial terminal H cannot be reinserted into the
@@ -311,8 +322,10 @@ including aromatic NH; do not relax the fixed-state checks to bypass conflicts.
 This offline path is protected by
 `tests/physchem/test_chemical_template_receptor.py`. It does not repair excluded
 residues, prepare the complete receptor, or reinsert the fragment into the source.
-Keep normalization, template and hydrogen-placement reports separately alongside
-the extraction map and your explicit boundary/protonation choices.
+Template and fixed-state H-placement reports accompany their output in H5MSM
+preparation history. Keep normalization/factory reports separately alongside
+the extraction map and explicit boundary/protonation choices. Historical reports
+retain original indices; importing them does not reconcile the fragment boundary.
 
 ## Assessing excluded residue gaps
 

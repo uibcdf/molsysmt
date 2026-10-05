@@ -232,7 +232,11 @@ def test_only_selected_state_receives_history_and_atom_expansion_retains_evidenc
         msm.pyunitwizard.quantity(np.zeros((3, 1, 3)), "nm"),
     )["molecular_system"]
     assert expanded.get_n_atoms() == 7
-    assert_tree(expanded.chemical_states.get_preparation_history(), history)
+    expanded_history = expanded.chemical_states.get_preparation_history()
+    assert_tree(expanded_history[:-1], history)
+    assert expanded_history[-1]["report"]["schema"] == "molsysmt.terminal_attachment@1"
+    assert expanded_history[-1]["report"]["structure_indices"].tolist() == [0, 1, 2]
+    assert expanded_history[-1]["output"]["n_atoms"] == 7
 
 
 def test_codec_handles_empty_and_unicode_arrays_and_rejects_objects(tmp_path):

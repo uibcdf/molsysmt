@@ -215,7 +215,7 @@ class ChemicalStates:
         Returns
         -------
         tuple of dict
-            Independent records in operation order, empty if none were recorded.
+            Independent records in append order, empty if none were recorded.
             Each envelope declares ``index_scope='operation'`` and original
             output dimensions. Its report retains original indices, units,
             template declarations and producer versions.
@@ -225,9 +225,10 @@ class ChemicalStates:
         These records describe past operations. Extraction, reordering, merging
         and later edits retain their original index domains; they do not remap
         report indices or certify current assignments. Do not use a historical
-        report index directly to address the current system. Currently successful
-        chemical-template applications attach reports automatically; detached
-        hydrogen-generation and terminal-attachment reports remain separate.
+        report index directly to address the current system. Successful template
+        application, fixed-state H generation and terminal attachment record
+        evidence automatically, including successful no-addition operations.
+        Geometry reports declare their original structure indices and counts.
 
         Examples
         --------
@@ -245,6 +246,74 @@ class ChemicalStates:
         state_index = None if chemical_state == "reference" else chemical_state
         state = self._states[self._resolve_index(state_index)]
         return tuple(deepcopy(getattr(state, "_preparation_history", [])))
+
+    @arg_digest()
+    def append_preparation_history(
+        self, preparation_history, chemical_state="reference", skip_digestion=False
+    ):
+        """Appending caller-declared historical records to one chemical state.
+
+        Parameters
+        ----------
+        preparation_history : list or tuple of dict
+            Versioned operation envelopes returned by get_preparation_history.
+            Records must use supported scalar, mapping, sequence and typed-array
+            values. Their original output dimensions need not match this state.
+        chemical_state : int or {'reference'}, default='reference'
+            Destination state index or the reference state.
+        skip_digestion : bool, default=False
+            Whether to skip internal argument validation.
+
+        Returns
+        -------
+        tuple of int
+            Positional indices of the appended records, empty for empty input.
+
+        Raises
+        ------
+        ArgumentError
+            If envelopes or serialized value types are unsupported.
+        StructuralInconsistencyError
+            If the destination state is unavailable or ambiguous.
+
+        Notes
+        -----
+        This archives independent copies of declared evidence. It does not apply
+        chemistry, align atoms or structures, verify source authenticity, or credit
+        a new calculation. Retain intervening maps separately. Records keep their
+        original operation indices; repeated records are appended in input order.
+        Invalid input leaves the history unchanged. H5MSM and ChemicalStatesDict
+        preserve the imported records. The supported template, H-generation and
+        attachment reports contain no coordinate snapshots.
+
+        See Also
+        --------
+        get_preparation_history : Retrieve independent historical records.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> states = msm.ChemicalStates(n_atoms=1)
+        >>> states.append_state()
+        0
+        >>> states.append_preparation_history(())
+        ()
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Chemical_Templates` and
+           :ref:`Tutorial_Fixed_State_Hydrogens` for historical evidence and scope.
+
+        .. versionadded:: 1.0.0
+        """
+        from copy import deepcopy
+
+        state_index = None if chemical_state == "reference" else chemical_state
+        state = self._states[self._resolve_index(state_index)]
+        records = deepcopy(list(preparation_history))
+        start = len(state._preparation_history)
+        state._preparation_history.extend(records)
+        return tuple(range(start, start + len(records)))
 
     def copy(self):
         """Returning an independent copy of the collection."""

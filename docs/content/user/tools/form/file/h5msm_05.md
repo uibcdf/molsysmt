@@ -103,14 +103,24 @@ inconsistent shapes, dtypes, duplicate references, orphan arrays and unknown
 schemas. No pickle or arbitrary Python object reconstruction is used.
 `ChemicalStatesDict` uses version 2 when history is present and version 1 otherwise.
 
-Successful chemical-template applications attach `molsysmt.preparation_record@1`
+Successful chemical-template applications, fixed-state H generation and terminal
+attachment attach `molsysmt.preparation_record@1`
 envelopes. They preserve the provider report, original producer version and units,
 `index_scope='operation'`, and the original output's `n_atoms`, `n_bonds` and
 `chemical_state_index`. Copy, extraction, merging and edits retain original
 operation indices; no current-axis map or current-chemistry certification is
 implied. Access independent copies through
 `molsys.chemical_states.get_preparation_history(chemical_state='reference')`.
-Other preparation reports remain detached. See {ref}`Tutorial_Chemical_Templates`.
+Geometry reports additionally declare original source atom/structure counts and
+evaluated `structure_indices` (int64); they contain no coordinate snapshot.
+Legacy records lacking those fields leave structure coverage unspecified.
+Import selected records with `append_preparation_history(records)` to retain
+component producer evidence in a destination. Import does not align atoms or
+structures, apply chemistry, or verify authenticity. Record order is append order,
+and original dimensions can differ from those of the current destination.
+Nullable/mixed embedded readiness audit values are scalar lists rather than
+object arrays. Normalization and peptide-factory reports remain detached.
+See {ref}`Tutorial_Chemical_Templates` and {ref}`Tutorial_Fixed_State_Hydrogens`.
 
 ### Layer access
 

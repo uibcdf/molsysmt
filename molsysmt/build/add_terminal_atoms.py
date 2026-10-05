@@ -59,6 +59,12 @@ def add_terminal_atoms(
     Named analyses retain provenance but become unevaluated on the returned copy;
     added atoms have no original source index. Failure leaves the source unchanged.
     Empty addition returns an independent unchanged copy with no invalidation.
+    Successful attachment, including empty addition, archives an independent
+    report in output ChemicalStates preparation history. It declares all examined
+    structure indices, original source counts, supplied-coordinate evidence,
+    attribute policy and the producing MolSysMT version. H5MSM preserves that
+    evidence without embedding coordinate arrays in the report. Historical
+    indices retain the operation's domain after extraction or reordering.
 
     See Also
     --------
