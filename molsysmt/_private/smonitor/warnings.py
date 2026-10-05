@@ -65,6 +65,12 @@ class LegacyH5MSMWarning(UserMolSysMTWarning):
         super().__init__(message, extra={"version": version})
 
 
+class PDBBondInferenceWarning(UserMolSysMTWarning):
+    """Report a legacy reader inference failure while retaining declared edges."""
+
+    catalog_key = "PDBBondInferenceWarning"
+
+
 class CrossChainCovalentBondsWarning(MolSysMTCatalogWarning):
     catalog_key = "CrossChainCovalentBondsWarning"
 
@@ -379,6 +385,7 @@ __all__ = [
     "SelectionWarning",
     "MolSysMTDeprecationWarning",
     "LegacyH5MSMWarning",
+    "PDBBondInferenceWarning",
     "CrossChainCovalentBondsWarning",
     "DownloadWarning",
     "NotDigestedArgumentWarning",

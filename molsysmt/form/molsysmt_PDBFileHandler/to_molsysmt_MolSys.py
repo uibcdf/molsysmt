@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 import pandas as pd
+from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
 
@@ -173,6 +174,7 @@ def _get_explicit_bonds(content, canonical_atoms, variants):
     return sorted(pairs), unresolved, bool(repeated_pairs)
 
 
+@dep_digest("openmm")
 def _get_bonded_atom_pairs_from_openmm_pdb(item):
     from io import StringIO
 
@@ -212,7 +214,9 @@ def _get_bonded_atom_pairs_from_openmm_pdb(item):
     return output
 
 
-def _build_topology_from_content(item, get_missing_bonds=True):
+def _build_topology_from_content(
+    item, get_missing_bonds=True, bond_inference_engine=None
+):
     from molsysmt.native import Topology
 
     content = item.content
@@ -272,12 +276,47 @@ def _build_topology_from_content(item, get_missing_bonds=True):
             "formal_charge", pd.array(formal_charges, dtype="Int16")
         )
 
-    explicit_pairs, _, _ = _get_explicit_bonds(content, canonical_atoms, variants)
+    from molsysmt._private.pdb_connectivity import record, validate_policy
+    from molsysmt._private.smonitor import (
+        LibraryNotFoundError,
+        PDBBondInferenceWarning,
+        warn,
+    )
+
+    validate_policy(get_missing_bonds, bond_inference_engine)
+    explicit_pairs, unresolved, repeated = _get_explicit_bonds(
+        content, canonical_atoms, variants
+    )
     bond_evidence = {pair: "explicit" for pair in explicit_pairs}
+    inference_status, inference_error = "disabled", None
     if get_missing_bonds:
         try:
             inferred_pairs = _get_bonded_atom_pairs_from_openmm_pdb(item)
-        except Exception:
+            inference_status = "inferred"
+        except Exception as error:
+            if bond_inference_engine == "OpenMM":
+                raise
+            inference_error = error
+            inference_status = (
+                "unavailable"
+                if (
+                    isinstance(error, LibraryNotFoundError)
+                    or (
+                        isinstance(error, ModuleNotFoundError)
+                        and error.name in ("openmm", "openmm.app")
+                    )
+                )
+                else "failed"
+            )
+            warn(
+                PDBBondInferenceWarning(
+                    extra={
+                        "status": inference_status,
+                        "error_type": type(error).__name__,
+                        "error_message": str(error),
+                    }
+                )
+            )
             inferred_pairs = []
         for pair in inferred_pairs:
             normalized = tuple(sorted((int(pair[0]), int(pair[1]))))
@@ -299,6 +338,14 @@ def _build_topology_from_content(item, get_missing_bonds=True):
             redefine_types=True,
         )
         topology.rebuild_entities(force=True)
+
+    record(
+        topology,
+        inference_status,
+        bond_inference_engine,
+        error=inference_error,
+        declaration_issues=dict(unresolved=unresolved, repeated_pairs=repeated),
+    )
 
     return topology
 
@@ -490,14 +537,26 @@ def _apply_compnd_names(item, molsys):
     molsys.topology.rebuild_entities(force=True)
 
 
-def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
+def _build_molsys_from_pdb_handler(
+    item, get_missing_bonds=True, bond_inference_engine=None
+):
+    from molsysmt._private.pdb_connectivity import validate_policy
     from molsysmt.native import MolSys
+
+    validate_policy(get_missing_bonds, bond_inference_engine)
+    native_inference = get_missing_bonds and bond_inference_engine == "MolSysMT"
 
     output = MolSys()
     output.topology = _build_topology_from_content(
-        item, get_missing_bonds=get_missing_bonds
+        item,
+        get_missing_bonds=False if native_inference else get_missing_bonds,
+        bond_inference_engine=None if native_inference else bond_inference_engine,
     )
     output.structures = _build_structures_from_content(item)
+    if native_inference:
+        from molsysmt.build import infer_covalent_bonds
+
+        output = infer_covalent_bonds(output, structure_indices=0)
     _apply_compnd_names(item, output)
     return output
 
@@ -509,6 +568,8 @@ def to_molsysmt_MolSys(
     structure_indices="all",
     get_missing_bonds=True,
     skip_digestion=False,
+    *,
+    bond_inference_engine=None,
 ):
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.MolSys.
@@ -522,10 +583,13 @@ def to_molsysmt_MolSys(
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    get_missing_bonds : object, default=True
-        Argument get_missing_bonds.
+    get_missing_bonds : bool, default=True
+        Request connectivity inference, or retain only declared PDB edges when False.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    bond_inference_engine : str or None, default=None
+        Explicit 'MolSysMT' or 'OpenMM', requiring get_missing_bonds=True. None
+        retains the legacy optional OpenMM policy, with diagnosed failures.
 
     Returns
     -------
@@ -543,13 +607,18 @@ def to_molsysmt_MolSys(
     else:
         opened_here = False
 
-    output = _build_molsys_from_pdb_handler(item, get_missing_bonds=get_missing_bonds)
-    output = output.extract(
-        atom_indices=atom_indices,
-        structure_indices=structure_indices,
-        copy_if_all=False,
-        skip_digestion=True,
-    )
-    if opened_here:
-        item.close()
-    return output
+    try:
+        output = _build_molsys_from_pdb_handler(
+            item,
+            get_missing_bonds=get_missing_bonds,
+            bond_inference_engine=bond_inference_engine,
+        )
+        return output.extract(
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            copy_if_all=False,
+            skip_digestion=True,
+        )
+    finally:
+        if opened_here:
+            item.close()

@@ -229,6 +229,8 @@ class ChemicalStates:
         application, peptide-template construction, aromatic normalization,
         fixed-state H generation and terminal attachment record evidence
         automatically, including successful unchanged/no-addition operations.
+        PDB reader outcomes and bounded native covalent inference also retain
+        original methods, producer versions and declared/inferred edge evidence.
         Geometry reports declare their original structure indices and counts.
 
         Examples

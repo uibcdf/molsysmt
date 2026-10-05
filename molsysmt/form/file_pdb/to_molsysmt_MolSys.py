@@ -9,6 +9,7 @@ def to_molsysmt_MolSys(
     skip_digestion=False,
     *,
     get_missing_bonds=True,
+    bond_inference_engine=None,
 ):
     """
     Converting from file:pdb to molsysmt.MolSys.
@@ -28,6 +29,9 @@ def to_molsysmt_MolSys(
         Whether to request the existing optional OpenMM connectivity inference.
         If False, retain only bonds declared by PDB records, without invoking
         the inference engine.
+    bond_inference_engine : str or None, default=None
+        Explicit 'MolSysMT' or 'OpenMM' engine, requiring get_missing_bonds=True.
+        None retains legacy optional OpenMM inference with diagnosed failures.
 
     Returns
     -------
@@ -67,6 +71,7 @@ def to_molsysmt_MolSys(
             atom_indices=atom_indices,
             structure_indices=structure_indices,
             get_missing_bonds=get_missing_bonds,
+            bond_inference_engine=bond_inference_engine,
             skip_digestion=True,
         )
     finally:

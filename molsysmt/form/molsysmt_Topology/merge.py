@@ -113,6 +113,13 @@ def merge(items, atom_indices="all", keep_ids=True, skip_digestion=False):
 
         source_state = tmp_item._chemical_states[0]
         tmp_bonds = tmp_item._get_chemical_state_bonds()
+        from molsysmt._private.preparation_history import remap_bond_history_references
+
+        tmp_bonds = remap_bond_history_references(
+            tmp_bonds,
+            source_state._preparation_history,
+            sum(len(state._preparation_history) for state in source_states),
+        )
         if tmp_bonds.shape[0] and bond_atom_offset:
             tmp_bonds = Topology._remap_bond_atom_indices(
                 tmp_bonds,

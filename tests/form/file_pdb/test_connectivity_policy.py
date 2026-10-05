@@ -8,7 +8,11 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.smonitor import (
+    ArgumentConflictError,
+    ArgumentError,
+    PDBBondInferenceWarning,
+)
 from molsysmt.native import MolSys
 
 
@@ -209,3 +213,162 @@ def test_reader_owned_handler_closes_after_delegated_failure(
     assert len(handlers) == 1
     assert handlers[0].file.closed
     assert declared_181l[0].read_text() == declared_181l[1]
+
+
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("route", ["file", "handler", "text"])
+def test_explicit_native_reader_preserves_declared_edges_without_openmm(
+    declared_181l,
+    monkeypatch,
+    tmp_path,
+    to_form,
+    route,
+):
+    path, text, serials, declared, coordinates = declared_181l
+    original = builtins.__import__
+
+    def reject(name, *args, **kwargs):
+        if name == "openmm" or name.startswith("openmm."):
+            pytest.fail("Native PDB inference imported OpenMM")
+        return original(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", reject)
+    handler = (
+        msm.convert(path, to_form="molsysmt.PDBFileHandler")
+        if route == "handler"
+        else None
+    )
+    item = handler if handler is not None else text if route == "text" else path
+    try:
+        with msm.pyunitwizard.context(standard_units=["pm", "ps"]):
+            output = msm.convert(
+                item,
+                to_form=to_form,
+                get_missing_bonds=True,
+                bond_inference_engine="molsysmt",
+            )
+        assert msm.get(output, element="atom", atom_id=True) == serials
+        bonds = _bonds(output)
+        assert len(bonds) == 1322
+        by_pair = {
+            tuple(pair): index
+            for index, pair in enumerate(
+                bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
+            )
+        }
+        assert all(
+            bonds.iloc[by_pair[pair]]["evidence"] == "explicit" for pair in declared
+        )
+        assert bonds["evidence"].eq("inferred").sum() == 1309
+        states = (
+            output.chemical_states
+            if isinstance(output, MolSys)
+            else output._chemical_states_domain
+        )
+        history = states.get_preparation_history()
+        assert [record["report"]["schema"] for record in history] == [
+            "molsysmt.pdb_connectivity@1",
+            "molsysmt.covalent_inference@1",
+        ]
+        assert history[0]["report"]["status"] == "disabled"
+        assert history[1]["report"]["engine"] == "MolSysMT"
+        assert (
+            bonds.loc[bonds["evidence"].eq("inferred"), "provenance_index"].tolist()
+            == [1] * 1309
+        )
+        if isinstance(output, MolSys):
+            np.testing.assert_allclose(
+                msm.pyunitwizard.get_value(
+                    output.structures.coordinates, to_unit="angstrom"
+                )[0],
+                coordinates,
+                rtol=0,
+                atol=1e-10,
+            )
+            filename = str(tmp_path / "native.h5msm")
+            msm.convert(output, to_form=filename)
+            loaded = msm.convert(filename, to_form="molsysmt.MolSys")
+            assert len(loaded.chemical_states.get_preparation_history()) == 2
+            assert (
+                loaded.chemical_states.get_preparation_history()[1]["report"][
+                    "software"
+                ]
+                == history[1]["report"]["software"]
+            )
+        assert path.read_text() == text
+    finally:
+        if handler is not None:
+            assert not handler.file.closed
+            handler.close()
+
+
+@pytest.mark.parametrize("status", ["unavailable", "failed"])
+def test_legacy_failure_warns_and_archives_cause_but_explicit_engine_raises(
+    declared_181l, monkeypatch, status
+):
+    backend = importlib.import_module(
+        "molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys"
+    )
+    error = (
+        ModuleNotFoundError("Missing OpenMM control", name="openmm")
+        if status == "unavailable"
+        else RuntimeError("Broken engine control")
+    )
+
+    def fail(item):
+        raise error
+
+    monkeypatch.setattr(backend, "_get_bonded_atom_pairs_from_openmm_pdb", fail)
+    with pytest.warns(PDBBondInferenceWarning, match=status):
+        output = msm.convert(declared_181l[0], to_form="molsysmt.MolSys")
+    assert len(output.topology.bonds) == 13
+    report = output.chemical_states.get_preparation_history()[0]["report"]
+    assert report["status"] == status
+    assert report["attempted_engine"] == "OpenMM"
+    assert report["actual_engine"] is None
+    assert report["error"]["type"] == type(error).__name__
+    with pytest.raises(type(error), match=str(error)):
+        msm.convert(
+            declared_181l[0], to_form="molsysmt.MolSys", bond_inference_engine="OpenMM"
+        )
+
+
+@pytest.mark.parametrize("engine", [True, "rdkit", "auto"])
+def test_unknown_pdb_engine_is_rejected(declared_181l, engine):
+    with pytest.raises(ArgumentError):
+        msm.convert(
+            declared_181l[0], to_form="molsysmt.MolSys", bond_inference_engine=engine
+        )
+
+
+def test_disabled_inference_cannot_silently_ignore_an_explicit_engine(declared_181l):
+    with pytest.raises(ArgumentConflictError):
+        msm.convert(
+            declared_181l[0],
+            to_form="molsysmt.MolSys",
+            get_missing_bonds=False,
+            bond_inference_engine="MolSysMT",
+        )
+
+
+def test_native_selected_atoms_keep_historical_indices_and_remap_current_bonds(
+    declared_181l,
+):
+    path, _, serials, _, _ = declared_181l
+    selected = [6, 0, 1]
+    output = msm.convert(
+        path,
+        to_form="molsysmt.MolSys",
+        selection=selected,
+        bond_inference_engine="MolSysMT",
+    )
+    # Public atom selection normalizes explicit lists to unique source order.
+    assert msm.get(output, element="atom", atom_id=True) == [
+        serials[index] for index in [0, 1, 6]
+    ]
+    history = output.chemical_states.get_preparation_history()
+    assert history[-1]["output"]["n_atoms"] == len(serials)
+    assert history[-1]["index_scope"] == "operation"
+    assert output.topology.bonds[["atom1_index", "atom2_index"]].to_numpy().max(
+        initial=0
+    ) < len(selected)

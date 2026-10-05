@@ -94,6 +94,16 @@ def _cross_chain_system():
 # no fields of their own. They are here because they would regress if the base ever
 # transformed its message again, which is the other half of #158.
 SAMPLES = {
+    "PDBBondInferenceWarning": (
+        {
+            "extra": {
+                "status": "failed",
+                "error_type": "RuntimeError",
+                "error_message": "injected engine failure",
+            }
+        },
+        "failed",
+    ),
     "AckreditTrackingWarning": (
         {
             "extra": {

@@ -12,6 +12,11 @@ piped_any_attribute = None
 bonds_are_explicit = True
 bonds_can_be_computed = True
 
+_conversion_opt_kwargs = {
+    "molsysmt.MolSys": ["bond_inference_engine"],
+    "molsysmt.Topology": ["bond_inference_engine"],
+}
+
 _convert_to = {
     "molsysmt.PDBFileHandler": "to_molsysmt_PDBFileHandler",
     "molsysmt.Topology": "to_molsysmt_Topology",

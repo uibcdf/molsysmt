@@ -253,6 +253,13 @@ molsysmt.build.add_missing_heavy_atoms:
   doc_ref: "{func}`molsysmt.build.add_missing_heavy_atoms`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_missing_heavy_atoms()**: Reconstructs bounded missing-heavy gaps and reports unassessed residues.\n:::"
 
+molsysmt.build.infer_covalent_bonds:
+  name: "msm.build.infer_covalent_bonds"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Applies supported native candidates and preserves historical inference evidence."
+  doc_ref: "{func}`molsysmt.build.infer_covalent_bonds`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.infer_covalent_bonds()**: Applies bounded native candidate evidence.\n:::"
+
 molsysmt.build.get_covalent_bond_candidates:
   name: "msm.build.get_covalent_bond_candidates"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

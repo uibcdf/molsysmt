@@ -15,6 +15,7 @@
 | [Get disulfide bonds](get_disulfide_bonds.ipynb) | Identifying structure-specific disulfide candidates and using the build wrapper |
 | [Get covalent bond candidates](get_covalent_bond_candidates.md) | Inspecting exact heavy-group templates and explicit candidate coverage |
 | [Get peptide bond candidates](get_peptide_bond_candidates.md) | Reviewing adjacent source-group C–N evidence and exclusions |
+| [Infer covalent bonds](infer_covalent_bonds.md) | Applying supported native candidates with persisted historical provenance |
 | [Get missing bonds](get_missing_bonds.ipynb) | Getting the missing bonds of a molecular system |
 | [Get missing heavy atoms](get_missing_heavy_atoms.ipynb) | Getting the missing heavy atoms of a molecular system |
 | [Get missing residues](get_missing_residues.ipynb) | Getting the missing residues of a molecular system |
@@ -49,6 +50,7 @@
    get_disulfide_bonds.ipynb
    get_covalent_bond_candidates.md
    get_peptide_bond_candidates.md
+   infer_covalent_bonds.md
    get_missing_bonds.ipynb
    get_missing_heavy_atoms.ipynb
    get_missing_residues.ipynb

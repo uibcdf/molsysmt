@@ -35,8 +35,18 @@ observed coordinates; it does not reconstruct the protein graph. The same option
 works for `molsysmt.Topology` and through `PDBFileHandler`. It is independent of
 OpenMM availability. The existing file/handler default `True` attempts optional
 OpenMM inference and can retain only declared edges if that legacy inference
-fails or is unavailable. Review the returned chemical coverage rather than
+fails or is unavailable, with a warning and an archived failure cause. Review the returned chemical coverage rather than
 assuming that a loaded structure is chemically complete.
+
+Choose `bond_inference_engine='MolSysMT'` with `get_missing_bonds=True` for the
+bounded native reader policy, or `'OpenMM'` for an explicit provider request that
+raises on absence/failure. The native reader composes supported heavy, observed-H
+and peptide candidates on source structure index 0 before extraction. Its graph
+remains partial; unresolved groups, H names and mixed inventories remain recorded.
+For an already loaded system, use `msm.build.infer_covalent_bonds()` on the chosen
+state/structure. It returns a detached system and retains operation history;
+changed connectivity makes output interaction occurrences unevaluated. See
+{ref}`Tutorial_Infer_Covalent_Bonds` for evidence, defaults and persistence.
 
 For a separate native audit, `msm.build.get_missing_bonds(molsys)` returns
 template/geometric candidates without changing the source. Peptide candidates

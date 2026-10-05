@@ -8,6 +8,8 @@ def to_molsysmt_MolSys(
     structure_indices="all",
     get_missing_bonds=False,
     skip_digestion=False,
+    *,
+    bond_inference_engine=None,
 ):
     """
     Converting from string:pdb_text to molsysmt.MolSys.
@@ -25,6 +27,9 @@ def to_molsysmt_MolSys(
         Argument get_missing_bonds.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    bond_inference_engine : str or None, default=None
+        Explicit 'MolSysMT' or 'OpenMM' engine, requiring get_missing_bonds=True.
+        None retains this form's existing connectivity default.
 
     Returns
     -------
@@ -43,12 +48,14 @@ def to_molsysmt_MolSys(
     )
 
     tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
-    tmp_item = molsysmt_PDBFileHandler_to_molsysmt_MolSys(
-        tmp_item,
-        atom_indices=atom_indices,
-        structure_indices=structure_indices,
-        get_missing_bonds=get_missing_bonds,
-        skip_digestion=True,
-    )
-
-    return tmp_item
+    try:
+        return molsysmt_PDBFileHandler_to_molsysmt_MolSys(
+            tmp_item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            get_missing_bonds=get_missing_bonds,
+            bond_inference_engine=bond_inference_engine,
+            skip_digestion=True,
+        )
+    finally:
+        tmp_item.close()

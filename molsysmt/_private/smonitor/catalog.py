@@ -54,6 +54,12 @@ CATALOG = {
         },
     },
     "warnings": {
+        "PDBBondInferenceWarning": {
+            "code": "MSM-WARN-PDB-001",
+            "source": "molsysmt.form.molsysmt_PDBFileHandler",
+            "category": "connectivity",
+            "level": "WARNING",
+        },
         "AckreditTrackingWarning": {
             "code": "MSM-WARN-ATTR-001",
             "source": "molsysmt._ackredit",
@@ -411,6 +417,17 @@ CODES = {
         "qa_hint": "Update callsite to the recommended API. Docs: {doc_url}",
         "agent_message": "Deprecated API used in '{caller}'.",
         "agent_hint": "Update callsite to the recommended API. Docs: {doc_url}",
+    },
+    "MSM-WARN-PDB-001": {
+        "title": "PDB bond inference did not complete",
+        "user_message": "Legacy PDB bond inference is {status}; only declared edges were retained.",
+        "user_hint": "Select bond_inference_engine='MolSysMT' or install/fix OpenMM; use get_missing_bonds=False for explicit-only reading. Review ChemicalStates preparation history.",
+        "dev_message": "Legacy PDB inference {status}: {error_type}: {error_message}.",
+        "dev_hint": "The reader preserved explicit edges and archived the failure. Explicit engine requests propagate failures.",
+        "qa_message": "Legacy PDB inference {status}: {error_type}: {error_message}.",
+        "qa_hint": "Check explicit-edge preservation, the historical cause and explicit-engine failure propagation.",
+        "agent_message": "Legacy PDB inference is {status}; declared edges remain. Cause: {error_type}: {error_message}.",
+        "agent_hint": "Choose an explicit supported engine or disabled inference. Inspect ChemicalStates preparation history.",
     },
     "MSM-WARN-H5MSM-001": {
         "title": "Legacy H5MSM version",

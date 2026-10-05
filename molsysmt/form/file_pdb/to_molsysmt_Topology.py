@@ -3,7 +3,12 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form="file:pdb")
 def to_molsysmt_Topology(
-    item, atom_indices="all", skip_digestion=False, *, get_missing_bonds=True
+    item,
+    atom_indices="all",
+    skip_digestion=False,
+    *,
+    get_missing_bonds=True,
+    bond_inference_engine=None,
 ):
     """
     Converting from file:pdb to molsysmt.Topology.
@@ -21,6 +26,9 @@ def to_molsysmt_Topology(
         Whether to request the existing optional OpenMM connectivity inference.
         If False, retain only bonds declared by PDB records, without invoking
         the inference engine.
+    bond_inference_engine : str or None, default=None
+        Explicit 'MolSysMT' or 'OpenMM' engine, requiring get_missing_bonds=True.
+        None retains legacy optional OpenMM inference with diagnosed failures.
 
     Returns
     -------
@@ -57,6 +65,7 @@ def to_molsysmt_Topology(
             handler,
             atom_indices=atom_indices,
             get_missing_bonds=get_missing_bonds,
+            bond_inference_engine=bond_inference_engine,
             skip_digestion=True,
         )
     finally:

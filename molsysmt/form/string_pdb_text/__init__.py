@@ -31,6 +31,11 @@ from .iterators import StructuresIterator, TopologyIterator  # noqa: E402
 # isort: on
 
 
+_conversion_opt_kwargs = {
+    "molsysmt.MolSys": ["bond_inference_engine"],
+    "molsysmt.Topology": ["bond_inference_engine"],
+}
+
 _convert_to = {
     "string:pdb_text": "to_string_pdb_text",
     "file:pdb": "to_file_pdb",

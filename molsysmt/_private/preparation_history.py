@@ -50,6 +50,27 @@ def append_report(state, report, chemical_state_index):
     state._preparation_history.append(record)
 
 
+def remap_bond_history_references(table, records, offset):
+    """Offset known local history references without reinterpreting opaque origins."""
+    if not offset or "provenance_index" not in table:
+        return table
+    local = {
+        index
+        for index, record in enumerate(records)
+        if record["report"]["schema"]
+        in {
+            "molsysmt.pdb_connectivity@1",
+            "molsysmt.covalent_inference@1",
+        }
+    }
+    mask = table["provenance_index"].isin(local)
+    if not mask.any():
+        return table
+    output = table.copy()
+    output.loc[mask, "provenance_index"] += offset
+    return output
+
+
 def encode_history(records, *, copy_arrays=True):
     """Encode a typed tree and separate arrays without pickle or object arrays."""
     validate_history(records)

@@ -126,6 +126,11 @@ sections:
             agents_file: docs/content/user/tools/build/get_peptide_bond_candidates.md.AGENTS.md
             description: Adjacent or geometrically unique peptide C-N candidates with full-source competition, explicit geometry and conservative exclusions.
             status: reviewed
+          - name: infer_covalent_bonds
+            file: docs/content/user/tools/build/infer_covalent_bonds.md
+            agents_file: docs/content/user/tools/build/infer_covalent_bonds.md.AGENTS.md
+            description: Applying bounded native candidates with historical evidence, explicit reader engines and unresolved chemistry.
+            status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
         agents_file: docs/content/user/tools/topology/AGENTS.md

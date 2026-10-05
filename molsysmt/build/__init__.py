@@ -9,6 +9,7 @@ from .get_missing_heavy_atoms import get_missing_heavy_atoms
 from .get_residue_chemical_coverage import get_residue_chemical_coverage
 from .get_covalent_bond_candidates import get_covalent_bond_candidates
 from .get_peptide_bond_candidates import get_peptide_bond_candidates
+from .infer_covalent_bonds import infer_covalent_bonds
 from .get_missing_terminal_cappings import get_missing_terminal_cappings
 from .get_missing_residues import get_missing_residues
 from .get_missing_bonds import get_missing_bonds

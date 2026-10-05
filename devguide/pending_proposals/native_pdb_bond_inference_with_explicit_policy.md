@@ -17,8 +17,10 @@ supersedes: []
 **Reported:** 2026-10-03 by DockingMT; provider triage on 2026-10-05.
 **Status:** Direct-file disabled-inference policy corrected and contract-tested;
 heavy-template, observed-H parent consensus and two bounded peptide candidate
-policies are contract-tested;
-native reader inference and explicit engine/failure provenance remain proposed.
+policies are contract-tested. A bounded native application tool, explicit reader
+engine selection, failure diagnostics and persisted per-edge inference provenance
+are implemented and contract-tested. Complete chemical coverage and independent
+scientific/performance qualification remain pending.
 
 ## What
 
@@ -84,7 +86,8 @@ The proposed stages are:
 5. Qualify original Vina inputs and analytical controls with source maps, physical
    units, independent edge inventories and workload measurements.
 
-No new engine selector or implementation is claimed by this design.
+This initial design did not deliver an engine selector. The dated checkpoints
+below distinguish the subsequent implementations and their remaining boundaries.
 
 ## Why
 
@@ -728,3 +731,184 @@ and the recorded enabled-reader disagreement; do not silently complete them.
 Terminal caps, other supported groups, disulfide composition, unknown-group
 geometry and representative performance measurements remain separate work.
 Retain the current reader default and OpenMM route. #304 remains partial.
+
+## Explicit native application and reader engines — 2026-10-05
+
+**Implemented and contract-tested.** The public form-agnostic
+`build.infer_covalent_bonds(..., method='supported_group_templates')` composes
+the existing heavy-template, observed-H local parent consensus and
+`unique_backbone_distance` tools. It returns a detached MolSys, optionally with
+its report. Scientific criteria remain in the general candidate tools; the PDB
+adapter selects policy and consumes this general application tool.
+
+### Application, state and historical evidence
+
+Both endpoints must belong to the output selection, while whole-group chemistry
+and source backbone competitors are assessed first. No source atom, coordinate
+or label is changed. Existing edges and their assignments retain precedence;
+only missing eligible edges are appended as inferred covalent bonds with unknown
+orders. One chemical state must resolve, and one structure supplies geometry when
+coordinates exist. All source structures remain in the output. Topology-only input
+can still supply heavy and observed-H evidence without fabricated geometry.
+
+Application explicitly permits the previously qualified local H-parent consensus,
+including groups whose joint H inventory remains unassessed. It does not resolve
+aliases, choose a protonation state or certify hydrogen completeness. Unresolved
+names and mixed inventory evidence remain in the report. Added bonds mark graph
+completeness partial and invalidate all named interaction occurrence coverage in
+the output; a no-addition result preserves its analyses. Source systems remain
+unchanged in both cases.
+
+The owning state's preparation history retains `molsysmt.covalent_inference@1`
+evidence, software producer, original axes, selected scope, candidates, additions,
+method codes, exclusions and source-to-result bond indices. Method membership uses
+parallel int8 indices into three method names, rather than a Python string per
+edge. Peptide distances and thresholds use explicit nm QuantityRecord payloads;
+there are no coordinate snapshots. Added edges refer to the local history entry
+through `provenance_index`. H5MSM 0.5 retains these references and the producer
+version. Extraction preserves historical operation axes while remapping live
+bond rows; merging offsets references to these known local history schemas while
+preserving unrelated opaque origins and the original historical reports.
+
+### Reader policy
+
+The six file/handler/text-to-MolSys/Topology converters accept the keyword-only
+`bond_inference_engine` without changing previous positional arguments or defaults:
+
+- `get_missing_bonds=False`: declared PDB edges only; an explicit engine conflicts.
+- `get_missing_bonds=True, bond_inference_engine='MolSysMT'`: the native tool above,
+  with no OpenMM import or fallback. Geometry uses source structure index 0 before
+  extraction; parsed models share the inferred graph.
+- `get_missing_bonds=True, bond_inference_engine='OpenMM'`: lazily guarded OpenMM
+  calculation; an explicitly requested engine's error propagates.
+- `get_missing_bonds=True, bond_inference_engine=None`: the existing optional
+  OpenMM policy. Absence or failure preserves declared edges, emits structured
+  `MSM-WARN-PDB-001` diagnostics and archives the cause instead of swallowing it.
+
+Text-to-MolSys still defaults to disabled inference, so an explicit engine also
+requires `get_missing_bonds=True`. There is no automatic native fallback or reader
+default change. `molsysmt.pdb_connectivity@1` records disabled, inferred, unavailable
+or failed outcomes, requested/attempted/actual engines, producer, inferred bond
+indices and aggregate unresolved/repeated declaration flags. Complete per-record
+declaration diagnosis remains pending. Only handles opened by the conversion are
+closed, including failure paths.
+
+### Executed controls and documentation
+
+```bash
+python -m pytest --receptor=llm \
+    tests/build/test_infer_covalent_bonds.py \
+    tests/form/file_pdb/test_connectivity_policy.py \
+    tests/form/file_pdb/test_to_molsysmt_native.py \
+    tests/form/file_pdb/test_pdb_parser_regression.py \
+    tests/build/test_get_covalent_bond_candidates.py \
+    tests/build/test_get_peptide_bond_candidates.py \
+    tests/build/test_get_residue_chemical_coverage.py \
+    tests/test_argument_contract.py \
+    tests/native/test_preparation_history.py \
+    tests/_private/test_smonitor_catalog_integrity.py \
+    tests/_private/smonitor/test_xdist_warning_reconstruction.py \
+    --doctest-modules molsysmt/build/infer_covalent_bonds.py \
+        molsysmt/form/file_pdb/to_molsysmt_MolSys.py \
+        molsysmt/form/file_pdb/to_molsysmt_Topology.py \
+    --junitxml=/tmp/molsysmt-304-reader-qualified.xml
+```
+
+Receipt: **532 passed in 105.65 s**, with 18 legacy H5MSM deprecations,
+14 existing H5MSM pandas downcast FutureWarnings, two existing topology setter
+FutureWarnings and one expected cross-chain declaration warning. The final
+invalid-`skip_digestion` boundary guard is then checked with the inference test
+module and its doctest: **15 passed in 7.73 s**, receipt
+`/tmp/molsysmt-304-reader-boundary.xml`. These runs overlap; their counts must not
+be summed as unique coverage. The temporary boundary guard names its removal
+condition, a public ArgDigest floor containing uibcdf/argdigest#17.
+
+Literal controls cover appended pairs and retained bond orders/evidence, detached
+source/report ownership, typed method codes, selected/empty scope, unresolved
+states, selected nonreference states, topology without coordinates, interaction
+invalidation, six PDB conversion routes, blocked OpenMM imports, declared-edge
+precedence, handler lifetime, explicit versus legacy engine failures, historical
+H5MSM persistence and merge reference offsets. An intermediate diagnostic gate
+correctly rejected missing QA/agent catalog fields and the absent reconstruction
+sample; those omissions were fixed before the combined receipt.
+
+Ruff, lazy-dependency, 243-function docstring and public API checks pass, with six
+intentional converter signature waivers. The form audit passes 96/96 structural
+checks and its delivery ratchet; its 78 accepted unreachable attributes remain
+existing debt, not new delivered capability. Foundations, Toolbox, Cookbook and
+Common Core 12 describe the application and reader policies. The maintained
+course validator passes for 156 notebooks; edited notebook executable cells and
+outputs are unchanged. Final incremental Sphinx HTML completes with **17 warning
+entries** and no warning naming the new tool. Existing heading, directive,
+toctree and reference debt remains; no clean documentation build is claimed.
+
+### Original-source reader and storage probe
+
+```bash
+MSM_NATIVE_VINA_ROOT="$HOME/repos@others/AutoDock-Vina"
+python devtools/scripts/probe_native_pdb_connectivity.py \
+    molsysmt/data/pdb/181l.pdb \
+    "$MSM_NATIVE_VINA_ROOT/example/basic_docking/solution/1iep_receptorH.pdb" \
+    --compare-openmm \
+    --output devtools/data/native_pdb_reader_profile_20261005.json
+```
+
+The retained
+[`native_pdb_reader_profile_20261005.json`](../../devtools/data/native_pdb_reader_profile_20261005.json)
+records original source checksums, axis/coordinate/pair hashes, producer versions,
+source base commit and six implementation file fingerprints. Source bytes and
+coordinates remain unchanged; compared source atom axes match. Native runs reject
+all OpenMM imports. Native H5MSM round trips retain graph, geometry and producer.
+
+| Original input | Declared edges | Native edges | OpenMM edges | Native-only / OpenMM-only |
+| --- | ---: | ---: | ---: | ---: |
+| 181L | 13 | 1,322 | 1,322 | 0 / 0 |
+| 1IEP receptorH | 0 | 4,445 | 4,469 | 1 / 25 |
+
+The 181L application adds 1,309 edges. 1IEP combines 2,015 heavy edges,
+273 peptide edges and 2,157 observed-H edges. Its native-only HB2-CB pair and
+26 unresolved group-specific H names remain the observed consensus checkpoint's
+explicit scientific qualifications. OpenMM parity is not independent ground truth.
+
+Each route runs in a fresh process, imports MolSysMT, then performs two conversions.
+The first and repeated conversions are individual observations without a warm-up
+series, replication or statistical summary; timings exclude interpreter/package
+startup. RSS is the whole-process high-water mark, including startup, both
+conversions and, for the native route, H5MSM write/read verification. It is not
+incremental inference memory or an isolated serialization comparison.
+
+| Input / route | First conversion (s) | Repeated conversion (s) | Process peak RSS (MiB) |
+| --- | ---: | ---: | ---: |
+| 181L / disabled | 3.473 | 0.147 | 387.0 |
+| 181L / native | 4.523 | 1.146 | 433.2 |
+| 181L / OpenMM | 3.936 | 0.303 | 462.9 |
+| 1IEP / disabled | 3.697 | 0.100 | 391.1 |
+| 1IEP / native | 5.034 | 1.618 | 446.6 |
+| 1IEP / OpenMM | 4.027 | 0.587 | 479.7 |
+
+Native H5MSM files occupy **3,174,095 bytes** for 181L and **6,518,360 bytes**
+for 1IEP. Their observed write/read times are respectively 1.025/0.990 s and
+0.947/1.141 s. Typed history contains many small arrays; HDF5 dataset overhead
+still contributes substantial storage. The native route is slower than OpenMM
+in these observations, although its whole-process RSS is lower under the stated
+different measurement scopes. Neither result establishes scalability or a global
+performance advantage. Packing and representative workloads need further study.
+
+Linux x86_64, Python 3.14.7, NumPy 2.4.6, released ArgDigest 0.13.0 source
+overlay, installed locally built PyUnitWizard 0.28.1 minimum-provider wheel and
+OpenMM 8.6.1; source base `29a3817854de14db0b1076263e189a1e7c5dbebf` plus the
+fingerprinted implementation. The actual editable MolSysMT producer version
+`0.22.4+60.g7a8350f76.dirty` is retained separately from source identity. No installed
+MolSysMT release, full-suite, platform matrix or independent chemical qualification
+is claimed.
+
+### Remaining #304 work
+
+The explicit bounded reader/application contract and failure provenance are now
+delivered. Next qualify H naming aliases and terminal conventions without hiding
+the original-input exclusions or forcing OpenMM parity. Terminal caps, additional
+supported groups, disulfide composition, unknown-group geometry, full declaration
+diagnosis, independently established chemical inventories and larger time/memory/
+storage workloads remain pending. The native application currently materializes
+and copies the complete system; it is not a streaming preparation route.
+Retain the reader defaults and the optional OpenMM route. **#304 stays partial.**

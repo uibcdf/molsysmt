@@ -51,6 +51,7 @@ from .warnings import (
     MolSysMTCatalogWarning,
     MolSysMTDeprecationWarning,
     NotDigestedArgumentWarning,
+    PDBBondInferenceWarning,
     SelectionWarning,
     SlowChunkIOWarning,
     StructuralAttributeDropWarning,
@@ -88,5 +89,6 @@ __all__ = [
     "StructuralAttributeOffAxisWarning",
     "IncompatibleBoxWarning",
     "LegacyH5MSMWarning",
+    "PDBBondInferenceWarning",
     "BioassemblyIdentifierCollisionWarning",
 ]
