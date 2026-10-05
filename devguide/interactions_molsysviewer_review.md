@@ -5,9 +5,24 @@ This operational packet belongs to `uibcdf/molsysmt#251` and
 The [Interaction Analysis API](interactions_api.md) defines the current contract;
 this page provides a reproducible review checkpoint and requested feedback.
 
+## Public validation completion — 2026-10-05
+
+Provider **`0959a0f7cf3ecf6352d0ed714afacf441563c8b6`** completes the public
+ArgDigest boundary that the S2 baseline below identified. Original positional
+calls and detector defaults are preserved. Keyword-only `skip_digestion=False`
+is now explicit on original result methods; invalid fractional/boolean indices
+and overflow fail before encoding, including typed dictionary reads and
+queries on invalidated or recalculated results. Stored/file invariants remain
+checked on trusted delegation. The
+[validation artifact](../devtools/data/interactions_argument_validation_20261005.json)
+records the 1,520-test regression and final 116-test delegation check, their
+overlap/source phases and documentation limits. Criterion 2 has its guard in
+`tests/interactions/test_argument_validation.py`; the native/result/scientific
+and persistence contracts remain experimental pending the other gates.
+
 ## S2 stabilization review — 2026-10-05
 
-The current provider checkpoint is clean `main` at
+The earlier S2 baseline is clean `main` at
 **`4d048a78d466728c2fa9a12befacc22182b71d23`**. The
 [dated S2 artifact](../devtools/data/interactions_review_packet_20261005.json)
 records commands, dependency versions, selected source hashes, fixture hashes,
@@ -48,14 +63,14 @@ routes, not a fingerprint of their complete dependency import graphs.
 | Native named analyses and public modular H5MSM (#252) | `tests/native/test_molsys_interactions.py`; `tests/form/file_h5msm/test_public_h5msm_v05.py`; `test_topology_chemistry_interactions_v05.py` | Viewer memory measurements and actual canvas/session acceptance; full installed-candidate matrix belongs to S6. |
 | One chemical authority, absence/ambiguity and state associations (#254) | `tests/native/test_chemical_states.py`; `test_molsys_chemical_state_association.py`; `tests/form/molsysmt_MolSys/test_partial_domains.py`; public H5MSM guards | Lifecycle/documentation and exact-candidate recertification; bond facade retirement stays #255. |
 | Namespace, legacy defaults and scientific attribution (#250) | `tests/interactions/hbonds/test_namespace.py`; Buch/Luzard–Chandler result guards; disulfide/build wrapper guards; `test_scientific_attribution.py` | Existing methods retain their evidence levels and limitations; current Viewer acceptance and final gates remain open. |
-| Public input-validation boundary (#252 criterion 2) | Direct validation in `Interactions.from_records` and the original query/remap methods; decorated `to_page`, `replace_structures` and `compact` | Review the original methods' missing ArgDigest boundary. Direct validation is not evidence that the repository decorator requirement is satisfied; this checkpoint grants no exception. |
+| Public input-validation boundary (#252 criterion 2) | `tests/interactions/test_argument_validation.py` protects real rejection and positive contracts across original/invalidated/recalculated results, typed decoding and standalone persistence. | Contract-tested in the later validation completion above; other lifecycle and exact-candidate gates remain open. |
 
 Normative contracts remain in [Interaction Analysis API](interactions_api.md)
 and [H5MSM format](h5msm_format.md). The owning reports retain their individual
 acceptance criteria. This table neither closes #250/#251/#252/#254 nor waives
-the [frozen stabilization queue](release_1_0_scope.md). The next provider task
-is the bounded public validation review, while the maintainer requests explicit
-Viewer feedback using the message below.
+the [frozen stabilization queue](release_1_0_scope.md). The provider has
+completed the bounded public validation review. Continue S3–S5 within the
+frozen scope while the maintainer requests explicit Viewer feedback below.
 
 ## Historical pinned provider checkpoint
 
@@ -227,7 +242,7 @@ editors, unused-registry pruning and public lazy file queries remain absent.
 ### Message for the maintainer to forward
 
 > We have refreshed the experimental Interactions review at clean MolSysMT
-> `4d048a78d466728c2fa9a12befacc22182b71d23` on main, using Python 3.14.
+> `0959a0f7cf3ecf6352d0ed714afacf441563c8b6` on main, using Python 3.14.
 > The review packet retains the H5MSM 0.5/codec-2 original, invalidated,
 > recalculated, compacted and empty named analyses, producer versions and
 > structure-scoped execution records. Public persistence now also supports
@@ -239,7 +254,10 @@ editors, unused-registry pruning and public lazy file queries remain absent.
 > matched, and five lifecycle analyses retained producer/run metadata through
 > a session. Source states, boundary tests and limitations are recorded in the
 > dated artifact; this is Python compatibility, not browser or published-pair
-> certification. MolSysMT is reviewing the original class validation boundary.
+> certification. The subsequent ArgDigest completion passes 1,520 regression
+> tests plus a final overlapping delegation guard, preserving positional calls
+> while rejecting lossy indices. Its dated artifact records the separate source
+> phases; the earlier consumer observations are not a new Viewer run at this SHA.
 >
 > Please return a committed consumer identity and explicit results for structure
 > switching, atom selections, parallel occurrence inspection, periodic/compound

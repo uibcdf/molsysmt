@@ -29,8 +29,8 @@ post-1.0 issue inventory. Start there before taking another implementation
 task. This is a scope decision, not release certification.
 
 S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. S2's
-acceptance reconciliation is recorded below; next review the original public
-Interactions validation boundary and request updated MolSysViewer feedback. Review
+acceptance reconciliation and public validation completion are recorded below.
+Next review S3's existing preparation profiles and request updated MolSysViewer feedback. Review
 current experimental profiles and public claims, then dependencies/Python
 policy before freezing exact candidates. No additional chemistry or method
 expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
@@ -117,8 +117,8 @@ maps #250/#251/#252/#254 acceptance to existing guards and prepares a message
 for the maintainer to forward. No external message was sent. Explicit current
 Viewer feedback, agreed combined-memory measurements and final candidate gates
 remain open. These reports stay partial. Original class constructor/query/remap
-methods still need review for the repository ArgDigest boundary; direct
-validation alone does not clear #252 criterion 2, and no exception was granted.
+methods needed review at this baseline; the subsequent checkpoint below clears
+#252 criterion 2 with tested ArgDigest behavior, without granting an exception.
 
 Stale active-proposal claims about missing remapping, H5MSM embedding and native
 ownership are corrected. Historical experimental measurements are preserved;
@@ -132,7 +132,46 @@ steps; GitHub annotations report that no hosted runner acquired the job after
 multiple attempts. This is infrastructure evidence, not failed lint/scientific
 assertions. Missing execution remains #334 evidence to recover on the next
 unskipped head before qualification, not a waiver. Next finish the bounded public class
-validation review; progress S3–S5 independently while obtaining Viewer feedback.
+validation review (now completed below); progress S3–S5 while obtaining Viewer feedback.
+
+## S2 public validation completion — 2026-10-05
+
+Provider `0959a0f7cf3ecf6352d0ed714afacf441563c8b6` completes ArgDigest for
+construction, inspection, original/invalidated/recalculated queries, remapping
+and standalone persistence. Integer counts and indices refuse booleans and
+fractions before encoding; periodic vectors refuse overflow; typed evidence
+decoding cannot truncate fractional codes. Record generators are preserved.
+Original positional arguments/defaults remain; skip options are keyword-only
+and reserved for already validated inputs. Stored cross-column/file invariants
+remain active. No method, dependency or file-format extension was introduced.
+
+The corrected broad selection passes 1,520 tests in 211.99 s. The final
+source-block delegation guard passes 116 tests in 5.43 s; selections overlap.
+The [dated artifact](../devtools/data/interactions_argument_validation_20261005.json)
+retains initial failures, source phases, dependency versions and hashes. The
+[owning report](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md#s2-acceptance-reconciliation--2026-10-05)
+records the remaining criteria. #252 is partial; criterion 2 now has a guard.
+
+Ruff, formatting, dependencies, signature/API registries, docstrings, course and
+devguide checks pass. Foundations, Toolbox, Cookbook and Module 04 are updated;
+course executable cells and saved outputs remain unchanged. Sphinx HTML passes
+with 27 warnings in the existing Python 3.13 documentation environment; #237/S5
+still owns Python 3.14 documentation-tool qualification. Nine Cookbook and five
+initial Toolbox blocks execute; later contextual snippets are not one standalone
+script. This is scoped development evidence, not an installed/full release matrix.
+
+At preceding documentation head `dcccc730e`, CI smoke 37371423746 passes.
+Policy/devguide/Conda checks ended with no runner or executed steps (jobs
+111969243288, 111969240011, 111969242582). The policy annotation confirms hosted
+runner acquisition failure. Inspect the next unskipped head and recover missing
+execution under #334 before qualification. The maintainer reports Codecov's
+service problem resolved; coverage publication still requires evidence from its
+next applicable executed gate.
+
+Next: S3's existing preparation/SDF/PDBQT/native profiles; then S4 documentation
+claims and S5 environment/dependency policy. Obtain current Viewer feedback in
+parallel through the prepared maintainer-forwarded message. No new feature is
+admitted and the 1.0 tag remains conditional on S6 exact-candidate gates.
 
 ## Reported-defect review — 2026-10-02
 

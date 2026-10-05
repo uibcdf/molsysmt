@@ -24,6 +24,41 @@ follows from this scheduling decision.
 
 ## S2 acceptance reconciliation — 2026-10-05
 
+**Subsequent validation completion:** commit
+`0959a0f7cf3ecf6352d0ed714afacf441563c8b6` completes criterion 2 through
+ArgDigest on construction, inspection, original/invalidated/recalculated
+queries, remapping, invalidation and standalone persistence. The explicit
+private family registry checks actual integer/count semantics, preserves
+record generators, rejects fractional/boolean indices and periodic-vector
+overflow before encoding, and reuses the existing producer-version validator.
+Original positional parameters/defaults remain unchanged; nine intentional
+keyword-only skip options have scoped signature waivers. Invalid truthy skip
+flags fail before writes. Trusted delegation is limited to already validated
+arguments; stored cross-column invariants still run.
+
+The corrected regression passed **1,520 tests in 211.99 s**. After the final
+source-block delegation adjustment, **116 focused tests passed in 5.43 s**;
+these overlap the broad selection and are not additional unique tests. The
+[dated validation artifact](../../devtools/data/interactions_argument_validation_20261005.json)
+records source phases, hashes, original failures, dependencies and limits.
+The first broad run's two failures were existing `ValueError` expectations
+for malformed producer metadata, restored by reusing `_software_versions`.
+The new test fixtures initially addressed the typed payload/view incorrectly;
+they now use `InteractionsDict.data` and the query's `to_dict` coverage.
+The regression guards retain their intended evidence rather than accepting
+a changed scientific result.
+
+Ruff, scoped formatting, signature/API registries, dependencies, docstrings
+(243 exported functions), devguide and the maintained course gate (156
+notebooks) pass. Sphinx HTML passes in the existing Python 3.13 documentation
+environment with 27 warnings; this is not Python 3.14 documentation
+qualification. Foundations, Toolbox, Cookbook and Module 04 explain the
+boundary. Nine Cookbook blocks and the first five independently executable
+Toolbox blocks pass; later contextual snippets are not claimed as one runnable
+sequence. Course code cells/outputs are unchanged. Guard:
+`tests/interactions/test_argument_validation.py`. Consumer feedback and final
+lifecycle/candidate gates remain open; this checkpoint does not close #252.
+
 The [current review packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
 maps each delivered contract to executable guards and remaining acceptance.
 Clean provider `4d048a78d466728c2fa9a12befacc22182b71d23` passed 279 native,
@@ -35,9 +70,9 @@ passed; this is Python compatibility, not actual browser/canvas acceptance.
 
 Current scope/risks below are reconciled with the delivered codec, remapping,
 named ownership and H5MSM routes. Historical experiments remain dated. Criterion
-2 still needs review: several original public class methods use direct
-validation without ArgDigest. This checkpoint does not approve an exception or
-claim decorator compliance. Consumer feedback, lifecycle checks and final
+2 was still open at that earlier checkpoint; the subsequent validation
+completion above supplies its guarded implementation without an exception.
+Consumer feedback, lifecycle checks and final
 candidate gates remain open. The maintainer-forwarded message is prepared in
 the packet; no message was sent to another team.
 
@@ -1265,10 +1300,9 @@ layer; the public class has no mutation API or persisted remapping yet.
   typed arrays and relation offsets cover the tested cases.
 - Eagerly building atom indexes for every single-frame query wasted work.
   The direct frame path was added before measuring.
-- Existing ArgDigest `n_atoms` digestion rejects the new classmethod caller.
-  The prototype validates its inputs directly. Integrating a truthful
-  function/argument contract is open; bypassing validation entirely would be
-  unacceptable.
+- The original prototype's ArgDigest `n_atoms` digester rejected its classmethod
+  caller. The 2026-10-05 family registry resolves that mismatch without widening
+  unrelated selection/count contracts or suppressing missing digester warnings.
 
 ## Scope and exclusions
 

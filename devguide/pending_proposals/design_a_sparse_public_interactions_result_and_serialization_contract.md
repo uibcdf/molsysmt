@@ -30,7 +30,8 @@ provider and local consumer evidence, and requests explicit feedback on the
 current contract. The [scope freeze](../release_1_0_scope.md) separates existing
 compatible structure replacement and bounded resident export from deferred
 individual observation editing/catalog pruning (#335) and resumable streaming
-(#336). The original public validation boundary remains under #252 review.
+(#336). The original public validation boundary is now contract-tested under
+#252; the review packet records its subsequent validation completion and guards.
 No new data structure, method or large-system performance guarantee is proposed;
 the historical comparisons below retain their original measured conditions.
 This proposal remains partial until its consumer and candidate acceptance gates
