@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-02
+**Last updated:** 2026-10-05
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,39 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Scope freeze and next work — 2026-10-05
+
+The maintainer has frozen feature scope at `d609187ae` under
+`uibcdf/molsysmt#334`. The [normative scope decision](release_1_0_scope.md)
+now owns admission, the finite S1–S6 stabilization queue and the preserved
+post-1.0 issue inventory. Start there before taking another implementation
+task. This is a scope decision, not release certification.
+
+Next perform S1's fresh triage of #25/#30/#112 and reconcile S2's current
+domain/interaction acceptance with the agreed MolSysViewer workflow. Review
+current experimental profiles and public claims, then dependencies/Python
+policy before freezing exact candidates. No additional chemistry or method
+expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
+presentation; its integration feedback is required, while other client
+integrations remain outside the initial release gate.
+
+The bounded native PDB policy/application is implemented through `7b51c240f`,
+with its generated API view corrected in `d609187ae`. The #304 record retains
+532 focused tests, the final boundary check, original-input comparisons,
+storage/time observations and their limits. Broader H/terminal/group/disulfide
+inference and performance qualification now remain post-1.0 in #304.
+Current code may ship experimentally without implying complete receptor preparation.
+
+Deferred individual observation editing, streaming/resumable H5MSM, specific
+metal-coordination rules and longer water paths have separate owners
+#335/#336/#337/#338. Compatible structure replacement, compaction, bounded
+resident export and existing one/two-water methods are already implemented.
+
+The historical 99% weighted campaign below is not a measure of current
+stabilization effort. S1–S6 are not certified complete by this documentation
+checkpoint; no new heavy suite, installed-candidate matrix or release artifact
+is produced. Existing Python/policy obligations and exact-candidate gates remain.
 
 ## Reported-defect review — 2026-10-02
 
@@ -48,6 +81,10 @@ General adapter-delivery debt (uibcdf/molsysmt#139), documentation build debt
 open; this closure does not certify them or establish release readiness.
 
 ## Resume from here
+
+**Current ordering:** use [the 2026-10-05 scope freeze](release_1_0_scope.md).
+The dated source/installation observations below preserve evidence and do not
+reopen extension work or certify the current candidate.
 
 As of 2026-09-27, F6 is the active 1.0 stage. The public MolSysMT
 0.22.4 / MolSysViewer 0.23.4 pair is an independently verified
@@ -253,17 +290,18 @@ visible-window Qt and complete hosted E2E are explicit
 pre-1.0 exceptions, not 1.0 sign-off (`uibcdf/molsysviewer#100`). The
 MolSysSuite-wide 3.14 admission decision is separate (`uibcdf/molsyssuite#29`).
 
-## 1.0 certification baseline — not replaced by the 0.22.4 release
+## Historical 1.0 certification baseline — not replaced by the 0.22.4 release
 
 The F5/F6 evidence below records the earlier 1.0 workstream and its weighted
 closure. Its older commit coordinates are historical 1.0-gate evidence, not
 the current `main` head or the 0.22.4 tag. Publication of a pre-1.0 pair does
-not close F6 or change the 99% weighted 1.0 measure.
+not close F6. The historical 99% belongs to that campaign's weighted plan;
+it does not estimate the remaining scope after later implementation changes.
 
 - **Active segment:** F — lifecycle and release candidate
 - **Active stage:** F6 release sign-off and 1.0 tag
-- **Completed weighted closure:** 99% of the remaining 1.0 execution plan
-- **Development-progress estimate:** Segments A and B are certified complete;
+- **Historical weighted closure:** 99% of the earlier remaining-plan campaign
+- **Historical development evidence:** Segments A and B passed their gates;
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
@@ -301,14 +339,15 @@ not close F6 or change the 99% weighted 1.0 measure.
   and installed-runtime matrix (with Windows green as experimental evidence
   only), documentation run `31781220979` passed, and smoke run `31781199983`
   passed
-- **Release readiness measure:** the formal weighted closure is 99%; no second
-  subjective percentage is mixed into this operational ledger
+- **Current release readiness:** no numerical completion estimate; the
+  [frozen scope queue](release_1_0_scope.md) and exact-candidate evidence define
+  what still needs closure
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** take the published 0.22.4/0.23.4 pair as an installation
-  baseline, audit the remaining F6 checks against current code and dependency
-  floors, then run every 1.0 release gate on one new exact candidate before
+- **Next action:** complete S1–S5 of the frozen scope, using the published
+  0.22.4/0.23.4 pair only as an installation baseline, then run every 1.0
+  release gate on one new exact candidate before
   any 1.0 tag. Its own GitHub Release and distinct Zenodo version DOI still
   need post-publication verification; the pre-1.0 pair does not close F6
 - **Parallel packaging action:** Segment C and installed-wheel validation are

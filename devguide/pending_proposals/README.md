@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (24)
+### Open (28)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -53,6 +53,10 @@ Entries carrying front matter under
 - [`h5msm_0_6_molecular_mechanics_persistence.md`](h5msm_0_6_molecular_mechanics_persistence.md) — [#256](https://github.com/uibcdf/molsysmt/issues/256) — Design H5MSM 0.6 persistence for MolecularMechanics *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
+- [`post_1_0_chemically_specific_metal_coordination.md`](post_1_0_chemically_specific_metal_coordination.md) — [#337](https://github.com/uibcdf/molsysmt/issues/337) — Post-1.0 chemically specific metal coordination *(inspected)*
+- [`post_1_0_individual_interaction_editing.md`](post_1_0_individual_interaction_editing.md) — [#335](https://github.com/uibcdf/molsysmt/issues/335) — Post-1.0 individual interaction editing *(inspected)*
+- [`post_1_0_streaming_interactions_and_h5msm_append.md`](post_1_0_streaming_interactions_and_h5msm_append.md) — [#336](https://github.com/uibcdf/molsysmt/issues/336) — Post-1.0 streaming interactions and H5MSM append *(inspected)*
+- [`post_1_0_water_paths_beyond_two_mediators.md`](post_1_0_water_paths_beyond_two_mediators.md) — [#338](https://github.com/uibcdf/molsysmt/issues/338) — Post-1.0 water paths beyond two mediators *(inspected)*
 - [`preserve_atom_correspondence_through_lossy_molecular_exports.md`](preserve_atom_correspondence_through_lossy_molecular_exports.md) — [#223](https://github.com/uibcdf/molsysmt/issues/223) — Preserve atom correspondence through lossy molecular exports *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
 - [`read_pdbqt_pose_ensembles_against_a_known_ligand_source.md`](read_pdbqt_pose_ensembles_against_a_known_ligand_source.md) — [#226](https://github.com/uibcdf/molsysmt/issues/226) — Read PDBQT pose ensembles against a known ligand source *(inspected)*
@@ -65,11 +69,12 @@ Entries carrying front matter under
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
 
-### In progress (3)
+### In progress (4)
 
 - [`audit_dependency_contracts_across_packaging_environments_and_ci.md`](audit_dependency_contracts_across_packaging_environments_and_ci.md) — [#245](https://github.com/uibcdf/molsysmt/issues/245) — Audit dependency contracts across packaging, environments, and CI *(reproduced)*
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`extend_molsysmt_python_support_to_3_14.md`](extend_molsysmt_python_support_to_3_14.md) — [#237](https://github.com/uibcdf/molsysmt/issues/237) — Extend MolSysMT Python support to 3.14. *(measured)*
+- [`freeze_1_0_scope_and_complete_bounded_stabilization.md`](freeze_1_0_scope_and_complete_bounded_stabilization.md) — [#334](https://github.com/uibcdf/molsysmt/issues/334) — Freeze 1.0 scope and complete bounded stabilization *(inspected)*
 
 ### Blocked (2)
 

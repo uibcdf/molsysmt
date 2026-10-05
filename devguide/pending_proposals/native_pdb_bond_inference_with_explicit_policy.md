@@ -22,6 +22,13 @@ engine selection, failure diagnostics and persisted per-edge inference provenanc
 are implemented and contract-tested. Complete chemical coverage and independent
 scientific/performance qualification remain pending.
 
+**Scheduling — 2026-10-05:** the bounded engine/application contract is included
+experimentally in the [frozen 1.0 scope](../release_1_0_scope.md). Remaining H-name,
+terminal/group/disulfide/declaration and performance extensions stay owned by
+#304 in the post-1.0 backlog. Correctness defects in the offered profile remain
+admissible stabilization work; this scheduling decision does not close the issue
+or certify complete native receptor preparation.
+
 ## What
 
 Honor explicit PDB connectivity policy consistently through direct-file and

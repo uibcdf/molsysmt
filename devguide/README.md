@@ -33,6 +33,7 @@ See [DOCUMENT_POLICY.md](DOCUMENT_POLICY.md) for maintenance and status rules.
 ## Start here
 
 For a new session focused on the path to 1.0, first read the
+[frozen 1.0 scope](release_1_0_scope.md),
 [current execution status](release_1_0_status.md#resume-from-here),
 the [Python 3.14 paired-support checkpoint](python_3_14_checkpoint.md)
 and the [exact-commit release gate](release_gate.md). Then consult the
@@ -130,6 +131,8 @@ Read these documents in order when first working on MolSysMT:
   and their Qt-family dependency stack.
 - [release_1_0_status.md](release_1_0_status.md) — live phase/stage status and
   evidence ledger for the remaining 1.0 work.
+- [release_1_0_scope.md](release_1_0_scope.md) — accepted feature freeze, finite
+  stabilization queue and preserved post-1.0 issues.
 - [release_gate.md](release_gate.md) — exact-commit checklist required before
   tagging.
 - [release_and_citation.md](release_and_citation.md) — GitHub Release, Zenodo,

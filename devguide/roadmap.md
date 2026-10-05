@@ -4,6 +4,23 @@ This roadmap is a maintained ordering principle, not a mirror of a nonexistent
 root `ROADMAP.md`. Concrete unresolved work lives under `pending_bugs/` and
 `pending_proposals/`.
 
+## Frozen 1.0 work order — 2026-10-05
+
+The maintainer has stopped feature expansion for 1.0 under
+`uibcdf/molsysmt#334`. The [normative scope decision](release_1_0_scope.md)
+defines the included experimental profiles, finite stabilization queue and
+post-1.0 issue inventory; the [execution ledger](release_1_0_status.md) records
+evidence. Complete old-defect triage, native/result and Viewer contract closure,
+current-profile qualification, public-documentation reconciliation and
+dependency/Python review before exact-candidate certification.
+
+The chemical-preparation sequence below records the development that preceded
+this freeze. Its remaining expansions are preserved in their owning issues,
+including #304/#308/#323/#327; it is no longer an instruction to complete every
+chemical horizon before publishing. Further editing/storage and scientific
+interaction extensions are now #335/#336/#337/#338. Do not begin them merely
+because the preceding bounded operation passed.
+
 ## Distribution milestone completed — 2026-09-25
 
 MolSysMT 0.22.4 and MolSysViewer 0.23.4 are published as a compatible
@@ -75,7 +92,7 @@ Only after the preceding contracts are reliable:
 - improve device backends and transfer-aware execution;
 - add integrations whose maintenance and fidelity can be sustained.
 
-### Current SDF/PDBQT and chemical-preparation sequence — 2026-10-03
+### SDF/PDBQT and chemical-preparation development sequence — 2026-10-03
 
 The maintainer requested real-input validation and chemical preparation as the
 next connected work. Native SDF/PDBQT serialization is implemented within a
@@ -241,6 +258,10 @@ owns the direct-file disabled-inference correction and the subsequent selectable
 native method. Local PDB-to-MolSys/Topology routes must forward the explicit
 `get_missing_bonds=False` request to the existing handler. Keep current defaults
 and separate parser evidence from inferred connectivity and chemical preparation.
-The existing native candidate tool is a reuse starting point, not a qualified
-reader engine: unknown-group distance fallback, polymer boundaries, unresolved
-coverage and per-edge method provenance require their own contract and controls.
+The bounded native reader/application tool is now implemented with explicit
+`bond_inference_engine='MolSysMT'`, engine failure diagnostics and persisted
+per-edge history references. Its original-source probe and focused controls are
+in the #304 record. It does not establish arbitrary-group geometry, complete H
+coverage or independent chemical truth. Those remaining extensions stay in #304
+after 1.0 under the scope freeze, while current-profile correctness remains part
+of stabilization.

@@ -2,9 +2,10 @@
 
 **Role:** pending operational plan
 **Decision date:** 2026-07-26
-**Target:** a clean, Rust-only MolSysMT 1.0 release on Python 3.11–3.13
-**Status:** implementation complete through F4; F5 exact-commit recertification is active
-after bounded pre-1.0 corrections, and F6 remains pending
+**Target:** a clean, Rust-only MolSysMT 1.0 release satisfying Python 3.11–3.14 policy
+**Status:** feature scope frozen on 2026-10-05; bounded stabilization and current
+exact-candidate qualification remain open. Historical F1–F5 evidence is retained
+in the execution ledger; it does not certify the changed current source.
 
 ## Purpose
 
@@ -18,6 +19,22 @@ The plan deliberately separates:
 - work that blocks an honest 1.0 release;
 - expensive work that can continue after 1.0;
 - independent investigations that must not destabilize the release candidate.
+
+## Current scope freeze — 2026-10-05
+
+The maintainer's [accepted scope decision](../release_1_0_scope.md), tracked by
+uibcdf/molsysmt#334, takes precedence over earlier extension scheduling in this
+plan. Retain the implemented experimental/native/H5MSM profiles and complete its
+finite S1–S6 stabilization queue. New methods, chemistry coverage, forms and
+performance redesigns remain in owned post-1.0 issues unless explicitly promoted
+by a current-profile correctness defect or maintainer decision.
+
+This freezes feature scope, not a release candidate or publication approval.
+Existing platform, dependency, scientific and exact-artifact gates are unchanged;
+the old source/interpreter campaign still requires current-policy reconciliation.
+The scope decision also preserves previously discussed editing, streaming,
+metal-specific and longer-water extensions in #335/#336/#337/#338. The execution
+ledger remains the only current completion/evidence record.
 
 ## Maintainer Decisions
 

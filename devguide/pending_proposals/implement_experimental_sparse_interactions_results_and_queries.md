@@ -14,6 +14,14 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+**Scope freeze — 2026-10-05:** current result/native/H5MSM and agreed Viewer
+contracts remain in the [1.0 stabilization queue](../release_1_0_scope.md).
+Deferred individual observation editors/catalog pruning are now #335; direct
+detector streaming and resumable H5MSM append/recovery are #336. These extensions
+are not additional closure gates for the delivered 1.0 profile. Current-profile
+correctness and consumer feedback remain required; no release certification
+follows from this scheduling decision.
+
 ## Direct main integration — 2026-10-02
 
 The maintainer authorized local merging, local validation, a normal push and

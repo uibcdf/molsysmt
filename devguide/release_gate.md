@@ -8,6 +8,8 @@ The current pre-release work order is maintained in
 [`release_1_0_execution_plan.md`](pending_proposals/release_1_0_execution_plan.md).
 Current completion, active stage, and evidence are recorded in
 [`release_1_0_status.md`](release_1_0_status.md).
+The accepted [scope freeze](release_1_0_scope.md) defines what needs qualification;
+it does not waive any gate below or itself authorize publication.
 
 A release is cut **only** when every gate below is green **on the exact commit being
 tagged**. Green gates on an earlier commit or a dirty tree do not count.
