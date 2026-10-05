@@ -842,6 +842,14 @@ outputs are unchanged. Final incremental Sphinx HTML completes with **17 warning
 entries** and no warning naming the new tool. Existing heading, directive,
 toctree and reference debt remains; no clean documentation build is claimed.
 
+The first direct-push checkpoint `7b51c240f` passes smoke, Ruff and suite/Conda
+governance, but its developer-guide CI rejects the stale generated API registry
+view. The implementation registry already contains the new experimental tool;
+the missing step was regenerating `api_stability_registry.md`. The follow-up
+uses `validate_api_stability.py --write-doc`; the 263-symbol registry and generated
+view then pass their local check. This correction changes documentation only;
+scientific test and implementation-fingerprint receipts above remain applicable.
+
 ### Original-source reader and storage probe
 
 ```bash

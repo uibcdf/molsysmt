@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 130 |
+| experimental | 131 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -185,6 +185,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.get_peptide_bond_candidates` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_residue_chemical_coverage` | experimental | active | pre-1.0 |
 | `molsysmt.build.has_hydrogens` | experimental | active | pre-1.0 |
+| `molsysmt.build.infer_covalent_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.build.is_solvated` | experimental | active | pre-1.0 |
 | `molsysmt.build.make_bioassembly` | experimental | active | pre-1.0 |
 | `molsysmt.build.make_water_box` | experimental | active | pre-1.0 |
