@@ -9,6 +9,7 @@ import pytest
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt.native import Structures
+from tests.native.test_preparation_history import assert_tree
 
 
 def declared_source():
@@ -160,6 +161,8 @@ def test_supported_forms_and_nonreference_state(form):
     source, aromatic = declared_source()
     source.interactions = {}
     source.chemical_states._append_state(source.chemical_states._states[0].copy())
+    history0 = source.chemical_states.get_preparation_history(0)
+    history1 = source.chemical_states.get_preparation_history(1)
     item = (
         source.chemical_states
         if form == "molsysmt.ChemicalStates"
@@ -169,6 +172,12 @@ def test_supported_forms_and_nonreference_state(form):
     result = msm.physchem.normalize_aromatic_bond_orders(
         item, chemical_state=state_index
     )
+    states = result["molecular_system"].chemical_states
+    assert_tree(states.get_preparation_history(0), history0)
+    retained = states.get_preparation_history(1)
+    assert_tree(retained[:-1], history1)
+    assert retained[-1]["output"]["chemical_state_index"] == 1
+    assert_tree(retained[-1]["report"], result["report"])
     assert result["report"]["chemical_state_index"] == state_index
     assert (
         result["molecular_system"]

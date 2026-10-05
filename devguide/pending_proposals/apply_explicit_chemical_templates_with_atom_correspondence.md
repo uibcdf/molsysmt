@@ -23,10 +23,12 @@ contract-tested. Closed-component assignment inside a larger source is implement
 and real EST transfer is contract-tested. Consumer-reported isolated-ligand integration is
 available. Mapped terminal-H reinsertion preserves the original complex atom domain.
 Explicit mapped polymer context is implemented and contract-tested on 2026-10-05
-for the observed 1QKU ligand shells. General polymer repair/matching and arbitrary atom-changing reinsertion,
-other representation normalization, normalization/factory report attachment and
-complete receptor/biological acceptance remain pending. Historical template,
-fixed-state H-generation and terminal-attachment reports persist in ChemicalStates,
+for the observed 1QKU ligand shells. Construction and aromatic normalization now
+retain historical reports automatically, including complete reference declarations
+and original producer versions. General polymer repair/matching, arbitrary
+atom-changing reinsertion, other representation normalization and complete
+receptor/biological acceptance remain pending. Historical construction,
+normalization, template, fixed-state H-generation and terminal-attachment reports persist in ChemicalStates,
 ChemicalStatesDict and H5MSM 0.5; this issue remains partial.
 
 ## What
@@ -1320,3 +1322,87 @@ remaining capabilities. Existing fixed-state H/report/reinsertion behavior remai
 implemented; future native H engines (#308) and environmental refinement (#323)
 are not silently added as blockers for that bounded contract. Keep #298 partial
 until its receptor/consumer acceptance scope is settled and verified.
+
+## Construction and normalization evidence checkpoint, 2026-10-05
+
+**Implemented and contract-tested.** The remaining automatic-report attachment
+gap for the public peptide factory and declared-aromatic normalization is closed.
+Both reuse the existing ChemicalStates historical envelope and typed persistence;
+no new domain, schema version, dependency or public argument is introduced.
+
+Successful construction attaches an independent `molsysmt.peptide_template@1`
+report to the reference template's state. It now includes the complete detached
+template declaration: explicit residue/terminal/disulfide choices, original
+snapshot/curation identity and graph digest, unspecified stereo and the version
+of MolSysMT that assembled the template. The supplied declaration retains that
+assembly version through later application by another producer version. Runtime
+MolSysMT, original data and offline RDKit curation remain distinct attribution
+roles; storing or reading history does not execute another calculation.
+
+Successful normalization attaches an independent
+`molsysmt.aromatic_bond_normalization@1` report to the selected output state,
+including unchanged repetitions. Existing source history and nonselected states
+remain unchanged. Reports preserve original integer/fractional order arrays,
+NaN for unknown array values, typed bond indices/pairs, changed/unassessed scope,
+producer version and analysis invalidation. No geometry is copied into reports.
+
+Factory evidence remains in the original synthetic reference domain. Application
+records the caller's declaration but does not implicitly import reference history
+into an observed system. Explicit archival with append_preparation_history retains
+the original record and dimensions without remapping or certifying chemistry.
+Record order is append order, not execution chronology. The executed full-chain
+Cookbook example archives construction explicitly: H5MSM recovers normalization,
+context application and construction records with original counts
+1,990 / 1,990 / 1,999. The current receptor still contains 1,990 atoms and remains
+partial; neither historical reference atoms nor its completeness claim repair
+the observed nine-atom gap.
+
+Validation on Linux, Python 3.13.14 under #237 and released ArgDigest 0.13.0,
+against source base `77abb38d407096c87ac4b26628ab8523e6dcc10c`:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/physchem/test_chemical_preparation_evidence.py \
+    tests/physchem/test_normalize_aromatic_bond_orders.py \
+    tests/physchem/test_get_peptide_chemical_template.py
+```
+
+Result: **103 passed in 15.70 s**. The extended integration selection also includes
+all chemical-template tests, native history, fixed-H history, terminal-H
+reinsertion and the modified public docstrings/native-history doctests. It
+collected 268 controls: 264 passed and four existing context checks failed because
+they compared the normalized input history with the raw receptor's empty history.
+That expectation predates automatic normalization attachment. It is corrected to
+compare the normalized input's original history before/after assignment while
+separately checking that the raw receptor stays history-free. No scientific
+validation or chemistry criterion was relaxed to resolve this test failure.
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/physchem/test_chemical_template_context.py \
+    tests/physchem/test_normalize_aromatic_bond_orders.py \
+    tests/physchem/test_chemical_preparation_evidence.py
+```
+
+Final affected selection: **50 passed in 18.15 s**, including all four corrected
+checks, explicit nonreference-state history across supported forms, the literal
+Cookbook block, original producer versions, detached ownership, original domains
+after extraction, explicit archival and H5MSM/ChemicalStatesDict recovery.
+Fourteen warnings are the existing pandas nullable-column future warnings.
+The other 264 integration controls had already passed against the same runtime
+implementation; the complete 268-control selection was not repeated after the
+test-only corrections. Existing factory chemistry/oracle controls are unchanged.
+
+Ruff, dependency imports, public docstrings and the maintained course gate
+`devtools/scripts/validate_course.py` pass. Sphinx HTML builds with the existing
+#144 warning baseline. The historical checker inside course/devtools was also
+invoked and rejects its obsolete section layout; it is not the maintained gate.
+User Guide foundations/tools, H5MSM specification, Cookbook and course describe
+the retained reports and explicit reference import.
+
+Next: consumer review and a declared chemically closed receptor/fragment model.
+Other representation normalization, general matching, context bond completion,
+unsupported heavy-atom repair and arbitrary replacement remain separate missing
+capabilities. Native general ligand H generation (#308) and environmental H
+refinement (#323) remain future work. Neither this evidence checkpoint nor scoped
+assignment declares complete receptor or biological acceptance; #298 stays partial.

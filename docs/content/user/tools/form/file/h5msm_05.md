@@ -103,8 +103,9 @@ inconsistent shapes, dtypes, duplicate references, orphan arrays and unknown
 schemas. No pickle or arbitrary Python object reconstruction is used.
 `ChemicalStatesDict` uses version 2 when history is present and version 1 otherwise.
 
-Successful chemical-template applications, fixed-state H generation and terminal
-attachment attach `molsysmt.preparation_record@1`
+Successful chemical-template applications, peptide-template construction,
+aromatic normalization, fixed-state H generation and terminal attachment
+attach `molsysmt.preparation_record@1`
 envelopes. They preserve the provider report, original producer version and units,
 `index_scope='operation'`, and the original output's `n_atoms`, `n_bonds` and
 `chemical_state_index`. Copy, extraction, merging and edits retain original
@@ -119,7 +120,11 @@ component producer evidence in a destination. Import does not align atoms or
 structures, apply chemistry, or verify authenticity. Record order is append order,
 and original dimensions can differ from those of the current destination.
 Nullable/mixed embedded readiness audit values are scalar lists rather than
-object arrays. Normalization and peptide-factory reports remain detached.
+object arrays. Normalization includes original order arrays (NaN for unknown
+orders). Construction includes the complete template declaration and its original
+producer; synthetic reference axes remain distinct from observed axes. Reference
+history import into a destination is explicit. These reports use the existing
+history schema and contain no coordinate snapshots.
 See {ref}`Tutorial_Chemical_Templates` and {ref}`Tutorial_Fixed_State_Hydrogens`.
 Context-template application retains its selected-atom and context maps and
 incident-edge coverage in the same provider report; no new layer schema is needed.

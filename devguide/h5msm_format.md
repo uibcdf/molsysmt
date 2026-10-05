@@ -78,8 +78,9 @@ by native composition. Guard:
 
 ChemicalStates owns historical preparation records alongside its assignments;
 history does not create another chemical store. Successful template application,
-fixed-state H generation and terminal attachment
-appends an independent `molsysmt.preparation_record@1` envelope, retaining original
+peptide-template construction, aromatic normalization, fixed-state H generation
+and terminal attachment append an independent `molsysmt.preparation_record@1`
+envelope, retaining original
 output dimensions, provider report, indices, units and producer versions. Its
 `index_scope='operation'` explicitly excludes interpreting those indices as a
 live map after extraction, reordering, merging or edits. Merge concatenates
@@ -92,6 +93,11 @@ structure counts and evaluated int64 structure indices; they do not duplicate
 coordinates. Legacy records without those fields leave structure coverage
 unspecified. The embedded readiness audit uses scalar lists for nullable/mixed
 columns and typed arrays for indices and homogeneous values.
+Normalization retains original order arrays with NaN for unknown values.
+Construction retains its complete declaration and original assembly version;
+reference records remain in synthetic template axes and are imported into a
+destination only through explicit historical archival. No report duplicates
+coordinates or certifies present chemistry.
 
 The chemical-state layer uses schema 2 when history exists, otherwise schema 1.
 Readers accept both; older schema-1-only readers reject schema 2. Each state's
@@ -100,10 +106,10 @@ UTF-8 manifest and typed numeric/string datasets with explicit NumPy dtype/shape
 declarations. No pickle or object-array decoding is supported. The public layout
 is specified in [H5MSM 0.5](../docs/content/user/tools/form/file/h5msm_05.md).
 ChemicalStatesDict similarly writes version 2 for history-bearing states and
-reads versions 1/2. MolSysDict 0.1 rejects histories it cannot retain. Normalization
-and peptide-factory reports remain outside automatic attachment. Guards:
+reads versions 1/2. MolSysDict 0.1 rejects histories it cannot retain. Guards:
 `tests/native/test_preparation_history.py` and
-`tests/build/add_missing_hydrogens/test_preparation_history.py`.
+`tests/build/add_missing_hydrogens/test_preparation_history.py`, with construction
+and normalization controls in `tests/physchem/test_chemical_preparation_evidence.py`.
 
 ## Version 0.4 topology
 

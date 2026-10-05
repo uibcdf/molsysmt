@@ -32,6 +32,8 @@ def normalize_aromatic_bond_orders(
         NaN. The output removes their integer orders and sets fractional order
         1.5; bond multiplicities are dimensionless. The report retains producer
         version, changed indices, unassessed flags and invalidated analysis names.
+        An independent copy of the report is attached to the selected state's
+        preparation history, including when no representation changes.
 
     Raises
     ------
@@ -57,9 +59,12 @@ def normalize_aromatic_bond_orders(
     separate from absent-field-only template transfer. It neither normalizes
     guanidinium/carboxylate resonance nor certifies the declarations or valence.
     Changed chemical payload invalidates named interactions on the returned copy;
-    an unchanged result retains them. H5MSM persists normalized values, while the
-    original representation report remains a workflow sidecar. Native inputs
-    need no RDKit; optional Ackredit absence/failure preserves the result.
+    an unchanged result retains them. H5MSM and ChemicalStatesDict preserve the
+    original representation report and producer version. Historical bond indices
+    keep their operation domain after extraction or edits; they do not address
+    current bonds or certify aromaticity. Source history and other states remain
+    unchanged. Native inputs need no RDKit; optional Ackredit absence/failure
+    preserves the result.
 
     See Also
     --------
@@ -76,6 +81,8 @@ def normalize_aromatic_bond_orders(
     >>> result['report']['bond_indices'].size
     6
     >>> result['report']['status']
+    'unchanged'
+    >>> result['molecular_system'].chemical_states.get_preparation_history()[-1]['report']['status']
     'unchanged'
 
     .. admonition:: User guide

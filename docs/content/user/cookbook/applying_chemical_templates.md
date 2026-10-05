@@ -101,7 +101,9 @@ pocket is not necessarily a chemically closed polymer: decide its boundary chemi
 explicitly rather than treating cut peptide bonds as complete residues. The tools
 transfer the prepared template; a compatible local map does not certify chemistry
 of the remainder of a receptor. Preserve the factory provenance and application
-report as two distinct records alongside the original observed system.
+report as distinct records alongside the original observed system. Construction
+is retained in the reference template's history; application does not import
+that history automatically into an observed source.
 
 After adding bonds, inspect the old-to-final `source_bond_correspondence` and new
 edge indices in the detached report. Connected-component indices are rebuilt
@@ -323,8 +325,10 @@ This offline path is protected by
 `tests/physchem/test_chemical_template_receptor.py`. It does not repair excluded
 residues, prepare the complete receptor, or reinsert the fragment into the source.
 Template and fixed-state H-placement reports accompany their output in H5MSM
-preparation history. Keep normalization/factory reports separately alongside
-the extraction map and explicit boundary/protonation choices. Historical reports
+preparation history. Normalization history accompanies the fragment too. The
+reference template retains construction evidence; archive selected reference
+records explicitly in the destination if needed. Keep extraction maps and
+explicit boundary/protonation choices separately. Historical reports
 retain original indices; importing them does not reconcile the fragment boundary.
 
 (cookbook-polymer-context-template)=
@@ -385,6 +389,9 @@ result = msm.physchem.apply_chemical_template(
 molsys_B = result['molecular_system']
 assert result['report']['coverage']['scope'] == 'selected_with_context'
 assert result['report']['coverage']['unmapped_template_atom_indices'].size == 9
+# Archive reference production with its original synthetic axes, without remapping.
+molsys_B.chemical_states.append_preparation_history(
+    definition['template'].chemical_states.get_preparation_history())
 msm.convert(molsys_B, to_form='file:h5msm', output_filename='receptor_with_prepared_shell.h5msm')
 ```
 
@@ -394,7 +401,11 @@ they are not required neighbors or stereo references of the selection. Selecting
 an incomplete residue instead would fail, rather than making its missing neighbors
 disappear. This recipe uses an explicitly inspected name/group map for the pinned
 case; it does not provide general atom matching or alias/resonance reconciliation.
-Retain `source_atom_indices`, reference factory and normalization reports separately.
+Retain `source_atom_indices` separately. Normalization and application reports
+are attached to `molsys_B`; the explicit import above also archives reference
+construction. Record order is append order, not execution chronology. Construction
+indices belong to the original 1,999-atom template; normalization/application
+indices belong to their original 1,990-atom receptor operation domains.
 
 The 0.5 nm shell contains 19 whole residues; 0.4/0.6 nm variants contain 12/23.
 No atom is added or moved. Only selected atom fields and incident bonds are

@@ -8,8 +8,10 @@ known donor/acceptor control, not a validated conformer. Native inputs do not ne
 RDKit; the example uses it explicitly as template producer. Successful template
 application attaches historical reports to ChemicalStates. H5MSM 0.5 and
 ChemicalStatesDict preserve original operation indices, typed maps and producer
-versions. Fixed-state H and terminal-attachment results also retain reports;
-normalization and peptide-factory reports remain detached. Explicit history
+versions. Fixed-state H, terminal attachment, aromatic normalization and
+peptide-factory results also retain reports. Construction retains its complete
+declaration and original producer; reference history import into a destination
+is explicit and does not transfer current assignments. Explicit history
 imports preserve original domains and do not align axes. History must not certify
 current assignments after extraction, merging or edits. Source evidence, template
 declarations and optional completed-software credit must remain distinct.

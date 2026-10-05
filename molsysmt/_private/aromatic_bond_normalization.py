@@ -126,4 +126,7 @@ def normalize(molecular_system, chemical_state, caller):
     )
     with _ackredit.scope(caller) as provider:
         _ackredit.credit(provider, items, caller)
+    from molsysmt._private.preparation_history import append_report
+
+    append_report(result.chemical_states._states[state_index], report, state_index)
     return dict(molecular_system=result, report=report)

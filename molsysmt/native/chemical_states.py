@@ -226,8 +226,9 @@ class ChemicalStates:
         and later edits retain their original index domains; they do not remap
         report indices or certify current assignments. Do not use a historical
         report index directly to address the current system. Successful template
-        application, fixed-state H generation and terminal attachment record
-        evidence automatically, including successful no-addition operations.
+        application, peptide-template construction, aromatic normalization,
+        fixed-state H generation and terminal attachment record evidence
+        automatically, including successful unchanged/no-addition operations.
         Geometry reports declare their original structure indices and counts.
 
         Examples
@@ -283,8 +284,9 @@ class ChemicalStates:
         a new calculation. Retain intervening maps separately. Records keep their
         original operation indices; repeated records are appended in input order.
         Invalid input leaves the history unchanged. H5MSM and ChemicalStatesDict
-        preserve the imported records. The supported template, H-generation and
-        attachment reports contain no coordinate snapshots.
+        preserve the imported records. The supported template construction,
+        application, normalization, H-generation and attachment reports contain
+        no coordinate snapshots.
 
         See Also
         --------

@@ -200,6 +200,7 @@ def assemble(
         fragment_sha256=library_sha256,
         curation=deepcopy(library["curation"]),
         stereochemistry="unspecified",
+        software={"molsysmt": __version__},
     )
     items = [
         dict(
@@ -223,6 +224,7 @@ def assemble(
         method="declared_residue_fragment_assembly",
         rule_version=1,
         status="constructed",
+        template_provenance=deepcopy(provenance),
         n_atoms=len(atoms),
         n_groups=len(residue_names),
         n_indexed_hydrogens=0,
@@ -252,4 +254,7 @@ def assemble(
     )
     with _ackredit.scope(caller) as provider:
         _ackredit.credit(provider, items, caller)
+    from molsysmt._private.preparation_history import append_report
+
+    append_report(template.chemical_states._states[0], report, 0)
     return dict(template=template, template_provenance=provenance, report=report)

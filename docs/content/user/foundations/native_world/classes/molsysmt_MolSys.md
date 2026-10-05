@@ -222,13 +222,17 @@ a separate reference MolSys with explicit residue/terminal/link chemistry and
 stored H counts. Its synthetic indices/IDs do not identify atoms in an observed
 system. A caller-declared map establishes that correspondence before template
 transfer. The reference has no coordinates or specified stereochemistry; it is
-not a modeled pose or an independently certified biological chain.
+not a modeled pose or an independently certified biological chain. The template's
+chemical state retains its construction report and full declaration, including
+the original assembly version. Application records the caller-supplied declaration;
+archive reference history explicitly if it should accompany the observed system.
 
 The {ref}`aromatic normalization tool <Tutorial_Normalize_Aromatic_Bond_Orders>`
 can canonicalize already declared aromatic bond orders on a copy, preserving
 connectivity completeness and all atom assignments. It does not perceive
-aromaticity. Retain its original-order report separately from H5MSM chemical
-values; changing the representation invalidates named interactions on the copy.
+aromaticity. Its returned copy retains an independent original-order report in
+chemical-state history, including unchanged operations; H5MSM preserves the report.
+Changing the representation invalidates named interactions on the copy.
 
 Separately prepared components can form a new analysis system through
 `msm.merge()`. This concatenates their atom axes and declared chemistry; completeness
@@ -236,8 +240,9 @@ describes only the included graph. Preserve extraction maps to the original
 system and mark generated H with unknown source indices. Atom IDs are labels
 and may repeat across input components. The original partial complex remains
 unchanged. Merge concatenates preparation histories in source order, with
-each original operation domain intact. Normalization and peptide-factory reports
-still need separate retention.
+each original operation domain intact. Normalization and peptide-factory evidence
+retain their original domains too; archived reference records do not map themselves
+onto the current system or certify its chemistry.
 See {ref}`Composing a prepared interface <cookbook-prepared-interface>` for a
 bounded receptor/ligand example with named interaction persistence. Local H
 placement does not establish an environment-optimized pose.

@@ -31,7 +31,7 @@ sections:
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
           - name: molsys
-            description: Native domain composition, scoped chemical transfer, historical preparation import, analysis persistence and coordinate invalidation.
+            description: Native domains, scoped chemical transfer, retained preparation and reference construction evidence, analysis persistence and coordinate invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -174,7 +174,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit template transfer, mapped polymer context, scoped bond completion, historical evidence and peptide references.
+            description: Explicit template transfer, mapped polymer context, scoped bond completion and retained normalization and peptide construction evidence.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
@@ -271,7 +271,7 @@ sections:
         pages:
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, typed template and geometry preparation history, complementary file composition, shared axes and legacy migration.
+            description: Modular persistence, typed construction, normalization and geometry history, complementary file composition, shared axes and legacy migration.
       - name: thirds
         path: docs/content/user/tools/thirds
         agents_file: docs/content/user/tools/thirds/AGENTS.md
@@ -298,7 +298,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
+        description: Explicit template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

@@ -251,7 +251,10 @@ def test_context_failure_is_inspectable_and_transactional(failure):
         state.atom_attributes, before.chemical_states._states[0].atom_attributes
     )
     pd.testing.assert_frame_equal(state.bonds, before.chemical_states._states[0].bonds)
-    assert source.chemical_states.get_preparation_history() == ()
+    assert_tree(
+        source.chemical_states.get_preparation_history(),
+        before.chemical_states.get_preparation_history(),
+    )
     assert source.interactions["old"].evaluated_structure_indices.tolist() == [0, 1]
 
 
@@ -261,6 +264,7 @@ def test_context_failure_is_inspectable_and_transactional(failure):
 )
 def test_context_maps_must_be_disjoint_typed_bijections(invalid):
     source, options = peptide_case()
+    history = source.chemical_states.get_preparation_history()
     context = options["context_atom_correspondence"].copy()
     if invalid == "overlap":
         context[0] = options["atom_correspondence"][0]
@@ -279,7 +283,7 @@ def test_context_maps_must_be_disjoint_typed_bijections(invalid):
     options["context_atom_correspondence"] = context
     with pytest.raises(ArgumentError):
         msm.physchem.apply_chemical_template(source, **options)
-    assert source.chemical_states.get_preparation_history() == ()
+    assert_tree(source.chemical_states.get_preparation_history(), history)
 
 
 def test_incident_stereo_bond_requires_context_references():
@@ -376,6 +380,7 @@ def test_invalid_source_stereo_is_rejected_in_context_mode(references):
 
 def test_disconnected_selection_and_repetition_preserve_explicit_coverage():
     source, options = peptide_case()
+    history = source.chemical_states.get_preparation_history()
     selected = msm.select(source, selection="group_index in [0, 2]")
     context = np.setdiff1d(np.arange(source.get_n_atoms()), selected)
     options.update(
@@ -400,19 +405,20 @@ def test_disconnected_selection_and_repetition_preserve_explicit_coverage():
     assert repeated["molecular_system"].interactions[
         "fresh"
     ].evaluated_structure_indices.tolist() == [0, 1]
-    assert (
-        len(repeated["molecular_system"].chemical_states.get_preparation_history()) == 2
-    )
+    retained = repeated["molecular_system"].chemical_states.get_preparation_history()
+    assert len(retained) == len(history) + 2
+    assert_tree(retained[:-2], history)
 
 
 def test_empty_context_assignment_scope_does_not_certify_preparation():
     source, options = peptide_case()
+    history = source.chemical_states.get_preparation_history()
     options.update(selection=[], atom_correspondence=np.empty((0, 2), dtype=np.int64))
     with pytest.raises(StructuralInconsistencyError) as error:
         msm.physchem.apply_chemical_template(source, **options)
     assert error.value.report["status"] == "unassessed"
     assert error.value.report["issues"][0]["reason_code"] == "empty_assignment_scope"
-    assert source.chemical_states.get_preparation_history() == ()
+    assert_tree(source.chemical_states.get_preparation_history(), history)
 
 
 @pytest.fixture(scope="module")
@@ -475,6 +481,7 @@ def test_observed_1qku_shell_keeps_full_chain_context_and_unassessed_gaps(
     full, original, source, definition, mapping, missing, shells = (
         observed_polymer_context
     )
+    source_history = source.chemical_states.get_preparation_history()
     selected, groups = shells[distance]
     assignment_map = mapping[np.isin(mapping[:, 1], selected)]
     context_map = mapping[~np.isin(mapping[:, 1], selected)]
@@ -556,7 +563,11 @@ def test_observed_1qku_shell_keeps_full_chain_context_and_unassessed_gaps(
         msm.pyunitwizard.get_value(output.structures.coordinates, to_unit="nm"),
         msm.pyunitwizard.get_value(original.structures.coordinates, to_unit="nm"),
     )
-    assert source.chemical_states.get_preparation_history() == ()
+    assert_tree(
+        source.chemical_states.get_preparation_history(),
+        source_history,
+    )
+    assert original.chemical_states.get_preparation_history() == ()
     assert full.chemical_states._states[0].atom_attributes.empty
     path = tmp_path / "prepared-shell.h5msm"
     msm.convert(output, to_form=path)
@@ -593,6 +604,13 @@ def test_cookbook_polymer_context_block_executes_on_the_observed_control(
     )
     assert loaded.get_n_atoms() == 1990
     assert loaded.chemical_states._states[0].connectivity_completeness == "partial"
+    history = loaded.chemical_states.get_preparation_history()
+    assert [item["report"]["schema"] for item in history] == [
+        "molsysmt.aromatic_bond_normalization@1",
+        "molsysmt.chemical_template@1",
+        "molsysmt.peptide_template@1",
+    ]
+    assert [item["output"]["n_atoms"] for item in history] == [1990, 1990, 1999]
     assert_tree(
         loaded.chemical_states.get_preparation_history(),
         namespace["molsys_B"].chemical_states.get_preparation_history(),

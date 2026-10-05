@@ -43,8 +43,10 @@ def get_peptide_chemical_template(
         Coordinate-free native MolSys under template, its detached
         template_provenance, and a molsysmt.peptide_template@1 report. The selected
         fragments, terminal states, declared links, source snapshot/digests,
-        curation and original executed software are retained. Formal charge uses
-        elementary charge units. H counts are stored; no indexed H atoms exist.
+        curation and original executed software are retained. An independent copy
+        of the report, including template_provenance, is attached to the template's
+        chemical-state history. Formal charge uses elementary charge units.
+        H counts are stored; no indexed H atoms exist.
 
     Raises
     ------
@@ -67,8 +69,14 @@ def get_peptide_chemical_template(
     prediction or force-field parameters are generated. Stereochemistry remains
     unspecified, including peptide cis/trans and residue enantiomers; this is
     not a declaration of L stereochemistry. Existing conflicting source chemistry
-    is never overwritten by template application. Keep provenance/report as
-    workflow sidecars: H5MSM stores the chemical values, not these sidecars.
+    is never overwritten by template application. H5MSM and ChemicalStatesDict
+    preserve the template's construction report, original producer version and
+    provenance. Its indices remain in the original synthetic template domain
+    after extraction or edits; history does not certify current chemistry.
+    Application uses the caller's template_provenance, including its producer
+    version, but does not import the reference template's history into the source.
+    Archive selected reference records explicitly with append_preparation_history
+    if the destination should retain their original operation domains.
 
     Successful construction contributes portable MolSysMT software and source-data
     attribution to an optional Ackredit scope; it does not credit Meeko/RDKit as
@@ -90,6 +98,8 @@ def get_peptide_chemical_template(
     9
     >>> result['report']['n_stored_hydrogens']
     8
+    >>> result['template'].chemical_states.get_preparation_history()[0]['report']['status']
+    'constructed'
 
     .. admonition:: Tutorial
        :class: dropdown

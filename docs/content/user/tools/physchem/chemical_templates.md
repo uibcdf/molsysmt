@@ -176,6 +176,8 @@ molsys = msm.physchem.get_peptide_chemical_template(
 normalization = msm.physchem.normalize_aromatic_bond_orders(molsys)
 assert normalization['report']['status'] == 'unchanged'
 assert normalization['report']['bonded_atom_pairs'].shape == (6, 2)
+assert normalization['molecular_system'].chemical_states.get_preparation_history()[-1][
+    'report']['schema'] == 'molsysmt.aromatic_bond_normalization@1'
 ```
 
 Native systems, topologies and chemical-state domains do not require RDKit.
@@ -190,8 +192,11 @@ unknown aromatic flags and producer version. Bond orders are dimensionless.
 Normalization retains coordinates and units, atom identity, all atom assignments
 and connectivity completeness. Changed chemistry invalidates named interactions
 on the returned copy. Repeating it on a canonical representation makes no changes.
-H5MSM stores normalized chemical values; retain this report separately to recover
-the original encoding. Guanidinium/carboxylate resonance and unknown chemistry
+H5MSM and ChemicalStatesDict retain an independent copy of the report in the
+selected state's history, including unchanged repetitions. The original encoding,
+bond indices and producer version remain those of that operation. Later extraction
+does not make these historical indices valid for the current bond table.
+Guanidinium/carboxylate resonance and unknown chemistry
 require separate decisions; template assessment still rejects known conflicts.
 
 (Tutorial_Get_Peptide_Chemical_Template)=
@@ -272,8 +277,14 @@ chemical preparation and pose validation.
 
 Successful factory construction credits MolSysMT as executed software and the
 reference snapshot as data in an optional Ackredit scope. RDKit's offline curation
-version is provenance, not an executed runtime credit. The report/provenance stay
-detached sidecars; H5MSM stores chemical values and states.
+version is provenance, not an executed runtime credit. The template's state retains
+an independent construction report including its complete template_provenance;
+H5MSM and ChemicalStatesDict preserve it. The declaration also retains the version
+of MolSysMT that assembled the reference, separately from the version that applies
+it later. Synthetic template indices remain distinct from observed source indices.
+Application records the supplied declaration but does not automatically import
+reference history. Explicitly archive selected reference records with
+`destination.chemical_states.append_preparation_history(records)` when required.
 
 ## Preparing an independent example
 
@@ -449,8 +460,11 @@ structure indices. When reinserting H generated on an isolated component, use
 `destination.chemical_states.append_preparation_history(records)` to archive
 selected producer records explicitly. Import retains original domains and append
 order; it does not align axes, apply chemistry or validate authenticity.
-Aromatic normalization and peptide-template creation still require separate
-report retention. `MolSysDict` 0.1 cannot store history and rejects its loss;
+Aromatic normalization attaches its original-order report to the returned copy;
+peptide-template creation attaches its construction report and declaration to
+the reference template. Their original operation domains remain intact, including
+when reference records are explicitly archived in a destination.
+`MolSysDict` 0.1 cannot store history and rejects its loss;
 use H5MSM or `ChemicalStatesDict`. The reports are not directly JSON serializable.
 
 After preparing components separately, you can use `msm.merge()` to construct a
