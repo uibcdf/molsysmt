@@ -53,6 +53,15 @@ Each read uses independent temporary storage, allowing concurrent reads from an
 input directory without write permission. Temporary artifacts are removed after
 success or failure. Parsing remains eager; see {ref}`Tutorial_Form_file_cif_gz`.
 
+For local PDB conversion to `molsysmt.MolSys` or `molsysmt.Topology`, use
+`get_missing_bonds=False` to retain only connectivity declared in PDB records.
+The file and `PDBFileHandler` routes honor the same explicit choice without
+invoking OpenMM. Their existing `True` default attempts optional OpenMM inference;
+the legacy reader can retain only declared edges if that engine is unavailable
+or fails. Reading coordinates does not establish complete connectivity, bond
+orders or a protonation state. See {ref}`Tutorial_Form_file_pdb` and
+{ref}`cookbook-pdb-connectivity-policy`.
+
 The native SDF adapter retains all explicitly drawn hydrogens, ordinary and
 explicit aromatic bonds, formal charges, supported radical counts, isotopes
 and coordinates. V3000 also retains coordination relationships and endpoint

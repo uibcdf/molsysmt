@@ -233,3 +233,14 @@ Keep the conservative #322 geometry rejection. Modified-residue placement #249,
 environmental H refinement #323, native ligand H #308 and general lossy-export
 correspondence #223 retain their independent scope. None of this establishes
 receptor force-field coverage, docking quality or biological acceptance.
+
+### PDB connectivity continuation — 2026-10-05
+
+[Explicit PDB inference policy #304](pending_proposals/native_pdb_bond_inference_with_explicit_policy.md)
+owns the direct-file disabled-inference correction and the subsequent selectable
+native method. Local PDB-to-MolSys/Topology routes must forward the explicit
+`get_missing_bonds=False` request to the existing handler. Keep current defaults
+and separate parser evidence from inferred connectivity and chemical preparation.
+The existing native candidate tool is a reuse starting point, not a qualified
+reader engine: unknown-group distance fallback, polymer boundaries, unresolved
+coverage and per-edge method provenance require their own contract and controls.

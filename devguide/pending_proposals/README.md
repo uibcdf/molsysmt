@@ -78,13 +78,14 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (11)
+### Partially resolved (12)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(measured)*
 - [`implement_experimental_sparse_interactions_results_and_queries.md`](implement_experimental_sparse_interactions_results_and_queries.md) — [#252](https://github.com/uibcdf/molsysmt/issues/252) — Implement experimental sparse Interactions results and queries *(measured)*
+- [`native_pdb_bond_inference_with_explicit_policy.md`](native_pdb_bond_inference_with_explicit_policy.md) — [#304](https://github.com/uibcdf/molsysmt/issues/304) — Add native PDB bond inference with explicit policy while retaining OpenMM *(measured)*
 - [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(measured)*
 - [`pilot_ackredit_in_interaction_calculations.md`](pilot_ackredit_in_interaction_calculations.md) — [#27](https://github.com/uibcdf/molsysmt/issues/27) — Pilot Ackredit in interaction calculations *(measured)*
 - [`promote_chemical_states_to_a_native_molsys_domain.md`](promote_chemical_states_to_a_native_molsys_domain.md) — [#254](https://github.com/uibcdf/molsysmt/issues/254) — Promote ChemicalStates to an independent native MolSys domain *(measured)*

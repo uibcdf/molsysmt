@@ -18,6 +18,31 @@ storage without modifying the source directory. Concurrent preparation jobs can
 read the same source file; no manual decompression beside it is needed.
 Temporary storage must be available, and parsing remains eager.
 
+(cookbook-pdb-connectivity-policy)=
+## Choosing PDB connectivity
+
+Before assessing a PDB input, choose whether to retain only file-declared bonds:
+
+```python
+import molsysmt as msm
+path = msm.systems["T4 lysozyme L99A"]["181l.pdb"]
+molsys = msm.convert(path, to_form="molsysmt.MolSys",
+                     get_missing_bonds=False)
+```
+
+This input retains the 13 declared atom pairs, their explicit evidence and all
+observed coordinates; it does not reconstruct the protein graph. The same option
+works for `molsysmt.Topology` and through `PDBFileHandler`. It is independent of
+OpenMM availability. The existing file/handler default `True` attempts optional
+OpenMM inference and can retain only declared edges if that legacy inference
+fails or is unavailable. Review the returned chemical coverage rather than
+assuming that a loaded structure is chemically complete.
+
+Template application remains a separate explicit operation. Its supported
+`complete_from_template` policy can fill reviewed missing edges under an
+exhaustive atom map; it does not make an unknown component compatible or place
+missing atoms. See {ref}`Tutorial_Chemical_Templates`.
+
 ## Establishing the input
 
 1. Extract one intended component and retain its map to the complete system, or

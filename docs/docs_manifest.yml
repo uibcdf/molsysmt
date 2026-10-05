@@ -298,7 +298,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
+        description: Explicit PDB connectivity policy, template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md
