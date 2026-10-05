@@ -28,8 +28,9 @@ now owns admission, the finite S1–S6 stabilization queue and the preserved
 post-1.0 issue inventory. Start there before taking another implementation
 task. This is a scope decision, not release certification.
 
-S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. Next
-reconcile S2's current domain/interaction acceptance with the agreed MolSysViewer workflow. Review
+S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. S2's
+acceptance reconciliation is recorded below; next review the original public
+Interactions validation boundary and request updated MolSysViewer feedback. Review
 current experimental profiles and public claims, then dependencies/Python
 policy before freezing exact candidates. No additional chemistry or method
 expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
@@ -91,9 +92,47 @@ remote evidence under #334, not a code-test failure or a gate waiver. Inspect
 the applicable runs after the unskipped S1 checkpoint and recover any still
 unexecuted controls before exact-candidate qualification.
 
-Next: S2 acceptance reconciliation for #250/#251/#252/#254 and explicit
-MolSysViewer feedback on the supported result/persistence workflow. Keep
-S3–S6 within the frozen scope.
+S2's newer evidence follows. Keep S3–S6 within the frozen scope.
+
+## S2 provider/consumer checkpoint — 2026-10-05
+
+At clean provider `4d048a78d466728c2fa9a12befacc22182b71d23`, the Python 3.14
+result/native/public-H5MSM selection passed 279 tests in 37.14 s. A separate
+namespace/detector/codec/doctest selection passed 77 tests and failed one
+sandbox network download; the exact failed 5XJH node then passed with network
+access in 3.94 s. The
+[dated artifact](../devtools/data/interactions_review_packet_20261005.json)
+retains both outcomes, selected hashes, runtime versions and fixture hashes.
+
+Local Viewer `eb14716f982be87f66ef8dea5218262bbabdad1d` completed four real
+workloads and all nine-family/two-water-order scenarios. Ten initial/restored
+structure projections match; five lifecycle analyses retain producer versions,
+execution records and exported scene state through a session. Its three local
+sandbox design files and Ackredit's nine edits were preserved. These checks
+qualify Python data/protocol compatibility, not browser/Qt geometry, a clean
+installed pair, large-system performance or the S6 matrix.
+
+The [updated review packet](interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+maps #250/#251/#252/#254 acceptance to existing guards and prepares a message
+for the maintainer to forward. No external message was sent. Explicit current
+Viewer feedback, agreed combined-memory measurements and final candidate gates
+remain open. These reports stay partial. Original class constructor/query/remap
+methods still need review for the repository ArgDigest boundary; direct
+validation alone does not clear #252 criterion 2, and no exception was granted.
+
+Stale active-proposal claims about missing remapping, H5MSM embedding and native
+ownership are corrected. Historical experimental measurements are preserved;
+#335/#336 continue to own the deferred editors and streaming/resumable writes.
+No runtime API, scientific criterion, dependency or format was changed.
+
+Remote governance, policy and devguide runs at this provider head succeeded;
+Ruff 37369027830 and CI smoke 37369027887 later ended with run failure and
+cancelled jobs 111961192306/111961193123. Both have no runner and no executed
+steps; GitHub annotations report that no hosted runner acquired the job after
+multiple attempts. This is infrastructure evidence, not failed lint/scientific
+assertions. Missing execution remains #334 evidence to recover on the next
+unskipped head before qualification, not a waiver. Next finish the bounded public class
+validation review; progress S3–S5 independently while obtaining Viewer feedback.
 
 ## Reported-defect review — 2026-10-02
 

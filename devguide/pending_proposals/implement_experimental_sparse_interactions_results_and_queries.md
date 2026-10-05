@@ -22,6 +22,25 @@ are not additional closure gates for the delivered 1.0 profile. Current-profile
 correctness and consumer feedback remain required; no release certification
 follows from this scheduling decision.
 
+## S2 acceptance reconciliation — 2026-10-05
+
+The [current review packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+maps each delivered contract to executable guards and remaining acceptance.
+Clean provider `4d048a78d466728c2fa9a12befacc22182b71d23` passed 279 native,
+result, edit and public persistence tests on Python 3.14. A separate boundary
+selection passed 77 tests; its sole sandbox download failure passed when the
+exact failed node was repeated with network access. The dated artifact retains
+both outcomes. Local Viewer tools and all ten family/session projections also
+passed; this is Python compatibility, not actual browser/canvas acceptance.
+
+Current scope/risks below are reconciled with the delivered codec, remapping,
+named ownership and H5MSM routes. Historical experiments remain dated. Criterion
+2 still needs review: several original public class methods use direct
+validation without ArgDigest. This checkpoint does not approve an exception or
+claim decorator compliance. Consumer feedback, lifecycle checks and final
+candidate gates remain open. The maintainer-forwarded message is prepared in
+the packet; no message was sent to another team.
+
 ## Direct main integration — 2026-10-02
 
 The maintainer authorized local merging, local validation, a normal push and
@@ -1253,26 +1272,31 @@ layer; the public class has no mutation API or persisted remapping yet.
 
 ## Scope and exclusions
 
-The current first milestone handles one source-system index space and one analysis
-method per object. Input records are an ergonomic construction path, not the
-long-term chunked writer. The class does not yet provide lazy file-backed
-queries, streaming writes, source-index remapping, detector `output_type`
-adapters, declared relationships without frame scope, cross-system joins,
-symmetry operators, or H5MSM embedding. It does not infer scientific
-interactions from coordinates. Existing detector outputs and `MolSys` behavior
-remain unchanged. Selection and extraction of a molecular system do not
-automatically transform this independent result; callers must rebuild it with
-correct global indices. Inclusion of named interaction datasets in `MolSys`
-and H5MSM is required before 1.0, contingent on explicit remapping,
-invalidation, and persistence rules. These are subsequent milestones of this
-implementation work, not capabilities of the current prototype.
+**Reconciled on 2026-10-05:** the delivered experimental profile handles one
+source-system index space, scientific method and evaluation scope per analysis.
+It includes detector result adapters, typed serialization, source-index remapping,
+named `MolSys.interactions` ownership, controlled geometry/chemistry invalidation,
+compatible structure replacement, explicit compaction and H5MSM 0.5 embedding.
+Native copy/extract/remove operations preserve, remap or invalidate results
+according to the [normative API](../interactions_api.md). Existing legacy
+detector output defaults remain available; detector attachment is explicit.
 
-There is no incremental `add` or `remove` API yet. Editing a compact array
-currently requires reconstruction of that array and its indexes. Prototype
-full-frame overrides and index maps demonstrate local observation edits and
-atom/structure deletion without rerunning unaffected geometric detectors.
-They are not persisted by this class and do not yet resolve stable handles or
-chemical invalidation of surviving assignments.
+Input records are an ergonomic construction path. Numeric-window export of a
+resident analysis is implemented, but direct detector-to-file accumulation,
+resumable writes and public lazy file queries are not. These capabilities remain
+post-1.0 under `uibcdf/molsysmt#336`; the agreed initial Viewer path loads the
+selected named analysis into memory. Individual occurrence editing and unused
+catalog pruning remain under `uibcdf/molsysmt#335`. Compatible structure
+replacement and native remapping do not require recalculating unaffected
+structures. They create new versions; old query views retain their snapshots.
+
+Static relationships without structure scope, cross-system joins, arbitrary
+subsystem embedding, per-structure search scopes and symmetry operators are
+outside this profile. Raw mutable arrays and separate domain aliases still
+require explicit owner invalidation. No automatic scientific recalculation or
+generic observer protocol is supplied. The class stores observations; family
+detectors supply scientific criteria. See the
+[scope freeze](../release_1_0_scope.md) for the admitted stabilization work.
 
 ## Acceptance criteria
 
@@ -1316,15 +1340,23 @@ Before closing this implementation issue:
 
 ## Dependencies and risks
 
-- A view shares the parent's storage; saving a view is disallowed until a
-  remapped subset serialization contract exists.
+- Query views share their parent's storage. Persist a remapped full analysis
+  when a new local atom/structure domain is needed; a filtered query is not a
+  substitute for an explicitly remapped domain.
 - `to_dict` returns occurrence columns and relation IDs. Callers use
-  `relation(id)` to inspect participants; a fully self-contained columnar
-  export is still an open API decision.
-- The current HDF5 `load` reads all arrays into memory. File-backed streaming
-  and H5MSM inclusion are required subsequent milestones before 1.0.
+  `relation(index)` to inspect participants. The complete typed codec and
+  `InteractionsDict` already provide self-contained serialization; `to_page`
+  provides bounded inspection with compact participant catalogs.
+- HDF5 `load` materializes the analysis. H5MSM inclusion and bounded resident
+  export are implemented; public file-backed queries and streaming detector
+  construction are separate capabilities, not implicit Viewer 1.0 gates.
+  Consumer signatures, remapping, typed/pickle export and full column access
+  can still materialize edited observations. Writer allocation guards do not
+  establish a bound for a complete Viewer session.
 - Reusing a relation requires the same ordered roles and constituent atoms.
-  Variable coordination spheres may create many relation IDs; benchmark this.
+  The historical variable-membership benchmarks below retain their measured
+  limits. This stabilization checkpoint does not rerun them or establish new
+  large-system latency/RSS guarantees.
 
 ## Provenance
 

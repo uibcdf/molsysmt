@@ -19,6 +19,17 @@ MolSysSuite consumers.
 **Status:** Namespace, detector migration and persistent result routes implemented;
 final consumer and exact-candidate recertification remain open.
 
+## S2 acceptance reconciliation — 2026-10-05
+
+The [current review packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+records Python 3.14 provider boundary checks and local Viewer projection/session
+parity for all nine families and both water orders. Legacy outputs, namespace
+and build-wrapper guards remain separate from actual canvas acceptance.
+The [scope freeze](../release_1_0_scope.md) now governs admission; remaining
+chemistry/method expansion is not implicitly pre-1.0. No new detector was
+implemented at this checkpoint. This issue remains partial pending its
+consumer and exact-candidate acceptance criteria.
+
 ## Consumer review checkpoint — 2026-10-02
 
 The [updated packet](../interactions_molsysviewer_review.md) pins clean provider
@@ -52,8 +63,9 @@ remaining scope and release qualification are recorded below:
 The maintainer added water-mediated hydrogen bonds to the explicit
 inventory on 2026-10-01. They extend the initial eight-family list without
 becoming a ninth mandatory 1.0 requirement. No public empty family stubs
-are introduced. New families remain separately scheduled and may be approved
-before 1.0 without becoming release blockers.
+are introduced. The later [2026-10-05 scope freeze](../release_1_0_scope.md)
+now excludes implicit admission of new families or scientific criteria before
+1.0. Existing broader chemistry and method comparisons retain their owners.
 
 The current normative contract is [Interaction Analysis API](../interactions_api.md).
 Scientific/descriptive method selectors, exact profiles and portable optional
@@ -86,9 +98,11 @@ name in `MolSys.interactions`. Named analyses survive public H5MSM 0.5
 conversion. Calculation and scientific criteria remain provider-owned.
 
 For the next MolSysViewer review, separate accepting and persisting these
-analyses from rendering their geometry. The current consumer smoke qualifies
-hydrogen-bond and disulfide projections. The other seven families need their
-own visual semantics: rings are composite participants; metal coordination
+analyses from rendering their geometry. The dated two-family consumer smoke
+was followed by local Python projection/session parity for all nine families
+and both water orders, recorded in the review packet. Actual canvas and clean
+candidate acceptance remain separate. Each family needs its documented
+visual semantics: rings are composite participants; metal coordination
 is a candidate rather than certified bonding; water paths contain multiple
 directed donor/hydrogen/acceptor roles and coherent images for every leg.
 Unsupported geometry must remain explicit rather than dropping roles or

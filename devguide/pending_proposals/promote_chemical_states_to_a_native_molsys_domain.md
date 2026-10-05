@@ -14,6 +14,18 @@ supersedes: []
 
 # Promote ChemicalStates to an independent native MolSys domain
 
+## S2 acceptance reconciliation — 2026-10-05
+
+The independent-domain, bond-authority, association, partial native-system and
+public H5MSM guards passed in the 279-test Python 3.14 provider selection.
+The [review packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+identifies the acceptance-to-guard mapping and
+[dated artifact](../../devtools/data/interactions_review_packet_20261005.json).
+This qualifies supported native/persistence behavior; it does not certify
+every form, every public lifecycle document or an installed release candidate.
+Criterion 6 still requires the applicable final checks. The proposal remains
+partial; retiring `Topology.bonds` remains post-1.0 under #255.
+
 ## Current checkpoint — 2026-10-01
 
 Independent native ownership and the public H5MSM 0.5 route are implemented.

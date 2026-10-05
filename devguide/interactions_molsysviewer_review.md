@@ -5,6 +5,58 @@ This operational packet belongs to `uibcdf/molsysmt#251` and
 The [Interaction Analysis API](interactions_api.md) defines the current contract;
 this page provides a reproducible review checkpoint and requested feedback.
 
+## S2 stabilization review — 2026-10-05
+
+The current provider checkpoint is clean `main` at
+**`4d048a78d466728c2fa9a12befacc22182b71d23`**. The
+[dated S2 artifact](../devtools/data/interactions_review_packet_20261005.json)
+records commands, dependency versions, selected source hashes, fixture hashes,
+test outcomes and consumer observations. The older checkpoint below remains
+historical evidence. Distribution versions in editable environments can lag
+source revisions; the artifact preserves both rather than substituting the
+reader's installed version for the recorded producer.
+
+The provider's native/result/persistence selection passed **279 tests in
+37.14 s** on Python 3.14.7. A separate namespace/detector/codec/doctest selection
+passed 77 tests and failed one network-dependent 5XJH download in the sandbox;
+the exact failed node then passed in 3.94 s with network access. Both outcomes
+are recorded separately in the artifact. No result is
+inferred from partial test output or counted twice after a retry.
+
+The fixture generator reproduced both H5MSM 0.5 files with five named analyses.
+The Viewer tools listed below completed on local consumer
+`eb14716f982be87f66ef8dea5218262bbabdad1d`: four real workloads and ten family
+scenarios, including one- and two-water paths. Every family has a nonempty
+`set_interaction_frame` projection that matches its session-restored projection.
+An additional session check retained all five lifecycle analyses, original
+producer versions, execution records and exported scene state.
+
+This is **contract-tested Python compatibility**. It does not exercise browser
+meshes, Qt or GPU behavior, certify an installed artifact pair or establish new
+large-system performance limits. Viewer has three untracked sandbox design
+files and is four commits behind its fetched upstream; Ackredit has nine local
+edits. All were preserved. Selected hashes are evidence for the inspected
+routes, not a fingerprint of their complete dependency import graphs.
+
+### Acceptance reconciliation
+
+| Required contract / owner | Executable evidence | Remaining acceptance |
+| --- | --- | --- |
+| Sparse queries, compound participants, nonconsecutive indices, empty coverage and images (#251/#252) | `tests/interactions/test_result.py`; `test_query_candidates.py`; `test_occurrence_pages.py` | Updated consumer frame/selection/canvas feedback; no new public lazy query requirement. |
+| Versioned handles, producer/run provenance and typed persistence (#251/#252) | `tests/interactions/test_software_provenance.py`; `test_execution_provenance.py`; `test_molsysviewer_review_fixtures.py`; public workflow and codec guards | Explicit consumer acceptance of provenance display and parallel selection on the current contract. |
+| Controlled edits, replacement, views and bounded resident export (#252) | `tests/interactions/test_frame_validity.py`; `test_frame_replacement.py`; `test_compaction.py`; `test_bounded_hdf5_writer.py`; native geometry/chemistry setter guards | Raw arrays/aliases require explicit invalidation. Individual editors/pruning and streaming/resumable writes are deferred to #335/#336. Historical benchmark limits remain applicable only to their recorded inputs and environments. |
+| Native named analyses and public modular H5MSM (#252) | `tests/native/test_molsys_interactions.py`; `tests/form/file_h5msm/test_public_h5msm_v05.py`; `test_topology_chemistry_interactions_v05.py` | Viewer memory measurements and actual canvas/session acceptance; full installed-candidate matrix belongs to S6. |
+| One chemical authority, absence/ambiguity and state associations (#254) | `tests/native/test_chemical_states.py`; `test_molsys_chemical_state_association.py`; `tests/form/molsysmt_MolSys/test_partial_domains.py`; public H5MSM guards | Lifecycle/documentation and exact-candidate recertification; bond facade retirement stays #255. |
+| Namespace, legacy defaults and scientific attribution (#250) | `tests/interactions/hbonds/test_namespace.py`; Buch/Luzard–Chandler result guards; disulfide/build wrapper guards; `test_scientific_attribution.py` | Existing methods retain their evidence levels and limitations; current Viewer acceptance and final gates remain open. |
+| Public input-validation boundary (#252 criterion 2) | Direct validation in `Interactions.from_records` and the original query/remap methods; decorated `to_page`, `replace_structures` and `compact` | Review the original methods' missing ArgDigest boundary. Direct validation is not evidence that the repository decorator requirement is satisfied; this checkpoint grants no exception. |
+
+Normative contracts remain in [Interaction Analysis API](interactions_api.md)
+and [H5MSM format](h5msm_format.md). The owning reports retain their individual
+acceptance criteria. This table neither closes #250/#251/#252/#254 nor waives
+the [frozen stabilization queue](release_1_0_scope.md). The next provider task
+is the bounded public validation review, while the maintainer requests explicit
+Viewer feedback using the message below.
+
 ## Historical pinned provider checkpoint
 
 Use a clean MolSysMT checkout at
@@ -174,25 +226,29 @@ editors, unused-registry pruning and public lazy file queries remain absent.
 
 ### Message for the maintainer to forward
 
-> We have prepared the updated experimental Interactions review at MolSysMT
-> `1986027c353cdcf290e0402b1d8fa23fee6ea637`, on
-> the historical review branch, now integrated into `main`. The packet provides H5MSM 0.5/codec-2
-> fixtures for original, invalidated, partially recalculated, compacted and empty
-> named analyses, with frame-scoped execution records and original producer versions.
+> We have refreshed the experimental Interactions review at clean MolSysMT
+> `4d048a78d466728c2fa9a12befacc22182b71d23` on main, using Python 3.14.
+> The review packet retains the H5MSM 0.5/codec-2 original, invalidated,
+> recalculated, compacted and empty named analyses, producer versions and
+> structure-scoped execution records. Public persistence now also supports
+> topology/chemistry/named-analysis combinations without Structures.
 >
-> The clean provider review passed 58 tests. Your current Python qualification
-> tools passed locally, including all nine families and both water orders;
-> their initial and session-restored frame payloads matched. We also checked
-> preservation of the five lifecycle analyses' execution records through a session.
-> The consumer checkout includes your existing changes, so this is local
-> compatibility evidence, not published-pair or browser certification.
+> The provider core selection passed 279 tests. Your local qualification tools
+> completed at consumer eb14716f982be87f66ef8dea5218262bbabdad1d, including all
+> nine families and both water orders. Each initial/restored structure projection
+> matched, and five lifecycle analyses retained producer/run metadata through
+> a session. Source states, boundary tests and limitations are recorded in the
+> dated artifact; this is Python compatibility, not browser or published-pair
+> certification. MolSysMT is reviewing the original class validation boundary.
 >
-> Please review the packet and return the exact consumer identity and feedback
-> on the frame/selection/canvas/export/session workflow and on presenting
-> execution provenance. The initial route continues to load a named analysis
-> into memory; public lazy file queries and detector-to-file accumulation remain
-> separate capabilities. The contract stays experimental until this feedback
-> and the agreed integration gates are settled.
+> Please return a committed consumer identity and explicit results for structure
+> switching, atom selections, parallel occurrence inspection, periodic/compound
+> canvas geometry, scene export and session recovery, including provenance display.
+> The initial path still loads a named analysis into memory. Combined-memory
+> measurements will inform any later file-query requirement. Our frozen 1.0
+> scope includes current-contract fixes and qualification; new editors, methods
+> and resumable detector-to-file accumulation are deferred. The contract remains
+> experimental pending your feedback and the agreed candidate gates.
 
 Keep `uibcdf/molsysmt#250`, `#251` and `#252` open until their respective
 consumer/acceptance gates are met. Once feedback settles the experimental

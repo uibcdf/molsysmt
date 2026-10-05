@@ -22,6 +22,20 @@ baseline. The experimental public contract, named native attachment and H5MSM
 0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
 stabilization and exact-candidate release qualification remain open.
 
+## S2 acceptance reconciliation — 2026-10-05
+
+The [current packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+maps the logical/native/H5MSM contracts to guards, records fresh Python 3.14
+provider and local consumer evidence, and requests explicit feedback on the
+current contract. The [scope freeze](../release_1_0_scope.md) separates existing
+compatible structure replacement and bounded resident export from deferred
+individual observation editing/catalog pruning (#335) and resumable streaming
+(#336). The original public validation boundary remains under #252 review.
+No new data structure, method or large-system performance guarantee is proposed;
+the historical comparisons below retain their original measured conditions.
+This proposal remains partial until its consumer and candidate acceptance gates
+are met.
+
 ## Updated consumer packet — 2026-10-02
 
 The [operational review packet](../interactions_molsysviewer_review.md) fixes
@@ -180,7 +194,7 @@ tracking. See [the implementation evidence](implement_experimental_sparse_intera
 This is source-checkout qualification, not certification of a published provider
 artifact or a fresh browser/GPU run. The contract remains Experimental.
 
-Incremental editing, bounded public file-backed queries/writing, per-frame search
+Arbitrary occurrence editing, public lazy file-backed queries, per-frame search
 scopes, arbitrary subsystem embedding and merge policy remain outside the current
 supported result API. Historical comparisons and dated checkpoints below retain
 their measured premises; earlier pending-contract/adapter statements are superseded
@@ -191,7 +205,9 @@ provider and consumer qualification scope is recorded in
 Public native MolSys coordinate and box setters now invalidate attached analyses
 in edited structures under uibcdf/molsysmt#285. Direct edits through separate
 Structures objects still require explicit owner invalidation; no generic edit
-observer or incremental replacement API is implied.
+observer is implied. Later checkpoints implement compatible structure
+replacement and bounded export of resident results; they do not supply an
+arbitrary observation editor or streaming detector sink.
 
 ## Earlier checkpoints
 

@@ -1,0 +1,402 @@
+{
+  "date": "2026-10-05",
+  "owners": [
+    "uibcdf/molsysmt#251",
+    "uibcdf/molsysmt#252",
+    "uibcdf/molsysmt#334"
+  ],
+  "purpose": "S2 scoped source qualification; not browser, installed-pair, full matrix or release certification.",
+  "provider_revision": "4d048a78d466728c2fa9a12befacc22182b71d23",
+  "provider_state_when_testing": {
+    "head": "4d048a78d466728c2fa9a12befacc22182b71d23",
+    "dirty": false
+  },
+  "source_state": [
+    {
+      "repository": "uibcdf/molsysviewer",
+      "head": "eb14716f982be87f66ef8dea5218262bbabdad1d",
+      "ahead": 0,
+      "behind_fetched_upstream": 4,
+      "dirty_entries": 3,
+      "dirty_paths": [
+        "sandbox/interactions_panel_design.html",
+        "sandbox/interactions_panel_design.png",
+        "sandbox/interactions_panel_design_stored.png"
+      ],
+      "worktree_preserved": true
+    },
+    {
+      "repository": "uibcdf/ackredit",
+      "head": "408c45ec5120e94d0d26c411218b16883e905e1a",
+      "ahead": 0,
+      "behind_fetched_upstream": 0,
+      "dirty_entries": 9,
+      "worktree_preserved": true
+    }
+  ],
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "molsysmt": "0.22.4+60.g7a8350f76.dirty",
+      "molsysviewer": "0.23.4+71.g3b475639.dirty",
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pyunitwizard": "0.28.1",
+      "argdigest": "0.13.0",
+      "depdigest": "0.12.0+23.gff5aa46.dirty",
+      "smonitor": "0.18.0+1.gb308ee0",
+      "ackredit": "0.10.1+12.g408c45e.dirty",
+      "pytest": "9.1.1",
+      "pytest_receptor": "1.1.0+19.g6d87a24"
+    },
+    "overlays": {
+      "pyunitwizard": "released 0.28.1 wheel overlay",
+      "argdigest": "released 0.13.0 source snapshot overlay"
+    },
+    "limitation": "Other support packages are editable sources; version strings and selected source hashes do not freeze the complete import graph."
+  },
+  "source_sha256": {
+    "molsysmt": {
+      "molsysmt/interactions/result.py": "486b9c2c70268970e5ef725f6a96f633245dfc0d713c63d7f1d1ee3018ee1c01",
+      "molsysmt/interactions/_execution_provenance.py": "031a26fe756fd62a4e79f3bc50eea6f68f18c93dd4b5c43188a898fa4237b7b6",
+      "molsysmt/interactions/_compaction.py": "b11f77f27c5e223a49552be21d4687a648e89703c0331ed0c790b17ae23d982f",
+      "molsysmt/interactions/_hdf5_writer.py": "f456af7e61758cff1bb9723144ca8d3923953b31e55b8760a2a6877e18a3b193",
+      "molsysmt/native/molsys.py": "eea64319602c904324ecd212abe64add54ed0714832c45f0d412082635885e84",
+      "molsysmt/native/chemical_states.py": "a5b1e528c3d96382a082944af7b31f2805e24ad800380faa6e332f5e8316fd31",
+      "molsysmt/form/_h5msm05_modular.py": "2e2fa632240eeef0c8e92546b688ffcb23731d1bdee18c2638810fe941917f10",
+      "devtools/scripts/create_molsysviewer_interactions_fixture.py": "96be17922e559d298e769293e474c66cb748d7b5049ea31e676c7013250f8661"
+    },
+    "molsysviewer": {
+      "devtools/qualify_interactions.py": "c1119d52ce5d27a6df70052240d037461af257c582363a3f44e927b190e75fe6",
+      "devtools/qualify_interaction_families.py": "54ba01593ae2be9d9fb841d18045829fde452523faa968cbfcae61bb8eb650ed",
+      "devtools/interaction_family_fixtures.py": "e866e82688da5cd98953a945a0750c13a88ea4dcf8947344c702c7948a31c21c",
+      "molsysviewer/interactions.py": "9bd9c08228b0619ff854c9e03c29c70ae54bbc50a394272d02f6b01039d54ee0",
+      "molsysviewer/session.py": "e439808e7e4a54bcff6ad24a28d7e31b671ba2769643fbf3ce8853154cfa53a7",
+      "molsysviewer/_private/interaction_families.py": "487f734085b621f0e2f36d09437a1b0b86c3aeae720629a990d5b4959608ad21"
+    }
+  },
+  "provider_test_runs": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "tests/interactions/test_result.py",
+        "tests/interactions/test_frame_validity.py",
+        "tests/interactions/test_frame_replacement.py",
+        "tests/interactions/test_compaction.py",
+        "tests/interactions/test_query_candidates.py",
+        "tests/interactions/test_occurrence_pages.py",
+        "tests/interactions/test_bounded_hdf5_writer.py",
+        "tests/interactions/test_execution_provenance.py",
+        "tests/interactions/test_software_provenance.py",
+        "tests/interactions/test_molsysviewer_review_fixtures.py",
+        "tests/interactions/test_public_molsys_h5msm_workflow.py",
+        "tests/native/test_chemical_states.py",
+        "tests/native/test_molsys_chemical_state_association.py",
+        "tests/native/test_molsys_interactions.py",
+        "tests/form/molsysmt_MolSys/test_partial_domains.py",
+        "tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py",
+        "tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py",
+        "tests/form/file_h5msm/test_public_h5msm_v05.py",
+        "tests/form/file_h5msm/test_topology_chemistry_interactions_v05.py"
+      ],
+      "exit_code": 0,
+      "tests": 279,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 279,
+      "seconds": 37.113
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "tests/interactions/hbonds/test_namespace.py",
+        "tests/interactions/hbonds/test_buch_results.py",
+        "tests/interactions/hbonds/test_luzard_chandler_results.py",
+        "tests/interactions/disulfides/test_get_disulfide_candidates.py",
+        "tests/build/get_disulfide_bonds/test_get_disulfide_bonds.py",
+        "tests/interactions/test_scientific_attribution.py",
+        "tests/interactions/test_h5msm05.py",
+        "tests/interactions/test_hdf5_collection.py",
+        "--doctest-modules",
+        "molsysmt/interactions/result.py",
+        "molsysmt/h5msm.py"
+      ],
+      "exit_code": 1,
+      "tests": 78,
+      "errors": 0,
+      "failures": 1,
+      "skipped": 0,
+      "passed": 77,
+      "seconds": 156.577
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "tests/build/get_disulfide_bonds/test_get_disulfide_bonds.py::test_get_disulfide_bonds"
+      ],
+      "exit_code": 0,
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 3.92
+    }
+  ],
+  "network_recovery": "Boundary run failed only because sandbox DNS prevented PDB 5XJH download. The exact failed node then passed with network access; initial run remains recorded as exit 1.",
+  "fixtures": [
+    {
+      "filename": "molsysviewer_full.h5msm",
+      "bytes": 360520,
+      "sha256": "29695db8a500f7f71b670b995dadb8a36ebec035d366fab15380f458d10ac409"
+    },
+    {
+      "filename": "molsysviewer_interactions_only.h5msm",
+      "bytes": 265256,
+      "sha256": "bee5447f45b4bd4c1bc8c4680a3b1db5cec1b2958bfe96d8ef21ad644880463f"
+    }
+  ],
+  "fixture_generator": {
+    "command": [
+      "python",
+      "devtools/scripts/create_molsysviewer_interactions_fixture.py",
+      "<fresh-output-directory>"
+    ],
+    "exit_code": 0
+  },
+  "consumer_commands": [
+    {
+      "command": [
+        "python",
+        "../molsysviewer/devtools/qualify_interactions.py",
+        "<fresh-output-directory>"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "../molsysviewer/devtools/qualify_interaction_families.py",
+        "<fresh-output-directory>"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "consumer_observation": {
+    "provider_version": "0.22.4+60.g7a8350f76.dirty",
+    "provider_source": "molsysmt/molsysmt/__init__.py",
+    "viewer_source": "molsysviewer/molsysviewer/__init__.py",
+    "cases": [
+      {
+        "case": "trajectory",
+        "atoms": 62,
+        "source_frames": [
+          4999,
+          0,
+          73,
+          3
+        ],
+        "evaluated_local_frames": [
+          3,
+          0,
+          2
+        ],
+        "observations": 56,
+        "round_trips": [
+          "complete H5MSM",
+          "interactions-only H5MSM",
+          "MSV session"
+        ],
+        "elapsed_ms": 6829.721176996827
+      },
+      {
+        "case": "periodic-reimaging",
+        "atoms": 62,
+        "observations": 76,
+        "nonzero_image_observations": 16,
+        "policy": "angstrom",
+        "controlled_change": "one real residue translated by the first box vector"
+      },
+      {
+        "case": "solvated-villin",
+        "atoms": 4369,
+        "structures": 1,
+        "observations": 2439,
+        "nonzero_image_observations": 299,
+        "analysis_numeric_bytes": 429648,
+        "elapsed_ms": 2086.7421887815
+      },
+      {
+        "case": "2HGR-sulfur-proximity",
+        "atoms": 55628,
+        "observations": 8,
+        "criterion_nm": 0.205,
+        "topology_unchanged": true,
+        "interpretation": "geometric candidates, not certified covalent bonds"
+      }
+    ],
+    "peak_process_rss_mib": 855.32421875,
+    "provider_before": {
+      "head": "4d048a78d466728c2fa9a12befacc22182b71d23",
+      "dirty": false
+    },
+    "provider_after": {
+      "head": "4d048a78d466728c2fa9a12befacc22182b71d23",
+      "dirty": false
+    }
+  },
+  "family_scenarios": [
+    {
+      "kind": "hbond",
+      "periodic": false,
+      "n_observations": 20,
+      "n_supported": 20,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "disulfide_candidate",
+      "periodic": false,
+      "n_observations": 8,
+      "n_supported": 8,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "ionic_contact",
+      "periodic": true,
+      "n_observations": 1,
+      "n_supported": 1,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "pi_pi",
+      "periodic": true,
+      "n_observations": 1,
+      "n_supported": 1,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "cation_pi",
+      "periodic": true,
+      "n_observations": 1,
+      "n_supported": 1,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "halogen_bond",
+      "periodic": true,
+      "n_observations": 1,
+      "n_supported": 1,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "hydrophobic_contact",
+      "periodic": true,
+      "n_observations": 1,
+      "n_supported": 1,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "metal_coordination_candidate",
+      "periodic": true,
+      "n_observations": 2,
+      "n_supported": 2,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "water_bridge",
+      "periodic": true,
+      "n_observations": 2,
+      "n_supported": 2,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    },
+    {
+      "kind": "water_bridge_2",
+      "periodic": true,
+      "n_observations": 1,
+      "n_supported": 1,
+      "n_skipped": 0,
+      "initial_restored_projection_equal": true
+    }
+  ],
+  "lifecycle_session": {
+    "analyses": [
+      "compacted",
+      "empty",
+      "invalidated",
+      "recalculated",
+      "review"
+    ],
+    "producer_versions_preserved": true,
+    "execution_records_preserved": true,
+    "export_state_equal": true,
+    "provider_source": "molsysmt/molsysmt/__init__.py",
+    "viewer_source": "molsysviewer/molsysviewer/__init__.py"
+  },
+  "performance_limitation": "Elapsed time and process RSS emitted by the consumer tool are observations without isolated warm-up/statistical controls, not new benchmarks.",
+  "pending": [
+    "Original Interactions methods need ArgDigest boundary review; no exception approved.",
+    "Explicit Viewer feedback on actual canvas/export/session workflow and provenance display.",
+    "Combined coordinate/interaction memory workloads.",
+    "Exact installed-candidate and full release gates."
+  ],
+  "remote_gates": {
+    "provider_revision": "4d048a78d466728c2fa9a12befacc22182b71d23",
+    "success": [
+      {
+        "run": 37369027837,
+        "name": "Developer guide integrity"
+      },
+      {
+        "run": 37369028646,
+        "name": "MolSysSuite policy"
+      },
+      {
+        "run": 37369028704,
+        "name": "Conda publication governance"
+      }
+    ],
+    "missing_execution": [
+      {
+        "run": 37369027830,
+        "job": 111961192306,
+        "name": "Ruff",
+        "run_conclusion": "failure",
+        "job_conclusion": "cancelled",
+        "runner_name": "",
+        "steps": []
+      },
+      {
+        "run": 37369027887,
+        "job": 111961193123,
+        "name": "CI smoke",
+        "run_conclusion": "failure",
+        "job_conclusion": "cancelled",
+        "runner_name": "",
+        "steps": []
+      }
+    ],
+    "github_annotation": "The job was not acquired by Runner of type hosted even after multiple attempts",
+    "owner": "uibcdf/molsysmt#334",
+    "recovery": "Inspect the next unskipped head; recover exact-head execution before qualification. No gate waiver."
+  }
+}
