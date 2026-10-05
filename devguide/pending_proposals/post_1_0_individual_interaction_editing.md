@@ -48,4 +48,3 @@ Post-1.0 under the [scope freeze](../release_1_0_scope.md). Preserve current imm
 ## Dependencies and risks
 
 The existing result/native/H5MSM contracts in #251/#252 remain the base. MolSysViewer editing may provide use cases under uibcdf/molsysviewer#114 without making this a Viewer 1.0 requirement.
-

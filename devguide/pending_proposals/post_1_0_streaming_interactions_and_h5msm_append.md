@@ -49,4 +49,3 @@ Post-1.0 under the [scope freeze](../release_1_0_scope.md). Preserve current H5M
 ## Dependencies and risks
 
 Current native associations and codecs under #252/#254 are prerequisites. Future client file access is guided by measured workloads; no new uibcdf/molsysviewer#114 initial-integration gate is added.
-

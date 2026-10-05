@@ -44,4 +44,3 @@ Post-1.0 under the [scope freeze](../release_1_0_scope.md). Existing one/two-wat
 - If accepted, define many-body participants, explicit leg evidence, determinism, cycle/duplicate policy and PBC references.
 - Verify sparse selection and persistence against independent path examples and measure worst-case combinatorial/working memory cost.
 - Record the decision, including a justified rejection, and any resulting implementation follow-up.
-

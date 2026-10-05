@@ -44,4 +44,3 @@ Post-1.0 under the [scope freeze](../release_1_0_scope.md). A method and backend
 - Compare analytical/curated positive and negative geometries, including periodic images and competing ligands.
 - Define participant roles and geometric evidence for multi-ligand observations.
 - Choose or reject implementation based on scientific evidence and workload cost; update public documentation and independent guards if accepted.
-
