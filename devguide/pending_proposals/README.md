@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (23)
+### Open (24)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -60,6 +60,7 @@ Entries carrying front matter under
 - [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Retire Topology.bonds after 1.0 in favor of ChemicalStates *(inspected)*
   Blocked by uibcdf/molsysmt#254.
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
+- [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
@@ -77,11 +78,10 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (12)
+### Partially resolved (11)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
-- [`apply_explicit_chemical_templates_with_atom_correspondence.md`](apply_explicit_chemical_templates_with_atom_correspondence.md) — [#298](https://github.com/uibcdf/molsysmt/issues/298) — Apply explicit chemical templates while preserving source atom correspondence and coordinates. *(measured)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`design_a_sparse_public_interactions_result_and_serialization_contract.md`](design_a_sparse_public_interactions_result_and_serialization_contract.md) — [#251](https://github.com/uibcdf/molsysmt/issues/251) — Design a sparse public Interactions result and serialization contract *(measured)*
 - [`implement_experimental_sparse_interactions_results_and_queries.md`](implement_experimental_sparse_interactions_results_and_queries.md) — [#252](https://github.com/uibcdf/molsysmt/issues/252) — Implement experimental sparse Interactions results and queries *(measured)*

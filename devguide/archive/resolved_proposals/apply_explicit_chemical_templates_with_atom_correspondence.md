@@ -1,12 +1,12 @@
 ---
 summary: Apply explicit chemical templates while preserving source atom correspondence and coordinates.
 issue: uibcdf/molsysmt#298
-status: partial
+status: resolved
 opened: 2026-10-02
-closed:
+closed: 2026-10-05
 verification: measured
 area: [physchem, chemical-states, preparation]
-guard:
+guard: tests/physchem/test_chemical_template.py
 normative:
 blocked_by: []
 supersedes: []
@@ -15,21 +15,15 @@ supersedes: []
 # Explicit chemical-template preparation
 
 **Reported:** 2026-10-02, from uibcdf/pharmacophoremt#22.
-**Status:** Bounded experimental public tools implemented and contract-tested on
-2026-10-03, extended with explicit graph completion and a versioned native peptide
-reference factory and declared-aromatic normalization on 2026-10-04. A bounded
-observed 1QKU fragment and its explicit composition with prepared EST are
-contract-tested. Closed-component assignment inside a larger source is implemented
-and real EST transfer is contract-tested. Consumer-reported isolated-ligand integration is
-available. Mapped terminal-H reinsertion preserves the original complex atom domain.
-Explicit mapped polymer context is implemented and contract-tested on 2026-10-05
-for the observed 1QKU ligand shells. Construction and aromatic normalization now
-retain historical reports automatically, including complete reference declarations
-and original producer versions. General polymer repair/matching, arbitrary
-atom-changing reinsertion, other representation normalization and complete
-receptor/biological acceptance remain pending. Historical construction,
-normalization, template, fixed-state H-generation and terminal-attachment reports persist in ChemicalStates,
-ChemicalStatesDict and H5MSM 0.5; this issue remains partial.
+**Status:** Resolved for the original explicit-template contract on 2026-10-05.
+The public tools preserve source identity/coordinates, require declared maps and
+chemical references, retain conflicts and unassessed coverage, and persist original
+preparation evidence in native ChemicalStates, ChemicalStatesDict and H5MSM 0.5.
+Component and explicitly mapped polymer-context assignment are contract-tested.
+Real consumer APIs consume a declared closed 1QKU fragment with EST in isolated
+qualification; this is not complete-receptor or biological validation.
+The final acceptance matrix and separate capability ownership are recorded below.
+Earlier dated partial checkpoints are retained as historical observations.
 
 ## What
 
@@ -410,7 +404,7 @@ reader. Ruff, dependency import/contract checks, docstring validation, course
 structure and developer-guide/index validation pass. The Sphinx HTML build exits
 0 with existing documentation diagnostics, including docutils errors in unrelated
 legacy pages; this is not a globally clean documentation gate. The debt is recorded
-in [the Sphinx baseline report](../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md).
+in [the Sphinx baseline report](../../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md).
 Neither template page emits a warning. These are Python 3.13 source-checkout observations under #237, not a full
 supported-interpreter matrix or consumer biological acceptance.
 
@@ -769,7 +763,7 @@ absence, method parity or a validated conformer. Generated H have only local
 geometry, with no environment optimization. Independent site/coordinate inspection
 found nearby donor–acceptor pairs failing the H-angle criterion; future explicit
 environment-aware refinement is recorded in
-[uibcdf/molsysmt#323](refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md).
+[uibcdf/molsysmt#323](../../pending_proposals/refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md).
 
 Public H5MSM 0.5 roundtrip retains the composed system and all three named
 analyses, occurrence indices, participant arrays, declared source maps, evaluated
@@ -1083,7 +1077,7 @@ No pickle or arbitrary Python class reconstruction is involved. Loading preserve
 original software provenance and does not credit another preparation operation.
 MolSysDict 0.1 rejects history loss, and conversion preflight identifies the
 limitation; explicit TopologyDict projection reports it as a schema limitation.
-The maintained layout is [H5MSM Format Contract](../h5msm_format.md).
+The maintained layout is [H5MSM Format Contract](../../h5msm_format.md).
 
 A separate existing bond-dictionary failure surfaced in this work:
 `uibcdf/molsysmt#325`. Object-backed boolean/numeric bond columns were stringified.
@@ -1438,7 +1432,7 @@ attribute-drop warnings remain explicit: 12 and 4 respectively. Proposed patches
 and follow-up ownership are `uibcdf/dockingmt#42` and
 `uibcdf/pharmacophoremt#39`; those owner branches have not adopted the patches.
 
-The offline [scenario driver](../../devtools/qualify_prepared_eralpha_consumers.py)
+The offline [scenario driver](../../../devtools/qualify_prepared_eralpha_consumers.py)
 independently prepares the declared closed fragment 304–550 and EST through public
 provider APIs. Under pm/fs/coulomb application units it preserves all 1,995 observed
 heavy-atom coordinates and IDs, adds 2,052 H, and builds 4,047 atoms/4,088 bonds.
@@ -1457,7 +1451,7 @@ placeholders and type assignment remains heuristic; assessment is provisional.
 No Vina calculation, receptor force-field assignment or environmental refinement
 was performed. Both complete consumer drivers pass.
 
-[Receipts and proposed patches](../../devtools/data/prepared_eralpha_consumers/README.md)
+[Receipts and proposed patches](../../../devtools/data/prepared_eralpha_consumers/README.md)
 record reproduction commands, source identities and original/adjusted controls.
 Generated H5MSM files stay outside the repository. The installed editable
 MolSysMT version string is recorded as returned, separately from its exact source
@@ -1486,8 +1480,107 @@ H5MSM recovery, exact historical values, source maps and bounded observation/fea
 results remain those of the previous checkpoint. Eight new parser-isolation
 controls plus existing CIF conversions/parity and the public adapter doctest
 produce **27 passed in 6.32 s** on Python 3.14.7 / mmcif 1.1.1.
-See the [resolved reader defect](../archive/resolved_bugs/concurrent_cif_gz_readers_share_decompression_path.md)
+See the [resolved reader defect](../resolved_bugs/concurrent_cif_gz_readers_share_decompression_path.md)
 for independent temporary ownership, source-neighbor preservation and error cleanup.
 The earlier JSON/patch receipts remain dated evidence; their original driver
 hash does not identify the later implementation. The full-receptor and owner
 acceptance limits are unchanged, so #298 remains partial.
+
+## Final acceptance and scope decision, 2026-10-05
+
+**Implemented and contract-tested.** The original GitHub acceptance criteria ask
+for explicit template assignment, preserved coordinates/source identity,
+inspectable conflicts and partial coverage, and reusable documented provider
+tools. They do not require a universal repair engine or a successfully prepared
+complete receptor. Earlier checkpoints kept this issue partial while exploring
+that broader workflow. This closing review restores the original boundary;
+the unresolved repair capability is now independently owned by
+[uibcdf/molsysmt#327](../../pending_proposals/standard_residue_side_chain_reconstruction.md).
+
+The provider implements assessment/application, opt-in supported edge completion,
+closed-component selection and explicit mapped polymer context. Peptide-reference
+construction, declared-aromatic normalization and fixed-state H placement are
+separate public tools. Template application assigns existing atoms; it does not
+supply coordinates for missing ones or silently choose a chemical state.
+
+### Original acceptance matrix
+
+| Requirement | Checked outcome | Existing controls |
+| --- | --- | --- |
+| Preserve source atom identity and all observed coordinate structures with explicit H correspondence, name differences and caller-declared maps | Permuted maps preserve IDs, memberships, pose, units, box and structure/state associations; invalid/nonexhaustive maps and absent H are rejected. Automatic symmetric-map selection is not implied. | `test_chemical_template.py`, `test_chemical_template_selection.py`, `test_chemical_template_est.py` |
+| Assign declared orders/aromaticity/formal charges with conflicts and original template evidence | Explicit supported fields are assigned without overwriting conflicting declarations; references, map arrays, unresolved scope and original producer evidence remain typed in native history and public persistence. | `test_chemical_template.py`, `test_chemical_preparation_evidence.py`, `tests/native/test_preparation_history.py` |
+| No unconditional completeness, guessed neutrality, hidden protonation or coordinate generation | Scoped assignment retains the incomplete outside receptor; unsupported chemistry remains unassessed. Edge completion is an explicit option. Heavy-only declarations do not invent explicit H atoms. | `test_chemical_template_selection.py`, `test_chemical_template_connectivity.py`, `test_chemical_template_context.py` |
+| Transactional failure/partial coverage with independent controls | Graph/charge/stereo conflicts and insufficient maps cannot mutate inputs. Real curated EST chemistry and canonical stereo are checked against independent declarations; unsupported receptor gaps remain explicit. | `test_chemical_template.py`, `test_chemical_template_est.py`, `test_chemical_template_context.py` |
+| Independently usable, documented provider tools for multiple consumers | Public form/state/unit boundaries, User Guide, Cookbook and course are maintained. Actual DockingMT and PharmacophoreMT APIs consume the prepared fragment after public H5MSM recovery. | Public doctests, the receptor/context tests, and the retained isolated consumer receipts |
+
+Test filenames without a prefix in this table are under `tests/physchem/`.
+The closing guard `tests/physchem/test_chemical_template.py` checks real transfer,
+source immutability, invalid-map/conflict rejection, conservative completeness,
+nonreference states, stereo orientation and supported persistence. Returning a
+success-shaped report without making or preserving these assignments fails the
+guard; the table identifies the additional integration controls.
+
+### Final provider regression run
+
+Run against source `93f8f28b6b0cf23673d845ccd5a679013d4fbcd4`. Equivalent reproduction command with the same activated Python environment:
+
+```bash
+conda activate molsyssuite@uibcdf_3.14
+env PYTHONPATH=/tmp/molsysmt-consumer-298-kr3fq23_/public_support:$PWD \
+    python -m pytest --receptor=llm \
+    tests/physchem/test_chemical_template.py \
+    tests/physchem/test_chemical_template_selection.py \
+    tests/physchem/test_chemical_template_connectivity.py \
+    tests/physchem/test_chemical_template_est.py \
+    tests/physchem/test_chemical_template_receptor.py \
+    tests/physchem/test_chemical_template_context.py \
+    tests/physchem/test_get_peptide_chemical_template.py \
+    tests/physchem/test_normalize_aromatic_bond_orders.py \
+    tests/physchem/test_chemical_preparation_evidence.py \
+    tests/native/test_preparation_history.py \
+    tests/build/add_missing_hydrogens/test_fixed_state.py \
+    tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py \
+    --doctest-modules \
+    molsysmt/physchem/assess_chemical_template.py \
+    molsysmt/physchem/apply_chemical_template.py \
+    molsysmt/native/chemical_states.py \
+    --junitxml=/tmp/molsysmt-298-acceptance.xml
+```
+
+**303 passed in 129.51 s.** This complete selection succeeds after the earlier
+context-history expectation corrections and the #326 compressed-input fix.
+Its 46 warnings comprise 43 existing pandas nullable-column future warnings and
+three explicitly reported structural-attribute drops in transformation controls.
+They were not hidden or converted into acceptance of unsupported chemistry.
+
+Linux, Python 3.14.7, NumPy 2.4.6, pandas 2.3.3, RDKit 2025.09.5, and imported
+released ArgDigest 0.13.0 source from the isolated support directory. The command
+records the actual development paths; the override is not a runtime requirement.
+This is source contract evidence, not a released-package, full-suite, scientific
+performance or biological qualification.
+
+The preceding consumer checkpoint supplies 74 affected controls (47 DockingMT,
+27 PharmacophoreMT), plus both full public-API fragment drivers. Those results
+retain their original source identities and dates; this final provider run does
+not claim to rerun their controls or adopt their proposed owner patches.
+
+### Separate remaining ownership
+
+- **Standard-residue multi-atom heavy reconstruction:** #327, extending general
+  `build` tools only after geometric validation. #322's conservative rejection
+  remains correct until that coverage exists.
+- **Modified-residue energy-based coordinates:** uibcdf/molsysmt#249.
+- **Native general ligand H engine:** uibcdf/molsysmt#308. The current explicit
+  RDKit fixed-state route remains available.
+- **Environmental refinement of generated H:** uibcdf/molsysmt#323.
+- **Consumer test-patch review/adoption:** uibcdf/dockingmt#42 and
+  uibcdf/pharmacophoremt#39. Their worktrees were not modified.
+- **General correspondence through lossy exports:** uibcdf/molsysmt#223.
+
+The 1QKU full observed chain still has unresolved heavy gaps; qualified fragment
+304–550 is an explicitly different model. Its provenance does not retroactively
+prove the derivation of the original legacy OpenMM snapshot. Automatic matching,
+additional normalization methods, arbitrary atom-changing reinsertion, pH/state
+search, receptor force-field assignment and biological preparation are outside
+this implemented contract. The public APIs retain their experimental stability
+classification. Closing #298 does not mark those capabilities or 1.0 complete.

@@ -117,12 +117,14 @@ ledger authoritative for release scope.
    retaining unsupported groups and unresolved H/protonation dimensions. Scientific
    valence/protonation validation is not established by either assessment.
 3. **Complete selected chemistry and missing H through reusable tools.**
-   uibcdf/molsysmt#298 owns explicit template assessment/application with
+   [Explicit templates #298](archive/resolved_proposals/apply_explicit_chemical_templates_with_atom_correspondence.md) delivers experimental template assessment/application with
    caller-declared atom correspondence; [Fixed-state hydrogen addition #300](archive/resolved_proposals/add_ligand_hydrogens_for_a_fixed_chemical_state.md)
-   delivers the initial RDKit ligand placement route. Experimental template tools now
-   provide the bounded same-graph, absent-field-only contract, copy semantics and
-   a detached provenance report. Unsupported representation normalization,
-   native report attachment and real consumer acceptance remain open under #298.
+   delivers the initial RDKit ligand placement route. Template tools preserve source
+   pose/identity, require declared maps, retain conflicts and unassessed scope, and
+   support opt-in edge completion and explicitly mapped polymer context.
+   Native history and H5MSM 0.5 retain original construction, normalization,
+   assignment and H-operation evidence. A declared 1QKU fragment/EST model is
+   locally qualified through actual DockingMT and PharmacophoreMT APIs.
    Complete prepared inputs may
    bypass template application. Preserve existing atom identity and coordinates,
    reject conflicting assignments and retain preparation provenance. Template
@@ -198,7 +200,7 @@ After bounded #221/#222/#224 delivery, preserve both preparation tracks:
   controls; no hidden consumer/converter repair. #223 remains the general
   retained/omitted/merged/added-axis and charge-accounting continuation.
 - PharmacophoreMT uibcdf/pharmacophoremt#22 requires the polymer extension of
-  [#298](pending_proposals/apply_explicit_chemical_templates_with_atom_correspondence.md):
+  [#298](archive/resolved_proposals/apply_explicit_chemical_templates_with_atom_correspondence.md):
   supported residue/state/terminal templates and mapped inter-residue chemistry,
   including explicit HIS/protonation choices. Heavy completeness alone does not
   certify chemistry. Qualify analytical peptides before the observed 1QKU
@@ -208,3 +210,26 @@ After bounded #221/#222/#224 delivery, preserve both preparation tracks:
 Consumer feedback is source-reported in #298, not independently rerun here.
 Keep full-graph detector readiness distinct from a chemically prepared ligand
 or a selected heavy-complete receptor shell. Retain consumer dirty worktrees.
+
+### Provider acceptance and consumer qualification — 2026-10-05
+
+The original explicit-template acceptance contract of #298 is resolved. Its
+archived record retains the previous partial checkpoints and a final requirement
+matrix with 303 passing provider controls. Polymer context, construction/
+normalization history and H5MSM recovery are implemented. Complete-receptor
+repair was not an acceptance requirement for assigning chemistry to existing
+atoms with explicit partial coverage.
+
+Both isolated actual-consumer drivers pass on the declared closed 1QKU fragment
+304–550 with EST; affected consumer selections supply 47 DockingMT and
+27 PharmacophoreMT passing controls after proposed audit/test adjustments.
+Owner adoption remains uibcdf/dockingmt#42 and uibcdf/pharmacophoremt#39.
+The original consumer worktrees are preserved. This dated local qualification
+supersedes the source-reported-only evidence of the preceding checkpoint.
+
+Full-receptor preparation still requires
+[standard-residue side-chain reconstruction #327](pending_proposals/standard_residue_side_chain_reconstruction.md).
+Keep the conservative #322 geometry rejection. Modified-residue placement #249,
+environmental H refinement #323, native ligand H #308 and general lossy-export
+correspondence #223 retain their independent scope. None of this establishes
+receptor force-field coverage, docking quality or biological acceptance.

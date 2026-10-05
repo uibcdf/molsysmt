@@ -1,7 +1,7 @@
 # Prepared ERalpha consumer qualification
 
-Dated local contract evidence for uibcdf/molsysmt#298. See the maintained
-[checkpoint](../../../devguide/pending_proposals/apply_explicit_chemical_templates_with_atom_correspondence.md).
+Dated local contract evidence for uibcdf/molsysmt#298. See the archived
+[acceptance record](../../../devguide/archive/resolved_proposals/apply_explicit_chemical_templates_with_atom_correspondence.md).
 This is a declared fragment/ligand model, not full-receptor or docking validation.
 
 ## Reproducing
