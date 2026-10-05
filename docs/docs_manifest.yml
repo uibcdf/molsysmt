@@ -121,6 +121,11 @@ sections:
             agents_file: docs/content/user/tools/build/get_covalent_bond_candidates.md.AGENTS.md
             description: Exact heavy-group candidate evidence, atom-axis selections and unassessed chemistry.
             status: reviewed
+          - name: get_peptide_bond_candidates
+            file: docs/content/user/tools/build/get_peptide_bond_candidates.md
+            agents_file: docs/content/user/tools/build/get_peptide_bond_candidates.md.AGENTS.md
+            description: Source-aware peptide C-N candidates, explicit geometry and conservative exclusions.
+            status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
         agents_file: docs/content/user/tools/topology/AGENTS.md

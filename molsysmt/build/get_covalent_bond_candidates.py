@@ -6,7 +6,6 @@ import numpy as np
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 
 
 @signal(tags=["api", "build", "diagnostics"])
@@ -110,52 +109,17 @@ def get_covalent_bond_candidates(
         digest_skip_digestion(
             skip_digestion, caller="molsysmt.build.get_covalent_bond_candidates"
         )
-    from molsysmt.basic import convert, get, get_form, select
+    from molsysmt._private.covalent_candidates import prepare_source
+    from molsysmt.basic import get
     from molsysmt.build import get_residue_chemical_coverage
 
-    source_forms = get_form(molecular_system)
-    source = molecular_system
-    # Keep native/H5MSM domains on the auditor's bounded access route. Other
-    # adapters normalize once, explicitly disabling PDB inference when supported.
-    if source_forms not in (
-        "molsysmt.MolSys",
-        "molsysmt.Topology",
-        "file:h5msm",
-        "molsysmt.H5MSMFileHandler",
-    ):
-        source = convert(
-            source,
-            to_form="molsysmt.MolSys",
-            get_missing_bonds=False,
-        )
-    selection_source = source
-    from molsysmt._private.h5msm import modular_h5msm_dimensions
-
-    if modular_h5msm_dimensions(source) is not None and (
-        not isinstance(selection, str) or is_all(selection)
-    ):
-        from molsysmt.h5msm import read_layers
-
-        selection_source = read_layers(source, layers=["topology"])["topology"]
-        if selection_source is None:
-            from molsysmt._private.smonitor import NotWithThisFormError
-
-            raise NotWithThisFormError(
-                caller="molsysmt.build.get_covalent_bond_candidates",
-                form=source_forms,
-                requested_attribute="group_index",
-            )
-    atoms = select(
-        selection_source,
-        selection=selection,
-        syntax=syntax,
-        # Numeric/all selections identify positions even when the requested
-        # chemical state is unresolved. Rich selections need that state to run.
-        chemical_state=chemical_state
-        if isinstance(selection, str) and not is_all(selection)
-        else "reference",
-        structure_indices=structure_indices,
-        skip_digestion=True,
+    source_forms, source, selection_source, atoms = prepare_source(
+        molecular_system,
+        selection,
+        structure_indices,
+        chemical_state,
+        syntax,
+        "molsysmt.build.get_covalent_bond_candidates",
     )
     membership = get(
         selection_source,

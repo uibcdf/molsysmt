@@ -19,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("pdb", nargs="+", type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--include-peptide", action="store_true")
     arguments = parser.parse_args()
     rows = []
     for path in arguments.pdb:
@@ -28,6 +29,9 @@ def main():
             msm.get(molsys, coordinates=True), to_unit="nm"
         ).copy()
         report = msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)
+        peptide = None
+        if arguments.include_peptide:
+            peptide = msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)
         np.testing.assert_array_equal(
             puw.get_value(msm.get(molsys, coordinates=True), to_unit="nm"), coordinates
         )
@@ -59,6 +63,32 @@ def main():
                 ).hexdigest(),
             }
         )
+        if peptide is not None:
+            rows[-1]["peptide"] = {
+                "method": peptide["method"],
+                "software": peptide["software"],
+                "n_candidates": len(peptide["bonded_atom_pairs"]),
+                "n_missing_candidates": int(peptide["missing_mask"].sum()),
+                "link_statuses": dict(
+                    Counter(link["status"] for link in peptide["links"])
+                ),
+                "link_reasons": dict(
+                    Counter(
+                        reason
+                        for link in peptide["links"]
+                        for reason in link["reason_codes"]
+                    )
+                ),
+                "effective_max_bond_length_nm": float(
+                    puw.get_value(
+                        peptide["parameters"]["effective_max_bond_length"], to_unit="nm"
+                    )
+                ),
+                "pbc": peptide["parameters"]["pbc"],
+                "candidate_pair_sha256": sha256(
+                    peptide["bonded_atom_pairs"].astype("<i8").tobytes()
+                ).hexdigest(),
+            }
     payload = {
         "schema": "molsysmt.covalent_candidate_probe@1",
         "python": platform.python_version(),

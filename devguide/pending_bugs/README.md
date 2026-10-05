@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`public_alternate_location_queries_stringify_atom_index_keys_as_ids.md`](public_alternate_location_queries_stringify_atom_index_keys_as_ids.md) — [#329](https://github.com/uibcdf/molsysmt/issues/329) — Public alternate-location queries stringify atom-index keys as IDs *(medium, reproduced)*
+
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

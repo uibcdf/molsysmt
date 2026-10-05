@@ -54,6 +54,14 @@ includes unsupported groups and proposes no hydrogen or inter-group edges.
 It leaves the source unchanged and does not invoke OpenMM for a PDB input.
 See {ref}`Tutorial_Covalent_Bond_Candidates`.
 
+Review inter-group peptide candidates separately with
+`msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)`.
+The report requires consecutive source group indices in one chain and compatible
+C-N distance evidence; alternate backbone sites remain unassessed. Native PDB
+TER segments and insertion-code groups retain their distinct indices. This tool
+does not apply bonds or change the reader's engine. See
+{ref}`Tutorial_Peptide_Bond_Candidates`.
+
 Template application remains a separate explicit operation. Its supported
 `complete_from_template` policy can fill reviewed missing edges under an
 exhaustive atom map; it does not make an unknown component compatible or place

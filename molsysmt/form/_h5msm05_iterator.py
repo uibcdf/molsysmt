@@ -6,6 +6,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 
+from ._h5msm05_alternate_location import read_alternate_location
 from ._h5msm05_structures import (
     _FIELDS,
     _atom_rows,
@@ -53,9 +54,15 @@ class _StructuresIterator05:
             for name in set(self._group) & set(_FIELDS):
                 _validate_structure_series(self._group, name, n_frames, n_atoms)
             self._attributes = [name for name, enabled in attributes.items() if enabled]
-            if set(self._attributes) - {"coordinates", "box", "time", "structure_id"}:
+            if set(self._attributes) - {
+                "coordinates",
+                "box",
+                "time",
+                "structure_id",
+                "alternate_location",
+            }:
                 raise ValueError(
-                    "The H5MSM 0.5 iterator supports coordinates, box, time, and structure_id."
+                    "The H5MSM 0.5 iterator supports coordinates, box, time, structure_id, and alternate_location."
                 )
             indices = (
                 np.arange(n_frames, dtype=np.int64)
@@ -75,6 +82,8 @@ class _StructuresIterator05:
             self._chunk = chunk
             self._output_type = output_type
             self._offset = 0
+            self._n_atoms = n_atoms
+            self._n_structures = n_frames
         except Exception:
             self._file.close()
             raise
@@ -90,6 +99,25 @@ class _StructuresIterator05:
         self._offset += len(frames)
         result = {}
         for name in self._attributes:
+            if name == "alternate_location":
+                alternate = read_alternate_location(
+                    self._group,
+                    self._n_structures,
+                    self._n_atoms,
+                    frame_selection=frames,
+                )
+                if alternate is not None and self._atoms is not None:
+                    selected = set(self._atoms.tolist())
+                    alternate = [
+                        {
+                            atom: entry
+                            for atom, entry in frame.items()
+                            if atom in selected
+                        }
+                        for frame in alternate
+                    ]
+                result[name] = alternate
+                continue
             if name not in self._group:
                 result[name] = None
                 continue

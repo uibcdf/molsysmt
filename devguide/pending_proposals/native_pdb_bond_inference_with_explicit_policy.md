@@ -331,3 +331,127 @@ those supported reports in a selectable native PDB reader route with explicit
 engine absence/failure diagnostics and persisted provenance; retain the OpenMM
 route and the existing reader default. Timing/memory measurements and explained
 original-source edge disagreements remain pending. #304 is still partial.
+
+
+## Bounded peptide-link report — 2026-10-05
+
+**Implemented and contract-tested.** `build.get_peptide_bond_candidates()` adds
+an independent experimental report rather than changing the heavy-template
+report or the PDB reader. Its descriptive method `adjacent_backbone_distance`
+requires consecutive source group indices, one defined chain and compatible
+exact heavy templates. It preserves directional carbon/nitrogen roles alongside
+sorted pairs, typed empty results, original producer versions, unit-bearing
+parameters/distances and inspected exclusions. Existing edges remain unchanged;
+conflicting peptide types/orders or an already externally linked backbone
+endpoint block the proposal. Unknown chemical quantities remain unknown.
+
+Native PDB TER segments keep separate chain indices even when labels repeat.
+Insertion-code groups keep separate source group indices even with equal group
+IDs. Alternate-site evidence at either backbone endpoint blocks this first
+policy; side-chain alternates do not block a unique backbone pair. Outgoing OXT
+is excluded. These are explicit conservative policies, not sequence completion,
+conformer selection or certified peptide chemistry. File evidence discarded by
+another adapter cannot be recovered from its labels.
+
+The positive finite C-N distance must obey both the requested length ceiling
+(default 2 angstroms) and the existing protein reference plus tolerance
+(**0.153 nm**). PBC is disabled by default. Explicit PBC requests use a valid
+available box; invalid boxes remain unassessed. A missing box retains Cartesian
+geometry. Distances use the existing paired geometry tool and its Rust primitives;
+no new compiled routine, empirical criterion citation or optional engine is
+invented. The legacy threshold's original reference is not independently
+qualified here. No new Ackredit attribution boundary is introduced.
+
+Normalization is shared privately behind the two supported build tools. Numeric
+H5MSM 0.5 reads use topology/chemical layers and a single coordinate structure,
+box and sparse alternate-site evidence. The general 0.5 form iterator now reads
+requested alternate structures with source atom-index keys, reusing its codec.
+A guard rejects full-coordinate materialization while selecting nonconsecutive
+structures and source atoms. Rich selections retain existing broader access.
+Stored-edge collision checks use an atom-to-incident-edge index built once;
+geometry evaluates eligible pairs, never a Cartesian atom-pair matrix. These
+are algorithmic properties, not measured throughput or RSS claims.
+
+Two independent adapter/query findings were reported. uibcdf/molsysmt#329 remains
+open: public `get` stringifies alternate mapping indices as though they were IDs.
+The candidate tool uses source-preserving native/form iterators, without copying
+or changing the public normalizer. uibcdf/molsysmt#330 fixes legacy iterator reads
+of an absent box and is recorded in the
+[resolved report](../archive/resolved_bugs/legacy_h5msm_iterator_indexes_an_absent_periodic_box.md).
+Legacy alternate-label arrays unsupported by the sparse-site contract remain
+unassessed rather than being ignored. Caller-owned handlers stay open.
+
+### Executed controls
+
+```bash
+python -m pytest --receptor=llm \
+    tests/build/test_get_peptide_bond_candidates.py \
+    tests/build/test_get_covalent_bond_candidates.py \
+    tests/build/test_get_residue_chemical_coverage.py \
+    tests/build/get_missing_bonds/test_peptide_candidates.py \
+    tests/form/file_h5msm/test_structures_v05_probe.py \
+    --doctest-modules molsysmt/build/get_peptide_bond_candidates.py \
+        molsysmt/build/get_covalent_bond_candidates.py \
+    --junitxml=/tmp/molsysmt-304-peptide-final.xml
+```
+
+Receipt: **147 passed in 32.68 s**, with 28 legacy deprecations and two existing
+pandas setter FutureWarnings. Controls include chain and repeated-label TER
+boundaries, insertion codes, IDs versus indices, selection gaps, reordered atom
+roles, existing CONECT evidence, contradictory chemistry, empty/no-coordinate
+inputs, state associations, OXT, alternate backbone/side-chain evidence, Cartesian
+and MIC geometry, non-default pm policy and legacy filenames/handler lifetimes.
+This overlaps prior checkpoints; their counts are not additional unique tests.
+
+The docstring, public classification/signature, course and Ruff controls pass.
+Foundations, Toolbox, Cookbook and Common Core 12 describe the bounded contract;
+notebook executable cells and outputs are unchanged. Incremental Sphinx HTML
+completes with 27 existing warnings and no new warning message.
+
+### Original-source probe
+
+```bash
+MSM_CANDIDATES_VINA_ROOT="$HOME/repos@others/AutoDock-Vina"
+python devtools/scripts/probe_covalent_bond_candidates.py \
+    molsysmt/data/pdb/181l.pdb \
+    "$MSM_CANDIDATES_VINA_ROOT/example/basic_docking/solution/1iep_receptorH.pdb" \
+    --include-peptide --output /tmp/native_peptide_candidate_profile.json
+```
+
+The retained receipt is
+[`native_peptide_candidate_profile_20261005.json`](../../devtools/data/native_peptide_candidate_profile_20261005.json).
+Original input hashes and heavy-template candidate hashes match the previous
+probe. 181L returns **161 peptide candidates**, in addition to its 1,148 heavy
+intra-group candidates. Original 1IEP returns **271 peptide candidates**, in
+addition to 2,015 heavy intra-group candidates. Its selected source boundaries
+[0, 1] (C atom 3425, N atom 1, **45.8397588 angstroms**) and [213, 214]
+(C atom 3408, N atom 3431, **3.9893169 angstroms**) are rejected by distance.
+These are source group/atom indices, not IDs. Their physical distances, rather
+than label adjacency or a wish to match OpenMM's graph, explain exclusion.
+The rejected groups are SER 438 / MET 225 and MET 437 / PRO 439 respectively,
+all in source chain index 0. These labels are observed metadata, not inferred
+sequence links. SER 438 is the first group encountered on the source axis despite
+its biological sequence position. This demonstrates that source group order is
+not always polymer sequence order; the bounded method cannot propose its
+nonconsecutive sequence neighbors. A qualified native reader therefore still
+needs an explicit source polymer-order policy before claiming full coverage.
+No complete chemical graph, hydrogen coverage, timing/memory benchmark or
+independent chemical ground truth is established. Source bytes and coordinates
+remain unchanged.
+
+Linux x86_64, Python 3.14.7 / NumPy 2.4.6, released ArgDigest 0.13.0 source
+overlay, source base `c2f16cbc2` plus this change. Original editable installation
+version strings remain in the receipt; they are distinct from source commit
+identity. No installed-release qualification is claimed.
+
+### Remaining #304 work
+
+Source polymer-order policy, hydrogen naming/template policy, terminal caps,
+other supported groups, disulfide
+composition and unknown-group geometry remain separate qualifications. A native
+reader engine selector, precise optional-engine absence/failure diagnostics and
+persisted inference provenance are still pending. Retain the current reader
+default and OpenMM route. Compare original-source edge inventories and measure
+representative time/memory workloads before claiming native receptor preparation.
+Resolve the separately reported public alternate-index defect in #329. #304
+remains partial.

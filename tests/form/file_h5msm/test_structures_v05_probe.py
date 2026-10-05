@@ -19,6 +19,89 @@ from molsysmt.form._h5msm05_structures import (
 from molsysmt.native import Structures, Topology
 
 
+def test_structural_iterator_selects_alternate_evidence_on_source_atom_indices(
+    tmp_path, monkeypatch
+):
+    from molsysmt.form import _h5msm05_modular
+    from molsysmt.form.file_h5msm.iterators import StructuresIterator
+
+    source = Structures(
+        coordinates=msm.pyunitwizard.quantity(np.zeros((3, 5, 3)), "nm"),
+        alternate_location=[
+            {
+                4: {
+                    "location_id": np.array(["A"]),
+                    "atom_id": None,
+                    "occupancy": None,
+                    "b_factor": None,
+                    "coordinates": None,
+                }
+            },
+            {},
+            {
+                2: {
+                    "location_id": np.array(["A", "B"]),
+                    "atom_id": None,
+                    "occupancy": None,
+                    "b_factor": None,
+                    "coordinates": msm.pyunitwizard.quantity(np.ones((2, 3)), "nm"),
+                }
+            },
+        ],
+        skip_digestion=True,
+    )
+    filename = str(tmp_path / "iterator_alternates.h5msm")
+    msm.h5msm.write_layers(filename, structures=source)
+
+    def reject_full_read(*args, **kwargs):
+        pytest.fail("An adapter iterator must not materialize all structures")
+
+    monkeypatch.setattr(
+        _h5msm05_modular, "read_independent_structures", reject_full_read
+    )
+    with StructuresIterator(
+        filename,
+        atom_indices=[2, 4],
+        structure_indices=[2, 1, 0],
+        coordinates=True,
+        alternate_location=True,
+        output_type="dictionary",
+    ) as iterator:
+        rows = list(iterator)
+    assert [list(row["alternate_location"][0]) for row in rows] == [[2], [], [4]]
+    assert all(row["coordinates"].shape == (1, 2, 3) for row in rows)
+    assert rows[0]["alternate_location"][0][2]["location_id"].tolist() == ["A", "B"]
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(
+            rows[0]["alternate_location"][0][2]["coordinates"], to_unit="nm"
+        ),
+        np.ones((2, 3)),
+    )
+
+
+def test_legacy_structural_iterator_returns_none_for_an_absent_box(tmp_path):
+    from molsysmt.form.file_h5msm.iterators import StructuresIterator
+    from molsysmt.form.molsysmt_MolSys.to_file_h5msm import to_file_h5msm
+    from molsysmt.native import MolSys
+
+    source = MolSys(n_atoms=2)
+    source.structures = Structures(
+        coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
+    )
+    filename = str(tmp_path / "legacy_no_box.h5msm")
+    to_file_h5msm(source, output_filename=filename)
+    with StructuresIterator(
+        filename,
+        structure_indices=[0],
+        coordinates=True,
+        box=True,
+        output_type="dictionary",
+    ) as iterator:
+        result = next(iterator)
+    assert result["coordinates"].shape == (1, 2, 3)
+    assert result["box"] is None
+
+
 def test_structures_only_roundtrip_and_nonconsecutive_selection(tmp_path):
     source = Structures(
         constant_time_step=True,

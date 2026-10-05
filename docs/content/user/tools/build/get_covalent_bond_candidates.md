@@ -73,6 +73,10 @@ metal coordination. Bond orders, protonation and valence remain unassessed.
 Nonconsecutive group/chain identity cannot authorize a polymer link here because
 this method proposes no inter-group links at all.
 
+For a separate bounded peptide-link report, use
+{ref}`Tutorial_Peptide_Bond_Candidates`. It preserves the same source axes while
+adding explicit adjacency, chain, geometry and alternate-site criteria.
+
 ## Reviewing before preparation
 
 The function does not append candidate edges or modify coordinates, chemical

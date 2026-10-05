@@ -91,6 +91,9 @@ class StructuresIterator:
                     )
 
                 elif argument == "box":
+                    if not f["box"].size:
+                        self._output_dictionary["box"] = None
+                        continue
                     if f.attrs["constant_box"]:
                         box = f["box"][0, :, :].astype("float64")
                         n = len(np.atleast_1d(indices))
@@ -99,6 +102,20 @@ class StructuresIterator:
                         box = f["box"][indices, :, :].astype("float64")
                     self._output_dictionary["box"] = puw.quantity(
                         box, self._units["box"]
+                    )
+
+                elif argument == "alternate_location":
+                    from .get_structural_attributes import (
+                        get_alternate_location_from_atom,
+                    )
+
+                    self._output_dictionary[argument] = (
+                        get_alternate_location_from_atom(
+                            self.molecular_system,
+                            indices=self.atom_indices,
+                            structure_indices=indices,
+                            skip_digestion=True,
+                        )
                     )
 
                 elif argument == "time":
