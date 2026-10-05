@@ -8,15 +8,22 @@ def to_mdtraj_Topology(
     """
     Converting from file:gro to mdtraj.Topology.
 
+    This uses the same inferred connectivity as the native GRO conversion and
+    the GRO-to-MDTraj trajectory route. Bonds are inferred on the full atom axis
+    of the first structure before atom selection; unsupported chemistry remains
+    subject to the existing template and distance-based candidate limitations.
+
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Path to a GRO file declaring atom/group labels, coordinates and box data.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Source atom indices to retain after full-system connectivity inference.
+        Defaults to 'all'.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Source structure indices to retain. Defaults to 'all'. Connectivity is
+        inferred using the first structure before this selection.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -25,6 +32,19 @@ def to_mdtraj_Topology(
     mdtraj.Topology
         Resulting object in mdtraj.Topology form.
 
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> topology = msm.convert(msm.systems['nglview']['md_1u19.gro'],
+    ...                        to_form='mdtraj.Topology', selection=[0, 1])
+    >>> topology.n_atoms
+    2
+
+    .. admonition:: User guide
+
+       See :ref:`user-foundations-native-world-file-handlers-molsysmt-grofilehandler`
+       for connectivity and coordinate-reading limits.
 
     .. versionadded:: 1.0.0
     """

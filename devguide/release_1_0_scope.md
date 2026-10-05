@@ -120,9 +120,12 @@ and the five new issues. Future reports use the same admission rule.
 | Individual interaction editing | #335 | Add/remove individual observations and optionally prune unused definitions with explicit occurrence/relation-handle semantics, immutable snapshots and bounded costs. Structure replacement/invalidation/compaction are already implemented. |
 | Streaming and resumable H5MSM | #336 | Direct detector-to-file accumulation, append with topology/named analyses, transactional visibility and crash recovery. Existing numeric-window export and narrowly supported topology-free append remain available. |
 
-The public board uses `1.0.0` for S1/S2/S4/S5 owner issues and #334, and
+At the scope-freeze checkpoint, the public board uses `1.0.0` for S1/S2/S4/S5 owner issues and #334, and
 `Post-1.0` for the extension/debt issues above. The associated proposal/bug
 documents retain their actual lifecycle status; deferral is not resolution.
+Subsequent triage may move an extension-only remainder to `Post-1.0` or close
+a verified defect. The execution ledger records those decisions; the original
+snapshot is not a requirement to keep completed reviews in the release queue.
 
 ## Stop and publication decisions
 

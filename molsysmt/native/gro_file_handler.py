@@ -50,6 +50,7 @@ def parse(file):
 
     group_index = -1
     former_group_id = -1
+    former_group_name = None
     check_velocities = True
     with_velocities = False
 
@@ -57,12 +58,14 @@ def parse(file):
         line = file.readline()
 
         group_id = int(line[:5])
+        group_name = line[5:10].strip()
 
-        if former_group_id != group_id:
+        if former_group_id != group_id or former_group_name != group_name:
             gro.group_ids.append(group_id)
-            gro.group_names.append(line[5:10].strip())
+            gro.group_names.append(group_name)
             group_index += 1
             former_group_id = group_id
+            former_group_name = group_name
 
         gro.atom_ids[ii] = int(line[15:20])
         gro.atom_names[ii] = line[10:15].strip()

@@ -116,3 +116,18 @@ def test_public_alternate_location_empty_selection_and_absence(alternate_source)
     assert msm.get(source, structure_indices=[], alternate_location=True) == []
     empty = Structures(coordinates=puw.quantity(np.zeros((1, 5, 3)), "nm"))
     assert msm.get(empty, alternate_location=True) is None
+
+
+def test_empty_alternate_location_from_pdb_and_h5msm_is_none(tmp_path):
+    pdb = tmp_path / "without-alternates.pdb"
+    pdb.write_text(
+        "ATOM      1  N   ALA A   1       1.000   2.000   3.000  1.00 10.00           N  \n"
+        "END\n"
+    )
+    molsys = msm.convert(pdb, to_form="molsysmt.MolSys", get_missing_bonds=False)
+    assert msm.get(pdb, alternate_location=True) is None
+    assert molsys.structures.alternate_location is None
+    assert msm.get(molsys, alternate_location=True) is None
+    h5msm = tmp_path / "without-alternates.h5msm"
+    msm.convert(molsys, to_form="file:h5msm", output_filename=h5msm)
+    assert msm.get(h5msm, alternate_location=True) is None

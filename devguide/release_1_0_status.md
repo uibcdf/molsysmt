@@ -28,8 +28,8 @@ now owns admission, the finite S1–S6 stabilization queue and the preserved
 post-1.0 issue inventory. Start there before taking another implementation
 task. This is a scope decision, not release certification.
 
-Next perform S1's fresh triage of #25/#30/#112 and reconcile S2's current
-domain/interaction acceptance with the agreed MolSysViewer workflow. Review
+S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. Next
+reconcile S2's current domain/interaction acceptance with the agreed MolSysViewer workflow. Review
 current experimental profiles and public claims, then dependencies/Python
 policy before freezing exact candidates. No additional chemistry or method
 expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
@@ -52,6 +52,48 @@ The historical 99% weighted campaign below is not a measure of current
 stabilization effort. S1–S6 are not certified complete by this documentation
 checkpoint; no new heavy suite, installed-candidate matrix or release artifact
 is produced. Existing Python/policy obligations and exact-candidate gates remain.
+
+## S1 stabilization checkpoint — 2026-10-05
+
+- #30: GRO-to-MDTraj now reuses the existing native connectivity policy while
+  retaining MDTraj's multi-structure coordinate/time/box reader. The original
+  NGLView GRO is byte-identical to the bundled fixture. Its former 152 components
+  become one under the native candidate rules. The
+  [resolution record](archive/resolved_bugs/gro_mdtraj_connectivity_bypasses_native_inference.md)
+  distinguishes route consistency from chemical validation.
+- #112: no-site native PDB input already yields `None`; a new public PDB/MolSys/
+  H5MSM guard protects it. Present sparse attributes keep empty maps and the
+  requested structure axis. See the
+  [absence record](archive/resolved_bugs/empty_alternate_locations_preserve_absence.md).
+- #25: existing local names and source metadata remain supported. Verified
+  database identity is a separate enrichment capability; the
+  [remaining proposal](pending_proposals/local_molecule_names_and_external_enrichment.md)
+  stays open in `Post-1.0`. Deferral is not a claim that enrichment is implemented.
+
+The affected Python 3.14 suite passes 819 tests, including three converter
+doctests, in 358.97 s. Ruff, dependency loading/routes, the 263-symbol API
+registry, devguide, archive restoration, scientific-registry structure and the
+maintained 156-module course validator pass. Notebook executable cells and
+saved outputs were unchanged. This is scoped development evidence, not a
+full release matrix or an installed-candidate check.
+
+Sphinx HTML compilation passes in the existing Python 3.13 documentation
+environment with 40 recorded warnings. The routine 3.14 environment lacks
+documentation extensions; #237/S5 retains that qualification work. The legacy
+`docs/content/course/devtools/validate_course.py` still diagnoses obsolete
+section names; the normative route is `devtools/scripts/validate_course.py`.
+It does not replace the maintained course gate or certify missing legacy headings.
+
+On previous head `0efb14144`, remote runs 37366063932 and 37366064781 ended
+with failure after GitHub could not acquire a hosted runner. Their jobs have
+no runner and no executed steps; Conda governance passed. This is missing
+remote evidence under #334, not a code-test failure or a gate waiver. Inspect
+the applicable runs after the unskipped S1 checkpoint and recover any still
+unexecuted controls before exact-candidate qualification.
+
+Next: S2 acceptance reconciliation for #250/#251/#252/#254 and explicit
+MolSysViewer feedback on the supported result/persistence workflow. Keep
+S3–S6 within the frozen scope.
 
 ## Reported-defect review — 2026-10-02
 

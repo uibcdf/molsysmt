@@ -46,3 +46,20 @@ handler.close()
 
 - **Nanometer Unit Invariant**: Automatically parses coordinates directly in nanometers (`nm`) and velocities in `nm/ps`.
 - **Fixed-Column Line Parser**: High-speed fixed-width string slicer for fast GRO file loading.
+
+## Connectivity and Conversions
+
+GRO declares atom/group labels and coordinates, but no covalent bonds.
+The default native conversion obtains candidate bonds through
+{func}`molsysmt.build.get_missing_bonds`; you can disable inference for native
+outputs with `get_missing_bonds=False`. Consecutive groups with the same ID
+remain distinct when their names differ. A group ID is a label, not an index.
+
+Public GRO conversion to `mdtraj.Topology` and `mdtraj.Trajectory` uses this
+same native connectivity policy on the complete first structure before atom
+selection. MDTraj reads the coordinate series, times and periodic boxes, so
+nonconsecutive structure selections retain their requested geometry. MDTraj
+stores these lengths in nm and times in ps even under a different session unit
+policy. Its output does not carry native chemical-state evidence or certify
+complete chemistry. Review template/distance candidates before preparation;
+conversion does not identify arbitrary molecules or assign bond orders.

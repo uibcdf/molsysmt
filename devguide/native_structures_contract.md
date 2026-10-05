@@ -94,6 +94,13 @@ it the same way. The rules follow from what each value describes:
   structure: its content is a mapping keyed by atom index. The source's entries are
   merged with their keys shifted by the size of the target's atom axis.
 
+For public alternate-site queries, `None` means that the stored attribute is
+absent. When the attribute is present, retain one sparse map per requested
+structure, including `{}` for structures without sites and `[]` for an empty
+structure selection. A filtered empty map does not erase the stored attribute
+or the query's structure axis. The native PDB reader normalizes total absence
+to `None`; H5MSM preserves that distinction.
+
 `MolSys.add()` extends this to the state the structures payload does not reach:
 
 - **Bioassemblies from both systems are combined**, with the incoming `chain_indices`

@@ -37,7 +37,7 @@ gh issue list --repo uibcdf/molsysmt --state open --limit 200 \
     --json number,title,body,labels,milestone,url
 ```
 
-The review inspected their requests, current active queues, native/H5MSM/interaction public code, existing qualification records and the release gate. It did not reproduce #25/#30/#112, execute a new full suite, certify published dependency closure or obtain new Viewer canvas feedback. Those unknowns are explicit queue items. Historical receipts and the prior weighted 99% figure are not current release certification.
+The initial scope review inspected their requests, current active queues, native/H5MSM/interaction public code, existing qualification records and the release gate. It did not reproduce #25/#30/#112, execute a new full suite, certify published dependency closure or obtain new Viewer canvas feedback. S1 is now qualified as recorded below; the other unknowns remain explicit queue items. Historical receipts and the prior weighted 99% figure are not current release certification.
 
 The resulting board classification was read back and checked against the entire
 snapshot: 15 issues in `1.0.0` (the 14 review/qualification owners plus this
@@ -78,3 +78,19 @@ check and `git diff --check` pass. The read-only `devguide_issue.py sync --check
 also confirms that the open board agrees with the queues after label alignment.
 No runtime code or notebook executable cell changed; no new scientific/full
 suite was run or release gate declared complete.
+
+## S1 checkpoint
+
+The [execution ledger](../release_1_0_status.md) records the complete S1 triage:
+#30's supported conversion now reuses native inference, #112's existing absence
+behavior has an additional public guard, and #25's external-enrichment remainder
+is a post-1.0 proposal. The scoped Python 3.14 selection passes 819 tests and
+converter doctests; this is not the full release suite. The source fix, user
+documentation and unchanged executable notebook cells are recorded in the
+owning reports rather than a second acceptance list.
+
+The previous head's devguide and policy runs did not acquire hosted runners;
+they failed without executing steps. Applicable hosted evidence is still
+required at the next checkpoint. Sphinx builds in the existing 3.13 documentation
+environment; completing 3.14 documentation tooling remains #237. Continue
+with S2, retaining S3–S6 and final publication approval.

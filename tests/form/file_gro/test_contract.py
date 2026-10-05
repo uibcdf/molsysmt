@@ -74,7 +74,8 @@ def test_file_gro_applies_atom_and_structure_subsets(gro_path):
 
 def test_file_gro_matches_openmm_for_coordinates_and_box(gro_path, gro_molsys):
     openmm = pytest.importorskip("openmm")
-    openmm_gro = openmm.app.GromacsGroFile(str(gro_path))
+    openmm_app = pytest.importorskip("openmm.app")
+    openmm_gro = openmm_app.GromacsGroFile(str(gro_path))
 
     expected_coordinates = np.asarray(
         openmm_gro.getPositions(asNumpy=True).value_in_unit(openmm.unit.nanometer)
