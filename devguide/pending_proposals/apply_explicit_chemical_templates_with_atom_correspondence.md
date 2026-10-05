@@ -1406,3 +1406,72 @@ unsupported heavy-atom repair and arbitrary replacement remain separate missing
 capabilities. Native general ligand H generation (#308) and environmental H
 refinement (#323) remain future work. Neither this evidence checkpoint nor scoped
 assignment declares complete receptor or biological acceptance; #298 stays partial.
+
+
+## Isolated consumer qualification checkpoint, 2026-10-05
+
+**Contract-tested, local source integration.** Provider source is
+`2e3b03b3ce602cca493d3069ca822acd2cf81b93`. DockingMT is an isolated archive
+of main `d419feeb70a09e9f27035fc5b759f38e1793fbeb`; PharmacophoreMT is a frozen
+unpublished pilot worktree based on `228355a70a691c7594244189a3bed4acc437c8c2`.
+The original consumer worktrees remain unchanged. Suite status was refreshed;
+other dirty/behind checkouts were explicitly preserved. These results are not
+installed-package qualification, external acceptance or a scientific benchmark.
+
+The initial consumer controls yielded 41/47 passing in DockingMT and 26/27 in
+PharmacophoreMT. Five DockingMT audit snapshots attempted whole-system
+MolSysDict 0.1 conversion after an operation attached history; its intentional
+loss guard rejected that conversion. A proposed audit-only patch captures public
+TopologyDict, structure values and ChemicalStatesDict separately. Another control
+expected the already resolved aromatic benzene hydrogen path to fail; its positive
+replacement verifies six added H, named Gasteiger–Marsili assignment, projected
+charges and original-source immutability. PharmacophoreMT's repeat-H control now
+separates unchanged chemical assignments from appended unchanged terminal/H
+operation reports, while preserving the original history and coordinate checks.
+
+After these isolated adjustments, the complete affected selections pass:
+**47 passed in 42.18 s** and **27 passed in 76.97 s**. Python is 3.14.7, with
+released ArgDigest 0.13.0 source. Imported runtime versions and distribution
+metadata are recorded separately because editable installations can expose a
+different distribution version during the run. Existing
+attribute-drop warnings remain explicit: 12 and 4 respectively. Proposed patches
+and follow-up ownership are `uibcdf/dockingmt#42` and
+`uibcdf/pharmacophoremt#39`; those owner branches have not adopted the patches.
+
+The offline [scenario driver](../../devtools/qualify_prepared_eralpha_consumers.py)
+independently prepares the declared closed fragment 304–550 and EST through public
+provider APIs. Under pm/fs/coulomb application units it preserves all 1,995 observed
+heavy-atom coordinates and IDs, adds 2,052 H, and builds 4,047 atoms/4,088 bonds.
+Public H5MSM recovery preserves coordinates, typed historical arrays and producer
+records, declared source maps, named analyses and evaluated empty structures.
+The three analyses contain 12 hydrophobic observations, zero qualifying H-bonds
+and zero pi-pi observations for the declared methods and local H geometry. These
+zeros do not establish biological absence.
+
+PharmacophoreMT consumes the recovered model: EST has nine hydrophobic features,
+two donors, two acceptors and one aromatic ring; twelve hydrophobic observations
+produce six distinct ligand sites. Receptor recognition also succeeds. DockingMT
+projects the recovered receptor to 2,392 PDBQT atoms and EST to 22, with a consistent
+ligand charge audit using Gasteiger–Marsili. Receptor charges remain explicit zero
+placeholders and type assignment remains heuristic; assessment is provisional.
+No Vina calculation, receptor force-field assignment or environmental refinement
+was performed. Both complete consumer drivers pass.
+
+[Receipts and proposed patches](../../devtools/data/prepared_eralpha_consumers/README.md)
+record reproduction commands, source identities and original/adjusted controls.
+Generated H5MSM files stay outside the repository. The installed editable
+MolSysMT version string is recorded as returned, separately from its exact source
+HEAD; it is not treated as a released-artifact receipt.
+
+Concurrent direct conversion of the same compressed fixture exposed an unsafe
+input-adjacent decompression path. This is reported in `uibcdf/molsysmt#326`.
+The driver writes decompressed bytes into each caller-owned artifact directory
+and uses the public CIF route. This bounded workaround can be removed after
+concurrent/read-only compressed-input regression controls pass.
+
+Next: owner review of the proposed consumer controls; address #326; settle the
+full-receptor versus explicitly declared fragment acceptance scope. #298 remains
+partial: scoped transfer and the closed-fragment consumer flow are qualified,
+but the original complete receptor still has nine missing reference heavy atoms.
+Native arbitrary-ligand H generation (#308), environmental refinement (#323)
+and the remaining unsupported lysine reconstruction are separate capabilities.

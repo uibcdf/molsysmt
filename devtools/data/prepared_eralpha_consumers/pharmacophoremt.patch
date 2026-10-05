@@ -1,0 +1,16 @@
+--- a/tests/test_eralpha_hydrogens.py
++++ b/tests/test_eralpha_hydrogens.py
+@@ -120 +120,12 @@
+-    assert state_payload(repeated["molecular_system"]) == state_payload(source)
++    actual, expected = state_payload(repeated["molecular_system"]), state_payload(source)
++    for state in actual["states"] + expected["states"]:
++        state.pop("preparation_history", None)
++    assert actual == expected
++    before_history = source.chemical_states.get_preparation_history()
++    after_history = repeated["molecular_system"].chemical_states.get_preparation_history()
++    assert portable(after_history[:len(before_history)]) == portable(before_history)
++    appended = after_history[len(before_history):]
++    assert [record["report"]["schema"] for record in appended] == [
++        "molsysmt.terminal_attachment@1", "molsysmt.hydrogen_addition@1"
++    ]
++    assert all(record["report"]["status"] == "unchanged" for record in appended)
