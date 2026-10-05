@@ -119,7 +119,7 @@ sections:
           - name: get_covalent_bond_candidates
             file: docs/content/user/tools/build/get_covalent_bond_candidates.md
             agents_file: docs/content/user/tools/build/get_covalent_bond_candidates.md.AGENTS.md
-            description: Exact heavy-group candidate evidence, atom-axis selections and unassessed chemistry.
+            description: Exact heavy-group or observed-H parent consensus candidates, source atom selections and explicit unresolved chemistry.
             status: reviewed
           - name: get_peptide_bond_candidates
             file: docs/content/user/tools/build/get_peptide_bond_candidates.md

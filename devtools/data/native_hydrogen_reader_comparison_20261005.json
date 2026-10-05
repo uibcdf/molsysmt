@@ -1,0 +1,328 @@
+{
+  "schema": "molsysmt.hydrogen_candidate_reader_comparison@1",
+  "source": "1iep_receptorH.pdb",
+  "source_sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+  "n_enabled_reader_edges": 4469,
+  "n_hydrogen_candidates": 2157,
+  "n_candidates_present_in_enabled_reader": 2156,
+  "absent_candidate_pairs": [
+    [
+      0,
+      3427
+    ]
+  ],
+  "identity_and_coordinates_equal": true,
+  "issue_names": {
+    "HN1": 1,
+    "HN3": 1,
+    "HN": 17,
+    "HB1": 6,
+    "HC": 1
+  },
+  "issues": [
+    {
+      "atom_index": 2,
+      "atom_name": "HN1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 1,
+      "group_name": "MET",
+      "group_id": "225"
+    },
+    {
+      "atom_index": 4,
+      "atom_name": "HN3",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 1,
+      "group_name": "MET",
+      "group_id": "225"
+    },
+    {
+      "atom_index": 273,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 18,
+      "group_name": "ILE",
+      "group_id": "242"
+    },
+    {
+      "atom_index": 345,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 22,
+      "group_name": "HIS",
+      "group_id": "246"
+    },
+    {
+      "atom_index": 351,
+      "atom_name": "HB1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 22,
+      "group_name": "HIS",
+      "group_id": "246"
+    },
+    {
+      "atom_index": 1097,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 69,
+      "group_name": "ILE",
+      "group_id": "293"
+    },
+    {
+      "atom_index": 1138,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 71,
+      "group_name": "HIS",
+      "group_id": "295"
+    },
+    {
+      "atom_index": 1144,
+      "atom_name": "HB1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 71,
+      "group_name": "HIS",
+      "group_id": "295"
+    },
+    {
+      "atom_index": 1429,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 89,
+      "group_name": "ILE",
+      "group_id": "313"
+    },
+    {
+      "atom_index": 1448,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 90,
+      "group_name": "ILE",
+      "group_id": "314"
+    },
+    {
+      "atom_index": 1984,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 123,
+      "group_name": "ILE",
+      "group_id": "347"
+    },
+    {
+      "atom_index": 2200,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 136,
+      "group_name": "ILE",
+      "group_id": "360"
+    },
+    {
+      "atom_index": 2219,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 137,
+      "group_name": "HIS",
+      "group_id": "361"
+    },
+    {
+      "atom_index": 2225,
+      "atom_name": "HB1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 137,
+      "group_name": "HIS",
+      "group_id": "361"
+    },
+    {
+      "atom_index": 2431,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 151,
+      "group_name": "HIS",
+      "group_id": "375"
+    },
+    {
+      "atom_index": 2437,
+      "atom_name": "HB1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 151,
+      "group_name": "HIS",
+      "group_id": "375"
+    },
+    {
+      "atom_index": 2753,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 172,
+      "group_name": "HIS",
+      "group_id": "396"
+    },
+    {
+      "atom_index": 2759,
+      "atom_name": "HB1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 172,
+      "group_name": "HIS",
+      "group_id": "396"
+    },
+    {
+      "atom_index": 2854,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 179,
+      "group_name": "ILE",
+      "group_id": "403"
+    },
+    {
+      "atom_index": 3100,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 194,
+      "group_name": "ILE",
+      "group_id": "418"
+    },
+    {
+      "atom_index": 3334,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 208,
+      "group_name": "ILE",
+      "group_id": "432"
+    },
+    {
+      "atom_index": 3488,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 218,
+      "group_name": "ILE",
+      "group_id": "443"
+    },
+    {
+      "atom_index": 4245,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 264,
+      "group_name": "ILE",
+      "group_id": "489"
+    },
+    {
+      "atom_index": 4264,
+      "atom_name": "HN",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 265,
+      "group_name": "HIS",
+      "group_id": "490"
+    },
+    {
+      "atom_index": 4270,
+      "atom_name": "HB1",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 265,
+      "group_name": "HIS",
+      "group_id": "490"
+    },
+    {
+      "atom_index": 4399,
+      "atom_name": "HC",
+      "reference_parent_names": [],
+      "reason_codes": [
+        "unrecognized_hydrogen_name"
+      ],
+      "group_index": 273,
+      "group_name": "GLN",
+      "group_id": "498"
+    }
+  ],
+  "software": {
+    "molsysmt": "0.22.4+60.g7a8350f76.dirty",
+    "openmm": "8.6.1"
+  },
+  "source_base_commit": "a8f567c82c348bb003475e8b608721d1e51a9e07",
+  "disagreement": {
+    "source_atom_pair": [
+      0,
+      3427
+    ],
+    "hydrogen_name": "HB2",
+    "parent_name": "CB",
+    "group_index": 0,
+    "group_name": "SER",
+    "group_id": "438",
+    "distance_angstroms": 1.1150762305779842,
+    "n_enabled_reader_incident_edges_for_hydrogen": 0
+  }
+}

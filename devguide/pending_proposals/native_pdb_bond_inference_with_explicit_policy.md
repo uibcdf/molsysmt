@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** 2026-10-03 by DockingMT; provider triage on 2026-10-05.
 **Status:** Direct-file disabled-inference policy corrected and contract-tested;
-heavy-template and two bounded peptide candidate policies are contract-tested;
+heavy-template, observed-H parent consensus and two bounded peptide candidate
+policies are contract-tested;
 native reader inference and explicit engine/failure provenance remain proposed.
 
 ## What
@@ -593,3 +594,137 @@ inference provenance. Terminal caps, other supported groups, disulfide compositi
 unknown-group geometric policy and representative time/memory measurements remain
 separate work. Retain the current reader default and the OpenMM route. #304 stays
 partial; this checkpoint does not claim complete native receptor preparation.
+
+## Observed hydrogen parent consensus — 2026-10-05
+
+**Implemented and contract-tested.** The public form-agnostic
+`build.get_covalent_bond_candidates()` now accepts the keyword-only
+`method='observed_hydrogen_template_consensus'`. It returns only candidate
+H-parent edges for H atoms already present. All existing positional arguments
+and the `exact_heavy_group_templates` default are preserved. Argument digestion
+and the API registry cover the extension. Neither method modifies the graph,
+coordinates, chemical assignments or named interaction analyses.
+
+### Scientific scope and reusable ownership
+
+The tool reuses the existing whole-group chemical coverage audit and exact group
+reference owner. Each observed H name is compared with **every heavy-compatible
+reference variant containing that exact name**. All those variants must declare
+one identical heavy parent, and both observed elements must be known and match
+the reference. The parent must exist. Missing/ambiguous names, unsupported
+modified-group H references, nonstandard stored H assignments and contradictory
+incident H edges remain indexed exclusions. Incident edges outside the output
+selection are checked too. No name alias, nearest-atom inference, first-variant
+selection, pH or terminal assignment is introduced.
+
+Local parent consensus is deliberately separate from joint H inventory evidence.
+The reference study found mixed naming conventions within observed groups:
+requiring one variant to contain all recognized names would discard otherwise
+unambiguous local parent evidence. The implemented method instead retains both
+answers. A group can supply useful local candidates while its inventory remains
+`unassessed` and its status `partial`. Even a `compatible_subset` inventory does
+not certify missing H atoms, protonation, terminal state, valence or H placement.
+These candidates are not a hydrogen-complete receptor or chemical-state assignment.
+
+The optional `groups[*]['hydrogen_coverage']` records parallel typed H/parent
+arrays, local eligibility and output-selection masks, CSR reference-variant
+membership, joint inventory indices and sparse failed-H issues. A missing parent
+uses `-1`, not an invented atom index. Stored field arrays are shared with the
+already detached audit inside the private implementation; source atom/bond row
+maps, incident edges and reference-parent lookups are indexed once per report.
+No new external dependency or compiled primitive is needed for this bounded
+template lookup. Representative memory/throughput qualification is still pending.
+
+### Executed controls and documentation
+
+```bash
+python -m pytest --receptor=llm \
+    tests/build/test_get_covalent_bond_candidates.py \
+    tests/build/test_get_peptide_bond_candidates.py \
+    tests/build/test_get_residue_chemical_coverage.py \
+    tests/build/get_missing_bonds/test_peptide_candidates.py \
+    tests/form/file_h5msm/test_structures_v05_probe.py \
+    --doctest-modules molsysmt/build/get_covalent_bond_candidates.py \
+        molsysmt/build/get_peptide_bond_candidates.py \
+        molsysmt/build/get_residue_chemical_coverage.py \
+    --junitxml=/tmp/molsysmt-304-H-final.xml
+```
+
+Receipt: **216 passed in 47.15 s**, with 32 expected legacy H5MSM deprecations
+and three existing pandas setter FutureWarnings. The earlier overlapping
+61-test run is not additional coverage. Literal tests check exact H-parent
+roles, both-endpoint selections, typed empty arrays, unknown names/elements,
+missing parents, modified heavy-only references, stored external partners and
+conflicting H types/orders/assignments. Synthetic reference variants disagreeing
+on a parent or lacking the H edge reject a first-variant shortcut; they do not
+claim that the packaged provider contains those defects. Mixed recognized names
+exercise local consensus with no compatible joint inventory. PDB controls reject
+OpenMM imports for both methods. A selected H5MSM 0.5 structure/state query rejects
+full-trajectory materialization and runs with pm output policy; an unassociated
+state remains unassessed.
+
+After adding the optional-method docstring example, its doctest is repeated:
+**1 passed in 4.11 s**, with 13 legacy H5MSM warnings. This overlaps the combined
+run rather than increasing its unique count. Ruff, public signature, dependency,
+242-function docstring and maintained 156-module course checks pass. The old
+`docs/content/course/devtools/validate_course.py` was also tried and rejects its
+obsolete section template (0/156); it is not the maintained release gate.
+Foundations, Toolbox, Cookbook and Common Core 12 describe the same bounded
+contract. Notebook executable cells and outputs are unchanged. Incremental
+Sphinx HTML completes with **27 warning entries**, including existing heading,
+directive, toctree and reference debt; no clean build or equal warning count
+with a differently rebuilt checkpoint is claimed.
+
+### Unchanged original-source evidence
+
+```bash
+python devtools/scripts/probe_covalent_bond_candidates.py \
+    molsysmt/data/pdb/181l.pdb \
+    "$HOME/repos@others/AutoDock-Vina/example/basic_docking/solution/1iep_receptorH.pdb" \
+    --include-peptide --peptide-method unique_backbone_distance \
+    --include-hydrogen --output /tmp/native_hydrogen_candidate_profile.json
+```
+
+The retained receipt is
+[`native_hydrogen_candidate_profile_20261005.json`](../../devtools/data/native_hydrogen_candidate_profile_20261005.json).
+181L has no observed H and returns a typed empty H candidate result. Original
+1IEP has **2,183 observed H atoms** and yields **2,157 H-parent candidates**.
+The remaining 26 names lack an exact reference in their own group: HN1 (1),
+HN3 (1), HN (17), HB1 (6) and HC (1). Names are group-specific: HN is a legitimate
+ALA reference name, so an initial synthetic unknown-name test was corrected to
+HN1 rather than excluding that valid reference. 156 groups have a compatible
+joint naming subset, while 118 remain partial with an unassessed joint inventory.
+Heavy and peptide candidate counts/hashes match the previous receipt. Original
+file bytes and coordinates are unchanged.
+
+The separate
+[`native_hydrogen_reader_comparison_20261005.json`](../../devtools/data/native_hydrogen_reader_comparison_20261005.json)
+compares these pairs with the existing enabled-reader graph (4,469 edges).
+**2,156 of 2,157 candidates occur in that graph.** The disagreement is source
+pair `[0, 3427]`, HB2-CB in source group index 0, SER with group ID `438`.
+The enabled reader gives source H index 0 no incident edge; the reference
+consensus proposes CB and the observed distance is 1.1150762306 angstroms.
+This difference is retained rather than forcing either candidate inventory to
+match the other. Compared source atom IDs, names, elements, group/chain indices
+and coordinates are equal. Enabled-reader parity and a plausible distance are
+not independent chemical ground truth. The unresolved names and inventory
+disagreement still require explicit handling before native-reader qualification.
+
+Linux x86_64, Python 3.14.7 / NumPy 2.4.6, released ArgDigest 0.13.0 source
+overlay and installed locally built PyUnitWizard 0.28.1 minimum-provider wheel;
+source base `a8f567c82c348bb003475e8b608721d1e51a9e07` plus this change.
+The reader comparison uses the existing OpenMM 8.6.1 environment. Original
+editable MolSysMT producer versions remain in both receipts; source commit
+identity is separate. No installed MolSysMT release, full-suite, platform or
+complete native-preparation qualification is claimed.
+
+### Remaining #304 work
+
+Compose the supported heavy, peptide and observed-H reports behind an explicit
+native-reader engine policy, including diagnostics for absent/failed optional
+engines and persisted inferred/declared edge provenance. Define the permitted
+application policy for local H consensus, unresolved names, mixed inventories
+and the recorded enabled-reader disagreement; do not silently complete them.
+Terminal caps, other supported groups, disulfide composition, unknown-group
+geometry and representative performance measurements remain separate work.
+Retain the current reader default and OpenMM route. #304 remains partial.

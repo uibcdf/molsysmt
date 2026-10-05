@@ -1,12 +1,15 @@
 (Tutorial_Covalent_Bond_Candidates)=
 # Get covalent bond candidates
 
-*Inspecting exact heavy-atom group-template candidates without changing chemistry.*
+*Inspecting heavy-atom or observed-hydrogen template candidates without changing chemistry.*
 
 Use {func}`molsysmt.build.get_covalent_bond_candidates` to obtain candidate
 intra-group edges and inspect their coverage before choosing a repair policy.
-The experimental method `exact_heavy_group_templates` reuses the existing
+Both experimental methods reuse the existing
 {ref}`exact-template auditor <Tutorial_Residue_Chemical_Coverage>`.
+The default `exact_heavy_group_templates` returns heavy intra-group pairs.
+Choose `method='observed_hydrogen_template_consensus'` for a separate report of
+candidate bonds between already observed H atoms and their heavy parents.
 
 :::{versionadded} 1.0.0
 :::
@@ -58,7 +61,7 @@ unassessed. A rich selection that requires an unavailable state cannot be evalua
 | Group status | Meaning |
 | :--- | :--- |
 | `assessed` | The bounded mapping and template candidate comparison ran. This does not certify the stored chemical graph. |
-| `partial` | Some reference edges have missing endpoint names; only mapped pairs are returned. |
+| `partial` | Some reference edges have missing endpoints, or observed H names or their joint inventory remain unassessed; only eligible mapped pairs are returned. |
 | `unassessed` | No exact template, ambiguous names, unknown/conflicting heavy elements, unresolved state or contradictory stored intra-group chemistry blocks candidates. |
 
 The method covers exact names in the amino-acid database and the auditor's
@@ -68,7 +71,7 @@ and available reference provenance. The legacy database's original-source
 provenance can remain unassessed.
 
 Water, ions, lipids and arbitrary small molecules remain unassessed in this first
-method. It does not infer hydrogen edges, links between groups, disulfides or
+method. The default does not infer hydrogen edges. Neither method infers links between groups, disulfides or
 metal coordination. Bond orders, protonation and valence remain unassessed.
 Nonconsecutive group/chain identity cannot authorize a polymer link here because
 this method proposes no inter-group links at all.
@@ -76,6 +79,48 @@ this method proposes no inter-group links at all.
 For a separate bounded peptide-link report, use
 {ref}`Tutorial_Peptide_Bond_Candidates`. It preserves the same source axes while
 adding explicit adjacency, chain, geometry and alternate-site criteria.
+
+## Inspecting observed hydrogen parents
+
+```python
+report = msm.build.get_covalent_bond_candidates(
+    molsys, structure_indices=0,
+    method='observed_hydrogen_template_consensus',
+)
+```
+
+This method returns only H-parent candidates. It does not add H atoms or place
+coordinates. For each existing H name, every heavy-compatible reference variant
+containing that **exact name** must agree on the same single heavy parent.
+Both elements must be known and compatible, and the parent must exist in the
+group. It does not select the first variant, interpret aliases or choose the
+nearest atom. The curated modified-group heavy templates provide no H reference.
+
+Conflicting stored H partners, noncovalent types, nonsingle orders or aromatic
+bonds block that H. A known nonzero H formal charge, radical count, virtual H
+count or aromatic assignment also blocks it; unknown assignments stay unknown.
+Stored incident edges outside the atom selection still participate in these
+checks. Whole-group heavy-template and chemical-state exclusions continue to
+apply. Other recognized H names can remain eligible when one H is unassessed.
+
+Each `groups` entry adds a `hydrogen_coverage` record:
+
+| Field | Meaning |
+| :--- | :--- |
+| `atom_indices`, `parent_atom_indices` | Parallel `int64` arrays of observed source H indices and reference parents; an unresolved parent is `-1`. |
+| `eligible_mask` | Boolean per H: the local criteria passed, independently of the output selection. |
+| `selected_mask` | Boolean per H: both mapped endpoints belong to the requested atom selection; eligibility is checked separately. |
+| `variant_offsets`, `variant_indices` | CSR arrays identifying exact reference variants consulted for each H. Row `i` uses `variant_indices[variant_offsets[i]:variant_offsets[i+1]]`. |
+| `joint_variant_indices` | Reference variants containing the entire observed H-name inventory. |
+| `inventory_status` | `compatible_subset` when a joint naming inventory is supported, otherwise `unassessed`. This does not assess missing H atoms or protonation. |
+| `issues` | Sparse failed-H records with source index, name, possible reference parent names and reason codes. |
+
+Local parent consensus and a coherent whole-group inventory are separate evidence.
+Mixed naming conventions may produce useful local candidates while no single
+reference variant contains all the observed names; the group then remains
+`partial`. Even `compatible_subset` does not establish a complete protonation
+state, terminal assignment, valence or correct H placement. Review both the pairs
+and the exclusions before adopting any reconstruction policy.
 
 ## Reviewing before preparation
 

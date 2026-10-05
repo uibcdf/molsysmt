@@ -1,4 +1,4 @@
-"""Recording native heavy-template candidate coverage on unchanged PDB inputs."""
+"""Recording bounded native covalent candidate coverage on unchanged PDB inputs."""
 
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ def main():
     parser.add_argument("pdb", nargs="+", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--include-peptide", action="store_true")
+    parser.add_argument("--include-hydrogen", action="store_true")
     parser.add_argument(
         "--peptide-method",
         choices=["adjacent_backbone_distance", "unique_backbone_distance"],
@@ -38,6 +39,13 @@ def main():
         if arguments.include_peptide:
             peptide = msm.build.get_peptide_bond_candidates(
                 molsys, structure_indices=0, method=arguments.peptide_method
+            )
+        hydrogen = None
+        if arguments.include_hydrogen:
+            hydrogen = msm.build.get_covalent_bond_candidates(
+                molsys,
+                structure_indices=0,
+                method="observed_hydrogen_template_consensus",
             )
         np.testing.assert_array_equal(
             puw.get_value(msm.get(molsys, coordinates=True), to_unit="nm"), coordinates
@@ -109,6 +117,34 @@ def main():
                         "unassessed_group_indices"
                     ].tolist(),
                 }
+        if hydrogen is not None:
+            h_groups = [group["hydrogen_coverage"] for group in hydrogen["groups"]]
+            rows[-1]["hydrogen"] = {
+                "method": hydrogen["method"],
+                "software": hydrogen["software"],
+                "n_observed_hydrogens": sum(
+                    len(group["atom_indices"]) for group in h_groups
+                ),
+                "n_candidates": len(hydrogen["bonded_atom_pairs"]),
+                "n_missing_candidates": int(hydrogen["missing_mask"].sum()),
+                "group_statuses": dict(
+                    Counter(group["status"] for group in hydrogen["groups"])
+                ),
+                "inventory_statuses": dict(
+                    Counter(group["inventory_status"] for group in h_groups)
+                ),
+                "issue_reasons": dict(
+                    Counter(
+                        reason
+                        for group in h_groups
+                        for issue in group["issues"]
+                        for reason in issue["reason_codes"]
+                    )
+                ),
+                "candidate_pair_sha256": sha256(
+                    hydrogen["bonded_atom_pairs"].astype("<i8").tobytes()
+                ).hexdigest(),
+            }
     payload = {
         "schema": "molsysmt.covalent_candidate_probe@1",
         "python": platform.python_version(),

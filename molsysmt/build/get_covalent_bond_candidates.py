@@ -17,8 +17,10 @@ def get_covalent_bond_candidates(
     chemical_state="reference",
     syntax="MolSysMT",
     skip_digestion=False,
+    *,
+    method="exact_heavy_group_templates",
 ):
-    """Getting exact heavy-atom group-template covalent candidates.
+    """Getting bounded covalent candidates from exact group templates.
 
     Parameters
     ----------
@@ -39,6 +41,10 @@ def get_covalent_bond_candidates(
         Syntax used for atom selection. Defaults to 'MolSysMT'.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    method : str, default='exact_heavy_group_templates'
+        'exact_heavy_group_templates' proposes only heavy intra-group pairs.
+        'observed_hydrogen_template_consensus' proposes only observed H-parent
+        pairs with a unique reference parent. Defaults to 'exact_heavy_group_templates'.
 
     Returns
     -------
@@ -55,7 +61,7 @@ def get_covalent_bond_candidates(
     ------
     ArgumentError
         If selections or state/structure indices are invalid, or multiple
-        structures are selected.
+        structures are selected, or the method is unsupported.
     NotWithThisFormError
         If required group hierarchy is unavailable.
     StructuralInconsistencyError
@@ -72,9 +78,23 @@ def get_covalent_bond_candidates(
     Unsupported groups, including water, ions, lipids and arbitrary small
     molecules, remain explicit in this first bounded method.
 
-    No geometry is used to propose bonds. Hydrogen edges, inter-group polymer
-    links, disulfides, metal coordination, bond orders, protonation and valence
-    certification are unassessed. Coordinates, existing chemical assignments
+    The optional ``observed_hydrogen_template_consensus`` method compares each
+    existing H name with all heavy-compatible variants containing that exact
+    name. Every matching variant must declare the same single heavy parent.
+    H elements and parents must be known, present and compatible; conflicting
+    stored partners, types, multiplicity or nonstandard H assignments block
+    that H. Other H names may remain unassessed. Whole-group joint inventory
+    compatibility is reported separately and is not required for a local parent
+    consensus. No name aliases, first-variant choice, pH or terminal inference
+    is applied. Modified heavy-only templates supply no H reference.
+
+    ``groups[*]['hydrogen_coverage']`` retains typed H/parent arrays (unknown
+    parent -1), eligibility and output-selection masks, CSR-style offsets and
+    exact variant indices, joint inventory evidence and sparse issue records.
+
+    No geometry is used to propose bonds. The default excludes hydrogen edges.
+    Inter-group polymer links, disulfides, metal coordination, bond orders,
+    protonation and valence certification are unassessed. Coordinates, existing chemical assignments
     and named interactions are unchanged. PDB parsing remains eager; native
     H5MSM 0.5 numeric/all coverage reads only the selected coordinate structure.
 
@@ -94,12 +114,28 @@ def get_covalent_bond_candidates(
     >>> report['missing_mask'].tolist()
     [False, False, False, False]
 
+    >>> report = msm.build.get_covalent_bond_candidates(
+    ...     msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'],
+    ...     selection='group_index==1', structure_indices=0,
+    ...     method='observed_hydrogen_template_consensus')
+    >>> report['bonded_atom_pairs'].tolist()
+    [[6, 7], [8, 9], [10, 11], [10, 12], [10, 13]]
+
     .. admonition:: User guide
 
        See :ref:`Tutorial_Covalent_Bond_Candidates` for coverage and exclusions.
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt._private.smonitor import ArgumentError
+
+    if not isinstance(method, str) or method not in (
+        "exact_heavy_group_templates",
+        "observed_hydrogen_template_consensus",
+    ):
+        raise ArgumentError(
+            "method", value=method, caller="molsysmt.build.get_covalent_bond_candidates"
+        )
     # Remove when the public ArgDigest floor includes uibcdf/argdigest#17.
     if not isinstance(skip_digestion, bool):
         from molsysmt._private.argdigest.argument.skip_digestion import (
@@ -141,6 +177,20 @@ def get_covalent_bond_candidates(
     stored = {tuple(pair) for pair in readiness["bonded_atom_pairs"].tolist()}
     candidates = []
     reports = []
+    hydrogen_context = None
+    if method == "observed_hydrogen_template_consensus":
+        from molsysmt._private.hydrogen_covalent_candidates import prepare_context
+
+        names = get(
+            selection_source,
+            element="atom",
+            selection=readiness["atom_indices"],
+            atom_name=True,
+            skip_digestion=True,
+        )
+        hydrogen_context = prepare_context(
+            readiness, dict(zip(readiness["atom_indices"], names))
+        )
     for group in coverage["groups"]:
         heavy = group["heavy_atoms"]
         connectivity = group["connectivity"]
@@ -178,6 +228,7 @@ def get_covalent_bond_candidates(
                 or "invalid_stored_bonds" in group["reason_codes"]
             ):
                 reasons.append("conflicting_stored_chemistry")
+        hydrogen_coverage = None
         pairs = (
             []
             if reasons
@@ -187,6 +238,14 @@ def get_covalent_bond_candidates(
                 if set(pair) <= selected
             ]
         )
+        if hydrogen_context is not None:
+            from molsysmt._private.hydrogen_covalent_candidates import (
+                candidates as hydrogen_candidates,
+            )
+
+            hydrogen_coverage, pairs = hydrogen_candidates(
+                group, selected, reasons, hydrogen_context
+            )
         candidates.extend((pair, group["group_index"]) for pair in pairs)
         blocked = deepcopy(connectivity.get("blocked_by_missing_atom_name_pairs", []))
         reports.append(
@@ -198,6 +257,13 @@ def get_covalent_bond_candidates(
                 if reasons
                 else "partial"
                 if blocked
+                or (
+                    hydrogen_coverage is not None
+                    and (
+                        hydrogen_coverage["issues"]
+                        or hydrogen_coverage["inventory_status"] == "unassessed"
+                    )
+                )
                 else "assessed",
                 "reason_codes": reasons,
                 "atom_indices": group["atom_indices"].copy(),
@@ -206,11 +272,21 @@ def get_covalent_bond_candidates(
                 "n_candidates": len(pairs),
             }
         )
+        if hydrogen_coverage is not None:
+            reports[-1]["hydrogen_coverage"] = hydrogen_coverage
+            if (
+                len(hydrogen_coverage["atom_indices"])
+                and not hydrogen_coverage["eligible_mask"].any()
+            ):
+                reports[-1]["status"] = "unassessed"
+                reports[-1]["reason_codes"].append(
+                    "unassessed_observed_hydrogen_parents"
+                )
     candidates.sort()
     pairs = np.asarray([pair for pair, _ in candidates], dtype=np.int64).reshape(-1, 2)
     return {
         "schema": "molsysmt.covalent_bond_candidates@1",
-        "method": "exact_heavy_group_templates",
+        "method": method,
         "rule_version": 1,
         "software": deepcopy(readiness["software"]),
         "source_forms": deepcopy(source_forms),
@@ -227,7 +303,14 @@ def get_covalent_bond_candidates(
         "groups": reports,
         "coverage": coverage,
         "unassessed_checks": [
-            "hydrogen_edges",
+            "hydrogen_edges"
+            if hydrogen_context is None
+            else "hydrogen_inventory_completeness",
+            *(
+                []
+                if hydrogen_context is None
+                else ["hydrogen_placement", "terminal_context"]
+            ),
             "inter_group_links",
             "disulfides",
             "metal_coordination",

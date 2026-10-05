@@ -50,9 +50,17 @@ For exact heavy-group templates with an inspectable report, use
 `msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)`.
 Its typed pairs, aligned `missing_mask`, template hashes and coverage let you
 review supported candidates before choosing an application policy. The report
-includes unsupported groups and proposes no hydrogen or inter-group edges.
+includes unsupported groups; the default proposes no hydrogen or inter-group edges.
 It leaves the source unchanged and does not invoke OpenMM for a PDB input.
 See {ref}`Tutorial_Covalent_Bond_Candidates`.
+
+For H atoms already present, call the same tool with
+`method='observed_hydrogen_template_consensus'`. Its separate H-parent report
+requires exact-name agreement among every matching heavy-compatible reference
+variant. Inspect `groups[*]['hydrogen_coverage']`: unresolved names, missing
+parents or conflicting stored H assignments are explicit, and local parent
+consensus does not imply a jointly compatible naming inventory. This is candidate
+connectivity, not H addition, protonation assignment or coordinate placement.
 
 Review inter-group peptide candidates separately with
 `msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)`.

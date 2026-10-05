@@ -30,7 +30,7 @@ def get_residue_chemical_coverage(
         Structure indices (0-based). Select one when structures exist. A source
         without structures is assessed with missing coordinate data.
     chemical_state : str, int or None, default='reference'
-        Chemical state to inspect, or 'structure' for its frame association.
+        Chemical state to inspect, or 'structure' for its structure association.
         Ambiguous references and absent associations remain unassessed.
     syntax : str, default='MolSysMT'
         Syntax used for group selection.
@@ -51,7 +51,7 @@ def get_residue_chemical_coverage(
     Raises
     ------
     ArgumentError
-        If group/frame indices are invalid or multiple structures are selected.
+        If group/structure indices are invalid or multiple structures are selected.
     StructuralInconsistencyError
         If group membership or required source-axis correspondence is invalid.
     NotWithThisFormError
@@ -68,7 +68,7 @@ def get_residue_chemical_coverage(
     Reference orders are absent from the legacy amino-acid database; only the
     curated modified templates support order comparison. Inter-group chemistry
     is retained as boundary indices and is not template-validated.
-    Numeric H5MSM 0.5 selections read only the chosen coordinate frame; rich
+    Numeric H5MSM 0.5 selections read only the chosen coordinate structure; rich
     selections use existing public selection machinery. Sources stay unchanged.
 
     See Also

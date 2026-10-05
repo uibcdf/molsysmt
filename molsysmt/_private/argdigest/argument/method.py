@@ -28,6 +28,17 @@ def digest_method(method, caller=None):
 
     if (
         caller
+        == "molsysmt.build.get_covalent_bond_candidates.get_covalent_bond_candidates"
+    ):
+        if isinstance(method, str) and method in {
+            "exact_heavy_group_templates",
+            "observed_hydrogen_template_consensus",
+        }:
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
+    if (
+        caller
         == "molsysmt.build.get_peptide_bond_candidates.get_peptide_bond_candidates"
     ):
         if isinstance(method, str) and method in {
