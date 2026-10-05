@@ -20,6 +20,11 @@ def main():
     parser.add_argument("pdb", nargs="+", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--include-peptide", action="store_true")
+    parser.add_argument(
+        "--peptide-method",
+        choices=["adjacent_backbone_distance", "unique_backbone_distance"],
+        default="adjacent_backbone_distance",
+    )
     arguments = parser.parse_args()
     rows = []
     for path in arguments.pdb:
@@ -31,7 +36,9 @@ def main():
         report = msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)
         peptide = None
         if arguments.include_peptide:
-            peptide = msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)
+            peptide = msm.build.get_peptide_bond_candidates(
+                molsys, structure_indices=0, method=arguments.peptide_method
+            )
         np.testing.assert_array_equal(
             puw.get_value(msm.get(molsys, coordinates=True), to_unit="nm"), coordinates
         )
@@ -89,6 +96,19 @@ def main():
                     peptide["bonded_atom_pairs"].astype("<i8").tobytes()
                 ).hexdigest(),
             }
+            if "discovery" in peptide:
+                rows[-1]["peptide"]["discovery"] = {
+                    "status": peptide["discovery"]["status"],
+                    "reason_codes": peptide["discovery"]["reason_codes"],
+                    "pbc_applied": peptide["discovery"]["pbc_applied"],
+                    "n_backbone_endpoints": len(peptide["discovery"]["atom_indices"]),
+                    "blocked_chain_indices": peptide["discovery"][
+                        "blocked_chain_indices"
+                    ].tolist(),
+                    "unassessed_group_indices": peptide["discovery"][
+                        "unassessed_group_indices"
+                    ].tolist(),
+                }
     payload = {
         "schema": "molsysmt.covalent_candidate_probe@1",
         "python": platform.python_version(),

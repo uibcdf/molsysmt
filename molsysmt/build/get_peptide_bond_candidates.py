@@ -23,8 +23,10 @@ def get_peptide_bond_candidates(
     pbc=False,
     syntax="MolSysMT",
     skip_digestion=False,
+    *,
+    method="adjacent_backbone_distance",
 ):
-    """Getting adjacent backbone C-N distance candidates without changing chemistry.
+    """Getting bounded backbone C-N distance candidates without changing chemistry.
 
     Parameters
     ----------
@@ -51,6 +53,11 @@ def get_peptide_bond_candidates(
         Syntax used for atom selection. Defaults to 'MolSysMT'.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    method : str, default='adjacent_backbone_distance'
+        Candidate policy. 'adjacent_backbone_distance' requires consecutive
+        source groups. 'unique_backbone_distance' searches named C/N endpoints
+        across the full source and rejects competing same-chain partners before
+        applying the output selection. Defaults to 'adjacent_backbone_distance'.
 
     Returns
     -------
@@ -66,7 +73,7 @@ def get_peptide_bond_candidates(
     ------
     ArgumentError
         If indices, state, flags or the length ceiling are invalid, or multiple
-        structures are selected.
+        structures are selected, or the method is unsupported.
     NotWithThisFormError
         If required group hierarchy is unavailable.
     StructuralInconsistencyError
@@ -81,6 +88,16 @@ def get_peptide_bond_candidates(
     heavy chemistry and positive finite distances within the effective ceiling.
     An outgoing C in a group with OXT is excluded. Alternate-site evidence at
     either endpoint blocks this first policy rather than mixing conformers.
+
+    The optional ``unique_backbone_distance`` policy reuses the sparse Rust
+    neighbor search in ``structure.get_neighbors``. It does not sort group IDs
+    or change source axes. Competition includes unselected and chemically
+    unassessed named backbone endpoints. Non-finite or alternate backbone
+    coordinates block uniqueness assessment throughout their source chain.
+    ``discovery`` reports the full examined endpoint scope, status and reasons;
+    ``group_coverage`` audits the full source for this method. Uniqueness is
+    geometric evidence among existing named endpoints, not certified sequence
+    order, peptide chemistry or evidence of missing atoms.
 
     Native PDB conversion separates TER segments even when chain labels repeat
     and keeps insertion-code groups distinct. This tool respects those source
@@ -110,6 +127,12 @@ def get_peptide_bond_candidates(
     >>> report['method']
     'adjacent_backbone_distance'
 
+    >>> unique = msm.build.get_peptide_bond_candidates(
+    ...     msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'],
+    ...     structure_indices=0, method='unique_backbone_distance')
+    >>> unique['bonded_atom_pairs'].shape
+    (0, 2)
+
     .. admonition:: User guide
 
        See :ref:`Tutorial_Peptide_Bond_Candidates` for scope and exclusions.
@@ -117,6 +140,11 @@ def get_peptide_bond_candidates(
     .. versionadded:: 1.0.0
     """
     caller = "molsysmt.build.get_peptide_bond_candidates"
+    if not isinstance(method, str) or method not in (
+        "adjacent_backbone_distance",
+        "unique_backbone_distance",
+    ):
+        raise ArgumentError("method", value=method, caller=caller)
     # Remove when the public ArgDigest floor includes uibcdf/argdigest#17.
     if not isinstance(skip_digestion, bool):
         from molsysmt._private.argdigest.argument.skip_digestion import (
@@ -147,7 +175,7 @@ def get_peptide_bond_candidates(
     )
     group_coverage = get_covalent_bond_candidates(
         source,
-        selection=atoms,
+        selection="all" if method == "unique_backbone_distance" else atoms,
         structure_indices=structure_indices,
         chemical_state=chemical_state,
         skip_digestion=True,
@@ -182,11 +210,38 @@ def get_peptide_bond_candidates(
             incident_rows[int(atom)].append(row)
     links = []
     eligible = []
-    for left, right in zip(groups, groups[1:]):
+    discovery = None
+    geometry = None
+    endpoint_atoms = []
+    ambiguous = set()
+    if method == "unique_backbone_distance":
+        from molsysmt._private.peptide_candidates import discover_backbone_pairs
+
+        group_pairs, ambiguous, discovery, endpoint_atoms, geometry = (
+            discover_backbone_pairs(source, groups, names, chains, frame, ceiling, pbc)
+        )
+        by_index = {group["group_index"]: group for group in groups}
+        selected_groups = {
+            group["group_index"]
+            for group in groups
+            if selected.intersection(group["atom_indices"])
+        }
+        group_links = [
+            (by_index[g], by_index[h])
+            for g, h in group_pairs
+            if g in selected_groups and h in selected_groups
+        ]
+    else:
+        group_links = zip(groups, groups[1:])
+    for left, right in group_links:
         g, h = left["group_index"], right["group_index"]
         reasons = []
-        if h != g + 1:
+        if method == "adjacent_backbone_distance" and h != g + 1:
             reasons.append("nonconsecutive_source_groups")
+        if (g, h) in ambiguous:
+            reasons.append("competing_backbone_partners")
+        if discovery is not None and chains[g] in discovery["blocked_chain_indices"]:
+            reasons.append("uniqueness_unassessed_incomplete_backbone_geometry")
         if not all(isinstance(chains[x], Integral) and chains[x] >= 0 for x in (g, h)):
             reasons.append("missing_or_ambiguous_chain")
         elif chains[g] != chains[h]:
@@ -237,16 +292,16 @@ def get_peptide_bond_candidates(
         links.append(link)
         if not reasons:
             eligible.append(link)
-    geometry = None
-    endpoint_atoms = sorted(
-        {
-            atom
-            for link in eligible
-            for atom in (link["carbon_atom_index"], link["nitrogen_atom_index"])
-        }
-    )
-    if eligible and frame is not None:
-        geometry = read_geometry(source, endpoint_atoms, frame)
+    if discovery is None:
+        endpoint_atoms = sorted(
+            {
+                atom
+                for link in eligible
+                for atom in (link["carbon_atom_index"], link["nitrogen_atom_index"])
+            }
+        )
+        if eligible and frame is not None:
+            geometry = read_geometry(source, endpoint_atoms, frame)
     pbc_applied = False
     if eligible and (geometry is None or geometry["coordinates"] is None):
         for link in eligible:
@@ -322,14 +377,14 @@ def get_peptide_bond_candidates(
         ],
         dtype=np.int64,
     ).reshape(-1, 2)
-    return {
+    report = {
         "schema": "molsysmt.peptide_bond_candidates@1",
-        "method": "adjacent_backbone_distance",
+        "method": method,
         "rule_version": 1,
         "software": deepcopy(group_coverage["software"]),
         "source_forms": deepcopy(source_forms),
         "n_atoms": group_coverage["n_atoms"],
-        "atom_indices": group_coverage["atom_indices"].copy(),
+        "atom_indices": np.asarray(atoms, dtype=np.int64).copy(),
         "structure_index": frame,
         "chemical_state_index": group_coverage["chemical_state_index"],
         "bonded_atom_pairs": pairs,
@@ -376,3 +431,7 @@ def get_peptide_bond_candidates(
             "protonation",
         ],
     }
+    if discovery is not None:
+        report["discovery"] = discovery
+        report["unassessed_checks"].append("polymer_sequence_order")
+    return report

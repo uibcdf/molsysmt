@@ -56,8 +56,13 @@ See {ref}`Tutorial_Covalent_Bond_Candidates`.
 
 Review inter-group peptide candidates separately with
 `msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)`.
-The report requires consecutive source group indices in one chain and compatible
-C-N distance evidence; alternate backbone sites remain unassessed. Native PDB
+The default report requires consecutive source group indices in one chain and
+compatible C-N distance evidence. For groups stored out of polymer order, the
+optional `method='unique_backbone_distance'` searches nearby same-chain C/N
+endpoints and checks competing partners across the full source before filtering
+your selection. It does not sort group IDs or certify sequence order. Alternate
+or non-finite backbone geometry prevents uniqueness assessment throughout the
+affected chain; ordinary alternate backbone links remain unassessed. Native PDB
 TER segments and insertion-code groups retain their distinct indices. This tool
 does not apply bonds or change the reader's engine. See
 {ref}`Tutorial_Peptide_Bond_Candidates`.

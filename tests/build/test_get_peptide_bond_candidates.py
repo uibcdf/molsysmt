@@ -81,6 +81,178 @@ def test_adjacent_pair_roles_units_provenance_and_source_immutability():
     )
 
 
+def test_unique_method_recovers_reordered_source_groups_without_sorting_labels(
+    monkeypatch,
+):
+    records = _pdb(chains=("A", "A", "A"), group_ids=[900, 2, 5]).splitlines()
+    text = "\n".join([*records[10:15], *records[:5], *records[5:10], "END", ""])
+    source = msm.convert(text, to_form="molsysmt.MolSys", get_missing_bonds=False)
+    before = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
+    assert msm.build.get_peptide_bond_candidates(source)[
+        "bonded_atom_pairs"
+    ].tolist() == [[7, 10]]
+    original = msm.structure.get_distances
+
+    def reject_cartesian_product(*args, **kwargs):
+        assert kwargs.get("pairs"), (
+            "Backbone discovery must use the sparse neighbor route"
+        )
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(msm.structure, "get_distances", reject_cartesian_product)
+    report = msm.build.get_peptide_bond_candidates(
+        source, method="unique_backbone_distance"
+    )
+    assert report["bonded_atom_pairs"].tolist() == [[0, 12], [7, 10]]
+    assert report["group_pairs"].tolist() == [[2, 0], [1, 2]]
+    assert report["carbon_atom_indices"].tolist() == [12, 7]
+    assert report["nitrogen_atom_indices"].tolist() == [0, 10]
+    assert report["method"] == "unique_backbone_distance"
+    assert report["discovery"]["status"] == "assessed"
+    assert report["discovery"]["atom_indices"].tolist() == [0, 2, 5, 7, 10, 12]
+    np.testing.assert_allclose(
+        puw.get_value(report["distances"], to_unit="angstrom"), [1.4, 1.4]
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(source.structures.coordinates, to_unit="nm"), before
+    )
+    assert source.topology.n_bonds == 0
+
+
+@pytest.mark.parametrize("competition", ["outgoing", "incoming", "unsupported_group"])
+@pytest.mark.parametrize("selection", ["all", [2, 5]])
+def test_unique_method_checks_competing_unselected_or_unassessed_groups(
+    competition, selection
+):
+    source = _source(chains=("A", "A", "A"))
+    coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
+    if competition == "incoming":
+        coordinates[0, 12] = [0.10, 0, 0]
+    else:
+        coordinates[0, 10] = [0.14, 0, 0]
+    if competition == "unsupported_group":
+        source.topology.groups.loc[2, "group_name"] = "LIG"
+    msm.set(source, coordinates=puw.quantity(coordinates, "nm"))
+    report = msm.build.get_peptide_bond_candidates(
+        source, selection=selection, method="unique_backbone_distance"
+    )
+    assert report["bonded_atom_pairs"].tolist() == (
+        [[7, 10]] if competition == "incoming" and selection == "all" else []
+    )
+    assert "competing_backbone_partners" in report["links"][0]["reason_codes"]
+    assert report["discovery"]["atom_indices"].tolist() == [0, 2, 5, 7, 10, 12]
+    assert report["atom_indices"].tolist() == (
+        list(range(15)) if selection == "all" else selection
+    )
+
+
+@pytest.mark.parametrize("kwargs", [{"chains": ("A", "B")}, {"breaks": (0,)}])
+def test_unique_method_respects_chain_and_ter_boundaries(kwargs):
+    report = msm.build.get_peptide_bond_candidates(
+        _source(**kwargs), method="unique_backbone_distance"
+    )
+    assert report["bonded_atom_pairs"].shape == (0, 2)
+    assert report["discovery"]["status"] == "assessed"
+
+
+@pytest.mark.parametrize("invalid", ["alternate", "nonfinite"])
+def test_unique_method_reports_incomplete_geometry_outside_output_selection(invalid):
+    source = _source(chains=("A", "A", "A"), alternate=invalid == "alternate")
+    if invalid == "nonfinite":
+        coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
+        coordinates[0, 0] = np.nan
+        msm.set(source, coordinates=puw.quantity(coordinates, "nm"))
+    report = msm.build.get_peptide_bond_candidates(
+        source, selection=[7, 10], method="unique_backbone_distance"
+    )
+    assert report["bonded_atom_pairs"].shape == (0, 2)
+    assert report["discovery"]["status"] == "partial"
+    assert report["discovery"]["blocked_chain_indices"].tolist() == [0]
+    assert (
+        "uniqueness_unassessed_incomplete_backbone_geometry"
+        in report["links"][0]["reason_codes"]
+    )
+
+
+def test_unique_method_distinguishes_unevaluated_and_empty_discovery():
+    source = _source()
+    missing = msm.build.get_peptide_bond_candidates(
+        source.topology, method="unique_backbone_distance"
+    )
+    assert missing["discovery"]["status"] == "unassessed"
+    assert missing["discovery"]["reason_codes"] == ["coordinates_unavailable"]
+    coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
+    coordinates[0, 5] = [20, 0, 0]
+    msm.set(source, coordinates=puw.quantity(coordinates, "nm"))
+    empty = msm.build.get_peptide_bond_candidates(
+        source, method="unique_backbone_distance"
+    )
+    assert empty["bonded_atom_pairs"].shape == (0, 2)
+    assert empty["discovery"]["status"] == "assessed"
+    assert empty["discovery"]["reason_codes"] == []
+
+
+def test_unique_method_reports_invalid_chain_membership():
+    source = _source()
+    msm.set(source, element="atom", selection=list(range(5)), chain_index=[None] * 5)
+    report = msm.build.get_peptide_bond_candidates(
+        source, method="unique_backbone_distance"
+    )
+    assert report["bonded_atom_pairs"].shape == (0, 2)
+    assert report["discovery"]["status"] == "partial"
+    assert report["discovery"]["unassessed_group_indices"].tolist() == [0]
+    assert "missing_or_ambiguous_chain" in report["discovery"]["reason_codes"]
+
+
+def test_unique_method_reports_invalid_box_without_searching_neighbors(monkeypatch):
+    source = _source()
+    msm.set(source, box=puw.quantity(np.zeros((1, 3, 3)), "nm"))
+
+    def reject_neighbors(*args, **kwargs):
+        pytest.fail("An invalid box must not reach the neighbor kernel")
+
+    monkeypatch.setattr(msm.structure, "get_neighbors", reject_neighbors)
+    report = msm.build.get_peptide_bond_candidates(
+        source, pbc=True, method="unique_backbone_distance"
+    )
+    assert report["discovery"]["status"] == "unassessed"
+    assert report["discovery"]["reason_codes"] == ["invalid_periodic_box"]
+    assert report["bonded_atom_pairs"].shape == (0, 2)
+
+
+def test_unique_method_preserves_empty_output_selection():
+    report = msm.build.get_peptide_bond_candidates(
+        _source(), selection=[], method="unique_backbone_distance"
+    )
+    assert report["bonded_atom_pairs"].shape == (0, 2)
+    assert report["bonded_atom_pairs"].dtype == np.int64
+    assert report["atom_indices"].size == 0
+    assert report["discovery"]["status"] == "assessed"
+    assert report["discovery"]["atom_indices"].tolist() == [0, 2, 5, 7]
+
+
+@pytest.mark.parametrize("coordinates_available", [True, False])
+def test_unique_method_reports_empty_endpoint_inventory_without_requiring_coordinates(
+    coordinates_available,
+):
+    text = "ATOM      1  O   HOH A   1       0.000   0.000   0.000  1.00  0.00           O  \nEND\n"
+    source = msm.convert(text, to_form="molsysmt.MolSys", get_missing_bonds=False)
+    report = msm.build.get_peptide_bond_candidates(
+        source if coordinates_available else source.topology,
+        method="unique_backbone_distance",
+    )
+    assert report["bonded_atom_pairs"].shape == (0, 2)
+    assert report["discovery"]["atom_indices"].size == 0
+    assert report["discovery"]["status"] == "assessed"
+    assert report["discovery"]["reason_codes"] == ["no_backbone_endpoints"]
+
+
+@pytest.mark.parametrize("method", ["unknown", None, 1])
+def test_unsupported_method_is_rejected_at_the_public_boundary(method):
+    with pytest.raises(ArgumentError):
+        msm.build.get_peptide_bond_candidates(_source(), method=method)
+
+
 @pytest.mark.parametrize("kwargs", [{"chains": ("A", "B")}, {"breaks": (0,)}])
 def test_different_chains_and_same_label_ter_segments_are_excluded(kwargs):
     source = _source(**kwargs)
@@ -157,6 +329,9 @@ def test_alternate_backbone_sites_are_not_combined(tmp_path, file_input):
 
 
 @pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
+@pytest.mark.parametrize(
     "kind, order, candidate",
     [
         ("covalent", 1, True),
@@ -166,13 +341,13 @@ def test_alternate_backbone_sites_are_not_combined(tmp_path, file_input):
     ],
 )
 def test_existing_peptide_edge_is_preserved_and_contradictions_block_candidates(
-    kind, order, candidate
+    kind, order, candidate, method
 ):
     source = _source()
     source.topology.add_bonds([[2, 5]])
     msm.set(source, element="bond", bond_type=kind, bond_order=order)
     before = source.topology.bonds.copy(deep=True)
-    report = msm.build.get_peptide_bond_candidates(source)
+    report = msm.build.get_peptide_bond_candidates(source, method=method)
     assert report["bonded_atom_pairs"].tolist() == ([[2, 5]] if candidate else [])
     if candidate:
         assert report["missing_mask"].tolist() == [False]
@@ -190,10 +365,13 @@ def test_backbone_endpoint_with_another_declared_external_partner_is_blocked():
     assert "backbone_endpoint_already_linked" in report["links"][0]["reason_codes"]
 
 
+@pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
 @pytest.mark.parametrize("file_input", [False, True])
 @pytest.mark.parametrize("structure_index", [0, 1])
 def test_structure_indices_and_state_association_use_one_bounded_structure(
-    tmp_path, monkeypatch, file_input, structure_index
+    tmp_path, monkeypatch, file_input, structure_index, method
 ):
     source = _source()
     first = puw.get_value(source.structures.coordinates, to_unit="nm")[0]
@@ -216,7 +394,10 @@ def test_structure_indices_and_state_association_use_one_bounded_structure(
             _h5msm05_modular, "read_independent_structures", reject_full_read
         )
     report = msm.build.get_peptide_bond_candidates(
-        source, structure_indices=structure_index, chemical_state="structure"
+        source,
+        structure_indices=structure_index,
+        chemical_state="structure",
+        method=method,
     )
     assert report["structure_index"] == structure_index
     assert report["bonded_atom_pairs"].tolist() == (
@@ -224,9 +405,12 @@ def test_structure_indices_and_state_association_use_one_bounded_structure(
     )
 
 
+@pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
 @pytest.mark.parametrize("pbc", [False, True])
 @pytest.mark.parametrize("unit", ["nm", "pm"])
-def test_units_and_minimum_image_geometry(pbc, unit):
+def test_units_and_minimum_image_geometry(pbc, unit, method):
     source = _source()
     coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
     coordinates[0, 5, 0] = 0.86
@@ -237,10 +421,12 @@ def test_units_and_minimum_image_geometry(pbc, unit):
     )
     with puw.context(standard_units=[unit, "ps"]):
         report = msm.build.get_peptide_bond_candidates(
-            source, pbc=pbc, max_bond_length="150 pm"
+            source, pbc=pbc, max_bond_length="150 pm", method=method
         )
     assert report["bonded_atom_pairs"].tolist() == ([[2, 5]] if pbc else [])
     assert report["pbc_applied"] == pbc
+    if method == "unique_backbone_distance":
+        assert report["discovery"]["pbc_applied"] == pbc
     if pbc:
         np.testing.assert_allclose(
             puw.get_value(report["distances"], to_unit="nm"), [0.14]
@@ -262,7 +448,10 @@ def test_topology_without_coordinates_does_not_fabricate_a_geometry():
     assert "coordinates_unavailable" in report["links"][0]["reason_codes"]
 
 
-def test_raw_pdb_query_does_not_import_openmm(monkeypatch):
+@pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
+def test_raw_pdb_query_does_not_import_openmm(monkeypatch, method):
     original = builtins.__import__
 
     def reject_openmm(name, *args, **kwargs):
@@ -271,7 +460,7 @@ def test_raw_pdb_query_does_not_import_openmm(monkeypatch):
         return original(name, *args, **kwargs)
 
     monkeypatch.setattr(builtins, "__import__", reject_openmm)
-    report = msm.build.get_peptide_bond_candidates(_pdb())
+    report = msm.build.get_peptide_bond_candidates(_pdb(), method=method)
     assert report["bonded_atom_pairs"].tolist() == [[2, 5]]
 
 
@@ -289,27 +478,36 @@ def test_atom_reordering_keeps_carbon_and_nitrogen_roles_separate_from_pair_sort
     assert report["nitrogen_atom_indices"].tolist() == [1]
 
 
-def test_terminal_oxt_blocks_an_outgoing_candidate():
+@pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
+def test_terminal_oxt_blocks_an_outgoing_candidate(method):
     text = _pdb().replace("END\n", "")
     text += f"ATOM  {11:5d} {'OXT':^4} ALA A{1:4d}    {0.0:8.3f}{-1.2:8.3f}{0.0:8.3f}{1.0:6.2f}{0.0:6.2f}           O  \nEND\n"
-    report = msm.build.get_peptide_bond_candidates(text)
+    report = msm.build.get_peptide_bond_candidates(text, method=method)
     assert report["bonded_atom_pairs"].shape == (0, 2)
     assert "outgoing_terminal_carboxyl_oxygen" in report["links"][0]["reason_codes"]
 
 
-def test_side_chain_alternate_sites_do_not_block_a_unique_backbone_pair():
+@pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
+def test_side_chain_alternate_sites_do_not_block_a_unique_backbone_pair(method):
     source = _source(alternate=True)
     source.structures.alternate_location = [
         {4: source.structures.alternate_location[0][2]}
     ]
-    assert msm.build.get_peptide_bond_candidates(source)[
+    assert msm.build.get_peptide_bond_candidates(source, method=method)[
         "bonded_atom_pairs"
     ].tolist() == [[2, 5]]
 
 
+@pytest.mark.parametrize(
+    "method", ["adjacent_backbone_distance", "unique_backbone_distance"]
+)
 @pytest.mark.parametrize("file_input", [False, True])
 def test_unassociated_structure_does_not_guess_reference_chemistry(
-    file_input, tmp_path
+    file_input, tmp_path, method
 ):
     source = _source()
     msm.set(source, element="system", structure_chemical_state_index=[None])
@@ -317,7 +515,9 @@ def test_unassociated_structure_does_not_guess_reference_chemistry(
         filename = str(tmp_path / "unassociated.h5msm")
         msm.convert(source, to_form=filename)
         source = filename
-    report = msm.build.get_peptide_bond_candidates(source, chemical_state="structure")
+    report = msm.build.get_peptide_bond_candidates(
+        source, chemical_state="structure", method=method
+    )
     assert report["chemical_state_index"] is None
     assert report["bonded_atom_pairs"].shape == (0, 2)
     assert "group_template_unassessed" in report["links"][0]["reason_codes"]

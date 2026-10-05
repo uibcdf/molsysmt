@@ -26,6 +26,17 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    if (
+        caller
+        == "molsysmt.build.get_peptide_bond_candidates.get_peptide_bond_candidates"
+    ):
+        if isinstance(method, str) and method in {
+            "adjacent_backbone_distance",
+            "unique_backbone_distance",
+        }:
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if caller == "molsysmt.topology.get_rotatable_bonds.get_rotatable_bonds":
         if isinstance(method, str) and method in {
             "acyclic_single",

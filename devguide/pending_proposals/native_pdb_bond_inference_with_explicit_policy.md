@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** 2026-10-03 by DockingMT; provider triage on 2026-10-05.
 **Status:** Direct-file disabled-inference policy corrected and contract-tested;
-native inference and explicit engine/failure provenance remain proposed.
+heavy-template and two bounded peptide candidate policies are contract-tested;
+native reader inference and explicit engine/failure provenance remain proposed.
 
 ## What
 
@@ -463,3 +464,132 @@ remaps sparse keys in supported selected structural conversions. Its 107 focused
 controls include full YAML geometry, not only labels. #304 remains partial:
 source polymer order, hydrogen handling and native-reader integration are still
 pending.
+
+## Source-order-independent peptide candidates — 2026-10-05
+
+**Implemented and contract-tested.** The public form-agnostic
+`build.get_peptide_bond_candidates()` accepts the optional keyword-only
+`method='unique_backbone_distance'`. Existing positional arguments, defaults and
+the `adjacent_backbone_distance` policy are retained. Argument digestion validates
+the named method; the signature extension and its guard are declared in the API
+registry. No reader policy or stored graph is changed.
+
+### Policy and ownership
+
+The method discovers close named C/N endpoints in the same defined source chain
+without sorting group IDs, relabeling source axes or requiring adjacent storage
+positions. It delegates threshold search to the existing public
+`structure.get_neighbors(..., output_type='csr')` Rust cell-list route, then uses
+the existing paired distance tool and shared chemical eligibility checks. There
+is no new compiled primitive, geometric utility or parser-local inference engine.
+The scientific orchestration remains private behind the supported build tool.
+
+Discovery examines all existing named backbone endpoints before restricting the
+output selection. Several incoming groups near one carbon, or several outgoing
+groups near one nitrogen, block the affected proposals. Unselected and chemically
+unassessed groups still participate in this conservative competition test;
+restricting an output selection cannot manufacture uniqueness. The method retains
+the exact heavy-template, OXT, stored-edge conflict, positive finite distance and
+effective 0.153 nm ceiling checks. Same-group pairs and different chain segments
+are excluded. Native TER boundaries retain their established adapter semantics.
+
+Non-finite or alternate backbone geometry blocks uniqueness assessment throughout
+the affected source chain, including sites outside the output selection. This is
+an explicit conservative first policy, not alternate-conformer reconstruction.
+Side-chain alternate sites do not block it. Discovery reports its examined source
+atom indices, assessed/partial/unassessed status, reason codes, blocked chains
+and groups with missing/ambiguous chain membership. An assessed empty search is
+distinct from absent coordinates, unsupported alternate evidence or an invalid
+requested periodic box. The nested group-coverage report audits the full source
+for this method; the outer atom indices still identify the requested output scope.
+Discovery also records whether its search used PBC, including an assessed search
+with zero output candidates; the outer PBC flag describes eligible-pair geometry.
+
+Uniqueness among existing named endpoints is geometric candidate evidence. It
+does not certify polymer sequence, missing atoms, valence, bond order, protonation
+or a complete chemical graph. The method is descriptively named and uses the
+existing heuristic distance ceiling; no independently qualified literature origin,
+new attribution boundary or scientific validation is claimed.
+
+### Executed controls
+
+```bash
+python -m pytest --receptor=llm \
+    tests/build/test_get_peptide_bond_candidates.py \
+    tests/build/test_get_covalent_bond_candidates.py \
+    tests/build/test_get_residue_chemical_coverage.py \
+    tests/build/get_missing_bonds/test_peptide_candidates.py \
+    tests/form/file_h5msm/test_structures_v05_probe.py \
+    --doctest-modules molsysmt/build/get_peptide_bond_candidates.py \
+        molsysmt/build/get_covalent_bond_candidates.py \
+    --junitxml=/tmp/molsysmt-304-unique-final.xml
+```
+
+Receipt: **184 passed in 36.29 s**, with 32 expected legacy H5MSM deprecations
+and three existing pandas setter FutureWarnings. Earlier overlapping 77/173/182
+controls are not additional unique tests. Literal controls cover reordered source
+groups and nonsequential labels, incoming/outgoing competition, unselected and
+unassessed competitors, chain/TER boundaries, full-scope incomplete geometry,
+typed empty selections, unknown methods, absent coordinates, invalid boxes,
+stored types/orders, OXT, side-chain alternatives, unresolved states, blocked
+OpenMM imports and one-structure H5MSM 0.5 access. A guard rejects a Cartesian
+distance-product call during sparse discovery. PBC and pm output policy are
+executed for both methods. These are contract controls, not RSS/throughput
+benchmarks or complete scientific validation.
+
+Docstring, API signature, dependency, Ruff and 156-module course checks pass.
+Foundations, Toolbox, Cookbook and Common Core 12 describe the same boundaries;
+notebook executable cells and outputs are unchanged. The first incremental
+Sphinx HTML build completes with 58 warning entries, including existing course
+directives, heading levels and undefined labels. The final incremental build
+completes with **17 warning entries** after the discovery-PBC documentation update.
+No clean documentation build or equal
+warning count with a differently rebuilt prior checkpoint is claimed.
+
+### Original-source probe and pair comparison
+
+```bash
+python devtools/scripts/probe_covalent_bond_candidates.py \
+    molsysmt/data/pdb/181l.pdb \
+    "$HOME/repos@others/AutoDock-Vina/example/basic_docking/solution/1iep_receptorH.pdb" \
+    --include-peptide --peptide-method unique_backbone_distance \
+    --output /tmp/native_unique_peptide_candidate_profile.json
+```
+
+The retained receipt is
+[`native_unique_peptide_candidate_profile_20261005.json`](../../devtools/data/native_unique_peptide_candidate_profile_20261005.json).
+Original source checksums and heavy intra-group candidate hashes match the prior
+probe. 181L retains **161** peptide candidates. Original 1IEP produces **273**,
+retaining all 271 previous candidates and adding these directional source pairs:
+
+| Source atom pair | Source group pair (C group, N group) | Observed group labels | C-N distance |
+| --- | --- | --- | --- |
+| [3408, 3421] | [213, 0] | MET 437 / SER 438 | 1.3294882474 angstroms |
+| [3425, 3431] | [0, 214] | SER 438 / PRO 439 | 1.3434381266 angstroms |
+
+These are indices; the observed group IDs remain labels. Directly comparing with
+`msm.convert(original_path, to_form='molsysmt.MolSys', get_missing_bonds=True)`
+in the existing OpenMM-enabled environment yields 4,469 stored edges. Every one
+of the 273 peptide candidates, including the two new pairs, occurs in that edge
+inventory. The compared atom IDs, names, elements, group/chain indices and
+coordinates are equal. This is parity with the existing enabled-reader route,
+not independent chemical ground truth or hydrogen coverage. Source bytes and
+the explicit-only input coordinates remain unchanged.
+
+Linux x86_64, Python 3.14.7 / NumPy 2.4.6, released ArgDigest 0.13.0 source
+overlay and the installed locally built PyUnitWizard 0.28.1 minimum-provider
+wheel, based on `2bb60b304` plus this change. The enabled-reader comparison uses
+the existing OpenMM 8.6.1 environment. The original editable MolSysMT version in
+the receipt is retained; source commit identity is separate. No installed
+MolSysMT release, full-suite or complete platform qualification is claimed.
+
+### Remaining #304 work
+
+The optional geometric policy covers this observed source-order disagreement;
+independently declared polymer sequence remains unassessed. Next qualify
+hydrogen naming/template edges, then compose supported reports in the selectable
+native reader route with explicit absence/failure diagnostics and persisted
+inference provenance. Terminal caps, other supported groups, disulfide composition,
+unknown-group geometric policy and representative time/memory measurements remain
+separate work. Retain the current reader default and the OpenMM route. #304 stays
+partial; this checkpoint does not claim complete native receptor preparation.

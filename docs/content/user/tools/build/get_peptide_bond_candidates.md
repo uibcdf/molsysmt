@@ -1,7 +1,7 @@
 (Tutorial_Peptide_Bond_Candidates)=
 # Get peptide bond candidates
 
-*Inspecting adjacent backbone C–N evidence without changing the system.*
+*Inspecting bounded backbone C–N evidence without changing the system.*
 
 Use {func}`molsysmt.build.get_peptide_bond_candidates` to review an experimental,
 bounded peptide-link report before choosing a reconstruction policy.
@@ -34,6 +34,48 @@ chain labels repeat. Insertion-code groups remain distinct even when their group
 IDs are equal. The report respects those axes. An adapter that discarded a file
 boundary cannot supply it later merely through a group or chain label.
 
+## Inspecting groups stored out of polymer order
+
+Choose `method='unique_backbone_distance'` when source group order may differ
+from the polymer's physical order:
+
+```python
+report = msm.build.get_peptide_bond_candidates(
+    molsys, structure_indices=0, method='unique_backbone_distance')
+```
+
+This optional policy searches close named C/N endpoints within each defined
+source chain using {func}`molsysmt.structure.get_neighbors`. It keeps atom and
+group indices unchanged and never sorts group IDs. A carbon with multiple
+nearby incoming groups, or a nitrogen with multiple nearby outgoing groups,
+leaves those proposals unassessed with `competing_backbone_partners`.
+Competition includes endpoints outside your output selection and endpoints in
+chemically unassessed groups. Selecting two atoms cannot hide a competing third
+atom and make a proposal unique.
+
+The same template, terminal, stored-edge and distance checks still apply.
+Discovery checks the entire source backbone; `group_coverage` therefore audits
+all source groups for this policy. Outer `atom_indices` still describes your
+output selection. `links` lists nearby proposals between selected groups,
+rather than every distant group pair. No dense atom-pair matrix is constructed.
+
+The extra `discovery` record contains the examined source `atom_indices`,
+`status`, `reason_codes`, `blocked_chain_indices` and `unassessed_group_indices`.
+Its `pbc_applied` records whether periodic images were used during discovery,
+including an evaluated search with no output candidates; the outer flag
+describes the subsequent eligible-pair distance evaluation.
+An `assessed` empty search differs from `unassessed` missing coordinates or an
+invalid requested periodic box. A `partial` search identifies unresolved chain
+memberships or chains with non-finite/alternate backbone geometry. This first
+conservative policy blocks uniqueness throughout a chain with incomplete
+backbone geometry, including evidence outside your selection. Side-chain
+alternates do not block it.
+
+Uniqueness is geometric evidence among existing named endpoints. It does not
+recover an independently declared sequence, infer missing atoms, establish
+valence or certify peptide chemistry. The default remains
+`adjacent_backbone_distance`; the PDB reader is unchanged.
+
 ## Reviewing the result
 
 The detached dictionary uses schema `molsysmt.peptide_bond_candidates@1`.
@@ -45,7 +87,7 @@ The detached dictionary uses schema `molsysmt.peptide_bond_candidates@1`.
 | `carbon_atom_indices`, `nitrogen_atom_indices` | Roles remain explicit even when source atom order differs. |
 | `distances` | Aligned length quantities honoring the active output-unit policy. |
 | `missing_mask` | True if no stored edge has these endpoints. Existing edges are preserved. |
-| `links` | Examined selected group boundaries, status, reasons and measured distance when evaluated. |
+| `links` | Examined selected group proposals, status, reasons and measured distance when evaluated. |
 | `group_coverage` | Exact heavy-template report, including template hashes and unassessed groups. |
 | `parameters` | Requested and effective length ceilings, with units, and the PBC flag. |
 | `pbc_applied` | Whether a periodic box was used to evaluate the eligible pairs. |
