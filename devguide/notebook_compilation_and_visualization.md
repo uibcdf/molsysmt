@@ -251,3 +251,28 @@ When adding or modifying notebooks:
    `gh workflow run sphinx_docs_to_gh_pages.yaml --ref main` and confirm the result
    on the published URL, which is `http://www.uibcdf.org/molsysmt/` — lower case,
    and not the `https://uibcdf.org/MolSysMT` that several project files still name.
+
+## 5. Refreshing legacy transparent export headers
+
+`uibcdf/molsysmt#199` tracks exported HTML whose head predates the embedded
+`color-scheme: light dark` correction in `uibcdf/molsysviewer#34`. Updating
+`viewer.js` cannot replace that head. A transparent document must install the
+provider's correction before its body is painted, and only when embedded;
+standalone exports retain their original background behavior.
+
+For this header-only migration, generate a template with the public exporter,
+then run the bounded migration from the repository root:
+
+```bash
+python -c "import molsysviewer as msv; msv.MolSysView().export.html('/tmp/molsysmt-transparent-template.html', shared_runtime='docs/_static', background='transparent')"
+python docs/generate_static_views/refresh_transparent_headers.py /tmp/molsysmt-transparent-template.html --evidence /tmp/molsysmt-transparent-header-evidence.json
+```
+
+The migration copies the provider's executable head script, preserves every
+byte after `</head>` and records before/after hashes. It retains scientific
+scene data, scene producer versions, controls and runtime references. This is
+not scene recomputation or runtime regeneration. Full scene changes still use
+the original generator scripts. The regression guard checks all committed
+transparent exports and rejects corrections in inert scripts, comments or the
+body. Browser qualification must also check an actual embedded document in
+both host themes; a source-code token alone does not establish transparency.

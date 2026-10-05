@@ -37,12 +37,13 @@ Reports may lag later direct or skip-CI commits and do not certify a full matrix
 
 ---
 
-MolSysMT is a toolkit for working with molecular systems. One uniform API lets you
+MolSysMT is a core molecular-system library in the MolSysSuite ecosystem.
+One uniform API lets you
 build a system, repair and prepare it, ask it questions, modify it, analyse its
 structures and look at it — without changing library every time the task changes.
 
 It has its own molecular model, its own storage format, its own preparation
-pipeline and its own compiled compute kernels. It also speaks 89 other forms —
+pipeline and its own compiled compute kernels. It interoperates with other forms —
 files, libraries and in-memory objects — so a system can arrive or leave in
 whatever shape the rest of your work needs.
 
@@ -62,18 +63,22 @@ interoperates with them, and hands work over to them when that is what you want.
 ```python
 import molsysmt as msm
 
-# A raw structure, prepared and handed to OpenMM — without leaving Python
-mol = msm.convert('1vii.pdb', to_form='molsysmt.MolSys')
-mol = msm.build.add_missing_terminal_cappings(mol, pH=7.4, engine='MolSysMT')
-mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
-mol = msm.build.solvate(mol, box_shape='cubic', clearance='12 angstroms',
-                        water_model='TIP3P', ionic_strength='0.15 molar')
-sim = msm.convert(mol, to_form='openmm.Simulation', forcefield='AMBER14')
+# Preparing a bundled protein with the experimental native preparation tools
+molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
+molsys = msm.build.add_missing_terminal_cappings(molsys, pH=7.4, engine='MolSysMT')
+molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4, engine='MolSysMT')
+molsys = msm.build.solvate(molsys, box_shape='cubic', clearance='12 angstroms',
+                           water_model='TIP3P', ionic_strength='0.15 molar',
+                           engine='MolSysMT')
+
+# Optional handoff: this line requires OpenMM
+sim = msm.convert(molsys, to_form='openmm.Simulation', forcefield='AMBER14')
 ```
 
-Every step there but the last is MolSysMT's own: the preparation needs no OpenMM
-or PDBFixer installation, and the analysis kernels are native. The final line is a
-handoff because you asked for one.
+The preparation steps explicitly select MolSysMT's native engine and need no
+OpenMM or PDBFixer installation. Native preparation is **experimental** and
+supports documented chemical templates and profiles, rather than arbitrary
+chemistry. The final line hands the prepared system to OpenMM.
 
 
 ## Installation
@@ -114,34 +119,35 @@ Building from source requires a Rust toolchain.
 ```python
 import molsysmt as msm
 
-mol = msm.convert(msm.systems['Trp-Cage']['1l2y.h5msm'])
+molsys = msm.convert(msm.systems['Trp-Cage']['1l2y.h5msm'])
 
-n_atoms, n_groups, n_chains = msm.get(mol, n_atoms=True, n_groups=True, n_chains=True)
+n_atoms, n_groups, n_chains = msm.get(molsys, n_atoms=True, n_groups=True, n_chains=True)
 # [304, 20, 1]
 
-seq = msm.convert(mol, to_form='string:amino_acids_1')
+seq = msm.convert(molsys, to_form='string:amino_acids_1')
 # 'NLYIQWLKDGGPSSGRPPPS'
 
-ca = msm.select(mol, selection='atom_name=="CA"')
+ca = msm.select(molsys, selection='atom_name=="CA"')
 # 20 atom indices
 ```
 
-### Structure preparation
+### Experimental structure preparation
 
 ```python
-mol = msm.convert('raw_structure.pdb', to_form='molsysmt.MolSys')
+molsys = msm.convert('raw_structure.pdb', to_form='molsysmt.MolSys',
+                     get_missing_bonds=True, bond_inference_engine='MolSysMT')
 
 # Diagnose
-missing_heavy = msm.build.get_missing_heavy_atoms(mol)
-missing_caps  = msm.build.get_missing_terminal_cappings(mol)
+missing_heavy = msm.build.get_missing_heavy_atoms(molsys)
+missing_caps  = msm.build.get_missing_terminal_cappings(molsys)
 
 # Repair — no external dependencies required
-mol = msm.build.add_missing_heavy_atoms(mol, engine='MolSysMT')
-mol = msm.build.add_missing_terminal_cappings(mol, engine='MolSysMT')
-mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
+molsys = msm.build.add_missing_heavy_atoms(molsys, engine='MolSysMT')
+molsys = msm.build.add_missing_terminal_cappings(molsys, engine='MolSysMT')
+molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4, engine='MolSysMT')
 
 # Solvate
-mol = msm.build.solvate(mol, box_shape='truncated octahedral',
+molsys = msm.build.solvate(molsys, box_shape='truncated octahedral',
                         clearance='12 angstroms', water_model='TIP3P',
                         ionic_strength='0.15 molar', engine='MolSysMT')
 ```
@@ -149,30 +155,30 @@ mol = msm.build.solvate(mol, box_shape='truncated octahedral',
 ### Structure analysis
 
 ```python
-rmsd = msm.structure.get_rmsd(mol, selection='backbone')
-rg   = msm.structure.get_radius_of_gyration(mol)
+rmsd = msm.structure.get_rmsd(molsys, selection='backbone')
+rg   = msm.structure.get_radius_of_gyration(molsys)
 
-quartets = msm.topology.get_dihedral_quartets(mol, phi=True)
-phi      = msm.structure.get_dihedral_angles(mol, dihedral_quartets=quartets)
+quartets = msm.topology.get_dihedral_quartets(molsys, phi=True)
+phi      = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=quartets)
 
-ss = msm.structure.get_secondary_structure(mol)
+# Experimental secondary-structure assignment
+ss = msm.structure.get_secondary_structure(molsys)
 ```
 
 Results carry physical units. The kernels behind them are compiled and shipped
-with the package: there is no just-in-time compilation and no warm-up cost on the
-first call.
+with the package, avoiding a just-in-time compilation step.
 
 ### Interoperability
 
 ```python
-traj = msm.convert(mol,  to_form='mdtraj.Trajectory')
-top  = msm.convert(mol,  to_form='openmm.Topology')
-pmd  = msm.convert(mol,  to_form='parmed.Structure')
-rd   = msm.convert(mol,  to_form='rdkit.Mol')
+traj = msm.convert(molsys,  to_form='mdtraj.Trajectory')
+top  = msm.convert(molsys,  to_form='openmm.Topology')
+pmd  = msm.convert(molsys,  to_form='parmed.Structure')
+rd   = msm.convert(molsys,  to_form='rdkit.Mol')
 
 back = msm.convert(traj, to_form='molsysmt.MolSys')
 
-msm.compare(mol, back, n_atoms=True, n_groups=True, n_bonds=True,
+msm.compare(molsys, back, n_atoms=True, n_groups=True, n_bonds=True,
             output_type='dictionary')
 # {'n_atoms': True, 'n_groups': True, 'n_bonds': True}
 ```
@@ -180,7 +186,7 @@ msm.compare(mol, back, n_atoms=True, n_groups=True, n_bonds=True,
 ### Visualisation
 
 ```python
-view = msm.view(mol)
+view = msm.view(molsys)
 view  # inline in Jupyter
 ```
 
@@ -194,16 +200,24 @@ view  # inline in Jupyter
   works on a PDB file, an MDTraj Trajectory, an OpenMM Topology or a native
   `MolSys`.
 - **A native molecular model.** `MolSys`, `Topology`, `Structures` and
-  `MolSysBuilder` hold topology, structures, chemical state and molecular
-  mechanics, preserving element identifiers rather than renumbering them.
-- **Native structure preparation.** Missing heavy atoms, terminal cappings,
-  hydrogen placement, solvation and ions — without requiring OpenMM or PDBFixer.
+  `MolSysBuilder` hold topology and structures, preserving element identifiers.
+  The experimental `molsysmt.ChemicalStates` and `molsysmt.Interactions` domains
+  store chemical assignments and named interaction analyses. Molecular mechanics
+  remains a minimal experimental domain.
+- **Experimental native structure preparation.** `msm.build` supplies missing
+  heavy atoms, terminal cappings, hydrogen placement, solvation and ions for its
+  supported templates and profiles. Select `engine='MolSysMT'` explicitly to
+  prepare these systems without requiring OpenMM or PDBFixer.
 - **Native compute in Rust.** Distances, contacts, neighbour lists, RMSD and
-  superposition, radius of gyration, RMSF, principal axes, PCA, SASA, dihedral
-  angles and periodic-boundary handling. Precompiled, with no JIT and no warm-up;
+  superposition, radius of gyration, principal axes, PCA, dihedral
+  angles and periodic-boundary handling. Precompiled, with no JIT compilation;
   parallelism is configurable per session or per call.
-- **A native storage format.** H5MSM keeps topology, structures and metadata
-  together in one HDF5-based file.
+- **Experimental analysis.** `msm.structure.get_rmsf`, `msm.physchem.get_sasa`,
+  `msm.structure.get_secondary_structure` and the `msm.interactions` detectors
+  offer analysis methods under the experimental API contract.
+- **A native storage format.** H5MSM 0.5 stores topology, structures, chemical
+  states and named interaction analyses as independently optional domains.
+  Nonempty molecular-mechanics data is rejected until a later format supports it.
 - **Visualisation** in notebooks through MolSysViewer, with optional NGLView
   interoperability.
 - **No heavy mandatory dependencies.** MDTraj, MDAnalysis, OpenMM and RDKit are
@@ -212,17 +226,18 @@ view  # inline in Jupyter
 
 ## Supported forms
 
-MolSysMT works with **89 forms** across files, libraries and in-memory objects,
-each classified in an explicit support tier:
+MolSysMT works with files, libraries and in-memory objects, each classified in
+an explicit support tier. The [form contract](devguide/forms_and_conversions.md) describes these tiers;
+the documentation's supported-forms catalog reports the current registry.
 
-| Tier | Count | What it means |
-|------|------:|---------------|
-| **Tier 1** — stable | 75 | Fully supported, covered by the form-adapter delivery gate |
-| **Tier 2** — best effort | 3 | Usable, narrower guarantees |
-| **Tier 3** — experimental | 11 | Present, not yet contract-guaranteed |
+| Tier | What it means |
+|------|---------------|
+| **Tier 1** — stable | Contractual routes, checked by the form-adapter delivery gate with documented accepted debt |
+| **Tier 2** — best effort | Usable, narrower guarantees |
+| **Tier 3** — experimental | Present, not yet contract-guaranteed |
 
 They include PDB, mmCIF and BinaryCIF; H5MSM, XTC, DCD, GRO, MDCRD and XYZ; PSF,
-PRMTOP and TOP topologies; MOL2 and SMILES; PDB, UniProt and AlphaFold
+PRMTOP and TOP topologies; MOL2, SDF, PDBQT and SMILES; PDB, UniProt and AlphaFold
 identifiers and amino-acid sequence strings; and the object models of MDTraj,
 MDAnalysis, OpenMM, ParmEd, PyTraj, RDKit, OpenFF, PDBFixer, NetworkX, NGLView
 and MolSysViewer.
@@ -236,7 +251,7 @@ as lossless, and not every pair of forms is connected. Use
 ## Documentation
 
 Full documentation, tutorials and API reference:
-**https://www.uibcdf.org/MolSysMT/**
+**https://www.uibcdf.org/molsysmt/**
 
 **The Four Paths of the MolSysMT Master** — a 156-notebook course: a 20-module
 common core followed by four applied paths.
@@ -277,7 +292,7 @@ MolSysMT is distributed under the MIT license. See [LICENSE](LICENSE) for detail
 
 ### Contributors
 
-See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the full list.
+See the [GitHub contributors](https://github.com/uibcdf/molsysmt/graphs/contributors).
 
 
 ## Citation

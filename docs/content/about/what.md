@@ -1,25 +1,28 @@
 # What is MolSysMT?
 
-MolSysMT -**Mol**ecular **Sys**tems **M**ulti**T**oolkit - is a scientific
-open-source Python library for working with molecular systems. One uniform API
-lets you build a system, repair and prepare it, ask it questions, modify it,
-analyse its structures and visualise it, without changing library every time the
-task changes.
+MolSysMT -**Mol**ecular **Sys**tems **M**ulti**T**oolkit - is a core molecular-system
+library in the MolSysSuite ecosystem. This open-source Python library offers one
+uniform API for building, repairing, preparing, querying, modifying, analysing
+and visualising molecular systems, without changing library every time the task
+changes.
 
 This library was developed to provide a user-friendly interface for
 computational molecular biology labs, such as the
-[UIBCDF](https://www.uibcdf.org/), to use in their research. It is the core of
-the MolSysSuite ecosystem.
+[UIBCDF](https://www.uibcdf.org/), to use in their research.
 
 MolSysMT does its own work. It has its own molecular model, its own HDF5-based
-storage format, a structure-preparation pipeline that needs no external engine to
-add missing heavy atoms, terminal cappings or hydrogens and to solvate a system,
-and its own precompiled compute kernels for distances, contacts, neighbour lists,
-RMSD and superposition, principal axes, PCA, SASA, dihedral angles and periodic
-boundary conditions.
+storage format, an experimental structure-preparation pipeline with a native
+engine for supported templates and profiles. Select `engine='MolSysMT'` to
+add missing heavy atoms, terminal cappings or hydrogens and to solvate a system
+without an external engine. Its precompiled compute kernels cover distances,
+contacts, neighbour lists, RMSD and superposition, principal axes, PCA, dihedral
+angles and periodic boundary conditions. SASA, secondary-structure assignment,
+RMSF and interaction analyses remain experimental; see the
+[API stability registry](https://github.com/uibcdf/molsysmt/blob/main/devguide/api_stability_registry.md)
+for symbol-level guarantees.
 
 It is also deliberately open to the rest of the ecosystem. MolSysMT interoperates
-with 89 forms — files, libraries and in-memory objects — so a system can arrive or
+with other forms — files, libraries and in-memory objects — so a system can arrive or
 leave in whatever shape the rest of your workflow needs, and so you can hand work
 over to a specialised tool whenever that is what you want. It was never designed
 to replicate what MDAnalysis, MDTraj, PDBFixer, OpenMM, ParmEd, RDKit or NGLView
@@ -56,4 +59,3 @@ We hope you find it useful!
 <br/>
 
 <br/>
-

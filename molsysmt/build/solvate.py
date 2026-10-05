@@ -674,7 +674,7 @@ def solvate(
         from importlib.resources import files
 
         from molsysmt.basic import convert, get, merge, remove
-        from molsysmt.build import remove_overlapping_molecules
+        from molsysmt.build import add_missing_bonds, remove_overlapping_molecules
         from molsysmt.build._private import assign_selection_to_new_chain
         from molsysmt.structure import translate
 
@@ -830,7 +830,21 @@ def solvate(
 
         # ── 4. Load water template ───────────────────────────────────────────
         water_path = str(files("molsysmt.data.water").joinpath(tmpl_info["file"]))
-        water_tile = convert(water_path, to_form="molsysmt.MolSys", skip_digestion=True)
+        water_tile = convert(
+            water_path,
+            to_form="molsysmt.MolSys",
+            get_missing_bonds=False,
+            skip_digestion=True,
+        )
+        add_missing_bonds(water_tile, engine="MolSysMT", skip_digestion=True)
+        water_tile.topology.rebuild_molecules(force=True)
+        water_tile.topology.rebuild_chains(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_names=False,
+            redefine_types=True,
+        )
+        water_tile.topology.rebuild_entities(force=True)
 
         # ── 5. Tile water boxes to fill the simulation box ──────────────────
         # For non-orthogonal boxes, compute the bounding box of all 8 unit-cell

@@ -3,7 +3,8 @@ homepage:
   path: docs/index.ipynb
   agents_file: docs/index.AGENTS.md
   status: stable
-  description: Minimal linear homepage with logo, install snippet, interactive example,
+  description: Minimal linear homepage stating the core-library role in MolSysSuite
+    and experimental capability limits, with logo, install snippet, interactive example,
     and concept-DOI citation governed by the release contract.
 sections:
   user_guide:

@@ -15,7 +15,24 @@
   <script>
     if (window.self !== window.top) {
       var sheet = document.createElement("style");
-      sheet.textContent = "html, body { background: transparent !important; }";
+      // `color-scheme` is the other half, and without it the first half is
+      // invisible. A document that declares nothing is treated as light, and a
+      // light document whose html and body are transparent is painted over the
+      // browser's own base canvas -- which is **white**. Embedded in a light page
+      // that white matches the host and nobody notices; embedded in a dark one it
+      // is the opaque white rectangle of uibcdf/molsysviewer#34.
+      //
+      // Diagnosed by elimination in a real browser: every element from the WebGL
+      // canvas out to the host's <body> computed to rgba(0,0,0,0), Mol* reported
+      // `transparentBackground: true`, and setting the renderer's background to
+      // pure green changed nothing on screen. Nothing in either document was
+      // painting it. Setting this one property on the embedded document made the
+      // white disappear.
+      //
+      // `light dark` rather than a fixed value: the used scheme of an embedded
+      // document follows its embedder, so this makes the base canvas match the
+      // host in both directions instead of trading one wrong colour for another.
+      sheet.textContent = "html { color-scheme: light dark; } html, body { background: transparent !important; }";
       document.head.appendChild(sheet);
     }
   </script>

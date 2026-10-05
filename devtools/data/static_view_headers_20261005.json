@@ -1,0 +1,466 @@
+{
+  "template_sha256": "1938c821d1c2c2fa4f0bdeb16564dd5afc7552b533bec414e0eb7176844a09ec",
+  "exported_script_sha256": "915fe7ea4fb09e9020bdd8bf7cc240d38fd68a13071953cec8b8b1eae970b63a",
+  "views": [
+    {
+      "path": "docs/_static/views/1BRS_molecule_index_zero.html",
+      "changed": true,
+      "before_sha256": "130c41ac80cd89eccf3b56fe880aaac12f9e53da30b0766b5d78e3ce6e2d80e7",
+      "after_sha256": "e7bd9871b7d0e82cac3b147ac45373a8cff7c5bc09e318edff9348a629be0ab5",
+      "unchanged_body_sha256": "4bb704a0cbd91889c5df1825f059fc9ca80e1d372c74648e50a39c9f282c30a2"
+    },
+    {
+      "path": "docs/_static/views/barnase_barstar_1.html",
+      "changed": true,
+      "before_sha256": "84f28fffea27f3c7d597e78961fd139293cde32b6883bb33fcd2bbd9211b40d1",
+      "after_sha256": "7bcf9ee9358eccb5d9307f2b0aa2e817324ac51d714184fdfbbf12def2d1ada0",
+      "unchanged_body_sha256": "b12019bf6660c5a9824c72b1941f18cc05916f5212fb9804a56930b69383c399"
+    },
+    {
+      "path": "docs/_static/views/barnase_barstar_2.html",
+      "changed": true,
+      "before_sha256": "22587c1750aa47a3e58906ee31133db8cf93824bcf46a93408b45c7dac4948b7",
+      "after_sha256": "9797ba4ca115b5047059b76b0434ca367fbd684717fd92e9ce3e972b4b4acc2e",
+      "unchanged_body_sha256": "2c528939b5d9ce95af4b92b9dbd6cbefc117696397fb779f29705a5feb3becf4"
+    },
+    {
+      "path": "docs/_static/views/barnase_barstar_3.html",
+      "changed": true,
+      "before_sha256": "3aee4a484640a444b0a724339087d5fb2a8acd593c038380584e16cbf0f7b208",
+      "after_sha256": "caa82e8b02222b9d9223349dd18dce0cb39dc434f2ab208d3829630eca5a10c5",
+      "unchanged_body_sha256": "ee1e11f07f763781b34058c413db8b315d150c025003da2da84a5a51e5440484"
+    },
+    {
+      "path": "docs/_static/views/barnase_barstar_4.html",
+      "changed": true,
+      "before_sha256": "eb8e9a62a2a9828baa108aff62b12c7876e091e9406165b7a2bad3505ab85ece",
+      "after_sha256": "f9856ed1e2eeef0595485be0d0487f5f52d0cd9c7c8401eeefff9fda2d0ca2ef",
+      "unchanged_body_sha256": "7738e0a8a09f8aa2f26c0c43cd163490bdd2313ad8e5947a2c4786dd314f691d"
+    },
+    {
+      "path": "docs/_static/views/cookbook_binding_pocket.html",
+      "changed": true,
+      "before_sha256": "14b2de1ccac9faeb4855b1d8afac0a0c00da90209be9283cd80ade2f6cbbeb08",
+      "after_sha256": "a2ce06d720a0f3fae345040e19fd2987bc4b941fa8dedb478be1df3667f393b9",
+      "unchanged_body_sha256": "41c8765e7c6c3c7fe544b0fce521906290fe51245fca3170b1352afde2cce729"
+    },
+    {
+      "path": "docs/_static/views/cookbook_dimers_aligned.html",
+      "changed": true,
+      "before_sha256": "13dfad5f4872c47c518b17baf6758eb9ed4b550c4cd94426f6ad55a7fe23b4a2",
+      "after_sha256": "c8a9d83c6c4e5c77dc4e9bc560ed41f784d2c556ccb6d0d775a34db0d395b720",
+      "unchanged_body_sha256": "877ed8a7fb8e8631dc6721dbb0082580e7fee29224f4ce87f3c5fbf29f30ec39"
+    },
+    {
+      "path": "docs/_static/views/cookbook_dimers_final.html",
+      "changed": true,
+      "before_sha256": "90b05311e62dfea8db05874a1de4214ab852da81a54d32b4b52a5eb6c9c02af6",
+      "after_sha256": "8b1490d0996fdc537163c43e9de94506b282fdcdbd7a6f56d2e08f247271afb7",
+      "unchanged_body_sha256": "b26e924c14def42aef8731fb3a7eb190303616893b15c6080e79fa983be69777"
+    },
+    {
+      "path": "docs/_static/views/cookbook_dimers_initial.html",
+      "changed": true,
+      "before_sha256": "72cc72bf7c272efb3029c3fa8bebcaf901e7caf33b51bea61ebffe2bbfb325e6",
+      "after_sha256": "bf1bf72787d0d300d21267b82d344a665948fd5276e09c6dcbaa1670ad4db56e",
+      "unchanged_body_sha256": "2d4b42bde9dac9604cd585e4078f2a995140a1c41ca8ab9e30aab930d41fef1a"
+    },
+    {
+      "path": "docs/_static/views/cookbook_mutagenesis_mutant.html",
+      "changed": true,
+      "before_sha256": "86e1d0f1792d2c45eb9437781f084a40f9cad52aa932bb1368cd43f50304cdc0",
+      "after_sha256": "4099663fcf8a8a80f7c543830ef9b49a2102a48f43767bdb2f244d4676e52f1a",
+      "unchanged_body_sha256": "27f1c346bded2c47374d3b44ac07481414e63ba0219233e8aab247bbaed1f53a"
+    },
+    {
+      "path": "docs/_static/views/cookbook_simulation_solvated.html",
+      "changed": true,
+      "before_sha256": "63689755baf6e78ff6ea7405489899c8b5f338af6ee87d4b13205a7f73ee1d9d",
+      "after_sha256": "b764bfad5a68b92457f53aab84315f51f23be8dd1e8fa34383ccbf25899fe5a7",
+      "unchanged_body_sha256": "9460b54bc64e428f7d91795358fe6bbfee0ee9b48c4d852d7adf03f6776cd968"
+    },
+    {
+      "path": "docs/_static/views/cookbook_solvated_box.html",
+      "changed": true,
+      "before_sha256": "6678dfd70d84ed052b3c3d049bc80ac34c1b46360389a277b56c0facb0ed6e90",
+      "after_sha256": "01ee8019caa8abe7ab174ad225cf85cca729543b58f952b1eb3deba33c8ae541",
+      "unchanged_body_sha256": "eddbcf0f970700b3c07825932d90076d81fde396b4a5b223e6956fc29f11aa81"
+    },
+    {
+      "path": "docs/_static/views/dialanine_monte_carlo_1.html",
+      "changed": true,
+      "before_sha256": "951426edf4a5d026eed409b581fbf547f0580f800a727cddb850687b3168d355",
+      "after_sha256": "1963e0f5f9246cf33f6cab4de13a0de7ff01961854f5f3f6a237ff2230db5179",
+      "unchanged_body_sha256": "f10dd950738e26273ad925ed0ed7e74ccd26ffdbcca5483b9870db45ec42edfe"
+    },
+    {
+      "path": "docs/_static/views/quickstart_1.html",
+      "changed": true,
+      "before_sha256": "0a5451424a81bb34fb08ec5a0f59ee89d2408e439de6278dc83c6f2eb417be3a",
+      "after_sha256": "19d2656321c21a460c43cc19794b555994dcc3395254d1b5f1946912b457519d",
+      "unchanged_body_sha256": "bc31aec9f68f7bbc1d70bf5714d820ec8fe11b697d03776ce641e6d2833cf188"
+    },
+    {
+      "path": "docs/_static/views/quickstart_2.html",
+      "changed": true,
+      "before_sha256": "5f08d8fc57ecf175bcb03d5097fdbc7abc8c535e353764f5f6d214befe9d2522",
+      "after_sha256": "90d12255c713a32d0444605daddac4276d0496a91d3ebad4417184e110677881",
+      "unchanged_body_sha256": "3ba0cce76511f5c90812acf45b28f8ac8d4c853d214b49c78b0c502c9bcd4505"
+    },
+    {
+      "path": "docs/_static/views/quickstart_3.html",
+      "changed": true,
+      "before_sha256": "19f9908962cd83e88ca1c4081eff56fbf96148abd6519ef43eb5120eb9fc7ca3",
+      "after_sha256": "20bac474ff5014b46d97cac1e107bd534ae69db96dfc764571b408ff0c9863c5",
+      "unchanged_body_sha256": "52b5ffd93e02b60b86250ccfede7f64e6af4866dcb114b866df7848e36f9fb74"
+    },
+    {
+      "path": "docs/_static/views/showcase_md_trajectory.html",
+      "changed": true,
+      "before_sha256": "bcb7821e4ee9da3b3ea2205b24fe8bb78a4b180065154d960082526f58691d11",
+      "after_sha256": "3142ca5407de06bed2e8b161d48481c1564d94101f98f7f539478f02e5e1b99e",
+      "unchanged_body_sha256": "738c83300bb227425d3265c6d1391f5c47ccf73f27abe1a9b2474404cff6d3f3"
+    },
+    {
+      "path": "docs/_static/views/showcase_openmm.html",
+      "changed": true,
+      "before_sha256": "52d11a10ddae15a7b598f36ffbc0fd148c0479fd39649410de6fcf1d31cb4428",
+      "after_sha256": "19d3cabd2b9f475f2f50cc99ee1f28fe1d486faffce8365760415760e1912273",
+      "unchanged_body_sha256": "d2d8296a53bd0769014b1fa8fa0b499225c1601949b5913264524ede32350d7d"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_add.html",
+      "changed": true,
+      "before_sha256": "f7f3ec5042c1aed5f95cfbb609f7fb46f102240b83a673b9123ed2ef2972ce62",
+      "after_sha256": "7422f707a02d8c050d45412a04b030100cdc315206032d561db1662bed8dda54",
+      "unchanged_body_sha256": "6391c629f0a0c646b168638513f1e44edbcca338a20e5acd1ca1ddb74a410fd2"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_append_structures.html",
+      "changed": true,
+      "before_sha256": "bb1a35f2c516e11ce20177720e5dedcf563e8901c8930c4cd86a527bc45000cc",
+      "after_sha256": "8842d933f3bb6e6b55b7da2829a87f82ccccf80089984b51c5b028a0d7b961dc",
+      "unchanged_body_sha256": "942316f1726a9d46b265cddc1cd5c77ea492be7d868ded6bd072d1fe72cd874e"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_concatenate_structures.html",
+      "changed": true,
+      "before_sha256": "20ad0547836a27dbc0fa116773b5dae5805df2ce59515d4a85a926102887d22c",
+      "after_sha256": "62bc450ab96eb2e757f4b1501f6634461c9e71ebc0ec8cc90143300dc6353795",
+      "unchanged_body_sha256": "9022aa5c9a816ea456b9de02207cbf55403bc9fbd6a32f96723ecfcd67ddde9c"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_convert.html",
+      "changed": true,
+      "before_sha256": "a1579bb43a9bb8f47bb56e599a31f198515a6ecd5db73df9f12e33dc5e38c82f",
+      "after_sha256": "7f38f6380e290951d20d628d898bde6aa61752c322a1dd810e6b3a9b94b787c7",
+      "unchanged_body_sha256": "17623886e50c144147d12a45176c8564cc4ea4a3f747cf98fe91b3dd425e8dd5"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_get_form.html",
+      "changed": true,
+      "before_sha256": "6a14523bea29e3ce6d6db7fbbdd3fcb92c4a39ce2feeb9fdb513290c7d7dfa1f",
+      "after_sha256": "525a87334b0e962e22e625ac646e7fb5ac0de2ac1a154b072ab002c1d2654ed4",
+      "unchanged_body_sha256": "d6dc442e41016f6e139e5015225cafacbccb18232f03643e77dc379f9de98305"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_merge.html",
+      "changed": true,
+      "before_sha256": "5697312909f20d5504d6ca5b17bebea811188ed66d594f35694411162a5a5b4b",
+      "after_sha256": "968b40043d7e1f77ff56fa6ff47cc069d78a4196b6cfba40de52acdcabbdc05a",
+      "unchanged_body_sha256": "a1e86aa68bbdc7ad43eb6d226394d1f493394f897c910ea5a726ef9290396d31"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_view_1.html",
+      "changed": true,
+      "before_sha256": "d531b34a00cff5233270ea5f362a5711a6db2a6c06bf5970ff9af6c189c302ac",
+      "after_sha256": "8540f5d362ab53c8a53c3064ddb6940f1704053eb7a251aaac9f6f2422802ba5",
+      "unchanged_body_sha256": "d9aa7228b81e94c32daf3f825c68da9096fe0a2ea080c53ba56ff041f0655ba5"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_view_2.html",
+      "changed": true,
+      "before_sha256": "dee47ef6b638de62868cc84d999bf8206e4236a571b8fa7c6c49cb0d45c6ee02",
+      "after_sha256": "365f706d76321ccacf172922d1ba6babab96c36e2535ffe388f014659594bc8e",
+      "unchanged_body_sha256": "07b89c47a4baf10b2440e6a31a971652f08c429a7f43d784d9f1f077ecb99ac9"
+    },
+    {
+      "path": "docs/_static/views/tools_basic_view_3.html",
+      "changed": true,
+      "before_sha256": "3cdba4001d2dc7714ff5b6ea52bd615d12f0ff2bb45bb21e1b1568fd86c8b36c",
+      "after_sha256": "caa14cbd373485ade9e11932d1a5f5928a3de5d40bda48463753deaa251cde6a",
+      "unchanged_body_sha256": "4f11b591f1c0205ade2b96866594352560f0a931fab483cac596c15fe3c58599"
+    },
+    {
+      "path": "docs/_static/views/tools_build_build_peptide_1.html",
+      "changed": false,
+      "before_sha256": "409a3f040caeac04b50b288cb902e841a6bb5fda7e2157c6b2503e43679cfa4b",
+      "after_sha256": "409a3f040caeac04b50b288cb902e841a6bb5fda7e2157c6b2503e43679cfa4b",
+      "unchanged_body_sha256": "d1e0a073a072ba7fa39d0ee3cf2154177739ee701f67dceed6913fd4d6066297"
+    },
+    {
+      "path": "docs/_static/views/tools_build_build_peptide_2.html",
+      "changed": false,
+      "before_sha256": "ac89f60983ae7e08501ed30e04e694b9c932517892d0f40050dc6b590e4ab5ff",
+      "after_sha256": "ac89f60983ae7e08501ed30e04e694b9c932517892d0f40050dc6b590e4ab5ff",
+      "unchanged_body_sha256": "b815ccdd1a3adc5cc836b36271231af51f168682693276dcfe5c56a17c72e7b5"
+    },
+    {
+      "path": "docs/_static/views/tools_build_make_bioassembly_1.html",
+      "changed": true,
+      "before_sha256": "a89842b70828fd4ceaff235d5fe0d2fc777fcc1418f127592613d9e6c9ab0a5a",
+      "after_sha256": "9b78bef92ebbb0d684b200054110dafc5fa94e2bab124a62095e82b88c8e675b",
+      "unchanged_body_sha256": "e275123d93087a714750063b1cebee0ec5deec0f87f7849952902326c13a4b59"
+    },
+    {
+      "path": "docs/_static/views/tools_build_make_bioassembly_2.html",
+      "changed": true,
+      "before_sha256": "ad3c12c518fc0bd566c9d5f38ed7ed2e84e81f49f299626c0ce71cfc601a76ac",
+      "after_sha256": "2e0be42ed5e7c66cfa81fb54480c6585827b0b02aacbb6691ef0fe6d8ff5c221",
+      "unchanged_body_sha256": "5cb935354f0f6f3ee09f7f91cf069108ebb5437e31daba34800460387032354d"
+    },
+    {
+      "path": "docs/_static/views/tools_build_make_bioassembly_3.html",
+      "changed": true,
+      "before_sha256": "38af38c8be8ee94bb0a3a51ccd8887c9f4ab9b08f6d97e9c088292b0318248bf",
+      "after_sha256": "6136b5b4353e88f5abb61fc40847ee83b3988b2ee0354936770618f0fb078c1b",
+      "unchanged_body_sha256": "5e6636628f676943798a4934b0c097fb708de63d633bfa8b0353a321a5e693e1"
+    },
+    {
+      "path": "docs/_static/views/tools_build_make_bioassembly_4.html",
+      "changed": true,
+      "before_sha256": "aa9d230925804d05c67d34c90cfe629d9c467da6ca84dfc37f0a3cec1d31d648",
+      "after_sha256": "7f5dcf22403375ac7ffd073d9e704e7415aa504c9fa63aa95c01b7453ffbf9d0",
+      "unchanged_body_sha256": "526f2e5eea95ebb1d393e2c16521ca1337983dae7e0fa3d3040280d0ab4570fd"
+    },
+    {
+      "path": "docs/_static/views/tools_build_solvate_1.html",
+      "changed": true,
+      "before_sha256": "b9a9240293206f7688d556aa9fe4ca3f536c65ef598e6c3673669fc986365a08",
+      "after_sha256": "4501b93d47a02a4da409eec45441d2d0690063cee1abf9e9d3fa077656e4e09b",
+      "unchanged_body_sha256": "b9f1003b41255f4a1d9747dcdf97d8e4b22b32eba3beb78b0565f07501e668ba"
+    },
+    {
+      "path": "docs/_static/views/tools_build_solvate_2.html",
+      "changed": true,
+      "before_sha256": "63311bf814701aa0aed57b5e4321fbb2e3516332a88f6824b633e9dba3f513b4",
+      "after_sha256": "9d729a87b3747c8172585770eae682ac228087b26e29a0e567b44ac0fb38655e",
+      "unchanged_body_sha256": "b3b3366976cf8fa0b8a521690f0667ddb334659227c29d450c8679a71473793c"
+    },
+    {
+      "path": "docs/_static/views/tools_mm_get_forces_1.html",
+      "changed": true,
+      "before_sha256": "d6492c306e89721faec2ba69b69257ffa830f76046fab60d3d02229fc27aea1d",
+      "after_sha256": "70c27267562f6695e9d3c2990092d817dda282421fc2dc8eb1ae32dfd5586044",
+      "unchanged_body_sha256": "28ed5f9f4322a2c18b826d2334958be94a386cb38b328673824ce862415121f6"
+    },
+    {
+      "path": "docs/_static/views/tools_mm_get_non_bonded_potential_energy_1.html",
+      "changed": true,
+      "before_sha256": "e840eb972fabfc64f896c510779c0ddda7cd53080ff04649a2b8eb3d36c06a3e",
+      "after_sha256": "29229aa35f25cf1dbae591324f44c26d0df39a42d5ba786ec576c787af01879b",
+      "unchanged_body_sha256": "2494f76922451c7f9ede968702764377abb176cbda04a1a5d02a8975575287fb"
+    },
+    {
+      "path": "docs/_static/views/tools_pbc_wrap_to_mic_1.html",
+      "changed": true,
+      "before_sha256": "1cf84bc5c05b5d9638e466a42048ca7765aef1fb78d57f7b19eddc8229a075bf",
+      "after_sha256": "45be79ceff5cd92b6a57a60597c4cc16e5dc9cf99fe24da5e648137f594538ab",
+      "unchanged_body_sha256": "a4d87f61f39888bd818e4fdb95843db26a36b9fb8ac19f06d4669e741278c84c"
+    },
+    {
+      "path": "docs/_static/views/tools_pbc_wrap_to_pbc_1.html",
+      "changed": true,
+      "before_sha256": "f31950dc37c5e54e48067b004ef6ba0bc86ef60385ab5a1a42d2d2899090ca33",
+      "after_sha256": "708a221145e65a280e600d8fc7604addc6e475ddd00d0674d4e23851b96edb6a",
+      "unchanged_body_sha256": "663fae15d52d7db2631726e2313dab6fb175aef560ccda536f89b7a88a8fbca4"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_align_principal_axes_1.html",
+      "changed": true,
+      "before_sha256": "c4e4b2336fcaa8452ab1c3d35a464619032d274dbfe604791069c55771f0246e",
+      "after_sha256": "1802e6d1a4a3f3f6b7cf216575af5855c5a319f7799fc9311859477365249fd9",
+      "unchanged_body_sha256": "de6332c16c56249d93c44ed80605058e9f23974b1837c41662c8cf36679d82ce"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_flip_1.html",
+      "changed": true,
+      "before_sha256": "9fad141e93f60e54c8de991f661f8e85f38b75c7bcfd57baa60e5018fb0f6b4d",
+      "after_sha256": "17234f453d5c5e0b0c0854a31db3b573052089afb444fe842aae149b7450fe06",
+      "unchanged_body_sha256": "34a33ad5de80e110ff8dd603b1c335bf909078e8ac9be2a0d8b9c21a6b704d4b"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_flip_2.html",
+      "changed": true,
+      "before_sha256": "0a01d3d894bd32fb1b2f0f209ac5fe17b363e08e5705509b166707d51d865950",
+      "after_sha256": "1fbd57e35df6f170e1ec837e674b729e5726c88bd2a36f958b54723b9e6c0d05",
+      "unchanged_body_sha256": "ad696f4af07bff5fd01713fc7be3fc02e0b757d975ffccb7b5b0c607910fe107"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_rotate_1.html",
+      "changed": true,
+      "before_sha256": "29c784084eb0b123494762d5a0b22b48ae40ca9609adc4f41cd494bab9d61ea0",
+      "after_sha256": "d7bd69822c222af192de46b6412108bebdf194932dfd2f191515548db3260101",
+      "unchanged_body_sha256": "c782de36a85341c88f71f04623e60f13f3a5926b5e8ee9524800ad66d724e720"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_rotate_2.html",
+      "changed": true,
+      "before_sha256": "fe76eac3a41bf720ac8850f8403f69bde2cffd0326201cb151bf12f0e004015b",
+      "after_sha256": "24893ae8f7fb6866ce7e5c40dbb2994dec3fd96eb432a9a3a760de4e9e8f1e5f",
+      "unchanged_body_sha256": "61ede1b3893e5882020b23f7d823a963f490541d1be1223aff4f0ed80ed2b76b"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_set_dihedral_angles_1.html",
+      "changed": true,
+      "before_sha256": "96e7f075b16c0305790a0a231e3c3f53078a91e8004a06a53e503495abb9ff46",
+      "after_sha256": "defff962603846168d5ecb75f0c7aa735693247da7cfafea294dd00a617f67bb",
+      "unchanged_body_sha256": "72b64e2e29e61a47d45a9fd3b4ce0d06a9f28f68f8f64bfc78c166f846c2fe54"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_set_dihedral_angles_2.html",
+      "changed": true,
+      "before_sha256": "7f3001dfd378bf481e748f7c5c3e429e177be5fb277cda592703d79de64cf039",
+      "after_sha256": "9f505e01e60a90d1cb0edc4cad85745e9d1ec86bed0cff13c98ba49e5c675bc9",
+      "unchanged_body_sha256": "7d5a251774ddb510861a8a1da45f48d9eb0e70991aeb17f6e011c13da1cabd64"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_shift_dihedral_angles_1.html",
+      "changed": true,
+      "before_sha256": "af1c97a48a3ce5101f49e14989bd2f80d085d18f20f58baa9050e8e56379d3b2",
+      "after_sha256": "014e510c30f8dc1300bf54f4928444b8c11e3268a3aa5e7e3304bf592dcadd13",
+      "unchanged_body_sha256": "4f56e5067439e0576756fb64b3cec0ed79d00cfe95a837615975470ada6911ea"
+    },
+    {
+      "path": "docs/_static/views/tools_structure_shift_dihedral_angles_2.html",
+      "changed": true,
+      "before_sha256": "000be3f3f1a55e38a916645b31835eb3b583d6c8dee9e2e4f0b6f5d51ff12f35",
+      "after_sha256": "08f0b2be3475dbf02ce4d985ff07a1d13603c62c12c2d877490e96cb8bb916bd",
+      "unchanged_body_sha256": "14eb0667392f24f0f776cb5dbb2cb1d5e61fcecb66a8d6e08bdac8fddc52f635"
+    },
+    {
+      "path": "docs/_static/views/tools_topology_get_dihedral_quartets_1.html",
+      "changed": true,
+      "before_sha256": "fe39f2503656964f901f621331e59c1f2edc34f0832aba8cf8554ecb551a4e7d",
+      "after_sha256": "fccb60615463bc8b009444795b27dec33216aedbb71ea56ae3fbbfbf388fa25c",
+      "unchanged_body_sha256": "56142d30555be36ef768d0006c37fd7a792260574b3edc59955235ebca47f83d"
+    }
+  ],
+  "date": "2026-10-05",
+  "provider_source_commit": "eb14716f982be87f66ef8dea5218262bbabdad1d",
+  "provider_source_sha256": "767cc163aa0dca7177463108a3c504d695fac7eac3774387f28fa7a81cfe149b",
+  "operation": "Public MolSysView().export.html(..., shared_runtime=\"docs/_static\", background=\"transparent\"); copy only its executable head script",
+  "browser": {
+    "browser": "143.0.7499.4",
+    "scope": "Actual committed export heads executed in embedded Chromium documents; scientific scene replay is outside this check",
+    "records": [
+      {
+        "file": "1BRS_molecule_index_zero.html",
+        "host_theme": "light",
+        "scheme": "light dark",
+        "background": "rgba(0, 0, 0, 0)",
+        "styles": 2,
+        "screenshot_rgb": [
+          255,
+          255,
+          255
+        ],
+        "matching_pixels": 120000,
+        "screenshot_size": [
+          400,
+          300
+        ]
+      },
+      {
+        "file": "tools_build_build_peptide_1.html",
+        "host_theme": "light",
+        "scheme": "light dark",
+        "background": "rgba(0, 0, 0, 0)",
+        "styles": 2,
+        "screenshot_rgb": [
+          255,
+          255,
+          255
+        ],
+        "matching_pixels": 120000,
+        "screenshot_size": [
+          400,
+          300
+        ]
+      },
+      {
+        "file": "tools_structure_align_principal_axes_1.html",
+        "host_theme": "light",
+        "scheme": "light dark",
+        "background": "rgba(0, 0, 0, 0)",
+        "styles": 2,
+        "screenshot_rgb": [
+          255,
+          255,
+          255
+        ],
+        "matching_pixels": 120000,
+        "screenshot_size": [
+          400,
+          300
+        ]
+      },
+      {
+        "file": "1BRS_molecule_index_zero.html",
+        "host_theme": "dark",
+        "scheme": "light dark",
+        "background": "rgba(0, 0, 0, 0)",
+        "styles": 2,
+        "screenshot_rgb": [
+          20,
+          24,
+          31
+        ],
+        "matching_pixels": 120000,
+        "screenshot_size": [
+          400,
+          300
+        ]
+      },
+      {
+        "file": "tools_build_build_peptide_1.html",
+        "host_theme": "dark",
+        "scheme": "light dark",
+        "background": "rgba(0, 0, 0, 0)",
+        "styles": 2,
+        "screenshot_rgb": [
+          20,
+          24,
+          31
+        ],
+        "matching_pixels": 120000,
+        "screenshot_size": [
+          400,
+          300
+        ]
+      },
+      {
+        "file": "tools_structure_align_principal_axes_1.html",
+        "host_theme": "dark",
+        "scheme": "light dark",
+        "background": "rgba(0, 0, 0, 0)",
+        "styles": 2,
+        "screenshot_rgb": [
+          20,
+          24,
+          31
+        ],
+        "matching_pixels": 120000,
+        "screenshot_size": [
+          400,
+          300
+        ]
+      }
+    ],
+    "probe_source": "const { chromium } = require('/home/diego/repos@uibcdf/molsysviewer/molsysviewer/js/node_modules/playwright');\nconst fs = require('node:fs');\n(async()=>{\n const browser = await chromium.launch({headless:true,args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-dev-shm-usage']});\n const page = await browser.newPage();\n const records=[];\n for(const theme of ['light','dark']) {\n  await page.emulateMedia({colorScheme:theme});\n  for(const file of ['1BRS_molecule_index_zero.html','tools_build_build_peptide_1.html','tools_structure_align_principal_axes_1.html']) {\n   const content=fs.readFileSync('/home/diego/repos@uibcdf/molsysmt/docs/_static/views/'+file,'utf8');\n   const head=content.split('</head>')[0]+'</head>';\n   await page.setContent('<!DOCTYPE html><html style=\"color-scheme:'+theme+'\"><body style=\"margin:0;background:'+(theme==='dark'?'#14181f':'#ffffff')+'\"><iframe style=\"border:0;width:400px;height:300px\"></iframe></body></html>');\n   await page.locator('iframe').evaluate((element,head)=>{element.srcdoc=head+'<body></body></html>';},head);\n   await page.waitForFunction(()=>document.querySelector('iframe').contentDocument?.head?.querySelectorAll('style').length===2);\n   const result=await page.locator('iframe').evaluate(element=>({scheme:getComputedStyle(element.contentDocument.documentElement).colorScheme,background:getComputedStyle(element.contentDocument.body).backgroundColor,styles:element.contentDocument.head.querySelectorAll('style').length}));\n   if(result.scheme!=='light dark'||result.background!=='rgba(0, 0, 0, 0)') throw Error(JSON.stringify(result));\n   await page.locator('iframe').screenshot({path:'/tmp/molsysmt-s4-'+theme+'-'+file+'.png'});\n   records.push({file,host_theme:theme,...result});\n  }\n }\n console.log(JSON.stringify({browser:browser.version(),scope:'Actual committed export heads executed in embedded Chromium documents; scientific scene replay is outside this check',records},null,2));\n await browser.close();\n})().catch(e=>{console.error(e);process.exit(1)});\n",
+    "launch_command": "node /tmp/molsysmt-s4-browser.cjs",
+    "pixel_verification": "PIL.Image.open(...).convert(\"RGB\").getcolors(width*height): all pixels must be white in the light host or RGB (20,24,31) in the dark host"
+  },
+  "exported_scene_version": "0.23.4+71.g3b475639.dirty",
+  "generator_installed_metadata_version": "0.23.4+27.gfed1c4b8.dirty"
+}

@@ -48,21 +48,20 @@ test:
 about:
   home: https://uibcdf.org
   license: MIT License
-  summary: 'Molecular Systems Multi-Toolkit: build, prepare, query, transform, analyse
-    and visualise molecular systems through one uniform API.'
-  description: 'MolSysMT is a toolkit for working with molecular systems. One uniform
+  summary: 'A core molecular-system library in the MolSysSuite ecosystem.'
+  description: 'MolSysMT is a core molecular-system library in the MolSysSuite
+    ecosystem. One uniform
     API lets you build a system, repair and prepare it, ask it questions, modify it,
     analyse its structures and visualise it, without changing library every time the
     task changes.
 
     It has its own molecular model, its own HDF5-based storage format, its own
-    structure-preparation pipeline that requires no external engine, and its own
-    precompiled compute kernels. It also interoperates with 89 other forms — files,
+    experimental structure-preparation pipeline with an explicitly selected native
+    engine for supported chemical profiles, and its own precompiled compute kernels.
+    It also interoperates with other forms — files,
     libraries and in-memory objects — including MDTraj, MDAnalysis, OpenMM, ParmEd,
     RDKit, OpenFF, PDBFixer and NGLView.
 
-    MolSysMT is the core of the MolSysSuite ecosystem.
-
     '
   dev_url: https://github.com/uibcdf/MolSysMT
-  doc_url: https://uibcdf.org/MolSysMT
+  doc_url: https://www.uibcdf.org/molsysmt/

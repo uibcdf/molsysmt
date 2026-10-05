@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 # https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 [project]
 name = "molsysmt"
-description = "Molecular Systems Multi-Toolkit: build, prepare, query, transform, analyse and visualise molecular systems and trajectories through one uniform API."
+description = "A core molecular-system library in the MolSysSuite ecosystem: build, prepare, query, transform, analyse and visualise molecular systems through one uniform API."
 dynamic = ["version"]
 readme = "README.md"
 authors = [
@@ -48,7 +48,7 @@ keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory
 # Update the urls once the hosting is set up.
 [project.urls]
 "Source" = "https://github.com/uibcdf/MolSysMT/"
-"Documentation" = "https://uibcdf.org/MolSysMT"
+"Documentation" = "https://www.uibcdf.org/molsysmt/"
 "Issues" = "https://github.com/uibcdf/MolSysMT/issues"
 
 [project.entry-points."molsysviewer.addons"]

@@ -31,8 +31,9 @@ task. This is a scope decision, not release certification.
 S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. S2's
 acceptance reconciliation and public validation completion are recorded below.
 S3's current preparation profiles are qualified in the checkpoint below.
-Next reconcile S4 public claims and request updated MolSysViewer feedback, then dependencies/Python
-policy before freezing exact candidates. No additional chemistry or method
+S4 public-claim reconciliation is recorded below. Next review S5 dependencies/
+Python policy and obtain updated MolSysViewer feedback before freezing exact
+candidates. No additional chemistry or method
 expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
 presentation; its integration feedback is required, while other client
 integrations remain outside the initial release gate.
@@ -219,11 +220,50 @@ does not block this bounded S3 qualification or certify scoring/preparation.
 #214/#215/#304 remain partial with their scheduled post-1.0 extensions.
 No runtime defect is reproduced within these tested profiles.
 
-S3's bounded local review is complete. Continue with S4 (#186/#192/#199), then
-S5 dependency/Python policy; keep current Viewer feedback and all S6 source,
+S3's bounded local review is complete; S4's newer checkpoint follows. Continue
+with S5 dependency/Python policy; keep current Viewer feedback and all S6 source,
 installed-artifact, platform and publication requirements open. The preceding
 head's policy, Conda governance and devguide runs pass; smoke/Ruff remain queued
 at this observation. No full-suite backlog or release gate is waived.
+
+## S4 public presentation checkpoint — 2026-10-05
+
+The README now identifies MolSysMT as a core molecular-system library in
+MolSysSuite, qualifies experimental capabilities where claimed, removes its
+broken contributor link and replaces stale form counts/full-support wording
+with the maintained route contract. Package/Conda metadata, landing and About
+pages agree; the existing citation abstract already states this role. No API
+stability or form classification was promoted (#186/#192).
+
+The native hero's optional-engine absence guard found #339: native solvation
+implicitly delegated water-template reading to OpenMM. The correction reads
+without optional inference, uses the existing general native water bond tool
+and rebuilds the semantic hierarchy. It qualifies all four existing models
+with OpenMM/PDBFixer imports forbidden. No new chemistry is admitted by #334.
+
+For #199, 47 legacy transparent export heads were refreshed using a template
+from MolSysViewer's public exporter. All 49 bodies are byte-identical before/
+after, retaining scenes, producer versions and runtime references. Six actual
+Chromium iframe/screenshot checks of three representative heads match both
+host themes. They qualify head/base-canvas behavior, not scientific scene
+replay, Viewer interaction geometry or session restoration. The provider's
+three sandbox files and four-commit behind state were preserved.
+
+The [dated artifact](../devtools/data/public_presentation_20261005.json)
+records 48 passing tests, zero skips, the solvation doctest, commands, runtime
+versions and tested hashes. The [header artifact](../devtools/data/static_view_headers_20261005.json)
+retains the producer, original/current/body hashes and browser measurements.
+Negative controls reject unqualified claims, broken links, unrelated suite
+mentions and inert/late/missing header corrections. Expected legacy H5MSM
+warnings and TIP4P-EW virtual-site-name warnings remain explicit.
+
+Ruff, dependency loading/contract, citation and the maintained 156-module
+course validator pass. Homepage executable cells and stored outputs are
+unchanged. Incremental Sphinx compilation passes in Python 3.13.14 with 17
+warnings; #144/#237 retain documentation warning/environment qualification.
+This is scoped development evidence, not installed/exact-candidate evidence.
+Next: S5 dependency/Python review, current Viewer feedback and all S6 gates.
+No release tag or GitHub Release has been published by this checkpoint.
 
 ## Reported-defect review — 2026-10-02
 
