@@ -19,6 +19,7 @@ def apply_chemical_template(
     connectivity_policy="require_same_graph",
     selection="all",
     syntax="MolSysMT",
+    context_atom_correspondence=None,
 ):
     """Applying compatible declared template assignments to an independent system.
 
@@ -29,12 +30,15 @@ def apply_chemical_template(
         fragmented when explicit template completion is requested. Existing
         atoms, relationships and all coordinate structures are preserved.
     template : molecular system
-        Prepared template in a supported form with complete explicit chemical
-        assignments and the same atoms. Its coordinates are never transferred.
+        Prepared template in a supported form with complete declared connectivity
+        and supported assignments. Without context, it has the same selected atoms.
+        Context permits a larger template. Its coordinates are never transferred.
     atom_correspondence : list, tuple or numpy.ndarray
         Exhaustive bijection of shape (n_selected_atoms, 2), with template and source
         atom indices in the first and second columns, in their full input axes.
         Covers every selected source atom and template atom, including explicit H.
+        With explicit context, covers only selected source atoms and their
+        corresponding template atoms; the separate context map covers neighbors.
     template_provenance : dict
         Detached JSON-compatible identity, version, source_uri, checksum and
         hydrogen_policy declaration; see assess_chemical_template. Policy is
@@ -50,15 +54,22 @@ def apply_chemical_template(
         Keyword-only choice. Explicit completion adds missing bonds from the
         declared complete template to an incomplete source graph. Default behavior
         still requires identical edges within the selection. Conflicts and
-        unexpected selected source edges fail. Missing bonds on a proper source
-        subset remain unassessed; complete an extracted component explicitly.
+        unexpected selected source edges fail. Selected completion preserves
+        unrelated component metadata. Context mode supports only require_same_graph.
 
     selection : str, list, tuple or numpy.ndarray, default='all'
-        One full stored component to assess or update. Strings use topological
+        One full stored component, or a nonempty atom scope with explicit
+        context_atom_correspondence. Strings use topological
         selections. The template map covers precisely these atoms, using indices
-        in the full source input. Stored external relationships stay unassessed.
+        in the full source input. Without context, external relationships stay unassessed.
     syntax : str, default='MolSysMT'
         Selection syntax used to select source atoms.
+    context_atom_correspondence : list, tuple, numpy.ndarray or None, default=None
+        Optional keyword-only disjoint context map (n_context_atoms, 2), template
+        then source indices in their full axes. See assess_chemical_template.
+        Every selected atom's neighbors and incident-bond stereo references must
+        be mapped. Context atoms receive no assignments. None retains the closed
+        component contract; an empty int64 (0, 2) array explicitly enables context mode.
 
     Returns
     -------
@@ -71,8 +82,10 @@ def apply_chemical_template(
         Added bonds carry template indices, remapped source pairs, user_defined
         evidence and final bond indices; existing bond indices may reorder and are
         mapped by source_bond_correspondence. Components are rebuilt only after
-        adding bonds, with new indices/IDs and unknown names/types; group/molecule
-        inventory and all other states are preserved.
+        adding bonds. Unchanged memberships retain names/types; merged/split sets
+        lose labels. Whole-input completion regenerates IDs, while selected
+        completion preserves IDs of unchanged sets. Group/molecule inventory and
+        all other states are preserved.
 
     Raises
     ------
@@ -108,6 +121,12 @@ def apply_chemical_template(
     H5MSM 0.5 and ChemicalStatesDict preserve this history. Subsequent edits,
     extraction or merging do not rewrite those indices or certify current chemistry.
     Optional Ackredit absence/failure never changes the scientific outcome.
+    In explicit context mode, only selected atom fields and incident bond fields
+    are updated. Boundary bonds are checked against the full declared reference;
+    outside atoms and outside-only bonds are preserved. Unmapped template atoms
+    remain unassessed, no edge is added, and global connectivity stays unchanged.
+    The report/history retains both maps and scoped coverage. Partial polymer
+    preparation does not bypass full-graph recognition requirements.
 
     See Also
     --------
@@ -157,5 +176,6 @@ def apply_chemical_template(
         connectivity_policy,
         selection,
         syntax,
+        context_atom_correspondence,
     )
     return apply(molecular_system, report, source, caller)

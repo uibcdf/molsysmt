@@ -327,6 +327,85 @@ preparation history. Keep normalization/factory reports separately alongside
 the extraction map and explicit boundary/protonation choices. Historical reports
 retain original indices; importing them does not reconcile the fragment boundary.
 
+(cookbook-polymer-context-template)=
+## Preparing a receptor selection with context
+
+For the observed 1QKU receptor, a ligand shell is an inspection selection inside
+the full chain. Keep its peptide links to external residues. Assume `molsys` is
+the observed complete source loaded as a native MolSys. The following scenario
+choices declare HIE for every HIS, ammonium at residue 301, carboxylate at 550,
+and no disulfides. They are not environmental protonation predictions.
+
+Build a reference for all 250 residues, without reconstructing the nine missing
+heavy atoms in SER301/LYS302/LYS303. Explicitly declare the ARG NH1/NH2 map as in
+the bounded fragment scenario. The separate aromatic normalization acts on the
+entire extracted receptor and returns its own representation report. Context
+application preserves outside assignments relative to that normalized input.
+
+```python
+import numpy as np
+
+receptor_selection = 'molecule_type == "protein" and chain_id == "A"'
+source_atom_indices = msm.select(molsys, selection=receptor_selection)
+receptor = msm.extract(molsys, selection=source_atom_indices)
+assert receptor.topology.groups.group_id.tolist() == [str(i) for i in range(301, 551)]
+names = receptor.topology.groups.group_name.tolist()
+definition = msm.physchem.get_peptide_chemical_template(
+    ['HIE' if name == 'HIS' else name for name in names],
+    'ammonium', 'carboxylate')
+normalization = msm.physchem.normalize_aromatic_bond_orders(receptor)
+molsys_A = normalization['molecular_system']
+
+lookup = {(int(row.group_index), row.atom_name): int(index)
+          for index, row in receptor.topology.atoms.iterrows()}
+mapped_pairs = []
+for index, row in definition['template'].topology.atoms.iterrows():
+    name = row.atom_name
+    if names[int(row.group_index)] == 'ARG' and name in {'NH1', 'NH2'}:
+        name = 'NH2' if name == 'NH1' else 'NH1'
+    source_index = lookup.get((int(row.group_index), name))
+    if source_index is not None:
+        mapped_pairs.append((int(index), source_index))
+mapped_pairs = np.asarray(mapped_pairs, dtype=np.int64)
+
+shell_groups = np.asarray(msm.select(
+    molsys, selection=f'({receptor_selection}) within 0.5 nm without pbc of '
+                      '(group_name == "EST" and chain_id == "D")', element='group'), dtype=np.int64)
+shell_source_atoms = msm.select(molsys, selection=f'group_index in {shell_groups.tolist()}')
+source_to_local = np.full(msm.get(molsys, n_atoms=True), -1, dtype=np.int64)
+source_to_local[source_atom_indices] = np.arange(msm.get(receptor, n_atoms=True))
+selected = source_to_local[shell_source_atoms]
+assert np.all(selected >= 0)
+inside = np.isin(mapped_pairs[:, 1], selected)
+result = msm.physchem.apply_chemical_template(
+    molsys_A, template=definition['template'], selection=selected,
+    atom_correspondence=mapped_pairs[inside],
+    context_atom_correspondence=mapped_pairs[~inside],
+    template_provenance=definition['template_provenance'])
+molsys_B = result['molecular_system']
+assert result['report']['coverage']['scope'] == 'selected_with_context'
+assert result['report']['coverage']['unmapped_template_atom_indices'].size == 9
+msm.convert(molsys_B, to_form='file:h5msm', output_filename='receptor_with_prepared_shell.h5msm')
+```
+
+The primary map covers every selected atom; the context map covers other observed
+reference/source atoms. Missing reference atoms can be left unmapped only when
+they are not required neighbors or stereo references of the selection. Selecting
+an incomplete residue instead would fail, rather than making its missing neighbors
+disappear. This recipe uses an explicitly inspected name/group map for the pinned
+case; it does not provide general atom matching or alias/resonance reconciliation.
+Retain `source_atom_indices`, reference factory and normalization reports separately.
+
+The 0.5 nm shell contains 19 whole residues; 0.4/0.6 nm variants contain 12/23.
+No atom is added or moved. Only selected atom fields and incident bonds are
+assigned, including peptide links crossing the selection. Unknown outside atom
+fields remain unknown, and outside-only bonds remain as supplied. H5MSM retains
+the historical context/assignment maps and coverage report. The 1,990-atom receptor
+remains globally partial; no H geometry is generated, and full-graph recognition
+still rejects it. Additional preparation, repair and consumer acceptance are
+required before treating it as a complete receptor. Executed recipe and native/H5MSM
+controls live in `tests/physchem/test_chemical_template_context.py`.
+
 ## Assessing excluded residue gaps
 
 Before expanding the bounded fragment, audit the full label-chain A inventory.

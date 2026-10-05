@@ -193,7 +193,14 @@ reports, including original source structure counts and evaluated indices.
 `append_preparation_history(records)` archives caller-selected records in append
 order without applying chemistry, aligning axes or verifying source authenticity.
 Stored external relationships are unassessed, so a protein cut is not silently
-treated as a complete molecule. See {ref}`Updating a selected component
+treated as a complete molecule by the default closed-component operation.
+An explicit {ref}`context map <Tutorial_Context_Chemical_Template>` lets a
+selected atom scope use a larger declared complete template. It checks all
+incident edges, fills selected atom/boundary bond fields and preserves outside
+atoms and outside-only bonds. It does not add edges, invent cut termini or elevate
+global completeness. Historical context maps persist with their original axes;
+full-graph recognizers still require preparation beyond a partial receptor scope.
+See {ref}`Updating a selected component
 <Tutorial_Selected_Chemical_Template>`.
 
 The {ref}`mapped-H reinsertion recipe <cookbook-component-hydrogen-reinsertion>`

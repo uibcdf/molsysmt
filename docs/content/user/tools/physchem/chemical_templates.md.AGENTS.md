@@ -14,3 +14,8 @@ imports preserve original domains and do not align axes. History must not certif
 current assignments after extraction, merging or edits. Source evidence, template
 declarations and optional completed-software credit must remain distinct.
 Regression evidence belongs to `tests/physchem/test_chemical_template.py`.
+Preserve the optional context-map contract: disjoint source/template maps, complete
+incident neighbor/stereo coverage, selected atom and incident bond assignment,
+outside preservation, exact existing graph and conservative global completeness.
+Context does not imply cut termini or complete receptor recognition. Real/synthetic
+coverage belongs to `tests/physchem/test_chemical_template_context.py`.

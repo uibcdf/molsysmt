@@ -19,6 +19,7 @@ def assess_chemical_template(
     connectivity_policy="require_same_graph",
     selection="all",
     syntax="MolSysMT",
+    context_atom_correspondence=None,
 ):
     """Assessing chemical compatibility through an exhaustive declared atom map.
 
@@ -26,7 +27,7 @@ def assess_chemical_template(
     ----------
     molecular_system : molecular system
         Source in any supported form providing elements and stored relationships.
-        The default requires one isolated connected component. Explicit template
+        Without context, requires one isolated connected component. Explicit template
         completion can assess disconnected fragments of that same mapped component.
     template : molecular system
         Explicitly prepared template in any supported form. Coordinates are not
@@ -36,6 +37,8 @@ def assess_chemical_template(
         Exhaustive bijection of shape (n_selected_atoms, 2): template indices followed by
         full source indices, both zero-based. Covers every selected source atom
         and every template atom, including explicit hydrogens.
+        With context_atom_correspondence, covers the selected source atoms and
+        their corresponding template atoms; other template atoms need not be mapped.
     template_provenance : dict
         JSON-compatible declaration with nonempty identity, version, source_uri,
         checksum and hydrogen_policy strings. Policy is 'explicit_atoms' for zero
@@ -53,15 +56,25 @@ def assess_chemical_template(
         Explicit completion proposes missing template bonds in an incomplete
         source graph. Unexpected edges, declared complete-graph differences and
         conflicting assignments fail; no stored edge is removed or overwritten.
-        Missing bonds on a proper source subset remain unassessed; complete an
-        extracted component explicitly.
+        Selected completion preserves unrelated component memberships/labels.
+        Context transfer supports only require_same_graph in this version.
 
     selection : str, list, tuple or numpy.ndarray, default='all'
-        One full stored component to assess or update. Strings use topological
+        One full stored component, or a nonempty atom scope with explicit
+        context_atom_correspondence. Strings use topological
         selections. The template map covers precisely these atoms, using indices
-        in the full source input. Stored external relationships stay unassessed.
+        in the full source input. Without context, external relationships stay unassessed.
     syntax : str, default='MolSysMT'
         Selection syntax used to select source atoms.
+    context_atom_correspondence : list, tuple, numpy.ndarray or None, default=None
+        Optional keyword-only bijection (n_context_atoms, 2), template indices
+        then source indices. Disjoint from atom_correspondence in both axes.
+        Declares external context for selected atoms in a larger complete
+        template; every selected atom's source/reference neighbors and bond
+        stereo references must be mapped. Context atoms are checked for element,
+        isotope and existing chemical conflicts, but receive no assignments.
+        None retains the exhaustive closed-component contract. An empty int64
+        array of shape (0, 2) explicitly requests context mode without neighbors.
 
     Returns
     -------
@@ -91,13 +104,21 @@ def assess_chemical_template(
     no equivalent chemical state is inferred. This is correspondence checking,
     not template validation, protonation selection, hydrogen placement or docking
     certification. Unknown template fields cannot authorize a source overwrite.
-    A selected component must have no stored relationship to external atoms.
+    Without an explicit context map, a selected component must have no stored
+    relationship to external atoms.
     Unrelated components remain outside the assessment; global completeness is
     not elevated by a successful selected-component application. The report
     records full-source indices and the assessed scope. All coordinates remain
     untouched; coordinate-dependent selections are not supported.
     Selected edge completion also checks that rebuilding will preserve unrelated
     component memberships; an inconsistent outside partition stays unassessed.
+    Explicit context mode permits disconnected selections and transfers only
+    selected atom fields and all incident bond fields, including boundary bonds.
+    Outside atom fields and outside-only bonds remain untouched. Missing context,
+    unsupported links or mismatched incident edges prevent application; no
+    cut termini, missing bond or protonation state is inferred. Unmapped template
+    atoms remain outside assessment. Scoped evidence does not elevate global
+    connectivity or make full-graph recognizers accept an unprepared polymer.
 
     See Also
     --------
@@ -146,4 +167,5 @@ def assess_chemical_template(
         connectivity_policy,
         selection,
         syntax,
+        context_atom_correspondence,
     )[0]

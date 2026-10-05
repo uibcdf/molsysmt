@@ -174,7 +174,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit template transfer, scoped bond completion, historical report persistence, peptide references and prepared interface scope.
+            description: Explicit template transfer, mapped polymer context, scoped bond completion, historical evidence and peptide references.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
@@ -298,7 +298,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit template transfer, scoped bond completion, mapped H reinsertion with retained producer reports and bounded 1QKU preparation.
+        description: Explicit template transfer, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md

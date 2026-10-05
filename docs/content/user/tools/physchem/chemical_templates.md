@@ -94,6 +94,71 @@ A hydrogen-complete template cannot map onto a heavy-only source. Choose an
 explicitly prepared heavy-only template with `stored_counts` if that is the
 chemical state you intend to transfer. Counts do not supply donor–H geometry.
 
+(Tutorial_Context_Chemical_Template)=
+## Assigning with declared context
+
+A polymer selection can have bonds to the rest of its chain. Supply a complete,
+explicitly prepared reference for that polymer and two disjoint maps to
+`assess_chemical_template()` and `apply_chemical_template()`:
+
+- `atom_correspondence` maps every selected source atom to its reference atom.
+- `context_atom_correspondence` maps external reference/source atoms. It must
+  cover every selected atom's neighbors on both sides and every reference atom
+  needed by an incident bond's stereochemistry. Additional declared context is
+  allowed; unmapped reference atoms remain outside the assessment.
+
+Both maps use full input atom indices, with template indices in the first column
+and source indices in the second. They must be bijective and disjoint in both
+axes. Passing `None` keeps the existing exhaustive closed-component behavior.
+An empty `int64` array of shape `(0, 2)` explicitly enables context mode; missing
+required neighbors still fail. No correspondence is inferred from counts or IDs.
+
+For example, inspect an internal residue of an explicitly declared glycine trimer:
+
+```python
+import numpy as np
+import molsysmt as msm
+
+definition = msm.physchem.get_peptide_chemical_template(
+    ['GLY', 'GLY', 'GLY'], 'ammonium', 'carboxylate')
+molsys = definition['template']
+selected = msm.select(molsys, selection='group_index == 1')
+outside = np.setdiff1d(np.arange(msm.get(molsys, n_atoms=True)), selected)
+result = msm.physchem.apply_chemical_template(
+    molsys, template=definition['template'], selection=selected,
+    atom_correspondence=np.column_stack((selected, selected)),
+    context_atom_correspondence=np.column_stack((outside, outside)),
+    template_provenance=definition['template_provenance'])
+assert result['report']['coverage']['scope'] == 'selected_with_context'
+```
+
+This prepared toy checks a correspondence; it does not create missing chemistry.
+The selected N retains the reference's internal peptide inventory, rather
+than receiving a newly invented amino-terminal charge/H count. Arbitrary or
+disconnected atom selections can use the same contract. Whole-residue selection
+is the appropriate scope when interpreting a residue's complete chemistry.
+
+Only selected atom fields and all incident bond fields, including boundary
+bonds, can be filled. Outside atom assignments and outside-only bonds remain
+unchanged. Context elements/isotopes and existing chemical assignments must agree
+with the declared reference; missing outside assignments are not filled. The
+existing incident graph must match exactly. This first context route accepts
+only `connectivity_policy='require_same_graph'`: no absent bond, unsupported link,
+cut terminus or protonation state is inferred. Unknown context, explicit conflicts
+or missing stereo references prevent application transactionally.
+
+Successful reports use rule version 5 and retain both maps, boundary source bond
+indices, unmapped template atom indices and the justification for the selected
+incident graph. Global connectivity completeness is preserved, even when context
+mode covers the whole input. Historical reports persist in ChemicalStates/H5MSM
+with their original domains. This is scoped template evidence, not a new live
+coverage store or a whole-polymer readiness certificate. Full-graph recognizers
+still reject a partial unprepared receptor before filtering participants.
+
+The {ref}`observed receptor recipe <cookbook-polymer-context-template>` tests
+1QKU ligand shells with 12/19/23 residues. Its nine missing heavy atoms remain
+outside the scope, and the complete receptor remains partial.
+
 (Tutorial_Normalize_Aromatic_Bond_Orders)=
 ## Normalizing declared aromatic bond orders
 

@@ -121,6 +121,9 @@ and original dimensions can differ from those of the current destination.
 Nullable/mixed embedded readiness audit values are scalar lists rather than
 object arrays. Normalization and peptide-factory reports remain detached.
 See {ref}`Tutorial_Chemical_Templates` and {ref}`Tutorial_Fixed_State_Hydrogens`.
+Context-template application retains its selected-atom and context maps and
+incident-edge coverage in the same provider report; no new layer schema is needed.
+These records do not certify current-axis or whole-polymer chemical readiness.
 
 ### Layer access
 

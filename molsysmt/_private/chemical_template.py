@@ -90,6 +90,9 @@ def _edges(context, report, side, *, allow_fragments=False):
     if selected is None:
         selected = np.arange(n_atoms, dtype=np.int64)
     selected_set = None if len(selected) == n_atoms else set(selected.tolist())
+    with_context = context.get("with_context", False)
+    mapped_atoms = context.get("mapped_atom_indices", set())
+    stored_pairs = set() if with_context else None
     boundary_indices = []
     for index in table.index:
         a, b = _value(table, "atom1_index", index), _value(table, "atom2_index", index)
@@ -103,7 +106,7 @@ def _edges(context, report, side, *, allow_fragments=False):
             or not 0 <= a < n_atoms
             or not 0 <= b < n_atoms
             or a == b
-            or tuple(sorted((a, b))) in edges
+            or tuple(sorted((a, b))) in (stored_pairs if with_context else edges)
         ):
             _issue(
                 report,
@@ -114,19 +117,25 @@ def _edges(context, report, side, *, allow_fragments=False):
             )
             return None
         pair = tuple(sorted((a, b)))
+        if with_context:
+            stored_pairs.add(pair)
         inside_a = selected_set is None or a in selected_set
         inside_b = selected_set is None or b in selected_set
         if inside_a != inside_b:
             boundary_indices.append(int(index))
-            _issue(
-                report,
-                "unassessed",
-                "external_relationship_outside_scope",
-                side=side,
-                index=index,
-            )
-            continue
-        if not inside_a:
+            if not with_context or (a if not inside_a else b) not in mapped_atoms:
+                _issue(
+                    report,
+                    "unassessed",
+                    "unmapped_source_context_atom"
+                    if with_context
+                    else "external_relationship_outside_scope",
+                    side=side,
+                    index=index,
+                )
+            if not with_context:
+                continue
+        if not inside_a and not inside_b:
             continue
         edges[pair] = int(index)
         kind = _value(table, "bond_type", index)
@@ -148,16 +157,18 @@ def _edges(context, report, side, *, allow_fragments=False):
             )
     if side == "source":
         report["coverage"]["boundary"] = (
-            "external_relationships"
+            "declared_mapped_context"
+            if boundary_indices and with_context
+            else "external_relationships"
             if boundary_indices
             else "no_stored_external_relationships"
         )
         report["coverage"]["external_source_bond_indices"] = np.asarray(
             boundary_indices, dtype=np.int64
         )
-    if selected_set is None:
+    if selected_set is None and not with_context:
         pairs = np.asarray(list(edges), dtype=np.int64).reshape(-1, 2)
-    else:
+    elif not with_context:
         local = {int(atom): i for i, atom in enumerate(selected)}
         pairs = np.asarray(
             [(local[a], local[b]) for a, b in edges], dtype=np.int64
@@ -188,7 +199,8 @@ def _edges(context, report, side, *, allow_fragments=False):
                 or refs[0] == refs[1]
                 or any(ref in ends for ref in refs)
                 or any(
-                    tuple(sorted((ref, end))) not in edges
+                    tuple(sorted((ref, end)))
+                    not in (stored_pairs if with_context else edges)
                     for ref, end in zip(refs, ends)
                 )
             ):
@@ -199,6 +211,11 @@ def _edges(context, report, side, *, allow_fragments=False):
                     side=side,
                     index=index,
                 )
+    if with_context:
+        context["edges"] = edges
+        # Every incident edge is compared with the declared reference below;
+        # disconnected selections need not invent cut termini or local components.
+        return edges
     components = get_component_index_from_bonded_atom_pairs(
         pairs, np.int64(len(selected))
     )
@@ -291,6 +308,7 @@ def evaluate(
     connectivity_policy="require_same_graph",
     selection="all",
     syntax="MolSysMT",
+    context_atom_correspondence=None,
 ):
     """Return a detached preflight plus private contexts; mutate neither input."""
     from molsysmt import __version__
@@ -307,20 +325,52 @@ def evaluate(
     ns, nt = source["n_atoms"], reference["n_atoms"]
     selected = _selected_atoms(molecular_system, source, selection, syntax, caller)
     source["atom_indices"] = selected
-    if (
-        len(selected) != nt
-        or len(mapping) != nt
-        or set(mapping[:, 0]) != set(range(nt))
-        or set(mapping[:, 1]) != set(selected.tolist())
+    with_context = context_atom_correspondence is not None
+    if len(mapping) != len(selected) or set(mapping[:, 1]) != set(selected.tolist()):
+        raise ArgumentError(
+            "atom_correspondence",
+            value=atom_correspondence,
+            caller=caller,
+            message="The map must cover every selected source atom exactly once using full input indices, including explicit hydrogens.",
+        )
+    if not with_context and (
+        len(mapping) != nt or set(mapping[:, 0]) != set(range(nt))
     ):
         raise ArgumentError(
             "atom_correspondence",
             value=atom_correspondence,
             caller=caller,
-            message="The map must cover every selected source atom and every template atom exactly once, using full input indices and including explicit hydrogens.",
+            message="Without declared context the map must also cover every template atom exactly once.",
         )
-    mapping = mapping.astype(np.int64)
-    atom_map = dict(mapping.tolist())
+    context_mapping = (
+        np.empty((0, 2), dtype=np.int64)
+        if not with_context
+        else np.asarray(context_atom_correspondence).copy()
+    )
+    combined_mapping = (
+        np.concatenate((mapping, context_mapping)) if with_context else mapping
+    )
+    if (
+        np.any(combined_mapping[:, 0] >= nt)
+        or np.any(combined_mapping[:, 1] >= ns)
+        or any(
+            len(np.unique(combined_mapping[:, column])) != len(combined_mapping)
+            for column in (0, 1)
+        )
+    ):
+        raise ArgumentError(
+            "context_atom_correspondence" if with_context else "atom_correspondence",
+            value=context_atom_correspondence if with_context else atom_correspondence,
+            caller=caller,
+            message="Assignment and context maps must be disjoint bijections within both full input axes.",
+        )
+    mapping = mapping.astype(np.int64, copy=False)
+    context_mapping = context_mapping.astype(np.int64, copy=False)
+    combined_mapping = combined_mapping.astype(np.int64, copy=False)
+    atom_map = dict(combined_mapping.tolist())
+    source["with_context"] = with_context
+    if with_context:
+        source["mapped_atom_indices"] = set(atom_map.values())
     report = dict(
         schema="molsysmt.chemical_template@1",
         status="unassessed",
@@ -330,7 +380,9 @@ def evaluate(
             else "explicit_template_correspondence"
         ),
         rule_version=(
-            4
+            5
+            if with_context
+            else 4
             if len(selected) != ns and connectivity_policy == "complete_from_template"
             else 3
             if len(selected) != ns
@@ -365,7 +417,11 @@ def evaluate(
         issues=[],
         coverage=dict(
             atom_map="exhaustive_bijection",
-            scope="whole_system" if len(selected) == ns else "selected_component",
+            scope="selected_with_context"
+            if with_context
+            else "whole_system"
+            if len(selected) == ns
+            else "selected_component",
             boundary="unassessed",
             graph="unassessed",
             hydrogen_policy=provenance["hydrogen_policy"],
@@ -384,6 +440,22 @@ def evaluate(
         software={"molsysmt": __version__},
         units={"formal_charge": "elementary_charge"},
     )
+    if with_context:
+        report["context_atom_correspondence"] = context_mapping.copy()
+        report["coverage"]["atom_map"] = "exhaustive_selection_with_declared_context"
+        report["coverage"]["context_source_atom_indices"] = np.sort(
+            context_mapping[:, 1]
+        )
+        report["coverage"]["unmapped_template_atom_indices"] = np.setdiff1d(
+            np.arange(nt, dtype=np.int64), combined_mapping[:, 0]
+        )
+        report["unassessed_checks"].append(
+            "chemistry_outside_selected_atoms_and_incident_bonds"
+        )
+        if connectivity_policy != "require_same_graph":
+            _issue(report, "unassessed", "context_graph_completion_not_supported")
+        if not len(selected):
+            _issue(report, "unassessed", "empty_assignment_scope")
     for side, context in (("source", source), ("template", reference)):
         if context["topology"] is None:
             _issue(report, "unassessed", "stable_element_inventory_required", side=side)
@@ -399,7 +471,9 @@ def evaluate(
     source_atoms, template_atoms = source["topology"].atoms, reference["topology"].atoms
     state, ref_state = source["state"], reference["state"]
     hydrogen_indices = []
-    for ti, si in mapping:
+    selected_template_atoms = set(mapping[:, 0].tolist()) if with_context else None
+    for ti, si in combined_mapping:
+        assigned_atom = not with_context or ti in selected_template_atoms
         actual, expected = (
             _value(source_atoms, "atom_type", si),
             _value(template_atoms, "atom_type", ti),
@@ -425,7 +499,7 @@ def evaluate(
                 field="atom_type",
                 index=si,
             )
-        if actual == "H":
+        if actual == "H" and assigned_atom:
             hydrogen_indices.append(int(si))
         a, b = (
             _value(source_atoms, "isotope", si),
@@ -440,6 +514,8 @@ def evaluate(
                 index=si,
             )
         for field in _ATOM_FIELDS:
+            if not assigned_atom and _value(state.atom_attributes, field, si) is None:
+                continue
             value = _value(ref_state.atom_attributes, field, ti)
             if value is None and field != "stereochemistry":
                 _issue(
@@ -489,14 +565,32 @@ def evaluate(
             report, "unassessed", "template_connectivity_not_complete", side="template"
         )
     if source_edges is not None and template_edges is not None:
-        mapped_edges = {
-            tuple(sorted((atom_map[a], atom_map[b]))): (a, b, index)
-            for (a, b), index in template_edges.items()
-        }
+        mapped_edges = {}
+        for (a, b), index in template_edges.items():
+            if with_context and not (
+                a in selected_template_atoms or b in selected_template_atoms
+            ):
+                continue
+            if a not in atom_map or b not in atom_map:
+                _issue(
+                    report,
+                    "unassessed",
+                    "unmapped_template_context_atom",
+                    side="template",
+                    index=index,
+                )
+                continue
+            mapped_edges[tuple(sorted((atom_map[a], atom_map[b])))] = (a, b, index)
         missing = set(mapped_edges) - set(source_edges)
         unexpected = set(source_edges) - set(mapped_edges)
+        incomplete_context = any(
+            issue["reason_code"]
+            in {"unmapped_source_context_atom", "unmapped_template_context_atom"}
+            for issue in report["issues"]
+        )
         can_complete = (
             connectivity_policy == "complete_from_template"
+            and not with_context
             and state.connectivity_completeness != "complete"
             and not unexpected
         )
@@ -526,7 +620,9 @@ def evaluate(
                     "external_component_membership_requires_reconciliation",
                     side="source",
                 )
-        if unexpected or (missing and not can_complete):
+        if incomplete_context:
+            report["coverage"]["graph"] = "unassessed_context"
+        elif unexpected or (missing and not can_complete):
             _issue(
                 report,
                 "conflict",
@@ -546,7 +642,9 @@ def evaluate(
                 else "same_stored_relationships"
             )
             report["coverage"]["completeness_justification"] = (
-                "exhaustive_mapping_to_declared_complete_template"
+                "mapped_selected_atoms_and_all_incident_reference_relationships"
+                if with_context
+                else "exhaustive_mapping_to_declared_complete_template"
             )
         for pair in sorted(set(mapped_edges)):
             _, _, ti = mapped_edges[pair]
@@ -605,6 +703,15 @@ def evaluate(
                         )
                     )
                     value = _value(ref_state.bonds, column, ti)
+                    if value is not None and value not in atom_map:
+                        _issue(
+                            report,
+                            "unassessed",
+                            "unmapped_template_stereo_context",
+                            side="template",
+                            field=field,
+                            index=ti,
+                        )
                     value = None if value is None else atom_map.get(value)
                 if si is None:
                     if value is not None:

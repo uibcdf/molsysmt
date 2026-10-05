@@ -15,3 +15,8 @@ implied by the synthetic control. This page is a narrative Markdown recipe.
 Preserve the pinned EST distinction between provider transfer/pose controls and
 consumer biological acceptance, the explicit choice of canonical stereo when the
 CCD atom flag differs, and the absence of donor-H geometry from stored H counts.
+Preserve the observed full-chain context recipe and its executed guard. Its exact
+HIE/terminal/ARG mapping choices are scenario declarations. Normalization is a
+separate whole-receptor operation; context application preserves outside fields
+relative to that input. Nine missing heavy atoms outside the tested ligand shells
+remain unassessed, and whole-receptor recognition must still reject partial chemistry.

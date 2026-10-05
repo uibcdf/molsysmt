@@ -22,7 +22,8 @@ observed 1QKU fragment and its explicit composition with prepared EST are
 contract-tested. Closed-component assignment inside a larger source is implemented
 and real EST transfer is contract-tested. Consumer-reported isolated-ligand integration is
 available. Mapped terminal-H reinsertion preserves the original complex atom domain.
-General polymer context/repair/mapping and arbitrary atom-changing reinsertion,
+Explicit mapped polymer context is implemented and contract-tested on 2026-10-05
+for the observed 1QKU ligand shells. General polymer repair/matching and arbitrary atom-changing reinsertion,
 other representation normalization, normalization/factory report attachment and
 complete receptor/biological acceptance remain pending. Historical template,
 fixed-state H-generation and terminal-attachment reports persist in ChemicalStates,
@@ -1217,3 +1218,105 @@ native ligand H generation (#308) and environmental H geometry optimization
 (#323) remain separate future work, not requirements to reimplement the current
 RDKit-backed fixed-state operation. Normalization/factory report attachment and
 arbitrary heavy-atom replacement also remain separate incomplete capabilities.
+
+## Explicit mapped polymer context checkpoint, 2026-10-05
+
+**Implemented and contract-tested.** Existing experimental public assessment and
+application accept keyword-only `context_atom_correspondence=None`. The default
+exhaustive, closed-component contract and every existing positional/default
+argument are preserved. Context mode uses a primary map covering all selected
+source atoms and a disjoint optional bijection for external context atoms, both
+in full reference/source index domains. Neither counts nor IDs establish matching.
+The context map can leave distant reference atoms unmapped; every selected atom's
+neighbors and incident-bond stereo references must be represented on both sides.
+
+Context assignment checks the existing incident graph exactly and fills only
+selected atom fields and incident bond fields, including boundary bonds. Existing
+context chemical fields must agree with the reference; missing outside fields
+are not populated. Outside-only bonds retain their input assignments. New nullable
+columns needed for selected assignments remain unknown outside that scope.
+No bond, atom, coordinate, cut terminus, alias or protonation choice is invented.
+Context mode supports only `require_same_graph` in this checkpoint; requesting
+graph completion remains explicitly unassessed. Noncovalent or cut links, invalid
+stereo, explicit conflicts and incomplete context prevent application without
+mutation or newly evaluated observations. Disconnected atom scopes are supported
+without asserting that extraction makes them a complete closed molecule.
+
+The provider report uses chemical-template rule version 5. It retains primary
+and context maps, mapped context source indices, unmapped reference atom indices,
+source boundary bond indices and incident-graph justification. Every successful
+context operation retains global connectivity completeness exactly as supplied,
+even for a whole-input context call. No separate live scoped-chemistry store is
+introduced. Named analyses are invalidated when assignments change; unchanged
+repetition retains their evaluated coverage and records another historical
+operation. ChemicalStates/ChemicalStatesDict/H5MSM retain both maps through the
+existing typed history schema; extraction does not turn them into live maps.
+
+**Observed control:** the original label-chain A receptor has 1,990 atoms and
+250 groups. The complete reference factory has 1,999 heavy atoms. Operator choices
+are HIE for every HIS, ammonium at residue 301, carboxylate at 550 and no disulfides;
+the inspected ARG NH1/NH2 correspondence is explicit. The separate aromatic
+normalization operation applies to the extracted receptor; context assignment's
+outside-preservation assertions compare with that normalized input. Nine missing
+reference atoms remain unmapped: SER301 OG and four side-chain atoms in each of
+LYS302/LYS303. They are outside the whole-residue ligand shells at 0.4/0.5/0.6 nm,
+which contain 12/19/23 groups. Selected formal charges, aromatic flags, closed-shell
+and virtual-H fields become present, and all incident/boundary bonds are checked.
+No heavy-atom gap is repaired or H geometry generated. Original identity and
+coordinates persist, outside assignments remain unknown, and the receptor's
+global flag stays partial. Full-graph recognition still rejects that receptor;
+participant filtering cannot hide its remaining chemical incompleteness.
+
+The real central-shell case also runs through public H5MSM input/output. The
+literal Cookbook context block executes and its saved output is recovered with
+the same original coordinates and historical maps. Synthetic controls cover
+permuted reference indices, native/Topology/H5MSM forms, pm/fs/coulomb application
+units, other chemical-state preservation, internal peptide N charge/H inventory,
+boundary bond conflicts, disulfides, outside context conflicts, missing neighbors,
+source/reference stereo, invalid maps, disconnected/repeated scopes and empty
+assessment rejection. They do not certify template authenticity, environmental
+protonation or biologically optimized geometry.
+
+The implementation extends the existing general template tools and reuses native
+domain ownership, public selection, graph primitives and historical persistence.
+It adds no dependency or compiled kernel. Reports contain no coordinate snapshot
+or dense atom-pair matrix. Extra context relationship indexes are built only in
+context mode; the default avoids those additional sets. No memory/timing benchmark
+or Rust acceleration claim is made.
+
+Validation on Linux, Python 3.13.14 under #237, released ArgDigest 0.13.0,
+NumPy 2.4.6, pandas 2.3.3 and RDKit 2025.09.5; source base
+`e16b57a09d93fd41d995d8c87a1f5556bb6d389e`:
+
+```bash
+env PYTHONPATH=/tmp/molsysmt-readiness-argdigest-013 python -m pytest --receptor=llm \
+    tests/physchem/test_chemical_template_context.py \
+    tests/physchem/test_chemical_template.py \
+    tests/physchem/test_chemical_template_selection.py \
+    tests/physchem/test_chemical_template_connectivity.py \
+    tests/physchem/test_chemical_template_est.py \
+    tests/physchem/test_chemical_template_receptor.py \
+    tests/physchem/test_get_peptide_chemical_template.py \
+    tests/native/test_preparation_history.py \
+    --doctest-modules molsysmt/physchem/assess_chemical_template.py \
+    molsysmt/physchem/apply_chemical_template.py
+```
+
+Result: **225 passed in 100.78 s**, with 43 existing pandas future warnings.
+Ruff, lazy-dependency imports, public docstrings, API classification/signature
+checks and course structure pass. Sphinx HTML builds with the existing #144
+warning baseline; User Guide foundations/tools, the executed Cookbook, course
+and H5MSM report contract are updated. Developer-guide validation passes. These
+are local contract controls, not a full release matrix or consumer acceptance.
+
+Next: obtain consumer review of scoped context transfer and distinguish its
+acceptance from a fully prepared closed receptor model. An end-to-end full-graph
+receptor calculation still needs explicitly supported treatment of the excluded
+heavy-atom gaps or a declared closed-fragment model; context metadata alone
+cannot supply missing chemistry/geometry or bypass recognition checks. Missing
+context bond completion, general matching, unsupported heavy-atom repair,
+normalization/factory report attachment and arbitrary replacement are distinct
+remaining capabilities. Existing fixed-state H/report/reinsertion behavior remains
+implemented; future native H engines (#308) and environmental refinement (#323)
+are not silently added as blockers for that bounded contract. Keep #298 partial
+until its receptor/consumer acceptance scope is settled and verified.
