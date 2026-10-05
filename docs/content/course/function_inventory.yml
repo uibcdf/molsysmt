@@ -252,3 +252,10 @@ molsysmt.build.add_missing_heavy_atoms:
   summary: "Reconstructs bounded missing-heavy gaps while preserving declared native domains."
   doc_ref: "{func}`molsysmt.build.add_missing_heavy_atoms`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_missing_heavy_atoms()**: Reconstructs bounded missing-heavy gaps and reports unassessed residues.\n:::"
+
+molsysmt.build.get_covalent_bond_candidates:
+  name: "msm.build.get_covalent_bond_candidates"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Inspects exact heavy-group candidate evidence without assigning chemistry."
+  doc_ref: "{func}`molsysmt.build.get_covalent_bond_candidates`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.get_covalent_bond_candidates()**: Inspects exact heavy-group candidate evidence.\n:::"

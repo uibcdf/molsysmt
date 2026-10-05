@@ -13,6 +13,7 @@
 | [Build peptide](build_peptide.ipynb) | Building a peptide |
 | [Editable](editable.ipynb) | Creating an editable molecular system builder to modify or construct topologies |
 | [Get disulfide bonds](get_disulfide_bonds.ipynb) | Identifying structure-specific disulfide candidates and using the build wrapper |
+| [Get covalent bond candidates](get_covalent_bond_candidates.md) | Inspecting exact heavy-group templates and explicit candidate coverage |
 | [Get missing bonds](get_missing_bonds.ipynb) | Getting the missing bonds of a molecular system |
 | [Get missing heavy atoms](get_missing_heavy_atoms.ipynb) | Getting the missing heavy atoms of a molecular system |
 | [Get missing residues](get_missing_residues.ipynb) | Getting the missing residues of a molecular system |
@@ -45,6 +46,7 @@
    build_peptide.ipynb
    editable.ipynb
    get_disulfide_bonds.ipynb
+   get_covalent_bond_candidates.md
    get_missing_bonds.ipynb
    get_missing_heavy_atoms.ipynb
    get_missing_residues.ipynb

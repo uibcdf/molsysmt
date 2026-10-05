@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 128 |
+| experimental | 129 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -175,6 +175,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.assign_partial_charges` | experimental | active | 1.0.0 |
 | `molsysmt.build.build_peptide` | experimental | active | pre-1.0 |
 | `molsysmt.build.editable` | stable | active | pre-1.0 |
+| `molsysmt.build.get_covalent_bond_candidates` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_disulfide_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_missing_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_missing_heavy_atoms` | experimental | active | pre-1.0 |

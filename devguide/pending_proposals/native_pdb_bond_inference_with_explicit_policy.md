@@ -61,10 +61,10 @@ connectivity, `topology` owns graph validation, `structure` and `pbc` own geomet
 Parsing remains in the PDB adapter. A reusable scientific inference contract must
 be implemented as a general provider tool and consumed by the reader.
 
-The current native operation combines named templates with distance fallback for
-unknown groups, and links backbone C/N candidates through consecutively enumerated
-selected groups. It does not expose a per-edge method/coverage report or establish
-PDB chain-segment and alternate-location constraints. Directly making it a reader
+The legacy native operation combines named templates with distance fallback for
+unknown groups. Its peptide adjacency/chain defects were corrected in
+uibcdf/molsysmt#328; it still does not expose a per-edge method/coverage report or
+establish PDB chain-segment and alternate-location constraints. Directly making it a reader
 default would admit unqualified covalent inference and obscure unresolved chemistry.
 
 The proposed stages are:
@@ -229,6 +229,105 @@ Review of the general build tool reproduced peptide candidates across declared
 chains, selected source-group gaps and nearby nonadjacent groups. Integer atom
 selections also reached the nested group query on the wrong axis. This is tracked
 as uibcdf/molsysmt#328 with public regression controls in
-`tests/build/get_missing_bonds/test_peptide_candidates.py`. Correcting that tool
-is a prerequisite to native reader qualification; it does not add a reader
-engine selector, coverage/provenance report or file-segment/alternative-site policy.
+`tests/build/get_missing_bonds/test_peptide_candidates.py`. That tool was
+corrected and published in `d6a7ded29`, with 28 focused tests and five exact-commit
+CI checks passing. This remains a prerequisite correction; it does not add a
+reader engine selector, coverage/provenance report or file-segment/alternative-site policy.
+
+
+## Bounded template candidate report — 2026-10-05
+
+**Implemented and contract-tested.** `build.get_covalent_bond_candidates()` is a
+new experimental general tool. Its first method, `exact_heavy_group_templates`,
+consumes `build.get_residue_chemical_coverage()` rather than copying reference
+chemistry into a parser. It returns a detached `molsysmt.covalent_bond_candidates@1`
+report with typed source pairs, aligned source group indices and a missing-edge
+mask, original software versions, template identity/hashes and explicit exclusions.
+It does not alter the source or append inferred edges.
+
+Integer selections refer to atom indices, with both candidate endpoints selected;
+whole containing groups are assessed. Duplicate/unexpected names, unsupported
+or conflicting heavy elements, unresolved states and contradictory stored
+intra-group chemistry block the affected group. Missing endpoint names can leave
+a partial set of mapped edges. `assessed` qualifies this bounded candidate
+comparison, not stored-graph validity or biological preparation.
+
+The implementation delegates numeric/all H5MSM 0.5 atom-axis discovery to the
+public `h5msm.read_layers(..., layers=['topology'])` route, then uses the auditor's
+bounded selected-structure coordinate access. A guard rejects any attempt to
+materialize the full trajectory. Rich selections retain source behavior and may
+require broader access. PDB normalization disables reader inference explicitly;
+OpenMM import blocking is exercised by a public candidate-generation control.
+Legacy files and caller-owned legacy handlers retain their existing adapter
+route. The handler remains open after the query. The 0.5 layer reader is not
+used for legacy sources.
+
+There is no new optional engine boundary or dependency. No Ackredit tracking
+boundary is introduced; existing detached template source provenance remains
+available without inventing citations for the legacy database. Public defaults
+and the legacy `get_missing_bonds()` output are unchanged. The root maintainer
+instructions now explicitly distinguish general structures/groups from external
+frames/residues, and distinguish source indices from IDs.
+
+### Executed controls
+
+```bash
+python -m pytest --receptor=llm \
+    tests/build/test_get_covalent_bond_candidates.py \
+    tests/build/test_get_residue_chemical_coverage.py \
+    tests/build/get_missing_bonds/test_peptide_candidates.py \
+    --doctest-modules molsysmt/build/get_covalent_bond_candidates.py \
+    --junitxml=/tmp/molsysmt-304-candidates.xml
+```
+
+Final receipt: **76 passed in 27.99 s**, with eleven legacy H5MSM deprecations
+and one existing pandas setter FutureWarning retained. This supersedes the
+earlier overlapping 74-test combined and 31-test subset checkpoints; their
+counts are not additional unique tests. The added controls prove
+literal ALA/MSE edge sets, partial inventory, conflict rejection, source
+immutability, non-default pm policy, topology-only input, typed empties, source
+structure indices, state association/ambiguity, bounded H5MSM 0.5 access,
+legacy file compatibility and caller-owned handler lifetime.
+
+Public docstring, signature/classification, dependency, Ruff and 156-module
+course controls pass. Foundations, Toolbox, Cookbook and Common Core 12 now
+explain the same bounded contract. Notebook executable cells and saved outputs
+are unchanged. Incremental Sphinx HTML completes with 27 existing warnings;
+no new warning message is introduced relative to the earlier #304 build.
+
+### Original-source probe
+
+```bash
+MSM_CANDIDATES_VINA_ROOT="$HOME/repos@others/AutoDock-Vina"
+python devtools/scripts/probe_covalent_bond_candidates.py \
+    molsysmt/data/pdb/181l.pdb \
+    "$MSM_CANDIDATES_VINA_ROOT/example/basic_docking/solution/1iep_receptorH.pdb" \
+    --output /tmp/native_covalent_candidate_profile.json
+```
+
+The source checksums match the original inputs in #304. The retained receipt is
+[`native_covalent_candidate_profile_20261005.json`](../../devtools/data/native_covalent_candidate_profile_20261005.json).
+On 181L (1,441 atoms / 302 groups), the method returns **1,148 heavy intra-group
+candidates**: 162 assessed groups and 140 unassessed groups. Original 1IEP
+(4,412 atoms / 274 groups) returns **2,015 heavy intra-group candidates** with
+274 assessed group mappings. The explicit-only input coordinates and source
+bytes are unchanged. These counts are not complete covalent graphs, OpenMM
+parity or independent chemical truth; hydrogen and inter-group edges are excluded.
+The pair hash retains output identity without vendoring a second PDB fixture.
+
+Linux x86_64, Python 3.14.7 / NumPy 2.4.6, released ArgDigest 0.13.0 source
+overlay. The scientific source is based on `d6a7ded29` plus this change; the
+receipt preserves the active editable installation's declared software version,
+which is distinct from source commit identity. No installed-release or full-suite
+qualification is claimed. This probe measures coverage, not time or memory.
+
+### Work still required for #304
+
+Qualify polymer links separately, including source chain segments, TER,
+insertion codes and alternative sites. Hydrogen edges need an explicit supported
+naming/template policy. Water/ion/small-molecule coverage and disulfide policies
+remain separate from the initial amino-acid heavy-template method. Then compose
+those supported reports in a selectable native PDB reader route with explicit
+engine absence/failure diagnostics and persisted provenance; retain the OpenMM
+route and the existing reader default. Timing/memory measurements and explained
+original-source edge disagreements remain pending. #304 is still partial.

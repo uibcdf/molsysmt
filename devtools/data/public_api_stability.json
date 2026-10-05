@@ -1967,6 +1967,14 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
       "contract_tests": "tests/physchem/test_normalize_aromatic_bond_orders.py"
+    },
+    "molsysmt.build.get_covalent_bond_candidates": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "build",
+      "documentation": "docs/content/user/tools/build/get_covalent_bond_candidates.md",
+      "contract_tests": "tests/build/test_get_covalent_bond_candidates.py"
     }
   }
 }

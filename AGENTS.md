@@ -41,6 +41,15 @@ cross-component feedback, and issue ownership.
   documentation. Reserve **frames** for molecular-dynamics-specific context or
   external APIs that explicitly use that term; structures also cover ensembles
   and independent conformations.
+- Use **groups** for MolSysMT's general grouping element in code, public API text
+  and documentation. A group can be an amino-acid residue, a nucleotide, a water
+  molecule, an ion, a lipid or a small molecule. Do not use **residues** as a
+  generic synonym for groups. Reserve residue terminology for an explicitly
+  biological residue context or an external API/file format that uses that term.
+- Use `structure_index` / `structure_indices` and `group_index` / `group_indices`
+  for the corresponding MolSysMT axes. Indices are positions; IDs are labels.
+  Preserve existing public identifiers and external field names rather than
+  renaming them implicitly when applying these terminology rules.
 - Coordinates: NumPy arrays with shape `(n_structures, n_atoms, 3)`, including iterator chunks; units: nanometers.
 - Box: NumPy arrays with shape `(n_structures, 3, 3)`; lengths in nanometers, angles handled in radians when derived.
 - Time: arrays in picoseconds.

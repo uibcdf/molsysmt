@@ -116,6 +116,11 @@ sections:
             file: docs/content/user/tools/build/get_residue_chemical_coverage.md
             agents_file: docs/content/user/tools/build/get_residue_chemical_coverage.md.AGENTS.md
             status: reviewed
+          - name: get_covalent_bond_candidates
+            file: docs/content/user/tools/build/get_covalent_bond_candidates.md
+            agents_file: docs/content/user/tools/build/get_covalent_bond_candidates.md.AGENTS.md
+            description: Exact heavy-group candidate evidence, atom-axis selections and unassessed chemistry.
+            status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
         agents_file: docs/content/user/tools/topology/AGENTS.md

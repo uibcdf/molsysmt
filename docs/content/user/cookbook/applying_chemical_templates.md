@@ -46,6 +46,14 @@ candidates before using `msm.build.add_missing_bonds(molsys, in_place=False)`.
 These build tools do not establish complete chemistry or replace the explicit
 choice of a PDB reader inference policy.
 
+For exact heavy-group templates with an inspectable report, use
+`msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)`.
+Its typed pairs, aligned `missing_mask`, template hashes and coverage let you
+review supported candidates before choosing an application policy. The report
+includes unsupported groups and proposes no hydrogen or inter-group edges.
+It leaves the source unchanged and does not invoke OpenMM for a PDB input.
+See {ref}`Tutorial_Covalent_Bond_Candidates`.
+
 Template application remains a separate explicit operation. Its supported
 `complete_from_template` policy can fill reviewed missing edges under an
 exhaustive atom map; it does not make an unknown component compatible or place
