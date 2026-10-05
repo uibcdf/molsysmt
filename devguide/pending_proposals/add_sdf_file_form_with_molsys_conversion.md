@@ -252,5 +252,24 @@ The focused SDF/PDBQT/fragments/conversion-report regression passed 418 tests in
 MDAnalysis 2.10.0 and Vina 1.2.7. The executable command and warnings are recorded
 in #302's local resolution; this is not a full-suite or preparation result.
 Source bytes are not rewritten to achieve coverage, and no optional toolkit is
-used as a silent parsing fallback. Consumer acceptance and broader native SDF
-coverage remain pending; this issue stays partial.
+used as a silent parsing fallback. Broader native SDF coverage remains pending;
+the subsequent consumer evidence and stabilization review follow. This issue stays partial.
+
+## Frozen-profile stabilization — 2026-10-05
+
+S3 reruns native SDF, coordination, reference-corpus, stereo, real-Vina and
+structure-count controls at `fe0b813d7267f4c5a0728264094441e62c910e1b`, within
+the passing 1,094-case preparation/form selection. The
+[execution ledger](../release_1_0_status.md#s3-preparationform-qualification--2026-10-05)
+and [artifact](../../devtools/data/preparation_profiles_20261005.json) retain
+commands, source/fixture hashes, environment and warnings. Optional independent
+RDKit comparisons execute; they do not establish universal chemical perception.
+
+The 1IEP valence and 1S63 versionless sources still exercise deliberate rejection,
+while opaque identity copies retain their bytes. 5X72 stereoisomers keep their
+distinct source-indexed assignments through explicit stereo-provider round trips.
+Published uibcdf/dockingmt#33 accepts the initial prepared-input/stereo slice;
+that historical evidence is inspected rather than rerun on this source. No source
+is rewritten and no new dialect or chemistry is admitted. Current conservative
+profiles are qualified for experimental inclusion; broader acceptance and parser
+coverage remain post-1.0 work and this issue remains partial.

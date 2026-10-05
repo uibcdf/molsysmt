@@ -30,8 +30,8 @@ task. This is a scope decision, not release certification.
 
 S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. S2's
 acceptance reconciliation and public validation completion are recorded below.
-Next review S3's existing preparation profiles and request updated MolSysViewer feedback. Review
-current experimental profiles and public claims, then dependencies/Python
+S3's current preparation profiles are qualified in the checkpoint below.
+Next reconcile S4 public claims and request updated MolSysViewer feedback, then dependencies/Python
 policy before freezing exact candidates. No additional chemistry or method
 expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
 presentation; its integration feedback is required, while other client
@@ -172,6 +172,58 @@ Next: S3's existing preparation/SDF/PDBQT/native profiles; then S4 documentation
 claims and S5 environment/dependency policy. Obtain current Viewer feedback in
 parallel through the prepared maintainer-forwarded message. No new feature is
 admitted and the 1.0 tag remains conditional on S6 exact-candidate gates.
+
+## S3 preparation/form qualification — 2026-10-05
+
+**Contract-tested current frozen profiles**, at provider
+`fe0b813d7267f4c5a0728264094441e62c910e1b`: 1,094 preparation/form cases pass
+in 380.42 s, without skips. A separate native pipeline, mapped-H reinsertion,
+public H5MSM mechanics-exclusion and doctest selection passes 80 cases in
+38.82 s, without skips. Runtime, tests and dependency inputs remain unchanged;
+this checkpoint corrects explanations rather than extending chemistry.
+The [dated artifact](../devtools/data/preparation_profiles_20261005.json)
+records commands, source/fixture hashes, actual producer and dependency versions,
+warnings and interpretation limits.
+
+| Included contract | Executed evidence | Remaining boundary |
+| --- | --- | --- |
+| Native SDF graph/charge/isotope/coordination and explicit stereo | `tests/form/file_sdf/`, including the synthetic corpus and original 5X72 stereoisomers | Vina 1IEP valence overrides and versionless 1S63 SDF remain deliberate rejections, not malformed sources. No silent RDKit fallback or complete parser parity claim. |
+| Prepared PDBQT file/string/native exchange | `tests/form/file_pdbqt/`, independent MDAnalysis reading and Vina parsing | Source serial IDs align reordered output; BRANCH evidence is partial connectivity. No implicit preparation, H merging or universal torsion policy. |
+| Declared template transfer and scoped context | `tests/physchem/test_chemical_template*.py`, readiness/inventory and peptide-template guards | Explicit maps/states, conservative global completeness, retained pose and unknown checks; no template authentication or readiness certificate. |
+| Fixed-state H and mapped reinsertion | `tests/build/add_missing_hydrogens/test_fixed_state.py`, `test_preparation_history.py`, and `tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py` | Explicit RDKit, one declared state/structure, retained original atom coordinates/indices; generated H geometry is local, without environmental refinement. |
+| Named charges, AutoDock types and torsion candidates | Charge/type assignment guards, `tests/topology/test_get_rotatable_bonds.py` and original Vina comparisons | Neutral-amine typing and aryl–nitrile/amide torsion differences remain explicit policy evidence; parameter assignment is not full force-field preparation. |
+| Bounded native inference and PDB engine policy | Candidate/application guards and `tests/form/file_pdb/test_connectivity_policy.py` | Declared edges retain precedence; inferred orders stay unknown, coverage partial, history indexed to the operation and changed analyses invalidated. Broader chemistry stays #304. |
+| History, units and conservative exclusions | Native/H5MSM history guards, non-default units, native protein/pH pipeline and public mechanics-rejection tests | H5MSM retains original chemical-preparation evidence, while nonempty MolecularMechanics is rejected before file creation; #256/0.6 owns its persistence. |
+
+The normative conversion guide now reflects implemented completion/context and
+historical report storage. The PDBQT recipe links implemented assignment/torsion
+tools and states the H5MSM rejection; it is registered with its page contract.
+The protein/pH pipeline distinguishes its supported templates from fixed-state
+ligand H and no longer claims identical provider pKa rules or missing ACE/NME H
+support. Common Core 12 already describes these contracts; no executable notebook
+cell or saved output changed. The maintained 156-notebook course check passes.
+
+All 96 adapters pass structural checks and the delivery ratchet; the existing
+78 unreachable declarations remain #139 debt. Sphinx HTML passes incrementally
+in Python 3.13.14 with 26 warnings, without a warning naming the changed PDBQT
+recipe. This does not qualify Python 3.14 documentation tools. One NumPy size-change
+RuntimeWarning occurred in the broad scientific run and did not recur in fresh
+selected-provider imports; S5/#237 retains its origin/installed-ABI review. Other
+warnings report legacy H5MSM, pandas/provider deprecations and declared metadata
+loss/protonation policies; the artifact records counts rather than hiding them.
+
+Published DockingMT #33 consumer evidence is inspected, including the initial
+prepared-input slice and later readiness/charge/H/fragment migrations. It is
+historical evidence, not a fresh consumer run on this provider. That integration
+does not block this bounded S3 qualification or certify scoring/preparation.
+#214/#215/#304 remain partial with their scheduled post-1.0 extensions.
+No runtime defect is reproduced within these tested profiles.
+
+S3's bounded local review is complete. Continue with S4 (#186/#192/#199), then
+S5 dependency/Python policy; keep current Viewer feedback and all S6 source,
+installed-artifact, platform and publication requirements open. The preceding
+head's policy, Conda governance and devguide runs pass; smoke/Ruff remain queued
+at this observation. No full-suite backlog or release gate is waived.
 
 ## Reported-defect review — 2026-10-02
 

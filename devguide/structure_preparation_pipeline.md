@@ -2,6 +2,16 @@
 
 ## Overview
 
+**Role:** operational guide for the existing protein/pH pipeline.
+
+This sequence uses bounded amino-acid/group templates and fixed pKa rules.
+It does not certify arbitrary receptor or ligand chemistry. For a ligand with
+an already declared chemical state, use the separate explicit
+`mode='fixed_chemical_state', pH=None, engine='RDKit'` H-placement route described
+in the [fixed-state guide](../docs/content/user/tools/build/add_missing_hydrogens.ipynb).
+That route retains one existing structure and models missing H locally; it does
+not choose protonation, optimize the receptor environment or minimize energy.
+
 Before a protein structure can be used for molecular dynamics simulation it
 typically needs to be "prepared": missing atoms must be added, termini must be
 completed, hydrogens placed, and the system solvated. MolSysMT provides native
@@ -120,7 +130,10 @@ library.
 
 ### 3. Add missing hydrogens
 
-Places all hydrogen atoms that are absent from the structure.
+Adds missing H according to the selected engine's supported templates and pH
+rules. It does not remove existing H that contradict the requested pH. Inspect
+the diagnostic and use `build.reconcile_protonation` explicitly when you intend
+to apply the native removal policy; neither operation predicts environmental pKa.
 
 ```python
 mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
@@ -129,8 +142,8 @@ mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
 | Engine | pH model | Dependency |
 |--------|----------|------------|
 | `'MolSysMT'` | Fixed pKa thresholds from `get_expected_hydrogens` | none |
-| `'PDBFixer'` | Same fixed pKa thresholds via OpenMM `addMissingHydrogens` | pdbfixer, openmm |
-| `'OpenMM'` | Same fixed pKa thresholds via `Modeller.addHydrogens` | openmm |
+| `'PDBFixer'` | Provider template/pH rules via OpenMM `addMissingHydrogens` | pdbfixer, openmm |
+| `'OpenMM'` | Provider template/pH rules via `Modeller.addHydrogens` | openmm |
 
 The native engine uses documented fixed pKa and tautomer rules. OpenMM and
 PDBFixer apply their own template-based hydrogen-placement behavior for the
@@ -251,7 +264,7 @@ mol = msm.build.solvate(
 | `solve_atoms_with_alternate_location` | `MolSysMT` | (only option) |
 | `add_missing_heavy_atoms` | `MolSysMT` | Non-standard residues with templates only in PDBFixer |
 | `add_missing_terminal_cappings` | `MolSysMT` | Capping groups other than ACE/NME |
-| `add_missing_hydrogens` | `MolSysMT` | H on capping groups (ACE/NME) required |
+| `add_missing_hydrogens` | `MolSysMT` for supported amino-acid and ACE/NME templates | Additional chemistry supported by the explicitly selected external engine; qualify its state and geometry separately |
 | `solvate` | `MolSysMT` | TIP5P or other unsupported water models; box shapes beyond cubic/rectangular/truncated octahedral/rhombic dodecahedral |
 | Minimization | — | Use a suitable external MD engine; the example uses OpenMM |
 

@@ -1,0 +1,223 @@
+{
+  "schema": "molsysmt.preparation-profile-checkpoint@1",
+  "date": "2026-10-05",
+  "owners": [
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#214",
+    "uibcdf/molsysmt#215",
+    "uibcdf/molsysmt#304"
+  ],
+  "source_commit": "fe0b813d7267f4c5a0728264094441e62c910e1b",
+  "source_state": "Clean at start; only documentation edits during execution. Runtime, test and dependency inputs unchanged.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "molsysmt_producer_version": "0.22.4+60.g7a8350f76.dirty",
+    "distribution_versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "rdkit": "2025.9.5",
+      "MDAnalysis": "2.10.0",
+      "vina": "1.2.7",
+      "openmm": "8.6.1",
+      "pyunitwizard": "0.28.1",
+      "argdigest": "0.13.0",
+      "depdigest": "0.12.0+13.g104661a",
+      "smonitor": "0.18.0+1.gb308ee0",
+      "ackredit": "0.10.1+16.gd7120eb.dirty",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.1.0+19.g6d87a24"
+    },
+    "import_origins": {
+      "molsysmt": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+      "pyunitwizard": "/tmp/molsysmt-332-provider-installed/pyunitwizard/__init__.py",
+      "argdigest": "/tmp/molsysmt-consumer-298-kr3fq23_/public_support/argdigest/__init__.py",
+      "depdigest": "/home/diego/repos@uibcdf/depdigest/depdigest/__init__.py",
+      "smonitor": "/home/diego/repos@uibcdf/smonitor/smonitor/__init__.py",
+      "ackredit": "/home/diego/repos@uibcdf/ackredit/ackredit/__init__.py"
+    },
+    "qualification": "Editable source plus existing support-provider overlays; not an installed release candidate."
+  },
+  "runtime_sha256": {
+    "molsysmt/_private/ctfile.py": "2890e4e55cdca0eb86d8cfb3fc91dd56795419c60528dedcbef8f97df79b7f34",
+    "molsysmt/_private/pdbqt.py": "28275bfb6fc17d5658f4acafeec5cb486dad250738ade184a5339d4c6b782684",
+    "molsysmt/_private/pdbqt_writer.py": "ee618eadb1893d6dcf8a9075feb700624bc701e28037e44c78cb22f33447f0cf",
+    "molsysmt/_private/chemical_template.py": "85b65985cb40c6024e4ba3e556b13832735b964f0023574b0649c6beb5e6567e",
+    "molsysmt/_private/covalent_inference.py": "7e23d58302b67bf61669ec14ccf7cd93e06cfb78d74d9a579e9812eaaeadfaa4",
+    "molsysmt/build/add_missing_hydrogens.py": "86b34ffe0b7b1b6e81b7262c83e5ff31f0e021f0fa94326037d47ea1f479dc8c",
+    "molsysmt/build/assign_partial_charges.py": "677d5ecc04f339be538d70c72a2250c7fb0a12162f48cd0a7244b90a15827e2d",
+    "molsysmt/build/assign_autodock_atom_types.py": "34198708e1b4dd6488f593e30df3d51b983e727338244d5aace3a2f52ea6170e",
+    "molsysmt/topology/get_rotatable_bonds.py": "e0d074a0c38e93e4000b1548c386ac512a598f8c0ca8a346e7a3cdf3a8eed7b7"
+  },
+  "fixture_source_commit": "3c65c0b3e6c2c1d183f6a175ecb65e3c5ba91645",
+  "fixture_sha256": {
+    "tests/form/data/vina_examples/1iep_ligand.sdf": "051b8742c32adc05c07fb486a4e7c9327f84e131cee33ac4e6a568d07553eb38",
+    "tests/form/data/vina_examples/1iep_ligand.pdbqt": "15fb35648d8c18c70317842f3a0631b73a19429c710a037ab07310084d579bb8",
+    "tests/form/data/vina_examples/1s63_ligand.sdf": "6eb488b5770df7f132745249e64000fcfe394acf938b45f0e082f44365f59119",
+    "tests/form/data/vina_examples/1s63_ligand.pdbqt": "04fb28c75bc5a8b32fd7f985ef8ac9a9b4581a40141f4f5b1b3951c2051fb7dc",
+    "tests/form/data/vina_examples/5x72_ligand_p59H.sdf": "ef26c05a198a16972efcf8baae644f6b38fd953561f130ee230626088766b08a",
+    "tests/form/data/vina_examples/5x72_ligand_p59.pdbqt": "67cf462419372e365b8129bc1047f94598f3a1f3c495375781c1c1100e95c92e",
+    "tests/form/data/vina_examples/5x72_ligand_p69H.sdf": "637a992134b2038a0ea3cff0c1f8355ea232720c9eae5347100b7186170fcdf1",
+    "tests/form/data/vina_examples/5x72_ligand_p69.pdbqt": "276a991d56ddc7778ed36c10aba6b7231de00b87294a7f77e2fceb9a96ae08e5",
+    "tests/form/data/vina_examples/1iep_receptor.pdbqt": "f13cf3b36f61d87c3b58983e0b8ecf1c3456a685eb86dfe9ccfb139c7bdc2586"
+  },
+  "runs": [
+    {
+      "name": "preparation-and-form-profiles",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "tests/form/file_sdf",
+        "tests/form/file_pdbqt",
+        "tests/topology/test_rigid_fragments_real_vina_examples.py",
+        "tests/topology/test_get_rotatable_bonds.py",
+        "tests/topology/test_get_rigid_fragments.py",
+        "tests/physchem/test_get_chemical_readiness.py",
+        "tests/physchem/get_hydrogen_inventory",
+        "tests/physchem/test_get_cip_stereochemistry.py",
+        "tests/physchem/test_get_autodock_atom_types.py",
+        "tests/physchem/test_get_partial_charges.py",
+        "tests/physchem/test_chemical_preparation_evidence.py",
+        "tests/physchem/test_chemical_template.py",
+        "tests/physchem/test_chemical_template_connectivity.py",
+        "tests/physchem/test_chemical_template_context.py",
+        "tests/physchem/test_chemical_template_est.py",
+        "tests/physchem/test_chemical_template_receptor.py",
+        "tests/physchem/test_chemical_template_selection.py",
+        "tests/physchem/test_get_peptide_chemical_template.py",
+        "tests/build/test_assign_autodock_atom_types.py",
+        "tests/build/test_assign_partial_charges.py",
+        "tests/build/test_get_residue_chemical_coverage.py",
+        "tests/build/test_get_covalent_bond_candidates.py",
+        "tests/build/test_get_peptide_bond_candidates.py",
+        "tests/build/test_infer_covalent_bonds.py",
+        "tests/build/add_missing_hydrogens/test_fixed_state.py",
+        "tests/build/add_missing_hydrogens/test_preparation_history.py",
+        "tests/form/file_pdb/test_connectivity_policy.py",
+        "tests/native/test_preparation_history.py",
+        "--junitxml=/tmp/molsysmt-s3-preparation-profiles.xml"
+      ],
+      "exit_code": 0,
+      "tests": 1094,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 380.383,
+      "junit_sha256": "428f09b5f506f88210243ba2b2edca35b3f0e3262322c6ae74499b346d421e09",
+      "warnings": {
+        "total": 73,
+        "pandas_future": 45,
+        "legacy_h5msm": 16,
+        "mdanalysis_pending_deprecation": 6,
+        "structural_attribute_drop": 5,
+        "numpy_size_change": 1
+      }
+    },
+    {
+      "name": "native-pipeline-persistence-boundaries-and-doctests",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "tests/build/test_structure_preparation_pipeline.py",
+        "tests/build/add_missing_hydrogens/test_add_missing_hydrogens_engine_MolSysMT.py",
+        "tests/build/test_reconcile_protonation.py",
+        "tests/build/test_terminal_protonation_follows_ph.py",
+        "tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py",
+        "tests/form/file_h5msm/test_public_h5msm_v05.py",
+        "--doctest-modules",
+        "molsysmt/build/add_missing_hydrogens.py",
+        "molsysmt/build/assign_partial_charges.py",
+        "molsysmt/build/assign_autodock_atom_types.py",
+        "molsysmt/build/infer_covalent_bonds.py",
+        "molsysmt/physchem/get_chemical_readiness.py",
+        "molsysmt/physchem/apply_chemical_template.py",
+        "molsysmt/form/file_sdf/to_molsysmt_MolSys.py",
+        "--junitxml=/tmp/molsysmt-s3-pipeline-boundaries.xml"
+      ],
+      "exit_code": 0,
+      "tests": 80,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 38.792,
+      "junit_sha256": "7db38498cb2ed730d0697be1f49d156d5de2e62f8e900047e97c87bf916f4f32",
+      "warnings": {
+        "total": 17,
+        "structural_attribute_drop": 13,
+        "legacy_h5msm": 2,
+        "unexpected_protonation": 2
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_course.py"
+      ],
+      "exit_code": 0,
+      "notebooks": 156
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_form_adapters.py"
+      ],
+      "exit_code": 0,
+      "forms": 96,
+      "accepted_unreachable_attribute_debt": 78,
+      "claim": "Structural/delivery ratchet, not chemical validation."
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_devguide.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/devguide_index.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "documentation": {
+    "command": "make -C docs html SPHINXOPTS='-q -j 12'",
+    "exit_code": 0,
+    "python": "3.13.14",
+    "warning_entries": 26,
+    "qualification": "Incremental HTML build; Python 3.14 documentation qualification remains S5/#237.",
+    "course_review": "Common Core 12 already documents scoped transfer, context, fixed-state H, historical persistence and inference; no notebook code or saved output changed.",
+    "contextual_pdbqt_examples": "Require caller-supplied prepared_ligand.pdbqt; not executed as a standalone recipe script."
+  },
+  "interpretation": "Current frozen experimental profiles are contract-tested, with bounded independent reader/parser comparisons. No universal chemical, docking, speed or memory qualification.",
+  "consumer_evidence": {
+    "issue": "uibcdf/dockingmt#33",
+    "latest_observed_comment": "https://github.com/uibcdf/dockingmt/issues/33#issuecomment-5979160600",
+    "qualification": "Historical published consumer evidence inspected; no fresh consumer suite executed here."
+  },
+  "remaining": [
+    "Broader SDF/PDBQT chemistry and dialects remain #214/#215 post-1.0; unsupported Vina 1IEP valence and 1S63 versionless SDF are retained rejection controls.",
+    "Native inference excludes unknown H aliases, terminal/disulfide/general-group chemistry and broader performance qualification under #304.",
+    "H5MSM 0.5 excludes nonempty MolecularMechanics; #256/0.6 owns persistence. #223 owns H/charge projection.",
+    "One NumPy ndarray size-change RuntimeWarning occurred in the broad run; fresh MDAnalysis, RDKit, Vina, netCDF4 and OpenMM imports did not reproduce it. Origin and installed ABI qualification remain S5/#237.",
+    "S4 public claims, S5 dependency/Python policy, updated Viewer feedback and S6 exact-candidate gates remain open."
+  ]
+}

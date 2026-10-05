@@ -94,3 +94,26 @@ they failed without executing steps. Applicable hosted evidence is still
 required at the next checkpoint. Sphinx builds in the existing 3.13 documentation
 environment; completing 3.14 documentation tooling remains #237. Continue
 with S2, retaining S3–S6 and final publication approval.
+
+## S3 current-profile checkpoint — 2026-10-05
+
+The [execution ledger](../release_1_0_status.md#s3-preparationform-qualification--2026-10-05)
+records the bounded profile review at `fe0b813d7267f4c5a0728264094441e62c910e1b`.
+The preparation/form selection passes 1,094 cases without skips; the separate
+native pipeline, reinsertion, public mechanics-exclusion and doctest selection
+passes 80 without skips. Source, fixture and environment identities are retained
+in the [artifact](../../devtools/data/preparation_profiles_20261005.json).
+
+The native SDF/PDBQT, mapped template/context, fixed-state H, named parameter,
+torsion and bounded inference contracts retain their conservative exclusions.
+No current-profile runtime defect is reproduced. Stale conversion/preparation
+claims and the PDBQT recipe are corrected against existing guards. Native history
+persists with original axes; H5MSM rejects nonempty mechanics. The wider parser,
+chemical and geometry/performance work remains in #214/#215/#304 and the scoped
+post-1.0 owners. Their partial issues are not closed by this review.
+
+S3 local stabilization is complete; S4 claims, S5 environment/dependency review,
+updated Viewer feedback and S6 exact-artifact gates remain. The scientific run's
+single NumPy size-change warning and Python 3.14 documentation qualification are
+explicit S5/#237 follow-ups. Source tests and an incremental Python 3.13 HTML
+build do not certify the installed release matrix.

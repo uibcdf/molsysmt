@@ -29,6 +29,24 @@ The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
 compact handoff for current evidence and the next gate. This proposal keeps
 the detailed analysis and acceptance criteria.
 
+## S3 optional-provider observation — 2026-10-05
+
+The frozen preparation/form review at
+`fe0b813d7267f4c5a0728264094441e62c910e1b` passes 1,094 cases on Python
+3.14.7 without skips, including RDKit, MDAnalysis, Vina and OpenMM routes.
+The [artifact](../../devtools/data/preparation_profiles_20261005.json) retains
+actual distributions/import origins and the separate 80-case pipeline/doctest
+receipt. This is editable-source evidence, not the full or installed matrix.
+
+The broad run emits one `numpy.ndarray size changed` RuntimeWarning at importlib;
+the suite still passes. Fresh imports with that warning promoted to an error
+do not reproduce it for MDAnalysis, MolSysMT, RDKit, Vina, netCDF4 or OpenMM.
+Its emitting provider is not identified by these probes. Retain it for S5's
+environment/installed-ABI review rather than claiming every optional ABI is
+qualified. No provider replacement or dependency floor change is made here.
+The incremental documentation build uses Python 3.13.14; Python 3.14
+documentation-tool qualification also remains in this proposal/S5.
+
 ## What
 
 Extend the supported Python range from 3.11–3.13 to 3.11–3.14 under
@@ -273,4 +291,3 @@ evidence remains scoped to the commits and coordinates recorded above.
 
 This checkpoint changes the caller and guide only. It does not run the scientific suite
 or certify the current scientific branch or every optional backend.
-

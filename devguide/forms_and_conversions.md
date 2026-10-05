@@ -408,18 +408,29 @@ The experimental `physchem.assess_chemical_template` and
 `physchem.apply_chemical_template` accept supported forms through the existing
 chemical-domain conversion routes. Assessment reads no coordinates; native and
 H5MSM 0.5 inputs reuse the shared chemistry reader. Explicit state selection is
-independent for source and template. The exhaustive `(n_atoms, 2)` map contains
-template indices then source indices, including existing explicit H atoms.
+independent for source and template. The exhaustive `(n_selected_atoms, 2)` map
+contains full-input template indices then source indices, including explicit H.
 
-The bounded operation requires one connected component, the same stored covalent
-graph and complete declared template assignments. It fills absent fields only;
-explicit conflicts fail, and aromatic/stereo encodings requiring normalization
-remain unassessed. It does not add edges/atoms, choose protonation, authenticate
-templates or establish chemical validity. Completeness is justified by exhaustive
-mapping to the declared complete template, not by conversion success.
+Without a context map, the scope is one closed selected component, or fragments
+of that component when explicitly completing its graph. The default
+`connectivity_policy='require_same_graph'` requires the same stored covalent
+edges and complete declared template assignments. Explicit
+`complete_from_template` adds missing mapped covalent edges to an incomplete
+source; unexpected edges and known conflicts still fail. A disjoint explicit
+`context_atom_correspondence` allows a selection with external neighbors,
+including a polymer group. It must cover all required neighbors and incident
+stereo references; context mode supports only the same-graph policy.
+
+Only absent supported assignments are filled. Context atoms and outside-only
+bonds remain unchanged; without context, boundary relationships remain unassessed.
+Aromatic/stereo encodings requiring normalization remain unassessed. No atom or
+coordinate is generated, no protonation state chosen, and no template authenticated.
+Whole-input connectivity completeness is justified by the exhaustive declared
+template map, not by conversion success. Proper subsets and context applications
+preserve global completeness and retain their scoped evidence in the report.
 
 Application creates an independent MolSys, retaining stable atom identity,
-structures/units/box and frame-state associations. Only the selected state is
+structures/units/box and structure-state associations. Only the selected state is
 replaced. Chemical changes conservatively invalidate named interactions on the
 returned copy through its native lifecycle; an identical repeat preserves them.
 Failed preflight changes neither input and carries a detached assessment in the
@@ -428,15 +439,19 @@ catalog-backed error. Chemical-state assignments remain in `ChemicalStates`.
 The detached `molsysmt.chemical_template@1` report retains indexed assignments,
 source/template states, correspondence, declared identity/version/checksum,
 hydrogen policy, original producer version and elementary-charge units. Existing
-edge evidence remains unchanged. H5MSM stores applied chemical values but does
-not embed this preparation report or invent a provenance table. Successful
+edge evidence remains unchanged. Successful application also stores an independent
+report envelope in the selected `ChemicalStates` preparation history. H5MSM 0.5
+and `ChemicalStatesDict` preserve that history, including unchanged applications.
+Extraction and later edits retain the original operation indices and producer;
+historical indices do not describe the current atom/bond table. Successful
 application credits executed MolSysMT through optional Ackredit; inspection and
 failed application do not. Absence/provider failure cannot alter the science.
 
 See the [public contract](../docs/content/user/tools/physchem/chemical_templates.md)
-and `tests/physchem/test_chemical_template.py`. Template normalization, native
-report attachment and real consumer acceptance remain tracked in #298; fixed-
-state hydrogen placement is independent work in #300.
+and `tests/physchem/test_chemical_template.py`. Declared aromatic-order normalization
+and fixed-state H placement are separate implemented tools; neither runs implicitly
+during template application. Broader chemistry and environment-dependent refinement
+remain outside the frozen profile.
 
 ### Hierarchy selection delivery
 
@@ -619,10 +634,12 @@ report loss of full chemistry and other unsupported domains. Reports remain
 conservative, not exhaustive for native output. Explicitly authorizing tree
 omission does not waive strict loss checks. Rigid atom subsets are supported;
 tree projection requires explicit remapping. Extended dialects, flexible
-receptors and multi-model ensembles remain separate proposals. This stage does
-not implement AutoDock type assignment (#222), hydrogen merging/maps (#223),
-or chemical rotatable-bond perception (#224). MolecularMechanics stays excluded
-from H5MSM 0.5, so its labels/charges cannot be claimed to survive that route.
+receptors and multi-model ensembles remain separate proposals. These adapters do
+not implicitly assign AutoDock labels, merge hydrogen atoms or classify rotatable
+bonds. Explicit general tools provide named charge/type assignment and graph-based
+torsion candidates; hydrogen merging/maps remain separately tracked in #223.
+MolecularMechanics stays excluded from H5MSM 0.5: its public MolSys writer rejects
+nonempty mechanics before creating a file. Labels/charges are not silently omitted.
 
 User contract: [prepared PDBQT recipe](../docs/content/user/cookbook/native_pdbqt.md).
 Implementation and acceptance debt: uibcdf/molsysmt#214.

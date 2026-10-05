@@ -252,4 +252,24 @@ command and warning details are recorded in
 [the #302 resolution](../archive/resolved_bugs/sdf_identity_copies_require_native_chemical_interpretation.md).
 This extends adapter evidence without resolving #221/#222/#223/#224 preparation
 policy or claiming automatic chemical typing, charge assignment or H merging.
-Consumer review under uibcdf/dockingmt#33 remains pending; this issue stays partial.
+The subsequent bounded consumer evidence and current stabilization review follow;
+broader acceptance remains pending and this issue stays partial.
+
+## Frozen-profile stabilization — 2026-10-05
+
+The S3 review at `fe0b813d7267f4c5a0728264094441e62c910e1b` reruns the
+native and original-Vina PDBQT controls as part of the 1,094-case preparation/form
+selection, without failures or skips. The [execution ledger](../release_1_0_status.md#s3-preparationform-qualification--2026-10-05)
+and [artifact](../../devtools/data/preparation_profiles_20261005.json) own the
+command, fixture hashes, dependency/producer identity, warnings and full scope.
+Independent MDAnalysis reading and Vina parser acceptance execute; neither
+certifies preparation or docking accuracy.
+
+Published uibcdf/dockingmt#33 contains accepted prepared-input and subsequent
+fragment/readiness/charge/H integration slices. These historical observations
+are inspected, not rerun on this source. Broader consumer policy, dialects,
+projection and chemistry remain separate. Named charge/type assignment and
+native graph torsion candidates are now implemented general tools, called
+explicitly outside the adapters. The updated recipe reflects them and H5MSM
+0.5's rejection of nonempty MolecularMechanics. The bounded profile ships
+experimentally; remaining extensions stay post-1.0 and this issue remains partial.

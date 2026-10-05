@@ -322,6 +322,11 @@ sections:
         file: docs/content/user/cookbook/native_sdf.md
         agents_file: docs/content/user/cookbook/native_sdf.md.AGENTS.md
         status: in_progress
+      - name: native_pdbqt
+        file: docs/content/user/cookbook/native_pdbqt.md
+        agents_file: docs/content/user/cookbook/native_pdbqt.md.AGENTS.md
+        description: Prepared PDBQT exchange, separate supplied torsion/parameter data, explicit assignment tools and H5MSM mechanics exclusions.
+        status: reviewed
       - name: auditing_residue_chemistry
         file: docs/content/user/cookbook/auditing_residue_chemistry.md
         agents_file: docs/content/user/cookbook/auditing_residue_chemistry.md.AGENTS.md

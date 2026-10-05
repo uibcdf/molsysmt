@@ -102,23 +102,29 @@ field overflows, missing data and stale trees raise clear errors.
 
 ## Hydrogen and loss policy
 
-Every source hydrogen is retained. There is **no** automatic preparation,
-nonpolar hydrogen merging, charge aggregation, label assignment or protonation.
-Merging is a separate future preparation operation with an explicit projection
-map, tracked in [MolSysMT #223](https://github.com/uibcdf/molsysmt/issues/223).
-AutoDock charge/type assignment and chemical torsion perception remain separate
-work in [#222](https://github.com/uibcdf/molsysmt/issues/222) and
-[#224](https://github.com/uibcdf/molsysmt/issues/224).
+Every source hydrogen is retained. Parsing and writing do not prepare chemistry,
+merge nonpolar hydrogen atoms, aggregate charges or assign parameter labels.
+For an explicitly prepared chemical graph, use
+{func}`molsysmt.build.assign_partial_charges` and
+{func}`molsysmt.build.assign_autodock_atom_types` to attach named assignments.
+These experimental operations require their documented chemical prerequisites
+and optional providers; they do not make a partial PDBQT graph complete.
+Choose graph-based torsion candidates separately with
+{func}`molsysmt.topology.get_rotatable_bonds`. No assignment runs during conversion.
+Hydrogen merging with explicit projection and charge-conservation maps remains
+tracked in [MolSysMT #223](https://github.com/uibcdf/molsysmt/issues/223).
 
 A native projection drops arbitrary REMARK records and the ATOM/HETATM record
 kind. Writing native data cannot preserve the complete chemical graph, bond
-orders, general mechanics settings, structures beyond one frame, or named
+orders, general mechanics settings, structures beyond one structure, or named
 interactions. Inspect {func}`molsysmt.basic.get_conversion_report` or use
 `return_report=True`. `strict=True` rejects known losses; authorization to
 omit a tree does not disable strict mode. Reports are conservative and do not
 claim exhaustive auditing of native PDBQT output. H5MSM 0.5 does not persist
-MolecularMechanics; storing the native MolSys there does not preserve the
-PDBQT labels and charges for subsequent PDBQT serialization.
+MolecularMechanics. Its public MolSys writer rejects a system with nonempty
+mechanics before creating a file, including one containing PDBQT labels or
+partial charges. Preserve supplied parameter data separately; this route does
+not silently omit them or promise a later PDBQT reconstruction.
 
 File/string identity bridges preserve the original payload, including remarks,
 trees, line endings and atom order. Rigid subsets are supported through native
