@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Partially resolved (3)
+### Partially resolved (2)
 
-- [`wheel_smoke_accepts_incomplete_runtime_dependencies.md`](wheel_smoke_accepts_incomplete_runtime_dependencies.md) — [#344](https://github.com/uibcdf/molsysmt/issues/344) — Installed-wheel gate accepts incomplete and inconsistent runtime dependencies. *(high, reproduced)*
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 

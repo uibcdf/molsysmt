@@ -1,0 +1,2461 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "issues": [
+    "uibcdf/molsysmt#344",
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#237",
+    "uibcdf/molsysmt#244"
+  ],
+  "source_commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+  "viewer_baseline_commit": "cf427942d0b08a1c5c60f262c6a6b33f248d6f8b",
+  "wheel_run": {
+    "id": 37441629705,
+    "attempt": 1,
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/37441629705",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 112196520121,
+        "name": "Source distribution round trip",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Select the pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and validate the source distribution",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and validate a wheel from the source distribution",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112196520329,
+        "name": "linux-aarch64",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Select the pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Install wheel tooling",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and audit the abi3 wheel",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed private extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112196520395,
+        "name": "linux-x86_64",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install wheel tooling",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and audit the abi3 wheel",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed private extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112196520564,
+        "name": "windows-x86_64",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Select the pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install wheel tooling",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and audit the abi3 wheel",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed private extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112196520778,
+        "name": "macos-arm64",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Select the pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install wheel tooling",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and audit the abi3 wheel",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed private extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112196521150,
+        "name": "Format, lint, test, dependencies",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build EmbarkStudios/cargo-deny-action@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Select the pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check Rust formatting",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Lint Rust kernels",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test Rust kernels",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run EmbarkStudios/cargo-deny-action@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197668893,
+        "name": "linux-x86_64 \u2014 Python 3.11",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197668909,
+        "name": "linux-x86_64 \u2014 Python 3.12",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669002,
+        "name": "linux-x86_64 \u2014 Python 3.14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669006,
+        "name": "Installed public smoke \u2014 Python 3.12",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install controlled hard dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the wheel and resolve its declared runtime dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed public runtime outside the checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669018,
+        "name": "Installed public smoke \u2014 Python 3.11",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install controlled hard dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the wheel and resolve its declared runtime dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed public runtime outside the checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669100,
+        "name": "NumPy floor \u2014 Python 3.14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the Python-specific NumPy floor",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669101,
+        "name": "Installed public smoke \u2014 Python 3.13",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install controlled hard dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the wheel and resolve its declared runtime dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed public runtime outside the checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669115,
+        "name": "Installed public smoke \u2014 Python 3.14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install controlled hard dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the wheel and resolve its declared runtime dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed public runtime outside the checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669123,
+        "name": "linux-x86_64 \u2014 Python 3.13",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669132,
+        "name": "NumPy floor \u2014 Python 3.11",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the Python-specific NumPy floor",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669184,
+        "name": "NumPy floor \u2014 Python 3.12",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the Python-specific NumPy floor",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669326,
+        "name": "NumPy floor \u2014 Python 3.13",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the Python-specific NumPy floor",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112197669936,
+        "name": "linux-x86_64 \u2014 Python ${{ matrix.python }}",
+        "conclusion": "skipped",
+        "steps": []
+      },
+      {
+        "id": 112198581231,
+        "name": "linux-aarch64 \u2014 Python 3.11",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581246,
+        "name": "macos-arm64 \u2014 Python 3.11",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581249,
+        "name": "linux-aarch64 \u2014 Python 3.12",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581297,
+        "name": "linux-aarch64 \u2014 Python 3.14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581299,
+        "name": "macos-arm64 \u2014 Python 3.12",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581316,
+        "name": "macos-arm64 \u2014 Python 3.14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581340,
+        "name": "macos-arm64 \u2014 Python 3.13",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581392,
+        "name": "windows-x86_64 \u2014 Python 3.13",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581393,
+        "name": "windows-x86_64 \u2014 Python 3.12",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581470,
+        "name": "windows-x86_64 \u2014 Python 3.14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581472,
+        "name": "windows-x86_64 \u2014 Python 3.11",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 112198581678,
+        "name": "linux-aarch64 \u2014 Python 3.13",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/download-artifact@v8",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install the current supported NumPy release",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Validate the installed abi3 extension",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  "rust_quality": {
+    "job_id": 112196521150,
+    "native_tests_passed": 81,
+    "native_tests_failed": 0,
+    "native_tests_ignored": 0,
+    "log_sha256": "5b0ac2de7c64cb4d5cc0a48f937deb5a2fd5b1d90b12332dbec09d5f9b97d685",
+    "format": "success",
+    "clippy": "success",
+    "cargo_deny": "success"
+  },
+  "artifacts": [
+    {
+      "name": "molsysmt-linux-aarch64-abi3",
+      "github_id": 11401711855,
+      "github_archive_digest": "sha256:cfcc3545f545caab6f4fee54b21b78e771a33ea74cb536dc48e0c3ce2889fc81",
+      "filename": "molsysmt-0.22.4+215.g5bd893c85-cp311-abi3-manylinux_2_28_aarch64.whl",
+      "bytes": 60739467,
+      "file_sha256": "1157e1734243208df388bd48958f3cca0660baa3741c037509273647052de68b",
+      "version": "0.22.4+215.g5bd893c85",
+      "requires_python": "<3.15.0,>=3.11.0",
+      "requires_dist": [
+        "h5py",
+        "numpy<3,>=1.26",
+        "pyunitwizard>=0.28.1",
+        "pandas",
+        "molsysviewer",
+        "networkx",
+        "tqdm",
+        "matplotlib",
+        "mmcif>=1.1.1",
+        "argdigest>=0.13.0",
+        "depdigest>=0.10.0",
+        "smonitor>=0.16.0",
+        "mdtraj; extra == \"soft\"",
+        "openmm; extra == \"soft\"",
+        "openmmtools; extra == \"soft\"",
+        "MDAnalysis; extra == \"soft\"",
+        "rdkit; extra == \"soft\"",
+        "openff-toolkit>=0.17.1; extra == \"soft\"",
+        "openff-units>=0.3.0; extra == \"soft\"",
+        "parmed; extra == \"soft\"",
+        "pytraj; extra == \"soft\"",
+        "nglview; extra == \"soft\"",
+        "pdbfixer; extra == \"soft\"",
+        "biopython; extra == \"soft\"",
+        "plotly; extra == \"soft\"",
+        "pytest>=6.1.2; extra == \"test\"",
+        "pytest-runner; extra == \"test\"",
+        "sphinx; extra == \"docs\"",
+        "pydata-sphinx-theme; extra == \"docs\"",
+        "myst-nb; extra == \"docs\"",
+        "sphinxcontrib-bibtex; extra == \"docs\"",
+        "sphinx-copybutton; extra == \"docs\"",
+        "sphinx-remove-toctrees; extra == \"docs\"",
+        "sphinx-design; extra == \"docs\"",
+        "sphinx-favicon; extra == \"docs\"",
+        "sphinx-togglebutton; extra == \"docs\"",
+        "pytest>=6.1.2; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "ruff==0.16.5; extra == \"dev\""
+      ]
+    },
+    {
+      "name": "molsysmt-windows-x86_64-abi3",
+      "github_id": 11401577756,
+      "github_archive_digest": "sha256:e263de62d0ed94c98bc46a023c46deb6c8b6a7fb6e0661e020f1c1b8af40f042",
+      "filename": "molsysmt-0.22.4+215.g5bd893c85-cp311-abi3-win_amd64.whl",
+      "bytes": 60996200,
+      "file_sha256": "f227c4e162d6a60c2111201be0bcc47a84fbacb704d4e038255c057e802ace56",
+      "version": "0.22.4+215.g5bd893c85",
+      "requires_python": "<3.15.0,>=3.11.0",
+      "requires_dist": [
+        "h5py",
+        "numpy<3,>=1.26",
+        "pyunitwizard>=0.28.1",
+        "pandas",
+        "molsysviewer",
+        "networkx",
+        "tqdm",
+        "matplotlib",
+        "mmcif>=1.1.1",
+        "argdigest>=0.13.0",
+        "depdigest>=0.10.0",
+        "smonitor>=0.16.0",
+        "mdtraj; extra == \"soft\"",
+        "openmm; extra == \"soft\"",
+        "openmmtools; extra == \"soft\"",
+        "MDAnalysis; extra == \"soft\"",
+        "rdkit; extra == \"soft\"",
+        "openff-toolkit>=0.17.1; extra == \"soft\"",
+        "openff-units>=0.3.0; extra == \"soft\"",
+        "parmed; extra == \"soft\"",
+        "pytraj; extra == \"soft\"",
+        "nglview; extra == \"soft\"",
+        "pdbfixer; extra == \"soft\"",
+        "biopython; extra == \"soft\"",
+        "plotly; extra == \"soft\"",
+        "pytest>=6.1.2; extra == \"test\"",
+        "pytest-runner; extra == \"test\"",
+        "sphinx; extra == \"docs\"",
+        "pydata-sphinx-theme; extra == \"docs\"",
+        "myst-nb; extra == \"docs\"",
+        "sphinxcontrib-bibtex; extra == \"docs\"",
+        "sphinx-copybutton; extra == \"docs\"",
+        "sphinx-remove-toctrees; extra == \"docs\"",
+        "sphinx-design; extra == \"docs\"",
+        "sphinx-favicon; extra == \"docs\"",
+        "sphinx-togglebutton; extra == \"docs\"",
+        "pytest>=6.1.2; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "ruff==0.16.5; extra == \"dev\""
+      ]
+    },
+    {
+      "name": "molsysmt-macos-arm64-abi3",
+      "github_id": 11401328085,
+      "github_archive_digest": "sha256:7ef2b05e13121e93307accf9661cff67511f49b29795d082c056e11d5483e1b1",
+      "filename": "molsysmt-0.22.4+215.g5bd893c85-cp311-abi3-macosx_11_0_arm64.whl",
+      "bytes": 60647300,
+      "file_sha256": "5cf3813422e8d98c9c438cc97c5dfdcff2b323797b4d6bd8ef328c33c10ddbec",
+      "version": "0.22.4+215.g5bd893c85",
+      "requires_python": "<3.15.0,>=3.11.0",
+      "requires_dist": [
+        "h5py",
+        "numpy<3,>=1.26",
+        "pyunitwizard>=0.28.1",
+        "pandas",
+        "molsysviewer",
+        "networkx",
+        "tqdm",
+        "matplotlib",
+        "mmcif>=1.1.1",
+        "argdigest>=0.13.0",
+        "depdigest>=0.10.0",
+        "smonitor>=0.16.0",
+        "mdtraj; extra == \"soft\"",
+        "openmm; extra == \"soft\"",
+        "openmmtools; extra == \"soft\"",
+        "MDAnalysis; extra == \"soft\"",
+        "rdkit; extra == \"soft\"",
+        "openff-toolkit>=0.17.1; extra == \"soft\"",
+        "openff-units>=0.3.0; extra == \"soft\"",
+        "parmed; extra == \"soft\"",
+        "pytraj; extra == \"soft\"",
+        "nglview; extra == \"soft\"",
+        "pdbfixer; extra == \"soft\"",
+        "biopython; extra == \"soft\"",
+        "plotly; extra == \"soft\"",
+        "pytest>=6.1.2; extra == \"test\"",
+        "pytest-runner; extra == \"test\"",
+        "sphinx; extra == \"docs\"",
+        "pydata-sphinx-theme; extra == \"docs\"",
+        "myst-nb; extra == \"docs\"",
+        "sphinxcontrib-bibtex; extra == \"docs\"",
+        "sphinx-copybutton; extra == \"docs\"",
+        "sphinx-remove-toctrees; extra == \"docs\"",
+        "sphinx-design; extra == \"docs\"",
+        "sphinx-favicon; extra == \"docs\"",
+        "sphinx-togglebutton; extra == \"docs\"",
+        "pytest>=6.1.2; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "ruff==0.16.5; extra == \"dev\""
+      ]
+    },
+    {
+      "name": "molsysmt-source-distribution",
+      "github_id": 11401233501,
+      "github_archive_digest": "sha256:4aa1e6c10406aae3333228c010274dfe67d67efc0f46c84944bf320948cd29ba",
+      "filename": "molsysmt-0.22.4+215.g5bd893c85.tar.gz",
+      "bytes": 58382356,
+      "file_sha256": "ce420e612250c000a8b8a74608154fd5d6ab832baedd467a36ef01d05ff0acc3"
+    },
+    {
+      "name": "molsysmt-linux-x86_64-abi3",
+      "github_id": 11400999473,
+      "github_archive_digest": "sha256:d8565909780c435f284a4aaf09ff58c1a97189546256305915220ce75e893b88",
+      "filename": "molsysmt-0.22.4+215.g5bd893c85-cp311-abi3-manylinux_2_28_x86_64.whl",
+      "bytes": 61172057,
+      "file_sha256": "423ffd1573a1d54a22749dee3800a990f434847ab735d00f4fecba7401a2bbcb",
+      "version": "0.22.4+215.g5bd893c85",
+      "requires_python": "<3.15.0,>=3.11.0",
+      "requires_dist": [
+        "h5py",
+        "numpy<3,>=1.26",
+        "pyunitwizard>=0.28.1",
+        "pandas",
+        "molsysviewer",
+        "networkx",
+        "tqdm",
+        "matplotlib",
+        "mmcif>=1.1.1",
+        "argdigest>=0.13.0",
+        "depdigest>=0.10.0",
+        "smonitor>=0.16.0",
+        "mdtraj; extra == \"soft\"",
+        "openmm; extra == \"soft\"",
+        "openmmtools; extra == \"soft\"",
+        "MDAnalysis; extra == \"soft\"",
+        "rdkit; extra == \"soft\"",
+        "openff-toolkit>=0.17.1; extra == \"soft\"",
+        "openff-units>=0.3.0; extra == \"soft\"",
+        "parmed; extra == \"soft\"",
+        "pytraj; extra == \"soft\"",
+        "nglview; extra == \"soft\"",
+        "pdbfixer; extra == \"soft\"",
+        "biopython; extra == \"soft\"",
+        "plotly; extra == \"soft\"",
+        "pytest>=6.1.2; extra == \"test\"",
+        "pytest-runner; extra == \"test\"",
+        "sphinx; extra == \"docs\"",
+        "pydata-sphinx-theme; extra == \"docs\"",
+        "myst-nb; extra == \"docs\"",
+        "sphinxcontrib-bibtex; extra == \"docs\"",
+        "sphinx-copybutton; extra == \"docs\"",
+        "sphinx-remove-toctrees; extra == \"docs\"",
+        "sphinx-design; extra == \"docs\"",
+        "sphinx-favicon; extra == \"docs\"",
+        "sphinx-togglebutton; extra == \"docs\"",
+        "pytest>=6.1.2; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "ruff==0.16.5; extra == \"dev\""
+      ]
+    }
+  ],
+  "digest_convention": "GitHub archive digests identify the uploaded ZIPs. file_sha256 is independently computed from the downloaded wheel/sdist bytes, not from those ZIPs.",
+  "full_matrix_checkpoint": {
+    "run_id": 37441978743,
+    "source_commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+    "full_suite_status": "in_progress",
+    "scientific_certificates": [
+      {
+        "artifact": "scientific-evidence-macos-15-py3.11",
+        "file_sha256": "dfea4443dc21e4506ec8aadffce4d574ef8f505235b2091b8712e7dc604a149c",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:30:48.116742+00:00",
+          "python": "3.11.16",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-macos-15-py3.12",
+        "file_sha256": "ebd5fa38d94b4960f6087cb9ee1edd5ba437020b39e9344802f79193083a6845",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:27:19.652682+00:00",
+          "python": "3.12.14",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-macos-15-py3.13",
+        "file_sha256": "846dd4ef46667bad160862847826f773772306a790705190c24702312c2cdad8",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:32:30.951992+00:00",
+          "python": "3.13.15",
+          "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-macos-15-py3.14",
+        "file_sha256": "d829635ceeb64c8b603f78e7970b90ac66bc1e2c3e245d4c877f3c49042eb66c",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:33:33.723752+00:00",
+          "python": "3.14.7",
+          "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-ubuntu-latest-py3.11",
+        "file_sha256": "af95e72927a3bd37ad097b4a05961c2f5211734e47140fa351fcac1292058ea1",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:22:46.337570+00:00",
+          "python": "3.11.16",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-ubuntu-latest-py3.12",
+        "file_sha256": "8535004ce68af175903148f37337f19e3d6a66b9a29bc17de85e74c5d63c712b",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:23:03.610035+00:00",
+          "python": "3.12.14",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-ubuntu-latest-py3.13",
+        "file_sha256": "94b96753446309082c4642e458365bf5b8e0444085c0911905b41e93617decf7",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:22:35.006477+00:00",
+          "python": "3.13.15",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      },
+      {
+        "artifact": "scientific-evidence-ubuntu-latest-py3.14",
+        "file_sha256": "05391bdac0d2b31621dc7ae08a3b3e6c369f68b9f107351901b3556d44f518f2",
+        "certificate": {
+          "schema_version": "molsysmt.scientific-evidence-execution@1",
+          "verdict": "pass",
+          "commit": "5bd893c85fe8d211663b2b1f865f5f1d2c382a90",
+          "tracked_source_dirty": false,
+          "release_eligible": true,
+          "created_at": "2026-10-06T09:22:26.749736+00:00",
+          "python": "3.14.7",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "registered_nodes": 47,
+          "collected_cases": 54,
+          "passed": 54,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "nodes": [
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+            "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+            "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+            "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+            "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+            "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+            "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+            "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+            "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+            "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+            "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+            "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+            "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+            "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+            "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+          ]
+        }
+      }
+    ]
+  },
+  "limits": [
+    "The original run 37438849560 remains globally failed; this is a distinct successful producer on corrected source.",
+    "One pull-request-only job is expected to be skipped for workflow_dispatch.",
+    "Published Viewer 0.23.4 is an immutable baseline for these checks, not approved as the final current Interactions consumer candidate.",
+    "Windows wheel/runtime cells remain experimental.",
+    "Eight source-suite jobs continue executing at this checkpoint; their scientific certificates all pass with zero skips.",
+    "No package registry, release tag or GitHub Release was published. Final source/installed Conda pair and documentation/citation gates remain required for an approved release candidate."
+  ],
+  "installed_public_smoke_314": {
+    "job_id": 112197669115,
+    "log_sha256": "7d268f37593ee0b0fa28c797fd8b2cd0909207b16f264c50e463bccfbd93d990",
+    "pip_check": "No broken requirements found.",
+    "resolved_mmcif": "1.2.0",
+    "installed_version": "0.22.4+215.g5bd893c85",
+    "package_origin": "site-packages/molsysmt/__init__.py",
+    "extension_origin": "site-packages/molsysmt/_rust.abi3.so"
+  }
+}

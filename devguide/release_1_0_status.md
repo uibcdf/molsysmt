@@ -384,7 +384,7 @@ S6 preparation then identifies #344: the wheel smoke's manual dependency list
 omits required mmcif, and controlled PyUnitWizard 0.28.1 requires ArgDigest
 0.14.0 while the old pin supplied 0.13.0. Earlier successful editable execution
 does not establish a coherent installed closure. The
-[correction report](pending_bugs/wheel_smoke_accepts_incomplete_runtime_dependencies.md)
+[correction report](archive/resolved_bugs/wheel_smoke_accepts_incomplete_runtime_dependencies.md)
 and [preflight](../devtools/data/wheel_dependency_preflight_20261006.json)
 retain four initial failures, 37 passing corrected guards and actual rejection
 of the old closure. The published ArgDigest 0.14.0 pin and installed-metadata
@@ -405,6 +405,21 @@ The [execution receipt](../devtools/data/wheel_execution_20261006.json) retains
 actual artifact bytes/digests and all limits. Published Viewer 0.23.4 is the
 fixed smoke baseline, not the final current integration candidate. No package
 is published. This is stabilization within the frozen scope.
+
+On corrected source `5bd893c85`, wheel run
+[37441629705](https://github.com/uibcdf/molsysmt/actions/runs/37441629705)
+concludes **success**: thirty jobs pass and the pull-request-only profile is
+the expected skip. Format, Clippy, all 81 Rust native tests and cargo-deny
+execute successfully. Four wheel builds, sixteen current-NumPy runtime cells,
+four floor cells, four installed public smokes and the sdist round trip pass.
+The [corrected receipt](../devtools/data/wheel_corrected_execution_20261006.json)
+retains original producer/artifact identities and independently hashed bytes.
+#344 is resolved with its dependency-closure regression guard.
+
+Full source run [37441978743](https://github.com/uibcdf/molsysmt/actions/runs/37441978743)
+uses the same exact MolSysMT source and Viewer baseline. All eight Linux/macOS
+Python 3.11–3.14 cells pass their registered 54-case scientific certificate
+without skips; their full suites are still executing at this checkpoint.
 
 S5 is still partial for full-matrix/installed admission evidence. Next obtain
 Viewer feedback, agree exact provider/Viewer candidates and execute the required

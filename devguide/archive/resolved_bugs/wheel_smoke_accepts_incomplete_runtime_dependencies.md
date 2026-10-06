@@ -1,13 +1,13 @@
 ---
 summary: Installed-wheel gate accepts incomplete and inconsistent runtime dependencies.
 issue: uibcdf/molsysmt#344
-status: partial
+status: resolved
 opened: 2026-10-06
-closed:
+closed: 2026-10-06
 severity: high
 verification: reproduced
 area: [ci, deps, packaging]
-guard:
+guard: devtools/tests/test_installed_runtime_dependencies.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,9 @@ supersedes: []
 # Installed-wheel gate accepts incomplete runtime dependencies
 
 **Reported:** 2026-10-06 during S6 wheel qualification preparation.
-**Status:** corrected in `865ff6ec6`; installed dependency gates pass; the complete
-wheel workflow awaits correction of an independent Rust formatting failure.
+**Status:** resolved in `865ff6ec6`, with installed dependency gates passing on
+that source and the formatting-corrected `5bd893c85`. Broader release
+qualification remains tracked under #334.
 
 ## What
 
@@ -105,7 +106,7 @@ requirements using constraints frozen from the already installed provider
 sources, runs `pip check`, and rechecks the controlled closure. The ArgDigest
 pin advances to published 0.14.0 without changing MolSysMT's public floors.
 
-The [preflight receipt](../../devtools/data/wheel_dependency_preflight_20261006.json)
+The [preflight receipt](../../../devtools/data/wheel_dependency_preflight_20261006.json)
 retains both regression outcomes, actual provider source/version identities,
 old-closure rejection and changed-file hashes. No new full or installed wheel
 qualification is inferred from those focused checks. The original full shared
@@ -136,8 +137,35 @@ local formatting-only correction passes the same Rust 1.97.1 check; its new
 exact-source matrix remains pending under #334. The pull-request-only profile
 is the one expected skipped job in this manual run.
 
-The [execution receipt](../../devtools/data/wheel_execution_20261006.json)
+The [execution receipt](../../../devtools/data/wheel_execution_20261006.json)
 preserves the failed global conclusion, actual per-job states, all five retained
 artifact identities and independently hashed wheel/sdist bytes. Successful
 dependency checks establish this defect's correction; they do not qualify
 publication, the final Viewer consumer, or the source/Conda pair matrices.
+
+## Resolution — 2026-10-06
+
+The dependency defect is fixed in `865ff6ec6`. The guard
+`devtools/tests/test_installed_runtime_dependencies.py` deliberately supplies
+absent/old mmcif metadata and an incompatible transitive ArgDigest requirement,
+then asserts rejection before molecular imports and rejection by the controlled
+CLI. It also protects required extras, markers and cycles. These assertions
+fail if dependency closure checking is removed; package import success alone
+cannot satisfy them. The full focused selection passes 37 cases.
+
+On the formatting-corrected source `5bd893c85`, run
+[37441629705](https://github.com/uibcdf/molsysmt/actions/runs/37441629705) also
+passes all four installed public smokes, including wheel dependency resolution,
+`pip check`, controlled validation and public molecular runtime checks. Its
+Rust format, Clippy, all 81 native tests and cargo-deny checks pass. This closes
+the reported dependency defect; the earlier globally failed run and incomplete
+release matrices remain explicit #334 evidence rather than being relabelled.
+
+The corrected workflow concludes **success**: thirty jobs pass and its
+pull-request-only profile is the one expected skip. The
+[corrected execution receipt](../../../devtools/data/wheel_corrected_execution_20261006.json)
+records all job/step outcomes, actual installed 3.14 dependency checks,
+five retained artifacts with independently computed file hashes, and the
+eight zero-skip scientific certificates from the separate source matrix.
+The latter matrix's full suites are still executing at this checkpoint;
+no final Viewer or release approval is inferred.

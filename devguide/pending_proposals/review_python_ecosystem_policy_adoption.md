@@ -239,3 +239,15 @@ correction requires a new exact-source workflow. The
 [execution receipt](../../devtools/data/wheel_execution_20261006.json) retains
 these outcomes and five artifact identities. This is successful installed
 dependency evidence, not complete 1.0 qualification or central admission.
+
+The separate corrected-source wheel run
+[37441629705](https://github.com/uibcdf/molsysmt/actions/runs/37441629705)
+concludes success on `5bd893c85`: all thirty applicable jobs pass, including
+format, Clippy, 81 Rust tests, cargo-deny and every installed public smoke.
+The original failed run remains recorded. The
+[corrected receipt](../../devtools/data/wheel_corrected_execution_20261006.json)
+retains all five artifact identities and independently hashed files.
+Source run [37441978743](https://github.com/uibcdf/molsysmt/actions/runs/37441978743)
+passes the 54-case scientific certificate without skips in all eight cells;
+its full suites are still executing. No final current Viewer agreement,
+Conda installed-pair qualification or publication is inferred.
