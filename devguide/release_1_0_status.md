@@ -1684,3 +1684,45 @@ It does not qualify the newer corrected MolSysMT pair, Conda-installed files,
 Windows artifact compatibility or publication. Preserve both immutable
 producer identities and build/file digests in the upcoming installed-pair
 gates. Release tag and GitHub Release approval remain separate.
+
+## Next version checkpoint: 0.23.0 — 2026-10-06
+
+The maintainer selects **0.23.0**, rather than 1.0.0, for the next pre-1.0
+package checkpoint. The [frozen scope](release_1_0_scope.md#pre-10-version-checkpoint)
+continues to admit stabilization fixes and required qualification only.
+Use this version to validate packages and the MolSysViewer integration; decide
+on 1.0.0 after reviewing that evidence and the remaining acceptance criteria.
+
+Existing source/wheel receipts retain their original producer identities and
+development versions. They do not certify packages labelled 0.23.0. No new tag,
+release or staging upload is performed by this decision, and citation metadata
+still describes the published 0.22.4 release. The exact 0.23.0 producer and the
+paired Viewer package version remain to be selected before staging.
+
+## Corrected current source pair — 2026-10-06
+
+MolSysMT `bb4781c5ae0b725d0c904cfd8bae1f44a1b13123` and delivered Viewer
+`c046fca173f501c6e259761ef8f3d6b1825f17e8` pass source run
+[37449282864](https://github.com/uibcdf/molsysmt/actions/runs/37449282864):
+all eight Linux/macOS Python 3.11–3.14 full cells succeed. Each Linux cell
+passes 13,290 cases with 26 skips; each macOS cell passes 13,289 with 27 skips.
+Every cell has 40 deselections, retained separately from JUnit, and all eight
+scientific certificates pass 54 cases without skips. #345 is resolved with its
+[missing-metadata regression guard](../tests/basic/compare/test_compare_extended.py)
+and [archived diagnosis](archive/resolved_bugs/comparison_rejects_identical_undefined_metadata_under_pandas_3.md).
+The original failed source matrix remains recorded.
+
+Wheel run [37449284817](https://github.com/uibcdf/molsysmt/actions/runs/37449284817)
+passes all thirty applicable jobs, with one expected PR-only skip. Rust quality
+checks and 81 native tests, four wheel builds, sixteen current-NumPy runtime
+cells, four NumPy-floor cells, four public installed smokes and the sdist
+round trip pass. The
+[pair receipt](../devtools/data/stabilization_s6_pair_20261006.json)
+retains official results, five artifact/file identities and independently
+hashed bytes, eight JUnit results and their skipped nodes/reasons.
+
+This completes the corrected source/wheel checkpoint. These artifacts carry
+development version `0.22.4+217.gbb4781c5a`, not 0.23.0. Select and qualify
+the actual 0.23.0 package candidate and paired Viewer package version next.
+Conda-installed pair, consumer-owned installed/browser/session acceptance,
+exact documentation and publication gates remain. No public release is inferred.

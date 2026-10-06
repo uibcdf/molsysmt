@@ -311,3 +311,19 @@ This delivered source replaces the earlier candidate-availability blocker;
 repeat the controlled pair with the newer corrected MolSysMT source, qualify
 staged bytes and retain the remaining #114 installed/canvas/session scope
 before claiming complete consumer acceptance. No new feature is added.
+
+## Provider validation with delivered Viewer source — 2026-10-06
+
+The corrected provider source `bb4781c5ae0b725d0c904cfd8bae1f44a1b13123`
+passes its eight-cell Linux/macOS Python 3.11–3.14 full matrix with Viewer
+`c046fca173f501c6e259761ef8f3d6b1825f17e8` (`37449282864`), including all
+eight 54-case scientific certificates without skips. The same pair passes
+wheel/runtime/public installed checks (`37449284817`). The
+[pair receipt](../devtools/data/stabilization_s6_pair_20261006.json) retains
+artifact identities, hashes and full-suite omission nodes/reasons.
+
+The next MolSysMT version checkpoint is 0.23.0. Its exact package producer and
+the Viewer package version must be agreed and tested as installed files;
+the development-version artifacts above are supporting evidence. Consumer-owned
+installed/browser/canvas/session gates remain separate from these provider
+results. No 1.0 stability or publication decision is made by this checkpoint.

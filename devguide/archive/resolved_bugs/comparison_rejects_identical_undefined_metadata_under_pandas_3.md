@@ -1,13 +1,13 @@
 ---
 summary: Comparison rejects identical undefined metadata under pandas 3.
 issue: uibcdf/molsysmt#345
-status: partial
+status: resolved
 opened: 2026-10-06
-closed:
+closed: 2026-10-06
 severity: medium
 verification: reproduced
 area: [basic, deps, tests]
-guard:
+guard: tests/basic/compare/test_compare_extended.py::test_compare_matching_undefined_chain_types
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Comparison rejects identical undefined metadata under pandas 3
 
 **Reported:** 2026-10-06 by the eight-cell source matrix for #334.
-**Status:** corrected locally; focused checks pass; corrected hosted matrix pending.
+**Status:** resolved; corrected focused and eight-cell hosted checks pass.
 
 ## What
 
@@ -103,10 +103,31 @@ unchanged.
 The complete original matrix finishes with six failures and two passing
 Python 3.11 cells. Every failed cell names only `test_copy_1`; all eight
 scientific certificates pass. The
-[recovery receipt](../../devtools/data/stabilization_s6_source_recovery_20261006.json)
+[recovery receipt](../../../devtools/data/stabilization_s6_source_recovery_20261006.json)
 retains actual per-cell summaries and log hashes, initial/local regression
 failures and corrected results. Hosted logs report 26 Linux/27 macOS skips
 and 40 deselections per cell; the earlier workflow did not retain full-suite
 JUnit. The next workflow uploads each produced JUnit even on test failure.
 These omissions are not passing coverage, and a local focused fix does not
 qualify the full source gate.
+
+## Corrected hosted qualification — 2026-10-06
+
+Fix commit `bb4781c5ae0b725d0c904cfd8bae1f44a1b13123` pairs with the delivered
+Viewer source `c046fca173f501c6e259761ef8f3d6b1825f17e8`. Source run
+[37449282864](https://github.com/uibcdf/molsysmt/actions/runs/37449282864)
+concludes success in all eight Linux/macOS Python 3.11–3.14 cells. Each Linux
+cell passes 13,290 cases with 26 skips and 40 deselections; each macOS cell
+passes 13,289 with 27 skips and 40 deselections. All cells pass the original
+copy test and the three new missing-metadata regression cases. All eight
+scientific certificates pass 54 cases with zero skips. JUnit preserves actual
+skip nodes/reasons; omissions are not passing coverage.
+
+The [current-pair receipt](../../../devtools/data/stabilization_s6_pair_20261006.json)
+retains job identities, JUnit/log hashes, counts and reasons, along with the
+successful wheel matrix `37449284817` and independently hashed artifacts.
+Hosted full pytest executes serially, separately from the local twelve-worker
+checks. The named guard fails before the correction on numeric NaN metadata
+and asserts both matching missing entries and inequality after population.
+This closes the reported comparison defect; it does not qualify a public
+0.23.0 artifact, final Conda pair or all consumer-owned presentation gates.

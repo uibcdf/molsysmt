@@ -251,3 +251,28 @@ Source run [37441978743](https://github.com/uibcdf/molsysmt/actions/runs/3744197
 passes the 54-case scientific certificate without skips in all eight cells;
 its full suites are still executing. No final current Viewer agreement,
 Conda installed-pair qualification or publication is inferred.
+
+## Corrected delivered source-pair checkpoint — 2026-10-06
+
+The original source run `37441978743` finishes with six failures, each only
+at the complete-copy comparison test. #345 reproduces matching undefined
+metadata comparing unequal under pandas 3 and corrects that numeric branch.
+The original failed evidence remains preserved.
+
+With clean MolSysMT `bb4781c5ae0b725d0c904cfd8bae1f44a1b13123` and delivered
+Viewer `c046fca173f501c6e259761ef8f3d6b1825f17e8`, source run
+[37449282864](https://github.com/uibcdf/molsysmt/actions/runs/37449282864)
+passes all eight Linux/macOS Python 3.11–3.14 full cells. Each Linux cell passes
+13,290 cases with 26 skips, and each macOS cell passes 13,289 with 27 skips;
+all have 40 deselections. All eight scientific certificates pass 54 cases with
+zero skips. Hosted pytest executes serially. Wheel run
+[37449284817](https://github.com/uibcdf/molsysmt/actions/runs/37449284817)
+passes all thirty applicable jobs, including the four installed public smokes,
+81 Rust tests and platform/runtime checks, with one expected PR-only skip.
+
+The [pair receipt](../../devtools/data/stabilization_s6_pair_20261006.json)
+retains job/file identities, hashes and actual omission nodes/reasons. The
+maintainer selects 0.23.0 as the next pre-1.0 package checkpoint while retaining
+the feature freeze. Development artifacts above do not certify 0.23.0 packages,
+central admission or final Conda/consumer-installed qualification. Select and
+qualify the exact 0.23.0 producer and paired Viewer package version next.

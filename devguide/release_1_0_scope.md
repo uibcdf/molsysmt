@@ -10,6 +10,20 @@ bounded stabilization queue below. This decision does not certify that source,
 authorize a tag or release, or replace the [exact-candidate release gate](release_gate.md).
 The [execution ledger](release_1_0_status.md) records completion and evidence.
 
+## Pre-1.0 version checkpoint
+
+On 2026-10-06 the maintainer selects **0.23.0** as the next pre-1.0 version
+checkpoint. Prepare and qualify its packages and the agreed MolSysViewer pair
+before deciding whether the evidence supports 1.0.0. The feature freeze and
+stabilization admission rule below remain in effect; this checkpoint does not
+reopen feature development or declare experimental contracts stable.
+
+The version decision does not authorize a public tag or publication. Preserve
+existing source/artifact receipts with their original versions and producers;
+they are supporting evidence, not qualified 0.23.0 artifacts. Select the exact
+0.23.0 candidate and Viewer package version before staging, and execute the
+applicable exact-candidate gates. Publication requires separate final approval.
+
 ## Admission rule
 
 Admit a change before 1.0 when it fixes incorrect results, lost information,
