@@ -1,3 +1,3 @@
-version = "0.22.4"
+version = "0.23.0"
 route = "staged"
-reason = "The MolSysMT/MolSysViewer hard-dependency cycle and Python 3.14 expansion require an exact installed-pair gate before either package is public."
+reason = "The agreed pre-1.0 checkpoint requires qualification of the exact MolSysMT 0.23.0/MolSysViewer installed pair before publication; promote the tested staging files without rebuilding them."

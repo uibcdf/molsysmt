@@ -1726,3 +1726,14 @@ development version `0.22.4+217.gbb4781c5a`, not 0.23.0. Select and qualify
 the actual 0.23.0 package candidate and paired Viewer package version next.
 Conda-installed pair, consumer-owned installed/browser/session acceptance,
 exact documentation and publication gates remain. No public release is inferred.
+
+The committed Conda route and MolSysMT dispatch defaults now select 0.23.0,
+with exact-file promotion after the installed-pair gate. The guarded route
+rejects a different version. This prepares the next operation without uploading
+packages or changing the published citation metadata. The new Viewer package
+version still needs its owner's decision; its historical 0.23.4 dispatch default
+is not a selection for this new pair. Pass the agreed versions explicitly.
+The five existing route/promotion guards pass in the shared Python 3.14
+environment (twelve workers, receptor `llm`, 3.98 s); Ruff, developer-guide
+validation and whitespace checks pass. This is scoped route validation,
+not another full-suite or installed-package qualification.
