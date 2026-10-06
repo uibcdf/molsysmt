@@ -44,7 +44,7 @@ def test_cli_checks_the_real_runtime_contract_against_installed_versions(monkeyp
     versions = {
         "smonitor": "0.16.0",
         "depdigest": "0.11.0",
-        "pyunitwizard": "0.25.0",
+        "pyunitwizard": "0.28.1",
         "argdigest": "0.13.0",
     }
     monkeypatch.setattr(gate.importlib.metadata, "version", versions.__getitem__)

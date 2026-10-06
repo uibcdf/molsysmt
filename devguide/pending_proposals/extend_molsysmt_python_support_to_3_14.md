@@ -343,3 +343,36 @@ A separate fresh `--receptor=llm` support/presentation selection passes 68 cases
 in 4.00 seconds without warnings, including the #236 reconstruction guard,
 quantity digesters, SMonitor contracts and the OpenFF dependency contract.
 This is scoped boundary evidence, not the full installed candidate closure.
+
+## First 3.14 hosted attempt and source-pin correction — 2026-10-06
+
+At `5e410643337901b00ddb58b6cd4284a711c6dc88`, smoke run
+[37422022941](https://github.com/uibcdf/molsysmt/actions/runs/37422022941)
+executes on Linux/Python 3.14. Its complete test environment and Rust-toolchain
+setup pass, but pip rejects controlled DepDigest source `d871572e` because its
+metadata requires `>=3.11.0,<3.14.0`. Package tests and later guards are skipped;
+this is an installation failure, not a test result. Dependency-contract, Ruff,
+devguide, suite policy and Conda governance jobs pass on that source.
+
+The controlled manifest is corrected to published DepDigest 0.13.0
+(`df771e00e886fd9b12915adf54c1bd75c4b5476c`) and published SMonitor 0.18.0
+(`b79cca8eb9bd878d0d3439876eca4ed26560e916`). Both declare Python 3.11–3.14;
+PyUnitWizard 0.28.1 and ArgDigest 0.13.0 pins stay fixed. All four build and
+install successfully from their exact sources into an isolated Python 3.14
+provider directory. No `Requires-Python` bypass or public-floor reduction is
+used. The existing controlled-dependency CLI test now supplies the actual
+PyUnitWizard public floor rather than its obsolete 0.25 fixture.
+
+The [source-correction artifact](../../devtools/data/stabilization_s5_sources_20261006.json)
+retains the first hosted failure and the actual released installed providers.
+Inspect the corrected unskipped head's smoke before qualifying this routine
+route. Its success still cannot replace the eight-cell full source or installed
+candidate gates.
+
+With those actual installed sources, the 102-case provider/contract/unit/
+diagnostic selection passes in 19.82 seconds with only two expected legacy
+H5MSM warnings. The corrected tree passes all 14 fast release gates. An initial
+fast run caught the not-yet-created linked evidence file; its failed developer-
+guide check and the successful rerun after artifact creation are retained.
+The checks certify scoped Python 3.14 behavior and coherent source routes;
+full cross-platform and installed candidate evidence remains outstanding.

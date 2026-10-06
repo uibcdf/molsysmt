@@ -301,6 +301,13 @@ with 784 recorded warnings and no missing course toctree documents; #144 retains
 the warning inventory. The docs extra supplies the actual configured extensions.
 Homepage executable cells and saved outputs are unchanged.
 
+The initial S5 head `5e4106433` passes remote contract, Ruff, policy, devguide
+and Conda governance. Smoke `37422022941` creates the complete Python 3.14
+environment but pip rejects the old DepDigest pin's `<3.14` metadata; subsequent
+tests are skipped. #237 corrects the manifest to exact published DepDigest
+0.13.0 and SMonitor 0.18.0 sources and verifies isolated installation; inspect
+its corrected head separately. The original failure remains visible.
+
 S5 is still partial for executed environment/admission evidence. Next inspect
 this checkpoint's actual routine 3.14 CI, contrast the older automatic failures
 with current guards, obtain Viewer feedback, and select exact candidates for S6.

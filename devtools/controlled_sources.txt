@@ -2,7 +2,7 @@
 # Runtime dependencies of these projects belong in the calling Conda environment;
 # workflows install this file with --no-deps so the solver cannot silently substitute
 # stale MolSysSuite packages from the uibcdf channel.
-git+https://github.com/uibcdf/smonitor@7daac74c6641e6003df8bbcc6cca91709ec891b9
-git+https://github.com/uibcdf/depdigest@d871572e37e830a1fea55bf7394cc6bebc6c893d
+git+https://github.com/uibcdf/smonitor@b79cca8eb9bd878d0d3439876eca4ed26560e916
+git+https://github.com/uibcdf/depdigest@df771e00e886fd9b12915adf54c1bd75c4b5476c
 git+https://github.com/uibcdf/pyunitwizard@25a4bc2468da4ef3af2a638c0bf068becf2acfb4
 git+https://github.com/uibcdf/argdigest@9880fa7b990fd0987ff0de715b665eb9e11c11b2
