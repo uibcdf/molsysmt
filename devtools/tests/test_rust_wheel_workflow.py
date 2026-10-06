@@ -151,6 +151,28 @@ def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
     assert '"anywidget>=0.9.15"' in text
 
 
+def test_public_wheel_installer_resolves_dependencies_with_frozen_provider_sources():
+    steps = _workflow()["jobs"]["test-public-smoke"]["steps"]
+    installer = next(
+        step for step in steps if "wheelhouse/*.whl" in step.get("run", "")
+    )
+    commands = installer["run"].splitlines()
+    install = next(command for command in commands if "pip install" in command)
+    assert "--no-deps" not in install
+    assert "--constraint controlled-runtime-constraints.txt" in install
+    assert "python -m pip check" in commands
+    assert "python devtools/scripts/validate_controlled_dependencies.py" in commands
+    preparation = next(
+        step
+        for step in steps
+        if step.get("name") == "Install controlled hard dependencies"
+    )
+    assert (
+        "python -m pip freeze --all > controlled-runtime-constraints.txt"
+        in preparation["run"]
+    )
+
+
 def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     config = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
     cibw = config["tool"]["cibuildwheel"]

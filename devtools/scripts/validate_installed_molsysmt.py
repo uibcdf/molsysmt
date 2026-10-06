@@ -5,8 +5,59 @@ from __future__ import annotations
 
 import json
 import sys
+from collections import deque
 from importlib import metadata, resources
 from pathlib import Path
+
+from packaging.requirements import Requirement
+from packaging.utils import canonicalize_name
+
+
+def find_runtime_dependency_violations(names, requires_for=None, version_for=None):
+    """Checking active installed requirements, including transitive relationships.
+
+    Unrequested extras are excluded; extras required by a dependency are
+    propagated. Markers use the running interpreter/platform, and visited
+    distribution/extra combinations terminate cycles.
+    """
+    requires_for = metadata.requires if requires_for is None else requires_for
+    version_for = metadata.version if version_for is None else version_for
+    pending = deque((canonicalize_name(name), frozenset()) for name in names)
+    visited = set()
+    versions = {}
+    violations = []
+    while pending:
+        name, extras = pending.popleft()
+        if (name, extras) in visited:
+            continue
+        visited.add((name, extras))
+        try:
+            requirements = requires_for(name) or ()
+        except metadata.PackageNotFoundError:
+            violations.append(f"{name}: required distribution is not installed")
+            continue
+        for value in requirements:
+            requirement = Requirement(value)
+            if requirement.marker and not any(
+                requirement.marker.evaluate({"extra": extra}) for extra in {""} | extras
+            ):
+                continue
+            dependency = canonicalize_name(requirement.name)
+            if dependency not in versions:
+                try:
+                    versions[dependency] = version_for(dependency)
+                except metadata.PackageNotFoundError:
+                    versions[dependency] = None
+            version = versions[dependency]
+            if version is None:
+                violations.append(f"{name}: missing required {requirement}")
+            elif not requirement.specifier.contains(version, prereleases=True):
+                violations.append(
+                    f"{name}: installed {dependency} {version} violates {requirement}"
+                )
+            else:
+                pending.append((dependency, frozenset(requirement.extras)))
+    return violations
 
 
 def _is_editable(distribution: metadata.Distribution) -> bool:
@@ -26,14 +77,19 @@ def _require_installed_path(path: Path) -> None:
 def validate_public_runtime() -> dict[str, object]:
     """Running representative installed-wheel operations."""
 
+    distribution = metadata.distribution("molsysmt")
+    if _is_editable(distribution):
+        raise RuntimeError("installed MolSysMT distribution is editable")
+    violations = find_runtime_dependency_violations(["molsysmt"])
+    if violations:
+        raise RuntimeError(
+            "installed runtime dependency violations: " + "; ".join(violations)
+        )
+
     import molsysmt._rust as rust
     import numpy as np
 
     import molsysmt as msm
-
-    distribution = metadata.distribution("molsysmt")
-    if _is_editable(distribution):
-        raise RuntimeError("installed MolSysMT distribution is editable")
 
     package_path = Path(msm.__file__).resolve()
     extension_path = Path(rust.__file__).resolve()

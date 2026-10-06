@@ -91,6 +91,11 @@ Do not substitute a partial or single-platform run.
 - `ci-rust-wheels.yaml` must pass for the supported Linux x86_64/aarch64 and
   macOS arm64 target, including Python 3.11--3.14, the declared NumPy
   floor/current checks, and installed public-runtime smoke.
+- The public-runtime smoke resolves the wheel's declared dependencies under
+  constraints frozen from the exact installed provider sources, runs `pip check`,
+  and checks active installed `Requires-Dist` relationships before molecular
+  operations. Missing/incompatible required distributions fail the gate;
+  unrequested extras are excluded and dependency-requested extras are checked.
 - Windows x86_64 remains an experimental portability target. Its wheel build,
   audit, and installed-extension checks are retained, but are non-blocking for
   1.0 until Windows has a functional matrix comparable to Linux and macOS.

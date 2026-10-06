@@ -380,6 +380,17 @@ and installed metadata differ. These results are development evidence, without
 an immutable Viewer-candidate claim. Earlier failed runs remain recorded.
 All 14 fast release checks pass after the evidence/documentation update.
 
+S6 preparation then identifies #344: the wheel smoke's manual dependency list
+omits required mmcif, and controlled PyUnitWizard 0.28.1 requires ArgDigest
+0.14.0 while the old pin supplied 0.13.0. Earlier successful editable execution
+does not establish a coherent installed closure. The
+[correction report](pending_bugs/wheel_smoke_accepts_incomplete_runtime_dependencies.md)
+and [preflight](../devtools/data/wheel_dependency_preflight_20261006.json)
+retain four initial failures, 37 passing corrected guards and actual rejection
+of the old closure. The published ArgDigest 0.14.0 pin and installed-metadata
+checks address both gaps; corrected full and installed artifact execution remain
+pending. This is stabilization within the frozen scope.
+
 S5 is still partial for full-matrix/installed admission evidence. Next obtain
 Viewer feedback, agree exact provider/Viewer candidates and execute the required
 eight-cell source and installed wheel/Conda pair gates for S6.

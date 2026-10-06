@@ -5,4 +5,4 @@
 git+https://github.com/uibcdf/smonitor@b79cca8eb9bd878d0d3439876eca4ed26560e916
 git+https://github.com/uibcdf/depdigest@df771e00e886fd9b12915adf54c1bd75c4b5476c
 git+https://github.com/uibcdf/pyunitwizard@25a4bc2468da4ef3af2a638c0bf068becf2acfb4
-git+https://github.com/uibcdf/argdigest@9880fa7b990fd0987ff0de715b665eb9e11c11b2
+git+https://github.com/uibcdf/argdigest@0fa776af2d271065c60727c28480b20c3ce09aee

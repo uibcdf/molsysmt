@@ -363,9 +363,13 @@ jobs:
             "git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA"
           python devtools/scripts/validate_controlled_dependencies.py
           python -c "from argdigest import Domain, UnknownArgumentError"
+          python -m pip freeze --all > controlled-runtime-constraints.txt
 
-      - name: Install the MolSysMT wheel without dependency resolution
-        run: python -m pip install --no-deps wheelhouse/*.whl
+      - name: Install the wheel and resolve its declared runtime dependencies
+        run: |
+          python -m pip install --constraint controlled-runtime-constraints.txt wheelhouse/*.whl
+          python -m pip check
+          python devtools/scripts/validate_controlled_dependencies.py
 
       - name: Validate the installed public runtime outside the checkout
         shell: bash

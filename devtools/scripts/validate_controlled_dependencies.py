@@ -11,6 +11,13 @@ from pathlib import Path
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
+try:
+    from devtools.scripts.validate_installed_molsysmt import (
+        find_runtime_dependency_violations,
+    )
+except ImportError:
+    from validate_installed_molsysmt import find_runtime_dependency_violations
+
 ROOT = Path(__file__).resolve().parents[2]
 PINS = ROOT / "devtools" / "controlled_sources.txt"
 PIN_PATTERN = re.compile(
@@ -66,6 +73,7 @@ def main() -> int:
     violations = find_violations(
         pyproject["project"]["dependencies"], names, importlib.metadata.version
     )
+    violations.extend(find_runtime_dependency_violations(names))
     if violations:
         for violation in violations:
             print(f"[CONTROLLED_DEPENDENCY] {violation}")

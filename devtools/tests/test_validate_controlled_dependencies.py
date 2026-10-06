@@ -45,9 +45,14 @@ def test_cli_checks_the_real_runtime_contract_against_installed_versions(monkeyp
         "smonitor": "0.16.0",
         "depdigest": "0.11.0",
         "pyunitwizard": "0.28.1",
-        "argdigest": "0.13.0",
+        "argdigest": "0.14.0",
     }
     monkeypatch.setattr(gate.importlib.metadata, "version", versions.__getitem__)
+    monkeypatch.setattr(
+        gate.importlib.metadata,
+        "requires",
+        lambda name: ["argdigest>=0.14.0"] if name == "pyunitwizard" else [],
+    )
     assert gate.main() == 0
 
     versions["argdigest"] = "0.12.1"
