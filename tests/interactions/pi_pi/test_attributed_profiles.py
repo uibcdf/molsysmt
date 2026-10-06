@@ -38,9 +38,14 @@ def test_attributed_periodic_scopes_units_and_named_nan_measure_roundtrip(
         )
     assert result.occurrence_structures.tolist() == [0]
     assert result.evaluated_structure_indices.tolist() == [0, 1]
-    assert result.query(atom_indices=[0], mode="incident").n_interactions == 1
     assert (
-        result.query(atom_indices=list(range(6)), mode="internal").n_interactions == 0
+        result.query(atom_indices=[0], mode="involving_selection").n_interactions == 1
+    )
+    assert (
+        result.query(
+            atom_indices=list(range(6)), mode="within_selection"
+        ).n_interactions
+        == 0
     )
     assert result.measure_units["distance"] == "nm"
     assert result.measure_units["plane_angle"] == "radians"

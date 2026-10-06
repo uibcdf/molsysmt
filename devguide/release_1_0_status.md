@@ -1752,3 +1752,16 @@ records 1,474 passing scoped tests, eight passing doctests and executed public
 examples. Consumer migration remains Viewer-owned. Prior full source/wheel
 qualification retains its original producer; it does not certify this new source
 or a 0.23.0 artifact. The exact-candidate gates under #334 remain pending.
+
+
+### Maintainer clarification: use only explicit query names — 2026-10-06
+
+The maintainer withdraws the initial compatibility spellings in #346 before
+public adoption. The canonical query names and `between_selections` are the only
+supported query API; detector and persisted scientific scope remain unchanged.
+The current Viewer checkout still passes `incident` by default, and its existing
+real-consumer attribution/session regression fails at that query call. Keep the
+regression intact and qualify it again after uibcdf/molsysviewer#168 migrates the
+consumer. Prior source-pair evidence does not certify this revised provider API;
+the new provider contract and the migration requirement must accompany its source
+handoff. No format bump or release publication is implied.

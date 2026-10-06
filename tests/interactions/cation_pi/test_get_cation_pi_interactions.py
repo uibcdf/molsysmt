@@ -98,10 +98,16 @@ def test_cation_pi_retains_roles_sparse_frames_coverage_and_producer(method):
     assert result.occurrence_structures.tolist() == [0, 2]
     assert result.query(structure_indices=1).n_interactions == 0
     assert result.query(atom_indices=6, structure_indices=[2, 0, 2]).n_interactions == 2
-    assert result.query(atom_indices=6, mode="internal").n_interactions == 0
-    assert result.query(atom_indices=6, mode="cross").n_interactions == 2
+    assert result.query(atom_indices=6, mode="within_selection").n_interactions == 0
     assert (
-        result.query(atom_indices=list(range(7)), mode="internal").n_interactions == 2
+        result.query(atom_indices=6, mode="across_selection_boundary").n_interactions
+        == 2
+    )
+    assert (
+        result.query(
+            atom_indices=list(range(7)), mode="within_selection"
+        ).n_interactions
+        == 2
     )
     np.testing.assert_allclose(result.measurements["height"], [0.35, 0.35], atol=1e-12)
     np.testing.assert_allclose(

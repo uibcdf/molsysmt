@@ -244,14 +244,22 @@ def test_whole_ring_calculation_scopes_and_queries(mode, first, second, count):
     assert result.n_interactions == count
     assert result.evaluation_mode == mode
     if count:
-        assert result.query(atom_indices=[6], mode="incident").n_interactions == count
+        assert (
+            result.query(atom_indices=[6], mode="involving_selection").n_interactions
+            == count
+        )
         assert (
             result.query(
-                atom_indices=list(range(6, 12)), mode="internal"
+                atom_indices=list(range(6, 12)), mode="within_selection"
             ).n_interactions
             == 0
         )
-        assert result.query(atom_indices=[6], mode="cross").n_interactions == count
+        assert (
+            result.query(
+                atom_indices=[6], mode="across_selection_boundary"
+            ).n_interactions
+            == count
+        )
         if mode == "between":
             assert result.relation(0)["participants"][0][
                 "atom_indices"

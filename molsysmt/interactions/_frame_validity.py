@@ -13,7 +13,7 @@ import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 
-from ._query_modes import normalize_query_mode
+from ._query_modes import validate_query_mode
 from .result import (
     _RESULT_DIGEST,
     Interactions,
@@ -172,7 +172,7 @@ class _FrameFilteredInteractions(Interactions):
         skip_digestion=False,
     ):
         _check_skip_digestion(skip_digestion)
-        mode = normalize_query_mode(mode)
+        mode = validate_query_mode(mode)
         frames = self._query_frames(structure_indices)
         if (
             structure_indices is None

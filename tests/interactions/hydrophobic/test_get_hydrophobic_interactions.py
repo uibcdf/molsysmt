@@ -63,10 +63,20 @@ def test_canonical_pair_queries_and_nonconsecutive_structure_indices(
         assert result.participant_roles == ("hydrophobic_1", "hydrophobic_2")
         assert result.occurrence_structures.tolist() == [0, 2]
         np.testing.assert_allclose(result.measurements["distance"], 0.30)
-        assert result.query(atom_indices=[1], mode="incident").n_interactions == 2
-        assert result.query(atom_indices=[1], mode="internal").n_interactions == 0
-        assert result.query(atom_indices=[1], mode="cross").n_interactions == 2
-        assert result.between([4], [1], exclusive=True).n_interactions == 2
+        assert (
+            result.query(atom_indices=[1], mode="involving_selection").n_interactions
+            == 2
+        )
+        assert (
+            result.query(atom_indices=[1], mode="within_selection").n_interactions == 0
+        )
+        assert (
+            result.query(
+                atom_indices=[1], mode="across_selection_boundary"
+            ).n_interactions
+            == 2
+        )
+        assert result.between_selections([4], [1], exclusive=True).n_interactions == 2
 
 
 def test_pair_identity_deduplicates_internal_and_cross_scopes_without_covalent_filter():
@@ -84,7 +94,7 @@ def test_pair_identity_deduplicates_internal_and_cross_scopes_without_covalent_f
         source, selection=[0, 1], selection_mode="incident", pbc=False
     )
     assert incident.n_interactions == 9
-    query = result.query(atom_indices=[0, 1], mode="incident").to_dict()
+    query = result.query(atom_indices=[0, 1], mode="involving_selection").to_dict()
     np.testing.assert_allclose(
         query["measurements"]["distance"], incident.measurements["distance"]
     )

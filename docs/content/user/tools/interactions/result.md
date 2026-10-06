@@ -84,11 +84,9 @@ observations in all three modes.
 `between_selections(A, B)` requires at least one atom from each disjoint set. With
 `exclusive=True`, every participant atom must belong to `A` or `B`.
 
-The three old query values `incident`, `internal` and `cross`, and the method
-`between(A, B)`, remain supported compatibility spellings with the same behavior.
-Use the explicit names for new queries. `between_selections` is a separate method,
-not a fourth value for `query(mode=...)`, because it needs two selections.
-Neither spelling changes the scientific search that produced the analysis:
+Only these explicit query names are supported. `between_selections` is a separate
+method, not a fourth value for `query(mode=...)`, because it needs two selections.
+Queries preserve the scientific search that produced the analysis:
 detector `selection_mode` and stored `evaluation_mode` still use `internal`,
 `incident` and `between`. Existing H5MSM 0.5 and InteractionsDict files retain
 those scientific values without migration or a schema change.

@@ -93,8 +93,13 @@ def test_buch_analysis_keeps_coverage_roles_and_actual_participant_universe(tmp_
     np.testing.assert_array_equal(analysis.evaluation_scope["atom_indices"], [0, 1, 2])
     assert analysis.query(structure_indices=[1]).n_interactions == 0
     assert analysis.query(atom_indices=[1]).n_interactions == 2
-    assert analysis.query(atom_indices=[0, 2], mode="internal").n_interactions == 0
-    assert analysis.query(atom_indices=[0, 1, 2], mode="internal").n_interactions == 2
+    assert (
+        analysis.query(atom_indices=[0, 2], mode="within_selection").n_interactions == 0
+    )
+    assert (
+        analysis.query(atom_indices=[0, 1, 2], mode="within_selection").n_interactions
+        == 2
+    )
     assert [part["role"] for part in analysis.relation(0)["participants"]] == [
         "donor",
         "hydrogen",
@@ -125,7 +130,7 @@ def test_buch_analysis_declares_both_directions_between_disjoint_selections():
     np.testing.assert_array_equal(analysis.evaluation_scope["atom_indices"], [0, 1])
     np.testing.assert_array_equal(analysis.evaluation_scope["atom_indices_b"], [2, 3])
     assert analysis.n_interactions == 3
-    assert analysis.between([0], [2, 3]).n_interactions == 3
+    assert analysis.between_selections([0], [2, 3]).n_interactions == 3
 
 
 def test_buch_analysis_identical_selections_do_not_duplicate_observations():

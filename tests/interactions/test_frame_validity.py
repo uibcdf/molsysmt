@@ -135,11 +135,11 @@ def test_pickling_filtered_query_views_preserves_handles_and_query_limits(result
 @pytest.mark.parametrize(
     "mode, atoms, distances",
     [
-        ("incident", [0], [0.4, 0.3, 0.5]),
-        ("internal", [0, 1, 2], [0.4, 0.3]),
-        ("cross", [0, 1, 2], [0.5]),
-        ("internal", [0], []),
-        ("incident", [], []),
+        ("involving_selection", [0], [0.4, 0.3, 0.5]),
+        ("within_selection", [0, 1, 2], [0.4, 0.3]),
+        ("across_selection_boundary", [0, 1, 2], [0.5]),
+        ("within_selection", [0], []),
+        ("involving_selection", [], []),
     ],
 )
 def test_atom_queries_filter_validity_without_packing(result, mode, atoms, distances):
@@ -152,13 +152,13 @@ def test_atom_queries_filter_validity_without_packing(result, mode, atoms, dista
 
 def test_between_and_nested_queries_retain_compact_handles_and_compound_members(result):
     edited = result.invalidate_structures([0])
-    view = edited.between([0], [2], structure_indices=[4, 0, 2, 1, 4])
+    view = edited.between_selections([0], [2], structure_indices=[4, 0, 2, 1, 4])
     data = view.query(atom_indices=[3]).to_dict()
     np.testing.assert_array_equal(data["occurrence_indices"], [2])
     np.testing.assert_array_equal(data["structure_indices"], [4])
     np.testing.assert_array_equal(data["evaluated_structure_indices"], [4, 2, 1])
-    assert edited.between([0], [2], exclusive=True).n_interactions == 0
-    assert edited.between([0, 1], [2], exclusive=True).n_interactions == 2
+    assert edited.between_selections([0], [2], exclusive=True).n_interactions == 0
+    assert edited.between_selections([0, 1], [2], exclusive=True).n_interactions == 2
     assert edited.query(interaction_types="pi_pi").n_interactions == 1
     assert edited._packed_result is None
 

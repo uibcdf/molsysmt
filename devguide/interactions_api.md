@@ -15,10 +15,10 @@ separate scientific contracts and decisions.
 and `across_selection_boundary`. Every constituent atom of every participant
 counts, including hydrogens and compound rings. `between_selections(A, B)` is a
 separate operation for disjoint selections, with optional exclusivity.
-Legacy query values and `between` remain compatible; scientific detector
+Only the explicit query names are supported; scientific detector
 `selection_mode`, stored `evaluation_mode` and persistence schemas are unchanged.
 See the [normative query contract](interactions_query_semantics.md) for predicates,
-empty coverage, compatibility and consumer migration under uibcdf/molsysmt#346.
+empty coverage, validation and consumer migration under uibcdf/molsysmt#346.
 
 ## Selected-structure queries and bounded inspection
 
@@ -715,8 +715,9 @@ analysis in versioned metadata, without a per-occurrence column. Readers of
 older payloads with no field return `{}`: unknown producer versions are never
 filled from the installed reader version. External producers may supply their
 own name/version entries through `from_records(software=...)`. Its
-`query` method supports local-index structure lists and atom-set `incident`,
-`internal`, and `cross` semantics; `between` supports disjoint atom sets.
+`query` method supports local-index structure lists and atom-set
+`involving_selection`, `within_selection`, and `across_selection_boundary`
+semantics; `between_selections` supports disjoint atom sets.
 `from_records`, `to_dict`, `relation`, `remap`, `invalidate_structures`,
 `replace_structures`, `save`, and
 `load` provide construction,

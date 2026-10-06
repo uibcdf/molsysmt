@@ -14,6 +14,15 @@ supersedes: []
 
 # Implement experimental sparse Interactions results and queries
 
+**Query vocabulary clarification — 2026-10-06:** uibcdf/molsysmt#346 now
+supports only `involving_selection`, `within_selection`,
+`across_selection_boundary` and the separate `between_selections` operation.
+The maintainer withdraws the initial compatibility spellings before public
+adoption. Earlier dated sections retain their historical names; the
+[current query contract](../interactions_query_semantics.md) governs executable
+calls. Scientific `selection_mode`/`evaluation_mode` and persistence schemas are
+unchanged. uibcdf/molsysviewer#168 owns consumer call/filter migration.
+
 **Scope freeze — 2026-10-05:** current result/native/H5MSM and agreed Viewer
 contracts remain in the [1.0 stabilization queue](../release_1_0_scope.md).
 Deferred individual observation editors/catalog pruning are now #335; direct

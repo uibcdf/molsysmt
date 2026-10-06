@@ -71,7 +71,7 @@ def test_queries_reject_invalid_local_indices_on_every_storage_route(
 
 def test_between_rejects_boolean_exclusive_on_every_storage_route(result):
     with pytest.raises(ArgumentError):
-        result.between([0], [2], exclusive="false")
+        result.between_selections([0], [2], exclusive="false")
 
 
 @pytest.mark.parametrize("field", ["structure", "atom", "image"])
@@ -134,7 +134,7 @@ def test_generators_are_consumed_once_and_empty_selections_keep_integer_shapes(r
 def test_invalid_skip_flags_fail_even_on_the_bypass_route(result, tmp_path):
     calls = [
         lambda: result.query(skip_digestion="yes"),
-        lambda: result.between([0], [2], skip_digestion=1),
+        lambda: result.between_selections([0], [2], skip_digestion=1),
         lambda: result.remap(skip_digestion=1),
         lambda: result.to_dict(skip_digestion=1),
         lambda: result.relation(0, skip_digestion=1),
@@ -153,9 +153,9 @@ def test_invalid_skip_flags_fail_even_on_the_bypass_route(result, tmp_path):
 def test_valid_skip_and_path_inputs_preserve_round_trip_and_parallel_handles(
     result, tmp_path
 ):
-    normal = result.query([1, 0], [0], "incident", "hbond").to_dict()
+    normal = result.query([1, 0], [0], "involving_selection", "hbond").to_dict()
     skipped = result.query(
-        [1, 0], [0], "incident", "hbond", skip_digestion=True
+        [1, 0], [0], "involving_selection", "hbond", skip_digestion=True
     ).to_dict()
     np.testing.assert_array_equal(
         normal["occurrence_indices"], skipped["occurrence_indices"]

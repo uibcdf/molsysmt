@@ -11,7 +11,7 @@ import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 
-from ._query_modes import normalize_query_mode
+from ._query_modes import validate_query_mode
 
 _RESULT_DIGEST = {
     "digestion_source": "molsysmt._private.argdigest.interactions_result",
@@ -997,8 +997,7 @@ class Interactions:
 
         Notes
         -----
-        ``incident``, ``internal`` and ``cross`` remain compatibility values for
-        the three modes, respectively. Query filters do not change the stored
+        Query filters do not change the stored
         scientific ``evaluation_mode``. Use ``between_selections`` for two
         explicit disjoint atom selections; it is not a value of ``mode``.
 
@@ -1009,7 +1008,7 @@ class Interactions:
         .. versionadded:: 1.0.0
         """
         _check_skip_digestion(skip_digestion)
-        mode = normalize_query_mode(mode)
+        mode = validate_query_mode(mode)
         if structure_indices is None:
             coverage = self._coverage
         else:
@@ -1188,8 +1187,7 @@ class Interactions:
         -----
         A relation must include at least one atom from each selection. Every
         constituent atom of a compound participant counts. Without exclusivity,
-        further participant atoms may lie outside both selections. ``between``
-        remains a compatibility spelling of this operation.
+        further participant atoms may lie outside both selections.
 
         Examples
         --------
@@ -1229,55 +1227,6 @@ class Interactions:
             np.isin(self.occurrence_relations[candidates._positions], allowed)
         ]
         return candidates._view(positions, candidates._coverage)
-
-    @arg_digest(**_RESULT_DIGEST)
-    def between(
-        self,
-        atom_indices_a,
-        atom_indices_b,
-        structure_indices=None,
-        exclusive=False,
-        interaction_types=None,
-        *,
-        skip_digestion=False,
-    ):
-        """Selecting between disjoint sets using the compatibility spelling.
-
-        Parameters
-        ----------
-        atom_indices_a : array-like of int
-            First set of local atom indices.
-        atom_indices_b : array-like of int
-            Second disjoint set of local atom indices.
-        structure_indices : array-like of int or None, default=None
-            Structures to inspect; ``None`` uses evaluated structures.
-        exclusive : bool, default=False
-            Require every participant atom to belong to the union of both sets.
-        interaction_types : iterable of str or None, default=None
-            Interaction kinds to retain.
-        skip_digestion : bool, default=False
-            Skip argument digestion only for inputs already satisfying this contract.
-
-        Returns
-        -------
-        Interactions
-            Selected occurrences and evaluated-structure coverage.
-
-        See Also
-        --------
-        between_selections : Preferred spelling with the same semantics.
-
-        .. versionadded:: 1.0.0
-        """
-        _check_skip_digestion(skip_digestion)
-        return self.between_selections(
-            atom_indices_a,
-            atom_indices_b,
-            structure_indices=structure_indices,
-            exclusive=exclusive,
-            interaction_types=interaction_types,
-            skip_digestion=True,
-        )
 
     @arg_digest(**_RESULT_DIGEST)
     def to_dict(self, *, skip_digestion=False):

@@ -103,8 +103,13 @@ def test_minimum_distance_uses_oxygen_references_but_queries_include_whole_cente
     np.testing.assert_allclose(result.measurements["distance"], [0.3])
     np.testing.assert_allclose(result.measurements["positive_charge"], [1])
     np.testing.assert_allclose(result.measurements["negative_charge"], [-1])
-    assert result.query(atom_indices=[0], mode="incident").n_interactions == 1
-    assert result.query(atom_indices=[0, 1, 2], mode="internal").n_interactions == 0
+    assert (
+        result.query(atom_indices=[0], mode="involving_selection").n_interactions == 1
+    )
+    assert (
+        result.query(atom_indices=[0, 1, 2], mode="within_selection").n_interactions
+        == 0
+    )
     with pytest.raises(ArgumentError, match="cuts a compound"):
         _calculate(molsys, selection=[1, 2], selection_mode="incident")
     assert not molsys.interactions

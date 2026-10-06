@@ -121,3 +121,44 @@ belongs to uibcdf/molsysviewer#168; scientific scope metadata remains literal.
 The previously qualified source/wheel pair remains evidence for its original
 producer, not for the new query-contract source. Exact candidate and installed
 pair qualification remain under uibcdf/molsysmt#334.
+
+
+## Maintainer clarification — 2026-10-06
+
+After the initial closure, the maintainer explicitly withdraws provider
+compatibility spellings because this vocabulary has no public-user adoption.
+The earlier decision above records the initial delivery, not the current API.
+Only `involving_selection`, `within_selection`, `across_selection_boundary` and
+the separate `between_selections` operation are now supported. The old query
+modes raise in both normal and trusted routes; `between` is absent. Scientific
+`selection_mode`/`evaluation_mode`, saved analysis values and schemas remain
+unchanged. The original guard now checks rejection as well as literal membership
+across packed, selected, invalidated and replaced results; selective HDF5 controls
+also reject previous query names. Provider call sites, fixtures, tests and the
+contract benchmark adapter use the canonical API.
+
+The first expanded run passes 1,450 tests and fails 30: 29 still carry previous
+query names in test parameter tables, and one is an actual Viewer integration.
+Updating those parameter tables preserves their membership assertions. The
+corrected provider selection passes **1,479 tests**, with zero failures/errors/
+skips and **one explicitly deselected consumer integration**. The result
+doctests pass eight tests; 14/14 fast gates and Ruff/signature checks pass.
+A small existing contract control verifies 20 oracle queries on 30 atoms and
+30 structures; this is a functional check, not a performance claim.
+
+The unchanged test
+`tests/interactions/test_scientific_attribution.py::test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions`
+fails because the current Viewer calls `result.query(mode="incident")`.
+Keep this real integration guard intact and qualify it after
+uibcdf/molsysviewer#168 updates the consumer. No all-green provider/Viewer pair
+or release certification follows from the corrected provider selection.
+The closure clarification names the new authoritative source commit and tells
+the consumer to migrate executable calls and known saved query/display fields.
+
+Reproduction uses the expanded command above plus
+`tests/physchem/test_chemical_template_receptor.py`; the corrected run explicitly
+adds `-k 'not test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions'`.
+The [canonical-only validation receipt](../../../devtools/data/interactions_query_vocabulary_346_canonical_20261006.json)
+retains both the initial failure and corrected provider selection, source/test
+hashes and the consumer boundary. The original receipt and dated measurements
+remain historical evidence.

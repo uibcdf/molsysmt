@@ -331,13 +331,13 @@ def test_prepared_interface_named_analyses_queries_source_maps_and_persistence(
         analyses[name] = mapped
         assert (
             mapped.query(
-                structure_indices=[0, 0], atom_indices=ligand, mode="incident"
+                structure_indices=[0, 0], atom_indices=ligand, mode="involving_selection"
             ).n_interactions
             == result.n_interactions
         )
-        assert mapped.query(atom_indices=ligand, mode="internal").n_interactions == 0
+        assert mapped.query(atom_indices=ligand, mode="within_selection").n_interactions == 0
         assert (
-            mapped.between(
+            mapped.between_selections(
                 receptor, ligand, structure_indices=[0, 0], exclusive=True
             ).n_interactions
             == result.n_interactions

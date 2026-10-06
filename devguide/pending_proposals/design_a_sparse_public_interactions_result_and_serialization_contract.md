@@ -14,6 +14,15 @@ supersedes: []
 
 # Design a sparse public Interactions result and serialization contract
 
+**Query vocabulary clarification — 2026-10-06:** uibcdf/molsysmt#346 now
+supports only `involving_selection`, `within_selection`,
+`across_selection_boundary` and the separate `between_selections` operation.
+The maintainer withdraws the initial compatibility spellings before public
+adoption. Earlier dated sections retain their historical names; the
+[current query contract](../interactions_query_semantics.md) governs executable
+calls. Scientific `selection_mode`/`evaluation_mode` and persistence schemas are
+unchanged. uibcdf/molsysviewer#168 owns consumer call/filter migration.
+
 **Reported:** 2026-09-28, after the result-contract request from
 `uibcdf/molsysviewer#114` exposed a decision left open by
 [`uibcdf/molsysmt#250`](organize_interaction_detection_by_family_before_1_0.md).

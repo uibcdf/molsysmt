@@ -1,6 +1,6 @@
 # Interactions selection-query contract
 
-**Role:** normative public query and compatibility contract
+**Role:** normative public query and migration contract
 **Tracking:** uibcdf/molsysmt#346; consumer adoption: uibcdf/molsysviewer#168
 **Introduced:** 0.23.0 pre-1.0 stabilization
 
@@ -40,22 +40,24 @@ same query-mode vocabulary without becoming a new public file-query API.
 
 ## Compatibility and persisted data
 
-The legacy query values remain supported compatibility spellings, without a
-warning or scheduled removal in 1.0:
+Only the canonical names are supported. The maintainer removes the initial
+compatibility spellings before public adoption: `incident`, `internal` and `cross`
+are rejected query modes, and the `between` method is absent. This applies to
+normal validation and trusted `skip_digestion=True` routes. Use:
 
-| Legacy spelling | Canonical operation |
+| Previous query spelling | Supported operation |
 | --- | --- |
 | `query(mode='incident')` | `query(mode='involving_selection')` |
 | `query(mode='internal')` | `query(mode='within_selection')` |
 | `query(mode='cross')` | `query(mode='across_selection_boundary')` |
 | `between(A, B, ...)` | `between_selections(A, B, ...)` |
 
-New documentation and consumer filters should use the canonical spellings.
-MolSysViewer owns migration of its saved display filters/history/session fields:
-map legacy filter names to the four explicit names while preserving the selected
-atom and structure axes, both selections and exclusivity. Provider compatibility
-allows the previously delivered Viewer source to continue querying old values.
-No consumer-only scientific interpretation or alias is needed.
+MolSysViewer owns migration of its executable calls and saved display
+filters/history/session fields. Map previous query names to the four explicit
+names while preserving selected atom and structure axes, both selections and
+exclusivity. A consumer still using the previous vocabulary must update before
+adopting this provider source; the earlier consumer commit is not certified
+against this changed API. No consumer-only query alias is needed.
 
 Calculation `selection_mode` and result `evaluation_mode` remain separate
 contracts. Their existing `internal`, `incident` and `between` values describe
@@ -73,7 +75,7 @@ when its field is known to carry query/display semantics.
 
 ## Verification boundary
 
-The public workflow regression selection covers both naming vocabularies,
+The public workflow regression selection covers the canonical vocabulary and rejection of previous query spellings,
 compound rings, hydrogen-bond roles, parallel observations, selected structures,
 evaluated-empty coverage, exclusivity, argument validation and edited snapshots.
 Typed-dictionary and public MolSys/H5MSM round trips retain each of the three

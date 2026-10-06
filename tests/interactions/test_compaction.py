@@ -60,7 +60,11 @@ def test_compaction_preserves_full_queries_and_codecs(
         "_public_occurrence_indices",
     }.intersection(vars(compacted))
     _assert_same(source, compacted)
-    for mode in ("internal", "incident", "cross"):
+    for mode in (
+        "within_selection",
+        "involving_selection",
+        "across_selection_boundary",
+    ):
         for key in (
             "structure_indices",
             "relation_indices",
@@ -72,8 +76,8 @@ def test_compaction_preserves_full_queries_and_codecs(
                 compacted.query(atom_indices=[0, 3], mode=mode).to_dict()[key],
             )
     np.testing.assert_array_equal(
-        source.between([0, 1], [2]).to_dict()["occurrence_indices"],
-        compacted.between([0, 1], [2]).to_dict()["occurrence_indices"],
+        source.between_selections([0, 1], [2]).to_dict()["occurrence_indices"],
+        compacted.between_selections([0, 1], [2]).to_dict()["occurrence_indices"],
     )
     for key in ("occurrence_indices", "image_vectors"):
         np.testing.assert_array_equal(old_view.to_dict()[key], expected_view[key])
@@ -195,4 +199,6 @@ def test_compaction_translates_evidence_and_keeps_four_body_images():
         data["image_vectors"], [[0, 0, 0], [1, 0, 0], [0, 2, 0], [0, 0, -3]] * 2
     )
     np.testing.assert_array_equal(data["occurrence_indices"], [1, 0])
-    assert compacted.between([0, 1], [2, 3], exclusive=True).n_interactions == 2
+    assert (
+        compacted.between_selections([0, 1], [2, 3], exclusive=True).n_interactions == 2
+    )

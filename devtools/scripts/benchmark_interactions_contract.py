@@ -221,7 +221,7 @@ def materialize(result):
 def _run_query(result, spec):
     if "between" in spec:
         a, b = spec["between"]
-        return result.between(
+        return result.between_selections(
             a,
             b,
             structure_indices=spec.get("frames"),
@@ -230,7 +230,11 @@ def _run_query(result, spec):
     return result.query(
         structure_indices=spec.get("frames"),
         atom_indices=spec.get("atoms"),
-        mode=spec.get("mode", "incident"),
+        mode={
+            "incident": "involving_selection",
+            "internal": "within_selection",
+            "cross": "across_selection_boundary",
+        }[spec.get("mode", "incident")],
     )
 
 

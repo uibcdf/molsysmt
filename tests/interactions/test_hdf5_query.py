@@ -117,15 +117,17 @@ def test_file_query_matches_memory_for_frames_atoms_types_and_images(tmp_path):
         result.atom_source_indices[selected["participant_atom_indices"]],
     )
     _assert_matches_memory(
-        filename, result, [2, 0, 4], atom_indices=[0], mode="incident"
+        filename, result, [2, 0, 4], atom_indices=[0], mode="involving_selection"
     )
-    _assert_matches_memory(filename, result, [2, 0, 4], atom_indices=[0], mode="cross")
     _assert_matches_memory(
-        filename, result, [2, 0, 4], atom_indices=[0, 1, 2], mode="internal"
+        filename, result, [2, 0, 4], atom_indices=[0], mode="across_selection_boundary"
+    )
+    _assert_matches_memory(
+        filename, result, [2, 0, 4], atom_indices=[0, 1, 2], mode="within_selection"
     )
     _assert_matches_memory(filename, result, [2, 0, 4], interaction_types="pi_pi")
     _assert_matches_memory(
-        filename, result, [2], atom_indices=[3, 4, 5], mode="internal"
+        filename, result, [2], atom_indices=[3, 4, 5], mode="within_selection"
     )
     for mode in (
         "involving_selection",
@@ -153,6 +155,12 @@ def test_file_query_rejects_unknown_name_and_invalid_index(tmp_path):
     write_interactions_file(filename, {"mixed": _result()})
     with pytest.raises(KeyError, match="Unknown interaction analysis"):
         query_named_interactions_file(filename, "missing", [0])
+    for obsolete in ("incident", "internal", "cross"):
+        with pytest.raises(ValueError, match="mode"):
+            query_named_interactions_file(filename, "mixed", [0], mode=obsolete)
+        with HDF5InteractionsReader(filename, "mixed") as reader:
+            with pytest.raises(ValueError, match="mode"):
+                reader.query([0], mode=obsolete)
     with h5py.File(filename, "r+") as file:
         file["interactions/0/query_index/frame_offsets"][1] = 999
     with pytest.raises(ValueError, match="frame offsets"):

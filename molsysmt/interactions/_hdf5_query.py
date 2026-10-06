@@ -4,7 +4,7 @@ import json
 
 import numpy as np
 
-from ._query_modes import normalize_query_mode
+from ._query_modes import validate_query_mode
 from .result import _indices, _software_versions, _unique_in_order
 
 
@@ -156,7 +156,7 @@ def query_interactions_group(
     frames = _unique_in_order(
         _indices(structure_indices, n_structures, "structure_indices")
     )
-    mode = normalize_query_mode(mode)
+    mode = validate_query_mode(mode)
     atoms = (
         None
         if atom_indices is None

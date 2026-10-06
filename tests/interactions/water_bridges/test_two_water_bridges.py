@@ -146,10 +146,23 @@ def test_actual_atom_scopes_queries_reversal_and_alternative_hydrogens():
             source, order=2, structure_indices=[2, 0, 2], pbc=False, **kwargs
         )
         assert result.n_interactions == 2
-        assert result.query(atom_indices=[1], mode="incident").n_interactions == 2
-        assert result.query(atom_indices=[1], mode="cross").n_interactions == 2
-        assert result.query(atom_indices=[1], mode="internal").n_interactions == 0
-        assert result.query(atom_indices=actual, mode="internal").n_interactions == 2
+        assert (
+            result.query(atom_indices=[1], mode="involving_selection").n_interactions
+            == 2
+        )
+        assert (
+            result.query(
+                atom_indices=[1], mode="across_selection_boundary"
+            ).n_interactions
+            == 2
+        )
+        assert (
+            result.query(atom_indices=[1], mode="within_selection").n_interactions == 0
+        )
+        assert (
+            result.query(atom_indices=actual, mode="within_selection").n_interactions
+            == 2
+        )
     assert (
         msm.interactions.water_bridges.get_water_bridges(
             source, order=2, selection=[2, 3], pbc=False

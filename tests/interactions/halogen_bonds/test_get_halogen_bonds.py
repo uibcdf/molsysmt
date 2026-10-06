@@ -63,10 +63,21 @@ def test_all_four_roles_define_scope_and_nonconsecutive_indices(mode, a, b, coun
         np.testing.assert_allclose(result.measurements["distance"], 0.3)
         np.testing.assert_allclose(result.measurements["donor_angle"], np.pi)
         np.testing.assert_allclose(result.measurements["acceptor_angle"], 2 * np.pi / 3)
-        assert result.query(atom_indices=[2], mode="incident").n_interactions == 2
-        assert result.query(atom_indices=[1, 3], mode="internal").n_interactions == 0
-        assert result.query(atom_indices=[1, 3], mode="cross").n_interactions == 2
-        assert result.between([1], [3], exclusive=True).n_interactions == 0
+        assert (
+            result.query(atom_indices=[2], mode="involving_selection").n_interactions
+            == 2
+        )
+        assert (
+            result.query(atom_indices=[1, 3], mode="within_selection").n_interactions
+            == 0
+        )
+        assert (
+            result.query(
+                atom_indices=[1, 3], mode="across_selection_boundary"
+            ).n_interactions
+            == 2
+        )
+        assert result.between_selections([1], [3], exclusive=True).n_interactions == 0
     assert not molsys.interactions
 
 

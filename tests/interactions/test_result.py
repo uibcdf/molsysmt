@@ -75,43 +75,53 @@ def test_nonconsecutive_structure_order_duplicates_and_empty(interactions):
 
 def test_incident_internal_cross_include_all_participant_atoms(interactions):
     frame = [0]
-    assert interactions.query(frame, [0], "incident").n_interactions == 1
-    assert interactions.query(frame, [0], "cross").n_interactions == 1
-    assert interactions.query(frame, [0], "internal").n_interactions == 0
-    assert interactions.query(frame, [0, 1, 2], "internal").n_interactions == 1
-    assert interactions.query(frame, [3], "incident").n_interactions == 1
-    assert interactions.query(frame, [3, 4, 5], "internal").n_interactions == 0
-    assert interactions.query(frame, [3, 4, 5, 6, 7, 8], "internal").n_interactions == 1
-    assert interactions.query([4], [0, 3, 6, 11], "internal").n_interactions == 1
+    assert interactions.query(frame, [0], "involving_selection").n_interactions == 1
+    assert (
+        interactions.query(frame, [0], "across_selection_boundary").n_interactions == 1
+    )
+    assert interactions.query(frame, [0], "within_selection").n_interactions == 0
+    assert interactions.query(frame, [0, 1, 2], "within_selection").n_interactions == 1
+    assert interactions.query(frame, [3], "involving_selection").n_interactions == 1
+    assert interactions.query(frame, [3, 4, 5], "within_selection").n_interactions == 0
+    assert (
+        interactions.query(frame, [3, 4, 5, 6, 7, 8], "within_selection").n_interactions
+        == 1
+    )
+    assert (
+        interactions.query([4], [0, 3, 6, 11], "within_selection").n_interactions == 1
+    )
 
 
 def test_between_disjoint_sets_and_exclusive_scope(interactions):
-    pair = interactions.between([9], [10], structure_indices=[2])
+    pair = interactions.between_selections([9], [10], structure_indices=[2])
     assert pair.n_interactions == 1
     assert pair.relation(pair.to_dict()["relation_indices"][0])["interaction_type"] == (
         "disulfide_candidate"
     )
-    assert interactions.between([0], [2], structure_indices=[0]).n_interactions == 1
     assert (
-        interactions.between(
+        interactions.between_selections([0], [2], structure_indices=[0]).n_interactions
+        == 1
+    )
+    assert (
+        interactions.between_selections(
             [0], [2], structure_indices=[0], exclusive=True
         ).n_interactions
         == 0
     )
     assert (
-        interactions.between(
+        interactions.between_selections(
             [0, 1], [2], structure_indices=[0], exclusive=True
         ).n_interactions
         == 1
     )
     assert (
-        interactions.between(
+        interactions.between_selections(
             [3, 4, 5], [6, 7, 8], structure_indices=[0], exclusive=True
         ).n_interactions
         == 1
     )
     with pytest.raises(ValueError, match="disjoint"):
-        interactions.between([0, 1], [1, 2])
+        interactions.between_selections([0, 1], [1, 2])
 
 
 def test_declared_evaluation_scope_distinguishes_empty_from_unsearched_atoms(tmp_path):
@@ -258,7 +268,9 @@ def test_round_trip_preserves_sparse_contract(interactions, tmp_path):
         "atom_indices"
     ].tolist() == [3, 4, 5]
     assert loaded.query(structure_indices=[1]).n_interactions == 0
-    assert loaded.query(atom_indices=[9], mode="incident").n_interactions == 1
+    assert (
+        loaded.query(atom_indices=[9], mode="involving_selection").n_interactions == 1
+    )
 
 
 def test_embedded_group_codec_keeps_named_analyses_independent(interactions, tmp_path):
@@ -497,7 +509,9 @@ def test_nonidentity_source_maps_compose_across_extractions_and_standalone_file(
     np.testing.assert_array_equal(selected.structure_source_indices, [1, 4, 1])
     assert selected.source_id == "source-system"
     assert selected.source_n_atoms == 10
-    assert selected.query(atom_indices=[0], mode="incident").n_interactions == 2
+    assert (
+        selected.query(atom_indices=[0], mode="involving_selection").n_interactions == 2
+    )
 
     path = tmp_path / "mapped.h5i"
     selected.save(path)

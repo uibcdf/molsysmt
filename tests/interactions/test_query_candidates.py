@@ -6,7 +6,9 @@ import pytest
 import molsysmt as msm
 
 
-@pytest.mark.parametrize("mode", ["incident", "internal", "cross"])
+@pytest.mark.parametrize(
+    "mode", ["involving_selection", "within_selection", "across_selection_boundary"]
+)
 @pytest.mark.parametrize("frames", [0, [4, 1, 0, 4, 3]])
 @pytest.mark.parametrize("reused", [False, True])
 def test_frame_queries_inspect_only_relevant_relations(
@@ -47,9 +49,9 @@ def test_frame_queries_inspect_only_relevant_relations(
             }
             matches = (
                 bool(atoms & selection)
-                if mode == "incident"
+                if mode == "involving_selection"
                 else atoms <= selection
-                if mode == "internal"
+                if mode == "within_selection"
                 else bool(atoms & selection) and not atoms <= selection
             )
             if record["structure_index"] == frame and matches:

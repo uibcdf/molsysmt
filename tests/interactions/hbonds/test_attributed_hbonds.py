@@ -106,7 +106,7 @@ def test_three_role_scopes_and_nonconsecutive_frames(
         np.testing.assert_allclose(
             result.measurements["hydrogen_acceptor_distance"], 0.18
         )
-        assert result.query(atom_indices=[2], mode="incident").to_dict()[
+        assert result.query(atom_indices=[2], mode="involving_selection").to_dict()[
             "occurrence_indices"
         ].tolist() == [0, 1]
     assert not source.interactions

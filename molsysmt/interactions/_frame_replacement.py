@@ -13,7 +13,7 @@ import numpy as np
 from molsysmt._private.argdigest import arg_digest
 
 from ._frame_validity import _FrameFilteredInteractions, _interchange_result, _metadata
-from ._query_modes import normalize_query_mode
+from ._query_modes import validate_query_mode
 from .result import (
     _RESULT_DIGEST,
     Interactions,
@@ -561,7 +561,7 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
         skip_digestion=False,
     ):
         _check_skip_digestion(skip_digestion)
-        mode = normalize_query_mode(mode)
+        mode = validate_query_mode(mode)
         if atom_indices is not None:
             atom_indices = _indices(atom_indices, self.n_atoms, "atom_indices")
         return self._collect(

@@ -265,9 +265,9 @@ def test_explicit_selection_vocabulary_on_storage_routes(storage):
         result = result.invalidate_structures([2])
     elif storage == "replaced":
         result = result.replace_structures(_analysis())
-    frames = [4, 1, 0, 4, 3]
+    structures = [4, 1, 0, 4, 3]
     for mode in ("involving_selection", "across_selection_boundary"):
-        columns = result.query(frames, [1], mode).to_dict()
+        columns = result.query(structures, [1], mode).to_dict()
         np.testing.assert_array_equal(columns["structure_indices"], [4, 4, 0])
         np.testing.assert_array_equal(
             columns["occurrence_indices"],
@@ -277,15 +277,17 @@ def test_explicit_selection_vocabulary_on_storage_routes(storage):
         np.testing.assert_allclose(
             columns["measurements"]["distance"], [0.22, 0.21, 0.20]
         )
-        assert result.query(frames, [1], "within_selection").n_interactions == 0
-    assert result.query(frames, [0, 1, 2], "within_selection").n_interactions == 3
-    assert result.query(frames, [3], "involving_selection").n_interactions == 1
-    assert result.query(frames, [3, 4, 5], "within_selection").n_interactions == 0
+        assert result.query(structures, [1], "within_selection").n_interactions == 0
+    assert result.query(structures, [0, 1, 2], "within_selection").n_interactions == 3
+    assert result.query(structures, [3], "involving_selection").n_interactions == 1
+    assert result.query(structures, [3, 4, 5], "within_selection").n_interactions == 0
     assert (
-        result.query(frames, [3, 4, 5], "across_selection_boundary").n_interactions == 1
+        result.query(structures, [3, 4, 5], "across_selection_boundary").n_interactions
+        == 1
     )
     assert (
-        result.query(frames, [3, 4, 5, 6, 7, 8], "within_selection").n_interactions == 1
+        result.query(structures, [3, 4, 5, 6, 7, 8], "within_selection").n_interactions
+        == 1
     )
     assert result.query(atom_indices=[1]).n_interactions == 3
     for mode in (
@@ -303,21 +305,24 @@ def test_explicit_selection_vocabulary_on_storage_routes(storage):
             == 0
         )
 
-    assert result.between_selections([0], [2], frames).n_interactions == 3
+    assert result.between_selections([0], [2], structures).n_interactions == 3
     assert (
-        result.between_selections([0], [2], frames, exclusive=True).n_interactions == 0
+        result.between_selections([0], [2], structures, exclusive=True).n_interactions
+        == 0
     )
     assert (
-        result.between_selections([0, 1], [2], frames, exclusive=True).n_interactions
+        result.between_selections(
+            [0, 1], [2], structures, exclusive=True
+        ).n_interactions
         == 3
     )
     assert (
         result.between_selections(
-            [3, 4, 5], [6, 7, 8], frames, exclusive=True
+            [3, 4, 5], [6, 7, 8], structures, exclusive=True
         ).n_interactions
         == 1
     )
-    assert result.between_selections([], [2], frames).n_interactions == 0
+    assert result.between_selections([], [2], structures).n_interactions == 0
     with pytest.raises(ValueError, match="disjoint"):
         result.between_selections([0, 1], [1, 2])
     with pytest.raises(ValueError):
@@ -328,25 +333,29 @@ def test_explicit_selection_vocabulary_on_storage_routes(storage):
         result.between_selections([0], [2], skip_digestion=1)
     with pytest.raises(ValueError, match="mode"):
         result.query(mode="between_selections")
-    for old, new in (
-        ("incident", "involving_selection"),
-        ("internal", "within_selection"),
-        ("cross", "across_selection_boundary"),
+    for mode in (
+        "involving_selection",
+        "within_selection",
+        "across_selection_boundary",
     ):
-        expected = result.query(frames, [0, 1, 2], new).to_dict()
-        for spelling in (old, new):
-            actual = result.query(
-                frames, [0, 1, 2], spelling, skip_digestion=True
-            ).to_dict()
-            np.testing.assert_array_equal(
-                actual["occurrence_indices"], expected["occurrence_indices"]
-            )
+        expected = result.query(structures, [0, 1, 2], mode).to_dict()
+        actual = result.query(
+            structures, [0, 1, 2], mode, skip_digestion=True
+        ).to_dict()
+        np.testing.assert_array_equal(
+            actual["occurrence_indices"], expected["occurrence_indices"]
+        )
+    for obsolete in ("incident", "internal", "cross"):
+        for skip in (False, True):
+            with pytest.raises(ValueError, match="mode"):
+                result.query(structures, [0], obsolete, skip_digestion=skip)
+    assert not hasattr(result, "between")
     np.testing.assert_array_equal(
-        result.between([0, 1], [2], frames, exclusive=True).to_dict()[
+        result.between_selections([0, 1], [2], structures, exclusive=True).to_dict()[
             "occurrence_indices"
         ],
         result.between_selections(
-            [0, 1], [2], frames, exclusive=True, skip_digestion=True
+            [0, 1], [2], structures, exclusive=True, skip_digestion=True
         ).to_dict()["occurrence_indices"],
     )
     if storage in {"invalidated", "replaced"}:

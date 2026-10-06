@@ -77,15 +77,15 @@ def test_replacement_handles_new_relations_empty_frames_and_parallel_images(
     assert edited._packed_result is None
     assert edited.relation(1)["participants"][0]["atom_indices"].tolist() == [2, 3]
     for mode, atoms, values in [
-        ("incident", [2], [0.3, 0.35]),
-        ("internal", [2, 3, 4], [0.3, 0.35]),
-        ("cross", [2, 3], [0.3, 0.35]),
+        ("involving_selection", [2], [0.3, 0.35]),
+        ("within_selection", [2, 3, 4], [0.3, 0.35]),
+        ("across_selection_boundary", [2, 3], [0.3, 0.35]),
     ]:
         selected = edited.query(atom_indices=atoms, mode=mode).to_dict()
         np.testing.assert_allclose(selected["measurements"]["distance"], values)
         np.testing.assert_array_equal(selected["occurrence_indices"], [0, 1])
-    assert edited.between([2], [4], exclusive=True).n_interactions == 0
-    assert edited.between([2, 3], [4], exclusive=True).n_interactions == 2
+    assert edited.between_selections([2], [4], exclusive=True).n_interactions == 0
+    assert edited.between_selections([2, 3], [4], exclusive=True).n_interactions == 2
     assert edited.query(atom_indices=[0], structure_indices=[4, 3]).to_dict()[
         "occurrence_indices"
     ].tolist() == [3, 2]
@@ -360,7 +360,10 @@ def test_fingerprint_collisions_never_merge_distinct_typed_relations(
     )
     assert len(first.relation_types) == 4
     assert len(second.relation_types) == 5
-    assert second.query(atom_indices=[1, 2, 3], mode="internal").n_interactions == 6
+    assert (
+        second.query(atom_indices=[1, 2, 3], mode="within_selection").n_interactions
+        == 6
+    )
     observed = second.query(structure_indices=[1, 0, 4]).to_dict()
     path = tmp_path / "collision.h5i"
     second.save(path)

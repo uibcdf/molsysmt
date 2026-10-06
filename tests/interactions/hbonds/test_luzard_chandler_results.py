@@ -88,8 +88,13 @@ def test_luzard_chandler_analysis_records_scope_coverage_angles_and_roles(tmp_pa
     np.testing.assert_array_equal(analysis.evaluated_structure_indices, [2, 1, 0, 3])
     np.testing.assert_array_equal(analysis.evaluation_scope["atom_indices"], [0, 1, 2])
     assert analysis.query(atom_indices=[1]).n_interactions == 2
-    assert analysis.query(atom_indices=[0, 2], mode="internal").n_interactions == 0
-    assert analysis.query(atom_indices=[0, 1, 2], mode="internal").n_interactions == 2
+    assert (
+        analysis.query(atom_indices=[0, 2], mode="within_selection").n_interactions == 0
+    )
+    assert (
+        analysis.query(atom_indices=[0, 1, 2], mode="within_selection").n_interactions
+        == 2
+    )
     for frame in (1, 3):
         assert analysis.query(structure_indices=[frame]).n_interactions == 0
         np.testing.assert_array_equal(
@@ -140,7 +145,7 @@ def test_luzard_chandler_sparse_two_selection_scope_and_deduplication(identical)
     assert analysis.n_interactions == 3
     assert analysis.evaluation_scope["mode"] == ("internal" if identical else "between")
     if not identical:
-        assert analysis.between([0], [2, 3]).n_interactions == 3
+        assert analysis.between_selections([0], [2, 3]).n_interactions == 3
         np.testing.assert_array_equal(analysis.evaluation_scope["atom_indices"], [0, 1])
         np.testing.assert_array_equal(
             analysis.evaluation_scope["atom_indices_b"], [2, 3]

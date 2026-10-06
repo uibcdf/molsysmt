@@ -93,10 +93,17 @@ def test_all_participant_scopes_nonconsecutive_frames_and_queries(mode):
         result.n_interactions == 2
         and result.evaluated_structure_indices.tolist() == [0, 2]
     )
-    assert result.query(atom_indices=[0], mode="incident").n_interactions == 2
-    assert result.query(atom_indices=[0], mode="internal").n_interactions == 0
-    assert result.query(atom_indices=[0], mode="cross").n_interactions == 2
-    assert result.query(atom_indices=actual, mode="internal").n_interactions == 2
+    assert (
+        result.query(atom_indices=[0], mode="involving_selection").n_interactions == 2
+    )
+    assert result.query(atom_indices=[0], mode="within_selection").n_interactions == 0
+    assert (
+        result.query(atom_indices=[0], mode="across_selection_boundary").n_interactions
+        == 2
+    )
+    assert (
+        result.query(atom_indices=actual, mode="within_selection").n_interactions == 2
+    )
     endpoints_only = msm.interactions.water_bridges.get_water_bridges(
         source, selection=[2, 4], pbc=False
     )
@@ -302,7 +309,7 @@ def test_bifurcated_water_hydrogen_is_a_shared_atom_not_a_lost_role():
     assert result.participant_atoms[0] == result.participant_atoms[3] == 0
     assert (
         result.query(
-            atom_indices=[result.participant_atoms[1]], mode="incident"
+            atom_indices=[result.participant_atoms[1]], mode="involving_selection"
         ).n_interactions
         == 1
     )

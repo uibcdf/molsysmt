@@ -47,8 +47,13 @@ def test_directed_roles_sparse_queries_and_empty_frames(mode, first, second, cou
     assert not source.interactions
     if count:
         assert result.participant_roles == ("metal", "ligand") * (count // 2)
-        assert result.query(atom_indices=[0], mode="incident").n_interactions == count
-        assert result.query(atom_indices=[0], mode="internal").n_interactions == 0
+        assert (
+            result.query(atom_indices=[0], mode="involving_selection").n_interactions
+            == count
+        )
+        assert (
+            result.query(atom_indices=[0], mode="within_selection").n_interactions == 0
+        )
         assert result.relation_types == ("metal_coordination_candidate",) * (count // 2)
 
 

@@ -102,7 +102,10 @@ def test_compound_triclinic_images_queries_and_named_roundtrip(file_source, tmp_
     _assert_same(eager, chunked)
     assert chunked.execution_records[0]["details"]["execution_chunks"] == 3
     assert chunked.query(atom_indices=[0], structure_indices=[4, 1]).n_interactions == 2
-    assert chunked.query(atom_indices=[0, 1, 2], mode="internal").n_interactions == 0
+    assert (
+        chunked.query(atom_indices=[0, 1, 2], mode="within_selection").n_interactions
+        == 0
+    )
     molsys.interactions = {"ionic": chunked}
     path = str(tmp_path / "result.h5msm")
     msm.convert(molsys, to_form=path)
