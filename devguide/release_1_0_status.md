@@ -1872,3 +1872,49 @@ is dispatched for `linux-64`, `linux-aarch64`, `osx-arm64` and `win-64`, targeti
 `uibcdf/label/staging`. Dispatch is not production or upload verification;
 no package file identity is reported before inspecting actual bytes. The
 public tag, GitHub Release and main-label promotion remain separate gates.
+
+
+### Staging files ready for the Viewer handoff — 2026-10-06
+
+Producer 37534744593 completes successfully on all four native platforms.
+**MolSysMT 0.23.0, build 0**, from
+`46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9`, is available on
+`uibcdf/label/staging`. The
+[handoff receipt](../devtools/data/stabilization_023_staging_handoff_20261006.json)
+records every filename, build string and SHA-256. Producer receipts, registry
+metadata and hashes computed from downloaded bytes agree. ABI3 metadata and
+seven core source files are verified against the original candidate; Windows
+checkout CRLF is the only source-text normalization needed.
+
+MolSysViewer can declare **`molsysmt>=0.23.0`** for the agreed Interactions,
+H5MSM 0.5 and coordinated loading/box capabilities. This selects the first
+candidate package delivering the current coordinated contract. It does not
+declare the experimental interaction contract stabilized or waive installed
+consumer qualification.
+
+Importing both MolSysMT and its Rust extension from the actual extracted Linux
+Conda payload reports version 0.23.0. Public H5MSM/MolSys, named interactions
+and the real Viewer attribution/session regression pass **35 tests** using
+that payload in the shared Python 3.14 environment. This is artifact runtime
+evidence with shared dependencies; the clean sixteen-cell installed pair
+remains required.
+
+The standalone ABI3 validator rejected the correct Python range because it
+still expected `<3.14`. uibcdf/molsysmt#347 corrects the tool to compare against
+the public project range and adds guards; **13 tests** pass. No package bytes,
+build coordinates or producer are changed. The subsequent **14/14 fast gates**
+pass. Native wheel run 37534219155 passes thirty jobs with one expected PR-only
+skip.
+
+The larger local run records **13,561 passed, 16 failed, 17 errors and two
+skipped**, with all 33 unsuccessful cases affected by sandbox DNS restrictions.
+Repeating those exact cases with network access on unchanged runtime source
+passes **33/33**. Combined outcomes are 13,594 passes and two skips; the receipt
+retains the original unsuccessful invocation rather than claiming a second
+complete green run. The two omissions are the RDKit-absent alternative test
+in an environment with RDKit and the unavailable optional CuPy form.
+
+The eight-cell exact-source matrix is still running. MolSysViewer must provide
+its exact 0.24.0 staging file/build/hash before the sixteen-cell installed pair
+can run. Public tagging, Release publication and promotion remain pending;
+the available files support the next consumer qualification step.

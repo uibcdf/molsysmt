@@ -1,0 +1,217 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "recorded_at": "2026-10-06T21:53:00.379395+00:00",
+  "version": "0.23.0",
+  "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+  "minimum_molsysmt_version_for_viewer_capabilities": "0.23.0",
+  "minimum_requirement": "molsysmt>=0.23.0",
+  "channel": "uibcdf/label/staging",
+  "build_number": 0,
+  "producer": {
+    "run_id": 37534744593,
+    "attempt": 1,
+    "conclusion": "success",
+    "head_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+    "action": "uibcdf/action-build-and-upload-conda-packages@v2.1.0"
+  },
+  "artifacts": [
+    {
+      "platform": "linux-64",
+      "filename": "molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+      "build": "pyabi3h03bb3b7_0",
+      "build_number": 0,
+      "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b",
+      "channel": "uibcdf/label/staging",
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py"
+      ],
+      "crlf_normalization_required": []
+    },
+    {
+      "platform": "linux-aarch64",
+      "filename": "molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+      "build": "pyabi3hecc93d8_0",
+      "build_number": 0,
+      "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd",
+      "channel": "uibcdf/label/staging",
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py"
+      ],
+      "crlf_normalization_required": []
+    },
+    {
+      "platform": "osx-arm64",
+      "filename": "molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+      "build": "pyabi3ha0bc463_0",
+      "build_number": 0,
+      "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317",
+      "channel": "uibcdf/label/staging",
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py"
+      ],
+      "crlf_normalization_required": []
+    },
+    {
+      "platform": "win-64",
+      "filename": "molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+      "build": "pyabi3h2d2bc06_0",
+      "build_number": 0,
+      "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b",
+      "channel": "uibcdf/label/staging",
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py"
+      ],
+      "crlf_normalization_required": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py"
+      ]
+    }
+  ],
+  "verification": "Each SHA-256 agrees across producer events, registry and downloaded bytes. ABI3 metadata and seven core source files agree with the exact candidate; Windows source comparison normalizes checkout CRLF only.",
+  "capabilities": [
+    "Public Interactions results with named MolSys analyses and canonical selection query vocabulary",
+    "H5MSM 0.5 public persistence including named interaction analyses",
+    "Previously coordinated loading and box behavior from the selected source candidate"
+  ],
+  "native_wheel_gate": {
+    "run_id": 37534219155,
+    "conclusion": "success",
+    "head_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+    "successful_jobs": 30,
+    "expected_pr_only_skipped_jobs": 1
+  },
+  "local_full_suite_initial": {
+    "exit_code": 1,
+    "counts": {
+      "tests": 13596,
+      "failures": 16,
+      "errors": 17,
+      "skipped": 2
+    },
+    "junit_sha256": "d3fe854de4803a2a403a102cb170a7cfe449bfa2d84a803ca922ed65cbb665ba"
+  },
+  "network_recovery": {
+    "exit_code": 0,
+    "counts": {
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "6b1da486bebf775565bce74f861d4ce7bf5c60a9366302c4abf1731f6ed7d92a"
+  },
+  "network_recovery_scope": [
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_prefixed_string_pdb_id_to_molsysmt_MolSys",
+    "tests/structure/get_neighbors/test_get_neighbors_from_molsysmt_MolSys.py::test_get_neighbors_from_molsysmt_MolSys_8",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_returns_dict",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_keys_are_tuples",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_values_are_lists_of_strings",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_pdb_detects_missing",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_bcif_detects_missing",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_with_selection",
+    "tests/build/get_missing_residues/test_get_missing_residues.py::test_get_missing_residues_pdbfixer_parity",
+    "tests/form/string_alphafold_id/test_parity.py::test_parity_group_count_roundtrip",
+    "tests/form/string_alphafold_id/test_parity.py::test_parity_atom_count_roundtrip",
+    "tests/form/string_alphafold_id/test_parity.py::test_parity_chain_count_roundtrip",
+    "tests/form/string_alphafold_id/test_parity.py::test_parity_group_names_roundtrip",
+    "tests/form/string_alphafold_id/test_parity.py::test_parity_atom_names_roundtrip",
+    "tests/topology/get_sequence_alignment/test_get_sequence_alignment.py::test_get_sequence_alignment_molsysmt_MolSys_3",
+    "tests/build/make_bioassembly/test_make_bioassembly.py::test_make_bioassembly_molsysmt_MolSys_1",
+    "tests/build/get_disulfide_bonds/test_get_disulfide_bonds.py::test_get_disulfide_bonds",
+    "tests/form/string_alphafold_id/test_get_structural_attributes.py::test_download_and_coordinates",
+    "tests/form/string_pdb_id/test_get_structural_attributes.py::test_download_and_coordinates",
+    "tests/form/string_alphafold_id/test_get_topological_attributes.py::test_download_and_basic_count",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_molsysmt_MolSys_2",
+    "tests/form/string_pdb_id/test_parity.py::test_parity_atom_count_matches_local",
+    "tests/form/string_pdb_id/test_get_topological_attributes.py::test_download_and_basic_count",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_molsysmt_MolSys_3",
+    "tests/form/string_pdb_id/test_parity.py::test_parity_group_count_matches_local",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_molsysmt_MolSys_1",
+    "tests/form/string_pdb_id/test_parity.py::test_parity_chain_count_matches_local",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_file_pdb",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_file_bcif",
+    "tests/form/string_pdb_id/test_parity.py::test_parity_atom_names_match_local",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_file_bcif_gz",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py::test_string_pdb_id_to_mdtraj_Trajectory",
+    "tests/form/string_pdb_id/test_parity.py::test_parity_group_names_match_local"
+  ],
+  "local_combined_verdict": "All 33 failed/error cases from the restricted-network attempt pass on unchanged runtime source with network access. Combined case outcomes: 13594 passed, 2 skipped; this is scoped recovery, not a second complete green invocation.",
+  "actual_linux_conda_payload": {
+    "exit_code": 0,
+    "counts": {
+      "tests": 35,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "66c5ffd8b878f56b5b6fb1f0beceb63a7d1799438994723c974746fc6bb9f642"
+  },
+  "actual_linux_payload_scope": [
+    "tests/interactions/test_public_molsys_h5msm_workflow.py",
+    "tests/native/test_molsys_interactions.py",
+    "tests/form/file_h5msm/test_topology_chemistry_interactions_v05.py",
+    "tests/interactions/test_scientific_attribution.py::test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions"
+  ],
+  "actual_linux_payload_environment": "Shared Python 3.14.7 environment and selected editable Viewer source, importing package and Rust extension exclusively from the extracted staged Linux artifact. Serial pytest preserves explicit import provenance. This does not replace clean installed-pair qualification.",
+  "tooling_correction": {
+    "issue": "uibcdf/molsysmt#347",
+    "commit": "f35923d13",
+    "tests": {
+      "exit_code": 0,
+      "counts": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "c18787974310340ea3d4d982553388d0487a00efe6b52c0fed7fa010611f7d72"
+    },
+    "boundary": "Only the standalone artifact validator and its guards changed. The four candidate files and original producer were preserved."
+  },
+  "fast_gates": {
+    "passed": 14,
+    "total": 14,
+    "exit_code": 0,
+    "log_sha256": "3d0e999a9371a218b9155828b259fea67e92a197867e860fb64e095f7cd35532"
+  },
+  "pending": [
+    "Eight-cell source matrix 37534217132 is still in progress at recording time",
+    "Exact MolSysViewer 0.24.0 staged artifact identity",
+    "Sixteen-cell installed pair qualification",
+    "Consumer-owned canvas/session acceptance under uibcdf/molsysviewer#93 and uibcdf/molsysviewer#114"
+  ],
+  "publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion."
+}

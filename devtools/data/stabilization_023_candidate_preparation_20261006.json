@@ -182,7 +182,7 @@
       "tests",
       "devtools/tests"
     ],
-    "status": "running",
+    "status": "completed with network failures; all failed/error cases recovered in the follow-up receipt",
     "command": "python -m pytest tests devtools/tests -n 12 --dist loadfile --receptor=llm --junitxml=/tmp/molsysmt-023-full-local.xml",
     "limitation": "Not a final verdict. This editable-source run started during candidate preparation; source CI must qualify the exact committed candidate."
   },
@@ -200,7 +200,7 @@
       "win-64"
     ],
     "channel": "uibcdf/label/staging",
-    "state_at_recording": "dispatched; artifact production and upload are not yet verified",
+    "state_at_recording": "completed successfully; all four files independently verified in the follow-up receipt",
     "preflight": {
       "molsysmt": {
         "version": "0.23.0",
@@ -213,5 +213,6 @@
         "files": []
       }
     }
-  }
+  },
+  "follow_up_receipt": "devtools/data/stabilization_023_staging_handoff_20261006.json"
 }
