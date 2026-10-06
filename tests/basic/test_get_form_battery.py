@@ -18,6 +18,8 @@ Shrinking `UNREACHED` is incremental work: most entries need an item built direc
 the third-party library rather than through `msm.convert`.
 """
 
+from pathlib import Path
+
 import pytest
 
 import molsysmt as msm
@@ -57,6 +59,7 @@ ROUTES = {
     "file:pdb": ("system", "Met-enkephalin", "met_enkephalin.pdb"),
     "file:prmtop": ("system", "pentalanine", "pentalanine.prmtop"),
     "file:psf": ("system", "POPC", "popc.psf"),
+    "file:pdbqt": ("fixture_file", "1iep_ligand.pdbqt"),
     "file:trjpk": ("system", "two LJ particles", "traj_two_lj_particles.trjpk"),
     "file:xtc": ("system", "nglview", "md_1u19.xtc"),
     "file:xyznpy": ("system", "particles 4", "traj_particles_4.xyznpy"),
@@ -107,6 +110,7 @@ ROUTES = {
     "string:amino_acids_3": ("convert", "molsys"),
     "string:pdb_id": ("literal", "pdb_id:1VII"),
     "string:pdb_text": ("convert", "molsys"),
+    "string:pdbqt_text": ("fixture_text", "1iep_ligand.pdbqt", "pdbqt_text:"),
     "string:smiles": ("literal", "smiles:CCO"),
     "string:uniprot_id": ("literal", "uniprot_id:P00720"),
 }
@@ -187,6 +191,13 @@ def _build(form, origins):
             pytest.skip("PyTraj is not installed")
     if route[0] == "system":
         return systems[route[1]][route[2]]
+    if route[0] in {"fixture_file", "fixture_text"}:
+        path = (
+            Path(__file__).resolve().parents[1] / "form/data/vina_examples" / route[1]
+        )
+        if route[0] == "fixture_text":
+            return route[2] + path.read_text()
+        return path
     if route[0] == "literal":
         return route[1]
     if route[0] == "convert_file":
@@ -242,8 +253,6 @@ def test_the_form_of_an_item_is_the_form_it_was_built_as(form, origins):
 
 
 def test_a_path_object_is_read_like_its_string():
-    from pathlib import Path
-
     path = systems["chicken villin HP35"]["1vii.pdb"]
     assert msm.get_form(Path(path)) == msm.get_form(str(path)) == "file:pdb"
 

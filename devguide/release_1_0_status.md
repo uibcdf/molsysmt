@@ -308,8 +308,24 @@ tests are skipped. #237 corrects the manifest to exact published DepDigest
 0.13.0 and SMonitor 0.18.0 sources and verifies isolated installation; inspect
 its corrected head separately. The original failure remains visible.
 
+Corrected provider head `ce769ffb7dc803fa514e48667e2a3e77b56911f0` executes and
+passes Python 3.14 smoke `37423046917`; its package installation, dependency
+validation, form/docstring/Rust controls and actual test step all pass. Remote
+Ruff `37423046945`, dependency contract `37423046946`, devguide `37423046920`,
+policy `37423047391` and Conda governance `37423047467` also pass. The actual
+released-provider selection passes 102 scoped cases and all 14 fast gates.
+This settles the first routine installation defect, not full-matrix admission.
+
+Fresh triage reproduces four stale catalogue expectations from the old full
+producer. #340 adds actual pinned Vina PDBQT file/text detection routes and
+explicit SDF/PDBQT supported-table entries; the independent census is retained.
+The [resolution](archive/resolved_bugs/catalogue_guards_omit_the_admitted_sdf_and_pdbqt_forms.md)
+and [artifact](../devtools/data/catalogue_guards_20261006.json) retain four
+initial failures and 45 passing catalogue/real-PDBQT cases without skips.
+Other old full-suite failures remain pending fresh triage.
+
 S5 is still partial for executed environment/admission evidence. Next inspect
-this checkpoint's actual routine 3.14 CI, contrast the older automatic failures
+the catalogue-fix checkpoint controls, contrast the remaining older automatic failures
 with current guards, obtain Viewer feedback, and select exact candidates for S6.
 No release tag or GitHub Release is published. Configured eight-cell matrices,
 solver success, focused editable tests and an accepted badge are not S6 evidence.

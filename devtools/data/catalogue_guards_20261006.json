@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "issue": "uibcdf/molsysmt#340",
+  "base_commit": "ce769ffb7dc803fa514e48667e2a3e77b56911f0",
+  "initial_command": "python -m pytest --receptor=llm tests/basic/test_get_form_battery.py::test_the_battery_covers_the_catalogue tests/supported/test_supported.py",
+  "initial_result": "FAIL exit=1 | 4 failed | 15.65s | 4 root causes\n\n[1] AssertionError | 1 test | call\n    tests/basic/test_get_form_battery.py:220\n    AssertionError: forms declared in molsysmt/form/ that this battery neither exercises nor records as unreachable: ['file:pdbqt', 'string:pdbqt_text']\n    assert not ({'MDAnalysis.AtomGroup', 'MDAnalysis.Topology', 'MDAnalysis.Universe', 'MDAnalysis.topology.PDBParser', 'XYZ', 'biopython.PDBStructure', ...} - {'MDAnalysis.AtomGroup', 'MDAnalysis.Topology', 'MDAnalysis.Universe', 'MDAnalysis.topology.PDBParser', 'XYZ', 'biopython.PDBStructure', ...})\n    rerun: python -m pytest tests/basic/test_get_form_battery.py::test_the_battery_covers_the_catalogue -q\n\n[2] AssertionError | 1 test | call\n    tests/supported/test_supported.py:111\n    AssertionError: assert {('MDAnalysis...'class'), ...} == {('MDAnalysis...'class'), ...}\n\n      Extra items in the left set:\n      ('file:sdf', 'file')\n      ('string:pdbqt_text', 'string')\n      ('file:pdbqt', 'file')\n      Use -v to get more diff\n    captured log (tests/supported/test_supported.py::test_supported_1):\n      WARNING  matplotlib:__init__.py:577 /home/diego/.config/matplotlib is not a writable directory\n      WARNING  matplotlib:__init__.py:596 Matplotlib created a temporary cache directory at /tmp/matplotlib-klxdb0n9 because there was an issue with the default path (/home/diego/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.\n      WARNING  matplotlib.font_manager:font_manager.py:1249 Matplotlib is building the font cache; this may take a moment.\n    rerun: python -m pytest tests/supported/test_supported.py::test_supported_1 -q\n\n[3] AssertionError | 1 test | call\n    tests/supported/test_supported.py:214\n    AssertionError: assert {'MDAnalysis....ructure', ...} == {'MDAnalysis....ructure', ...}\n\n      Extra items in the left set:\n      'file:pdbqt'\n      'string:pdbqt_text'\n      'file:sdf'\n      Use -v to get more diff\n    rerun: python -m pytest tests/supported/test_supported.py::test_supported_2 -q\n\n[4] AssertionError | 1 test | call\n    tests/supported/test_supported.py:318\n    AssertionError: assert {'MDAnalysis....ructure', ...} == {'MDAnalysis....ructure', ...}\n\n      Extra items in the left set:\n      'file:pdbqt'\n      'string:pdbqt_text'\n      'file:sdf'\n      Use -v to get more diff\n    rerun: python -m pytest tests/supported/test_supported.py::test_supported_3 -q\n\n",
+  "final_command": "python -m pytest --receptor=llm tests/basic/test_get_form_battery.py::test_the_battery_covers_the_catalogue tests/basic/test_get_form_battery.py::test_no_form_is_both_covered_and_excused tests/basic/test_get_form_battery.py::test_the_form_of_an_item_is_the_form_it_was_built_as[file:pdbqt] tests/basic/test_get_form_battery.py::test_the_form_of_an_item_is_the_form_it_was_built_as[string:pdbqt_text] tests/supported/test_supported.py tests/form/file_pdbqt/test_real_vina_examples.py",
+  "final_result": "receptor: 100% 45/45 26s\nPASS exit=0 | 45 passed | 25.75s | 1 warnings\n\nwarnings: 1 in 1 groups\n  LegacyH5MSMWarning x1 | molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\n",
+  "final_log_sha256": "3126234779dced0241eeeb18a98a59df7bfdf6358319160d1dd6c176f78d1ec3",
+  "fixture": "tests/form/data/vina_examples/1iep_ligand.pdbqt",
+  "fixture_sha256": "15fb35648d8c18c70317842f3a0631b73a19429c710a037ab07310084d579bb8",
+  "changed_tests_sha256": {
+    "tests/basic/test_get_form_battery.py": "84714ce0d52a9831e1ac78ec252e8e89966f39b0d1e7070fb5ef4d7de78d813f",
+    "tests/supported/test_supported.py": "0ec5481bdddb09948a433a2622ab5240d7d7ec20f1aca422cfcd93392882ad4b"
+  },
+  "provider_smoke": {
+    "head_sha": "ce769ffb7dc803fa514e48667e2a3e77b56911f0",
+    "run_id": 37423046917,
+    "conclusion": "success",
+    "jobs": [
+      {
+        "completedAt": "2026-10-06T06:22:01Z",
+        "conclusion": "success",
+        "databaseId": 112136467753,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-06T06:19:01Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-06T06:19:03Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-06T06:19:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:19:20Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-06T06:19:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:19:20Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-06T06:19:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:19:20Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-06T06:19:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:20:17Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-06T06:19:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:20:26Z",
+            "conclusion": "success",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-06T06:20:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:41Z",
+            "conclusion": "success",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-06T06:20:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:42Z",
+            "conclusion": "success",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-06T06:21:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:42Z",
+            "conclusion": "success",
+            "name": "Test import",
+            "number": 9,
+            "startedAt": "2026-10-06T06:21:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:42Z",
+            "conclusion": "success",
+            "name": "Validate public API stability against parent",
+            "number": 10,
+            "startedAt": "2026-10-06T06:21:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:44Z",
+            "conclusion": "success",
+            "name": "Validate docstrings bidirectionally",
+            "number": 11,
+            "startedAt": "2026-10-06T06:21:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:48Z",
+            "conclusion": "success",
+            "name": "Validate form contracts",
+            "number": 12,
+            "startedAt": "2026-10-06T06:21:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:51Z",
+            "conclusion": "success",
+            "name": "Enforce the Rust-only runtime",
+            "number": 13,
+            "startedAt": "2026-10-06T06:21:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:59Z",
+            "conclusion": "success",
+            "name": "Run test suite",
+            "number": 14,
+            "startedAt": "2026-10-06T06:21:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:59Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 26,
+            "startedAt": "2026-10-06T06:21:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:21:59Z",
+            "conclusion": "success",
+            "name": "Post Set up Python",
+            "number": 27,
+            "startedAt": "2026-10-06T06:21:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:22:00Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 28,
+            "startedAt": "2026-10-06T06:21:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-06T06:22:00Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 29,
+            "startedAt": "2026-10-06T06:22:00Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/37423046917/job/112136467753"
+      }
+    ]
+  },
+  "limits": "Scoped catalogue and existing real-Vina PDBQT contracts; no parser/scientific/API change, no full matrix or installed release qualification.",
+  "formatting": {
+    "initial": "Ruff check passed; format detected one line wrap in the new fixture route.",
+    "corrected": "Applied Ruff format; scoped check passes. No scientific code or assertion changes."
+  }
+}
