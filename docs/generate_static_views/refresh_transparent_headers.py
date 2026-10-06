@@ -49,19 +49,31 @@ def main():
         assert after.partition(b"</head>")[2] == body
         if before != after:
             path.write_bytes(after)
-        records.append({
-            "path": str(path.relative_to(repo)),
-            "changed": before != after,
-            "before_sha256": hashlib.sha256(before).hexdigest(),
-            "after_sha256": hashlib.sha256(after).hexdigest(),
-            "unchanged_body_sha256": hashlib.sha256(body).hexdigest(),
-        })
-    args.evidence.write_text(json.dumps({
-        "template_sha256": hashlib.sha256(args.template.read_bytes()).hexdigest(),
-        "exported_script_sha256": hashlib.sha256(script).hexdigest(),
-        "views": records,
-    }, indent=2) + "\n")
-    print(f"Refreshed {sum(r['changed'] for r in records)}/{len(records)} transparent exports")
+        records.append(
+            {
+                "path": str(path.relative_to(repo)),
+                "changed": before != after,
+                "before_sha256": hashlib.sha256(before).hexdigest(),
+                "after_sha256": hashlib.sha256(after).hexdigest(),
+                "unchanged_body_sha256": hashlib.sha256(body).hexdigest(),
+            }
+        )
+    args.evidence.write_text(
+        json.dumps(
+            {
+                "template_sha256": hashlib.sha256(
+                    args.template.read_bytes()
+                ).hexdigest(),
+                "exported_script_sha256": hashlib.sha256(script).hexdigest(),
+                "views": records,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+    print(
+        f"Refreshed {sum(r['changed'] for r in records)}/{len(records)} transparent exports"
+    )
 
 
 if __name__ == "__main__":

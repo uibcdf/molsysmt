@@ -262,6 +262,14 @@ course validator pass. Homepage executable cells and stored outputs are
 unchanged. Incremental Sphinx compilation passes in Python 3.13.14 with 17
 warnings; #144/#237 retain documentation warning/environment qualification.
 This is scoped development evidence, not installed/exact-candidate evidence.
+At published source `a0d6fc896`, CI smoke, dependency contract, devguide and
+Conda governance pass. Ruff 37379969985 and policy 37379970731 execute and
+fail because four new tools/tests need formatting; the earlier focused local
+lint check did not cover that second requirement. The follow-up formats those
+four files, verifies identical Python ASTs and runs both complete Ruff checks.
+Scientific runtime code and all scene bodies are unchanged. Inspect the new
+unskipped head's controls before treating this remote checkpoint as complete.
+
 Next: S5 dependency/Python review, current Viewer feedback and all S6 gates.
 No release tag or GitHub Release has been published by this checkpoint.
 

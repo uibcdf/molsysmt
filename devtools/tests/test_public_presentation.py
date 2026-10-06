@@ -33,7 +33,8 @@ def _check_readme(text):
         for reference in references:
             reference = reference.replace("msm.", "molsysmt.", 1)
             relevant = [
-                entry for name, entry in symbols.items()
+                entry
+                for name, entry in symbols.items()
                 if name == reference or name.startswith(reference + ".")
             ]
             if any(entry["stability"] == "experimental" for entry in relevant):
@@ -49,7 +50,9 @@ def test_readme_capability_claims_match_stability_and_links():
     _check_readme((REPO / "README.md").read_text())
 
 
-@pytest.mark.parametrize("label", ["Experimental native structure preparation", "Experimental analysis"])
+@pytest.mark.parametrize(
+    "label", ["Experimental native structure preparation", "Experimental analysis"]
+)
 def test_unqualified_experimental_claims_are_rejected(label):
     text = (REPO / "README.md").read_text()
     assert label in text
@@ -86,7 +89,12 @@ def test_public_surfaces_state_the_core_molecular_library_role():
     landing = "".join(notebook["cells"][1]["source"]).split("## Install it", 1)[0]
     metadata = tomllib.loads((REPO / "pyproject.toml").read_text())
     citation = yaml.safe_load((REPO / "CITATION.cff").read_text())
-    for text in (opening, landing, metadata["project"]["description"], citation["abstract"]):
+    for text in (
+        opening,
+        landing,
+        metadata["project"]["description"],
+        citation["abstract"],
+    ):
         _check_role(text)
 
 
@@ -96,18 +104,26 @@ def test_a_suite_badge_or_unrelated_footer_does_not_supply_the_role():
 
 
 def test_the_native_hero_selects_native_engines_and_bundled_input():
-    code = re.search(r"```python\n(.*?)```", (REPO / "README.md").read_text(), re.DOTALL)[1]
+    code = re.search(
+        r"```python\n(.*?)```", (REPO / "README.md").read_text(), re.DOTALL
+    )[1]
     tree = ast.parse(code)
     build_calls = [
-        node for node in ast.walk(tree) if isinstance(node, ast.Call)
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
         and isinstance(node.func, ast.Attribute)
         and isinstance(node.func.value, ast.Attribute)
         and node.func.value.attr == "build"
     ]
     assert len(build_calls) == 3
     assert all(
-        any(keyword.arg == "engine" and isinstance(keyword.value, ast.Constant)
-            and keyword.value.value == "MolSysMT" for keyword in call.keywords)
+        any(
+            keyword.arg == "engine"
+            and isinstance(keyword.value, ast.Constant)
+            and keyword.value.value == "MolSysMT"
+            for keyword in call.keywords
+        )
         for call in build_calls
     )
     assert "msm.systems[" in code

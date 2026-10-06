@@ -120,5 +120,20 @@
     "molsysviewer": "0.23.4+27.gfed1c4b8.dirty",
     "pytest": "9.1.1",
     "pytest-receptor": "1.1.0+19.g6d87a24"
+  },
+  "formatting_followup": {
+    "source_commit": "a0d6fc896d44086563e1bc9ea8a3eb3ea787f90f",
+    "reason": "Remote Ruff and suite policy execute format checks as well as lint; the original local lint-only check missed four newly added files",
+    "failed_runs": [
+      37379969985,
+      37379970731
+    ],
+    "ast_unchanged": true,
+    "formatted_file_sha256": {
+      "devtools/tests/test_public_presentation.py": "05ab8534e4daa2a03bfd33878fb0b3403c7c62e2a73244842286a0aed4fc0fc2",
+      "devtools/tests/test_static_view_transparency.py": "1369c586d3b21e7c5246e88ba43ef1c2151f97aecab0d5fa99ec02dff033815b",
+      "docs/generate_static_views/refresh_transparent_headers.py": "683a7f0b92f8056cd564f272ebf96277049c5a4978fa4a7233d9ba93eb0f4011",
+      "tests/build/test_readme_native_preparation.py": "e5c193e76bf7c6b22be27d4fb2df52c8ac779ea771e6a341da26c0e435bf8f21"
+    }
   }
 }

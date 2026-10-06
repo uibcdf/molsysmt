@@ -23,7 +23,11 @@ class HeadScripts(HTMLParser):
             self.in_head = True
         if tag == "script":
             attributes = dict(attrs)
-            self.active = self.in_head and not attributes.get("type") and not attributes.get("src")
+            self.active = (
+                self.in_head
+                and not attributes.get("type")
+                and not attributes.get("src")
+            )
 
     def handle_endtag(self, tag):
         if tag == "head":
@@ -43,7 +47,9 @@ def _check_header(html):
         script = re.sub(r"//[^\n]*", "", script).strip()
         if not script.startswith("if (window.self !== window.top)"):
             continue
-        assignment = re.search(r'sheet.textContent\s*=\s*("(?:[^"\\]|\\.)*")\s*;', script)
+        assignment = re.search(
+            r'sheet.textContent\s*=\s*("(?:[^"\\]|\\.)*")\s*;', script
+        )
         if assignment is None:
             continue
         css = json.loads(assignment[1])
@@ -60,7 +66,9 @@ def test_all_transparent_exports_install_embedded_scheme_before_body():
     checked = 0
     for path in paths:
         html = path.read_text()
-        ui = re.search(r'<script id="molsysviewer-ui"[^>]*>(.*?)</script>', html, re.DOTALL)
+        ui = re.search(
+            r'<script id="molsysviewer-ui"[^>]*>(.*?)</script>', html, re.DOTALL
+        )
         if ui:
             assert json.loads(ui[1])["background_mode"] == "transparent", path
             _check_header(html)
@@ -91,7 +99,9 @@ def test_header_migration_preserves_every_body_byte_and_is_idempotent():
     spec = importlib.util.spec_from_file_location("refresh_transparent_headers", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    original = (REPO / "docs/_static/views/tools_build_build_peptide_1.html").read_bytes()
+    original = (
+        REPO / "docs/_static/views/tools_build_build_peptide_1.html"
+    ).read_bytes()
     head, separator, body = original.partition(b"</head>")
     script = re.search(rb"<script>.*?</script>", head, re.DOTALL)[0]
     legacy_script = script.replace(b"html { color-scheme: light dark; } ", b"")

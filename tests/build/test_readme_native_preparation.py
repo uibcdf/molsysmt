@@ -38,8 +38,12 @@ def test_readme_native_preparation_without_openmm_or_pdbfixer(without_optional_e
     assert msm.get(molsys, box=True) is not None
 
 
-@pytest.mark.parametrize("water_model,n_sites", [("TIP3P", 3), ("SPC/E", 3), ("SPC", 3), ("TIP4P-EW", 4)])
-def test_native_water_models_without_optional_engines(without_optional_engines, water_model, n_sites):
+@pytest.mark.parametrize(
+    "water_model,n_sites", [("TIP3P", 3), ("SPC/E", 3), ("SPC", 3), ("TIP4P-EW", 4)]
+)
+def test_native_water_models_without_optional_engines(
+    without_optional_engines, water_model, n_sites
+):
     import molsysmt as msm
 
     solute = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
