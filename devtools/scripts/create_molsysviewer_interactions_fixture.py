@@ -231,8 +231,16 @@ def create_files(output_directory):
             .size
             == 0
         )
-        assert result.query(atom_indices=[0], mode="involving_selection").n_interactions == 3
-        assert result.between_selections([3, 4, 5], [6, 7, 8], exclusive=True).n_interactions == 1
+        assert (
+            result.query(atom_indices=[0], mode="involving_selection").n_interactions
+            == 3
+        )
+        assert (
+            result.between_selections(
+                [3, 4, 5], [6, 7, 8], exclusive=True
+            ).n_interactions
+            == 1
+        )
         assert result.measure_units == {"distance": "nm"}
         np.testing.assert_array_equal(
             result.atom_source_indices,

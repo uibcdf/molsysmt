@@ -81,7 +81,10 @@ def test_compound_roles_images_measurements_and_source_roundtrip():
     assert decoded.n_interactions == 2
     assert decoded.query(structure_indices=[2]).n_interactions == 0
     assert decoded.query(structure_indices=[4, 1, 4]).n_interactions == 2
-    assert decoded.query(atom_indices=[0, 1, 2], mode="within_selection").n_interactions == 0
+    assert (
+        decoded.query(atom_indices=[0, 1, 2], mode="within_selection").n_interactions
+        == 0
+    )
     assert decoded.source_id == "toy"
     np.testing.assert_array_equal(decoded.atom_source_indices, [10, 3, 5, 12, 8, 1, 6])
     np.testing.assert_array_equal(decoded.structure_source_indices, [8, 4, 7, 0, 2, 9])
