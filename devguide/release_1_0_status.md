@@ -36,6 +36,13 @@ limits. MolSysViewer can declare **`molsysmt>=0.23.0`** for the coordinated
 Interactions, H5MSM 0.5, loading and box capabilities. Experimental interaction
 contracts retain their current classification.
 
+For GitHub manual dispatch, the temporary remote branch
+`candidate/0.23.0-build0` points exactly to that producer SHA. Use it as the
+`ref` for `validate_conda_staging.yaml`; GitHub's dispatch endpoint requires a
+branch or tag rather than the raw commit SHA. Keep this branch fixed until
+installed-pair qualification and evidence verification are complete, then
+remove it during candidate-reference cleanup. It is not a release tag.
+
 Executed evidence includes 14/14 fast gates, 54 scientific cases with no skips,
 26 basic doctests, 35 tests importing the actual staged Linux payload and the
 successful native-wheel campaign (30 jobs plus one expected PR-only skip).
