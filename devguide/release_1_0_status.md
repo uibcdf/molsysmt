@@ -1838,8 +1838,9 @@ The standard release preparation tool updates candidate citation surfaces to
 version. Read-only registry preflight found neither selected version present;
 that observation must be refreshed before producing or uploading artifacts.
 Four untracked Viewer sandbox artifacts are preserved and excluded from the
-committed source identity. Viewer recipe metadata still needs its owner's
-0.24.0 update before its package producer runs.
+committed source identity. The Viewer Conda recipe derives its version from
+the ephemeral tag. Its committed release plan still selects historical
+0.23.4 and needs its owner's 0.24.0 update before its package producer runs.
 
 Full exact-candidate source/native gates and the sixteen installed-pair cells
 remain required. Filenames, SHA-256 values and availability on
@@ -1847,3 +1848,27 @@ remain required. Filenames, SHA-256 values and availability on
 tag, GitHub Release, registry upload or promotion is performed by this
 preparation. Installed/browser/session acceptance remains Viewer-owned under
 uibcdf/molsysviewer#93 and uibcdf/molsysviewer#114.
+
+The prepared source candidate is
+`46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9`. Its clean-source scientific
+certificate passes **54/54 cases for 47 registered nodes**, with zero
+failures/errors/skips. All **26 basic doctests** pass with network access;
+the first sandbox attempt failed two RCSB-download examples on DNS resolution
+and is retained in the receipt. Source matrix
+[37534217132](https://github.com/uibcdf/molsysmt/actions/runs/37534217132)
+and native wheel matrix
+[37534219155](https://github.com/uibcdf/molsysmt/actions/runs/37534219155)
+are dispatched against this exact commit and the selected Viewer source.
+They remain in progress; the larger local editable-source suite is also
+running. Later evidence-only commits do not reselect that producer or qualify
+unfinished gates.
+
+The maintainer explicitly authorizes building and uploading the four ABI3
+Conda files for **0.23.0, build 0**, from that exact candidate. A fresh
+read-only registry preflight confirms that neither selected version is yet
+present. Staging producer
+[37534744593](https://github.com/uibcdf/molsysmt/actions/runs/37534744593)
+is dispatched for `linux-64`, `linux-aarch64`, `osx-arm64` and `win-64`, targeting
+`uibcdf/label/staging`. Dispatch is not production or upload verification;
+no package file identity is reported before inspecting actual bytes. The
+public tag, GitHub Release and main-label promotion remain separate gates.
