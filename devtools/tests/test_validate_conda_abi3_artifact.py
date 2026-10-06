@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from devtools.scripts.validate_conda_abi3_artifact import (
     validate_extracted_artifact,
 )
@@ -26,7 +28,7 @@ def _artifact(
         "build": "pyabi3h1234567_0",
         "depends": dependencies
         or [
-            "python >=3.11,<3.14",
+            "python >=3.11,<3.15",
             "cpython >=3.11",
             "_python_abi3_support 1.*",
         ],
@@ -48,7 +50,7 @@ def test_rejects_exact_python_abi_dependency(tmp_path):
     artifact = _artifact(
         tmp_path,
         dependencies=[
-            "python >=3.11,<3.14",
+            "python >=3.11,<3.15",
             "cpython >=3.11",
             "_python_abi3_support 1.*",
             "python_abi 3.11.* *_cp311",
@@ -99,3 +101,32 @@ def test_rejects_build_string_that_collides_with_python_variant(tmp_path):
 
     problems = validate_extracted_artifact(artifact, "linux-64")
     assert "package build string does not identify the ABI3 artifact" in problems
+
+
+@pytest.mark.parametrize(
+    "python_dependencies",
+    [
+        ["python >=3.11,<3.14"],
+        ["python >=3.12,<3.15"],
+        ["python >=3.11"],
+        ["python >=3.11,<3.16"],
+        ["python >=3.11,<3.15", "python >=3.11,<3.15"],
+        ["python invalid"],
+        [],
+    ],
+)
+def test_rejects_python_requirements_outside_public_runtime_contract(
+    tmp_path, python_dependencies
+):
+    artifact = _artifact(
+        tmp_path,
+        dependencies=[
+            *python_dependencies,
+            "cpython >=3.11",
+            "_python_abi3_support 1.*",
+        ],
+    )
+
+    problems = validate_extracted_artifact(artifact, "linux-64")
+
+    assert any("exactly one Python" in problem for problem in problems)

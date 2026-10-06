@@ -6,7 +6,10 @@ from __future__ import annotations
 import argparse
 import json
 import tempfile
+import tomllib
 from pathlib import Path
+
+from packaging.specifiers import InvalidSpecifier, SpecifierSet
 
 
 def _requirement_names(requirements: list[str]) -> set[str]:
@@ -50,11 +53,23 @@ def validate_extracted_artifact(root: Path, expected_subdir: str) -> list[str]:
     if "python_abi" in names:
         problems.append("package retains an exact python_abi runtime requirement")
     python_specs = [item for item in requirements if item.split()[0] == "python"]
-    if len(python_specs) != 1 or not all(
-        bound in python_specs[0].replace(" ", "") for bound in (">=3.11", "<3.14")
-    ):
+    project = tomllib.loads(
+        (Path(__file__).resolve().parents[2] / "pyproject.toml").read_text(
+            encoding="utf-8"
+        )
+    )
+    expected_python = project["project"]["requires-python"]
+    matches_python_contract = False
+    if len(python_specs) == 1:
+        try:
+            matches_python_contract = SpecifierSet(
+                " ".join(python_specs[0].split()[1:])
+            ) == SpecifierSet(expected_python)
+        except InvalidSpecifier:
+            pass
+    if not matches_python_contract:
         problems.append(
-            "package does not declare exactly one Python >=3.11,<3.14 requirement"
+            f"package does not declare exactly one Python {expected_python} requirement"
         )
 
     extension_paths = [
