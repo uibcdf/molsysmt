@@ -388,8 +388,23 @@ does not establish a coherent installed closure. The
 and [preflight](../devtools/data/wheel_dependency_preflight_20261006.json)
 retain four initial failures, 37 passing corrected guards and actual rejection
 of the old closure. The published ArgDigest 0.14.0 pin and installed-metadata
-checks address both gaps; corrected full and installed artifact execution remain
-pending. This is stabilization within the frozen scope.
+checks address both gaps. At clean `865ff6ec6`, the corrected complete shared
+suite passes 13,313 cases with two skips and no failures/errors (404.84 s),
+and the separate scientific certificate passes all 54 cases without skips.
+All four installed wheel public smokes resolve and validate the real required
+closure; the 3.14 smoke installs mmcif 1.2.0 from the wheel metadata.
+
+Wheel run [37438849560](https://github.com/uibcdf/molsysmt/actions/runs/37438849560)
+has 29 successful jobs, one failure and one expected pull-request-only skip.
+Four builds, sixteen current-NumPy runtime cells, four NumPy-floor cells, four
+public smokes and the sdist round trip pass. The global result is **failure**
+because Rust formatting rejects one import ordering; Clippy, Rust tests and
+cargo-deny have not executed. The local format correction passes Rust 1.97.1,
+but its exact-source wheel workflow must execute before qualifying this layer.
+The [execution receipt](../devtools/data/wheel_execution_20261006.json) retains
+actual artifact bytes/digests and all limits. Published Viewer 0.23.4 is the
+fixed smoke baseline, not the final current integration candidate. No package
+is published. This is stabilization within the frozen scope.
 
 S5 is still partial for full-matrix/installed admission evidence. Next obtain
 Viewer feedback, agree exact provider/Viewer candidates and execute the required

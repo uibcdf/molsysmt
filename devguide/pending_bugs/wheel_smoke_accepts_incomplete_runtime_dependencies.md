@@ -16,7 +16,8 @@ supersedes: []
 # Installed-wheel gate accepts incomplete runtime dependencies
 
 **Reported:** 2026-10-06 during S6 wheel qualification preparation.
-**Status:** reproduced and corrected locally; installed workflow execution pending.
+**Status:** corrected in `865ff6ec6`; installed dependency gates pass; the complete
+wheel workflow awaits correction of an independent Rust formatting failure.
 
 ## What
 
@@ -51,11 +52,13 @@ successful editable execution retains its recorded development scope.
 ## What is measured and what is assumed
 
 The omitted installer entry and provider metadata conflict are inspected.
-No current wheel is yet claimed to fail its runtime subset. ArgDigest 0.14.0
+The original omission does not imply that its molecular smoke calls fail; they
+can pass without exercising the missing dependency. ArgDigest 0.14.0
 is a published, non-prerelease release at
 `0fa776af2d271065c60727c28480b20c3ce09aee` (2026-10-04); publication was
 verified through GitHub's release API. Mutation guards and executed installed
-artifact results will be recorded before closure.
+artifact results are recorded below; the independent global workflow failure
+remains tracked under #334.
 
 ## Scope and exclusions
 
@@ -107,5 +110,34 @@ retains both regression outcomes, actual provider source/version identities,
 old-closure rejection and changed-file hashes. No new full or installed wheel
 qualification is inferred from those focused checks. The original full shared
 run remains accurate execution evidence; its transitive metadata conflict now
-has this explicit correction. Next execute the corrected full source runtime
-and the native/installed wheel matrix with a fixed published Viewer baseline.
+has this explicit correction. The subsequent complete execution is recorded below.
+
+## Corrected source and installed execution — 2026-10-06
+
+At clean source `865ff6ec60dde5b637bc1a99705b8ac5d12c74aa`, the complete
+shared Python 3.14 suite with compatible ArgDigest 0.14.0 passes 13,313 cases,
+skips two, and has no failures/errors in 404.84 s with 1,770 warnings. It uses
+twelve workers and receptor's `llm` profile. The separate registered scientific
+runner passes all 54 cases from 47 nodes without skips in 6.94 s; its certificate
+records the same clean source. Editable Viewer/Ackredit limits remain explicit.
+
+Wheel run [37438849560](https://github.com/uibcdf/molsysmt/actions/runs/37438849560)
+uses published Viewer baseline `cf427942d0b08a1c5c60f262c6a6b33f248d6f8b`.
+All four installed public smokes (Python 3.11–3.14) pass dependency resolution,
+`pip check`, controlled closure validation and actual runtime checks outside
+the source checkout. The 3.14 log records mmcif 1.2.0 resolved from the wheel
+metadata and the package/native extension loaded from site-packages.
+
+Four native builds, sixteen current-NumPy runtime cells, four NumPy-floor cells
+and the sdist round trip also pass. The workflow's global conclusion is still
+**failure**: its Rust formatting check rejects one import ordering in
+`rust/src/mic.rs`. Clippy, Rust kernel tests and cargo-deny do not execute. The
+local formatting-only correction passes the same Rust 1.97.1 check; its new
+exact-source matrix remains pending under #334. The pull-request-only profile
+is the one expected skipped job in this manual run.
+
+The [execution receipt](../../devtools/data/wheel_execution_20261006.json)
+preserves the failed global conclusion, actual per-job states, all five retained
+artifact identities and independently hashed wheel/sdist bytes. Successful
+dependency checks establish this defect's correction; they do not qualify
+publication, the final Viewer consumer, or the source/Conda pair matrices.

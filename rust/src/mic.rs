@@ -24,9 +24,9 @@ use numpy::{
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
-use crate::mathlib::{fast_floor, fast_round_ties_even};
 #[cfg(test)]
 use crate::mathlib::inverse_matrix_3x3;
+use crate::mathlib::{fast_floor, fast_round_ties_even};
 use crate::symmetric::mirror_upper_to_lower;
 
 pub type Mat3 = [[f64; 3]; 3];

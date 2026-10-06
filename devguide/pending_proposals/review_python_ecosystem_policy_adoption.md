@@ -214,3 +214,28 @@ controlled-source or installed release gate. This materially advances the
 integrated runtime review, but the new eight-cell matrix, installed closure and
 central adoption remain pending. No historical failed gate is erased and no
 support-library exception is introduced.
+
+## Required closure correction and complete execution — 2026-10-06
+
+#344 identifies a limitation in the earlier successful source checks: installed
+PyUnitWizard 0.28.1 requires ArgDigest >=0.14.0, so the former 0.13.0 pin does
+not establish a coherent runtime closure. The corrected pin is published
+ArgDigest 0.14.0 at `0fa776af2d271065c60727c28480b20c3ce09aee`. Both controlled
+and installed public gates now recursively inspect actual dependency metadata.
+Earlier execution counts remain valid development observations.
+
+At clean `865ff6ec6`, the complete shared Python 3.14 suite using that closure
+passes 13,313 cases with two skips, no failures/errors and 1,770 warnings in
+404.84 s (twelve workers, receptor `llm`). The independent scientific runner
+passes 54 cases from 47 nodes without skips in 6.94 s. Editable sibling limits
+remain; these runs do not identify a final immutable Viewer candidate.
+
+All four installed public wheel smokes pass on Python 3.11–3.14, using published
+Viewer baseline `cf427942d0b08a1c5c60f262c6a6b33f248d6f8b`. Wheel run
+[37438849560](https://github.com/uibcdf/molsysmt/actions/runs/37438849560) still
+concludes **failure** because Rust formatting rejects one import ordering.
+Clippy, Rust tests and cargo-deny remain unexecuted in that run; the formatting
+correction requires a new exact-source workflow. The
+[execution receipt](../../devtools/data/wheel_execution_20261006.json) retains
+these outcomes and five artifact identities. This is successful installed
+dependency evidence, not complete 1.0 qualification or central admission.
