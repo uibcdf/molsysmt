@@ -111,14 +111,16 @@ def test_workflow_must_actually_install_its_declared_source_overlay(contract_tre
 
 def test_a_second_hardcoded_sibling_sha_is_rejected(contract_tree):
     path = contract_tree / ".github/workflows/ci-rust-wheels.yaml"
-    _replace(
-        path,
-        "      - name: Install the MolSysMT wheel without dependency resolution",
-        "      - name: Duplicate old source install\n"
-        "        run: python -m pip install git+https://github.com/uibcdf/pyunitwizard@"
-        + "a" * 40
-        + "\n\n      - name: Install the MolSysMT wheel without dependency resolution",
+    workflow = yaml.safe_load(path.read_text(encoding="utf-8"))
+    job = next(iter(workflow["jobs"].values()))
+    job["steps"].append(
+        {
+            "name": "Duplicate old source install",
+            "run": "python -m pip install git+https://github.com/uibcdf/pyunitwizard@"
+            + "a" * 40,
+        }
     )
+    path.write_text(yaml.safe_dump(workflow, sort_keys=False), encoding="utf-8")
 
     assert any(
         finding.path == ".github/workflows/ci-rust-wheels.yaml"

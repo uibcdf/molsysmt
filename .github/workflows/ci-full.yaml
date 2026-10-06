@@ -30,13 +30,13 @@ jobs:
       - name: Require an exact MolSysViewer commit
         shell: bash
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || 'cf427942d0b08a1c5c60f262c6a6b33f248d6f8b' }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || 'c046fca173f501c6e259761ef8f3d6b1825f17e8' }}
         run: |
           [[ "$MOLSYSVIEWER_SHA" =~ ^[0-9a-f]{40}$ ]]
 
       - name: Build the exact portable MolSysViewer dependency
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || 'cf427942d0b08a1c5c60f262c6a6b33f248d6f8b' }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || 'c046fca173f501c6e259761ef8f3d6b1825f17e8' }}
         run: >-
           python -m pip wheel --no-deps
           git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA
@@ -165,6 +165,15 @@ jobs:
       - name: Run full test suite
         shell: bash -l {0}
         run: python -m pytest --receptor=ci --junitxml=junit.xml
+
+      - name: Upload full-suite test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: full-suite-results-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}
+          path: junit.xml
+          if-no-files-found: warn
+          retention-days: 14
 
   pr-gate:
     name: PR full suite

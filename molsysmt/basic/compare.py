@@ -86,6 +86,8 @@ def compare(
     - Selection syntaxes are described in :ref:`Introduction_Selection`.
     - Differences in array shapes or collection sizes are ordinary inequality results.
       They return ``False`` for the affected attribute without emitting a warning.
+    - Matching missing metadata entries compare equal, including numeric NaN values.
+      A missing entry and a populated entry compare unequal.
     - Backward compatibility: the alias `attributes_type` is accepted and normalized
       internally to `attribute_type`.
 
@@ -373,7 +375,7 @@ def compare(
                 np.char.lower(a_arr.astype(str)), np.char.lower(b_arr.astype(str))
             )
         if a_arr.dtype.kind in "fi" and b_arr.dtype.kind in "fi":
-            return np.allclose(a_arr, b_arr, rtol=1e-05, atol=1e-08)
+            return np.allclose(a_arr, b_arr, rtol=1e-05, atol=1e-08, equal_nan=True)
         return np.array_equal(a_arr, b_arr)
 
     ######   EQUAL   #####

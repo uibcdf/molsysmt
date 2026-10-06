@@ -292,3 +292,22 @@ The [integration artifact](../devtools/data/interactions_main_integration_202610
 records commands, source identity, dependency versions and scope limits.
 This supersedes the earlier no-merge working-state observation, without changing
 the historical review fixture fingerprints or claiming consumer acceptance.
+
+## Immutable consumer delivery — 2026-10-06
+
+MolSysViewer delivers `c046fca173f501c6e259761ef8f3d6b1825f17e8` for coordinated
+staging, with its provider source pinned to MolSysMT
+`5e2721691b6a3c175406a8e4c0926dfb7b160671`. Its source-pair workflow
+[37441973999](https://github.com/uibcdf/molsysviewer/actions/runs/37441973999)
+reports Python 3.14 success on Linux/macOS/Windows (2,819/2,792/2,793 passed;
+27/54/53 skipped). The team also reports 39/39 core browser suites, including
+17 interaction calculation forms, and closes uibcdf/molsysviewer#161, #162
+and #163. Public installed-artifact qualification remains pending in its handoff.
+
+The [provider recovery receipt](../devtools/data/stabilization_s6_source_recovery_20261006.json)
+records the reported observations and our source-SHA/documentation-only
+successor verification. Untracked Viewer sandbox prototypes are preserved.
+This delivered source replaces the earlier candidate-availability blocker;
+repeat the controlled pair with the newer corrected MolSysMT source, qualify
+staged bytes and retain the remaining #114 installed/canvas/session scope
+before claiming complete consumer acceptance. No new feature is added.

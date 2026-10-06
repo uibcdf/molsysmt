@@ -10,6 +10,8 @@ Extended tests for molsysmt.basic.compare covering branches not hit by existing 
 - output_type='dictionary' for various paths
 """
 
+import numpy as np
+import pandas as pd
 import pytest
 
 import molsysmt as msm
@@ -306,3 +308,21 @@ def test_compare_molecule_name_identical(t4_molsys):
 def test_compare_chain_type_identical(t4_molsys):
     result = msm.compare(t4_molsys, t4_molsys, chain_type=True)
     assert result is True
+
+
+@pytest.mark.parametrize("missing", [np.nan, None, pd.NA])
+def test_compare_matching_undefined_chain_types(barnase_barstar_molsys, missing):
+    """Undefined metadata remains equal across numeric and object representations."""
+    molsys_A = barnase_barstar_molsys
+    molsys_B = msm.copy(molsys_A)
+    n_chains = molsys_A.topology.n_chains
+    molsys_A.topology.chains["chain_type"] = [np.nan] * n_chains
+    molsys_B.topology.chains["chain_type"] = [missing] * n_chains
+
+    assert msm.compare(molsys_A, molsys_A, chain_type=True) is True
+    assert msm.compare(molsys_A, molsys_B, chain_type=True) is True
+
+    chain_types = [missing] * n_chains
+    chain_types[0] = "protein"
+    molsys_B.topology.chains["chain_type"] = chain_types
+    assert msm.compare(molsys_A, molsys_B, chain_type=True) is False

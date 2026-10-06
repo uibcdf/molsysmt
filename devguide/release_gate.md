@@ -80,6 +80,13 @@ be green on the exact committed candidate**:
   remains the result authority. The scientific step must emit a certificate with
   every registered node collected and zero failures, errors, or skips.
 
+Retain each produced full-suite JUnit artifact, including failed executions,
+so skipped cases and unsuccessful nodes can be inspected separately from the
+bounded receptor summary. Record deselected scope separately because JUnit
+does not contain deselected cases. The source workflow uploads per-cell test
+results whenever that file exists; an environment failure before pytest does
+not produce a fictitious report.
+
 The four-minor Linux `ci-weekly.yaml` matrix recovers skipped-commit debt and
 also tests macOS arm64 on the routine Python 3.14 minor at least weekly. It
 does not replace the eight-cell release matrix.

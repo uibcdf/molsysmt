@@ -1649,3 +1649,38 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-09-19 | Form extraction dispatch | uibcdf/molsysmt#210 `OPEN` → `DONE`; no stage or weighted-progress transition | all 89 form adapters now accept the extraction dispatcher contract with no debt exception; both mechanics forms preserve global settings and subset their conditional per-atom force-field axis; three-letter sequences extract residue positions while retaining the group-indexed converter contract; invalid axes and positions raise catalog errors instead of Python signature/index errors. The adapter census passes 263 tests with two accepted PyTraj skips, the complete suite passes 10,217 with 11 accepted dependency/environment skips under 12 workers, Ruff is clean on every changed Python file, and the fast gate remains 13/13 | closing commit for uibcdf/molsysmt#210; `archive/resolved_bugs/three_forms_declare_an_extract_the_dispatcher_cannot_call.md` |
 | 2026-09-19 | Test-suite runtime proposal | uibcdf/molsysmt#122 one-line fixture request → measured profiling proposal; no stage or weighted-progress transition | an accidental serial run reached only 3,793/10,228 executed nodes in 760.75 seconds before interruption, while the documented `-n 12 --dist loadfile` mode completed all 10,228 in 377.90 seconds. The proposal now requires cold/warm profiles, node/module cost attribution, preservation of executed scientific and contract evidence, mutable-fixture isolation, and separate wall-time versus aggregate-work measurements before optimizing | `pending_proposals/profile_and_reduce_test_suite_runtime_without_weakening_coverage.md` |
 | 2026-09-19 | Shared guard governance | uibcdf/molsysmt#197 `OPEN` → `BLOCKED` by uibcdf/molsyssuite#26; no stage or weighted-progress transition | the originating MolSysMT defect exposed incompatible guard semantics across all six wave-1 repositories. MolSysSuite now owns the shared addressability, reviewer-relevance, pytest/non-pytest, migration, and rollout decision; #197 is narrowed to MolSysMT's eventual implementation and must not create a competing local policy | central record in uibcdf/molsyssuite#26; `pending_bugs/devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md` |
+
+## S6 source recovery and delivered Viewer candidate — 2026-10-06
+
+The source matrix `37441978743` at `5bd893c85` finishes **failure**: Linux
+and macOS Python 3.11 pass; the other six cells each fail only
+`tests/basic/test_copy.py::test_copy_1`. Matching undefined chain types become
+numeric NaN arrays under pandas 3, and the comparison's numeric branch reports
+inequality even for self-comparison. #345 owns the reproduced defect.
+All eight registered scientific certificates pass 54 cases with zero skips.
+The [recovery receipt](../devtools/data/stabilization_s6_source_recovery_20261006.json)
+preserves exact counts, warnings, omissions and original log identities.
+Ordinary full-suite omissions are 26 Linux/27 macOS skips and 40 deselections
+per cell; the next workflow retains complete JUnit to inspect their reasons.
+
+The correction passes the same 61 compare/copy cases under pandas 2.3.3 and
+3.0.6, and the comparison doctest. Public metadata equality now accepts matching
+missing numeric entries while rejecting a populated entry in their place.
+Ruff passes; the tutorial and course explanations are synchronized. The new
+source matrix must execute before treating this correction as full qualification.
+
+The Viewer team delivers stable source
+`c046fca173f501c6e259761ef8f3d6b1825f17e8`, tested against MolSysMT
+`5e2721691b6a3c175406a8e4c0926dfb7b160671`. It reports Python 3.14 counts
+of 2,819/2,792/2,793 passed and 27/54/53 skipped on Linux/macOS/Windows,
+with no failures, plus all 39 core browser suites and 17 interaction calculation
+forms. Those are consumer observations, not our re-execution. GitHub confirms
+the source SHA, and inspection confirms its later `e71eaf63` change is
+documentation only. Routine Viewer source routes and upcoming exact-source
+inputs select `c046fca...`; their dependency contract audit passes.
+
+This makes a fixed current Viewer candidate available for staging preparation.
+It does not qualify the newer corrected MolSysMT pair, Conda-installed files,
+Windows artifact compatibility or publication. Preserve both immutable
+producer identities and build/file digests in the upcoming installed-pair
+gates. Release tag and GitHub Release approval remain separate.
