@@ -1105,13 +1105,15 @@ def get_chain_index_from_atom(item, indices="all", skip_digestion=False):
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Atom-aligned chain positions as integers, with ``None`` for missing membership.
 
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy(
+        dtype=object, na_value=None
+    )
 
     if indices == "all":
         output = chain_index_from_atom.tolist()
@@ -3732,14 +3734,17 @@ def get_chain_index_from_group(item, indices="all", skip_digestion=False):
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Per-group chain positions as integers or ``None`` when unknown. A group
+        spanning several chains returns its list of memberships, preserving ambiguity.
 
 
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy(
+        dtype=object, na_value=None
+    )
 
     if indices == "all":
         aux_dict = defaultdict(set)

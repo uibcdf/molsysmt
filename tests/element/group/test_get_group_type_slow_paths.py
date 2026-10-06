@@ -93,3 +93,13 @@ def test_group_type_from_group_name_all_types():
     assert get_group_type_from_group_name("ALA") == "amino acid"
     assert get_group_type_from_group_name("ACE") == "terminal capping"
     assert get_group_type_from_group_name("ZZZZZZ") == "unknown"
+
+
+def test_missing_group_names_have_unknown_type_without_inventing_identity():
+    import numpy as np
+    import pandas as pd
+
+    from molsysmt.element.group.get_group_type import get_group_type_from_group_name
+
+    for missing in (None, pd.NA, np.nan):
+        assert get_group_type_from_group_name(missing) == "unknown"

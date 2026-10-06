@@ -1,13 +1,17 @@
-from unittest.mock import patch
-
 import pytest
-from depdigest import DepConfig, dep_digest, register_package_config
+from depdigest import (
+    DepConfig,
+    dep_digest,
+    is_installed,
+    register_package_config,
+    resolve_config,
+)
 
 from molsysmt._private.smonitor import LibraryNotFoundError
 from molsysmt.form import _dict_modules
 
 
-def test_dependencies_architecture():
+def test_dependencies_architecture(monkeypatch):
     """
     Unified test for dependency management architecture.
     """
@@ -20,68 +24,66 @@ def test_dependencies_architecture():
     assert hasattr(dummy_func, "_dependencies")
     assert dummy_func._dependencies[0]["library"] == "mdtraj"
 
-    # 2. Test Registry Filtering
+    # Model absent modules at discovery, so both current and older provider
+    # loaders use the real dependency checker rather than a loader-local alias.
+    from depdigest.core import checker
+
     from molsysmt import _depdigest
 
-    # Mock 'mdtraj' missing and force filtering
-    register_package_config(
-        "molsysmt",
-        DepConfig(
-            libraries=_depdigest.LIBRARIES,
-            mapping=_depdigest.MAPPING,
-            show_all_capabilities=False,
-            exception_class=LibraryNotFoundError,
-        ),
-    )
-    _dict_modules.clear()
-    _dict_modules._initialized = False
-    with patch(
-        "depdigest.core.loader.is_installed",
-        side_effect=lambda x: False if x == "mdtraj" else True,
-    ):
+    original_find_spec = checker.find_spec
+    original_config = resolve_config("molsysmt")
+    module_root = __name__.split(".")[0]
+    original_test_config = resolve_config(module_root)
+
+    def missing_spec(name, *args, **kwargs):
+        if name in {"mdtraj", "non_existent_lib", "some_lib"}:
+            return None
+        return original_find_spec(name, *args, **kwargs)
+
+    try:
+        monkeypatch.setattr(checker, "find_spec", missing_spec)
+        is_installed.cache_clear()
+        register_package_config(
+            "molsysmt",
+            DepConfig(
+                libraries=_depdigest.LIBRARIES,
+                mapping=_depdigest.MAPPING,
+                show_all_capabilities=False,
+                exception_class=LibraryNotFoundError,
+            ),
+        )
+        _dict_modules.clear()
+        _dict_modules._initialized = False
         _dict_modules._ensure_initialized()
+        assert not is_installed("mdtraj")
         assert "mdtraj.Trajectory" not in _dict_modules
         assert "molsysmt.MolSys" in _dict_modules
 
-    # 3. Test Runtime Errors (with correct exception)
-    # Register for this module's root
-    module_root = __name__.split(".")[0]
-    register_package_config(
-        module_root, DepConfig(exception_class=LibraryNotFoundError)
-    )
+        register_package_config(
+            module_root, DepConfig(exception_class=LibraryNotFoundError)
+        )
 
-    @dep_digest("non_existent_lib")
-    def fail_func():
-        pass
+        @dep_digest("non_existent_lib")
+        def fail_func():
+            pass
 
-    with patch("depdigest.core.checker.is_installed", return_value=False):
         with pytest.raises(LibraryNotFoundError):
             fail_func()
 
-    # 4. Test Conditional Logic
-    @dep_digest("some_lib", when={"engine": "Special"})
-    def cond_func(engine="Normal"):
-        return "OK"
+        @dep_digest("some_lib", when={"engine": "Special"})
+        def cond_func(engine="Normal"):
+            return "OK"
 
-    with patch("depdigest.core.checker.is_installed", return_value=False):
-        # Should NOT fail when condition is not met
         assert cond_func(engine="Normal") == "OK"
-        # Should fail when condition is met
         with pytest.raises(LibraryNotFoundError):
             cond_func(engine="Special")
-
-    # CLEANUP: Restore MolSysMT default config
-    register_package_config(
-        "molsysmt",
-        DepConfig(
-            libraries=_depdigest.LIBRARIES,
-            mapping=_depdigest.MAPPING,
-            show_all_capabilities=True,
-            exception_class=LibraryNotFoundError,
-        ),
-    )
-    _dict_modules.clear()
-    _dict_modules._initialized = False
+    finally:
+        monkeypatch.setattr(checker, "find_spec", original_find_spec)
+        is_installed.cache_clear()
+        register_package_config("molsysmt", original_config)
+        register_package_config(module_root, original_test_config)
+        _dict_modules.clear()
+        _dict_modules._initialized = False
 
 
 def test_mmcif_is_registered_as_a_hard_dependency():

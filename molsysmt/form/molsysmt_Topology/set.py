@@ -715,6 +715,7 @@ def set_chain_index_to_atom(item, indices="all", value=None, skip_digestion=Fals
                 redefine_names=True,
             )
     else:
+        item.atoms["chain_index"] = item.atoms["chain_index"].astype("Int64")
         item.atoms.loc[indices, "chain_index"] = value
 
     pass
@@ -2715,7 +2716,7 @@ def set_chain_index_to_molecule(item, indices="all", value=None, skip_digestion=
 
     group_idx = item.atoms["group_index"].to_numpy()
     mol_idx_arr = item.groups["molecule_index"].to_numpy()
-    new_chain = item.atoms["chain_index"].copy().to_numpy()
+    new_chain = item.atoms["chain_index"].to_numpy(copy=True)
 
     if is_all(indices):
         for ai in range(len(group_idx)):
@@ -2858,7 +2859,7 @@ def set_chain_index_to_component(item, indices="all", value=None, skip_digestion
     """
 
     comp_idx = item._get_component_indices().to_numpy()
-    new_chain = item.atoms["chain_index"].copy().to_numpy()
+    new_chain = item.atoms["chain_index"].to_numpy(copy=True)
 
     if is_all(indices):
         for ai in range(len(comp_idx)):
@@ -3002,7 +3003,7 @@ def set_molecule_index_to_chain(item, indices="all", value=None, skip_digestion=
 
     group_idx = item.atoms["group_index"].to_numpy()
     chain_idx = item.atoms["chain_index"].to_numpy()
-    mol_idx_arr = item.groups["molecule_index"].copy().to_numpy()
+    mol_idx_arr = item.groups["molecule_index"].to_numpy(copy=True)
 
     if is_all(indices):
         for ai in range(len(group_idx)):
@@ -3144,7 +3145,7 @@ def set_molecule_index_to_component(
 
     comp_idx = item._get_component_indices().to_numpy()
     group_idx = item.atoms["group_index"].to_numpy()
-    mol_idx_arr = item.groups["molecule_index"].copy().to_numpy()
+    mol_idx_arr = item.groups["molecule_index"].to_numpy(copy=True)
 
     if is_all(indices):
         for ai in range(len(comp_idx)):

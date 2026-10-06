@@ -331,13 +331,33 @@ coverage claims and tests without changing placement algorithms. Its
 and [receipt](../devtools/data/bounded_repair_callers_20261006.json) preserve the
 initial five failures, 87 passing repair cases, two passing public doctests,
 exact missing inventories and unchanged observed/source coordinates. All runs
-use `--receptor=llm -n 12`. Warnings remain recorded. A full local Python 3.14
-source suite is in progress with the same worker/profile settings; its outcome
-and any further failures must be inspected before selecting an S6 candidate.
+use `--receptor=llm -n 12`. Warnings remain recorded. At `b1fc6b3a5`, actual
+Python 3.14 smoke `37425890605` and the applicable remote Ruff, devguide, policy
+and Conda-governance controls pass.
 
-S5 is still partial for executed environment/admission evidence. Next inspect
-the complete local suite, resolve any remaining included-profile defects, obtain
-Viewer feedback, and select exact candidates for S6.
+The complete local Python 3.14 source suite finishes with exit 1: 13,191 passed,
+43 failed, 25 errors and 14 execution skips, in 1,225.59 s with 2,152 warnings.
+JUnit additionally retains seven collection skips; these are not seven more
+executed tests. DNS-blocked downloads contribute long retries. A network-enabled
+retry of the 68 failed/error nodes passes 35 and retains 25 failures/eight errors
+in 18.35 s. Missing ParMed, PyTraj and OpenFF explain the optional-provider routes;
+MOL2 currently requires ParMed explicitly. This is not a green complete suite.
+The [execution receipt](../devtools/data/stabilization_s5_execution_20261006.json)
+preserves original outcomes, failed/skipped nodes, log/JUnit identities and scope.
+
+#342 corrects a stale dependency guard that patches a removed private loader
+alias; real filtering and missing-library diagnostics now execute with restored
+configuration. #343 corrects supported pandas 3 missing-name/membership and
+read-only NumPy-export behavior without changing chemical criteria. The same
+271-case selection passes without skips on pandas 3.0.6 (17.90 s) and pandas
+2.3.3 (18.57 s). The receipt distinguishes initial and intermediate failures;
+warnings remain visible. These selections are scoped editable-source evidence.
+See the [dependency-guard resolution](archive/resolved_bugs/dependency_architecture_guard_patches_a_removed_depdigest_loader_alias.md)
+and [pandas resolution](archive/resolved_bugs/native_topology_operations_fail_under_pandas_3_missing_value_and_copy_semantics.md).
+
+S5 is still partial for executed environment/admission evidence. Next complete
+the required provider environments and rerun the full included profiles with
+these corrections, obtain Viewer feedback, and select exact candidates for S6.
 No release tag or GitHub Release is published. Configured eight-cell matrices,
 solver success, focused editable tests and an accepted badge are not S6 evidence.
 

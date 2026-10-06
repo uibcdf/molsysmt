@@ -1204,9 +1204,7 @@ class Topology:
                 if column in required_columns or table[column].notna().any()
             ]
             prepared.append(table.loc[:, keep_columns])
-        return cls._coerce_bond_table(
-            pd.concat(prepared, ignore_index=True, copy=False)
-        )
+        return cls._coerce_bond_table(pd.concat(prepared, ignore_index=True))
 
     @staticmethod
     def _remap_bond_atom_indices(table, index_map):

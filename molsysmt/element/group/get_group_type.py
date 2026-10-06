@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
 
@@ -141,6 +142,8 @@ def get_group_type_from_group_name(group_name, skip_digestion=False):
 
     output = None
 
+    if pd.isna(group_name):
+        return "unknown"
     if is_water(group_name):
         output = "water"
     elif is_ion(group_name):
