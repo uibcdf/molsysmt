@@ -20,6 +20,44 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Current pre-1.0 checkpoint — 2026-10-06
+
+The selected pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**, under the
+feature freeze in `uibcdf/molsysmt#334`. S6 artifact qualification is active.
+This checkpoint prepares the next pre-1.0 release; it does not select 1.0.0.
+
+MolSysMT's four native ABI3 **build-0** files are available in
+**`uibcdf/label/staging`**, from source
+`46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9` and producer run
+[37534744593](https://github.com/uibcdf/molsysmt/actions/runs/37534744593).
+The [staging handoff receipt](../devtools/data/stabilization_023_staging_handoff_20261006.json)
+owns filenames, build strings, SHA-256 values, source comparisons and validation
+limits. MolSysViewer can declare **`molsysmt>=0.23.0`** for the coordinated
+Interactions, H5MSM 0.5, loading and box capabilities. Experimental interaction
+contracts retain their current classification.
+
+Executed evidence includes 14/14 fast gates, 54 scientific cases with no skips,
+26 basic doctests, 35 tests importing the actual staged Linux payload and the
+successful native-wheel campaign (30 jobs plus one expected PR-only skip).
+The local full suite retains its original failed restricted-network invocation
+and the successful recovery of all 33 affected cases; it is not recorded as a
+second complete green invocation. Details and limitations remain in the dated
+checkpoints and handoff receipt below.
+
+At the latest inspection, source run
+[37534217132](https://github.com/uibcdf/molsysmt/actions/runs/37534217132)
+has passed Linux Python 3.11/3.12 and macOS Python 3.11/3.14; four cells are still
+running. Its controlled Viewer source is
+`5bb59c0e13045ee0aaf34cf336a3533d611197bf`. This is **4/8 completed cells**, not
+full-matrix certification. The exact Viewer 0.24.0 staging file and the
+16-cell installed-pair qualification remain pending, as does consumer-owned
+acceptance under `uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`.
+
+No public tag, GitHub Release or main-label promotion has been performed.
+Use [Resume from here](#resume-from-here) for the remaining sequence. Earlier
+dated observations preserve history; their pending statements do not supersede
+this checkpoint.
+
 ## Scope freeze and next work — 2026-10-05
 
 The maintainer has frozen feature scope at `d609187ae` under
@@ -456,50 +494,45 @@ open; this closure does not certify them or establish release readiness.
 
 ## Resume from here
 
-**Current ordering:** use [the 2026-10-05 scope freeze](release_1_0_scope.md).
-The dated source/installation observations below preserve evidence and do not
-reopen extension work or certify the current candidate.
+The [frozen scope](release_1_0_scope.md) governs admission. The active candidate
+pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**; its files and executed evidence
+are recorded in the current checkpoint above and the
+[staging handoff receipt](../devtools/data/stabilization_023_staging_handoff_20261006.json).
+Keep MolSysMT's original package producer and source SHA even when later commits
+correct developer tooling or update this ledger.
 
-As of 2026-09-27, F6 is the active 1.0 stage. The public MolSysMT
-0.22.4 / MolSysViewer 0.23.4 pair is an independently verified
-pre-1.0 installation baseline, including Python 3.14. Future native
-Conda candidates use four supported platforms and 16 Python 3.11–3.14
-installed-pair cells; the earlier five-platform/20-cell campaign is
-historical evidence, not a new macOS Intel obligation.
+1. Inspect source run `37534217132` to completion and retain the exact-candidate
+   scientific certificates and full-suite results. Partial matrix success does
+   not satisfy the [release gate](release_gate.md).
+2. Obtain the exact Viewer 0.24.0 staging filename, build, SHA-256 and producer
+   source. Its owner must align the release plan with 0.24.0 before producing
+   that package. The coordinated dependency minimum is `molsysmt>=0.23.0`.
+3. Qualify the exact installed pair in **16 cells**: four supported native
+   platforms × Python 3.11–3.14. Preserve the original staged artifact bytes and
+   digests; a documentation or validator correction alone does not require
+   rebuilding the package. The Linux payload tests already recorded do not
+   replace this matrix.
+4. Complete Viewer-owned integration and acceptance under
+   `uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`, including the applicable
+   browser, visible-window and session checks. Experimental Qt limitations
+   remain tracked by `uibcdf/molsysviewer#109`; remote-session certification
+   remains post-1.0 in `uibcdf/molsysviewer#100`.
+5. Reconcile every applicable exact-candidate gate, then obtain final publication
+   approval for **0.23.0**. Tag the qualified source, publish the GitHub Release,
+   promote the exact qualified files and verify public artifacts and Zenodo
+   records. Assess readiness for 1.0 after this pre-1.0 checkpoint.
 
-The shared Linux `molsyssuite@uibcdf_3.14` development environment now
-uses official conda-forge PySide6/Qt 6.11.2; the former UIBCDF family is
-a separate rollback lane. Its targeted Viewer and MolSysMT–Viewer
-checks passed, but the Viewer full suite was not rerun after three
-test-environment/assertion corrections. This is development evidence,
-not final 1.0 certification. See
-[the paired-support checkpoint](python_3_14_checkpoint.md),
-`uibcdf/molsyssuite#52`, and `uibcdf/molsysviewer#109`.
-
-For the next session:
-
-1. Audit F6 against current code, published dependency floors, open
-   release issues and the [exact-commit gate](release_gate.md). Do not
-   reuse the old 0.22.x staging candidates or August source pins as
-   instructions.
-2. Coordinate Viewer-owned work: scientific dogfooding, first-contact
-   onboarding, visible-window Qt observations, the core non-remote
-   browser gate and the latest-compatible Qt review before candidate
-   freeze (`uibcdf/molsysviewer#112`). Remote-session certification
-   is post-1.0 (`uibcdf/molsysviewer#100`); Xvfb is not a substitute
-   for a visible-window observation.
-3. Freeze new exact 1.0 candidates, run all required source, wheel,
-   Conda, documentation and installed-pair gates on those commits,
-   then decide on tags and releases. Verify public artifacts and
-   Zenodo records after publication. No pre-1.0 exception rolls
-   forward automatically.
+The public 0.22.4/0.23.4 pair and the
+[Python 3.14 checkpoint](python_3_14_checkpoint.md) remain historical installation
+and development evidence. They do not select the current producer, replace its
+qualification or authorize publication.
 
 The [interaction-detection namespace proposal](pending_proposals/organize_interaction_detection_by_family_before_1_0.md)
 (`uibcdf/molsysmt#250`) has been accepted for the bounded pre-1.0 migration of
-hydrogen-bond methods and disulfide-candidate detection. Implementation and
-recertification are in progress; this work is not yet part of a tested release
-candidate. Its final commit must pass the affected scientific, documentation,
-consumer, and release gates before candidate freeze. Separately approved
+hydrogen-bond methods and disulfide-candidate detection. The bounded namespace,
+detector migration and persistence routes are implemented in the staged
+candidate. Final consumer acceptance and exact-candidate qualification remain
+open. Separately approved
 experimental ionic, pi-pi, cation-pi, halogen, hydrophobic, metal-candidate and
 one- and two-water hydrogen-bond families are now implemented; these are not new 1.0
 requirements. Metal-specific rules and paths through more than two waters remain
@@ -512,10 +545,11 @@ Public H5MSM 0.5 round trips for named analyses and supported partial `MolSys`
 combinations are contract-tested. Incremental interaction editing and bounded
 public file access remain unsupported. The experimental consumer contract is
 agreed; stabilization and exact-candidate qualification remain open.
-The [2026-10-01 provider qualification](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md#nine-family-provider-qualification--2026-10-01)
-records the current nine-family test scope and a repeated local consumer smoke.
-That consumer smoke covers hydrogen-bond and disulfide projections; the other
-families still need consumer visual qualification.
+The [S2 review packet](interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+records local provider/consumer projection and session parity for all nine
+families and both water orders. This supersedes the earlier two-family local
+smoke, while actual canvas acceptance and installed-pair qualification remain
+separate obligations.
 TopoMT, PharmacophoreMT, and DockingMT integrations do not gate 1.0.
 
 The 2026-10-01 naming/attribution checkpoint at clean provider `e21f03d99`

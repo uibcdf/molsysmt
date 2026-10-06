@@ -12,17 +12,20 @@ The [execution ledger](release_1_0_status.md) records completion and evidence.
 
 ## Pre-1.0 version checkpoint
 
-On 2026-10-06 the maintainer selects **0.23.0** as the next pre-1.0 version
-checkpoint. Prepare and qualify its packages and the agreed MolSysViewer pair
+On 2026-10-06 the maintainer selects **MolSysMT 0.23.0 / MolSysViewer 0.24.0**
+as the next pre-1.0 version checkpoint. Prepare and qualify their packages
 before deciding whether the evidence supports 1.0.0. The feature freeze and
 stabilization admission rule below remain in effect; this checkpoint does not
 reopen feature development or declare experimental contracts stable.
 
-The version decision does not authorize a public tag or publication. Preserve
-existing source/artifact receipts with their original versions and producers;
-they are supporting evidence, not qualified 0.23.0 artifacts. Select the exact
-0.23.0 candidate and Viewer package version before staging, and execute the
-applicable exact-candidate gates. Publication requires separate final approval.
+The maintainer has separately authorized candidate construction and upload to
+staging. This authorization does not authorize a public tag, GitHub Release or
+main-label promotion. Preserve source/artifact receipts with their original
+versions, producers and digests, and execute the applicable exact-candidate
+gates. Publication requires separate final approval. The
+[execution ledger](release_1_0_status.md#resume-from-here) owns the selected
+source identities, staged-file evidence and remaining qualification work;
+historical package receipts do not qualify a different candidate.
 
 ## Admission rule
 
@@ -103,8 +106,8 @@ such a defect is triaged under the admission rule regardless of who found it.
 
 S1 and S4 are review work, not authorization to close issues without evidence.
 S5 includes reconciling the old 3.13 scientific routes with the accepted 3.14
-policy under #237. The present six-cell full matrix or a historical installed
-pair does not, alone, establish that updated requirement. No heavy matrix is
+policy under #237. A partial full matrix or a historical installed pair does
+not, alone, establish that updated requirement. No heavy matrix is
 executed by this scope decision.
 
 ## Preserved post-1.0 work

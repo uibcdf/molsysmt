@@ -20,6 +20,15 @@ The plan deliberately separates:
 - expensive work that can continue after 1.0;
 - independent investigations that must not destabilize the release candidate.
 
+## Selected pre-1.0 checkpoint — 2026-10-06
+
+The maintainer selects **MolSysMT 0.23.0 / MolSysViewer 0.24.0** before deciding
+on 1.0.0. Candidate staging is authorized; public publication still requires
+final approval after the applicable gates. Use the
+[execution ledger's next steps](../release_1_0_status.md#resume-from-here)
+for current source identities, artifact evidence and installed-pair qualification.
+The feature freeze below remains in force.
+
 ## Current scope freeze — 2026-10-05
 
 The maintainer's [accepted scope decision](../release_1_0_scope.md), tracked by
@@ -283,7 +292,7 @@ This segment must finish before runtime deletion.
    until a functional matrix comparable to Linux and macOS exists.
 4. Test each artifact in a clean environment rather than the development
    worktree.
-5. Exercise Python 3.11, 3.12, and 3.13 and the supported NumPy range.
+5. Exercise Python 3.11–3.14 and the supported NumPy range.
 6. Define the source-distribution policy explicitly. An sdist that requires a
    Rust compiler is acceptable only when documented and when supported binary
    wheels cover the release platforms.
@@ -454,7 +463,7 @@ After the conversion and Rust-only blockers are green:
 4. archive completed proposals and move durable rules into normative guides;
 5. rebuild demos and documentation affected by conversion or runtime changes;
 6. run the exact release procedure in [`release_gate.md`](../release_gate.md);
-7. tag only the clean commit that passed the full Python 3.11–3.13 matrix and
+7. tag only the clean commit that passed the full Python 3.11–3.14 matrix and
    installed-wheel tests.
 
 ## Candidate pre-1.0 API decision: interaction detection
@@ -475,17 +484,19 @@ before the 1.0 candidate freeze. Implementation is tracked by #252. These
 changes require scientific, documentation, course, consumer, API-registry, and
 exact-commit release recertification. The operational status belongs in
 [`release_1_0_status.md`](../release_1_0_status.md). Additional interaction
-families are separately approved and need not block 1.0. Experimental ionic,
-pi-pi and cation-pi detectors have since been implemented; halogen, hydrophobic
-and metal coordination remain future work. Integrations with TopoMT,
-PharmacophoreMT and DockingMT may follow after 1.0.
+families were separately approved and are implemented within their bounded
+experimental profiles. The [family proposal](organize_interaction_detection_by_family_before_1_0.md)
+records all nine implemented families and their method limits; the frozen scope
+retains them. Specific metal rules and water paths beyond two waters remain
+post-1.0 extensions under #337/#338. Integrations with TopoMT, PharmacophoreMT
+and DockingMT may follow after 1.0.
 
 The integration gate includes four concrete checks: a `MolSys` with named
 interaction results survives copy and valid selections without losing source
 index meaning; edits remap or explicitly invalidate affected observations;
 the next versioned H5MSM schema round-trips the same data and rejects
 unsupported interaction layers without silent loss; and MolSysViewer can
-query a single frame, nonconsecutive frames, and atom selections against
+query a single structure, nonconsecutive structures, and atom selections against
 both native and H5MSM-loaded results. Large-trajectory reading and writing
 must use bounded memory. H5MSM 0.5 is the accepted pre-1.0 format target:
 topology, chemical states, structures, and interactions are optional sibling
