@@ -12,7 +12,7 @@ on:
       molsysviewer_version:
         description: Exact MolSysViewer version in the selected channel
         required: true
-        default: 0.23.4
+        default: 0.24.0
         type: string
       molsysmt_build_number:
         description: Exact MolSysMT ABI3 build number

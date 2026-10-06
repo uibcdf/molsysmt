@@ -1802,3 +1802,48 @@ or explicit-digestion feature is adopted by this pin update. That provider
 coordination remains uibcdf/molsyssuite#106. These checks do not qualify exact
 installed release artifacts or the full provider/Viewer pair, and do not change
 the pending Viewer query migration in uibcdf/molsysviewer#168.
+
+
+## Selected pre-1.0 package pair — 2026-10-06
+
+The maintainer selects **MolSysMT 0.23.0 / MolSysViewer 0.24.0**. The agreed
+Viewer source is `5bb59c0e13045ee0aaf34cf336a3533d611197bf`; routine source
+pins and the installed-pair workflow now use this source and version. The
+committed Conda route remains staged. Build defaults are zero; the actual
+Viewer build coordinate must be read from its producer receipt.
+
+The real Viewer attribution/session regression that previously failed on the
+withdrawn `incident` query now passes, together with public MolSys/H5MSM and
+named-analysis persistence tests: **35 passed, zero failures/errors/skips**.
+Release preparation and dependency-route guards pass **25 tests**. The first
+route check caught four stale workflow copies of the old Viewer SHA; the
+corrected pin passes the dependency audit and **14/14 fast gates**. The
+[candidate preparation receipt](../devtools/data/stabilization_023_candidate_preparation_20261006.json)
+retains scope, JUnit digests, initial failure and remaining qualification.
+
+The local Sphinx HTML build succeeds. It reports **784 warnings**, matching
+the earlier S5 build count, with zero course references to nonexistent
+toctree documents. The warning debt remains tracked by uibcdf/molsysmt#144;
+a successful build is not a warning-free documentation claim.
+
+Viewer source CI [37530734789](https://github.com/uibcdf/molsysviewer/actions/runs/37530734789)
+has completed successfully on Linux, macOS and Windows at
+`a48478fcab579095ed6eb7ab2a3620cc8fb3a8df`. Git inspection confirms that the
+selected 5bb59c0e source adds documentation/evidence only. This distinction
+does not imply an exact-5bb CI execution. The two experimental Qt failures
+reported by the Viewer team remain owned by uibcdf/molsysviewer#109.
+
+The standard release preparation tool updates candidate citation surfaces to
+0.23.0, dated 2026-10-06. This prepares metadata; it does not publish the
+version. Read-only registry preflight found neither selected version present;
+that observation must be refreshed before producing or uploading artifacts.
+Four untracked Viewer sandbox artifacts are preserved and excluded from the
+committed source identity. Viewer recipe metadata still needs its owner's
+0.24.0 update before its package producer runs.
+
+Full exact-candidate source/native gates and the sixteen installed-pair cells
+remain required. Filenames, SHA-256 values and availability on
+`uibcdf/label/staging` must be obtained from actual producer files. No public
+tag, GitHub Release, registry upload or promotion is performed by this
+preparation. Installed/browser/session acceptance remains Viewer-owned under
+uibcdf/molsysviewer#93 and uibcdf/molsysviewer#114.
