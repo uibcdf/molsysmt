@@ -16,14 +16,8 @@ dependencies:
   - h5py
   - networkx
   - tqdm
-  # `pip install . --no-deps` installs none of MolSysMT's own dependencies, and autodoc
-  # imports the package, so every hard dependency must be here. matplotlib is imported at
-  # module scope by molsysmt/_private/colors.py, which third_party.nglview reaches.
-  # molsysviewer, the one remaining hard dependency, is deliberately absent here: it has
-  # no py313 build on the channel, and its recipe requires molsysmt at run time, so conda
-  # cannot install it without pulling a MolSysMT that this job then overwrites. The
-  # workflow installs it with `pip --no-deps` instead, which means its own dependencies
-  # must be listed here too. It shares all of them with MolSysMT except these three.
+  # Autodoc imports the installed package. The controlled portable Viewer source
+  # is supplied by the workflow; declare its additional runtime requirements here.
   - anywidget >=0.9.15
   - traitlets >=5
   - packaging >=23

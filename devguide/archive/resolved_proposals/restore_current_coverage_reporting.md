@@ -1,9 +1,9 @@
 ---
 summary: Restore current Codecov evidence before reintroducing the coverage badge.
 issue: uibcdf/molsysmt#286
-status: partial
+status: resolved
 opened: 2026-10-01
-closed:
+closed: 2026-10-06
 verification: measured
 area: [governance, ci, coverage]
 guard: devtools/tests/test_nightly_full_gate.py
@@ -28,7 +28,7 @@ Its scheduled/default route retains the three-minor matrix and existing gates.
 A pytest step retains the real exit status; only normal completed-suite statuses
 0/1 allow artifact retention and main-branch coverage upload. Failed tests still
 fail CI. Aborted/invalid suites cannot produce an accepted reporting claim.
-See [the maintained procedure](../coverage_reporting.md).
+See [the maintained procedure](../../coverage_reporting.md).
 
 ## Why
 
@@ -295,3 +295,39 @@ activation, valid YAML, XML counts and tracked-source mapping were verified,
 but none is a confirmed cause or a processing guarantee. There is no evidence
 that changing scientific assertions, exclusions, the source SHA or report
 timestamp would be a valid repair.
+
+## Service acceptance and resolution — 2026-10-06
+
+The maintainer reported provider recovery. The fresh read-only central probe at
+`2026-10-06T05:55:17Z` independently observes a complete main report for
+`a8f567c82c348bb003475e8b608721d1e51a9e07`, with 82.35% service coverage and a
+numeric 82% SVG. No new scientific run or uploader replay was requested here.
+The accepted report is a newer automatic execution, not the original October 1
+artifact; no processing claim is made about the old replay attempts.
+
+Native [run 37328009946](https://github.com/uibcdf/molsysmt/actions/runs/37328009946)
+identifies that same source. Its Python 3.13 suite completed with 13,129 passed,
+11 failed, 26 skipped and 40 deselected in 3,688.76 seconds. JUnit independently
+records 13,166 selected tests, 11 failures, 26 skips and zero errors. The scientific
+registry step passed 54 cases; it does not cancel the package failures. All three
+Linux test jobs failed; artifact retention and the independent publisher passed.
+The publisher used immutable artifact `11356906004` and the original source SHA.
+
+Coverage XML SHA-256 is
+`12f4f8914dd2285a5c838b3f71bb52bcf00f31db0c6e0934b79728efce8eeb2b`.
+It contains 74,665/85,771 covered/valid lines and 19,483/26,210 covered/valid
+branches. Codecov instead reports 68,560/83,249 hits/lines and 3,847 partials;
+its processed percentage is not the XML line rate. Existing `.codecov.yml`
+service ignores differ from `.coveragerc`; the observation does not isolate
+all service normalization effects or claim numeric equivalence.
+The [dated artifact](../../../devtools/data/stabilization_s5_20261006.json)
+records native job outcomes, XML/JUnit identities, failing nodes and service totals.
+
+The README's live badge is restored with explicit Python-source scope and a
+warning that completed failures remain failures and later heads are unmeasured.
+The matrix-debt and artifact provenance guards remain in place. S5 extends the
+required Linux debt matrix to four Python minors and disambiguates the new weekly
+macOS artifact names, while preserving the Linux/Python 3.13 publisher contract.
+The 89 focused S5 checks pass. The executed full-suite failures remain for fresh
+candidate triage under #237/#334; closing reporting does not clear test debt or
+qualify a release. The durable contract is `devguide/coverage_reporting.md`.

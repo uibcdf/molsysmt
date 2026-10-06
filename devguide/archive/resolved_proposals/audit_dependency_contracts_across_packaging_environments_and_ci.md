@@ -1,13 +1,13 @@
 ---
 summary: Audit dependency contracts across packaging, environments, and CI
 issue: uibcdf/molsysmt#245
-status: active
+status: resolved
 opened: 2026-09-25
-closed:
+closed: 2026-10-06
 verification: reproduced
 area: [packaging, deps, ci]
-guard:
-normative:
+guard: devtools/tests/test_audit_dependency_contract.py
+normative: dependency_contract_audit.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-25, after a staged wheel smoke installed outdated
 PyUnitWizard sources and exposed a public minimum that was too low.
-**Status:** Active; the read-only auditor and its route inventory are under
-local verification before the next exact candidate is frozen.
+**Status:** Resolved after fresh S5 contract and mutation checks. Installed
+artifact compatibility remains a separate release gate.
 
 ## What
 
@@ -113,3 +113,19 @@ the produced package metadata at release time.
 MolSysMT candidate worktree, Python 3.13 development environment,
 2026-09-25. The related hosted wheel failure is run `36102309653` and the
 first staged package-pair build is recorded in `release_1_0_status.md`.
+
+## Resolution — 2026-10-06
+
+The maintained auditor, centralized controlled-source manifest, dependency-only
+workflow and fast-gate integration satisfy the acceptance criteria. The obsolete
+broadcaster and requirements copies are retired. S5 passes 89 focused checks,
+including actual route mutations and the configured documentation-extra contract;
+the fast release gate passes all 14 checks. The docs extra now supplies the theme
+and external extensions actually loaded by `docs/conf.py`. No public runtime
+minimum or controlled provider SHA is lowered or silently advanced.
+
+The guard removes or conflicts requirements across recipes, environments,
+controlled sources and workflow delivery routes and requires the auditor to fail.
+It protects contract coherence, not binary ABI or installed compatibility.
+Those remaining claims belong to #237 and S6. The dated scoped evidence is
+[recorded separately](../../../devtools/data/stabilization_s5_20261006.json).

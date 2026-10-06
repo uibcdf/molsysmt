@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "scope": "S5 scoped development evidence; not release admission or S6 qualification",
+  "base_commit": "6905a3f33f1171b3d0bd138d305fa594b1f73ab3",
+  "tested_tree_clean": false,
+  "policy_source": "uibcdf/molsyssuite origin/main 0448098; synchronized policy-v1.5.7 guide",
+  "tests": {
+    "command": "python -m pytest --receptor=ci devtools/tests/test_nightly_full_gate.py devtools/tests/test_rust_wheel_workflow.py devtools/tests/test_audit_dependency_contract.py devtools/tests/test_coverage_artifact.py tests/cross_repo/test_unit_policy_authority.py tests/test_argument_contract.py",
+    "result": "PASS exit=0 | 89 passed | 19.19s | 2 warnings\n\nwarnings: 2 in 1 groups\n  LegacyH5MSMWarning x2 | molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\n",
+    "log_sha256": "f35572378a37123d0dc5b2486d2eba8e49acb1e568a8daf8a7d4273d27da6914"
+  },
+  "documentation": {
+    "command": "python -m sphinx -b html -j 2 docs <isolated-output>",
+    "python": "3.14.7",
+    "sphinx": "9.1.0",
+    "myst_nb": "1.4.0",
+    "myst_parser": "5.1.0",
+    "pydata_sphinx_theme": "0.22.0",
+    "fresh_build": true,
+    "exit_code": 0,
+    "reported_warnings": 784,
+    "warning_line_count": 782,
+    "common_warnings": {
+      " Non-consecutive header level increase; H1 to H3 [myst.header]": 402,
+      " 'seealso'": 166,
+      " 'note'": 102,
+      " undefined label": 31,
+      " Unknown directive type": 24,
+      " document isn't included in any toctree [toc.not_included]": 17,
+      " 'myst' cross-reference target not found": 15,
+      " unknown document": 9,
+      " /tmp/molsysmt-s5-docs-314/nbformat/validator.py": 3,
+      " Document headings start at H2, not H1 [myst.header]": 3
+    },
+    "course_missing_toctree_documents": 0,
+    "log_sha256": "f9cf90b7bdb738601ad2d88a0e132347e8decd302bda7b3e2e35a5b4c1df85b7",
+    "limit": "Notebook execution disabled; fresh warnings cannot be compared with previous incremental totals. Three autosummary formatting rewrites were restored from base; no executable cells or outputs changed."
+  },
+  "linux_solver": {
+    "command": "conda create --dry-run --json --override-channels --channel uibcdf --channel conda-forge --channel ambermd --strict-channel-priority python=3.14 ambertools openff-toolkit-base mdtraj mdanalysis rdkit pdbfixer",
+    "success": true,
+    "installed": false,
+    "providers": [
+      {
+        "name": "python",
+        "version": "3.14.7",
+        "build_string": "hcd007b5_106_cp314"
+      },
+      {
+        "name": "numpy",
+        "version": "2.5.3",
+        "build_string": "py314hd3a7d6b_0"
+      },
+      {
+        "name": "openmm",
+        "version": "8.6.1",
+        "build_string": "py314hda29caf_0"
+      },
+      {
+        "name": "ambertools",
+        "version": "26.0",
+        "build_string": "cuda_None_nompi_py314h2f9d5e2_100"
+      },
+      {
+        "name": "mdtraj",
+        "version": "1.11.2",
+        "build_string": "py314hed024ac_0"
+      },
+      {
+        "name": "pdbfixer",
+        "version": "1.12",
+        "build_string": "pyhd8ed1ab_1"
+      },
+      {
+        "name": "rdkit",
+        "version": "2026.03.1",
+        "build_string": "py314h13cd500_0"
+      },
+      {
+        "name": "openff-toolkit-base",
+        "version": "0.19.0",
+        "build_string": "pyhd8ed1ab_1"
+      },
+      {
+        "name": "mdanalysis",
+        "version": "2.10.0",
+        "build_string": "py314ha0b5721_1"
+      }
+    ],
+    "limit": "Partial dependency resolution, not the complete test YAML, pip PyTraj install or runtime/ABI qualification."
+  },
+  "numpy_cp314_floor": {
+    "primary_source": "https://pypi.org/pypi/numpy/2.3.2/json",
+    "versions_without_cp314_linux_wheels": [
+      "2.3.0",
+      "2.3.1"
+    ],
+    "first_observed_cp314_linux_wheels": "2.3.2",
+    "runtime_checked": false
+  },
+  "codecov": {
+    "repository": "uibcdf/molsysmt",
+    "observed_at": "2026-10-06T05:55:17.373232+00:00",
+    "state": "complete-report-observed",
+    "default_branch": "main",
+    "project_url": "https://app.codecov.io/gh/uibcdf/molsysmt",
+    "badge_url": "https://codecov.io/gh/uibcdf/molsysmt/branch/main/graph/badge.svg",
+    "badge_percentages": [
+      "82%"
+    ],
+    "branch_updated_at": "2026-10-05T16:35:24.908897Z",
+    "branch_cache": {
+      "commitid": "a8f567c82c348bb003475e8b608721d1e51a9e07",
+      "state": "complete",
+      "timestamp": "2026-10-05T13:50:42Z",
+      "totals": {
+        "files": 2573,
+        "lines": 83249,
+        "hits": 68560,
+        "misses": 10842,
+        "partials": 3847,
+        "coverage": 82.35,
+        "branches": 12839,
+        "methods": 0,
+        "sessions": 1,
+        "complexity": 0.0,
+        "complexity_total": 0.0,
+        "complexity_ratio": 0,
+        "diff": 0
+      }
+    },
+    "scanned_pages": 1,
+    "latest_complete_report": {
+      "source_sha": "a8f567c82c348bb003475e8b608721d1e51a9e07",
+      "branch": "main",
+      "commit_timestamp": "2026-10-05T13:50:42Z",
+      "coverage": 82.35
+    },
+    "search_bound_pages": 3,
+    "errors": {}
+  },
+  "coverage_producer": {
+    "run_id": 37328009946,
+    "head_sha": "a8f567c82c348bb003475e8b608721d1e51a9e07",
+    "conclusion": "failure",
+    "artifact_id": 11356906004,
+    "coverage_xml_sha256": "12f4f8914dd2285a5c838b3f71bb52bcf00f31db0c6e0934b79728efce8eeb2b",
+    "coverage_xml_totals": {
+      "version": "7.16.2",
+      "timestamp": "1791215770505",
+      "lines-valid": "85771",
+      "lines-covered": "74665",
+      "line-rate": "0.8705",
+      "branches-valid": "26210",
+      "branches-covered": "19483",
+      "branch-rate": "0.7433",
+      "complexity": "0"
+    },
+    "junit_sha256": "9b559904fb02af96fbedd230e3c9ed26f3477f515afa327294c69198494727e2",
+    "junit_totals": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "11",
+      "skipped": "26",
+      "tests": "13166",
+      "time": "3688.665",
+      "timestamp": "2026-10-05T14:54:52.927425+00:00",
+      "hostname": "runnervm8df0l"
+    },
+    "failing_nodes": [
+      {
+        "classname": "tests.basic.test_get_form_battery",
+        "name": "test_the_battery_covers_the_catalogue"
+      },
+      {
+        "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+        "name": "test_missing_rdkit_has_no_fallback_and_general_tools_remain_available"
+      },
+      {
+        "classname": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+        "name": "test_parity_1brs_total_atom_count"
+      },
+      {
+        "classname": "tests.build.mutate.test_mutate_engine_MolSysMT",
+        "name": "test_mutate_val_to_trp_atom_count"
+      },
+      {
+        "classname": "tests.build.mutate.test_mutate_engine_MolSysMT",
+        "name": "test_mutate_trp_has_full_indole"
+      },
+      {
+        "classname": "tests.build.mutate.test_mutate_molsysmt_MolSys",
+        "name": "test_mutate_molsysmt_MolSys_5"
+      },
+      {
+        "classname": "tests.build.mutate.test_mutate_parity",
+        "name": "test_parity_trp_sidechain_present_native"
+      },
+      {
+        "classname": "tests.supported.test_supported",
+        "name": "test_supported_1"
+      },
+      {
+        "classname": "tests.supported.test_supported",
+        "name": "test_supported_2"
+      },
+      {
+        "classname": "tests.supported.test_supported",
+        "name": "test_supported_3"
+      },
+      {
+        "classname": "tests.test_argument_contract",
+        "name": "test_the_converter_table_still_matches_the_converters"
+      }
+    ],
+    "jobs": [
+      {
+        "name": "Check skipped-commit backlog",
+        "databaseId": 111823592420,
+        "conclusion": "success"
+      },
+      {
+        "name": "Full test \u2014 ubuntu-latest, Python 3.11",
+        "databaseId": 111824002316,
+        "conclusion": "failure"
+      },
+      {
+        "name": "Full test \u2014 ubuntu-latest, Python 3.13",
+        "databaseId": 111824002443,
+        "conclusion": "failure"
+      },
+      {
+        "name": "Full test \u2014 ubuntu-latest, Python 3.12",
+        "databaseId": 111824002489,
+        "conclusion": "failure"
+      },
+      {
+        "name": "Publish default-branch coverage / Publish the retained Python report",
+        "databaseId": 111865392835,
+        "conclusion": "success"
+      }
+    ],
+    "limit": "Codecov service totals differ from coverage.py XML totals; no numeric equivalence or complete passing suite is asserted."
+  },
+  "remaining": [
+    "Exact-candidate eight-cell full matrix and installed artifact gates",
+    "Current Viewer feedback and exact provider closure",
+    "Optional ABI-warning observation and fresh full-suite failure triage",
+    "Central Python/support-library/developer-tool admission",
+    "Documentation warning inventory #144"
+  ],
+  "scientific_environment_inspection_after_checks": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "distributions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "pyunitwizard": "0.28.1",
+      "argdigest": "0.13.0",
+      "depdigest": "0.12.0+13.g104661a",
+      "smonitor": "0.18.0+1.gb308ee0",
+      "ackredit": "0.10.1+19.g10e4c03.dirty",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.1.0+19.g6d87a24",
+      "molsysmt": "0.22.4+60.g7a8350f76.dirty",
+      "molsysviewer": "0.23.4+27.gfed1c4b8.dirty"
+    },
+    "limit": "Metadata versions may be stale editable-install labels; MolSysMT imported the repository. This shared environment is not a clean pinned release closure."
+  },
+  "tested_file_sha256": {
+    ".github/workflows/benchmarks.yml": "426b74caf203a8e5153c87129369d69148319cbb4408ef3fd7f71ed5ec287b85",
+    ".github/workflows/ci-full.yaml": "8ba88ab50fbfbab445e167611dfbcf0c7611b2f5051f0c358a792592a7422f61",
+    ".github/workflows/ci-rust-wheels.yaml": "1a873696a944bd01bcd01bd6fd1b1090b519dc5372b41ea8617090b1e976227d",
+    ".github/workflows/ci-smoke.yaml": "2521402e0a2f1f14be5e5b5057b8281a35879e37fd70182db2dad1891ffa526c",
+    ".github/workflows/ci-weekly.yaml": "ebc9d114c6c369441619e9a06d06a2be0a740cb8b8acc98ac01ac1e1948faa93",
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": "32efcceb8febd78c370058fb77b43dedf800abc4d6f8f8942f3fbf74c5822e16",
+    "README.md": "0ca9f1bdc3abe06b0da0a3f21e599b12d47558e1da9342aa36df5e28cec0f705",
+    "devtools/conda-envs/development_env.yaml": "64cbeec9826458782932c62c08950dddbca95c3328d00a541a4bc657ab2d4779",
+    "devtools/conda-envs/docs_env.yaml": "46429b4f72c4b8703fa3f4df56a1b05e2e404bbeb4e423c9a8b13d7edeba4e28",
+    "devtools/scripts/nightly_full_gate.py": "28bd61acb9f6ee4e6df22b90502118e11c771dc4d3e22bfc29d2df7aa05b5431",
+    "devtools/scripts/release_gate.py": "52e7f9e61fc5ba388a78b46e85fd5d4886cfe7f1785a6bbc9fab2a350c4dbdc9",
+    "devtools/tests/test_audit_dependency_contract.py": "0e65e06fb8aa18e2a39f6258a045e8643a0d3a02698c467424209e5127f3a4a0",
+    "devtools/tests/test_nightly_full_gate.py": "9e247ee739675ee9960dddbbbd29725c4f558ce45720ae401d24cbdc61e0b49f",
+    "devtools/tests/test_rust_wheel_workflow.py": "b5705d9b29a6f98738dd8f45c940d34afc6b63ad33b8e7979b865d3dbb369180",
+    "docs/index.ipynb": "d8632ee3120a1662eb05a43e079dc3f05f628353cdb5af1d885c1a80e6b38313",
+    "pyproject.toml": "b64570d1871d57a4b20b8a94a7ef4b686ca59f0b777ca2b287dd74c27f078179"
+  },
+  "support_review": {
+    "command": "python -m pytest --receptor=llm tests/_private/smonitor/test_xdist_warning_reconstruction.py tests/_private/argdigest/test_quantity_digesters.py tests/cross_repo/test_smonitor_contracts.py tests/test_openff_dependency_contract.py devtools/tests/test_public_presentation.py",
+    "result": "PASS exit=0 | 68 passed | 4.00s\n\n",
+    "log_sha256": "cbd111264b4a840931f057acb43193f6c071ec840e9aaac5a0b791968e9c15a8"
+  },
+  "homepage_code_outputs_unchanged": true,
+  "fast_gates": {
+    "result": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 263 symbols classified.\n  [PASS] Public function support tiers                          3.0s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        4.4s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    4.8s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.1s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   1.8s  [PASS] OpenFF CI dependency bounds are complete.\n  [PASS] Developer-guide integrity                              0.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 19 files clean.\n  [PASS] Public-API smoke                                       5.2s  public-API smoke OK\n=======================================================================\nFast gates: 14/14 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+    "log_sha256": "1d821e8343d7123e2812f4cb7bb47e289c3f7b33f78c9d6666e98c39a3f821ce"
+  },
+  "final_route_recheck": {
+    "result": "PASS exit=0 | 63 passed | 1.89s\n\n",
+    "log_sha256": "7237e6c0ea8f20eabfa1d2c91e5ff6d6f4a6969327667edd8fb880a6a303095c"
+  }
+}

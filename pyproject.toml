@@ -76,8 +76,14 @@ test = [
 ]
 docs = [
   "sphinx",
-  "myst-parser",
-  "sphinx-rtd-theme"
+  "pydata-sphinx-theme",
+  "myst-nb",
+  "sphinxcontrib-bibtex",
+  "sphinx-copybutton",
+  "sphinx-remove-toctrees",
+  "sphinx-design",
+  "sphinx-favicon",
+  "sphinx-togglebutton"
 ]
 dev = [
   "pytest>=6.1.2",

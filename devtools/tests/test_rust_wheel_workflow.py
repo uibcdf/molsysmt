@@ -90,9 +90,9 @@ def test_workflow_distinguishes_release_and_experimental_platforms():
         "macos-arm64",
         "windows-x86_64",
     }
-    assert linux["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    assert linux["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13", "3.14"]
     assert linux["needs"] == "build-linux"
-    assert installed["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    assert installed["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13", "3.14"]
     assert installed["needs"] == "build-full"
     assert installed["continue-on-error"] == "${{ matrix.target.experimental }}"
     assert {target["name"]: target["experimental"] for target in targets} == {
@@ -106,6 +106,7 @@ def test_workflow_distinguishes_release_and_experimental_platforms():
         "3.11",
         "3.12",
         "3.13",
+        "3.14",
     ]
     assert pull_request["needs"] == "build-linux"
 
@@ -121,6 +122,7 @@ def test_workflow_validates_the_declared_numpy_floor():
         ("3.11", "numpy==1.26.4"),
         ("3.12", "numpy==1.26.4"),
         ("3.13", "numpy==2.1.3"),
+        ("3.14", "numpy==2.3.2"),
     }
     assert floor["needs"] == "build-linux"
 
@@ -128,7 +130,7 @@ def test_workflow_validates_the_declared_numpy_floor():
 def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
     workflow = _workflow()
     smoke = workflow["jobs"]["test-public-smoke"]
-    assert smoke["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    assert smoke["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13", "3.14"]
     assert smoke["needs"] == "build-linux"
     install = next(
         step
@@ -160,7 +162,7 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert cibw["macos"]["environment"]["MACOSX_DEPLOYMENT_TARGET"] == "11.0"
     assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == ("cp311")
     assert "numpy>=1.26,<3" in config["project"]["dependencies"]
-    assert "pyunitwizard>=0.25.0" in config["project"]["dependencies"]
+    assert "pyunitwizard>=0.28.1" in config["project"]["dependencies"]
     assert "argdigest>=0.13.0" in config["project"]["dependencies"]
     assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
         "molsysmt*",

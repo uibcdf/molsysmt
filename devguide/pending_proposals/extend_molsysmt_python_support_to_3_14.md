@@ -1,7 +1,7 @@
 ---
 summary: Extend MolSysMT Python support to 3.14.
 issue: uibcdf/molsysmt#237
-status: active
+status: partial
 opened: 2026-09-22
 closed:
 verification: measured
@@ -291,3 +291,55 @@ evidence remains scoped to the commits and coordinates recorded above.
 
 This checkpoint changes the caller and guide only. It does not run the scientific suite
 or certify the current scientific branch or every optional backend.
+
+## S5 workflow and documentation reconciliation — 2026-10-06
+
+Routine smoke, benchmarks, documentation, wheel-tooling and development routes
+now select Python 3.14. The required source matrix is Linux and macOS arm64
+crossed with 3.11–3.14 (eight cells). Weekly/default recovery executes the four
+Linux minors and macOS arm64/3.14; manual coverage-only 3.13 remains explicit.
+Artifact names distinguish Linux and macOS 3.14. A complete old three-minor
+matrix can no longer clear current skipped-commit debt; omission of each minor
+is rejected independently in both full-workflow profiles.
+
+Installed-wheel current-NumPy/public-smoke matrices include 3.14. The Linux
+3.14 NumPy wheel floor uses 2.3.2: official PyPI metadata has no cp314 Linux
+wheel for 2.3.0/2.3.1 and does for 2.3.2. This is distribution evidence, not a
+completed installed-kernel check, and the public NumPy requirement stays
+`>=1.26,<3`. Windows remains explicitly experimental.
+
+A partial Linux Conda dry-run resolves Python 3.14.7, AmberTools 26.0, OpenMM,
+RDKit, MDTraj, MDAnalysis, PDBFixer and OpenFF. It does not solve the entire test
+YAML or execute binaries. A separate conda-forge-only PyTraj query finds no
+standalone package; existing hosted 3.11–3.13 logs show AmberTools already
+supplies PyTraj 3.0.0.dev0. No claim is made yet about its 3.14 runtime. The
+new routine hosted lane will check the actual installation route.
+
+Fresh Sphinx 9.1.0 compilation succeeds on Python 3.14.7 with isolated actual
+extensions, MyST-NB 1.4.0, MyST-Parser 5.1.0 and PyData theme 0.22.0. It reports
+784 warnings, mostly existing notebook heading/directive syntax and references;
+there are no missing course toctree documents. Unlike the earlier incremental
+17-warning build, it reads the entire tree with newer extensions. The warning
+inventory remains #144; no warning-clean claim or notebook scientific rerun is
+made. Three generated autosummary formatting rewrites were restored, and no
+executable notebook cells or saved outputs changed.
+
+The docs extra is corrected to supply the actual configured theme/extensions,
+and the development environment includes the missing togglebutton extension.
+The homepage badge now matches README's admitted 3.11–3.13 range; declaring
+3.14 metadata and configuring jobs does not establish central admission.
+All 89 focused S5 checks and 14 fast gates pass; exact commands, identities and
+limits are in the [dated artifact](../../devtools/data/stabilization_s5_20261006.json).
+The old optional `numpy.ndarray size changed` warning remains unexplained;
+no ABI conclusion follows from a solver or successful subset.
+
+Remaining: inspect the new routine lane; execute the required full/current
+candidate and installed wheel/Conda pair gates; triage full-suite failures from
+older automatic source `a8f567c`; obtain current Viewer/provider evidence and
+central admission. #237 remains partial. No release tag, release publication or
+new scientific capability is authorized by this checkpoint.
+
+A separate fresh `--receptor=llm` support/presentation selection passes 68 cases
+in 4.00 seconds without warnings, including the #236 reconstruction guard,
+quantity digesters, SMonitor contracts and the OpenFF dependency contract.
+This is scoped boundary evidence, not the full installed candidate closure.

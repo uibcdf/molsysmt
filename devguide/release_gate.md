@@ -73,22 +73,23 @@ The fast gates do not run the test suite. Before tagging, the **full pytest matr
 be green on the exact committed candidate**:
 
 - `ci-full.yaml` (manual `workflow_dispatch`): ubuntu-latest + macos-15 arm64 ×
-  {3.11, 3.12, 3.13} = 6 combinations. Each job runs the fast release gate,
+  {3.11, 3.12, 3.13, 3.14} = 8 combinations. Each job runs the fast release gate,
   the registered scientific evidence through
   `execute_scientific_evidence.py --receptor=ci`, Ruff, and the full pytest suite
   through pytest-receptor's CI mode (doctests included via `pytest.ini`); pytest
   remains the result authority. The scientific step must emit a certificate with
   every registered node collected and zero failures, errors, or skips.
 
-The three-cell Linux-only `ci-weekly.yaml` run is a recovery signal for skipped
-commits. It does not replace the six-cell release matrix.
+The four-minor Linux `ci-weekly.yaml` matrix recovers skipped-commit debt and
+also tests macOS arm64 on the routine Python 3.14 minor at least weekly. It
+does not replace the eight-cell release matrix.
 
 Do not substitute a partial or single-platform run.
 
 ## 3. Native wheel artifacts
 
 - `ci-rust-wheels.yaml` must pass for the supported Linux x86_64/aarch64 and
-  macOS arm64 target, including Python 3.11--3.13, the declared NumPy
+  macOS arm64 target, including Python 3.11--3.14, the declared NumPy
   floor/current checks, and installed public-runtime smoke.
 - Windows x86_64 remains an experimental portability target. Its wheel build,
   audit, and installed-extension checks are retained, but are non-blocking for
@@ -132,10 +133,10 @@ Do not substitute a partial or single-platform run.
 - [ ] Registered scientific evidence execution → every cited node passes with zero
       skips and its JSON certificate identifies the tag candidate.
 - [ ] `ruff check molsysmt` → clean.
-- [ ] `ci-full.yaml` → green on all six Python 3.11--3.13 Linux/macOS
+- [ ] `ci-full.yaml` → green on all eight Python 3.11--3.14 Linux/macOS
       combinations, with its manual input naming the exact MolSysViewer
-      candidate SHA. The separate Python 3.14 source-pair gate and the 16-cell
-      installed Conda pair must also pass before claiming 3.14 support.
+      candidate SHA. The 16-cell installed Conda pair must also pass before
+      claiming 3.14 support.
 - [ ] `ci-rust-wheels.yaml` → supported Linux/macOS jobs green; Windows result recorded
       as experimental evidence and not treated as a release blocker.
 - [ ] Native Conda channel metadata contains exactly one intended ABI3 artifact per

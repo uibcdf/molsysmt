@@ -11,6 +11,7 @@ through one uniform API.**
 [![MolSysSuite policy](https://github.com/uibcdf/molsysmt/actions/workflows/molsyssuite-policy.yml/badge.svg?branch=main)](https://github.com/uibcdf/molsysmt/actions/workflows/molsyssuite-policy.yml)
 [![Python 3.11 | 3.12 | 3.13](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
 [![License](https://img.shields.io/github/license/uibcdf/molsysmt)](https://github.com/uibcdf/molsysmt/blob/main/LICENSE)
+[![Coverage](https://codecov.io/gh/uibcdf/molsysmt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/uibcdf/molsysmt)
 [![Tests](https://github.com/uibcdf/molsysmt/actions/workflows/ci-smoke.yaml/badge.svg?branch=main)](https://github.com/uibcdf/molsysmt/actions/workflows/ci-smoke.yaml)
 [![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://www.uibcdf.org/molsysmt/)
 [![GitHub release](https://img.shields.io/github/v/release/uibcdf/molsysmt)](https://github.com/uibcdf/molsysmt/releases/latest)
@@ -31,8 +32,8 @@ Coverage reporting measures Python lines and branches with the existing
 `.coveragerc` exclusions, using complete Linux/Python 3.13 runs within the weekly
 and conditional nightly cadence. It does not instrument Rust execution. The
 [reporting procedure and measured report](devguide/coverage_reporting.md) explain
-scope and actual test outcomes. The live percentage badge remains withheld while
-Codecov processing is pending under [#286](https://github.com/uibcdf/molsysmt/issues/286).
+scope and actual test outcomes. The badge shows the last processed Codecov report;
+it can describe a completed suite with failures.
 Reports may lag later direct or skip-CI commits and do not certify a full matrix.
 
 ---

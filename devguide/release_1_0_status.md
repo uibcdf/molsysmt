@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-05
+**Last updated:** 2026-10-06
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -31,9 +31,9 @@ task. This is a scope decision, not release certification.
 S1's fresh triage of #25/#30/#112 is complete in the checkpoint below. S2's
 acceptance reconciliation and public validation completion are recorded below.
 S3's current preparation profiles are qualified in the checkpoint below.
-S4 public-claim reconciliation is recorded below. Next review S5 dependencies/
-Python policy and obtain updated MolSysViewer feedback before freezing exact
-candidates. No additional chemistry or method
+S4 public-claim reconciliation and S5 workflow/dependency progress are recorded
+below. Obtain updated MolSysViewer feedback and complete the remaining executed
+Python/provider evidence before freezing exact candidates. No additional chemistry or method
 expansion is admitted implicitly. Viewer owns canvas/browser/Qt and session
 presentation; its integration feedback is required, while other client
 integrations remain outside the initial release gate.
@@ -272,6 +272,40 @@ unskipped head's controls before treating this remote checkpoint as complete.
 
 Next: S5 dependency/Python review, current Viewer feedback and all S6 gates.
 No release tag or GitHub Release has been published by this checkpoint.
+
+## S5 dependency/Python checkpoint — 2026-10-06
+
+- #245: dependency-route coherence and mutation guards pass; the proposal is
+  [resolved](archive/resolved_proposals/audit_dependency_contracts_across_packaging_environments_and_ci.md).
+  This certifies static contracts, not installed binary compatibility.
+- #286: the actual automatic producer at `a8f567c82` has a complete processed
+  Codecov report and numeric SVG. The badge is restored with scope in README.
+  The [resolution](archive/resolved_proposals/restore_current_coverage_reporting.md)
+  preserves its real 11 failures and 26 skips; reporting does not clear test debt.
+  No scientific suite was launched solely for coverage.
+- #237: routine routes select 3.14; full source qualification now has eight
+  Linux/macOS arm64 × 3.11–3.14 cells. Weekly recovery retains all four Linux
+  minors and recurring macOS arm64. Wheel runtime matrices include 3.14 with
+  an available Python-specific NumPy wheel floor. The debt guard rejects an
+  omitted minor and weekly artifacts do not collide. Hosted/installed evidence
+  and central admission remain pending; the proposal remains partial.
+- #244: current focused unit and argument contracts pass; #236 is already
+  resolved and #155's optimization review stays post-1.0. The integrated full
+  gate and exact installed closure remain required; no exception is manufactured.
+
+The [scoped artifact](../devtools/data/stabilization_s5_20261006.json) retains
+89 passing focused cases, expected legacy-file warnings, policy source, solver
+limits, old full-suite failure nodes and Codecov/XML measures separately. All
+14 fast gates and applicable Ruff checks pass. Fresh Python 3.14 docs compile
+with 784 recorded warnings and no missing course toctree documents; #144 retains
+the warning inventory. The docs extra supplies the actual configured extensions.
+Homepage executable cells and saved outputs are unchanged.
+
+S5 is still partial for executed environment/admission evidence. Next inspect
+this checkpoint's actual routine 3.14 CI, contrast the older automatic failures
+with current guards, obtain Viewer feedback, and select exact candidates for S6.
+No release tag or GitHub Release is published. Configured eight-cell matrices,
+solver success, focused editable tests and an accepted badge are not S6 evidence.
 
 ## Reported-defect review — 2026-10-02
 

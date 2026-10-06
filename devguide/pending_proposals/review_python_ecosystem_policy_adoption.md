@@ -57,8 +57,8 @@ curated provenance selector (one test) and the focused dependency and unit
 policy selectors (nine tests). Ruff check and format, the dependency import
 validator, and developer-guide validator passed. Hosted results will be added
 after the exact implementation commit runs. No claim is made that the Python
-3.14 transition in `uibcdf/molsysmt#237` is complete: the current MolSysSuite
-repository checker reports the pre-existing `requires-python <3.14` and
+3.14 transition in `uibcdf/molsysmt#237` is complete: the initial MolSysSuite
+repository checker reported the then-existing `requires-python <3.14` and
 missing Python 3.14 CI literals while this authorized transition is active.
 
 ## What was refuted
@@ -157,3 +157,40 @@ runner's `1.97.1-aarch64-apple-darwin` toolchain. That cell did not reach
 pytest, so it provides no evidence about the receptor or the unit policy.
 The other five test cells were still running at this checkpoint. The
 developer-tools review remains `partial` until an integrated full gate passes.
+
+## S5 reconciliation — 2026-10-06
+
+The current central source at `0448098` and synchronized policy-v1.5.7 guide
+require routine Python 3.14, weekly Linux 3.11–3.14, and recurring macOS arm64.
+The workflow migration under #237 implements those cells and preserves the
+bounded direct-push selection owned by #185. Configured routes are not executed
+admission evidence. The new eight-cell full source matrix and installed candidate
+closure remain mandatory before closing this review or claiming 3.14 support.
+
+S5 passes 89 focused dependency/matrix/provenance/unit-policy/argument-contract
+checks. The current unit-policy and converter-table tests pass locally; that does
+not erase their old hosted failures or qualify the controlled installed pair.
+All 14 fast gates pass. Actual effective support distributions and test-tree hashes
+are retained in the [scoped artifact](../../devtools/data/stabilization_s5_20261006.json).
+The local tests in that first selection used receptor's `ci` rendering; this
+records the actual command rather than relabelling it as `llm`. Hosted gates
+continue to use the declared published receptor 1.1.0.
+
+#236 is resolved with a guard against duplicate SMonitor warning reconstruction;
+it is not an open adoption blocker. #155 remains a performance optimization
+review, deferred by the scope freeze; it does not permit skipping public unit
+validation or introducing an unreviewed runtime exception. S2 already completed
+Interactions' public ArgDigest boundary under #252. Broader installed/public
+closure and the full integrated test gate still require exact-candidate evidence.
+
+The independent automatic coverage producer `37328009946` used receptor 1.1.0,
+retained real failures and published a processed report. Reporting closure #286
+does not mean the full matrix passed: the Python 3.13 job has 11 failed tests.
+Its older source and a second later run's larger failure set must be compared with
+the current tree under #237/#334 before S6. No gate is weakened and no new
+support-library or developer-tool exception is granted.
+
+A separate fresh `--receptor=llm` support/presentation selection passes 68 cases
+in 4.00 seconds without warnings, including the #236 reconstruction guard,
+quantity digesters, SMonitor contracts and the OpenFF dependency contract.
+This is scoped boundary evidence, not the full installed candidate closure.

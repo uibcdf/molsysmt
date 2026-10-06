@@ -3,7 +3,7 @@ channels:
 - conda-forge
 - ambermd
 dependencies:
-- python=3.13
+- python=3.14
 - pip
 - setuptools >=68.0
 - versioningit>=3.0
@@ -47,6 +47,7 @@ dependencies:
 - sphinx-copybutton
 - sphinx-design
 - sphinx-favicon
+- sphinx-togglebutton
 - myst-nb
 - seaborn
 - mamba

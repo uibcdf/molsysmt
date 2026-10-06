@@ -5,7 +5,9 @@ under pytest-cov using the maintained `.coveragerc`. It measures Python source
 for `molsysmt` with the existing declared exclusions; it does not instrument Rust
 execution or silently change the denominator. Its retained Linux/Python 3.13 XML
 is published by an independent OIDC job.
-The normal weekly/nightly Linux matrix retains Python 3.11, 3.12 and 3.13.
+The normal weekly/nightly Linux matrix retains Python 3.11–3.14 and adds
+macOS arm64 on the routine Python 3.14 minor. Artifact names distinguish its
+reports from Linux reports; the publisher continues to select Linux/Python 3.13.
 
 For an explicitly authorized single coverage refresh:
 
@@ -17,7 +19,7 @@ gh workflow run ci-weekly.yaml -R uibcdf/molsysmt --ref main \
 The boolean selection applies only to manual dispatch. It reuses the existing
 setup, controlled dependency validation and scientific gates; scheduled/default
 runs keep the full matrix. A single interpreter cannot clear the skipped-commit
-backlog, which requires successful executed suites on all three Linux minors.
+backlog, which requires successful executed suites on all four Linux minors.
 It also does not qualify a release or establish support for untested platforms.
 
 The pytest step preserves its actual exit code. After exit 0 (passed) or exit 1
@@ -33,7 +35,7 @@ is needed for eligible weekly, conditional-nightly or full manual runs. The
 test jobs have read-only permissions; only the publisher receives `id-token:
 write` and authenticates with OIDC. Test failures remain visible. Aborted or
 missing producer artifacts fail provenance validation and cannot publish.
-A successful executed three-minor matrix pays test debt even if the separate
+A successful executed four-minor Linux matrix pays test debt even if the separate
 publisher fails; a failed scientific matrix or publisher-only replay cannot.
 
 The action pins official Codecov v7.1.1 with signature checks enabled and uploads
@@ -48,12 +50,15 @@ The reporting repair is uibcdf/molsysmt#286, coordinated by uibcdf/molsyssuite#6
 
 ## Latest measured execution
 
-The explicitly authorized [2026-10-01 execution](https://github.com/uibcdf/molsysmt/actions/runs/36939842865)
-retained full Linux/Python 3.13 XML. The [owning report](pending_proposals/restore_current_coverage_reporting.md#measured-execution-recorded-2026-10-02)
-records line/branch measures, area breakdown, actual test failures and successful
-transport separately from pending Codecov processing. Until the independent
-service exposes a complete report for the tested SHA, the live README badge
-remains withheld under uibcdf/molsysmt#286.
+The [2026-10-05 automatic execution](https://github.com/uibcdf/molsysmt/actions/runs/37328009946)
+produced a complete accepted Codecov report for `a8f567c82c348bb003475e8b608721d1e51a9e07`.
+The service reports 82.35% and the SVG displays 82%; coverage.py's retained XML
+has different totals. These are distinct measures, not interchangeable percentages.
+The [resolution record](archive/resolved_proposals/restore_current_coverage_reporting.md#service-acceptance-and-resolution--2026-10-06)
+retains the original producer, XML digest, actual failures and independent service
+observation. The README badge is restored; it does not certify later main commits,
+scientific correctness, Rust coverage or a passing full matrix. Earlier failed
+replays remain historical evidence, without a claim that they were processed.
 
 
 ## Replaying a retained report

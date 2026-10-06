@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import shutil
 import tomllib
 from pathlib import Path
@@ -174,3 +175,31 @@ def test_hard_form_dependency_must_be_a_public_runtime_requirement(contract_tree
         and "hard form dependency mdtraj is absent" in finding.message
         for finding in audit(contract_tree)
     )
+
+
+def test_docs_extra_supplies_the_configured_theme_and_extensions():
+    config = ast.parse((ROOT / "docs/conf.py").read_text())
+    assignments = {
+        node.targets[0].id: ast.literal_eval(node.value)
+        for node in config.body
+        if isinstance(node, ast.Assign)
+        and isinstance(node.targets[0], ast.Name)
+        and node.targets[0].id in {"extensions", "html_theme"}
+    }
+    dependencies = set(
+        tomllib.loads((ROOT / "pyproject.toml").read_text())["project"][
+            "optional-dependencies"
+        ]["docs"]
+    )
+    modules = [assignments["html_theme"], *assignments["extensions"]]
+    providers = {
+        "sphinxcontrib.bibtex": "sphinxcontrib-bibtex",
+        "myst_nb": "myst-nb",
+    }
+    for module in modules:
+        provider = (
+            "sphinx"
+            if module.startswith("sphinx.ext.")
+            else providers.get(module, module.replace("_", "-"))
+        )
+        assert provider in dependencies, f"Missing documentation provider for {module}"

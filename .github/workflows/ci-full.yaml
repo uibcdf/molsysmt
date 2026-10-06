@@ -2,7 +2,7 @@ name: CI full
 
 # Every pull request runs the full suite on all supported platforms and
 # Python versions. Manual dispatch validates an exact release candidate.
-# Matrix: ubuntu-latest + macos-15 (arm64) × {3.11, 3.12, 3.13} = 6 combinations.
+# Matrix: ubuntu-latest + macos-15 (arm64) × {3.11, 3.12, 3.13, 3.14} = 8 combinations.
 # No coverage upload — that is handled by ci-weekly.yaml.
 
 on:
@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: Require an exact MolSysViewer commit
         shell: bash
@@ -70,9 +70,11 @@ jobs:
           - { os: ubuntu-latest, python-version: "3.11" }
           - { os: ubuntu-latest, python-version: "3.12" }
           - { os: ubuntu-latest, python-version: "3.13" }
+          - { os: ubuntu-latest, python-version: "3.14" }
           - { os: macos-15,  python-version: "3.11" }
           - { os: macos-15,  python-version: "3.12" }
           - { os: macos-15,  python-version: "3.13" }
+          - { os: macos-15,  python-version: "3.14" }
 
     steps:
       - uses: actions/checkout@v7

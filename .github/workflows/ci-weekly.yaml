@@ -4,9 +4,10 @@ name: CI full Linux
 # At 00:17 America/Mexico_City it runs only when skipped commits still need
 # a successful full matrix. The backlog survives a missed or failed night.
 # Manual probe_backlog checks the decision without launching the test matrix.
-# Executes the full test suite with coverage on ubuntu-latest × {3.11, 3.12, 3.13}.
+# Executes the full suite on Linux × {3.11, 3.12, 3.13, 3.14}
+# and macOS arm64/Python 3.14 at least weekly.
 # Coverage report is uploaded to Codecov from the Python 3.13 run only.
-# Supported Python versions are 3.11, 3.12, and 3.13.
+# All four accepted Python minors remain required on Linux.
 
 on:
   schedule:
@@ -60,9 +61,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # The scheduled/default route keeps all three supported Linux minors.
+        # The scheduled/default route keeps all four Linux minors and routine macOS arm64.
         # Only an explicit manual request selects the coverage uploader alone.
-        cfg: ${{ fromJSON(github.event_name == 'workflow_dispatch' && inputs.python_313_only == true && '[{"os":"ubuntu-latest","python-version":"3.13"}]' || '[{"os":"ubuntu-latest","python-version":"3.11"},{"os":"ubuntu-latest","python-version":"3.12"},{"os":"ubuntu-latest","python-version":"3.13"}]') }}
+        cfg: ${{ fromJSON(github.event_name == 'workflow_dispatch' && inputs.python_313_only == true && '[{"os":"ubuntu-latest","python-version":"3.13"}]' || '[{"os":"ubuntu-latest","python-version":"3.11"},{"os":"ubuntu-latest","python-version":"3.12"},{"os":"ubuntu-latest","python-version":"3.13"},{"os":"ubuntu-latest","python-version":"3.14"},{"os":"macos-15","python-version":"3.14"}]') }}
 
     steps:
       - uses: actions/checkout@v7
@@ -121,7 +122,7 @@ jobs:
           python -c "import molsysmt; print('Version:', molsysmt.__version__)"
 
       - name: Run fast release gates
-        if: matrix.cfg.python-version == '3.13'
+        if: matrix.cfg.python-version == '3.14' || inputs.python_313_only == true
         shell: bash -l {0}
         run: python devtools/scripts/release_gate.py
 
@@ -139,7 +140,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: weekly-scientific-evidence-py${{ matrix.cfg.python-version }}
+          name: weekly-scientific-evidence-py${{ matrix.cfg.python-version }}${{ matrix.cfg.os == 'macos-15' && '-macos-arm64' || '' }}
           path: scientific-evidence-certificate.json
           if-no-files-found: warn
           retention-days: 14
@@ -163,7 +164,7 @@ jobs:
           !cancelled() && (steps.suite.outputs.exit_code == '0' || steps.suite.outputs.exit_code == '1')
         uses: actions/upload-artifact@v7
         with:
-          name: full-suite-coverage-py${{ matrix.cfg.python-version }}
+          name: full-suite-coverage-py${{ matrix.cfg.python-version }}${{ matrix.cfg.os == 'macos-15' && '-macos-arm64' || '' }}
           path: |
             coverage.xml
             junit.xml

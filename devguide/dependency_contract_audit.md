@@ -62,3 +62,15 @@ would overwrite hand-maintained host/build and platform choices. Its former
 now lives at `devtools/controlled_sources.txt`, and all active workflow
 consumers use the new path. Historical archive references preserve the old
 path as dated evidence, not as a current instruction.
+
+## Documentation dependencies
+
+The optional `docs` extra supplies the theme and external extensions configured
+in `docs/conf.py`. Keep it aligned with the documentation Conda environment;
+`devtools/tests/test_audit_dependency_contract.py` checks the actual configured
+imports against the declared providers. Build documentation in the routine
+Python 3.14 environment using `python -m sphinx -b html docs <output-directory>`.
+A successful build with notebook execution disabled verifies compilation, not
+the scientific calculations saved in notebooks. Record warnings and distinguish
+fresh builds from incremental ones; do not compare their counts as a regression
+measure. Installed candidate and provider qualification remains separate.

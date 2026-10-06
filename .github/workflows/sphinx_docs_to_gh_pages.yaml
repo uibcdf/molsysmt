@@ -33,7 +33,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: 3.13
+          python-version: 3.14
 
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v3
@@ -48,7 +48,7 @@ jobs:
               - defaults
             channel_priority: strict
           create-args: >-
-            python=3.13
+            python=3.14
 
       - name: Info conda
         shell: bash -l {0}
@@ -57,13 +57,9 @@ jobs:
           micromamba info
           micromamba list
 
-      # MolSysViewer and MolSysMT declare each other as run dependencies, so installing
-      # either from the uibcdf channel drags the other in — and neither has a py313 build
-      # there yet. Installing both with --no-deps dissolves the cycle: every shared
-      # dependency is already declared in docs_env.yaml. The viewer's built assets
-      # (runtime_actions.json, viewer.js) are committed, so this needs no npm.
-      # Remove this step once molsysviewer is published for py313; see
-      # devguide/pending_proposals/molsysmt_1_0_conda_release_coordination.md.
+      # Install the controlled portable Viewer source without resolving its
+      # MolSysMT dependency. docs_env.yaml supplies the shared runtime dependencies;
+      # the exact pin is audited by devtools/dependency_contract.toml.
       - name: Install molsysviewer
         shell: bash -l {0}
         run: |

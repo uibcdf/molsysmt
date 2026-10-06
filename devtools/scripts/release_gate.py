@@ -86,8 +86,8 @@ def main() -> int:
         print(
             "\nHeavy gates (NOT run here): the zero-skip registered scientific "
             "evidence execution; ci-full.yaml on ubuntu+macos-arm64 x "
-            "{3.11,3.12,3.13} with the exact Viewer candidate; the 3.14 "
-            "source-pair gate; and the 16-cell installed Conda pair."
+            "{3.11,3.12,3.13,3.14} with the exact Viewer candidate and the "
+            "16-cell installed Conda pair."
         )
         return 0
 
@@ -119,8 +119,8 @@ def main() -> int:
     print(
         "Heavy gates still required before tagging: zero-skip execution of every "
         "registered scientific evidence node, a green ci-full.yaml run "
-        "(ubuntu+macos-arm64 x {3.11,3.12,3.13}) against the exact Viewer SHA, "
-        "the 3.14 source-pair gate and the 16-cell installed Conda pair. "
+        "(ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, "
+        "and the 16-cell installed Conda pair. "
         "See devguide/release_gate.md."
     )
 

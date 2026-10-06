@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 from pathlib import Path
 from urllib.error import URLError
 
+import pytest
 import yaml
 
 from devtools.scripts import nightly_full_gate as gate
@@ -311,3 +313,69 @@ def test_only_an_explicit_manual_request_selects_the_single_coverage_lane():
     )
     assert 'python-version":"3.11' in matrix and 'python-version":"3.12' in matrix
     assert matrix.count('python-version":"3.13') == 2
+
+
+@pytest.mark.parametrize("missing", ["3.11", "3.12", "3.13", "3.14"])
+@pytest.mark.parametrize("workflow", ["ci-weekly.yaml", "ci-full.yaml"])
+def test_each_accepted_minor_must_execute_to_clear_backlog(
+    monkeypatch, missing, workflow
+):
+    prefix, step = gate.FULL_WORKFLOWS[workflow]
+    jobs = [
+        {
+            "name": f"{prefix} — ubuntu-latest, Python {minor}",
+            "conclusion": "success",
+            "steps": [{"name": step, "conclusion": "success"}],
+        }
+        for minor in ["3.11", "3.12", "3.13", "3.14"]
+    ]
+    monkeypatch.setattr(gate, "api_json", lambda *_: {"jobs": jobs})
+    assert gate.full_matrix_passed("uibcdf/molsysmt", 1, "token", workflow)
+    jobs[:] = [job for job in jobs if not job["name"].endswith(missing)]
+    assert not gate.full_matrix_passed("uibcdf/molsysmt", 1, "token", workflow)
+
+
+def test_routine_and_full_routes_cover_the_accepted_python_policy():
+    workflows = REPO / ".github/workflows"
+    for filename, job in [("ci-smoke.yaml", "smoke"), ("benchmarks.yml", "benchmark")]:
+        workflow = yaml.safe_load((workflows / filename).read_text())
+        assert workflow["jobs"][job]["strategy"]["matrix"]["cfg"] == [
+            {"os": "ubuntu-latest", "python-version": "3.14"}
+        ]
+    candidate = yaml.safe_load((workflows / "ci-full.yaml").read_text())
+    cells = candidate["jobs"]["full-matrix"]["strategy"]["matrix"]["cfg"]
+    assert {(cell["os"], cell["python-version"]) for cell in cells} == {
+        (platform, minor)
+        for platform in ["ubuntu-latest", "macos-15"]
+        for minor in ["3.11", "3.12", "3.13", "3.14"]
+    }
+    assert len(cells) == 8
+
+
+def test_weekly_routes_have_mac_arm64_and_distinct_retained_artifacts():
+    workflow = yaml.safe_load((REPO / ".github/workflows/ci-weekly.yaml").read_text())
+    full = workflow["jobs"]["full"]
+    expression = full["strategy"]["matrix"]["cfg"]
+    manual, default = [
+        json.loads(value) for value in re.findall(r"'(\[.*?\])'", expression)
+    ]
+    assert manual == [{"os": "ubuntu-latest", "python-version": "3.13"}]
+    assert {(cell["os"], cell["python-version"]) for cell in default} == {
+        ("ubuntu-latest", minor) for minor in ["3.11", "3.12", "3.13", "3.14"]
+    } | {("macos-15", "3.14")}
+    for step in full["steps"]:
+        if step.get("uses", "").startswith("actions/upload-artifact@"):
+            template = step["with"]["name"]
+            names = [
+                template.replace(
+                    "${{ matrix.cfg.python-version }}", cell["python-version"]
+                ).replace(
+                    "${{ matrix.cfg.os == 'macos-15' && '-macos-arm64' || '' }}",
+                    "-macos-arm64" if cell["os"] == "macos-15" else "",
+                )
+                for cell in default
+            ]
+            assert not any("${{" in name for name in names)
+            assert len(names) == len(set(names))
+            if step["name"] == "Retain coverage and test results":
+                assert "full-suite-coverage-py3.13" in names

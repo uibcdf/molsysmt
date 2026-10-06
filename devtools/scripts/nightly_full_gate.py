@@ -22,7 +22,7 @@ SKIP_MARKER = re.compile(
     r"|^skip-checks:\s*true\s*$",
     re.IGNORECASE | re.MULTILINE,
 )
-FULL_VERSIONS = {"3.11", "3.12", "3.13"}
+FULL_VERSIONS = {"3.11", "3.12", "3.13", "3.14"}
 FULL_WORKFLOWS = {
     "ci-weekly.yaml": ("Full test", "Run full test suite with coverage"),
     "ci-full.yaml": ("Full matrix", "Run full test suite"),
@@ -58,7 +58,7 @@ def full_matrix_passed(repository: str, run_id: int, token: str, workflow: str) 
     passed = set()
     for job in jobs:
         match = re.fullmatch(
-            rf"{job_prefix} — ubuntu-latest, Python (3\.1[123])", job["name"]
+            rf"{job_prefix} — ubuntu-latest, Python (3\.1[1234])", job["name"]
         )
         if not match or job["conclusion"] != "success":
             continue
