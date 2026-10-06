@@ -1765,3 +1765,40 @@ regression intact and qualify it again after uibcdf/molsysviewer#168 migrates th
 consumer. Prior source-pair evidence does not certify this revised provider API;
 the new provider contract and the migration requirement must accompany its source
 handoff. No format bump or release publication is implied.
+
+
+## Released support providers for the next checkpoint — 2026-10-06
+
+The maintainer reports the public SMonitor 0.19.0 and ArgDigest 0.15.0 releases;
+the GitHub release records are verified as published, non-draft releases.
+`devtools/controlled_sources.txt` now fixes their exact release commits:
+
+- SMonitor 0.19.0: `f604b940ab281df4554869fdd24f796ea6d42c27`.
+- ArgDigest 0.15.0: `57447cc4ec1f7ce85078f8a939892efd075bc919`.
+
+The shared Python 3.14.7 environment already contains SMonitor 0.19.0 and
+ArgDigest 0.15.0+1.g5c6711e; the latter's runtime source has no changes from the
+release tag. Existing argument-digestion, exception/warning, catalog, cross-provider,
+interaction-query and dependency-audit guards pass **776 tests in 20.33 s**,
+with zero failures/errors/skips and three historical H5MSM migration warnings:
+
+```bash
+python -m pytest tests/_private/argdigest tests/_private/smonitor \
+  tests/_private/test_smonitor_catalog_integrity.py \
+  tests/cross_repo/test_smonitor_contracts.py \
+  tests/cross_repo/test_diagnostics_noise.py \
+  tests/interactions/test_argument_validation.py \
+  tests/interactions/test_public_molsys_h5msm_workflow.py \
+  devtools/tests/test_audit_dependency_contract.py \
+  -n 12 --dist loadfile --receptor=llm
+```
+
+The dependency audit and **14/14 fast gates** also pass. The
+[bounded receipt](../devtools/data/support_provider_releases_20261006.json)
+retains the pins, actual development versions, scope and JUnit hash under #334.
+Public floors remain `argdigest>=0.13.0` and `smonitor>=0.16.0`; source qualification
+and minimum supported versions are separate contracts. No new restricted-capture
+or explicit-digestion feature is adopted by this pin update. That provider
+coordination remains uibcdf/molsyssuite#106. These checks do not qualify exact
+installed release artifacts or the full provider/Viewer pair, and do not change
+the pending Viewer query migration in uibcdf/molsysviewer#168.
