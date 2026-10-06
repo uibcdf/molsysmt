@@ -194,3 +194,23 @@ A separate fresh `--receptor=llm` support/presentation selection passes 68 cases
 in 4.00 seconds without warnings, including the #236 reconstruction guard,
 quantity digesters, SMonitor contracts and the OpenFF dependency contract.
 This is scoped boundary evidence, not the full installed candidate closure.
+
+## Complete shared development execution — 2026-10-06
+
+The [shared-environment receipt](../../devtools/data/stabilization_s5_shared_20261006.json)
+records the clean MolSysMT source `5e2721691`, released SMonitor 0.18.0,
+DepDigest 0.13.0, ArgDigest 0.13.0 and PyUnitWizard 0.28.1 from exact controlled
+sources. The complete Python 3.14 suite passes 13,313 cases with two explicit
+skips, no failures/errors and 1,763 warnings. The independent registered
+scientific gate passes all 54 cases from 47 nodes without skips. The complete
+suite and recovery use twelve workers and receptor's local `llm` profile; the
+scientific certificate runner is serial by design.
+
+The actual shared plugin is editable pytest-receptor `1.1.0+19.g6d87a24`,
+whereas hosted recipes continue to declare published 1.1.0. Viewer and Ackredit
+are editable siblings, and Viewer changed concurrently during this development
+checkpoint. Preserve those limits rather than presenting this as the exact
+controlled-source or installed release gate. This materially advances the
+integrated runtime review, but the new eight-cell matrix, installed closure and
+central adoption remain pending. No historical failed gate is erased and no
+support-library exception is introduced.

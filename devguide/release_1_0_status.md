@@ -355,9 +355,34 @@ warnings remain visible. These selections are scoped editable-source evidence.
 See the [dependency-guard resolution](archive/resolved_bugs/dependency_architecture_guard_patches_a_removed_depdigest_loader_alias.md)
 and [pandas resolution](archive/resolved_bugs/native_topology_operations_fail_under_pandas_3_missing_value_and_copy_semantics.md).
 
-S5 is still partial for executed environment/admission evidence. Next complete
-the required provider environments and rerun the full included profiles with
-these corrections, obtain Viewer feedback, and select exact candidates for S6.
+The completed shared development environment now supplies ParmEd 4.3.1,
+PyTraj 3.0.0.dev0 through AmberTools 26.0, OpenFF Toolkit 0.19.0, unyt 3.1.0
+and Astropy 8.0.1. At clean source `5e2721691`, the 75-selector recovery
+passes 109 cases without skips. The complete Python 3.14.7 source suite then
+passes 13,313 cases, with two skips, no failures/errors and 1,763 warnings,
+in 473.85 s. Both use twelve workers and `--receptor=llm`; their overlapping
+counts must not be added. The two skips concern the installed-RDKit SMILES
+branch and absent optional CuPy. The separate registered scientific gate passes
+all 54 cases from 47 nodes with zero skips and a clean-source certificate.
+Its maintained runner deliberately executes serially.
+
+Fresh shared-environment Sphinx compilation exits 0 with no missing course
+toctree documents, 781 warning lines and five Docutils error lines. These
+existing markup/reference defects remain accepted #144 debt; successful
+compilation is not a warning/error-free claim. Notebook execution is disabled,
+and generated formatting rewrites were restored.
+
+The [shared-environment receipt](../devtools/data/stabilization_s5_shared_20261006.json)
+retains actual versions, commands, hashes, skips, scientific certificate and
+documentation errors. The released support providers are pinned, but Viewer
+is an editable sibling undergoing concurrent changes; its imported version
+and installed metadata differ. These results are development evidence, without
+an immutable Viewer-candidate claim. Earlier failed runs remain recorded.
+All 14 fast release checks pass after the evidence/documentation update.
+
+S5 is still partial for full-matrix/installed admission evidence. Next obtain
+Viewer feedback, agree exact provider/Viewer candidates and execute the required
+eight-cell source and installed wheel/Conda pair gates for S6.
 No release tag or GitHub Release is published. Configured eight-cell matrices,
 solver success, focused editable tests and an accepted badge are not S6 evidence.
 

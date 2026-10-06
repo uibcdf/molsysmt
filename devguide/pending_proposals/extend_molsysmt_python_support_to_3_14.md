@@ -344,6 +344,44 @@ in 4.00 seconds without warnings, including the #236 reconstruction guard,
 quantity digesters, SMonitor contracts and the OpenFF dependency contract.
 This is scoped boundary evidence, not the full installed candidate closure.
 
+## Shared development environment recovery — 2026-10-06
+
+At clean source `5e2721691b6a3c175406a8e4c0926dfb7b160671`, the completed
+`molsyssuite@uibcdf_3.14` environment imports and exercises ParmEd 4.3.1,
+PyTraj 3.0.0.dev0, OpenFF Toolkit 0.19.0, unyt 3.1.0 and Astropy 8.0.1.
+PyTraj is optional and comes from conda-forge AmberTools 26.0, rather than a
+standalone PyTraj installation. Its runtime probe finds no unsafe frame
+finalizer. Inspection of the older shared Python 3.13 environment identifies
+PyTraj 2.0.6 supplied by AmberTools 24.8 with the old finalizer; that observation
+is not a successful 3.13 trajectory test or a recommendation to reuse its build.
+
+The recovery selection includes all 68 previous failed/error nodes and seven
+previously collection-skipped modules: 109 cases pass with zero skips in
+21.53 s. The subsequent complete suite passes 13,313 cases, skips two, and has
+zero failures/errors in 473.85 s, retaining 1,763 warnings. Both runs use twelve
+workers and `--receptor=llm`. The separate scientific-evidence runner passes
+54 cases from all 47 registered nodes without skips in 11.28 s and records the
+clean source commit. Its serial execution is the maintained certificate route.
+
+The [shared-environment receipt](../../devtools/data/stabilization_s5_shared_20261006.json)
+preserves commands, effective versions, full JUnit/log hashes, skip reasons and
+the scientific certificate. These are overlapping development selections, not
+additional disjoint coverage. The previous failed complete run remains in its
+original receipt. The new results use the shared environment; an auxiliary
+environment prepared earlier is not their producer.
+
+Fresh shared-environment Sphinx compilation also exits 0, with 781 warning lines,
+five Docutils error lines and no missing course toctree documents. #144 records
+the remaining debt. No executable notebook cells or saved outputs were changed.
+
+The four released support providers are pinned to the controlled manifest.
+Viewer remains an editable sibling: concurrent source changes and differing
+imported/distribution versions prevent assigning this run one immutable Viewer
+candidate. Ackredit is also an editable checkout. Thus this checkpoint does not
+replace the eight-cell exact-source matrix, installed wheel/16-cell Conda pair,
+current Viewer feedback, or central admission. #237 remains partial, and public
+support badges remain 3.11–3.13 until qualification and publication.
+
 ## First 3.14 hosted attempt and source-pin correction — 2026-10-06
 
 At `5e410643337901b00ddb58b6cd4284a711c6dc88`, smoke run

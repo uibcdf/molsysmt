@@ -139,3 +139,24 @@ globally suppressing warnings.
 - course directives and heading levels follow the documented MyST conventions;
 - notebooks validate without missing-cell-ID compatibility warnings;
 - CI rejects any reintroduced warning.
+
+## Fresh shared Python 3.14 build — 2026-10-06
+
+At source `5e2721691`, the shared development environment runs
+`python -m sphinx -b html -q -j 12 docs <fresh-output-directory>` with Sphinx
+9.1.0 and the actual configured extensions. It exits 0 and reports 781
+`WARNING:` lines, five Docutils `ERROR:` lines and no missing course toctree
+documents. Notebook execution remains disabled. Three generated autosummary
+formatting rewrites were restored; executable notebook cells and saved outputs
+were unchanged. The [receipt](../../devtools/data/stabilization_s5_shared_20261006.json)
+records effective extension versions, the log hash and the error locations.
+
+The five error lines arise from an unknown `yyy` target in the NGLView
+`set_color_by_value` docstring, three undefined vector substitutions in the
+`get_lengths_and_angles_from_box` docstring, and an invalid grid argument in the
+legacy `content/user/tools/index_v2.md` draft. They are existing rendering debt
+under this issue. Exit zero permits these Docutils errors and must not be
+reported as error-free documentation. Counts from fresh and incremental builds
+or different installed extensions are checkpoint observations, not a ratchet
+comparison. This checkpoint satisfies the missing-course-document condition;
+the broader closure criteria above remain unmet.

@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "issues": [
+    "uibcdf/molsysmt#237",
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#144",
+    "uibcdf/molsysmt#244"
+  ],
+  "source_commit": "5e2721691b6a3c175406a8e4c0926dfb7b160671",
+  "tracked_source_dirty_during_tests": false,
+  "scope": "Shared Linux Python 3.14 development recovery, full source suite, registered scientific evidence and fresh documentation compilation. Not an installed-candidate or cross-platform qualification.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "environment": "molsyssuite@uibcdf_3.14",
+    "source_commit": "5e2721691b6a3c175406a8e4c0926dfb7b160671",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.1.0+19.g6d87a24",
+      "parmed": "4.3.1",
+      "openff-toolkit": "0.19.0",
+      "openff-toolkit-base": null,
+      "unyt": "3.1.0",
+      "astropy": "8.0.1",
+      "smonitor": "0.18.0",
+      "depdigest": "0.13.0",
+      "argdigest": "0.13.0",
+      "pyunitwizard": "0.28.1",
+      "molsysviewer": "0.23.4+27.gfed1c4b8.dirty",
+      "ackredit": "0.11.0+1.gaae9ad9.dirty",
+      "molsysmt": "0.22.4+212.g5e2721691"
+    },
+    "modules": {
+      "parmed": {
+        "file": "shared-environment:lib/python3.14/site-packages/parmed/__init__.py",
+        "version": "4.3.1"
+      },
+      "pytraj": {
+        "file": "shared-environment:lib/python3.14/site-packages/pytraj/__init__.py",
+        "version": "3.0.0.dev0"
+      },
+      "openff.toolkit": {
+        "file": "shared-environment:lib/python3.14/site-packages/openff/toolkit/__init__.py",
+        "version": "0.19.0"
+      },
+      "unyt": {
+        "file": "shared-environment:lib/python3.14/site-packages/unyt/__init__.py",
+        "version": "3.1.0"
+      },
+      "astropy": {
+        "file": "shared-environment:lib/python3.14/site-packages/astropy/__init__.py",
+        "version": "8.0.1"
+      },
+      "molsysviewer": {
+        "file": "sibling-checkout:molsysviewer/molsysviewer/__init__.py",
+        "version": "0.23.4+71.g3b475639.dirty"
+      },
+      "ackredit": {
+        "file": "sibling-checkout:ackredit/ackredit/__init__.py",
+        "version": "0.11.0+1.gaae9ad9.dirty"
+      },
+      "molsysmt": {
+        "file": "molsysmt/__init__.py",
+        "version": "0.22.4+212.g5e2721691"
+      },
+      "smonitor": {
+        "file": "installed-controlled-provider:smonitor/__init__.py",
+        "version": "0.18.0"
+      },
+      "depdigest": {
+        "file": "installed-controlled-provider:depdigest/__init__.py",
+        "version": "0.13.0"
+      },
+      "argdigest": {
+        "file": "installed-controlled-provider:argdigest/__init__.py",
+        "version": "0.13.0"
+      },
+      "pyunitwizard": {
+        "file": "installed-controlled-provider:pyunitwizard/__init__.py",
+        "version": "0.28.1"
+      }
+    },
+    "conda_packages": [
+      {
+        "name": "astropy-base",
+        "version": "8.0.1",
+        "build": "py314h12ceea2_1",
+        "channel": "conda-forge"
+      },
+      {
+        "name": "parmed",
+        "version": "4.3.1",
+        "build": "py314ha51126d_1",
+        "channel": "conda-forge"
+      },
+      {
+        "name": "unyt",
+        "version": "3.1.0",
+        "build": "pyhd8ed1ab_0",
+        "channel": "conda-forge"
+      },
+      {
+        "name": "ambertools",
+        "version": "26.0",
+        "build": "cuda_None_nompi_py314h2f9d5e2_100",
+        "channel": "conda-forge"
+      },
+      {
+        "name": "openff-toolkit-base",
+        "version": "0.19.0",
+        "build": "pyhd8ed1ab_1",
+        "channel": "conda-forge"
+      }
+    ],
+    "pytraj_unsafe_frame_finalizer": false
+  },
+  "controlled_provider_commits": {
+    "smonitor": "b79cca8eb9bd878d0d3439876eca4ed26560e916",
+    "depdigest": "df771e00e886fd9b12915adf54c1bd75c4b5476c",
+    "argdigest": "9880fa7b990fd0987ff0de715b665eb9e11c11b2",
+    "pyunitwizard": "25a4bc2468da4ef3af2a638c0bf068becf2acfb4"
+  },
+  "recovery_selection": {
+    "selector_count": 75,
+    "original_failed_or_error_nodes": 68,
+    "previously_collection_skipped_modules": 7,
+    "selection_sha256": "c650c5c1bb8637404d999f39950d1832b254703128dbb118bab4c651ca636d70"
+  },
+  "runs": [
+    {
+      "scope": "recovery",
+      "command": "python -m pytest --receptor=llm -n 12 --junitxml=<local-result.xml> <75 recovery selectors>",
+      "exit_code": 0,
+      "workers": 12,
+      "receptor": "llm",
+      "counts": {
+        "tests": 109,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "passed": 109,
+      "summary": "PASS exit=0 | 109 passed | 21.53s | 6 warnings",
+      "skipped_nodes": [],
+      "junit_sha256": "af258ade9aa6a3678ea5fb54ff038a236bad6be91dd1de3b797f849baca28046",
+      "log_sha256": "07685f1c61557c634e10ff8c07ff38c38197682f9c373e3c50d963445bf91b1f"
+    },
+    {
+      "scope": "full",
+      "command": "python -m pytest --receptor=llm -n 12 --junitxml=<local-result.xml>",
+      "exit_code": 0,
+      "workers": 12,
+      "receptor": "llm",
+      "counts": {
+        "tests": 13315,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 2
+      },
+      "passed": 13313,
+      "summary": "PASS exit=0 | 13313 passed, 2 skipped | 473.85s | 1763 warnings",
+      "skipped_nodes": [
+        {
+          "node": "tests.form.string_smiles.test_is_form::test_is_form_cco_without_rdkit",
+          "reason": "with rdkit CCO is recognized as valid SMILES"
+        },
+        {
+          "node": "tests.form.test_cupy_ndarray::test_cupy_ndarray_form_detection_and_conversion",
+          "reason": "CuPy is not available."
+        }
+      ],
+      "junit_sha256": "45b95d368b3178af30f87bba649466e0a0e4cbd5dfff5799f395681b2c661d80",
+      "log_sha256": "1c2a35c8c1833d9895d009f5eee24eae2b25a06a23b0eddb661c7547b2516f16"
+    }
+  ],
+  "scientific": {
+    "command": "python devtools/scripts/execute_scientific_evidence.py --receptor=llm --require-clean --certificate=<local-certificate.json>",
+    "exit_code": 0,
+    "workers": 1,
+    "certificate": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "pass",
+      "commit": "5e2721691b6a3c175406a8e4c0926dfb7b160671",
+      "tracked_source_dirty": false,
+      "release_eligible": true,
+      "created_at": "2026-10-06T08:13:44.185499+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "registered_nodes": 47,
+      "collected_cases": 54,
+      "passed": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "nodes": [
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+      ]
+    },
+    "certificate_sha256": "a4ae09c69d9ccd1bc62d105f2532a7894e0ee8ae4296d43c6aa1249d082ad4d6",
+    "log_sha256": "e8a934fdaf01147c66d0ee7746cd8d3e67094018d578b9f491770e07f472dd70"
+  },
+  "documentation": {
+    "schema_version": 1,
+    "date": "2026-10-06",
+    "issues": [
+      "uibcdf/molsysmt#237",
+      "uibcdf/molsysmt#334",
+      "uibcdf/molsysmt#144"
+    ],
+    "source_commit": "5e2721691b6a3c175406a8e4c0926dfb7b160671",
+    "scope": "shared Python 3.14 environment documentation compilation; notebook execution is disabled",
+    "command": "python -m sphinx -b html -q -j 12 docs <fresh-output-directory>",
+    "exit_code": 0,
+    "workers": 12,
+    "log_sha256": "3d13cec7069f38d587bccb16f2b543b37367a9536582e5662308774932d3fafa",
+    "warning_lines": 781,
+    "docutils_error_lines": [
+      "molsysmt/third_party/nglview/set_color_by_value.py:docstring of molsysmt.third_party.nglview.set_color_by_value.set_color_by_value:32: ERROR: Unknown target name: \"yyy\". [docutils]",
+      "molsysmt/pbc/get_lengths_and_angles_from_box.py:docstring of molsysmt.pbc.get_lengths_and_angles_from_box.get_lengths_and_angles_from_box:11: ERROR: Undefined substitution referenced: \"v0\". [docutils]",
+      "molsysmt/pbc/get_lengths_and_angles_from_box.py:docstring of molsysmt.pbc.get_lengths_and_angles_from_box.get_lengths_and_angles_from_box:11: ERROR: Undefined substitution referenced: \"v1\". [docutils]",
+      "molsysmt/pbc/get_lengths_and_angles_from_box.py:docstring of molsysmt.pbc.get_lengths_and_angles_from_box.get_lengths_and_angles_from_box:11: ERROR: Undefined substitution referenced: \"v2\". [docutils]",
+      "docs/content/user/tools/index_v2.md:7: ERROR: Invalid directive argument: argument must be 1 or 4 (xs sm md lg) values, and each value should be either auto or an integer from 1 to 12 [docutils]"
+    ],
+    "missing_course_toctree_documents": [],
+    "generated_formatting_restored": [
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst"
+    ],
+    "limits": [
+      "Exit zero is successful compilation, not warning/error-free documentation.",
+      "Existing document debt remains #144.",
+      "No notebook scientific rerun or installed candidate qualification is established."
+    ],
+    "versions": {
+      "sphinx": "9.1.0",
+      "pydata-sphinx-theme": "0.22.0",
+      "myst-nb": "1.4.0",
+      "sphinx-design": "0.7.0",
+      "sphinxcontrib-bibtex": "2.7.0",
+      "sphinx-copybutton": "0.5.2",
+      "sphinx-remove-toctrees": "1.0.0.post1",
+      "sphinx-favicon": "1.1.0",
+      "sphinx-togglebutton": "0.3.2"
+    },
+    "scientific_installation_followup": "Fresh shared-environment imports now succeed for ParmEd 4.3.1, PyTraj 3.0.0.dev0 (AmberTools 26.0), OpenFF Toolkit 0.19.0, unyt 3.1.0 and Astropy 8.0.1."
+  },
+  "viewer_after_full_run": {
+    "head": "cb81214931ebb0fb921101462ab3b197549af4a9",
+    "worktree_status": [
+      " M .github/workflows/ci-python-314-source-pair.yaml",
+      " M devguide/pending_bugs/README.md",
+      " M devtools/conda-envs/development_env.yaml",
+      " M devtools/conda-envs/test_env.yaml",
+      " M devtools/conda-envs/test_source_pair_py314.yaml",
+      " M tests/test_distribution_artifact.py",
+      "?? devguide/pending_bugs/scientific_test_environments_missing_rdkit.md",
+      "?? sandbox/interactions_panel_design.html",
+      "?? sandbox/interactions_panel_design.png",
+      "?? sandbox/interactions_panel_design_stored.png"
+    ],
+    "limits": "Concurrent Viewer development changes were observed. Imported version and installed distribution metadata differ. No immutable Viewer candidate identity for this complete shared-environment run is claimed; preserve this development evidence separately from required controlled-source and installed-pair gates."
+  },
+  "limits": [
+    "The previous failed complete run remains recorded in stabilization_s5_execution_20261006.json.",
+    "Recovery and full suite overlap; do not sum their case counts as disjoint coverage.",
+    "The two full-suite skips are outside the 47-node registered scientific evidence gate, which has zero skips.",
+    "The full suite retains 1763 warnings; fresh Sphinx retains 781 warning lines and five Docutils ERROR lines despite exit zero.",
+    "Ackredit and Viewer are editable sibling checkouts; Viewer changed concurrently and is not pinned for this development run.",
+    "Routine tests used the shared development environment; an auxiliary environment was prepared earlier but is not the producer of these results.",
+    "The scientific certificate clean-source flag qualifies this source execution only, not an installed distribution or the whole release.",
+    "Eight-cell full source matrix, required installed wheel and 16-cell Conda pair gates, exact Viewer feedback and central Python admission remain outstanding."
+  ],
+  "final_fast_checks": {
+    "exit_code": 0,
+    "passed": 14,
+    "total": 14,
+    "command": "python devtools/scripts/release_gate.py",
+    "log_sha256": "925a4da27e73b7f654a78c4c554a024d870fe19aa2a2abbd169e444df76c51fc",
+    "limits": "Fast structural/public-smoke checks do not replace heavy executed or installed artifact qualification."
+  }
+}
