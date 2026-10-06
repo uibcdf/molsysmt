@@ -10,6 +10,7 @@ from collections.abc import Iterable, Mapping
 import numpy as np
 
 from molsysmt._private.smonitor import ArgumentError
+from molsysmt.interactions._query_modes import QUERY_MODE_ALIASES, QUERY_MODES
 
 from .argument.filename import digest_filename
 from .argument.replacement import digest_replacement
@@ -72,7 +73,7 @@ def _indices(value, caller=None, *, name):
     if method == "remap" and is_all(value):
         return "all"
     if (
-        method in {"query", "between"}
+        method in {"query", "between", "between_selections"}
         and value is None
         and name not in {"atom_indices_a", "atom_indices_b"}
     ):
@@ -170,7 +171,7 @@ ARGUMENT_DIGESTERS = {
     "method": _bind(_text, name="method"),
     "source_id": _bind(_text, name="source_id", optional=True),
     "exclusive": _bind(_boolean, name="exclusive"),
-    "mode": _bind(_choice, name="mode", choices=("incident", "internal", "cross")),
+    "mode": _bind(_choice, name="mode", choices=(*QUERY_MODES, *QUERY_MODE_ALIASES)),
     "evaluation_mode": _bind(
         _choice, name="evaluation_mode", choices=("internal", "incident", "between")
     ),

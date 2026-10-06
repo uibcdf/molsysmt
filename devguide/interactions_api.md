@@ -9,11 +9,22 @@ are `interactions.hbonds`, `interactions.disulfides`, and the experimental
 `interactions.metal_coordination` and `interactions.water_bridges`. Other families need
 separate scientific contracts and decisions.
 
-## Relevant-frame queries and bounded inspection
+## Selection-query names
+
+`Interactions.query` uses `involving_selection` (default), `within_selection`
+and `across_selection_boundary`. Every constituent atom of every participant
+counts, including hydrogens and compound rings. `between_selections(A, B)` is a
+separate operation for disjoint selections, with optional exclusivity.
+Legacy query values and `between` remain compatible; scientific detector
+`selection_mode`, stored `evaluation_mode` and persistence schemas are unchanged.
+See the [normative query contract](interactions_query_semantics.md) for predicates,
+empty coverage, compatibility and consumer migration under uibcdf/molsysmt#346.
+
+## Selected-structure queries and bounded inspection
 
 Explicit structure selections constrain relation candidates before atom or type
-membership tests. They preserve requested nonconsecutive frame order, remove
-duplicate frame requests and retain parallel observations. Trajectory-wide atom
+membership tests. They preserve requested nonconsecutive structure order, remove
+duplicate structure requests and retain parallel observations. Trajectory-wide atom
 queries continue to use optional postings rather than scanning dense atom pairs.
 
 `Interactions.to_page(offset=0, limit=50, max_participant_atoms=10000)` exposes the
@@ -24,12 +35,12 @@ and aligned measures, units, evidence and PBC vectors. Catalog offsets index the
 compact catalog, not global relation indices. Coverage and source maps are shared
 read-only arrays. A constituent-atom bound counts memberships per occurrence and
 is checked before copying participant definitions or images. Empty pages retain
-typed arrays and distinguish evaluated-empty from unevaluated frames.
+typed arrays and distinguish evaluated-empty from unevaluated structures.
 
 Query construction retains its own positions and possible secondary indexes.
 Paging bounds occurrence and participant copies after that construction; metadata
-may scale with frames. Invalidated and replaced analyses select active source row
-windows using frame offsets, without packing all active columns. A page is not a
+may scale with structures. Invalidated and replaced analyses select active source row
+windows using structure offsets, without packing all active columns. A page is not a
 complete persistence codec. Existing full `to_dict()` semantics and H5MSM 0.5
 remain unchanged. See [the result tutorial](../docs/content/user/tools/interactions/result.md)
 and the dated reports for uibcdf/molsysmt#288 and uibcdf/molsysmt#264.

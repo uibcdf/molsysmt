@@ -1,0 +1,64 @@
+{
+  "issue": "uibcdf/molsysmt#346",
+  "date": "2026-10-06",
+  "parent_commit": "3cf1c8e53e082df79db2fb82776482e969995ea0",
+  "qualification": "Focused source-contract validation; not release-artifact or consumer qualification.",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "workers": 12,
+    "pytest_receptor": "llm"
+  },
+  "checks": [
+    {
+      "scope": "expanded",
+      "junit_file": "molsysmt-346-expanded.xml",
+      "junit_sha256": "57e6152f6001d4ed84ce5dddb4e5f60aefc9ff1bba21bd67c34cb161348a3897",
+      "tests": 1474,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "scope": "doctests",
+      "junit_file": "molsysmt-346-doctest.xml",
+      "junit_sha256": "ef97e0936cc36112909764a12bfade0a4c926b136ea759216f52a409bcd93050",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "tested_file_sha256": {
+    "molsysmt/_private/argdigest/interactions_result.py": "e5366c29a7155e42017e7b628dbc2f7f4d8d737312b4f41f9df2d18a655b5a43",
+    "molsysmt/interactions/result.py": "164a3428d2548e96227fc94ff9854476b911eae3c04ca8f41a262b28dcd8b0cc",
+    "molsysmt/interactions/_frame_validity.py": "a1506fda108024cf94e5818cac788fc2b43931ec20a3c3299bde35952d2cbbad",
+    "molsysmt/interactions/_frame_replacement.py": "e1eff26b62020b6aece41359eb54dfd98a127a51fc9b22dcbc48c416d8a8ec79",
+    "molsysmt/interactions/_hdf5_query.py": "131757595443919c073ff687c5090d3d8ec67b3484040dd61ffa9e5203055eb6",
+    "molsysmt/interactions/_query_modes.py": "58a70213ebd7df67d36cd02b3a8c3188477118b3e0a28f5938ada89385bb0dd2",
+    "tests/interactions/test_public_molsys_h5msm_workflow.py": "5ab4d86226b333d9c028f5a9e7c5a6e1404e15d5ade7a84dae1ba5c340beefcd",
+    "tests/interactions/test_hdf5_query.py": "4cc01a4b0a205bc4fcf7fd0a8a2c0490253fa4bf72218d31889d7a06568e31f8"
+  },
+  "documentation": {
+    "executed_notebooks": 8,
+    "executed_cookbook_python_blocks": 9,
+    "course_module_20": "Markdown-only update; code cells and outputs equal the parent commit.",
+    "notebook_code_sha256": {
+      "docs/content/user/tools/interactions/get_ionic_interactions.ipynb": "4b229dc5a7c6c987d44cfd46a0253dacb2b2be55d06cdc49aa6d25e6df674750",
+      "docs/content/user/tools/interactions/get_water_bridges.ipynb": "15a2b14743c682353badb6ab373d6f6abadfe3c1c5b117ae15a5749cd663feb0",
+      "docs/content/user/tools/interactions/get_pi_pi_interactions.ipynb": "0ae32f9e1f4ce837c4cb9bc1c91d64884499d0a50ca49e4fa2f500b9e6908e8f",
+      "docs/content/user/tools/interactions/get_metal_coordination.ipynb": "5a824f5775914c96d1e1d580f2abfd695d9bd7b2a52187538a11478b6d01abdb",
+      "docs/content/user/tools/interactions/get_halogen_bonds.ipynb": "d0262a78525535285c5b74f20455984eab707ed1e2423945be17b5739d03cde8",
+      "docs/content/user/tools/interactions/get_cation_pi_interactions.ipynb": "7585f3d8e4ff1a6c25b181f021da2d828e27194439f9461cab4bc02ffe975121",
+      "docs/content/user/tools/interactions/get_hydrophobic_interactions.ipynb": "3021b60bda7308580c58395befe6cd6f6906a4c0144bb3be9f1814ec9d3ee012",
+      "docs/content/user/cookbook/saving_pi_pi_interactions.ipynb": "b2cad248f4f914bd58c4a6b0574976f99eae4aad4ea12b41624c01f024443e52"
+    }
+  },
+  "schemas": "Unchanged: Interactions v1/v2, InteractionsDict v1/v2, H5MSM 0.5.",
+  "version_note": "Introduced for the planned 0.23.0 checkpoint. Tests use the editable source; installed distribution metadata is a historical development version. The resolution names the authoritative source commit.",
+  "fast_gates": {
+    "passed": 14,
+    "total": 14,
+    "log_sha256": "95c9df64b40ce8dccde9af9e5d66bd036e5b603acb35da6e117e3976acebed8b"
+  }
+}

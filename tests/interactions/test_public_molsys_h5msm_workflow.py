@@ -1,8 +1,10 @@
 """Exercise the public interaction contract across MolSys and H5MSM 0.5."""
 
 import numpy as np
+import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt.native import MolSys
 
 
@@ -89,12 +91,20 @@ def _assert_queries(result):
         .size
         == 0
     )
-    assert result.query(atom_indices=[0], mode="incident").n_interactions == 3
-    assert result.query([0], [0], mode="cross").n_interactions == 1
-    assert result.query([0], [0, 1, 2], mode="internal").n_interactions == 1
-    assert result.query([0], [3, 4, 5], mode="internal").n_interactions == 0
-    assert result.query([0], [3, 4, 5, 6, 7, 8], mode="internal").n_interactions == 1
-    assert result.between([3, 4, 5], [6, 7, 8], exclusive=True).n_interactions == 1
+    assert (
+        result.query(atom_indices=[0], mode="involving_selection").n_interactions == 3
+    )
+    assert result.query([0], [0], mode="across_selection_boundary").n_interactions == 1
+    assert result.query([0], [0, 1, 2], mode="within_selection").n_interactions == 1
+    assert result.query([0], [3, 4, 5], mode="within_selection").n_interactions == 0
+    assert (
+        result.query([0], [3, 4, 5, 6, 7, 8], mode="within_selection").n_interactions
+        == 1
+    )
+    assert (
+        result.between_selections([3, 4, 5], [6, 7, 8], exclusive=True).n_interactions
+        == 1
+    )
     np.testing.assert_array_equal(
         result.query(atom_indices=[9]).to_dict()["structure_indices"], [2]
     )
@@ -244,3 +254,157 @@ def test_public_convert_preserves_multiple_named_analyses_and_sparse_columns(tmp
         == 0
     )
     assert restored_empty.to_dict()["measurements"]["distance"].shape == (0,)
+
+
+@pytest.mark.parametrize("storage", ["packed", "view", "invalidated", "replaced"])
+def test_explicit_selection_vocabulary_on_storage_routes(storage):
+    result = _analysis()
+    if storage == "view":
+        result = result.query(structure_indices=[4, 1, 0, 2])
+    elif storage == "invalidated":
+        result = result.invalidate_structures([2])
+    elif storage == "replaced":
+        result = result.replace_structures(_analysis())
+    frames = [4, 1, 0, 4, 3]
+    for mode in ("involving_selection", "across_selection_boundary"):
+        columns = result.query(frames, [1], mode).to_dict()
+        np.testing.assert_array_equal(columns["structure_indices"], [4, 4, 0])
+        np.testing.assert_array_equal(
+            columns["occurrence_indices"],
+            [3, 4, 0] if storage != "invalidated" else [2, 3, 0],
+        )
+        np.testing.assert_array_equal(columns["evaluated_structure_indices"], [4, 1, 0])
+        np.testing.assert_allclose(
+            columns["measurements"]["distance"], [0.22, 0.21, 0.20]
+        )
+        assert result.query(frames, [1], "within_selection").n_interactions == 0
+    assert result.query(frames, [0, 1, 2], "within_selection").n_interactions == 3
+    assert result.query(frames, [3], "involving_selection").n_interactions == 1
+    assert result.query(frames, [3, 4, 5], "within_selection").n_interactions == 0
+    assert (
+        result.query(frames, [3, 4, 5], "across_selection_boundary").n_interactions == 1
+    )
+    assert (
+        result.query(frames, [3, 4, 5, 6, 7, 8], "within_selection").n_interactions == 1
+    )
+    assert result.query(atom_indices=[1]).n_interactions == 3
+    for mode in (
+        "involving_selection",
+        "within_selection",
+        "across_selection_boundary",
+    ):
+        assert result.query(atom_indices=[], mode=mode).n_interactions == 0
+        empty = result.query([1], [0], mode).to_dict()
+        assert empty["occurrence_indices"].shape == (0,)
+        assert empty["occurrence_indices"].dtype == np.int64
+        np.testing.assert_array_equal(empty["evaluated_structure_indices"], [1])
+        assert (
+            result.query([3], [0], mode).to_dict()["evaluated_structure_indices"].size
+            == 0
+        )
+
+    assert result.between_selections([0], [2], frames).n_interactions == 3
+    assert (
+        result.between_selections([0], [2], frames, exclusive=True).n_interactions == 0
+    )
+    assert (
+        result.between_selections([0, 1], [2], frames, exclusive=True).n_interactions
+        == 3
+    )
+    assert (
+        result.between_selections(
+            [3, 4, 5], [6, 7, 8], frames, exclusive=True
+        ).n_interactions
+        == 1
+    )
+    assert result.between_selections([], [2], frames).n_interactions == 0
+    with pytest.raises(ValueError, match="disjoint"):
+        result.between_selections([0, 1], [1, 2])
+    with pytest.raises(ValueError):
+        result.between_selections([0.5], [2])
+    with pytest.raises(ArgumentError):
+        result.between_selections([0], [2], exclusive="false")
+    with pytest.raises(ArgumentError):
+        result.between_selections([0], [2], skip_digestion=1)
+    with pytest.raises(ValueError, match="mode"):
+        result.query(mode="between_selections")
+    for old, new in (
+        ("incident", "involving_selection"),
+        ("internal", "within_selection"),
+        ("cross", "across_selection_boundary"),
+    ):
+        expected = result.query(frames, [0, 1, 2], new).to_dict()
+        for spelling in (old, new):
+            actual = result.query(
+                frames, [0, 1, 2], spelling, skip_digestion=True
+            ).to_dict()
+            np.testing.assert_array_equal(
+                actual["occurrence_indices"], expected["occurrence_indices"]
+            )
+    np.testing.assert_array_equal(
+        result.between([0, 1], [2], frames, exclusive=True).to_dict()[
+            "occurrence_indices"
+        ],
+        result.between_selections(
+            [0, 1], [2], frames, exclusive=True, skip_digestion=True
+        ).to_dict()["occurrence_indices"],
+    )
+    if storage in {"invalidated", "replaced"}:
+        assert result._packed_result is None
+
+
+@pytest.mark.parametrize("evaluation_mode", ["internal", "incident", "between"])
+def test_query_names_preserve_scientific_scope_and_persisted_schemas(
+    tmp_path, evaluation_mode
+):
+    options = {}
+    if evaluation_mode == "incident":
+        options["evaluation_atom_indices"] = [0]
+    elif evaluation_mode == "between":
+        options.update(evaluation_atom_indices=[0, 1], evaluation_atom_indices_b=[2])
+    result = msm.Interactions.from_records(
+        [
+            _record(
+                0,
+                "hbond",
+                [("donor", [0]), ("hydrogen", [1]), ("acceptor", [2])],
+                0.2,
+                "geometry",
+            )
+        ],
+        n_atoms=3,
+        n_structures=2,
+        evaluated_structure_indices=[0, 1],
+        method="scope_fixture",
+        measure_units={"distance": "nm"},
+        evaluation_mode=evaluation_mode,
+        **options,
+    )
+    payload = msm.convert(result, to_form="molsysmt.InteractionsDict")
+    assert payload.data["version"] == 2
+    assert payload.data["evaluation_mode"] == evaluation_mode
+    restored_dict = msm.convert(payload, to_form="molsysmt.Interactions")
+    filename = tmp_path / "scoped.h5msm"
+    molsys = MolSys(n_atoms=3)
+    molsys.structures.append(coordinates=np.zeros((2, 3, 3)), skip_digestion=True)
+    molsys.interactions = {"scope": result}
+    msm.convert(molsys, to_form="file:h5msm", output_filename=filename)
+    restored_file = msm.convert(filename, to_form="molsysmt.MolSys").interactions[
+        "scope"
+    ]
+    for restored in (restored_dict, restored_file):
+        assert restored.evaluation_scope["mode"] == evaluation_mode
+        assert (
+            restored.query(atom_indices=[0], mode="involving_selection").n_interactions
+            == 1
+        )
+        assert (
+            restored.query(atom_indices=[0], mode="within_selection").n_interactions
+            == 0
+        )
+        assert (
+            restored.between_selections([0, 1], [2], exclusive=True).n_interactions == 1
+        )
+        np.testing.assert_array_equal(
+            restored.query([1]).to_dict()["evaluated_structure_indices"], [1]
+        )

@@ -77,6 +77,13 @@ source maps remain shared read-only data. Query indexes, structure metadata and 
 copies have distinct memory costs. See
 {ref}`Inspecting bounded pages <user-tools-interactions-pages>`.
 
+Atom queries distinguish observations involving a selection, entirely within it,
+or across its boundary. The public names are `involving_selection`,
+`within_selection` and `across_selection_boundary`; `between_selections` connects
+two explicit disjoint sets. All constituent atoms of each participant count,
+including the hydrogen in a hydrogen bond and every atom in a ring. These
+filters select stored evidence and preserve its original scientific search scope.
+
 This assignment declares that the analysis's local atom and structure indices
 correspond to the system. MolSysMT checks compatible axes and valid results;
 you are responsible for the correspondence of independently loaded data.

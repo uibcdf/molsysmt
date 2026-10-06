@@ -1737,3 +1737,18 @@ The five existing route/promotion guards pass in the shared Python 3.14
 environment (twelve workers, receptor `llm`, 3.98 s); Ruff, developer-guide
 validation and whitespace checks pass. This is scoped route validation,
 not another full-suite or installed-package qualification.
+
+
+## Coordinated interaction query vocabulary — 2026-10-06
+
+uibcdf/molsysmt#346 implements the approved provider counterpart of
+uibcdf/molsysviewer#168: `involving_selection`, `within_selection`,
+`across_selection_boundary`, and the separate `between_selections` operation.
+Legacy query values and `between` remain compatible. Scientific calculation
+scope and H5MSM/InteractionsDict schemas are unchanged; the
+[normative contract](interactions_query_semantics.md) defines the migration boundary.
+The [provider report](archive/resolved_proposals/coordinate_explicit_interactions_selection_query_names.md)
+records 1,474 passing scoped tests, eight passing doctests and executed public
+examples. Consumer migration remains Viewer-owned. Prior full source/wheel
+qualification retains its original producer; it does not certify this new source
+or a 0.23.0 artifact. The exact-candidate gates under #334 remain pending.

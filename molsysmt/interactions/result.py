@@ -11,6 +11,8 @@ import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 
+from ._query_modes import normalize_query_mode
+
 _RESULT_DIGEST = {
     "digestion_source": "molsysmt._private.argdigest.interactions_result",
     "digestion_style": "registry",
@@ -965,7 +967,7 @@ class Interactions:
         self,
         structure_indices=None,
         atom_indices=None,
-        mode="incident",
+        mode="involving_selection",
         interaction_types=None,
         *,
         skip_digestion=False,
@@ -978,8 +980,11 @@ class Interactions:
             Local structure indices; repeats are removed in first-seen order.
         atom_indices : array-like of int or None, default=None
             Local atom indices defining the set used by ``mode``.
-        mode : {'incident', 'internal', 'cross'}, default='incident'
-            Whether any, all, or only some relation atoms belong to the set.
+        mode : str, default='involving_selection'
+            ``involving_selection`` retains observations with any participant
+            atom in the selection; ``within_selection`` requires every atom;
+            ``across_selection_boundary`` requires atoms inside and outside.
+            Every constituent atom of a compound participant counts.
         interaction_types : iterable of str or None, default=None
             Kinds to retain. ``None`` retains every kind.
         skip_digestion : bool, default=False
@@ -990,11 +995,21 @@ class Interactions:
         Interactions
             Lightweight selection sharing the stored numeric arrays.
 
+        Notes
+        -----
+        ``incident``, ``internal`` and ``cross`` remain compatibility values for
+        the three modes, respectively. Query filters do not change the stored
+        scientific ``evaluation_mode``. Use ``between_selections`` for two
+        explicit disjoint atom selections; it is not a value of ``mode``.
+
+        See Also
+        --------
+        between_selections : Selecting observations connecting disjoint sets.
+
         .. versionadded:: 1.0.0
         """
         _check_skip_digestion(skip_digestion)
-        if mode not in {"incident", "internal", "cross"}:
-            raise ValueError("mode must be 'incident', 'internal', or 'cross'")
+        mode = normalize_query_mode(mode)
         if structure_indices is None:
             coverage = self._coverage
         else:
@@ -1058,9 +1073,9 @@ class Interactions:
                     membership = np.isin(self._relation_atoms(relation), atoms)
                     matches = (
                         membership.any()
-                        if mode == "incident"
+                        if mode == "involving_selection"
                         else membership.all()
-                        if mode == "internal"
+                        if mode == "within_selection"
                         else membership.any() and not membership.all()
                     )
                     if not matches:
@@ -1090,7 +1105,7 @@ class Interactions:
                 )
             else:
                 incident = np.empty(0, dtype=np.int64)
-            if mode == "incident":
+            if mode == "involving_selection":
                 relations = incident
             else:
                 internal = np.asarray(
@@ -1103,7 +1118,7 @@ class Interactions:
                 )
                 relations = (
                     internal
-                    if mode == "internal"
+                    if mode == "within_selection"
                     else np.setdiff1d(incident, internal, assume_unique=True)
                 )
         if interaction_types is not None:
@@ -1137,7 +1152,7 @@ class Interactions:
         return self._view(positions, coverage)
 
     @arg_digest(**_RESULT_DIGEST)
-    def between(
+    def between_selections(
         self,
         atom_indices_a,
         atom_indices_b,
@@ -1167,9 +1182,25 @@ class Interactions:
         Returns
         -------
         Interactions
-            Selected occurrences and evaluated-frame coverage.
+            Selected occurrences and evaluated-structure coverage.
 
-        .. versionadded:: 1.0.0
+        Notes
+        -----
+        A relation must include at least one atom from each selection. Every
+        constituent atom of a compound participant counts. Without exclusivity,
+        further participant atoms may lie outside both selections. ``between``
+        remains a compatibility spelling of this operation.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> observations = msm.Interactions.from_records(
+        ...     [], n_atoms=2, n_structures=1,
+        ...     evaluated_structure_indices=[0], method='example')
+        >>> observations.between_selections([0], [1]).n_interactions
+        0
+
+        .. versionadded:: 0.23.0
         """
         _check_skip_digestion(skip_digestion)
         a = np.unique(_indices(atom_indices_a, self.n_atoms, "atom_indices_a"))
@@ -1198,6 +1229,55 @@ class Interactions:
             np.isin(self.occurrence_relations[candidates._positions], allowed)
         ]
         return candidates._view(positions, candidates._coverage)
+
+    @arg_digest(**_RESULT_DIGEST)
+    def between(
+        self,
+        atom_indices_a,
+        atom_indices_b,
+        structure_indices=None,
+        exclusive=False,
+        interaction_types=None,
+        *,
+        skip_digestion=False,
+    ):
+        """Selecting between disjoint sets using the compatibility spelling.
+
+        Parameters
+        ----------
+        atom_indices_a : array-like of int
+            First set of local atom indices.
+        atom_indices_b : array-like of int
+            Second disjoint set of local atom indices.
+        structure_indices : array-like of int or None, default=None
+            Structures to inspect; ``None`` uses evaluated structures.
+        exclusive : bool, default=False
+            Require every participant atom to belong to the union of both sets.
+        interaction_types : iterable of str or None, default=None
+            Interaction kinds to retain.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        Interactions
+            Selected occurrences and evaluated-structure coverage.
+
+        See Also
+        --------
+        between_selections : Preferred spelling with the same semantics.
+
+        .. versionadded:: 1.0.0
+        """
+        _check_skip_digestion(skip_digestion)
+        return self.between_selections(
+            atom_indices_a,
+            atom_indices_b,
+            structure_indices=structure_indices,
+            exclusive=exclusive,
+            interaction_types=interaction_types,
+            skip_digestion=True,
+        )
 
     @arg_digest(**_RESULT_DIGEST)
     def to_dict(self, *, skip_digestion=False):

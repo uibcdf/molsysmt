@@ -4,6 +4,7 @@ import json
 
 import numpy as np
 
+from ._query_modes import normalize_query_mode
 from .result import _indices, _software_versions, _unique_in_order
 
 
@@ -117,7 +118,7 @@ def query_interactions_group(
     structure_indices,
     *,
     atom_indices=None,
-    mode="incident",
+    mode="involving_selection",
     interaction_types=None,
     _cache=None,
 ):
@@ -155,8 +156,7 @@ def query_interactions_group(
     frames = _unique_in_order(
         _indices(structure_indices, n_structures, "structure_indices")
     )
-    if mode not in {"incident", "internal", "cross"}:
-        raise ValueError("mode must be 'incident', 'internal', or 'cross'.")
+    mode = normalize_query_mode(mode)
     atoms = (
         None
         if atom_indices is None
@@ -232,11 +232,13 @@ def query_interactions_group(
                     )
                 )
                 matches = np.isin(involved, atoms)
-                if mode == "incident" and not matches.any():
+                if mode == "involving_selection" and not matches.any():
                     continue
-                if mode == "internal" and not matches.all():
+                if mode == "within_selection" and not matches.all():
                     continue
-                if mode == "cross" and (not matches.any() or matches.all()):
+                if mode == "across_selection_boundary" and (
+                    not matches.any() or matches.all()
+                ):
                     continue
             allowed_relations.add(relation)
             descriptors[relation] = descriptor
@@ -335,7 +337,7 @@ def query_named_interactions_file(
     structure_indices,
     *,
     atom_indices=None,
-    mode="incident",
+    mode="involving_selection",
     interaction_types=None,
 ):
     """Query one named analysis in an H5MSM 0.5 file by requested frames."""
@@ -429,7 +431,7 @@ class HDF5InteractionsReader:
         structure_indices,
         *,
         atom_indices=None,
-        mode="incident",
+        mode="involving_selection",
         interaction_types=None,
     ):
         """Read matching occurrences from the open analysis."""

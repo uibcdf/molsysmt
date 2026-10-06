@@ -13,6 +13,7 @@ import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 
+from ._query_modes import normalize_query_mode
 from .result import (
     _RESULT_DIGEST,
     Interactions,
@@ -165,12 +166,13 @@ class _FrameFilteredInteractions(Interactions):
         self,
         structure_indices=None,
         atom_indices=None,
-        mode="incident",
+        mode="involving_selection",
         interaction_types=None,
         *,
         skip_digestion=False,
     ):
         _check_skip_digestion(skip_digestion)
+        mode = normalize_query_mode(mode)
         frames = self._query_frames(structure_indices)
         if (
             structure_indices is None
@@ -194,7 +196,7 @@ class _FrameFilteredInteractions(Interactions):
         return self._project(view)
 
     @arg_digest(**_RESULT_DIGEST)
-    def between(
+    def between_selections(
         self,
         atom_indices_a,
         atom_indices_b,
@@ -206,7 +208,7 @@ class _FrameFilteredInteractions(Interactions):
     ):
         _check_skip_digestion(skip_digestion)
         return self._project(
-            self._root.between(
+            self._root.between_selections(
                 atom_indices_a,
                 atom_indices_b,
                 structure_indices=self._query_frames(structure_indices),

@@ -68,17 +68,30 @@ empty is empty only within this declared search scope.
 
 ```python
 interactions.query(structure_indices=[2, 0, 2]).to_dict()
-interactions.query(atom_indices=[0], mode="incident")
-interactions.query(atom_indices=[0, 1, 2], mode="internal")
-interactions.query(atom_indices=[0], mode="cross")
-interactions.between([0, 1], [2], exclusive=True)
+interactions.query(atom_indices=[0], mode="involving_selection")
+interactions.query(atom_indices=[0, 1, 2], mode="within_selection")
+interactions.query(atom_indices=[0], mode="across_selection_boundary")
+interactions.between_selections([0, 1], [2], exclusive=True)
 ```
 
-`incident` means at least one participating atom belongs to the selection;
-`internal` requires all participating atoms; `cross` means incident but not
-internal. For a ring, every constituent atom participates in these tests.
-`between(A, B)` requires at least one atom from each disjoint set. With
+`involving_selection` (the default) means at least one participating atom belongs
+to the selection; `within_selection` requires every participating atom;
+`across_selection_boundary` requires atoms inside and outside the selection.
+These names describe the atom-selection boundary, not a molecular boundary.
+For a ring, every constituent atom participates in these tests; a hydrogen bond
+includes its donor, hydrogen and acceptor. Empty atom selections return no
+observations in all three modes.
+`between_selections(A, B)` requires at least one atom from each disjoint set. With
 `exclusive=True`, every participant atom must belong to `A` or `B`.
+
+The three old query values `incident`, `internal` and `cross`, and the method
+`between(A, B)`, remain supported compatibility spellings with the same behavior.
+Use the explicit names for new queries. `between_selections` is a separate method,
+not a fourth value for `query(mode=...)`, because it needs two selections.
+Neither spelling changes the scientific search that produced the analysis:
+detector `selection_mode` and stored `evaluation_mode` still use `internal`,
+`incident` and `between`. Existing H5MSM 0.5 and InteractionsDict files retain
+those scientific values without migration or a schema change.
 
 Each query returns a lightweight view. `to_dict()` provides typed occurrence
 columns, explicit evaluated-structure indices, measurement units, and optional
@@ -634,7 +647,7 @@ directed metal/ligand candidates; it does not declare bonds in ChemicalStates.
 {func}`molsysmt.interactions.water_bridges.get_water_bridges` stores two or three
 D-H-A legs with six or nine singleton roles and one or two mediator waters.
 `order=1` is the default; `order=2` means exactly two distinct waters, not up to two. Repeated atoms
-retain their separate chemical roles; incident queries return an occurrence
+retain their separate chemical roles; `involving_selection` queries return an occurrence
 once. Internal queries require all actual branch atoms, including mediator
 O and the participating H. An unused water H is not an extra participant.
 Both analyses retain evaluated-empty frames, original references/producer

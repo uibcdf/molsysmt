@@ -13,6 +13,7 @@ import numpy as np
 from molsysmt._private.argdigest import arg_digest
 
 from ._frame_validity import _FrameFilteredInteractions, _interchange_result, _metadata
+from ._query_modes import normalize_query_mode
 from .result import (
     _RESULT_DIGEST,
     Interactions,
@@ -423,7 +424,7 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
             if requested is not None and not len(requested):
                 continue
             view = (
-                base.between(
+                base.between_selections(
                     structure_indices=requested, skip_digestion=True, **query_arguments
                 )
                 if between
@@ -554,14 +555,13 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
         self,
         structure_indices=None,
         atom_indices=None,
-        mode="incident",
+        mode="involving_selection",
         interaction_types=None,
         *,
         skip_digestion=False,
     ):
         _check_skip_digestion(skip_digestion)
-        if mode not in {"incident", "internal", "cross"}:
-            raise ValueError("mode must be 'incident', 'internal', or 'cross'")
+        mode = normalize_query_mode(mode)
         if atom_indices is not None:
             atom_indices = _indices(atom_indices, self.n_atoms, "atom_indices")
         return self._collect(
@@ -574,7 +574,7 @@ class _FramePatchedInteractions(_FrameFilteredInteractions):
         )
 
     @arg_digest(**_RESULT_DIGEST)
-    def between(
+    def between_selections(
         self,
         atom_indices_a,
         atom_indices_b,

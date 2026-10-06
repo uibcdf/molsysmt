@@ -127,6 +127,14 @@ def test_file_query_matches_memory_for_frames_atoms_types_and_images(tmp_path):
     _assert_matches_memory(
         filename, result, [2], atom_indices=[3, 4, 5], mode="internal"
     )
+    for mode in (
+        "involving_selection",
+        "within_selection",
+        "across_selection_boundary",
+    ):
+        _assert_matches_memory(
+            filename, result, [4, 1, 2, 0, 4], atom_indices=[3, 4, 5], mode=mode
+        )
     _assert_matches_memory(filename, result, [1])
     _assert_matches_memory(filename, result, [3])
 

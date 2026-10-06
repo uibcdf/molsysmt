@@ -46,9 +46,9 @@ assert columns["structure_indices"].tolist() == [3, 0]
 assert columns["occurrence_indices"].tolist() == [1, 0]
 assert columns["evaluated_structure_indices"].tolist() == [3, 1, 0]
 
-ring_between = interactions.between([3, 4, 5], [6, 7, 8], exclusive=True)
+ring_between = interactions.between_selections([3, 4, 5], [6, 7, 8], exclusive=True)
 assert ring_between.n_interactions == 1
-assert interactions.query(atom_indices=[3], mode="cross").n_interactions == 1
+assert interactions.query(atom_indices=[3], mode="across_selection_boundary").n_interactions == 1
 
 columns = msm.convert(interactions, to_form="molsysmt.InteractionsDict")
 reconstructed = msm.convert(columns, to_form="molsysmt.Interactions")

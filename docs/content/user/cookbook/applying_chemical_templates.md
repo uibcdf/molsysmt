@@ -618,7 +618,7 @@ analysis = msm.convert(payload, to_form='molsysmt.Interactions')
 molsys_C.interactions = {**molsys_C.interactions, 'hydrophobic': analysis}
 
 visible = analysis.query(
-    structure_indices=[0], atom_indices=indices_B, mode='incident'
+    structure_indices=[0], atom_indices=indices_B, mode='involving_selection'
 )
 msm.convert(molsys_C, to_form='file:h5msm',
             output_filename='prepared_interface.h5msm')
