@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "issue": "uibcdf/molsysmt#341",
+  "base_source": "1fb36d4eeafead327578ec2e3cb56d2810991316",
+  "qualification": "focused editable-checkout contract tests; not installed-artifact or full-matrix acceptance",
+  "python": "3.14.7",
+  "providers": {
+    "smonitor": "0.18.0",
+    "depdigest": "0.13.0",
+    "argdigest": "0.13.0",
+    "pyunitwizard": "0.28.1"
+  },
+  "receipts": [
+    {
+      "scope": "fresh old-failure reproduction",
+      "workers": 12,
+      "receptor": "llm",
+      "exit_code": 1,
+      "tests": 7,
+      "failures": 5,
+      "errors": 0,
+      "skips": 0,
+      "warnings": 29,
+      "junit_sha256": "90cbfbde60a1fe39fb8cb176f292efecc32e8c2e4039832aec1814cace6714ff",
+      "failed_nodes": [
+        "tests.build.mutate.test_mutate_engine_MolSysMT::test_mutate_val_to_trp_atom_count",
+        "tests.build.mutate.test_mutate_molsysmt_MolSys::test_mutate_molsysmt_MolSys_5",
+        "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity::test_parity_1brs_total_atom_count",
+        "tests.build.mutate.test_mutate_engine_MolSysMT::test_mutate_trp_has_full_indole",
+        "tests.build.mutate.test_mutate_parity::test_parity_trp_sidechain_present_native"
+      ]
+    },
+    {
+      "scope": "corrected bounded-repair selection",
+      "workers": 12,
+      "receptor": "llm",
+      "exit_code": 0,
+      "tests": 87,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "warnings": 111,
+      "junit_sha256": "a7174c41f07171dc1e3b0ad355bd0a7810f0695096fb5f9883c990414ec3361d",
+      "failed_nodes": []
+    },
+    {
+      "scope": "corrected public doctests",
+      "workers": 12,
+      "receptor": "llm",
+      "exit_code": 0,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "warnings": 2,
+      "junit_sha256": "610863179aae30b26dd5a4d819c19a7de106279e92f6542f532bf371e833759f",
+      "failed_nodes": []
+    }
+  ],
+  "source_sha256": {
+    "tests/build/mutate/test_mutate_engine_MolSysMT.py": "85330be668ea054d1dfef149ba280159e83bd5b89f0ad22c68fb7df6d73be097",
+    "tests/build/mutate/test_mutate_molsysmt_MolSys.py": "27cff189b74b252649fef4d84a63eac55c245a308d9918fdaca52145197d8d2d",
+    "tests/build/mutate/test_mutate_parity.py": "f421bb1660006d130ae2a3ed82b8e9c491ae4c395c78572517424e5a1c6f2443",
+    "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings_parity.py": "cc71ee24e629f43134bb4e310f6dfc31c24e5aaccf1e2c9a8953a99d3820c6cc",
+    "molsysmt/build/mutate.py": "0a85b50a079604a5f2a3d18972ce2d989aaf05c4b574583575833e62df389ebc",
+    "molsysmt/build/add_missing_terminal_cappings.py": "910f0ab4c75a72afd6c45a568a1e22d5890ac59cd74f6106cf0d214012c2d954"
+  },
+  "documentation": {
+    "code_cells_and_outputs_unchanged": [
+      "docs/content/user/tools/build/mutate.ipynb",
+      "docs/content/user/tools/build/add_missing_terminal_cappings.ipynb",
+      "docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb",
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+    ],
+    "current_course_structure_validator": {
+      "script": "devtools/scripts/validate_course.py",
+      "exit_code": 0,
+      "notebooks": 156
+    },
+    "historical_course_validator": {
+      "script": "docs/content/course/devtools/validate_course.py",
+      "exit_code": 1,
+      "notebooks_reported_noncompliant": 156,
+      "limitation": "Historical headings and filenames differ from the maintained manifest; not the current course gate. No claim of a globally clean legacy documentation audit."
+    }
+  }
+}

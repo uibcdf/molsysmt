@@ -20,3 +20,14 @@ Any addition or modification to the public API is considered incomplete until fo
 2. **User Guide Coverage**: Updating relevant Foundations, Toolbox, and Cookbook documentation pages.
 3. **Master Course Alignment**: Verifying and updating corresponding modules of *The Four Paths of the MolSysMT's Master* course.
 4. **Deprecation Policy**: Obsoleted functions follow a transparent deprecation cycle, issuing user warnings before removal across minor releases.
+
+## Scientific Coverage
+
+A preparation tool can return an incomplete modeled system when a reconstruction
+is outside its validated coverage. Native heavy-atom repair reports those gaps;
+the same limits apply when mutation or terminal capping delegates to that tool.
+Inspect unresolved inventories and diagnostics before using the result. A target
+group name, a completed terminus or matching atom counts do not establish complete
+chemistry, a validated conformation or an energy minimum. An explicitly selected
+optional engine has its own reconstruction policy; there is no automatic fallback.
+See {ref}`Tutorial_Mutate` and {ref}`Tutorial_Add_missing_terminal_cappings`.

@@ -5,7 +5,10 @@ systems.
 
 # Import package, test suite, and other packages as needed
 
+import pytest
+
 import molsysmt as msm
+from molsysmt._private.smonitor import UnassessedResidueWarning
 
 # Distance between atoms in space and time
 
@@ -54,11 +57,24 @@ def test_mutate_molsysmt_MolSys_4(hp35_bcif_molsys):
 
 
 # From https://github.com/openmm/pdbfixer/blob/master/pdbfixer/tests/test_mutate.py
-def test_mutate_molsysmt_MolSys_5(hp35_bcif_molsys):
+@pytest.mark.parametrize("engine", ["MolSysMT", "PDBFixer"])
+def test_mutate_molsysmt_MolSys_5(hp35_bcif_molsys, engine):
     molsys = hp35_bcif_molsys
-    molsys = msm.build.mutate(
-        molsys, mutations=["ALA-57-LEU", "SER-56-ALA"], selection="chain_name=='A'"
-    )
+    if engine == "MolSysMT":
+        with pytest.warns(UnassessedResidueWarning, match="LEU.*multiple missing"):
+            molsys = msm.build.mutate(
+                molsys,
+                mutations=["ALA-57-LEU", "SER-56-ALA"],
+                selection="chain_name=='A'",
+                engine=engine,
+            )
+    else:
+        molsys = msm.build.mutate(
+            molsys,
+            mutations=["ALA-57-LEU", "SER-56-ALA"],
+            selection="chain_name=='A'",
+            engine=engine,
+        )
     group_name57, group_id57 = msm.get(
         molsys,
         element="group",
@@ -86,6 +102,12 @@ def test_mutate_molsysmt_MolSys_5(hp35_bcif_molsys):
     assert set(["N", "CA", "CB", "C", "O", "H", "HA", "HB1", "HB2", "HB3"]) == set(
         atoms56
     )
+    if engine == "MolSysMT":
+        assert set(atoms57) == {"N", "CA", "C", "O", "H", "HA"}
+        assert msm.build.get_missing_heavy_atoms(
+            molsys, selection="group_index==16"
+        ) == {16: ["CB", "CD1", "CD2", "CG"]}
+        return
     assert set(
         [
             "C",

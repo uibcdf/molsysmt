@@ -67,6 +67,13 @@ def add_missing_terminal_cappings(
     If no capping residues are provided, the function only completes missing terminal atoms
     in the native residues (which are often charged).
 
+    The native engine delegates nonterminal heavy-atom repair to its bounded
+    placement tool. Unsupported side-chain gaps remain missing with
+    ``UnassessedResidueWarning``, even if terminal completion succeeds. Inspect
+    ``get_missing_heavy_atoms`` as well as ``get_missing_terminal_cappings``.
+    PDBFixer can choose additional reconstructions, so whole-system atom counts
+    need not match between engines.
+
     Native atom expansion requires one selected chemical state. Existing atom
     assignments, state identity/provenance and observed coordinates survive.
     Added chemical fields remain unknown and connectivity is partial; capping
@@ -101,8 +108,6 @@ def add_missing_terminal_cappings(
     >>> import molsysmt as msm
     >>> molsys = msm.build.build_peptide('AlaValPro')
     >>> molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
-    >>> msm.physchem.get_charge(capped_system)
-    0.0 elementary_charge
     >>> msm.convert(molsys, to_form='string:amino_acids_3')
     'AceAlaValProNme'
 

@@ -10,14 +10,15 @@ Known difference between engines:
 The tests therefore focus on what must agree:
   - Group names after mutation.
   - Backbone heavy atoms (N, CA, C, O) present in every mutated group.
-  - Sidechain heavy atoms (by name) present in every mutated group.
+  - Unsupported native side chains remain explicit with a diagnostic.
   - Mutations that shrink the sidechain (VAL→GLY) reduce heavy-atom count.
-  - Mutations that grow the sidechain (VAL→TRP) increase heavy-atom count.
+  - PDBFixer can choose a side-chain reconstruction outside native coverage.
 """
 
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import UnassessedResidueWarning
 
 
 @pytest.fixture(scope="module")
@@ -126,11 +127,15 @@ def test_parity_val_to_gly_reduces_heavy_count(ala_val_pro_heavy):
 # ── Sidechain build (VAL→TRP) ─────────────────────────────────────────────────
 
 
-def test_parity_trp_sidechain_present_native(ala_val_pro_heavy):
-    """MolSysMT: TRP sidechain contains the expected indole atoms."""
-    r = msm.build.mutate(
-        ala_val_pro_heavy, mutations={1: "TRP"}, keys="group_index", engine="MolSysMT"
-    )
+def test_native_trp_sidechain_remains_unassessed(ala_val_pro_heavy):
+    """Heavy-only native mutation retains the backbone and declares every gap."""
+    with pytest.warns(UnassessedResidueWarning, match="TRP.*multiple missing"):
+        r = msm.build.mutate(
+            ala_val_pro_heavy,
+            mutations={1: "TRP"},
+            keys="group_index",
+            engine="MolSysMT",
+        )
     heavy = set(
         msm.get(
             r,
@@ -139,19 +144,10 @@ def test_parity_trp_sidechain_present_native(ala_val_pro_heavy):
             atom_name=True,
         )
     )
-    for expected in (
-        "CB",
-        "CG",
-        "CD1",
-        "CD2",
-        "NE1",
-        "CE2",
-        "CE3",
-        "CZ2",
-        "CZ3",
-        "CH2",
-    ):
-        assert expected in heavy, f"MolSysMT: TRP atom {expected} missing"
+    assert heavy == {"N", "CA", "C", "O"}
+    assert msm.build.get_missing_heavy_atoms(r) == {
+        1: ["CB", "CD1", "CD2", "CE2", "CE3", "CG", "CH2", "CZ2", "CZ3", "NE1"]
+    }
 
 
 def test_parity_trp_sidechain_present_pdbfixer(ala_val_pro_heavy):

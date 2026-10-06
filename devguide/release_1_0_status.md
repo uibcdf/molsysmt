@@ -322,11 +322,22 @@ explicit SDF/PDBQT supported-table entries; the independent census is retained.
 The [resolution](archive/resolved_bugs/catalogue_guards_omit_the_admitted_sdf_and_pdbqt_forms.md)
 and [artifact](../devtools/data/catalogue_guards_20261006.json) retain four
 initial failures and 45 passing catalogue/real-PDBQT cases without skips.
-Other old full-suite failures remain pending fresh triage.
+Fresh triage of the seven remaining old failure nodes with Python 3.14,
+pytest-receptor and twelve workers passes the missing-RDKit absence contract and
+the converter-table guard. Five caller assertions still assume reconstruction
+outside the native profile accepted in #322. #341 corrects the mutation/capping
+coverage claims and tests without changing placement algorithms. Its
+[resolution](archive/resolved_bugs/mutation_and_terminal_repair_claims_bypass_the_bounded_native_placement_contract.md)
+and [receipt](../devtools/data/bounded_repair_callers_20261006.json) preserve the
+initial five failures, 87 passing repair cases, two passing public doctests,
+exact missing inventories and unchanged observed/source coordinates. All runs
+use `--receptor=llm -n 12`. Warnings remain recorded. A full local Python 3.14
+source suite is in progress with the same worker/profile settings; its outcome
+and any further failures must be inspected before selecting an S6 candidate.
 
 S5 is still partial for executed environment/admission evidence. Next inspect
-the catalogue-fix checkpoint controls, contrast the remaining older automatic failures
-with current guards, obtain Viewer feedback, and select exact candidates for S6.
+the complete local suite, resolve any remaining included-profile defects, obtain
+Viewer feedback, and select exact candidates for S6.
 No release tag or GitHub Release is published. Configured eight-cell matrices,
 solver success, focused editable tests and an accepted badge are not S6 evidence.
 

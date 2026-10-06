@@ -1,8 +1,8 @@
 """
 Parity tests for add_missing_terminal_cappings: MolSysMT engine vs PDBFixer engine.
 
-Both engines should produce the same total atom count, the same number of OXT
-atoms, and OXT bonded correctly to the C of the terminal residue.
+Both engines should produce the same OXT completion. Whole-system counts differ
+when the native heavy-atom preflight leaves unsupported side-chain gaps explicit.
 
 Structure used: Barnase-Barstar (1brs.bcif.gz) — has one C-terminal residue
 (SER, group 412) with missing OXT.
@@ -11,6 +11,10 @@ Structure used: Barnase-Barstar (1brs.bcif.gz) — has one C-terminal residue
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import (
+    StructuralAttributeDropWarning,
+    UnassessedResidueWarning,
+)
 
 
 @pytest.fixture(scope="module")
@@ -26,13 +30,26 @@ def t4_lysozyme():
 # ── Barnase-Barstar ───────────────────────────────────────────────────────────
 
 
-def test_parity_1brs_total_atom_count(barnase_barstar):
-    """Both engines produce the same total atom count after adding OXT."""
-    r_native = msm.build.add_missing_terminal_cappings(
-        barnase_barstar, engine="MolSysMT"
-    )
+def test_1brs_bounded_heavy_repair_and_shared_terminal_completion(barnase_barstar):
+    """Terminal completion preserves the native heavy-atom abstention contract."""
+    missing_before = msm.build.get_missing_heavy_atoms(barnase_barstar)
+    with pytest.warns(
+        (UnassessedResidueWarning, StructuralAttributeDropWarning)
+    ) as caught:
+        r_native = msm.build.add_missing_terminal_cappings(
+            barnase_barstar, engine="MolSysMT"
+        )
     r_pdb = msm.build.add_missing_terminal_cappings(barnase_barstar, engine="PDBFixer")
-    assert msm.get(r_native, n_atoms=True) == msm.get(r_pdb, n_atoms=True)
+    assert msm.get(barnase_barstar, n_atoms=True) == 5151
+    assert msm.get(r_native, n_atoms=True) == 5156
+    assert msm.get(r_pdb, n_atoms=True) == 5230
+    assert msm.build.get_missing_heavy_atoms(r_native) == {
+        i: names for i, names in missing_before.items() if i not in {282, 325, 385, 587}
+    }
+    assert msm.build.get_missing_heavy_atoms(r_pdb) == {}
+    assert any(isinstance(w.message, UnassessedResidueWarning) for w in caught)
+    for result in (r_native, r_pdb):
+        assert msm.build.get_missing_terminal_cappings(result) == {}
 
 
 def test_parity_1brs_oxt_count(barnase_barstar):

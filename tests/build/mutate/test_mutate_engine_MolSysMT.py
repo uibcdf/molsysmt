@@ -2,9 +2,12 @@
 Tests for mutate(engine='MolSysMT') — no external dependencies required.
 """
 
+import numpy as np
+import pandas as pd
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import UnassessedResidueWarning
 
 
 @pytest.fixture(scope="module")
@@ -45,14 +48,45 @@ def test_mutate_val_to_gly_atom_count(ala_val_pro):
     assert n_after < n_before
 
 
-def test_mutate_val_to_trp_atom_count(ala_val_pro):
-    """VAL→TRP: gains a large indole sidechain."""
-    mutated = msm.build.mutate(
-        ala_val_pro, mutations={1: "TRP"}, keys="group_index", engine="MolSysMT"
+def test_mutate_val_to_trp_keeps_unsupported_inventory_explicit(ala_val_pro):
+    """Native mutation reports an unmodeled indole instead of inventing a rotamer."""
+    original = ala_val_pro.copy()
+    with pytest.warns(UnassessedResidueWarning, match="TRP.*multiple missing"):
+        mutated = msm.build.mutate(
+            ala_val_pro, mutations={1: "TRP"}, keys="group_index", engine="MolSysMT"
+        )
+    assert msm.build.get_missing_heavy_atoms(mutated) == {
+        1: ["CB", "CD1", "CD2", "CE2", "CE3", "CG", "CH2", "CZ2", "CZ3", "NE1"]
+    }
+    assert mutated.get_n_atoms() == 30
+    assert msm.get(mutated, element="group", group_name=True) == ["ALA", "TRP", "PRO"]
+    for group_index in (0, 2):
+        before = msm.get(
+            original, selection=f"group_index=={group_index}", coordinates=True
+        )
+        after = msm.get(
+            mutated, selection=f"group_index=={group_index}", coordinates=True
+        )
+        np.testing.assert_array_equal(
+            msm.pyunitwizard.get_value(after, to_unit="nm"),
+            msm.pyunitwizard.get_value(before, to_unit="nm"),
+        )
+    for name in ("N", "CA", "C", "O"):
+        selection = f'group_index==1 and atom_name=="{name}"'
+        np.testing.assert_array_equal(
+            msm.pyunitwizard.get_value(
+                msm.get(mutated, selection=selection, coordinates=True)
+            ),
+            msm.pyunitwizard.get_value(
+                msm.get(original, selection=selection, coordinates=True)
+            ),
+        )
+    pd.testing.assert_frame_equal(ala_val_pro.topology.atoms, original.topology.atoms)
+    pd.testing.assert_frame_equal(ala_val_pro.topology.groups, original.topology.groups)
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(ala_val_pro.structures.coordinates),
+        msm.pyunitwizard.get_value(original.structures.coordinates),
     )
-    n_after = msm.get(mutated, n_atoms=True)
-    n_before = msm.get(ala_val_pro, n_atoms=True)
-    assert n_after > n_before
 
 
 def test_mutate_gly_has_only_backbone(ala_val_pro):
@@ -70,9 +104,9 @@ def test_mutate_gly_has_only_backbone(ala_val_pro):
 
 
 def test_mutate_trp_has_full_indole(ala_val_pro):
-    """TRP sidechain must contain the full indole ring."""
+    """The explicitly requested PDBFixer reconstruction supplies the full indole."""
     mutated = msm.build.mutate(
-        ala_val_pro, mutations={1: "TRP"}, keys="group_index", engine="MolSysMT"
+        ala_val_pro, mutations={1: "TRP"}, keys="group_index", engine="PDBFixer"
     )
     heavy = msm.get(
         mutated,

@@ -16,11 +16,13 @@ def mutate(
     engine="MolSysMT",
 ):
     """
-    Apply point mutations to one or more residues of a molecular system.
+    Applying amino-acid substitutions with explicit reconstruction limits.
 
     This function replaces specified residues with different amino acids, rebuilds
-    missing heavy atoms, and optionally re-adds hydrogens. The mutated structure is
-    returned in the same form as the input.
+    supported missing heavy atoms, and re-adds hydrogens when present in the input.
+    The native engine can return an incomplete target group with an explicit
+    warning; inspect its remaining heavy-atom inventory. The mutated structure
+    is returned in the same form as the input.
 
 
     Parameters
@@ -28,22 +30,26 @@ def mutate(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     mutations : object, default=None
-        Argument mutations.
+        Target substitutions as a group-keyed dictionary or mutation strings
+        such as ``"VAL-1-GLY"`` (source name, group ID and target name).
     keys : object, default='group_index'
-        Argument keys.
+        Dictionary key meaning: ``group_index``, ``group_id`` or ``group_name``.
+        Group indices are positions; group IDs are string labels.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : object, default='MolSysMT'
-        Argument engine.
+        Reconstruction engine: ``MolSysMT`` for bounded native placement or
+        ``PDBFixer`` for that optional provider's reconstruction.
 
     Returns
     -------
     molecular system
-        A new molecular system with the requested mutations applied, missing heavy
-        atoms rebuilt, and hydrogens re-added if the original system contained them.
-        Returned in the same form as the input.
+        A new molecular system with target amino-acid names and supported heavy
+        atoms rebuilt. Unsupported native gaps remain missing with a warning.
+        Hydrogens are re-added if the original system contained them. Returned
+        in the same form as the input; the source is unchanged.
 
 
     Raises
@@ -61,12 +67,41 @@ def mutate(
 
     Notes
     -----
-    All target residue names are converted to uppercase before being passed to the
-    engine. After applying mutations the engine calls ``findMissingResidues``,
-    ``findMissingAtoms``, and ``addMissingAtoms`` to produce a chemically complete
-    structure. If the original system contained hydrogen atoms, ``addMissingHydrogens``
-    is called at pH 7.4.
+    Target amino-acid names are converted to uppercase. Native mutation removes
+    non-backbone atoms from each target and delegates reconstruction to
+    ``add_missing_heavy_atoms(engine='MolSysMT')``. Its conservative preflight
+    rejects multiple missing side-chain atoms, invalid anchors and conflicting
+    local geometry with ``UnassessedResidueWarning``. For example, a target TRP
+    can retain only its observed backbone. Inspect ``get_missing_heavy_atoms``
+    on the result: the target name and added H do not certify complete chemistry,
+    a validated rotamer, resolved clashes or an energy minimum.
 
+    The explicit ``PDBFixer`` engine uses ``applyMutations``,
+    ``findMissingResidues``, ``findMissingAtoms`` and ``addMissingAtoms``.
+    It can reconstruct inventories outside native coverage; matching atom counts
+    does not independently validate those coordinates. No automatic engine
+    fallback is performed.
+
+    See Also
+    --------
+    molsysmt.build.get_missing_heavy_atoms
+        Inspecting unresolved heavy-atom inventories after mutation.
+    molsysmt.build.add_missing_heavy_atoms
+        Reconstructing gaps within the selected engine's geometric coverage.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.build.build_peptide('AlaValPro')
+    >>> new_molsys = msm.build.mutate(molsys, mutations={1: 'GLY'})
+    >>> msm.get(new_molsys, element='group', group_name=True)
+    ['ALA', 'GLY', 'PRO']
+    >>> msm.build.get_missing_heavy_atoms(new_molsys)
+    {}
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Mutate` for mutation specifications and reconstruction limits.
 
     .. versionadded:: 1.0.0
     """
