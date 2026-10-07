@@ -23,7 +23,8 @@ contracts.
 ## Current pre-1.0 checkpoint — 2026-10-07
 
 The selected pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**, under the
-feature freeze in `uibcdf/molsysmt#334`. S6 coordinated publication is active.
+feature freeze in `uibcdf/molsysmt#334`. The coordinated pre-1.0 publication
+checkpoint is complete; the separate 1.0 stabilization review remains open.
 This checkpoint prepares the next pre-1.0 release; it does not select 1.0.0.
 
 MolSysMT's four native ABI3 **build-0** files are available in
@@ -106,8 +107,8 @@ repository and concept family, with version DOI **10.5281/zenodo.23205366**.
 The archived source file is `uibcdf/molsysmt-0.23.0.zip` (153,784,473 bytes,
 `md5:9e2aa4844c6b8ef030b92dcca6bc7bd3`). The receipt preserves both probes;
 the public project-level concept DOI remains 10.5281/zenodo.1298752.
-The paired 16-cell **public** installation matrix is now in progress;
-public solver records and staging results do not replace that installed check.
+The paired 16-cell **public** installation matrix is now complete and verified,
+as recorded below; both source-version archival records are also verified.
 
 Hosted documentation run `37583385927` completes successfully on the release
 source; this does not erase the previously recorded warning debt. Release Conda
@@ -128,11 +129,23 @@ Public installed-pair run
 [37587631519](https://github.com/uibcdf/molsysmt/actions/runs/37587631519)
 is dispatched **once** from `candidate/0.23.0-build0` on the exact MolSysMT
 source, with MT 0.23.0/build 0, Viewer 0.24.0/build 1, Python 3.11–3.14,
-all four platforms and `package_source=public`. At receiving inspection,
-**7/16 cells** pass and the others are running or queued. No complete public-pair
-verdict is claimed. The Viewer owner has the run ID and will independently
-inspect all sixteen environment artifacts; the provider receipt records inputs
-and current scope.
+all four platforms and `package_source=public`. It completes successfully in
+**16/16 cells**, with all four required install/runtime/environment/retention
+steps approved per cell. The provider downloaded all sixteen original ZIPs,
+verified their GitHub SHA-256 digests and checked exact public URLs, build
+filenames, Python minors and MD5/SHA-256 against original package bytes and
+registry records. The receipt retains every ZIP/environment digest and the
+installed identities. The Viewer owner independently verifies the same sixteen
+environments and publishes its final receipt at
+`fd8f499e5216df432fd5f52c67647983a935ce27`, under
+`uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`.
+
+The additional native read-only verification run `37591619395` is queued at
+this checkpoint. It will check the completed matrix without rerunning its
+installations; retain its receipt after execution.
+This closes the coordinated **0.23.0/0.24.0 pre-1.0 publication** checkpoint.
+It does not declare 1.0, settle every experimental profile or close owning
+acceptance issues without their required guard/normative reconciliation.
 
 Use [Resume from here](#resume-from-here) for the remaining sequence. Earlier
 dated observations preserve history; their pending statements do not supersede
@@ -574,27 +587,28 @@ open; this closure does not certify them or establish release readiness.
 
 ## Resume from here
 
-The [frozen scope](release_1_0_scope.md) governs admission. The active candidate
+The [frozen scope](release_1_0_scope.md) governs admission. The published pre-1.0
 pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**; its files and executed evidence
 are recorded in the current checkpoint above and the
 [staging handoff receipt](../devtools/data/stabilization_023_staging_handoff_20261006.json).
 Keep MolSysMT's original package producer and source SHA even when later commits
 correct developer tooling or update this ledger.
 
-1. Inspect public installed-pair run `37587631519` to completion. Retain all
-   sixteen environment records and confirm the original platform files,
-   build numbers, digests, public channel and required runtime/evidence steps.
-   Have the Viewer owner independently inspect the same artifacts.
-2. Preserve both verified Zenodo version receipts, original tags and package
-   producers. Publication and archival are complete; the public installed-pair
-   verdict is still pending. Do not repeat promotions or create duplicate
-   archive records to obtain another diagnostic.
-3. Record the complete coordinated publication outcome, reconcile owning
-   acceptance issues and assess the finite stabilization queue for 1.0. Keep
-   recorded optional omissions and experimental Qt limits under their owners;
-   this pre-1.0 publication does not itself stabilize every experimental API.
-4. Retire the fixed candidate branch only after all installed-pair evidence and
-   reference-dependent checks are complete. The qualified tags remain fixed.
+1. Reconcile the completed publication evidence with the finite S1–S6 queue
+   under `uibcdf/molsysmt#334`, and review the owning native/result acceptance
+   issues. The 16/16 public pair, 8/8 final source matrix and verified Zenodo
+   receipts are a completed pre-1.0 baseline, not automatic 1.0 sign-off.
+2. Align current development controlled-source pins with the newly published
+   Viewer baseline using the dependency audit and affected gates. Preserve
+   historical pins at their original candidate; do not move the qualified tags
+   or rebuild their public files merely to update development routes.
+3. Identify any remaining current-profile blockers, documentation obligations
+   and accepted optional/experimental limits before selecting a 1.0 candidate.
+   Keep feature scope frozen; extensions retain their post-1.0 owners.
+4. Preserve original package/ZIP/environment identities, the read-only matrix
+   receipt and both version DOIs. Retire the temporary candidate branch after
+   all reference-dependent verification and owner reconciliation are complete;
+   the qualified tags remain fixed.
 
 The public 0.22.4/0.23.4 pair and the
 [Python 3.14 checkpoint](python_3_14_checkpoint.md) remain historical installation
@@ -605,8 +619,9 @@ The [interaction-detection namespace proposal](pending_proposals/organize_intera
 (`uibcdf/molsysmt#250`) has been accepted for the bounded pre-1.0 migration of
 hydrogen-bond methods and disulfide-candidate detection. The bounded namespace,
 detector migration and persistence routes are implemented in the staged
-candidate. Final consumer acceptance and exact-candidate qualification remain
-open. Separately approved
+candidate. The published pre-1.0 pair now supplies consumer and exact-candidate
+qualification evidence; owning acceptance closure and 1.0 stability decisions
+still require explicit reconciliation. Separately approved
 experimental ionic, pi-pi, cation-pi, halogen, hydrophobic, metal-candidate and
 one- and two-water hydrogen-bond families are now implemented; these are not new 1.0
 requirements. Metal-specific rules and paths through more than two waters remain
@@ -618,7 +633,7 @@ atom search scope, and standalone and grouped HDF5 codecs have focused tests.
 Public H5MSM 0.5 round trips for named analyses and supported partial `MolSys`
 combinations are contract-tested. Incremental interaction editing and bounded
 public file access remain unsupported. The experimental consumer contract is
-agreed; stabilization and exact-candidate qualification remain open.
+agreed; the pre-1.0 pair is qualified, while 1.0 stabilization remains open.
 The [S2 review packet](interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
 records local provider/consumer projection and session parity for all nine
 families and both water orders. This supersedes the earlier two-family local

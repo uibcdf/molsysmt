@@ -208,9 +208,9 @@
     "log_sha256": "3d0e999a9371a218b9155828b259fea67e92a197867e860fb64e095f7cd35532"
   },
   "pending": [
-    "Complete and independently verify sixteen public installed-pair cells in run 37587631519"
+    "Retain the native verification receipt and owning consumer closure records; then review the separate 1.0 stabilization queue."
   ],
-  "publication": "MolSysMT 0.23.0 and Viewer 0.24.0 are public with exact-version Zenodo records; the sixteen-cell public installed-pair campaign is in progress.",
+  "publication": "MolSysMT 0.23.0 / Viewer 0.24.0 coordinated pre-1.0 publication and public qualification completed; this does not declare 1.0.",
   "coordinated_publication_review": {
     "recorded_at": "2026-10-07T05:44:57.559941+00:00",
     "viewer_receipt_commit": "3465e56300d6365692a7b596f8ba1338e4a59fee",
@@ -591,9 +591,9 @@
         "recorded_at": "2026-10-07T06:47:32.152250+00:00"
       }
     ],
-    "status": "Both Releases and exact-version Zenodo archives verified; original public packages promoted; sixteen-cell public installed pair in progress.",
+    "status": "Coordinated pre-1.0 publication complete: both Releases, original public packages, both Zenodo source archives and all sixteen public installed-pair cells verified.",
     "pending": [
-      "Complete and independently verify sixteen public installed-pair cells in run 37587631519"
+      "Retain the native verification receipt and owning consumer closure records; then review the separate 1.0 stabilization queue."
     ],
     "verified_at": "2026-10-07T06:50:03.407729+00:00",
     "public_packages": [
@@ -869,8 +869,374 @@
       "expected_cells": 16,
       "successful_cells_at_recording": 7,
       "recorded_at": "2026-10-07T07:31:58.741103+00:00",
-      "dispatch_handoff": "Run ID sent to the existing Viewer session; the Viewer owner will independently inspect the sixteen environment artifacts. No duplicate dispatch."
-    }
+      "dispatch_handoff": "Run ID sent to the existing Viewer session; the Viewer owner will independently inspect the sixteen environment artifacts. No duplicate dispatch.",
+      "verified_at": "2026-10-07T08:06:53.966492+00:00",
+      "status": "completed",
+      "conclusion": "success",
+      "verified_cells": 16,
+      "required_steps_verified_per_cell": 4,
+      "environment_artifacts": [
+        {
+          "digest": "sha256:46ecc15dbb3e7419f10973b78d0bfca852932b4fde9fd08e0266f800e99b2c68",
+          "expired": false,
+          "id": 11467655424,
+          "name": "conda-public-linux-64-py3.11",
+          "size_in_bytes": 8348,
+          "platform": "linux-64",
+          "python": "3.11",
+          "environment_sha256": "94bd3aaef7e815c1c30882fb0eb169e5975e80f9831833aa2c18a9a8d698362c",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-64/molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+              "md5": "910376ed59c081b851bf4a9c529d3457",
+              "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:de832142294f8457973d7bee9ae41822bfb29940a15a419981d73541aeb58e29",
+          "expired": false,
+          "id": 11466559561,
+          "name": "conda-public-linux-64-py3.12",
+          "size_in_bytes": 8332,
+          "platform": "linux-64",
+          "python": "3.12",
+          "environment_sha256": "cbf6bd64df11fba218be3b3ec20b2c99adea4ec3085b177722dd29a48f08faa5",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-64/molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+              "md5": "910376ed59c081b851bf4a9c529d3457",
+              "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:496bc2feefb32bb182b4a2e43af9f7529067a5e0d85988ab83ac56ce1dabe9bf",
+          "expired": false,
+          "id": 11467137005,
+          "name": "conda-public-linux-64-py3.13",
+          "size_in_bytes": 8240,
+          "platform": "linux-64",
+          "python": "3.13",
+          "environment_sha256": "3e81bf2f49747b9bed0caeda8e1c0ac312b5fcb5a54e3c844d1e58e4ffdfb471",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-64/molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+              "md5": "910376ed59c081b851bf4a9c529d3457",
+              "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:75793aa9cf0875b09b9531338ef72787e1ecf4bdfa4e9c434c7110783c9aca6d",
+          "expired": false,
+          "id": 11467497302,
+          "name": "conda-public-linux-64-py3.14",
+          "size_in_bytes": 8220,
+          "platform": "linux-64",
+          "python": "3.14",
+          "environment_sha256": "bedcec0139cecfaad7a66960b1c01b9a8fb796e004fb919a297fa07e0b1fcfd6",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-64/molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+              "md5": "910376ed59c081b851bf4a9c529d3457",
+              "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:5720ac334620c36c5023144dc2f09a3887b68117455815915847a3700ac03f36",
+          "expired": false,
+          "id": 11467028434,
+          "name": "conda-public-linux-aarch64-py3.11",
+          "size_in_bytes": 6059,
+          "platform": "linux-aarch64",
+          "python": "3.11",
+          "environment_sha256": "00433c0b0289972d7409acb3909ceb98e658a85b7e9f2d1ed490907518669395",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-aarch64/molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+              "md5": "6c1785f49dd93c3b0e362a65d2846c70",
+              "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:a4e07a7ad66ea1a03dbff5744da2ced1410f830173e27c1eb1b67f8ef3a901bd",
+          "expired": false,
+          "id": 11467266973,
+          "name": "conda-public-linux-aarch64-py3.12",
+          "size_in_bytes": 6042,
+          "platform": "linux-aarch64",
+          "python": "3.12",
+          "environment_sha256": "035b5dc70be33b9114395d8cbc8652b10ef302ca559f4fedf2f1286689ed9a1d",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-aarch64/molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+              "md5": "6c1785f49dd93c3b0e362a65d2846c70",
+              "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:184d1c98acc7dc7874031d63ea99ece4e70aa336deb8d990a774615ba82b197a",
+          "expired": false,
+          "id": 11466933688,
+          "name": "conda-public-linux-aarch64-py3.13",
+          "size_in_bytes": 8241,
+          "platform": "linux-aarch64",
+          "python": "3.13",
+          "environment_sha256": "8616b7e3111147cd0400db328a3550d72b6167d0be9825cc0ecf6cd9e0a2f12c",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-aarch64/molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+              "md5": "6c1785f49dd93c3b0e362a65d2846c70",
+              "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:637561555c79f66867bc3fb0aa819af6e8c7829afb7063cff2b2b408ef43fb4e",
+          "expired": false,
+          "id": 11466729129,
+          "name": "conda-public-linux-aarch64-py3.14",
+          "size_in_bytes": 8236,
+          "platform": "linux-aarch64",
+          "python": "3.14",
+          "environment_sha256": "b1d8c864df4e70ec82da6c84e71c3caf9b7987782d1ebadcb0e070efe59dd3f3",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/linux-aarch64/molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+              "md5": "6c1785f49dd93c3b0e362a65d2846c70",
+              "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:2e1c38f9131c4ea5d964e81ed9bf87878664a0cb71588bd543e96c7c4009703d",
+          "expired": false,
+          "id": 11467384451,
+          "name": "conda-public-osx-arm64-py3.11",
+          "size_in_bytes": 5739,
+          "platform": "osx-arm64",
+          "python": "3.11",
+          "environment_sha256": "c1fdd8ef83be738e496c95f86d34f0ead3caa5e1dd8552f20445ae8d4511911f",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/osx-arm64/molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+              "md5": "57c32f76258559af5f135d23365b42ae",
+              "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:7acb88ee90d595d31077e49247678e09e88990b54a3925e61e534ef86d31ce67",
+          "expired": false,
+          "id": 11467682925,
+          "name": "conda-public-osx-arm64-py3.12",
+          "size_in_bytes": 5725,
+          "platform": "osx-arm64",
+          "python": "3.12",
+          "environment_sha256": "3a3b724c1d1af6c7b4f9854d02fff1d683d2d31b47ba66ee8d8f8ca583cea2a3",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/osx-arm64/molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+              "md5": "57c32f76258559af5f135d23365b42ae",
+              "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:6652104ee5f11e1c100c9c64000a2fd3dd78fb64e46957ad0e6a65376804f8a9",
+          "expired": false,
+          "id": 11468038426,
+          "name": "conda-public-osx-arm64-py3.13",
+          "size_in_bytes": 5664,
+          "platform": "osx-arm64",
+          "python": "3.13",
+          "environment_sha256": "58b47cb971ce85750f61252827a1defc1c626ebd6e721ae328f59695f9c728f3",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/osx-arm64/molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+              "md5": "57c32f76258559af5f135d23365b42ae",
+              "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:ace6cc9f63e43116bf34e0a85597e85f91af703a23ff0c818f4dce7764a9196d",
+          "expired": false,
+          "id": 11466952462,
+          "name": "conda-public-osx-arm64-py3.14",
+          "size_in_bytes": 5652,
+          "platform": "osx-arm64",
+          "python": "3.14",
+          "environment_sha256": "289cf99cb034233001ba510e913dface3ac7791ef7112eb15ef819e8dab75e2a",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/osx-arm64/molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+              "md5": "57c32f76258559af5f135d23365b42ae",
+              "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:7df031ad6f30479505b342b3aa5ff4116b83ea7821c7d34049c086d20ef74d74",
+          "expired": false,
+          "id": 11467032659,
+          "name": "conda-public-win-64-py3.11",
+          "size_in_bytes": 6442,
+          "platform": "win-64",
+          "python": "3.11",
+          "environment_sha256": "c4f92211412b202136d5753c87ff7f94ba985a16e8a3b744eafc890e669a7493",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/win-64/molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+              "md5": "a59e0202760f163f748d358e1b6b9532",
+              "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:449ea12a1ac5f824bb47f7338ac350b4f2f5fa28b43aca7e4493bcc670000635",
+          "expired": false,
+          "id": 11467795189,
+          "name": "conda-public-win-64-py3.12",
+          "size_in_bytes": 6449,
+          "platform": "win-64",
+          "python": "3.12",
+          "environment_sha256": "d0d65748dd85b3c74895be7625c8b96a85f4520996de25073fd3d4faf7b622e3",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/win-64/molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+              "md5": "a59e0202760f163f748d358e1b6b9532",
+              "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:4f59a20bfa2bca5b74c07a9badaf41a0fea2e2c825b43d08047cb764c25e79e4",
+          "expired": false,
+          "id": 11467137418,
+          "name": "conda-public-win-64-py3.13",
+          "size_in_bytes": 6359,
+          "platform": "win-64",
+          "python": "3.13",
+          "environment_sha256": "4d9e8fe57cb48c8332979bfcd2427030976ad585613b8bd5e38a3827ea7de9c4",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/win-64/molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+              "md5": "a59e0202760f163f748d358e1b6b9532",
+              "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b"
+            }
+          ]
+        },
+        {
+          "digest": "sha256:65931888a555ac0cd0ac59fe9336c28f8d773b9cd1689a325667ece1c988a59a",
+          "expired": false,
+          "id": 11467675841,
+          "name": "conda-public-win-64-py3.14",
+          "size_in_bytes": 6373,
+          "platform": "win-64",
+          "python": "3.14",
+          "environment_sha256": "c873e8d294a791cf08a0fc2d481b7eec280fdee78bd5bf73c03d4c64c4df19f5",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+              "md5": "b8b23559122df965ac06c892c91e1aea",
+              "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/win-64/molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+              "md5": "a59e0202760f163f748d358e1b6b9532",
+              "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b"
+            }
+          ]
+        }
+      ],
+      "verification": "All sixteen original ZIP digests match GitHub metadata; explicit environment URLs and MD5 match original MolSysMT bytes and public registry identities. All SHA-256 agree with the qualified receipts; public channel, exact builds and Python minor checked. Each native cell and all four required steps are successful.",
+      "native_verifier": {
+        "run_id": 37591619395,
+        "status_at_recording": "queued",
+        "scope": "Additional read-only verification of the already completed 16-cell matrix; does not rerun its installations. Receipt must be retained after execution."
+      }
+    },
+    "viewer_final_receipt_commit": "fd8f499e5216df432fd5f52c67647983a935ce27"
   },
   "initial_publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion.",
   "initial_pending": [
