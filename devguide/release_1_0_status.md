@@ -23,7 +23,7 @@ contracts.
 ## Current pre-1.0 checkpoint — 2026-10-07
 
 The selected pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**, under the
-feature freeze in `uibcdf/molsysmt#334`. S6 artifact qualification is active.
+feature freeze in `uibcdf/molsysmt#334`. S6 coordinated publication is active.
 This checkpoint prepares the next pre-1.0 release; it does not select 1.0.0.
 
 MolSysMT's four native ABI3 **build-0** files are available in
@@ -85,10 +85,35 @@ installed-RDKit negative-path case, and a Linux-only test on macOS. This is the
 workflow's declared test/doctest scope, not a claim that every optional backend
 was exercised there. The additive `coordinated_publication_review` in the handoff
 receipt retains every certificate/JUnit digest and the original observations.
-Final publication authorization and public-channel/archival verification remain
-pending.
+The maintainer has authorized MolSysMT publication; its public package records
+are now verified. Paired public installation and archival remain pending.
 
-No public tag, GitHub Release or main-label promotion has been performed.
+With the maintainer's final authorization on 2026-10-07, tag **0.23.0** and
+[GitHub Release 0.23.0](https://github.com/uibcdf/molsysmt/releases/tag/0.23.0)
+are published on the qualified source. The four original ABI3 build-0 files are
+promoted to **`uibcdf/main`** without rebuilding. Downloaded promotion and
+independent public-verification receipts agree with all original SHA-256 values
+and verify each file's `main` label and solver-visible index. Successful runs:
+linux-64 `37583470115`, linux-aarch64 `37583473201`, osx-arm64 `37583476153`,
+win-64 `37583479224`. Their evidence and digests are retained in the receipt's
+`publication_checkpoint`. MolSysViewer has received the public-provider handoff
+through its existing session; its build-1 publication remains Viewer-owned.
+
+The first Zenodo receipt, run `37583386427`, retains **`ingestion_pending`**.
+Read-only reprobe `37583715416` now reports **`verified`** for the exact version,
+repository and concept family, with version DOI **10.5281/zenodo.23205366**.
+The archived source file is `uibcdf/molsysmt-0.23.0.zip` (153,784,473 bytes,
+`md5:9e2aa4844c6b8ef030b92dcca6bc7bd3`). The receipt preserves both probes;
+the public project-level concept DOI remains 10.5281/zenodo.1298752.
+The paired 16-cell **public** installation matrix waits for Viewer publication;
+public solver records and staging results do not replace that installed check.
+
+Hosted documentation run `37583385927` completes successfully on the release
+source; this does not erase the previously recorded warning debt. Release Conda
+route run `37583386011` has three successful native jobs and one queued
+osx-arm64 job at this inspection. Its staged route skips rebuild/upload; the
+four separate promotion runs already verified the original public files.
+
 Use [Resume from here](#resume-from-here) for the remaining sequence. Earlier
 dated observations preserve history; their pending statements do not supersede
 this checkpoint.
@@ -536,25 +561,26 @@ are recorded in the current checkpoint above and the
 Keep MolSysMT's original package producer and source SHA even when later commits
 correct developer tooling or update this ledger.
 
-1. Review the completed source/native/installed-pair evidence against the
-   [exact-candidate gate](release_gate.md), preserving the recorded optional
-   omissions and documentation warning debt. The final-pair full matrix passes
-   8/8 cells; its scientific certificates and JUnit digests are retained.
-2. Obtain final publication approval for **0.23.0 / 0.24.0**. Staging is qualified
-   in 16/16 cells for MolSysMT build 0 and Viewer build 1; preserve those original
-   producers, files and digests. The dependency minimum is `molsysmt>=0.23.0`.
-3. The MolSysMT owner publishes the tag/Release on the qualified source, promotes
-   its four original ABI3 files and verifies each public record. This completes
-   the provider dependency needed by public Viewer installation.
-4. The MolSysViewer owner publishes its fixed candidate, promotes **build 1**
-   and verifies its public Conda file and npm/CDN. Viewer-owned presentation
-   acceptance remains under `uibcdf/molsysviewer#93` and
-   `uibcdf/molsysviewer#114`; experimental Qt limits remain in
-   `uibcdf/molsysviewer#109` and remote-session certification remains post-1.0
-   in `uibcdf/molsysviewer#100`.
-5. Qualify the **16 public installed-pair cells** and independently verify both
-   Zenodo version records. Staging success does not certify public solver
-   visibility or archival. Assess readiness for 1.0 after this checkpoint.
+1. Preserve the qualified original producers, tag identities and package
+   digests. MolSysMT 0.23.0 build 0 is public; staging passed 16/16 cells and the
+   final source pair passed 8/8. The dependency minimum is `molsysmt>=0.23.0`.
+2. Complete Viewer-owned publication of its fixed 0.24.0 candidate, promote
+   **build 1** and verify its public Conda file and npm/CDN, under its owner's
+   final authorization. MolSysMT's publication authorization does not publish
+   another repository. Viewer presentation acceptance remains under
+   `uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`; experimental Qt limits
+   remain in `uibcdf/molsysviewer#109` and remote-session certification remains
+   post-1.0 in `uibcdf/molsysviewer#100`.
+3. Dispatch the **16 public installed-pair cells** from the fixed MolSysMT
+   candidate branch once both public packages exist. Retain exact filenames,
+   build numbers, hashes and environment records, then verify the completed
+   matrix. Public package metadata is not an installed-pair result.
+4. Preserve MolSysMT's verified Zenodo version receipt and verify the Viewer
+   version record after its release. Keep `ingestion_pending` distinct from
+   `verified`, retain the first probe, and use the read-only recovery route
+   without publishing another Release or depositing a duplicate.
+5. Finish applicable post-release documentation/publication workflows, record
+   their exact outcomes and assess readiness for 1.0 after this checkpoint.
 
 The public 0.22.4/0.23.4 pair and the
 [Python 3.14 checkpoint](python_3_14_checkpoint.md) remain historical installation

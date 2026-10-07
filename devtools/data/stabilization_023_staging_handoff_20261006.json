@@ -208,12 +208,11 @@
     "log_sha256": "3d0e999a9371a218b9155828b259fea67e92a197867e860fb64e095f7cd35532"
   },
   "pending": [
-    "Eight-cell source matrix 37534217132 is still in progress at recording time",
-    "Exact MolSysViewer 0.24.0 staged artifact identity",
-    "Sixteen-cell installed pair qualification",
-    "Consumer-owned canvas/session acceptance under uibcdf/molsysviewer#93 and uibcdf/molsysviewer#114"
+    "Viewer-owned 0.24.0 build 1 publication",
+    "Sixteen public installed-pair cells and Viewer archival",
+    "Queued osx-arm64 administrative job in the staged release-route workflow"
   ],
-  "publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion.",
+  "publication": "MolSysMT 0.23.0 public tag/Release, four original public build-0 files and exact-version Zenodo archival verified; paired public installation remains pending.",
   "coordinated_publication_review": {
     "recorded_at": "2026-10-07T05:44:57.559941+00:00",
     "viewer_receipt_commit": "3465e56300d6365692a7b596f8ba1338e4a59fee",
@@ -478,7 +477,8 @@
           }
         }
       ],
-      "scope": "pytest.ini testpaths: tests and molsysmt/basic doctests; devtools/tests are covered separately. Optional/environment omissions are retained per cell."
+      "scope": "pytest.ini testpaths: tests and molsysmt/basic doctests; devtools/tests are covered separately. Optional/environment omissions are retained per cell.",
+      "controlled_viewer_wheel_scope": "The controlled wheel identifies exact Viewer source and carries development metadata; canonical package/version qualification is the separate installed Conda pair."
     },
     "viewer_source_gate": {
       "run_id": 37542642197,
@@ -507,5 +507,303 @@
       "Public promotion/verification, sixteen public installations and both Zenodo records"
     ],
     "historical_boundary": "Earlier pending lists and Viewer build-0 observations retain their original recording-time scope."
-  }
+  },
+  "publication_checkpoint": {
+    "recorded_at": "2026-10-07T06:48:26.217574+00:00",
+    "maintainer_authorized": true,
+    "authorized_by": "Diego Prada-Gracia",
+    "version": "0.23.0",
+    "tag": "0.23.0",
+    "tag_commit": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+    "release_url": "https://github.com/uibcdf/molsysmt/releases/tag/0.23.0",
+    "release_published_at": "2026-10-07T06:46:29Z",
+    "draft": false,
+    "prerelease": false,
+    "promotion_dispatches": [
+      {
+        "platform": "linux-64",
+        "inputs": {
+          "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+          "version": "0.23.0",
+          "target": "linux-64",
+          "filename": "molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+          "build_number": "0",
+          "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b",
+          "pair_run_id": "37541876875",
+          "molsysviewer_version": "0.24.0",
+          "molsysviewer_build_number": "1"
+        },
+        "stdout": "https://github.com/uibcdf/molsysmt/actions/runs/37583470115",
+        "stderr": "",
+        "exit_code": 0,
+        "recorded_at": "2026-10-07T06:47:25.824182+00:00"
+      },
+      {
+        "platform": "linux-aarch64",
+        "inputs": {
+          "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+          "version": "0.23.0",
+          "target": "linux-aarch64",
+          "filename": "molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+          "build_number": "0",
+          "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd",
+          "pair_run_id": "37541876875",
+          "molsysviewer_version": "0.24.0",
+          "molsysviewer_build_number": "1"
+        },
+        "stdout": "https://github.com/uibcdf/molsysmt/actions/runs/37583473201",
+        "stderr": "",
+        "exit_code": 0,
+        "recorded_at": "2026-10-07T06:47:27.913408+00:00"
+      },
+      {
+        "platform": "osx-arm64",
+        "inputs": {
+          "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+          "version": "0.23.0",
+          "target": "osx-arm64",
+          "filename": "molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+          "build_number": "0",
+          "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317",
+          "pair_run_id": "37541876875",
+          "molsysviewer_version": "0.24.0",
+          "molsysviewer_build_number": "1"
+        },
+        "stdout": "https://github.com/uibcdf/molsysmt/actions/runs/37583476153",
+        "stderr": "",
+        "exit_code": 0,
+        "recorded_at": "2026-10-07T06:47:29.987770+00:00"
+      },
+      {
+        "platform": "win-64",
+        "inputs": {
+          "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+          "version": "0.23.0",
+          "target": "win-64",
+          "filename": "molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+          "build_number": "0",
+          "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b",
+          "pair_run_id": "37541876875",
+          "molsysviewer_version": "0.24.0",
+          "molsysviewer_build_number": "1"
+        },
+        "stdout": "https://github.com/uibcdf/molsysmt/actions/runs/37583479224",
+        "stderr": "",
+        "exit_code": 0,
+        "recorded_at": "2026-10-07T06:47:32.152250+00:00"
+      }
+    ],
+    "status": "MolSysMT tag/Release published; four original files independently public-verified; exact-version Zenodo archive verified. Viewer/public-pair lifecycle and the queued administrative route job remain tracked.",
+    "pending": [
+      "Viewer-owned 0.24.0 build 1 publication",
+      "Sixteen public installed-pair cells and Viewer archival",
+      "Queued osx-arm64 administrative job in the staged release-route workflow"
+    ],
+    "verified_at": "2026-10-07T06:50:03.407729+00:00",
+    "public_packages": [
+      {
+        "platform": "linux-64",
+        "run_id": 37583470115,
+        "conclusion": "success",
+        "filename": "molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+        "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b",
+        "public_url": "https://conda.anaconda.org/uibcdf/linux-64/molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+        "main_label": "verified",
+        "solver_index": "verified",
+        "promotion_receipt_sha256": "5ffec2e7e0dba3f47fe9328735312f2e7112821b3cb521a9bcaaef0948a5f93e",
+        "public_evidence_sha256": "c959132aadb1b62fb94530775bbf4c75c03f108466f93c3914edbf5b8f79c469",
+        "public_evidence": {
+          "checked_at": "2026-10-07T06:48:20.112107+00:00",
+          "files": [
+            {
+              "filename": "molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+              "main_label": "verified",
+              "owner": "uibcdf",
+              "package": "molsysmt",
+              "sha256": "7ff102db1ceb3a6098b5c020193a2bef1c5eaa4dbcbc5a0b472ee2fa44a1971b",
+              "solver_index": "verified",
+              "subdir": "linux-64",
+              "url": "https://conda.anaconda.org/uibcdf/linux-64/molsysmt-0.23.0-pyabi3h03bb3b7_0.conda",
+              "version": "0.23.0"
+            }
+          ],
+          "schema": "molsyssuite.public-conda@1",
+          "state": "verified"
+        }
+      },
+      {
+        "platform": "linux-aarch64",
+        "run_id": 37583473201,
+        "conclusion": "success",
+        "filename": "molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+        "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd",
+        "public_url": "https://conda.anaconda.org/uibcdf/linux-aarch64/molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+        "main_label": "verified",
+        "solver_index": "verified",
+        "promotion_receipt_sha256": "4bcba04c660c4feb44f37680bf37d6105f94a66868dab7bbb16b7efa76da9d5e",
+        "public_evidence_sha256": "f05552029cfc9d0bb3d5eb5b2e7485ab0a13275827c401b751bd14a608ff84d9",
+        "public_evidence": {
+          "checked_at": "2026-10-07T06:48:21.321337+00:00",
+          "files": [
+            {
+              "filename": "molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+              "main_label": "verified",
+              "owner": "uibcdf",
+              "package": "molsysmt",
+              "sha256": "d588b52c843b43774ff59d4a627e4cffc0fcc86c39118f279815f4c6ec31a4dd",
+              "solver_index": "verified",
+              "subdir": "linux-aarch64",
+              "url": "https://conda.anaconda.org/uibcdf/linux-aarch64/molsysmt-0.23.0-pyabi3hecc93d8_0.conda",
+              "version": "0.23.0"
+            }
+          ],
+          "schema": "molsyssuite.public-conda@1",
+          "state": "verified"
+        }
+      },
+      {
+        "platform": "osx-arm64",
+        "run_id": 37583476153,
+        "conclusion": "success",
+        "filename": "molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+        "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317",
+        "public_url": "https://conda.anaconda.org/uibcdf/osx-arm64/molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+        "main_label": "verified",
+        "solver_index": "verified",
+        "promotion_receipt_sha256": "5b247b631ec78d77414e3e2693800e345f1ea2b824bd5a095b511c2421ef4326",
+        "public_evidence_sha256": "f7aaf478cc719796c6514131999f40043457140bb1e01851829ca18687b1cf41",
+        "public_evidence": {
+          "checked_at": "2026-10-07T06:48:18.472423+00:00",
+          "files": [
+            {
+              "filename": "molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+              "main_label": "verified",
+              "owner": "uibcdf",
+              "package": "molsysmt",
+              "sha256": "b2fe891f6e4fe9b167b0383a0f11c9772a5450e3fb93ad030ea5139d5aa54317",
+              "solver_index": "verified",
+              "subdir": "osx-arm64",
+              "url": "https://conda.anaconda.org/uibcdf/osx-arm64/molsysmt-0.23.0-pyabi3ha0bc463_0.conda",
+              "version": "0.23.0"
+            }
+          ],
+          "schema": "molsyssuite.public-conda@1",
+          "state": "verified"
+        }
+      },
+      {
+        "platform": "win-64",
+        "run_id": 37583479224,
+        "conclusion": "success",
+        "filename": "molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+        "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b",
+        "public_url": "https://conda.anaconda.org/uibcdf/win-64/molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+        "main_label": "verified",
+        "solver_index": "verified",
+        "promotion_receipt_sha256": "344331db8c1ca0e7f3a5d1363e0b31cf386b77a00c09445637841e41edfbc859",
+        "public_evidence_sha256": "1d77ae07719e9728b3b84e731808bafd6be7d25df52d59f03b2cae2561cf410f",
+        "public_evidence": {
+          "checked_at": "2026-10-07T06:48:31.660411+00:00",
+          "files": [
+            {
+              "filename": "molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+              "main_label": "verified",
+              "owner": "uibcdf",
+              "package": "molsysmt",
+              "sha256": "d74d69f2ef45e6f44ae9bfc43b89ae8a48d1422c0ad32df8302f17418139eb6b",
+              "solver_index": "verified",
+              "subdir": "win-64",
+              "url": "https://conda.anaconda.org/uibcdf/win-64/molsysmt-0.23.0-pyabi3h2d2bc06_0.conda",
+              "version": "0.23.0"
+            }
+          ],
+          "schema": "molsyssuite.public-conda@1",
+          "state": "verified"
+        }
+      }
+    ],
+    "zenodo_initial": {
+      "run_id": 37583386427,
+      "state": "ingestion_pending",
+      "receipt_sha256": "3e9e5f3bc375f5f8b7720efc69f9d5fc9851fe3f26cc2557b627da23f8a99aa1",
+      "evidence": {
+        "repository": "uibcdf/molsysmt",
+        "observed_at": "2026-10-07T06:46:47.162484+00:00",
+        "exit_status": 0,
+        "results": [
+          {
+            "repository": "uibcdf/molsysmt",
+            "tag": "0.23.0",
+            "version": "0.23.0",
+            "published_at": "2026-10-07T06:46:29Z",
+            "observed_at": "2026-10-07T06:46:47.162484+00:00",
+            "age_hours": 0.005,
+            "archive_coverage": "source-snapshot",
+            "escalation_required": false,
+            "state": "ingestion_pending"
+          }
+        ]
+      }
+    },
+    "zenodo_reprobe_run_id": 37583715416,
+    "zenodo_reprobe": {
+      "run_id": 37583715416,
+      "state": "verified",
+      "receipt_sha256": "e73c75f9eb850718c265edfefa69dd44a6f0632a5fc48d5c8a93fb8f5efff049",
+      "evidence": {
+        "repository": "uibcdf/molsysmt",
+        "observed_at": "2026-10-07T06:50:15.518812+00:00",
+        "exit_status": 0,
+        "results": [
+          {
+            "repository": "uibcdf/molsysmt",
+            "tag": "0.23.0",
+            "version": "0.23.0",
+            "published_at": "2026-10-07T06:46:29Z",
+            "observed_at": "2026-10-07T06:50:15.518812+00:00",
+            "age_hours": 0.063,
+            "archive_coverage": "source-snapshot",
+            "escalation_required": false,
+            "state": "verified",
+            "record_id": 23205366,
+            "concept_doi": "10.5281/zenodo.1298752",
+            "version_doi": "10.5281/zenodo.23205366",
+            "files": [
+              {
+                "key": "uibcdf/molsysmt-0.23.0.zip",
+                "size": 153784473,
+                "checksum": "md5:9e2aa4844c6b8ef030b92dcca6bc7bd3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "documentation": {
+      "run_id": 37583385927,
+      "conclusion": "success",
+      "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+      "scope": "Hosted Sphinx/gh-pages publication workflow; does not erase previously recorded warning debt."
+    },
+    "release_conda_route_workflow": {
+      "run_id": 37583386011,
+      "status_at_recording": "queued",
+      "scope": "The committed staged route skips rebuild/upload. Three native jobs completed successfully; osx-arm64 remains queued. Four independent promotion runs have already completed and public-verified the original files."
+    },
+    "public_tag_object": "8a18c2de49e0a8de71adbc12da2e4bc3b2b05a42",
+    "viewer_receiving_followup": {
+      "commit": "510256718ead7d9dc3d561426906739a7dee8427",
+      "owner": "uibcdf/molsysviewer#93",
+      "reported_verification": "Viewer independently verified all sixteen downloaded final-source artifacts against GitHub digests and the eight scientific/JUnit summaries against the provider receipt.",
+      "publication_handoff_delivered": true,
+      "authorization_boundary": "The user authorized MolSysMT publication here; Viewer publication remains under the Viewer owner authorization."
+    }
+  },
+  "initial_publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion.",
+  "initial_pending": [
+    "Eight-cell source matrix 37534217132 is still in progress at recording time",
+    "Exact MolSysViewer 0.24.0 staged artifact identity",
+    "Sixteen-cell installed pair qualification",
+    "Consumer-owned canvas/session acceptance under uibcdf/molsysviewer#93 and uibcdf/molsysviewer#114"
+  ]
 }
