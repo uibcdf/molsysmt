@@ -1,8 +1,0 @@
-{
-    "form_name": "mdtraj.GroTrajectoryFile",
-    "form_type": "class",
-    "item_class_key": [
-        "mdtraj",
-        "GroTrajectoryFile"
-    ]
-}

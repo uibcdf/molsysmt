@@ -1,8 +1,0 @@
-# Exact released sibling sources used by CI while the coordinated Conda pair is staged.
-# Runtime dependencies of these projects belong in the calling Conda environment;
-# workflows install this file with --no-deps so the solver cannot silently substitute
-# stale MolSysSuite packages from the uibcdf channel.
-git+https://github.com/uibcdf/smonitor@f604b940ab281df4554869fdd24f796ea6d42c27
-git+https://github.com/uibcdf/depdigest@df771e00e886fd9b12915adf54c1bd75c4b5476c
-git+https://github.com/uibcdf/pyunitwizard@25a4bc2468da4ef3af2a638c0bf068becf2acfb4
-git+https://github.com/uibcdf/argdigest@57447cc4ec1f7ce85078f8a939892efd075bc919

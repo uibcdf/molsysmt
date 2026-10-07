@@ -1,0 +1,976 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>H5MSM 0.5 – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/form/file/h5msm_05';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="file:inpcrd" href="file_inpcrd.html" />
+    <link rel="prev" title="file:h5msm" href="file_h5msm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../../../_static/searchtools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script src="../../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../class/index.html">Class Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/molsysmt/index.html">MolSysMT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_CIFFileHandler.html">CIFFileHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_GROFileHandler.html">GROFileHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_H5MSMFileHandler.html">H5MSMFileHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_MolSys.html">MolSys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_MolSysBuilder.html">MolSysBuilder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_MolSysDict.html">MolSysDict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_MolecularMechanics.html">MolecularMechanics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_MolecularMechanicsDict.html">MolecularMechanicsDict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_PDBFileHandler.html">PDBFileHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_Structures.html">Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_StructuresDict.html">StructuresDict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_Topology.html">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_TopologyDict.html">TopologyDict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/molsysmt/molsysmt_ViewerJSON.html">ViewerJSON</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/openmm/index.html">OpenMM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_AmberInpcrdFile.html">AmberInpcrdFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_AmberPrmtopFile.html">AmberPrmtopFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_CharmmCrdFile.html">CharmmCrdFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_CharmmPsfFile.html">CharmmPsfFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_Context.html">Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_GromacsGroFile.html">GromacsGroFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_GromacsTopFile.html">GromacsTopFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_Modeller.html">Modeller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_PDBFile.html">PDBFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_Simulation.html">Simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_State.html">State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_System.html">System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openmm/openmm_Topology.html">Topology</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/mdtraj/index.html">MDTraj</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_AmberRestartFile.html">AmberRestartFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_DCDTrajectoryFile.html">DCDTrajectoryFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_GroTrajectoryFile.html">GroTrajectoryFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_HDF5TrajectoryFile.html">HDF5TrajectoryFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_PDBTrajectoryFile.html">PDBTrajectoryFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_Topology.html">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_Trajectory.html">Trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdtraj/mdtraj_XTCTrajectoryFile.html">XTCTrajectoryFile</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/mdanalysis/index.html">MDAnalysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdanalysis/MDAnalysis_AtomGroup.html">AtomGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdanalysis/MDAnalysis_Topology.html">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdanalysis/MDAnalysis_Universe.html">Universe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/mdanalysis/MDAnalysis_topology_PDBParser.html">topology_PDBParser</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/parmed/index.html">ParmEd</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/parmed/parmed_GromacsTopologyFile.html">GromacsTopologyFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/parmed/parmed_Structure.html">Structure</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/pytraj/index.html">PyTraj</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/pytraj/pytraj_Topology.html">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/pytraj/pytraj_Trajectory.html">Trajectory</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/biopython/index.html">Biopython</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/biopython/biopython_PDBStructure.html">PDBStructure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/biopython/biopython_Seq.html">Seq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/biopython/biopython_SeqRecord.html">SeqRecord</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/openff/index.html">OpenFF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/openff/openff_Molecule.html">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/openff/openff_Topology.html">Topology</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/rdkit/index.html">RDKit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/rdkit/rdkit_Mol.html">Mol</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/viewers/index.html">Viewers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/viewers/molsysviewer_MolSysView.html">MolSysView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/viewers/nglview_NGLWidget.html">NGLWidget</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../class/others/index.html">Others</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../class/others/XYZ.html">XYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/others/cupy_ndarray.html">cupy_ndarray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/others/mmcif_PdbxContainers_DataContainer.html">DataContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/others/networkx_Graph.html">Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../class/others/pdbfixer_PDBFixer.html">PDBFixer</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">File Forms</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="file_bcif.html">bcif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_bcif_gz.html">bcif.gz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_cif.html">cif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_cif_gz.html">cif.gz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_crd.html">crd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_dcd.html">dcd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_fasta.html">fasta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_gro.html">gro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_h5.html">h5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_h5msm.html">h5msm</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">H5MSM 0.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_inpcrd.html">inpcrd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_mdcrd.html">mdcrd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_mol2.html">mol2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_molsys_yaml.html">molsys_yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_pdb.html">pdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_pir.html">pir</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_prmtop.html">prmtop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_psf.html">psf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_smi.html">smi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_structures_yaml.html">structures_yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_top.html">top</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_topology_yaml.html">topology_yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_trjpk.html">trjpk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_xtc.html">xtc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_xyz.html">xyz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_xyznpy.html">xyznpy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../string/index.html">String Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_alphafold_id.html">alphafold_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_amino_acids_1.html">amino_acids_1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_amino_acids_3.html">amino_acids_3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_pdb_id.html">pdb_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_pdb_text.html">pdb_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_smiles.html">smiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../string/string_uniprot_id.html">uniprot_id</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_attributes.html">Get attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../has_attribute.html">Has attribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../is_item.html">Is item</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../is_file.html">Is file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../is_string.html">Is string</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../close.html">Close</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Form</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">File Forms</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">H5MSM 0.5</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="h5msm-0-5">
+<span id="user-tools-form-h5msm-05"></span><h1>H5MSM 0.5<a class="headerlink" href="#h5msm-0-5" title="Link to this heading">#</a></h1>
+<p><em>Storing modular molecular systems in a versioned HDF5 file.</em></p>
+<p>H5MSM 0.5 stores <code class="docutils literal notranslate"><span class="pre">Topology</span></code>, <code class="docutils literal notranslate"><span class="pre">ChemicalStates</span></code>, <code class="docutils literal notranslate"><span class="pre">Structures</span></code>, and named
+<code class="docutils literal notranslate"><span class="pre">Interactions</span></code> analyses in independent, optional layers. An absent layer stays
+absent when the file is read. Associations record when two layers share atom or
+structure indices; equal axis lengths alone do not imply that they correspond.</p>
+<p><code class="docutils literal notranslate"><span class="pre">msm.convert(...,</span> <span class="pre">to_form=&quot;file:h5msm&quot;)</span></code> writes 0.5 by default, including
+selected atoms and structures. It accepts complete or partial native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Structures</span></code>, and <code class="docutils literal notranslate"><span class="pre">ChemicalStates</span></code> objects. Attached named <code class="docutils literal notranslate"><span class="pre">Interactions</span></code>
+analyses are stored with a <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>. <code class="docutils literal notranslate"><span class="pre">msm.convert</span></code> and <code class="docutils literal notranslate"><span class="pre">msm.h5msm.read</span></code> read 0.5;
+<code class="docutils literal notranslate"><span class="pre">msm.h5msm.read</span></code> also accepts 0.3 and 0.4 and warns with a migration
+instruction. The older file-form adapters remain available for legacy 0.3/0.4
+operations. General 0.5 file queries currently materialize a native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>;
+use <code class="docutils literal notranslate"><span class="pre">msm.h5msm.read_layers</span></code> to load only selected layers.
+Native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code> round trips also support structures and attached interactions
+without topology or chemical states, provided their atom and structure axes
+are explicitly linked in the file.</p>
+<p>Each analysis’s <code class="docutils literal notranslate"><span class="pre">software</span></code> dictionary retains the versions that produced its
+observations. For example, a Buch result records the MolSysMT version used
+for calculation. A different writer or reader version does not replace that
+value. The optional metadata is stored once per named analysis; older analyses
+without it expose an empty dictionary, meaning unknown producer versions.
+Frame-scoped <code class="docutils literal notranslate"><span class="pre">execution_records</span></code> preserve how retained and recalculated observations
+were produced, including structures evaluated without occurrences. New files use
+interaction codec 2 inside H5MSM 0.5. Current MolSysMT also reads codec 1 and
+migrates its recorded runtime fields; older builds supporting only codec 1 need
+updating to read new analyses. Full-axis native writes traverse resident active
+interaction blocks in bounded numeric windows, without packing edited analyses.
+This bound covers observation-column writes, not total RAM or other domains;
+selection/remapping before writing can still materialize data.
+See <a class="reference internal" href="../../interactions/result.html#user-tools-interactions-result"><span class="std std-ref">Querying interaction results</span></a>.</p>
+<section id="reading-legacy-units">
+<h2>Reading legacy units<a class="headerlink" href="#reading-legacy-units" title="Link to this heading">#</a></h2>
+<p>Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise <code class="docutils literal notranslate"><span class="pre">FormatError</span></code>. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.</p>
+</section>
+<section id="writing-and-reading-a-molecular-system">
+<h2>Writing and reading a molecular system<a class="headerlink" href="#writing-and-reading-a-molecular-system" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSys</span><span class="p">,</span> <span class="n">Structures</span>
+
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">MolSys</span><span class="p">(</span><span class="n">n_atoms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">structures</span> <span class="o">=</span> <span class="n">Structures</span><span class="p">(</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="s2">"nm"</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="s2">"example.h5msm"</span><span class="p">)</span>
+<span class="n">restored</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"example.h5msm"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">restored</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">n_structures</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>The general conversion route writes the same schema:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s2">"file:h5msm"</span><span class="p">,</span> <span class="n">output_filename</span><span class="o">=</span><span class="s2">"converted.h5msm"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"converted.h5msm"</span><span class="p">)</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">n_structures</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">msm.h5msm.write</span></code> creates a new file and rejects domain data that the current
+0.5 codec cannot encode. Coordinates are stored in nanometers and time in
+picoseconds. <code class="docutils literal notranslate"><span class="pre">msm.h5msm.read</span></code> reconstructs a native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code> when the file’s
+declared index links are representable by that object.
+Biological assemblies use typed chain-index and rotation arrays with translations
+stored in nanometers. Alternate atom locations use sparse frame and site offsets,
+typed values, and explicit nanometer and square-nanometer units. Structure IDs
+retain either their integer or string type. H5MSM 0.5 has no
+<code class="docutils literal notranslate"><span class="pre">MolecularMechanics</span></code> layer. Writing a system with nonempty mechanics data
+raises an error before creating the file. Mechanics persistence is planned
+for H5MSM 0.6 after MolSysMT 1.0, once its native parameter model is defined.
+The structures-only reader rejects atom subsets when a stored biological
+assembly is present, because its chain indices cannot be remapped without a
+topology. <code class="docutils literal notranslate"><span class="pre">msm.convert</span></code> likewise rejects writing an atom subset that retains
+bioassembly metadata until chain indices can be remapped safely.</p>
+<p>Chemical-state atom tables also preserve nullable <code class="docutils literal notranslate"><span class="pre">n_explicit_hydrogens</span></code> (UInt8),
+separately from implicit hydrogen counts and indexed H atoms. A missing old field
+stays unknown; it is not reconstructed. Readers predating this optional column may
+reject files containing it. Current readers accept older files lacking it. Named
+cation–π analyses preserve the original method reference as well as producer versions;
+ProLIF’s SMARTS membership order remains available to reconstruct its ring normal.</p>
+</section>
+<section id="reading-optional-layers">
+<h2>Reading optional layers<a class="headerlink" href="#reading-optional-layers" title="Link to this heading">#</a></h2>
+<section id="preparation-history">
+<h3>Preparation history<a class="headerlink" href="#preparation-history" title="Link to this heading">#</a></h3>
+<p>Chemical-state layer schema 2 extends schema 1 with optional historical records
+under <code class="docutils literal notranslate"><span class="pre">/chemical_states/&lt;state_index&gt;/preparation_history</span></code>. Writers use schema 2
+when a state has history and keep schema 1 when none has it. Current readers
+accept both; older builds that only support schema 1 require updating for files
+with history. The H5MSM root version remains 0.5.</p>
+<p>The history group uses <code class="docutils literal notranslate"><span class="pre">schema_version=1</span></code>, a gzip-compressed UTF-8 byte-vector
+<code class="docutils literal notranslate"><span class="pre">manifest</span></code>, and typed <code class="docutils literal notranslate"><span class="pre">arrays/&lt;index&gt;</span></code> datasets. The manifest declares a
+<code class="docutils literal notranslate"><span class="pre">molsysmt.preparation_history</span></code> version-1 tree with explicit node kinds, array
+shapes and NumPy dtypes. Each array dataset carries <code class="docutils literal notranslate"><span class="pre">numpy_dtype</span></code>; readers reject
+inconsistent shapes, dtypes, duplicate references, orphan arrays and unknown
+schemas. No pickle or arbitrary Python object reconstruction is used.
+<code class="docutils literal notranslate"><span class="pre">ChemicalStatesDict</span></code> uses version 2 when history is present and version 1 otherwise.</p>
+<p>Successful chemical-template applications, peptide-template construction,
+aromatic normalization, fixed-state H generation and terminal attachment
+attach <code class="docutils literal notranslate"><span class="pre">molsysmt.preparation_record&#64;1</span></code>
+envelopes. They preserve the provider report, original producer version and units,
+<code class="docutils literal notranslate"><span class="pre">index_scope='operation'</span></code>, and the original output’s <code class="docutils literal notranslate"><span class="pre">n_atoms</span></code>, <code class="docutils literal notranslate"><span class="pre">n_bonds</span></code> and
+<code class="docutils literal notranslate"><span class="pre">chemical_state_index</span></code>. Copy, extraction, merging and edits retain original
+operation indices; no current-axis map or current-chemistry certification is
+implied. Access independent copies through
+<code class="docutils literal notranslate"><span class="pre">molsys.chemical_states.get_preparation_history(chemical_state='reference')</span></code>.
+Geometry reports additionally declare original source atom/structure counts and
+evaluated <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> (int64); they contain no coordinate snapshot.
+Legacy records lacking those fields leave structure coverage unspecified.
+Import selected records with <code class="docutils literal notranslate"><span class="pre">append_preparation_history(records)</span></code> to retain
+component producer evidence in a destination. Import does not align atoms or
+structures, apply chemistry, or verify authenticity. Record order is append order,
+and original dimensions can differ from those of the current destination.
+Nullable/mixed embedded readiness audit values are scalar lists rather than
+object arrays. Normalization includes original order arrays (NaN for unknown
+orders). Construction includes the complete template declaration and its original
+producer; synthetic reference axes remain distinct from observed axes. Reference
+history import into a destination is explicit. These reports use the existing
+history schema and contain no coordinate snapshots.
+See <a class="reference internal" href="../../physchem/chemical_templates.html#tutorial-chemical-templates"><span class="std std-ref">Assessing and applying chemical templates</span></a> and <a class="reference internal" href="../../build/fixed_state_hydrogens.html#tutorial-fixed-state-hydrogens"><span class="std std-ref">Adding hydrogens to a fixed chemical state</span></a>.
+Context-template application retains its selected-atom and context maps and
+incident-edge coverage in the same provider report; no new layer schema is needed.
+These records do not certify current-axis or whole-polymer chemical readiness.</p>
+</section>
+<section id="layer-access">
+<h3>Layer access<a class="headerlink" href="#layer-access" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">msm.h5msm.read_layers</span></code> returns a dictionary. Each requested layer is present
+under its schema name; an absent layer has value <code class="docutils literal notranslate"><span class="pre">None</span></code>. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">read_layers</span><span class="p">(</span>
+    <span class="s2">"example.h5msm"</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="s2">"chemical_states"</span><span class="p">,</span> <span class="s2">"interactions"</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">layers</span><span class="p">[</span><span class="s2">"chemical_states"</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">layers</span><span class="p">[</span><span class="s2">"interactions"</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>A file containing only <code class="docutils literal notranslate"><span class="pre">Structures</span></code> is also readable as a partial <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>.
+The reader leaves topology and chemical states absent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span><span class="s2">"structures_only.h5msm"</span><span class="p">,</span> <span class="n">structures</span><span class="o">=</span><span class="n">molsys</span><span class="o">.</span><span class="n">structures</span><span class="p">)</span>
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"structures_only.h5msm"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">molsys</span><span class="o">.</span><span class="n">topology</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">molsys</span><span class="o">.</span><span class="n">chemical_states</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">molsys</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">n_structures</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="n">subset</span> <span class="o">=</span> <span class="n">molsys</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">subset</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">coordinates</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A frame-only <code class="docutils literal notranslate"><span class="pre">Structures</span></code> layer with time but no atom-aligned arrays likewise
+loads without inventing an atom count.</p>
+<p>A topology-and-chemistry-only file likewise loads with <code class="docutils literal notranslate"><span class="pre">molsys.structures</span> <span class="pre">is</span> <span class="pre">None</span></code>.
+Use <code class="docutils literal notranslate"><span class="pre">msm.extract(molsys,</span> <span class="pre">selection=[...])</span></code> or
+<code class="docutils literal notranslate"><span class="pre">msm.convert(filename,</span> <span class="pre">to_form='molsysmt.MolSys',</span> <span class="pre">selection=[...])</span></code> to retain
+selected atoms and remap the present chemistry. With topology, selected atoms
+follow sorted source indices. An explicit <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> selection requires
+a declared structure-index domain; topology and chemical states alone do not
+declare one. Save the selected native system through the public 0.5 conversion;
+its absent Structures layer stays absent.</p>
+<p>Topology, chemical states and named interactions can round-trip together while
+<code class="docutils literal notranslate"><span class="pre">molsys.structures</span> <span class="pre">is</span> <span class="pre">None</span></code>. Analyses supply the structure-index domain, including
+evaluated structures with zero occurrences. Atom and nonconsecutive structure
+selections remap the analyses without fabricating coordinates or a periodic box.
+Chemical states are not automatically assigned to those structures.</p>
+<p>The native writer declares chemistry-to-topology and analysis-to-topology identity
+atom links. When several analyses share the structure axis, it also declares
+identity links connecting them. The native reader accepts any connected graph of
+these identity structure links; matching counts alone are insufficient. Independent
+<code class="docutils literal notranslate"><span class="pre">write_layers</span></code> callers must supply these associations to compose the layers as
+one native system. Missing or nonidentity links raise an error; <code class="docutils literal notranslate"><span class="pre">read_layers</span></code>
+remains available for independent domains. Source labels and maps are provenance,
+not proof of correspondence. A named empty analysis retains its axes and coverage;
+a present-empty interaction layer requires <code class="docutils literal notranslate"><span class="pre">read_layers</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">msm.h5msm.write_layers</span></code> accepts independent native domains and explicit
+associations. It can also store an interaction analysis without a topology or
+coordinate layer. This is useful when an analysis refers to source atom and
+structure index spaces maintained elsewhere. Load such an interaction-only
+file as a partial <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>, or use <code class="docutils literal notranslate"><span class="pre">read_layers</span></code> to preserve the absent versus
+present-empty layer distinction:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">Interactions</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+    <span class="p">[],</span> <span class="n">n_atoms</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">evaluated_structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">"example"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span>
+    <span class="s2">"interactions_only.h5msm"</span><span class="p">,</span> <span class="n">interactions</span><span class="o">=</span><span class="p">{</span><span class="s2">"example"</span><span class="p">:</span> <span class="n">analysis</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">loaded</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">read_layers</span><span class="p">(</span>
+    <span class="s2">"interactions_only.h5msm"</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="s2">"interactions"</span><span class="p">,</span>
+    <span class="n">analysis_names</span><span class="o">=</span><span class="s2">"example"</span><span class="p">,</span>
+<span class="p">)[</span><span class="s2">"interactions"</span><span class="p">][</span><span class="s2">"example"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">loaded</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span>
+    <span class="s2">"evaluated_structure_indices"</span>
+<span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">msm.h5msm.read(&quot;interactions_only.h5msm&quot;)</span></code> returns a partial <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>
+whose atom and structure index domains come from the named analysis. Its
+<code class="docutils literal notranslate"><span class="pre">topology</span></code>, <code class="docutils literal notranslate"><span class="pre">chemical_states</span></code>, and <code class="docutils literal notranslate"><span class="pre">structures</span></code> are absent. <code class="docutils literal notranslate"><span class="pre">extract</span></code> accepts
+explicit atom and structure indices, including nonconsecutive and repeated
+structure indices. A present-empty interaction layer has no index domains;
+read that layer with <code class="docutils literal notranslate"><span class="pre">read_layers</span></code>.</p>
+</section>
+</section>
+<section id="composing-complementary-files">
+<h2>Composing complementary files<a class="headerlink" href="#composing-complementary-files" title="Link to this heading">#</a></h2>
+<p>You can load complementary partial files through <code class="docutils literal notranslate"><span class="pre">msm.convert</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">"matching_topology_chemistry.h5msm"</span><span class="p">,</span> <span class="s2">"matching_structures.h5msm"</span><span class="p">],</span>
+    <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Supplying the list declares that both files’ local indices correspond. Check and
+explicitly align the inputs before loading if their order differs; equal counts
+and source labels do not establish that correspondence. Each file’s internal
+associations are validated by its ordinary reader. Composition requires one
+provider for each topology, chemistry and Structures domain; disjoint named
+analyses may come from additional partial files. Repeated domains or analysis
+names and incompatible full axes fail before selections or output creation.
+Both file orders are accepted, as are their already loaded partial <code class="docutils literal notranslate"><span class="pre">MolSys</span></code> objects.</p>
+<p>Selections operate on the composed system, so an input without Structures is not
+asked to select frames. Existing structure-to-state declarations are preserved;
+splitting chemistry and coordinates into separate files does not invent one.
+The default output is independent. <code class="docutils literal notranslate"><span class="pre">copy_if_all=False</span></code> can share structural arrays
+on full-axis conversion, but topology is copied for its single-owner contract.
+Classification inspects metadata; conversion loads the stored arrays. Complete
+system files and established legacy input combinations retain their existing
+conversion rules. This bounded partial-domain route rejects nonempty mechanics.</p>
+</section>
+<section id="migrating-a-0-3-or-0-4-file">
+<h2>Migrating a 0.3 or 0.4 file<a class="headerlink" href="#migrating-a-0-3-or-0-4-file" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">h5msm</span><span class="o">.</span><span class="n">migrate_to_05</span><span class="p">(</span><span class="s2">"legacy.h5msm"</span><span class="p">,</span> <span class="s2">"modular.h5msm"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The helper reads a complete 0.3 or 0.4 molecular system, writes a separate
+0.5 file, and records the source version in <code class="docutils literal notranslate"><span class="pre">migrated_from_version</span></code>. It leaves
+the source unchanged. Reading a legacy file raises a visible
+<code class="docutils literal notranslate"><span class="pre">LegacyH5MSMWarning</span></code> that names this helper; legacy reading remains supported.
+The narrower <code class="docutils literal notranslate"><span class="pre">msm.h5msm.migrate_04_to_05</span></code> accepts only 0.4 input.
+Migration rejects a zero-atom legacy scaffold because that scaffold
+does not establish which optional 0.5 layers were semantically present. It
+also rejects fields that the 0.5 writer cannot yet represent without loss.</p>
+</section>
+<section id="appending-structures">
+<h2>Appending structures<a class="headerlink" href="#appending-structures" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">msm.h5msm.append_structures</span></code> can add complete rows to a 0.5 file without
+topology or interactions. If the file declares a structure-to-state mapping,
+pass one chemical-state index for each new structure with
+<code class="docutils literal notranslate"><span class="pre">structure_state_indices</span></code>; use <code class="docutils literal notranslate"><span class="pre">-1</span></code> for an unknown state. The append path
+validates axes, fields, and associations before resizing datasets. A write
+interrupted by a crash is not yet transactional.
+Stored biological assemblies are preserved; incoming assembly metadata, if
+supplied, must match the stored assembly after unit conversion.
+Sparse alternate-location data can grow with the structural series when both
+the stored file and incoming block provide that field. A one-sided field is
+rejected before any dataset is resized.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="../../../foundations/molecular_system/the_molecular_system.html#user-foundations-molecular-system-definition"><span class="std std-ref">molecular system model</span></a>
+explains the native domains. See <a class="reference internal" href="file_h5msm.html"><span class="doc">file:h5msm</span></a> for legacy file operations.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="file_h5msm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">file:h5msm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="file_inpcrd.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">file:inpcrd</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-legacy-units">Reading legacy units</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-and-reading-a-molecular-system">Writing and reading a molecular system</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-optional-layers">Reading optional layers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-history">Preparation history</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-access">Layer access</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composing-complementary-files">Composing complementary files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrating-a-0-3-or-0-4-file">Migrating a 0.3 or 0.4 file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appending-structures">Appending structures</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

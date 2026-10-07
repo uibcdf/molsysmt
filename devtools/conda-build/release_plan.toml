@@ -1,3 +1,0 @@
-version = "0.23.0"
-route = "staged"
-reason = "The agreed pre-1.0 checkpoint requires qualification of the exact MolSysMT 0.23.0/MolSysViewer 0.24.0 installed pair before publication; promote the tested staging files without rebuilding them."

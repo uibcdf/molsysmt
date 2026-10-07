@@ -1,0 +1,1851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Querying interaction results – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/interactions/result';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Get attributed hydrogen bonds" href="get_hbonds.html" />
+    <link rel="prev" title="get_halogen_bonds" href="get_halogen_bonds.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../foundations/index.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/entrance/index.html">The Entrance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/entrance/what_is_molsysmt.html">What is MolSysMT?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/entrance/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/entrance/navigating_documentation.html">Navigating the Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/entrance/toolbox_overview.html">Overview of Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/entrance/demo_systems.html">Demo Systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/molecular_system/index.html">The Molecular System</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/molecular_system/the_molecular_system.html">The Molecular System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/molecular_system/forms.html">Items and Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/molecular_system/elements.html">Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/molecular_system/attributes.html">Attributes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/native_world/index.html">The Native World</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../foundations/native_world/classes/index.html">Classes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_MolSys.html">MolSys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_MolSysBuilder.html">MolSysBuilder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_MolSysDict.html">MolSysDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_Topology.html">Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_TopologyDict.html">TopologyDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_Structures.html">Structures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_StructuresDict.html">StructuresDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_MolecularMechanics.html">MolecularMechanics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_MolecularMechanicsDict.html">MolecularMechanicsDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/classes/molsysmt_ViewerJSON.html">ViewerJSON</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../foundations/native_world/files/index.html">Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/files/file_h5msm.html">h5msm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../foundations/native_world/file_handlers/index.html">File Handlers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html">PDBFileHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html">H5MSMFileHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/file_handlers/molsysmt_GROFileHandler.html">GROFileHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/native_world/file_handlers/molsysmt_CIFFileHandler.html">CIFFileHandler</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/language/index.html">The Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/language/selection_grammar.html">Selection Language and Syntax</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/lazy_loading.html">Lazy Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/chunked_execution.html">Chunked Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/rust_core.html">The Rust Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/parallelization.html">Parallel Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/internal_optimizations.html">Internal Optimizations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/diagnostics_and_profiling.html">Diagnostics &amp; Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/caching_and_memoization.html">Caching &amp; Memoization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/performance/gpu_roadmap.html">GPU Acceleration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/governance/index.html">Governance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/quantities_and_units.html">Quantities &amp; Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/argument_digestion.html">Argument Digestion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/public_api_and_lifecycle.html">Public API &amp; Lifecycle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/dependency_management.html">Dependency Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/configuration_options.html">Configuration Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/precision_and_types.html">Precision &amp; Data Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/governance/smonitor_and_telemetry.html">SMonitor &amp; Telemetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/support/index.html">Supported</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../foundations/support/forms/index.html">Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/support/forms/classes.html">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/support/forms/files.html">Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../foundations/support/forms/strings.html">Strings</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/support/physchem.html">Physical-Chemical Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/support/molecular_mechanics.html">Molecular Mechanics Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/support/selection_syntaxes.html">Selection Syntaxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/support/viewers.html">Viewers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/support/third_party_bridges.html">Third-Party Bridges</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../foundations/ecosystem/index.html">The Ecosystem</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../foundations/ecosystem/molsyssuite.html">MolSysSuite</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Tools</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic/index.html">Basic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../basic/add.html">Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/append_structures.html">Append structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/are_multiple_molecular_systems.html">Are multiple molecular systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/compare.html">Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/concatenate_structures.html">Concatenate structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/contains.html">Contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/convert.html">Convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/copy.html">Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/extract.html">Extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/get_attributes.html">Get attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/get_conversion_report.html">Getting conversion reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/get_form.html">Get form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/get_label.html">Get label</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/get.html">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/has_attribute.html">Has attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/info.html">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/is_a_molecular_system.html">Is a molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/iterator.html">Iterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/merge.html">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/remove.html">Remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/select.html">Select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/set.html">Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/view.html">View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/where_is_attribute.html">Where is attribute</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../build/index.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_missing_bonds.html">Add missing bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_missing_heavy_atoms.html">Add missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_missing_hydrogens.html">Add missing hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/fixed_state_hydrogens.html">Adding hydrogens to a fixed chemical state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/assign_autodock_atom_types.html">Assigning AutoDock types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/assign_partial_charges.html">Assigning partial charges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_terminal_atoms.html">Attaching terminal atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_missing_terminal_cappings.html">Add missing terminal cappings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/build_peptide.html">Build peptide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/editable.html">Editable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_disulfide_bonds.html">Get disulfide bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_covalent_bond_candidates.html">Get covalent bond candidates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_peptide_bond_candidates.html">Get peptide bond candidates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/infer_covalent_bonds.html">Infer covalent bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_bonds.html">Get missing bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_heavy_atoms.html">Get missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_residues.html">Get missing residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_terminal_cappings.html">Get missing terminal cappings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_non_standard_residues.html">Get non standard residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_residue_chemical_coverage.html">Get residue chemical coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/has_hydrogens.html">Has hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/is_solvated.html">Is solvated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/make_bioassembly.html">Make bioassembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/make_water_box.html">Make water box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/mutate.html">Mutate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/remove_overlapping_molecules.html">Remove overlapping molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/solvate.html">Solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/solve_atoms_with_alternate_locations.html">Solve atoms with alternate locations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../topology/index.html">Topology</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_rigid_fragments.html">Deriving rigid fragments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_rotatable_bonds.html">Classifying rotatable bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_rings.html">Get rings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_substructure_matches.html">Get substructure matches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_bondgraph.html">Get bondgraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_covalent_blocks.html">Get covalent blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_covalent_paths.html">Get covalent paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_dihedral_quartets.html">Get dihedral quartets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_sequence_alignment.html">Get sequence alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topology/get_sequence_identity.html">Get sequence identity</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../structure/index.html">Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../structure/align_principal_axes.html">Align principal axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/center.html">Center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/flip.html">Flip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_angles.html">Get angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_center.html">Get center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_contacts.html">Get contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_dihedral_angles.html">Get dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_distances.html">Get distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_least_rmsd.html">Get least RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_maximum_distances.html">Get maximum distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_minimum_distances.html">Get minimum distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_neighbors.html">Get neighbors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_least_squares_plane.html">Get least squares plane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_principal_axes.html">Get principal axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_radius_of_gyration.html">Get radius of gyration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_rmsd.html">Get RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_rmsf.html">Get RMSF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/get_secondary_structure.html">Get secondary structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/least_rmsd_align.html">Least RMSD align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/least_rmsd_fit.html">Least RMSD fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/move_away.html">Move away</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/principal_component_analysis.html">Principal Component Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/rotate.html">Rotate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/set_dihedral_angles.html">Set dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/shift_dihedral_angles.html">Shift dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../structure/translate.html">Translate</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pbc/index.html">Periodic boundary conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_angles_from_box.html">Get angles from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_box_from_lengths_and_angles.html">Get box from lengths and angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_box_with_shape.html">Get box with shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_lengths_and_angles_from_box.html">Get lengths and angles from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_lengths_from_box.html">Get lengths from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_shape_from_angles.html">Get shape from angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_shape_from_box.html">Get shape from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_volume_from_box.html">Get volume from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/get_volume_from_lengths_and_angles.html">Get volume from lengths and angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/has_pbc.html">Has PBC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/unwrap.html">Unwrap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/wrap_to_mic.html">Wrap to MIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pbc/wrap_to_pbc.html">Wrap to PBC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../physchem/index.html">Physical and chemical properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_metal_coordination_sites.html">get_metal_coordination_sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/chemical_templates.html">Assessing and applying chemical templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_hydrogen_inventory.html">Inspecting hydrogen inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_autodock_atom_types.html">Getting AutoDock types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_aromaticity.html">Getting aromaticity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_partial_charges.html">Getting partial charges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_water_sites.html">get_water_sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_hydrophobic_sites.html">get_hydrophobic_sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_halogen_bond_sites.html">get_halogen_bond_sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_aromatic_rings.html">Get aromatic rings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_area_buried.html">Get area buried</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_atomic_radius.html">Get atomic radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_buried_fraction.html">Get buried fraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_cip_stereochemistry.html">Getting CIP stereochemistry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_charge.html">Get charge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_charge_centers.html">Get charge centers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_chemical_readiness.html">Getting chemical readiness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_electronegativity.html">Get electronegativity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_hbond_sites.html">Get hydrogen-bond sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_hydrophobicity.html">Get hydrophobicity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_mass.html">Get mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_polarity.html">Get polarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_sasa.html">Get SASA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_surface_area.html">Get surface area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_transmembrane_tendency.html">Get transmembrane tendency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../physchem/get_volume.html">Get volume</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../hbonds/index.html">Hydrogen bonds</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hbonds/get_acceptor_atoms.html">Get acceptor atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hbonds/get_donor_atoms.html">Get donor atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hbonds/get_buch_hbonds.html">Get Buch hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hbonds/get_luzard_chandler_hbonds.html">Get Luzar-Chandler hydrogen bonds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Interactions</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="get_metal_coordination.html">get_metal_coordination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_water_bridges.html">get_water_bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_hydrophobic_interactions.html">get_hydrophobic_interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_halogen_bonds.html">get_halogen_bonds</a></li>
+<li class="toctree-l3 current active"><a aria-current="page" class="current reference internal" href="#">Querying interaction results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_hbonds.html">Get attributed hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_ionic_interactions.html">get_ionic_interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_pi_pi_interactions.html">Get pi-pi interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_cation_pi_interactions.html">Get cation-pi interactions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../molecular_mechanics/index.html">Molecular mechanics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../molecular_mechanics/get_degrees_of_freedom.html">Get degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../molecular_mechanics/get_engine_forcefield.html">Get engine forcefield</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../molecular_mechanics/get_forces.html">Get forces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../molecular_mechanics/get_non_bonded_potential_energy.html">Get non-bonded potential energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../molecular_mechanics/get_potential_energy.html">Get potential energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../molecular_mechanics/potential_energy_minimization.html">Potential energy minimization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../element/index.html">Element</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../element/is_element.html">Is element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../element/is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../element/atom/index.html">Atom</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../element/atom/get_atom_type_from_atom_name.html">Get atom type from atom name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/atom/atom_types.html">Checking and normalizing atom types</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../element/group/index.html">Group</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/get_group_type.html">Get group type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/get_group_type_from_group_name.html">Get group type from group name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/get_bonded_atom_pairs.html">Get bonded atom pairs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/is_group_type.html">Is group type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/amino_acid/index.html">Amino Acid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/ion/index.html">Ion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/water/index.html">Water</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/terminal_capping/index.html">Terminal Capping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/small_molecule/index.html">Small Molecule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/nucleotide/index.html">Nucleotide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/lipid/index.html">Lipid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/group/saccharide/index.html">Saccharide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../element/component/index.html">Component</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../element/component/get_component_id.html">Get component id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/component/get_component_index.html">Get component index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/component/get_component_name.html">Get component name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/component/get_component_type.html">Get component type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/component/get_n_components.html">Get n components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/component/is_component_type.html">Is component type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../element/molecule/index.html">Molecule</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../element/molecule/get_molecule_id.html">Get molecule id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/molecule/get_molecule_index.html">Get molecule index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/molecule/get_molecule_name.html">Get molecule name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/molecule/get_molecule_type.html">Get molecule type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/molecule/get_n_molecules.html">Get n molecules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/molecule/is_molecule_type.html">Is molecule type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../element/entity/index.html">Entity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../element/entity/get_entity_id.html">Get entity id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/entity/get_entity_index.html">Get entity index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/entity/get_entity_name.html">Get entity name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/entity/get_entity_type.html">Get entity type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/entity/get_n_entities.html">Get n entities</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../element/chain/index.html">Chain</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../element/chain/get_chain_id.html">Get chain id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/chain/get_chain_index.html">Get chain index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/chain/get_chain_name.html">Get chain name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../element/chain/get_chain_type.html">Get chain type</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../form/index.html">Form</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../form/class/index.html">Class Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/molsysmt/index.html">MolSysMT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/openmm/index.html">OpenMM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/mdtraj/index.html">MDTraj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/mdanalysis/index.html">MDAnalysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/parmed/index.html">ParmEd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/pytraj/index.html">PyTraj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/biopython/index.html">Biopython</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/openff/index.html">OpenFF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/rdkit/index.html">RDKit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/viewers/index.html">Viewers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/class/others/index.html">Others</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../form/file/index.html">File Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_bcif.html">bcif</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_bcif_gz.html">bcif.gz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_cif.html">cif</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_cif_gz.html">cif.gz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_crd.html">crd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_dcd.html">dcd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_fasta.html">fasta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_gro.html">gro</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_h5.html">h5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_h5msm.html">h5msm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/h5msm_05.html">H5MSM 0.5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_inpcrd.html">inpcrd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_mdcrd.html">mdcrd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_mol2.html">mol2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_molsys_yaml.html">molsys_yaml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_pdb.html">pdb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_pir.html">pir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_prmtop.html">prmtop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_psf.html">psf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_smi.html">smi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_structures_yaml.html">structures_yaml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_top.html">top</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_topology_yaml.html">topology_yaml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_trjpk.html">trjpk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_xtc.html">xtc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_xyz.html">xyz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/file/file_xyznpy.html">xyznpy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../form/string/index.html">String Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_alphafold_id.html">alphafold_id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_amino_acids_1.html">amino_acids_1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_amino_acids_3.html">amino_acids_3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_pdb_id.html">pdb_id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_pdb_text.html">pdb_text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_smiles.html">smiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../form/string/string_uniprot_id.html">uniprot_id</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../form/get_attributes.html">Get attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../form/has_attribute.html">Has attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../form/is_item.html">Is item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../form/is_file.html">Is file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../form/is_string.html">Is string</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../form/close.html">Close</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../third_party/index.html">Third Party</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../third_party/nglview/index.html">NGLView</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/add_arrows.html">Add arrows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/add_contacts.html">Add contacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/add_cylinders.html">Add cylinders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/add_hbonds.html">Add hydrogen bonds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/clear.html">Clear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/load_html_in_jupyter_notebook.html">Load HTML in Jupyter Notebook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/set_color.html">Set color</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/set_color_by_value.html">Set color by value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/show_as_balls_and_sticks.html">Show as balls and sticks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/show_as_cartoon.html">Show as cartoon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/show_as_licorice.html">Show as licorice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/show_as_surface.html">Show as surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/show_gui.html">Show GUI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/standardize_view.html">Standardize view</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/nglview/write_html.html">Write HTML</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../third_party/openmm/index.html">OpenMM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/openmm/forces/index.html">Custom External Forces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/openmm/platforms/index.html">Platforms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/openmm/reporters/index.html">Reporters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../third_party/tleap/index.html">tLEaP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../third_party/tleap/tleap.html">tLEaP</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../course/index.html">Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../course/Common_Core/index.html">Common Core</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/01_The_Form_Agnostic_Philosophy.html">Module 1: The Form-Agnostic Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/02_Molecular_Attributes.html">Module 2: Molecular Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/03_Molecular_Elements.html">Module 3: Molecular Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/04_Native_Forms.html">Module 4: Native Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/05_Combined_Forms.html">Module 5: Combined Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/06_Visualizing_Anything.html">Module 6: Visualizing Anything</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/07_Selection_Basics.html">Module 7: Selection Mechanism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/08_Extracting_Molecular_Attributes.html">Module 8: Extracting Molecular Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/09_Unit_Safety.html">Module 9: Physical Unit Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/10_Modifying_Molecular_Attributes.html">Module 10: Modifying Molecular Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/11_Iterating_Systems.html">Module 11: Iterating Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/12_Building_Repairing_and_Auditing_Systems.html">Module 12: Building, Repairing and Auditing Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/13_Topological_Analysis.html">Module 13: Topological Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/14_System_Comparison_and_Validation.html">Module 14: System Comparison and Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/15_Semantic_Labeling.html">Module 15: Semantic Labeling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/16_Structural_Operations.html">Module 16: Structural Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/17_Merging_and_Growing_Systems.html">Module 17: Merging and Growing Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/18_Extracting_and_Removing_Elements.html">Module 18: Extracting and Removing Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/19_Structures_and_Trajectories.html">Module 19: Structures and Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Common_Core/20_The_Specialized_Domains.html">Module 20: The Specialized Domains</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../course/Path_Alzheimer/index.html">Path Alzheimer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/21_Surgical_Extraction.html">Path A - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/22_Structural_Auditing.html">Path A - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/23_Structural_Repair.html">Path A - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/24_Peptide_Synthesis.html">Path A - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/25_Solvation_Engineering.html">Path A - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/26_Attribute_Engineering.html">Path A - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/27_Conformational_Engineering.html">Path A - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/28_MolSysBuilder.html">Path A - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/29_PDB_Frontier.html">Path A - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/30_Geometrical_Measurements.html">Path A - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/31_Proximity_Neighborhoods.html">Path A - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/32_Interaction_Matrices.html">Path A - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/33_Ensemble_Descriptors.html">Path A - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/34_Comparison_Superposition.html">Path A - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/35_Principal_Components.html">Path A - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/36_Secondary_Structure.html">Path A - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/37_Interaction_Networks.html">Path A - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/38_Advanced_HBonds.html">Path A - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/39_Physicochemical_Properties.html">Path A - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/40_PBC_Geometry.html">Path A - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/41_Wrapping_Unwrapping.html">Path A - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/42_Molecular_Mechanics.html">Path A - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/43_Energy_Minimization.html">Path A - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/44_AMBER_TLeap.html">Path A - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/45_OpenMM_Integration.html">Path A - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/46_Geometric_Transformations.html">Path A - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/47_Trajectory_Management.html">Path A - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/48_Scalability_Heavy_Trajectories.html">Path A - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/49_Performance_Optimization.html">Path A - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/50_Virtual_Forms.html">Path A - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/51_Custom_Functions.html">Path A - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/52_Framework_Reliability.html">Path A - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/53_Capability_Matrix.html">Path A - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Alzheimer/54_Final_Project.html">Path A - Module 54: Final Project: From Sequence to Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../course/Path_Enzyme/index.html">Path Enzyme</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/21_Surgical_Extraction.html">Path B - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/22_Structural_Auditing.html">Path B - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/23_Structural_Repair.html">Path B - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/24_Peptide_Synthesis.html">Path B - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/25_Solvation_Engineering.html">Path B - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/26_Attribute_Engineering.html">Path B - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/27_Conformational_Engineering.html">Path B - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/28_MolSysBuilder.html">Path B - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/29_PDB_Frontier.html">Path B - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/30_Geometrical_Measurements.html">Path B - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/31_Proximity_Neighborhoods.html">Path B - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/32_Interaction_Matrices.html">Path B - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/33_Ensemble_Descriptors.html">Path B - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/34_Comparison_Superposition.html">Path B - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/35_Principal_Components.html">Path B - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/36_Secondary_Structure.html">Path B - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/37_Interaction_Networks.html">Path B - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/38_Advanced_HBonds.html">Path B - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/39_Physicochemical_Properties.html">Path B - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/40_PBC_Geometry.html">Path B - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/41_Wrapping_Unwrapping.html">Path B - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/42_Molecular_Mechanics.html">Path B - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/43_Energy_Minimization.html">Path B - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/44_AMBER_TLeap.html">Path B - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/45_OpenMM_Integration.html">Path B - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/46_Geometric_Transformations.html">Path B - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/47_Trajectory_Management.html">Path B - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/48_Scalability_Heavy_Trajectories.html">Path B - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/49_Performance_Optimization.html">Path B - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/50_Virtual_Forms.html">Path B - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/51_Custom_Functions.html">Path B - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/52_Framework_Reliability.html">Path B - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/53_Capability_Matrix.html">Path B - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Enzyme/54_Final_Project.html">Path B - Module 54: Final Project: Rational Enzyme Engineering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../course/Path_Antiviral/index.html">Path Antiviral</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/21_Surgical_Extraction.html">Path C - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/22_Structural_Auditing.html">Path C - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/23_Structural_Repair.html">Path C - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/24_Peptide_Synthesis.html">Path C - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/25_Solvation_Engineering.html">Path C - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/26_Attribute_Engineering.html">Path C - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/27_Conformational_Engineering.html">Path C - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/28_MolSysBuilder.html">Path C - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/29_PDB_Frontier.html">Path C - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/30_Geometrical_Measurements.html">Path C - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/31_Proximity_Neighborhoods.html">Path C - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/32_Interaction_Matrices.html">Path C - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/33_Ensemble_Descriptors.html">Path C - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/34_Comparison_Superposition.html">Path C - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/35_Principal_Components.html">Path C - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/36_Secondary_Structure.html">Path C - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/37_Interaction_Networks.html">Path C - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/38_Advanced_HBonds.html">Path C - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/39_Physicochemical_Properties.html">Path C - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/40_PBC_Geometry.html">Path C - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/41_Wrapping_Unwrapping.html">Path C - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/42_Molecular_Mechanics.html">Path C - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/43_Energy_Minimization.html">Path C - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/44_AMBER_TLeap.html">Path C - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/45_OpenMM_Integration.html">Path C - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/46_Geometric_Transformations.html">Path C - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/47_Trajectory_Management.html">Path C - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/48_Scalability_Heavy_Trajectories.html">Path C - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/49_Performance_Optimization.html">Path C - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/50_Virtual_Forms.html">Path C - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/51_Custom_Functions.html">Path C - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/52_Framework_Reliability.html">Path C - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/53_Capability_Matrix.html">Path C - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Antiviral/54_Final_Project.html">Path C - Module 54: Final Project: Antiviral Drug Hunter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../course/Path_Biophysics/index.html">Path Biophysics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/21_Surgical_Extraction.html">Path D - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/22_Structural_Auditing.html">Path D - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/23_Structural_Repair.html">Path D - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/24_Peptide_Synthesis.html">Path D - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/25_Solvation_Engineering.html">Path D - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/26_Attribute_Engineering.html">Path D - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/27_Conformational_Engineering.html">Path D - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/28_MolSysBuilder.html">Path D - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/29_PDB_Frontier.html">Path D - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/30_Geometrical_Measurements.html">Path D - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/31_Proximity_Neighborhoods.html">Path D - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/32_Interaction_Matrices.html">Path D - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/33_Ensemble_Descriptors.html">Path D - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/34_Comparison_Superposition.html">Path D - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/35_Principal_Components.html">Path D - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/36_Secondary_Structure.html">Path D - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/37_Interaction_Networks.html">Path D - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/38_Advanced_HBonds.html">Path D - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/39_Physicochemical_Properties.html">Path D - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/40_PBC_Geometry.html">Path D - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/41_Wrapping_Unwrapping.html">Path D - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/42_Molecular_Mechanics.html">Path D - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/43_Energy_Minimization.html">Path D - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/44_AMBER_TLeap.html">Path D - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/45_OpenMM_Integration.html">Path D - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/46_Geometric_Transformations.html">Path D - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/47_Trajectory_Management.html">Path D - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/48_Scalability_Heavy_Trajectories.html">Path D - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/49_Performance_Optimization.html">Path D - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/50_Virtual_Forms.html">Path D - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/51_Custom_Functions.html">Path D - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/52_Framework_Reliability.html">Path D - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/53_Capability_Matrix.html">Path D - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../course/Path_Biophysics/54_Final_Project.html">Path D - Module 54: Final Project: Computational Biophysics of Ion Permeation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../cookbook/index.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_mediated_interactions.html">Saving coordination and water paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/applying_chemical_templates.html">Applying an explicit chemical template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/assigning_partial_charges.html">Assigning charges before a bounded export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_hydrophobic_interactions.html">Saving hydrophobic analyses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_halogen_bonds.html">Saving halogen-bond analyses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/building_complex_dimers.html">Building Complex Dimers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/spectacular_visualizations.html">Working with NGLView</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/simulation_workflow.html">Working with OpenMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/big_data_trajectories.html">Big Data Trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/from_pdb_to_solvated_box.html">From PDB to Solvated Box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/binding_pocket_isolation.html">Binding Pocket Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/trajectory_performance_analysis.html">Trajectory Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/structural_surgery_mutagenesis.html">In Silico Mutagenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/form_teleportation.html">Form Conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/native_sdf.html">Reading and writing native SDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/native_pdbqt.html">Reading and writing prepared PDBQT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/auditing_residue_chemistry.html">Auditing residue chemistry before repair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/querying_sparse_interactions.html">Comparing sparse interactions across structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/migrating_h5msm.html">Migrating an H5MSM file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/preparing_aromatic_participants.html">Preparing aromatic participants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/preparing_charged_participants.html">Preparing charged participants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_ionic_interactions.html">Saving ionic analyses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_hbond_interactions.html">Saving hydrogen-bond analyses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_pi_pi_interactions.html">Saving aromatic interaction analyses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cookbook/saving_cation_pi_interactions.html">Saving cation-pi analyses</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Interactions</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Querying interaction results</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="querying-interaction-results">
+<span id="user-tools-interactions-result"></span><h1>Querying interaction results<a class="headerlink" href="#querying-interaction-results" title="Link to this heading">#</a></h1>
+<p>Build an experimental <code class="docutils literal notranslate"><span class="pre">molsysmt.Interactions</span></code> result from observations that
+have local atom and structure indices. By default these equal the source
+system’s indices; explicit source maps support a selected or reordered domain.
+This class stores the
+observations; it does not detect interactions or declare covalent bonds.</p>
+<p>Construction and queries validate their arguments through ArgDigest. Counts and
+indices must be integers: booleans and fractional values are rejected before
+they can become different atom or structure indices. Integer lists, NumPy
+arrays, empty selections and record generators remain supported. Existing
+positional calls keep their argument order. The keyword-only
+<code class="docutils literal notranslate"><span class="pre">skip_digestion=False</span></code> defaults to validation; use <code class="docutils literal notranslate"><span class="pre">True</span></code> only inside a pipeline
+that has already checked the complete input contract. Stored cross-column
+invariants and file/schema checks remain active on that route.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+
+<span class="n">records</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"structure_index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"interaction_type"</span><span class="p">:</span> <span class="s2">"hbond"</span><span class="p">,</span>
+        <span class="s2">"participants"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"donor"</span><span class="p">,</span> <span class="s2">"atom_indices"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
+            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"hydrogen"</span><span class="p">,</span> <span class="s2">"atom_indices"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]},</span>
+            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"acceptor"</span><span class="p">,</span> <span class="s2">"atom_indices"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]},</span>
+        <span class="p">],</span>
+        <span class="s2">"measurements"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"distance"</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+<span class="n">interactions</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">Interactions</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+    <span class="n">records</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">evaluated_structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"example"</span><span class="p">,</span> <span class="n">measure_units</span><span class="o">=</span><span class="p">{</span><span class="s2">"distance"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The distance is in nanometers. Structure 2 was evaluated and has no observed
+interactions; structure 1 was not evaluated. The result keeps that difference.
+By default, the declared atom search scope is <code class="docutils literal notranslate"><span class="pre">internal</span></code> over all local atoms.
+The caller must declare the actual search scope; the class cannot infer from
+observed records whether a detector examined all possible participants.</p>
+<p>For a search involving one selection and its surroundings, declare the
+selection and the complete atom universe examined:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scoped</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">Interactions</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+    <span class="n">records</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">evaluated_structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">"example"</span><span class="p">,</span>
+    <span class="n">measure_units</span><span class="o">=</span><span class="p">{</span><span class="s2">"distance"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">},</span>
+    <span class="n">evaluation_mode</span><span class="o">=</span><span class="s2">"incident"</span><span class="p">,</span> <span class="n">evaluation_atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">evaluation_universe_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">scoped</span><span class="o">.</span><span class="n">evaluation_scope</span><span class="p">[</span><span class="s2">"universe_indices"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">internal(A)</span></code> covers relations whose participant atoms all belong to <code class="docutils literal notranslate"><span class="pre">A</span></code>;
+<code class="docutils literal notranslate"><span class="pre">incident(A)</span></code> covers relations with at least one participant atom in <code class="docutils literal notranslate"><span class="pre">A</span></code>;
+<code class="docutils literal notranslate"><span class="pre">between(A,</span> <span class="pre">B)</span></code> covers relations touching each of two disjoint sets. In every
+mode, all participants must belong to the declared universe. The declaration
+applies uniformly to the listed evaluated structures. Analyses with distinct
+scopes belong in separate named results. A structure marked evaluated and
+empty is empty only within this declared search scope.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">interactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="n">interactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"involving_selection"</span><span class="p">)</span>
+<span class="n">interactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"within_selection"</span><span class="p">)</span>
+<span class="n">interactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"across_selection_boundary"</span><span class="p">)</span>
+<span class="n">interactions</span><span class="o">.</span><span class="n">between_selections</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">involving_selection</span></code> (the default) means at least one participating atom belongs
+to the selection; <code class="docutils literal notranslate"><span class="pre">within_selection</span></code> requires every participating atom;
+<code class="docutils literal notranslate"><span class="pre">across_selection_boundary</span></code> requires atoms inside and outside the selection.
+These names describe the atom-selection boundary, not a molecular boundary.
+For a ring, every constituent atom participates in these tests; a hydrogen bond
+includes its donor, hydrogen and acceptor. Empty atom selections return no
+observations in all three modes.
+<code class="docutils literal notranslate"><span class="pre">between_selections(A,</span> <span class="pre">B)</span></code> requires at least one atom from each disjoint set. With
+<code class="docutils literal notranslate"><span class="pre">exclusive=True</span></code>, every participant atom must belong to <code class="docutils literal notranslate"><span class="pre">A</span></code> or <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p>
+<p>Only these explicit query names are supported. <code class="docutils literal notranslate"><span class="pre">between_selections</span></code> is a separate
+method, not a fourth value for <code class="docutils literal notranslate"><span class="pre">query(mode=...)</span></code>, because it needs two selections.
+Queries preserve the scientific search that produced the analysis:
+detector <code class="docutils literal notranslate"><span class="pre">selection_mode</span></code> and stored <code class="docutils literal notranslate"><span class="pre">evaluation_mode</span></code> still use <code class="docutils literal notranslate"><span class="pre">internal</span></code>,
+<code class="docutils literal notranslate"><span class="pre">incident</span></code> and <code class="docutils literal notranslate"><span class="pre">between</span></code>. Existing H5MSM 0.5 and InteractionsDict files retain
+those scientific values without migration or a schema change.</p>
+<p>Each query returns a lightweight view. <code class="docutils literal notranslate"><span class="pre">to_dict()</span></code> provides typed occurrence
+columns, explicit evaluated-structure indices, measurement units, and optional
+periodic-image vectors. Use <code class="docutils literal notranslate"><span class="pre">relation(index)</span></code> to inspect the type and roles
+referenced by a result’s <code class="docutils literal notranslate"><span class="pre">relation_indices</span></code> column.</p>
+<section id="inspecting-bounded-pages">
+<span id="user-tools-interactions-pages"></span><h2>Inspecting bounded pages<a class="headerlink" href="#inspecting-bounded-pages" title="Link to this heading">#</a></h2>
+<p>Keep a query and project a small page instead of copying all its occurrences:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">interactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">to_page</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">max_participant_atoms</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">page</span><span class="p">[</span><span class="s2">"total_count"</span><span class="p">]</span> <span class="o">==</span> <span class="n">view</span><span class="o">.</span><span class="n">n_interactions</span>
+<span class="k">assert</span> <span class="n">page</span><span class="p">[</span><span class="s2">"occurrence_indices"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">page</span><span class="p">[</span><span class="s2">"participant_roles"</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="s2">"donor"</span><span class="p">,</span> <span class="s2">"hydrogen"</span><span class="p">,</span> <span class="s2">"acceptor"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">page</span><span class="p">[</span><span class="s2">"next_offset"</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">offset</span></code> refers to rows in this query’s order, rather than complete-analysis
+occurrence indices. Use <code class="docutils literal notranslate"><span class="pre">next_offset</span></code> to request the next page; it is <code class="docutils literal notranslate"><span class="pre">None</span></code>
+when the current page is empty or reaches the end. A zero <code class="docutils literal notranslate"><span class="pre">limit</span></code> gives an empty
+page with count and coverage. Negative, boolean and noninteger bounds raise.</p>
+<p>The experimental schema <code class="docutils literal notranslate"><span class="pre">molsysmt.interactions.page&#64;1</span></code> contains the occurrence
+columns provided by <code class="docutils literal notranslate"><span class="pre">to_dict()</span></code>, plus a compact catalog of the page’s relations.
+<code class="docutils literal notranslate"><span class="pre">relation_catalog_indices</span></code> contains complete-analysis relation indices;
+<code class="docutils literal notranslate"><span class="pre">relation_types</span></code> and <code class="docutils literal notranslate"><span class="pre">relation_participant_offsets</span></code> use positions in that compact
+catalog. <code class="docutils literal notranslate"><span class="pre">participant_roles</span></code>, <code class="docutils literal notranslate"><span class="pre">participant_atom_offsets</span></code> and <code class="docutils literal notranslate"><span class="pre">participant_atoms</span></code>
+encode its participant groups. Occurrence <code class="docutils literal notranslate"><span class="pre">relation_indices</span></code> remain in the
+complete analysis’s space; find their catalog positions with
+<code class="docutils literal notranslate"><span class="pre">numpy.searchsorted(page[&quot;relation_catalog_indices&quot;],</span> <span class="pre">page[&quot;relation_indices&quot;])</span></code>.
+Parallel observations retain distinct <code class="docutils literal notranslate"><span class="pre">occurrence_indices</span></code>. Measurements,
+units, evidence and periodic images follow the page’s occurrence order.</p>
+<p><code class="docutils literal notranslate"><span class="pre">max_participant_atoms</span></code> bounds the sum of constituent atoms over page occurrences,
+counting a reused relation once per occurrence. An oversized page raises before
+copying its participant definitions or images; reduce <code class="docutils literal notranslate"><span class="pre">limit</span></code> or explicitly
+increase that budget. Empty arrays retain their dtypes and offsets start at zero.
+Source maps and evaluated coverage share read-only arrays with the analysis.</p>
+<p>Paging bounds additional occurrence and participant copies. Constructing the
+query retains its own row-index array; optional query indexes and frame metadata
+have separate costs. Edited analyses can page without packing all surviving
+columns. <code class="docutils literal notranslate"><span class="pre">to_dict()</span></code> continues to copy every selected occurrence. A page is for
+inspection; use <code class="docutils literal notranslate"><span class="pre">InteractionsDict</span></code> or H5MSM for complete persistence. Evaluated
+coverage still refers to the analysis’s declared <code class="docutils literal notranslate"><span class="pre">evaluation_scope</span></code>.</p>
+<p>The aligned <code class="docutils literal notranslate"><span class="pre">occurrence_indices</span></code> column identifies each observation within
+this named analysis, even when two observations share a structure and relation.
+Filtering and an H5MSM round trip preserve these indices. Extracting or editing
+the analysis creates a new set of indices; rebuild saved selections against
+the new result. The current API does not expose a persistent revision token.
+If any input observation supplies periodic-image vectors, every observation
+in that result must supply them; missing vectors are not interpreted as zero
+images.
+Each vector applies to one participant in relation order. With the three box
+vectors as rows in nanometers, add <code class="docutils literal notranslate"><span class="pre">image_vector</span> <span class="pre">&#64;</span> <span class="pre">box</span></code> to each constituent
+atom’s stored coordinate. A positive <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0]</span></code> adds the first box vector;
+relative geometry uses the first participant as reference. All atoms in a
+compound participant receive the same shift. These vectors do not unwrap a
+ring split across a periodic boundary.</p>
+<p>To transfer the <strong>complete</strong> result through MolSysMT’s conversion system,
+convert it to <code class="docutils literal notranslate"><span class="pre">molsysmt.InteractionsDict</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">interactions</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s2">"molsysmt.InteractionsDict"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"molsysmt.InteractionsDict"</span>
+<span class="n">restored</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s2">"molsysmt.Interactions"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">restored</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">InteractionsDict.data</span></code> contains versioned NumPy columns for relations,
+participants, occurrences, evaluated coverage, evidence, and measurements.
+It avoids one Python dictionary per occurrence. It is a typed Python payload,
+not JSON data. A query view’s <code class="docutils literal notranslate"><span class="pre">to_dict()</span></code> has a different purpose: it reports
+selected occurrences and cannot reconstruct the full result.</p>
+<p><code class="docutils literal notranslate"><span class="pre">interactions.software</span></code> maps producer software names to the versions used
+when calculating the observations. Both hydrogen-bond and disulfide adapters record
+<code class="docutils literal notranslate"><span class="pre">{&quot;molsysmt&quot;:</span> <span class="pre">msm.__version__}</span></code> at calculation time. The dictionary also
+appears in query projections and survives conversion, remapping, invalidation,
+and H5MSM persistence. Saving or loading with another MolSysMT version does
+not replace the producer version. Older results without this metadata expose
+<code class="docutils literal notranslate"><span class="pre">{}</span></code>, meaning unknown. When constructing an analysis from an external
+detector, you can declare its versions with <code class="docutils literal notranslate"><span class="pre">software={&quot;detector_name&quot;:</span> <span class="pre">&quot;1.2&quot;}</span></code>.</p>
+</section>
+<section id="inspecting-execution-provenance">
+<h2>Inspecting execution provenance<a class="headerlink" href="#inspecting-execution-provenance" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">parameters</span></code> contains scientific criteria. <code class="docutils literal notranslate"><span class="pre">execution_records</span></code> describes how each
+set of evaluated structures was calculated. Each record has a <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code>
+integer array and a <code class="docutils literal notranslate"><span class="pre">details</span></code> dictionary. Projected detectors record execution
+mode, coordinate block count and memory policy. Unknown details appear as <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runs</span> <span class="o">=</span> <span class="n">interactions</span><span class="o">.</span><span class="n">execution_records</span>
+<span class="k">assert</span> <span class="n">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"structure_indices"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span>
+    <span class="n">interactions</span><span class="o">.</span><span class="n">evaluated_structure_indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="k">assert</span> <span class="n">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"details"</span><span class="p">]</span> <span class="o">==</span> <span class="p">{}</span>  <span class="c1"># This example declares no execution details.</span>
+</pre></div>
+</div>
+<p>A frame query restricts these records even when it has zero occurrences. After
+partial recalculation, an analysis can contain records from several executions.
+Changing a returned record does not modify the analysis. A stored block count
+continues to describe the original execution after extraction or invalidation;
+it is not a count of frames still present. H5MSM preserves these records.</p>
+<p>New interaction payloads use codec version 2 inside H5MSM 0.5. Current readers
+also load version 1 and move its recorded execution keys out of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>.
+Older MolSysMT builds supporting only codec 1 must be updated to read new files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">interactions</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"observations.h5i"</span><span class="p">)</span>
+<span class="n">restored</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">Interactions</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"observations.h5i"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The standalone HDF5 file is versioned and separate from H5MSM. <code class="docutils literal notranslate"><span class="pre">load</span></code> reads
+the complete result into memory. Saving writes active observations in small
+numeric windows, including analyses with invalidated or recalculated structures.
+It does not create or change a cache of complete occurrence columns. Existing
+observations, frame metadata and HDF5 caches still occupy memory. Detectors
+continue to return resident results; direct detector-to-file output,
+append/resume and public lazy file-backed queries remain unavailable. The disulfide
+candidate and both hydrogen-bond detectors have optional <code class="docutils literal notranslate"><span class="pre">Interactions</span></code>
+outputs.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">remap()</span></code> to extract a complete result into new index spaces. A relation
+survives only if all atoms in its participants survive. Repeated structure
+indices make distinct output structures, and evaluated structures with no
+occurrences stay marked as evaluated.</p>
+<p>If a structure changes and its prior observations are stale, use
+<code class="docutils literal notranslate"><span class="pre">invalidate_structures()</span></code> to remove its occurrences and mark it unevaluated
+while keeping its positional structure index:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">invalidated</span> <span class="o">=</span> <span class="n">interactions</span><span class="o">.</span><span class="n">invalidate_structures</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">invalidated</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span>
+    <span class="s2">"evaluated_structure_indices"</span>
+<span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>This returns a result with independent validity and leaves existing query
+views unchanged. It shares read-only columns instead of copying surviving
+observations. Re-evaluate the affected structures before claiming that they
+have no interactions.</p>
+<p>Numeric storage, including the measurement mapping and its arrays, is read-only
+and independent of the input buffers used to construct the result. To change
+observations, construct another result; an <code class="docutils literal notranslate"><span class="pre">InteractionsDict</span></code> provides editable
+interchange columns that can be converted back into a validated result.</p>
+<p>Invalidating frames allocates coverage information rather than a new copy of
+every observation. Partial invalidation keeps the underlying shared columns in
+memory, including excluded rows. Queries do not return those rows. If no
+observations survive, the new result drops its reference to the occurrence
+storage; old results and views can still retain it.</p>
+<p>Reading complete attributes such as <code class="docutils literal notranslate"><span class="pre">occurrence_structures</span></code>, <code class="docutils literal notranslate"><span class="pre">image_vectors</span></code>
+or <code class="docutils literal notranslate"><span class="pre">measurements</span></code> after invalidation can pack and cache all surviving columns.
+Use <code class="docutils literal notranslate"><span class="pre">query(...).to_dict()</span></code> for selected frames or atoms when you need only a
+small result. Remapping and typed/pickle serialization can also pack the active data;
+temporary packing for those operations is released afterward. This is not yet
+an incremental writer or an editor for individual observations.</p>
+</section>
+<section id="reclaiming-retired-observations">
+<span id="user-tools-interactions-compaction"></span><h2>Reclaiming retired observations<a class="headerlink" href="#reclaiming-retired-observations" title="Link to this heading">#</a></h2>
+<p>After invalidation or repeated recalculation, use <code class="docutils literal notranslate"><span class="pre">compact()</span></code> when you want to
+release excluded observation storage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">compacted</span> <span class="o">=</span> <span class="n">invalidated</span><span class="o">.</span><span class="n">compact</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">compacted</span><span class="o">.</span><span class="n">evaluated_structure_indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">compacted</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="n">interactions</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># The original analysis is unchanged.</span>
+</pre></div>
+</div>
+<p>The returned full analysis preserves occurrence and relation indices, source
+maps, coverage and provenance. Unused relation definitions stay in its catalog.
+Queries and H5MSM saving work as before. Query views cannot be compacted.</p>
+<p>Attach it explicitly if you want to replace a named analysis:
+<code class="docutils literal notranslate"><span class="pre">molsys.interactions</span> <span class="pre">=</span> <span class="pre">{**molsys.interactions,</span> <span class="pre">&quot;example&quot;:</span> <span class="pre">analysis.compact()}</span></code>.
+Release references to the previous analysis and its query views to reclaim their
+storage. Those snapshots otherwise remain valid and keep their old buffers.
+Compacting builds new observation columns and needs memory for that output plus
+a temporary copy of one column. It neither recalculates observations nor makes
+unevaluated structures evaluated. Saving to H5MSM already writes active blocks
+directly, so you do not need to compact before saving.</p>
+</section>
+<section id="changing-coordinates">
+<span id="user-tools-interactions-coordinate-edits"></span><h2>Changing coordinates<a class="headerlink" href="#changing-coordinates" title="Link to this heading">#</a></h2>
+<p>When you call <code class="docutils literal notranslate"><span class="pre">msm.set(molsys,</span> <span class="pre">coordinates=...,</span> <span class="pre">structure_indices=...)</span></code> on a
+native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>, every attached named analysis becomes <strong>unevaluated in the
+selected structures</strong>. This applies even if you move just one atom, the atom
+had no earlier interactions, or the frame previously had zero observations.
+Other structures remain evaluated. Periodic box changes use the same rule.</p>
+<p>MolSysMT does not run detectors automatically. A moved atom can form a new
+interaction, and a moved ring member can change the geometry of its entire
+ring. Checking only previous participants would miss these changes. Recalculate
+the affected frame, considering the detector’s complete declared atom scope.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation on native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code></p></th>
+<th class="head"><p>Effect on named analyses</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Coordinates or box through <code class="docutils literal notranslate"><span class="pre">msm.set</span></code></p></td>
+<td><p>Selected frames become unevaluated.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Empty atom/frame selection, time or identifier edit</p></td>
+<td><p>Results remain valid.</p></td>
+</tr>
+<tr class="row-even"><td><p>Scientific chemical-state edits through <code class="docutils literal notranslate"><span class="pre">msm.set</span></code>, or replacing <code class="docutils literal notranslate"><span class="pre">chemical_states</span></code></p></td>
+<td><p>All covered frames become unevaluated.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Changing <code class="docutils literal notranslate"><span class="pre">structure_chemical_state_index</span></code></p></td>
+<td><p>Selected frames become unevaluated.</p></td>
+</tr>
+<tr class="row-even"><td><p>Direct writes through arrays or separate domain objects</p></td>
+<td><p>You must invalidate the owning analyses explicitly.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example, attach a synthetic result to matching coordinates, then move one
+atom in a previously evaluated-empty frame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSys</span><span class="p">,</span> <span class="n">Structures</span>
+
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">MolSys</span><span class="p">(</span><span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">structures</span> <span class="o">=</span> <span class="n">Structures</span><span class="p">(</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="s2">"nm"</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"example"</span><span class="p">:</span> <span class="n">interactions</span><span class="p">}</span>
+<span class="n">previous_view</span> <span class="o">=</span> <span class="n">interactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">msm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">coordinates</span><span class="o">=</span><span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">quantity</span><span class="p">([[[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]],</span> <span class="s2">"nm"</span><span class="p">))</span>
+
+<span class="n">current</span> <span class="o">=</span> <span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span><span class="p">[</span><span class="s2">"example"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">current</span><span class="o">.</span><span class="n">evaluated_structure_indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">current</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="n">current</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span>
+    <span class="s2">"evaluated_structure_indices"</span>
+<span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span>  <span class="c1"># Pending calculation, not an evaluated absence of interactions.</span>
+<span class="k">assert</span> <span class="n">current</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">previous_view</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># A snapshot of the earlier analysis.</span>
+</pre></div>
+</div>
+<p>For explicit coordinate writes outside that owner boundary, invalidate the
+named analyses yourself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">analysis</span><span class="o">.</span><span class="n">invalidate_structures</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">analysis</span> <span class="ow">in</span> <span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="recalculating-selected-frames">
+<h3>Recalculating selected frames<a class="headerlink" href="#recalculating-selected-frames" title="Link to this heading">#</a></h3>
+<p>Calculate new observations for the changed frames with the appropriate detector,
+using the same molecular system axes and the complete original atom search scope.
+Then call <code class="docutils literal notranslate"><span class="pre">current.replace_structures(fresh)</span></code> and attach the returned analysis
+under its original name. Every frame evaluated by <code class="docutils literal notranslate"><span class="pre">fresh</span></code> replaces all its old
+observations. A recalculated frame with zero observations remains <strong>evaluated</strong>.
+Other frames and previously held snapshots remain unchanged. Nothing is detected
+or attached automatically.</p>
+<p>For the synthetic example above, declare a new evaluated-empty result for frame 2:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fresh</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">Interactions</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+    <span class="p">[],</span> <span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">evaluated_structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">method</span><span class="o">=</span><span class="n">interactions</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">interactions</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+    <span class="n">software</span><span class="o">=</span><span class="n">interactions</span><span class="o">.</span><span class="n">software</span><span class="p">,</span> <span class="n">source_id</span><span class="o">=</span><span class="n">interactions</span><span class="o">.</span><span class="n">source_id</span><span class="p">,</span>
+    <span class="n">measure_units</span><span class="o">=</span><span class="n">interactions</span><span class="o">.</span><span class="n">measure_units</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">updated</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">replace_structures</span><span class="p">(</span><span class="n">fresh</span><span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"example"</span><span class="p">:</span> <span class="n">updated</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">updated</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="n">updated</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span>
+    <span class="s2">"evaluated_structure_indices"</span>
+<span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Evaluated absence, unlike the earlier pending frame.</span>
+<span class="k">assert</span> <span class="n">updated</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>For a real Buch analysis, the equivalent workflow is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Given a MolSys whose named "buch" analysis used this same scope and pbc=False:</span>
+<span class="c1"># fresh = msm.interactions.hbonds.get_buch_hbonds(</span>
+<span class="c1">#     molsys, structure_indices=[2], pbc=False,</span>
+<span class="c1">#     output_type="molsysmt.Interactions")</span>
+<span class="c1"># updated = molsys.interactions["buch"].replace_structures(fresh)</span>
+<span class="c1"># molsys.interactions = {**molsys.interactions, "buch": updated}</span>
+</pre></div>
+</div>
+<p>Both operands must be full analyses with the same local/source axes and maps,
+source label, method, parameters, producer versions, measurement names/units,
+and effective atom evaluation scope. A query view or an extracted subsystem
+is not a replacement operand. Differences raise an error; use a separate name
+for a different scientific calculation. Parameter equality is strict, including
+scientific attribution. Execution mode and block counts may differ: they are
+preserved per set of evaluated frames in <code class="docutils literal notranslate"><span class="pre">updated.execution_records</span></code>.
+Populated frames cannot mix known periodic images with unknown images. Empty
+frames do not invent images or impose missing observations.</p>
+<p>Replacement shares immutable source blocks and indexes the owner of each frame.
+When the relation catalog is unchanged, its buffers and existing block maps are
+shared too. Identity maps require no stored vector. Recognizing incoming relations
+can build a compact lazy index with 16 numeric bytes per registered relation;
+subsequent edits reuse it. Full participant/role equality is always checked,
+including hash collisions. This process-local cache is not serialized or used as
+an interaction identifier. New definitions extend the catalog and may allocate
+new catalog buffers. Frame bookkeeping still requires memory proportional to the
+number of structures. Typed dictionary/pickle export and remapping can allocate
+all active rows. HDF5 export instead writes directly from the active blocks,
+including a structure with many observations. Selecting or converting a system
+before writing can still materialize data through those separate operations.
+A selected-frame query visits its owners and copies only the selected occurrence
+columns, while sharing the relation registry. Atom queries reuse each active
+source block’s lazy inverse indexes. These selected projections differ from
+views of an ordinary packed analysis, which share its occurrence columns too.
+Repeated replacement drops fully superseded block references; it does not retain
+a chain of analysis versions. A partly active block retains its original rows,
+and unused relation definitions may remain in the registry. Many small edits can
+therefore accumulate blocks; automatic compaction is still pending.</p>
+<p>New occurrence indices belong to the updated analysis version and survive its
+H5MSM/typed round trip. Replacing a frame does not preserve its old canvas handles.
+Reading complete columns, remapping, pickle and typed dictionary export can
+materialize all active data. HDF5 saving avoids that packing step; it does not
+provide editing of individual rows or resumable output.
+Assigning <code class="docutils literal notranslate"><span class="pre">fresh</span></code> directly under an existing name still replaces the <strong>whole</strong>
+analysis: use <code class="docutils literal notranslate"><span class="pre">replace_structures</span></code> to preserve other frames.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">interactions</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="n">atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">subset</span><span class="o">.</span><span class="n">n_structures</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">subset</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="n">subset</span><span class="o">.</span><span class="n">structure_source_indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">atom_source_indices</span></code> and <code class="docutils literal notranslate"><span class="pre">structure_source_indices</span></code> map each local positional
+index to its original source index; <code class="docutils literal notranslate"><span class="pre">source_n_atoms</span></code> and
+<code class="docutils literal notranslate"><span class="pre">source_n_structures</span></code> define the original index spaces. These are indices, not
+element IDs. <code class="docutils literal notranslate"><span class="pre">remap()</span></code> composes the maps and preserves <code class="docutils literal notranslate"><span class="pre">source_id</span></code>. An
+appended structure or atom with no counterpart in the original source has map
+value <code class="docutils literal notranslate"><span class="pre">-1</span></code>. Query projections do not copy the complete maps on every call; read
+them from the result when needed. The typed dictionary and standalone HDF5
+file omit identity-map vectors; their readers reconstruct those maps from
+the declared axis sizes.</p>
+<p>A native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code> can hold several named, full interaction analyses. Their
+atom and structure counts must match the system. Its <code class="docutils literal notranslate"><span class="pre">copy()</span></code>, <code class="docutils literal notranslate"><span class="pre">extract()</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">remove()</span></code> methods preserve or remap the analyses.</p>
+</section>
+</section>
+<section id="methods-and-attribution">
+<span id="user-tools-interactions-attribution"></span><h2>Methods and attribution<a class="headerlink" href="#methods-and-attribution" title="Link to this heading">#</a></h2>
+<p>Calculation methods use an author’s name when a scientific definition is
+established, or describe the geometric criterion. A <code class="docutils literal notranslate"><span class="pre">profile</span></code> selects the
+recognition and geometry conventions within a method. These names do not claim
+that the reference program originated the criterion:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Calculation</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>Profile</p></th>
+<th class="head"><p>Reference implementation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hydrogen bonds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">baker_hubbard</span></code>, <code class="docutils literal notranslate"><span class="pre">wernet_nilsson</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nitrogen_oxygen</span></code></p></td>
+<td><p>MDTraj</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrogen bonds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">donor_acceptor_distance_angle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">elemental_fon</span></code></p></td>
+<td><p>CPPTRAJ</p></td>
+</tr>
+<tr class="row-even"><td><p>Hydrogen bonds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">donor_acceptor_distance_angle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">smarts_donor_acceptor</span></code></p></td>
+<td><p>ProLIF</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrogen bonds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">donor_acceptor_distance_angle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">explicit_sites</span></code></p></td>
+<td><p>MDAnalysis geometry</p></td>
+</tr>
+<tr class="row-even"><td><p>Cation–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">centroid_distance_angle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">smarts_5_6</span></code></p></td>
+<td><p>ProLIF</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cation–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">centroid_distance_offset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">three_atom_plane</span></code></p></td>
+<td><p>Mol* geometry</p></td>
+</tr>
+<tr class="row-even"><td><p>Cation–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">centroid_angle_offset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">least_squares</span></code></p></td>
+<td><p>MolSysMT proposal</p></td>
+</tr>
+<tr class="row-odd"><td><p>π–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">plane_angle_intersection</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">smarts_5_6</span></code></p></td>
+<td><p>ProLIF</p></td>
+</tr>
+<tr class="row-even"><td><p>π–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">plane_angle_intersection</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">aromatic_cycles</span></code></p></td>
+<td><p>MDTraj geometry</p></td>
+</tr>
+<tr class="row-odd"><td><p>π–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">centroid_angle_offset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">three_atom_plane</span></code></p></td>
+<td><p>Mol* geometry</p></td>
+</tr>
+<tr class="row-even"><td><p>π–π</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">centroid_angle_offset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">least_squares</span></code></p></td>
+<td><p>MolSysMT proposal</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">method=&quot;donor_acceptor_distance_angle&quot;,</span> <span class="pre">profile=&quot;elemental_fon&quot;</span></code>
+selects the existing CPPTRAJ-compatible definition. The old selectors <code class="docutils literal notranslate"><span class="pre">prolif</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cpptraj</span></code>, <code class="docutils literal notranslate"><span class="pre">mdanalysis_geometry</span></code>, <code class="docutils literal notranslate"><span class="pre">mdtraj_geometry</span></code>, and <code class="docutils literal notranslate"><span class="pre">molstar_geometry</span></code>
+remain supported aliases in their respective functions. Changing the name
+does not change participants, cutoffs, inclusivity, periodic images or defaults.
+Explicit incompatible method/profile combinations raise an error.
+The site recognizer has descriptive methods <code class="docutils literal notranslate"><span class="pre">elemental_nitrogen_oxygen</span></code>,
+<code class="docutils literal notranslate"><span class="pre">elemental_fluorine_oxygen_nitrogen</span></code>, and <code class="docutils literal notranslate"><span class="pre">smarts_donor_acceptor</span></code>;
+its previous software selectors remain aliases too.</p>
+<p>Detector-produced analyses include <code class="docutils literal notranslate"><span class="pre">method</span></code>, <code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">method_definition</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">attribution</span></code> in <code class="docutils literal notranslate"><span class="pre">analysis.parameters</span></code>. The attribution payload uses
+<code class="docutils literal notranslate"><span class="pre">schema=&quot;molsysmt.scientific_attribution&#64;1&quot;</span></code>, a calculation target and a compact
+list of bibliographic records. Each record declares its contextual roles:
+<code class="docutils literal notranslate"><span class="pre">scientific_criterion</span></code>, <code class="docutils literal notranslate"><span class="pre">reference_implementation</span></code>, or <code class="docutils literal notranslate"><span class="pre">executed_software</span></code>.
+A reference to ProLIF does not mean ProLIF was executed. Actual producer
+versions remain in <code class="docutils literal notranslate"><span class="pre">analysis.software</span></code>; a reached RDKit branch records RDKit.
+The versioned method definition identifies a contract, not a scientific DOI.
+The original reference for the historical Buch selector has not been verified;
+its recorded criterion is <code class="docutils literal notranslate"><span class="pre">hydrogen_acceptor_distance</span></code>, without a guessed paper.
+The existing Luzard–Chandler entry point records the established
+<code class="docutils literal notranslate"><span class="pre">luzar_chandler</span></code> criterion and its paper while retaining its public spelling.</p>
+<p>The complete typed dictionary, standalone file and H5MSM 0.5 preserve these
+records, including the bibliography and producer versions recorded at calculation
+time. Query views expose <code class="docutils literal notranslate"><span class="pre">.parameters</span></code>; their occurrence-only <code class="docutils literal notranslate"><span class="pre">to_dict()</span></code> does
+not carry the complete analysis parameters. Loading, querying and remapping do
+not register a new scientific calculation. Manually constructed and older
+analyses may have no attribution; missing records mean unknown provenance.</p>
+<p>When Ackredit is installed, completed calculations also register their used
+references in the current Ackredit session. An evaluated structure with no
+observations still belongs to that calculation. MolSysMT imports Ackredit lazily
+and enables no import hooks, DOI enrichment, persistent journal or reminders.
+Without Ackredit, the same result-level metadata is produced. A broken optional
+provider emits a diagnostic while preserving the scientific result.
+This also applies when warnings are promoted to errors. If creating or emitting
+that diagnostic fails, a fallback log retains <code class="docutils literal notranslate"><span class="pre">MSM-WARN-ATTR-001</span></code>, the operation
+and both failures. Scientific errors and unrelated warnings still propagate.
+The caller owns workflow sessions and report destinations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional workflow reporting; requires Ackredit.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ackredit</span>
+
+<span class="k">with</span> <span class="n">ackredit</span><span class="o">.</span><span class="n">session</span><span class="p">(</span><span class="s2">"interaction-workflow"</span><span class="p">):</span>
+    <span class="n">analysis</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">interactions</span><span class="o">.</span><span class="n">hbonds</span><span class="o">.</span><span class="n">get_hbonds</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ackredit</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">"bibtex"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">molecular_system</span></code> must supply the detector’s required chemistry and
+coordinates; this sketch does not assign chemistry or download a system.
+Bibliography is stored once per analysis, never once per observation. Portable
+workflow capture and contextual report roles are being coordinated with
+<a class="reference external" href="https://github.com/uibcdf/ackredit/issues/75">Ackredit #75</a>.</p>
+</section>
+<section id="associating-an-analysis">
+<span id="user-tools-interactions-association"></span><h2>Associating an analysis<a class="headerlink" href="#associating-an-analysis" title="Link to this heading">#</a></h2>
+<p>Attaching an analysis declares that its local atom and structure indices
+correspond to the system’s local indices. You are responsible for choosing
+the matching system. MolSysMT checks index bounds, result consistency, and
+matching axis sizes; equal counts alone do not establish molecular identity.
+The writer of an H5MSM containing both system and analyses is responsible
+for their correspondence and declared associations.</p>
+<p>When loading an analysis from another file, align it with the target before
+attachment if either axis has a different order. <code class="docutils literal notranslate"><span class="pre">remap()</span></code> accepts old
+analysis indices in the desired new order. It can extract or reorder the
+analysis; it does not embed a smaller analysis into a larger target domain.
+Source maps are provenance and are not automatically matched to the target.
+<code class="docutils literal notranslate"><span class="pre">source_id</span></code> is an optional label supplied by the caller, not a verified
+fingerprint. Attachment requires no automatic origin authentication. Use
+coordinates and periodic boxes compatible with the calculation; the stored
+image vectors refer to that geometry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSys</span>
+
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">MolSys</span><span class="p">(</span><span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coordinates</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"example"</span><span class="p">:</span> <span class="n">interactions</span><span class="p">}</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="n">molsys</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">atom_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">selected</span><span class="o">.</span><span class="n">interactions</span><span class="p">[</span><span class="s2">"example"</span><span class="p">]</span><span class="o">.</span><span class="n">n_structures</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>You can also attach an analysis returned directly by the disulfide candidate
+detector. This synthetic example identifies a geometric candidate; it does
+not declare a covalent bond:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">MolSysBuilder</span><span class="p">()</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_atom</span><span class="p">(</span><span class="n">atom_name</span><span class="o">=</span><span class="s2">"SG"</span><span class="p">,</span> <span class="n">atom_type</span><span class="o">=</span><span class="s2">"S"</span><span class="p">)</span>
+<span class="n">second</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_atom</span><span class="p">(</span><span class="n">atom_name</span><span class="o">=</span><span class="s2">"SG"</span><span class="p">,</span> <span class="n">atom_type</span><span class="o">=</span><span class="s2">"S"</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_group</span><span class="p">([</span><span class="n">first</span><span class="p">],</span> <span class="n">group_name</span><span class="o">=</span><span class="s2">"CYS"</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">add_group</span><span class="p">([</span><span class="n">second</span><span class="p">],</span> <span class="n">group_name</span><span class="o">=</span><span class="s2">"CYS"</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">set_coordinates</span><span class="p">(</span>
+    <span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">quantity</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="s2">"nm"</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="n">analysis</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">interactions</span><span class="o">.</span><span class="n">disulfides</span><span class="o">.</span><span class="n">get_disulfide_candidates</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">"molsysmt.Interactions"</span>
+<span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"disulfide_candidates"</span><span class="p">:</span> <span class="n">analysis</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span><span class="p">[</span><span class="s2">"disulfide_candidates"</span><span class="p">]</span><span class="o">.</span><span class="n">n_interactions</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>For a system with covalently attached donor hydrogens, use the Buch detector
+to construct an analysis of H-A distances (in nm):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">interactions</span><span class="o">.</span><span class="n">hbonds</span><span class="o">.</span><span class="n">get_buch_hbonds</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">"molsysmt.Interactions"</span>
+<span class="p">)</span>
+<span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">molsys</span><span class="o">.</span><span class="n">interactions</span><span class="p">,</span> <span class="s2">"buch"</span><span class="p">:</span> <span class="n">analysis</span><span class="p">}</span>
+<span class="n">visible</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The result declares the automatically eligible participants, including
+donor hydrogens attached outside an atom selection. Two selections must have
+disjoint participant universes or identical roles for this optional output.
+Supplied role arrays and a second structure axis are currently unsupported.
+With PBC, the donor is the image anchor, the hydrogen uses its D-H minimum
+image, and the acceptor continues from that hydrogen using the observed H-A
+image. The stored distance checks the H-A segment; D-H unwrapping supplies
+consistent drawing geometry and does not add a detection criterion. These
+detectors use eager execution; requesting <code class="docutils literal notranslate"><span class="pre">Interactions</span></code> does not make them
+stream coordinates or write observations incrementally.</p>
+<p>For the joint distance-and-angle criterion, use
+<code class="docutils literal notranslate"><span class="pre">msm.interactions.hbonds.get_luzard_chandler_hbonds(...,</span> <span class="pre">output_type=&quot;molsysmt.Interactions&quot;)</span></code>. It measures donor-to-acceptor distance
+in nm and the H-D-A angle in rad, with the donor as vertex. The defaults are
+0.35 nm and a strict angular cutoff of 30 degrees (pi/6 rad). Its periodic
+images independently unwrap D-H and D-A from the donor; they reproduce the
+two vectors used for the angle. It has the same optional-result scope limits
+as Buch and preserves evaluated-empty frames and producer versions.</p>
+<p>Appended structures remain unevaluated by existing analyses, including a
+coordinate-only source passed to <code class="docutils literal notranslate"><span class="pre">msm.append_structures</span></code>. Adding atoms to a
+system with analyses keeps their previous search universe fixed; the added
+atoms are outside it and are not claimed as evaluated. Adding atoms from a
+source <code class="docutils literal notranslate"><span class="pre">MolSys</span></code> that already has analyses, or appending structures from such a
+source, requires an explicit analysis merge policy and currently raises an
+error. H5MSM 0.4 and MolSysDict 0.1 cannot store attached analyses and
+reject that export. H5MSM 0.5 writes and reads the named analyses with the
+system; <code class="docutils literal notranslate"><span class="pre">Interactions.save()</span></code> remains available for standalone results.</p>
+</section>
+<section id="directional-halogen-observations">
+<h2>Directional halogen observations<a class="headerlink" href="#directional-halogen-observations" title="Link to this heading">#</a></h2>
+<p>The experimental <a class="reference internal" href="../../../../api/interactions/autosummary/molsysmt.interactions.halogen_bonds.get_halogen_bonds.html#molsysmt.interactions.halogen_bonds.get_halogen_bonds" title="molsysmt.interactions.halogen_bonds.get_halogen_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.interactions.halogen_bonds.get_halogen_bonds()</span></code></a>
+returns four singleton roles: donor, halogen, acceptor and acceptor reference.
+Every role participates in atom-set queries; an acceptor with two eligible
+reference neighbors can yield two separately identifiable directional relations.
+The descriptive <code class="docutils literal notranslate"><span class="pre">distance_two_angles</span></code> method with <code class="docutils literal notranslate"><span class="pre">smarts_donor_acceptor</span></code> profile
+reproduces the ProLIF 2.2.2 core adapted from Auffinger et al. (2004), not that
+paper’s original element-specific distance thresholds. Producer versions and
+the adapted paper/reference bibliography persist with each named analysis. See
+<a class="reference internal" href="get_halogen_bonds.html#tutorial-get-halogen-bonds"><span class="std std-ref">get_halogen_bonds</span></a> and <a class="reference internal" href="../../cookbook/saving_halogen_bonds.html#cookbook-saving-halogen-bonds"><span class="std std-ref">Saving halogen-bond analyses</span></a>.</p>
+</section>
+<section id="hydrophobic-atom-pair-observations">
+<h2>Hydrophobic atom-pair observations<a class="headerlink" href="#hydrophobic-atom-pair-observations" title="Link to this heading">#</a></h2>
+<p>The experimental <a class="reference internal" href="../../../../api/interactions/autosummary/molsysmt.interactions.hydrophobic.get_hydrophobic_interactions.html#molsysmt.interactions.hydrophobic.get_hydrophobic_interactions" title="molsysmt.interactions.hydrophobic.get_hydrophobic_interactions"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.interactions.hydrophobic.get_hydrophobic_interactions()</span></code></a>
+uses <code class="docutils literal notranslate"><span class="pre">atom_pair_distance</span></code> with <code class="docutils literal notranslate"><span class="pre">smarts_hydrophobic_atoms</span></code>, reproducing the pinned
+ProLIF 2.2.2 core. Two distinct atoms form an unordered relation, with ascending
+source indices and roles <code class="docutils literal notranslate"><span class="pre">hydrophobic_1</span></code>/<code class="docutils literal notranslate"><span class="pre">hydrophobic_2</span></code>; roles do not encode the
+selected interface sides. Self records and reverse duplicates are excluded.
+Additional covalent/intramolecular exclusions are not inferred. Use disjoint
+selections for interfacial observations. This typed proximity is not a residue
+scale value or interaction energy. Scope, known-empty coverage, canonical MIC
+images, original producers and reference bibliography remain part of the named
+analysis. See <a class="reference internal" href="get_hydrophobic_interactions.html#tutorial-get-hydrophobic-interactions"><span class="std std-ref">get_hydrophobic_interactions</span></a> and
+<a class="reference internal" href="../../cookbook/saving_hydrophobic_interactions.html#cookbook-saving-hydrophobic-interactions"><span class="std std-ref">Saving hydrophobic analyses</span></a>.</p>
+</section>
+<section id="coordination-and-solvent-paths">
+<h2>Coordination and solvent paths<a class="headerlink" href="#coordination-and-solvent-paths" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../../../api/interactions/autosummary/molsysmt.interactions.metal_coordination.get_metal_coordination.html#molsysmt.interactions.metal_coordination.get_metal_coordination" title="molsysmt.interactions.metal_coordination.get_metal_coordination"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.interactions.metal_coordination.get_metal_coordination()</span></code></a> stores
+directed metal/ligand candidates; it does not declare bonds in ChemicalStates.
+<a class="reference internal" href="../../../../api/interactions/autosummary/molsysmt.interactions.water_bridges.get_water_bridges.html#molsysmt.interactions.water_bridges.get_water_bridges" title="molsysmt.interactions.water_bridges.get_water_bridges"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.interactions.water_bridges.get_water_bridges()</span></code></a> stores two or three
+D-H-A legs with six or nine singleton roles and one or two mediator waters.
+<code class="docutils literal notranslate"><span class="pre">order=1</span></code> is the default; <code class="docutils literal notranslate"><span class="pre">order=2</span></code> means exactly two distinct waters, not up to two. Repeated atoms
+retain their separate chemical roles; <code class="docutils literal notranslate"><span class="pre">involving_selection</span></code> queries return an occurrence
+once. Internal queries require all actual branch atoms, including mediator
+O and the participating H. An unused water H is not an extra participant.
+Both analyses retain evaluated-empty frames, original references/producer
+versions, units and observed images through named H5MSM 0.5 conversion.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="get_halogen_bonds.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">get_halogen_bonds</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="get_hbonds.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Get attributed hydrogen bonds</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-bounded-pages">Inspecting bounded pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-execution-provenance">Inspecting execution provenance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reclaiming-retired-observations">Reclaiming retired observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-coordinates">Changing coordinates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recalculating-selected-frames">Recalculating selected frames</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-and-attribution">Methods and attribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#associating-an-analysis">Associating an analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directional-halogen-observations">Directional halogen observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrophobic-atom-pair-observations">Hydrophobic atom-pair observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordination-and-solvent-paths">Coordination and solvent paths</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

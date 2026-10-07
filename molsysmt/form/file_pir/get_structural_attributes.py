@@ -1,9 +1,0 @@
-import types
-
-form = "file:pir"
-
-__all__ = [
-    name
-    for name, obj in globals().items()
-    if isinstance(obj, types.FunctionType) and name.startswith("get_")
-]

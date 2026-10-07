@@ -1,8 +1,0 @@
-{
-    "form_name": "networkx.Graph",
-    "form_type": "class",
-    "item_class_key": [
-        "networkx",
-        "Graph"
-    ]
-}

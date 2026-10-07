@@ -1,8 +1,0 @@
-{
-    "form_name": "rdkit.Mol",
-    "form_type": "class",
-    "item_class_key": [
-        "rdkit",
-        "Mol"
-    ]
-}

@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Infer covalent bonds – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/build/infer_covalent_bonds';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Get missing bonds" href="get_missing_bonds.html" />
+    <link rel="prev" title="Get peptide bond candidates" href="get_peptide_bond_candidates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="add_missing_bonds.html">Add missing bonds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_missing_heavy_atoms.html">Add missing heavy atoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_missing_hydrogens.html">Add missing hydrogens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fixed_state_hydrogens.html">Adding hydrogens to a fixed chemical state</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assign_autodock_atom_types.html">Assigning AutoDock types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assign_partial_charges.html">Assigning partial charges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_terminal_atoms.html">Attaching terminal atoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_missing_terminal_cappings.html">Add missing terminal cappings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_peptide.html">Build peptide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editable.html">Editable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_disulfide_bonds.html">Get disulfide bonds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_covalent_bond_candidates.html">Get covalent bond candidates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_peptide_bond_candidates.html">Get peptide bond candidates</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Infer covalent bonds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_missing_bonds.html">Get missing bonds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_missing_heavy_atoms.html">Get missing heavy atoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_missing_residues.html">Get missing residues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_missing_terminal_cappings.html">Get missing terminal cappings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_non_standard_residues.html">Get non standard residues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_residue_chemical_coverage.html">Get residue chemical coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="has_hydrogens.html">Has hydrogens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="is_solvated.html">Is solvated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="make_bioassembly.html">Make bioassembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="make_water_box.html">Make water box</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutate.html">Mutate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remove_overlapping_molecules.html">Remove overlapping molecules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solvate.html">Solvate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solve_atoms_with_alternate_locations.html">Solve atoms with alternate locations</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Build</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Infer covalent bonds</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="infer-covalent-bonds">
+<span id="tutorial-infer-covalent-bonds"></span><h1>Infer covalent bonds<a class="headerlink" href="#infer-covalent-bonds" title="Link to this heading">#</a></h1>
+<p><em>Applying bounded native candidates while retaining their scientific evidence.</em></p>
+<p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.infer_covalent_bonds()</span></code> to apply the supported candidate
+policies to a detached <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>. The source form can be native, a PDB or another
+supported form with names, elements and group membership. The source stays
+unchanged, including on failure.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">API documentation</p>
+<p>See <code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.infer_covalent_bonds()</span></code> for arguments and errors.</p>
+</div>
+<section id="applying-a-declared-policy">
+<h2>Applying a declared policy<a class="headerlink" href="#applying-a-declared-policy" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">infer_covalent_bonds</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="p">,</span> <span class="n">structure_indices</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_report</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">prepared</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'molecular_system'</span><span class="p">]</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'report'</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The experimental <code class="docutils literal notranslate"><span class="pre">supported_group_templates</span></code> method composes existing public
+tools rather than a new parser-specific chemistry engine:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="get_covalent_bond_candidates.html#tutorial-covalent-bond-candidates"><span class="std std-ref">Exact heavy-group templates</span></a>.</p></li>
+<li><p>Exact-name local consensus on the heavy parent of each <strong>already observed H</strong>.</p></li>
+<li><p><a class="reference internal" href="get_peptide_bond_candidates.html#tutorial-peptide-bond-candidates"><span class="std std-ref">Unique same-chain peptide C-N geometry</span></a>.</p></li>
+</ul>
+<p>Only missing eligible pairs are appended as <code class="docutils literal notranslate"><span class="pre">type='covalent'</span></code> and
+<code class="docutils literal notranslate"><span class="pre">evidence='inferred'</span></code>. Orders remain unknown. Existing rows and their declared
+types, orders and evidence are retained. Both endpoints must be selected, but
+containing groups and backbone competitors are examined before filtering.
+Selections restrict additions; they do not extract the source atom inventory.</p>
+<p>Choose one structure when several exist. The whole source structure collection
+is retained. A topology without coordinates can supply template edges, while
+peptide geometry remains unassessed. Geometry uses <code class="docutils literal notranslate"><span class="pre">pbc=False</span></code> and the bounded
+0.153 nm effective ceiling. This operation can materialize/copy coordinates;
+it is not a streaming preparation workflow.</p>
+</section>
+<section id="reviewing-evidence-and-exclusions">
+<h2>Reviewing evidence and exclusions<a class="headerlink" href="#reviewing-evidence-and-exclusions" title="Link to this heading">#</a></h2>
+<p>The detached <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_inference&#64;1</span></code> report contains sorted candidate
+pairs and their methods, added pairs and resulting bond indices, a map from
+original to resulting bond indices, source atom/structure/state indices, original
+producer versions and the heavy/H/peptide exclusions. Candidate and added pair
+arrays are <code class="docutils literal notranslate"><span class="pre">int64</span></code> with shape <code class="docutils literal notranslate"><span class="pre">(n_pairs,</span> <span class="pre">2)</span></code>, including empty results.
+<code class="docutils literal notranslate"><span class="pre">candidate_method_indices</span></code> is an aligned <code class="docutils literal notranslate"><span class="pre">int8</span></code> array indexing the three names
+in <code class="docutils literal notranslate"><span class="pre">candidate_methods</span></code>; it avoids a string/list object per candidate. Peptide
+distances and thresholds use typed PyUnitWizard QuantityRecords with explicit nm
+units, independent of your session’s output policy.</p>
+<p>Local H-parent consensus can be applied while the complete group H-name inventory
+remains unassessed. This choice is explicit in this policy and does not establish
+protonation, terminal chemistry, missing H atoms or H placement. Unknown H names,
+modified heavy-only H references, conflicting chemistry and unsupported groups
+remain recorded; no alias or general distance fallback silently repairs them.
+Disulfides, metals, terminal caps and arbitrary small-molecule connectivity
+require separate policies. Review those limitations before downstream preparation.</p>
+</section>
+<section id="preserving-historical-provenance">
+<h2>Preserving historical provenance<a class="headerlink" href="#preserving-historical-provenance" title="Link to this heading">#</a></h2>
+<p>Every successful operation, including no-addition results, archives the report
+in the selected state’s <code class="docutils literal notranslate"><span class="pre">ChemicalStates.get_preparation_history()</span></code>. Added rows
+carry <code class="docutils literal notranslate"><span class="pre">provenance_index</span></code>, the index of that state’s historical envelope. H5MSM
+0.5 and ChemicalStatesDict preserve the record without coordinate snapshots.</p>
+<p>Reports have <code class="docutils literal notranslate"><span class="pre">index_scope='operation'</span></code>: their indices and output dimensions
+describe the original operation. Extraction/reordering retains the history,
+remaps current bonds and preserves the history reference. Merging shifts current references
+to these known local history records by the preceding inputs’ history lengths,
+while historical report axes remain unchanged. Other opaque provenance is not
+reinterpreted. Later operations do not rewrite earlier reports into current axes.
+Keep intervening maps and never
+use a historical atom/bond index directly to address the current system.</p>
+<p>New edges set connectivity completeness to <code class="docutils literal notranslate"><span class="pre">partial</span></code>; inference does not certify
+a complete graph. Named interaction occurrences on the output become unevaluated
+when bonds change, and the report names the affected analyses. A no-addition
+operation retains them. Other chemical states and the reference-state selection
+are preserved.</p>
+</section>
+<section id="selecting-the-pdb-reader-engine">
+<h2>Selecting the PDB reader engine<a class="headerlink" href="#selecting-the-pdb-reader-engine" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prepared</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span>
+    <span class="n">pdb_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">'molsysmt.MolSys'</span><span class="p">,</span>
+    <span class="n">get_missing_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bond_inference_engine</span><span class="o">=</span><span class="s1">'MolSysMT'</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>File, text and <code class="docutils literal notranslate"><span class="pre">PDBFileHandler</span></code> routes support the same explicit engine choices
+for native <code class="docutils literal notranslate"><span class="pre">MolSys</span></code> and <code class="docutils literal notranslate"><span class="pre">Topology</span></code> output:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Request</p></th>
+<th class="head text-left"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">get_missing_bonds=False</span></code>, engine omitted</p></td>
+<td class="text-left"><p>Retain only resolved declared PDB edges; no inference engine runs.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">get_missing_bonds=True</span></code>, <code class="docutils literal notranslate"><span class="pre">bond_inference_engine='MolSysMT'</span></code></p></td>
+<td class="text-left"><p>Compose and apply this bounded native policy without importing OpenMM.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">get_missing_bonds=True</span></code>, <code class="docutils literal notranslate"><span class="pre">bond_inference_engine='OpenMM'</span></code></p></td>
+<td class="text-left"><p>Run the existing OpenMM PDB bond operation; provider absence or failure raises.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">get_missing_bonds=True</span></code>, engine omitted</p></td>
+<td class="text-left"><p>Retain the legacy optional OpenMM policy; an unavailable/failed calculation warns and archives its cause before retaining only declared edges.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An explicit engine together with <code class="docutils literal notranslate"><span class="pre">get_missing_bonds=False</span></code> is a conflicting
+request and raises. Existing defaults remain form-specific: notably text-to-MolSys
+defaults to disabled inference, so include <code class="docutils literal notranslate"><span class="pre">get_missing_bonds=True</span></code> when requesting
+an engine there. No automatic native fallback is introduced.</p>
+<p>Reader inference uses <strong>source structure index 0</strong>, before atom/structure
+extraction, for one shared graph. Selectable per-structure inference belongs to
+the standalone build tool. For ensembles whose connectivity changes, declare
+chemical states and structure associations separately. PDB parsing remains eager.</p>
+<p>The reader archives <code class="docutils literal notranslate"><span class="pre">molsysmt.pdb_connectivity&#64;1</span></code> outcomes, including disabled,
+inferred, unavailable and failed operations, declaration-resolution flags,
+producer versions and error type/message. The native route first records the
+explicit parse, then archives <code class="docutils literal notranslate"><span class="pre">covalent_inference&#64;1</span></code>. Resolved declared bonds
+keep precedence over inferred evidence. Current declaration flags are aggregate
+evidence; they do not provide a complete per-record malformed-file diagnosis.</p>
+<div class="dropdown admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../cookbook/applying_chemical_templates.html#cookbook-pdb-connectivity-policy"><span class="std std-ref">Choosing PDB connectivity</span></a></p></li>
+<li><p><a class="reference internal" href="get_covalent_bond_candidates.html#tutorial-covalent-bond-candidates"><span class="std std-ref">Get covalent bond candidates</span></a></p></li>
+<li><p><a class="reference internal" href="get_peptide_bond_candidates.html#tutorial-peptide-bond-candidates"><span class="std std-ref">Get peptide bond candidates</span></a></p></li>
+<li><p><a class="reference internal" href="../physchem/chemical_templates.html#tutorial-chemical-templates"><span class="std std-ref">Assessing and applying chemical templates</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="get_peptide_bond_candidates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Get peptide bond candidates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="get_missing_bonds.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Get missing bonds</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-a-declared-policy">Applying a declared policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewing-evidence-and-exclusions">Reviewing evidence and exclusions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preserving-historical-provenance">Preserving historical provenance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-the-pdb-reader-engine">Selecting the PDB reader engine</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

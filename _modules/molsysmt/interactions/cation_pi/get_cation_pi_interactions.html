@@ -1,0 +1,1210 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.interactions.cation_pi.get_cation_pi_interactions – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/interactions/cation_pi/get_cation_pi_interactions';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.interactions.cation_pi.get_cation_pi_interactions</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.interactions.cation_pi.get_cation_pi_interactions</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Public boundary for formal-cation/declared-aromatic observations."""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">depdigest</span><span class="w"> </span><span class="kn">import</span> <span class="n">dep_digest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyunitwizard</span> <span class="k">as</span> <span class="n">puw</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.argdigest</span><span class="w"> </span><span class="kn">import</span> <span class="n">arg_digest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.interaction_attribution</span><span class="w"> </span><span class="kn">import</span> <span class="n">attributed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ArgumentError</span><span class="p">,</span>
+    <span class="n">StructuralInconsistencyError</span><span class="p">,</span>
+    <span class="n">UnsupportedHeavyOperationError</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.sparse_membership</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">connected_group_pairs</span><span class="p">,</span>
+    <span class="n">whole_group_selection</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.variables</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_all</span>
+
+<span class="n">_CALLER</span> <span class="o">=</span> <span class="s2">"molsysmt.interactions.cation_pi.get_cation_pi_interactions"</span>
+
+
+<div class="viewcode-block" id="get_cation_pi_interactions">
+<a class="viewcode-back" href="../../../../api/interactions/autosummary/molsysmt.interactions.cation_pi.get_cation_pi_interactions.html#molsysmt.interactions.cation_pi.get_cation_pi_interactions">[docs]</a>
+<span class="nd">@signal</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"interactions"</span><span class="p">])</span>
+<span class="nd">@arg_digest</span><span class="p">()</span>
+<span class="nd">@dep_digest</span><span class="p">(</span><span class="s2">"rdkit"</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="p">{</span><span class="s2">"method"</span><span class="p">:</span> <span class="s2">"prolif"</span><span class="p">})</span>
+<span class="nd">@dep_digest</span><span class="p">(</span><span class="s2">"rdkit"</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="p">{</span><span class="s2">"method"</span><span class="p">:</span> <span class="s2">"centroid_distance_angle"</span><span class="p">})</span>
+<span class="nd">@attributed</span><span class="p">(</span><span class="s2">"cation_pi"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cation_pi_interactions</span><span class="p">(</span>
+    <span class="n">molecular_system</span><span class="p">,</span>
+    <span class="n">distance_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">angle_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">offset_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">planarity_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">selection</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+    <span class="n">selection_2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">structure_indices</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+    <span class="n">chemical_state</span><span class="o">=</span><span class="s2">"reference"</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"centroid_distance_angle"</span><span class="p">,</span>
+    <span class="n">selection_mode</span><span class="o">=</span><span class="s2">"internal"</span><span class="p">,</span>
+    <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">assume_complete_connectivity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="s2">"molsysmt.Interactions"</span><span class="p">,</span>
+    <span class="n">syntax</span><span class="o">=</span><span class="s2">"MolSysMT"</span><span class="p">,</span>
+    <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">max_cyclic_block_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">max_matches</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span>
+    <span class="n">heavy_mode</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+    <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Detecting cation-pi geometries using an attributed or experimental method.</span>
+
+<span class="sd">    The default reproduces ProLIF 2.2.2's CationPi SMARTS, centroid/normal</span>
+<span class="sd">    construction and distance/angle acceptance. The separately named</span>
+<span class="sd">    centroid_angle_offset method is a MolSysMT proposal, not a published method.</span>
+<span class="sd">    Both return geometric evidence, without establishing attractive energy.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    molecular_system : molecular system</span>
+<span class="sd">        Any supported form supplying coordinates, elements, complete declared</span>
+<span class="sd">        selected-state connectivity, bond orders, formal charges and explicit</span>
+<span class="sd">        aromatic atom/bond flags. A chemical-only domain has no element inventory.</span>
+<span class="sd">    distance_threshold : quantity, str, or None, default=None</span>
+<span class="sd">        Finite positive cation-point/ring-centroid cutoff with length units.</span>
+<span class="sd">        None uses ProLIF's 0.45 nm or Mol* geometry's 0.60 nm; the custom</span>
+<span class="sd">        method requires an explicit value.</span>
+<span class="sd">    angle_threshold : quantity, str, or None, default=None</span>
+<span class="sd">        Acute displacement/normal angle cutoff with angular units. ProLIF</span>
+<span class="sd">        accepts a scalar maximum (minimum zero) or a quantity with two values</span>
+<span class="sd">        [minimum, maximum] within 0 to 90 degrees; None uses [0, 30] degrees.</span>
+<span class="sd">        The custom method requires an explicit nonnegative scalar below 90</span>
+<span class="sd">        degrees. Leave None for Mol* geometry, which has no angular filter.</span>
+<span class="sd">        Calculations and stored parameters use radians.</span>
+<span class="sd">    offset_threshold : quantity, str, or None, default=None</span>
+<span class="sd">        Custom method's finite nonnegative lateral displacement cutoff, with</span>
+<span class="sd">        length units. Required for the custom method; must be None for ProLIF,</span>
+<span class="sd">        which applies no offset filter. Mol* geometry defaults to 0.20 nm.</span>
+<span class="sd">    planarity_threshold : quantity, str, or None, default=None</span>
+<span class="sd">        Custom method's finite nonnegative maximum ring-plane deviation cutoff,</span>
+<span class="sd">        with length units. Required for the custom method; must be None for</span>
+<span class="sd">        ProLIF/Mol* geometry, which apply no planarity filter. Zero adds no absolute tolerance.</span>
+<span class="sd">    selection : str, list, tuple, or numpy.ndarray, default='all'</span>
+<span class="sd">        Include every atom of any intersected eligible participant. ProLIF</span>
+<span class="sd">        cations are singleton matched atoms; custom cations may be compound.</span>
+<span class="sd">        Fused rings sharing atoms can require extending a selection.</span>
+<span class="sd">    selection_2 : str, list, tuple, numpy.ndarray, or None, default=None</span>
+<span class="sd">        Disjoint second selection, required only for selection_mode='between'.</span>
+<span class="sd">        Either selection may contain cations, rings or both.</span>
+<span class="sd">    structure_indices : int, list, tuple, or numpy.ndarray, default='all'</span>
+<span class="sd">        Zero-based structure indices. Repeated indices are evaluated once in</span>
+<span class="sd">        sorted order; evaluated structures without candidates remain explicit.</span>
+<span class="sd">    chemical_state : {'reference', 'structure'}, int, or None, default='reference'</span>
+<span class="sd">        Selected chemistry. Structure assignments must resolve one state across</span>
+<span class="sd">        the requested structures; no protonation or parameterization is inferred.</span>
+<span class="sd">    method : str, default='centroid_distance_angle'</span>
+<span class="sd">        centroid_distance_angle, centroid_distance_offset, or the separately</span>
+<span class="sd">        identified centroid_angle_offset proposal. Historical prolif and</span>
+<span class="sd">        molstar_geometry selectors remain exact compatibility aliases.</span>
+<span class="sd">        Reference implementations and adaptations are recorded separately.</span>
+<span class="sd">    selection_mode : {'internal', 'incident', 'between'}, default='internal'</span>
+<span class="sd">        Search within selection, from selection to every eligible system</span>
+<span class="sd">        participant, or between selection and selection_2, respectively.</span>
+<span class="sd">    pbc : bool, default=True</span>
+<span class="sd">        Explicit MolSysMT extension: use MIC when a box exists. Participants</span>
+<span class="sd">        must already be whole in their anchor-relative image; split groups fail.</span>
+<span class="sd">    assume_complete_connectivity : bool, default=False</span>
+<span class="sd">        Record an explicit completeness assumption without modifying the source.</span>
+<span class="sd">    output_type : {'molsysmt.Interactions', 'molsysmt.InteractionsDict'}, default='molsysmt.Interactions'</span>
+<span class="sd">        Sparse analysis object or its typed, versioned serialization dictionary.</span>
+<span class="sd">    syntax : str, default='MolSysMT'</span>
+<span class="sd">        Syntax used to evaluate selection and selection_2.</span>
+<span class="sd">    skip_digestion : bool, default=False</span>
+<span class="sd">        Whether to skip MolSysMT's internal argument digestion mechanism.</span>
+<span class="sd">    max_cyclic_block_size : int, default=256</span>
+<span class="sd">        Keyword-only aromatic basis limit for the custom method. ProLIF uses</span>
+<span class="sd">        its original SMARTS ring recognition and does not use this limit.</span>
+<span class="sd">    max_matches : int, default=100000</span>
+<span class="sd">        Keyword-only bound per SMARTS query for ProLIF. Exceeding it raises</span>
+<span class="sd">        instead of silently truncating. The custom method does not use this limit.</span>
+<span class="sd">    heavy_mode : {'auto', 'force', 'off'}, default='auto'</span>
+<span class="sd">        Keyword-only execution policy. Streaming requires the form's declared</span>
+<span class="sd">        coordinate route; other supported forms use bounded eager getters.</span>
+
+<span class="sd">    profile : str or None, default=None</span>
+<span class="sd">        Keyword-only profile. centroid_distance_angle uses smarts_5_6;</span>
+<span class="sd">        centroid_distance_offset uses three_atom_plane; centroid_angle_offset</span>
+<span class="sd">        uses least_squares. These preserve the distinct recognition, normal</span>
+<span class="sd">        construction and comparisons of each referenced definition.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    molsysmt.Interactions or molsysmt.InteractionsDict</span>
+<span class="sd">        Sparse cation_pi relations with cation/ring roles and complete source</span>
+<span class="sd">        memberships. ProLIF rings preserve SMARTS atom order for reconstructing</span>
+<span class="sd">        the normal; this is not sorted membership order. Measures include</span>
+<span class="sd">        distance, acute normal angle, lateral offset, absolute height, ring</span>
+<span class="sd">        RMS/maximum deviation and cation charge (nm, radians, elementary charge).</span>
+<span class="sd">        For ProLIF, cation_charge is the matched atom's stored formal charge:</span>
+<span class="sd">        a neutral nitrogen matched by the resonance pattern can have zero.</span>
+<span class="sd">        For the custom method, it is the whole center's positive net charge.</span>
+<span class="sd">        For ProLIF, oriented_normal_angle also preserves the original reported</span>
+<span class="sd">        angle in [0, pi], before acute folding for acceptance.</span>
+<span class="sd">        ProLIF deviations describe its centroid-edge plane, not a least-squares</span>
+<span class="sd">        fit. They are diagnostic and do not filter its observations.</span>
+<span class="sd">        Images shift the ring relative to the cation using row box vectors.</span>
+<span class="sd">        Empty frames, eligible atom scope, producer version, original method</span>
+<span class="sd">        reference and parameters are explicit; empty measure columns have (0,).</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ArgumentError</span>
+<span class="sd">        If cutoffs, method, selections or structure indices are invalid.</span>
+<span class="sd">    StructuralInconsistencyError</span>
+<span class="sd">        If declared chemistry is missing/contradictory, coordinates/boxes are</span>
+<span class="sd">        invalid or a custom-method ring fails to define a unique fitted plane.</span>
+<span class="sd">    NotImplementedMethodError</span>
+<span class="sd">        If a periodic participant requires internal image reconstruction.</span>
+<span class="sd">    UnsupportedHeavyOperationError</span>
+<span class="sd">        If SMARTS matches exceed their limit, required streaming is unavailable</span>
+<span class="sd">        or one projected frame exceeds its numerical working estimate.</span>
+<span class="sd">    MemoryBudgetExceededError</span>
+<span class="sd">        If matching, axes, candidates or resident sparse output exceed their</span>
+<span class="sd">        configured allocation. No partial analysis is returned.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Canonical method names describe the criterion. Profiles and pinned source</span>
+<span class="sd">    references preserve the complete reproduced definition. The detached</span>
+<span class="sd">    parameters['attribution'] bibliography survives typed and H5MSM storage,</span>
+<span class="sd">    independently of optional Ackredit tracking in the application's session.</span>
+
+<span class="sd">    ProLIF uses its original cation SMARTS, including amidine/guanidine</span>
+<span class="sd">    resonance and opposite-charge exclusions, and aromatic 5/6-member ring</span>
+<span class="sd">    SMARTS. The ring centroid is the arithmetic mean; its normal is the cross</span>
+<span class="sd">    product of centroid-to-first and centroid-to-second matched atom vectors.</span>
+<span class="sd">    Require distance &lt;= cutoff and angle within the inclusive acute interval,</span>
+<span class="sd">    without an extra ULP allowance. Undefined normals or zero displacements</span>
+<span class="sd">    produce no angular candidates. No least-squares, offset, planarity,</span>
+<span class="sd">    overlap or direct-covalent exclusion is added to this method.</span>
+
+<span class="sd">    MolSysMT extends the calculation to a single source with explicit scopes,</span>
+<span class="sd">    all requested frames, bounded coordinate/candidate execution and optional</span>
+<span class="sd">    MIC. It does not reproduce ProLIF's residue-pair/ligand preprocessing or</span>
+<span class="sd">    fingerprint aggregation. RDKit is an optional dependency required by</span>
+<span class="sd">    ProLIF recognition; ProLIF itself is not a runtime dependency. Native</span>
+<span class="sd">    recognition reuses the chemistry-aware RDKit converter without coordinates</span>
+<span class="sd">    and requires sanitization to preserve declared charges and aromaticity.</span>
+
+<span class="sd">    The custom method uses positive formal-charge centers and declared aromatic</span>
+<span class="sd">    minimum-cycle-basis rings. Its cation point is the unweighted mean of ALL</span>
+<span class="sd">    participant atoms, not an electrical center or the ionic distance-reference</span>
+<span class="sd">    subset. Planes are unweighted least squares. For d=point-ring_centroid and</span>
+<span class="sd">    unit n: height=abs(dot(d,n)), offset=norm(d-dot(d,n)*n), and</span>
+<span class="sd">    angle=atan2(offset,height). Require positive distance, angle/offset and</span>
+<span class="sd">    maximum ring deviation within their cutoffs. Inclusive comparisons allow</span>
+<span class="sd">    one float64 ULP, capped below pi/2 for angles. Overlap and direct covalent</span>
+<span class="sd">    links exclude a pair; other intramolecular candidates remain included.</span>
+<span class="sd">    This experimental proposal has no established accuracy advantage; its</span>
+<span class="sd">    comparison is tracked in uibcdf/molsysmt#271.</span>
+
+<span class="sd">    molstar_geometry reproduces the charged.ts geometric tester using distance</span>
+<span class="sd">    &lt;=0.60 nm and lateral offset &lt;=0.20 nm, with a normal from the first three</span>
+<span class="sd">    basis member atoms. It adds no angle/planarity or covalent exclusion.</span>
+<span class="sd">    Its participants are MolSysMT declared formal-charge centers and aromatic</span>
+<span class="sd">    basis rings, not Mol*'s valence-model/residue feature discovery. Their</span>
+<span class="sd">    centroid uses all participating atoms; Mol* can mark atoms that do not</span>
+<span class="sd">    contribute to its feature centroid. This named profile therefore compares</span>
+<span class="sd">    geometry on supplied features and does not claim full Mol* detector parity.</span>
+<span class="sd">    Undefined triangles/zero displacements are skipped; whole-participant MIC</span>
+<span class="sd">    is an explicit extension. The pinned source reference survives serialization.</span>
+
+<span class="sd">    Coverage contains eligible participants, not every atom examined during</span>
+<span class="sd">    full-state recognition. Results are never attached automatically. H5MSM</span>
+<span class="sd">    index selections read chemistry once and projected coordinates without</span>
+<span class="sd">    saved analyses; rich file selections require bounded eager materialization.</span>
+<span class="sd">    Numeric coordinate/geometry work reserves one quarter of the RAM budget,</span>
+<span class="sd">    candidate search one eighth, sparse accumulation/packing one half. Source</span>
+<span class="sd">    arrays, chemistry, Python overhead and process RSS are outside these</span>
+<span class="sd">    estimates. The sparse result remains resident. Plane/spatial kernels are</span>
+<span class="sd">    reused; no new compiled backend or incremental writer is introduced.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    molsysmt.topology.get_substructure_matches</span>
+<span class="sd">        Matching original chemical SMARTS without silent truncation.</span>
+<span class="sd">    molsysmt.physchem.get_charge_centers</span>
+<span class="sd">        Identifying the custom method's formal-charge centers.</span>
+<span class="sd">    molsysmt.physchem.get_aromatic_rings</span>
+<span class="sd">        Identifying the custom method's declared ring basis.</span>
+<span class="sd">    molsysmt.structure.get_least_squares_plane</span>
+<span class="sd">        Fitting general group planes.</span>
+<span class="sd">    molsysmt.Interactions.query</span>
+<span class="sd">        Filtering sparse observations by atoms and structures.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import molsysmt as msm</span>
+<span class="sd">    &gt;&gt;&gt; from molsysmt import pyunitwizard as puw</span>
+<span class="sd">    &gt;&gt;&gt; from rdkit import Chem</span>
+<span class="sd">    &gt;&gt;&gt; molsys = msm.convert(Chem.MolFromSmiles('[Na+]'), to_form='molsysmt.MolSys')</span>
+<span class="sd">    &gt;&gt;&gt; molsys.structures.append(coordinates=puw.quantity([[[0., 0., 0.]]], 'nm'))</span>
+<span class="sd">    &gt;&gt;&gt; from molsysmt.interactions.cation_pi import get_cation_pi_interactions</span>
+<span class="sd">    &gt;&gt;&gt; result = get_cation_pi_interactions(</span>
+<span class="sd">    ...     molsys, assume_complete_connectivity=True, pbc=False)</span>
+<span class="sd">    &gt;&gt;&gt; result.n_interactions, result.evaluated_structure_indices.tolist()</span>
+<span class="sd">    (0, [0])</span>
+
+<span class="sd">    .. admonition:: User guide</span>
+
+<span class="sd">       See :ref:`Getting cation-pi interactions &lt;Tutorial_Get_cation_pi_interactions&gt;`.</span>
+
+<span class="sd">    .. versionadded:: 1.0.0</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">configure</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.interaction_methods</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_method</span>
+
+    <span class="n">method</span> <span class="o">=</span> <span class="n">resolve_method</span><span class="p">(</span><span class="s2">"cation_pi"</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">)[</span>
+        <span class="s2">"implementation"</span>
+    <span class="p">]</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.execution.projected_geometry</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">execute_projected_geometry</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.execution.sparse_accumulator</span><span class="w"> </span><span class="kn">import</span> <span class="n">SparseColumnAccumulator</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.h5msm</span><span class="w"> </span><span class="kn">import</span> <span class="n">modular_h5msm_dimensions</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert</span><span class="p">,</span> <span class="n">get</span><span class="p">,</span> <span class="n">select</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.interactions.cation_pi._reducer</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CationPiReducer</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.interactions.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interactions</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSys</span><span class="p">,</span> <span class="n">Topology</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.physchem.get_aromatic_rings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_aromatic_rings</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.physchem.get_charge_centers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_charge_centers</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.topology._rings</span><span class="w"> </span><span class="kn">import</span> <span class="n">ring_context</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"prolif"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">offset_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">planarity_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+                <span class="s2">"offset_threshold"</span><span class="p">,</span>
+                <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">"ProLIF has no offset or planarity cutoff; leave both None."</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">distance_threshold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">distance_threshold</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">distance_threshold</span>
+        <span class="p">)</span>
+        <span class="n">angle_threshold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">],</span> <span class="s2">"degrees"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">angle_threshold</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">angle_threshold</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"molstar_geometry"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">angle_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">planarity_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+                <span class="s2">"angle_threshold"</span><span class="p">,</span>
+                <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">"Mol* cation-pi geometry has no angle or planarity filter; leave both None."</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">distance_threshold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">distance_threshold</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">distance_threshold</span>
+        <span class="p">)</span>
+        <span class="n">offset_threshold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">)</span> <span class="k">if</span> <span class="n">offset_threshold</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">offset_threshold</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">distance_threshold</span><span class="p">,</span>
+            <span class="n">angle_threshold</span><span class="p">,</span>
+            <span class="n">offset_threshold</span><span class="p">,</span>
+            <span class="n">planarity_threshold</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+            <span class="s2">"method"</span><span class="p">,</span>
+            <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">"The custom centroid_angle_offset method requires all four explicit cutoffs."</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">positive</span> <span class="ow">in</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s2">"distance_threshold"</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"angle_threshold"</span><span class="p">,</span> <span class="n">angle_threshold</span><span class="p">,</span> <span class="s2">"radians"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"offset_threshold"</span><span class="p">,</span> <span class="n">offset_threshold</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"planarity_threshold"</span><span class="p">,</span> <span class="n">planarity_threshold</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="n">unit</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"angle_threshold"</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"prolif"</span><span class="p">:</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)])</span> <span class="k">if</span> <span class="n">number</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">()</span> <span class="k">else</span> <span class="n">number</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">interval</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
+                <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+                <span class="ow">or</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">,</span>
+                    <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                    <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="s2">"Use a scalar maximum or a two-angle interval within 0 to 90 degrees."</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="n">thresholds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">number</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">()</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">number</span> <span class="o">&lt;</span> <span class="mi">0</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="n">positive</span> <span class="ow">and</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">"Use a finite scalar cutoff with the required units and range."</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">thresholds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"centroid_angle_offset"</span> <span class="ow">and</span> <span class="n">thresholds</span><span class="p">[</span><span class="s2">"angle_threshold"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+            <span class="s2">"angle_threshold"</span><span class="p">,</span>
+            <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">"Angular deviation must be strictly below 90 degrees."</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">selection_mode</span> <span class="o">==</span> <span class="s2">"between"</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">selection_2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+            <span class="s2">"selection_2"</span><span class="p">,</span>
+            <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">"Supply a second selection only for between searches."</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="n">modular_h5msm_dimensions</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+    <span class="n">modular</span> <span class="o">=</span> <span class="n">dimensions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">dimensions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dimensions</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">StructuralInconsistencyError</span><span class="p">(</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"Declared atom and structure axes are required for cation-pi geometry."</span><span class="p">,</span>
+            <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_structures</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">)</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_structures</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_all</span><span class="p">(</span><span class="n">structure_indices</span><span class="p">)</span>
+        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">structure_indices</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="n">frames</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">frames</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">frames</span> <span class="o">&gt;=</span> <span class="n">n_structures</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+            <span class="s2">"structure_indices"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">structure_indices</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span>
+        <span class="p">)</span>
+    <span class="n">fixed_bytes</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_atoms</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">n_structures</span><span class="p">)</span>
+    <span class="n">SparseColumnAccumulator</span><span class="p">(</span>
+        <span class="p">{},</span> <span class="n">budget_bytes</span><span class="o">=</span><span class="n">configure</span><span class="o">.</span><span class="n">max_ram_usage</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fixed_bytes</span><span class="o">=</span><span class="n">fixed_bytes</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">check_budget</span><span class="p">()</span>
+    <span class="n">coordinate_source</span> <span class="o">=</span> <span class="n">molecular_system</span>
+    <span class="n">index_selections</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
+        <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_all</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">modular</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">index_selections</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.execution.memory_policy</span><span class="w"> </span><span class="kn">import</span> <span class="n">estimate_footprint</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.h5msm</span><span class="w"> </span><span class="kn">import</span> <span class="n">maybe_read_modular_h5msm</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">heavy_mode</span> <span class="o">==</span> <span class="s2">"force"</span>
+            <span class="ow">or</span> <span class="n">estimate_footprint</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_structures</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">configure</span><span class="o">.</span><span class="n">max_ram_usage</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">UnsupportedHeavyOperationError</span><span class="p">(</span>
+                <span class="n">operation</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+                <span class="n">form</span><span class="o">=</span><span class="s2">"H5MSM rich selections"</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">"Use atom-index selections or all for bounded file calculations; rich selection requires eager source materialization within budget."</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">maybe_read_modular_h5msm</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+        <span class="n">coordinate_source</span> <span class="o">=</span> <span class="n">molecular_system</span>
+    <span class="n">source</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state_index</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">covalent</span><span class="p">,</span> <span class="n">selection_frames</span> <span class="o">=</span> <span class="n">ring_context</span><span class="p">(</span>
+        <span class="n">molecular_system</span><span class="p">,</span>
+        <span class="n">chemical_state</span><span class="p">,</span>
+        <span class="n">frames</span><span class="p">,</span>
+        <span class="n">assume_complete_connectivity</span><span class="p">,</span>
+        <span class="n">_CALLER</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"prolif"</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.physchem._prolif</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">PROLIF_PATTERNS</span><span class="p">,</span>
+            <span class="n">PROLIF_REFERENCE</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.topology</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_substructure_matches</span>
+
+        <span class="n">features</span> <span class="o">=</span> <span class="n">get_substructure_matches</span><span class="p">(</span>
+            <span class="n">source</span><span class="p">,</span>
+            <span class="n">PROLIF_PATTERNS</span><span class="p">,</span>
+            <span class="n">chemical_state</span><span class="o">=</span><span class="n">state_index</span><span class="p">,</span>
+            <span class="n">assume_complete_connectivity</span><span class="o">=</span><span class="n">assume_complete_connectivity</span><span class="p">,</span>
+            <span class="n">max_matches</span><span class="o">=</span><span class="n">max_matches</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">center_members</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s2">"matches"</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ring_members</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">features</span><span class="p">[</span><span class="s2">"matches"</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">],</span>
+            <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">row</span><span class="p">)),</span>
+        <span class="p">)</span>
+        <span class="n">charges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">atom_attributes</span><span class="p">[</span><span class="s2">"formal_charge"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">center_members</span>
+            <span class="p">],</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">feature_parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">method_reference</span><span class="o">=</span><span class="n">PROLIF_REFERENCE</span><span class="p">,</span>
+            <span class="n">geometry_rule_version</span><span class="o">=</span><span class="s2">"prolif.CationPi@2.2.2"</span><span class="p">,</span>
+            <span class="n">smarts_patterns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">PROLIF_PATTERNS</span><span class="p">),</span>
+            <span class="n">max_matches</span><span class="o">=</span><span class="n">max_matches</span><span class="p">,</span>
+            <span class="n">cation_point</span><span class="o">=</span><span class="s2">"matched_reference_atom"</span><span class="p">,</span>
+            <span class="n">charge_policy</span><span class="o">=</span><span class="s2">"prolif_cation_smarts_including_resonance"</span><span class="p">,</span>
+            <span class="n">participant_definition</span><span class="o">=</span><span class="s2">"prolif_default_5_6_membered_ring_smarts"</span><span class="p">,</span>
+            <span class="n">plane_method</span><span class="o">=</span><span class="s2">"cross_of_centroid_to_first_two_smarts_atoms"</span><span class="p">,</span>
+            <span class="n">cutoff_roundoff</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+            <span class="n">distance_comparison</span><span class="o">=</span><span class="s2">"less_than_or_equal"</span><span class="p">,</span>
+            <span class="n">angular_roundoff_cap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">recognition_scope</span><span class="o">=</span><span class="s2">"full_source_chemical_state_rdkit_matches"</span><span class="p">,</span>
+            <span class="n">chemistry_evidence</span><span class="o">=</span><span class="n">features</span><span class="p">[</span><span class="s2">"evidence"</span><span class="p">],</span>
+            <span class="n">hydrogen_policy</span><span class="o">=</span><span class="s2">"rdkit_declared_and_valence_implicit_hydrogens"</span><span class="p">,</span>
+            <span class="n">adaptation</span><span class="o">=</span><span class="s2">"single_source_scopes_sparse_output_and_optional_mic_no_residue_pruning"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">software</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="s2">"software"</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rings</span> <span class="o">=</span> <span class="n">get_aromatic_rings</span><span class="p">(</span>
+            <span class="n">states</span><span class="p">,</span>
+            <span class="n">chemical_state</span><span class="o">=</span><span class="n">state_index</span><span class="p">,</span>
+            <span class="n">assume_complete_connectivity</span><span class="o">=</span><span class="n">assume_complete_connectivity</span><span class="p">,</span>
+            <span class="n">max_cyclic_block_size</span><span class="o">=</span><span class="n">max_cyclic_block_size</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">charge_topology</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">source</span><span class="o">.</span><span class="n">topology</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">MolSys</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">source</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Topology</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">convert</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s2">"molsysmt.Topology"</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">charge_topology</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">StructuralInconsistencyError</span><span class="p">(</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">"Formal-charge center recognition requires an element inventory."</span><span class="p">,</span>
+                <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">charge_view</span><span class="p">,</span> <span class="n">state_view</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">charge_topology</span><span class="p">),</span> <span class="n">copy</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+        <span class="n">state_view</span><span class="o">.</span><span class="n">_reference_index</span> <span class="o">=</span> <span class="n">state_index</span>
+        <span class="n">charge_view</span><span class="o">.</span><span class="n">_chemical_states_domain</span> <span class="o">=</span> <span class="n">state_view</span>
+        <span class="n">charge_centers</span> <span class="o">=</span> <span class="n">get_charge_centers</span><span class="p">(</span>
+            <span class="n">charge_view</span><span class="p">,</span> <span class="n">assume_complete_connectivity</span><span class="o">=</span><span class="n">assume_complete_connectivity</span>
+        <span class="p">)</span>
+        <span class="n">all_charges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">charge_centers</span><span class="p">[</span><span class="s2">"charges"</span><span class="p">],</span> <span class="n">to_unit</span><span class="o">=</span><span class="s2">"e"</span><span class="p">))</span>
+        <span class="n">positive</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">all_charges</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">center_members</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">charge_centers</span><span class="p">[</span><span class="s2">"atom_indices"</span><span class="p">][</span>
+                <span class="n">charge_centers</span><span class="p">[</span><span class="s2">"atom_offsets"</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="p">:</span> <span class="n">charge_centers</span><span class="p">[</span><span class="s2">"atom_offsets"</span><span class="p">][</span>
+                    <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="p">]</span>
+            <span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">positive</span>
+        <span class="p">]</span>
+        <span class="n">charges</span> <span class="o">=</span> <span class="n">all_charges</span><span class="p">[</span><span class="n">positive</span><span class="p">]</span>
+        <span class="n">ring_members</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">rings</span><span class="p">[</span><span class="s2">"atom_indices"</span><span class="p">][</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rings</span><span class="p">[</span><span class="s2">"atom_offsets"</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">rings</span><span class="p">[</span><span class="s2">"atom_offsets"</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="p">]</span>
+        <span class="n">feature_parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">geometry_rule_version</span><span class="o">=</span><span class="s2">"cation_centroid_angle_offset@1"</span><span class="p">,</span>
+            <span class="n">method_reference</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cation_point</span><span class="o">=</span><span class="s2">"arithmetic_centroid_of_all_participant_atoms"</span><span class="p">,</span>
+            <span class="n">charge_definition</span><span class="o">=</span><span class="n">charge_centers</span><span class="p">[</span><span class="s2">"definition"</span><span class="p">],</span>
+            <span class="n">charge_source</span><span class="o">=</span><span class="n">charge_centers</span><span class="p">[</span><span class="s2">"charge_source"</span><span class="p">],</span>
+            <span class="n">charge_rule_version</span><span class="o">=</span><span class="n">charge_centers</span><span class="p">[</span><span class="s2">"rule_version"</span><span class="p">],</span>
+            <span class="n">charge_evidence</span><span class="o">=</span><span class="n">charge_centers</span><span class="p">[</span><span class="s2">"evidence"</span><span class="p">],</span>
+            <span class="n">charge_policy</span><span class="o">=</span><span class="s2">"positive_net_formal_charge_no_partial_charge_fallback"</span><span class="p">,</span>
+            <span class="n">participant_definition</span><span class="o">=</span><span class="n">rings</span><span class="p">[</span><span class="s2">"definition"</span><span class="p">],</span>
+            <span class="n">recognition_rule_version</span><span class="o">=</span><span class="n">rings</span><span class="p">[</span><span class="s2">"rule_version"</span><span class="p">],</span>
+            <span class="n">ring_method</span><span class="o">=</span><span class="n">rings</span><span class="p">[</span><span class="s2">"method"</span><span class="p">],</span>
+            <span class="n">aromatic_evidence</span><span class="o">=</span><span class="n">rings</span><span class="p">[</span><span class="s2">"evidence"</span><span class="p">],</span>
+            <span class="n">max_cyclic_block_size</span><span class="o">=</span><span class="n">max_cyclic_block_size</span><span class="p">,</span>
+            <span class="n">recognition_scope</span><span class="o">=</span><span class="s2">"full_source_chemical_state"</span><span class="p">,</span>
+            <span class="n">plane_method</span><span class="o">=</span><span class="s2">"unweighted_orthogonal_least_squares"</span><span class="p">,</span>
+            <span class="n">cutoff_roundoff</span><span class="o">=</span><span class="s2">"one_float64_ulp"</span><span class="p">,</span>
+            <span class="n">distance_comparison</span><span class="o">=</span><span class="s2">"positive_and_less_than_or_equal"</span><span class="p">,</span>
+            <span class="n">angular_roundoff_cap</span><span class="o">=</span><span class="s2">"strictly_below_pi_over_2"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">software</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">rings</span><span class="p">[</span><span class="s2">"software"</span><span class="p">],</span> <span class="o">**</span><span class="n">charge_centers</span><span class="p">[</span><span class="s2">"software"</span><span class="p">]}</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"molstar_geometry"</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.scientific_references</span><span class="w"> </span><span class="kn">import</span> <span class="n">MOLSTAR_REFERENCE</span>
+
+            <span class="n">feature_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">method_reference</span><span class="o">=</span><span class="n">MOLSTAR_REFERENCE</span><span class="p">,</span>
+                <span class="n">geometry_rule_version</span><span class="o">=</span><span class="s2">"molstar.CationPi.geometry@48071795"</span><span class="p">,</span>
+                <span class="n">plane_method</span><span class="o">=</span><span class="s2">"cross_of_first_three_basis_member_atoms"</span><span class="p">,</span>
+                <span class="n">cutoff_roundoff</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+                <span class="n">distance_comparison</span><span class="o">=</span><span class="s2">"positive_and_less_than_or_equal"</span><span class="p">,</span>
+                <span class="n">angular_roundoff_cap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">adaptation</span><span class="o">=</span><span class="s2">"geometry_only_declared_molsysmt_centers_and_ring_basis_no_molstar_valence_or_refinement"</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="n">n_cations</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">center_members</span><span class="p">)</span>
+    <span class="n">members</span> <span class="o">=</span> <span class="n">center_members</span> <span class="o">+</span> <span class="n">ring_members</span>
+    <span class="k">if</span> <span class="n">index_selections</span><span class="p">:</span>
+        <span class="n">selection_source</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+        <span class="n">selection_source</span><span class="o">.</span><span class="n">_reference_index</span> <span class="o">=</span> <span class="n">state_index</span>
+        <span class="n">selection_state</span> <span class="o">=</span> <span class="s2">"reference"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selection_source</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">source</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">MolSys</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">convert</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s2">"molsysmt.MolSys"</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">selection_state</span> <span class="o">=</span> <span class="n">state_index</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+        <span class="n">select</span><span class="p">(</span>
+            <span class="n">selection_source</span><span class="p">,</span>
+            <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span>
+            <span class="n">structure_indices</span><span class="o">=</span><span class="n">selection_frames</span><span class="p">,</span>
+            <span class="n">chemical_state</span><span class="o">=</span><span class="n">selection_state</span><span class="p">,</span>
+            <span class="n">syntax</span><span class="o">=</span><span class="n">syntax</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">second</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">selection_2</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+            <span class="n">select</span><span class="p">(</span>
+                <span class="n">selection_source</span><span class="p">,</span>
+                <span class="n">selection</span><span class="o">=</span><span class="n">selection_2</span><span class="p">,</span>
+                <span class="n">structure_indices</span><span class="o">=</span><span class="n">selection_frames</span><span class="p">,</span>
+                <span class="n">chemical_state</span><span class="o">=</span><span class="n">selection_state</span><span class="p">,</span>
+                <span class="n">syntax</span><span class="o">=</span><span class="n">syntax</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">second</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+            <span class="s2">"selection_2"</span><span class="p">,</span>
+            <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">"Between selections must be disjoint."</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">in_first</span> <span class="o">=</span> <span class="n">whole_group_selection</span><span class="p">(</span><span class="n">members</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">)</span>
+    <span class="n">in_second</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">second</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">whole_group_selection</span><span class="p">(</span>
+            <span class="n">members</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span> <span class="n">argument</span><span class="o">=</span><span class="s2">"selection_2"</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">in_first</span>
+        <span class="k">if</span> <span class="n">selection_mode</span> <span class="o">==</span> <span class="s2">"internal"</span>
+        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">selection_mode</span> <span class="o">==</span> <span class="s2">"incident"</span>
+        <span class="k">else</span> <span class="n">in_first</span> <span class="o">|</span> <span class="n">in_second</span>
+    <span class="p">)</span>
+    <span class="n">active_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">active</span><span class="p">)</span>
+    <span class="n">cations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_cations</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">ring_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_cations</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">first_cations</span><span class="p">,</span> <span class="n">first_rings</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">cations</span><span class="p">[</span><span class="n">in_first</span><span class="p">[</span><span class="n">cations</span><span class="p">]],</span>
+        <span class="n">ring_indices</span><span class="p">[</span><span class="n">in_first</span><span class="p">[</span><span class="n">ring_indices</span><span class="p">]],</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">selection_mode</span> <span class="o">==</span> <span class="s2">"between"</span><span class="p">:</span>
+        <span class="n">searches</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">first_cations</span><span class="p">,</span> <span class="n">ring_indices</span><span class="p">[</span><span class="n">in_second</span><span class="p">[</span><span class="n">ring_indices</span><span class="p">]]),</span>
+            <span class="p">(</span><span class="n">cations</span><span class="p">[</span><span class="n">in_second</span><span class="p">[</span><span class="n">cations</span><span class="p">]],</span> <span class="n">first_rings</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">searches</span> <span class="o">=</span> <span class="p">[(</span><span class="n">first_cations</span><span class="p">,</span> <span class="n">first_rings</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">selection_mode</span> <span class="o">==</span> <span class="s2">"incident"</span><span class="p">:</span>
+            <span class="n">searches</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">(</span><span class="n">first_cations</span><span class="p">,</span> <span class="n">ring_indices</span><span class="p">[</span><span class="o">~</span><span class="n">in_first</span><span class="p">[</span><span class="n">ring_indices</span><span class="p">]]),</span>
+                    <span class="p">(</span><span class="n">cations</span><span class="p">[</span><span class="o">~</span><span class="n">in_first</span><span class="p">[</span><span class="n">cations</span><span class="p">]],</span> <span class="n">first_rings</span><span class="p">),</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+    <span class="n">searches</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">searches</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)]</span>
+    <span class="n">universe</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">active_indices</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">active_indices</span><span class="p">)</span>
+        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">n_atoms</span><span class="o">=</span><span class="n">n_atoms</span><span class="p">,</span>
+        <span class="n">n_structures</span><span class="o">=</span><span class="n">n_structures</span><span class="p">,</span>
+        <span class="n">evaluated_structure_indices</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+        <span class="n">software</span><span class="o">=</span><span class="n">software</span><span class="p">,</span>
+        <span class="n">measure_units</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"distance"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">,</span>
+            <span class="s2">"normal_angle"</span><span class="p">:</span> <span class="s2">"radians"</span><span class="p">,</span>
+            <span class="s2">"offset"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">,</span>
+            <span class="s2">"height"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">,</span>
+            <span class="s2">"ring_rms_deviation"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">,</span>
+            <span class="s2">"ring_max_deviation"</span><span class="p">:</span> <span class="s2">"nm"</span><span class="p">,</span>
+            <span class="s2">"cation_charge"</span><span class="p">:</span> <span class="s2">"e"</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">({</span><span class="s2">"oriented_normal_angle"</span><span class="p">:</span> <span class="s2">"radians"</span><span class="p">}</span> <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"prolif"</span> <span class="k">else</span> <span class="p">{}),</span>
+        <span class="p">},</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"method"</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">feature_parameters</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+                    <span class="s2">"unit"</span><span class="p">:</span> <span class="s2">"radians"</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"angle_threshold"</span> <span class="k">else</span> <span class="s2">"nm"</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+            <span class="s2">"chemical_state_index"</span><span class="p">:</span> <span class="n">state_index</span><span class="p">,</span>
+            <span class="s2">"pbc"</span><span class="p">:</span> <span class="n">pbc</span><span class="p">,</span>
+            <span class="s2">"image_policy"</span><span class="p">:</span> <span class="s2">"whole_participants_anchor_relative_mic"</span><span class="p">,</span>
+            <span class="s2">"pbc_policy"</span><span class="p">:</span> <span class="s2">"mic_when_box_available"</span><span class="p">,</span>
+            <span class="s2">"exclude_overlap"</span><span class="p">:</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"centroid_angle_offset"</span><span class="p">,</span>
+            <span class="s2">"exclude_direct_covalent"</span><span class="p">:</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"centroid_angle_offset"</span><span class="p">,</span>
+            <span class="s2">"intramolecular"</span><span class="p">:</span> <span class="s2">"included"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">evaluation_mode</span><span class="o">=</span><span class="n">selection_mode</span><span class="p">,</span>
+        <span class="n">evaluation_atom_indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">universe</span><span class="p">),</span>
+        <span class="n">evaluation_atom_indices_b</span><span class="o">=</span><span class="kc">None</span>
+        <span class="k">if</span> <span class="n">second</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">second</span><span class="p">,</span> <span class="n">universe</span><span class="p">),</span>
+        <span class="n">evaluation_universe_indices</span><span class="o">=</span><span class="n">universe</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">metadata</span><span class="p">[</span><span class="s2">"execution"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"memory_policy"</span><span class="p">:</span> <span class="s2">"numeric_working_estimates@1"</span><span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">searches</span><span class="p">:</span>
+        <span class="n">metadata</span><span class="p">[</span><span class="s2">"execution"</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">execution</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">execution_chunks</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Interactions</span><span class="o">.</span><span class="n">from_records</span><span class="p">([],</span> <span class="o">**</span><span class="n">metadata</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">per_frame</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">4</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+            <span class="o">+</span> <span class="mi">256</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">active_indices</span><span class="p">)</span>
+            <span class="o">+</span> <span class="mi">192</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">active_indices</span><span class="p">)</span>
+            <span class="o">+</span> <span class="mi">2048</span>
+            <span class="o">+</span> <span class="p">(</span><span class="mi">288</span> <span class="k">if</span> <span class="n">pbc</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">reducer</span> <span class="o">=</span> <span class="n">_CationPiReducer</span><span class="p">(</span>
+            <span class="n">members</span><span class="o">=</span><span class="n">members</span><span class="p">,</span>
+            <span class="n">active</span><span class="o">=</span><span class="n">active_indices</span><span class="p">,</span>
+            <span class="n">universe</span><span class="o">=</span><span class="n">universe</span><span class="p">,</span>
+            <span class="n">searches</span><span class="o">=</span><span class="n">searches</span><span class="p">,</span>
+            <span class="n">excluded</span><span class="o">=</span><span class="n">connected_group_pairs</span><span class="p">(</span><span class="n">members</span><span class="p">,</span> <span class="n">covalent</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"centroid_angle_offset"</span>
+            <span class="k">else</span> <span class="nb">set</span><span class="p">(),</span>
+            <span class="n">thresholds</span><span class="o">=</span><span class="n">thresholds</span><span class="p">,</span>
+            <span class="n">n_cations</span><span class="o">=</span><span class="n">n_cations</span><span class="p">,</span>
+            <span class="n">charges</span><span class="o">=</span><span class="n">charges</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="n">budget_bytes</span><span class="o">=</span><span class="n">configure</span><span class="o">.</span><span class="n">max_ram_usage</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">execute_projected_geometry</span><span class="p">(</span>
+            <span class="n">coordinate_source</span><span class="p">,</span>
+            <span class="n">universe</span><span class="o">=</span><span class="n">universe</span><span class="p">,</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">reducer</span><span class="o">=</span><span class="n">reducer</span><span class="p">,</span>
+            <span class="n">per_frame_bytes</span><span class="o">=</span><span class="n">per_frame</span><span class="p">,</span>
+            <span class="n">pbc</span><span class="o">=</span><span class="n">pbc</span><span class="p">,</span>
+            <span class="n">heavy_mode</span><span class="o">=</span><span class="n">heavy_mode</span><span class="p">,</span>
+            <span class="n">caller</span><span class="o">=</span><span class="n">_CALLER</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">result</span>
+        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">"molsysmt.interactions"</span>
+        <span class="k">else</span> <span class="n">convert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s2">"molsysmt.InteractionsDict"</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

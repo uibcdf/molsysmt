@@ -1,8 +1,0 @@
-{
-    "form_name": "openmm.GromacsTopFile",
-    "form_type": "class",
-    "item_class_key": [
-        "openmm",
-        "GromacsTopFile"
-    ]
-}

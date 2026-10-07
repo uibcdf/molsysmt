@@ -1,0 +1,940 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.build.get_peptide_bond_candidates – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/build/get_peptide_bond_candidates';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.build.get_peptide_bond_candidates</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.build.get_peptide_bond_candidates</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Reporting bounded peptide candidates on the original group and atom axes."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Integral</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyunitwizard</span> <span class="k">as</span> <span class="n">puw</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.argdigest</span><span class="w"> </span><span class="kn">import</span> <span class="n">arg_digest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArgumentError</span>
+
+
+<div class="viewcode-block" id="get_peptide_bond_candidates">
+<a class="viewcode-back" href="../../../api/build/autosummary/molsysmt.build.get_peptide_bond_candidates.html#molsysmt.build.get_peptide_bond_candidates">[docs]</a>
+<span class="nd">@signal</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"build"</span><span class="p">,</span> <span class="s2">"diagnostics"</span><span class="p">])</span>
+<span class="nd">@arg_digest</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_peptide_bond_candidates</span><span class="p">(</span>
+    <span class="n">molecular_system</span><span class="p">,</span>
+    <span class="n">selection</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+    <span class="n">structure_indices</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+    <span class="n">chemical_state</span><span class="o">=</span><span class="s2">"reference"</span><span class="p">,</span>
+    <span class="n">max_bond_length</span><span class="o">=</span><span class="s2">"2 angstroms"</span><span class="p">,</span>
+    <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">syntax</span><span class="o">=</span><span class="s2">"MolSysMT"</span><span class="p">,</span>
+    <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"adjacent_backbone_distance"</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Getting bounded backbone C-N distance candidates without changing chemistry.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    molecular_system : molecular system</span>
+<span class="sd">        Molecular system in any supported form with atom names, elements and</span>
+<span class="sd">        group/chain membership. PDB normalization disables reader inference.</span>
+<span class="sd">    selection : str, list, tuple or numpy.ndarray, default='all'</span>
+<span class="sd">        Atom selection. Integers are source atom indices. Both endpoints must</span>
+<span class="sd">        be selected; containing groups are audited. Defaults to 'all'.</span>
+<span class="sd">    structure_indices : int, list, tuple or numpy.ndarray, default='all'</span>
+<span class="sd">        Source structure indices (0-based). Select one when structures exist.</span>
+<span class="sd">        Without coordinates, eligible links remain unassessed. Defaults to 'all'.</span>
+<span class="sd">    chemical_state : str, int or None, default='reference'</span>
+<span class="sd">        Stored state to audit, or 'structure' for the selected structure's</span>
+<span class="sd">        association. Unresolved states block candidates. Defaults to 'reference'.</span>
+<span class="sd">    max_bond_length : quantity or str, default='2 angstroms'</span>
+<span class="sd">        Positive finite scalar distance ceiling with length units. The effective</span>
+<span class="sd">        ceiling also obeys the existing protein C-N threshold plus tolerance</span>
+<span class="sd">        (0.153 nm). Defaults to '2 angstroms'.</span>
+<span class="sd">    pbc : bool, default=False</span>
+<span class="sd">        Whether to use minimum-image distances when a valid box exists.</span>
+<span class="sd">        Defaults to False; a crystallographic box does not imply a polymer link.</span>
+<span class="sd">    syntax : str, default='MolSysMT'</span>
+<span class="sd">        Syntax used for atom selection. Defaults to 'MolSysMT'.</span>
+<span class="sd">    skip_digestion : bool, default=False</span>
+<span class="sd">        Whether to skip MolSysMT's internal argument digestion mechanism.</span>
+<span class="sd">    method : str, default='adjacent_backbone_distance'</span>
+<span class="sd">        Candidate policy. 'adjacent_backbone_distance' requires consecutive</span>
+<span class="sd">        source groups. 'unique_backbone_distance' searches named C/N endpoints</span>
+<span class="sd">        across the full source and rejects competing same-chain partners before</span>
+<span class="sd">        applying the output selection. Defaults to 'adjacent_backbone_distance'.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Detached ``molsysmt.peptide_bond_candidates@1`` report. Sorted source</span>
+<span class="sd">        ``bonded_atom_pairs`` and directional ``group_pairs`` have shape (n, 2)</span>
+<span class="sd">        and dtype int64. Carbon/nitrogen indices, missing masks and distance</span>
+<span class="sd">        quantities align with candidate rows. ``links`` records reasons for</span>
+<span class="sd">        rejection or unassessed links; ``group_coverage`` retains the supporting</span>
+<span class="sd">        exact heavy-template report. Empty arrays retain shapes and dtypes.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ArgumentError</span>
+<span class="sd">        If indices, state, flags or the length ceiling are invalid, or multiple</span>
+<span class="sd">        structures are selected, or the method is unsupported.</span>
+<span class="sd">    NotWithThisFormError</span>
+<span class="sd">        If required group hierarchy is unavailable.</span>
+<span class="sd">    StructuralInconsistencyError</span>
+<span class="sd">        If stored domains or coordinate shapes are inconsistent.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The descriptive method ``adjacent_backbone_distance`` reuses exact group</span>
+<span class="sd">    audits and ``structure.get_distances(pairs=True)``. Only consecutive source</span>
+<span class="sd">    group indices in one defined chain are considered. Group IDs are labels.</span>
+<span class="sd">    Supported groups must have unambiguous mapped C/N endpoints, compatible</span>
+<span class="sd">    heavy chemistry and positive finite distances within the effective ceiling.</span>
+<span class="sd">    An outgoing C in a group with OXT is excluded. Alternate-site evidence at</span>
+<span class="sd">    either endpoint blocks this first policy rather than mixing conformers.</span>
+
+<span class="sd">    The optional ``unique_backbone_distance`` policy reuses the sparse Rust</span>
+<span class="sd">    neighbor search in ``structure.get_neighbors``. It does not sort group IDs</span>
+<span class="sd">    or change source axes. Competition includes unselected and chemically</span>
+<span class="sd">    unassessed named backbone endpoints. Non-finite or alternate backbone</span>
+<span class="sd">    coordinates block uniqueness assessment throughout their source chain.</span>
+<span class="sd">    ``discovery`` reports the full examined endpoint scope, status and reasons;</span>
+<span class="sd">    ``group_coverage`` audits the full source for this method. Uniqueness is</span>
+<span class="sd">    geometric evidence among existing named endpoints, not certified sequence</span>
+<span class="sd">    order, peptide chemistry or evidence of missing atoms.</span>
+
+<span class="sd">    Native PDB conversion separates TER segments even when chain labels repeat</span>
+<span class="sd">    and keeps insertion-code groups distinct. This tool respects those source</span>
+<span class="sd">    indices; it cannot recover file evidence discarded by another adapter.</span>
+<span class="sd">    Numeric/all H5MSM 0.5 queries read only one coordinate structure and its</span>
+<span class="sd">    sparse alternate-site evidence. Rich selections may require broader access.</span>
+
+<span class="sd">    Terminal caps, nonpeptide polymer links, sequence completion, hydrogen</span>
+<span class="sd">    placement, bond orders, valence and protonation are unassessed. Existing</span>
+<span class="sd">    edges, coordinates and named interactions are unchanged. A candidate is</span>
+<span class="sd">    inferred evidence, never a declaration of complete or validated chemistry.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    get_covalent_bond_candidates : Get exact heavy intra-group candidates.</span>
+<span class="sd">    get_missing_bonds : Get legacy missing-pair lists.</span>
+<span class="sd">    molsysmt.structure.get_distances : Compute distances between explicit pairs.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import molsysmt as msm</span>
+<span class="sd">    &gt;&gt;&gt; report = msm.build.get_peptide_bond_candidates(</span>
+<span class="sd">    ...     msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'],</span>
+<span class="sd">    ...     structure_indices=0)</span>
+<span class="sd">    &gt;&gt;&gt; report['bonded_atom_pairs'].shape</span>
+<span class="sd">    (0, 2)</span>
+<span class="sd">    &gt;&gt;&gt; report['method']</span>
+<span class="sd">    'adjacent_backbone_distance'</span>
+
+<span class="sd">    &gt;&gt;&gt; unique = msm.build.get_peptide_bond_candidates(</span>
+<span class="sd">    ...     msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'],</span>
+<span class="sd">    ...     structure_indices=0, method='unique_backbone_distance')</span>
+<span class="sd">    &gt;&gt;&gt; unique['bonded_atom_pairs'].shape</span>
+<span class="sd">    (0, 2)</span>
+
+<span class="sd">    .. admonition:: User guide</span>
+
+<span class="sd">       See :ref:`Tutorial_Peptide_Bond_Candidates` for scope and exclusions.</span>
+
+<span class="sd">    .. versionadded:: 1.0.0</span>
+<span class="sd">    """</span>
+    <span class="n">caller</span> <span class="o">=</span> <span class="s2">"molsysmt.build.get_peptide_bond_candidates"</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
+        <span class="s2">"adjacent_backbone_distance"</span><span class="p">,</span>
+        <span class="s2">"unique_backbone_distance"</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span><span class="s2">"method"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">)</span>
+    <span class="c1"># Remove when the public ArgDigest floor includes uibcdf/argdigest#17.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">skip_digestion</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.argdigest.argument.skip_digestion</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">digest_skip_digestion</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">digest_skip_digestion</span><span class="p">(</span><span class="n">skip_digestion</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pbc</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="n">max_bond_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span>
+            <span class="s2">"pbc"</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pbc</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"max_bond_length"</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">caller</span>
+        <span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">max_bond_length</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s2">"nm"</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="ow">or</span> <span class="n">values</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span><span class="s2">"max_bond_length"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">max_bond_length</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.covalent_candidates</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_source</span><span class="p">,</span> <span class="n">read_geometry</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.build</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_covalent_bond_candidates</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.element.bond</span><span class="w"> </span><span class="kn">import</span> <span class="n">bond_length_tolerance</span><span class="p">,</span> <span class="n">max_expected_bond_length</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">Structures</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.structure</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_distances</span>
+
+    <span class="n">reference_ceiling</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">max_expected_bond_length</span><span class="p">[</span><span class="s2">"protein"</span><span class="p">][</span><span class="s2">"C"</span><span class="p">][</span><span class="s2">"N"</span><span class="p">]</span> <span class="o">+</span> <span class="n">bond_length_tolerance</span>
+    <span class="p">)</span>
+    <span class="n">ceiling</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">reference_ceiling</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s2">"nm"</span><span class="p">)))</span>
+    <span class="n">source_forms</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">axis_source</span><span class="p">,</span> <span class="n">atoms</span> <span class="o">=</span> <span class="n">prepare_source</span><span class="p">(</span>
+        <span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">structure_indices</span><span class="p">,</span> <span class="n">chemical_state</span><span class="p">,</span> <span class="n">syntax</span><span class="p">,</span> <span class="n">caller</span>
+    <span class="p">)</span>
+    <span class="n">group_coverage</span> <span class="o">=</span> <span class="n">get_covalent_bond_candidates</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span>
+        <span class="n">selection</span><span class="o">=</span><span class="s2">"all"</span> <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"unique_backbone_distance"</span> <span class="k">else</span> <span class="n">atoms</span><span class="p">,</span>
+        <span class="n">structure_indices</span><span class="o">=</span><span class="n">structure_indices</span><span class="p">,</span>
+        <span class="n">chemical_state</span><span class="o">=</span><span class="n">chemical_state</span><span class="p">,</span>
+        <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">group_coverage</span><span class="p">[</span><span class="s2">"structure_index"</span><span class="p">]</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">group_coverage</span><span class="p">[</span><span class="s2">"groups"</span><span class="p">]</span>
+    <span class="n">audit</span> <span class="o">=</span> <span class="n">group_coverage</span><span class="p">[</span><span class="s2">"coverage"</span><span class="p">]</span>
+    <span class="n">readiness</span> <span class="o">=</span> <span class="n">audit</span><span class="p">[</span><span class="s2">"chemical_readiness"</span><span class="p">]</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s2">"group_index"</span><span class="p">]</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">]</span>
+    <span class="n">chain_values</span><span class="p">,</span> <span class="n">atom_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span>
+        <span class="n">axis_source</span><span class="p">,</span>
+        <span class="n">element</span><span class="o">=</span><span class="s2">"group"</span><span class="p">,</span>
+        <span class="n">selection</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+        <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">atom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">chains</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">chain_values</span><span class="p">))</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">atom_names</span><span class="p">))</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">stored</span> <span class="o">=</span> <span class="p">{</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pair</span><span class="p">))</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">readiness</span><span class="p">[</span><span class="s2">"bonded_atom_pairs"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()}</span>
+    <span class="n">stored_rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+        <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">readiness</span><span class="p">[</span><span class="s2">"bonded_atom_pairs"</span><span class="p">],</span>
+            <span class="n">readiness</span><span class="p">[</span><span class="s2">"fields"</span><span class="p">][</span><span class="s2">"bond_type"</span><span class="p">][</span><span class="s2">"values"</span><span class="p">],</span>
+            <span class="n">readiness</span><span class="p">[</span><span class="s2">"fields"</span><span class="p">][</span><span class="s2">"bond_order"</span><span class="p">][</span><span class="s2">"values"</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">incident_rows</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stored_rows</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">:</span>
+            <span class="n">incident_rows</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">atom</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">eligible</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">discovery</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">geometry</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">endpoint_atoms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ambiguous</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"unique_backbone_distance"</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.peptide_candidates</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_backbone_pairs</span>
+
+        <span class="n">group_pairs</span><span class="p">,</span> <span class="n">ambiguous</span><span class="p">,</span> <span class="n">discovery</span><span class="p">,</span> <span class="n">endpoint_atoms</span><span class="p">,</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">discover_backbone_pairs</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">chains</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">ceiling</span><span class="p">,</span> <span class="n">pbc</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">by_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">group</span><span class="p">[</span><span class="s2">"group_index"</span><span class="p">]:</span> <span class="n">group</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">}</span>
+        <span class="n">selected_groups</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">group</span><span class="p">[</span><span class="s2">"group_index"</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span>
+            <span class="k">if</span> <span class="n">selected</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">"atom_indices"</span><span class="p">])</span>
+        <span class="p">}</span>
+        <span class="n">group_links</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">by_index</span><span class="p">[</span><span class="n">g</span><span class="p">],</span> <span class="n">by_index</span><span class="p">[</span><span class="n">h</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">g</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">group_pairs</span>
+            <span class="k">if</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">selected_groups</span> <span class="ow">and</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">selected_groups</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group_links</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">group_links</span><span class="p">:</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">"group_index"</span><span class="p">],</span> <span class="n">right</span><span class="p">[</span><span class="s2">"group_index"</span><span class="p">]</span>
+        <span class="n">reasons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"adjacent_backbone_distance"</span> <span class="ow">and</span> <span class="n">h</span> <span class="o">!=</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"nonconsecutive_source_groups"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ambiguous</span><span class="p">:</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"competing_backbone_partners"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">discovery</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">chains</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="ow">in</span> <span class="n">discovery</span><span class="p">[</span><span class="s2">"blocked_chain_indices"</span><span class="p">]:</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"uniqueness_unassessed_incomplete_backbone_geometry"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">chains</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">Integral</span><span class="p">)</span> <span class="ow">and</span> <span class="n">chains</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">)):</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"missing_or_ambiguous_chain"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">chains</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">!=</span> <span class="n">chains</span><span class="p">[</span><span class="n">h</span><span class="p">]:</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"different_source_chains"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"unassessed"</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)):</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"group_template_unassessed"</span><span class="p">)</span>
+        <span class="n">endpoints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">role</span> <span class="ow">in</span> <span class="p">((</span><span class="n">left</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">),</span> <span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="s2">"N"</span><span class="p">)):</span>
+            <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">group</span><span class="p">[</span><span class="s2">"atom_indices"</span><span class="p">],</span> <span class="n">names</span><span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s2">"group_index"</span><span class="p">]]</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">role</span>
+            <span class="p">]</span>
+            <span class="n">endpoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">atom</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">):</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"missing_or_ambiguous_backbone_endpoint"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">endpoints</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">selected</span><span class="p">:</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"endpoints_outside_selection"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">atom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">):</span>
+            <span class="n">expected_pair</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">endpoints</span><span class="p">))</span>
+            <span class="n">endpoint_rows</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">incident_rows</span><span class="p">[</span><span class="n">atom</span><span class="p">]</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">endpoint_rows</span><span class="p">):</span>
+                <span class="n">pair</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">stored_rows</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
+                <span class="n">stored_pair</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pair</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+                <span class="k">if</span> <span class="n">stored_pair</span> <span class="o">==</span> <span class="n">expected_pair</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">"covalent"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                        <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">order</span> <span class="o">!=</span> <span class="mi">1</span>
+                    <span class="p">):</span>
+                        <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"conflicting_stored_peptide_edge"</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"covalent"</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+                    <span class="n">endpoint</span> <span class="ow">in</span> <span class="n">pair</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">"atom_indices"</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">endpoints</span><span class="p">,</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">))</span>
+                <span class="p">):</span>
+                    <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"backbone_endpoint_already_linked"</span><span class="p">)</span>
+            <span class="n">reasons</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">reasons</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s2">"OXT"</span> <span class="ow">in</span> <span class="n">names</span><span class="p">[</span><span class="n">g</span><span class="p">]:</span>
+            <span class="n">reasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"outgoing_terminal_carboxyl_oxygen"</span><span class="p">)</span>
+        <span class="n">link</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"group_pair"</span><span class="p">:</span> <span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">],</span>
+            <span class="s2">"carbon_atom_index"</span><span class="p">:</span> <span class="n">endpoints</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">"nitrogen_atom_index"</span><span class="p">:</span> <span class="n">endpoints</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"unassessed"</span><span class="p">,</span>
+            <span class="s2">"reason_codes"</span><span class="p">:</span> <span class="n">reasons</span><span class="p">,</span>
+            <span class="s2">"distance"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">reasons</span><span class="p">:</span>
+            <span class="n">eligible</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">discovery</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">endpoint_atoms</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="n">atom</span>
+                <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span>
+                <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="p">(</span><span class="n">link</span><span class="p">[</span><span class="s2">"carbon_atom_index"</span><span class="p">],</span> <span class="n">link</span><span class="p">[</span><span class="s2">"nitrogen_atom_index"</span><span class="p">])</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">eligible</span> <span class="ow">and</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="n">read_geometry</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">endpoint_atoms</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+    <span class="n">pbc_applied</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">eligible</span> <span class="ow">and</span> <span class="p">(</span><span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">geometry</span><span class="p">[</span><span class="s2">"coordinates"</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span><span class="p">:</span>
+            <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"coordinates_unavailable"</span><span class="p">)</span>
+        <span class="n">eligible</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">eligible</span><span class="p">:</span>
+        <span class="n">alternates</span> <span class="o">=</span> <span class="n">geometry</span><span class="p">[</span><span class="s2">"alternate_location"</span><span class="p">]</span>
+        <span class="n">unsupported_alternates</span> <span class="o">=</span> <span class="n">alternates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">alternates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span>
+        <span class="p">)</span>
+        <span class="n">alternate_atoms</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">set</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">alternates</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">unsupported_alternates</span>
+            <span class="k">else</span> <span class="nb">set</span><span class="p">(</span><span class="n">alternates</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">finite</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">readiness</span><span class="p">[</span><span class="s2">"fields"</span><span class="p">][</span><span class="s2">"coordinates"</span><span class="p">][</span><span class="s2">"present_indices"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span><span class="p">:</span>
+            <span class="n">endpoints</span> <span class="o">=</span> <span class="p">{</span><span class="n">link</span><span class="p">[</span><span class="s2">"carbon_atom_index"</span><span class="p">],</span> <span class="n">link</span><span class="p">[</span><span class="s2">"nitrogen_atom_index"</span><span class="p">]}</span>
+            <span class="k">if</span> <span class="n">unsupported_alternates</span><span class="p">:</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"unsupported_alternate_site_evidence"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">endpoints</span> <span class="o">&amp;</span> <span class="n">alternate_atoms</span><span class="p">:</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"alternate_backbone_endpoint"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">endpoints</span> <span class="o">&lt;=</span> <span class="n">finite</span><span class="p">:</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"nonfinite_or_missing_endpoint_coordinates"</span><span class="p">)</span>
+        <span class="n">eligible</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]]</span>
+        <span class="n">pbc_applied</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">eligible</span> <span class="ow">and</span> <span class="n">pbc</span> <span class="ow">and</span> <span class="n">geometry</span><span class="p">[</span><span class="s2">"box"</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pbc_applied</span><span class="p">:</span>
+            <span class="n">box</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">geometry</span><span class="p">[</span><span class="s2">"box"</span><span class="p">],</span> <span class="n">to_unit</span><span class="o">=</span><span class="s2">"nm"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">box</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">box</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+                <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+            <span class="p">):</span>
+                <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span><span class="p">:</span>
+                    <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"invalid_periodic_box"</span><span class="p">)</span>
+                <span class="n">eligible</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">pbc_applied</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">eligible</span><span class="p">:</span>
+        <span class="n">local</span> <span class="o">=</span> <span class="p">{</span><span class="n">atom</span><span class="p">:</span> <span class="n">index</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">atom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">endpoint_atoms</span><span class="p">)}</span>
+        <span class="n">coordinate_source</span> <span class="o">=</span> <span class="n">Structures</span><span class="p">(</span>
+            <span class="n">coordinates</span><span class="o">=</span><span class="n">geometry</span><span class="p">[</span><span class="s2">"coordinates"</span><span class="p">],</span>
+            <span class="n">box</span><span class="o">=</span><span class="n">geometry</span><span class="p">[</span><span class="s2">"box"</span><span class="p">]</span> <span class="k">if</span> <span class="n">pbc_applied</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">get_distances</span><span class="p">(</span>
+            <span class="n">coordinate_source</span><span class="p">,</span>
+            <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="n">local</span><span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">"carbon_atom_index"</span><span class="p">]]</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span><span class="p">],</span>
+            <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="n">local</span><span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">"nitrogen_atom_index"</span><span class="p">]]</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">eligible</span><span class="p">],</span>
+            <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">pbc</span><span class="o">=</span><span class="n">pbc_applied</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">link</span><span class="p">,</span> <span class="n">distance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">eligible</span><span class="p">,</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s2">"nm"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">link</span><span class="p">[</span><span class="s2">"distance"</span><span class="p">]</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">standardize</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">distance</span><span class="p">),</span> <span class="s2">"nm"</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span> <span class="ow">or</span> <span class="n">distance</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"nonpositive_or_nonfinite_distance"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">distance</span> <span class="o">&gt;</span> <span class="n">ceiling</span><span class="p">:</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"rejected"</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"reason_codes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"distance_exceeds_ceiling"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">link</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"candidate"</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="n">candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">link</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">link</span><span class="p">[</span><span class="s2">"carbon_atom_index"</span><span class="p">],</span> <span class="n">link</span><span class="p">[</span><span class="s2">"nitrogen_atom_index"</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="nb">sorted</span><span class="p">((</span><span class="n">link</span><span class="p">[</span><span class="s2">"carbon_atom_index"</span><span class="p">],</span> <span class="n">link</span><span class="p">[</span><span class="s2">"nitrogen_atom_index"</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">candidates</span>
+        <span class="p">],</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">report</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"schema"</span><span class="p">:</span> <span class="s2">"molsysmt.peptide_bond_candidates@1"</span><span class="p">,</span>
+        <span class="s2">"method"</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+        <span class="s2">"rule_version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"software"</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">group_coverage</span><span class="p">[</span><span class="s2">"software"</span><span class="p">]),</span>
+        <span class="s2">"source_forms"</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">source_forms</span><span class="p">),</span>
+        <span class="s2">"n_atoms"</span><span class="p">:</span> <span class="n">group_coverage</span><span class="p">[</span><span class="s2">"n_atoms"</span><span class="p">],</span>
+        <span class="s2">"atom_indices"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="s2">"structure_index"</span><span class="p">:</span> <span class="n">frame</span><span class="p">,</span>
+        <span class="s2">"chemical_state_index"</span><span class="p">:</span> <span class="n">group_coverage</span><span class="p">[</span><span class="s2">"chemical_state_index"</span><span class="p">],</span>
+        <span class="s2">"bonded_atom_pairs"</span><span class="p">:</span> <span class="n">pairs</span><span class="p">,</span>
+        <span class="s2">"group_pairs"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">"group_pair"</span><span class="p">]</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">"carbon_atom_indices"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">"carbon_atom_index"</span><span class="p">]</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span>
+        <span class="p">),</span>
+        <span class="s2">"nitrogen_atom_indices"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">"nitrogen_atom_index"</span><span class="p">]</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span>
+        <span class="p">),</span>
+        <span class="s2">"missing_mask"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stored</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span>
+        <span class="p">),</span>
+        <span class="s2">"distances"</span><span class="p">:</span> <span class="n">puw</span><span class="o">.</span><span class="n">standardize</span><span class="p">(</span>
+            <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">link</span><span class="p">[</span><span class="s2">"distance"</span><span class="p">],</span> <span class="n">to_unit</span><span class="o">=</span><span class="s2">"nm"</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">candidates</span>
+                    <span class="p">],</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="s2">"nm"</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="s2">"evidence"</span><span class="p">:</span> <span class="s2">"inferred_candidate"</span><span class="p">,</span>
+        <span class="s2">"links"</span><span class="p">:</span> <span class="n">links</span><span class="p">,</span>
+        <span class="s2">"group_coverage"</span><span class="p">:</span> <span class="n">group_coverage</span><span class="p">,</span>
+        <span class="s2">"parameters"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"max_bond_length"</span><span class="p">:</span> <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="s2">"nm"</span><span class="p">),</span>
+            <span class="s2">"effective_max_bond_length"</span><span class="p">:</span> <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">ceiling</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">),</span>
+            <span class="s2">"pbc"</span><span class="p">:</span> <span class="n">pbc</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"pbc_applied"</span><span class="p">:</span> <span class="n">pbc_applied</span><span class="p">,</span>
+        <span class="s2">"unassessed_checks"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"terminal_caps"</span><span class="p">,</span>
+            <span class="s2">"nonpeptide_polymer_links"</span><span class="p">,</span>
+            <span class="s2">"sequence_completion"</span><span class="p">,</span>
+            <span class="s2">"hydrogen_edges"</span><span class="p">,</span>
+            <span class="s2">"bond_orders"</span><span class="p">,</span>
+            <span class="s2">"valence"</span><span class="p">,</span>
+            <span class="s2">"protonation"</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">discovery</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">report</span><span class="p">[</span><span class="s2">"discovery"</span><span class="p">]</span> <span class="o">=</span> <span class="n">discovery</span>
+        <span class="n">report</span><span class="p">[</span><span class="s2">"unassessed_checks"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"polymer_sequence_order"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">report</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

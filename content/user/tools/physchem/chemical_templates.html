@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Assessing and applying chemical templates – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/physchem/chemical_templates';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Inspecting hydrogen inventory" href="get_hydrogen_inventory.html" />
+    <link rel="prev" title="get_metal_coordination_sites" href="get_metal_coordination_sites.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="get_metal_coordination_sites.html">get_metal_coordination_sites</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Assessing and applying chemical templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_hydrogen_inventory.html">Inspecting hydrogen inventory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_autodock_atom_types.html">Getting AutoDock types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_aromaticity.html">Getting aromaticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_partial_charges.html">Getting partial charges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_water_sites.html">get_water_sites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_hydrophobic_sites.html">get_hydrophobic_sites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_halogen_bond_sites.html">get_halogen_bond_sites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_aromatic_rings.html">Get aromatic rings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_area_buried.html">Get area buried</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_atomic_radius.html">Get atomic radius</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_buried_fraction.html">Get buried fraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_cip_stereochemistry.html">Getting CIP stereochemistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_charge.html">Get charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_charge_centers.html">Get charge centers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_chemical_readiness.html">Getting chemical readiness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_electronegativity.html">Get electronegativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_hbond_sites.html">Get hydrogen-bond sites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_hydrophobicity.html">Get hydrophobicity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_mass.html">Get mass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_polarity.html">Get polarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_sasa.html">Get SASA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_surface_area.html">Get surface area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_transmembrane_tendency.html">Get transmembrane tendency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_volume.html">Get volume</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Physical and chemical properties</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Assessing and applying chemical templates</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="assessing-and-applying-chemical-templates">
+<span id="tutorial-chemical-templates"></span><h1>Assessing and applying chemical templates<a class="headerlink" href="#assessing-and-applying-chemical-templates" title="Link to this heading">#</a></h1>
+<p><em>Transferring declared chemical assignments through an explicit atom correspondence.</em></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">msm.physchem.assess_chemical_template()</span></code> to check a prepared template against
+one isolated component, either as the full input or selected inside a larger
+system. Use <code class="docutils literal notranslate"><span class="pre">msm.physchem.apply_chemical_template()</span></code> to fill missing
+assignments on an independent native system after the same preflight succeeds.
+Both experimental functions accept supported molecular forms. Native templates
+need neither coordinates nor RDKit. Converting other forms retains their existing
+dependency requirements.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">API documentation</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../../../api/physchem/autosummary/molsysmt.physchem.assess_chemical_template.html#molsysmt.physchem.assess_chemical_template" title="molsysmt.physchem.assess_chemical_template"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.physchem.assess_chemical_template()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../../../../api/physchem/autosummary/molsysmt.physchem.apply_chemical_template.html#molsysmt.physchem.apply_chemical_template" title="molsysmt.physchem.apply_chemical_template"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.physchem.apply_chemical_template()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../../../../api/physchem/autosummary/molsysmt.physchem.get_peptide_chemical_template.html#molsysmt.physchem.get_peptide_chemical_template" title="molsysmt.physchem.get_peptide_chemical_template"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.physchem.get_peptide_chemical_template()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../../../../api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.html#molsysmt.physchem.normalize_aromatic_bond_orders" title="molsysmt.physchem.normalize_aromatic_bond_orders"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.physchem.normalize_aromatic_bond_orders()</span></code></a></p></li>
+</ul>
+</div>
+<section id="declaring-the-correspondence">
+<h2>Declaring the correspondence<a class="headerlink" href="#declaring-the-correspondence" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">atom_correspondence</span></code> is an exhaustive integer array of shape <code class="docutils literal notranslate"><span class="pre">(n_selected_atoms,</span> <span class="pre">2)</span></code>.
+Column zero contains <strong>template atom indices</strong>; column one contains <strong>source atom
+indices</strong>. Both refer to the full respective inputs, starting at zero. Each atom
+in the selected source scope and every template atom occurs exactly once in its
+column, including every explicit H atom. Names and
+IDs do not substitute for indices. An identity map is valid only when you know
+the orders correspond; neither function performs automatic matching.</p>
+<p>Elements and declared isotopes must agree. The default
+<code class="docutils literal notranslate"><span class="pre">connectivity_policy='require_same_graph'</span></code> requires the same stored covalent graph
+and one connected component within the scope. The default <code class="docutils literal notranslate"><span class="pre">selection='all'</span></code>
+retains the whole-input contract. You can extract a ligand and retain its source
+map, or explicitly select its complete stored component in the original complex.
+Explicit template completion can add missing covalent edges as described below.
+Dative relationships, component-cut bonds and unexpected source edges remain
+outside the supported repair boundary.</p>
+</section>
+<section id="updating-a-selected-component">
+<span id="tutorial-selected-chemical-template"></span><h2>Updating a selected component<a class="headerlink" href="#updating-a-selected-component" title="Link to this heading">#</a></h2>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">selection</span></code> and optionally <code class="docutils literal notranslate"><span class="pre">syntax</span></code> to both assessment and application when
+the source contains other components. Numeric selections are deduplicated;
+strings use topological selections in the requested chemical state. The map’s
+second column still uses <strong>full source indices</strong>, not indices in an extracted
+ligand. Every template atom and exactly the selected source atoms must be mapped.
+Nested selections, mismatched coverage and stored relationships crossing the
+selection are rejected or remain explicitly unassessed before any application.
+Coordinate-dependent selections are outside this coordinate-independent operation.</p>
+<p>Only selected atom assignments and internal bond fields can be filled. Unrelated
+atoms and relationships, other states, original atom order/IDs and all structures
+remain unchanged. A proper subset retains the source state’s global connectivity
+completeness, including <code class="docutils literal notranslate"><span class="pre">partial</span></code> or <code class="docutils literal notranslate"><span class="pre">unavailable</span></code>. The detached report records
+<code class="docutils literal notranslate"><span class="pre">source.atom_indices</span></code>, original completeness, <code class="docutils literal notranslate"><span class="pre">coverage.scope</span></code>, boundary evidence
+and result completeness. The default requires the same stored internal atom pairs.
+Explicit <code class="docutils literal notranslate"><span class="pre">complete_from_template</span></code> can add missing selected covalent edges in an
+incomplete state, including links between its fragments. Component indices can be
+renumbered; IDs, names and types are preserved for unchanged atom sets. Merged or
+split selected components lose labels that no longer describe the same atom set.
+If unrelated stored component membership disagrees with its connectivity, the
+assessment remains <code class="docutils literal notranslate"><span class="pre">unassessed</span></code> rather than reconciling it during scoped completion.
+Scoped template evidence does not become a new native
+per-component completeness store. H5MSM persists the updated assignments and
+global status, while this preparation report remains historical evidence of the
+selected operation.</p>
+<p>Changing chemistry conservatively invalidates named interaction coverage on the
+returned copy. Repeating an unchanged application retains coverage. Applying
+chemistry to a ligand does not make the complete raw complex recognizable; the
+unprepared receptor and other components still need their own assessments.
+An extraction preserves its parent’s conservative completeness flag. You can
+explicitly reassess/apply the same exhaustive template to the extracted component
+to justify its whole-input connectivity coverage. See the
+<a class="reference internal" href="../../cookbook/applying_chemical_templates.html#cookbook-component-chemical-transfer"><span class="std std-ref">full-complex recipe</span></a> for map composition.</p>
+<p><code class="docutils literal notranslate"><span class="pre">template_provenance</span></code> must be JSON compatible and declare nonempty <code class="docutils literal notranslate"><span class="pre">identity</span></code>,
+<code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">source_uri</span></code>, <code class="docutils literal notranslate"><span class="pre">checksum</span></code> and <code class="docutils literal notranslate"><span class="pre">hydrogen_policy</span></code> strings. Supply the
+identity and checksum of the actual template you used. These values record your
+declaration; MolSysMT does not authenticate the template or verify the checksum.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hydrogen policy</p></th>
+<th class="head"><p>Required interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">explicit_atoms</span></code></p></td>
+<td><p>Both stored virtual H-count fields are zero; observed H atoms participate in the map.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stored_counts</span></code></p></td>
+<td><p>The template explicitly declares virtual/implicit H counts over its existing atoms. No H atoms or coordinates are generated.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A hydrogen-complete template cannot map onto a heavy-only source. Choose an
+explicitly prepared heavy-only template with <code class="docutils literal notranslate"><span class="pre">stored_counts</span></code> if that is the
+chemical state you intend to transfer. Counts do not supply donor–H geometry.</p>
+</section>
+<section id="assigning-with-declared-context">
+<span id="tutorial-context-chemical-template"></span><h2>Assigning with declared context<a class="headerlink" href="#assigning-with-declared-context" title="Link to this heading">#</a></h2>
+<p>A polymer selection can have bonds to the rest of its chain. Supply a complete,
+explicitly prepared reference for that polymer and two disjoint maps to
+<code class="docutils literal notranslate"><span class="pre">assess_chemical_template()</span></code> and <code class="docutils literal notranslate"><span class="pre">apply_chemical_template()</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">atom_correspondence</span></code> maps every selected source atom to its reference atom.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">context_atom_correspondence</span></code> maps external reference/source atoms. It must
+cover every selected atom’s neighbors on both sides and every reference atom
+needed by an incident bond’s stereochemistry. Additional declared context is
+allowed; unmapped reference atoms remain outside the assessment.</p></li>
+</ul>
+<p>Both maps use full input atom indices, with template indices in the first column
+and source indices in the second. They must be bijective and disjoint in both
+axes. Passing <code class="docutils literal notranslate"><span class="pre">None</span></code> keeps the existing exhaustive closed-component behavior.
+An empty <code class="docutils literal notranslate"><span class="pre">int64</span></code> array of shape <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">2)</span></code> explicitly enables context mode; missing
+required neighbors still fail. No correspondence is inferred from counts or IDs.</p>
+<p>For example, inspect an internal residue of an explicitly declared glycine trimer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+
+<span class="n">definition</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">get_peptide_chemical_template</span><span class="p">(</span>
+    <span class="p">[</span><span class="s1">'GLY'</span><span class="p">,</span> <span class="s1">'GLY'</span><span class="p">,</span> <span class="s1">'GLY'</span><span class="p">],</span> <span class="s1">'ammonium'</span><span class="p">,</span> <span class="s1">'carboxylate'</span><span class="p">)</span>
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s1">'template'</span><span class="p">]</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">'group_index == 1'</span><span class="p">)</span>
+<span class="n">outside</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="n">selected</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">apply_chemical_template</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">definition</span><span class="p">[</span><span class="s1">'template'</span><span class="p">],</span> <span class="n">selection</span><span class="o">=</span><span class="n">selected</span><span class="p">,</span>
+    <span class="n">atom_correspondence</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">selected</span><span class="p">,</span> <span class="n">selected</span><span class="p">)),</span>
+    <span class="n">context_atom_correspondence</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">outside</span><span class="p">,</span> <span class="n">outside</span><span class="p">)),</span>
+    <span class="n">template_provenance</span><span class="o">=</span><span class="n">definition</span><span class="p">[</span><span class="s1">'template_provenance'</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'coverage'</span><span class="p">][</span><span class="s1">'scope'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'selected_with_context'</span>
+</pre></div>
+</div>
+<p>This prepared toy checks a correspondence; it does not create missing chemistry.
+The selected N retains the reference’s internal peptide inventory, rather
+than receiving a newly invented amino-terminal charge/H count. Arbitrary or
+disconnected atom selections can use the same contract. Whole-residue selection
+is the appropriate scope when interpreting a residue’s complete chemistry.</p>
+<p>Only selected atom fields and all incident bond fields, including boundary
+bonds, can be filled. Outside atom assignments and outside-only bonds remain
+unchanged. Context elements/isotopes and existing chemical assignments must agree
+with the declared reference; missing outside assignments are not filled. The
+existing incident graph must match exactly. This first context route accepts
+only <code class="docutils literal notranslate"><span class="pre">connectivity_policy='require_same_graph'</span></code>: no absent bond, unsupported link,
+cut terminus or protonation state is inferred. Unknown context, explicit conflicts
+or missing stereo references prevent application transactionally.</p>
+<p>Successful reports use rule version 5 and retain both maps, boundary source bond
+indices, unmapped template atom indices and the justification for the selected
+incident graph. Global connectivity completeness is preserved, even when context
+mode covers the whole input. Historical reports persist in ChemicalStates/H5MSM
+with their original domains. This is scoped template evidence, not a new live
+coverage store or a whole-polymer readiness certificate. Full-graph recognizers
+still reject a partial unprepared receptor before filtering participants.</p>
+<p>The <a class="reference internal" href="../../cookbook/applying_chemical_templates.html#cookbook-polymer-context-template"><span class="std std-ref">observed receptor recipe</span></a> tests
+1QKU ligand shells with 12/19/23 residues. Its nine missing heavy atoms remain
+outside the scope, and the complete receptor remains partial.</p>
+</section>
+<section id="normalizing-declared-aromatic-bond-orders">
+<span id="tutorial-normalize-aromatic-bond-orders"></span><h2>Normalizing declared aromatic bond orders<a class="headerlink" href="#normalizing-declared-aromatic-bond-orders" title="Link to this heading">#</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">msm.physchem.normalize_aromatic_bond_orders(molsys)</span></code> when already declared
+aromatic bonds carry integer single/double orders and your chosen template uses
+fractional orders. This experimental representation operation returns a copy in
+<code class="docutils literal notranslate"><span class="pre">molecular_system</span></code> and a detached <code class="docutils literal notranslate"><span class="pre">report</span></code>. It replaces integer orders only on
+bonds marked <code class="docutils literal notranslate"><span class="pre">is_aromatic=True</span></code>, setting their fractional order to 1.5. Unknown
+aromatic flags remain unknown; it does not perceive aromaticity or certify valence.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">get_peptide_chemical_template</span><span class="p">(</span>
+    <span class="p">[</span><span class="s1">'PHE'</span><span class="p">],</span> <span class="s1">'ammonium'</span><span class="p">,</span> <span class="s1">'carboxylate'</span><span class="p">)[</span><span class="s1">'template'</span><span class="p">]</span>
+<span class="n">normalization</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">normalize_aromatic_bond_orders</span><span class="p">(</span><span class="n">molsys</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">normalization</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'status'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'unchanged'</span>
+<span class="k">assert</span> <span class="n">normalization</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'bonded_atom_pairs'</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">normalization</span><span class="p">[</span><span class="s1">'molecular_system'</span><span class="p">]</span><span class="o">.</span><span class="n">chemical_states</span><span class="o">.</span><span class="n">get_preparation_history</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span>
+    <span class="s1">'report'</span><span class="p">][</span><span class="s1">'schema'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'molsysmt.aromatic_bond_normalization@1'</span>
+</pre></div>
+</div>
+<p>Native systems, topologies and chemical-state domains do not require RDKit.
+Other forms must supply the stored declarations through their existing adapters.
+Choose a state index or the resolved reference; coordinates do not select states
+in this operation. Nonselected states and the source remain unchanged. A known
+nonaromatic endpoint, unsupported bond stereo, noncovalent aromatic relationship,
+invalid endpoints or incompatible orders cause an error before mutation.</p>
+<p>The report keeps source bond indices/pairs, original orders, changed indices,
+unknown aromatic flags and producer version. Bond orders are dimensionless.
+Normalization retains coordinates and units, atom identity, all atom assignments
+and connectivity completeness. Changed chemistry invalidates named interactions
+on the returned copy. Repeating it on a canonical representation makes no changes.
+H5MSM and ChemicalStatesDict retain an independent copy of the report in the
+selected state’s history, including unchanged repetitions. The original encoding,
+bond indices and producer version remain those of that operation. Later extraction
+does not make these historical indices valid for the current bond table.
+Guanidinium/carboxylate resonance and unknown chemistry
+require separate decisions; template assessment still rejects known conflicts.</p>
+</section>
+<section id="constructing-a-peptide-template">
+<span id="tutorial-get-peptide-chemical-template"></span><h2>Constructing a peptide template<a class="headerlink" href="#constructing-a-peptide-template" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">msm.physchem.get_peptide_chemical_template()</span></code> constructs one linear peptide’s
+heavy graph from bundled, versioned residue fragments. You supply ordered states
+and both terminal choices. It returns a coordinate-free native template,
+<code class="docutils literal notranslate"><span class="pre">template_provenance</span></code> and a construction report. No source atoms are matched,
+no coordinates generated, and no chemical state chosen from pH or a residue alias.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+
+<span class="n">peptide_definition</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">get_peptide_chemical_template</span><span class="p">(</span>
+    <span class="p">[</span><span class="s1">'GLY'</span><span class="p">,</span> <span class="s1">'GLY'</span><span class="p">],</span> <span class="n">n_terminal_state</span><span class="o">=</span><span class="s1">'ammonium'</span><span class="p">,</span>
+    <span class="n">c_terminal_state</span><span class="o">=</span><span class="s1">'carboxylate'</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">peptide_definition</span><span class="p">[</span><span class="s1">'template'</span><span class="p">]</span><span class="o">.</span><span class="n">get_n_atoms</span><span class="p">()</span> <span class="o">==</span> <span class="mi">9</span>
+<span class="k">assert</span> <span class="n">peptide_definition</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'n_stored_hydrogens'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">8</span>
+<span class="k">assert</span> <span class="n">peptide_definition</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'n_indexed_hydrogens'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>This declares C4H8N2O3 with charged termini. The eight H are counts on its nine
+heavy atoms, not coordinate rows. The template always contains a terminal OXT;
+an absent source OXT or sidechain atom requires a separate repair before an
+exhaustive correspondence can succeed.</p>
+<p>Supported exact, case-sensitive states are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Residue family</p></th>
+<th class="head"><p>Explicit state names</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Histidine</p></td>
+<td><p>HID (ND1 H), HIE (NE2 H), HIP (both H, charge +1). HIS is ambiguous and rejected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Aspartate / glutamate</p></td>
+<td><p>ASP / GLU (carboxylate, −1), ASH / GLH (carboxylic acid, neutral).</p></td>
+</tr>
+<tr class="row-even"><td><p>Lysine</p></td>
+<td><p>LYS (ammonium, +1), LYN (amine, neutral).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cysteine</p></td>
+<td><p>CYS (thiol), CYM (thiolate, −1), CYX (declared disulfide).</p></td>
+</tr>
+<tr class="row-even"><td><p>Arginine</p></td>
+<td><p>ARG (guanidinium, +1).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Other supported states</p></td>
+<td><p>ALA, ASN, GLN, GLY, ILE, LEU, MET, PHE, PRO, SER, THR, TRP, TYR and VAL.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The first amino terminus is explicitly <code class="docutils literal notranslate"><span class="pre">ammonium</span></code> or <code class="docutils literal notranslate"><span class="pre">amine</span></code>; the last carboxyl
+terminus is <code class="docutils literal notranslate"><span class="pre">carboxylate</span></code> or <code class="docutils literal notranslate"><span class="pre">carboxylic_acid</span></code>. Proline uses the corresponding
+secondary-amine H inventory. These choices apply even for one residue. This
+factory does not add caps, model an unobserved biological terminus or select
+histidine tautomers from their environment.</p>
+<p>For disulfides, declare pairs of <strong>template group indices</strong>, starting at zero:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">disulfide_definition</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">get_peptide_chemical_template</span><span class="p">(</span>
+    <span class="p">[</span><span class="s1">'CYX'</span><span class="p">,</span> <span class="s1">'GLY'</span><span class="p">,</span> <span class="s1">'CYX'</span><span class="p">],</span> <span class="n">n_terminal_state</span><span class="o">=</span><span class="s1">'ammonium'</span><span class="p">,</span>
+    <span class="n">c_terminal_state</span><span class="o">=</span><span class="s1">'carboxylate'</span><span class="p">,</span> <span class="n">disulfide_group_pairs</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="k">assert</span> <span class="n">disulfide_definition</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'disulfide_bond_pairs'</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Every CYX must be paired exactly once; CYS/CYM cannot be silently turned into
+CYX. Sulfur proximity is not a bond declaration. Pair order is normalized for a
+deterministic result. The report gives actual template atom pairs for peptide and
+disulfide links, with empty int64 arrays of shape <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">2)</span></code> when appropriate.</p>
+<p>The factory uses a pinned Meeko data snapshot and native assembly; neither Meeko
+nor RDKit is needed at runtime. Snapshot identity/hash, the curated fragment hash,
+offline curation software and the requested assembly are retained separately.
+<code class="docutils literal notranslate"><span class="pre">checksum</span></code> hashes the declared assembled graph definition, not an H5MSM file.
+The copied/derived source data retain their separate upstream license under
+<code class="docutils literal notranslate"><span class="pre">molsysmt/data/databases/peptide_templates/</span></code>. Backbone amide/carboxyl conjugation
+is declared during assembly; other assignments use the curated fragment model.</p>
+<p><strong>Stereochemistry remains unspecified</strong>, including residue enantiomers and
+peptide cis/trans: this factory does not certify an L peptide. An already declared
+source stereo assignment needs a compatible, explicitly prepared template rather
+than being overwritten. Modified residues, caps, cyclic backbones, arbitrary
+crosslinks and multiple chains are outside this factory’s current scope.</p>
+<p>Supply <code class="docutils literal notranslate"><span class="pre">peptide_definition['template']</span></code> and its <code class="docutils literal notranslate"><span class="pre">template_provenance</span></code> to the
+existing assessment/application tools, together with your independently accepted
+exhaustive map. Their source remains form agnostic. Counts alone still cannot
+supply donor-H geometry; use the separately chosen fixed-state H operation after
+chemical preparation and pose validation.</p>
+<p>Successful factory construction credits MolSysMT as executed software and the
+reference snapshot as data in an optional Ackredit scope. RDKit’s offline curation
+version is provenance, not an executed runtime credit. The template’s state retains
+an independent construction report including its complete template_provenance;
+H5MSM and ChemicalStatesDict preserve it. The declaration also retains the version
+of MolSysMT that assembled the reference, separately from the version that applies
+it later. Synthetic template indices remain distinct from observed source indices.
+Application records the supplied declaration but does not automatically import
+reference history. Explicitly archive selected reference records with
+<code class="docutils literal notranslate"><span class="pre">destination.chemical_states.append_preparation_history(records)</span></code> when required.</p>
+</section>
+<section id="preparing-an-independent-example">
+<h2>Preparing an independent example<a class="headerlink" href="#preparing-an-independent-example" title="Link to this heading">#</a></h2>
+<p>This small methanol control uses optional RDKit <strong>only to construct the prepared
+template</strong>. Its atom order is C, O, three carbon H atoms, then the oxygen H atom.
+The source below independently declares those atoms and edges without chemical
+orders. You can instead load a prepared native template supplied by another tool.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span><span class="p">,</span> <span class="n">rdBase</span>
+
+<span class="n">template</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s1">'CO'</span><span class="p">))</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">MolSysBuilder</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">'C'</span><span class="p">,</span> <span class="s1">'O'</span><span class="p">,</span> <span class="s1">'H'</span><span class="p">,</span> <span class="s1">'H'</span><span class="p">,</span> <span class="s1">'H'</span><span class="p">,</span> <span class="s1">'H'</span><span class="p">]):</span>
+    <span class="n">builder</span><span class="o">.</span><span class="n">add_atom</span><span class="p">(</span><span class="n">atom_id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">atom_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">element</span><span class="si">}{</span><span class="n">index</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span>
+                     <span class="n">atom_type</span><span class="o">=</span><span class="n">element</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">first</span><span class="p">,</span> <span class="n">second</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]:</span>
+    <span class="n">builder</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">set_coordinates</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'angstrom'</span><span class="p">))</span>
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="n">correspondence</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)))</span>
+<span class="n">provenance</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">identity</span><span class="o">=</span><span class="s1">'methanol illustrative RDKit template'</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">rdBase</span><span class="o">.</span><span class="n">rdkitVersion</span><span class="p">,</span>
+    <span class="n">source_uri</span><span class="o">=</span><span class="s1">'smiles:CO'</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="s1">'caller-declared illustrative fixture'</span><span class="p">,</span>
+    <span class="n">hydrogen_policy</span><span class="o">=</span><span class="s1">'explicit_atoms'</span><span class="p">)</span>
+<span class="n">assessment</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">assess_chemical_template</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> <span class="n">atom_correspondence</span><span class="o">=</span><span class="n">correspondence</span><span class="p">,</span>
+    <span class="n">template_provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">assessment</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'compatible'</span>
+</pre></div>
+</div>
+<p>The illustrative coordinates are a preservation control, not an optimized
+conformer or a docking pose. The assessment does not inspect coordinates.</p>
+</section>
+<section id="completing-a-declared-graph">
+<h2>Completing a declared graph<a class="headerlink" href="#completing-a-declared-graph" title="Link to this heading">#</a></h2>
+<p>Choose <code class="docutils literal notranslate"><span class="pre">connectivity_policy='complete_from_template'</span></code> explicitly when the source
+has missing edges and declares incomplete or unknown connectivity. The template
+must still declare a complete connected covalent graph over <strong>all mapped atoms</strong>.
+The source may contain disconnected fragments of that graph. A source claiming
+complete connectivity cannot have its missing edges silently reconciled.</p>
+<p>For example, remove the oxygen–hydrogen bond from the independent source above:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_fragmented</span> <span class="o">=</span> <span class="n">molsys</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">molsys_fragmented</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">remove_bonds</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">completion</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">assess_chemical_template</span><span class="p">(</span>
+    <span class="n">molsys_fragmented</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> <span class="n">atom_correspondence</span><span class="o">=</span><span class="n">correspondence</span><span class="p">,</span>
+    <span class="n">template_provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">,</span> <span class="n">connectivity_policy</span><span class="o">=</span><span class="s1">'complete_from_template'</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">completion</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'compatible'</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">completion</span><span class="p">[</span><span class="s1">'added_bonds'</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">completion</span><span class="p">[</span><span class="s1">'added_bonds'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'atom1_index'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">completion</span><span class="p">[</span><span class="s1">'added_bonds'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'atom2_index'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="n">completed</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">apply_chemical_template</span><span class="p">(</span>
+    <span class="n">molsys_fragmented</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> <span class="n">atom_correspondence</span><span class="o">=</span><span class="n">correspondence</span><span class="p">,</span>
+    <span class="n">template_provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">,</span> <span class="n">connectivity_policy</span><span class="o">=</span><span class="s1">'complete_from_template'</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">completed</span><span class="p">[</span><span class="s1">'molecular_system'</span><span class="p">]</span><span class="o">.</span><span class="n">get_n_atoms</span><span class="p">()</span> <span class="o">==</span> <span class="mi">6</span>
+<span class="k">assert</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">completed</span><span class="p">[</span><span class="s1">'molecular_system'</span><span class="p">],</span> <span class="n">n_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>The operation adds declared edges, not atoms or coordinates. It retains existing
+edge evidence and records new edges as <code class="docutils literal notranslate"><span class="pre">user_defined</span></code>, backed by your detached
+template declaration. Known chemical conflicts still fail before application.
+The same boundary can transfer a caller-prepared peptide or disulfide link; it
+does not choose terminal/protonation states or supply curated polymer templates.</p>
+<p>New edges can reorder the canonical bond table. In an applied report,
+<code class="docutils literal notranslate"><span class="pre">source_bond_correspondence</span></code> is an integer array <code class="docutils literal notranslate"><span class="pre">(n_original_bonds,</span> <span class="pre">2)</span></code> mapping
+old to final bond indices. Each <code class="docutils literal notranslate"><span class="pre">added_bonds</span></code> record contains the original
+<code class="docutils literal notranslate"><span class="pre">template_bond_index</span></code>, mapped atom pair, chemical fields and final <code class="docutils literal notranslate"><span class="pre">bond_index</span></code>.
+After adding edges, the selected state’s components are rebuilt: component
+indices can change. Whole-input completion regenerates IDs; selected-component
+completion retains IDs for unchanged atom sets. Names/types are retained only
+for unchanged atom sets and remain missing for merged or split components. Stable
+atom order, group/molecule inventory and other states remain unchanged. Retain
+the map when referring to original bond indices after this operation.</p>
+</section>
+<section id="applying-and-inspecting-the-result">
+<h2>Applying and inspecting the result<a class="headerlink" href="#applying-and-inspecting-the-result" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">original_coordinates</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">'nm'</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">apply_chemical_template</span><span class="p">(</span>
+    <span class="n">molsys</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> <span class="n">atom_correspondence</span><span class="o">=</span><span class="n">correspondence</span><span class="p">,</span>
+    <span class="n">template_provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">)</span>
+<span class="n">prepared</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'molecular_system'</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">prepared</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">molsys</span>
+<span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">'report'</span><span class="p">][</span><span class="s1">'status'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'applied'</span>
+<span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span><span class="p">(</span>
+    <span class="n">msm</span><span class="o">.</span><span class="n">pyunitwizard</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">prepared</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">'nm'</span><span class="p">),</span>
+    <span class="n">original_coordinates</span><span class="p">)</span>
+<span class="n">sites</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">get_hbond_sites</span><span class="p">(</span><span class="n">prepared</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">sites</span><span class="p">[</span><span class="s1">'donor_hydrogen_pairs'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="k">assert</span> <span class="n">sites</span><span class="p">[</span><span class="s1">'acceptor_atom_indices'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The source and template remain unchanged. The result preserves source atom
+order, string IDs, membership, all coordinate structures, units, box and structure/state
+associations. Only absent supported chemical fields in the chosen state are
+filled. Existing mechanical parameters are copied, without reparameterization.</p>
+<p>If chemistry or its completeness declaration changes, every named interaction
+analysis on the returned copy loses its observations and evaluated-structure coverage.
+The names remain available for recalculation. The original system’s analyses
+remain intact. <code class="docutils literal notranslate"><span class="pre">report['invalidated_analysis_names']</span></code> identifies the affected
+analyses. An identical application with no chemical changes preserves analyses.</p>
+</section>
+<section id="choosing-states-and-interpreting-failures">
+<h2>Choosing states and interpreting failures<a class="headerlink" href="#choosing-states-and-interpreting-failures" title="Link to this heading">#</a></h2>
+<p>Choose source and template states independently with <code class="docutils literal notranslate"><span class="pre">chemical_state=index</span></code> and
+<code class="docutils literal notranslate"><span class="pre">template_chemical_state=index</span></code>. The default <code class="docutils literal notranslate"><span class="pre">'reference'</span></code> uses each input’s
+resolved reference; <code class="docutils literal notranslate"><span class="pre">None</span></code> has the same meaning. Ambiguous references are
+<code class="docutils literal notranslate"><span class="pre">unassessed</span></code>, and invalid explicit indices raise. <code class="docutils literal notranslate"><span class="pre">'structure'</span></code> is unavailable:
+this operation selects chemical states independently of structures. Unselected states
+and existing structure-to-state associations remain unchanged.</p>
+<p>The assessment uses schema <code class="docutils literal notranslate"><span class="pre">molsysmt.chemical_template&#64;1</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Status</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">compatible</span></code></p></td>
+<td><p>All supported correspondence checks passed and required template fields are declared.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">conflict</span></code></p></td>
+<td><p>An explicit assignment, graph or element correspondence conflicts.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unassessed</span></code></p></td>
+<td><p>Required information, supported scope or representation normalization is unavailable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">applied</span></code></p></td>
+<td><p>Application completed on an independent system.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Malformed maps or provenance raise argument diagnostics. An unresolved assessment
+is inspectable; application raises <code class="docutils literal notranslate"><span class="pre">msm.StructuralInconsistencyError</span></code> with the
+detached assessment in <code class="docutils literal notranslate"><span class="pre">error.report</span></code>. Inspect indexed <code class="docutils literal notranslate"><span class="pre">issues</span></code> and their
+<code class="docutils literal notranslate"><span class="pre">reason_code</span></code>, <code class="docutils literal notranslate"><span class="pre">side</span></code>, <code class="docutils literal notranslate"><span class="pre">field</span></code> and <code class="docutils literal notranslate"><span class="pre">diagnostic_code</span></code>. Failure changes neither input.</p>
+<p>Missing assignments are distinguished from declared single bonds or neutral
+charges. Existing explicit values cannot be overwritten. Differing aromatic/
+Kekule encodings and stereo-reference encodings requiring normalization stay
+unassessed; equality of chemical states is not guessed. Supported stereo-reference
+atoms are remapped with the orientation of each stored bond endpoint.</p>
+</section>
+<section id="retaining-provenance-and-saving-chemistry">
+<h2>Retaining provenance and saving chemistry<a class="headerlink" href="#retaining-provenance-and-saving-chemistry" title="Link to this heading">#</a></h2>
+<p>The report retains the exact detached map, original state indices, assigned and
+preserved fields, graph/completeness justification, template declaration and
+producer version. Formal charge uses elementary charge units. Stored inferred
+edge evidence remains inferred after assignment; it does not become an explicit
+bond declaration. <code class="docutils literal notranslate"><span class="pre">unassessed_checks</span></code> records limits including valence, environmental
+protonation, stereogenicity, conformer quality and force-field/docking readiness.</p>
+<p>Each successful application also attaches an independent copy of the report to
+the selected state. Use <code class="docutils literal notranslate"><span class="pre">molsys.chemical_states.get_preparation_history()</span></code> (or
+pass <code class="docutils literal notranslate"><span class="pre">chemical_state=index</span></code>) to obtain a tuple of historical records. Each
+record declares <code class="docutils literal notranslate"><span class="pre">index_scope='operation'</span></code>, the original output atom/bond counts
+and state index, and the complete provider report under <code class="docutils literal notranslate"><span class="pre">report</span></code>. Assessment
+and failed application do not append records. A successful repetition appends
+another operation, including when no chemical field changed.</p>
+<p>Public H5MSM 0.5 conversion and <code class="docutils literal notranslate"><span class="pre">ChemicalStatesDict</span></code> preserve this history,
+including typed NumPy maps, units, template declarations and original producer
+versions. Reading does not repeat preparation or credit another calculation.
+The returned tuple and nested values are independent copies: editing them or
+the separately returned <code class="docutils literal notranslate"><span class="pre">report</span></code> cannot change stored evidence.</p>
+<p><strong>History retains the indices of the original operation.</strong> Copying, extraction,
+reordering, merging and later edits do not rewrite those maps or certify the
+current chemistry. After extraction, the historical output count may differ
+from the current count. Retain your extraction/reinsertion maps separately; do
+not address the current system directly with an index from an old report.
+Merge concatenates source histories in input order, preserving each record’s
+original domain. Fixed-state H generation and terminal attachment also attach
+their reports automatically, with original source structure counts and evaluated
+structure indices. When reinserting H generated on an isolated component, use
+<code class="docutils literal notranslate"><span class="pre">destination.chemical_states.append_preparation_history(records)</span></code> to archive
+selected producer records explicitly. Import retains original domains and append
+order; it does not align axes, apply chemistry or validate authenticity.
+Aromatic normalization attaches its original-order report to the returned copy;
+peptide-template creation attaches its construction report and declaration to
+the reference template. Their original operation domains remain intact, including
+when reference records are explicitly archived in a destination.
+<code class="docutils literal notranslate"><span class="pre">MolSysDict</span></code> 0.1 cannot store history and rejects its loss;
+use H5MSM or <code class="docutils literal notranslate"><span class="pre">ChemicalStatesDict</span></code>. The reports are not directly JSON serializable.</p>
+<p>After preparing components separately, you can use <code class="docutils literal notranslate"><span class="pre">msm.merge()</span></code> to construct a
+new analysis system. Its atom indices differ from the original complex; retain
+the extraction maps and mark generated atoms as having no deposited source index.
+Full-graph recognizers can then examine the included declared chemistry before
+filtering an interface. The <a class="reference internal" href="../../cookbook/applying_chemical_templates.html#cookbook-prepared-interface"><span class="std std-ref">prepared-interface recipe</span></a> demonstrates named interactions and H5MSM
+roundtrips. This does not extend the exhaustive template-map contract to partial
+assignment on an arbitrary complex, certify excluded chemistry or refine H
+geometry in the environment.</p>
+<p>Successful application returns portable executed-MolSysMT attribution and credits
+it inside an optional Ackredit scope. Assessment and failed application do not
+credit completed preparation. Loading chemistry or inspecting a saved report
+does not repeat the calculation. Optional Ackredit absence/failure cannot change
+the scientific result. Template declarations and software credit have distinct
+roles; template correctness is the responsibility of its selected provider.</p>
+<div class="dropdown admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="get_chemical_readiness.html#tutorial-chemical-readiness"><span class="std std-ref">Getting chemical readiness</span></a> for stored-field inspection.</p></li>
+<li><p><a class="reference internal" href="../../cookbook/applying_chemical_templates.html#cookbook-applying-chemical-templates"><span class="std std-ref">Applying an explicit chemical template</span></a> for the workflow and save boundary.</p></li>
+<li><p><a class="reference internal" href="get_cip_stereochemistry.html#tutorial-get-cip-stereochemistry"><span class="std std-ref">Getting CIP stereochemistry</span></a> for explicit stereochemical analysis.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="get_metal_coordination_sites.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">get_metal_coordination_sites</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="get_hydrogen_inventory.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Inspecting hydrogen inventory</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#declaring-the-correspondence">Declaring the correspondence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-a-selected-component">Updating a selected component</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-with-declared-context">Assigning with declared context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing-declared-aromatic-bond-orders">Normalizing declared aromatic bond orders</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-peptide-template">Constructing a peptide template</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-an-independent-example">Preparing an independent example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#completing-a-declared-graph">Completing a declared graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-and-inspecting-the-result">Applying and inspecting the result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-states-and-interpreting-failures">Choosing states and interpreting failures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retaining-provenance-and-saving-chemistry">Retaining provenance and saving chemistry</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

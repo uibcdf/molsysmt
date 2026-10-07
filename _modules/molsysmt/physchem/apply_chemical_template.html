@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.physchem.apply_chemical_template – MolSysMT 0.23.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=2753bf86"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/physchem/apply_chemical_template';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.23.0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.23.0 documentation - Home"/>
+    <img src="../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.23.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.physchem.apply_chemical_template</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.physchem.apply_chemical_template</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Applying explicit missing chemical assignments without changing a molecular pose."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.argdigest</span><span class="w"> </span><span class="kn">import</span> <span class="n">arg_digest</span>
+
+
+<div class="viewcode-block" id="apply_chemical_template">
+<a class="viewcode-back" href="../../../api/physchem/autosummary/molsysmt.physchem.apply_chemical_template.html#molsysmt.physchem.apply_chemical_template">[docs]</a>
+<span class="nd">@signal</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"api"</span><span class="p">,</span> <span class="s2">"physchem"</span><span class="p">,</span> <span class="s2">"preparation"</span><span class="p">])</span>
+<span class="nd">@arg_digest</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_chemical_template</span><span class="p">(</span>
+    <span class="n">molecular_system</span><span class="p">,</span>
+    <span class="n">template</span><span class="p">,</span>
+    <span class="n">atom_correspondence</span><span class="p">,</span>
+    <span class="n">template_provenance</span><span class="p">,</span>
+    <span class="n">chemical_state</span><span class="o">=</span><span class="s2">"reference"</span><span class="p">,</span>
+    <span class="n">template_chemical_state</span><span class="o">=</span><span class="s2">"reference"</span><span class="p">,</span>
+    <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">connectivity_policy</span><span class="o">=</span><span class="s2">"require_same_graph"</span><span class="p">,</span>
+    <span class="n">selection</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+    <span class="n">syntax</span><span class="o">=</span><span class="s2">"MolSysMT"</span><span class="p">,</span>
+    <span class="n">context_atom_correspondence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Applying compatible declared template assignments to an independent system.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    molecular_system : molecular system</span>
+<span class="sd">        Source in any supported form supplying one selected mapped component, possibly</span>
+<span class="sd">        fragmented when explicit template completion is requested. Existing</span>
+<span class="sd">        atoms, relationships and all coordinate structures are preserved.</span>
+<span class="sd">    template : molecular system</span>
+<span class="sd">        Prepared template in a supported form with complete declared connectivity</span>
+<span class="sd">        and supported assignments. Without context, it has the same selected atoms.</span>
+<span class="sd">        Context permits a larger template. Its coordinates are never transferred.</span>
+<span class="sd">    atom_correspondence : list, tuple or numpy.ndarray</span>
+<span class="sd">        Exhaustive bijection of shape (n_selected_atoms, 2), with template and source</span>
+<span class="sd">        atom indices in the first and second columns, in their full input axes.</span>
+<span class="sd">        Covers every selected source atom and template atom, including explicit H.</span>
+<span class="sd">        With explicit context, covers only selected source atoms and their</span>
+<span class="sd">        corresponding template atoms; the separate context map covers neighbors.</span>
+<span class="sd">    template_provenance : dict</span>
+<span class="sd">        Detached JSON-compatible identity, version, source_uri, checksum and</span>
+<span class="sd">        hydrogen_policy declaration; see assess_chemical_template. Policy is</span>
+<span class="sd">        'explicit_atoms' or 'stored_counts'. This does not authenticate the data.</span>
+<span class="sd">    chemical_state : str, int or None, default='reference'</span>
+<span class="sd">        Source state index or resolved reference to update. Other states remain</span>
+<span class="sd">        unchanged. 'structure' requires a different structure-based operation.</span>
+<span class="sd">    template_chemical_state : str, int or None, default='reference'</span>
+<span class="sd">        Independent template state index or resolved reference.</span>
+<span class="sd">    skip_digestion : bool, default=False</span>
+<span class="sd">        Whether to skip MolSysMT's internal argument digestion mechanism.</span>
+<span class="sd">    connectivity_policy : {'require_same_graph', 'complete_from_template'}, default='require_same_graph'</span>
+<span class="sd">        Keyword-only choice. Explicit completion adds missing bonds from the</span>
+<span class="sd">        declared complete template to an incomplete source graph. Default behavior</span>
+<span class="sd">        still requires identical edges within the selection. Conflicts and</span>
+<span class="sd">        unexpected selected source edges fail. Selected completion preserves</span>
+<span class="sd">        unrelated component metadata. Context mode supports only require_same_graph.</span>
+
+<span class="sd">    selection : str, list, tuple or numpy.ndarray, default='all'</span>
+<span class="sd">        One full stored component, or a nonempty atom scope with explicit</span>
+<span class="sd">        context_atom_correspondence. Strings use topological</span>
+<span class="sd">        selections. The template map covers precisely these atoms, using indices</span>
+<span class="sd">        in the full source input. Without context, external relationships stay unassessed.</span>
+<span class="sd">    syntax : str, default='MolSysMT'</span>
+<span class="sd">        Selection syntax used to select source atoms.</span>
+<span class="sd">    context_atom_correspondence : list, tuple, numpy.ndarray or None, default=None</span>
+<span class="sd">        Optional keyword-only disjoint context map (n_context_atoms, 2), template</span>
+<span class="sd">        then source indices in their full axes. See assess_chemical_template.</span>
+<span class="sd">        Every selected atom's neighbors and incident-bond stereo references must</span>
+<span class="sd">        be mapped. Context atoms receive no assignments. None retains the closed</span>
+<span class="sd">        component contract; an empty int64 (0, 2) array explicitly enables context mode.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        molecular_system is a new native MolSys; report is the detached</span>
+<span class="sd">        molsysmt.chemical_template@1 assessment with status='applied', filled and</span>
+<span class="sd">        preserved fields, original provenance/software and optional attribution.</span>
+<span class="sd">        Formal charges use elementary charge units. The report identifies named</span>
+<span class="sd">        analyses invalidated by chemical-state replacement on the returned copy.</span>
+<span class="sd">        Added bonds carry template indices, remapped source pairs, user_defined</span>
+<span class="sd">        evidence and final bond indices; existing bond indices may reorder and are</span>
+<span class="sd">        mapped by source_bond_correspondence. Components are rebuilt only after</span>
+<span class="sd">        adding bonds. Unchanged memberships retain names/types; merged/split sets</span>
+<span class="sd">        lose labels. Whole-input completion regenerates IDs, while selected</span>
+<span class="sd">        completion preserves IDs of unchanged sets. Group/molecule inventory and</span>
+<span class="sd">        all other states are preserved.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ArgumentError</span>
+<span class="sd">        If a state/map/provenance argument is malformed or nonexhaustive.</span>
+<span class="sd">    StructuralInconsistencyError</span>
+<span class="sd">        If preflight is conflict/unassessed. Its report attribute retains the</span>
+<span class="sd">        detached assessment; neither input is modified.</span>
+<span class="sd">    FormatError</span>
+<span class="sd">        If an adapter rejects unsupported source chemical encodings.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Runs the same preflight as assess_chemical_template before copying or assigning.</span>
+<span class="sd">    Only absent supported state fields are filled; explicit conflicts fail. No</span>
+<span class="sd">    atom, isotope, protomer or geometry is generated. The default adds no edge;</span>
+<span class="sd">    explicit completion transfers missing template edges with declared provenance.</span>
+<span class="sd">    Connectivity coverage</span>
+<span class="sd">    is justified by the exhaustive map to the declared complete template; this</span>
+<span class="sd">    does not independently certify valence or template correctness. Stable atom</span>
+<span class="sd">    identity/membership, structures, units, box and structure/state associations are</span>
+<span class="sd">    preserved. State replacement invalidates analyses through the existing native</span>
+<span class="sd">    lifecycle. Mechanical parameters are copied but are not reparameterized.</span>
+<span class="sd">    A proper atom subset leaves global connectivity completeness unchanged and</span>
+<span class="sd">    records scoped evidence in the report; it does not certify unrelated atoms.</span>
+<span class="sd">    Completing selected bonds can renumber components but retains labels of</span>
+<span class="sd">    unchanged atom sets. Merged/split sets lose those labels. Unrelated stored</span>
+<span class="sd">    partitions needing reconciliation remain unassessed during preflight.</span>
+<span class="sd">    No new atom is inserted and no selected atom is moved.</span>
+<span class="sd">    The returned report is also retained in the selected ChemicalStates record.</span>
+<span class="sd">    ``result.chemical_states.get_preparation_history()`` returns independent</span>
+<span class="sd">    historical envelopes with original operation indices and output dimensions.</span>
+<span class="sd">    H5MSM 0.5 and ChemicalStatesDict preserve this history. Subsequent edits,</span>
+<span class="sd">    extraction or merging do not rewrite those indices or certify current chemistry.</span>
+<span class="sd">    Optional Ackredit absence/failure never changes the scientific outcome.</span>
+<span class="sd">    In explicit context mode, only selected atom fields and incident bond fields</span>
+<span class="sd">    are updated. Boundary bonds are checked against the full declared reference;</span>
+<span class="sd">    outside atoms and outside-only bonds are preserved. Unmapped template atoms</span>
+<span class="sd">    remain unassessed, no edge is added, and global connectivity stays unchanged.</span>
+<span class="sd">    The report/history retains both maps and scoped coverage. Partial polymer</span>
+<span class="sd">    preparation does not bypass full-graph recognition requirements.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    assess_chemical_template : Inspect compatibility without modifying inputs.</span>
+<span class="sd">    molsysmt.build.get_residue_chemical_coverage : Inspect exact residue coverage.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import molsysmt as msm</span>
+<span class="sd">    &gt;&gt;&gt; molsys = msm.systems['caffeine']['caffeine.sdf']</span>
+<span class="sd">    &gt;&gt;&gt; provenance = dict(identity='bundled caffeine', version='fixture',</span>
+<span class="sd">    ...     source_uri='bundled:caffeine.sdf', checksum='caller-declared fixture',</span>
+<span class="sd">    ...     hydrogen_policy='explicit_atoms')</span>
+<span class="sd">    &gt;&gt;&gt; try:</span>
+<span class="sd">    ...     result = msm.physchem.apply_chemical_template(molsys, template=molsys,</span>
+<span class="sd">    ...         atom_correspondence=np.column_stack((np.arange(24), np.arange(24))),</span>
+<span class="sd">    ...         template_provenance=provenance)</span>
+<span class="sd">    ... except msm.StructuralInconsistencyError as error:</span>
+<span class="sd">    ...     print(error.report['status'])</span>
+<span class="sd">    unassessed</span>
+
+<span class="sd">    .. admonition:: User guide</span>
+
+<span class="sd">       See :ref:`Tutorial_Chemical_Templates` for successful mapped applications.</span>
+
+<span class="sd">    .. versionadded:: 1.0.0</span>
+<span class="sd">    """</span>
+    <span class="n">caller</span> <span class="o">=</span> <span class="s2">"molsysmt.physchem.apply_chemical_template"</span>
+    <span class="c1"># Compatibility with the truthy bypass in ArgDigest 0.13.0 (#17).</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">skip_digestion</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.argdigest.argument.skip_digestion</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">digest_skip_digestion</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">digest_skip_digestion</span><span class="p">(</span><span class="n">skip_digestion</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="n">caller</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.chemical_template</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply</span><span class="p">,</span> <span class="n">evaluate</span>
+
+    <span class="n">report</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
+        <span class="n">molecular_system</span><span class="p">,</span>
+        <span class="n">template</span><span class="p">,</span>
+        <span class="n">atom_correspondence</span><span class="p">,</span>
+        <span class="n">template_provenance</span><span class="p">,</span>
+        <span class="n">chemical_state</span><span class="p">,</span>
+        <span class="n">template_chemical_state</span><span class="p">,</span>
+        <span class="n">caller</span><span class="p">,</span>
+        <span class="n">connectivity_policy</span><span class="p">,</span>
+        <span class="n">selection</span><span class="p">,</span>
+        <span class="n">syntax</span><span class="p">,</span>
+        <span class="n">context_atom_correspondence</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">apply</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">report</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">caller</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.22.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
