@@ -213,5 +213,65 @@
     "Sixteen-cell installed pair qualification",
     "Consumer-owned canvas/session acceptance under uibcdf/molsysviewer#93 and uibcdf/molsysviewer#114"
   ],
-  "publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion."
+  "publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion.",
+  "coordinated_publication_review": {
+    "recorded_at": "2026-10-07T05:44:57.559941+00:00",
+    "viewer_receipt_commit": "3465e56300d6365692a7b596f8ba1338e4a59fee",
+    "viewer": {
+      "version": "0.24.0",
+      "build_number": 1,
+      "candidate_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
+      "filename": "molsysviewer-0.24.0-py_1.tar.bz2",
+      "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa"
+    },
+    "installed_pair": {
+      "run_id": 37541876875,
+      "head_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+      "conclusion": "success",
+      "verified_cells": 16,
+      "required_evidence_steps_verified_per_cell": 4,
+      "molsysmt_artifact_hashes_agree_with_viewer_receipt": true
+    },
+    "original_source_gate": {
+      "run_id": 37534217132,
+      "conclusion": "success",
+      "successful_cells": 8,
+      "viewer_sha": "5bb59c0e13045ee0aaf34cf336a3533d611197bf"
+    },
+    "final_pair_source_gate": {
+      "run_id": 37577738386,
+      "head_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+      "viewer_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
+      "status_at_receiving": "in_progress",
+      "reason": "Release gate requires the exact final Viewer candidate; the original eight-cell gate used its earlier source."
+    },
+    "viewer_source_gate": {
+      "run_id": 37542642197,
+      "head_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
+      "conclusion": "success"
+    },
+    "viewer_windows_launcher_gate": {
+      "run_id": 37542333568,
+      "conclusion": "success"
+    },
+    "viewer_automatic_development_gate": {
+      "run_id": 37545069147,
+      "head_sha": "d5ac10f0604b3cbdb9d80d6774a7aad72df5e731",
+      "conclusion": "success",
+      "scope": "Tooling successor; does not replace the package producer."
+    },
+    "agreed_order": [
+      "Complete applicable exact-candidate gates and obtain maintainer publication approval",
+      "MolSysMT owner tags/releases the qualified source, promotes its four original files and verifies public records",
+      "MolSysViewer owner tags/releases its fixed source, promotes build 1 and verifies npm/CDN",
+      "Qualify sixteen public installed-pair cells and verify both Zenodo records"
+    ],
+    "publication_authorized": false,
+    "pending": [
+      "Final-pair MolSysMT eight-cell source run 37577738386",
+      "Final exact-candidate sign-off and maintainer publication authorization",
+      "Public promotion/verification, sixteen public installations and both Zenodo records"
+    ],
+    "historical_boundary": "Earlier pending lists and Viewer build-0 observations retain their original recording-time scope."
+  }
 }

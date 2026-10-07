@@ -51,14 +51,34 @@ and the successful recovery of all 33 affected cases; it is not recorded as a
 second complete green invocation. Details and limitations remain in the dated
 checkpoints and handoff receipt below.
 
-At the latest inspection, source run
-[37534217132](https://github.com/uibcdf/molsysmt/actions/runs/37534217132)
-has passed Linux Python 3.11/3.12 and macOS Python 3.11/3.14; four cells are still
-running. Its controlled Viewer source is
-`5bb59c0e13045ee0aaf34cf336a3533d611197bf`. This is **4/8 completed cells**, not
-full-matrix certification. The exact Viewer 0.24.0 staging file and the
-16-cell installed-pair qualification remain pending, as does consumer-owned
-acceptance under `uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`.
+Source run [37534217132](https://github.com/uibcdf/molsysmt/actions/runs/37534217132)
+has completed successfully in all eight cells, using the earlier controlled
+Viewer source `5bb59c0e13045ee0aaf34cf336a3533d611197bf`. The definitive Viewer
+candidate is now **0.24.0, build 1**, from
+`1a4c97a58b68b69f3a836546c9e4ac6187c3efa2`:
+`molsysviewer-0.24.0-py_1.tar.bz2`, SHA-256
+`e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa`.
+Installed-pair run
+[37541876875](https://github.com/uibcdf/molsysmt/actions/runs/37541876875)
+passes **16/16 cells** on MolSysMT's original candidate. Receiving inspection
+verified every required install, runtime, environment-record and retention step;
+the Viewer receipt agrees with all four MolSysMT artifact digests.
+
+Viewer's exact canonical source run
+[37542642197](https://github.com/uibcdf/molsysviewer/actions/runs/37542642197)
+and Windows launcher run
+[37542333568](https://github.com/uibcdf/molsysviewer/actions/runs/37542333568)
+are successful. The Viewer owner records 39 core browser suites and 25 notebooks
+in its receiving receipt at documentation commit `3465e563`, under
+`uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`.
+
+MolSysMT source run
+[37577738386](https://github.com/uibcdf/molsysmt/actions/runs/37577738386)
+has been dispatched from the fixed candidate branch with the **final Viewer
+SHA**. Its eight-cell result remains pending: the earlier full gate and the
+installed-pair gate do not certify this changed source-pair input. The additive
+`coordinated_publication_review` in the handoff receipt records these identities
+and preserves the original observations.
 
 No public tag, GitHub Release or main-label promotion has been performed.
 Use [Resume from here](#resume-from-here) for the remaining sequence. Earlier
@@ -508,26 +528,25 @@ are recorded in the current checkpoint above and the
 Keep MolSysMT's original package producer and source SHA even when later commits
 correct developer tooling or update this ledger.
 
-1. Inspect source run `37534217132` to completion and retain the exact-candidate
-   scientific certificates and full-suite results. Partial matrix success does
-   not satisfy the [release gate](release_gate.md).
-2. Obtain the exact Viewer 0.24.0 staging filename, build, SHA-256 and producer
-   source. Its owner must align the release plan with 0.24.0 before producing
-   that package. The coordinated dependency minimum is `molsysmt>=0.23.0`.
-3. Qualify the exact installed pair in **16 cells**: four supported native
-   platforms × Python 3.11–3.14. Preserve the original staged artifact bytes and
-   digests; a documentation or validator correction alone does not require
-   rebuilding the package. The Linux payload tests already recorded do not
-   replace this matrix.
-4. Complete Viewer-owned integration and acceptance under
-   `uibcdf/molsysviewer#93` and `uibcdf/molsysviewer#114`, including the applicable
-   browser, visible-window and session checks. Experimental Qt limitations
-   remain tracked by `uibcdf/molsysviewer#109`; remote-session certification
-   remains post-1.0 in `uibcdf/molsysviewer#100`.
-5. Reconcile every applicable exact-candidate gate, then obtain final publication
-   approval for **0.23.0**. Tag the qualified source, publish the GitHub Release,
-   promote the exact qualified files and verify public artifacts and Zenodo
-   records. Assess readiness for 1.0 after this pre-1.0 checkpoint.
+1. Inspect final-pair source run `37577738386` to completion and retain its
+   scientific certificates and full-suite results. The earlier eight-cell run
+   remains successful evidence against the previous Viewer source.
+2. Reconcile every applicable [exact-candidate gate](release_gate.md) and obtain
+   final publication approval for **0.23.0 / 0.24.0**. Staging is qualified in
+   16/16 cells for MolSysMT build 0 and Viewer build 1; preserve those original
+   producers, files and digests. The dependency minimum is `molsysmt>=0.23.0`.
+3. The MolSysMT owner publishes the tag/Release on the qualified source, promotes
+   its four original ABI3 files and verifies each public record. This completes
+   the provider dependency needed by public Viewer installation.
+4. The MolSysViewer owner publishes its fixed candidate, promotes **build 1**
+   and verifies its public Conda file and npm/CDN. Viewer-owned presentation
+   acceptance remains under `uibcdf/molsysviewer#93` and
+   `uibcdf/molsysviewer#114`; experimental Qt limits remain in
+   `uibcdf/molsysviewer#109` and remote-session certification remains post-1.0
+   in `uibcdf/molsysviewer#100`.
+5. Qualify the **16 public installed-pair cells** and independently verify both
+   Zenodo version records. Staging success does not certify public solver
+   visibility or archival. Assess readiness for 1.0 after this checkpoint.
 
 The public 0.22.4/0.23.4 pair and the
 [Python 3.14 checkpoint](python_3_14_checkpoint.md) remain historical installation
