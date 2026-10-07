@@ -208,11 +208,9 @@
     "log_sha256": "3d0e999a9371a218b9155828b259fea67e92a197867e860fb64e095f7cd35532"
   },
   "pending": [
-    "Viewer-owned 0.24.0 build 1 publication",
-    "Sixteen public installed-pair cells and Viewer archival",
-    "Queued osx-arm64 administrative job in the staged release-route workflow"
+    "Complete and independently verify sixteen public installed-pair cells in run 37587631519"
   ],
-  "publication": "MolSysMT 0.23.0 public tag/Release, four original public build-0 files and exact-version Zenodo archival verified; paired public installation remains pending.",
+  "publication": "MolSysMT 0.23.0 and Viewer 0.24.0 are public with exact-version Zenodo records; the sixteen-cell public installed-pair campaign is in progress.",
   "coordinated_publication_review": {
     "recorded_at": "2026-10-07T05:44:57.559941+00:00",
     "viewer_receipt_commit": "3465e56300d6365692a7b596f8ba1338e4a59fee",
@@ -593,11 +591,9 @@
         "recorded_at": "2026-10-07T06:47:32.152250+00:00"
       }
     ],
-    "status": "MolSysMT tag/Release published; four original files independently public-verified; exact-version Zenodo archive verified. Viewer/public-pair lifecycle and the queued administrative route job remain tracked.",
+    "status": "Both Releases and exact-version Zenodo archives verified; original public packages promoted; sixteen-cell public installed pair in progress.",
     "pending": [
-      "Viewer-owned 0.24.0 build 1 publication",
-      "Sixteen public installed-pair cells and Viewer archival",
-      "Queued osx-arm64 administrative job in the staged release-route workflow"
+      "Complete and independently verify sixteen public installed-pair cells in run 37587631519"
     ],
     "verified_at": "2026-10-07T06:50:03.407729+00:00",
     "public_packages": [
@@ -788,7 +784,10 @@
     "release_conda_route_workflow": {
       "run_id": 37583386011,
       "status_at_recording": "queued",
-      "scope": "The committed staged route skips rebuild/upload. Three native jobs completed successfully; osx-arm64 remains queued. Four independent promotion runs have already completed and public-verified the original files."
+      "scope": "The committed staged route skips rebuild/upload. Three native jobs completed successfully; osx-arm64 remains queued. Four independent promotion runs have already completed and public-verified the original files.",
+      "status": "completed",
+      "conclusion": "success",
+      "successful_native_jobs": 4
     },
     "public_tag_object": "8a18c2de49e0a8de71adbc12da2e4bc3b2b05a42",
     "viewer_receiving_followup": {
@@ -797,6 +796,80 @@
       "reported_verification": "Viewer independently verified all sixteen downloaded final-source artifacts against GitHub digests and the eight scientific/JUnit summaries against the provider receipt.",
       "publication_handoff_delivered": true,
       "authorization_boundary": "The user authorized MolSysMT publication here; Viewer publication remains under the Viewer owner authorization."
+    },
+    "viewer_publication": {
+      "observed_at": "2026-10-07T07:31:58.741038+00:00",
+      "owner_issues": [
+        "uibcdf/molsysviewer#93",
+        "uibcdf/molsysviewer#114",
+        "uibcdf/molsysviewer#176"
+      ],
+      "release_url": "https://github.com/uibcdf/molsysviewer/releases/tag/0.24.0",
+      "release_published_at": "2026-10-07T07:25:12Z",
+      "tag_commit": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
+      "version": "0.24.0",
+      "build_number": 1,
+      "filename": "molsysviewer-0.24.0-py_1.tar.bz2",
+      "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa",
+      "promotion_run_id": 37587274965,
+      "promotion_conclusion": "success",
+      "npm_recovery_run_id": 37586395370,
+      "npm_cdn_scope": "Verified by the Viewer owner; provider receiving independently checked the Release, exact tag and promotion run. Publisher correction is owned by uibcdf/molsysviewer#176; the package producer/tag were preserved.",
+      "zenodo": {
+        "run_id": 37587205154,
+        "state": "verified",
+        "receipt_sha256": "5d4accbe55dbeac4f25190fc9ca41a150d6dba9719ec90ead4b9d6da7041eb36",
+        "evidence": {
+          "repository": "uibcdf/molsysviewer",
+          "observed_at": "2026-10-07T07:25:25.754796+00:00",
+          "exit_status": 0,
+          "results": [
+            {
+              "repository": "uibcdf/molsysviewer",
+              "tag": "0.24.0",
+              "version": "0.24.0",
+              "published_at": "2026-10-07T07:25:12Z",
+              "observed_at": "2026-10-07T07:25:25.754796+00:00",
+              "age_hours": 0.004,
+              "archive_coverage": "source-snapshot",
+              "escalation_required": false,
+              "state": "verified",
+              "record_id": 23206053,
+              "concept_doi": "10.5281/zenodo.18072956",
+              "version_doi": "10.5281/zenodo.23206053",
+              "files": [
+                {
+                  "key": "uibcdf/molsysviewer-0.24.0.zip",
+                  "size": 24560894,
+                  "checksum": "md5:7335fc5b63254d841ea0184aadfdce3f"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "owner_receipt_commit": "06fbed86"
+    },
+    "public_installed_pair": {
+      "run_id": 37587631519,
+      "ref": "candidate/0.23.0-build0",
+      "candidate_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+      "workflow": ".github/workflows/validate_conda_staging.yaml",
+      "title": "MT 0.23.0 build 0 + Viewer 0.24.0 build 1 | Python 3.14 | all | public",
+      "inputs": {
+        "molsysmt_version": "0.23.0",
+        "molsysmt_build_number": "0",
+        "molsysviewer_version": "0.24.0",
+        "molsysviewer_build_number": "1",
+        "python_max": "3.14",
+        "target": "all",
+        "package_source": "public"
+      },
+      "status_at_recording": "queued",
+      "expected_cells": 16,
+      "successful_cells_at_recording": 7,
+      "recorded_at": "2026-10-07T07:31:58.741103+00:00",
+      "dispatch_handoff": "Run ID sent to the existing Viewer session; the Viewer owner will independently inspect the sixteen environment artifacts. No duplicate dispatch."
     }
   },
   "initial_publication": "Staging artifacts available; no public tag, GitHub Release or main-label promotion.",
