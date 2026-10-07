@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-06
+**Last updated:** 2026-10-07
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -20,7 +20,7 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current pre-1.0 checkpoint — 2026-10-06
+## Current pre-1.0 checkpoint — 2026-10-07
 
 The selected pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**, under the
 feature freeze in `uibcdf/molsysmt#334`. S6 artifact qualification is active.
@@ -74,11 +74,19 @@ in its receiving receipt at documentation commit `3465e563`, under
 
 MolSysMT source run
 [37577738386](https://github.com/uibcdf/molsysmt/actions/runs/37577738386)
-has been dispatched from the fixed candidate branch with the **final Viewer
-SHA**. Its eight-cell result remains pending: the earlier full gate and the
-installed-pair gate do not certify this changed source-pair input. The additive
-`coordinated_publication_review` in the handoff receipt records these identities
-and preserves the original observations.
+has completed successfully from the fixed candidate branch with the **final
+Viewer SHA**: **8/8 cells** pass. All eight downloaded scientific certificates
+identify the original clean MolSysMT candidate and pass **54/54 cases** across
+47 registered nodes, with zero scientific failures, errors or skips. The eight
+JUnit reports each contain 13,323 cases and zero failures/errors: Linux has
+13,297 passes and 26 skips per cell; macOS has 13,296 passes and 27 skips.
+Recorded omissions cover optional Ackredit, Vina, CuPy, unyt and Astropy, the
+installed-RDKit negative-path case, and a Linux-only test on macOS. This is the
+workflow's declared test/doctest scope, not a claim that every optional backend
+was exercised there. The additive `coordinated_publication_review` in the handoff
+receipt retains every certificate/JUnit digest and the original observations.
+Final publication authorization and public-channel/archival verification remain
+pending.
 
 No public tag, GitHub Release or main-label promotion has been performed.
 Use [Resume from here](#resume-from-here) for the remaining sequence. Earlier
@@ -528,12 +536,12 @@ are recorded in the current checkpoint above and the
 Keep MolSysMT's original package producer and source SHA even when later commits
 correct developer tooling or update this ledger.
 
-1. Inspect final-pair source run `37577738386` to completion and retain its
-   scientific certificates and full-suite results. The earlier eight-cell run
-   remains successful evidence against the previous Viewer source.
-2. Reconcile every applicable [exact-candidate gate](release_gate.md) and obtain
-   final publication approval for **0.23.0 / 0.24.0**. Staging is qualified in
-   16/16 cells for MolSysMT build 0 and Viewer build 1; preserve those original
+1. Review the completed source/native/installed-pair evidence against the
+   [exact-candidate gate](release_gate.md), preserving the recorded optional
+   omissions and documentation warning debt. The final-pair full matrix passes
+   8/8 cells; its scientific certificates and JUnit digests are retained.
+2. Obtain final publication approval for **0.23.0 / 0.24.0**. Staging is qualified
+   in 16/16 cells for MolSysMT build 0 and Viewer build 1; preserve those original
    producers, files and digests. The dependency minimum is `molsysmt>=0.23.0`.
 3. The MolSysMT owner publishes the tag/Release on the qualified source, promotes
    its four original ABI3 files and verifies each public record. This completes

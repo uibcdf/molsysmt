@@ -243,7 +243,242 @@
       "head_sha": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
       "viewer_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
       "status_at_receiving": "in_progress",
-      "reason": "Release gate requires the exact final Viewer candidate; the original eight-cell gate used its earlier source."
+      "reason": "Release gate requires the exact final Viewer candidate; the original eight-cell gate used its earlier source.",
+      "verified_at": "2026-10-07T06:43:47.520564+00:00",
+      "status": "completed",
+      "conclusion": "success",
+      "successful_cells": 8,
+      "cells": [
+        {
+          "cell": "macos-15-py3.11",
+          "python": "3.11.17",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "ca04355f08be04f341271be50beab08385fb1623affcf27fb8fe5df7cd04b2bc"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27,
+            "passed": 13296,
+            "junit_sha256": "f5459ba681627340ab163660437f3f838005599a48efe49f69dc6f348d6868c2",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "This test can only be run in linux": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "macos-15-py3.12",
+          "python": "3.12.15",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "52adc5d8b394936b2289498cc2d3d77aea74cc9c505369de4e11f355c88d0b14"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27,
+            "passed": 13296,
+            "junit_sha256": "da98d24a55b96c54cc428a98c51199071ac1f88e340caa17df3420f3f782e41b",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "This test can only be run in linux": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "macos-15-py3.13",
+          "python": "3.13.16",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "5e114917e034816e0e5f6825804015a4ff1c27c1a264bd31673f6a98c492cb19"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27,
+            "passed": 13296,
+            "junit_sha256": "b84b3921b7e8132b5b20ee49f70fffb769e440456629fb9370269b46b7f0e2d6",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "This test can only be run in linux": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "macos-15-py3.14",
+          "python": "3.14.8",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "fb79d1a32f2f3bfca7267dea4f52f24750a429d49a87c9b50861cf4d62349137"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27,
+            "passed": 13296,
+            "junit_sha256": "a345b57bc42003670996e86de5b58bd074283d821ea7406f3744b1f7be7ceaa6",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "This test can only be run in linux": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "ubuntu-latest-py3.11",
+          "python": "3.11.17",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "bbac5e7d1b88110c209697f96a4151207b333b5c1b989a39a770243f1f7f5363"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26,
+            "passed": 13297,
+            "junit_sha256": "cc44c8838cbf62e4c7128073ede857abdda021875f7c7a72a125fcc792a7a057",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "ubuntu-latest-py3.12",
+          "python": "3.12.15",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "dac2960f11d8da7b3971c9a2572bf78d76d3acc413b8dd1405328635f8fecafb"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26,
+            "passed": 13297,
+            "junit_sha256": "128e1a1b920c83bf0c4737f1ea1685af6d8c619f9110cf29000082cff77f1b7f",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "ubuntu-latest-py3.13",
+          "python": "3.13.16",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "0be8d1ebeb8a6f05bb1647b678fdde477dd84829c7c8e8ab6b87033df53949f7"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26,
+            "passed": 13297,
+            "junit_sha256": "20412b086a73b906766a6915ecd8f2635ba01891eed2a7dfc9bac3352deef5f5",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        },
+        {
+          "cell": "ubuntu-latest-py3.14",
+          "python": "3.14.8",
+          "scientific": {
+            "registered_nodes": 47,
+            "passed": 54,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "certificate_sha256": "f1fb87d952fad9b302f356b22896e651986df4cd5d266fea2bce546276e6a52c"
+          },
+          "full_suite": {
+            "tests": 13323,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26,
+            "passed": 13297,
+            "junit_sha256": "f91945e948b5ae804fd411767b0fe2a8f1efc00ff7531321f3e1d2b677e137de",
+            "skip_reasons": {
+              "CuPy is not available.": 1,
+              "Optional astropy quantity backend": 1,
+              "Optional unyt quantity backend": 1,
+              "could not import 'ackredit': No module named 'ackredit'": 17,
+              "could not import 'vina': No module named 'vina'": 5,
+              "with rdkit CCO is recognized as valid SMILES": 1
+            }
+          }
+        }
+      ],
+      "scope": "pytest.ini testpaths: tests and molsysmt/basic doctests; devtools/tests are covered separately. Optional/environment omissions are retained per cell."
     },
     "viewer_source_gate": {
       "run_id": 37542642197,
@@ -268,7 +503,6 @@
     ],
     "publication_authorized": false,
     "pending": [
-      "Final-pair MolSysMT eight-cell source run 37577738386",
       "Final exact-candidate sign-off and maintainer publication authorization",
       "Public promotion/verification, sixteen public installations and both Zenodo records"
     ],
