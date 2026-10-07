@@ -26,7 +26,7 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 
 A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
 
-The current central member-policy release is MolSysSuite `policy-v1.5.7`, as
+The current central member-policy release is MolSysSuite `policy-v1.5.8`, as
 recorded in `suite.toml`. Each member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
 the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
@@ -334,6 +334,19 @@ Guide and instruction checks verify delivery/routing only. Architectural review 
 inspect the standalone tool contract and actual consumer call, distinguishing source
 inspection from executed compatibility evidence. Adoption is tracked in
 [MolSysSuite #61](https://github.com/uibcdf/molsyssuite/issues/61).
+
+## Temporary development resources
+
+Use temporary locations such as `/tmp` when appropriate. Keep task ownership
+clear, retain resources and evidence while needed, and remove them when their
+usefulness ends. Evidence may stay in `/tmp`; relocation is not required.
+Review retained resources at task/release closeout. Prefer managed temporary
+directories that clean after success and failure. Preserve active/human work,
+shared environments and required evidence; report cleanup failures.
+Follow the [temporary-resource policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/temporary_resources.md)
+for applicable tools, owner-controlled cleanup and tracked implementation
+exceptions. Member adoption and historical cleanup are tracked in
+[MolSysSuite #104](https://github.com/uibcdf/molsyssuite/issues/104).
 
 ## Optional engines and external methods
 
