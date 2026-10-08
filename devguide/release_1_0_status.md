@@ -30,13 +30,27 @@ producer, an available package or a published release. The
 records its checks and remaining exact-candidate gates. The older qualification
 below retains its original identities and does not qualify these new files.
 
-Authorized coordination with the existing MolSysViewer team confirms that its
-next proposed reference package is **0.24.1**, including the already closed
-uibcdf/molsysviewer#149 and uibcdf/molsysviewer#177. Its version/build/source and
-files are not yet frozen. The owner's source checkpoint
-`0067a2c27c152a068655b8824f0d1c249a32d6b8` is not a package candidate. The public
-0.24.0 build-1 baseline remains historical evidence; no new source or installed
-matrix is dispatched before the coordinated identities are fixed.
+Authorized coordination with the existing MolSysViewer team now fixes its
+candidate as **0.24.1, noarch build 0**, source
+`66ea54e45ff3b9498e5f6f668c3d519888dca7b4`, with immutable branch
+`candidate/0.24.1-build0`. Native GitHub inspection verifies that branch against
+the delivered full SHA. This replaces its earlier source-only checkpoint
+`0067a2c27c152a068655b8824f0d1c249a32d6b8` and includes the already closed
+uibcdf/molsysviewer#149 and uibcdf/molsysviewer#177. The owner confirms the
+experimental compatibility contract and prepares its staged file; its filename
+and observed hash remain pending. The public 0.24.0 build-1 baseline remains
+historical evidence. No installed-pair matrix is dispatched before both new
+artifact identities are available and inspected.
+
+The audited routine Viewer source and source-gate fallback now select that
+exact candidate, while manual full/native qualification must still supply its
+SHA explicitly. MolSysMT will freeze `candidate/1.0.0-build0` at the committed
+source selecting these routes, preserve that producer as later receipts are
+recorded, and build the staged files under the existing construction/upload
+authorization. Source/native execution and staged-file delivery remain separate
+from the later installed-pair claim. The preparation checkpoint `0a7cfdd8a`
+passes all six applicable hosted checks, including smoke; those checks used the
+previous Viewer baseline and do not qualify this new source pair.
 
 MolSysMT confirms continuity of the implemented Interactions consumption
 contract: sparse roles and compound participants, analysis-version occurrence
@@ -60,7 +74,8 @@ exercise the prepared working tree, not a frozen release artifact.
 #250/#254 remain open for their final-candidate
 obligations. #334 still requires exact source/native/scientific, documentation
 and installed-consumer qualification followed by the separate publication
-approval. No 1.0 tag, Release, upload or promotion is performed here.
+approval. No public 1.0 tag, Release or main-label promotion is authorized by
+this preparation.
 
 ## Qualified pre-1.0 checkpoint — 2026-10-07
 
@@ -744,8 +759,9 @@ correct developer tooling or update this ledger.
 3. Retain the completed central receiving response for #237/#244 under
    uibcdf/molsyssuite#51 and this delivery's administrative conformance. Version
    metadata and the staged route for 1.0.0 build 0 are prepared. Obtain the
-   owner's exact Viewer 0.24.1 version/build/source, then freeze MolSysMT's
-   producer and execute exact-candidate gates and new staged-file qualification.
+   owner's frozen Viewer 0.24.1 build-0 source is now recorded above. Freeze
+   MolSysMT's producer and execute exact-candidate gates and new staged-file
+   qualification; wait for both observed file identities before the installed pair.
    #250/#254 retain their final-candidate checks and #334 owns qualification and
    publication approval. Keep feature scope frozen; extensions retain their
    post-1.0 owners. A final-candidate failure returns its affected scope to
