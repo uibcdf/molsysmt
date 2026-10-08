@@ -74,8 +74,15 @@ format/lint/tests and all four controlled installed public-smoke steps actually
 execute. GH Run Receptor independently confirms the terminal result. The
 eight-cell source campaign remains active; all eight original scientific ZIPs
 are downloaded and digest-verified against the clean producer, all 47 nodes
-and 54 passing cases with zero omissions. Full-suite completion and JUnit
-inspection remain pending. Both sets of package identities are available;
+and 54 passing cases with zero omissions. Three Linux full-suite cells
+(Python 3.11/3.12/3.13) complete successfully; original JUnit ZIP/payload hashes,
+all 26 skipped cases and native executed-step records are verified for each.
+Each records 13,301 passes and no failures/errors. The remaining five cells
+and full-matrix sign-off stay pending. Default peptide-parity deselection is
+active; its count awaits native-log inspection because JUnit does not record
+deselected nodes. Viewer's independent review verifies the same eight scientific
+ZIPs and two of these Linux JUnit ZIPs; this adds confidence, not test counts.
+Both sets of package identities are available;
 the installed-pair matrix waits for the
 owners' prerequisite-gate review and one agreed dispatch. No public tag,
 Release or main-label promotion is performed.
@@ -102,8 +109,8 @@ owner-reported results, not independently rerun by MolSysMT. The earlier
 Viewer canonical staging CI
 [37760422583](https://github.com/uibcdf/molsysviewer/actions/runs/37760422583)
 identifies the replacement source and selected versions. Its required scientific
-jobs remain in progress; four of six succeed at the latest inspection, with
-macOS/Python 3.12 queued and 3.13 active.
+jobs remain in progress; five of six succeed at the latest inspection, with
+macOS/Python 3.12 active.
 The Qt job fails in its experimental scope under uibcdf/molsysviewer#109;
 do not report that campaign globally green or use it to clear unfinished
 scientific jobs. Agree the unique installed-pair dispatch only after these

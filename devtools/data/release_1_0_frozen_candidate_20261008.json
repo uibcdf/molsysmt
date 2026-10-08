@@ -315,7 +315,646 @@
           "errors": 0
         }
       ],
-      "scientific_scope": "Eight original ZIPs and payload digests checked against the clean exact producer, all 47 registered nodes and 54 passed cases, zero omissions/errors/failures. Full suites still pending."
+      "scientific_scope": "Eight original ZIPs and payload digests checked against the clean exact producer, all 47 registered nodes and 54 passed cases, zero omissions/errors/failures. Full suites still pending.",
+      "verified_completed_cells": [
+        {
+          "job_id": 113252540824,
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
+          "conclusion": "success",
+          "junit": {
+            "digest": "sha256:ba187372e81db2372aea73fc61127a69cc96c777f107d3697e60ab8863b25841",
+            "expired": false,
+            "id": 11542578269,
+            "name": "full-suite-results-ubuntu-latest-py3.11",
+            "size_in_bytes": 148409,
+            "downloaded_sha256": "ba187372e81db2372aea73fc61127a69cc96c777f107d3697e60ab8863b25841",
+            "junit_sha256": "a1227d7521b5d8ec44d1edf0fcbd227b2542d07eaa41bc5f0af0c877001e32ad",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 26,
+              "passed": 13301
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113252540864,
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
+          "conclusion": "success",
+          "junit": {
+            "digest": "sha256:54b78dec72a20383a1fec794d65844139a1f4a0adc67761092026735cf9d717e",
+            "expired": false,
+            "id": 11543004386,
+            "name": "full-suite-results-ubuntu-latest-py3.12",
+            "size_in_bytes": 152299,
+            "downloaded_sha256": "54b78dec72a20383a1fec794d65844139a1f4a0adc67761092026735cf9d717e",
+            "junit_sha256": "097a6e2ca88db4793c5d124ab81754dc6433a7f3b412c7a1af44b0def054bcf7",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 26,
+              "passed": 13301
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113252540939,
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
+          "conclusion": "success",
+          "junit": {
+            "digest": "sha256:b9821bb71be00c4afc0c7e39348c67e72f9856c3c9e923bde0947520401f28ee",
+            "expired": false,
+            "id": 11543275282,
+            "name": "full-suite-results-ubuntu-latest-py3.13",
+            "size_in_bytes": 147369,
+            "downloaded_sha256": "b9821bb71be00c4afc0c7e39348c67e72f9856c3c9e923bde0947520401f28ee",
+            "junit_sha256": "f1df1a763ce021bb14c3c0cc6fe05f7abf0eecead95ff2370a119fc6113bc59a",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 26,
+              "passed": 13301
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "scope_at_snapshot": "Three Linux full-suite cells inspected (3.11/3.12/3.13): 13301 passed, 26 optional/negative-path skips, no failures/errors each. Remaining five cells unfinished. Full-suite JUnit excludes deselected cases; default peptide-parity deselection is active and its count awaits native log inspection."
     },
     "native_wheels": {
       "run_id": 37759580359,
@@ -962,7 +1601,7 @@
     "viewer_canonical_ci": {
       "run_id": 37760422583,
       "head_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
-      "status": "queued with active scientific jobs at native inspection",
+      "status": "in_progress",
       "conclusion": null,
       "use_staging": true,
       "versions": {
@@ -970,7 +1609,7 @@
         "molsysviewer": "0.24.1"
       },
       "qt_job": "failure; experimental scope separately owned by uibcdf/molsysviewer#109",
-      "scientific_jobs": "Four of six jobs success; macOS/Python 3.12 queued and 3.13 active at latest native inspection."
+      "scientific_jobs": "Five of six jobs success at latest native inspection; macOS/Python 3.12 active."
     },
     "single_installed_pair_dispatch": "Wait for canonical Viewer scientific and MolSysMT full/native gates, then agree one dispatch.",
     "previous_191_guard_snapshot": {
@@ -989,5 +1628,10 @@
       "skipped": 0
     },
     "count_rule": "Owner reports a combined 322 tests; the earlier 191 selection is included and must not be added again."
+  },
+  "consumer_independent_source_review": {
+    "owner_reported_commit": "c3f91dc8",
+    "scope": "Viewer independently verifies the same eight scientific ZIPs and two Linux JUnit ZIPs; this cross-check does not add tests or complete pending cells.",
+    "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5"
   }
 }
