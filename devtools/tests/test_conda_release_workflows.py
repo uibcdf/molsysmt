@@ -196,9 +196,10 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
 
     assert validate["needs"] == "prepare"
     assert viewer_input["required"] is True
-    assert viewer_input["default"] == "0.24.0"
+    assert "default" not in viewer_input
     assert mt_build_input["default"] == 0
-    assert viewer_build_input["default"] == 0
+    assert viewer_build_input["required"] is True
+    assert "default" not in viewer_build_input
     assert python_max_input["default"] == "3.14"
     assert python_max_input["options"] == ["3.13", "3.14"]
     assert set(target_input["options"]) == {

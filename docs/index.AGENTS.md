@@ -29,7 +29,7 @@ No contributor or AI agent may alter or remove the following core elements:
    - **Badges Block Requirements:**
      - **Release Badge:** MUST match the current codebase version (e.g., `v0.21.0` / `molsysmt.__version__`); outdated hardcoded version strings are forbidden.
      - **License Badge:** MUST target `https://github.com/uibcdf/molsysmt/blob/main/LICENSE` (targeting legacy branches like `master` is forbidden).
-     - **Conda & Python Badges:** Conda channel (`uibcdf`) and supported Python versions (`3.11 | 3.12 | 3.13`).
+     - **Conda & Python Badges:** Conda channel (`uibcdf`) and the admitted Python range declared in `pyproject.toml` (`3.11 | 3.12 | 3.13 | 3.14`).
      - **Zenodo DOI Badge:** stable MolSysMT concept DOI
        (`10.5281/zenodo.1298752`). A historical version DOI must never be frozen into
        the home-page contract; see `devguide/release_and_citation.md`.

@@ -1,0 +1,101 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "date": "2026-10-08",
+  "status": "preparation; exact producer and coordinated package identities pending",
+  "source_parent": "b9954fa5e4ba1af5956613308211b90a37880e5c",
+  "molsysmt": {
+    "version": "1.0.0",
+    "build_number": 0,
+    "route": "staged",
+    "candidate_sha": null,
+    "files": []
+  },
+  "molsysviewer": {
+    "proposed_version": "0.24.1",
+    "build_number": null,
+    "candidate_sha": null,
+    "files": [],
+    "owner_source_checkpoint": "0067a2c27c152a068655b8824f0d1c249a32d6b8",
+    "checkpoint_is_candidate": false,
+    "fixes": [
+      "uibcdf/molsysviewer#149",
+      "uibcdf/molsysviewer#177"
+    ],
+    "published_baseline": {
+      "version": "0.24.0",
+      "build_number": 1,
+      "source_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2"
+    }
+  },
+  "coordination": {
+    "route": "codex queue to the existing owner session; maintainer authorized",
+    "reply": "Owner confirms existing experimental consumption contracts and their documented limits; no new MolSysMT functional blocker. Next Viewer artifact identity remains pending.",
+    "interactions_stability": "Experimental: Interactions, InteractionsDict, detector families and page@1; unchanged registry.",
+    "limits": [
+      "Occurrence indices refer to one analysis version, not global identity across remapping/replacement.",
+      "Paging bounds occurrence/participant copies after query construction, not universal RAM or out-of-core access.",
+      "Public setters invalidate coverage; raw-array edits require explicit invalidation; no automatic recalculation.",
+      "Standalone-file correspondence is declared, not authenticated by source_id."
+    ]
+  },
+  "changes": [
+    "Release metadata and derived citation surfaces via prepare_release.py.",
+    "Staged 1.0.0 producer plan and workflow defaults.",
+    "Explicit required Viewer version/build inputs instead of historical installed-pair defaults.",
+    "Release-route and workflow guards retain staged promotion and matrix requirements.",
+    "Homepage admitted Python range and obsolete Viewer documentation instructions corrected; notebook code and outputs unchanged."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "kind": "shared development environment; editable sources",
+    "workers": 12,
+    "receptor": "llm"
+  },
+  "checks": {
+    "release_preparation": {
+      "command": "python -m pytest --receptor=llm -n 12 devtools/tests/test_release_route.py devtools/tests/test_citation_release_tools.py devtools/tests/test_conda_release_workflows.py devtools/tests/test_conda_abi3_workflow.py",
+      "exit_code": 0,
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "a097d7e970e68b2487e7faee92f04c326515d7bb707a8a07fc159aae74b8aac1"
+    },
+    "ruff": {
+      "package_and_changed_tests": "pass",
+      "changed_test_format": "pass"
+    },
+    "citation_expected_1_0_0": {
+      "exit_code": 0
+    },
+    "homepage_code_and_outputs_unchanged": true,
+    "fast_gates": {
+      "exit_code": 0,
+      "passed": 14,
+      "total": 14,
+      "log_sha256": "4cc0bb0f0aa4ecc05c0792f30ad35cf36886f8d79bd9bfc640fd0548c013eafc",
+      "scope": "Fast portion only; scientific registry structure is checked, scientific nodes and heavy qualification are not executed by this command."
+    }
+  },
+  "preflight": {
+    "molsysmt_tag_1_0_0": "GitHub ref endpoint 404; absent at inspection.",
+    "molsysmt_anaconda_1_0_0": "Anaconda release endpoint 404; absent at inspection.",
+    "limitation": "Read-only checkpoint; refresh before producing or publishing artifacts."
+  },
+  "remaining": [
+    "Freeze coordinated source and artifact identities.",
+    "Execute mandatory exact-candidate fast/scientific/full-source/native/documentation gates.",
+    "Build the four staged ABI3 files and inspect original files/digests.",
+    "Qualify the exact installed pair and Viewer consumer/browser/session scope.",
+    "Resolve #250/#254 final-candidate obligations and #334 approval/publication; verify preservation after publication."
+  ],
+  "actions_not_performed": [
+    "Heavy matrix dispatch",
+    "Conda production or upload",
+    "Public tag",
+    "GitHub Release",
+    "Main-label promotion",
+    "Zenodo publication"
+  ],
+  "qualification_limit": "Historical eab7aeb79 source/native and 0.23.0/0.24.0 package evidence remain unchanged; they do not qualify 1.0.0 files."
+}

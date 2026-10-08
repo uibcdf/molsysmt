@@ -20,7 +20,49 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current pre-1.0 checkpoint — 2026-10-07
+## Final-candidate preparation — 2026-10-08
+
+Under `uibcdf/molsysmt#334`, release metadata and the staged producer route are
+prepared for **MolSysMT 1.0.0, build 0**, based on main
+`b9954fa5e4ba1af5956613308211b90a37880e5c`. This is preparation, not a frozen
+producer, an available package or a published release. The
+[preparation receipt](../devtools/data/release_1_0_candidate_preparation_20261008.json)
+records its checks and remaining exact-candidate gates. The older qualification
+below retains its original identities and does not qualify these new files.
+
+Authorized coordination with the existing MolSysViewer team confirms that its
+next proposed reference package is **0.24.1**, including the already closed
+uibcdf/molsysviewer#149 and uibcdf/molsysviewer#177. Its version/build/source and
+files are not yet frozen. The owner's source checkpoint
+`0067a2c27c152a068655b8824f0d1c249a32d6b8` is not a package candidate. The public
+0.24.0 build-1 baseline remains historical evidence; no new source or installed
+matrix is dispatched before the coordinated identities are fixed.
+
+MolSysMT confirms continuity of the implemented Interactions consumption
+contract: sparse roles and compound participants, analysis-version occurrence
+indices, evaluated-empty coverage, explicit selections, bounded pages, units,
+producer provenance, periodic images, named analyses and H5MSM 0.5 maps/remapping.
+Standalone import association remains an explicit declaration. The
+[API contract](interactions_api.md), [query semantics](interactions_query_semantics.md)
+and symbol stability registry retain their current authority. `Interactions`,
+`InteractionsDict`, detector families and the page boundary remain experimental;
+1.0 metadata does not promote their stability. Page bounds apply to occurrence
+and participant copies after query construction, not to universal memory usage.
+Public setters invalidate coverage; raw-array edits require explicit invalidation.
+No new functional provider blocker or detector requirement was reported.
+
+The installed-pair workflow requires the operator to supply Viewer version and
+build explicitly rather than silently selecting obsolete default coordinates.
+Local preparation checks pass: 17 release-tool/workflow tests with twelve
+workers and pytest-receptor, 14/14 fast gates, full-package and changed-test
+Ruff, changed-test formatting and citation consistency for 1.0.0. These checks
+exercise the prepared working tree, not a frozen release artifact.
+#250/#254 remain open for their final-candidate
+obligations. #334 still requires exact source/native/scientific, documentation
+and installed-consumer qualification followed by the separate publication
+approval. No 1.0 tag, Release, upload or promotion is performed here.
+
+## Qualified pre-1.0 checkpoint — 2026-10-07
 
 **Stabilization follow-up — 2026-10-08:** main commit
 `eab7aeb79cc397f92a08081766f5c25792503ae8` publishes the #349 repair and
@@ -689,7 +731,7 @@ are recorded in the current checkpoint above and the
 Keep MolSysMT's original package producer and source SHA even when later commits
 correct developer tooling or update this ledger.
 
-1. Reconcile the completed publication evidence with the finite S1–S6 queue
+1. Retain the completed publication evidence with the finite S1–S6 queue
    under `uibcdf/molsysmt#334`, and review the owning native/result acceptance
    issues. The 16/16 public pair, 8/8 final source matrix and verified Zenodo
    receipts are a completed pre-1.0 baseline, not automatic 1.0 sign-off.
@@ -700,9 +742,10 @@ correct developer tooling or update this ledger.
    successful on the recorded development source, with original artifact and
    executed-step verification. Neither is a 1.0-artifact claim.
 3. Retain the completed central receiving response for #237/#244 under
-   uibcdf/molsyssuite#51 and this delivery's administrative conformance. Select
-   the exact 1.0 source and coordinated Viewer version/source before preparing
-   version metadata and new staged artifacts.
+   uibcdf/molsyssuite#51 and this delivery's administrative conformance. Version
+   metadata and the staged route for 1.0.0 build 0 are prepared. Obtain the
+   owner's exact Viewer 0.24.1 version/build/source, then freeze MolSysMT's
+   producer and execute exact-candidate gates and new staged-file qualification.
    #250/#254 retain their final-candidate checks and #334 owns qualification and
    publication approval. Keep feature scope frozen; extensions retain their
    post-1.0 owners. A final-candidate failure returns its affected scope to
