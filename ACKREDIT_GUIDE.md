@@ -134,6 +134,231 @@ reviewed member-owned exception with the affected rule, reason, owner and issue,
 interim controls, expiry and removal condition. Provider implementation and member
 runtime adoption remain separate.
 
+## Function providers and prepared credit (stable from 0.11.0)
+
+Ackredit's principal maintainer accepted `prepare_credit`, `observe_calls` and
+`ackredit.provider@1` on 2026-10-06 under
+[Ackredit #84](https://github.com/uibcdf/ackredit/issues/84) /
+[#87](https://github.com/uibcdf/ackredit/issues/87), coordinated with
+[MolSysSuite #97](https://github.com/uibcdf/molsyssuite/issues/97) and
+[MOLI #46](https://github.com/uibcdf/moli/issues/46). Public **0.11.0** delivers
+the accepted bounded compatibility promise after exact-file source, installed,
+real receiving and public-channel verification. Use `ackredit>=0.11.0` when
+requiring that stable-provider promise. Public 0.10.0/0.10.1 provide these
+capabilities under their original
+provisional contract; **they are not a stable-provider version floor**.
+The released portable minimum remains `ackredit>=0.9.0`.
+
+From public 0.11.0, the reviewed signatures and meanings
+remain compatible across later patch/minor versions, including pre-1.0 and 1.x.
+Incompatible changes follow the
+[deprecation policy](https://github.com/uibcdf/ackredit/blob/main/docs/content/about/stability.md).
+Later readers retain `ackredit.provider@1` interpretation; incompatible declaration
+schema/meaning changes require a new identifier and unknown identifiers are refused.
+Client adoption, release qualification and synchronization of this guide remain
+separate. Observation is an explicit application choice; scientific libraries
+must not automatically enable it.
+
+### Dependency-free provider declaration
+
+A third-party library can publish this ordinary module dictionary (for example,
+in `example_provider.py` or imported from its own `_citations.py`). All metadata
+below is illustrative; authors supply their actual original bibliography.
+
+```python
+__ackredit__ = {
+    "schema": "ackredit.provider@1",
+    "software": {"name": "Example", "version": "2.4.0"},
+    "items": [
+        {
+            "id": "example:software:2.4.0",
+            "type": "software",
+            "title": "Example",
+            "version": "2.4.0",
+        },
+        {"id": "example:method", "type": "article", "title": "Example method"},
+    ],
+    "functions": {
+        "normalize": [
+            {"item_id": "example:software:2.4.0", "roles": ["executed_software"]},
+            {"item_id": "example:method", "roles": ["software_description"]},
+        ],
+    },
+}
+
+
+def normalize(values):
+    total = sum(values)
+    return [value / total for value in values]
+```
+
+Declaration and import credit nothing and require no Ackredit dependency.
+All schema fields are required. `software` has exactly non-empty `name` and
+`version`; `items` supplies unique non-empty IDs and JSON-compatible records;
+`functions` maps direct export names to non-empty use lists. Each use contains
+exactly `item_id` and `roles`, a list of non-empty role names, and references
+resolve locally. Keep software releases under distinct IDs. Function metadata
+`function.__ackredit__ = {"uses": [...]}` can supply the same uses instead;
+if both declarations name an export, they must agree. A producer's decorator
+can attach that attribute and return the original function unchanged.
+The role list may be empty when no role is declared; it remains unspecified
+rather than receiving an inferred relationship.
+
+### Explicit application observation
+
+```python
+import ackredit
+import example_provider
+
+with ackredit.session("analysis"), ackredit.scope("pipeline"):
+    with ackredit.observe_calls(example_provider):
+        with ackredit.capture("normalization") as run:
+            values = example_provider.normalize([1, 3])
+    saved_references = run.attribution.to_json()
+
+bibliography = ackredit.Attribution.from_json(saved_references).report("bibtex")
+```
+
+Only entry into declared synchronous exports or execution of awaited coroutines
+earns their references. Entry does not establish scientific success. Context-local
+nested/concurrent leases restore original module exports after the last exit;
+expired owners stop recording. Threads do not automatically inherit context.
+Pre-activation aliases, generators, descriptors, custom module subclasses, native
+internal calls and subprocesses are outside the guarantee. Ordinary PEP 562
+modules resolve only declared missing exports; their loader's caching/import
+side effects cannot be rolled back. Invalid declarations receive `ACKREDIT-E012`
+before observation/registration; recording or restoration gaps receive
+`ACKREDIT-W019`. Application warning-as-error filters remain effective.
+See the complete
+[provider contract](https://github.com/uibcdf/ackredit/blob/main/docs/content/user_guide/function_providers.md).
+
+### Explicit fixed credit at the host's completion boundary
+
+```python
+import ackredit
+
+ackredit.register_item(
+    id="backend:software:2", type="software", title="Backend", version="2"
+)
+credit = ackredit.prepare_credit(
+    "backend:software:2",
+    "host.convert",
+    roles=["executed_software"],
+    context={"software": "Backend", "version": "2"},
+)
+with ackredit.session("conversion"), ackredit.capture("result") as run:
+    with ackredit.scope("host.convert"):
+        converted = backend_convert([1, 3])  # scientific exceptions propagate
+        credit()  # the host decides that this operation earned its reference
+saved_references = run.attribution.to_json()
+```
+
+Preparation validates and detaches one already registered reference and fixed
+roles/context; it credits nothing. The zero-argument callable contributes to the
+current session and every active capture, including reused references. It creates
+no scientific scope or success interpretation. Changed/deleted registered
+bibliography receives `ACKREDIT-E010` before credit. Optional clients diagnose
+provider failures and preserve completed science. Clients retaining compatibility
+with 0.9.0 can keep their public `track_item` fallback; importing the host must
+still defer Ackredit until its requested attribution boundary. Fixed preparation
+reduces repeated declaration work without removing registry/capture checks; use
+meaningful operations rather than instrumenting every scalar iteration.
+
+No additional recorder, automatic enrichment, hook, journal or reminder is
+required by provider promotion.
+
+## Recorder evidence (stable from 0.12.0)
+
+On 2026-10-06 the maintainer explicitly accepted `AttributionEvidence`, bounded
+`capture(record_evidence=True)` / `.evidence` provider-observer collection and
+explicit integrated workflow/CLI reporting under
+[Ackredit #114](https://github.com/uibcdf/ackredit/issues/114). Source classification
+is stable. Qualified public **0.12.0** delivers its bounded forward promise
+under #127 after exact-source, same-file installed/real receiving and independent
+public verification. Use `ackredit>=0.12.0` when requiring these evidence
+contracts; the [delivery receipt](https://github.com/uibcdf/ackredit/blob/main/devtools/conda-build/receipts/ackredit_0.12.0_public_2026-10-07.json) retains the proof. **Public 0.11.0 retains its
+original provisional evidence classification**. Do not infer a stable-evidence
+minimum from the existing stable-provider minimum `>=0.11.0`.
+
+From public 0.12.0, retain reviewed signatures and meanings across later
+patch/minor releases, including remaining pre-1.0 and 1.x, under the existing
+deprecation/removal policy. Retain interpretation of
+`ackredit.attribution_evidence@1` and `ackredit.attribution_evidence_explanation@1`;
+incompatible structural/meaning changes require new identifiers. Source
+acceptance, exact-file public delivery, guide-copy synchronization and actual
+consumer adoption remain separate. Standalone validation and the general 1.0
+source commitment were separately accepted under #125 below; their delivery
+boundaries are not implied by the evidence decision.
+
+- Preserve complete detached original attribution/bundles. One evidence entry
+  belongs to each original occurrence by position, including repeated names or
+  inputs. Producers own truthful association; readers do not authenticate it.
+- Preserve three separate planes: metadata field sources, selected/unsupported/
+  unobserved boundaries and diagnosed recording gaps. `null` means unrecorded;
+  `[]` means no declarations supplied. Neither proves complete instrumentation,
+  absence of failures or absence of citable work.
+- Automatic collection is explicitly opt-in and bounded to active overlapping
+  provider observers/captures in the same session. Retain positive deduplicated
+  selection, successfully credited original provider fields and owning W019
+  diagnostic identities. Other recorder origins remain unknown; additional
+  integration needs a concrete owning use case.
+- Scientific failure/cancellation does not itself become a recording gap or
+  completed-backend credit. Partial recording retains successful origins and
+  diagnosed gaps. Application warning-as-error policy can stop the scientific
+  body; observer/scope cleanup and capture ownership retain their reviewed limits.
+- Saved reading/rendering needs no producer or service, creates no credit and
+  never emits a stored diagnostic again. Source locators and recorder identities
+  are declarations, not execution/scientific truth or authenticated provenance.
+- Default original reports remain unchanged. Explicit integrated workflow output
+  retains original numbering, bibliography, versions, roles and graph, with
+  declarations beside their own occurrence. Content and association are promised;
+  cosmetic whitespace is not universally frozen. CLI selection requires evidence
+  input and workflow output, refuses invalid combinations and input overwrite.
+
+See the [accepted contract and guards](https://github.com/uibcdf/ackredit/blob/main/devguide/recorder_evidence_contract_review.md)
+and [evidence user guide](https://github.com/uibcdf/ackredit/blob/main/docs/content/user_guide/attribution_evidence.md).
+Clients decide whether to request these optional facts; this guide neither enables
+observation automatically nor certifies a client release. Consumer guide copies
+are synchronized centrally and are never repaired locally.
+
+## Standalone validation (stable from 0.12.0)
+
+The maintainer promoted `validate_provider(module) -> dict` on 2026-10-06 under
+[Ackredit #125](https://github.com/uibcdf/ackredit/issues/125). Pass an already
+imported trusted ordinary module. The operation reuses the observer's parser and
+returns a detached merged `ackredit.provider@1` declaration, preserving original
+software/items and returned role order/duplicates. Each call reads current
+metadata. Invalid declarations raise `ValueError` with catalog `ACKREDIT-E012`.
+It does not call science, credit uses, register bibliography, patch exports,
+change observer ownership or query DOIs. Selected lazy loaders retain their
+producer-owned caching/import effects. Validation alone does not establish
+current-registry compatibility, citation truth or successful scientific use.
+
+Qualified public **0.12.0** delivers the bounded public forward promise under
+#127; use `ackredit>=0.12.0` for standalone validation. The same-file installed/
+receiving matrices, public verification and fresh installation are retained in
+the delivery receipt above. Public 0.11.0
+lacks this standalone export and is not its version floor. Existing portable
+`>=0.9.0`, stable-provider `>=0.11.0` and recorder-evidence delivery boundaries
+remain distinct. Author validation is optional; hosts need not add it to normal
+execution. See the [provider author guide](https://github.com/uibcdf/ackredit/blob/main/docs/content/user_guide/provider_authors.md).
+
+## General 1.0 source commitment (public delivery pending)
+
+Under #125 the maintainer also accepted the documented stable API's signatures
+and meanings for future 1.x, preserving the existing major-removal/two-minor
+deprecation policy and separately versioned saved-reader/plugin/report contracts.
+The general public promise begins with a separately authorized, qualified public
+1.0.0. This is source acceptance, not a release/tag, automatic guide-copy rollout,
+mandatory client adoption or change to a host's optional-provider behavior.
+Private implementation and cosmetic whitespace are not universally frozen;
+scientific success, complete instrumentation and arbitrary publication-tool
+compatibility are not inferred. Original public artifacts retain their historical
+contracts. Review [API stability](https://github.com/uibcdf/ackredit/blob/main/docs/content/about/stability.md)
+and the [accepted contract map](https://github.com/uibcdf/ackredit/blob/main/devguide/archive/general_stability_review.md).
+Consumer copies remain synchronized through the central registry, never locally
+repaired.
+
 ## Eager demonstration profile
 
 Sections 1–6 and the worked examples below describe the existing eager profile
