@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-07
+**Last updated:** 2026-10-08
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -21,6 +21,24 @@ current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
 ## Current pre-1.0 checkpoint — 2026-10-07
+
+**Stabilization follow-up — 2026-10-08:** main commit
+`eab7aeb79cc397f92a08081766f5c25792503ae8` publishes the #349 repair and
+the archived #251/#252 resolutions; all three owning issues are verified closed.
+The separate [scientific certificate](../devtools/data/pre_1_0_scientific_eab7aeb79_20261007.json)
+passes 54/54 cases from 47 registered nodes with zero skips/errors/failures
+on that clean source. Remote smoke `37734610812`, Ruff, dependency contract,
+devguide, suite policy and Conda governance pass on the same source.
+
+The newly dispatched [full matrix](https://github.com/uibcdf/molsysmt/actions/runs/37734711393)
+and [native wheels](https://github.com/uibcdf/molsysmt/actions/runs/37734713996)
+retain that exact source and the published Viewer SHA. Both are still pending
+at this receipt; successful individual jobs are not a complete campaign claim.
+The bounded reconciliation receipt records observed job states. No new package
+or release tag is published. Central receiving reconciliation was delivered to
+uibcdf/molsyssuite#51 (comment 6053257691); #237/#244 remain partial until the
+registry owner replies. Final 1.0 candidate gates under #250/#254/#334 remain
+mandatory and are not waived by either this closure or the earlier public pair.
 
 **Issue reconciliation:** #349 is reproduced and repaired after the published
 checkpoint. Its public PDB name/topology guard passes with Pandas 2.3.3 and

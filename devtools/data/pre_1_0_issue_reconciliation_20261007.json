@@ -120,5 +120,249 @@
     "total": 14,
     "scope": "Existing fast-gate invocation with unchanged runtime sources; subsequent developer-guide content passed its owning validator."
   },
-  "ruff": "Full molsysmt check and changed Python files format check pass."
+  "ruff": "Full molsysmt check and changed Python files format check pass.",
+  "scientific_execution": {
+    "certificate": "devtools/data/pre_1_0_scientific_eab7aeb79_20261007.json",
+    "sha256": "db91eb85d4070c03a438940e30f06ff074292b6faec24293773bcef9c1a5822d",
+    "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+    "passed": 54,
+    "registered_nodes": 47,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "tracked_source_dirty": false,
+    "scope": "Separate registered scientific gate, not all release gates."
+  },
+  "github_closures": {
+    "349": "closed",
+    "251": "closed",
+    "252": "closed",
+    "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8"
+  },
+  "hosted_execution": {
+    "source_commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+    "molsysviewer_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
+    "source_full_matrix": {
+      "run": 37734711393,
+      "state": "in_progress",
+      "qualified": false,
+      "conclusion": null,
+      "job_statuses": [
+        {
+          "name": "Build controlled MolSysViewer wheel",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Full matrix \u2014 macos-15, Python 3.13",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 macos-15, Python 3.11",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 macos-15, Python 3.14",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Full matrix \u2014 macos-15, Python 3.12",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    },
+    "native_wheels": {
+      "run": 37734713996,
+      "state": "queued",
+      "qualified": false,
+      "conclusion": null,
+      "job_statuses": [
+        {
+          "name": "linux-aarch64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Format, lint, test, dependencies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-x86_64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "macos-arm64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Source distribution round trip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "windows-x86_64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-x86_64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "NumPy floor \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-x86_64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "NumPy floor \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-x86_64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-x86_64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "NumPy floor \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "NumPy floor \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-x86_64 \u2014 Python ${{ matrix.python }}",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "linux-aarch64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "macos-arm64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-aarch64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "windows-x86_64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-aarch64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "macos-arm64 \u2014 Python 3.13",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "macos-arm64 \u2014 Python 3.11",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "name": "windows-x86_64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "linux-aarch64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "macos-arm64 \u2014 Python 3.12",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "name": "windows-x86_64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "windows-x86_64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  },
+  "last_receipt_update": "2026-10-08",
+  "hosted_smoke": {
+    "run": 37734610812,
+    "source_commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+    "conclusion": "success"
+  }
 }
