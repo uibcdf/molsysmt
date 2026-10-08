@@ -1,0 +1,42 @@
+{
+  "version": "0.24.1",
+  "build_number": 0,
+  "source_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+  "ref": "candidate/0.24.1-build0",
+  "filename": "molsysviewer-0.24.1-py_0.tar.bz2",
+  "subdir": "noarch",
+  "sha256": "88ad5b7497bdfa06f16a7e9a47996edd633dd5f63534d38e0b9a0a418478ee58",
+  "md5": "53cea5a7ac09ce1313e06572c1de80fb",
+  "bytes": 1515134,
+  "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_0.tar.bz2",
+  "labels": [
+    "staging"
+  ],
+  "index": {
+    "arch": null,
+    "build": "py_0",
+    "build_number": 0,
+    "depends": [
+      "aiohttp >=3.10",
+      "anywidget >=0.9.15",
+      "argdigest >=0.13.0",
+      "depdigest",
+      "molsysmt >=0.23.0",
+      "numpy",
+      "packaging >=23",
+      "python >=3.11,<3.15",
+      "pyunitwizard >=0.25.0",
+      "smonitor >=0.13.0",
+      "traitlets >=5"
+    ],
+    "license": "MIT",
+    "name": "molsysviewer",
+    "noarch": "python",
+    "platform": null,
+    "subdir": "noarch",
+    "timestamp": 1791452022070,
+    "version": "0.24.1"
+  },
+  "producer_run_id": 37757179478,
+  "qualification_limit": "Observed file bytes and coordinate agree with the owner handoff and registry; no installed/runtime or consumer acceptance claim."
+}

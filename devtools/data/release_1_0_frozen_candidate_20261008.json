@@ -1,0 +1,251 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "recorded_at": "2026-10-08T09:37:55.101765+00:00",
+  "status": "sources frozen; source/native/build campaigns dispatched; installed pair pending exact files",
+  "molsysmt": {
+    "version": "1.0.0",
+    "build_number": 0,
+    "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+    "ref": "candidate/1.0.0-build0",
+    "channel": "uibcdf/label/staging",
+    "files": []
+  },
+  "molsysviewer": {
+    "version": "0.24.1",
+    "build_number": 0,
+    "source_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+    "ref": "candidate/0.24.1-build0",
+    "files": [
+      {
+        "filename": "molsysviewer-0.24.1-py_0.tar.bz2",
+        "subdir": "noarch",
+        "sha256": "88ad5b7497bdfa06f16a7e9a47996edd633dd5f63534d38e0b9a0a418478ee58",
+        "md5": "53cea5a7ac09ce1313e06572c1de80fb",
+        "bytes": 1515134,
+        "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_0.tar.bz2",
+        "labels": [
+          "staging"
+        ]
+      }
+    ],
+    "source_ref_verified": true,
+    "file_receipt": "devtools/data/release_1_0_viewer_staging_20261008.json",
+    "qualification_status": "File inspected; owner local/CI/browser gates and installed pair remain pending.",
+    "producer_state": {
+      "conclusion": "success",
+      "databaseId": 37757179478,
+      "headSha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysviewer/actions/runs/37757179478"
+    }
+  },
+  "authorization": "Existing maintainer-authorized candidate construction/staging/qualification under release_1_0_scope.md; public publication needs separate final approval.",
+  "local_checks": {
+    "route_and_workflow_tests": {
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "workers": 12,
+      "receptor": "llm",
+      "junit_sha256": "0c2ddc7e981a0ef6226ecfb42b1fe8867a25b5f68e30e0264899452cdbba9a5f"
+    },
+    "fast_gates": {
+      "passed": 14,
+      "total": 14,
+      "exit_code": 0,
+      "log_sha256": "ea8a05742d9410b0dfb7026f549b0c16b268a14da709156a6e040e7f458cdc7e",
+      "scope": "Prepared routes on the identical working source before the freeze commit; no later runtime edits."
+    },
+    "ruff_package": {
+      "exit_code": 0
+    },
+    "scientific": {
+      "certificate": "devtools/data/release_1_0_scientific_6dc80725e_20261008.json",
+      "sha256": "529fdc2a1c38c0cd681f6dd1f0c1bb4e9d0d7cf8740f493d322d1be7c75ddc29",
+      "exit_code": 0,
+      "scope": "Clean exact source, scientific gate only; not installed Conda qualification.",
+      "initial_attempt": {
+        "exit_code": 1,
+        "pytest_exit_code": 0,
+        "passed": 54,
+        "registered_nodes": 47,
+        "tracked_source_dirty": true,
+        "release_eligible": false,
+        "certificate_sha256": "3e09fc3fae19fecd6c1128d77a9bef893a709c8607f81e2d8d6667dd4f08886b",
+        "cause": "Concurrent Sphinx autosummary generation changed three tracked RST stubs. The certificate correctly rejected the dirty tree despite 54 passing tests. After documentation completed, only those reviewed generated stubs were restored and the clean execution was repeated. Counts overlap and must not be added."
+      }
+    },
+    "documentation": {
+      "exit_code": 0,
+      "fresh_html_build": true,
+      "notebook_execution": "off",
+      "workers": 12,
+      "warnings": 782,
+      "nonexistent_toctree_references": 0,
+      "log_sha256": "4065217d591d30d7e579dea7812a2f01f6405addf4a1a4ca0f8691f4924f4935",
+      "warning_debt_owner": "uibcdf/molsysmt#144",
+      "qualification": "Compilation and course toctree criterion; not a globally warning-clean build or notebook execution. No gh-pages publication performed. Sphinx rewrote three generated source stubs; the original bytes were restored after inspection."
+    },
+    "environment": {
+      "kind": "shared development environment with existing native extension and editable checkouts",
+      "python": "3.14.7",
+      "viewer_tracked_source_clean": true,
+      "metadata_versions": {
+        "molsysmt": "0.22.4+212.g5e2721691",
+        "molsysviewer": "0.23.4+27.gfed1c4b8.dirty",
+        "smonitor": "0.19.0",
+        "argdigest": "0.15.0+1.g5c6711e",
+        "depdigest": "0.12.0+13.g104661a",
+        "pyunitwizard": "0.28.1+3.g2ab37a5"
+      },
+      "limitation": "Editable distribution metadata retains historical version strings; local source checks do not attest installed 1.0.0/0.24.1 package identities or clean pip check."
+    }
+  },
+  "registry_preflight": {
+    "checked_at": "2026-10-08T09:33:19.045651+00:00",
+    "version": "1.0.0",
+    "endpoints": [
+      {
+        "url": "https://api.anaconda.org/release/uibcdf/molsysmt/1.0.0",
+        "status": 404,
+        "present": false
+      },
+      {
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/git/ref/tags/1.0.0",
+        "status": 404,
+        "present": false
+      },
+      {
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/git/ref/heads/candidate/1.0.0-build0",
+        "status": 404,
+        "present": false
+      }
+    ]
+  },
+  "campaigns": {
+    "conda_producer": {
+      "run_id": 37757683710,
+      "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "version": "1.0.0",
+      "build_number": 0,
+      "targets": [
+        "linux-64",
+        "linux-aarch64",
+        "osx-arm64",
+        "win-64"
+      ],
+      "status": "queued",
+      "conclusion": null
+    },
+    "full_source": {
+      "run_id": 37757713370,
+      "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "viewer_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+      "expected_cells": 8,
+      "status": "queued",
+      "conclusion": null
+    },
+    "native_wheels": {
+      "run_id": 37757715875,
+      "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "viewer_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+      "status": "queued",
+      "conclusion": null
+    }
+  },
+  "consumer_notice": {
+    "route": "codex queue to the existing Viewer owner session",
+    "producer_and_campaigns_delivered": true,
+    "installed_pair_not_dispatched": true
+  },
+  "remaining": [
+    "Inspect all campaigns and retain original scientific/JUnit/native artifacts and actual executed steps.",
+    "Inspect the four Conda files, version/build/source provenance, registry records and observed digests.",
+    "Wait for both owners to review prerequisite gates and agree one installed-pair dispatch, then qualify those exact files and the Viewer consumer/browser/session scope.",
+    "Complete #250/#254 final-candidate obligations, final publication approval and #334 preservation/public-record checks."
+  ],
+  "not_performed": [
+    "Installed-pair dispatch",
+    "Public tag",
+    "GitHub Release",
+    "Main-label promotion",
+    "Zenodo publication"
+  ],
+  "identity_rule": "Later evidence-only commits on main do not move the fixed candidate reference, replace its source or qualify unfinished campaigns.",
+  "hosted_checkpoint_states": [
+    {
+      "conclusion": "",
+      "databaseId": 37757715875,
+      "event": "workflow_dispatch",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "Rust abi3 wheels",
+      "status": "queued",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757715875"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 37757713370,
+      "event": "workflow_dispatch",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "CI full",
+      "status": "queued",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757713370"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 37757683710,
+      "event": "workflow_dispatch",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "Build and upload conda packages",
+      "status": "queued",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757683710"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37757550217,
+      "event": "push",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "Conda publication governance",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757550217"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37757549548,
+      "event": "push",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "Dependency contract",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757549548"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37757549562,
+      "event": "push",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "Developer guide integrity",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757549562"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37757550207,
+      "event": "push",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "MolSysSuite policy",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757550207"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37757549571,
+      "event": "push",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "name": "CI smoke",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757549571"
+    }
+  ]
+}

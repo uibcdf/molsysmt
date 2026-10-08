@@ -22,10 +22,49 @@ contracts.
 
 ## Final-candidate preparation — 2026-10-08
 
-Under `uibcdf/molsysmt#334`, release metadata and the staged producer route are
-prepared for **MolSysMT 1.0.0, build 0**, based on main
-`b9954fa5e4ba1af5956613308211b90a37880e5c`. This is preparation, not a frozen
-producer, an available package or a published release. The
+**Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source
+`6dc80725ea506f977fb5e52dfd701c2227875fa5`, remote branch
+`candidate/1.0.0-build0`, paired with Viewer **0.24.1, noarch build 0**, source
+`66ea54e45ff3b9498e5f6f668c3d519888dca7b4`. The
+[frozen-candidate receipt](../devtools/data/release_1_0_frozen_candidate_20261008.json)
+records verified refs, local results and dispatch identities. Main may advance
+with receipts while this producer stays fixed.
+
+The [clean scientific certificate](../devtools/data/release_1_0_scientific_6dc80725e_20261008.json)
+passes 54/54 cases from 47 nodes with zero omissions. Thirty local route/workflow
+guards, the fourteen fast gates and Ruff pass. A fresh local Sphinx HTML build
+succeeds with 782 warnings and zero nonexistent toctree references; #144 retains
+the general warning debt. This compilation does not execute notebooks or publish
+gh-pages. An initial scientific attempt correctly rejected the dirty tree caused
+by Sphinx rewriting three generated RST stubs, despite all cases passing. After
+the build, those reviewed stubs were restored and the clean certificate above
+was obtained. The receipt retains both outcomes; they are overlapping checks.
+
+Conda producer [37757683710](https://github.com/uibcdf/molsysmt/actions/runs/37757683710),
+eight-cell source qualification [37757713370](https://github.com/uibcdf/molsysmt/actions/runs/37757713370)
+and native wheels [37757715875](https://github.com/uibcdf/molsysmt/actions/runs/37757715875)
+are dispatched on that exact producer and Viewer source. Their completion,
+original artifacts and actual steps remain to be verified. MolSysMT files and
+hashes await production and inspection. The installed-pair matrix waits for
+both sets of artifact identities and the owners' prerequisite-gate review,
+as agreed with Viewer. No public
+tag, Release or main-label promotion is performed.
+
+The Viewer owner delivers `molsysviewer-0.24.1-py_0.tar.bz2` from producer
+`37757179478`, SHA-256
+`88ad5b7497bdfa06f16a7e9a47996edd633dd5f63534d38e0b9a0a418478ee58`.
+Independent download and registry inspection confirm that hash, 1,515,134 bytes,
+noarch build 0, Python 3.11–3.14 metadata and the staging-only label. The
+[file receipt](../devtools/data/release_1_0_viewer_staging_20261008.json)
+does not claim installed or consumer qualification. Viewer local/CI/browser
+checks remain in progress; its owner requests agreement on one installed-pair
+dispatch after prerequisite gates are reviewed.
+
+The initial preparation under `uibcdf/molsysmt#334` updates release metadata
+and the staged route for **MolSysMT 1.0.0, build 0**, based on main
+`b9954fa5e4ba1af5956613308211b90a37880e5c`, delivered at `0a7cfdd8a`. That
+checkpoint precedes the frozen producer above and does not identify an
+available package or a published release. The
 [preparation receipt](../devtools/data/release_1_0_candidate_preparation_20261008.json)
 records its checks and remaining exact-candidate gates. The older qualification
 below retains its original identities and does not qualify these new files.
@@ -37,16 +76,16 @@ candidate as **0.24.1, noarch build 0**, source
 the delivered full SHA. This replaces its earlier source-only checkpoint
 `0067a2c27c152a068655b8824f0d1c249a32d6b8` and includes the already closed
 uibcdf/molsysviewer#149 and uibcdf/molsysviewer#177. The owner confirms the
-experimental compatibility contract and prepares its staged file; its filename
-and observed hash remain pending. The public 0.24.0 build-1 baseline remains
+experimental compatibility contract and delivers the independently inspected
+staged file recorded above. The public 0.24.0 build-1 baseline remains
 historical evidence. No installed-pair matrix is dispatched before both new
 artifact identities are available and inspected.
 
 The audited routine Viewer source and source-gate fallback now select that
 exact candidate, while manual full/native qualification must still supply its
-SHA explicitly. MolSysMT will freeze `candidate/1.0.0-build0` at the committed
-source selecting these routes, preserve that producer as later receipts are
-recorded, and build the staged files under the existing construction/upload
+SHA explicitly. MolSysMT freezes `candidate/1.0.0-build0` at the committed
+source selecting these routes, preserves that producer as later receipts are
+recorded, and builds the staged files under the existing construction/upload
 authorization. Source/native execution and staged-file delivery remain separate
 from the later installed-pair claim. The preparation checkpoint `0a7cfdd8a`
 passes all six applicable hosted checks, including smoke; those checks used the
@@ -67,7 +106,7 @@ No new functional provider blocker or detector requirement was reported.
 
 The installed-pair workflow requires the operator to supply Viewer version and
 build explicitly rather than silently selecting obsolete default coordinates.
-Local preparation checks pass: 17 release-tool/workflow tests with twelve
+Initial preparation checks pass: 17 release-tool/workflow tests with twelve
 workers and pytest-receptor, 14/14 fast gates, full-package and changed-test
 Ruff, changed-test formatting and citation consistency for 1.0.0. These checks
 exercise the prepared working tree, not a frozen release artifact.
@@ -759,9 +798,9 @@ correct developer tooling or update this ledger.
 3. Retain the completed central receiving response for #237/#244 under
    uibcdf/molsyssuite#51 and this delivery's administrative conformance. Version
    metadata and the staged route for 1.0.0 build 0 are prepared. Obtain the
-   owner's frozen Viewer 0.24.1 build-0 source is now recorded above. Freeze
-   MolSysMT's producer and execute exact-candidate gates and new staged-file
-   qualification; wait for both observed file identities before the installed pair.
+   owner's frozen Viewer 0.24.1 build-0 source and MolSysMT producer are recorded
+   above. Inspect the three dispatched campaigns and qualify the new staged
+   files; wait for both observed file identities before the installed pair.
    #250/#254 retain their final-candidate checks and #334 owns qualification and
    publication approval. Keep feature scope frozen; extensions retain their
    post-1.0 owners. A final-candidate failure returns its affected scope to
