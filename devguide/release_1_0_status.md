@@ -32,9 +32,15 @@ devguide, suite policy and Conda governance pass on the same source.
 
 The newly dispatched [full matrix](https://github.com/uibcdf/molsysmt/actions/runs/37734711393)
 and [native wheels](https://github.com/uibcdf/molsysmt/actions/runs/37734713996)
-retain that exact source and the published Viewer SHA. Both are still pending
-at this receipt; successful individual jobs are not a complete campaign claim.
-The bounded reconciliation receipt records observed job states. No new package
+retain that exact source and the published Viewer SHA. The native campaign
+concludes success: thirty jobs pass and the PR-only runtime job is the expected
+skip. Rust controls, four platform builds, sixteen runtime cells, four NumPy
+floor checks, four installed public smokes and the source round trip execute.
+GH Run Receptor independently confirms that terminal conclusion. This is native
+qualification of the recorded development source, not public-package delivery.
+The full source matrix remains in progress; individual successful steps do not
+constitute its final verdict. The bounded receipt records observed job states.
+No new package
 or release tag is published. Central receiving reconciliation was delivered to
 uibcdf/molsyssuite#51 (comment 6053257691); #237/#244 remain partial until the
 registry owner replies. Final 1.0 candidate gates under #250/#254/#334 remain

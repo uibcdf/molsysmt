@@ -170,8 +170,8 @@
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
@@ -197,9 +197,9 @@
     },
     "native_wheels": {
       "run": 37734713996,
-      "state": "queued",
-      "qualified": false,
-      "conclusion": null,
+      "state": "completed",
+      "qualified": true,
+      "conclusion": "success",
       "job_statuses": [
         {
           "name": "linux-aarch64",
@@ -323,13 +323,13 @@
         },
         {
           "name": "macos-arm64 \u2014 Python 3.13",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "macos-arm64 \u2014 Python 3.11",
-          "status": "queued",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "windows-x86_64 \u2014 Python 3.11",
@@ -343,8 +343,8 @@
         },
         {
           "name": "macos-arm64 \u2014 Python 3.12",
-          "status": "queued",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "windows-x86_64 \u2014 Python 3.14",
@@ -356,7 +356,10 @@
           "status": "completed",
           "conclusion": "success"
         }
-      ]
+      ],
+      "successful_jobs": 30,
+      "expected_skipped_jobs": 1,
+      "scope": "Executed native/source-wheel campaign at the recorded SHA; no public-package promotion or exact-1.0 artifact claim."
     }
   },
   "last_receipt_update": "2026-10-08",
@@ -364,5 +367,10 @@
     "run": 37734610812,
     "source_commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
     "conclusion": "success"
+  },
+  "documentation_checkpoint": {
+    "source_commit": "3f7594028125308bc51f5a99339dad6e02acf011",
+    "smoke_run": 37736781020,
+    "smoke_conclusion": "success"
   }
 }
