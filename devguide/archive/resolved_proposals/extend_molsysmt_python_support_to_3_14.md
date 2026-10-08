@@ -1,13 +1,13 @@
 ---
 summary: Extend MolSysMT Python support to 3.14.
 issue: uibcdf/molsysmt#237
-status: partial
+status: resolved
 opened: 2026-09-22
-closed:
+closed: 2026-10-08
 verification: measured
 area: [packaging, ci, deps]
-guard:
-normative:
+guard: devtools/tests/test_validate_conda_abi3_artifact.py::test_rejects_python_requirements_outside_public_runtime_contract
+normative: MOLSYSSUITE_GUIDE.md
 blocked_by: []
 supersedes: []
 ---
@@ -25,7 +25,7 @@ The current shared Linux development environment uses official
 conda-forge PySide6/Qt 6.11.2; Viewer will review the newest compatible
 Qt family before its 1.0 candidate (`uibcdf/molsysviewer#112`).
 
-The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
+The dated [paired-support checkpoint](../../python_3_14_checkpoint.md) is the
 compact handoff for current evidence and the next gate. This proposal keeps
 the detailed analysis and acceptance criteria.
 
@@ -35,7 +35,7 @@ The post-publication PDB repair and updated Viewer development pin are now
 qualified at `eab7aeb79cc397f92a08081766f5c25792503ae8`: full source run
 `37734711393` passes all eight Linux/macOS arm64 × Python 3.11–3.14 cells;
 native run `37734713996` also concludes success. The
-[bounded receipt](../../devtools/data/pre_1_0_issue_reconciliation_20261007.json)
+[bounded receipt](../../../devtools/data/pre_1_0_issue_reconciliation_20261007.json)
 retains original ZIP/payload hashes, all eight scientific certificates, JUnit
 omission nodes, separately recorded peptide-parity exclusions and executed
 job-step verification. GH Run Receptor independently confirms both terminal
@@ -48,8 +48,8 @@ installed-artifact obligations remain under #334.
 
 ## Public receiving reconciliation — 2026-10-07
 
-The [published pair ledger](../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)
-and [original handoff receipt](../../devtools/data/stabilization_023_staging_handoff_20261006.json)
+The [published pair ledger](../../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)
+and [original handoff receipt](../../../devtools/data/stabilization_023_staging_handoff_20261006.json)
 now supply the completed pre-1.0 8/8 exact-source, native-wheel and 16/16
 public installed-pair evidence for MolSysMT 0.23.0 / MolSysViewer 0.24.0.
 GH Run Receptor independently rechecked the source and public-pair terminal
@@ -77,7 +77,7 @@ check; this local report remains partial until that response.
 The frozen preparation/form review at
 `fe0b813d7267f4c5a0728264094441e62c910e1b` passes 1,094 cases on Python
 3.14.7 without skips, including RDKit, MDAnalysis, Vina and OpenMM routes.
-The [artifact](../../devtools/data/preparation_profiles_20261005.json) retains
+The [artifact](../../../devtools/data/preparation_profiles_20261005.json) retains
 actual distributions/import origins and the separate 80-case pipeline/doctest
 receipt. This is editable-source evidence, not the full or installed matrix.
 
@@ -236,7 +236,7 @@ metadata. Its then-staged 0.23.1 noarch package also declared
   package validator, 99-export Rust validator, two-case installed regression,
   and a four-atom PDB-text conversion and Viewer load passed. Exact archive
   hashes and the installed-test-harness limitation are recorded in the
-  [paired-support checkpoint](../python_3_14_checkpoint.md). These are local
+  [paired-support checkpoint](../../python_3_14_checkpoint.md). These are local
   solver and package results, not remote staging or release candidates.
 - On 2026-09-24, a bounded 12-worker lean-environment run of `tests/`
   executed only 1,980 of 10,058 selected cases before stopping after 307
@@ -253,7 +253,7 @@ metadata. Its then-staged 0.23.1 noarch package also declared
   ancillary package metadata conflicts with NumPy 2.4.6 and Biopython 1.88.
   `pip check` additionally reports the known source-version mismatch between
   Viewer and MolSysMT. The [paired-support
-  checkpoint](../python_3_14_checkpoint.md) records the failure
+  checkpoint](../../python_3_14_checkpoint.md) records the failure
   classification and the plan for a default 3.14 developer environment
   without AmberTools rather than downgrading scientific dependencies.
   On 2026-09-24, `build_peptide()` switched its default to the native MolSysMT
@@ -372,7 +372,7 @@ and the development environment includes the missing togglebutton extension.
 The homepage badge now matches README's admitted 3.11–3.13 range; declaring
 3.14 metadata and configuring jobs does not establish central admission.
 All 89 focused S5 checks and 14 fast gates pass; exact commands, identities and
-limits are in the [dated artifact](../../devtools/data/stabilization_s5_20261006.json).
+limits are in the [dated artifact](../../../devtools/data/stabilization_s5_20261006.json).
 The old optional `numpy.ndarray size changed` warning remains unexplained;
 no ABI conclusion follows from a solver or successful subset.
 
@@ -406,7 +406,7 @@ workers and `--receptor=llm`. The separate scientific-evidence runner passes
 54 cases from all 47 registered nodes without skips in 11.28 s and records the
 clean source commit. Its serial execution is the maintained certificate route.
 
-The [shared-environment receipt](../../devtools/data/stabilization_s5_shared_20261006.json)
+The [shared-environment receipt](../../../devtools/data/stabilization_s5_shared_20261006.json)
 preserves commands, effective versions, full JUnit/log hashes, skip reasons and
 the scientific certificate. These are overlapping development selections, not
 additional disjoint coverage. The previous failed complete run remains in its
@@ -444,7 +444,7 @@ provider directory. No `Requires-Python` bypass or public-floor reduction is
 used. The existing controlled-dependency CLI test now supplies the actual
 PyUnitWizard public floor rather than its obsolete 0.25 fixture.
 
-The [source-correction artifact](../../devtools/data/stabilization_s5_sources_20261006.json)
+The [source-correction artifact](../../../devtools/data/stabilization_s5_sources_20261006.json)
 retains the first hosted failure and the actual released installed providers.
 Inspect the corrected unskipped head's smoke before qualifying this routine
 route. Its success still cannot replace the eight-cell full source or installed
@@ -479,7 +479,7 @@ Viewer baseline `cf427942d0b08a1c5c60f262c6a6b33f248d6f8b`. Wheel run
 concludes **failure** because Rust formatting rejects one import ordering.
 Clippy, Rust tests and cargo-deny remain unexecuted in that run; the formatting
 correction requires a new exact-source workflow. The
-[execution receipt](../../devtools/data/wheel_execution_20261006.json) retains
+[execution receipt](../../../devtools/data/wheel_execution_20261006.json) retains
 these outcomes and five artifact identities. This is successful installed
 dependency evidence, not complete 1.0 qualification or central admission.
 
@@ -488,7 +488,7 @@ The separate corrected-source wheel run
 concludes success on `5bd893c85`: all thirty applicable jobs pass, including
 format, Clippy, 81 Rust tests, cargo-deny and every installed public smoke.
 The original failed run remains recorded. The
-[corrected receipt](../../devtools/data/wheel_corrected_execution_20261006.json)
+[corrected receipt](../../../devtools/data/wheel_corrected_execution_20261006.json)
 retains all five artifact identities and independently hashed files.
 Source run [37441978743](https://github.com/uibcdf/molsysmt/actions/runs/37441978743)
 passes the 54-case scientific certificate without skips in all eight cells;
@@ -513,9 +513,47 @@ zero skips. Hosted pytest executes serially. Wheel run
 passes all thirty applicable jobs, including the four installed public smokes,
 81 Rust tests and platform/runtime checks, with one expected PR-only skip.
 
-The [pair receipt](../../devtools/data/stabilization_s6_pair_20261006.json)
+The [pair receipt](../../../devtools/data/stabilization_s6_pair_20261006.json)
 retains job/file identities, hashes and actual omission nodes/reasons. The
 maintainer selects 0.23.0 as the next pre-1.0 package checkpoint while retaining
 the feature freeze. Development artifacts above do not certify 0.23.0 packages,
 central admission or final Conda/consumer-installed qualification. Select and
 qualify the exact 0.23.0 producer and paired Viewer package version next.
+
+## Resolution — 2026-10-08
+
+Python 3.11–3.14 is admitted for the immutable public MolSysMT 0.23.0 ABI3 build-0 release. The suite's receiving owner accepted the published pair under
+uibcdf/molsyssuite#51, at central commit
+`3116b7d9f1fa9ba4d09b81a8f24a22b749805f9f`, frozen by immutable
+`policy-v1.5.9` (annotated tag object
+`acd95b7d7077b02d6fe8f8214358846f47425c24`). Its native governance gate
+`37741900682` executes the registry/report validator, administrative tests
+and publisher-control checks successfully.
+
+Exact producers remain MolSysMT `46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9`
+and Viewer `1a4c97a58b68b69f3a836546c9e4ac6187c3efa2`. Central receiving
+independently verifies all eight complete source cells in `37577738386`,
+all sixteen installed public cells and preparation in `37587631519`,
+the already successful read-only verifier `37591619395`, all sixteen
+original explicit environment ZIP/export digests, exact installed public
+URLs/MD5 and current main-label/solver-visible SHA-256 values. The central
+receiving receipt is `devguide/rollouts/molsysmt_python314_ecosystem_51_20261008.json`
+in uibcdf/molsyssuite. Original package bytes and historical failures are retained.
+
+This owner change adopts the qualified caller, generated four-minor badge
+and officially synchronized canonical guide, and archives these accepted
+reviews. Source/runtime metadata, scientific implementation, test selection,
+CI schedules and original published files are unchanged. Administrative
+checks are executed on this delivery; no new scientific suite, build,
+upload or promotion is dispatched by receiving. Scientific skip debt
+is not cleared by documentation or policy checks.
+
+The guard above protects artifact Python bounds against the public runtime contract. It rejects narrowed, unbounded, broadened, duplicate and invalid interpreter requirements; shared conformance separately requires all four supported minors.
+
+Recorded optional omissions and Windows portability limits remain explicit;
+no Windows scientific or Viewer browser/standalone claim is added. #155
+optimization and #292 optional attribution remain post-1.0 work. Later
+#349 repair and the final exact 1.0 candidate under #334 require their own
+qualification; this closure does not approve 1.0 or resolve independent
+CI/distribution-policy rollouts. The dated partial checkpoints above are
+history, superseded for this delivered pair by this receiving resolution.

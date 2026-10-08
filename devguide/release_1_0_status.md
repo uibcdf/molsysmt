@@ -67,10 +67,14 @@ tests, workflows and packaging are unchanged from the qualified `eab7aeb79`.
 These receipts qualify that development source, not a different final 1.0
 commit or newly installed release artifacts.
 
-No new package or release tag is published. Central receiving reconciliation
-was delivered to uibcdf/molsyssuite#51 (comment 6053257691);
-#237/#244 remain partial until the
-registry owner replies. Final 1.0 candidate gates under #250/#254/#334 remain
+No new package or release tag is published by this reconciliation. The central
+receiving owner has accepted #237/#244 under uibcdf/molsyssuite#51 at
+`3116b7d9f1fa9ba4d09b81a8f24a22b749805f9f`, frozen by `policy-v1.5.9`.
+MolSysMT is `admitted` for the immutable public 0.23.0 / Viewer 0.24.0 pair;
+its applicable support-library/developer-tool reviews are `adopted`. The
+caller/badge and canonical guide are delivered in this owner change, and
+the reports are archived with addressable guards. Administrative native
+conformance must be verified before closing their board entries. Final 1.0 candidate gates under #250/#254/#334 remain
 mandatory and are not waived by either this closure or the earlier public pair.
 The 2026-10-08 read-only board review finds the same five open 1.0 issues and
 no newly reported bug. #139/#144 retain their accepted post-1.0 debt boundaries;
@@ -98,10 +102,10 @@ conflicts; no clean `pip check` claim is made for that environment.
 Explicit published consumer acceptance now exists under the closed
 uibcdf/molsysviewer#114. #251/#252's delivered design/implementation reviews
 are resolved with their normative contracts and guards. #250/#254 retain their
-explicit exact-1.0 obligations. #237/#244 need central receiving reconciliation;
-the inspected MolSysSuite registry still records `authorized` Python adoption
-and partial ecosystem review despite the newer public-pair evidence. These
-administrative states must not be silently equated with incomplete code.
+explicit exact-1.0 obligations. The central receiving decision above reconciles
+#237/#244 with the independently verified public-pair evidence. Native
+source/public execution and exact files retain their original identities;
+administrative admission is separate from fresh 1.0 candidate qualification.
 
 Current development routes now select the published Viewer producer
 `1a4c97a58b68b69f3a836546c9e4ac6187c3efa2`. Original release/source/file receipts
@@ -690,9 +694,10 @@ correct developer tooling or update this ledger.
    Source matrix `37734711393` and native campaign `37734713996` are both
    successful on the recorded development source, with original artifact and
    executed-step verification. Neither is a 1.0-artifact claim.
-3. Complete the central receiving response for #237/#244 under
-   uibcdf/molsyssuite#51, then select the exact 1.0 source and coordinated Viewer
-   version/source before preparing version metadata and new staged artifacts.
+3. Retain the completed central receiving response for #237/#244 under
+   uibcdf/molsyssuite#51 and this delivery's administrative conformance. Select
+   the exact 1.0 source and coordinated Viewer version/source before preparing
+   version metadata and new staged artifacts.
    #250/#254 retain their final-candidate checks and #334 owns qualification and
    publication approval. Keep feature scope frozen; extensions retain their
    post-1.0 owners. A final-candidate failure returns its affected scope to

@@ -1,13 +1,13 @@
 ---
 summary: Review inherited Python ecosystem policy in MolSysMT.
 issue: uibcdf/molsysmt#244
-status: partial
+status: resolved
 opened: 2026-09-25
-closed:
+closed: 2026-10-08
 verification: inspected
 area: [ci, deps]
-guard:
-normative:
+guard: devtools/tests/test_validate_controlled_dependencies.py
+normative: MOLSYSSUITE_GUIDE.md
 blocked_by: []
 supersedes: []
 ---
@@ -26,7 +26,7 @@ source matrix `37734711393` and native campaign `37734713996`. Both terminal
 conclusions are independently confirmed by GH Run Receptor. Original
 scientific certificates, JUnit omissions, default peptide-parity exclusions,
 artifact hashes and executed steps are retained in the
-[bounded receipt](../../devtools/data/pre_1_0_issue_reconciliation_20261007.json).
+[bounded receipt](../../../devtools/data/pre_1_0_issue_reconciliation_20261007.json).
 The earlier unit-policy failures remain historical evidence for their original
 sources; they are not failures of this integrated checkpoint.
 
@@ -37,8 +37,8 @@ response remains pending under the existing MolSysSuite handoff below.
 
 ## Public receiving reconciliation — 2026-10-07
 
-The [published pair ledger](../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)
-and [original handoff receipt](../../devtools/data/stabilization_023_staging_handoff_20261006.json)
+The [published pair ledger](../../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)
+and [original handoff receipt](../../../devtools/data/stabilization_023_staging_handoff_20261006.json)
 now supply the completed pre-1.0 8/8 exact-source, native-wheel and 16/16
 public installed-pair evidence for MolSysMT 0.23.0 / MolSysViewer 0.24.0.
 GH Run Receptor independently rechecked the source and public-pair terminal
@@ -214,7 +214,7 @@ S5 passes 89 focused dependency/matrix/provenance/unit-policy/argument-contract
 checks. The current unit-policy and converter-table tests pass locally; that does
 not erase their old hosted failures or qualify the controlled installed pair.
 All 14 fast gates pass. Actual effective support distributions and test-tree hashes
-are retained in the [scoped artifact](../../devtools/data/stabilization_s5_20261006.json).
+are retained in the [scoped artifact](../../../devtools/data/stabilization_s5_20261006.json).
 The local tests in that first selection used receptor's `ci` rendering; this
 records the actual command rather than relabelling it as `llm`. Hosted gates
 continue to use the declared published receptor 1.1.0.
@@ -240,7 +240,7 @@ This is scoped boundary evidence, not the full installed candidate closure.
 
 ## Complete shared development execution — 2026-10-06
 
-The [shared-environment receipt](../../devtools/data/stabilization_s5_shared_20261006.json)
+The [shared-environment receipt](../../../devtools/data/stabilization_s5_shared_20261006.json)
 records the clean MolSysMT source `5e2721691`, released SMonitor 0.18.0,
 DepDigest 0.13.0, ArgDigest 0.13.0 and PyUnitWizard 0.28.1 from exact controlled
 sources. The complete Python 3.14 suite passes 13,313 cases with two explicit
@@ -279,7 +279,7 @@ Viewer baseline `cf427942d0b08a1c5c60f262c6a6b33f248d6f8b`. Wheel run
 concludes **failure** because Rust formatting rejects one import ordering.
 Clippy, Rust tests and cargo-deny remain unexecuted in that run; the formatting
 correction requires a new exact-source workflow. The
-[execution receipt](../../devtools/data/wheel_execution_20261006.json) retains
+[execution receipt](../../../devtools/data/wheel_execution_20261006.json) retains
 these outcomes and five artifact identities. This is successful installed
 dependency evidence, not complete 1.0 qualification or central admission.
 
@@ -288,7 +288,7 @@ The separate corrected-source wheel run
 concludes success on `5bd893c85`: all thirty applicable jobs pass, including
 format, Clippy, 81 Rust tests, cargo-deny and every installed public smoke.
 The original failed run remains recorded. The
-[corrected receipt](../../devtools/data/wheel_corrected_execution_20261006.json)
+[corrected receipt](../../../devtools/data/wheel_corrected_execution_20261006.json)
 retains all five artifact identities and independently hashed files.
 Source run [37441978743](https://github.com/uibcdf/molsysmt/actions/runs/37441978743)
 passes the 54-case scientific certificate without skips in all eight cells;
@@ -313,9 +313,47 @@ zero skips. Hosted pytest executes serially. Wheel run
 passes all thirty applicable jobs, including the four installed public smokes,
 81 Rust tests and platform/runtime checks, with one expected PR-only skip.
 
-The [pair receipt](../../devtools/data/stabilization_s6_pair_20261006.json)
+The [pair receipt](../../../devtools/data/stabilization_s6_pair_20261006.json)
 retains job/file identities, hashes and actual omission nodes/reasons. The
 maintainer selects 0.23.0 as the next pre-1.0 package checkpoint while retaining
 the feature freeze. Development artifacts above do not certify 0.23.0 packages,
 central admission or final Conda/consumer-installed qualification. Select and
 qualify the exact 0.23.0 producer and paired Viewer package version next.
+
+## Resolution — 2026-10-08
+
+Applicable support-library and developer-tool policies are adopted for the delivered runtime. The suite's receiving owner accepted the published pair under
+uibcdf/molsyssuite#51, at central commit
+`3116b7d9f1fa9ba4d09b81a8f24a22b749805f9f`, frozen by immutable
+`policy-v1.5.9` (annotated tag object
+`acd95b7d7077b02d6fe8f8214358846f47425c24`). Its native governance gate
+`37741900682` executes the registry/report validator, administrative tests
+and publisher-control checks successfully.
+
+Exact producers remain MolSysMT `46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9`
+and Viewer `1a4c97a58b68b69f3a836546c9e4ac6187c3efa2`. Central receiving
+independently verifies all eight complete source cells in `37577738386`,
+all sixteen installed public cells and preparation in `37587631519`,
+the already successful read-only verifier `37591619395`, all sixteen
+original explicit environment ZIP/export digests, exact installed public
+URLs/MD5 and current main-label/solver-visible SHA-256 values. The central
+receiving receipt is `devguide/rollouts/molsysmt_python314_ecosystem_51_20261008.json`
+in uibcdf/molsyssuite. Original package bytes and historical failures are retained.
+
+This owner change adopts the qualified caller, generated four-minor badge
+and officially synchronized canonical guide, and archives these accepted
+reviews. Source/runtime metadata, scientific implementation, test selection,
+CI schedules and original published files are unchanged. Administrative
+checks are executed on this delivery; no new scientific suite, build,
+upload or promotion is dispatched by receiving. Scientific skip debt
+is not cleared by documentation or policy checks.
+
+The guard above protects exact controlled support-provider references, effective public runtime floors and recursive dependency closure. Existing argument, quantity/unit-policy, dependency and diagnostic guards retain their exact full-matrix evidence; the synchronized normative guide governs published receptor versions and CI/local profiles.
+
+Recorded optional omissions and Windows portability limits remain explicit;
+no Windows scientific or Viewer browser/standalone claim is added. #155
+optimization and #292 optional attribution remain post-1.0 work. Later
+#349 repair and the final exact 1.0 candidate under #334 require their own
+qualification; this closure does not approve 1.0 or resolve independent
+CI/distribution-policy rollouts. The dated partial checkpoints above are
+history, superseded for this delivered pair by this receiving resolution.

@@ -4,7 +4,7 @@
 **Observed:** 2026-09-25 for the public release milestone and 2026-09-27
 for the current Linux development environment; older sections retain
 their dated, narrower observations.
-**Owning work:** [MolSysMT Python 3.14 proposal](pending_proposals/extend_molsysmt_python_support_to_3_14.md), `uibcdf/molsysviewer#93`, and the coordinated Conda release in `uibcdf/molsysmt#195` / `uibcdf/molsysviewer#82`.
+**Owning work:** [MolSysMT Python 3.14 proposal](archive/resolved_proposals/extend_molsysmt_python_support_to_3_14.md), `uibcdf/molsysviewer#93`, and the coordinated Conda release in `uibcdf/molsysmt#195` / `uibcdf/molsysviewer#82`.
 
 The 0.23.0/0.24.0 publication and subsequent 1.0 work are recorded
 in the [current execution ledger](release_1_0_status.md#resume-from-here).
