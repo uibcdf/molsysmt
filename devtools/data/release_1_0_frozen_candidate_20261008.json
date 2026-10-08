@@ -182,16 +182,454 @@
       "run_id": 37759578359,
       "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
       "viewer_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
-      "status": "dispatched",
+      "status": "in_progress",
       "conclusion": null,
-      "expected_cells": 8
+      "expected_cells": 8,
+      "verified_scientific_certificates": [
+        {
+          "digest": "sha256:8fe02c70b70076e8e64875f642928227c05d6b3a95f3dd12f08846f1d5369ac3",
+          "expired": false,
+          "id": 11542296439,
+          "name": "scientific-evidence-macos-15-py3.13",
+          "size_in_bytes": 1635,
+          "downloaded_sha256": "8fe02c70b70076e8e64875f642928227c05d6b3a95f3dd12f08846f1d5369ac3",
+          "certificate_sha256": "5f8a700937000932a93ac469cec46912a8b650469ffdae71467c6413dca05bd6",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.13.16",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:5f0c1f3632545f5404bde846d348b52e95d10c96fa3d338f4a5a2d20f7474535",
+          "expired": false,
+          "id": 11542206212,
+          "name": "scientific-evidence-macos-15-py3.11",
+          "size_in_bytes": 1626,
+          "downloaded_sha256": "5f0c1f3632545f5404bde846d348b52e95d10c96fa3d338f4a5a2d20f7474535",
+          "certificate_sha256": "c605c97001c49692cc223c11c6fbd0f3ebf237fcb7a8224716fb15983e755708",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.11.17",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:aad52b6321975a3573ac9655d56bf3e54d1298d21f3058a40addc3530fe589d4",
+          "expired": false,
+          "id": 11541977573,
+          "name": "scientific-evidence-macos-15-py3.12",
+          "size_in_bytes": 1625,
+          "downloaded_sha256": "aad52b6321975a3573ac9655d56bf3e54d1298d21f3058a40addc3530fe589d4",
+          "certificate_sha256": "6d525bbd492068f3ea2ffdade1d842b2d737fcd6d86aa9ccabaa946b2dbc6014",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.12.15",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:b1aafe8dd58d43c9f02c6dbed083d7d0537f6e25d13475456ef638668432b2df",
+          "expired": false,
+          "id": 11541891349,
+          "name": "scientific-evidence-ubuntu-latest-py3.13",
+          "size_in_bytes": 1639,
+          "downloaded_sha256": "b1aafe8dd58d43c9f02c6dbed083d7d0537f6e25d13475456ef638668432b2df",
+          "certificate_sha256": "969f1491e6b6076b9051f5a462f8f00d55939912bcdfd02024ce7ed5433533bb",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.13.16",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:63f6a8659c8d83f68aafbd86f192b0294220dbad4dac38a2595781035280465f",
+          "expired": false,
+          "id": 11541757151,
+          "name": "scientific-evidence-ubuntu-latest-py3.14",
+          "size_in_bytes": 1640,
+          "downloaded_sha256": "63f6a8659c8d83f68aafbd86f192b0294220dbad4dac38a2595781035280465f",
+          "certificate_sha256": "dac9b45dcdcf0f90136c753b5eebd974777bc50a36f3d9780f207257225c86ba",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.14.8",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:6f555b39666076fd3106210786c82dda68750f1d79d2bcca530d0c51c9c00f91",
+          "expired": false,
+          "id": 11541583435,
+          "name": "scientific-evidence-macos-15-py3.14",
+          "size_in_bytes": 1631,
+          "downloaded_sha256": "6f555b39666076fd3106210786c82dda68750f1d79d2bcca530d0c51c9c00f91",
+          "certificate_sha256": "0add13fd84f9fbf10da50a0fb0ba00d56969a58b694cf2547c69a61c228a0f52",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.14.8",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:57d77cc8cdc1f519920f5694517512b6ff2384f3125b9d70a22c716039f192ec",
+          "expired": false,
+          "id": 11541538494,
+          "name": "scientific-evidence-ubuntu-latest-py3.11",
+          "size_in_bytes": 1639,
+          "downloaded_sha256": "57d77cc8cdc1f519920f5694517512b6ff2384f3125b9d70a22c716039f192ec",
+          "certificate_sha256": "71d79145470283113bc5480f3b85c90adb91d3de701dc4f5691f1b1756baa266",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.11.17",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "digest": "sha256:f0152120d54af367642434c9560751688b5a667defa15d9fbbe1773849dbf088",
+          "expired": false,
+          "id": 11540889899,
+          "name": "scientific-evidence-ubuntu-latest-py3.12",
+          "size_in_bytes": 1638,
+          "downloaded_sha256": "f0152120d54af367642434c9560751688b5a667defa15d9fbbe1773849dbf088",
+          "certificate_sha256": "9547b8277e18e9752af5e17c7b53ded440be3afd6abafe0bde922dcaab61dc98",
+          "commit": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+          "python": "3.12.15",
+          "registered_nodes": 47,
+          "passed": 54,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        }
+      ],
+      "scientific_scope": "Eight original ZIPs and payload digests checked against the clean exact producer, all 47 registered nodes and 54 passed cases, zero omissions/errors/failures. Full suites still pending."
     },
     "native_wheels": {
       "run_id": 37759580359,
       "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
       "viewer_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
-      "status": "dispatched",
-      "conclusion": null
+      "status": "completed",
+      "conclusion": "success",
+      "successful_jobs": 30,
+      "expected_pr_only_skips": 1,
+      "native_quality_steps": [
+        {
+          "completedAt": "2026-10-08T09:52:34Z",
+          "conclusion": "success",
+          "name": "Check Rust formatting",
+          "number": 5,
+          "startedAt": "2026-10-08T09:52:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T09:53:11Z",
+          "conclusion": "success",
+          "name": "Lint Rust kernels",
+          "number": 6,
+          "startedAt": "2026-10-08T09:52:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T09:53:57Z",
+          "conclusion": "success",
+          "name": "Test Rust kernels",
+          "number": 7,
+          "startedAt": "2026-10-08T09:53:11Z",
+          "status": "completed"
+        }
+      ],
+      "public_smokes": [
+        {
+          "name": "Installed public smoke \u2014 Python 3.13",
+          "id": 113253686432,
+          "steps": [
+            {
+              "name": "Install controlled hard dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install the wheel and resolve its declared runtime dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate the installed public runtime outside the checkout",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.11",
+          "id": 113253686476,
+          "steps": [
+            {
+              "name": "Install controlled hard dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install the wheel and resolve its declared runtime dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate the installed public runtime outside the checkout",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.12",
+          "id": 113253686519,
+          "steps": [
+            {
+              "name": "Install controlled hard dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install the wheel and resolve its declared runtime dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate the installed public runtime outside the checkout",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Installed public smoke \u2014 Python 3.14",
+          "id": 113253686675,
+          "steps": [
+            {
+              "name": "Install controlled hard dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install the wheel and resolve its declared runtime dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate the installed public runtime outside the checkout",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "job_states": [
+        {
+          "id": 113252457180,
+          "name": "Format, lint, test, dependencies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113252457548,
+          "name": "linux-x86_64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113252457631,
+          "name": "Source distribution round trip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113252457659,
+          "name": "windows-x86_64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113252457699,
+          "name": "linux-aarch64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113252457727,
+          "name": "macos-arm64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686432,
+          "name": "Installed public smoke \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686438,
+          "name": "NumPy floor \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686472,
+          "name": "NumPy floor \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686476,
+          "name": "Installed public smoke \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686510,
+          "name": "linux-x86_64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686519,
+          "name": "Installed public smoke \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686549,
+          "name": "linux-x86_64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686666,
+          "name": "NumPy floor \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686675,
+          "name": "Installed public smoke \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686725,
+          "name": "NumPy floor \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686772,
+          "name": "linux-x86_64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253686781,
+          "name": "linux-x86_64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113253689034,
+          "name": "linux-x86_64 \u2014 Python ${{ matrix.python }}",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "id": 113254242768,
+          "name": "linux-aarch64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242851,
+          "name": "macos-arm64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242873,
+          "name": "macos-arm64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242882,
+          "name": "linux-aarch64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242888,
+          "name": "macos-arm64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242897,
+          "name": "linux-aarch64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242914,
+          "name": "linux-aarch64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242927,
+          "name": "macos-arm64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242937,
+          "name": "windows-x86_64 \u2014 Python 3.12",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242959,
+          "name": "windows-x86_64 \u2014 Python 3.11",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254242999,
+          "name": "windows-x86_64 \u2014 Python 3.13",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 113254243023,
+          "name": "windows-x86_64 \u2014 Python 3.14",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "receptor": {
+        "exit_code": 0,
+        "summary": "PASS conclusion=success | profile=ci | roles=lint:1,test:5,other:25 | jobs=30/31 | artifacts=5 | uibcdf/molsysmt run=37759580359",
+        "log_sha256": "772fce4a0e3f6f68676d560a70df8ccc039ee41808c8f048743b4df19b2d6bba"
+      }
     }
   },
   "consumer_notice": {
@@ -495,5 +933,61 @@
         }
       ]
     }
-  ]
+  ],
+  "consumer_prerequisite_update": {
+    "recorded_at": "2026-10-08T10:10:25.446039+00:00",
+    "evidence_classification": "Owner-reported local installed-runtime exercise; not independently rerun by MolSysMT.",
+    "molsysviewer": {
+      "version": "0.24.1",
+      "build_number": 1
+    },
+    "molsysmt": {
+      "version": "1.0.0",
+      "build_number": 0
+    },
+    "platform": "Linux",
+    "python": "3.14.8",
+    "tests": 322,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pip_check": "pass reported",
+    "import_origin": "site-packages only reported",
+    "environment": "Existing installation updated from independently verified original artifact files; not a clean solver-created environment.",
+    "scope": [
+      "191 design/Interactions/nine-family/H5MSM/session/paging/residency guards",
+      "131 composite loading/source-origin/box/Studio guards"
+    ],
+    "limit": "Does not replace the sixteen-cell installed Conda pair or independently certify browser/Qt scope.",
+    "viewer_canonical_ci": {
+      "run_id": 37760422583,
+      "head_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+      "status": "queued with active scientific jobs at native inspection",
+      "conclusion": null,
+      "use_staging": true,
+      "versions": {
+        "molsysmt": "1.0.0",
+        "molsysviewer": "0.24.1"
+      },
+      "qt_job": "failure; experimental scope separately owned by uibcdf/molsysviewer#109",
+      "scientific_jobs": "Four of six jobs success; macOS/Python 3.12 queued and 3.13 active at latest native inspection."
+    },
+    "single_installed_pair_dispatch": "Wait for canonical Viewer scientific and MolSysMT full/native gates, then agree one dispatch.",
+    "previous_191_guard_snapshot": {
+      "tests": 191,
+      "scope": [
+        "design guards",
+        "Interactions",
+        "nine families",
+        "H5MSM",
+        "sessions",
+        "paging",
+        "residency"
+      ],
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "count_rule": "Owner reports a combined 322 tests; the earlier 191 selection is included and must not be added again."
+  }
 }

@@ -68,8 +68,15 @@ in that campaign's inventory. New source qualification
 [37759578359](https://github.com/uibcdf/molsysmt/actions/runs/37759578359) and
 native wheels [37759580359](https://github.com/uibcdf/molsysmt/actions/runs/37759580359)
 are dispatched on the same MolSysMT producer with the replacement Viewer SHA
-explicitly supplied. Their completion and artifacts remain pending. Both sets
-of package identities are available; the installed-pair matrix waits for the
+explicitly supplied. Native qualification completes successfully: thirty jobs
+pass and the PR-only job is the expected skip. Native job records confirm Rust
+format/lint/tests and all four controlled installed public-smoke steps actually
+execute. GH Run Receptor independently confirms the terminal result. The
+eight-cell source campaign remains active; all eight original scientific ZIPs
+are downloaded and digest-verified against the clean producer, all 47 nodes
+and 54 passing cases with zero omissions. Full-suite completion and JUnit
+inspection remain pending. Both sets of package identities are available;
+the installed-pair matrix waits for the
 owners' prerequisite-gate review and one agreed dispatch. No public tag,
 Release or main-label promotion is performed.
 
@@ -78,9 +85,29 @@ The replacement Viewer file is `molsysviewer-0.24.1-py_1.tar.bz2`, SHA-256
 from owner producer `37758700492`. Independent download and registry inspection
 confirm 1,518,815 bytes, noarch build 1 and the staging-only label. The
 [replacement receipt](../devtools/data/release_1_0_viewer_build1_staging_20261008.json)
-retains its metadata. Viewer source/core/Windows and installed-consumer gates
-remain to be reviewed; the owner-reported successful wheel check does not
-replace those gates.
+retains its metadata. Independent GitHub inspection confirms successful
+Viewer Windows `37759393730` and core-browser `37758593628` campaigns on the
+exact replacement source. Their consumer-installed scope remains separate.
+
+The Viewer owner subsequently reports **322/322** guards with zero failures/skips:
+191 design, Interactions, nine-family, H5MSM, session, paging and residency cases,
+plus 131 composite-loading, source-origin, box and Studio cases,
+on Linux/Python 3.14.8 using the exact 1.0.0 build-0 / 0.24.1 build-1 files.
+Imports originate only in `site-packages` and `pip check` passes. This updates an
+existing environment from verified original files; it is **not** a clean
+solver-created installation or the sixteen-cell qualification. These are
+owner-reported results, not independently rerun by MolSysMT. The earlier
+191-test selection is included in 322 and must not be counted again.
+
+Viewer canonical staging CI
+[37760422583](https://github.com/uibcdf/molsysviewer/actions/runs/37760422583)
+identifies the replacement source and selected versions. Its required scientific
+jobs remain in progress; four of six succeed at the latest inspection, with
+macOS/Python 3.12 queued and 3.13 active.
+The Qt job fails in its experimental scope under uibcdf/molsysviewer#109;
+do not report that campaign globally green or use it to clear unfinished
+scientific jobs. Agree the unique installed-pair dispatch only after these
+required outcomes and MolSysMT's source/native gates have been reviewed.
 
 The Viewer owner initially delivers `molsysviewer-0.24.1-py_0.tar.bz2` from producer
 `37757179478`, SHA-256
