@@ -1,0 +1,524 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "producer_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+  "producer_ref": "candidate/1.0.0-build0",
+  "producer_run_id": 37757683710,
+  "version": "1.0.0",
+  "build_number": 0,
+  "channel": "uibcdf/label/staging",
+  "files": [
+    {
+      "platform": "linux-64",
+      "filename": "molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+      "version": "1.0.0",
+      "build": "pyabi3h03bb3b7_0",
+      "build_number": 0,
+      "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd",
+      "bytes": 55853839,
+      "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+      "labels": [
+        "staging"
+      ],
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py"
+      ],
+      "crlf_normalization_required": [],
+      "distribution_metadata_version": "1.0.0",
+      "index": {
+        "arch": "x86_64",
+        "build": "pyabi3h03bb3b7_0",
+        "build_number": 0,
+        "constrains": [
+          "__glibc >=2.17"
+        ],
+        "depends": [
+          "_python_abi3_support 1.*",
+          "argdigest >=0.13.0",
+          "cpython >=3.11",
+          "depdigest >=0.10.0",
+          "h5py",
+          "libgcc >=16",
+          "matplotlib",
+          "molsysviewer",
+          "networkx",
+          "numpy >=1.26,<3",
+          "pandas",
+          "py-mmcif >=1.1.1",
+          "python >=3.11,<3.15",
+          "pyunitwizard >=0.28.1",
+          "smonitor >=0.16.0",
+          "tqdm"
+        ],
+        "license": "MIT License",
+        "name": "molsysmt",
+        "noarch": "python",
+        "platform": "linux",
+        "subdir": "linux-64",
+        "timestamp": 1791452347860,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "platform": "linux-aarch64",
+      "filename": "molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+      "version": "1.0.0",
+      "build": "pyabi3hecc93d8_0",
+      "build_number": 0,
+      "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa",
+      "bytes": 55581603,
+      "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+      "labels": [
+        "staging"
+      ],
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py"
+      ],
+      "crlf_normalization_required": [],
+      "distribution_metadata_version": "1.0.0",
+      "index": {
+        "arch": "aarch64",
+        "build": "pyabi3hecc93d8_0",
+        "build_number": 0,
+        "constrains": [
+          "__glibc >=2.17"
+        ],
+        "depends": [
+          "_python_abi3_support 1.*",
+          "argdigest >=0.13.0",
+          "cpython >=3.11",
+          "depdigest >=0.10.0",
+          "h5py",
+          "libgcc >=16",
+          "matplotlib",
+          "molsysviewer",
+          "networkx",
+          "numpy >=1.26,<3",
+          "pandas",
+          "py-mmcif >=1.1.1",
+          "python >=3.11,<3.15",
+          "pyunitwizard >=0.28.1",
+          "smonitor >=0.16.0",
+          "tqdm"
+        ],
+        "license": "MIT License",
+        "name": "molsysmt",
+        "noarch": "python",
+        "platform": "linux",
+        "subdir": "linux-aarch64",
+        "timestamp": 1791452352188,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "platform": "osx-arm64",
+      "filename": "molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+      "version": "1.0.0",
+      "build": "pyabi3ha0bc463_0",
+      "build_number": 0,
+      "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9",
+      "bytes": 55346266,
+      "url": "https://conda.anaconda.org/uibcdf/label/staging/osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+      "labels": [
+        "staging"
+      ],
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py"
+      ],
+      "crlf_normalization_required": [],
+      "distribution_metadata_version": "1.0.0",
+      "index": {
+        "arch": "arm64",
+        "build": "pyabi3ha0bc463_0",
+        "build_number": 0,
+        "constrains": [
+          "__osx >=11.0"
+        ],
+        "depends": [
+          "_python_abi3_support 1.*",
+          "argdigest >=0.13.0",
+          "cpython >=3.11",
+          "depdigest >=0.10.0",
+          "h5py",
+          "matplotlib",
+          "molsysviewer",
+          "networkx",
+          "numpy >=1.26,<3",
+          "pandas",
+          "py-mmcif >=1.1.1",
+          "python >=3.11,<3.15",
+          "pyunitwizard >=0.28.1",
+          "smonitor >=0.16.0",
+          "tqdm"
+        ],
+        "license": "MIT License",
+        "name": "molsysmt",
+        "noarch": "python",
+        "platform": "osx",
+        "subdir": "osx-arm64",
+        "timestamp": 1791452776989,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "platform": "win-64",
+      "filename": "molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+      "version": "1.0.0",
+      "build": "pyabi3h2d2bc06_0",
+      "build_number": 0,
+      "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518",
+      "bytes": 55872762,
+      "url": "https://conda.anaconda.org/uibcdf/label/staging/win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+      "labels": [
+        "staging"
+      ],
+      "abi3_metadata_validated": true,
+      "source_files_verified": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py"
+      ],
+      "crlf_normalization_required": [
+        "molsysmt/interactions/result.py",
+        "molsysmt/native/molsys.py",
+        "molsysmt/native/structures.py",
+        "molsysmt/h5msm.py",
+        "molsysmt/form/_h5msm05_modular.py",
+        "molsysmt/form/file_h5msm/to_molsysmt_MolSys.py",
+        "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py"
+      ],
+      "distribution_metadata_version": "1.0.0",
+      "index": {
+        "arch": "x86_64",
+        "build": "pyabi3h2d2bc06_0",
+        "build_number": 0,
+        "depends": [
+          "_python_abi3_support 1.*",
+          "argdigest >=0.13.0",
+          "cpython >=3.11",
+          "depdigest >=0.10.0",
+          "h5py",
+          "matplotlib",
+          "molsysviewer",
+          "networkx",
+          "numpy >=1.26,<3",
+          "pandas",
+          "py-mmcif >=1.1.1",
+          "python >=3.11,<3.15",
+          "pyunitwizard >=0.28.1",
+          "smonitor >=0.16.0",
+          "tqdm"
+        ],
+        "license": "MIT License",
+        "name": "molsysmt",
+        "noarch": "python",
+        "platform": "win",
+        "subdir": "win-64",
+        "timestamp": 1791452688271,
+        "version": "1.0.0"
+      }
+    }
+  ],
+  "all_four_files_observed": true,
+  "qualification_limit": "The four files are produced and inspected: original producer ZIP digests, receipt hashes, downloaded bytes, staging registry, canonical distribution version, ABI3 metadata and eight source files agree. Exact installed pair and source/native/consumer gates remain pending.",
+  "producer": {
+    "run_id": 37757683710,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757683710",
+    "executed_steps": [
+      {
+        "id": 113246288932,
+        "name": "win-64 \u00b7 one ABI3 artifact",
+        "conclusion": "success",
+        "required_steps": [
+          {
+            "name": "Verify the derived package version",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and publish the staging platform",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Upload staging producer evidence",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 113246288956,
+        "name": "linux-64 \u00b7 one ABI3 artifact",
+        "conclusion": "success",
+        "required_steps": [
+          {
+            "name": "Verify the derived package version",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and publish the staging platform",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Upload staging producer evidence",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 113246289004,
+        "name": "linux-aarch64 \u00b7 one ABI3 artifact",
+        "conclusion": "success",
+        "required_steps": [
+          {
+            "name": "Verify the derived package version",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and publish the staging platform",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Upload staging producer evidence",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 113246289044,
+        "name": "osx-arm64 \u00b7 one ABI3 artifact",
+        "conclusion": "success",
+        "required_steps": [
+          {
+            "name": "Verify the derived package version",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build and publish the staging platform",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Upload staging producer evidence",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "original_receipts": [
+      {
+        "artifact": {
+          "kind": "producer",
+          "digest": "sha256:cd709a737690853588538c00a2569f862b2d322bea86b2419a262a07d99e35e8",
+          "expired": false,
+          "id": 11541048450,
+          "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-2",
+          "size_in_bytes": 548,
+          "downloaded_sha256": "cd709a737690853588538c00a2569f862b2d322bea86b2419a262a07d99e35e8",
+          "payloads": [
+            {
+              "name": "gh-run-receptor-events.json",
+              "sha256": "2e3eb1f7dd014143414229d9ff4910c599aa8084a6b6dacc8f5208ecab2a971b"
+            }
+          ]
+        },
+        "event": {
+          "events": [
+            {
+              "artifact": "molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+              "build": "success",
+              "kind": "conda.package",
+              "platform": "osx-arm64",
+              "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9",
+              "upload": "success"
+            }
+          ],
+          "producer": {
+            "ref": "v2.1.0",
+            "repository": "uibcdf/action-build-and-upload-conda-packages"
+          },
+          "schema": "gh-run-receptor.events@1",
+          "subject": {
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "job_key": "build-and-publish",
+            "matrix_index": 2,
+            "repository": "uibcdf/molsysmt",
+            "run_attempt": 1,
+            "run_id": 37757683710
+          }
+        }
+      },
+      {
+        "artifact": {
+          "kind": "producer",
+          "digest": "sha256:91460744a678a9645d2dc4ca15aa405ea3f69ccbdeb400e345930965f2b873eb",
+          "expired": false,
+          "id": 11541037172,
+          "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-1",
+          "size_in_bytes": 550,
+          "downloaded_sha256": "91460744a678a9645d2dc4ca15aa405ea3f69ccbdeb400e345930965f2b873eb",
+          "payloads": [
+            {
+              "name": "gh-run-receptor-events.json",
+              "sha256": "cc48742875a8237b28f097788990e4d9345fed9e38db92b806a653efef51a305"
+            }
+          ]
+        },
+        "event": {
+          "events": [
+            {
+              "artifact": "molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+              "build": "success",
+              "kind": "conda.package",
+              "platform": "linux-aarch64",
+              "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa",
+              "upload": "success"
+            }
+          ],
+          "producer": {
+            "ref": "v2.1.0",
+            "repository": "uibcdf/action-build-and-upload-conda-packages"
+          },
+          "schema": "gh-run-receptor.events@1",
+          "subject": {
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "job_key": "build-and-publish",
+            "matrix_index": 1,
+            "repository": "uibcdf/molsysmt",
+            "run_attempt": 1,
+            "run_id": 37757683710
+          }
+        }
+      },
+      {
+        "artifact": {
+          "kind": "producer",
+          "digest": "sha256:84ffce8f34d44090acb288af71bf4df36f8b57ec89253a1a63d7c999ec14447f",
+          "expired": false,
+          "id": 11540973336,
+          "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-3",
+          "size_in_bytes": 551,
+          "downloaded_sha256": "84ffce8f34d44090acb288af71bf4df36f8b57ec89253a1a63d7c999ec14447f",
+          "payloads": [
+            {
+              "name": "gh-run-receptor-events.json",
+              "sha256": "453c0fd45ebc9cb38e4196e7e8134aa80c2a9b67fbeec73d3a553b300ac019a9"
+            }
+          ]
+        },
+        "event": {
+          "events": [
+            {
+              "artifact": "molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+              "build": "success",
+              "kind": "conda.package",
+              "platform": "win-64",
+              "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518",
+              "upload": "success"
+            }
+          ],
+          "producer": {
+            "ref": "v2.1.0",
+            "repository": "uibcdf/action-build-and-upload-conda-packages"
+          },
+          "schema": "gh-run-receptor.events@1",
+          "subject": {
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "job_key": "build-and-publish",
+            "matrix_index": 3,
+            "repository": "uibcdf/molsysmt",
+            "run_attempt": 1,
+            "run_id": 37757683710
+          }
+        }
+      },
+      {
+        "artifact": {
+          "kind": "producer",
+          "digest": "sha256:5912bba2ee8f3a247c2927c87ccbe0a27f67de63dc27204ffaf412dd20a75100",
+          "expired": false,
+          "id": 11540429378,
+          "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-0",
+          "size_in_bytes": 548,
+          "downloaded_sha256": "5912bba2ee8f3a247c2927c87ccbe0a27f67de63dc27204ffaf412dd20a75100",
+          "payloads": [
+            {
+              "name": "gh-run-receptor-events.json",
+              "sha256": "87ffd59d6b85573b136c2292b7e68e86667b701c47c6f8718d5fe84f45b4e73a"
+            }
+          ]
+        },
+        "event": {
+          "events": [
+            {
+              "artifact": "molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+              "build": "success",
+              "kind": "conda.package",
+              "platform": "linux-64",
+              "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd",
+              "upload": "success"
+            }
+          ],
+          "producer": {
+            "ref": "v2.1.0",
+            "repository": "uibcdf/action-build-and-upload-conda-packages"
+          },
+          "schema": "gh-run-receptor.events@1",
+          "subject": {
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "job_key": "build-and-publish",
+            "matrix_index": 0,
+            "repository": "uibcdf/molsysmt",
+            "run_attempt": 1,
+            "run_id": 37757683710
+          }
+        }
+      }
+    ],
+    "receptor": {
+      "exit_code": 0,
+      "summary": "PASS conclusion=success | profile=conda | platforms=4/4 | producer_events=4 | producer_uploads=success:4 | jobs=5/5 | artifacts=4 | uibcdf/molsysmt run=37757683710",
+      "log_sha256": "65e7e27077307f9570391c1a60a90fc74c4480bd17a4d0b704b46dade71891a4"
+    }
+  }
+}

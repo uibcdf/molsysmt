@@ -1,43 +1,82 @@
 {
   "owner": "uibcdf/molsysmt#334",
   "recorded_at": "2026-10-08T09:37:55.101765+00:00",
-  "status": "sources frozen; source/native/build campaigns dispatched; installed pair pending exact files",
+  "status": "Both staged file identities inspected; new source/native qualification against Viewer build 1 in progress; installed pair awaiting prerequisite review",
   "molsysmt": {
     "version": "1.0.0",
     "build_number": 0,
     "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
     "ref": "candidate/1.0.0-build0",
     "channel": "uibcdf/label/staging",
-    "files": []
-  },
-  "molsysviewer": {
-    "version": "0.24.1",
-    "build_number": 0,
-    "source_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
-    "ref": "candidate/0.24.1-build0",
     "files": [
       {
-        "filename": "molsysviewer-0.24.1-py_0.tar.bz2",
-        "subdir": "noarch",
-        "sha256": "88ad5b7497bdfa06f16a7e9a47996edd633dd5f63534d38e0b9a0a418478ee58",
-        "md5": "53cea5a7ac09ce1313e06572c1de80fb",
-        "bytes": 1515134,
-        "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_0.tar.bz2",
+        "platform": "linux-64",
+        "filename": "molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+        "build": "pyabi3h03bb3b7_0",
+        "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd",
+        "bytes": 55853839,
+        "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+        "labels": [
+          "staging"
+        ]
+      },
+      {
+        "platform": "linux-aarch64",
+        "filename": "molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+        "build": "pyabi3hecc93d8_0",
+        "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa",
+        "bytes": 55581603,
+        "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+        "labels": [
+          "staging"
+        ]
+      },
+      {
+        "platform": "osx-arm64",
+        "filename": "molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+        "build": "pyabi3ha0bc463_0",
+        "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9",
+        "bytes": 55346266,
+        "url": "https://conda.anaconda.org/uibcdf/label/staging/osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+        "labels": [
+          "staging"
+        ]
+      },
+      {
+        "platform": "win-64",
+        "filename": "molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+        "build": "pyabi3h2d2bc06_0",
+        "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518",
+        "bytes": 55872762,
+        "url": "https://conda.anaconda.org/uibcdf/label/staging/win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
         "labels": [
           "staging"
         ]
       }
     ],
+    "handoff_receipt": "devtools/data/release_1_0_staging_handoff_20261008.json"
+  },
+  "molsysviewer": {
+    "version": "0.24.1",
+    "build_number": 1,
+    "source_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+    "ref": "candidate/0.24.1-build1",
     "source_ref_verified": true,
-    "file_receipt": "devtools/data/release_1_0_viewer_staging_20261008.json",
-    "qualification_status": "File inspected; owner local/CI/browser gates and installed pair remain pending.",
-    "producer_state": {
-      "conclusion": "success",
-      "databaseId": 37757179478,
-      "headSha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
-      "status": "completed",
-      "url": "https://github.com/uibcdf/molsysviewer/actions/runs/37757179478"
-    }
+    "files": [
+      {
+        "filename": "molsysviewer-0.24.1-py_1.tar.bz2",
+        "subdir": "noarch",
+        "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94",
+        "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+        "bytes": 1518815,
+        "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+        "labels": [
+          "staging"
+        ]
+      }
+    ],
+    "file_receipt": "devtools/data/release_1_0_viewer_build1_staging_20261008.json",
+    "qualification_status": "File inspected; owner prerequisite, installed and consumer gates pending."
   },
   "authorization": "Existing maintainer-authorized candidate construction/staging/qualification under release_1_0_scope.md; public publication needs separate final approval.",
   "local_checks": {
@@ -136,34 +175,35 @@
         "osx-arm64",
         "win-64"
       ],
-      "status": "queued",
-      "conclusion": null
+      "status": "completed",
+      "conclusion": "success"
     },
     "full_source": {
-      "run_id": 37757713370,
+      "run_id": 37759578359,
       "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
-      "viewer_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
-      "expected_cells": 8,
-      "status": "queued",
-      "conclusion": null
+      "viewer_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+      "status": "dispatched",
+      "conclusion": null,
+      "expected_cells": 8
     },
     "native_wheels": {
-      "run_id": 37757715875,
+      "run_id": 37759580359,
       "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
-      "viewer_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
-      "status": "queued",
+      "viewer_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+      "status": "dispatched",
       "conclusion": null
     }
   },
   "consumer_notice": {
     "route": "codex queue to the existing Viewer owner session",
     "producer_and_campaigns_delivered": true,
-    "installed_pair_not_dispatched": true
+    "installed_pair_not_dispatched": true,
+    "all_four_files_and_hashes_delivered": true
   },
   "remaining": [
     "Inspect all campaigns and retain original scientific/JUnit/native artifacts and actual executed steps.",
-    "Inspect the four Conda files, version/build/source provenance, registry records and observed digests.",
-    "Wait for both owners to review prerequisite gates and agree one installed-pair dispatch, then qualify those exact files and the Viewer consumer/browser/session scope.",
+    "Review exact-source/native and Viewer prerequisite gates; then agree and execute the single exact installed-pair matrix and consumer scope.",
+    "Complete installed qualification and final-candidate obligations; no public tag/Release/promotion before separate approval.",
     "Complete #250/#254 final-candidate obligations, final publication approval and #334 preservation/public-record checks."
   ],
   "not_performed": [
@@ -246,6 +286,214 @@
       "name": "CI smoke",
       "status": "completed",
       "url": "https://github.com/uibcdf/molsysmt/actions/runs/37757549571"
+    }
+  ],
+  "viewer_replacement": {
+    "version": "0.24.1",
+    "build_number": 1,
+    "source_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+    "ref": "candidate/0.24.1-build1",
+    "files": [],
+    "owner_reason": "Full local preparation run reports 2880 passed, 23 skipped, one failed: viewer_version default remained 0.24.0 while release plan selected 0.24.1. Owner says no molecular or #149/#177 regression.",
+    "evidence_classification": "owner-reported; not reproduced by MolSysMT",
+    "producer_reuse_policy": "Preserve MolSysMT build 0 and bytes. Review the replacement diff and qualify via explicit Viewer SHA inputs; do not infer exact replacement evidence from the original pair.",
+    "source_ref_verified": true,
+    "source_diff_from_build0": [
+      ".github/workflows/CI.yaml",
+      ".github/workflows/CI_e2e.yaml",
+      ".github/workflows/ci-python-314-source-pair.yaml",
+      "devguide/checkpoints.md",
+      "devguide/interactions_compatibility_contract.md",
+      "devguide/path_to_1_0.md",
+      "devguide/roadmap.md",
+      "devguide/stabilization_0241_preparation_20261008.md",
+      "tests/test_source_workflow_coverage.py"
+    ],
+    "runtime_source_changed": false,
+    "metadata_review": "Nine changed files: three workflow defaults, one existing workflow guard, five developer-guide records. No molecular or runtime sources differ."
+  },
+  "coordination_update": {
+    "at": "2026-10-08T09:44:29.686906+00:00",
+    "installed_pair_not_dispatched": true,
+    "cancellation_requested": [
+      37757713370,
+      37757715875
+    ],
+    "conda_producer_continues": true
+  },
+  "superseded_viewer_candidates": [
+    {
+      "version": "0.24.1",
+      "build_number": 0,
+      "source_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+      "ref": "candidate/0.24.1-build0",
+      "files": [
+        {
+          "filename": "molsysviewer-0.24.1-py_0.tar.bz2",
+          "subdir": "noarch",
+          "sha256": "88ad5b7497bdfa06f16a7e9a47996edd633dd5f63534d38e0b9a0a418478ee58",
+          "md5": "53cea5a7ac09ce1313e06572c1de80fb",
+          "bytes": 1515134,
+          "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_0.tar.bz2",
+          "labels": [
+            "staging"
+          ]
+        }
+      ],
+      "source_ref_verified": true,
+      "file_receipt": "devtools/data/release_1_0_viewer_staging_20261008.json",
+      "qualification_status": "Withdrawn by owner after a source-pair workflow-default test failure; original inspected file remains staging-only.",
+      "producer_state": {
+        "conclusion": "success",
+        "databaseId": 37757179478,
+        "headSha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+        "status": "completed",
+        "url": "https://github.com/uibcdf/molsysviewer/actions/runs/37757179478"
+      },
+      "accepted_as_final_candidate": false
+    }
+  ],
+  "superseded_campaigns": [
+    {
+      "run_id": 37757713370,
+      "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "viewer_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+      "expected_cells": 8,
+      "status": "completed",
+      "conclusion": "cancelled",
+      "qualifies_replacement_viewer": false,
+      "cancellation_requested": true
+    },
+    {
+      "run_id": 37757715875,
+      "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "viewer_sha": "66ea54e45ff3b9498e5f6f668c3d519888dca7b4",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "qualifies_replacement_viewer": false,
+      "cancellation_requested": true
+    }
+  ],
+  "original_evidence_retention": [
+    {
+      "kind": "producer",
+      "digest": "sha256:cd709a737690853588538c00a2569f862b2d322bea86b2419a262a07d99e35e8",
+      "expired": false,
+      "id": 11541048450,
+      "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-2",
+      "size_in_bytes": 548,
+      "downloaded_sha256": "cd709a737690853588538c00a2569f862b2d322bea86b2419a262a07d99e35e8",
+      "payloads": [
+        {
+          "name": "gh-run-receptor-events.json",
+          "sha256": "2e3eb1f7dd014143414229d9ff4910c599aa8084a6b6dacc8f5208ecab2a971b"
+        }
+      ]
+    },
+    {
+      "kind": "producer",
+      "digest": "sha256:91460744a678a9645d2dc4ca15aa405ea3f69ccbdeb400e345930965f2b873eb",
+      "expired": false,
+      "id": 11541037172,
+      "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-1",
+      "size_in_bytes": 550,
+      "downloaded_sha256": "91460744a678a9645d2dc4ca15aa405ea3f69ccbdeb400e345930965f2b873eb",
+      "payloads": [
+        {
+          "name": "gh-run-receptor-events.json",
+          "sha256": "cc48742875a8237b28f097788990e4d9345fed9e38db92b806a653efef51a305"
+        }
+      ]
+    },
+    {
+      "kind": "producer",
+      "digest": "sha256:84ffce8f34d44090acb288af71bf4df36f8b57ec89253a1a63d7c999ec14447f",
+      "expired": false,
+      "id": 11540973336,
+      "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-3",
+      "size_in_bytes": 551,
+      "downloaded_sha256": "84ffce8f34d44090acb288af71bf4df36f8b57ec89253a1a63d7c999ec14447f",
+      "payloads": [
+        {
+          "name": "gh-run-receptor-events.json",
+          "sha256": "453c0fd45ebc9cb38e4196e7e8134aa80c2a9b67fbeec73d3a553b300ac019a9"
+        }
+      ]
+    },
+    {
+      "kind": "producer",
+      "digest": "sha256:5912bba2ee8f3a247c2927c87ccbe0a27f67de63dc27204ffaf412dd20a75100",
+      "expired": false,
+      "id": 11540429378,
+      "name": "gh-run-receptor-events-v1-37757683710-1-build-and-publish-0",
+      "size_in_bytes": 548,
+      "downloaded_sha256": "5912bba2ee8f3a247c2927c87ccbe0a27f67de63dc27204ffaf412dd20a75100",
+      "payloads": [
+        {
+          "name": "gh-run-receptor-events.json",
+          "sha256": "87ffd59d6b85573b136c2292b7e68e86667b701c47c6f8718d5fe84f45b4e73a"
+        }
+      ]
+    },
+    {
+      "kind": "cancelled-source",
+      "digest": "sha256:a8b209abf05c7ea19da27f5e3d3445ff2fa818ea3488868aeba242fce84ab184",
+      "expired": false,
+      "id": 11541495892,
+      "name": "scientific-evidence-ubuntu-latest-py3.13",
+      "size_in_bytes": 1639,
+      "downloaded_sha256": "a8b209abf05c7ea19da27f5e3d3445ff2fa818ea3488868aeba242fce84ab184",
+      "payloads": [
+        {
+          "name": "scientific-evidence-certificate.json",
+          "sha256": "878e6af04a5859ad3df4e8f42bfc7f893c06b5c2623fd0187241cb040bf3799a"
+        }
+      ]
+    },
+    {
+      "kind": "cancelled-source",
+      "digest": "sha256:35fe4a24a063bcd47bb14430620b323264deaf423f5d65539944b870dc3d2f4e",
+      "expired": false,
+      "id": 11541166878,
+      "name": "scientific-evidence-ubuntu-latest-py3.11",
+      "size_in_bytes": 1639,
+      "downloaded_sha256": "35fe4a24a063bcd47bb14430620b323264deaf423f5d65539944b870dc3d2f4e",
+      "payloads": [
+        {
+          "name": "scientific-evidence-certificate.json",
+          "sha256": "9371655dd19ff3590dcd193f277eac303781069f7ad9442998e529b213aa99a6"
+        }
+      ]
+    },
+    {
+      "kind": "cancelled-source",
+      "digest": "sha256:9a08f60a65c958d15f59d929786324833e24606e289afaf79e371641ee889397",
+      "expired": false,
+      "id": 11541087029,
+      "name": "scientific-evidence-ubuntu-latest-py3.12",
+      "size_in_bytes": 1640,
+      "downloaded_sha256": "9a08f60a65c958d15f59d929786324833e24606e289afaf79e371641ee889397",
+      "payloads": [
+        {
+          "name": "scientific-evidence-certificate.json",
+          "sha256": "6f8b4cd03a995ae8988c145d5d7313c97095c244079812a18f19a190d88bf12a"
+        }
+      ]
+    },
+    {
+      "kind": "cancelled-source",
+      "digest": "sha256:f10627152cc7c782c3066206757d47c8f79866032dd5c794f8e045d96ec5f03a",
+      "expired": false,
+      "id": 11541052996,
+      "name": "scientific-evidence-ubuntu-latest-py3.14",
+      "size_in_bytes": 1638,
+      "downloaded_sha256": "f10627152cc7c782c3066206757d47c8f79866032dd5c794f8e045d96ec5f03a",
+      "payloads": [
+        {
+          "name": "scientific-evidence-certificate.json",
+          "sha256": "a7ff7cd7940f1ac8e7145b4d2ffa31d198ca63b2c4f3c05634277eb0bde6fd28"
+        }
+      ]
     }
   ]
 }

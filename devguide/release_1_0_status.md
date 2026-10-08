@@ -24,8 +24,14 @@ contracts.
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source
 `6dc80725ea506f977fb5e52dfd701c2227875fa5`, remote branch
-`candidate/1.0.0-build0`, paired with Viewer **0.24.1, noarch build 0**, source
-`66ea54e45ff3b9498e5f6f668c3d519888dca7b4`. The
+`candidate/1.0.0-build0`. The initially selected Viewer **0.24.1, noarch build 0**,
+source `66ea54e45ff3b9498e5f6f668c3d519888dca7b4`, is now withdrawn by its
+owner as the final candidate. The replacement is **0.24.1, build 1**, source
+`ae1fb995d6a38f2df6df206d2af26fbde1531f24`, verified remote branch
+`candidate/0.24.1-build1`; its file/hash are independently inspected below and
+prerequisite-gate review remains pending. GitHub comparison verifies nine changed files: three workflow defaults,
+one existing guard and five developer-guide records. No molecular or runtime
+source changes require rebuilding the MolSysMT artifacts. The
 [frozen-candidate receipt](../devtools/data/release_1_0_frozen_candidate_20261008.json)
 records verified refs, local results and dispatch identities. Main may advance
 with receipts while this producer stays fixed.
@@ -40,25 +46,55 @@ by Sphinx rewriting three generated RST stubs, despite all cases passing. After
 the build, those reviewed stubs were restored and the clean certificate above
 was obtained. The receipt retains both outcomes; they are overlapping checks.
 
-Conda producer [37757683710](https://github.com/uibcdf/molsysmt/actions/runs/37757683710),
-eight-cell source qualification [37757713370](https://github.com/uibcdf/molsysmt/actions/runs/37757713370)
-and native wheels [37757715875](https://github.com/uibcdf/molsysmt/actions/runs/37757715875)
-are dispatched on that exact producer and Viewer source. Their completion,
-original artifacts and actual steps remain to be verified. MolSysMT files and
-hashes await production and inspection. The installed-pair matrix waits for
-both sets of artifact identities and the owners' prerequisite-gate review,
-as agreed with Viewer. No public
-tag, Release or main-label promotion is performed.
+Conda producer [37757683710](https://github.com/uibcdf/molsysmt/actions/runs/37757683710)
+completes successfully on all four native platforms. The
+[staging handoff](../devtools/data/release_1_0_staging_handoff_20261008.json)
+records all four filenames/builds/URLs/SHA-256 values. Downloaded bytes, registry
+hashes and original producer receipts agree. Actual version/build/upload/evidence
+steps execute successfully on every platform. ABI3 metadata, canonical
+distribution version 1.0.0 and eight source files match the producer, with only
+Windows CRLF normalization. All four hashes were delivered to Viewer through
+`codex queue`. This is file inspection, not installed-pair qualification.
 
-The Viewer owner delivers `molsysviewer-0.24.1-py_0.tar.bz2` from producer
+The initial eight-cell source campaign
+[37757713370](https://github.com/uibcdf/molsysmt/actions/runs/37757713370) and
+native wheels [37757715875](https://github.com/uibcdf/molsysmt/actions/runs/37757715875)
+used the withdrawn Viewer source and terminate cancelled after explicit
+cancellation to avoid completing qualification against a superseded counterpart.
+Preserve their original outcomes/artifacts; they do not qualify the replacement.
+Four original Linux scientific certificate ZIPs emitted before cancellation
+are downloaded and digest-verified; no full-suite JUnit artifact was present
+in that campaign's inventory. New source qualification
+[37759578359](https://github.com/uibcdf/molsysmt/actions/runs/37759578359) and
+native wheels [37759580359](https://github.com/uibcdf/molsysmt/actions/runs/37759580359)
+are dispatched on the same MolSysMT producer with the replacement Viewer SHA
+explicitly supplied. Their completion and artifacts remain pending. Both sets
+of package identities are available; the installed-pair matrix waits for the
+owners' prerequisite-gate review and one agreed dispatch. No public tag,
+Release or main-label promotion is performed.
+
+The replacement Viewer file is `molsysviewer-0.24.1-py_1.tar.bz2`, SHA-256
+`ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94`,
+from owner producer `37758700492`. Independent download and registry inspection
+confirm 1,518,815 bytes, noarch build 1 and the staging-only label. The
+[replacement receipt](../devtools/data/release_1_0_viewer_build1_staging_20261008.json)
+retains its metadata. Viewer source/core/Windows and installed-consumer gates
+remain to be reviewed; the owner-reported successful wheel check does not
+replace those gates.
+
+The Viewer owner initially delivers `molsysviewer-0.24.1-py_0.tar.bz2` from producer
 `37757179478`, SHA-256
 `88ad5b7497bdfa06f16a7e9a47996edd633dd5f63534d38e0b9a0a418478ee58`.
 Independent download and registry inspection confirm that hash, 1,515,134 bytes,
 noarch build 0, Python 3.11–3.14 metadata and the staging-only label. The
 [file receipt](../devtools/data/release_1_0_viewer_staging_20261008.json)
-does not claim installed or consumer qualification. Viewer local/CI/browser
-checks remain in progress; its owner requests agreement on one installed-pair
-dispatch after prerequisite gates are reviewed.
+does not claim installed or consumer qualification. The owner later reports
+2,880 local passes, 23 skips and one workflow-default failure: the source-pair
+workflow still defaulted to 0.24.0 while its release plan selected 0.24.1.
+This is an owner-reported preparation failure, not a demonstrated molecular
+regression. Viewer preserves build 0 and its branch and prepares build 1 with
+corrected defaults. Do not replace or publish those original bytes. Agree one
+installed-pair dispatch after the replacement's prerequisite gates are reviewed.
 
 The initial preparation under `uibcdf/molsysmt#334` updates release metadata
 and the staged route for **MolSysMT 1.0.0, build 0**, based on main
@@ -69,7 +105,7 @@ available package or a published release. The
 records its checks and remaining exact-candidate gates. The older qualification
 below retains its original identities and does not qualify these new files.
 
-Authorized coordination with the existing MolSysViewer team now fixes its
+Authorized coordination with the existing MolSysViewer team initially fixes its
 candidate as **0.24.1, noarch build 0**, source
 `66ea54e45ff3b9498e5f6f668c3d519888dca7b4`, with immutable branch
 `candidate/0.24.1-build0`. Native GitHub inspection verifies that branch against
@@ -81,9 +117,10 @@ staged file recorded above. The public 0.24.0 build-1 baseline remains
 historical evidence. No installed-pair matrix is dispatched before both new
 artifact identities are available and inspected.
 
-The audited routine Viewer source and source-gate fallback now select that
-exact candidate, while manual full/native qualification must still supply its
-SHA explicitly. MolSysMT freezes `candidate/1.0.0-build0` at the committed
+The frozen MolSysMT source retains that initial audited routine Viewer pin and
+source-gate fallback. Manual full/native qualification must supply the accepted
+replacement SHA explicitly; review its diff before reusing any evidence or
+changing the producer. MolSysMT freezes `candidate/1.0.0-build0` at the committed
 source selecting these routes, preserves that producer as later receipts are
 recorded, and builds the staged files under the existing construction/upload
 authorization. Source/native execution and staged-file delivery remain separate
@@ -798,9 +835,10 @@ correct developer tooling or update this ledger.
 3. Retain the completed central receiving response for #237/#244 under
    uibcdf/molsyssuite#51 and this delivery's administrative conformance. Version
    metadata and the staged route for 1.0.0 build 0 are prepared. Obtain the
-   owner's frozen Viewer 0.24.1 build-0 source and MolSysMT producer are recorded
-   above. Inspect the three dispatched campaigns and qualify the new staged
-   files; wait for both observed file identities before the installed pair.
+   MolSysMT producer and both current staged file identities are recorded above.
+   Viewer withdrew build 0 and its corrected build 1 is inspected. Verify the
+   restarted exact-source/native campaigns and the Viewer prerequisite gates,
+   then agree the single installed-pair dispatch against these exact files.
    #250/#254 retain their final-candidate checks and #334 owns qualification and
    publication approval. Keep feature scope frozen; extensions retain their
    post-1.0 owners. A final-candidate failure returns its affected scope to

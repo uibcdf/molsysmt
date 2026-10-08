@@ -1,0 +1,42 @@
+{
+  "version": "0.24.1",
+  "build_number": 1,
+  "source_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+  "ref": "candidate/0.24.1-build1",
+  "filename": "molsysviewer-0.24.1-py_1.tar.bz2",
+  "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94",
+  "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+  "bytes": 1518815,
+  "subdir": "noarch",
+  "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+  "labels": [
+    "staging"
+  ],
+  "index": {
+    "arch": null,
+    "build": "py_1",
+    "build_number": 1,
+    "depends": [
+      "aiohttp >=3.10",
+      "anywidget >=0.9.15",
+      "argdigest >=0.13.0",
+      "depdigest",
+      "molsysmt >=0.23.0",
+      "numpy",
+      "packaging >=23",
+      "python >=3.11,<3.15",
+      "pyunitwizard >=0.25.0",
+      "smonitor >=0.13.0",
+      "traitlets >=5"
+    ],
+    "license": "MIT",
+    "name": "molsysviewer",
+    "noarch": "python",
+    "platform": null,
+    "subdir": "noarch",
+    "timestamp": 1791452811738,
+    "version": "0.24.1"
+  },
+  "producer_run_id": 37758700492,
+  "qualification_limit": "Independent byte hash and coordinate inspection only; installed and consumer gates pending."
+}
