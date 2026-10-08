@@ -1,7 +1,7 @@
 {
   "owner": "uibcdf/molsysmt#334",
   "recorded_at": "2026-10-08T09:37:55.101765+00:00",
-  "status": "Both staged file identities inspected; new source/native qualification against Viewer build 1 in progress; installed pair awaiting prerequisite review",
+  "status": "Exact source/native prerequisites and sixteen-cell installed staging pair reviewed and passed within their documented scopes; final #250/#254 acceptance and #334 publication review pending.",
   "molsysmt": {
     "version": "1.0.0",
     "build_number": 0,
@@ -76,7 +76,7 @@
       }
     ],
     "file_receipt": "devtools/data/release_1_0_viewer_build1_staging_20261008.json",
-    "qualification_status": "File inspected; owner prerequisite, installed and consumer gates pending."
+    "qualification_status": "Exact build-1 file and required source/core/Windows prerequisites reviewed; clean sixteen-cell installed pair passes. Owner-reported 322 consumer-specific guards retain their existing-environment scope; Qt experimental failure preserved separately."
   },
   "authorization": "Existing maintainer-authorized candidate construction/staging/qualification under release_1_0_scope.md; public publication needs separate final approval.",
   "local_checks": {
@@ -182,8 +182,8 @@
       "run_id": 37759578359,
       "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
       "viewer_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
-      "status": "in_progress",
-      "conclusion": null,
+      "status": "completed",
+      "conclusion": "success",
       "expected_cells": 8,
       "verified_scientific_certificates": [
         {
@@ -315,18 +315,31 @@
           "errors": 0
         }
       ],
-      "scientific_scope": "Eight original ZIPs and payload digests checked against the clean exact producer, all 47 registered nodes and 54 passed cases, zero omissions/errors/failures. Full suites still pending.",
+      "scientific_scope": "Eight original ZIPs and payload digests verified against the clean exact producer; all 47 registered nodes and 54 passing cases per cell, zero scientific skips/errors/failures.",
       "verified_completed_cells": [
         {
           "job_id": 113252540824,
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
           "conclusion": "success",
           "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11542578269/zip",
+            "created_at": "2026-10-08T10:18:49Z",
             "digest": "sha256:ba187372e81db2372aea73fc61127a69cc96c777f107d3697e60ab8863b25841",
             "expired": false,
+            "expires_at": "2026-10-22T10:18:48Z",
             "id": 11542578269,
             "name": "full-suite-results-ubuntu-latest-py3.11",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0MjU3ODI2OQ==",
             "size_in_bytes": 148409,
+            "updated_at": "2026-10-08T10:18:49Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11542578269",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
             "downloaded_sha256": "ba187372e81db2372aea73fc61127a69cc96c777f107d3697e60ab8863b25841",
             "junit_sha256": "a1227d7521b5d8ec44d1edf0fcbd227b2542d07eaa41bc5f0af0c877001e32ad",
             "counts": {
@@ -499,46 +512,512 @@
           "executed_required_steps": [
             {
               "name": "Run fast release gates",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Execute registered scientific evidence",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Upload scientific evidence certificate",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Run Ruff",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Run full test suite",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Upload full-suite test results",
-              "status": "completed",
               "conclusion": "success"
             }
-          ]
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 ubuntu-latest, Python 3.11\tUNKNOWN STEP\t2026-10-08T10:18:42.6903463Z PASS exit=0 | 13301 passed, 26 skipped, 40 deselected | 1441.32s | 1708 warnings"
+        },
+        {
+          "job_id": 113252540844,
+          "name": "Full matrix \u2014 macos-15, Python 3.13",
+          "conclusion": "success",
+          "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543906147/zip",
+            "created_at": "2026-10-08T10:33:28Z",
+            "digest": "sha256:98d61cf52c86136703627802c384966f3a3cc003948220b4881c2964e29f4d20",
+            "expired": false,
+            "expires_at": "2026-10-22T10:33:26Z",
+            "id": 11543906147,
+            "name": "full-suite-results-macos-15-py3.13",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0MzkwNjE0Nw==",
+            "size_in_bytes": 157376,
+            "updated_at": "2026-10-08T10:33:28Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543906147",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
+            "downloaded_sha256": "98d61cf52c86136703627802c384966f3a3cc003948220b4881c2964e29f4d20",
+            "junit_sha256": "53d00c04ab4eef260a4ccd3e0e72541d4628c204bf4faade9928cd71d7c73e67",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 27,
+              "passed": 13300
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.build.get_missing_bonds.test_get_missing_bonds",
+                "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+                "reason": "This test can only be run in linux",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/get_missing_bonds/test_get_missing_bonds.py:14: This test can only be run in linux"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "conclusion": "success"
+            }
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 macos-15, Python 3.13\tUNKNOWN STEP\t2026-10-08T10:33:21.6758200Z PASS exit=0 | 13300 passed, 27 skipped, 40 deselected | 1953.79s | 2666 warnings"
+        },
+        {
+          "job_id": 113252540845,
+          "name": "Full matrix \u2014 macos-15, Python 3.11",
+          "conclusion": "success",
+          "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543453435/zip",
+            "created_at": "2026-10-08T10:35:33Z",
+            "digest": "sha256:6f1c5eff05cbc19f1bd042cda874d87a86f67409fd1e912d181a9409c0dff26c",
+            "expired": false,
+            "expires_at": "2026-10-22T10:35:32Z",
+            "id": 11543453435,
+            "name": "full-suite-results-macos-15-py3.11",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0MzQ1MzQzNQ==",
+            "size_in_bytes": 158956,
+            "updated_at": "2026-10-08T10:35:33Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543453435",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
+            "downloaded_sha256": "6f1c5eff05cbc19f1bd042cda874d87a86f67409fd1e912d181a9409c0dff26c",
+            "junit_sha256": "531a6ffc6cdb333121b838ead9a0d9f84b1d231ffe7356f541285aa764649a96",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 27,
+              "passed": 13300
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.build.get_missing_bonds.test_get_missing_bonds",
+                "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+                "reason": "This test can only be run in linux",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/get_missing_bonds/test_get_missing_bonds.py:14: This test can only be run in linux"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "conclusion": "success"
+            }
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 macos-15, Python 3.11\tUNKNOWN STEP\t2026-10-08T10:35:28.8980910Z PASS exit=0 | 13300 passed, 27 skipped, 40 deselected | 2131.86s | 1708 warnings"
         },
         {
           "job_id": 113252540864,
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
           "conclusion": "success",
           "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543004386/zip",
+            "created_at": "2026-10-08T10:29:59Z",
             "digest": "sha256:54b78dec72a20383a1fec794d65844139a1f4a0adc67761092026735cf9d717e",
             "expired": false,
+            "expires_at": "2026-10-22T10:29:58Z",
             "id": 11543004386,
             "name": "full-suite-results-ubuntu-latest-py3.12",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0MzAwNDM4Ng==",
             "size_in_bytes": 152299,
+            "updated_at": "2026-10-08T10:29:59Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543004386",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
             "downloaded_sha256": "54b78dec72a20383a1fec794d65844139a1f4a0adc67761092026735cf9d717e",
             "junit_sha256": "097a6e2ca88db4793c5d124ab81754dc6433a7f3b412c7a1af44b0def054bcf7",
             "counts": {
@@ -711,46 +1190,284 @@
           "executed_required_steps": [
             {
               "name": "Run fast release gates",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Execute registered scientific evidence",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Upload scientific evidence certificate",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Run Ruff",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Run full test suite",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Upload full-suite test results",
-              "status": "completed",
               "conclusion": "success"
             }
-          ]
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 ubuntu-latest, Python 3.12\tUNKNOWN STEP\t2026-10-08T10:29:52.9002994Z PASS exit=0 | 13301 passed, 26 skipped, 40 deselected | 2086.61s | 2666 warnings"
+        },
+        {
+          "job_id": 113252540903,
+          "name": "Full matrix \u2014 macos-15, Python 3.12",
+          "conclusion": "success",
+          "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11544310223/zip",
+            "created_at": "2026-10-08T10:34:05Z",
+            "digest": "sha256:658d460999510161a44a35442603a5bc082fc3c8a50d60e21a00ac60763e8a84",
+            "expired": false,
+            "expires_at": "2026-10-22T10:34:04Z",
+            "id": 11544310223,
+            "name": "full-suite-results-macos-15-py3.12",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0NDMxMDIyMw==",
+            "size_in_bytes": 156797,
+            "updated_at": "2026-10-08T10:34:05Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11544310223",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
+            "downloaded_sha256": "658d460999510161a44a35442603a5bc082fc3c8a50d60e21a00ac60763e8a84",
+            "junit_sha256": "7c12f03d47a7a6ea2928ea5070ca8f0da666766891ea1016d8396d54d5b42489",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 27,
+              "passed": 13300
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.build.get_missing_bonds.test_get_missing_bonds",
+                "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+                "reason": "This test can only be run in linux",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/get_missing_bonds/test_get_missing_bonds.py:14: This test can only be run in linux"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "conclusion": "success"
+            }
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 macos-15, Python 3.12\tUNKNOWN STEP\t2026-10-08T10:34:00.4167820Z PASS exit=0 | 13300 passed, 27 skipped, 40 deselected | 1949.04s | 2666 warnings"
         },
         {
           "job_id": 113252540939,
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
           "conclusion": "success",
           "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543275282/zip",
+            "created_at": "2026-10-08T10:14:57Z",
             "digest": "sha256:b9821bb71be00c4afc0c7e39348c67e72f9856c3c9e923bde0947520401f28ee",
             "expired": false,
+            "expires_at": "2026-10-22T10:14:56Z",
             "id": 11543275282,
             "name": "full-suite-results-ubuntu-latest-py3.13",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0MzI3NTI4Mg==",
             "size_in_bytes": 147369,
+            "updated_at": "2026-10-08T10:14:57Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543275282",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
             "downloaded_sha256": "b9821bb71be00c4afc0c7e39348c67e72f9856c3c9e923bde0947520401f28ee",
             "junit_sha256": "f1df1a763ce021bb14c3c0cc6fe05f7abf0eecead95ff2370a119fc6113bc59a",
             "counts": {
@@ -923,38 +1640,491 @@
           "executed_required_steps": [
             {
               "name": "Run fast release gates",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Execute registered scientific evidence",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Upload scientific evidence certificate",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Run Ruff",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Run full test suite",
-              "status": "completed",
               "conclusion": "success"
             },
             {
               "name": "Upload full-suite test results",
-              "status": "completed",
               "conclusion": "success"
             }
-          ]
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 ubuntu-latest, Python 3.13\tUNKNOWN STEP\t2026-10-08T10:14:49.6922984Z PASS exit=0 | 13301 passed, 26 skipped, 40 deselected | 1218.38s | 2666 warnings"
+        },
+        {
+          "job_id": 113252540944,
+          "name": "Full matrix \u2014 macos-15, Python 3.14",
+          "conclusion": "success",
+          "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11544200558/zip",
+            "created_at": "2026-10-08T10:33:32Z",
+            "digest": "sha256:4e899b38936a79bb8bd5a589b881c61074cda8be89e6217b4856d09512c31009",
+            "expired": false,
+            "expires_at": "2026-10-22T10:33:31Z",
+            "id": 11544200558,
+            "name": "full-suite-results-macos-15-py3.14",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0NDIwMDU1OA==",
+            "size_in_bytes": 157731,
+            "updated_at": "2026-10-08T10:33:32Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11544200558",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
+            "downloaded_sha256": "4e899b38936a79bb8bd5a589b881c61074cda8be89e6217b4856d09512c31009",
+            "junit_sha256": "b979e190864d358df1aae8d0117b2a8e426280f26e6394215e44fb2f0e07e348",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 27,
+              "passed": 13300
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.build.get_missing_bonds.test_get_missing_bonds",
+                "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+                "reason": "This test can only be run in linux",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/build/get_missing_bonds/test_get_missing_bonds.py:14: This test can only be run in linux"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/Users/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "conclusion": "success"
+            }
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 macos-15, Python 3.14\tUNKNOWN STEP\t2026-10-08T10:33:27.5340290Z PASS exit=0 | 13300 passed, 27 skipped, 40 deselected | 1952.34s | 2666 warnings"
+        },
+        {
+          "job_id": 113252540976,
+          "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
+          "conclusion": "success",
+          "junit": {
+            "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543965738/zip",
+            "created_at": "2026-10-08T10:33:02Z",
+            "digest": "sha256:434c73f4a320738ab576842ee5c7d24b66f3cd2b1d0e7b94ce17ab167a053a83",
+            "expired": false,
+            "expires_at": "2026-10-22T10:32:50Z",
+            "id": 11543965738,
+            "name": "full-suite-results-ubuntu-latest-py3.14",
+            "node_id": "MDg6QXJ0aWZhY3QxMTU0Mzk2NTczOA==",
+            "size_in_bytes": 150975,
+            "updated_at": "2026-10-08T10:33:02Z",
+            "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11543965738",
+            "workflow_run": {
+              "head_branch": "candidate/1.0.0-build0",
+              "head_repository_id": 137937243,
+              "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+              "id": 37759578359,
+              "repository_id": 137937243
+            },
+            "downloaded_sha256": "434c73f4a320738ab576842ee5c7d24b66f3cd2b1d0e7b94ce17ab167a053a83",
+            "junit_sha256": "172fa0a2847c1e14786bdf6dbc410daefc47ccf804bc373db630c63c9aa6f63f",
+            "counts": {
+              "tests": 13327,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 26,
+              "passed": 13301
+            },
+            "skipped_cases": [
+              {
+                "classname": "tests.build.add_missing_hydrogens.test_fixed_state",
+                "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/build/add_missing_hydrogens/test_fixed_state.py:477: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.file_pdbqt.test_real_vina_examples",
+                "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+                "reason": "could not import 'vina': No module named 'vina'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/file_pdbqt/test_real_vina_examples.py:185: could not import 'vina': No module named 'vina'"
+              },
+              {
+                "classname": "tests.form.string_smiles.test_is_form",
+                "name": "test_is_form_cco_without_rdkit",
+                "reason": "with rdkit CCO is recognized as valid SMILES",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+              },
+              {
+                "classname": "tests.form.test_cupy_ndarray",
+                "name": "test_cupy_ndarray_form_detection_and_conversion",
+                "reason": "CuPy is not available.",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+              },
+              {
+                "classname": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+                "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/halogen_bonds/test_get_halogen_bonds.py:266: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+                "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/hydrophobic/test_get_hydrophobic_interactions.py:291: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:124: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:161: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:178: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_failed_detector_does_not_credit_successful_calculation",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:204: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:243: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.test_scientific_attribution",
+                "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/test_scientific_attribution.py:273: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.interactions.water_bridges.test_get_water_bridges",
+                "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/interactions/water_bridges/test_get_water_bridges.py:281: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_chemical_template",
+                "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_chemical_template.py:323: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:47: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_cip_stereochemistry",
+                "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_cip_stereochemistry.py:155: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.physchem.test_get_peptide_chemical_template",
+                "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+                "reason": "could not import 'ackredit': No module named 'ackredit'",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/physchem/test_get_peptide_chemical_template.py:280: could not import 'ackredit': No module named 'ackredit'"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+                "reason": "Optional unyt quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional unyt quantity backend"
+              },
+              {
+                "classname": "tests.structure.test_get_least_squares_plane",
+                "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+                "reason": "Optional astropy quantity backend",
+                "detail": "/home/runner/work/molsysmt/molsysmt/tests/structure/test_get_least_squares_plane.py:243: Optional astropy quantity backend"
+              }
+            ],
+            "scope": "Executed full-suite JUnit; deselected cases are not recorded by JUnit."
+          },
+          "executed_required_steps": [
+            {
+              "name": "Run fast release gates",
+              "conclusion": "success"
+            },
+            {
+              "name": "Execute registered scientific evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload scientific evidence certificate",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run Ruff",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run full test suite",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload full-suite test results",
+              "conclusion": "success"
+            }
+          ],
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity deselection in tests/conftest.py; not contained in JUnit.",
+          "native_log_summary": "Full matrix \u2014 ubuntu-latest, Python 3.14\tUNKNOWN STEP\t2026-10-08T10:32:47.1829606Z PASS exit=0 | 13301 passed, 26 skipped, 40 deselected | 2253.53s | 2666 warnings"
         }
       ],
-      "scope_at_snapshot": "Three Linux full-suite cells inspected (3.11/3.12/3.13): 13301 passed, 26 optional/negative-path skips, no failures/errors each. Remaining five cells unfinished. Full-suite JUnit excludes deselected cases; default peptide-parity deselection is active and its count awaits native log inspection."
+      "scope_at_snapshot": "Terminal eight-cell full-source review; 13,301 passes/26 skips per Linux cell, 13,300 passes/27 skips per macOS cell, zero errors/failures. All original JUnit ZIP/payload digests and skipped-case reasons retained; logs confirm 40 default peptide_parity deselections per cell.",
+      "native_log_sha256": "984d115c79ecd4a253f56bd23d1a35e46765dd6ddd84e7d59bceba48935f06ac",
+      "controlled_viewer_source_verified": "Builder log resolves ae1fb995d6a38f2df6df206d2af26fbde1531f24; all eight source cells consume that controlled wheel.",
+      "receptor": {
+        "exit_code": 0,
+        "report": "PASS conclusion=success | profile=ci | roles=test:8,build:1,other:1 | jobs=9/10 | artifacts=17 | uibcdf/molsysmt run=37759578359"
+      }
     },
     "native_wheels": {
       "run_id": 37759580359,
@@ -1269,22 +2439,1019 @@
         "summary": "PASS conclusion=success | profile=ci | roles=lint:1,test:5,other:25 | jobs=30/31 | artifacts=5 | uibcdf/molsysmt run=37759580359",
         "log_sha256": "772fce4a0e3f6f68676d560a70df8ccc039ee41808c8f048743b4df19b2d6bba"
       }
+    },
+    "installed_pair": {
+      "conclusion": "success",
+      "createdAt": "2026-10-08T13:16:05Z",
+      "databaseId": 37783010701,
+      "displayTitle": "MT 1.0.0 build 0 + Viewer 0.24.1 build 1 | Python 3.14 | all",
+      "headSha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/37783010701",
+      "owner": "uibcdf/molsysmt#334",
+      "workflow": "validate_conda_staging.yaml",
+      "ref": "candidate/1.0.0-build0",
+      "inputs": {
+        "molsysmt_version": "1.0.0",
+        "molsysmt_build_number": 0,
+        "molsysviewer_version": "0.24.1",
+        "molsysviewer_build_number": 1,
+        "python_max": "3.14",
+        "target": "all",
+        "package_source": "staging"
+      },
+      "expected_cells": 16,
+      "single_dispatch_verified": true,
+      "preflight": "No installed-pair run existed on the exact candidate SHA before this dispatch.",
+      "scope": "Clean solver-created Conda pair, version/provenance/native/BCIF/PDB-text/Viewer-resource checks and explicit environment artifacts. Consumer-specific Interactions/browser/session evidence remains separate.",
+      "verified_at": "2026-10-08T13:21:41.119980+00:00",
+      "verified_cells": 16,
+      "environment_artifacts": [
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553230913/zip",
+          "created_at": "2026-10-08T13:17:06Z",
+          "digest": "sha256:873516e35295a1d7f51cce71d4f3ceca9f04113febe89388767e40c12522bbef",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:05Z",
+          "id": 11553230913,
+          "name": "conda-staging-linux-64-py3.14",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MzIzMDkxMw==",
+          "size_in_bytes": 8243,
+          "updated_at": "2026-10-08T13:17:06Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553230913",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "873516e35295a1d7f51cce71d4f3ceca9f04113febe89388767e40c12522bbef",
+          "platform": "linux-64",
+          "python": "3.14",
+          "environment_sha256": "018d7dc5a8027473a50cff5349c26b484edb6537ab13e4c436d3510eacb9ae9a",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+              "md5": "df21392146a76a8dcb4b57579a2028df",
+              "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553225675/zip",
+          "created_at": "2026-10-08T13:17:07Z",
+          "digest": "sha256:e732928415ab66bab2f38afed2b6ec9842eb877adda98feaf72b96339e058261",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:06Z",
+          "id": 11553225675,
+          "name": "conda-staging-linux-aarch64-py3.13",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MzIyNTY3NQ==",
+          "size_in_bytes": 8264,
+          "updated_at": "2026-10-08T13:17:07Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553225675",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "e732928415ab66bab2f38afed2b6ec9842eb877adda98feaf72b96339e058261",
+          "platform": "linux-aarch64",
+          "python": "3.13",
+          "environment_sha256": "d41ac47a5918ad84bbaefecde3aa3e5a44a8bc0cbf5428b6d9ceafa052ac4ac5",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+              "md5": "2d278cca5a3946ab1ab9b2bb988102d7",
+              "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553087867/zip",
+          "created_at": "2026-10-08T13:19:11Z",
+          "digest": "sha256:ba8ee3df3dc84004bbbb834dc7db039c0af133f54e905d2f9fcde61ef704ea70",
+          "expired": false,
+          "expires_at": "2026-11-07T13:19:10Z",
+          "id": 11553087867,
+          "name": "conda-staging-win-64-py3.12",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MzA4Nzg2Nw==",
+          "size_in_bytes": 6471,
+          "updated_at": "2026-10-08T13:19:11Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553087867",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "ba8ee3df3dc84004bbbb834dc7db039c0af133f54e905d2f9fcde61ef704ea70",
+          "platform": "win-64",
+          "python": "3.12",
+          "environment_sha256": "9313b4992ccc956b4ed416864aad0ba79b4441f18808f96f7ace2d32bac60cf8",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+              "md5": "621e620671b36ae758cb3feba63935f2",
+              "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553023765/zip",
+          "created_at": "2026-10-08T13:17:07Z",
+          "digest": "sha256:55196156e505868c083634f4253b54bcb0305ede9c9796c8bc7ac249cfe9000a",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:06Z",
+          "id": 11553023765,
+          "name": "conda-staging-linux-aarch64-py3.14",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MzAyMzc2NQ==",
+          "size_in_bytes": 8259,
+          "updated_at": "2026-10-08T13:17:07Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11553023765",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "55196156e505868c083634f4253b54bcb0305ede9c9796c8bc7ac249cfe9000a",
+          "platform": "linux-aarch64",
+          "python": "3.14",
+          "environment_sha256": "2b14e4a4bc6862af52fc5668606bfb3cffbd8adc2360bdaa46f62a5ea6b15a06",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+              "md5": "2d278cca5a3946ab1ab9b2bb988102d7",
+              "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552828824/zip",
+          "created_at": "2026-10-08T13:17:05Z",
+          "digest": "sha256:29eb616b1592e7916c4a6fa8ca66c8f958c04c2836b5821a87e506185d1a516b",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:05Z",
+          "id": 11552828824,
+          "name": "conda-staging-linux-aarch64-py3.11",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjgyODgyNA==",
+          "size_in_bytes": 6081,
+          "updated_at": "2026-10-08T13:17:05Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552828824",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "29eb616b1592e7916c4a6fa8ca66c8f958c04c2836b5821a87e506185d1a516b",
+          "platform": "linux-aarch64",
+          "python": "3.11",
+          "environment_sha256": "7d832012c674a9ee739204b6db8541dbfac94da29e7dea4016a3e3b7eddda18e",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+              "md5": "2d278cca5a3946ab1ab9b2bb988102d7",
+              "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552753072/zip",
+          "created_at": "2026-10-08T13:16:58Z",
+          "digest": "sha256:979744a1acc38e78ed7804ba688830779988c6fe6084d8b85f7b4fae2744f829",
+          "expired": false,
+          "expires_at": "2026-11-07T13:16:58Z",
+          "id": 11552753072,
+          "name": "conda-staging-linux-aarch64-py3.12",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1Mjc1MzA3Mg==",
+          "size_in_bytes": 6067,
+          "updated_at": "2026-10-08T13:16:58Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552753072",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "979744a1acc38e78ed7804ba688830779988c6fe6084d8b85f7b4fae2744f829",
+          "platform": "linux-aarch64",
+          "python": "3.12",
+          "environment_sha256": "c1ed0f69d3703d376980ddb1cafcd195112f9007199f475fda5545b2379247cb",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+              "md5": "2d278cca5a3946ab1ab9b2bb988102d7",
+              "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552668261/zip",
+          "created_at": "2026-10-08T13:17:22Z",
+          "digest": "sha256:d53af43c1f1c84e061bdb06a038de0bd70cc62dd0fcc49f6d2333d043fd386b5",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:20Z",
+          "id": 11552668261,
+          "name": "conda-staging-osx-arm64-py3.14",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjY2ODI2MQ==",
+          "size_in_bytes": 5675,
+          "updated_at": "2026-10-08T13:17:22Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552668261",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "d53af43c1f1c84e061bdb06a038de0bd70cc62dd0fcc49f6d2333d043fd386b5",
+          "platform": "osx-arm64",
+          "python": "3.14",
+          "environment_sha256": "c49b5226f257d98efd2e8d02b902e7ef8687dc3ce6edc9abd44d6756da8647f5",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+              "md5": "367ffade74f3a9f8aeb207791fc0086d",
+              "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552468747/zip",
+          "created_at": "2026-10-08T13:17:08Z",
+          "digest": "sha256:2fefe7c222887ba24128cf0485ae0a87719a35ba7d6a53f71b54e776321f7bba",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:07Z",
+          "id": 11552468747,
+          "name": "conda-staging-linux-64-py3.11",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjQ2ODc0Nw==",
+          "size_in_bytes": 8372,
+          "updated_at": "2026-10-08T13:17:08Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552468747",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "2fefe7c222887ba24128cf0485ae0a87719a35ba7d6a53f71b54e776321f7bba",
+          "platform": "linux-64",
+          "python": "3.11",
+          "environment_sha256": "a9d148a913f0e93f3f62d7b64d4ffc796c091bcfcb60b630e46c8fe48d59cf54",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+              "md5": "df21392146a76a8dcb4b57579a2028df",
+              "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552339192/zip",
+          "created_at": "2026-10-08T13:17:16Z",
+          "digest": "sha256:d17c1852a5e526354854734cbaf3396e373b2ed91cae6b49818e52893a4e33b9",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:16Z",
+          "id": 11552339192,
+          "name": "conda-staging-linux-64-py3.12",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjMzOTE5Mg==",
+          "size_in_bytes": 8356,
+          "updated_at": "2026-10-08T13:17:16Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552339192",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "d17c1852a5e526354854734cbaf3396e373b2ed91cae6b49818e52893a4e33b9",
+          "platform": "linux-64",
+          "python": "3.12",
+          "environment_sha256": "5185b7d2e2bd2120f65bb175ef91dba6addd9597b76861b30a51123e3c8f21f4",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+              "md5": "df21392146a76a8dcb4b57579a2028df",
+              "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552274112/zip",
+          "created_at": "2026-10-08T13:18:34Z",
+          "digest": "sha256:0241bb0b63f32e034b827f66207faaf626fe8d35703a2bde7ae6fcb0f67b8652",
+          "expired": false,
+          "expires_at": "2026-11-07T13:18:33Z",
+          "id": 11552274112,
+          "name": "conda-staging-win-64-py3.14",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjI3NDExMg==",
+          "size_in_bytes": 6396,
+          "updated_at": "2026-10-08T13:18:34Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552274112",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "0241bb0b63f32e034b827f66207faaf626fe8d35703a2bde7ae6fcb0f67b8652",
+          "platform": "win-64",
+          "python": "3.14",
+          "environment_sha256": "5eba2c8cbaf94006f99dacccebc76404269e6f556590713cd38b758652b13d7e",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+              "md5": "621e620671b36ae758cb3feba63935f2",
+              "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552273945/zip",
+          "created_at": "2026-10-08T13:17:39Z",
+          "digest": "sha256:1a025e5c628c194e9bd1fcaeb1a4914783d4eb5421608f9ac3b8e28860e76bc2",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:37Z",
+          "id": 11552273945,
+          "name": "conda-staging-osx-arm64-py3.11",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjI3Mzk0NQ==",
+          "size_in_bytes": 5756,
+          "updated_at": "2026-10-08T13:17:39Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552273945",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "1a025e5c628c194e9bd1fcaeb1a4914783d4eb5421608f9ac3b8e28860e76bc2",
+          "platform": "osx-arm64",
+          "python": "3.11",
+          "environment_sha256": "91b52186e82dc780f0bb95136b6714c7615f0dba45d49f173a42348a96241c69",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+              "md5": "367ffade74f3a9f8aeb207791fc0086d",
+              "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552268667/zip",
+          "created_at": "2026-10-08T13:17:11Z",
+          "digest": "sha256:8ab252348783c276a78bbcc726b9e24b85ed12782b9a65253905f71945c3f95a",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:10Z",
+          "id": 11552268667,
+          "name": "conda-staging-linux-64-py3.13",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjI2ODY2Nw==",
+          "size_in_bytes": 8264,
+          "updated_at": "2026-10-08T13:17:11Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552268667",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "8ab252348783c276a78bbcc726b9e24b85ed12782b9a65253905f71945c3f95a",
+          "platform": "linux-64",
+          "python": "3.13",
+          "environment_sha256": "17e65af74f568e1c4f79002b2b5a68e51255cc9f23750371e8642aaa5c08bc2e",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+              "md5": "df21392146a76a8dcb4b57579a2028df",
+              "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552254345/zip",
+          "created_at": "2026-10-08T13:17:36Z",
+          "digest": "sha256:97c73ac538205c693082e819e7105401101f1e27d62f44d855b3f6884821ca41",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:34Z",
+          "id": 11552254345,
+          "name": "conda-staging-osx-arm64-py3.12",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjI1NDM0NQ==",
+          "size_in_bytes": 5739,
+          "updated_at": "2026-10-08T13:17:36Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552254345",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "97c73ac538205c693082e819e7105401101f1e27d62f44d855b3f6884821ca41",
+          "platform": "osx-arm64",
+          "python": "3.12",
+          "environment_sha256": "b813118fa759901be843360d52c1c553fd2bd1df4e56ca8a77c4b9502ce9035d",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+              "md5": "367ffade74f3a9f8aeb207791fc0086d",
+              "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552233437/zip",
+          "created_at": "2026-10-08T13:17:43Z",
+          "digest": "sha256:4a6cf40fad6c8d52a395df9fd44b16e75b5f658281c9c62218aaa65b32d04aa5",
+          "expired": false,
+          "expires_at": "2026-11-07T13:17:41Z",
+          "id": 11552233437,
+          "name": "conda-staging-osx-arm64-py3.13",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjIzMzQzNw==",
+          "size_in_bytes": 5681,
+          "updated_at": "2026-10-08T13:17:43Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552233437",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "4a6cf40fad6c8d52a395df9fd44b16e75b5f658281c9c62218aaa65b32d04aa5",
+          "platform": "osx-arm64",
+          "python": "3.13",
+          "environment_sha256": "35c97b8ea7d603e69aa5aba5a3d6a9d09b95467447d06df156f5b6d519878fdb",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+              "md5": "367ffade74f3a9f8aeb207791fc0086d",
+              "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552184136/zip",
+          "created_at": "2026-10-08T13:19:06Z",
+          "digest": "sha256:d7a71623b9b2dcec4885d95eab0fa89b1f8a95bb48add4494db95a0e12f8b625",
+          "expired": false,
+          "expires_at": "2026-11-07T13:19:05Z",
+          "id": 11552184136,
+          "name": "conda-staging-win-64-py3.13",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjE4NDEzNg==",
+          "size_in_bytes": 6380,
+          "updated_at": "2026-10-08T13:19:06Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552184136",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "d7a71623b9b2dcec4885d95eab0fa89b1f8a95bb48add4494db95a0e12f8b625",
+          "platform": "win-64",
+          "python": "3.13",
+          "environment_sha256": "14dd487be99fb621b8afdc919541e8cc02affd333eec70c813836d0a9e070615",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+              "md5": "621e620671b36ae758cb3feba63935f2",
+              "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        },
+        {
+          "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552079282/zip",
+          "created_at": "2026-10-08T13:18:35Z",
+          "digest": "sha256:7f8a13904d89ab38cca781a4174cdaf3d9d5665173f93ccbbe13c63c94d87000",
+          "expired": false,
+          "expires_at": "2026-11-07T13:18:34Z",
+          "id": 11552079282,
+          "name": "conda-staging-win-64-py3.11",
+          "node_id": "MDg6QXJ0aWZhY3QxMTU1MjA3OTI4Mg==",
+          "size_in_bytes": 6463,
+          "updated_at": "2026-10-08T13:18:35Z",
+          "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/11552079282",
+          "workflow_run": {
+            "head_branch": "candidate/1.0.0-build0",
+            "head_repository_id": 137937243,
+            "head_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+            "id": 37783010701,
+            "repository_id": 137937243
+          },
+          "downloaded_sha256": "7f8a13904d89ab38cca781a4174cdaf3d9d5665173f93ccbbe13c63c94d87000",
+          "platform": "win-64",
+          "python": "3.11",
+          "environment_sha256": "a955587e4ed6246ea0939968e396b54212aad4a9ef997055f166a84ed303f7d6",
+          "installed_packages": [
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+              "md5": "621e620671b36ae758cb3feba63935f2",
+              "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518"
+            },
+            {
+              "url": "https://conda.anaconda.org/uibcdf/label/staging/noarch/molsysviewer-0.24.1-py_1.tar.bz2",
+              "md5": "5c2e3b0245f10ba7a970a7c8e9beec85",
+              "sha256": "ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94"
+            }
+          ],
+          "identity_check": "Explicit environment URLs and MD5 agree with the previously SHA-256-verified original package bytes; exact build and selected Python minor verified."
+        }
+      ],
+      "cell_states": [
+        {
+          "job_id": 113330644893,
+          "name": "osx-arm64 \u00b7 Python 3.12",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330644937,
+          "name": "linux-64 \u00b7 Python 3.11",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330644954,
+          "name": "linux-aarch64 \u00b7 Python 3.11",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330644972,
+          "name": "linux-aarch64 \u00b7 Python 3.13",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330644976,
+          "name": "win-64 \u00b7 Python 3.14",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330644992,
+          "name": "linux-aarch64 \u00b7 Python 3.14",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645031,
+          "name": "osx-arm64 \u00b7 Python 3.11",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645049,
+          "name": "linux-64 \u00b7 Python 3.12",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645096,
+          "name": "linux-64 \u00b7 Python 3.13",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645111,
+          "name": "win-64 \u00b7 Python 3.12",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645120,
+          "name": "linux-64 \u00b7 Python 3.14",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645123,
+          "name": "osx-arm64 \u00b7 Python 3.14",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645127,
+          "name": "linux-aarch64 \u00b7 Python 3.12",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645169,
+          "name": "win-64 \u00b7 Python 3.11",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645245,
+          "name": "osx-arm64 \u00b7 Python 3.13",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "job_id": 113330645313,
+          "name": "win-64 \u00b7 Python 3.13",
+          "conclusion": "success",
+          "executed_required_steps": [
+            {
+              "name": "Install the selected package pair",
+              "conclusion": "success"
+            },
+            {
+              "name": "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
+              "conclusion": "success"
+            },
+            {
+              "name": "Record the exact environment",
+              "conclusion": "success"
+            },
+            {
+              "name": "Retain the environment record",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "receptor": {
+        "exit_code": 0,
+        "report": "PASS conclusion=success | profile=ci | roles=build:1,other:16 | jobs=17/17 | artifacts=16 | uibcdf/molsysmt run=37783010701"
+      },
+      "verification": "All sixteen original ZIP digests and payload hashes retained; explicit staging URLs, builds and MD5 agree with the original SHA-256-verified package bytes. Every platform uses the same native artifact across its four Python minors. All sixteen cells and all 64 required execution steps pass.",
+      "limit": "Clean package/runtime smoke, not execution of all consumer-specific Interactions/browser/session tests in every cell; Windows portability remains experimental. No automatic promotion of scientific profiles or public publication authorization."
     }
   },
   "consumer_notice": {
     "route": "codex queue to the existing Viewer owner session",
     "producer_and_campaigns_delivered": true,
-    "installed_pair_not_dispatched": true,
-    "all_four_files_and_hashes_delivered": true
+    "installed_pair_not_dispatched": false,
+    "all_four_files_and_hashes_delivered": true,
+    "installed_pair_run_id_delivered": 37783010701,
+    "current_route": "Existing authorized Viewer Codex session; run ID and exact inputs delivered after dispatch."
   },
   "remaining": [
-    "Inspect all campaigns and retain original scientific/JUnit/native artifacts and actual executed steps.",
-    "Review exact-source/native and Viewer prerequisite gates; then agree and execute the single exact installed-pair matrix and consumer scope.",
-    "Complete installed qualification and final-candidate obligations; no public tag/Release/promotion before separate approval.",
-    "Complete #250/#254 final-candidate obligations, final publication approval and #334 preservation/public-record checks."
+    "Reconcile consumer-specific interaction/browser/session evidence and final #250/#254 documentation and acceptance obligations.",
+    "Present concrete #334 final qualification for separate maintainer publication approval.",
+    "After approval only: public tag/Release, promotion of the original tested files, public installed verification and Zenodo preservation."
   ],
   "not_performed": [
-    "Installed-pair dispatch",
     "Public tag",
     "GitHub Release",
     "Main-label promotion",
@@ -1601,17 +3768,99 @@
     "viewer_canonical_ci": {
       "run_id": 37760422583,
       "head_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
-      "status": "in_progress",
-      "conclusion": null,
+      "status": "completed",
+      "conclusion": "failure",
       "use_staging": true,
       "versions": {
         "molsysmt": "1.0.0",
         "molsysviewer": "0.24.1"
       },
       "qt_job": "failure; experimental scope separately owned by uibcdf/molsysviewer#109",
-      "scientific_jobs": "Five of six jobs success at latest native inspection; macOS/Python 3.12 active."
+      "scientific_jobs": "Six of six required jobs success; all Run tests steps executed successfully. Global failure is retained for the separate experimental Qt job under uibcdf/molsysviewer#109.",
+      "job_states": [
+        {
+          "name": "Qt pipeline completes (Xvfb, software WebGL)",
+          "conclusion": "failure",
+          "test_steps": []
+        },
+        {
+          "name": "Test on ubuntu-latest, Python 3.13",
+          "conclusion": "success",
+          "test_steps": [
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Test on ubuntu-latest, Python 3.12",
+          "conclusion": "success",
+          "test_steps": [
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Test on macos-15, Python 3.11",
+          "conclusion": "success",
+          "test_steps": [
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Test on ubuntu-latest, Python 3.11",
+          "conclusion": "success",
+          "test_steps": [
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Test on macos-15, Python 3.12",
+          "conclusion": "success",
+          "test_steps": [
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Test on macos-15, Python 3.13",
+          "conclusion": "success",
+          "test_steps": [
+            {
+              "name": "Run tests",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Check skipped-commit backlog",
+          "conclusion": "skipped",
+          "test_steps": []
+        },
+        {
+          "name": "PR full suite",
+          "conclusion": "skipped",
+          "test_steps": []
+        }
+      ],
+      "receptor": {
+        "exit_code": 1,
+        "report": "FAIL conclusion=failure status=completed | uibcdf/molsysviewer | run=37760422583 attempt=1 | profile=ci\nworkflow: .github/workflows/CI.yaml | jobs: 9 (failure=1, skipped=2, success=6)\nfailed groups (1, 1 jobs):\n- Qt pipeline completes (Xvfb, software WebGL) | failure | steps: Qt transport round-trip in a real Qt process\nci roles: test=7(failure:1,success:6); other=2(skipped:2)\nroot causes (1):\n[1] [4683:4719:1008/100038.603337:ERROR:../../../src/3rdparty/chromium/dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /home/runner/micromamba/envs/test/var/run/dbus/system_bus_socket: No such file or directory | jobs=1\n    evidence: 7_Qt pipeline completes (Xvfb, software WebGL).txt:1442\nartifacts: none\nrun: https://github.com/uibcdf/molsysviewer/actions/runs/37760422583",
+        "scope": "Authoritative global failure retained; six scientific jobs passed, experimental Qt remains separately owned. No globally green Viewer CI claim."
+      }
     },
-    "single_installed_pair_dispatch": "Wait for canonical Viewer scientific and MolSysMT full/native gates, then agree one dispatch.",
+    "single_installed_pair_dispatch": "Owner agreement and terminal prerequisite review completed; sole MolSysMT dispatch 37783010701.",
     "previous_191_guard_snapshot": {
       "tests": 191,
       "scope": [
@@ -1633,5 +3882,16 @@
     "owner_reported_commit": "c3f91dc8",
     "scope": "Viewer independently verifies the same eight scientific ZIPs and two Linux JUnit ZIPs; this cross-check does not add tests or complete pending cells.",
     "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5"
+  },
+  "prerequisite_terminal_review": {
+    "reviewed_at": "2026-10-08T13:17:56.719931+00:00",
+    "full_source_cells": 8,
+    "scientific_certificates": 8,
+    "full_suite_junit_originals": 8,
+    "native": "37759580359 completed success; retained executed-step and receptor review.",
+    "viewer_scientific_cells": 6,
+    "viewer_global_conclusion": "failure",
+    "excluded_scope": "Experimental Qt under uibcdf/molsysviewer#109; no promotion of support or scientific profile stability.",
+    "coordination": "Viewer owner confirms readiness and requests MolSysMT as sole dispatcher; this owner reviewed terminal original evidence before dispatch."
   }
 }

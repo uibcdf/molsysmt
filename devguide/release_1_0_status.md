@@ -29,7 +29,7 @@ source `66ea54e45ff3b9498e5f6f668c3d519888dca7b4`, is now withdrawn by its
 owner as the final candidate. The replacement is **0.24.1, build 1**, source
 `ae1fb995d6a38f2df6df206d2af26fbde1531f24`, verified remote branch
 `candidate/0.24.1-build1`; its file/hash are independently inspected below and
-prerequisite-gate review remains pending. GitHub comparison verifies nine changed files: three workflow defaults,
+prerequisite gates are now reviewed. GitHub comparison verifies nine changed files: three workflow defaults,
 one existing guard and five developer-guide records. No molecular or runtime
 source changes require rebuilding the MolSysMT artifacts. The
 [frozen-candidate receipt](../devtools/data/release_1_0_frozen_candidate_20261008.json)
@@ -72,20 +72,37 @@ explicitly supplied. Native qualification completes successfully: thirty jobs
 pass and the PR-only job is the expected skip. Native job records confirm Rust
 format/lint/tests and all four controlled installed public-smoke steps actually
 execute. GH Run Receptor independently confirms the terminal result. The
-eight-cell source campaign remains active; all eight original scientific ZIPs
+eight-cell source campaign completes successfully; all eight original scientific ZIPs
 are downloaded and digest-verified against the clean producer, all 47 nodes
-and 54 passing cases with zero omissions. Three Linux full-suite cells
-(Python 3.11/3.12/3.13) complete successfully; original JUnit ZIP/payload hashes,
-all 26 skipped cases and native executed-step records are verified for each.
-Each records 13,301 passes and no failures/errors. The remaining five cells
-and full-matrix sign-off stay pending. Default peptide-parity deselection is
-active; its count awaits native-log inspection because JUnit does not record
-deselected nodes. Viewer's independent review verifies the same eight scientific
-ZIPs and two of these Linux JUnit ZIPs; this adds confidence, not test counts.
-Both sets of package identities are available;
-the installed-pair matrix waits for the
-owners' prerequisite-gate review and one agreed dispatch. No public tag,
-Release or main-label promotion is performed.
+and 54 passing cases with zero omissions. All eight original full-suite JUnit
+ZIP/payload hashes, skipped-case reasons and required executed-step records are
+verified. Each Linux cell records 13,301 passes and 26 skips; each macOS cell
+records 13,300 passes and 27 skips, with zero failures/errors throughout. Native
+logs confirm 40 default `peptide_parity` deselections per cell, which JUnit does
+not record. Skips concern optional Ackredit, Vina, CuPy, unyt and astropy,
+an RDKit-dependent expectation, and one Linux-only test on macOS; they do not
+waive the separate zero-skip scientific certificate. GH Run Receptor confirms
+the successful terminal source campaign. Viewer's independent review of the
+original artifacts adds confidence, not test counts.
+
+After both owners' prerequisite review and agreement, MolSysMT launches the
+single [installed-pair staging matrix 37783010701](https://github.com/uibcdf/molsysmt/actions/runs/37783010701)
+on `candidate/1.0.0-build0`, the exact producer above: **MolSysMT 1.0.0 build 0 /
+MolSysViewer 0.24.1 build 1**, four native platforms by Python 3.11–3.14.
+The preflight finds no previous installed-pair dispatch on that SHA. This
+campaign checks clean Conda installation, version/provenance, native code,
+BCIF, PDB-text loading and Viewer resources, retaining explicit environments.
+It completes successfully on **16/16 cells**. All sixteen original environment
+ZIP digests and payload hashes are verified. Explicit staging URLs, exact builds
+and MD5 agree with the previously SHA-256-verified original package bytes; each
+platform uses one native artifact across its four Python minors. All 64 required
+installation, validation and environment-retention steps execute successfully.
+GH Run Receptor confirms seventeen successful jobs and sixteen artifacts.
+Consumer-specific interaction, browser and session evidence retains its own
+scope; this smoke matrix does not execute those tests in every cell or change
+Windows' experimental portability classification. Final #250/#254 acceptance
+and #334 publication review remain pending. No public tag, Release or main-label
+promotion is performed.
 
 The replacement Viewer file is `molsysviewer-0.24.1-py_1.tar.bz2`, SHA-256
 `ab2d6c2a7f8c165c7dc626e277724dcddf06b211f34149de685d0839c1bfde94`,
@@ -109,12 +126,12 @@ owner-reported results, not independently rerun by MolSysMT. The earlier
 Viewer canonical staging CI
 [37760422583](https://github.com/uibcdf/molsysviewer/actions/runs/37760422583)
 identifies the replacement source and selected versions. Its required scientific
-jobs remain in progress; five of six succeed at the latest inspection, with
-macOS/Python 3.12 active.
+jobs complete successfully: all six execute their `Run tests` step and pass.
 The Qt job fails in its experimental scope under uibcdf/molsysviewer#109;
-do not report that campaign globally green or use it to clear unfinished
-scientific jobs. Agree the unique installed-pair dispatch only after these
-required outcomes and MolSysMT's source/native gates have been reviewed.
+do not report that campaign globally green. The native job records and GH Run
+Receptor retain its global failure alongside the successful scientific scope.
+The Viewer owner confirms readiness for the single installed-pair dispatch;
+MolSysMT independently reviews these terminal outcomes before launching it.
 
 The Viewer owner initially delivers `molsysviewer-0.24.1-py_0.tar.bz2` from producer
 `37757179478`, SHA-256
@@ -860,19 +877,23 @@ correct developer tooling or update this ledger.
    under `uibcdf/molsysmt#334`, and review the owning native/result acceptance
    issues. The 16/16 public pair, 8/8 final source matrix and verified Zenodo
    receipts are a completed pre-1.0 baseline, not automatic 1.0 sign-off.
-2. Current development controlled-source pins now select the published Viewer
-   baseline. Preserve historical pins at their original candidate; do not move
-   qualified tags or rebuild public files merely to update development routes.
-   Source matrix `37734711393` and native campaign `37734713996` are both
-   successful on the recorded development source, with original artifact and
-   executed-step verification. Neither is a 1.0-artifact claim.
+2. Preserve the frozen MolSysMT producer `6dc80725ea506f977fb5e52dfd701c2227875fa5`
+   and its four original 1.0.0 build-0 files. The selected Viewer counterpart is
+   `ae1fb995d6a38f2df6df206d2af26fbde1531f24`, 0.24.1 build 1. Current candidate
+   source/native qualification explicitly supplies this replacement SHA; the
+   routine pins frozen with the producer still describe the initial Viewer
+   source. Do not move refs or rebuild artifacts solely to change those pins.
+   Historical source/native campaigns `37734711393` / `37734713996` remain
+   pre-1.0 development evidence, not a 1.0-artifact claim.
 3. Retain the completed central receiving response for #237/#244 under
    uibcdf/molsyssuite#51 and this delivery's administrative conformance. Version
-   metadata and the staged route for 1.0.0 build 0 are prepared. Obtain the
-   MolSysMT producer and both current staged file identities are recorded above.
-   Viewer withdrew build 0 and its corrected build 1 is inspected. Verify the
-   restarted exact-source/native campaigns and the Viewer prerequisite gates,
-   then agree the single installed-pair dispatch against these exact files.
+   metadata, the staged route and both current artifact identities are recorded
+   above. The exact eight-cell source campaign `37759578359`, native campaign
+   `37759580359` and required Viewer prerequisites are reviewed. The sixteen-cell
+   installed-pair staging campaign `37783010701` also passes; its original
+   explicit environments and exact-file/runtime outcomes are verified and
+   retained. Do not dispatch a duplicate. Reconcile consumer-specific interaction,
+   browser and session evidence separately from the clean-install smoke scope.
    #250/#254 retain their final-candidate checks and #334 owns qualification and
    publication approval. Keep feature scope frozen; extensions retain their
    post-1.0 owners. A final-candidate failure returns its affected scope to
