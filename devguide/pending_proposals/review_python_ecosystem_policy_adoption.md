@@ -18,6 +18,23 @@ supersedes: []
 `uibcdf/molsyssuite#6`.
 **Status:** Developer tools and support libraries are both partially reviewed.
 
+## Stabilization source qualification — 2026-10-08
+
+The updated published-Viewer development route at
+`eab7aeb79cc397f92a08081766f5c25792503ae8` passes the complete eight-cell
+source matrix `37734711393` and native campaign `37734713996`. Both terminal
+conclusions are independently confirmed by GH Run Receptor. Original
+scientific certificates, JUnit omissions, default peptide-parity exclusions,
+artifact hashes and executed steps are retained in the
+[bounded receipt](../../devtools/data/pre_1_0_issue_reconciliation_20261007.json).
+The earlier unit-policy failures remain historical evidence for their original
+sources; they are not failures of this integrated checkpoint.
+
+Runtime sources and test/packaging/workflow inputs are unchanged in subsequent
+documentation-only checkpoints. This does not certify final 1.0 artifacts or
+mutate the central inventory. The support-library/developer-tool receiving
+response remains pending under the existing MolSysSuite handoff below.
+
 ## Public receiving reconciliation — 2026-10-07
 
 The [published pair ledger](../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)

@@ -30,7 +30,7 @@ passes 54/54 cases from 47 registered nodes with zero skips/errors/failures
 on that clean source. Remote smoke `37734610812`, Ruff, dependency contract,
 devguide, suite policy and Conda governance pass on the same source.
 
-The newly dispatched [full matrix](https://github.com/uibcdf/molsysmt/actions/runs/37734711393)
+The completed [full matrix](https://github.com/uibcdf/molsysmt/actions/runs/37734711393)
 and [native wheels](https://github.com/uibcdf/molsysmt/actions/runs/37734713996)
 retain that exact source and the published Viewer SHA. The native campaign
 concludes success: thirty jobs pass and the PR-only runtime job is the expected
@@ -38,29 +38,34 @@ skip. Rust controls, four platform builds, sixteen runtime cells, four NumPy
 floor checks, four installed public smokes and the source round trip execute.
 GH Run Receptor independently confirms that terminal conclusion. This is native
 qualification of the recorded development source, not public-package delivery.
-The full source matrix remains in progress. All eight original scientific
-certificate ZIPs have been downloaded and checked against GitHub SHA-256
-digests: each identifies this clean source, matches all 47 registered nodes and
-passes 54 cases with zero skips/errors/failures. At the 2026-10-08 06:33 UTC
-inspection, three completed full-suite cells also have verified original JUnit
-artifacts and native job logs:
+The full source matrix concludes success on all eight Linux/macOS arm64 ×
+Python 3.11–3.14 combinations. GH Run Receptor independently confirms the
+terminal result. Nine jobs succeed, including the controlled Viewer build;
+the PR-only aggregate job is the expected skip for manual dispatch.
 
-| Completed cell | Passed | Skipped | Deselected | Failures/errors |
+All eight original scientific certificate ZIPs have been downloaded and
+checked against GitHub SHA-256
+digests: each identifies this clean source, matches all 47 registered nodes and
+passes 54 cases with zero skips/errors/failures. All eight full-suite cells
+also have verified original JUnit artifacts and native job logs:
+
+| Platform / Python versions | Passed per cell | Skipped per cell | Deselected per cell | Failures/errors |
 | --- | ---: | ---: | ---: | ---: |
-| Linux, Python 3.14 | 13,301 | 26 | 40 | 0 |
-| Linux, Python 3.12 | 13,301 | 26 | 40 | 0 |
-| macOS arm64, Python 3.13 | 13,300 | 27 | 40 | 0 |
+| Linux, Python 3.11–3.14 (four cells) | 13,301 | 26 | 40 | 0 |
+| macOS arm64, Python 3.11–3.14 (four cells) | 13,300 | 27 | 40 | 0 |
 
 The JUnit receipt retains every skipped node and reason: absent optional
 Ackredit, Vina, CuPy, unyt and astropy, the installed-RDKit negative path and,
 on macOS, one Linux-only test. The default peptide-parity exclusion accounts
 for the forty deselected cases; these are recorded separately from JUnit.
-The remaining five full-suite cells are still executing at that inspection.
-Successful scientific
-certificates and individual full-suite cells do not constitute the matrix's
-terminal verdict. Original ZIPs and logs remain in the task-owned `/tmp`
-directory recorded by the bounded receipt for final reconciliation.
-The later documentation-only head `b777029e2` passes smoke `37737276733`.
+Every cell's native job record confirms executed fast gates, scientific
+evidence, Ruff, the full suite and JUnit retention. Original ZIPs and logs
+remain in the task-owned `/tmp` directory recorded by the bounded receipt.
+The documentation-only heads `b777029e2` and `4d6ace0d6` pass their applicable
+smoke, devguide, suite-policy and Conda-governance checks. Runtime sources,
+tests, workflows and packaging are unchanged from the qualified `eab7aeb79`.
+These receipts qualify that development source, not a different final 1.0
+commit or newly installed release artifacts.
 
 No new package or release tag is published. Central receiving reconciliation
 was delivered to uibcdf/molsyssuite#51 (comment 6053257691);
@@ -682,8 +687,9 @@ correct developer tooling or update this ledger.
 2. Current development controlled-source pins now select the published Viewer
    baseline. Preserve historical pins at their original candidate; do not move
    qualified tags or rebuild public files merely to update development routes.
-   Inspect the terminal result of source matrix `37734711393`; the native
-   campaign `37734713996` is already successful. Neither is a 1.0-artifact claim.
+   Source matrix `37734711393` and native campaign `37734713996` are both
+   successful on the recorded development source, with original artifact and
+   executed-step verification. Neither is a 1.0-artifact claim.
 3. Complete the central receiving response for #237/#244 under
    uibcdf/molsyssuite#51, then select the exact 1.0 source and coordinated Viewer
    version/source before preparing version metadata and new staged artifacts.

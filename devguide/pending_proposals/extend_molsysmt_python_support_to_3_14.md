@@ -29,6 +29,23 @@ The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
 compact handoff for current evidence and the next gate. This proposal keeps
 the detailed analysis and acceptance criteria.
 
+## Stabilization source qualification — 2026-10-08
+
+The post-publication PDB repair and updated Viewer development pin are now
+qualified at `eab7aeb79cc397f92a08081766f5c25792503ae8`: full source run
+`37734711393` passes all eight Linux/macOS arm64 × Python 3.11–3.14 cells;
+native run `37734713996` also concludes success. The
+[bounded receipt](../../devtools/data/pre_1_0_issue_reconciliation_20261007.json)
+retains original ZIP/payload hashes, all eight scientific certificates, JUnit
+omission nodes, separately recorded peptide-parity exclusions and executed
+job-step verification. GH Run Receptor independently confirms both terminal
+conclusions. No supported-source cell fails.
+
+This advances development-source qualification without changing the published
+0.23.0 files or selecting 1.0. Central admission still needs the owning
+MolSysSuite response to the existing handoff below. Final 1.0 source and
+installed-artifact obligations remain under #334.
+
 ## Public receiving reconciliation — 2026-10-07
 
 The [published pair ledger](../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)

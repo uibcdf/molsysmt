@@ -144,9 +144,9 @@
     "molsysviewer_sha": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
     "source_full_matrix": {
       "run": 37734711393,
-      "state": "in_progress",
-      "qualified": false,
-      "conclusion": null,
+      "state": "completed",
+      "qualified": true,
+      "conclusion": "success",
       "job_statuses": [
         {
           "name": "Build controlled MolSysViewer wheel",
@@ -160,13 +160,13 @@
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.11",
-          "status": "in_progress",
-          "conclusion": ""
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.14",
-          "status": "in_progress",
-          "conclusion": ""
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
@@ -180,21 +180,26 @@
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
-          "status": "in_progress",
-          "conclusion": ""
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
-          "status": "in_progress",
-          "conclusion": ""
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.12",
-          "status": "in_progress",
-          "conclusion": ""
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "PR full suite",
+          "status": "completed",
+          "conclusion": "skipped"
         }
       ],
-      "observed_at": "2026-10-08T06:33:13.343118+00:00",
+      "observed_at": "2026-10-08T06:49:24.375597+00:00",
       "verified_scientific_certificates": [
         {
           "id": 11531640719,
@@ -825,9 +830,814 @@
           "deselected": 40,
           "native_log_sha256": "533da66ac4da57a0dcc2ddc1035161dfd14ab3aeefa65b33ee02a735acfb2cf9",
           "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
+        },
+        {
+          "id": 11533076992,
+          "name": "full-suite-results-ubuntu-latest-py3.11",
+          "size_in_bytes": 152540,
+          "digest": "sha256:423b4bd8a90a6f3e7c97b67af9f4e6987b319bd7b1ad99eee9723f2723f7bef6",
+          "junit_sha256": "dce505256b2fd5a23c232eb470c67e0be021baec8810c234d491e12218f6097b",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13301,
+          "deselected": 40,
+          "required_executed_steps": [
+            "Run fast release gates",
+            "Execute registered scientific evidence",
+            "Run Ruff",
+            "Run full test suite",
+            "Upload full-suite test results"
+          ],
+          "native_log_sha256": "6853c28229dd478126d230864248c2794fb405b42f53fef212f6c1e4213beb1c",
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
+        },
+        {
+          "id": 11532971143,
+          "name": "full-suite-results-macos-15-py3.14",
+          "size_in_bytes": 156803,
+          "digest": "sha256:b8fe778ad781cfbc3aa02a86d8b2567a0fa1680049def8c0505af88a6fb7de4d",
+          "junit_sha256": "fba72d7b3f78936b184787a82a5413e2566f06cef1928d229bc4fc17b3ef6583",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.build.get_missing_bonds.test_get_missing_bonds",
+              "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+              "reason": "This test can only be run in linux"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13300,
+          "deselected": 40,
+          "required_executed_steps": [
+            "Run fast release gates",
+            "Execute registered scientific evidence",
+            "Run Ruff",
+            "Run full test suite",
+            "Upload full-suite test results"
+          ],
+          "native_log_sha256": "02f58ff00f01a12d31272b094883dceda99977500165baa99d048f26365b87d9",
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
+        },
+        {
+          "id": 11532643107,
+          "name": "full-suite-results-ubuntu-latest-py3.13",
+          "size_in_bytes": 151080,
+          "digest": "sha256:f03b9dee149c533bb6ae16ee8c6bef08ad615254db70858ef9a764bd9441a199",
+          "junit_sha256": "c7219d9e1cbcc628d78db2dcc92529f0c39bbf68d97f2f29e96ead063d953008",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13301,
+          "deselected": 40,
+          "required_executed_steps": [
+            "Run fast release gates",
+            "Execute registered scientific evidence",
+            "Run Ruff",
+            "Run full test suite",
+            "Upload full-suite test results"
+          ],
+          "native_log_sha256": "5df1645071548346537823ee4bfcbc0dd88a298efa3cb2478d49d3c723e21cd3",
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
+        },
+        {
+          "id": 11532499023,
+          "name": "full-suite-results-macos-15-py3.11",
+          "size_in_bytes": 156561,
+          "digest": "sha256:3eb859ed9f602506e5df070ae89014ab5a9ae61626228d452688e4499bb27a3e",
+          "junit_sha256": "4f11ba15c99a5f70877a1fbf2b22ebcd6e2c86a81b33ef57c1e6495e205fc23b",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.build.get_missing_bonds.test_get_missing_bonds",
+              "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+              "reason": "This test can only be run in linux"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13300,
+          "deselected": 40,
+          "required_executed_steps": [
+            "Run fast release gates",
+            "Execute registered scientific evidence",
+            "Run Ruff",
+            "Run full test suite",
+            "Upload full-suite test results"
+          ],
+          "native_log_sha256": "4e6721442993e9bd9c8a45816dc8a308abd75ffbf296ca54a077f77040f9e102",
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
+        },
+        {
+          "id": 11533585484,
+          "name": "full-suite-results-macos-15-py3.12",
+          "size_in_bytes": 157703,
+          "digest": "sha256:8d57d71ec55fa0dd34d04ef656497a7b86fa3c1d0390523a7e79e4879f1dd7cf",
+          "junit_sha256": "eac2e5473e5744dccd18cc9ec37378a096a19f5cd99d5fb3b3a20eb8dc70d5eb",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.build.get_missing_bonds.test_get_missing_bonds",
+              "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+              "reason": "This test can only be run in linux"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13300,
+          "deselected": 40,
+          "required_executed_steps": [
+            "Run fast release gates",
+            "Execute registered scientific evidence",
+            "Run Ruff",
+            "Run full test suite",
+            "Upload full-suite test results"
+          ],
+          "native_log_sha256": "dfd0b646692c26663001d8c86a5311d12b4e65dda7f2ac507e859df24f87a840",
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
         }
       ],
-      "scope": "Eight scientific certificates and completed full-suite artifacts verified by original ZIP SHA-256, payloads and completed-job logs; the full matrix remains nonterminal and is not qualified."
+      "scope": "Complete eight-cell source matrix with original scientific certificates and JUnit ZIP digests, skipped nodes, native job logs and separate peptide-parity exclusions; no final-1.0 candidate or installed-artifact claim.",
+      "required_executed_steps_per_cell": [
+        "Run fast release gates",
+        "Execute registered scientific evidence",
+        "Run Ruff",
+        "Run full test suite",
+        "Upload full-suite test results"
+      ],
+      "independent_terminal_verdict": "GH Run Receptor: PASS conclusion=success; test:8, build:1, other:1; nine successful jobs and one expected PR-only skip; seventeen original artifacts.",
+      "successful_jobs": 9,
+      "expected_skipped_jobs": 1
     },
     "native_wheels": {
       "run": 37734713996,
@@ -1024,5 +1834,16 @@
     "source_commit": "b777029e2b1aa71b7d924d9ec12ac26bc764d515",
     "smoke_run": 37737276733,
     "smoke_conclusion": "success"
+  },
+  "verified_documentation_head": {
+    "source_commit": "4d6ace0d6600365691ba063092e9956eeba67ffa",
+    "checks": {
+      "smoke": 37738314385,
+      "devguide": 37738314301,
+      "suite_policy": 37738314866,
+      "conda_governance": 37738314906
+    },
+    "conclusions": "All completed success.",
+    "runtime_diff_from_qualified_source": "No changes to molsysmt, tests, pyproject.toml, Cargo.toml, workflows or Conda recipes."
   }
 }
