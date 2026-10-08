@@ -72,12 +72,17 @@ receiving owner has accepted #237/#244 under uibcdf/molsyssuite#51 at
 `3116b7d9f1fa9ba4d09b81a8f24a22b749805f9f`, frozen by `policy-v1.5.9`.
 MolSysMT is `admitted` for the immutable public 0.23.0 / Viewer 0.24.0 pair;
 its applicable support-library/developer-tool reviews are `adopted`. The
-caller/badge and canonical guide are delivered in this owner change, and
-the reports are archived with addressable guards. Administrative native
-conformance must be verified before closing their board entries. Final 1.0 candidate gates under #250/#254/#334 remain
-mandatory and are not waived by either this closure or the earlier public pair.
-The 2026-10-08 read-only board review finds the same five open 1.0 issues and
-no newly reported bug. #139/#144 retain their accepted post-1.0 debt boundaries;
+caller/badge and canonical guide are delivered at
+`a04ec0fa3a947a7c959b7f56b09301bb37eceb90`. Both owning issues are closed and
+their reports are archived with addressable guards. Exact native conformance
+`37742928564` and devguide `37742932367` execute successfully on that delivery;
+GH Run Receptor independently confirms their terminal conclusions, and native
+steps confirm conformance, Ruff lint and formatting actually ran. The central
+delivery receipt is retained under uibcdf/molsyssuite#51.
+Final 1.0 candidate gates under #250/#254/#334 remain mandatory and are not
+waived by either this closure or the earlier public pair.
+The latest 2026-10-08 read-only board review now finds only three open 1.0
+issues: #250, #254 and #334. #139/#144 retain their accepted post-1.0 debt boundaries;
 they are not evidence that every declared form route or documentation warning
 has been corrected.
 
