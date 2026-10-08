@@ -20,7 +20,22 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Final-candidate preparation — 2026-10-08
+## Release coordination paused — 2026-10-08
+
+The Viewer owner relays an explicit maintainer decision to postpone both
+MolSysMT 1.0 and MolSysViewer 1.0 while a Viewer design/use question is discussed.
+The qualified **MolSysMT 1.0.0 build 0 / MolSysViewer 0.24.1 build 1** pair below
+is preserved as evidence, but is no longer selected for immediate public
+publication. No replacement Viewer version, source SHA or artifact is agreed.
+
+Keep all existing refs, original files and qualification outcomes unchanged.
+Do not move/delete refs, rebuild files, repeat matrices or close #250/#254 as
+final-candidate acceptance during this pause. No tag, GitHub Release, public
+promotion or Zenodo publication is authorized. No MolSysMT implementation change
+has been requested for the new Viewer question. First discuss that question;
+then agree new candidate identities and the affected qualification scope.
+
+## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source
 `6dc80725ea506f977fb5e52dfd701c2227875fa5`, remote branch
@@ -865,6 +880,11 @@ General adapter-delivery debt (uibcdf/molsysmt#139), documentation build debt
 open; this closure does not certify them or establish release readiness.
 
 ## Resume from here
+
+Release advancement is paused by the maintainer decision relayed above. The
+sequence below describes retained evidence and the former release route; do
+not execute its publication/closure steps or new qualification campaigns until
+the owners agree the new candidate direction after the Viewer discussion.
 
 The [frozen scope](release_1_0_scope.md) governs admission. The published pre-1.0
 pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**; its files and executed evidence

@@ -1,7 +1,7 @@
 {
   "owner": "uibcdf/molsysmt#334",
   "recorded_at": "2026-10-08T09:37:55.101765+00:00",
-  "status": "Exact source/native prerequisites and sixteen-cell installed staging pair reviewed and passed within their documented scopes; final #250/#254 acceptance and #334 publication review pending.",
+  "status": "Qualified pair retained as evidence; release coordination paused by maintainer decision relayed through the Viewer owner. No replacement candidate agreed.",
   "molsysmt": {
     "version": "1.0.0",
     "build_number": 0,
@@ -3447,9 +3447,10 @@
     "current_route": "Existing authorized Viewer Codex session; run ID and exact inputs delivered after dispatch."
   },
   "remaining": [
-    "Reconcile consumer-specific interaction/browser/session evidence and final #250/#254 documentation and acceptance obligations.",
-    "Present concrete #334 final qualification for separate maintainer publication approval.",
-    "After approval only: public tag/Release, promotion of the original tested files, public installed verification and Zenodo preservation."
+    "Await the Viewer design/use discussion; no new MolSysMT implementation change has been requested.",
+    "Agree any replacement candidate version, source SHA, artifacts and affected qualification scope before resuming coordination.",
+    "Preserve the current qualified pair, original refs/files/results and open #250/#254/#334.",
+    "Public tags/Releases/promotions/Zenodo remain unauthorized; any later publication requires separate maintainer approval."
   ],
   "not_performed": [
     "Public tag",
@@ -3893,5 +3894,15 @@
     "viewer_global_conclusion": "failure",
     "excluded_scope": "Experimental Qt under uibcdf/molsysviewer#109; no promotion of support or scientific profile stability.",
     "coordination": "Viewer owner confirms readiness and requests MolSysMT as sole dispatcher; this owner reviewed terminal original evidence before dispatch."
+  },
+  "release_coordination_pause": {
+    "recorded_at": "2026-10-08T13:24:54.446932+00:00",
+    "source": "Explicit maintainer decision relayed by the authorized existing MolSysViewer owner Codex session.",
+    "decision": "Postpone both 1.0 publications pending a Viewer design/use discussion; the next Viewer candidate will supersede 0.24.1 but its version, SHA and artifacts are not agreed.",
+    "preservation": "Retain current refs, original package bytes and qualification results unchanged. No ref moves/deletion, rebuilds or repeated matrices.",
+    "closure": "Do not close #250/#254 as final-candidate acceptance during this pause.",
+    "next_step": "Discuss the Viewer requirement, then agree new candidate identities and affected qualification scope.",
+    "molsysmt_implementation_changes_requested": false,
+    "publication_authorized": false
   }
 }
