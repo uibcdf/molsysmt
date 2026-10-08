@@ -28,7 +28,7 @@ The public result already offers queries, remapping, invalidation, compatible `r
 
 ## What is inspected and what is assumed
 
-Source inspection of `molsysmt/interactions/result.py` confirms the existing operations. Their executed evidence is in [#252's record](implement_experimental_sparse_interactions_results_and_queries.md#provider-closure-checklist). No new editor, benchmark or proven complexity bound is delivered here.
+Source inspection of `molsysmt/interactions/result.py` confirms the existing operations. Their executed evidence is in [#252's record](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#provider-closure-checklist). No new editor, benchmark or proven complexity bound is delivered here.
 
 ## What was refuted
 

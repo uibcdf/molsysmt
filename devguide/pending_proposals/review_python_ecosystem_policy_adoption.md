@@ -18,6 +18,32 @@ supersedes: []
 `uibcdf/molsyssuite#6`.
 **Status:** Developer tools and support libraries are both partially reviewed.
 
+## Public receiving reconciliation — 2026-10-07
+
+The [published pair ledger](../release_1_0_status.md#current-pre-10-checkpoint--2026-10-07)
+and [original handoff receipt](../../devtools/data/stabilization_023_staging_handoff_20261006.json)
+now supply the completed pre-1.0 8/8 exact-source, native-wheel and 16/16
+public installed-pair evidence for MolSysMT 0.23.0 / MolSysViewer 0.24.0.
+GH Run Receptor independently rechecked the source and public-pair terminal
+conclusions. No later source fix is attributed to those immutable files.
+
+The inspected central `suite.toml` still records MolSysMT's Python transition
+as `authorized` and its support-library/developer-tool review as `partial`.
+The local public delivery is complete, but central receiving reconciliation is
+still required before changing those states or closing this owner report.
+The selected four support-provider pins remain published exact sources; current
+Viewer development routes now select the delivered 0.24.0 build-1 producer.
+The existing quantity/argument/diagnostic/dependency guards and original
+full-matrix evidence retain their scope. #155's optimization audit and #292's
+portable optional-attribution migration remain post-1.0, not invented gaps in
+this delivered runtime. Post-publication #349 is separately guarded and its
+repair requires fresh future-candidate qualification under #334.
+
+The final public receiving handoff was delivered to uibcdf/molsyssuite#51
+(comment 6053257691); its complete body was checked after publication.
+The central owner must reconcile its registry or identify a concrete missing
+check; this local report remains partial until that response.
+
 ## What
 
 Review MolSysMT against the inherited MOLI Python support-library and

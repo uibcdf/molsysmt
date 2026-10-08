@@ -55,7 +55,7 @@ detached attribution in their existing parameter metadata; no root-version bump
 or per-occurrence bibliography is introduced. The original calculation's software
 versions remain unchanged on loading. Local real MolSysViewer qualification has
 passed complete/analysis-only H5MSM and MSV session round trips, superseding the
-2026-09-29 pending-client statement above. Its [source and evidence boundaries](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+2026-09-29 pending-client statement above. Its [source and evidence boundaries](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
 do not certify a published installed pair or a fresh browser/GPU run.
 
 ## Motivation
@@ -444,7 +444,7 @@ absent/present-empty layers, source-index maps, and invalidated structures.
 Ask whether `read_layers` meets the viewer's memory and latency needs or a
 public file-backed query is required, and obtain representative trajectory
 sizes and access patterns. The detailed questions and review packet are in
-[the Interactions design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md#molsysviewer-review-gate-before-client-implementation).
+[the Interactions design proposal](../archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md#molsysviewer-review-gate-before-client-implementation).
 The viewer's feedback is consumer acceptance for its pre-1.0 integration;
 MolSysMT remains responsible for the H5MSM schema and its other acceptance
 criteria.

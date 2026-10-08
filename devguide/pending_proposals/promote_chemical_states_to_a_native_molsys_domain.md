@@ -14,6 +14,19 @@ supersedes: []
 
 # Promote ChemicalStates to an independent native MolSys domain
 
+## Published acceptance reconciliation — 2026-10-07
+
+The [updated consumer packet](../interactions_molsysviewer_review.md#published-consumer-acceptance--2026-10-07)
+records explicit acceptance from the now-closed uibcdf/molsysviewer#114 and
+the published 0.23.0/0.24.0 pair's 8/8 source and 16/16 installed matrices.
+Earlier awaiting-feedback statements remain historical checkpoints. This
+acceptance preserves the experimental API and existing workload limits.
+
+The issue stays partial because its criteria explicitly retain exact-1.0
+release recertification. Implementation and published consumer delivery are
+complete; final-candidate obligations remain under #334. No new feature is
+added to the frozen scope.
+
 ## S2 acceptance reconciliation — 2026-10-05
 
 The independent-domain, bond-authority, association, partial native-system and

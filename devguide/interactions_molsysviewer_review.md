@@ -5,6 +5,31 @@ This operational packet belongs to `uibcdf/molsysmt#251` and
 The [Interaction Analysis API](interactions_api.md) defines the current contract;
 this page provides a reproducible review checkpoint and requested feedback.
 
+## Published consumer acceptance — 2026-10-07
+
+MolSysViewer has closed uibcdf/molsysviewer#114 with explicit acceptance of
+named analysis discovery, declared attachment, H5MSM import, all nine family
+projections, sparse structure/atom queries, parallel occurrence identity,
+periodic images, Studio, scene replay/export and session fidelity. Its closure
+retains 207 installed interaction/loading tests with zero failures, errors or
+skips, executable user-guide examples and separate browser evidence. This is
+owner-reported evidence, not a new browser execution by MolSysMT.
+
+The exact delivered pair is MolSysMT 0.23.0 build 0 at
+`46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9` and MolSysViewer 0.24.0 build 1 at
+`1a4c97a58b68b69f3a836546c9e4ac6187c3efa2`. The provider's 8/8 final source
+matrix and 16/16 public installed-pair matrix are retained in the
+[publication receipt](../devtools/data/stabilization_023_staging_handoff_20261006.json).
+Their terminal conclusions were independently rechecked with GH Run Receptor.
+
+This supersedes the unreceived-feedback state in the dated S2 table below.
+The design and experimental result implementation have their delivered
+consumer evidence; experimental classification, measured workload limits and
+the deferred #335/#336 capabilities are unchanged. Repeating the agreed
+workflow on the exact future 1.0 candidate remains mandatory under #334 and
+uibcdf/molsysviewer#114's retained final-candidate obligation. No 1.0 candidate
+is selected or certified by this reconciliation.
+
 ## Public validation completion — 2026-10-05
 
 Provider **`0959a0f7cf3ecf6352d0ed714afacf441563c8b6`** completes the public

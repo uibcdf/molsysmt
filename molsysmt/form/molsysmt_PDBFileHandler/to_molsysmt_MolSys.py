@@ -520,7 +520,9 @@ def _apply_compnd_names(item, molsys):
     atoms = molsys.topology.atoms
     groups = molsys.topology.groups
     chain_ids = molsys.topology.chains["chain_id"].to_numpy()
-    molecule_names = molsys.topology.molecules["molecule_name"].to_numpy(dtype=object)
+    molecule_names = molsys.topology.molecules["molecule_name"].to_numpy(
+        dtype=object, copy=True
+    )
     molecule_types = molsys.topology.molecules["molecule_type"].to_numpy(dtype=object)
     for molecule_index in range(len(molecule_names)):
         if molecule_types[molecule_index] not in {"protein", "peptide"}:

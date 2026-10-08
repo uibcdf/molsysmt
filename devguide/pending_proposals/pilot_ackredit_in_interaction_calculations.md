@@ -65,7 +65,7 @@ This is a bounded first real client for Ackredit.
 
 **Real client checkpoint, 2026-10-01:** After the pilot was published as
 `e21f03d9992b87af2cc9285211adee888462be41`, the local real MolSysViewer qualification
-passed its four scientific/persistence workloads. The [implementation record](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+passed its four scientific/persistence workloads. The [implementation record](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
 separates the clean provider commit from the consumer's dirty source checkout
 and states the limits of that evidence. A new optional public-client test in
 `tests/interactions/test_scientific_attribution.py` explicitly protects original

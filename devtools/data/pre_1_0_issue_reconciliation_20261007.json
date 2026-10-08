@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-07",
+  "tracking_issue": "uibcdf/molsysmt#334",
+  "baseline_source": "0f479677e4cd06a0173de9c3331e95b1f146be9c",
+  "release_selected": false,
+  "bug_349": {
+    "fix": "Request a writable copy of the COMPND molecule-name export.",
+    "guard": "tests/form/molsysmt_PDBFileHandler/test_to_molsysmt_native.py::test_compnd_names_preserve_topology_with_copy_on_write",
+    "python": "3.14.7",
+    "numpy": "2.4.6",
+    "executions": [
+      {
+        "phase": "before_fix",
+        "pandas": "2.3.3",
+        "junit_filename": "molsysmt-349-before.xml",
+        "junit_sha256": "8a0ad6f5d1d72ee0448af2a38a08714bb27dc2feee92ae95e6b57bfc70057070",
+        "tests": 4,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "phase": "after_fix",
+        "pandas": "2.3.3",
+        "junit_filename": "molsysmt-349-after-pandas2.xml",
+        "junit_sha256": "af2fb85142e28842bba05de4fb93b94eb8b9763d383a6fdc1bbc63762ea60dc7",
+        "tests": 46,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "phase": "after_fix",
+        "pandas": "3.0.6",
+        "junit_filename": "molsysmt-349-after-pandas3.xml",
+        "junit_sha256": "0494110241c8430aee6ab8c2a8a4b49d8b33bc36a3b48644ff862dca5ec1803d",
+        "tests": 46,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "accepted_published_pair": {
+    "molsysmt_version": "0.23.0",
+    "molsysmt_source": "46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9",
+    "molsysviewer_version": "0.24.0",
+    "molsysviewer_build": 1,
+    "molsysviewer_source": "1a4c97a58b68b69f3a836546c9e4ac6187c3efa2",
+    "consumer_issue": "uibcdf/molsysviewer#114",
+    "consumer_state": "closed",
+    "source_matrix_run": 37577738386,
+    "public_installed_pair_run": 37587631519,
+    "original_files_and_environment_evidence": "devtools/data/stabilization_023_staging_handoff_20261006.json",
+    "scope": "Pre-1.0 delivery; no certification of future 1.0 files."
+  },
+  "remaining": {
+    "250": "Final exact-1.0 namespace/method and release checks.",
+    "254": "Final exact-1.0 native lifecycle/documentation and release checks.",
+    "237": "Central Python admission receiving review; suite registry still authorized.",
+    "244": "Central ecosystem receiving review; registry still partial.",
+    "334": "Final candidate selection and source/native/installed/docs qualification."
+  },
+  "focused_acceptance": {
+    "command": "python -m pytest --receptor=llm -n 12 tests/interactions/test_result.py tests/interactions/test_argument_validation.py tests/interactions/test_public_molsys_h5msm_workflow.py tests/native/test_chemical_states.py tests/native/test_molsys_chemical_state_association.py devtools/tests/test_audit_dependency_contract.py devtools/tests/test_validate_controlled_dependencies.py",
+    "junit_sha256": "b40c3567a770993f3fe081a46633d91918fc55831419bed908d1633ba7f185c4",
+    "tests": 129,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "Editable Linux Python 3.14 source; not final release recertification."
+  },
+  "independent_terminal_recheck": {
+    "command": "gh run-receptor inspect RUN --repo uibcdf/molsysmt --receptor=llm",
+    "source_matrix": "PASS conclusion=success run=37577738386",
+    "public_installed_pair": "PASS conclusion=success platforms=4/4 artifacts=16 run=37587631519"
+  },
+  "local_environment_limitations": {
+    "installed_dependency_check": "python -m pip check reports unrelated AmberTools auxiliary-package conflicts (missing pdb2pqr and older NumPy/Biopython requirements). This shared environment is not claimed as a clean public-artifact closure.",
+    "editable_providers": {
+      "smonitor": "0.19.0",
+      "argdigest": "0.15.0+1.g5c6711e",
+      "depdigest": "0.12.0+13.g104661a",
+      "pyunitwizard": "0.28.1+3.g2ab37a5",
+      "pytest-receptor": "1.1.0+19.g6d87a24",
+      "molsysviewer": "0.23.4+27.gfed1c4b8.dirty"
+    },
+    "scope": "Local source evidence; published exact-provider matrices remain separately identified."
+  },
+  "central_receiving_handoff": "https://github.com/uibcdf/molsyssuite/issues/51#issuecomment-6053257691",
+  "central_state_change": "Requested from owning registry maintainers; not assumed complete.",
+  "complete_local_source_suite": {
+    "command": "python -m pytest --receptor=llm -n 12 --junitxml=/tmp/molsysmt-pre1-full-20261007.xml",
+    "exit_code": 0,
+    "passed": 13327,
+    "duration_seconds": 407.2,
+    "warnings": 1766,
+    "junit_sha256": "de621c004b96799d005de39fe758f1ba219b222d22ac1c2757e4a0e6352e4e74",
+    "tests": 13329,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "skipped_nodes": [
+      {
+        "class": "tests.form.test_cupy_ndarray",
+        "name": "test_cupy_ndarray_form_detection_and_conversion",
+        "reason": "CuPy is not available."
+      },
+      {
+        "class": "tests.form.string_smiles.test_is_form",
+        "name": "test_is_form_cco_without_rdkit",
+        "reason": "with rdkit CCO is recognized as valid SMILES"
+      }
+    ],
+    "tree": "Applied working changes on baseline source; not a clean exact release candidate.",
+    "scope": "Shared editable Python 3.14 Linux source, existing native extension and sibling versions recorded separately; no claim of exact published-pair reinstallation."
+  },
+  "fast_gates": {
+    "passed": 14,
+    "total": 14,
+    "scope": "Existing fast-gate invocation with unchanged runtime sources; subsequent developer-guide content passed its owning validator."
+  },
+  "ruff": "Full molsysmt check and changed Python files format check pass."
+}

@@ -22,6 +22,37 @@ contracts.
 
 ## Current pre-1.0 checkpoint — 2026-10-07
 
+**Issue reconciliation:** #349 is reproduced and repaired after the published
+checkpoint. Its public PDB name/topology guard passes with Pandas 2.3.3 and
+3.0.6; the [bounded receipt](../devtools/data/pre_1_0_issue_reconciliation_20261007.json)
+retains the initial failures and compatibility outcomes. The original 0.23.0
+files remain unchanged and do not contain this later repair.
+
+The subsequent complete shared-environment Linux/Python 3.14 source suite passes
+13,327 cases with two skips, no failures/errors and 1,766 warnings in 407.20 s,
+using twelve workers and pytest-receptor. The two skips are absent CuPy and
+the installed-RDKit negative-path branch; their nodes/reasons and JUnit digest
+are retained in the bounded receipt. A separate acceptance selection passes
+129 cases; counts overlap the full suite and must not be added. All 14 fast
+gates, full-package Ruff, changed-file formatting and developer-guide/index
+checks pass. This is editable working-source evidence with the existing native
+extension and recorded sibling versions, not a new exact-installed release
+campaign. The shared environment has unrelated AmberTools auxiliary dependency
+conflicts; no clean `pip check` claim is made for that environment.
+
+Explicit published consumer acceptance now exists under the closed
+uibcdf/molsysviewer#114. #251/#252's delivered design/implementation reviews
+are resolved with their normative contracts and guards. #250/#254 retain their
+explicit exact-1.0 obligations. #237/#244 need central receiving reconciliation;
+the inspected MolSysSuite registry still records `authorized` Python adoption
+and partial ecosystem review despite the newer public-pair evidence. These
+administrative states must not be silently equated with incomplete code.
+
+Current development routes now select the published Viewer producer
+`1a4c97a58b68b69f3a836546c9e4ac6187c3efa2`. Original release/source/file receipts
+retain their historical pins. #334 still owns final 1.0 candidate selection,
+qualification and publication approval; no 1.0 candidate is selected here.
+
 The selected pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**, under the
 feature freeze in `uibcdf/molsysmt#334`. The coordinated pre-1.0 publication
 checkpoint is complete; the separate 1.0 stabilization review remains open.
@@ -281,7 +312,7 @@ The corrected broad selection passes 1,520 tests in 211.99 s. The final
 source-block delegation guard passes 116 tests in 5.43 s; selections overlap.
 The [dated artifact](../devtools/data/interactions_argument_validation_20261005.json)
 retains initial failures, source phases, dependency versions and hashes. The
-[owning report](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md#s2-acceptance-reconciliation--2026-10-05)
+[owning report](archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#s2-acceptance-reconciliation--2026-10-05)
 records the remaining criteria. #252 is partial; criterion 2 now has a guard.
 
 Ruff, formatting, dependencies, signature/API registries, docstrings, course and
@@ -649,7 +680,7 @@ adoption remain partial under `uibcdf/molsysmt#27`, `uibcdf/ackredit#75` and
 scientific workloads, geometry/query checks and H5MSM/session round trips.
 A new optional public-client guard also passed for original bibliography,
 producer versions and absence of reader calculation credits (18 focused tests,
-none skipped). [The implementation record](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+none skipped). [The implementation record](archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
 identifies the clean provider, dirty consumer source and measurement limits.
 This advances local interoperability; it is not an installed published-pair
 qualification, a new browser/GPU run or the exact-candidate 1.0 release gate.
@@ -717,7 +748,7 @@ test `tests/interactions/test_public_molsys_h5msm_workflow.py` and
 `devtools/scripts/create_molsysviewer_interactions_fixture.py` now provide
 synthetic native and H5MSM 0.5 examples. The fixture generator writes both a
 complete `MolSys` file and an interaction-only file that loads as a partial
-`MolSys`. The [review packet](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md#runnable-molsysviewer-review-packet)
+`MolSys`. The [review packet](archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md#runnable-molsysviewer-review-packet)
 states the implemented query contract and current limitations. MolSysViewer has
 accepted the experimental handoff and local qualification has advanced as
 recorded above. The original fixture packet alone is not an exact-commit

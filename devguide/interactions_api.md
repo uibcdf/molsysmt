@@ -812,8 +812,10 @@ atoms are outside the evaluated universe and have source index `-1`. Adding
 from a source that carries analyses, or appending its structures, requires an
 explicit merge policy and currently fails. H5MSM 0.4 and
 MolSysDict 0.1 exports reject a system with attached analyses because those
-formats cannot store them. The design and remaining gates are
-tracked by [`uibcdf/molsysmt#251`](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+formats cannot store them. The accepted design is recorded in
+[`uibcdf/molsysmt#251`](archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+Final release qualification remains under `uibcdf/molsysmt#334`; streaming
+and editing extensions remain under #336 and #335 respectively.
 
 ### Bounded HDF5 writing
 
@@ -1037,11 +1039,12 @@ Topology replacement and MolecularMechanics changes require explicit owner
 invalidation. They do not acquire an observer protocol through the controlled
 setters. Editors of individual observations and finer chemical dependencies remain
 separate work; invalidation itself shares the read-only columns.
-The required H5MSM and MolSysViewer integrations are tracked
-in the [1.0 execution plan](pending_proposals/release_1_0_execution_plan.md)
-and the design proposal [#251](pending_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
-Implementation progress is tracked by
-[`uibcdf/molsysmt#252`](pending_proposals/implement_experimental_sparse_interactions_results_and_queries.md).
+The implemented H5MSM and MolSysViewer integrations have published-pair
+acceptance in [#251](archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
+Final-candidate recertification remains in the
+[1.0 execution plan](pending_proposals/release_1_0_execution_plan.md) under #334.
+The delivered implementation is recorded in
+[`uibcdf/molsysmt#252`](archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md).
 
 H5MSM 0.5 has an optional interaction layer. Public `molsysmt.h5msm.write`
 and `read` preserve named analyses attached to `MolSys`; `write_layers` and

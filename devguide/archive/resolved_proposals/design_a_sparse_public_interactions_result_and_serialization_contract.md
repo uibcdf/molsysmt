@@ -1,13 +1,13 @@
 ---
 summary: Design a sparse public Interactions result and serialization contract
 issue: uibcdf/molsysmt#251
-status: partial
+status: resolved
 opened: 2026-09-28
-closed:
+closed: 2026-10-07
 verification: measured
 area: [api, docs]
 guard:
-normative:
+normative: devguide/interactions_api.md
 blocked_by: []
 supersedes: []
 ---
@@ -19,24 +19,49 @@ supports only `involving_selection`, `within_selection`,
 `across_selection_boundary` and the separate `between_selections` operation.
 The maintainer withdraws the initial compatibility spellings before public
 adoption. Earlier dated sections retain their historical names; the
-[current query contract](../interactions_query_semantics.md) governs executable
+[current query contract](../../interactions_query_semantics.md) governs executable
 calls. Scientific `selection_mode`/`evaluation_mode` and persistence schemas are
 unchanged. uibcdf/molsysviewer#168 owns consumer call/filter migration.
 
 **Reported:** 2026-09-28, after the result-contract request from
 `uibcdf/molsysviewer#114` exposed a decision left open by
-[`uibcdf/molsysmt#250`](organize_interaction_detection_by_family_before_1_0.md).
+[`uibcdf/molsysmt#250`](../../pending_proposals/organize_interaction_detection_by_family_before_1_0.md).
 **Status:** The comparative evaluation selected a packed sparse implementation
 baseline. The experimental public contract, named native attachment and H5MSM
-0.5 persistence are implemented under `uibcdf/molsysmt#252`. Consumer
-stabilization and exact-candidate release qualification remain open.
+0.5 persistence are implemented under `uibcdf/molsysmt#252`. Published consumer acceptance completes this design review. Exact-1.0
+release qualification remains mandatory under #334.
+
+## Published acceptance reconciliation — 2026-10-07
+
+The [updated consumer packet](../../interactions_molsysviewer_review.md#published-consumer-acceptance--2026-10-07)
+records explicit acceptance from the now-closed uibcdf/molsysviewer#114 and
+the published 0.23.0/0.24.0 pair's 8/8 source and 16/16 installed matrices.
+Earlier awaiting-feedback statements remain historical checkpoints. This
+acceptance preserves the experimental API and existing workload limits.
+
+## Resolution — 2026-10-07
+
+The delivered experimental contract and implementation satisfy the bounded
+acceptance criteria with the existing normative API/query contracts, guarded
+native/H5MSM lifecycle, public validation, documentation/course evidence and
+recorded benchmarks. The consumer now supplies the missing installed workflow
+acceptance. Historical benchmark observations do not establish new scale or
+performance guarantees. The current contract preserves replacement,
+invalidation and compaction while individual editors and streaming remain
+owned by #335/#336. Original query spellings in dated experiments are historical;
+[query semantics](../../interactions_query_semantics.md) defines supported calls.
+
+This closes the delivered design/implementation review, not the future release.
+The exact-1.0 workflow and all source/artifact/documentation gates remain
+mandatory under #334 and the [release gate](../../release_gate.md). No 1.0 tag,
+new package or change in stability classification is authorized here.
 
 ## S2 acceptance reconciliation — 2026-10-05
 
-The [current packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+The [current packet](../../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
 maps the logical/native/H5MSM contracts to guards, records fresh Python 3.14
 provider and local consumer evidence, and requests explicit feedback on the
-current contract. The [scope freeze](../release_1_0_scope.md) separates existing
+current contract. The [scope freeze](../../release_1_0_scope.md) separates existing
 compatible structure replacement and bounded resident export from deferred
 individual observation editing/catalog pruning (#335) and resumable streaming
 (#336). The original public validation boundary is now contract-tested under
@@ -48,7 +73,7 @@ are met.
 
 ## Updated consumer packet — 2026-10-02
 
-The [operational review packet](../interactions_molsysviewer_review.md) fixes
+The [operational review packet](../../interactions_molsysviewer_review.md) fixes
 provider commit `1986027c353cdcf290e0402b1d8fa23fee6ea637` and provides
 codec-2 lifecycle fixtures plus repeatable provider/consumer commands.
 The clean provider review selection passed 58 tests. Local real Viewer
@@ -77,7 +102,7 @@ in the historical comparison checkpoints below.
 Standalone and named H5MSM writes now traverse resident active source blocks in
 numeric windows rather than packing all edited observations. Public round trips,
 forbidden-packing and dense-frame allocation guards cover unchanged codec-2
-semantics. The [H5MSM benchmark guide](../benchmarking/h5msm.md#writing-active-observations-without-packing)
+semantics. The [H5MSM benchmark guide](../../benchmarking/h5msm.md#writing-active-observations-without-packing)
 compares the previous writer with matching logical fingerprints and records the
 allocation/latency tradeoff. This removes an export copy; it does not supply a
 streaming detector sink, total-RSS bound, compaction or resumable append API.
@@ -91,7 +116,7 @@ block size while preserving provenance of retained and incoming evaluated frames
 including empty frames. Interaction codec 2 retains these records in H5MSM 0.5;
 current readers migrate codec-1 runtime fields. Old provider builds require an
 update to read new payloads. Details and guards are maintained in the
-[Interaction Analysis API](../interactions_api.md) and the
+[Interaction Analysis API](../../interactions_api.md) and the
 [implementation report](implement_experimental_sparse_interactions_results_and_queries.md).
 Bounded writing, compaction and consumer feedback remain open.
 
@@ -181,7 +206,7 @@ survive; staged invalidation protects allocation failures and uncertain writes.
 
 The concrete stale-evidence defect is tracked by uibcdf/molsysmt#287 and guarded
 by `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`. The normative
-contract belongs in [Interaction Analysis API](../interactions_api.md). Separate
+contract belongs in [Interaction Analysis API](../../interactions_api.md). Separate
 Topology/ChemicalStates aliases, direct topology replacement, mechanics and raw
 data edits require explicit owner invalidation. This extends #285's copying
 primitive; it does not implement an observer protocol, scientific recalculation
@@ -189,7 +214,7 @@ or an incremental editor. Those broader gates remain open in #251 and #252.
 
 ## Current checkpoint — 2026-10-01
 
-The [normative interaction contract](../interactions_api.md) now covers nine
+The [normative interaction contract](../../interactions_api.md) now covers nine
 implemented families, descriptive/scientific method selectors with exact profiles,
 and detached optional attribution. A named result represents one producer method
 and evaluation scope; `MolSys.interactions` is a mapping of names to full sparse
@@ -250,7 +275,7 @@ Automatic source authentication and content fingerprints remain optional
 future work, not release gates. This decision refines earlier fingerprint
 and revision proposals below; invalidation after a known geometry or chemistry
 change remains required. The current policy is recorded in
-[the interaction API contract](../interactions_api.md#associating-analyses-with-a-system).
+[the interaction API contract](../../interactions_api.md#associating-analyses-with-a-system).
 MolSysViewer accepts this policy after reviewing commit `2e79b5f29` and
 reports 27 passing focused tests. It will request a user declaration when
 loading an independent file, require explicit alignment when ordering differs,
@@ -618,7 +643,7 @@ and file codecs.
 
 ### Sparse-library comparison: first numeric-storage experiment
 
-The [reproducible storage probe](../../devtools/scripts/benchmark_interactions_storage.py)
+The [reproducible storage probe](../../../devtools/scripts/benchmark_interactions_storage.py)
 compares five libraries using the **same limited pair-site event skeleton**.
 Each event has an integer structure, two integer sites, and a unique integer
 event ID. The input has 1,000 sites, 10 events per frame, 10,000 frames, and
@@ -700,7 +725,7 @@ global dictionary, occurrence-native columns, and frame-local dictionaries.
 
 ### Layout comparison with shared semantic fields
 
-The [second reproducible probe](../../devtools/scripts/benchmark_interactions_layouts.py)
+The [second reproducible probe](../../../devtools/scripts/benchmark_interactions_layouts.py)
 encodes the same generated observations in three ways: one global relation
 dictionary (`global`), one dictionary per 100-frame block (`block`), or one
 relation descriptor per occurrence (`event`). Each encoding carries interaction
@@ -822,7 +847,7 @@ gates remain open.
 
 ### Local edit experiment
 
-The [edit probe](../../devtools/scripts/benchmark_interactions_edits.py)
+The [edit probe](../../../devtools/scripts/benchmark_interactions_edits.py)
 starts from the same stable 10,000-frame input. In structure 10 it removes one
 observation involving a selected atom and adds a new hydrogen-bond relation.
 The tested alternatives are rebuilding the global payload and atom index,
@@ -871,7 +896,7 @@ before an edit API can be accepted.
 
 ### File-backed block experiment
 
-The [file-backed probe](../../devtools/scripts/benchmark_interactions_file_backed.py)
+The [file-backed probe](../../../devtools/scripts/benchmark_interactions_file_backed.py)
 generates evaluated structures one at a time, including zero-observation
 structures, and writes groups of 100, 500, or 1,000 structures. It chooses a
 global-within-block relation dictionary or an event-native layout from the
@@ -979,7 +1004,7 @@ lists with offsets:
 | Participant → constituent atoms | `participant_atom_offsets`, atom indices |
 | Atom → relations/occurrences | Optional inverse postings |
 
-The [graph probe](../../devtools/scripts/benchmark_interactions_graph.py)
+The [graph probe](../../../devtools/scripts/benchmark_interactions_graph.py)
 compares that encoding with NetworkX 3.6.1 `MultiGraph` instances, one per
 structure, and with one shared factor graph. It uses the same mixed-arity
 source events and checks complete returned records, including evaluated empty
@@ -1044,7 +1069,7 @@ gaps in source structure indices must split them or have an explicit unknown
 state. Multiple observations of one relation in one structure need a separate
 multiplicity/exception route; the first probe does not encode them.
 
-The [temporal index probe](../../devtools/scripts/benchmark_interactions_temporal.py)
+The [temporal index probe](../../../devtools/scripts/benchmark_interactions_temporal.py)
 compares frame-major CSR incidence with relation-major runs. It generates
 10,000 evaluated structures, 400 possible relations, approximately 10 active
 relations per nonempty structure, and 99,980 occurrences. The first and last
@@ -1063,7 +1088,7 @@ python devtools/scripts/benchmark_interactions_temporal.py --survival 0.995 --ru
 ```
 
 The optional `--rust` command compiles a standalone
-[Rust query kernel](../../devtools/scripts/interactions_temporal_kernel.rs)
+[Rust query kernel](../../../devtools/scripts/interactions_temporal_kernel.rs)
 using the existing toolchain and calls it through `ctypes`. It does not modify
 the production extension and is not a PyO3 or H5MSM performance claim. The
 measurements below are single warm runs on 2026-09-28; structure queries
@@ -1120,7 +1145,7 @@ algorithm; it does not determine the logical schema or the serialized form.
 
 ### Complete-payload temporal-run control
 
-The [complete temporal control](../../devtools/scripts/benchmark_interactions_temporal_complete.py)
+The [complete temporal control](../../../devtools/scripts/benchmark_interactions_temporal_complete.py)
 retests runs on the full-field synthetic contract fixture. It encodes runs over
 evaluated-structure ordinals, records exceptions for parallel observations,
 and keeps relation-major occurrence payload rows. The comparison includes
@@ -1195,7 +1220,7 @@ canonical incidence layout.
 
 ### Warm file-backed temporal queries and a bundled trajectory
 
-The [file-query control](../../devtools/scripts/benchmark_interactions_temporal_file_queries.py)
+The [file-query control](../../../devtools/scripts/benchmark_interactions_temporal_file_queries.py)
 reopens both complete HDF5 files and decodes every field needed to reconstruct
 the requested observations. It checks 44 sampled frame requests and ten atom
 requests against independent plain records, including empty/unevaluated
@@ -1242,7 +1267,7 @@ cache is about 15 times the frame-major cache before Python objects. This
 study does not measure independent-process cold reads, bounded relation
 descriptor caches, compiled batch lookup, or edit cost in either file.
 
-The [bundled-trajectory control](../../devtools/scripts/benchmark_interactions_real_hbonds.py)
+The [bundled-trajectory control](../../../devtools/scripts/benchmark_interactions_real_hbonds.py)
 uses the 5,000-structure, 62-atom pentalanine H5MSM file. It applies the Buch
 donor/acceptor helper and 0.23 nm hydrogen-to-acceptor neighbor criterion in
 100-structure blocks with `pbc=False`, excluding the same donor/acceptor atom.
@@ -1281,7 +1306,7 @@ its additional bytes and edit maintenance must be measured before adoption.
 
 ### Multiple analyses: result collection and grouped storage
 
-The [multi-analysis control](../../devtools/scripts/benchmark_interactions_multi_analysis.py)
+The [multi-analysis control](../../../devtools/scripts/benchmark_interactions_multi_analysis.py)
 splits one full-field mixed fixture into four method-specific results:
 hydrogen bonds, ring pairs, disulfide candidates, and four-body relations.
 The disulfide method evaluates only even covered structures, while the other
@@ -1458,7 +1483,7 @@ and costs, not the pair-only skeleton that initially made it attractive.
 The requirements below come from the design discussion and the consumer
 request in `uibcdf/molsysviewer#114`. They define the problem to solve; the
 ranking above does not define the requirements. The small
-[experimental-class tests](../../tests/interactions/test_result.py) passed
+[experimental-class tests](../../../tests/interactions/test_result.py) passed
 locally on 2026-09-28 (`python -m pytest --receptor=llm
 tests/interactions/test_result.py`: 9 passed). Later file probes below use
 complete-record oracles, but remain experimental and do not establish a
@@ -1542,7 +1567,7 @@ not final votes.
 
 ### First full-field query baseline
 
-The [contract benchmark](../../devtools/scripts/benchmark_interactions_contract.py)
+The [contract benchmark](../../../devtools/scripts/benchmark_interactions_contract.py)
 is the first executable step of this protocol. It constructs the same number
 of observations under stable, churn, mixed-phase, and persistent relation
 distributions. A plain-record oracle independently selects interactions by
@@ -1581,7 +1606,7 @@ first atom query. Query time includes neither detector science nor rendering.
 
 In the stable and churn samples, `internal` returned median 22 and 1 rows
 respectively, yet its selection-only median rose from 1.348 to 64.963 ms.
-Inspection of the experimental [`query` implementation](../../molsysmt/interactions/result.py)
+Inspection of the experimental [`query` implementation](../../../molsysmt/interactions/result.py)
 shows a Python loop over candidate relations that checks each relation's atoms
 for `internal` and `cross`; the near-unique-relation input exercises many more
 such checks. This is a plausible cause, not a profile attributing every
@@ -1631,7 +1656,7 @@ the entire class or one of the five backends has won.
 
 ### Source maps, analysis coverage, and edit semantics probe
 
-The [plain-record logical probe](../../devtools/scripts/probe_interactions_semantics.py)
+The [plain-record logical probe](../../../devtools/scripts/probe_interactions_semantics.py)
 exercises R01, R07, R09, and R10 without choosing an array layout or editing
 backend:
 
@@ -1678,7 +1703,7 @@ that require wider chemical recomputation still need explicit decisions.
 
 ### Transactional indexed-row probe
 
-The [SQLite candidate probe](../../devtools/scripts/benchmark_interactions_sqlite.py)
+The [SQLite candidate probe](../../../devtools/scripts/benchmark_interactions_sqlite.py)
 uses the same deterministic full-field records and 182 oracle-checked query
 requests per distribution as the experimental-class baseline. It stores one
 method, explicit coverage, typed relation-role/atom and periodic-image BLOBs,
@@ -1733,7 +1758,7 @@ local-edit advantage in this narrow scenario.
 
 ### Persisted-index file-size comparison
 
-The [indexed-file probe](../../devtools/scripts/benchmark_interactions_indexed_files.py)
+The [indexed-file probe](../../../devtools/scripts/benchmark_interactions_indexed_files.py)
 uses the same full-field records and writes both candidate files. It appends
 four compressed, typed HDF5 sidecar datasets: structure offsets, atom posting
 offsets, atom-to-occurrence postings, and distinct-atom counts per occurrence.
@@ -1772,7 +1797,7 @@ a file-backed query would conceal its full-file load cost.
 
 ### Process-isolated file query probe
 
-The [reopened-query probe](../../devtools/scripts/benchmark_interactions_reopened_queries.py)
+The [reopened-query probe](../../../devtools/scripts/benchmark_interactions_reopened_queries.py)
 opens the same indexed files in a fresh Python process for each request. Both
 readers return complete relation participants and roles, evidence, measures,
 periodic images, and the relevant evaluated coverage; each result is checked
@@ -1817,7 +1842,7 @@ SQLite's measured 5.91–7.41 times disk cost on these fixtures.
 
 ### Batched projected HDF5 reader
 
-The same [reopened-query probe](../../devtools/scripts/benchmark_interactions_reopened_queries.py)
+The same [reopened-query probe](../../../devtools/scripts/benchmark_interactions_reopened_queries.py)
 also tests `hdf_batch` against the same files, requests, and oracle. This reader
 loads only touched 256-occurrence pages and 128-relation descriptor pages.
 Images are decoded from one contiguous span per touched occurrence page.
@@ -1852,7 +1877,7 @@ complete occurrence-native descriptor file.
 
 ### Complete occurrence-native HDF5 file
 
-The [occurrence-native codec probe](../../devtools/scripts/benchmark_interactions_event_native.py)
+The [occurrence-native codec probe](../../../devtools/scripts/benchmark_interactions_event_native.py)
 stores the same evaluated coverage, method metadata, participants and roles,
 evidence, measures and units, periodic images, and atom/structure indexes as
 the global-relation HDF5 file. It repeats type and participant descriptors
@@ -1860,7 +1885,7 @@ beside each occurrence instead of storing a global relation dictionary. The
 common numeric fields use the same types as the experimental class snapshot;
 the two files are independently complete. The reader touches fixed-size event
 pages and reconstructs each requested result without loading all frames.
-The [reopened-query harness](../../devtools/scripts/benchmark_interactions_reopened_queries.py)
+The [reopened-query harness](../../../devtools/scripts/benchmark_interactions_reopened_queries.py)
 checks every answer against the independent record oracle in fresh processes.
 
 ```bash
@@ -1905,7 +1930,7 @@ these measured preferences.
 
 ### Mixed-phase adaptive block-size probe
 
-The [adaptive-block probe](../../devtools/scripts/benchmark_interactions_adaptive_blocks.py)
+The [adaptive-block probe](../../../devtools/scripts/benchmark_interactions_adaptive_blocks.py)
 writes three HDF5 files from the same full-field records: every block uses a
 relation dictionary, every block uses occurrence-native descriptors, or each
 block selects the smaller **uncompressed numeric descriptor projection**.
@@ -1949,7 +1974,7 @@ occurrence-native throughout and matched that fixed file (689,372 B). The
 unaligned transition still selected the expected scopes, but did not remove
 the block overhead.
 
-For context, the [single-block indexed global file](../../devtools/scripts/benchmark_interactions_indexed_files.py)
+For context, the [single-block indexed global file](../../../devtools/scripts/benchmark_interactions_indexed_files.py)
 for the aligned mixed input is 313,443 B. The 500-structure adaptive file is
 about 11% larger, and the 100-structure adaptive file is about 109% larger.
 This is not a proof that adaptive blocks are inferior: the current encoding
@@ -1970,7 +1995,7 @@ as a backend win.
 
 ### Flat adaptive blocks and reopened queries
 
-The [flat-block probe](../../devtools/scripts/benchmark_interactions_flat_blocks.py)
+The [flat-block probe](../../../devtools/scripts/benchmark_interactions_flat_blocks.py)
 places each typed field in one HDF5 dataset, uses one block-offset matrix, and
 persists the same global atom postings as the grouped block probe. It selects
 global relation descriptors for the stable half and occurrence-native
@@ -2025,7 +2050,7 @@ all records, descriptor candidates, and atom postings in Python memory.
 
 ### Full-frame edit overlay on a flat snapshot
 
-The [flat-edit probe](../../devtools/scripts/benchmark_interactions_flat_edits.py)
+The [flat-edit probe](../../../devtools/scripts/benchmark_interactions_flat_edits.py)
 appends typed full-frame replacements to the flat HDF5 snapshot. The latest
 committed replacement takes precedence; a pending replacement remains
 invisible. The oracle checks a molecule-atom change in frame 10, a committed
@@ -2074,7 +2099,7 @@ and source-index remapping remain open before either backend can be selected.
 
 ### Projected flat-file read probe
 
-The [projected-reader probe](../../devtools/scripts/benchmark_interactions_projected_reader.py)
+The [projected-reader probe](../../../devtools/scripts/benchmark_interactions_projected_reader.py)
 uses the same flat HDF5 file as above and fetches only the requested event,
 relation, participant, atom, and image positions. For sparse positions it
 compares an h5py indexed gather with one continuous span; the default chooses
@@ -2137,7 +2162,7 @@ promising client query speed.
 
 ### Compact-record HDF5 control
 
-The [compound-record probe](../../devtools/scripts/benchmark_interactions_compound_hdf5.py)
+The [compound-record probe](../../../devtools/scripts/benchmark_interactions_compound_hdf5.py)
 repacks the same flat adaptive file into six datasets: fixed-width event,
 relation, and participant records, plus atom indices, image vectors, and frame
 offsets. It retains the source atom postings, coverage, labels, both geometry
@@ -2225,7 +2250,7 @@ ranking nor an H5MSM integration claim follows.
 
 ### One-pass adaptive block writer and external atom-posting sort
 
-The [streaming-writer probe](../../devtools/scripts/benchmark_interactions_streaming_writer.py)
+The [streaming-writer probe](../../../devtools/scripts/benchmark_interactions_streaming_writer.py)
 consumes sorted records and evaluated structure indices as iterators. It holds
 one analysis block and both descriptor candidates for that block, appends
 typed columns to extendible HDF5 datasets, and stores atom-to-occurrence
@@ -2370,7 +2395,7 @@ sorter still scales with the number of atom postings.
 
 #### Fresh-process readback of a streamed large file
 
-The [streamed-read probe](../../devtools/scripts/benchmark_interactions_streamed_reads.py)
+The [streamed-read probe](../../../devtools/scripts/benchmark_interactions_streamed_reads.py)
 writes the churn fixture through the one-pass writer, replays the deterministic
 fixture into an independent oracle retaining only requested frame and atom
 signatures, and opens the finished HDF5 file in a new process for each query.
@@ -2417,7 +2442,7 @@ in the file.
 
 #### Typed ragged projection control
 
-The [packed-reader probe](../../devtools/scripts/benchmark_interactions_packed_reader.py)
+The [packed-reader probe](../../../devtools/scripts/benchmark_interactions_packed_reader.py)
 reads the **same file and atom index** into typed occurrence columns, ragged
 participant and atom offsets, aligned image vectors, and the file's label
 codes. It assembles one full query result without constructing a Python record
@@ -2470,7 +2495,7 @@ that all participant atoms belong to their union. The result is reordered by
 the requested structure sequence without expanding observations into Python
 records. These are source indices, not atom or structure IDs.
 
-The [selection oracle](../../devtools/scripts/benchmark_interactions_packed_selection.py)
+The [selection oracle](../../../devtools/scripts/benchmark_interactions_packed_selection.py)
 compares complete decoded records, coverage, structure order, and empty array
 shapes/types for 15 queries on each of three 1,000-structure/500-atom
 fixtures. The queries include one frame, repeated and nonconsecutive frames,
@@ -2505,7 +2530,7 @@ memory and preserve the same source-index and coverage semantics.
 
 #### Choosing the first index for a combined query
 
-The [query-planner probe](../../devtools/scripts/benchmark_interactions_frame_first.py)
+The [query-planner probe](../../../devtools/scripts/benchmark_interactions_frame_first.py)
 requests source structures in the order `[last, 2, middle, 10, 2, 1, 0]` and
 restricts results to atom 0. The repeated frame is returned once; frame 1 is
 evaluated with zero observations, and frame 0 is unevaluated. A frame-first
@@ -2546,7 +2571,7 @@ be tested with wider frame and atom selections from clients.
 
 ### Fixed-shape family codec with complete payload
 
-The [specialized-family probe](../../devtools/scripts/benchmark_interactions_specialized_bound.py)
+The [specialized-family probe](../../../devtools/scripts/benchmark_interactions_specialized_bound.py)
 compares a global relation descriptor dictionary with a second complete HDF5
 file in which relations are grouped by interaction kind, participant roles,
 and participant atom counts. It stores one fixed atom matrix per family plus
@@ -2595,7 +2620,7 @@ real detector distribution have not been established. The result does not
 replace the global relation identity or promote one fixed-arity class per
 interaction type into the public API.
 
-A later [variable-group control](../../devtools/scripts/benchmark_interactions_specialized_bound.py)
+A later [variable-group control](../../../devtools/scripts/benchmark_interactions_specialized_bound.py)
 changes each ring group deterministically to five, six, or seven atoms while
 preserving relation reuse. The four original family shapes become twelve
 method/role/size families. It checks all reconstructed relation participants,
@@ -2622,7 +2647,7 @@ still need measurement before promoting this optimization.
 
 ### Structural and occurrence-edit semantics probe
 
-The [structural-edit probe](../../devtools/scripts/benchmark_interactions_structural_edits.py)
+The [structural-edit probe](../../../devtools/scripts/benchmark_interactions_structural_edits.py)
 uses the flat HDF5 snapshot and committed full-frame overrides as a base. A
 separate prototype view keeps current-to-storage structure and atom index
 maps, plus appended structures. It checks every stage against independently
@@ -2675,7 +2700,7 @@ atoms remain scientifically valid; detector-specific invalidation is a
 separate rule. Further tests must cover repeated deletions and insertions,
 reordering, source-system extraction, compaction, and round-trip remapping.
 
-The [repeated-remap control](../../devtools/scripts/benchmark_interactions_remap_roundtrip.py)
+The [repeated-remap control](../../../devtools/scripts/benchmark_interactions_remap_roundtrip.py)
 extends that experiment with two atom deletions, two structure deletions,
 structure reordering, atom reordering, insertion of an evaluated-empty and an
 unevaluated structure, typed HDF5 map save/load, and a compacted standalone
@@ -3081,14 +3106,14 @@ measured performance targets.
 
 ## Why
 
-[`interactions_api.md`](../interactions_api.md) records method-specific
+[`interactions_api.md`](../../interactions_api.md) records method-specific
 hydrogen-bond and disulfide outputs; the generic result class remains
 experimental. The
-[`#250 proposal`](organize_interaction_detection_by_family_before_1_0.md)
+[`#250 proposal`](../../pending_proposals/organize_interaction_detection_by_family_before_1_0.md)
 requires a minimum shared result contract but leaves its schema open.
 `uibcdf/molsysviewer#114` requests fast nonconsecutive frame and atom queries,
 sparse storage, evaluated-empty state, provenance, and typed serialization.
-The [attribute-centric proposal](attribute_centric_molecular_system_model.md)
+The [attribute-centric proposal](../../pending_proposals/attribute_centric_molecular_system_model.md)
 sketches definitions, participants, and occurrences; its broader architectural
 changes remain separate. Native attachment is required before 1.0, while instances
 without evaluated interactions remain valid.
@@ -3192,7 +3217,7 @@ Close this design issue only when:
 ## Dependencies and risks
 
 - The contract must work with the migration in
-  [`uibcdf/molsysmt#250`](organize_interaction_detection_by_family_before_1_0.md),
+  [`uibcdf/molsysmt#250`](../../pending_proposals/organize_interaction_detection_by_family_before_1_0.md),
   but is not blocked on every detector gate there.
 - `uibcdf/molsysviewer#114` needs a provider contract before fixing its view
   API. The MolSys and H5MSM integrations are additional MolSysMT 1.0 gates.

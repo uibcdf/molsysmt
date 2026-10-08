@@ -1,13 +1,13 @@
 ---
 summary: Implement experimental sparse Interactions results and queries
 issue: uibcdf/molsysmt#252
-status: partial
+status: resolved
 opened: 2026-09-28
-closed:
+closed: 2026-10-07
 verification: measured
 area: [api, docs]
-guard:
-normative:
+guard: tests/interactions/test_result.py
+normative: devguide/interactions_api.md
 blocked_by: []
 supersedes: []
 ---
@@ -19,17 +19,42 @@ supports only `involving_selection`, `within_selection`,
 `across_selection_boundary` and the separate `between_selections` operation.
 The maintainer withdraws the initial compatibility spellings before public
 adoption. Earlier dated sections retain their historical names; the
-[current query contract](../interactions_query_semantics.md) governs executable
+[current query contract](../../interactions_query_semantics.md) governs executable
 calls. Scientific `selection_mode`/`evaluation_mode` and persistence schemas are
 unchanged. uibcdf/molsysviewer#168 owns consumer call/filter migration.
 
 **Scope freeze — 2026-10-05:** current result/native/H5MSM and agreed Viewer
-contracts remain in the [1.0 stabilization queue](../release_1_0_scope.md).
+contracts remain in the [1.0 stabilization queue](../../release_1_0_scope.md).
 Deferred individual observation editors/catalog pruning are now #335; direct
 detector streaming and resumable H5MSM append/recovery are #336. These extensions
 are not additional closure gates for the delivered 1.0 profile. Current-profile
 correctness and consumer feedback remain required; no release certification
 follows from this scheduling decision.
+
+## Published acceptance reconciliation — 2026-10-07
+
+The [updated consumer packet](../../interactions_molsysviewer_review.md#published-consumer-acceptance--2026-10-07)
+records explicit acceptance from the now-closed uibcdf/molsysviewer#114 and
+the published 0.23.0/0.24.0 pair's 8/8 source and 16/16 installed matrices.
+Earlier awaiting-feedback statements remain historical checkpoints. This
+acceptance preserves the experimental API and existing workload limits.
+
+## Resolution — 2026-10-07
+
+The delivered experimental contract and implementation satisfy the bounded
+acceptance criteria with the existing normative API/query contracts, guarded
+native/H5MSM lifecycle, public validation, documentation/course evidence and
+recorded benchmarks. The consumer now supplies the missing installed workflow
+acceptance. Historical benchmark observations do not establish new scale or
+performance guarantees. The current contract preserves replacement,
+invalidation and compaction while individual editors and streaming remain
+owned by #335/#336. Original query spellings in dated experiments are historical;
+[query semantics](../../interactions_query_semantics.md) defines supported calls.
+
+This closes the delivered design/implementation review, not the future release.
+The exact-1.0 workflow and all source/artifact/documentation gates remain
+mandatory under #334 and the [release gate](../../release_gate.md). No 1.0 tag,
+new package or change in stability classification is authorized here.
 
 ## S2 acceptance reconciliation — 2026-10-05
 
@@ -48,7 +73,7 @@ arguments; stored cross-column invariants still run.
 The corrected regression passed **1,520 tests in 211.99 s**. After the final
 source-block delegation adjustment, **116 focused tests passed in 5.43 s**;
 these overlap the broad selection and are not additional unique tests. The
-[dated validation artifact](../../devtools/data/interactions_argument_validation_20261005.json)
+[dated validation artifact](../../../devtools/data/interactions_argument_validation_20261005.json)
 records source phases, hashes, original failures, dependencies and limits.
 The first broad run's two failures were existing `ValueError` expectations
 for malformed producer metadata, restored by reusing `_software_versions`.
@@ -68,7 +93,7 @@ sequence. Course code cells/outputs are unchanged. Guard:
 `tests/interactions/test_argument_validation.py`. Consumer feedback and final
 lifecycle/candidate gates remain open; this checkpoint does not close #252.
 
-The [current review packet](../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
+The [current review packet](../../interactions_molsysviewer_review.md#s2-stabilization-review--2026-10-05)
 maps each delivered contract to executable guards and remaining acceptance.
 Clean provider `4d048a78d466728c2fa9a12befacc22182b71d23` passed 279 native,
 result, edit and public persistence tests on Python 3.14. A separate boundary
@@ -101,7 +126,7 @@ tests passed. Final clean-source validation on `a50daad4ae457630131ea1a17ee42d06
 passed 11,699 tests with 11 existing environment skips in 511.23 seconds.
 The extra development-tools and Interactions doctest suite passed 259 tests;
 all 14 fast gates, Ruff lint/format and the public signature guard passed.
-[The dated integration artifact](../../devtools/data/interactions_main_integration_20261002.json)
+[The dated integration artifact](../../../devtools/data/interactions_main_integration_20261002.json)
 records the initial failures, final outcomes, local dependencies and scope limits. Two confirmed runtime defects are tracked by
 `uibcdf/molsysmt#290` and `uibcdf/molsysmt#291`.
 
@@ -119,7 +144,7 @@ Rust C1 packaging spike. Its document explicitly says not to merge the spike.
 The original branch-retirement receipt used `archive/rust-c1-spike-20261002`.
 The adopted release-tag gate rejects that development marker; uibcdf/molsysmt#317
 preserves its exact annotated tag and source commit in a verified Git bundle
-under the [development archive contract](../development_archives.md) before
+under the [development archive contract](../../development_archives.md) before
 retiring the live marker. The dated integration receipt remains unchanged.
 Publication branches remain outside development cleanup. Consumer acceptance
 and release-platform certification remain separate from this local merge.
@@ -127,7 +152,7 @@ and release-platform certification remain separate from this local merge.
 ## Pinned consumer review packet — 2026-10-02
 
 **Prepared and contract-tested:** the updated
-[MolSysViewer review packet](../interactions_molsysviewer_review.md) is pinned
+[MolSysViewer review packet](../../interactions_molsysviewer_review.md) is pinned
 to clean provider commit `1986027c353cdcf290e0402b1d8fa23fee6ea637`. Its
 complete and interaction-only H5MSM fixtures contain original, invalidated,
 recalculated, compacted and empty named analyses, declared source maps,
@@ -145,7 +170,7 @@ preserved all five analyses' execution records, producer versions and scene
 state. The synthetic zero-coordinate fixture has a partial frame-4 projection
 because one coincident endpoint is skipped; it is not a geometric reference.
 
-The [dated artifact](../../devtools/data/interactions_review_packet_20261002.json)
+The [dated artifact](../../../devtools/data/interactions_review_packet_20261002.json)
 records commands, versions, source hashes, fixture fingerprints and precise
 scope. Viewer had 322 pre-existing edits and Ackredit nine; they were preserved.
 This is editable-source Python compatibility, not a new browser/WebGL run,
@@ -183,7 +208,7 @@ the existing full-query packing boundary with explicit compaction in fresh
 workers at 100k/1M observations, 100k atoms and 10k structures. Half the frame
 indices are invalidated; patched cases restore one frame. Active-column and
 execution-record fingerprints match. Reproducible measurements, source hashes
-and limitations are in the [H5MSM benchmark guide](../benchmarking/h5msm.md#compacting-resident-interaction-observations).
+and limitations are in the [H5MSM benchmark guide](../../benchmarking/h5msm.md#compacting-resident-interaction-observations).
 
 **Checkpoint evidence:** the main regression selection passed 701 tests; the
 completed compaction/doctest selection passed 24 tests, including four-body
@@ -234,7 +259,7 @@ Guard: `tests/interactions/test_bounded_hdf5_writer.py`.
 **Benchmarked:** the historical writer from `59ec05b9a` and the candidate produce
 matching logical dataset fingerprints on every packed/filtered/patched case,
 with/without images, at 100k and 1M observations on 100k atoms/10k structures.
-The [H5MSM benchmark guide](../benchmarking/h5msm.md#writing-active-observations-without-packing)
+The [H5MSM benchmark guide](../../benchmarking/h5msm.md#writing-active-observations-without-packing)
 contains the reproducible method and dated memory/time table. Kernel hashes,
 versions and untraced samples are retained in the linked artifact. Traced peaks
 exclude resident sources and do not establish a process-RSS bound. Packed-input
@@ -273,7 +298,7 @@ Interaction codecs now write version 2 within unchanged H5MSM 0.5. Current reade
 accept codec 1 and migrate its known runtime keys, preserving scientific criteria
 and references. Older provider builds reject version 2. This deliberate experimental
 extension requires consumers to update MolSysMT before reading new files. The
-normative contract is [Interaction Analysis API](../interactions_api.md).
+normative contract is [Interaction Analysis API](../../interactions_api.md).
 Guard: `tests/interactions/test_execution_provenance.py`.
 
 **Checkpoint evidence:** 667 tests passed across interaction families, native
@@ -330,7 +355,7 @@ or hardware-independent speed factors. First-index allocation is included and
 repeated reuse is measured explicitly. Full-column materialization was not
 optimized in this milestone and retains its earlier linear cost.
 
-The [raw paired artifact](../../devtools/data/interactions_frame_replacement_comparison_20261002.json)
+The [raw paired artifact](../../../devtools/data/interactions_frame_replacement_comparison_20261002.json)
 records all timing samples, allocation stages, semantic checks, platform and
 versions, reference source hash and candidate working-tree hashes. This is local
 provider evidence, not a portable speed or whole-process RSS guarantee.
@@ -347,7 +372,7 @@ sharing, cache reuse, forced hash collisions with distinct kinds/roles/compound
 participants, evidence-only additions, parallel rows, immutable index buffers
 and HDF5 persistence. The existing full round-trip, remap, frame validity and real
 Buch owner-edit tests remain active. Public signatures and file schemas are
-unchanged. Durable rules are in [Interaction Analysis API](../interactions_api.md)
+unchanged. Durable rules are in [Interaction Analysis API](../../interactions_api.md)
 and the result User Guide. The earlier allocation numbers below describe their
 original implementation; this checkpoint supersedes its performance premises.
 
@@ -413,7 +438,7 @@ python devtools/scripts/benchmark_interactions_frame_replacement.py \
     --output /tmp/interactions_frame_replacement.json
 ```
 
-The [raw qualification artifact](../../devtools/data/interactions_frame_replacement_memory_20261001.json)
+The [raw qualification artifact](../../../devtools/data/interactions_frame_replacement_memory_20261001.json)
 records source/script hashes, the base commit, dependency/platform information,
 allocation/timing stages and semantic checks. The base commit plus recorded
 working-tree hashes identify the implementation before publication.
@@ -424,7 +449,7 @@ images, evaluated-empty replacement, all interchange routes, incompatible
 metadata rejection, released blocks, old views, invalidation after replacement
 and extraction; real Buch workflow:
 `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
-The [normative API](../interactions_api.md), result User Guide, sparse cookbook,
+The [normative API](../../interactions_api.md), result User Guide, sparse cookbook,
 MolSys foundation page and course Module 10 document the complete edit lifecycle.
 
 **Validation:** the affected interaction/native/form/H5MSM selection and result
@@ -487,7 +512,7 @@ the periodic million-row fixture. Construction also pays a one-time buffer
 ownership copy. Those boundaries are deliberately measured separately.
 
 Reproduce with the command in the earlier checkpoint, writing a new artifact.
-The [shared-storage artifact](../../devtools/data/interactions_shared_invalidation_memory_20261001.json)
+The [shared-storage artifact](../../../devtools/data/interactions_shared_invalidation_memory_20261001.json)
 includes dependency/hardware metadata, source file hashes for the measured
 working tree, warm-up policy, original and referenced array sizes, separate
 materialization costs and semantic checks. Its HEAD identifies the base commit;
@@ -499,7 +524,7 @@ input-alias protection, row handles, periodic vectors, empty coverage, repeated
 edits, pickle, typed/H5MSM round trips and old-view survival. The real Buch
 previously-empty-frame recalculation is guarded by
 `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
-Normative behavior belongs in [Interaction Analysis API](../interactions_api.md).
+Normative behavior belongs in [Interaction Analysis API](../../interactions_api.md).
 The User Guide's result, MolSys and sparse recipe pages and course Module 10
 explain coordinate-change behavior and explicit recalculation.
 
@@ -565,7 +590,7 @@ python devtools/scripts/benchmark_interactions_invalidation_memory.py \
     --output /tmp/interactions-invalidation-memory.json
 ```
 
-The [dated measurement artifact](../../devtools/data/interactions_invalidation_memory_20261001.json)
+The [dated measurement artifact](../../../devtools/data/interactions_invalidation_memory_20261001.json)
 records source/script hashes, dependency versions, hardware, raw byte counts,
 process RSS, methodology and semantic checks. Invalidation performs no disk
 write and creates no coordinate copy; those costs were not measured here.
@@ -601,7 +626,7 @@ survive; staged invalidation protects allocation failures and uncertain writes.
 
 The concrete stale-evidence defect is tracked by uibcdf/molsysmt#287 and guarded
 by `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`. The normative
-contract belongs in [Interaction Analysis API](../interactions_api.md). Separate
+contract belongs in [Interaction Analysis API](../../interactions_api.md). Separate
 Topology/ChemicalStates aliases, direct topology replacement, mechanics and raw
 data edits require explicit owner invalidation. This extends #285's copying
 primitive; it does not implement an observer protocol, scientific recalculation
@@ -622,7 +647,7 @@ This closes the concrete public-setter gap in uibcdf/molsysmt#285. The primitive
 copies packed arrays; it does not implement incremental replacement, observer
 ownership for separate Structures objects, or automatic scientific recalculation.
 The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
-The normative behavior belongs in [Interaction Analysis API](../interactions_api.md).
+The normative behavior belongs in [Interaction Analysis API](../../interactions_api.md).
 
 ## Nine-family provider qualification — 2026-10-01
 
@@ -648,7 +673,7 @@ reported these differences; no sibling merge, checkout or edit was performed.
 
 Commands, environment, exact provider identity, qualification-script hash,
 test outcomes and consumer observations are recorded in
-[the dated qualification artifact](../../devtools/data/interactions_provider_qualification_20261001.json).
+[the dated qualification artifact](../../../devtools/data/interactions_provider_qualification_20261001.json).
 The recorded installed MolSysMT version differs from the source revision; it
 must not replace that revision when identifying this editable-source test.
 Runtime dependency validation, Ruff and the public stability checks passed.
@@ -672,12 +697,12 @@ public H5MSM 0.5 codecs are implemented. At the measured consumer checkpoint
 below, five detector families produced supported results: hydrogen bonds,
 disulfide candidates, ionic, pi-pi and cation-pi. The current nine-family
 inventory, including subsequently implemented detectors, is maintained in
-[the interaction-family roadmap](organize_interaction_detection_by_family_before_1_0.md).
+[the interaction-family roadmap](../../pending_proposals/organize_interaction_detection_by_family_before_1_0.md).
 Legacy tuple defaults remain available; scientific/descriptive method selectors
 and exact profiles preserve previously validated numerical behavior. Optional
 attribution is analysis metadata, not an occurrence column. Current contracts
-belong in [Interaction Analysis API](../interactions_api.md) and
-[H5MSM Format Contract](../h5msm_format.md). The dated checkpoints below are
+belong in [Interaction Analysis API](../../interactions_api.md) and
+[H5MSM Format Contract](../../h5msm_format.md). The dated checkpoints below are
 implementation history, not the current outstanding-work list.
 
 **Measured consumer qualification:** The real MolSysViewer qualification tool
@@ -768,7 +793,7 @@ checks and explicit periodic image reconstruction, not only codec parity.
 The maintainer accepts declared correspondence for the pre-1.0 contract:
 the writer owns the correspondence of system and analysis layers, and the
 caller owns the alignment of an independently loaded analysis with the target
-system. The [normative attachment policy](../interactions_api.md#associating-analyses-with-a-system)
+system. The [normative attachment policy](../../interactions_api.md#associating-analyses-with-a-system)
 states the current checks and the meaning of `source_id` and source maps.
 Automatic origin verification and fingerprints are optional future work,
 not remaining 1.0 gates. This refines the earlier source-fingerprint proposals
@@ -891,7 +916,7 @@ interaction atom and structure axes; equal axis sizes alone do not establish
 their correspondence. The focused guard is
 `tests/form/file_h5msm/test_absent_chemical_states_v05_probe.py`.
 
-The [H5MSM benchmark guide](../benchmarking/h5msm.md) now reports the public
+The [H5MSM benchmark guide](../../benchmarking/h5msm.md) now reports the public
 `write_layers`/`read_layers` path beside the private selective reader. In its
 synthetic 100,000-atom, 10,000-structure, 15,822-occurrence case, the public
 interaction-only file is 235,284 bytes, a repeated `read_layers` takes 0.105 s,
@@ -999,7 +1024,7 @@ atom addition; this memory cost and a possible range encoding need measurement
 before claiming large-scale efficiency.
 
 The reproducible
-[`benchmark_interactions_scope.py`](../../devtools/scripts/benchmark_interactions_scope.py)
+[`benchmark_interactions_scope.py`](../../../devtools/scripts/benchmark_interactions_scope.py)
 probe used 300,000 atoms, 30,000 structures, one observed pair, and 100
 new atoms on this machine. The result's numeric arrays grew from 2,640,100 B
 to 7,441,748 B: 2,400,000 B for the frozen universe and approximately
@@ -1069,7 +1094,7 @@ MolSysViewer client path. Other client integrations may follow after 1.0.
 
 ## How
 
-The current prototype in [`result.py`](../../molsysmt/interactions/result.py)
+The current prototype in [`result.py`](../../../molsysmt/interactions/result.py)
 normalizes input records to typed arrays. Relation and participant offsets
 encode variable arity and group membership. Occurrences contain structure and
 relation IDs, numeric measures and unit metadata, compact evidence codes, and
@@ -1084,7 +1109,7 @@ to touch both disjoint atom sets; `exclusive=True` requires every constituent
 atom to lie in their union. A standalone, versioned HDF5 round trip uses typed
 datasets and JSON metadata. It does not alter H5MSM 0.4.
 
-The [contract tests](../../tests/interactions/test_result.py) cover hydrogen
+The [contract tests](../../../tests/interactions/test_result.py) cover hydrogen
 bond triples, two-ring groups, disulfide candidate pairs, a four-participant
 relation, nonconsecutive and duplicate frame requests, empty evaluated versus
 unevaluated frames, atom-set queries, chained views, periodic images, invalid
@@ -1321,7 +1346,7 @@ It includes detector result adapters, typed serialization, source-index remappin
 named `MolSys.interactions` ownership, controlled geometry/chemistry invalidation,
 compatible structure replacement, explicit compaction and H5MSM 0.5 embedding.
 Native copy/extract/remove operations preserve, remap or invalidate results
-according to the [normative API](../interactions_api.md). Existing legacy
+according to the [normative API](../../interactions_api.md). Existing legacy
 detector output defaults remain available; detector attachment is explicit.
 
 Input records are an ergonomic construction path. Numeric-window export of a
@@ -1339,7 +1364,7 @@ outside this profile. Raw mutable arrays and separate domain aliases still
 require explicit owner invalidation. No automatic scientific recalculation or
 generic observer protocol is supplied. The class stores observations; family
 detectors supply scientific criteria. See the
-[scope freeze](../release_1_0_scope.md) for the admitted stabilization work.
+[scope freeze](../../release_1_0_scope.md) for the admitted stabilization work.
 
 ## Acceptance criteria
 
@@ -1360,7 +1385,7 @@ Before closing this implementation issue:
    against full rebuilding.
 6. Remaining design gates and consumer requirements stay linked to #251;
    durable implemented behavior is in
-   [`interactions_api.md`](../interactions_api.md), and the issue closes with a
+   [`interactions_api.md`](../../interactions_api.md), and the issue closes with a
    guard naming the contract-test module.
 7. `MolSys` owns optional interaction results and preserves or explicitly
    invalidates them through copy, extract, remove, add, and structure edits.
@@ -1491,6 +1516,6 @@ docstring validation (232 functions), developer-guide validation and canonical
 course validation (156 notebooks) pass. Foundations, Toolbox, Cookbook, public
 docstrings and Module 04 reflect this supported combination; course changes are
 prose-only and preserve executed outputs. Durable format rules are in
-[`h5msm_format.md`](../h5msm_format.md). No new dependency or schema version is
+[`h5msm_format.md`](../../h5msm_format.md). No new dependency or schema version is
 required. This qualifies persistence, not new performance measurements, Viewer
 canvas/session acceptance or a release-platform matrix; #252 remains partial.

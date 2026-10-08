@@ -16,8 +16,21 @@ supersedes: []
 
 **Reported:** 2026-09-28, during pre-1.0 API planning for MolSysMT and its
 MolSysSuite consumers.
-**Status:** Namespace, detector migration and persistent result routes implemented;
-final consumer and exact-candidate recertification remain open.
+**Status:** Namespace, detector migration and persistent result routes implemented
+and accepted in the published consumer pair; exact-1.0 recertification remains open.
+
+## Published acceptance reconciliation — 2026-10-07
+
+The [updated consumer packet](../interactions_molsysviewer_review.md#published-consumer-acceptance--2026-10-07)
+records explicit acceptance from the now-closed uibcdf/molsysviewer#114 and
+the published 0.23.0/0.24.0 pair's 8/8 source and 16/16 installed matrices.
+Earlier awaiting-feedback statements remain historical checkpoints. This
+acceptance preserves the experimental API and existing workload limits.
+
+The issue stays partial because its criteria explicitly retain exact-1.0
+release recertification. Implementation and published consumer delivery are
+complete; final-candidate obligations remain under #334. No new feature is
+added to the frozen scope.
 
 ## S2 acceptance reconciliation — 2026-10-05
 
@@ -39,7 +52,7 @@ with initial/session-restored protocol payload parity. This supersedes the older
 two-family projection observation for this particular local consumer checkout.
 It does not establish a clean published consumer pair or browser/WebGL support.
 Source states, hashes, tests and limits are retained in
-[the implementation evidence](implement_experimental_sparse_interactions_results_and_queries.md#pinned-consumer-review-packet--2026-10-02).
+[the implementation evidence](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#pinned-consumer-review-packet--2026-10-02).
 The inventory below is unchanged; consumer feedback and full integration CI
 remain required before treating the experimental contract as settled.
 
@@ -75,10 +88,10 @@ whole-library and suite adoption are separate work. Named `MolSys.interactions`
 and H5MSM 0.5 round trips are implemented under #251/#252. Real local Viewer
 qualification now checks geometry, queries and H5MSM/session round trips;
 the reproducible evidence and its release limitations are recorded in
-[the implementation report](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01).
+[the implementation report](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01).
 The current nine-family provider and existing consumer checks passed at clean
 source `3b12fba50`; the exact scope and remaining visual qualification are
-recorded in [the provider checkpoint](implement_experimental_sparse_interactions_results_and_queries.md#nine-family-provider-qualification--2026-10-01).
+recorded in [the provider checkpoint](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#nine-family-provider-qualification--2026-10-01).
 The dated migration records below describe earlier checkpoints; their pending
 statements do not override this inventory.
 
@@ -125,8 +138,8 @@ pre-1.0 decision is about the analysis API and its migration. Additional
 interaction families are approved and scheduled separately. A persistent
 `Interactions` domain inside `MolSys` and H5MSM is required before 1.0;
 its contract and implementation are tracked in
-[`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md)
-and [`uibcdf/molsysmt#252`](implement_experimental_sparse_interactions_results_and_queries.md).
+[`uibcdf/molsysmt#251`](../archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md)
+and [`uibcdf/molsysmt#252`](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md).
 
 The candidate families are hydrogen bonds, ionic or salt-bridge interactions,
 halogen bonds, hydrophobic associations, metal coordination, aromatic stacking,
@@ -178,7 +191,7 @@ declared relationships; method, parameters, and units; empty evaluated results
 versus analysis not run; and periodic images when they identify a different
 observed participant. It must allow hydrogen-bond triples and ring/group
 participants, not only atom pairs. The concrete result class and schema are
-tracked in [`uibcdf/molsysmt#251`](design_a_sparse_public_interactions_result_and_serialization_contract.md).
+tracked in [`uibcdf/molsysmt#251`](../archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md).
 
 The detector-to-result route is separate from MolSysViewer's initial use of
 already constructed analyses. Preserve existing detector outputs by default

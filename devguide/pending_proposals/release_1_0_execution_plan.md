@@ -517,7 +517,7 @@ The prerequisite provider handoff to `uibcdf/molsysviewer#114` has been met:
 the runnable result contract and H5MSM-loaded examples enabled the client's
 `view.interactions` work. Concrete feedback on both the result and H5MSM routes
 must remain resolved before stabilizing `Interactions` or freezing the MolSysMT
-1.0 candidate. The [design proposal](design_a_sparse_public_interactions_result_and_serialization_contract.md)
+1.0 candidate. The [design proposal](../archive/resolved_proposals/design_a_sparse_public_interactions_result_and_serialization_contract.md)
 defines the review packet and acceptance evidence.
 
 The first provider handoff is complete at commit `0d1a2bf0a`: MolSysViewer
@@ -535,7 +535,7 @@ integration statement: real Viewer geometry, queries and complete/analysis-only
 H5MSM plus MSV session round trips passed against clean provider `e21f03d99`.
 Original bibliography and producer versions also survive the client workflow
 without crediting readers as new calculations. The
-[implementation record](implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
+[implementation record](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#consumer-and-attribution-checkpoint--2026-10-01)
 identifies source checkouts, workload limits and remaining exact-candidate gates.
 It is not a new browser/GPU certification. Optional Ackredit attribution does
 not make the provider a hard runtime dependency or add whole-library attribution

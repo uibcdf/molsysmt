@@ -28,7 +28,7 @@ The implemented H5MSM 0.5 round trip and bounded export of resident analyses do 
 
 ## What is inspected and what is assumed
 
-Source inspection of `molsysmt/h5msm.py` and [#252's provider checklist](implement_experimental_sparse_interactions_results_and_queries.md#provider-closure-checklist) establishes those exclusions. Existing writer/compaction measurements are in [the benchmark guide](../benchmarking/h5msm.md). This proposal supplies no new implementation, benchmark, crash-safety proof or arbitrary lazy query API.
+Source inspection of `molsysmt/h5msm.py` and [#252's provider checklist](../archive/resolved_proposals/implement_experimental_sparse_interactions_results_and_queries.md#provider-closure-checklist) establishes those exclusions. Existing writer/compaction measurements are in [the benchmark guide](../benchmarking/h5msm.md). This proposal supplies no new implementation, benchmark, crash-safety proof or arbitrary lazy query API.
 
 ## What was refuted
 
