@@ -155,18 +155,18 @@
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.13",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.11",
           "status": "in_progress",
-          "conclusion": null
+          "conclusion": ""
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.14",
           "status": "in_progress",
-          "conclusion": null
+          "conclusion": ""
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
@@ -175,25 +175,659 @@
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
           "status": "in_progress",
-          "conclusion": null
+          "conclusion": ""
         },
         {
           "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
           "status": "in_progress",
-          "conclusion": null
+          "conclusion": ""
         },
         {
           "name": "Full matrix \u2014 macos-15, Python 3.12",
           "status": "in_progress",
-          "conclusion": null
+          "conclusion": ""
         }
-      ]
+      ],
+      "observed_at": "2026-10-08T06:33:13.343118+00:00",
+      "verified_scientific_certificates": [
+        {
+          "id": 11531640719,
+          "name": "scientific-evidence-ubuntu-latest-py3.13",
+          "size_in_bytes": 1639,
+          "digest": "sha256:052ab61f2abd491b5d746f75ebf30e896f14b00b22bca52ab58fd95b21bfbdde",
+          "certificate_sha256": "ab3c264c170b40188f2b9cb1a885867faa862ce0932b5ff2c73935d02674570e",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.13.16",
+            "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531562730,
+          "name": "scientific-evidence-macos-15-py3.12",
+          "size_in_bytes": 1628,
+          "digest": "sha256:3d19eb708ba4a3c505817ce6aad031ed46b7ab362299757606336bda030a92f0",
+          "certificate_sha256": "f417f1fd2fc15cc616e15cf99edcfd7fb880b3792caec8e1ecf3739052629d45",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.12.15",
+            "platform": "macOS-15.7.9-arm64-arm-64bit",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531491813,
+          "name": "scientific-evidence-macos-15-py3.11",
+          "size_in_bytes": 1625,
+          "digest": "sha256:871b11fab02625f2641d77834f2353ea1c9f5c378445422406b3db6dd4688d78",
+          "certificate_sha256": "e5b3a3974183fa3c27f453f73492d03eb1cea10a7795546f8703897bbb2205d2",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.11.17",
+            "platform": "macOS-15.7.9-arm64-arm-64bit",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531456076,
+          "name": "scientific-evidence-ubuntu-latest-py3.11",
+          "size_in_bytes": 1638,
+          "digest": "sha256:45d1e7d765b7e0f0291679a5f16876add21627217238e022eb5747aacbc64a2d",
+          "certificate_sha256": "d701dfc7893a115f1b35c7aaa077df56c1563f67aba8034874d3eb9e01dd8a0e",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.11.17",
+            "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531451766,
+          "name": "scientific-evidence-ubuntu-latest-py3.12",
+          "size_in_bytes": 1638,
+          "digest": "sha256:fffe2ffbf51b7630f747fc66b45eef5181752f27309f785dcbb759d0925ab214",
+          "certificate_sha256": "6fcb3d4c44ba74a1343ff19a3375e7678f922ec7ee09092bb780b2652cd91bcc",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.12.15",
+            "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531263158,
+          "name": "scientific-evidence-macos-15-py3.13",
+          "size_in_bytes": 1631,
+          "digest": "sha256:dedc534ef62d0014321970ba240b071e37a142f1bb578b74c5d3878facda71f4",
+          "certificate_sha256": "7d54576b1c8ef9cbf15cc82a63122aec1521aad779d7bfbb19eae48ff122c031",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.13.16",
+            "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531143796,
+          "name": "scientific-evidence-macos-15-py3.14",
+          "size_in_bytes": 1633,
+          "digest": "sha256:d180d999c219d4c0a0cd6437b72a4b7adbe9fa9ce38239c011cbe4112f3ff5b2",
+          "certificate_sha256": "2ccc7bd68c4752c00905ec5502995a685212111c1661f2561624d4cd2449213f",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.14.8",
+            "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        },
+        {
+          "id": 11531098014,
+          "name": "scientific-evidence-ubuntu-latest-py3.14",
+          "size_in_bytes": 1638,
+          "digest": "sha256:bfb1b4621f630b5bdd71e269f34768ce0e3900647fe6a7d7476774a861852dcd",
+          "certificate_sha256": "daa7b802300b52492fd57679d9b03f05730025ca13be31cf71c602d91172b4a0",
+          "certificate": {
+            "commit": "eab7aeb79cc397f92a08081766f5c25792503ae8",
+            "python": "3.14.8",
+            "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+            "verdict": "pass",
+            "registered_nodes": 47,
+            "collected_cases": 54,
+            "passed": 54,
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "tracked_source_dirty": false,
+            "release_eligible": true
+          },
+          "registered_nodes_match": "All 47 nodes equal the clean local certificate on the same source."
+        }
+      ],
+      "verified_full_suite_artifacts": [
+        {
+          "id": 11532626401,
+          "name": "full-suite-results-macos-15-py3.13",
+          "size_in_bytes": 152466,
+          "digest": "sha256:e9c29127c8c2035856cca4dbd0e2760c4b12b76e120dc613af8fd7a082341de6",
+          "junit_sha256": "85d6ecfa58b25d9450628eb44128c32f47dd309248fbe3719e3c9bbe33265997",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 27
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.build.get_missing_bonds.test_get_missing_bonds",
+              "name": "test_get_missing_bonds_molsysmt_MolSys_1",
+              "reason": "This test can only be run in linux"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13300,
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts.",
+          "native_log_sha256": "4e5596b5887c0325280aa8484b9ca81a474bc4c166f63e802b75e1ba536ca43a"
+        },
+        {
+          "id": 11532416155,
+          "name": "full-suite-results-ubuntu-latest-py3.14",
+          "size_in_bytes": 148499,
+          "digest": "sha256:08bb16aaa610ca373fc97f21f5ed6a40cdf15a9fb50cb5b81acf98e07b96954b",
+          "junit_sha256": "7ecab4f78dbb90b98caa96039b3e678f7f50f4abfcbc7ec23dc0462f3dc579db",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13301,
+          "deselected": 40,
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts.",
+          "native_log_sha256": "e80d61d0634315ffa5a5b833bb5904cd173987233d39d4432f9f29c60876c6b1"
+        },
+        {
+          "id": 11531873956,
+          "name": "full-suite-results-ubuntu-latest-py3.12",
+          "size_in_bytes": 151014,
+          "digest": "sha256:c595667d1629d458d0f4334364d55bbfec6b9d229b22218609501040790458e9",
+          "junit_sha256": "6fb9790c16cb48de362adaa09d74cea39c07e4d372e65fe4d218154021939eb1",
+          "counts": {
+            "tests": 13327,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 26
+          },
+          "skipped_nodes": [
+            {
+              "class": "tests.build.add_missing_hydrogens.test_fixed_state",
+              "name": "test_real_ackredit_enclosing_scope_records_executed_software_and_cip",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1s63]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p59]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[5x72-p69]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.file_pdbqt.test_real_vina_examples",
+              "name": "test_real_native_output_is_accepted_by_vina_parser[1iep-receptor]",
+              "reason": "could not import 'vina': No module named 'vina'"
+            },
+            {
+              "class": "tests.form.string_smiles.test_is_form",
+              "name": "test_is_form_cco_without_rdkit",
+              "reason": "with rdkit CCO is recognized as valid SMILES"
+            },
+            {
+              "class": "tests.form.test_cupy_ndarray",
+              "name": "test_cupy_ndarray_form_detection_and_conversion",
+              "reason": "CuPy is not available."
+            },
+            {
+              "class": "tests.interactions.halogen_bonds.test_get_halogen_bonds",
+              "name": "test_runtime_ackredit_distinguishes_adapted_source_and_reference_software",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.hydrophobic.test_get_hydrophobic_interactions",
+              "name": "test_runtime_ackredit_credits_reference_and_not_reloading",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_ackredit_exact_references_reused_results_empty_frames_and_enclosing_scope",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_smarts_branch_credits_reference_and_only_executed_dependencies",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_is_detached_from_registry_and_other_results",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_failed_detector_does_not_credit_successful_calculation",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_result_bibliography_survives_all_persistence_paths_without_reader_tracking",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.test_scientific_attribution",
+              "name": "test_real_viewer_preserves_original_bibliography_in_named_analyses_and_sessions",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.interactions.water_bridges.test_get_water_bridges",
+              "name": "test_ackredit_and_saved_leg_attribution_preserve_real_producer",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_chemical_template",
+              "name": "test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_credits",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[None]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[import]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[construction]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_failure_preserves_recognition_under_strict_warnings[emission]",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_cip_stereochemistry",
+              "name": "test_real_ackredit_reused_references_and_enclosing_workflow",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.physchem.test_get_peptide_chemical_template",
+              "name": "test_real_attribution_records_data_without_executing_the_data_provider",
+              "reason": "could not import 'ackredit': No module named 'ackredit'"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[unyt-unyt]",
+              "reason": "Optional unyt quantity backend"
+            },
+            {
+              "class": "tests.structure.test_get_least_squares_plane",
+              "name": "test_output_quantity_backend_follows_active_pyunitwizard_context[astropy.units-astropy]",
+              "reason": "Optional astropy quantity backend"
+            }
+          ],
+          "passed": 13301,
+          "deselected": 40,
+          "native_log_sha256": "533da66ac4da57a0dcc2ddc1035161dfd14ab3aeefa65b33ee02a735acfb2cf9",
+          "deselected_scope": "Default peptide_parity exclusion in tests/conftest.py; outside JUnit counts."
+        }
+      ],
+      "scope": "Eight scientific certificates and completed full-suite artifacts verified by original ZIP SHA-256, payloads and completed-job logs; the full matrix remains nonterminal and is not qualified."
     },
     "native_wheels": {
       "run": 37734713996,
@@ -371,6 +1005,24 @@
   "documentation_checkpoint": {
     "source_commit": "3f7594028125308bc51f5a99339dad6e02acf011",
     "smoke_run": 37736781020,
+    "smoke_conclusion": "success"
+  },
+  "retained_hosted_evidence": {
+    "directory": "/tmp/molsysmt-pre1-hosted-20261008-piryjoab",
+    "purpose": "Original ZIPs, completed-job logs and verification manifest retained for final source-matrix reconciliation; no auxiliary environment or cloned source created."
+  },
+  "central_registry_recheck": {
+    "date": "2026-10-08",
+    "suite_toml_git_blob": "893dc1a7de9c2e669f67fa08be103c1edc993d0f",
+    "support_libraries": "partial",
+    "developer_tools": "partial",
+    "ci_review": "partial",
+    "owner_reply_received": false,
+    "scope": "Read-only inspection; central admission and inventory ownership remain with MolSysSuite."
+  },
+  "later_documentation_checkpoint": {
+    "source_commit": "b777029e2b1aa71b7d924d9ec12ac26bc764d515",
+    "smoke_run": 37737276733,
     "smoke_conclusion": "success"
   }
 }

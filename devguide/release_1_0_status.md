@@ -38,13 +38,39 @@ skip. Rust controls, four platform builds, sixteen runtime cells, four NumPy
 floor checks, four installed public smokes and the source round trip execute.
 GH Run Receptor independently confirms that terminal conclusion. This is native
 qualification of the recorded development source, not public-package delivery.
-The full source matrix remains in progress; individual successful steps do not
-constitute its final verdict. The bounded receipt records observed job states.
-No new package
-or release tag is published. Central receiving reconciliation was delivered to
-uibcdf/molsyssuite#51 (comment 6053257691); #237/#244 remain partial until the
+The full source matrix remains in progress. All eight original scientific
+certificate ZIPs have been downloaded and checked against GitHub SHA-256
+digests: each identifies this clean source, matches all 47 registered nodes and
+passes 54 cases with zero skips/errors/failures. At the 2026-10-08 06:33 UTC
+inspection, three completed full-suite cells also have verified original JUnit
+artifacts and native job logs:
+
+| Completed cell | Passed | Skipped | Deselected | Failures/errors |
+| --- | ---: | ---: | ---: | ---: |
+| Linux, Python 3.14 | 13,301 | 26 | 40 | 0 |
+| Linux, Python 3.12 | 13,301 | 26 | 40 | 0 |
+| macOS arm64, Python 3.13 | 13,300 | 27 | 40 | 0 |
+
+The JUnit receipt retains every skipped node and reason: absent optional
+Ackredit, Vina, CuPy, unyt and astropy, the installed-RDKit negative path and,
+on macOS, one Linux-only test. The default peptide-parity exclusion accounts
+for the forty deselected cases; these are recorded separately from JUnit.
+The remaining five full-suite cells are still executing at that inspection.
+Successful scientific
+certificates and individual full-suite cells do not constitute the matrix's
+terminal verdict. Original ZIPs and logs remain in the task-owned `/tmp`
+directory recorded by the bounded receipt for final reconciliation.
+The later documentation-only head `b777029e2` passes smoke `37737276733`.
+
+No new package or release tag is published. Central receiving reconciliation
+was delivered to uibcdf/molsyssuite#51 (comment 6053257691);
+#237/#244 remain partial until the
 registry owner replies. Final 1.0 candidate gates under #250/#254/#334 remain
 mandatory and are not waived by either this closure or the earlier public pair.
+The 2026-10-08 read-only board review finds the same five open 1.0 issues and
+no newly reported bug. #139/#144 retain their accepted post-1.0 debt boundaries;
+they are not evidence that every declared form route or documentation warning
+has been corrected.
 
 **Issue reconciliation:** #349 is reproduced and repaired after the published
 checkpoint. Its public PDB name/topology guard passes with Pandas 2.3.3 and
@@ -653,13 +679,18 @@ correct developer tooling or update this ledger.
    under `uibcdf/molsysmt#334`, and review the owning native/result acceptance
    issues. The 16/16 public pair, 8/8 final source matrix and verified Zenodo
    receipts are a completed pre-1.0 baseline, not automatic 1.0 sign-off.
-2. Align current development controlled-source pins with the newly published
-   Viewer baseline using the dependency audit and affected gates. Preserve
-   historical pins at their original candidate; do not move the qualified tags
-   or rebuild their public files merely to update development routes.
-3. Identify any remaining current-profile blockers, documentation obligations
-   and accepted optional/experimental limits before selecting a 1.0 candidate.
-   Keep feature scope frozen; extensions retain their post-1.0 owners.
+2. Current development controlled-source pins now select the published Viewer
+   baseline. Preserve historical pins at their original candidate; do not move
+   qualified tags or rebuild public files merely to update development routes.
+   Inspect the terminal result of source matrix `37734711393`; the native
+   campaign `37734713996` is already successful. Neither is a 1.0-artifact claim.
+3. Complete the central receiving response for #237/#244 under
+   uibcdf/molsyssuite#51, then select the exact 1.0 source and coordinated Viewer
+   version/source before preparing version metadata and new staged artifacts.
+   #250/#254 retain their final-candidate checks and #334 owns qualification and
+   publication approval. Keep feature scope frozen; extensions retain their
+   post-1.0 owners. A final-candidate failure returns its affected scope to
+   stabilization rather than reopening feature development.
 4. Preserve original package/ZIP/environment identities, the read-only matrix
    receipt and both version DOIs. Retire the temporary candidate branch after
    all reference-dependent verification and owner reconciliation are complete;
