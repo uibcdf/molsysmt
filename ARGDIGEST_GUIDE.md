@@ -10,8 +10,8 @@ Source of truth for integrating and using **ArgDigest** in this library.
 Metadata
 - Source repository: `argdigest`
 - Source document: `standards/ARGDIGEST_GUIDE.md`
-- Source version: `argdigest@0.12.0`
-- Last synced: 2026-08-13
+- Source version: `argdigest@0.15.0`
+- Last synced: 2026-10-06
 
 `0.12.0` changed this guide in two ways that affect an integration: `*args` and
 positional-only parameters are supported and documented (§5), and the `ValidatedPayload`
@@ -81,7 +81,7 @@ ArgDigest requires:
 - `smonitor` for diagnostics and telemetry.
 - `depdigest` for conditional dependency checks via `@dep_digest`.
 
-The next ArgDigest release makes NumPy optional. Basic argument contracts and `std`
+From ArgDigest 0.14.0, NumPy is optional. Basic argument contracts and `std`
 pipelines neither install nor import it. Consumers using `data` or `sci` NumPy pipelines
 should install `argdigest[science]`; the `pyunitwizard` extra includes NumPy as well.
 Scientific pipelines raise a clear missing-dependency error if NumPy is absent.
@@ -102,6 +102,22 @@ from argdigest import arg_digest
 @arg_digest(type_check=True)  # Optional beartype integration
 def my_function(molecular_system, selection="all"): ...
 ```
+
+Select argument-centric digestion independently of configuration using
+`argument_digestion`: `None` retains historical inference, `True` enables
+digesters and missing-digester checks, and `False` skips only digester discovery
+and execution. Pipeline-only processing still binds the signature, normalizes
+aliases, enforces declared function/domain contracts, runs the standardizer and
+pipelines, and performs requested type checks. It is separate from
+`skip_digestion=True` and from the discovery choice `digestion_style`.
+
+The selector is accepted by `arg_digest`, `arg_digest.map` and `DigestConfig`.
+Module/Python-file configuration uses `ARGUMENT_DIGESTION`; JSON/YAML uses
+`argument_digestion`. Explicit decorator overrides, including `None`, take
+precedence. Plans expose requested `argument_digestion` and effective
+`enable_argument_digestion`; the audit command displays both. Consumers that
+only require pipelines should set `False` when supplying configuration rather
+than relying on automatic inference.
 
 #### Warning attribution inside decorated functions
 
@@ -421,7 +437,34 @@ ArgDigest is heavily instrumented with `@smonitor.signal`:
 
 Do not swallow SMonitor emission failures with `except Exception: pass`.
 If an emission fails in a non-critical path, emit a fallback warning/log message that
-includes execution context and the original exception text.
+includes approved execution context. Original exception text is permitted only
+when the active SMonitor capture policy allows it. In restrictive mode use a
+fixed catalog description; diagnostic and fallback failures must not replace an
+active native exception or prevent a successful result.
+
+### Scoped diagnostic capture
+
+`@arg_digest(capture_policy="metadata_only")` and
+`DigestConfig(capture_policy="metadata_only")` consume SMonitor's public scoped
+policy before ArgDigest-owned instrumentation and payload construction. `None`
+inherits the active policy; `"detailed"` cannot weaken an enclosing restriction.
+SMonitor `CapturePolicy` instances are accepted. Python modules declare
+`CAPTURE_POLICY`; JSON/YAML configurations use the named `capture_policy` field.
+
+Restrictive mode prevents diagnostic value repr/native error stringification,
+excludes free-text details and context values from telemetry, and preserves
+validation, normalization and native failure semantics. Runtime validator
+contexts still carry their values. Direct rules keep native exception identity;
+adapter translations keep their existing type and original cause. User validator
+formatting and independently implemented provider conversions are outside this
+guarantee. SMonitor owns scope nesting and task/thread propagation.
+
+SMonitor 0.19.0 provides this capability in its public Conda package. Earlier
+supported providers retain detailed compatibility. Explicit restrictive requests fail closed
+with `ARG-ERR-CAPTURE-001` on older providers; existing detailed defaults retain
+the declared dependency floor. ArgDigest 0.15.0 release qualification is tracked
+in `uibcdf/argdigest#31`; consumer adoption remains under its own owner and
+`uibcdf/molsyssuite#106` coordination.
 
 ---
 *Document created on February 6, 2026, as the authority for ArgDigest integration.*
