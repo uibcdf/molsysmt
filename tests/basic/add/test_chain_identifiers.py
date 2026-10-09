@@ -63,11 +63,11 @@ def test_native_topology_add_keeps_labels_and_can_explicitly_regenerate_them(
     target.chains["chain_id"] = pd.array(["A"], dtype="string")
     source.chains["chain_id"] = pd.array(["A"], dtype="string")
 
-    target.add(source, keep_ids=True, skip_digestion=True)
+    target.add(source, keep_ids=True)
     assert target.chains["chain_id"].tolist() == ["A", "A"]
     assert str(target.chains["chain_id"].dtype) == "string"
 
-    target.add(source, keep_ids=False, skip_digestion=True)
+    target.add(source, keep_ids=False)
     assert target.chains["chain_id"].tolist() == ["0", "1", "2"]
     assert source.chains["chain_id"].tolist() == ["A"]
 

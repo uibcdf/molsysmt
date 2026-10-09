@@ -11,6 +11,10 @@ As a user, `molsysmt.Topology` is the object holding all structural identity and
 
 ---
 
+
+
+Direct `MolSys.add` and `Topology.add` calls also validate `keep_ids` as a boolean, including its default `True`. Leave `skip_digestion=False` for ordinary public calls; trusted delegation is not required to use these methods.
+
 ## Internal Attributes
 
 Inside `molsysmt.Topology`, data is maintained across seven canonical tabular DataFrames representing the structural hierarchy and chemical bonding state:

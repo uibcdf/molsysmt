@@ -70,6 +70,12 @@ aromatic-candidate diagnostic capabilities, respectively, rather than fixes to
 their documented current defaults. They are classified Post-1.0. The addon
 reconciliation does not resume publication or add those capabilities to the freeze.
 
+The additional #356 native addition defect is repaired: `Topology.add` and
+`MolSys.add` accept their documented boolean `keep_ids` with digestion enabled.
+The [native boundary record](archive/resolved_bugs/native_add_rejects_valid_keep_ids_flags_during_argument_digestion.md)
+retains 115 focused passes and 3 doctest passes; invalid flag types remain
+rejected before mutation. This does not change the artifact/publication pause.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

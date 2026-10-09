@@ -27,6 +27,10 @@ states are not automatically assigned to structures. See {ref}`Tutorial_Convert`
 
 ---
 
+
+
+Direct `MolSys.add` and `Topology.add` calls also validate `keep_ids` as a boolean, including its default `True`. Leave `skip_digestion=False` for ordinary public calls; trusted delegation is not required to use these methods.
+
 ## Internal Attributes
 
 The native container exposes these domains:

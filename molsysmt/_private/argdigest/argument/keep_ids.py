@@ -3,6 +3,8 @@ from molsysmt._private.smonitor import ArgumentError
 functions_with_boolean = (
     "merge.merge",
     "add.add",
+    "molsysmt.native.topology.add",
+    "molsysmt.native.molsys.add",
     "add_missing_terminal_cappings.add_missing_terminal_cappings",
 )
 

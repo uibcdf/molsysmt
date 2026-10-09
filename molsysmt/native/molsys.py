@@ -1082,7 +1082,12 @@ class MolSys:
         attribute_policy="intersection",
         skip_digestion=False,
     ):
-        """Adding topology and atom-aligned structures from another MolSys."""
+        """Adding topology and atom-aligned structures from another MolSys.
+
+        ``keep_ids`` accepts a boolean and defaults to ``True``. Native public
+        calls validate arguments; leave ``skip_digestion=False`` unless every
+        argument already satisfies this method's contract.
+        """
 
         if item.interactions:
             raise ValueError(

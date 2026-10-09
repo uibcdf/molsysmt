@@ -2002,6 +2002,8 @@ class Topology:
         Chain indices are offset independently of their labels. Explicit chain
         IDs and names are preserved when ``keep_ids=True``, including duplicate
         IDs; ``keep_ids=False`` regenerates local IDs.
+        Native public calls validate the boolean ``keep_ids`` argument; leave
+        ``skip_digestion=False`` for ordinary calls.
         """
 
         if len(self._chemical_states) != 1 or len(item._chemical_states) != 1:

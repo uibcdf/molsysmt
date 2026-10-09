@@ -116,6 +116,8 @@ chain IDs and names. Duplicate chain IDs remain valid labels for distinct chain
 indices; selected source chains retain their labels after remapping. The PDBQT
 writer projects those retained IDs into the chain field without repairing or
 renaming them. Use `keep_ids=False` only when local ID regeneration is intended.
+Direct native `MolSys.add` and `Topology.add` validate that boolean without
+requiring `skip_digestion=True`; ordinary public calls should keep digestion enabled.
 
 Every source hydrogen is retained. Parsing and writing do not prepare chemistry,
 merge nonpolar hydrogen atoms, aggregate charges or assign parameter labels.
