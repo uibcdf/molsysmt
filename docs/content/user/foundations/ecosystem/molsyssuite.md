@@ -17,6 +17,9 @@ MolSysMT is the foundational molecular systems, topology, and trajectory kernel 
 
 MolSysViewer is the native 3D WebGL visualization widget of the suite. Engineered for interactive Jupyter Notebook, JupyterLab, and web application environments, it enables high-performance 3D rendering, custom molecular representations, shape overlays, dynamic selections, and synchronized session state management.
 
+
+MolSysViewer uses MolSysMT as its native backend. No separate MolSysMT addon or `view.addons.molsysmt` namespace is required. Use native Viewer workflows, or calculate with public MolSysMT tools and reload or reconcile the result through the Viewer API.
+
 ---
 
 ## MolSys-AI

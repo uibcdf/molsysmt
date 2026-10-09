@@ -130,7 +130,6 @@ migration is in flight.
   `probe_radius` / `n_sphere_points`) done; Part 2 (grid helpers) pending.
 - `sasa_methodologies_and_acceleration_post_1_0.md` — cell-list acceleration and
   alternative SASA methodologies (LCPO, Lee–Richards).
-- `molsysviewer_molsysmt_nonblocking_heavy_operations.md`
 
 ### Exploratory architecture and operations
 

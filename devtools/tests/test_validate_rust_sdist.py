@@ -53,3 +53,11 @@ def test_unexpected_top_level_source_fails(tmp_path):
     _write_sdist(archive, extras={"tests/test_accidental.py"})
     problems = MODULE.validate_sdist(archive)
     assert any("unexpected top-level" in problem for problem in problems)
+
+
+def test_retired_addon_source_fails(tmp_path):
+    archive = tmp_path / "molsysmt-1.0.0.tar.gz"
+    _write_sdist(archive, extras={"molsysviewer_molsysmt/runtime.py"})
+    assert any(
+        "unexpected top-level" in problem for problem in MODULE.validate_sdist(archive)
+    )

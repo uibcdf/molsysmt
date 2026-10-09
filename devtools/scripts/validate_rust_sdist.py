@@ -18,7 +18,6 @@ REQUIRED_SUFFIXES = {
     "molsysmt/__init__.py",
     "molsysmt/py.typed",
     "molsysmt/data/demo_manifest.json",
-    "molsysviewer_molsysmt/__init__.py",
 }
 FORBIDDEN_SUFFIXES = {
     ".pyc",
@@ -43,7 +42,6 @@ ALLOWED_ROOT_ENTRIES = {
     "README.md",
     "molsysmt",
     "molsysmt.egg-info",
-    "molsysviewer_molsysmt",
     "pyproject.toml",
     "rust",
     "rust-toolchain.toml",

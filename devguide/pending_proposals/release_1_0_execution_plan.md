@@ -300,7 +300,8 @@ This segment must finish before runtime deletion.
 8. Preserve all current Python-package behavior during the build-backend
    change:
    - versioning derived from Git tags;
-   - `molsysviewer.addons` entry points;
+   - native MolSysViewer integration without the retired MolSysMT addon
+     (uibcdf/molsysmt#354); original older artifact metadata remains historical evidence;
    - bundled `molsysmt.data` resources and `py.typed`;
    - lazy public imports and form discovery;
    - hard/soft dependency declarations.

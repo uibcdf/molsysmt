@@ -21,7 +21,6 @@
     "devguide/pending_proposals/migration_off_the_in_house_publication_actions.md",
     "devguide/pending_proposals/molsysbuilder_architectural_placement.md",
     "devguide/pending_proposals/molsysmt_1_0_conda_release_coordination.md",
-    "devguide/pending_proposals/molsysviewer_molsysmt_nonblocking_heavy_operations.md",
     "devguide/pending_proposals/native_classes_api_doc_autogen.md",
     "devguide/pending_proposals/native_dcd_reader_rust_study_and_plan.md",
     "devguide/pending_proposals/native_format_parsers_post_1_0.md",

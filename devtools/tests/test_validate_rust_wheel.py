@@ -37,14 +37,10 @@ def _write_wheel(
         "molsysmt/_rust.abi3.so": b"extension",
         "molsysmt/py.typed": b"",
         "molsysmt/data/demo_manifest.json": b"{}",
-        "molsysviewer_molsysmt/__init__.py": b"",
         "molsysmt-1.0.0.dist-info/WHEEL": (
             b"Wheel-Version: 1.0\n"
             b"Root-Is-Purelib: false\n"
             b"Tag: cp311-abi3-linux_x86_64\n"
-        ),
-        "molsysmt-1.0.0.dist-info/entry_points.txt": (
-            b"[molsysviewer.addons]\nmolsysmt = molsysviewer_molsysmt\n"
         ),
     }
     for declaration in MODULE.expected_form_declarations():
@@ -66,6 +62,37 @@ def _write_wheel(
 def test_valid_wheel_passes(tmp_path):
     wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
     _write_wheel(wheel)
+    assert MODULE.validate_wheel(wheel) == []
+
+
+def test_retired_addon_package_is_rejected(tmp_path):
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    with ZipFile(wheel, mode="a") as archive:
+        archive.writestr("molsysviewer_molsysmt/runtime.py", b"legacy")
+    assert any("unexpected top-level" in item for item in MODULE.validate_wheel(wheel))
+
+
+@pytest.mark.parametrize("name", ["molsysmt", "renamed-provider"])
+def test_retired_addon_entry_point_is_rejected(tmp_path, name):
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    with ZipFile(wheel, mode="a") as archive:
+        archive.writestr(
+            "molsysmt-1.0.0.dist-info/entry_points.txt",
+            f"[molsysviewer.addons]\n{name} = molsysviewer_molsysmt\n",
+        )
+    assert any("retired" in item for item in MODULE.validate_wheel(wheel))
+
+
+def test_unrelated_wheel_entry_points_remain_allowed(tmp_path):
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    with ZipFile(wheel, mode="a") as archive:
+        archive.writestr(
+            "molsysmt-1.0.0.dist-info/entry_points.txt",
+            "[console_scripts]\nother-tool = tool:main\n",
+        )
     assert MODULE.validate_wheel(wheel) == []
 
 

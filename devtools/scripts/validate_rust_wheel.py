@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import configparser
 from pathlib import Path, PurePosixPath
 from zipfile import ZipFile
 
@@ -69,8 +70,7 @@ def validate_wheel(wheel_path: Path) -> list[str]:
                 PurePosixPath(name).parts[0]
                 for name in names
                 if PurePosixPath(name).parts
-                and PurePosixPath(name).parts[0]
-                not in {"molsysmt", "molsysviewer_molsysmt"}
+                and PurePosixPath(name).parts[0] != "molsysmt"
                 and not PurePosixPath(name).parts[0].endswith(".dist-info")
             }
         )
@@ -82,7 +82,6 @@ def validate_wheel(wheel_path: Path) -> list[str]:
         for required in (
             "molsysmt/py.typed",
             "molsysmt/data/demo_manifest.json",
-            "molsysviewer_molsysmt/__init__.py",
         ):
             if required not in names:
                 problems.append(f"required wheel entry is missing: {required}")
@@ -111,16 +110,22 @@ def validate_wheel(wheel_path: Path) -> list[str]:
         entry_points = [
             name for name in names if name.endswith(".dist-info/entry_points.txt")
         ]
-        if len(entry_points) != 1:
+        if len(entry_points) > 1:
             problems.append(
-                f"expected exactly one entry_points.txt file, found {len(entry_points)}"
+                f"expected at most one entry_points.txt file, found {len(entry_points)}"
             )
-        else:
+        elif entry_points:
             content = archive.read(entry_points[0]).decode("utf-8")
-            if "[molsysviewer.addons]" not in content:
-                problems.append("molsysviewer.addons entry-point group is missing")
-            if "molsysmt = molsysviewer_molsysmt" not in content:
-                problems.append("MolSysViewer's MolSysMT entry point is missing")
+            declarations = configparser.ConfigParser(interpolation=None)
+            try:
+                declarations.read_string(content)
+            except configparser.Error as error:
+                problems.append(f"invalid wheel entry-point metadata: {error}")
+            else:
+                if declarations.has_section(
+                    "molsysviewer.addons"
+                ) and declarations.items("molsysviewer.addons"):
+                    problems.append("retired MolSysViewer addon entry points remain")
 
     return problems
 

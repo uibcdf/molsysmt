@@ -263,7 +263,7 @@ those pairs for repair analysis. The
 both surfaces as experimental. Moving the analysis boundary before a 1.x API
 contract is established is feasible, but requires more than a directory move:
 public imports, argument digesters, docs, course examples, and the
-[MolSysViewer addon](../molsysviewer_addon.md) refer to the current paths.
+[native MolSysViewer integration](../molsysviewer_addon.md) refer to the current paths.
 
 The [attribute-centric architecture proposal](attribute_centric_molecular_system_model.md)
 already identifies hydrogen bonds, aromatic interactions, cation-pi, halogen,

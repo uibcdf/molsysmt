@@ -188,7 +188,6 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert "argdigest>=0.13.0" in config["project"]["dependencies"]
     assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
         "molsysmt*",
-        "molsysviewer_molsysmt*",
     ]
 
 

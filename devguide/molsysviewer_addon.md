@@ -1,102 +1,62 @@
-# molsysviewer_molsysmt — addon architecture
+# Native MolSysViewer integration
 
-Workspace **"molsysmt"** inside MolSysViewer.  Each panel is a Python
-`AddonPanelWidget` subclass that bridges a MolSysMT function to a live viewer
-action.
+**Role:** normative provider/consumer boundary
+**Decision:** uibcdf/molsysmt#354, coordinated with uibcdf/molsysviewer#186
 
-## Panel map
+MolSysMT supplies the native molecular-system, scientific calculation and H5MSM
+backend used by MolSysViewer. It does not ship or advertise a separate
+`molsysviewer_molsysmt` package, `molsysviewer.addons` entry point, Studio
+workspace, panel facade or `view.addons.molsysmt` namespace. Domain addons
+remain owned by their providers and MolSysViewer's independent extension API.
 
-| # | Panel ID | `widget_class` | MolSysMT module(s) | Viewer bridge |
-|---|----------|----------------|--------------------|---------------|
-| 1 | basic | `MolSysMTBasicPanel` | `msm.get()`, `msm.select()` | inspect counts, create viewer selections |
-| 2 | topology | `MolSysMTTopologyPanel` | `msm.topology.*` | links and topology summaries |
-| 3 | structure | `MolSysMTStructurePanel` | `msm.structure.*` | contacts links, analysis summaries, PCA vectors |
-| 4 | hbonds | `MolSysMTHBondsPanel` | `msm.interactions.hbonds.*` (`msm.hbonds.*` remains compatible) | `view.shapes.links.add_hbonds()` |
-| 5 | pbc | `MolSysMTPBCPanel` | `msm.pbc.*` | status and coordinate transforms |
-| 6 | physchem | `MolSysMTColorPanel` | `msm.physchem.*` | `view.whole.set_color_by_values()` |
-| 7 | molecular_mechanics | `MolSysMTMechanicsPanel` | `msm.molecular_mechanics.*` | vectors, energy summaries, minimization |
-| 8 | build | `MolSysMTBuildPanel` | `msm.build.*` | append atoms or replace topology/system as needed |
+## Supported paths
 
-There is no root-level `transform` panel. Transform-like operations belong under
-their real MolSysMT namespaces (`structure`, `pbc`, or `build`).
+- Use `msm.view(molecular_system)` for the supported form-agnostic visualization
+  route. The `molsysviewer.MolSysView` form adapters remain available.
+- Use MolSysViewer's native loading, selections and `view.interactions` APIs
+  for its supported Studio workflows. MolSysMT calculates scientific results;
+  MolSysViewer validates, attaches named analyses and controls their presentation.
+- Direct MolSysMT interaction calculations return the documented optional
+  `Interactions` result. They do not need an addon and do not automatically
+  attach every calculation. Named analyses accompany a `MolSys` and persist
+  through the supported H5MSM 0.5 public conversion paths.
+- For an operation beyond the native Studio surface, use the public MolSysMT
+  tool and then reload the result or reconcile it through the Viewer-owned
+  `view.apply_system_edit` API with the required index correspondence. Coordinates,
+  topology edits, cached interactions and scene state obey their respective
+  documented invalidation/reconciliation contracts.
 
-## Runtime state
+This is not a promise that Studio mirrors every public MolSysMT function.
+Viewer owns its GUI, sessions, selections, scene state and reconciliation API;
+MolSysMT owns the scientific operation and molecular data fidelity.
 
-All state lives in `view.addons.molsysmt` (`MolSysMTAddonRuntime`, one instance
-per view). The runtime holds UI/session state and cached results only; it does
-not store a molecular system.
+## Migration
 
-The public namespace is an active facade over the current view. Panels, context
-actions, and direct Python calls share the same adapter layer, so GUI actions
-and scripted calls remain equivalent. The current runtime also keeps the legacy
-private alias `view._molsysmt_addon_runtime` only as a compatibility bridge; new
-code should use `view.addons.molsysmt`.
+Replace calls to the removed `view.addons.molsysmt` facade with native Viewer
+operations where provided, or with public `msm.basic`, `msm.build`,
+`msm.structure`, `msm.topology`, `msm.pbc`, `msm.physchem` and
+`msm.interactions` tools. Do not restore the old addon namespace or silently
+rewrite legacy serialized UI/session state. Viewer owns scene/session migration.
 
-`view.addons.molsysmt.basic.remove(...)`,
-`view.addons.molsysmt.basic.add(...)`, `view.addons.molsysmt.basic.set(...)`,
-and `view.addons.molsysmt.basic.append_structures(...)` are live-view MolSysMT
-operations, not aliases to the corresponding view mutators. They call MolSysMT
-to produce or mutate the molecular system, then ask MolSysViewer to reconcile
-the viewer-owned scene state through `view.apply_system_edit(...)`. Atom removal
-passes an old-to-new atom index map, and atom addition passes the append-block
-metadata. Attribute edits and structure appends need no extra reconciliation
-arguments. Visibility belongs to MolSysViewer's whole/region scene model and is
-not captured or passed by this addon. A legacy fallback to the old view methods
-exists only for viewer objects that do not yet expose that primitive.
+The removed adapters wrapped existing public tools; their panel state and
+rendering projection were UI-specific, not another scientific engine. Their
+source and tests remain in Git history. The
+[archived architecture](archive/assessments/molsysviewer_addon_before_retirement_20261009.md)
+records the old surface without presenting it as current behavior.
 
-## Context actions
+## Packaging and evidence
 
-| ID | Target | Action |
-|----|--------|--------|
-| inspect-system | structure | fills basic panel with atom/group/chain/structure counts |
-| select-and-highlight | structure | runs selection and highlights in viewer |
-| remove-selected-atoms | structure | removes selected atoms through `view.addons.molsysmt.basic.remove(...)` |
-| color-by-property | structure | colors by last chosen property |
-| compute-contacts | structure | computes contact map |
-The current spec intentionally does not declare shape providers; panels and
-facade calls create concrete MolSysViewer shapes directly.
+Current-source wheels, source distributions and installed-runtime checks must
+reject legacy addon files and declarations. Native Rust/resource/form metadata
+and public runtime checks remain required. No new dependency is introduced.
+The installed check inspects MolSysMT's own distribution, so it does not reject
+other components' domain addons.
 
-## Workbench sections
-
-| ID | Panel |
-|----|-------|
-| system-info | global |
-| mvp-overlays | global |
-| basic-inspect | basic |
-| basic-select | basic |
-| topology-bonds | topology |
-| topology-dihedrals | topology |
-| structure-contacts | structure |
-| structure-rms | structure |
-| structure-pca | structure |
-| hbonds-buch | hbonds |
-| pbc-status | pbc |
-| pbc-wrapping | pbc |
-| physchem-color | physchem |
-| mechanics-forces | molecular_mechanics |
-| mechanics-energy | molecular_mechanics |
-| mechanics-minimization | molecular_mechanics |
-| build-preparation | build |
-| build-solvation | build |
-
-## Export helpers
-
-| ID | Formats |
-|----|---------|
-| system-export | json |
-
-## Current verification status
-
-As of 2026-09-19, the addon has passed the focused Python test battery
-(`tests/molsysviewer_molsysmt/`: 121 passed), including the four basic-facade
-mutations against a real current `MolSysView`. The full MolSysMT suite passed
-with 10,211 tests and 11 dependency-dependent skips. Earlier backend smoke
-testing on real demo systems (16 ok, 0 failed), simulated entry-point discovery,
-and a Playwright visual smoke of the standalone Add-ons workspace also passed.
-The visual smoke confirmed that the MolSysMT workspace and all eight panel tabs
-render, and that the `Basic` panel mounts its subsections without JavaScript
-errors.
-
-The remaining manual validation is a live Jupyter/Qt widget smoke test, because
-the static standalone HTML verifies frontend rendering/navigation but not
-button-to-Python execution.
+Previously qualified files and their source receipts remain unchanged. New
+validators describe future artifacts produced from this source; they do not
+retroactively qualify or rewrite old candidates. Provider cleanup alone does
+not qualify a new Viewer candidate, browser runtime or installed package pair.
+The 1.0 publication pause and exact-candidate gates remain authoritative.
+Pre-generated documentation HTML contains its original embedded Viewer runtime;
+refresh it through the normal final documentation qualification with the agreed
+Viewer source, rather than rewriting frozen JavaScript snapshots by hand.

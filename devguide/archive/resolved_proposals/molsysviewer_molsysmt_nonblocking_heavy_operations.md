@@ -1,3 +1,23 @@
+---
+summary: Withdraw the retired MolSysMT addon execution redesign
+issue: uibcdf/molsysmt#354
+status: resolved
+opened: 2026-10-09
+closed: 2026-10-09
+verification: inspected
+area: [api, docs]
+guard:
+normative: devguide/molsysviewer_addon.md
+blocked_by: []
+supersedes: []
+---
+
+**Archive decision — 2026-10-09:** The separate addon is retired under
+uibcdf/molsysmt#354 and uibcdf/molsysviewer#186. Its proposed worker-thread/panel
+redesign is withdrawn, not implemented. Native Viewer execution and UI remain
+consumer-owned. Preserve the original proposal below as historical reasoning;
+its source paths, runtime observations and Numba references describe its date.
+
 # Proposal: Non-blocking execution for heavy addon operations
 
 **Scope:** `molsysviewer_molsysmt` (the addon shipped from the `molsysmt` repo),

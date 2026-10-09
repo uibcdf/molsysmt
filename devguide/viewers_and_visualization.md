@@ -44,5 +44,6 @@ Notebook rendering and browser success are separate from Python backend
 correctness. Headless tests, widget integration tests, and browser tests provide
 different evidence and should be reported separately.
 
-The MolSysViewer addon contract and dated verification notes are in
-`molsysviewer_addon.md`.
+The native MolSysViewer integration and legacy-addon migration contract are in
+[molsysviewer_addon.md](molsysviewer_addon.md). No separate MolSysMT addon is
+required or advertised by current-source packages.

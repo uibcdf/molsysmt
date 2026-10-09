@@ -322,3 +322,12 @@ molsys = MolSys(n_atoms=2)
 molsys.topology.add_bonds([[0, 1]])
 assert molsys.chemical_states.get_bonds() is molsys.topology.bonds
 ```
+
+## Consuming results in MolSysViewer
+
+MolSysViewer consumes named `Interactions` analyses through its native backend
+and `view.interactions` API; no MolSysMT addon needs to be enabled. Keep an
+analysis associated with the correct molecular system and its declared index
+maps before displaying it. For persistence, use the documented public H5MSM 0.5
+conversion paths. MolSysViewer owns canvas rendering and saved scene/session
+state; these are separate from the scientific analysis stored by MolSysMT.

@@ -53,6 +53,23 @@ output chain fields. Records:
 and [chain labels](archive/resolved_bugs/native_add_drops_declared_chain_ids.md).
 These corrections do not change the paused candidate selection above.
 
+## Native Viewer integration reconciliation — 2026-10-09
+
+Under #354 and uibcdf/molsysviewer#186, current source retires the separate
+MolSysMT addon package and registration. Scientific APIs, MolSysView form
+adapters, named interactions and H5MSM 0.5 remain native backend paths. The
+[maintained integration/migration guide](molsysviewer_addon.md) owns this boundary;
+the [resolution record](archive/resolved_proposals/retire_legacy_molsysviewer_addon.md)
+owns scoped source tests. Future wheel/sdist/installed gates reject the obsolete
+addon. Existing frozen artifacts, refs and original receipts stay unchanged.
+MolSysViewer has independent local changes; no Viewer file was edited here and
+no new installed pair/browser qualification was executed.
+
+#348 and #350 explicitly request new state-aware connectivity and rejected
+aromatic-candidate diagnostic capabilities, respectively, rather than fixes to
+their documented current defaults. They are classified Post-1.0. The addon
+reconciliation does not resume publication or add those capabilities to the freeze.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

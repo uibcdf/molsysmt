@@ -74,6 +74,24 @@ def _require_installed_path(path: Path) -> None:
         raise RuntimeError(f"installed module resolves outside the environment: {path}")
 
 
+def validate_native_viewer_metadata(distribution: metadata.Distribution) -> None:
+    """Rejecting retired addon declarations/files in the installed provider.
+
+    Inspect only MolSysMT's own distribution. Domain addons supplied by other
+    distributions retain their independent extension contract.
+    """
+
+    if any(entry.group == "molsysviewer.addons" for entry in distribution.entry_points):
+        raise RuntimeError("installed MolSysMT advertises a retired Viewer addon")
+    if distribution.files is None:
+        raise RuntimeError("installed MolSysMT has no distribution file inventory")
+    if any(
+        Path(str(file)).parts[0] == "molsysviewer_molsysmt"
+        for file in distribution.files
+    ):
+        raise RuntimeError("installed MolSysMT contains retired Viewer addon files")
+
+
 def validate_public_runtime() -> dict[str, object]:
     """Running representative installed-wheel operations."""
 
@@ -85,6 +103,8 @@ def validate_public_runtime() -> dict[str, object]:
         raise RuntimeError(
             "installed runtime dependency violations: " + "; ".join(violations)
         )
+
+    validate_native_viewer_metadata(distribution)
 
     import molsysmt._rust as rust
     import numpy as np
@@ -99,14 +119,6 @@ def validate_public_runtime() -> dict[str, object]:
     manifest = resources.files("molsysmt.data").joinpath("demo_manifest.json")
     if not manifest.is_file():
         raise RuntimeError("installed demo manifest is missing")
-
-    entry_points = [
-        entry
-        for entry in metadata.entry_points(group="molsysviewer.addons")
-        if entry.name == "molsysmt" and entry.value == "molsysviewer_molsysmt"
-    ]
-    if len(entry_points) != 1:
-        raise RuntimeError("installed MolSysViewer addon entry point is missing")
 
     trp_cage = msm.convert(
         msm.systems["Trp-Cage"]["1l2y.h5msm"],
