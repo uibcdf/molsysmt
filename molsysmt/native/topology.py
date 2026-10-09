@@ -1997,7 +1997,12 @@ class Topology:
     @signal(tags=["native"])
     @arg_digest(form="molsysmt.Topology")
     def add(self, item, atom_indices="all", keep_ids=True, skip_digestion=False):
-        """Append another topology, offsetting indices as needed."""
+        """Appending another topology, offsetting indices as needed.
+
+        Chain indices are offset independently of their labels. Explicit chain
+        IDs and names are preserved when ``keep_ids=True``, including duplicate
+        IDs; ``keep_ids=False`` regenerates local IDs.
+        """
 
         if len(self._chemical_states) != 1 or len(item._chemical_states) != 1:
             raise StructuralInconsistencyError(
@@ -2082,7 +2087,10 @@ class Topology:
             redefine_types=True,
         )
         self.rebuild_chains(
-            redefine_ids=(not keep_ids), redefine_types=True, redefine_names=False
+            redefine_indices=False,
+            redefine_ids=(not keep_ids),
+            redefine_types=True,
+            redefine_names=False,
         )
 
         self.rebuild_molecules(

@@ -43,6 +43,16 @@ unchanged as evidence of its original bytes. Runtime fixes on main require
 replacement candidate selection and applicable qualification before release;
 they do not inherit the original producer's exact-commit results.
 
+The bounded corrections are now source-validated: #352 preserves prepared
+mechanics on the selected combined atom axis; #353 preserves declared chain
+IDs/names independently of chain-index offsets. The combined composition and
+hierarchy selection passes 151 tests and the add/native doctests pass 2 tests.
+The original 1,483-atom PDBQT reproduction preserves charges/types and all
+output chain fields. Records:
+[mechanics merge](archive/resolved_bugs/prepared_mechanics_merge_loses_atom_axis.md)
+and [chain labels](archive/resolved_bugs/native_add_drops_declared_chain_ids.md).
+These corrections do not change the paused candidate selection above.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

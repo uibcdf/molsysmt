@@ -40,7 +40,8 @@ def add(
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     keep_ids : bool, default=True
-        Whether to preserve element identifiers from the input systems.
+        Whether to preserve element identifiers from the input systems. Native
+        chain IDs are string labels and may coincide between distinct chains.
     in_place : bool, default=True
         Whether to modify the input molecular system in place.
     syntax : str, default='MolSysMT'
@@ -85,6 +86,9 @@ def add(
       and the system changes when atoms are added, so they are dropped.
     - Bioassemblies from both systems are combined, with the incoming chain indices
       remapped; a colliding assembly identifier is renamed and reported.
+    - Native chain indices are offset independently of their labels. With
+      ``keep_ids=True``, explicit chain IDs and names are preserved, including
+      duplicate IDs. With ``keep_ids=False``, local chain IDs are regenerated.
 
 
     See Also

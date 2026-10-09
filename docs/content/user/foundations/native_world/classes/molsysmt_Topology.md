@@ -31,6 +31,7 @@ Inside `molsysmt.Topology`, data is maintained across seven canonical tabular Da
 
 - **String Identifier Invariant**: All element IDs (`atom_id`, `group_id`, `molecule_id`, `component_id`, `entity_id`, `chain_id`, `bond_id`) are strictly normalized and stored as **string** representations.
 - **Hierarchical Index Links**: Structural parent-child relationships use integer 0-indexed vectors (`group_index`, `chain_index`, `molecule_index`, `entity_index`).
+- **Chain Labels During Addition**: With `keep_ids=True`, native addition preserves explicit chain IDs and names, even when two chains share a label. Incoming positional chain indices are offset independently. `keep_ids=False` regenerates local IDs.
 - **Fast Selections**: Optimized for zero-overhead Boolean evaluation by MolSysMT's internal selection parser.
 
 ---

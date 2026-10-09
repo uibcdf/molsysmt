@@ -111,6 +111,12 @@ are invalidated with a warning when combining inputs or selecting atoms; their
 source graphs are not a joint calculation. Inspect the combined parameters
 before writing PDBQT. H5MSM 0.5 still does not persist these mechanics columns.
 
+{func}`molsysmt.basic.add` with `keep_ids=True` also preserves explicit native
+chain IDs and names. Duplicate chain IDs remain valid labels for distinct chain
+indices; selected source chains retain their labels after remapping. The PDBQT
+writer projects those retained IDs into the chain field without repairing or
+renaming them. Use `keep_ids=False` only when local ID regeneration is intended.
+
 Every source hydrogen is retained. Parsing and writing do not prepare chemistry,
 merge nonpolar hydrogen atoms, aggregate charges or assign parameter labels.
 For an explicitly prepared chemical graph, use

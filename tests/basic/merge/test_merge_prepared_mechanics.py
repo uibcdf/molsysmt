@@ -27,7 +27,9 @@ def test_merge_preserves_prepared_mechanics_atom_axis(charges):
     assert len(merged.atoms_ff) == 3
     assert merged.atom_ff_type.tolist() == ["C", "N", "OA"]
     if charges:
-        np.testing.assert_allclose(merged.partial_charge.astype(float), [0.25, -0.5, -0.75])
+        np.testing.assert_allclose(
+            merged.partial_charge.astype(float), [0.25, -0.5, -0.75]
+        )
     else:
         assert merged.partial_charge is None
     merged.atoms_ff.iloc[0, 0] = "changed"
@@ -51,12 +53,20 @@ def test_merge_prepared_molsys_preserves_charge_units_and_selected_order():
         merged = msm.merge([molsys, molsys], selections=[[2, 0], [1]])
         observed = msm.get(merged, element="atom", partial_charge=True)
         # Native get returns the numerical column in elementary charge.
-        np.testing.assert_allclose(np.asarray(observed, dtype=float), charges[[2, 0, 1]])
+        np.testing.assert_allclose(
+            np.asarray(observed, dtype=float), charges[[2, 0, 1]]
+        )
 
     assert merged.topology.n_atoms == 3
     assert len(merged.molecular_mechanics.atoms_ff) == 3
-    assert merged.molecular_mechanics.atom_ff_type.tolist() == ["type-2", "type-0", "type-1"]
-    np.testing.assert_allclose(molsys.molecular_mechanics.partial_charge.astype(float), charges)
+    assert merged.molecular_mechanics.atom_ff_type.tolist() == [
+        "type-2",
+        "type-0",
+        "type-1",
+    ]
+    np.testing.assert_allclose(
+        molsys.molecular_mechanics.partial_charge.astype(float), charges
+    )
 
 
 def test_empty_selection_does_not_remove_other_prepared_columns():
@@ -68,7 +78,9 @@ def test_empty_selection_does_not_remove_other_prepared_columns():
 
 
 def test_merge_invalidates_named_reports_without_mutating_input_provenance():
-    left = MolecularMechanics(partial_charge=np.array([0.25]), atom_ff_type=np.array(["C"]))
+    left = MolecularMechanics(
+        partial_charge=np.array([0.25]), atom_ff_type=np.array(["C"])
+    )
     right = left.copy()
     left.partial_charge_assignment = {"producer": "original", "atom_indices": [0]}
     right.atom_type_assignment = {"producer": "other", "atom_indices": [0]}
@@ -80,7 +92,10 @@ def test_merge_invalidates_named_reports_without_mutating_input_provenance():
     assert merged.atom_type_assignment is None
     np.testing.assert_allclose(merged.partial_charge.astype(float), [0.25, 0.25])
     assert merged.atom_ff_type.tolist() == ["C", "C"]
-    assert left.partial_charge_assignment == {"producer": "original", "atom_indices": [0]}
+    assert left.partial_charge_assignment == {
+        "producer": "original",
+        "atom_indices": [0],
+    }
     assert right.atom_type_assignment == {"producer": "other", "atom_indices": [0]}
 
 
@@ -94,7 +109,9 @@ def test_single_full_input_preserves_detached_assignment_report():
 
 
 def test_missing_column_is_reported_and_other_columns_keep_the_combined_axis():
-    left = MolecularMechanics(partial_charge=np.array([0.2]), atom_ff_type=np.array(["C"]))
+    left = MolecularMechanics(
+        partial_charge=np.array([0.2]), atom_ff_type=np.array(["C"])
+    )
     right = MolecularMechanics(atom_ff_type=np.array(["N", "O"]))
     with pytest.warns(StructuralAttributeDropWarning):
         merged = msm.merge([left, right])
@@ -104,7 +121,9 @@ def test_missing_column_is_reported_and_other_columns_keep_the_combined_axis():
 
 
 def test_selected_input_clears_reports_and_preserves_formal_charge_column():
-    source = MolecularMechanics(formal_charge=np.array([0, -1]), partial_charge=np.array([0.1, -0.2]))
+    source = MolecularMechanics(
+        formal_charge=np.array([0, -1]), partial_charge=np.array([0.1, -0.2])
+    )
     source.partial_charge_assignment = {"producer": "original", "atom_indices": [0, 1]}
     with pytest.warns(StructuralAttributeDropWarning):
         selected = msm.merge([source], selections=[[1]])
