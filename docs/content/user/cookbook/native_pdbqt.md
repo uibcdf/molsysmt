@@ -102,6 +102,15 @@ field overflows, missing data and stale trees raise clear errors.
 
 ## Hydrogen and loss policy
 
+To combine already prepared native systems, use {func}`molsysmt.basic.merge`.
+Partial charges and parameter labels are retained along the combined selected
+atom axis when present in every contributing input; a missing column is cleared
+with a warning. No typing or charge calculation runs during merging. Scalar
+mechanics settings come from the first input. Original named assignment reports
+are invalidated with a warning when combining inputs or selecting atoms; their
+source graphs are not a joint calculation. Inspect the combined parameters
+before writing PDBQT. H5MSM 0.5 still does not persist these mechanics columns.
+
 Every source hydrogen is retained. Parsing and writing do not prepare chemistry,
 merge nonpolar hydrogen atoms, aggregate charges or assign parameter labels.
 For an explicitly prepared chemical graph, use

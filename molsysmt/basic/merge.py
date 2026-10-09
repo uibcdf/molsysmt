@@ -69,6 +69,13 @@ def merge(
       the chosen `to_form`.
     - Lists and tuples always express per-system intent. Use a NumPy array or range when one
       index collection should be applied to every system.
+    - For native ``MolSys`` or ``MolecularMechanics`` inputs, prepared charge/type
+      columns follow the combined selected atom axis. Native charges remain numerical
+      values in elementary charge. A column missing from a contributing input is
+      cleared with a warning; empty selections do not contribute. Scalar mechanics
+      settings come from the first input. Combining inputs or selecting atoms clears
+      named charge/type assignment reports with a warning, because they do not describe
+      a joint calculation. A single full input retains detached reports.
 
 
     See Also

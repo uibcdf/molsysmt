@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-08
+**Last updated:** 2026-10-09
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -34,6 +34,14 @@ final-candidate acceptance during this pause. No tag, GitHub Release, public
 promotion or Zenodo publication is authorized. No MolSysMT implementation change
 has been requested for the new Viewer question. First discuss that question;
 then agree new candidate identities and the affected qualification scope.
+
+On 2026-10-09 the maintainer authorizes repairing newly reported DockingMT
+correctness defects **#352, then #353** while the Viewer discussion continues.
+This is bounded stabilization of existing public merge/add behavior, not a
+resumption of publication or a new capability. Keep the qualified pair below
+unchanged as evidence of its original bytes. Runtime fixes on main require
+replacement candidate selection and applicable qualification before release;
+they do not inherit the original producer's exact-commit results.
 
 ## Qualified pair preparation — 2026-10-08
 
