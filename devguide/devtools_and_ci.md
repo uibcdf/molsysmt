@@ -359,7 +359,7 @@ the receptor. Conda publication remains on the Conda profile.
 
 ### Python version policy
 
-Package metadata and release workflows support Python **3.11–3.13**. Python
+Package metadata and release workflows support Python **3.11–3.14**. Python
 3.10 is outside the package contract and must not be reintroduced into package
 classifiers, `requires-python`, Conda build matrices, or support badges.
 
@@ -368,7 +368,12 @@ classifiers, `requires-python`, Conda build matrices, or support badges.
 Internal maintainers may put `[skip ci]` on a direct push when rapid iteration
 matters. The ordinary choice is to omit it and get the short smoke signal.
 GitHub's skip markers suppress push and PR workflows, so they must not be used
-on a PR or release candidate. The nightly Linux full matrix detects skipped
+on a PR. Omit them when preparing a release candidate. An already recorded
+producer carrying a marker can qualify through an explicitly authorized manual
+route only when every mandatory gate is executed and verified for that exact
+commit and its installed artifacts. Preserve its original identity and artifact
+bytes/digests; the marker neither waives gates nor disqualifies complete evidence.
+The nightly Linux full matrix detects skipped
 commits since the last successful full run and retries after any failure.
 The weekly full matrix runs regardless of skip markers. Scheduled workflows
 can be delayed or dropped, so the detector uses a successful-run watermark

@@ -20,7 +20,11 @@ tagged**. Green gates on an earlier commit or a dirty tree do not count.
   cannot be cut from a tree with uncommitted work (audit blocker B1).
 - **The tag commit must actually run CI.** Ordinary direct pushes run the bounded
   smoke tier; maintainers may deliberately use `[skip ci]` during development.
-  The release candidate commit (and the tag) **must not** carry `[skip ci]`.
+  Omit `[skip ci]` when preparing a release candidate. A recorded producer that
+  already carries a marker can qualify only through the explicitly authorized
+  manual route with every mandatory exact-candidate and installed-artifact gate
+  executed and verified. Preserve its original identity and bytes/digest; a
+  marker alone neither waives a gate nor invalidates that complete evidence.
   Run the full release matrix explicitly on the exact candidate commit.
 - **Version metadata is consistent** with the intended tag (versioningit derives it from
   the tag; `pyproject.toml` `requires-python` and classifiers list 3.11–3.14).
@@ -140,7 +144,9 @@ Do not substitute a partial or single-platform run.
 
 ## 6. Sign-off checklist (all must hold on the tag commit)
 
-- [ ] Working tree clean; tag commit does **not** carry `[skip ci]`.
+- [ ] Working tree clean; the exact tag candidate has every mandatory gate
+      executed and verified, including the authorized manual route when
+      recovering an original recorded producer with a skip marker.
 - [ ] `python devtools/scripts/release_gate.py` → all fast gates PASS.
 - [ ] Registered scientific evidence execution → every cited node passes with zero
       skips and its JSON certificate identifies the tag candidate.

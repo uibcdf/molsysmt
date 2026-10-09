@@ -92,6 +92,18 @@ retains six dihedral regression/control passes and one public doctest pass.
 Foundations, Toolbox, Cookbook and the unit-safety course describe the same
 contract. This source correction does not resume artifact qualification or publication.
 
+The maintainer's further issue audit resolves #22's historical hydrogen-bond
+output question through the existing sparse `Interactions` contract, and #123's
+CI-skipping request through the existing controlled direct-push/backlog route.
+[Output reconciliation](archive/resolved_proposals/hbonds_output_format_question_is_answered.md)
+retains 30 Buch/Luzard-Chandler passes;
+[CI reconciliation](archive/resolved_proposals/ci_skip_option_is_implemented_and_governed.md)
+retains 21 backlog/workflow passes and corrects stale policy wording.
+#358 repairs the public box-geometry return-unit contract and three Sphinx
+rendering errors, with
+[analytical units and rendering evidence](archive/resolved_bugs/box_geometry_documentation_misstates_units_and_fails_rendering.md).
+These bounded corrections do not close #250/#254/#334 or resume publication.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

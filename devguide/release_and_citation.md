@@ -80,6 +80,10 @@ tag, GitHub Release, Zenodo record, or network request.
 
 The candidate then follows the exact-commit gates in [`release_gate.md`](release_gate.md).
 Do not put `[skip ci]` on the candidate commit.
+For an already recorded producer carrying a marker, the authorized recovery
+route in the release gate requires every mandatory exact-candidate and
+installed-artifact check; preserve the original producer and artifact bytes.
+A marker does not replace validation or invalidate complete executed evidence.
 
 ## Publishing and verifying a release
 
