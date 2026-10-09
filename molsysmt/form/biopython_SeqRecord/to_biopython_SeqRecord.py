@@ -12,11 +12,13 @@ def to_biopython_SeqRecord(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source sequence record with metadata.
     group_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Argument group_indices.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+        Source sequence positions. Only 'all' is supported because record
+        subset extraction requires annotation and feature remapping.
+    copy_if_all : bool, default=True
+        Whether to return an independent copy when all positions are selected.
+        If False, reuse the source object for that selection.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -32,5 +34,5 @@ def to_biopython_SeqRecord(
     from .extract import extract
 
     return extract(
-        item, group_indices=group_indices, copy_if_all=copy_if_all, skip_digestion=True
+        item, atom_indices=group_indices, copy_if_all=copy_if_all, skip_digestion=True
     )

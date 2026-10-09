@@ -15,19 +15,21 @@ def extract(
     skip_digestion=False,
 ):
     """
-    Extracting a subset of elements or structures from form biopython.SeqRecord.
+    Extracting a full sequence record from form biopython.SeqRecord.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source sequence record, with its annotations and features.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Legacy adapter selection parameter. Only 'all' is supported; selecting
+        record positions requires annotation and feature remapping.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+        Unused for this sequence-only form, which has no structures.
+    copy_if_all : bool, default=True
+        Whether an all-position extraction creates an independent copy.
+        If False, return the source object for that extraction.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -36,13 +38,19 @@ def extract(
     biopython.SeqRecord
         Resulting object in biopython.SeqRecord form.
 
+    Raises
+    ------
+    NotImplementedMethodError
+        If a subset of record positions is requested.
 
     .. versionadded:: 1.0.0
     """
 
     if is_all(atom_indices):
         if copy_if_all:
-            tmp_item = item.copy()
+            from .copy import copy
+
+            tmp_item = copy(item, skip_digestion=True)
         else:
             tmp_item = item
     else:

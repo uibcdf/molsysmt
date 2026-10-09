@@ -111,6 +111,14 @@ selections and missing sequence content. The delivery audit now reports 74
 unreachable declarations across seven forms; #139 remains open for that debt.
 These Tier 2 read-only corrections do not select or qualify a replacement candidate.
 
+#360 repairs the sequence copy, full extraction and identity-conversion routes.
+The [copy/conversion record](archive/resolved_bugs/biopython_sequence_copy_and_identity_conversion_fail.md)
+retains thirteen failing pre-repair controls and fifteen passing public cases
+plus two doctest passes after repair, including independent nested record
+metadata. Ordered Seq subsets work; SeqRecord subsets remain explicitly
+unsupported. This correction does not broaden the Tier 2 support guarantee or
+resume artifact production or publication.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

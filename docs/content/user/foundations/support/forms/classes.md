@@ -80,3 +80,11 @@ record IDs, and no atomic topology or chemical assignment is inferred. A
 defined empty sequence returns empty lists. An undefined or partially defined
 sequence retains its positions but returns `None` for names; a record without
 a sequence returns `None` for both attributes. These remain Tier 2 forms.
+
+For these sequence forms, `msm.copy(molsys)` and full conversion to the same
+form produce independent objects. `SeqRecord` copies also detach nested
+annotations and features. Full extraction or identity conversion can explicitly
+reuse the source with `copy_if_all=False`. Converting a `Seq` to its own form
+with a group-position selection preserves selection order and repetitions.
+Selecting `SeqRecord` positions is unsupported because its annotations and
+features would require an explicit remapping policy.
