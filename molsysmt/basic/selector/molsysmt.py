@@ -410,11 +410,18 @@ def select_bonded_to(molecular_system, selection):
     else:
         selection_1, selection_2 = selection.split(" bonded to")
 
-    atom_indices_1 = select(molecular_system, selection=selection_1)
+    atom_indices_1 = select(molecular_system, selection=selection_1.strip())
     atom_indices_2 = get(
-        molecular_system, element="atom", selection=selection_2, bonded_atoms=True
+        molecular_system,
+        element="atom",
+        selection=selection_2.strip(),
+        bonded_atoms=True,
     )
-    atom_indices_2 = np.unique(np.concatenate(atom_indices_2).ravel())
+    atom_indices_2 = (
+        np.unique(np.concatenate(atom_indices_2).ravel())
+        if len(atom_indices_2)
+        else np.empty(0, dtype=np.int64)
+    )
 
     if not_bonded:
         output = np.setdiff1d(

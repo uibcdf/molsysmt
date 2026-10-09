@@ -91,6 +91,10 @@ def get_buch_hbonds(
 
     Notes
     -----
+    Detection uses explicitly represented donor-hydrogen pairs. A hydrogen-free
+    input yields the documented empty result and evaluated coverage without
+    reconstructing missing hydrogens. This result records the supplied model's
+    available evidence; interpretation requires its hydrogen inventory.
     The detector returns an independent analysis. Attach it to
     ``molsys.interactions`` under an explicit name to retain it with the system.
     This method uses eager execution and does not stream large trajectories.

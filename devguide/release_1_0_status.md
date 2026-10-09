@@ -76,6 +76,14 @@ The [native boundary record](archive/resolved_bugs/native_add_rejects_valid_keep
 retains 115 focused passes and 3 doctest passes; invalid flag types remain
 rejected before mutation. This does not change the artifact/publication pause.
 
+#355 repairs the general selector's empty `bonded to` operand. Positive/negative
+queries retain set semantics, and the hydrogen-free 3,983-atom 1TCD protein now
+supports acceptor/donor role identification and a named, evaluated-empty Buch
+analysis. The [selector record](archive/resolved_bugs/empty_bonded_to_operands_break_hbond_role_identification.md)
+retains 213 selection/hbond regression passes, an H5MSM coverage round trip and
+the exact Viewer Python source reproduction. No hydrogen reconstruction,
+scientific-method change or new browser/installed candidate qualification is claimed.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

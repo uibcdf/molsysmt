@@ -91,6 +91,9 @@ def select(
       reports the accepted input and output directions and their scope.
     - The selection is always returned as indices corresponding to the specified element level,
       unless a translation to another syntax is explicitly requested via `to_syntax`.
+    - A valid ``bonded to`` operand matching no atoms yields an empty selection.
+      ``not bonded to`` such an operand retains the left selection. Missing
+      chemical information and malformed expressions still raise diagnostics.
     - Explicit element and structure indices are non-negative and range checked.
       Supported parser failures are exposed as :class:`molsysmt.ArgumentError`
       while retaining the original exception as their cause.
@@ -123,6 +126,8 @@ def select(
     >>> molsys = systems['T4 lysozyme L99A']['181l.h5msm']
     >>> msm.basic.select(molsys, element='group', selection='group_name in ["HIS", "THR"]')
     [20, 25, 30, 33, 53, 58, 108, 114, 141, 150, 151, 154, 156]
+    >>> msm.select(molsys, 'all bonded to atom_type=="Xe"')
+    []
 
     Chemical-state attributes, such as ``formal_charge``, are also selectable
     when available in the resolved native state.

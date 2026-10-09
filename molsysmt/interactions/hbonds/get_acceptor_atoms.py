@@ -22,7 +22,7 @@ def get_acceptor_atoms(
     syntax="MolSysMT",
 ):
     """
-    Identify acceptor atoms within a molecular system for hydrogen-bond detection.
+    Identifying acceptor atoms within a molecular system for hydrogen-bond detection.
 
 
     Parameters
@@ -46,6 +46,13 @@ def get_acceptor_atoms(
     -------
     numpy.ndarray
         Sorted array of acceptor atom indices.
+
+    Notes
+    -----
+    Rules inspect the supplied atom types, names, groups and covalent bonds.
+    A rule with no matching atoms is a valid empty selection. Hydrogen-free
+    inputs may contain acceptor candidates but no explicit donor-hydrogen
+    pairs; this operation does not reconstruct hydrogens.
     """
 
     from molsysmt import select
