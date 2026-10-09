@@ -75,6 +75,15 @@ For a numerical calculation requiring radians, use
 degrees, use `puw.convert(angles, to_unit='degrees')`. See
 {ref}`Tutorial_Get_dihedral_angles` for examples with molecular structures.
 
+{func}`molsysmt.pbc.get_lengths_and_angles_from_box` standardizes both returned
+quantities: edge lengths follow the standard-length unit, and angles follow
+the standard-angle unit. Input box units do not fix the output length unit.
+For numeric comparisons in specified units, use
+`puw.get_value(lengths, to_unit='nm')` and
+`puw.get_value(angles, to_unit='radians')`. The
+{ref}`box-geometry tutorial <Tutorial_Get_lengths_and_angles_from_box>` defines
+the row-vector convention and alpha/beta/gamma ordering.
+
 ### The `puw.context()` Manager
 
 PyUnitWizard provides the **`puw.context()`** context manager, allowing users to temporarily override default quantity forms, parsers, or standard units within specific code blocks:

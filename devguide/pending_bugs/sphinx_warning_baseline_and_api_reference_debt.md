@@ -160,3 +160,14 @@ reported as error-free documentation. Counts from fresh and incremental builds
 or different installed extensions are checkpoint observations, not a ratchet
 comparison. This checkpoint satisfies the missing-course-document condition;
 the broader closure criteria above remain unmet.
+
+## Bounded box API repair — 2026-10-09
+
+The three vector-substitution errors and associated definition-list warning in
+`get_lengths_and_angles_from_box` are repaired under uibcdf/molsysmt#358. Its
+[resolution record](../archive/resolved_bugs/box_geometry_documentation_misstates_units_and_fails_rendering.md)
+retains a real one-page Sphinx HTML guard: original prose fails, corrected prose
+renders without page diagnostics. Nondefault length/angle policy controls and
+the public doctest also pass. This is a bounded API repair, not a fresh full-site
+warning inventory; it does not close the other errors or the broader criteria
+above. The initial checkpoint's counts remain historical evidence.
