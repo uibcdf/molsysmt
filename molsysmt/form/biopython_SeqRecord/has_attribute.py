@@ -33,7 +33,10 @@ def has_attribute(
 
     output = attributes[attribute]
 
-    if not include_none:
-        pass
+    if output and not include_none:
+        if molecular_system.seq is None:
+            output = False
+        elif attribute == "group_name":
+            output = molecular_system.seq.defined
 
     return output

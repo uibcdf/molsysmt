@@ -84,8 +84,6 @@
     "MDAnalysis.AtomGroup": "0xc00000000400000100",
     "MDAnalysis.Topology": "0x100",
     "MDAnalysis.Universe": "0xf07801780f3c",
-    "biopython.Seq": "0x3000000000",
-    "biopython.SeqRecord": "0x3000000000",
     "file:crd": "0x10200780000003c",
     "file:dcd": "0x8",
     "file:fasta": "0x40100000",

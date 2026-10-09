@@ -129,3 +129,20 @@ forms; they remain important debt, but Tier 1 remediation has priority.
 
 - [`get_single_attribute_bypasses_piping.md`](../archive/resolved_bugs/get_single_attribute_bypasses_piping.md)
 - [`form_linter_does_not_check_attribute_delivery.md`](../archive/resolved_bugs/form_linter_does_not_check_attribute_delivery.md)
+
+## Biopython group-query checkpoint — 2026-10-09
+
+The current audit before this bounded repair reports 78 unreachable declarations
+across nine forms, rather than the historical 430. Under uibcdf/molsysmt#359,
+real `Bio.Seq.Seq` and `Bio.SeqRecord.SeqRecord` objects are recognized using their
+actual Python class names while retaining their public MolSysMT form names.
+Direct getters now deliver the four declared `group_index`/`group_name` entries.
+The guard in `tests/form/biopython_Seq/test_group_queries.py` checks public list
+and dictionary queries, selection order/repetitions, known-empty sequences,
+undefined sequence content, absent record sequences and unchanged inputs.
+Only those four resolved bits are removed from the delivery baseline. Remaining
+CIF and legacy-file adapter debt remains owned here; this child repair does not
+close the general audit or promote these Tier 2 forms.
+
+After the repair the same audit reports **74 unreachable declarations across
+seven forms**, with 96 forms passing structural checks and no new delivery debt.

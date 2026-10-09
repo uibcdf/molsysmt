@@ -34,6 +34,7 @@ def has_attribute(
     output = attributes[attribute]
 
     if not include_none:
-        pass
+        if attribute == "group_name":
+            output = output and molecular_system.defined
 
     return output

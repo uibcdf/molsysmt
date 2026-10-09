@@ -104,6 +104,13 @@ rendering errors, with
 [analytical units and rendering evidence](archive/resolved_bugs/box_geometry_documentation_misstates_units_and_fails_rendering.md).
 These bounded corrections do not close #250/#254/#334 or resume publication.
 
+#359 repairs real Biopython sequence recognition and the declared group-index/name
+queries. The [sequence boundary record](archive/resolved_bugs/biopython_sequence_forms_reject_real_objects_and_declared_groups.md)
+retains 13 public-facade passes and four doctest passes, including repeated/empty
+selections and missing sequence content. The delivery audit now reports 74
+unreachable declarations across seven forms; #139 remains open for that debt.
+These Tier 2 read-only corrections do not select or qualify a replacement candidate.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

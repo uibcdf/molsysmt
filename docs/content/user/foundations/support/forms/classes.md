@@ -71,3 +71,12 @@ MolSysMT seamlessly digests and converts object instances from major ecosystem p
 | **`molsysviewer.MolSysView`** | MolSysViewer | Native 3D WebGL viewer widget object. |
 | **`XYZ`** | PyUnitWizard / NumPy | Raw 3D coordinate Quantity array (`puw.Quantity`) with length units (`nm`). |
 | **`nglview.NGLWidget`** | NGLView | NGLView 3D widget object. |
+
+Biopython sequence inputs use the public form names `biopython.Seq` and
+`biopython.SeqRecord`. With `msm.get(molsys, element="group", ...)`,
+`group_index` identifies positions in the source sequence and `group_name`
+returns its characters, preserving case and alphabet. These indices are not
+record IDs, and no atomic topology or chemical assignment is inferred. A
+defined empty sequence returns empty lists. An undefined or partially defined
+sequence retains its positions but returns `None` for names; a record without
+a sequence returns `None` for both attributes. These remain Tier 2 forms.
