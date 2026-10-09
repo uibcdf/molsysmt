@@ -26,6 +26,4 @@ print("CONDA PATH      {}".format(conda_path))
 
 # Write to a temp directory which will always be cleaned up
 
-sp.call(
-    "{} env update --file {} --prune".format(conda_path, args.conda_file), shell=True
-)
+sp.run([conda_path, "env", "update", "--file", args.conda_file, "--prune"], check=True)

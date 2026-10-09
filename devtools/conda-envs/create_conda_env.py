@@ -124,12 +124,12 @@ with temp_cd():
     with open(temp_file_name, "w") as f:
         f.write(yaml.dump(yaml_script))
     if mamba_path is not None:
-        sp.call(
-            "{} env create -n {} -f {}".format(mamba_path, args.name, temp_file_name),
-            shell=True,
+        sp.run(
+            [mamba_path, "env", "create", "-n", args.name, "-f", temp_file_name],
+            check=True,
         )
     else:
-        sp.call(
-            "{} env create -n {} -f {}".format(conda_path, args.name, temp_file_name),
-            shell=True,
+        sp.run(
+            [conda_path, "env", "create", "-n", args.name, "-f", temp_file_name],
+            check=True,
         )
