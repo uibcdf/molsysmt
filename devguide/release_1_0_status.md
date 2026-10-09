@@ -84,6 +84,14 @@ retains 213 selection/hbond regression passes, an H5MSM coverage round trip and
 the exact Viewer Python source reproduction. No hydrogen reconstruction,
 scientific-method change or new browser/installed candidate qualification is claimed.
 
+#357 corrects the dihedral output documentation: the quantity follows the active
+PyUnitWizard angle policy, and numerical consumers explicitly extract their
+required unit. Computation and defaults are unchanged. The
+[angle-policy record](archive/resolved_bugs/dihedral_documentation_ignores_active_angle_policy.md)
+retains six dihedral regression/control passes and one public doctest pass.
+Foundations, Toolbox, Cookbook and the unit-safety course describe the same
+contract. This source correction does not resume artifact qualification or publication.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

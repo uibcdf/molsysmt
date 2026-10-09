@@ -21,7 +21,7 @@ def get_dihedral_angles(
     **kwargs,
 ):
     """
-    Compute dihedral angles for a set of atom quartets over one or more structures.
+    Computing dihedral angles for atom quartets over one or more structures.
 
     Two usage modes are available:
 
@@ -35,8 +35,8 @@ def get_dihedral_angles(
       arrays, one per type.
 
     Angles are computed in the minimum-image convention when ``pbc=True`` and the
-    system has a periodic box.  Results are always returned in the MolSysMT standard
-    angle unit (degrees).
+    system has a periodic box. Results follow the active PyUnitWizard standard-angle
+    policy, including any enclosing ``puw.context``. They are not fixed to degrees.
 
 
     Parameters
@@ -60,10 +60,39 @@ def get_dihedral_angles(
     -------
     quantity or list of quantity
         PyUnitWizard angle quantity of shape ``(n_structures, n_quartets)`` in the
-        standard angle unit (degrees).  When more than one named dihedral type is
+        active PyUnitWizard standard-angle unit. When more than one named dihedral type is
         requested, a list of such quantities is returned — one per type, in the
         order the kwargs were provided.
 
+
+    Notes
+    -----
+    MolSysMT's initial angle policy is radians, but an existing application or
+    user policy takes precedence. For a numerical consumer requiring a specific
+    unit, extract values explicitly, for example
+    ``puw.get_value(angles, to_unit="radians")``. Use ``puw.convert`` instead
+    when the converted result should retain its physical units.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from molsysmt import pyunitwizard as puw
+    >>> molsys = msm.convert(msm.systems['Met-enkephalin']['met_enkephalin.h5msm'])
+    >>> with puw.context(standard_units=['nm', 'ps', 'radians']):
+    ...     angles = msm.structure.get_dihedral_angles(molsys, phi=True, use_gpu=False)
+    ...     puw.get_unit(angles) == puw.unit('radians')
+    True
+    >>> with puw.context(standard_units=['pm', 'fs', 'degrees']):
+    ...     angles = msm.structure.get_dihedral_angles(molsys, phi=True, use_gpu=False)
+    ...     puw.get_unit(angles) == puw.unit('degrees')
+    True
+    >>> np.allclose(np.abs(puw.get_value(angles, to_unit='radians')), np.pi)
+    True
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_dihedral_angles` for explicit quartets, named
+       dihedrals and ensemble plots with explicitly converted angular units.
 
     .. versionadded:: 1.0.0
     """

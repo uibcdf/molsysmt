@@ -64,6 +64,17 @@ system = msm.build.add_missing_heavy_atoms(system)
 
 Unit handling, dimensional checking, and unit conversions are managed through **PyUnitWizard**, an open-source universal unit wrapper developed by UIBCDF ([https://www.uibcdf.org/pyunitwizard](https://www.uibcdf.org/pyunitwizard)).
 
+### Angular Output Policy
+
+{func}`molsysmt.structure.get_dihedral_angles` returns an angle quantity in the
+active PyUnitWizard standard-angle unit. MolSysMT initially declares radians;
+an application or user policy, including `puw.context`, takes precedence.
+A degrees policy therefore returns degrees without changing the physical angle.
+For a numerical calculation requiring radians, use
+`puw.get_value(angles, to_unit='radians')`. To retain a quantity for display in
+degrees, use `puw.convert(angles, to_unit='degrees')`. See
+{ref}`Tutorial_Get_dihedral_angles` for examples with molecular structures.
+
 ### The `puw.context()` Manager
 
 PyUnitWizard provides the **`puw.context()`** context manager, allowing users to temporarily override default quantity forms, parsers, or standard units within specific code blocks:
