@@ -120,7 +120,7 @@ def test_component_application_preserves_outside_state_pose_and_completeness(
     )
     # Native/H5MSM assignments do not make the entire unprepared graph recognizable.
     with pytest.raises(StructuralInconsistencyError):
-        msm.physchem.get_hbond_sites(result, method="smarts_donor_acceptor")
+        msm.interactions.hbonds.get_hbond_sites(result, method="smarts_donor_acceptor")
 
 
 @pytest.mark.parametrize(

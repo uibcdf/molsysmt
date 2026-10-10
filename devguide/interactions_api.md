@@ -175,7 +175,15 @@ The result includes all donor/hydrogen/acceptor roles, three pair distances in
 nm, D-H-A and H-D-A angles in rad, actual evaluated scope and empty-frame
 coverage. Method-specific geometric and chemical rules are recorded explicitly.
 
-General site recognition belongs to `physchem.get_hbond_sites`; its public
+The `interactions.hbonds` namespace owns hydrogen-bond-specific site recognition,
+local directional models and occurrence detection. These are independent public
+tools: recognizing sites does not require coordinates, and characterizing local
+directions does not require an interacting partner or a previous hydrogen-bond
+calculation. General chemical properties, connectivity/SMARTS, vectors and periodic
+images remain in `physchem`, `topology`, `structure` and `pbc`, respectively.
+Downstream workflows can reuse the site tools without invoking a detector.
+
+Site recognition is provided by `interactions.hbonds.get_hbond_sites`; its public
 methods are `elemental_nitrogen_oxygen`, `elemental_fluorine_oxygen_nitrogen`
 and `smarts_donor_acceptor`. Explicit-site calculations require intact supplied
 donor-H pairs and acceptor indices, not partial-charge guessing. Selection
@@ -184,6 +192,19 @@ recognition. Modern detection supports projected coordinate blocks on native
 MolSys and H5MSM 0.5, with a resident sparse result. The legacy Buch and
 Luzard–Chandler adapters remain eager. All paths must retain the actual images
 used by geometry; inconsistent periodic triangles are rejected.
+
+`interactions.hbonds.get_hbond_site_directions` consumes recognized sites and
+coordinates to produce observed donor directions and bounded ideal acceptor
+hypotheses. Its [contract](hbond_site_directions.md) distinguishes unsupported
+chemistry from undefined geometry. The current occurrence detector uses site
+recognition directly and does not consume this directional result. Neither site
+tool returns or automatically attaches an `Interactions` analysis.
+
+The pre-release site APIs moved from `physchem` on 2026-10-10. Their canonical
+paths are now `interactions.hbonds.get_hbond_sites` and
+`interactions.hbonds.get_hbond_site_directions`; the former `physchem` exports
+are removed. Arguments, chemical/geometric definitions and result schemas are
+unchanged. This source migration does not change previously frozen artifacts.
 
 ## Disulfide candidates
 

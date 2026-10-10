@@ -23,7 +23,7 @@ MODELS = {
     4: "nitrile_linear",
 }
 TOLERANCE = 1e-12
-CALLER = "molsysmt.physchem.get_hbond_site_directions"
+CALLER = "molsysmt.interactions.hbonds.get_hbond_site_directions"
 
 
 def build_site_plan(source, sites, assume_complete, max_matches):

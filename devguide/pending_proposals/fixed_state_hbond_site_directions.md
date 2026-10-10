@@ -5,8 +5,8 @@ status: partial
 opened: 2026-10-10
 closed:
 verification: measured
-area: [structure, physchem, pbc, api]
-guard: tests/physchem/test_get_hbond_site_directions.py
+area: [structure, interactions, physchem, pbc, api]
+guard: tests/interactions/hbonds/test_get_hbond_site_directions.py
 normative: devguide/hbond_site_directions.md
 blocked_by: []
 supersedes: []
@@ -31,16 +31,19 @@ Provider source inspected at `072aa9bdbfb9299f7e3256f9b27f6aae8ea52629` offers:
 
 | Existing piece | Reuse | Missing contract |
 |---|---|---|
-| `physchem.get_hbond_sites` | Declared-state donor-H pairs and acceptor indices with rule/evidence. | Its contract explicitly excludes geometric directions. |
+| `physchem.get_hbond_sites` at the inspected checkpoint | Declared-state donor-H pairs and acceptor indices with rule/evidence. | Its contract explicitly excludes geometric directions. |
 | `basic.get` | Form-agnostic coordinates, box and source axes. | Coordinate access does not define a directed-pair result or undefined-vector policy. |
 | `structure.get_distances`, `get_angles`, `get_least_squares_plane` | General unit-aware scalar geometry and fitted planes. | Distances omit direction; a plane normal is not a universal lone-pair model. |
 | `pbc.wrap_to_mic` | Reconstruction/wrapping of covalent components under its explicit policy. | Moving a component is not an immutable atom-pair displacement query. |
 | Existing Rust MIC primitives and private periodic reconstruction helpers | Candidate calculation reuse after reviewing matching conventions. | Their internal functions are not a public form/unit/identity/image contract. |
 
+The later namespace migration places this site's public recognition tool under
+`interactions.hbonds`; the table above retains the inspected source identity.
+
 The inspected public exports provide no directed atom-pair displacement operation
 covering the consumer contract. Public geometry belongs in `structure`; periodic
-image conventions/reconstruction belong in `pbc`; chemical direction interpretation
-belongs in `physchem`. Consumers should compose these owners, retaining chemical
+image conventions/reconstruction belong in `pbc`; hydrogen-bond-specific recognition
+and direction interpretation belong in `interactions.hbonds`. Consumers should compose these owners, retaining chemical
 criteria locally only when genuinely pharmacophore-specific. Measure workloads
 before adding new Rust routines rather than duplicating existing primitives.
 
@@ -209,7 +212,7 @@ numerical results.
 
 Method names should describe their geometry and carry the reference author or
 software separately, as in the existing interaction-method/attribution contract.
-A possible public owner is `physchem.get_hbond_site_directions`, composing
+A public owner considered at reconnaissance was `physchem.get_hbond_site_directions`, composing
 `get_hbond_sites` and `structure.get_vectors`; its signature and first supported
 profile had not yet been accepted at the reconnaissance checkpoint. The existing recognition function remains a
 coordinate-independent inventory.
@@ -231,8 +234,9 @@ adding another compiled kernel; the existing vector kernel is available now.
 
 ## Bounded site-profile delivery — 2026-10-10
 
-The maintainer explicitly authorized implementation in `physchem` after the
-reference review. `get_hbond_site_directions` now composes the public recognition,
+The maintainer initially authorized implementation in `physchem` after the
+reference review, then accepted canonical ownership in `interactions.hbonds`
+on the same date. `get_hbond_site_directions` now composes the public recognition,
 SMARTS and vector tools. The first geometric method is `ideal_local_geometry`;
 its default `site_method='smarts_donor_acceptor'` remains a separately attributed
 chemical rule. Observed donor-H vectors and ordinary carbonyl/pyridine/nitrile
@@ -259,7 +263,7 @@ validation. A guard forbids the complete reader during projected site geometry.
 
 See the [normative contract](../hbond_site_directions.md), public tutorial,
 hydrogen-bond persistence recipe, executed course section and
-`tests/physchem/test_get_hbond_site_directions.py`. Independent analytic vectors
+`tests/interactions/hbonds/test_get_hbond_site_directions.py`. Independent analytic vectors
 and periodic reconstruction checks establish the specified ideal geometry, not
 electronic or energetic truth. RDKit feature helpers are geometric inspiration,
 not an exact-parity oracle; Ackredit and result metadata distinguish that role.
@@ -287,3 +291,37 @@ pause under uibcdf/molsysmt#334 remain unchanged. The issue remains partial.
   links the isolated-process receipt: 20,000/200,000 finite directions with
   source identities, warm timings and numeric/RSS distinctions. No broad
   accuracy, memory-RSS guarantee or installed artifact claim follows from it.
+
+## Canonical namespace consolidation — 2026-10-10
+
+The maintainer reconsidered ownership and accepted `interactions.hbonds` as the
+complete hydrogen-bond domain: participant recognition, local direction models
+and occurrence detection. The existing public `get_donor_atoms` and
+`get_acceptor_atoms` already occupy this namespace. Reusability does not require
+placing a hydrogen-bond-specific interpretation in `physchem`.
+
+Both `get_hbond_sites` and `get_hbond_site_directions`, and the private direction
+reducer, now live under `interactions.hbonds`. Their pre-release `physchem`
+exports are removed. Public signatures, scientific profiles, result schemas,
+units, bounded delivery and attribution are unchanged. Detection still consumes
+recognition directly; it does not require site directions. General graph/vector/
+PBC operations remain with their existing owners. Other site APIs were not moved
+as part of this change.
+
+The public API registry, argument caller maps, detector/chemical-preparation
+consumers, tests, API reference, Foundations, Toolbox, Cookbook and course
+inventory/examples use the new paths. Historical benchmark and qualification
+receipts retain their original paths and hashes. This change updates sources;
+it does not modify frozen installed candidates or settle the broader coverage
+pending in this issue.
+
+Executed on Python 3.14: 1,036 focused tests pass with `pytest -n 12
+--receptor=llm`, including all interaction tests and affected chemical-template,
+hydrogen-building, SMARTS/vector and API documentation consumers. Both public
+module doctests pass. All 14 fast repository gates, full-source Ruff and the
+public docstring validator pass. The two relocated tutorials and persistence
+recipe execute, as does the independent course site-direction section; existing
+legacy/network-dependent course cells remain unexecuted in this check.
+The full Sphinx HTML build exits successfully, with warnings on other existing
+pages and no reported warnings for the relocated site tutorials/API references.
+This is focused source verification, not full platform/installed qualification.

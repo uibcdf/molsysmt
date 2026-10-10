@@ -55,7 +55,7 @@ environmental hydrogen refinement, GPU execution or another detector. Frozen
 installed candidates retain their original identity; this source addition needs
 later qualification under uibcdf/molsysmt#334 before inclusion in a new candidate.
 
-The maintainer subsequently admitted `physchem.get_hbond_site_directions` in
+The maintainer subsequently admitted `interactions.hbonds.get_hbond_site_directions` in
 the same discussion. This bounded experimental source addition covers observed
 indexed donor-H directions and ideal carbonyl, pyridine-like N and nitrile N
 hypotheses, with explicit unsupported/undefined outcomes. It composes existing

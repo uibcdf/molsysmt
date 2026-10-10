@@ -92,6 +92,9 @@ explicit multiplicity and unsupported or undefined outcomes. A recognized
 acceptor is not itself a measured lone-pair direction. Observed donor-to-hydrogen
 directions require indexed hydrogen coordinates. These detached hypotheses
 neither change chemical states nor become named interaction analyses automatically.
+Hydrogen-bond site recognition, local directions and occurrence detection are
+independent tools grouped under `interactions.hbonds`. Candidate sites and
+directional hypotheses can be obtained without first detecting any bonds.
 See the {ref}`site-direction guide <Tutorial_Get_hbond_site_directions>` for the
 experimental bounded models and their source-index correspondence.
 See {doc}`Querying interaction results

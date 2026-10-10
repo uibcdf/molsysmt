@@ -142,7 +142,7 @@ def test_directed_vector_docstring_renders_without_rst_errors(tmp_path):
 def test_hbond_site_direction_docstring_renders_without_rst_errors(tmp_path):
     _render_api_docstring(
         tmp_path,
-        "molsysmt.physchem.get_hbond_site_directions",
+        "molsysmt.interactions.hbonds.get_hbond_site_directions",
         "Tutorial_Get_hbond_site_directions",
     )
 

@@ -120,7 +120,9 @@ def test_prepared_fragment_smarts_excludes_amide_and_guanidinium_acceptors(
 ):
     pytest.importorskip("rdkit")
     prepared = receptor_case[-1]["molecular_system"]
-    sites = msm.physchem.get_hbond_sites(prepared, method="smarts_donor_acceptor")
+    sites = msm.interactions.hbonds.get_hbond_sites(
+        prepared, method="smarts_donor_acceptor"
+    )
     acceptors = set(sites["acceptor_atom_indices"].tolist())
     atoms = prepared.topology.atoms
     assert acceptors
@@ -167,7 +169,9 @@ def test_fixed_state_fragment_hydrogens_keep_heavy_pose_and_h5msm(
         prepared.chemical_states._states[0].atom_attributes,
         original.chemical_states._states[0].atom_attributes,
     )
-    sites = msm.physchem.get_hbond_sites(hydrogenated, method="smarts_donor_acceptor")
+    sites = msm.interactions.hbonds.get_hbond_sites(
+        hydrogenated, method="smarts_donor_acceptor"
+    )
     pairs = sites["donor_hydrogen_pairs"]
     assert pairs.size
     assert (pairs[:, 0] < 1975).all() and (pairs[:, 1] >= 1975).all()
@@ -353,7 +357,9 @@ def test_prepared_interface_named_analyses_queries_source_maps_and_persistence(
     assert analyses["pi_pi"].n_interactions == 0
     xyz = msm.pyunitwizard.get_value(interface.structures.coordinates, to_unit="nm")[0]
     # Close oxygen pairs are eligible sites, but local OH geometry fails the angle.
-    sites = msm.physchem.get_hbond_sites(interface, method="smarts_donor_acceptor")
+    sites = msm.interactions.hbonds.get_hbond_sites(
+        interface, method="smarts_donor_acceptor"
+    )
     triples = np.asarray([[4006, 4025, 379], [4021, 4043, 1754]], dtype=np.int64)
     donor_pairs = set(map(tuple, sites["donor_hydrogen_pairs"].tolist()))
     assert all(tuple(row[:2]) in donor_pairs for row in triples)

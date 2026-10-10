@@ -148,7 +148,7 @@ def test_permuted_transfer_preserves_every_pose_and_source_identity():
     assert state.bonds["bond_order"].tolist() == [1] * 5
     assert state.bonds["evidence"].tolist() == ["inferred"] * 5
     # Independent methanol controls: one indexed OH donor, one oxygen acceptor.
-    sites = msm.physchem.get_hbond_sites(prepared)
+    sites = msm.interactions.hbonds.get_hbond_sites(prepared)
     assert sites["donor_hydrogen_pairs"].tolist() == [[1, 5]]
     assert sites["acceptor_atom_indices"].tolist() == [1]
     output["report"]["template_provenance"]["identity"] = "edited"

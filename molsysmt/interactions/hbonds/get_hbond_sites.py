@@ -9,7 +9,7 @@ from molsysmt._private.interaction_attribution import attributed
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 
-@signal(tags=["api", "physchem"])
+@signal(tags=["api", "interactions", "hbonds"])
 @arg_digest()
 @dep_digest("rdkit", when={"method": "prolif"})
 @dep_digest("rdkit", when={"method": "smarts_donor_acceptor"})
@@ -103,7 +103,7 @@ def get_hbond_sites(
     --------
     >>> import molsysmt as msm
     >>> from rdkit import Chem
-    >>> sites = msm.physchem.get_hbond_sites(Chem.AddHs(Chem.MolFromSmiles('O')))
+    >>> sites = msm.interactions.hbonds.get_hbond_sites(Chem.AddHs(Chem.MolFromSmiles('O')))
     >>> sites['donor_hydrogen_pairs'].tolist(), sites['acceptor_atom_indices'].tolist()
     ([[0, 1], [0, 2]], [0])
 
@@ -124,7 +124,7 @@ def get_hbond_sites(
         select_chemical_atoms,
     )
 
-    caller = "molsysmt.physchem.get_hbond_sites"
+    caller = "molsysmt.interactions.hbonds.get_hbond_sites"
     from molsysmt._private.interaction_methods import resolve_method
 
     method = resolve_method("hbond_sites", method, caller=caller)["implementation"]

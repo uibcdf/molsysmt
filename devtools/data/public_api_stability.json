@@ -1725,12 +1725,12 @@
       "documentation": "docs/content/user/tools/topology/get_substructure_matches.ipynb",
       "contract_tests": "tests/topology/get_substructure_matches/test_get_substructure_matches.py"
     },
-    "molsysmt.physchem.get_hbond_sites": {
+    "molsysmt.interactions.hbonds.get_hbond_sites": {
       "stability": "experimental",
       "introduced": "pre-1.0",
-      "owner": "physchem",
-      "documentation": "docs/content/user/tools/physchem/get_hbond_sites.ipynb",
-      "contract_tests": "tests/physchem/test_get_hbond_sites.py"
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/interactions/get_hbond_sites.ipynb",
+      "contract_tests": "tests/interactions/hbonds/test_get_hbond_sites.py"
     },
     "molsysmt.interactions.hbonds.get_hbonds": {
       "stability": "experimental",
@@ -2024,12 +2024,12 @@
       "documentation": "docs/content/user/tools/structure/get_vectors.ipynb",
       "contract_tests": "tests/structure/test_get_vectors.py"
     },
-    "molsysmt.physchem.get_hbond_site_directions": {
+    "molsysmt.interactions.hbonds.get_hbond_site_directions": {
       "stability": "experimental",
       "introduced": "pre-1.0",
-      "owner": "physchem",
-      "documentation": "docs/content/user/tools/physchem/get_hbond_site_directions.ipynb",
-      "contract_tests": "tests/physchem/test_get_hbond_site_directions.py"
+      "owner": "interactions.hbonds",
+      "documentation": "docs/content/user/tools/interactions/get_hbond_site_directions.ipynb",
+      "contract_tests": "tests/interactions/hbonds/test_get_hbond_site_directions.py"
     }
   }
 }

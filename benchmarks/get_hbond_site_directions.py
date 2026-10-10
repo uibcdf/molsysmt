@@ -35,8 +35,8 @@ def worker(case):
 
     import molsysmt as msm
     from molsysmt import pyunitwizard as puw
+    from molsysmt.interactions.hbonds._hbond_directions import DirectionReducer
     from molsysmt.native import Structures
-    from molsysmt.physchem._hbond_directions import DirectionReducer
 
     n_sites, n_structures, pbc = CASES[case]
     molecule = Chem.MolFromSmiles(".".join(["CC=O"] * n_sites))
@@ -65,7 +65,7 @@ def worker(case):
     for trial in range(4):
         block_seconds.clear()
         start = perf_counter()
-        result = msm.physchem.get_hbond_site_directions(
+        result = msm.interactions.hbonds.get_hbond_site_directions(
             source, heavy_mode="force", pbc=pbc
         )
         seconds = perf_counter() - start
@@ -119,8 +119,8 @@ def main():
     hashes = {
         str(path): hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
         for path in (
-            Path("molsysmt/physchem/get_hbond_site_directions.py"),
-            Path("molsysmt/physchem/_hbond_directions.py"),
+            Path("molsysmt/interactions/hbonds/get_hbond_site_directions.py"),
+            Path("molsysmt/interactions/hbonds/_hbond_directions.py"),
             Path("molsysmt/basic/_index_validation.py"),
             Path("molsysmt/structure/get_vectors.py"),
             Path("molsysmt/structure/_vectors.py"),

@@ -8,7 +8,7 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.interaction_attribution import attributed
 
 
-@signal(tags=["api", "physchem"])
+@signal(tags=["api", "interactions", "hbonds"])
 @arg_digest()
 @dep_digest("rdkit")
 @attributed("hbond_site_directions")
@@ -120,7 +120,7 @@ def get_hbond_site_directions(
 
     See Also
     --------
-    molsysmt.physchem.get_hbond_sites
+    molsysmt.interactions.hbonds.get_hbond_sites
         Recognizing sites without requiring coordinates.
     molsysmt.structure.get_vectors
         Calculating general vectors and their observed periodic images.
@@ -134,7 +134,7 @@ def get_hbond_site_directions(
     >>> conformer.SetAtomPosition(0, (0, 0, 0))
     >>> conformer.SetAtomPosition(1, (1, 0, 0))
     >>> _ = molecule.AddConformer(conformer)
-    >>> result = msm.physchem.get_hbond_site_directions(molecule, pbc=False)
+    >>> result = msm.interactions.hbonds.get_hbond_site_directions(molecule, pbc=False)
     >>> result['directions'].tolist()
     [[1.0, -0.0, -0.0]]
 
@@ -151,11 +151,14 @@ def get_hbond_site_directions(
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt._private.variables import is_all
     from molsysmt.basic import get
-    from molsysmt.physchem import get_hbond_sites
-    from molsysmt.physchem._hbond_directions import DirectionReducer, build_site_plan
+    from molsysmt.interactions.hbonds import get_hbond_sites
+    from molsysmt.interactions.hbonds._hbond_directions import (
+        DirectionReducer,
+        build_site_plan,
+    )
     from molsysmt.topology._chemical_graph import validate_chemical_frames
 
-    caller = "molsysmt.physchem.get_hbond_site_directions"
+    caller = "molsysmt.interactions.hbonds.get_hbond_site_directions"
     structure_indices = validate_chemical_frames(
         molecular_system, structure_indices, caller
     )

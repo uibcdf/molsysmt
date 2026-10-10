@@ -99,7 +99,7 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     families = {
-        "molsysmt.physchem.get_hbond_site_directions.get_hbond_site_directions": "hbond_site_directions",
+        "molsysmt.interactions.hbonds.get_hbond_site_directions.get_hbond_site_directions": "hbond_site_directions",
         "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination": "metal_coordination",
         "molsysmt.physchem.get_metal_coordination_sites.get_metal_coordination_sites": "metal_coordination_sites",
         "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges": "water_bridges",
@@ -111,7 +111,7 @@ def digest_method(method, caller=None):
         "molsysmt.interactions.pi_pi.get_pi_pi_interactions.get_pi_pi_interactions": "pi_pi",
         "molsysmt.interactions.cation_pi.get_cation_pi_interactions.get_cation_pi_interactions": "cation_pi",
         "molsysmt.interactions.hbonds.get_hbonds.get_hbonds": "hbonds",
-        "molsysmt.physchem.get_hbond_sites.get_hbond_sites": "hbond_sites",
+        "molsysmt.interactions.hbonds.get_hbond_sites.get_hbond_sites": "hbond_sites",
     }
     if caller in families:
         from molsysmt._private.interaction_methods import supported_methods

@@ -6,6 +6,8 @@ API Hydrogen bonds
 .. autosummary::
    :toctree: autosummary
   
+   get_hbond_sites
+   get_hbond_site_directions
    get_hbonds
    get_acceptor_atoms
    get_donor_atoms

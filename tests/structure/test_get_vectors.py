@@ -389,7 +389,7 @@ def test_declared_donor_pairs_compose_without_chemical_reinterpretation():
             [[[0.0, 0.0, 0.0], [0.1, 0.0, 0.0], [0.0, 0.1, 0.0]]], "nm"
         )
     )
-    sites = msm.physchem.get_hbond_sites(source)
+    sites = msm.interactions.hbonds.get_hbond_sites(source)
     pairs = sites["donor_hydrogen_pairs"]
     assert len(pairs) > 0
     result = msm.structure.get_vectors(

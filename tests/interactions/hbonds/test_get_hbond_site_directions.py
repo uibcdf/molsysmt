@@ -38,7 +38,7 @@ def test_carbonyl_independent_angles_support_and_forms(form, tmp_path):
             source = path
         elif form == "composed":
             source = [source.topology, source.structures]
-    result = msm.physchem.get_hbond_site_directions(source, pbc=False)
+    result = msm.interactions.hbonds.get_hbond_site_directions(source, pbc=False)
     expected = [[0.5, np.sqrt(3) / 2, 0], [0.5, -np.sqrt(3) / 2, 0]]
     np.testing.assert_allclose(result["directions"], expected, atol=1e-14)
     np.testing.assert_allclose(np.linalg.norm(result["directions"], axis=1), 1.0)
@@ -77,7 +77,7 @@ def test_carbonyl_independent_angles_support_and_forms(form, tmp_path):
     ],
 )
 def test_nitrogen_independent_outward_direction(smiles, coordinates, model):
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         placed(smiles, coordinates), pbc=False
     )
     np.testing.assert_allclose(result["directions"], [[1.0, 0, 0]], atol=1e-14)
@@ -92,12 +92,14 @@ def test_observed_donor_hydrogens_and_unsupported_water_acceptor():
     for atom, position in enumerate([[0, 0, 0], [1, 0, 0], [0, 1, 0]]):
         conformer.SetAtomPosition(atom, position)
     source.AddConformer(conformer)
-    result = msm.physchem.get_hbond_site_directions(source, pbc=False)
+    result = msm.interactions.hbonds.get_hbond_site_directions(source, pbc=False)
     assert result["donor_hydrogen_pairs"].tolist() == [[0, 1], [0, 2]]
     assert result["site_roles"].tolist() == [0, 0, 1]
     assert result["status"].tolist() == [[1, 1, 0]]
     np.testing.assert_allclose(result["directions"], [[1.0, 0, 0], [0, 1.0, 0]])
-    subset = msm.physchem.get_hbond_site_directions(source, selection=[0, 1], pbc=False)
+    subset = msm.interactions.hbonds.get_hbond_site_directions(
+        source, selection=[0, 1], pbc=False
+    )
     assert subset["donor_hydrogen_pairs"].tolist() == [[0, 1]]
     assert subset["status"].tolist() == [[1, 0]]
 
@@ -118,7 +120,7 @@ def test_observed_donor_hydrogens_and_unsupported_water_acceptor():
 )
 def test_other_acceptor_environments_remain_explicitly_unsupported(smiles):
     molecule = Chem.MolFromSmiles(smiles)
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         molecule, structure_indices=[], pbc=False
     )
     assert not result["site_models"].any()
@@ -129,7 +131,7 @@ def test_other_acceptor_environments_remain_explicitly_unsupported(smiles):
 @pytest.mark.parametrize("smiles", ["CC(=O)N", "c1cc[nH]c1", "c1cc[nH+]cc1"])
 def test_amide_pyrrole_and_protonated_nitrogen_are_not_acceptors(smiles):
     molecule = Chem.MolFromSmiles(smiles)
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         molecule, structure_indices=[], pbc=False
     )
     nitrogen = {
@@ -140,13 +142,15 @@ def test_amide_pyrrole_and_protonated_nitrogen_are_not_acceptors(smiles):
 
 def test_selected_anchor_retains_external_support_and_is_rotation_covariant():
     source = carbonyl()
-    result = msm.physchem.get_hbond_site_directions(source, selection=[2], pbc=False)
+    result = msm.interactions.hbonds.get_hbond_site_directions(
+        source, selection=[2], pbc=False
+    )
     assert result["selected_atom_indices"].tolist() == [2]
     assert result["support_atom_indices"].tolist() == [2, 1, 0]
     rotation = np.array([[0.0, 0, 1], [1, 0, 0], [0, 1, 0]])
     original = source.GetConformer().GetPositions()
     moved = placed("CC=O", original @ rotation + [2.0, 3.0, 4.0])
-    actual = msm.physchem.get_hbond_site_directions(moved, pbc=False)
+    actual = msm.interactions.hbonds.get_hbond_site_directions(moved, pbc=False)
     np.testing.assert_allclose(
         actual["directions"], result["directions"] @ rotation, atol=1e-14
     )
@@ -166,7 +170,7 @@ def test_selected_anchor_retains_external_support_and_is_rotation_covariant():
     ],
 )
 def test_degenerate_geometry_has_no_arbitrary_direction(smiles, coordinates):
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         placed(smiles, coordinates), pbc=False
     )
     assert result["status"].tolist() == [[2]]
@@ -176,7 +180,7 @@ def test_degenerate_geometry_has_no_arbitrary_direction(smiles, coordinates):
 
 
 def test_nonconsecutive_repeated_structures_and_chunking(monkeypatch):
-    from molsysmt.physchem._hbond_directions import DirectionReducer
+    from molsysmt.interactions.hbonds._hbond_directions import DirectionReducer
 
     source = msm.convert(carbonyl(), to_form="molsysmt.MolSys")
     coordinates = puw.get_value(source.structures.coordinates, to_unit="nm")
@@ -186,7 +190,7 @@ def test_nonconsecutive_repeated_structures_and_chunking(monkeypatch):
         )
     )
     monkeypatch.setattr(msm.configure, "chunk_size", 1)
-    eager = msm.physchem.get_hbond_site_directions(
+    eager = msm.interactions.hbonds.get_hbond_site_directions(
         source, structure_indices=[4, 1, 4], pbc=False, heavy_mode="off"
     )
     consumed = []
@@ -197,7 +201,7 @@ def test_nonconsecutive_repeated_structures_and_chunking(monkeypatch):
         return original_consume(self, chunk)
 
     monkeypatch.setattr(DirectionReducer, "consume", capture)
-    chunks = msm.physchem.get_hbond_site_directions(
+    chunks = msm.interactions.hbonds.get_hbond_site_directions(
         source, structure_indices=[4, 1, 4], pbc=False, heavy_mode="force"
     )
     for name in [
@@ -216,7 +220,7 @@ def test_nonconsecutive_repeated_structures_and_chunking(monkeypatch):
     source.chemical_states._states[0].bonds = (
         source.chemical_states._states[0].bonds.iloc[::-1].reset_index(drop=True)
     )
-    reordered = msm.physchem.get_hbond_site_directions(
+    reordered = msm.interactions.hbonds.get_hbond_site_directions(
         source, structure_indices=[4, 1, 4], pbc=False
     )
     np.testing.assert_array_equal(reordered["directions"], eager["directions"])
@@ -238,7 +242,7 @@ def test_periodic_images_reconstruct_carbonyl_plane(box, form, tmp_path):
     if form == "h5msm":
         input_system = str(tmp_path / "periodic.h5msm")
         msm.convert(source, to_form=input_system)
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         input_system, selection=[2], pbc=True
     )
     np.testing.assert_allclose(
@@ -259,7 +263,9 @@ def test_periodic_images_reconstruct_carbonyl_plane(box, form, tmp_path):
 
 def test_output_units_are_presented_through_pyunitwizard():
     with puw.context(standard_units=["angstrom", "ps"]):
-        result = msm.physchem.get_hbond_site_directions(carbonyl(), pbc=False)
+        result = msm.interactions.hbonds.get_hbond_site_directions(
+            carbonyl(), pbc=False
+        )
         np.testing.assert_allclose(
             puw.get_value(result["origins"], to_unit="angstrom"), [[1, 0, 0], [1, 0, 0]]
         )
@@ -280,7 +286,7 @@ def test_output_units_are_presented_through_pyunitwizard():
 )
 def test_invalid_arguments_raise_at_public_boundary(kwargs):
     with pytest.raises(ArgumentError):
-        msm.physchem.get_hbond_site_directions(carbonyl(), **kwargs)
+        msm.interactions.hbonds.get_hbond_site_directions(carbonyl(), **kwargs)
 
 
 @pytest.mark.parametrize(
@@ -289,14 +295,16 @@ def test_invalid_arguments_raise_at_public_boundary(kwargs):
 )
 def test_nonfinite_coordinates_raise(coordinates):
     with pytest.raises(StructuralInconsistencyError):
-        msm.physchem.get_hbond_site_directions(placed("CC=O", coordinates), pbc=False)
+        msm.interactions.hbonds.get_hbond_site_directions(
+            placed("CC=O", coordinates), pbc=False
+        )
 
 
 @pytest.mark.parametrize(
     "selection,structures,status_shape", [([], "all", (1, 0)), ("all", [], (0, 1))]
 )
 def test_typed_empty_results(selection, structures, status_shape):
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         carbonyl(), selection=selection, structure_indices=structures, pbc=False
     )
     assert result["status"].shape == status_shape and result["status"].dtype == np.uint8
@@ -313,9 +321,14 @@ def test_typed_empty_results(selection, structures, status_shape):
 
 
 def test_numeric_status_and_packing_budget_is_enforced():
-    from molsysmt.physchem._hbond_directions import DirectionReducer, build_site_plan
+    from molsysmt.interactions.hbonds._hbond_directions import (
+        DirectionReducer,
+        build_site_plan,
+    )
 
-    sites = msm.physchem.get_hbond_sites(carbonyl(), method="smarts_donor_acceptor")
+    sites = msm.interactions.hbonds.get_hbond_sites(
+        carbonyl(), method="smarts_donor_acceptor"
+    )
     plan = build_site_plan(carbonyl(), sites, False, 100000)
     with pytest.raises(MemoryBudgetExceededError):
         DirectionReducer(plan, sites, np.arange(10000), False, 1024)
@@ -333,7 +346,9 @@ def test_numeric_status_and_packing_budget_is_enforced():
 def test_length_backend_and_standard_policy_are_preserved(backend, module):
     pytest.importorskip(module)
     with puw.context(default_form=backend, standard_units=["angstrom", "ps"]):
-        result = msm.physchem.get_hbond_site_directions(carbonyl(), pbc=False)
+        result = msm.interactions.hbonds.get_hbond_site_directions(
+            carbonyl(), pbc=False
+        )
         assert puw.get_form(result["origins"]) == backend
         assert puw.has_unit(result["origins"], "angstrom")
         np.testing.assert_allclose(
@@ -354,18 +369,18 @@ def test_structure_assigned_chemistry_is_coherent_and_source_is_unchanged(tmp_pa
     source._set_structure_chemical_state_indices([1, 0, 1])
     original_bonds = source.chemical_states._states[1].bonds.copy(deep=True)
     source_reference = source.chemical_states.reference_chemical_state_index
-    selected = msm.physchem.get_hbond_site_directions(
+    selected = msm.interactions.hbonds.get_hbond_site_directions(
         source, structure_indices=[2, 0], chemical_state="structure", pbc=False
     )
     assert selected["chemical_state_index"] == 1
     assert selected["sites"]["chemical_state_index"] == 1
     with pytest.raises(StructuralInconsistencyError):
-        msm.physchem.get_hbond_site_directions(
+        msm.interactions.hbonds.get_hbond_site_directions(
             source, structure_indices=[2, 1], chemical_state="structure", pbc=False
         )
     path = str(tmp_path / "states.h5msm")
     msm.convert(source, to_form=path)
-    disk = msm.physchem.get_hbond_site_directions(
+    disk = msm.interactions.hbonds.get_hbond_site_directions(
         path,
         structure_indices=[2, 0],
         chemical_state="structure",
@@ -394,7 +409,7 @@ def test_h5msm_delivery_does_not_materialize_full_structural_series(
         )
 
     monkeypatch.setattr(_h5msm05_modular, "read_molsys_file", forbidden)
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         path, structure_indices=[0], heavy_mode="force"
     )
     assert result["status"].tolist() == [[1]]
@@ -404,7 +419,7 @@ def test_singular_box_is_rejected():
     source = msm.convert(carbonyl(), to_form="molsysmt.MolSys")
     source.structures.box = puw.quantity(np.zeros((1, 3, 3)), "nm")
     with pytest.raises(StructuralInconsistencyError):
-        msm.physchem.get_hbond_site_directions(source)
+        msm.interactions.hbonds.get_hbond_site_directions(source)
 
 
 def test_metal_coordinated_acceptor_is_outside_profile():
@@ -432,7 +447,7 @@ def test_metal_coordinated_acceptor_is_outside_profile():
         ],
         ignore_index=True,
     )
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         source, site_method="elemental_nitrogen_oxygen", pbc=False
     )
     assert result["site_models"].tolist() == [0]
@@ -440,7 +455,7 @@ def test_metal_coordinated_acceptor_is_outside_profile():
 
 
 def test_undefined_and_unsupported_remain_distinct_in_same_structure():
-    result = msm.physchem.get_hbond_site_directions(
+    result = msm.interactions.hbonds.get_hbond_site_directions(
         placed("C=O.O", [[0, 0, 0], [1, 0, 0], [2, 0, 0]]), pbc=False
     )
     assert result["site_models"].tolist() == [2, 0]

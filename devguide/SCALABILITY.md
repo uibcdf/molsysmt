@@ -248,7 +248,7 @@ are reported separately from the detector's coordinate work.
 ## Attributed hydrogen-bond working estimates
 
 `interactions.hbonds.get_hbonds` recognizes full-source candidate sites once using
-`physchem.get_hbond_sites`, or validates explicit donor-H/acceptor indices. It
+`interactions.hbonds.get_hbond_sites`, or validates explicit donor-H/acceptor indices. It
 projects the union of eligible sites and queries bounded spatial candidates per
 frame. Incident scope partitions donor-H rows into selected-role and external-role
 searches, so an observation is not duplicated. Between scope requires all three

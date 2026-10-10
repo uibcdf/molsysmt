@@ -83,6 +83,11 @@ cross-component feedback, and issue ownership.
   in `topology`, geometric operations in `structure`, and periodic reconstruction
   and image conventions in `pbc`. Stored chemical assignments remain owned by
   `ChemicalStates`; reusable tools must not create competing chemical stores.
+- Hydrogen-bond-specific site definitions, local directional models and occurrence
+  detection belong together in `interactions.hbonds`. Recognition and directions
+  remain independent public tools: neither requires previously calculated hydrogen
+  bonds. They reuse general chemistry, connectivity, geometry and periodic tools
+  from their owning modules. Reusability alone does not determine module ownership.
 - Report missing sibling capabilities to the provider and link the consumer
   requirement. Preserve dependency direction and lazy optional dependencies.
   Temporary duplication requires a tracked reason and removal condition.

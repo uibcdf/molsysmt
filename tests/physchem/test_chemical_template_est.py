@@ -166,7 +166,7 @@ def test_real_est_native_template_preserves_pose_and_known_chemical_controls(
     ring = msm.physchem.get_aromatic_rings(prepared)
     assert ring["atom_offsets"].tolist() == [0, 6]
     assert ring["atom_indices"].tolist() == [0, 1, 2, 4, 5, 10]
-    sites = msm.physchem.get_hbond_sites(prepared)
+    sites = msm.interactions.hbonds.get_hbond_sites(prepared)
     assert sites["acceptor_atom_indices"].tolist() == [3, 18]
     assert sites["donor_hydrogen_pairs"].shape == (0, 2)
     target = tmp_path / "prepared_est.h5msm"

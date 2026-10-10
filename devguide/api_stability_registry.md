@@ -232,8 +232,6 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_cip_stereochemistry` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_electronegativity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_halogen_bond_sites` | experimental | active | pre-1.0 |
-| `molsysmt.physchem.get_hbond_site_directions` | experimental | active | pre-1.0 |
-| `molsysmt.physchem.get_hbond_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hydrogen_inventory` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hydrophobic_sites` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_hydrophobicity` | experimental | active | pre-1.0 |
@@ -327,6 +325,8 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.interactions.hbonds.get_acceptor_atoms` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds.get_buch_hbonds` | experimental | active | 1.0.0 |
 | `molsysmt.interactions.hbonds.get_donor_atoms` | experimental | active | 1.0.0 |
+| `molsysmt.interactions.hbonds.get_hbond_site_directions` | experimental | active | pre-1.0 |
+| `molsysmt.interactions.hbonds.get_hbond_sites` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.hbonds.get_hbonds` | experimental | active | pre-1.0 |
 | `molsysmt.interactions.hbonds.get_luzard_chandler_hbonds` | experimental | active | 1.0.0 |
 

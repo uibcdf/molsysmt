@@ -219,12 +219,6 @@ sections:
           - name: get_hydrophobic_sites
             file: docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_hydrophobic_sites.ipynb.AGENTS.md
-          - name: get_hbond_sites
-            file: docs/content/user/tools/physchem/get_hbond_sites.ipynb
-            agents_file: docs/content/user/tools/physchem/get_hbond_sites.ipynb.AGENTS.md
-          - name: get_hbond_site_directions
-            file: docs/content/user/tools/physchem/get_hbond_site_directions.ipynb
-            agents_file: docs/content/user/tools/physchem/get_hbond_site_directions.ipynb.AGENTS.md
           - name: get_aromatic_rings
             file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb
             agents_file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb.AGENTS.md
@@ -248,6 +242,12 @@ sections:
             description: Sparse queries, bounded pages, provenance, optional tracking diagnostics, frame replacement and HDF5 writing.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
+          - name: get_hbond_sites
+            file: docs/content/user/tools/interactions/get_hbond_sites.ipynb
+            agents_file: docs/content/user/tools/interactions/get_hbond_sites.ipynb.AGENTS.md
+          - name: get_hbond_site_directions
+            file: docs/content/user/tools/interactions/get_hbond_site_directions.ipynb
+            agents_file: docs/content/user/tools/interactions/get_hbond_site_directions.ipynb.AGENTS.md
           - name: get_hbonds
             file: docs/content/user/tools/interactions/get_hbonds.ipynb
             agents_file: docs/content/user/tools/interactions/get_hbonds.ipynb.AGENTS.md

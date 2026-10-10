@@ -158,7 +158,7 @@ def get_vectors(
         Computing the corresponding scalar distances.
     molsysmt.structure.get_center
         Computing geometric or weighted centers.
-    molsysmt.physchem.get_hbond_sites
+    molsysmt.interactions.hbonds.get_hbond_sites
         Recognizing fixed-state donor-H pairs and acceptor candidates.
 
     Examples

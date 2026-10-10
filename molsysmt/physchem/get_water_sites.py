@@ -82,7 +82,7 @@ def get_water_sites(
 
     See Also
     --------
-    molsysmt.physchem.get_hbond_sites
+    molsysmt.interactions.hbonds.get_hbond_sites
         Recognizing hydrogen-bond roles independently of water identity.
     molsysmt.interactions.water_bridges.get_water_bridges
         Composing single-water paths from two observed hydrogen bonds.

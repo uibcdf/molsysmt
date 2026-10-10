@@ -356,7 +356,7 @@ def test_real_est_retains_pose_and_five_cip_centers_through_h5msm(tmp_path):
     ]
     cip = msm.physchem.get_cip_stereochemistry(output, from_coordinates=True)
     np.testing.assert_array_equal(cip["atom_stereochemistry"][:20], expected)
-    sites = msm.physchem.get_hbond_sites(output)
+    sites = msm.interactions.hbonds.get_hbond_sites(output)
     assert sites["donor_hydrogen_pairs"][:, 0].tolist() == [3, 18]
     assert sites["acceptor_atom_indices"].tolist() == [3, 18]
     path = tmp_path / "est_with_h.h5msm"
@@ -385,7 +385,7 @@ def test_phenol_hydrogens_are_in_ring_plane_and_oh_is_generated():
         if parent != 0:
             assert abs(xyz[h, 2]) < 1e-8
             assert np.linalg.norm(xyz[h, :2]) > np.linalg.norm(xyz[parent, :2])
-    assert msm.physchem.get_hbond_sites(output)["donor_hydrogen_pairs"][
+    assert msm.interactions.hbonds.get_hbond_sites(output)["donor_hydrogen_pairs"][
         :, 0
     ].tolist() == [0]
 

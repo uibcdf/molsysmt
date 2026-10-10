@@ -88,7 +88,7 @@ output, GPU engine, incremental writer or checkpoint/resume contract.
 
 ## Fixed-state donor composition
 
-Use `physchem.get_hbond_sites` for chemical recognition, then pass its explicit
+Use `interactions.hbonds.get_hbond_sites` for chemical recognition, then pass its explicit
 donor-H pairs to `get_vectors`. Retain the detached chemical inventory alongside
 the geometry dictionary: geometry does not replace chemical-state/rule evidence.
 Resolve a coherent chemical state in recognition before composing the recipe.

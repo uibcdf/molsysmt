@@ -178,7 +178,7 @@ def get_hbonds(
 
     See Also
     --------
-    molsysmt.physchem.get_hbond_sites
+    molsysmt.interactions.hbonds.get_hbond_sites
         Recognizing candidate sites independently of coordinates.
     molsysmt.interactions.hbonds.get_buch_hbonds
         Preserving the established Buch calculation and optional analysis output.
@@ -213,9 +213,9 @@ def get_hbonds(
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt._private.scientific_references import MDANALYSIS_REFERENCE
     from molsysmt.basic import convert, get
+    from molsysmt.interactions.hbonds import get_hbond_sites
     from molsysmt.interactions.hbonds._reducer import _HBondReducer
     from molsysmt.interactions.result import Interactions
-    from molsysmt.physchem import get_hbond_sites
     from molsysmt.topology._chemical_graph import (
         chemical_graph_context,
         select_chemical_atoms,

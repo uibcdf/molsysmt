@@ -380,7 +380,7 @@ assert result['report']['status'] == 'applied'
 np.testing.assert_array_equal(
     msm.pyunitwizard.get_value(prepared.structures.coordinates, to_unit='nm'),
     original_coordinates)
-sites = msm.physchem.get_hbond_sites(prepared)
+sites = msm.interactions.hbonds.get_hbond_sites(prepared)
 assert sites['donor_hydrogen_pairs'].tolist() == [[1, 5]]
 assert sites['acceptor_atom_indices'].tolist() == [1]
 ```

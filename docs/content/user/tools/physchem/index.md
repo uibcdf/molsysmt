@@ -19,8 +19,6 @@
 | [Get chemical readiness](get_chemical_readiness.md) | Inspecting stored field coverage before explicit chemical preparation |
 | [Get electronegativity](get_electronegativity.ipynb) | Getting Pauling electronegativities for constituent atoms |
 | [Get halogen-bond sites](get_halogen_bond_sites.ipynb) | Recognizing ordered donor–halogen and acceptor–reference pairs |
-| [Get hydrogen-bond sites](get_hbond_sites.ipynb) | Recognizing attributed donor–hydrogen pairs and acceptors |
-| [Get hydrogen-bond site directions](get_hbond_site_directions.ipynb) | Deriving observed donor vectors and bounded ideal acceptor hypotheses |
 | [Get hydrophobic sites](get_hydrophobic_sites.ipynb) | Recognizing declared chemical atom sites independently of geometry |
 | [Get hydrophobicity](get_hydrophobicity.ipynb) | Getting hydrophobicity values for residues from standard biochemical scales |
 | [Get metal coordination sites](get_metal_coordination_sites.ipynb) | Recognizing metal and ligand chemistry independently of geometry |
@@ -55,8 +53,6 @@
    get_charge_centers.ipynb
    get_chemical_readiness.md
    get_electronegativity.ipynb
-   get_hbond_sites.ipynb
-   get_hbond_site_directions.ipynb
    get_hydrophobicity.ipynb
    get_mass.ipynb
    get_polarity.ipynb

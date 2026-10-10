@@ -16,6 +16,13 @@ Attributed ProLIF and Mol*/MDTraj geometric profiles are available separately.
 The new hydrogen-bond entry point offers named per-structure scientific criteria;
 its default sparse output is independent of the established Buch/Luzard–Chandler defaults.
 
+`interactions.hbonds` also provides independent tools for recognizing candidate
+donor/acceptor sites and characterizing their local directions. Recognition does
+not require coordinates; directions use coordinates without requiring another
+interaction partner. Neither operation calculates or attaches observed bonds.
+
+- {doc}`get_hbond_sites` — recognizing attributed donor–hydrogen pairs and acceptors.
+- {doc}`get_hbond_site_directions` — deriving donor vectors and bounded ideal acceptor hypotheses.
 - {doc}`get_metal_coordination` — observing directed metal-ligand proximity candidates.
 - {doc}`get_water_bridges` — joining two simultaneous hydrogen bonds through indexed water.
 - {doc}`get_hydrophobic_interactions` — calculating typed hydrophobic atom proximity.
@@ -35,6 +42,8 @@ its default sparse output is independent of the established Buch/Luzard–Chandl
    get_water_bridges
    get_hydrophobic_interactions
    get_halogen_bonds
+   get_hbond_sites
+   get_hbond_site_directions
    result
    get_hbonds
    get_ionic_interactions

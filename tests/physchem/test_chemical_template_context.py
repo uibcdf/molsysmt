@@ -188,7 +188,7 @@ def test_internal_residue_uses_polymer_context_without_creating_cut_termini(
         options["context_atom_correspondence"],
     )
     with pytest.raises(StructuralInconsistencyError):
-        msm.physchem.get_hbond_sites(result, method="smarts_donor_acceptor")
+        msm.interactions.hbonds.get_hbond_sites(result, method="smarts_donor_acceptor")
 
 
 @pytest.mark.parametrize(
@@ -578,7 +578,7 @@ def test_observed_1qku_shell_keeps_full_chain_context_and_unassessed_gaps(
     )
     # Declared scoped preparation cannot justify recognition of the whole receptor.
     with pytest.raises(StructuralInconsistencyError):
-        msm.physchem.get_hbond_sites(loaded, method="smarts_donor_acceptor")
+        msm.interactions.hbonds.get_hbond_sites(loaded, method="smarts_donor_acceptor")
 
 
 def test_cookbook_polymer_context_block_executes_on_the_observed_control(

@@ -3,12 +3,20 @@
 **Role:** normative public contract. **Tracking:** uibcdf/molsysmt#375.
 **Stability:** experimental, bounded maintainer admission on 2026-10-10.
 
-`physchem.get_hbond_site_directions` composes public `get_hbond_sites`, general
+`interactions.hbonds.get_hbond_site_directions` composes public `get_hbond_sites`, general
 SMARTS matching and the numeric geometry shared with `structure.get_vectors`. It never changes chemistry,
 coordinates or named interactions, adds H, infers a pocket or selects a
 pharmacophore projection distance. Forms must supply the attributes required by
 the selected state and geometry. RDKit is lazy and optional, but required by this
 first profile's environment matching even with elemental site recognition.
+
+Recognition, local direction characterization and occurrence detection share
+the public `interactions.hbonds` namespace. Site directions depend on a donor/
+acceptor definition and local coordinates, not on previously calculated hydrogen
+bonds. These tools remain reusable by pharmacophore and other client workflows.
+The former pre-release `physchem` exports were removed on 2026-10-10; their
+signatures and result schemas are unchanged. Generic geometry remains in
+`structure`, periodic conventions in `pbc`, and graph matching in `topology`.
 
 ## Scientific definition
 
@@ -32,7 +40,7 @@ with O→C. Choose the lowest-index heavy C substituent, otherwise the lowest-in
 indexed H. This determines the transverse sign and local slot 0; renumbering
 source atoms can exchange local slot labels. No global axis fixes the sign.
 
-SMARTS in `physchem/_hbond_directions.py` require declared orders, formal charges
+SMARTS in `interactions/hbonds/_hbond_directions.py` require declared orders, formal charges
 and aromatic metadata. Acids/carboxylates, esters and C=O attached to S/P are
 excluded from the ordinary carbonyl model. Amines, ether/alcohol/water O, sulfur/
 phosphorus and dative-bound acceptors are unsupported. Covalent extra neighbors
@@ -128,7 +136,7 @@ H5MSM input round trips in the examples store molecular inputs, not this result.
 
 ## Verification
 
-`tests/physchem/test_get_hbond_site_directions.py` checks independent analytic
+`tests/interactions/hbonds/test_get_hbond_site_directions.py` checks independent analytic
 carbonyl and nitrogen controls, observed donors, exclusions, unsupported versus
 undefined outcomes, multiplicity, rotations/translations, neighbor order, actual
 orthogonal/triclinic images, input/output units and four backends, source
@@ -151,6 +159,10 @@ geometry and retains source hashes. The
 produced after focused tests finished, without concurrent test execution. Other
 host load was not controlled. These are observed costs, not thresholds or proof
 of energetic/scientific accuracy.
+
+The retained receipt predates the namespace migration and therefore records the
+original `physchem` file paths and their exact hashes. It is historical evidence;
+the maintained benchmark now calls `interactions.hbonds` and records its paths.
 
 | Case | Sites × structures | Finite directions | Warm median | Top-level numeric bytes |
 | --- | --- | --- | --- | --- |
