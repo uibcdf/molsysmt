@@ -16,7 +16,7 @@ def to_file_pdb(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        OpenMM Simulation supplying topology and the current context pose.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -29,12 +29,22 @@ def to_file_pdb(
     Returns
     -------
     file:pdb
-        Resulting object in file:pdb form.
+        Requested PDB output path. The returned file belongs to the caller.
+
+    Notes
+    -----
+    The single current context structure supplies coordinates and periodic box.
+    MolSysMT box getters retain shape (1, 3, 3); this adapter selects that one box
+    and converts it to nanometers in OpenMM units before updating a copied
+    topology for writing. The source topology is unchanged. PDB coordinates and
+    box lengths are serialized in angstroms by OpenMM, independently of session
+    length units.
 
 
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt import pyunitwizard as puw
     from molsysmt.form.openmm_Topology.to_file_pdb import (
         to_file_pdb as openmm_Topology_to_file_pdb,
     )
@@ -47,7 +57,6 @@ def to_file_pdb(
     topology = openmm_Simulation_to_openmm_Topology(
         item,
         atom_indices=atom_indices,
-        structure_indices=structure_indices,
         skip_digestion=True,
     )
     coordinates = get_coordinates_from_atom(
@@ -59,7 +68,9 @@ def to_file_pdb(
     box = get_box_from_system(
         item, structure_indices=structure_indices, skip_digestion=True
     )
-    topology.setPeriodicBoxVectors(box)
+    topology.setPeriodicBoxVectors(
+        None if box is None else puw.convert(box[0], "nm", to_form="openmm.unit")
+    )
 
     tmp_item = openmm_Topology_to_file_pdb(
         topology,

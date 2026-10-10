@@ -1,10 +1,10 @@
 ---
 summary: Complete legacy bridge and native-probe temporary-resource lifecycles.
 issue: uibcdf/molsysmt#374
-status: open
+status: partial
 opened: 2026-10-10
 closed:
-verification: inspected
+verification: reproduced
 area: [form, performance]
 guard:
 normative:
@@ -15,7 +15,8 @@ supersedes: []
 # Legacy temporary-resource lifecycle exceptions
 
 **Reported:** 2026-10-10, owner review in uibcdf/molsysmt#371.
-**Status:** Post-1.0 maintenance, with an explicit bounded interim procedure.
+**Status:** Two eager runtime bridges repaired before 1.0; generated output failure
+custody and temporal native-probe lifetime remain deferred.
 
 ## What
 
@@ -86,3 +87,51 @@ semantics without changing scientific criteria or deleting caller results. Prese
 public validation, form/unit behavior and dependency direction. No heavyweight
 universal matrix, blanket disk cleanup or release rebuilding is required merely
 to register this debt. See [the owner contract](../temporary_resource_operations.md).
+
+## Partial implementation — 2026-10-10
+
+**Contract-tested.** The Simulation/PDBFixer bridge and optional PyTraj
+missing-bond branch now own their intermediate PDBs inside explicit
+TemporaryDirectory contexts. Reading, writing and extracting pairs occur before
+exit. Success and exceptional paths retire only that owned scratch; caller
+results are preserved, and retirement errors propagate. No new generic resource
+helper, dependency or scientific criterion is introduced.
+
+Addressable guards:
+
+- `tests/form/openmm_Simulation/test_bridge_resource_lifecycle.py` verifies
+  write/read failure, original exception identity, successful object return,
+  caller-file preservation and visible removal failure. Its real OpenMM/PDBFixer
+  case confirms that the eager result is usable after scratch retirement.
+- `tests/build/get_missing_bonds/test_pytraj_resource_lifecycle.py` injects
+  write/read/pair-extraction/removal failure at provider boundaries. Its eager
+  topology stand-in demands a live input during extraction, and independently
+  expected pairs survive successful retirement. It does not certify an installed
+  PyTraj engine or its scientific criteria.
+
+Before repair, the eight-test lifecycle selection fails seven cases and passes
+one success control. After repair plus #379's real-writer box correction,
+13 tests pass on Linux/Python 3.14.7:
+
+```bash
+python -m pytest --receptor=llm -n12 tests/form/openmm_Simulation/test_bridge_resource_lifecycle.py tests/form/openmm_Simulation/test_pdb_export.py tests/build/get_missing_bonds/test_pytraj_resource_lifecycle.py tests/build/get_missing_bonds/test_get_missing_bonds.py::test_get_missing_bonds_with_selection_preserves_pairs
+```
+
+The real-engine test exposed a separate pre-existing current-box shape error,
+now tracked and repaired under uibcdf/molsysmt#379. One expected LegacyH5MSMWarning
+comes from the existing selected-bond fixture. Foundations, both Toolbox cards,
+conversion Cookbook, Common Core module 12 and the maintained resource-owner
+table now describe the lifetimes. The three changed docstrings render through
+strict Sphinx without RST errors; the missing-bond docstring executes all three
+example statements. Napoleon emits deprecation warnings, and the example
+correctly warns about its legacy H5MSM input.
+
+The issue remains open/partial: generated file-returning writer/download failures
+and loaded temporal-library lifetime still need owner-specific evidence. Their
+original bounded exception, review date and Windows exclusions remain in force.
+No frozen artifact, tag, heavy matrix or publication is changed by this phase.
+
+Focused Ruff checks and `git diff --check` pass. All 14 fast release gates
+pass, including adapter delivery, dependencies, devguide integrity, shared
+course structure and public smoke. These checks are development evidence,
+not heavy or installed-artifact candidate qualification.

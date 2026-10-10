@@ -133,6 +133,37 @@ def test_resource_lifecycle_docstrings_render_without_rst_errors(
     _render_api_docstring(tmp_path, function_name, tutorial_label)
 
 
+@pytest.mark.parametrize(
+    "function_name,tutorial_label",
+    [
+        (
+            "molsysmt.form.openmm_Simulation.to_file_pdb.to_file_pdb",
+            "Tutorial_Form_openmm_Simulation",
+        ),
+        (
+            "molsysmt.form.openmm_Simulation.to_pdbfixer_PDBFixer.to_pdbfixer_PDBFixer",
+            "Tutorial_Form_openmm_Simulation",
+        ),
+        ("molsysmt.build.get_missing_bonds", "Tutorial_Get_missing_bonds"),
+    ],
+)
+def test_eager_bridge_docstrings_render_without_rst_errors(
+    tmp_path, function_name, tutorial_label
+):
+    _render_api_docstring(tmp_path, function_name, tutorial_label)
+
+    if function_name == "molsysmt.build.get_missing_bonds":
+        import doctest
+
+        from molsysmt.build import get_missing_bonds
+
+        example = doctest.DocTestParser().get_doctest(
+            get_missing_bonds.__doc__, {}, "get_missing_bonds", "public-docstring", 0
+        )
+        result = doctest.DocTestRunner().run(example)
+        assert result.failed == 0 and result.attempted == 3
+
+
 def test_nglview_color_docstring_renders_without_rst_errors(tmp_path, monkeypatch):
     _render_api_docstring(
         tmp_path,

@@ -109,3 +109,15 @@ order for topology and coordinates together; a coordinate-only Structures subset
 retains requested atom order. Empty structure selections remain empty. CRD
 coordinates carry units, while absent connectivity, box and time are not inferred.
 See {ref}`Tutorial_Form_file_crd`.
+
+Intermediate PDBs used by the `openmm.Simulation` to PDBFixer converter and the
+optional PyTraj missing-bond audit are owned by those operations. Managed scratch
+is retired after eager reading, on both success and failure; returned in-memory
+objects or bond pairs remain usable. Cleanup errors are visible. A separately
+requested file output remains a caller-owned result, even in a temporary location.
+See {ref}`Tutorial_Form_openmm_Simulation` and {ref}`Tutorial_Get_missing_bonds`.
+
+Simulation PDB export uses its current context pose and box, rather than an older
+box stored in the source topology. It converts the single structure box into
+OpenMM units before writing; PDB lengths remain in angstroms under other session
+unit policies. The source topology is unchanged.

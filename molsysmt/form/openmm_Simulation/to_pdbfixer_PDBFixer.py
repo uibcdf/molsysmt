@@ -12,7 +12,7 @@ def to_pdbfixer_PDBFixer(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        OpenMM Simulation supplying topology and current coordinates.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -23,30 +23,43 @@ def to_pdbfixer_PDBFixer(
     Returns
     -------
     pdbfixer.PDBFixer
-        Resulting object in pdbfixer.PDBFixer form.
+        In-memory fixer containing the selected system.
+
+    Raises
+    ------
+    OSError
+        If an intermediate file cannot be written, read or retired.
+
+    Notes
+    -----
+    The bridge owns an intermediate PDB in a managed directory through eager
+    PDBFixer construction. Success and conversion failures retire that scratch;
+    the returned in-memory object does not depend on its continued existence.
+    Cleanup errors remain visible. Separately requested file outputs retain
+    their caller ownership.
 
 
     .. versionadded:: 1.0.0
     """
 
-    from os import remove
+    from pathlib import Path
+    from tempfile import TemporaryDirectory
 
-    from molsysmt._private.files_and_directories import temp_filename
     from molsysmt.form.file_pdb.to_pdbfixer_PDBFixer import (
         to_pdbfixer_PDBFixer as file_pdb_to_pdbfixer_PDBFixer,
     )
 
     from .to_file_pdb import to_file_pdb as openmm_Simulation_to_file_pdb
 
-    tmp_file = temp_filename(extension="pdb")
-    tmp_item = openmm_Simulation_to_file_pdb(
-        item,
-        output_filename=tmp_file,
-        atom_indices=atom_indices,
-        structure_indices=structure_indices,
-        skip_digestion=True,
-    )
-    tmp_item = file_pdb_to_pdbfixer_PDBFixer(tmp_file, skip_digestion=True)
-    remove(tmp_file)
+    with TemporaryDirectory(prefix="molsysmt-simulation-pdbfixer-") as directory:
+        tmp_file = str(Path(directory) / "input.pdb")
+        openmm_Simulation_to_file_pdb(
+            item,
+            output_filename=tmp_file,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
+        tmp_item = file_pdb_to_pdbfixer_PDBFixer(tmp_file, skip_digestion=True)
 
     return tmp_item

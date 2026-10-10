@@ -95,6 +95,11 @@ def get_missing_bonds(
     Group IDs need not be consecutive. Chain membership alone cannot preserve
     file-specific segment breaks that a source adapter has not retained.
 
+    The optional PyTraj route eagerly reads an intermediate PDB and materializes
+    its bond pairs before retiring the managed scratch directory. Preparation,
+    read and extraction failures also retire the scratch; cleanup errors remain
+    visible. Returned pairs do not depend on the intermediate file.
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -316,7 +321,9 @@ def get_missing_bonds(
             bonds = tmp_bonds
 
     elif engine == "pytraj":
-        from molsysmt._private.files_and_directories import temp_filename
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
         from molsysmt.basic import convert, get
 
         old_bonds = get(
@@ -330,19 +337,20 @@ def get_missing_bonds(
             if old_bonds[ii][0] > old_bonds[ii][1]:
                 old_bonds[ii][0], old_bonds[ii][1] = old_bonds[ii][1], old_bonds[ii][0]
 
-        temp_pdb_file = temp_filename(extension="pdb")
-        temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file)
-        temp_molecular_system = convert(
-            temp_molecular_system,
-            to_form="pytraj.Topology",
-            max_bond_length=max_bond_length,
-        )
+        with TemporaryDirectory(prefix="molsysmt-pytraj-bonds-") as directory:
+            temp_pdb_file = str(Path(directory) / "input.pdb")
+            temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file)
+            temp_molecular_system = convert(
+                temp_molecular_system,
+                to_form="pytraj.Topology",
+                max_bond_length=max_bond_length,
+            )
 
-        new_bonds = []
-        for atom1_index, atom2_index in temp_molecular_system.bond_indices.tolist():
-            if atom1_index > atom2_index:
-                atom1_index, atom2_index = atom2_index, atom1_index
-            new_bonds.append([atom1_index, atom2_index])
+            new_bonds = []
+            for atom1_index, atom2_index in temp_molecular_system.bond_indices.tolist():
+                if atom1_index > atom2_index:
+                    atom1_index, atom2_index = atom2_index, atom1_index
+                new_bonds.append([atom1_index, atom2_index])
 
         output = []
         for bond in new_bonds:

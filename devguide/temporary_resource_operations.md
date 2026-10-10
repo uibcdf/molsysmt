@@ -16,6 +16,8 @@ for ownership, retention and explicit disposal. This document does not replace i
 | Explicit `TLeap.run(working_directory=...)` or `keep_working_directory=True` | The caller owns or explicitly retains the directory. | The wrapper preserves it; the caller inspects and retires it after its final use. |
 | `build_peptide(engine='LEaP')` | The builder owns intermediate files through execution and conversion to the requested output form. | Managed directory exit retires intermediates on preparation, child or conversion failure. |
 | Eager compressed-CIF and remote-data parsing | The parsing operation owns its scratch, distinct from its returned in-memory data. | Existing managed contexts/finally blocks retire it; underlying removal failures remain visible. |
+| Simulation to PDBFixer bridge | The converter owns an intermediate PDB through eager fixer construction. | Managed directory exit retires scratch on write/read failure or success; the in-memory fixer survives. Cleanup errors propagate. |
+| `get_missing_bonds(engine='pytraj')` | The audit owns an intermediate PDB through eager topology loading and bond-pair materialization. | Write/read/extraction failures and success retire scratch. Returned pairs are independent; cleanup errors propagate. |
 | Successful file-returning download or conversion | The returned file is a result, even when its path was generated in a temporary location. | Ownership passes to the caller. Do not delete it on successful return. Explicit outputs remain caller-owned. |
 
 The LEaP wrapper still uses the process working directory while running; resource
@@ -50,8 +52,9 @@ use of that wrapper.
 
 ## Remaining bounded implementation exceptions
 
-uibcdf/molsysmt#374 owns the legacy optional-file bridge and standalone temporal
-native-probe exceptions. Owners are dprada/LMMV; review on 2026-10-24 or before
+uibcdf/molsysmt#374 owns generated file-returning failure custody and standalone
+temporal native-probe exceptions. Its two eager runtime PDB bridges now implement
+the managed lifetimes listed above. Owners are dprada/LMMV; review on 2026-10-24 or before
 the next affected invocation. Use an exclusive process scratch root selected
 before interpreter startup, retain it through inspection, and retire it after
 readers, children and loaded libraries end. Provide explicit output paths for

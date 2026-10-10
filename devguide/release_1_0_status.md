@@ -70,13 +70,31 @@ native dispatch redesign and wider format coverage remain separate proposals.
 This overrides the earlier board-review observation of only three open provider
 1.0 issues; it does not change frozen identities or resume publication.
 
+## Eager bridge and Simulation export repairs — 2026-10-10
+
+Two runtime bridges under #374 now retire managed PDB scratch on success and
+write/read/extraction failure; returned data remain usable and removal errors
+propagate. #374 stays partial because generated output failure custody and
+loaded temporal-library lifetime are still pending. The real-engine test found
+and repaired #379: Simulation PDB export selects one current box and explicitly
+converts its units before updating a copied topology. Source topology, current
+pose, caller paths and nm/angstrom session policies are protected by the
+[export regression](archive/resolved_bugs/simulation_pdb_export_passes_a_structure_axis_box_to_openmm.md).
+The combined lifecycle/export selection passes **13 tests**, and three strict
+API rendering guards pass. The remaining #368 regeneration-script maintenance
+is still open. None of this resumes frozen-pair publication or qualifies newer
+source as an installed candidate.
+
 ## Native shortcut repair — 2026-10-10
 
 #377 is source contract-tested: `MolSys.get`, `info` and `to_form` respect the
 caller's digestion flag through their existing decorated providers. Valid aliases
 and scalar selections are normalized; invalid options/attribute requests fail at
 the public boundary. Signatures and explicit trusted calls are preserved.
-The new guard and existing native MolSys tests pass **27 cases**, with three
+The ordinary five applicable hosted checks on source
+`ae0ad2404e5e1550cc5da791c67f0529d7377483` also pass (policy, governance,
+Ruff, devguide integrity and CI smoke). The new guard and existing native MolSys
+tests pass **27 cases**, with three
 strict docstring render/example guards passing separately. User Guide and shared
 course module 4 are updated. This repairs correctness without implementing #128's
 separate dispatch redesign or resuming frozen-candidate publication.
