@@ -185,3 +185,26 @@ baseline. The audit reports **60 unreachable declarations across three forms**,
 with 96 structurally valid adapters and no new delivery debt. Remaining PRMTOP,
 TRJPK and CIF-handler debt keeps this general issue open. These are measured
 checkpoints, not promises that all attributes or formats are complete.
+
+## Remaining-form review — 2026-10-10
+
+At source `970fd28e3`, five public box queries on bundled pentalanine PRMTOP
+raise `NotWithThisFormError`, while its existing OpenMM AmberPrmtopFile route
+delivers the retained periodic box. Any repair must preserve topology-only
+semantics rather than inventing coordinate structures.
+
+The bundled TRJPK reader delivers a StructuresDict with 20,000 structures and
+two atoms, periodic boxes and time, but its four advertised direct structural
+queries fail. Existing conversion can supply the data; indexed query shapes,
+units, optional absent values and original structure labels need contract tests.
+The independently reproduced selected-writer defect is tracked in
+uibcdf/molsysmt#365 and must not be claimed fixed by restoring query delivery.
+
+The remaining CIF handler declares 51 attributes, yet public/native
+`CIFFileHandler` exports and its recognized `molsysmt.native.cif_file_handler`
+module do not exist. Its getter modules are placeholders and its sole registered
+conversion targets itself. This is not 51 independent small getter repairs.
+Review retirement/correction of this phantom registration and its documentation
+claims; retain supported `file:cif` routes. Implementing a new native handler
+would require a separately admitted capability. This audit changes no runtime
+registration, declaration, baseline or form tier.

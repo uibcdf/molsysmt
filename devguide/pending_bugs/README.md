@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`trjpk_subset_exports_fail_on_list_selections.md`](trjpk_subset_exports_fail_on_list_selections.md) — [#365](https://github.com/uibcdf/molsysmt/issues/365) — TRJPK subset exports fail on list selections *(medium, reproduced)*
+
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
