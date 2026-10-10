@@ -21,6 +21,7 @@ API Physical and Chemical Properties
    get_chemical_readiness
    get_electronegativity
    get_hbond_sites
+   get_hbond_site_directions
    get_hydrogen_inventory
    get_halogen_bond_sites
    get_hydrophobicity

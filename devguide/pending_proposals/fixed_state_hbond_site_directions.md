@@ -6,8 +6,8 @@ opened: 2026-10-10
 closed:
 verification: measured
 area: [structure, physchem, pbc, api]
-guard: tests/structure/test_get_vectors.py
-normative: devguide/structure_vectors.md
+guard: tests/physchem/test_get_hbond_site_directions.py
+normative: devguide/hbond_site_directions.md
 blocked_by: []
 supersedes: []
 ---
@@ -15,7 +15,7 @@ supersedes: []
 # Fixed-state hydrogen-bond site directions
 
 **Reported:** 2026-10-10, provider request from uibcdf/pharmacophoremt#41.
-**Status:** Partial delivery: general directed vectors and donor-H composition are implemented; named acceptor-direction models remain post-1.0.
+**Status:** Partial delivery: general directed vectors and bounded fixed-state donor/carbonyl/pyridine/nitrile directions are implemented in sources. Broader acceptor coverage remains pending; installed qualification and consumer adoption are separate.
 
 ## What
 
@@ -70,7 +70,8 @@ projection distances. This provider review did not execute the consumer source.
 The initial [frozen scope](../release_1_0_scope.md#admission-rule) deferred these
 new public tools and scientific models. The maintainer subsequently admitted
 `structure.get_vectors` and fixed-state donor-H composition on 2026-10-10;
-acceptor models remain outside that bounded exception. The existing molecular site inventory and interaction
+the first exception did not include acceptor models. The maintainer subsequently
+authorized the bounded profile documented below. The existing molecular site inventory and interaction
 detectors do not claim to supply them. Environment-dependent hydrogen refinement
 in uibcdf/molsysmt#323 and aromaticity diagnostics in uibcdf/molsysmt#350 remain
 separate concerns, not prerequisites to the elementary donor-vector operation.
@@ -79,8 +80,9 @@ separate concerns, not prerequisites to the elementary donor-vector operation.
 
 Initial evidence was source/contract inspection and the consumer issue. The
 partial delivery now has executed geometry controls, documentation examples and
-source-tree performance measurements, described below. No acceptor-direction
-implementation or scientific qualification has been completed. A donor-H vector
+source-tree performance measurements, described below. The later bounded site
+profile adds independently tested ideal geometry; it does not establish universal
+acceptor accuracy or qualify installed artifacts. A donor-H vector
 is directly geometric; assigning an acceptor's local directions requires
 additional scientific assumptions and evidence.
 
@@ -145,7 +147,7 @@ and `tests/structure/test_get_vectors.py`. Source/unit/scientific controls and
 optimized source-tree measurements do not qualify a new installed candidate.
 Existing frozen package identities and publication pause are unchanged.
 
-Remaining: choose and independently qualify named acceptor local-geometry models,
+At that first checkpoint, remaining work was to choose and independently qualify named acceptor local-geometry models,
 including multiplicity, participating atoms, supported chemistry and explicit
 undefined/unsupported outcomes. Consumer adoption is separate from provider
 qualification. General vectors alone do not close uibcdf/molsysmt#375.
@@ -209,7 +211,7 @@ Method names should describe their geometry and carry the reference author or
 software separately, as in the existing interaction-method/attribution contract.
 A possible public owner is `physchem.get_hbond_site_directions`, composing
 `get_hbond_sites` and `structure.get_vectors`; its signature and first supported
-profile have not been accepted. The existing recognition function remains a
+profile had not yet been accepted at the reconnaissance checkpoint. The existing recognition function remains a
 coordinate-independent inventory.
 
 A useful result must carry source atom and structure indices, the selected
@@ -226,3 +228,62 @@ for rotations/translations, neighbor reordering, multiplicity, nonconsecutive
 structures, unit changes, incomplete chemistry, coincident/collinear/planar
 limits, selected states and PBC. Measure the actual geometric workload before
 adding another compiled kernel; the existing vector kernel is available now.
+
+## Bounded site-profile delivery — 2026-10-10
+
+The maintainer explicitly authorized implementation in `physchem` after the
+reference review. `get_hbond_site_directions` now composes the public recognition,
+SMARTS and vector tools. The first geometric method is `ideal_local_geometry`;
+its default `site_method='smarts_donor_acceptor'` remains a separately attributed
+chemical rule. Observed donor-H vectors and ordinary carbonyl/pyridine/nitrile
+acceptor hypotheses are implemented. Other acceptors are explicit unsupported
+outcomes; missing indexed support and degenerate geometry are undefined, never
+an arbitrary fallback axis.
+
+The result has versioned experimental dictionary metadata, static role/model and
+CSR support membership, a bounded per-site/per-structure status matrix and sparse
+numeric finite direction records. It retains source structure indices and their
+positions in the requested axis, including repeats, plus actual support images,
+unit-aware origins, dimensionless directions, selected state, producer versions
+and separate recognition/geometric attribution. No source domain is changed and
+this derived dictionary is not automatically attached or natively persisted as a
+named H5MSM Interactions analysis.
+
+Execution reuses Rust vector/MIC primitives and NumPy fixed-arity model arithmetic,
+with projected ChunkedExecutor delivery and bounded sparse packing. The common
+numeric helper owned by `structure` avoids public-wrapper work per canonical
+block while remaining shared with `get_vectors`. The common
+index-count helper now reads atom/structure axes from H5MSM 0.5 metadata: this
+avoids full structural materialization or the legacy 0.4 handler during index
+validation. A guard forbids the complete reader during projected site geometry.
+
+See the [normative contract](../hbond_site_directions.md), public tutorial,
+hydrogen-bond persistence recipe, executed course section and
+`tests/physchem/test_get_hbond_site_directions.py`. Independent analytic vectors
+and periodic reconstruction checks establish the specified ideal geometry, not
+electronic or energetic truth. RDKit feature helpers are geometric inspiration,
+not an exact-parity oracle; Ackredit and result metadata distinguish that role.
+
+Remaining: review and independently qualify additional amine, ether/alcohol/water,
+resonance/sulfur/phosphorus and coordinated-acceptor models, including any cone
+representation; validate consumer adoption. These extensions do not block use of
+the bounded delivered profile. Frozen installed candidates and the publication
+pause under uibcdf/molsysmt#334 remain unchanged. The issue remains partial.
+
+### Executed source evidence
+
+- 173 focused tests pass on Python 3.14 with `pytest -n 12 --receptor=llm`, covering
+  new geometry, site chemistry, general SMARTS/vectors, attribution, common axis
+  boundaries and strict API docstring rendering. The only warning groups are
+  existing Sphinx Napoleon deprecation and legacy H5MSM reads.
+- The new public module's doctest passes; full-source Ruff and the public
+  docstring validator pass. The 14 fast repository gates pass. These checks do
+  not execute a new full platform or installed-package matrix.
+- The tutorial and hydrogen-bond persistence recipe execute. Only the new
+  independent site-direction section of the existing biophysics course module
+  was executed; prior legacy/network-dependent cells were preserved without
+  reexecution.
+- The [normative performance section](../hbond_site_directions.md#local-performance-controls--2026-10-10)
+  links the isolated-process receipt: 20,000/200,000 finite directions with
+  source identities, warm timings and numeric/RSS distinctions. No broad
+  accuracy, memory-RSS guarantee or installed artifact claim follows from it.

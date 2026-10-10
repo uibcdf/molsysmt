@@ -99,6 +99,7 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     families = {
+        "molsysmt.physchem.get_hbond_site_directions.get_hbond_site_directions": "hbond_site_directions",
         "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination": "metal_coordination",
         "molsysmt.physchem.get_metal_coordination_sites.get_metal_coordination_sites": "metal_coordination_sites",
         "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges": "water_bridges",

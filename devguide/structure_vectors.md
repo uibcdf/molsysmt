@@ -95,8 +95,10 @@ Resolve a coherent chemical state in recognition before composing the recipe.
 The executed hydrogen-bond cookbook demonstrates nonconsecutive structures.
 
 This delivers observed donor-H directions. Acceptor indices alone do not specify
-lone-pair directions. Named acceptor models, multiplicity and unsupported chemistry
-remain the pending portion of uibcdf/molsysmt#375. Environmental refinement belongs
+lone-pair directions. The subsequently admitted
+[bounded site-direction tool](hbond_site_directions.md) adds carbonyl, pyridine
+and nitrile hypotheses with multiplicity and unsupported/undefined outcomes;
+broader acceptor coverage remains pending under uibcdf/molsysmt#375. Environmental refinement belongs
 to uibcdf/molsysmt#323; neither capability is implicit in general vectors.
 
 ## Verification and performance

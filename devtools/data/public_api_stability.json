@@ -2023,6 +2023,13 @@
       "owner": "structure",
       "documentation": "docs/content/user/tools/structure/get_vectors.ipynb",
       "contract_tests": "tests/structure/test_get_vectors.py"
+    },
+    "molsysmt.physchem.get_hbond_site_directions": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_hbond_site_directions.ipynb",
+      "contract_tests": "tests/physchem/test_get_hbond_site_directions.py"
     }
   }
 }

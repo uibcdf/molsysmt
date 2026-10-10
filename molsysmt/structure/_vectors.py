@@ -17,6 +17,19 @@ from molsysmt.pbc._whole_participants import (
 CALLER = "molsysmt.structure.get_vectors"
 
 
+def evaluate_endpoint_vectors(first, second, box, pairs, details, *, caller):
+    """Compute projected nm endpoints with the shared kernel and error contract.
+
+    Callers own source projection, memory planning and periodic-box validation.
+    The Rust kernel checks endpoint axes, finiteness and image representability.
+    No form discovery, argument digestion or unit presentation occurs per block.
+    """
+    try:
+        return kernels.get_vectors(first, second, box, pairs, details)
+    except ValueError as error:
+        raise StructuralInconsistencyError(reason=str(error), caller=caller) from error
+
+
 class Endpoint:
     """Resolve ordered source memberships once, preserving repeated endpoints."""
 
@@ -262,14 +275,9 @@ class VectorsReducer(Reducer):
         )
         first = self.first.geometry(first, box)
         second = self.second.geometry(second, box)
-        try:
-            vectors, distances, directions, images = kernels.get_vectors(
-                first, second, box, self.pairs, self.details
-            )
-        except ValueError as error:
-            raise StructuralInconsistencyError(
-                reason=str(error), caller=CALLER
-            ) from error
+        vectors, distances, directions, images = evaluate_endpoint_vectors(
+            first, second, box, self.pairs, self.details, caller=CALLER
+        )
         self.vectors[self.offset : end] = vectors
         if self.details:
             self.distances[self.offset : end] = distances

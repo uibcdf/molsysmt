@@ -35,9 +35,14 @@ def _bibliography(definition, software, parameters):
         items.append(_article(name, "scientific_criterion"))
     reference = parameters.get("method_reference")
     if reference is not None:
+        role = (
+            "geometric_inspiration"
+            if reference.get("attribution_role") == "geometric_inspiration"
+            else "reference_implementation"
+        )
         name = reference.get("software", "").lower().replace("*", "star")
         if name in ARTICLES:
-            items.append(_article(name, "reference_implementation"))
+            items.append(_article(name, role))
         else:
             url = reference.get("documentation", reference.get("implementation"))
             if url:
@@ -47,7 +52,7 @@ def _bibliography(definition, software, parameters):
                         type="web",
                         title=reference["software"] + " reference definition",
                         url=url,
-                        roles=["reference_implementation"],
+                        roles=[role],
                     )
                 )
     elif implementation in {

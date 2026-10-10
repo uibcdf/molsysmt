@@ -86,6 +86,14 @@ named analyses in `molsys.interactions`; its extraction methods remap their
 indices. Each analysis declares which atom relationships and structures were
 searched, so an evaluated structure with no matches has a defined scope.
 An observed disulfide candidate does not establish a covalent bond.
+Derived directional sites are another kind of analysis. Chemical recognition
+identifies candidate atoms; a local geometric model proposes directions, with
+explicit multiplicity and unsupported or undefined outcomes. A recognized
+acceptor is not itself a measured lone-pair direction. Observed donor-to-hydrogen
+directions require indexed hydrogen coordinates. These detached hypotheses
+neither change chemical states nor become named interaction analyses automatically.
+See the {ref}`site-direction guide <Tutorial_Get_hbond_site_directions>` for the
+experimental bounded models and their source-index correspondence.
 See {doc}`Querying interaction results
 <../../tools/interactions/result>` for its current query behavior.
 

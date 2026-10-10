@@ -222,6 +222,9 @@ sections:
           - name: get_hbond_sites
             file: docs/content/user/tools/physchem/get_hbond_sites.ipynb
             agents_file: docs/content/user/tools/physchem/get_hbond_sites.ipynb.AGENTS.md
+          - name: get_hbond_site_directions
+            file: docs/content/user/tools/physchem/get_hbond_site_directions.ipynb
+            agents_file: docs/content/user/tools/physchem/get_hbond_site_directions.ipynb.AGENTS.md
           - name: get_aromatic_rings
             file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb
             agents_file: docs/content/user/tools/physchem/get_aromatic_rings.ipynb.AGENTS.md

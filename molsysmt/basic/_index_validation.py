@@ -127,9 +127,15 @@ def validate_structure_indices(molecular_system, structure_indices, caller):
 def _get_count(molecular_system, element):
     """Return an element count directly from the form adapter, if available."""
 
+    from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt.basic import where_is_attribute
     from molsysmt.element import _singular_element_to_plural
     from molsysmt.form import _dict_modules
+
+    if element in ("atom", "structure"):
+        dimensions = modular_h5msm_dimensions(molecular_system)
+        if dimensions is not None:
+            return dimensions[0 if element == "atom" else 1]
 
     if element == "structure":
         attribute = "n_structures"

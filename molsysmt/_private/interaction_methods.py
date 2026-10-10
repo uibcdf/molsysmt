@@ -8,6 +8,9 @@ reference software package invented the scientific criterion.
 from molsysmt._private.smonitor import ArgumentError
 
 PROFILES = {
+    "hbond_site_directions": {
+        ("ideal_local_geometry", None): "ideal_local_geometry",
+    },
     "water_sites": {
         ("explicit_water_graph", None): "explicit_water_graph",
     },

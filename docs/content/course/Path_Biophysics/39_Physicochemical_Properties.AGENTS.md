@@ -24,3 +24,7 @@
 
 - Preserve attributed hydrogen-bond profiles, reusable site recognition, all three roles,
   declared coverage and links to executed tool/persistence examples.
+
+- Preserve the independently executable site-direction example, indexed versus
+  virtual hydrogens, ideal carbonyl/pyridine/nitrile coverage and explicit
+  unsupported/undefined outcomes. These are hypotheses, not measured orbitals.

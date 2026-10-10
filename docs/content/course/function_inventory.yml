@@ -183,6 +183,13 @@ molsysmt.physchem.get_hbond_sites:
   doc_ref: "{func}`molsysmt.physchem.get_hbond_sites`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_hbond_sites()**: Prepares attributed donor–hydrogen pairs and acceptor indices. See {func}`molsysmt.physchem.get_hbond_sites`.\n:::"
 
+molsysmt.physchem.get_hbond_site_directions:
+  name: "msm.physchem.get_hbond_site_directions"
+  first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
+  summary: "Derives observed donor vectors and bounded ideal acceptor hypotheses."
+  doc_ref: "{func}`molsysmt.physchem.get_hbond_site_directions`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_hbond_site_directions()**: Separates chemical recognition, finite directions and unsupported/undefined geometry. See {func}`molsysmt.physchem.get_hbond_site_directions`.\n:::"
+
 molsysmt.interactions.hbonds.get_hbonds:
   name: "msm.interactions.hbonds.get_hbonds"
   first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"

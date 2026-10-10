@@ -1,0 +1,137 @@
+{
+  "schema": "molsysmt.site_directions_benchmark@1",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "source_base": "d1ad4e3743633a4734e7a1ad1b28219f1da8f0ae",
+  "source_hashes": {
+    "molsysmt/physchem/get_hbond_site_directions.py": "8abc2d4368390f3c54c29aa69efa564d401baf3f08d995745b50947d19f5e21e",
+    "molsysmt/physchem/_hbond_directions.py": "6b02a27f25a9a96329d0fb1757a47ff97a3edbb708064c184fdac39c748b7050",
+    "molsysmt/basic/_index_validation.py": "e086cc37a0ac5340d3468f5f6efefb486e42c5caec32c321e98990c7d55bf6c4",
+    "molsysmt/structure/get_vectors.py": "5683e470855b065b027f8697555d948bda1bcd1845e1b5f9f161e571e1338491",
+    "molsysmt/structure/_vectors.py": "00ad0681178848dbdbd1150cb8b821bdd670a98ff1e5cb9d1f2fa34c272d1380",
+    "benchmarks/get_hbond_site_directions.py": "4128eb23fe949e27e559f304b939ab39211932ca8b137da1f101a019dfc67e58"
+  },
+  "evidence": "local_source_not_installed_qualification",
+  "cases": [
+    {
+      "case": "many_structures",
+      "n_atoms": 3,
+      "n_sites": 1,
+      "n_structures": 10000,
+      "n_directions": 20000,
+      "pbc": false,
+      "cold": {
+        "seconds": 0.28467580396682024,
+        "geometry_and_packing_seconds": 0.07773731648921967,
+        "chunks": 100
+      },
+      "warm": [
+        {
+          "seconds": 0.22382857464253902,
+          "geometry_and_packing_seconds": 0.06064252741634846,
+          "chunks": 100
+        },
+        {
+          "seconds": 0.2152434652671218,
+          "geometry_and_packing_seconds": 0.059514022432267666,
+          "chunks": 100
+        },
+        {
+          "seconds": 0.21604609582573175,
+          "geometry_and_packing_seconds": 0.05937833897769451,
+          "chunks": 100
+        }
+      ],
+      "median_warm_seconds": 0.21604609582573175,
+      "median_warm_geometry_and_packing_seconds": 0.059514022432267666,
+      "top_level_numeric_bytes": 2430114,
+      "peak_rss_bytes": 483426304,
+      "software": {
+        "molsysmt": "0.22.4+212.g5e2721691",
+        "rdkit": "2025.09.5"
+      },
+      "chunk_size": 100,
+      "numeric_budget": 16736008192
+    },
+    {
+      "case": "many_sites",
+      "n_atoms": 300,
+      "n_sites": 100,
+      "n_structures": 1000,
+      "n_directions": 200000,
+      "pbc": false,
+      "cold": {
+        "seconds": 0.5098427515476942,
+        "geometry_and_packing_seconds": 0.13879640586674213,
+        "chunks": 10
+      },
+      "warm": [
+        {
+          "seconds": 0.43653586599975824,
+          "geometry_and_packing_seconds": 0.11726386565715075,
+          "chunks": 10
+        },
+        {
+          "seconds": 0.4349322244524956,
+          "geometry_and_packing_seconds": 0.11656951624900103,
+          "chunks": 10
+        },
+        {
+          "seconds": 0.4359722435474396,
+          "geometry_and_packing_seconds": 0.11777285765856504,
+          "chunks": 10
+        }
+      ],
+      "median_warm_seconds": 0.4359722435474396,
+      "median_warm_geometry_and_packing_seconds": 0.11726386565715075,
+      "top_level_numeric_bytes": 23517816,
+      "peak_rss_bytes": 540778496,
+      "software": {
+        "molsysmt": "0.22.4+212.g5e2721691",
+        "rdkit": "2025.09.5"
+      },
+      "chunk_size": 100,
+      "numeric_budget": 16736008192
+    },
+    {
+      "case": "periodic",
+      "n_atoms": 300,
+      "n_sites": 100,
+      "n_structures": 1000,
+      "n_directions": 200000,
+      "pbc": true,
+      "cold": {
+        "seconds": 0.5313250562176108,
+        "geometry_and_packing_seconds": 0.16399866621941328,
+        "chunks": 10
+      },
+      "warm": [
+        {
+          "seconds": 0.45569000765681267,
+          "geometry_and_packing_seconds": 0.1401971159502864,
+          "chunks": 10
+        },
+        {
+          "seconds": 0.4590736059471965,
+          "geometry_and_packing_seconds": 0.1431237794458866,
+          "chunks": 10
+        },
+        {
+          "seconds": 0.45747131388634443,
+          "geometry_and_packing_seconds": 0.1431483943015337,
+          "chunks": 10
+        }
+      ],
+      "median_warm_seconds": 0.45747131388634443,
+      "median_warm_geometry_and_packing_seconds": 0.1431237794458866,
+      "top_level_numeric_bytes": 23517816,
+      "peak_rss_bytes": 544346112,
+      "software": {
+        "molsysmt": "0.22.4+212.g5e2721691",
+        "rdkit": "2025.09.5"
+      },
+      "chunk_size": 100,
+      "numeric_budget": 16736008192
+    }
+  ]
+}
