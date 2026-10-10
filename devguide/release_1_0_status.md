@@ -58,7 +58,7 @@ These corrections do not change the paused candidate selection above.
 The maintainer requests a substantive review including post-1.0 issues, rather
 than using their milestones alone to exclude possible stabilization work.
 That review reproduces two current public-boundary defects, now admitted to the
-1.0 queue: [MolSys shortcut validation](pending_bugs/native_molsys_shortcuts_bypass_argument_validation.md)
+1.0 queue: [MolSys shortcut validation](archive/resolved_bugs/native_molsys_shortcuts_bypass_argument_validation.md)
 (#377) and [MolSys mechanical-type setting](archive/resolved_bugs/molsys_atom_ff_type_setter_missing.md)
 (#376, received concurrently from DockingMT). The review admitted these defects;
 subsequent source repairs are recorded below.
@@ -69,6 +69,17 @@ Their remaining scope must be verified before closure. New scientific models,
 native dispatch redesign and wider format coverage remain separate proposals.
 This overrides the earlier board-review observation of only three open provider
 1.0 issues; it does not change frozen identities or resume publication.
+
+## Native shortcut repair — 2026-10-10
+
+#377 is source contract-tested: `MolSys.get`, `info` and `to_form` respect the
+caller's digestion flag through their existing decorated providers. Valid aliases
+and scalar selections are normalized; invalid options/attribute requests fail at
+the public boundary. Signatures and explicit trusted calls are preserved.
+The new guard and existing native MolSys tests pass **27 cases**, with three
+strict docstring render/example guards passing separately. User Guide and shared
+course module 4 are updated. This repairs correctness without implementing #128's
+separate dispatch redesign or resuming frozen-candidate publication.
 
 ## Mechanical type setter repair — 2026-10-10
 

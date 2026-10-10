@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
-- [`native_molsys_shortcuts_bypass_argument_validation.md`](native_molsys_shortcuts_bypass_argument_validation.md) — [#377](https://github.com/uibcdf/molsysmt/issues/377) — Native MolSys shortcuts bypass argument validation *(medium, reproduced)*
 - [`legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md`](legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md) — [#368](https://github.com/uibcdf/molsysmt/issues/368) — Legacy chemical database generators import a nonexistent CIFFileHandler *(low, inspected)*
 
 ### Partially resolved (1)

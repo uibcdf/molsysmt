@@ -31,6 +31,15 @@ states are not automatically assigned to structures. See {ref}`Tutorial_Convert`
 
 Direct `MolSys.add` and `Topology.add` calls also validate `keep_ids` as a boolean, including its default `True`. Leave `skip_digestion=False` for ordinary public calls; trusted delegation is not required to use these methods.
 
+The convenience methods `molsys.get(...)`, `molsys.info(...)` and
+`molsys.to_form(...)` likewise leave validation enabled by default. The first
+two delegate to the public basic operation; conversion delegates to the
+registered target adapter. Those providers normalize element aliases and
+scalar selections and reject invalid options. `get` accepts boolean attribute
+requests such as `n_atoms=True`, while `to_form` uses converter options such as
+`atom_indices` and `structure_indices`. Set `skip_digestion=True` only for
+arguments already checked against that provider's complete contract.
+
 ## Internal Attributes
 
 The native container exposes these domains:

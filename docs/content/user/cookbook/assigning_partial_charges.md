@@ -42,6 +42,17 @@ assert selected['report']['atom_indices'].tolist() == [14, 16]
 assert selected['report']['n_atoms'] == 24
 ```
 
+For querying stored data, the native shortcut keeps the ordinary public
+validation boundary too:
+
+```python
+assert molsys.get(element='atoms', selection=14, atom_index=True) == [14]
+assert molsys.get(n_atoms=True, output_type='dictionary') == {'n_atoms': 24}
+```
+
+Keep `skip_digestion=False` for user input. The provider validates attribute
+flags and output selectors; `molsys.get` is not an unchecked access to tables.
+
 The full graph is calculated before filtering. Extraction instead retains
 the previous numerical charges as a projection, with original source indices.
 Neither operation treats a fragment as a newly parameterized isolated molecule.

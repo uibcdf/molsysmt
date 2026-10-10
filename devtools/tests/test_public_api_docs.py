@@ -97,6 +97,30 @@ def test_molsys_manual_type_setter_docstring_renders_and_example_runs(tmp_path):
 
 
 @pytest.mark.parametrize(
+    "name,tutorial_label,statement_count",
+    [
+        ("get", "Tutorial_Get", 4),
+        ("info", "Tutorial_Info", 3),
+        ("to_form", "Tutorial_Convert", 5),
+    ],
+)
+def test_molsys_shortcut_docstrings_render_and_examples_run(
+    tmp_path, name, tutorial_label, statement_count
+):
+    _render_api_docstring(tmp_path, f"molsysmt.native.MolSys.{name}", tutorial_label)
+
+    import doctest
+
+    from molsysmt.native import MolSys
+
+    example = doctest.DocTestParser().get_doctest(
+        getattr(MolSys, name).__doc__, {}, name, "public-docstring", 0
+    )
+    result = doctest.DocTestRunner().run(example)
+    assert result.failed == 0 and result.attempted == statement_count
+
+
+@pytest.mark.parametrize(
     "function_name,tutorial_label",
     [
         ("molsysmt.build.build_peptide", "Tutorial_Build_peptide"),
