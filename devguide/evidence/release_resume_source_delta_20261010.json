@@ -1,0 +1,3651 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "recorded_at": "2026-10-10T07:51:33.042045+00:00",
+  "status": "Read-only source-delta planning snapshot; not a selected replacement candidate or qualification certificate.",
+  "frozen_molsysmt_source": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+  "reviewed_main_source": "c3e78e5afa42dbf96b0e581ccac1184759034602",
+  "comparison": [
+    "git",
+    "diff",
+    "--name-status",
+    "-z",
+    "--no-renames",
+    "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+    "c3e78e5afa42dbf96b0e581ccac1184759034602"
+  ],
+  "scope": "Tracked file identities between the two named commits; no package bytes inspected, downloaded, rebuilt or promoted.",
+  "counts": {
+    "total_paths": 269,
+    "by_top_level": {
+      "ACKREDIT_GUIDE.md": 1,
+      "AGENTS.md": 1,
+      "ARGDIGEST_GUIDE.md": 1,
+      "MOLSYSSUITE_GUIDE.md": 1,
+      "SMONITOR_GUIDE.md": 1,
+      "devguide": 50,
+      "devtools": 23,
+      "docs": 67,
+      "molsysmt": 68,
+      "molsysviewer_molsysmt": 28,
+      "pyproject.toml": 1,
+      "tests": 27
+    },
+    "runtime_molsysmt_inspection": {
+      "non_docstring_ast_changed": 41,
+      "python_added_or_removed": 17,
+      "non_docstring_ast_equal": 9,
+      "non_python": 1
+    }
+  },
+  "inspection_limits": [
+    "AST comparison removes Python docstrings and ignores formatting/comments; equality is not public-documentation equivalence or an executed behavior/compatibility guarantee.",
+    "AST differences identify review scope, not semantic defects, scientific validation or performance.",
+    "Original exact-source/artifact qualifications belong only to their original sources/bytes. The delta does not waive mandatory replacement-candidate gates.",
+    "The snapshot remains dated and anchored to reviewed_main_source; later commits require a new delta review."
+  ],
+  "frozen_receipt": {
+    "path": "devtools/data/release_1_0_frozen_candidate_20261008.json",
+    "git_blob": "2c41b3b1dbfb77509037a49c6aa7a3aed84eac27",
+    "sha256": "a0d65d476a6f97461a107ff8ccedd1ccecd9e0d37a735348bde5b941d0f6e515"
+  },
+  "remote_refs_observed": [
+    {
+      "repository": "uibcdf/molsysmt",
+      "ref": "refs/heads/candidate/1.0.0-build0",
+      "source_sha": "6dc80725ea506f977fb5e52dfd701c2227875fa5",
+      "inspection": "git ls-remote"
+    },
+    {
+      "repository": "uibcdf/molsysviewer",
+      "ref": "refs/heads/candidate/0.24.1-build1",
+      "source_sha": "ae1fb995d6a38f2df6df206d2af26fbde1531f24",
+      "inspection": "GitHub REST git/ref/heads/candidate/0.24.1-build1"
+    }
+  ],
+  "provenance": {
+    "platform": "Linux",
+    "python": "3.14.7",
+    "git": "git version 2.43.0"
+  },
+  "entries": [
+    {
+      "path": "ACKREDIT_GUIDE.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4d792abba542ce0088bd1405a2be40272f740ca0"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c266b69a9784e3b6c0acbe8d74ce1b9168009e97"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "AGENTS.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "81f66e1db17143169dc158305b5d5f499965e928"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5cadb575272c57f438ecf79908405e1740fb4098"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "ARGDIGEST_GUIDE.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7c36080f24089c9ccc8fa16895c6fd9dad26a370"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fa75e4d8942bc8231fc7bf255f81d5ee71e76f5e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "MOLSYSSUITE_GUIDE.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0c5e8bece48e6a4ab7bc257658d26a3182164107"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "174b048165607e8e7513919763ea0ca552419611"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "SMONITOR_GUIDE.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5d588427ebcbeb24f8e8d31fb17dfe59494e1c1a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c4aa51fabcdecbf17b11cf306081e926e20baedf"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/README.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "da68535999010dd30fff1266dba54f256094c8e2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0ae3748fd3a14518766de0bf387e507d6f2818d0"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/SCALABILITY.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f857a896f338c9b63d830f8f97f3ff64b4098725"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5eda58a9e8bad79017f50a6c41d92d497c3d3d77"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/assessments/molsysviewer_addon_before_retirement_20261009.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "54c3f1f8f9c37ca3b7632ea6a9fd31297d7f9de1"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/biopython_sequence_copy_and_identity_conversion_fail.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1b953002618db76471feea2a97f62e4bea14c9bc"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/biopython_sequence_forms_reject_real_objects_and_declared_groups.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "591327602bd1acd72a2e9213b00f8b3d848b77a2"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/box_geometry_documentation_misstates_units_and_fails_rendering.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7f4e1a752043d4b4ace0ffe57545547daed08781"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/charmm_crd_metadata_delivery_and_native_ids_violate_adapter_contracts.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c135c67a9fd5d084e8ebf862342cae4d4a47952d"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/conda_helpers_hide_manager_failure.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "01d0b09e689f43fb4e57cd9ff9e706891c2dae1e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/dihedral_documentation_ignores_active_angle_policy.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fc319fc5e8b650157a9a46510d77cd9022c87e5b"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/empty_bonded_to_operands_break_hbond_role_identification.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d1e086a691eb4bd6b6a3879860c2828fdf9561e8"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/failed_persistent_result_construction_leaks_backing_storage.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cb7ff66ce401996587a241ce281167ae0a539486"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/fasta_and_pir_declare_chain_and_entity_indices_without_delivery.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0a868874417fa97d8a2d700029f2e56d87e5939b"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/form_attributes_declared_without_getters.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "aac5048ff4d1396b3ddeebb1a92bb7afeebd53d2"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/form_linter_does_not_check_attribute_delivery.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1f3d0ffce31ca7e56273dcec3d6fd5c2ef0548e8"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e22c9737d86d994f71a47437694f2cccba7116d0"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/get_single_attribute_bypasses_piping.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b766fa7912fe0a7e2aa909b8fd4748aac246fdd7"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "603acfeab60ed72887ca7fcda810e5a6a11b0005"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/inpcrd_declares_atom_indices_without_delivery.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ce75d3e21a704f6760e2712c633dff64f28c5412"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/is_a_molecular_system_swallows_missing_getters.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3bef3e577b1b70b6328ce2373da14a5153c58378"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3f165e6596dd2e9e9111909f890be9fc777f9e81"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/leap_workflows_violate_caller_and_scratch_custody.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2894acef401667c3394702fd05fe321edf64d98a"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/native_add_drops_declared_chain_ids.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e4b35ca24dec7337e7cd7a1ab71e6ecb72a0b760"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/native_add_rejects_valid_keep_ids_flags_during_argument_digestion.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d5aa4fb1adcdec4b085a161ce5c6195db3e36925"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/nglview_color_example_uses_obsolete_apis_and_fails_rendering.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "70bb729a5626bbd416e60d57d2d42985a4248f7d"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/prepared_mechanics_merge_loses_atom_axis.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8e5854fcf6500b032b4a8577821205afdc96b89f"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/translated_fit_anchors_admit_underdetermined_rotations.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c2a99187d460f4d6d9dd2774d901d2b99d8309a1"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/trjpk_identity_conversion_rejects_its_output_filename.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "26d5bba4027149d65166f90db038ff6c36157ae4"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/trjpk_subset_exports_fail_on_list_selections.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9374aea96882b8fd8b952a7ae1a8780a171a611b"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_proposals/ci_skip_option_is_implemented_and_governed.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0179839ffedf9757dfc6a2196cffd79fb06e822b"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_proposals/hbonds_output_format_question_is_answered.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "dd245f4de3102716262fc5cfe38bb1131f4df74a"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_proposals/molsysviewer_molsysmt_nonblocking_heavy_operations.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4bbf731afd6933914ae34ce9472e9f0f902c9332"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_proposals/retire_legacy_molsysviewer_addon.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8930bd99a6356edad7049a84973417bbdab1b30e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/archive/resolved_proposals/review_temporary_resource_ownership_and_tool_lifecycle.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8da737b0ae8fdad503b08e01ebda74f89236b43e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/devtools_and_ci.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d7a70f5f21c5267648d57162e1affddec6f43c68"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "85f6fc304ba3e39f760eaab896e6a61dc6960432"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/evidence/temporary_resource_owner_review_20261010.json",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d0e893197a208aac40faa76b9c46520dac640dad"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/molsysviewer_addon.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1625681a2c7b02a62c6101be6a0f00a5694b0e4d"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c62d002bd129ea607c21f83caec43d082bb2c414"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_bugs/README.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "908401d06182cf6487c0f0d9d109b05d3ca5612e"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e095bcecb89d483641eaca78e67a71ad276ac10e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_bugs/form_attributes_declared_without_getters.md",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "581165bc182fa979443b7b4e80de1964d3621383"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_bugs/legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "50379bfe1019134a75e8e7bc496fe287ff03f83c"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "07e0947047d17ff262b2561d6cbd547eeb62a0f1"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "41b7bd5f46fa256fdaa3c1aeb3d9b27531cffc18"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/README.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7acba0bd650756860a8812b83e7194a4012e5090"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "77f25e1c787b89f8d1be28becb0be4e6a534d642"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/explicit_atom_permutation.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7f7f146a34f55474bb1785b5106742114210bcf2"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/explicit_small_molecule_standardization.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7920a5f9064b0280498904ae9097802592b5b22f"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/fixed_state_hbond_site_directions.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d469d2819c53101cea72d723409932444053c778"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/legacy_temporary_resource_lifecycle_exceptions.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e2250d58014e7dc26d2e4009db701fe7b0edaeca"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/molsysviewer_molsysmt_nonblocking_heavy_operations.md",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c59fca114e9dfb883eb1664a87bdac6c1bfe2969"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/organize_interaction_detection_by_family_before_1_0.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9e9d46d104847c9f2358c2703b4b2fee378479f0"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "dce607218454de6f834aee915b58b12b64a4f0e7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/pending_proposals/release_1_0_execution_plan.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "da48b39f4ef091d4035aa8398c5ba50b7b50cc91"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1f8fedb7d59711ee5d0c216fecdaffb36cf8aab0"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "40fa1b64dfc2a2ef8e6c01d0681bd93dd7293d61"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "400708c4eb380584e6a1dba48342f293abe48be7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/release_and_citation.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c1b3bbf1d6a8d09f6e99cac64d489fca372dcaf5"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1479b4f2c46c8e60080d1571d721a64f6ff18a02"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/release_gate.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d3af79157b49bf08635b2bbb5ffd01484e812ad2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c252f6da0ca32279dbbb71a6fb0f1ebd4324e0f5"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/temporary_resource_operations.md",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fc3042dc1b79df1ae4a04cb35ca30662a530d141"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devguide/viewers_and_visualization.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c638f9cf4a0e4d1f7edb3b93d57e48979c1f8e6a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "432dd5310929619dda316e9c01ff0cc305984217"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/conda-envs/create_conda_env.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "52c848d68e1b3168d0a68cdaf50a6cf16b4ce6cc"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "bd26cb4d5bd08dc9e8b45edd0d394724d90f879e"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/conda-envs/update_conda_env.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "76519761fd7354bf3e936e1ca384a369fff964ed"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "54397740cf4ba27a2308df0be359db15e1b0fc8d"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/data/devguide_migration_baseline.json",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5e7fda6f827db3e227f8333d8ba6875456340715"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "45d6e1a28e91045848011cebfdb9b87e139d4a6d"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/form_attribute_delivery_baseline.json",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "bcf76a903a937f1ce944e3d28e3dcc612aec35ee"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b925854debdf68215ab6b3fafd57cebf66b80177"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/public_api_stability.json",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4345c34755b06378beb6edd016ff509db3ae0032"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5dd681189b0b63c64a1f8c88a7ec33d277aafc97"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/release_1_0_frozen_candidate_20261008.json",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2c41b3b1dbfb77509037a49c6aa7a3aed84eac27"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/release_1_0_scientific_6dc80725e_20261008.json",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1a468669f11d1bfbb6408f18fdab2e368971d89e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/release_1_0_staging_handoff_20261008.json",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3fdc4939228a45ff3ff61e80063006976e22d3ad"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/release_1_0_viewer_build1_staging_20261008.json",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a961486f7fdefdb03fcf5eb8b8f7295ce2635791"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/data/release_1_0_viewer_staging_20261008.json",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "815077cdf7946ca39da2a39ed031e4f14c366dd7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/scripts/README.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "eb2c81ea007d6347f64355dad33290c98aab59c2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a9f24a6299950bc1f6a4429ddc7228baf187a218"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "devtools/scripts/validate_installed_molsysmt.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e4ce3eadb662ec2f1022fd3d32c6d3081bf42c89"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ce89ffa1b5b4327d7397a17515e70573b161eec6"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/scripts/validate_rust_sdist.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4422ee81a23a7477257b08f9b3c2c0a4955bc027"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "07f14065c8ab2e9b94bfe68af959315a22c1e6b2"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/scripts/validate_rust_wheel.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d507b9cfa3e5717be37aa8e0667eda4d49246826"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "069231bb4317dda74812dcbd0c97092691e2254a"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/tests/test_conda_env_helpers.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cae08d8a41b6f2cd6f3489faa9f1401d1dde2ab6"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "devtools/tests/test_native_viewer_integration.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d8b9727107df39e23a3da7cce1b34088b1581ac9"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "devtools/tests/test_public_api_docs.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4da010178ef107416c74ce374ff73addc53d790a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fcd09b46dad2bc8fe145dc4e233d03946eaa4d4d"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/tests/test_rust_wheel_workflow.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d29df17293280a4dfc99d3fb922ee1f524e74905"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b29f62d3a856eb0bc810b938572dae089af0dc30"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/tests/test_tleap_check.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0fc76015f1cfcb65fe9a036a3b6bf53befc9b30b"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "devtools/tests/test_validate_form_adapters.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "eff84ad034fb18d8569eac8c55a93313e6651988"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "86ceb8691d7babc0ec82dcfc41978e6a9885f933"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/tests/test_validate_rust_sdist.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9b93e1c2f6e4e589107548710d43dee572bff9ed"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e59f915977ac5a540844b459c0b25de988264d86"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/tests/test_validate_rust_wheel.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4a9f1f804f1693e48da803442b45b72b90368dfd"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "081a929393f648f16963f496f1e48a2dec7dc9e0"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "devtools/tleap/check_tleap.sh",
+      "status": "M",
+      "old": {
+        "mode": "100755",
+        "type": "blob",
+        "object_id": "0bba95cf1814940a361b32744b987456a697455e"
+      },
+      "new": {
+        "mode": "100755",
+        "type": "blob",
+        "object_id": "51285aa9f6ee7ca02b6404e2c57cdfe5997f7336"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e5b7d6153d82a1c9fa9367332bed2e27b42f97a7"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3fe5279e9754a851299f2ddc69158bf84d631c2e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9ae08161c7c6946da7e142601cdcb4f2904da1cd"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "abbb31f4a7eed44e4b22cf6f216b01ecbe6445b4"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9d887451d46b8aefdc151ef3503d43280cf74810"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7fe2d7fc40b938bb6fa15539e5e07c923fe46bec"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Common_Core/09_Unit_Safety.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fffc0eea7bf9c825ad80f015f9de337716cad995"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f52b104161075b9a29cb7bd55a6bc42d13524613"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1d9ae2fcf862584d979777edab4cadff2a1477d4"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "508beb777b0e266f3502e7184f847c9b357b44bd"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Common_Core/17_Merging_and_Growing_Systems.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c06f1c60ab7fb13ad49b9f9c50fab25fa2e867e9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "99f3f8c98604a57da86fde327214c7d29fed4719"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Alzheimer/34_Comparison_Superposition.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3bbb54ec96317e3a2f78e5a1af9a55a2be595b47"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1afb66426f07c50890edb3143eeec9820a61a38e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Alzheimer/44_AMBER_TLeap.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c282534a3e9a79513146ff4940467d1d353b710a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1061e3e1cb4b3430e2236e6c2d7261d6e35d8c71"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/34_Comparison_Superposition.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "42d506fc47b363b19c0fa5433d64256b0199b611"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5f0f9ae34f12576bbfe0b5b179d5e75216cbfcd7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/44_AMBER_TLeap.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "39eb5bfacadffa40dd6501b5bbfb606fe41e3afc"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b49c6059021a8426748dfedae99be4e9e4b40bcf"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/53_Capability_Matrix.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "237d699a5ec5fc27f707a6e7d4760db3b076e9ae"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "59fc1c3a235e827c7d186a9ebb13688a73421f57"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/34_Comparison_Superposition.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "427985b339cae8e2829943757a878c3be2b1242c"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d058a89dd55f69794ae0d05006e2410412835f31"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/44_AMBER_TLeap.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "eca78f96774aed9f32ed4b94a5399d97fb3866ac"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cd652aede6a4dbb1da150fffd42ea17d92026ad4"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/53_Capability_Matrix.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7dfb4e69816826063f04f0ca2898d987b819423b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3c208e2b6741467c35980a30eec7c614969982d2"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/34_Comparison_Superposition.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a2809b77873388fa03dd37b8d7f305bdd7dc2016"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8fb45ad236cc2e8918e971aeb6151609da3fdca8"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/44_AMBER_TLeap.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "99533a198421ef69c021cae8ad4054bda1b9c26d"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "526831020f8ad9ec848178d84251221d931db45e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/form_teleportation.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "50c576ce37ff17ce8dcc53db48799e9e72d1015b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5bd55ac9c679f6ae8ed3e9d730e333eb7050d3cf"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fce10261b939432029956c21ee6d75412822d7b6"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ecda8c4d1ddfe4198f3a6445edeb84e6fc37c0c1"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/native_pdbqt.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1988c44bc754ce4cbbfbc28d29f5cd0b769ec9cf"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3460233347ba31d3eaced29025a0cdeb074297b6"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/querying_sparse_interactions.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "58c7cbf3a7919d2ee9629130178a80bb951f713a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f238bd0ac5be03c90ed0e55d44c0c14549cfcedf"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/saving_hbond_interactions.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "172c28da87d18ee9de6ef50c8696108db9e7d767"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b05662fa4f3ca6e40d321fa422fb704aab6104f2"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/spectacular_visualizations.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d50936c238acfd077594dfbe0eb1d3468e8fafc0"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d33381817f203eaa2e3fecc0250ed74cea187056"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4ac11a77485a5838dfd9f9d59367360ded50deba"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fe59f0e848122f8496165f3a20c1c3bfce3ddd9d"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/cookbook/trajectory_performance_analysis.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "aaf110d8443ce9dd3c15e7698200ec2a6f133a0f"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "076b5a290b5ea7657922c719b74bf8240b98f1c0"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/ecosystem/molsyssuite.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c15649f593836fe2d9c1c74170a24f8086494f23"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a081807dec29648444fccb376b375aa890156d2a"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/governance/quantities_and_units.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e77538ee28656640b66ba77dc416448bc7028fd6"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d9681e600a369759be13f9f72ca94cb7d36c4827"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/forms.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1ea93aac0307aee9e3e9c77ecee849998419e3b2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f008f03a32b59a3d8f43215eb4ac86e0ff19c9f2"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/forms.nbconvert.last_run",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7ab1c6cffd6fdf081bc3739a2022f61e7d63b25b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3ed448960772135e072d9b673cd23b5916af70a7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a681025ccae388bdaf8dbe1a6fada0f42dadc8af"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "245a9ee330fa39f5d3c86f4bb3832ff64a523061"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "bbc328d1dc30f1a3bc56d402a63139b9c4596c9a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b32a87d8b22840ea5785ef8b4a7c1583b55d6057"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "02f03b04814bff5503ab6643bf83c0a2205ace03"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "740dc76840b5f07b115bceadb9cc574b847c73c1"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/file_handlers/AGENTS.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "59a124363cc627d7f1dc555fc5c8f7d459deeee3"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "75d82523990b6f08fa892966eff5404e58ad34a4"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/file_handlers/index.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3b393a74a62bb7eec863a21e059a00d0ea5f72a9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d0cab4b0d0fe2b591cab5c2c91ed00440b712c9c"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/file_handlers/molsysmt_CIFFileHandler.ipynb.AGENTS.md",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f9625f4c45fcaf0f0e401dbacc97fb4f8ed96ee0"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/file_handlers/molsysmt_CIFFileHandler.md",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3556403627964e85c74413452e2ac4d6a438ddb5"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/file_handlers/molsysmt_CIFFileHandler.md.AGENTS.md",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "018b40618d978fbab2788f64181f1f80e6a2222b"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/performance/chunked_execution.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "98f348972e18d0461fc6b47d83f6b335362f2baa"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3d453b17285f747cd25344113fa6edecdceee599"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/performance/rust_core.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b48a8a9d5fdf195a96de344d1c24068bf6f837f1"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0423824704d8102724e57b9b3cf9164221f9eebb"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/support/forms/classes.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e2cb9ba5f2ac2078c817b92bdf7fabd0f2c2c2b3"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c6d121dac469017437102697bf03f4b37fbb58fa"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/support/forms/files.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "6fb6899d9091d68d759217d187047d3842834467"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "968623b500242886773a8db8e90a74e5b49296e7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/support/selection_syntaxes.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4153578b21018bc5ba71786fc36a533ff8d2bb5a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a3ff9d405004a69b6b40659a75dcbd34cfd24c35"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/foundations/support/third_party_bridges.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "92112996a20907485f83409f1ed1a32abeaa8f8e"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7363ee05ab83c366d39d2d3d08058d47eeb004c1"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/basic/add.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "874260ab0c867248646272ffc3c31c1b32a7cc92"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2de283fe1271b0f09c72953b539ccefe81d6f6dd"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/basic/merge.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d4943ba4d575cb969728850cae483ab318636eba"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "08515f44bcb466ef63781e408ef8a0695b75ac68"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/basic/select.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d5f8108f870fce2ca3a5b3ce06a4bba08949ebd9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0277e9d7102ab1ad012059605f774fb34f99c890"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/basic/view.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "dfe99f882ef1ee2152d04ca2f4839d9bd104aa68"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1fdfb1c7428879faf1bb908e828e54b2825b5312"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/build/build_peptide.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a02689b7cd85c038e01c36cb4c6c0396f55eff07"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "6ad026cf291dcedaca24ce11390825a12dcb1056"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3708f92d528578c376058c3ce059e6be71994e51"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "08e74e4855bbca9b46f25bc4f4a7f827d6822fd0"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1ae86596c3d3a2ebae58a4d7a4a5c3cd53b07afc"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d81dbb8e2c52fa7c36ff39e9569e018b21bedc8c"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/class/molsysmt/index.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e1e0fe295c598534fbbc743026f77a16f21643ac"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "378370fa3ce440d9cd2c191bec8299faa0995ced"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/class/molsysmt/molsysmt_CIFFileHandler.ipynb",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "eedd492e8382365526b16ebab526d64fd7d6b9d3"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/class/molsysmt/molsysmt_CIFFileHandler.ipynb.AGENTS.md",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "39ab4d83794c2b5e02eff6659793b567455b557b"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_crd.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c5b0a64a8d611f3ce6bcc063c6447feea5a84129"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "451c1c6f87714f80555a25fcb220b02bfe217898"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_fasta.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a31fb9476e5e2d0c55cfd0746482e484eb1e86dc"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fc6a47a11340428e6e12f5945bb2aa503c4f384c"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_inpcrd.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "db99c4cc7c51cb370172cd86798ee4bb87ab8639"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "47761b110bc9f9ff827a2a8c1f8fcd4433f4571f"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_pir.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8ec95fe35534bf3fd38372444b172086892f4b31"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7eeb3a41ad9b5f0bd6d90d2f793f7531bf555de7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_prmtop.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "955bad494da4f8c0d34c915ed364d35ee7a52787"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d935f473f2389aec0229e88061c6065c8148ae40"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_trjpk.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e7e0aec97dbf69ca64531871f3c5615592b6a082"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a009c2dae14e1ff5c0179f9fbc485ef48ab9fa5e"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_trjpk.ipynb.AGENTS.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1a7e64a59f856b638b0c99468dc5d0f8245003f3"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3988d88d78e51d0e4f65d39f153bfd7cfd0df1c7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/index_v2.md",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d9e1cb7f19a978647024c99e987e49fd6801e4ab"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "52b2453f2742b9516bc5e4b3bbe7d54a61b1eccf"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "223d721ec94f9d0fa3f860a15085781e321558c8"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "471988d1690844fe76e1576fcb10eb2067e9a8c4"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_dihedral_angles.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7d60a5d0c53c7c4af432d0ba7746b10061f03b1a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e8f86752a859e129d876c0f6bd8944797ed51bcb"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/structure/least_rmsd_fit.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9c0b5f2258eaf9f99cd677976b463f570c7f03ab"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "22d29fb0c395bed7b07638c857370ec21327a5f1"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/third_party/nglview/set_color_by_value.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e3558bc13615e24bdbddddb66f2f7a78d3b220f9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7b0caba8430cbb004a489b152a362929fb6f83a5"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/third_party/nglview/set_color_by_value.nbconvert.last_run",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0f83e6f8be04d5e89831148b6927781fe846f2b4"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f2019ecc03c4e50ea5b7ca47c7cf44be3531c8ff"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/content/user/tools/third_party/tleap/tleap.ipynb",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c6fe33245a2a91f31450fc806ade65ff5e91adc9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9f3cd6c8047c0bead16f6259ca5e13ebae6c18f5"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "docs/docs_manifest.yml",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8565e39e0b9b21e78e3f6b1f6a47f4a506b382e3"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4ac24273fb43841406ffa8649e9ce78dcccb96d7"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/keep_ids.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "efa3a6fd1dc06c65c4174d34d990437c0a1938c4"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "db7138573253b94ab1df400fab43cf260403c4a6"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/output_name.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "00eb787cec8976122faa8e31831000f50f073480"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/domain/converter_arguments.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4338fe536ade4de9db4838d5b5937c1247d2a2ba"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "01f1d64cc1f450e4c0bd230a9b9ca1f83d1053b3"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/_private/execution/persistent_result.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "968de67dcc6a2ef3016b2d095af270e93bd1cdcf"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "416d4e6b622c99de226cdac19908a8f9b2b089d9"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/_private/form_tier.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "66e1b7ff45846d3484cfd0ce9698276fde0446fd"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ef9e529470fb7fd8b2a357e840cb778e2b327574"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/basic/add.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "24c283d778c977ab393eabc40b92ca2852d22bf2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9510bcde16e0fc7212eb1bf34a220575c6fffc59"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/basic/merge.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "611f4702cf309b68a56e1920803d21353125f68f"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7f46e50c5b467c3bbbe6d5423e38706b6758aed7"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/basic/select.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9b5deead1ac595385b8b0b5ec3b7ffb8d84b1d1f"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fc37fa9cf6271a98dacd889a6e9a9fe53aea9166"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/basic/selector/molsysmt.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ca1fb835ad62f48f2b565edd9ae7453c75b46b67"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9848d37b77b83161ce137f738051c637f5dc6610"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/build/build_peptide.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7b67b2267ce07008ef770081fc38f2a50ab6503c"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "df3e584a4072e56ecd1740fb4c71ecb994431de1"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_Seq/copy.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c6200660780db096b5d953b51245d194b94659b6"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "814bf3817843b9e169e6ce09ccc2f0123a78fdb4"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_Seq/extract.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "09d113994d3e02f9959a0c692bdea7c6f033ad7f"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a3e11b00c837660861cd2c5dcacd8b9023fd91c6"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_Seq/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "92acaf71973bd7b0983fae64f42a797eea407f9a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fcf25d068db10878b79e7eadaad7b7cd418dad4c"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_Seq/has_attribute.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1854681e5c36d7cac7a124abe8b0ebcc21d07045"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7287bb59adebb14121305eecd396c02566c2e9f9"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_Seq/is_form.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9f4ab4f9e76f35dc93e4011b45bf6c0babbd9711"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7ab3e4283cf6b24e16b0e34f5fbb0a35fd1dbc26"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_Seq/to_biopython_Seq.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c7be93d32fe39a2ec43ddacb87f1ed99af4c442c"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "212e716c068b7424649b934caeaaae1ebd82fd65"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/__init__.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "19931393a70a74278659595f424888eee8400443"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a03779087f5fe484369020ec17cff580651ed3cd"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/copy.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "531851bbcbc66d1e132d3e282f8e0bd2582374a8"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/extract.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ac38c74857bac58dc630a3c696cb59fb75bd6420"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "6b8e2404240d443441b60288b57e99efffd8adc0"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f86d4cd3e7e9ac7ddaca16f3b6a6218ed4ecbb7f"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4d542431a524b68fdf063a4441298b57195c394b"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/has_attribute.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c9fb7db8c842e396331006f51de5eef5061db1ac"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "80361761b425fb70ffa6a1e1e78a8ce98bb4c17d"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/is_form.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "00cf025315c60ddbc3d118ea059b52d94479f280"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cdd40f7934e8b8738c19f7e5ff63b0822d8acf55"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/biopython_SeqRecord/to_biopython_SeqRecord.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d326bcea669cc82b45c3799b0a4c611f58db0dc5"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1b8739a84e1b2e6e2d2d055d7aba79deee194018"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_crd/__init__.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cfbc4a1dcf799b2cc86811ced5737eefa3e687d9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e901732d40490d6b697a41db8f17f018ac6b5596"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_crd/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f18a13053135dba1bb86b433ccfc071f555f583b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "bde76602cf65cbd035eb8e94631dbb6f7abfe74f"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_crd/to_molsysmt_MolSys.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c79f39bbb5210911a576a7a49fac66fdc38928ff"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d23015bc3026c337ab07338d00e02d4a55343028"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_crd/to_molsysmt_Structures.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c925e625fc31779301370b39032b341badd73dab"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e041e2507d4575e1268be4ed0b92f33682d1c365"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_crd/to_molsysmt_Topology.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ce31887d71172bef589ed7f4239aa6394ca9d4f0"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "867d9412013264cc903b97eee22c9cb75391d801"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_fasta/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2ee9af497df7c1d96f5155b8306dc6e6caea1d0d"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "78ac1e6d8004aafe9173bc3895d1ec9c37e8c4e9"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_inpcrd/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7974c7e0d1127ed86471075213b4ec442424f8d7"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "35930cd3fa81311776b62728ad22344030370379"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_pir/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0379143ecf6f9e1523f208abebfb9c65677c6b5b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "54e4c6a9ce35cde673acfd34b49f34468dc04b99"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_prmtop/__init__.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0eac287b2840267a604f6fe9b947e6da4fa563d2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "37c667aec8ee7249db8c667514ff3a0d8ad6bc7b"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_prmtop/get_structural_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "224d00f103701d54a3f5e5c74f25b842dfdf2c1b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "518ed8893fbfb25d852d4d44338a9a8e1b207e70"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/__init__.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3a81e11cf5550c783576089db282881e1bb34f7b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "185235118821a459ebf7a688aeea2aac1fdbbff1"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/_header.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "703f6c071023560bd955333cb6a7e3f0a037e16b"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "64d0a6c3472d4f6092877344b8288fde0778a0fa"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f379a374ee830a8c9aa485714b33ae7bec55344f"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/extract.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0eafbf6e779e0fa3398bb61d29833bfe676ad8c2"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cfc4a344149a055006426d31d26e2e5a88de7713"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/get_structural_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "aca42773c3a5977e86771deac585107bd8788acd"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c0bce6e6c71f349b62d81d868ffbff83f4fbfd58"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/get_topological_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "aca42773c3a5977e86771deac585107bd8788acd"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2608c4643c6fa041e26934647242b3e18c895dac"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/to_file_trjpk.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2f39e2f8fd461fccfb5e2cec4eae800a1fa25b23"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "bc305b67eeb24abab35ba72265781cde5b38b116"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/file_trjpk/to_molsysmt_StructuresDict.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "992920b31363ec56df6782c2b15f133c326e9abc"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3ed8c3119b612d403f4acdb4b5d5b56cdd887b8e"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/__init__.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5ae152ceb2422dea5ee780a4742ab2b2c32978da"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/add.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "16a82b94283f6dbf881d9ee459e5bd3a7d87dffb"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/append_structures.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a398a0392536a194d3e1d6d1ed0d06836d28eab2"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/attributes.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "97d3e91cb02b085d9013c5263aae435f9e90cde5"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/copy.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d4b5099fad5dc410ca2ed9ac538af0f35997cc0b"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/extract.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "09ad553506fb833282e5b73c50c81c086dd7188e"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/form.json",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "352cf848e8ac95c3ead7453f8bcb76870676f86b"
+      },
+      "new": null,
+      "inspection": "non_python"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/get_structural_attributes.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "82960bc1b05bd81db82aaa95d54ad587890ec347"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/get_topological_attributes.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "82960bc1b05bd81db82aaa95d54ad587890ec347"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/has_attribute.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "79e24bf8bbb19bc49da45b06fc4d38fd49158317"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/is_form.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8ff09203c8f3ec0fe8002f51a788364f12c6404b"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/iterators.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5d025d4be8c3cdb2f80abc88b8286d0456bec4e0"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/merge.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ee7672f3f7ced05a612eb4c7f2eea3c5fdc454bc"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/set.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8b137891791fe96927ad78e64b0aad7bded08bdc"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_CIFFileHandler/to_molsysmt_CIFFileHandler.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "510ec6648bad67bd43125c2a6545f8c781b4a403"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_MolecularMechanics/merge.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7bab87bf8e27605021ef7f4ce991edbc7beb665b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "db426172a5528678d9312a48cf998035b7b9ebe0"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_StructuresDict/get_structural_attributes.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f887c56e7122f0a1dd28fc0239e6d0f21089e8cd"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d9921900cb56250764056389e9374ff417bea960"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_StructuresDict/to_file_trjpk.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3420bc8612e51eb5837235831cde918c849a492d"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "60fbe2add14f605830d4342c794c1fdbd806458b"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/interactions/hbonds/get_acceptor_atoms.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f54f624750826914b0626b5882defd50cbc4e512"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1432f0ba61ca6d3c459c2de5c81be8291007261b"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/interactions/hbonds/get_buch_hbonds.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5cae38dc356aaa19f0f1cf436a4e62f2e3957fb5"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3aff3feaf0bf92feafecf3d8e7e50edc0a95778f"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/native/molsys.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "730a9422b52210fb4c357dde77978c0a25c33c3f"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ae82bcd768dd0c66c95e6e21da4e960b053acbe0"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/native/topology.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cac3aeb26f0ab70b1fea43ef17d8258d63284677"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7072d8bb1826c426f43fdf156afa32bda5275dd7"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/pbc/get_lengths_and_angles_from_box.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8a6951675dad161825659080fae7226bb7969e31"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "67562d63b6d0521bb7ec2685bf71a31ea3a31e08"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/structure/get_dihedral_angles.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2c7bf3eeb7b21f3feadb70154b517ed05680e6e9"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2e3c2304c65470e87dcd5af08bac0b591978b1d7"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/structure/least_rmsd_fit.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "47c32088600045e2d74dbc93252c1f7f40d2765b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "45f7075ad0ac3d12c44855c866c4d17a72164106"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysmt/third_party/nglview/set_color_by_value.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a08c98431eaf79344922b4b7fe24fc2edea8b31b"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "bd63d0e66314f2bf4d0362b67d8e2668fab17352"
+      },
+      "inspection": "non_docstring_ast_equal"
+    },
+    {
+      "path": "molsysmt/third_party/tleap/tleap.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "83713866b715b9aaffa9e58809733e7776b460aa"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c69fba154bf8816dfe78f5b0c5d1ec49f7fb21c2"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/__init__.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2e9cac681a3d1d9b258150eb9962321541532a82"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/access.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0fc0e66570d62007b474c599b2d6802b6c0d7c89"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/__init__.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "97e4b24bf403bae130a4e504e206901f281ad71a"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/_telemetry.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b7e7dc92f86ad00ae38f9a45ed16cb0e572560ea"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/build.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c7d2ea53fb708fe7b9f951d24eec7936b4fade44"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/color.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7186aee44d5470fae06131394974568cc1b489d1"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/hbonds.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "55c0a2d424c874d76654e7731a363b93d5738897"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/molecular_mechanics.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b43cffcb53f6ab0d67fe90bca6d0da1a93127098"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/pbc.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "00f7cfee93ac0c7f36b622d192d394daf261524a"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/select.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c8cbe85338dd61017a7f476c8d3641be4a0126bd"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/structure.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3aa2c450d53fb1d7783fe4e436d8b22d362b5335"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/system.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "6847350a03315e3aba29bf1e3b60c3a68f207a79"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/adapters/topology.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "7b3173bfa83881f8b5e01a29749feb5cd11d1ade"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/addon.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "609eb3e6b4fe75ff5dafeeac5a268a96c9abaced"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/context.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "8d69757ea706101ffe03d6b827f1aebe20a56c5e"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/diagnostics.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "e095326f8a43ce8c1ea6367df45be400469cccd7"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/exports.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5f726350ed5ca8e7502106c05b5d8efee34effdf"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/__init__.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9bf759471fe343a60ccc58fc52ef72a87a468f3a"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/basic.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a6841bd04e32c4d2b7dc3e7b9471deca43a875c8"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/build.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f9706ed8903bafe02a46098918a1a2a6d37306e0"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/color.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "0f01ae069df9e894964a32b5dd111f6e64f0d9e7"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/hbonds.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5ab79af88667e9707535ee574977aaeec4d915c9"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/mechanics.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c6871223417a4669c8a6ce1677ce1b3c919402cc"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/pbc.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "4085d1331ab09c4b59798dec0fc5b3606082a3f3"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/structure.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a2c5da745900e3dcd302743a910739f3062d198f"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/panels/topology.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f8a8dc8c028648a3c1f7a319713d724837b2387b"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/runtime.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a364cd0425001df34a54dbe85c48f4fc489bcc1e"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "molsysviewer_molsysmt/workbench.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "c1a04f256ba115ed7c0415cc311cfa34a7ac104d"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "pyproject.toml",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "fc93ac6a143e3856875dface66616f4a68a6a022"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "86a77401d891ba4b2588996a2c484fa91d3523c9"
+      },
+      "inspection": "non_python"
+    },
+    {
+      "path": "tests/basic/add/test_chain_identifiers.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "06b934341b1f84aaf7d41e521c0a6565f095fa78"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/basic/merge/test_merge_prepared_mechanics.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "79980803e45570a7d3925d3dbe377d870599c9b8"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/basic/select/test_empty_bonded_to.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3193551a68ef7cfde76018f0d2e8208aabae4eb6"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/basic/test_get_form_battery.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d82145119cbd2592d69d916784a9a046ec354b32"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "cc0d8d78fee56ef1f8351a908783f7049635a726"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "tests/build/build_peptide/test_leap_resource_lifecycle.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "54c4c2cc8e2991a04fe108713628b397d01f6f71"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/form/biopython_Seq/test_copy_and_identity_conversion.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "1f97588231008481bf58525ffd540c2676e4ef03"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/form/biopython_Seq/test_group_queries.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "eb8ac3d905eaecceedf5cdae0f2369a90abb2d94"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/form/file_crd/test_get_file_crd.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "b1b12bf20a31a056e166fe80425a96afc2a56ee0"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2ca1524eae5edee077afcd9206f1aa13e9ded4c0"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "tests/form/file_fasta/test_positional_queries.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "a015a1bca206c8b53b151b95ef38121a2cc6b8ea"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/form/file_inpcrd/test_getters.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f536cff1020c9e0df163b3f48f23edb103b373ff"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "90463220a19d76d78a7b4e86d87edc318b543820"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "tests/form/file_prmtop/test_box_queries.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5183cbe8c27a894b28f9a88745979325b9e2c0de"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/form/file_trjpk/test_queries_and_roundtrip.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "578376a7d8cb5ee55bb49848f2312a34456527a9"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/heavy/test_persistent_result.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "88c2dbfd11b5a0c461a353b0c64afe15baa20deb"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "9e8faeea957dc3c0c033a33acd2aa5de302fbb98"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/conftest.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "75cb0205eacf8146c1af959cb6cf8f5bdbd3ba55"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_flows_analysis.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "aa3eeab435275bd516832ac5741a34a5d232005c"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_flows_mutations.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2b4f7e3f7316457eae347333b0f8613e1e955949"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_flows_select_color.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "3bf25a7f8d8b5c54a3eb9303d2b0f22a4e7d2263"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_foundation.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "de6d63c5ee7594a7ea4d40bfe677cc2a03bb6525"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_panels.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "5a605e9934403dfc91932c1ccc3d97dd081e639e"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_spec.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "f1e9b2940012003592a5ddb7c7afb39cb0879fd2"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_telemetry.py",
+      "status": "D",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "2cfd4213b179815f8fa58102235f603b2d3a98f6"
+      },
+      "new": null,
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/native/test_native_add_digestion.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "98e3c28a2bda6f267561200051fc0c09722988e6"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/pbc/get_lengths_and_angles_from_box/test_active_unit_policy.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "865658f69e5611a14b42517832424c5624f0b3ed"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/structure/fit/test_degenerate_anchors.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "d2d41464ae74835726aec43717174be6b24b00ec"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/structure/get_dihedral_angles/test_angle_policy.py",
+      "status": "A",
+      "old": null,
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "441d68c4d876d4222d066900955e235e56e2f436"
+      },
+      "inspection": "python_added_or_removed"
+    },
+    {
+      "path": "tests/supported/test_supported.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "446379ccb09d45ac156ed1752f0389ad08dbd22a"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "526ff912043a42c294cb45ee5401d8b911b8fbca"
+      },
+      "inspection": "non_docstring_ast_changed"
+    },
+    {
+      "path": "tests/third_party/tleap/test_tleap.py",
+      "status": "M",
+      "old": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "ceaf09c731c42e81397fba72225ed32800b5c0fe"
+      },
+      "new": {
+        "mode": "100644",
+        "type": "blob",
+        "object_id": "78f29430314b146b61086c88e92719ac1db26cd2"
+      },
+      "inspection": "non_docstring_ast_changed"
+    }
+  ]
+}

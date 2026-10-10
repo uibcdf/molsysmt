@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-09
+**Last updated:** 2026-10-10
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -997,6 +997,12 @@ Release advancement is paused by the maintainer decision relayed above. The
 sequence below describes retained evidence and the former release route; do
 not execute its publication/closure steps or new qualification campaigns until
 the owners agree the new candidate direction after the Viewer discussion.
+
+The [2026-10-10 source-delta review](pending_proposals/freeze_1_0_scope_and_complete_bounded_stabilization.md#source-delta-for-coordination-resumption--2026-10-10)
+maps post-producer stabilization and addon retirement to existing guards and
+remaining installed-consumer checks. It is preparation for resumption, not a
+replacement candidate selection or executed qualification. The reviewed source
+is explicit; later changes require a renewed delta review.
 
 The [frozen scope](release_1_0_scope.md) governs admission. The published pre-1.0
 pair is **MolSysMT 0.23.0 / MolSysViewer 0.24.0**; its files and executed evidence
