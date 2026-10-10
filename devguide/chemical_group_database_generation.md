@@ -39,9 +39,10 @@ The amino-acid and ion commands accept one explicit `--extra` JSON input using
 the existing `topology` variant schema. No supplemental file is read by default.
 For example, the existing ionic aliases can be included with
 `--extra molsysmt/data/databases/ions/extra.json`. Supplemental connectivity is
-validated before writing. The existing amino-acid supplement has two invalid
-MET variants referencing an undeclared OXT atom (uibcdf/molsysmt#380); supplying
-that file currently raises an error, rather than silently repairing its chemistry.
+validated before writing. The amino-acid supplement's two MET variants with
+undeclared OXT endpoints were corrected under uibcdf/molsysmt#380 using the
+bounded revision route below. Both supplied supplements now pass the structural
+validation; other malformed supplements are still rejected.
 
 ## Reference selection and reader schemas
 
@@ -118,3 +119,56 @@ selenium connectivity.
 ```bash
 python -m pytest tests/data/databases/test_ccd_generators.py --receptor=llm -n12
 ```
+
+## Revising an existing amino-acid supplement
+
+When a reviewed supplement changes but the complete historical CCD/RTP source
+set is unavailable, use
+[`revise_amino_acid_supplements.py`](../molsysmt/data/_make/revise_amino_acid_supplements.py).
+It replaces changed variants in trusted legacy buckets by exact equality with
+an explicit previous supplement. Every replacement must match exactly one
+original variant; missing or ambiguous baselines fail before writing. It
+preserves group membership, record metadata and variant counts/order, and
+validates all variants in the affected buckets after replacement. Revised
+supplements must retain the same group keys, metadata and variant positions.
+
+This maintenance route does not infer chemical changes, reconstruct the original
+force-field inputs, or accept arbitrary untrusted pickle files. It writes only
+affected buckets and a completion manifest, using the same deterministic writer
+as full generation. It writes no group-name index because membership is unchanged.
+Output custody and non-atomic I/O behavior follow the rules above.
+
+For #380, the original source commit is
+`4393d9fdc0d09a0312b8b8218514444f1278a25d`. Using a fresh `generated/met-input`
+directory, reproduce the correction from those exact historical inputs:
+
+```bash
+mkdir -p generated/met-input
+git show 4393d9fdc0d09a0312b8b8218514444f1278a25d:molsysmt/data/databases/amino_acids/M.pkl.gz > generated/met-input/M.pkl.gz
+git show 4393d9fdc0d09a0312b8b8218514444f1278a25d:molsysmt/data/databases/amino_acids/extra.json > generated/met-input/molsysmt-380-previous-extra.json
+python -m molsysmt.data._make.revise_amino_acid_supplements --source-dir generated/met-input --previous-extra generated/met-input/molsysmt-380-previous-extra.json --extra molsysmt/data/databases/amino_acids/extra.json --output-dir generated/met-revised
+```
+
+Review the result before replacing assets. For this correction, only MET variants
+4 and 5 in `M.pkl.gz` lose the undeclared `C`–`OXT` edge; their 19-atom inventories
+and all other variants are preserved. The graph matches the N-terminal peptide
+NMET reference in
+[AmberClassic](https://github.com/Amber-MD/AmberClassic/blob/656e5c6fcb05149e6aa936e1d69d1426b37ea3c7/dat/leap/lib/aminont12.lib#L2133),
+with `H1` renamed to `H` for the second naming variant. This is connectivity
+evidence; it assigns no charges or chemical states. The CCD-derived MET variants
+that include OXT remain available for their distinct inventories.
+
+The retained
+[`supplement_revision_manifest.json`](../molsysmt/data/databases/amino_acids/supplement_revision_manifest.json)
+records original/revised input hashes, changed variant indices, output hashes,
+the reported runtime version and hashes of the actual generator and common tool
+source files. These source hashes identify the code even when a development
+environment's installed version metadata describes an older build. Reproducing
+the bucket bytes is independent of such manifest version fields; full manifest
+reproducibility also requires identical generator code and environment.
+
+The guard
+[`test_amino_acid_supplement_revision.py`](../tests/data/databases/test_amino_acid_supplement_revision.py)
+checks endpoint integrity, the independent Amber NMET graph, reader delivery with
+reordered external atom indices, preservation of OXT-bearing variants and
+unrelated records, provenance, custody and rejected ambiguous revisions.

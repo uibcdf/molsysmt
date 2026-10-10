@@ -314,6 +314,14 @@ def _check_output(directory):
         raise FileExistsError(f"Output directory must be empty: {directory}")
 
 
+def _write_pickle(path, payload):
+    with Path(path).open("wb") as stream:
+        with gzip.GzipFile(
+            filename="", fileobj=stream, mode="wb", mtime=0, compresslevel=9
+        ) as compressed:
+            pickle.dump(payload, compressed, protocol=4)
+
+
 def _write_database(output, directory, manifest):
     directory = Path(directory)
     _check_output(directory)
@@ -324,11 +332,7 @@ def _write_database(output, directory, manifest):
     payloads = {f"{prefix}.pkl.gz": records for prefix, records in groups.items()}
     payloads["group_names.pkl.gz"] = sorted(output)
     for filename, payload in sorted(payloads.items()):
-        with (directory / filename).open("wb") as stream:
-            with gzip.GzipFile(
-                filename="", fileobj=stream, mode="wb", mtime=0, compresslevel=9
-            ) as compressed:
-                pickle.dump(payload, compressed, protocol=4)
+        _write_pickle(directory / filename, payload)
     manifest["outputs"] = {
         filename: _sha256(directory / filename) for filename in sorted(payloads)
     }

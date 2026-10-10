@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`amino_acid_met_supplements_reference_an_undeclared_oxt_atom.md`](amino_acid_met_supplements_reference_an_undeclared_oxt_atom.md) — [#380](https://github.com/uibcdf/molsysmt/issues/380) — Amino-acid MET supplements reference an undeclared OXT atom *(low, reproduced)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

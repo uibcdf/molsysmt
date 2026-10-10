@@ -99,8 +99,27 @@ distributed databases are regenerated. Validation separately finds #380: two MET
 supplements and their bundled variants contain an undeclared OXT endpoint; the
 new generator rejects that inconsistent source until its chemistry is reviewed.
 The prior source head `889b3b4fe0ddac4a24105b49a58d3321e8708045` passes all five
-ordinary hosted checks. Frozen-candidate identities and the publication pause
-remain unchanged.
+ordinary hosted checks. At the repair's original head `4393d9fdc`, five checks
+pass but smoke `38041410267` fails before tests: its AST guard treats two retired
+unexported script helpers as public. Follow-up `59b6da08a` records their retirement
+with two exact file/symbol waivers; comparison against the pre-repair head passes
+without changing guard discovery. Frozen-candidate identities and the publication
+pause remain unchanged.
+
+## MET reference-data repair — 2026-10-10
+
+#380 now has a reviewed source correction and a bounded generator revision. The
+two 19-atom MET variants match AmberClassic's N-terminal peptide connectivity;
+their undeclared C–OXT edges are removed. The other four variants, atom inventories,
+group membership and all other bucket files are preserved. A generated receipt
+records input/output and generator source hashes. The
+[record](archive/resolved_bugs/amino_acid_met_supplements_reference_an_undeclared_oxt_atom.md)
+explains the scientific reference and the
+[maintenance route](chemical_group_database_generation.md#revising-an-existing-amino-acid-supplement)
+reproduces the correction from its original inputs. Source/generator/reader tests
+pass **72 cases** with Python 3.14 and twelve workers. Both bundled supplements
+can now be supplied to CCD generation. This is a reference-data correction, not
+an installed-package qualification or resumption of publication.
 
 ## Native shortcut repair — 2026-10-10
 

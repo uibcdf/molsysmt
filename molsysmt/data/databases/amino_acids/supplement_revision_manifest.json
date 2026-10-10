@@ -1,0 +1,36 @@
+{
+  "changed_variant_indices": {
+    "MET": [
+      4,
+      5
+    ]
+  },
+  "generator": "amino-acid-supplement-revision@1",
+  "inputs": [
+    {
+      "filename": "molsysmt-380-previous-extra.json",
+      "role": "previous_supplemental_json",
+      "sha256": "e75dd0b222cf13a1121f521dc37816d3264cdd137962a18edfcc1bc03024b787"
+    },
+    {
+      "filename": "extra.json",
+      "role": "revised_supplemental_json",
+      "sha256": "360fee8ae531a3b4ebe0c1a1054d4e879703c70cafd2dbfa7fa0e87d61260756"
+    },
+    {
+      "filename": "M.pkl.gz",
+      "role": "reference_bucket",
+      "sha256": "6492829b3ba05eb48ee938fd26fe66728ec7b6d34fe2a4d3e30e75f61f9cee41"
+    }
+  ],
+  "outputs": {
+    "M.pkl.gz": "b1120d738a8a0b526cdd8382a526aed25d55a484ce529c73124b66b4b0ad1cd1"
+  },
+  "producer": {
+    "common_tools_sha256": "8b7f0e1bba64bf965b60fe46676410cc016defc36b5f2e9eff938511c9d21ef8",
+    "generator_sha256": "4ba69fcac2fcc0709c0caaa357413116624b477a1efc05f33833858e81d29440",
+    "molsysmt": "0.22.4+212.g5e2721691",
+    "python": "3.14.7"
+  },
+  "schema_version": 1
+}
