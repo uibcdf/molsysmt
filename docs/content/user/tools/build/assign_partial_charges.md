@@ -35,6 +35,12 @@ replaced. Other force-field parameters and AutoDock labels are not assigned.
 Named analyses retain their original snapshots; explicitly invalidate/recalculate
 any analysis that depends on the changed mechanical parameters.
 
+Native charges and numerical report totals always use elementary charge, even
+when the active PyUnitWizard policy declares only length and time standards.
+Assignment preserves that policy. The quantity-returning
+{func}`molsysmt.physchem.get_partial_charges` instead requires a charge standard
+and returns its requested presentation, for example coulomb.
+
 Read {ref}`Tutorial_Partial_Charge_Assignment` for model prerequisites, units,
 total-charge checks, projected scope, provenance, stale-assignment checks and
 export limits. Mechanical assignments are **not persisted by H5MSM 0.5**.

@@ -68,7 +68,10 @@ def assign_partial_charges(
 
     Notes
     -----
-    Delegates the scientific calculation to physchem.get_partial_charges.
+    Shares the scientific calculation owned by physchem.get_partial_charges.
+    Native storage uses elementary charge regardless of the active PyUnitWizard
+    presentation policy, even when no charge standard is configured. The policy
+    remains unchanged; scalar total declarations may use any supported charge unit.
     Named analyses retain their original snapshots. As with other mechanics edits,
     callers must explicitly invalidate/recalculate analyses that depend on those
     parameters; native automatic coupling covers geometry and ChemicalStates.
@@ -101,11 +104,9 @@ def assign_partial_charges(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt import pyunitwizard as puw
-    from molsysmt._private.partial_charges import bind_assignment
+    from molsysmt._private.partial_charges import bind_assignment, calculate
     from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.basic import convert, get_form
-    from molsysmt.physchem import get_partial_charges
 
     # Compatibility with the runtime floor preceding uibcdf/argdigest#17.
     if not isinstance(skip_digestion, bool):
@@ -129,19 +130,18 @@ def assign_partial_charges(
             reason="Charge assignment storage requires exactly one chemical state; calculate detached results for multi-state inputs.",
             caller="molsysmt.build.assign_partial_charges",
         )
-    result = get_partial_charges(
+    result = calculate(
         source,
         method=method,
+        selection="all",
         chemical_state=chemical_state,
         structure_indices=structure_indices,
         forcefield=forcefield,
         water_model=water_model,
         expected_total_charge=expected_total_charge,
-        return_report=True,
+        syntax="MolSysMT",
     )
-    source.molecular_mechanics.partial_charge = puw.get_value(
-        result["partial_charge"], to_unit="elementary_charge"
-    )
+    source.molecular_mechanics.partial_charge = result["partial_charge"]
     source.molecular_mechanics.partial_charge_assignment = bind_assignment(
         source, result["report"]
     )

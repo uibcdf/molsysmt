@@ -105,6 +105,20 @@ def test_selection_is_after_full_graph_and_respects_charge_unit_configuration():
     assert empty["report"]["coverage"] == "complete"
 
 
+def test_quantity_getter_requires_a_charge_standard_without_changing_policy():
+    source = molecule("CO")
+    before = Chem.MolToMolBlock(source)
+    with puw.context(standard_units=["pm", "fs"]):
+        policy = puw.configure.report()
+        with pytest.raises(Exception) as caught:
+            calculate(source)
+        # PyUnitWizard does not export this exception at its public root.
+        assert type(caught.value).__name__ == "NoStandardsError"
+        assert puw.configure.report() == policy
+    assert Chem.MolToMolBlock(source) == before
+    assert not any(atom.HasProp("_GasteigerCharge") for atom in source.GetAtoms())
+
+
 def test_supported_forms_and_nonreference_state_are_equivalent(tmp_path):
     source = msm.convert(molecule("CO"), to_form="molsysmt.MolSys")
     second = source.chemical_states._states[0].copy()

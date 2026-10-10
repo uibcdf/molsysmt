@@ -27,14 +27,19 @@ charges in `ChemicalStates`.
 ## Units, axes and evidence
 
 `get_partial_charges` returns a PyUnitWizard quantity following the active charge
-unit policy. Native mechanical values and report numerical totals explicitly use
+unit policy. A policy omitting charge raises PyUnitWizard's `NoStandardsError`
+at this presentation boundary. `assign_partial_charges` shares the same canonical
+calculation but attaches numeric values directly: it does not require a charge
+standard or change the caller's unit policy (uibcdf/molsysmt#381).
+Scientific attribution retains `molsysmt.physchem.get_partial_charges` as the
+calculation owner for both routes. Native mechanical values and report totals use
 `elementary_charge`. Bare integer total declarations use that unit; bare float
 or boolean totals are rejected. Unitful scalar totals can use any charge unit.
 Manual `msm.set(..., partial_charge=...)` accepts finite vectors, converting
 quantities to native elementary charge. Bare vector values use elementary charge.
 
 Use atom and structure **indices**, independently of IDs. Validate explicit
-frame selections against a known source axis. Structure-associated chemical-state
+structure selections against a known source axis. Structure-associated chemical-state
 resolution must be unambiguous. Calculation output selections are sorted and
 unique; manual setter values follow the explicit input selection order.
 

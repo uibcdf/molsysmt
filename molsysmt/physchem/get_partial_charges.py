@@ -78,6 +78,8 @@ def get_partial_charges(
         inconsistent with the declared total.
     ImportError
         If the method's explicitly required optional provider is unavailable.
+    NoStandardsError
+        If the active PyUnitWizard policy has no standard unit for charge.
 
     Notes
     -----
@@ -95,6 +97,10 @@ def get_partial_charges(
     Source-provided partial charges are not inputs to either calculation.
     Neither route assesses electrostatic accuracy or guarantees docking readiness.
     Optional Ackredit diagnostics cannot discard completed scientific results.
+    Returning a quantity requires a standard for charge in the active
+    PyUnitWizard policy; a policy containing only length and time raises
+    NoStandardsError. Native build.assign_partial_charges instead stores fixed
+    elementary-charge values without requiring that presentation standard.
 
     See Also
     --------
@@ -119,6 +125,7 @@ def get_partial_charges(
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt import pyunitwizard as puw
     from molsysmt._private.partial_charges import calculate
 
     # Compatibility with the runtime floor preceding uibcdf/argdigest#17.
@@ -141,5 +148,8 @@ def get_partial_charges(
         water_model,
         expected_total_charge,
         syntax,
+    )
+    result["partial_charge"] = puw.quantity(
+        result["partial_charge"], "elementary_charge", standardized=True
     )
     return result if return_report else result["partial_charge"]

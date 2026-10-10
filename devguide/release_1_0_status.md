@@ -170,6 +170,25 @@ the standalone module has eleven cases. Repository Ruff and all fourteen fast
 gates pass. All earlier runtime fixes remain guarded. No installed artifact, frozen
 reference, scientific method or publication state changes in this checkpoint.
 
+## Native charge unit-boundary repair — 2026-10-10
+
+The preceding source checkpoint `aedd5a76d195d10fc2c1fb9ac6d24c96cc751a28`
+passes all five ordinary hosted checks: CI smoke `38044948696`, Ruff,
+developer-guide integrity, MolSysSuite policy and Conda publication governance.
+
+#381 is source contract-tested. Native assignment shares the existing scientific
+calculation and attaches canonical elementary-charge values without requiring a
+presentation standard. The quantity-returning getter still follows the active
+charge standard and raises `NoStandardsError` when it is absent. Neither operation
+changes caller configuration. The [resolution](archive/resolved_bugs/native_partial_charge_assignment_requires_a_presentation_standard.md)
+records four reproduced failures before repair and **71 passing cases** afterward
+with no skips, including both scientific providers, source immutability,
+nonzero unitful totals, getter presentation, native lifecycle and public doctests.
+Strict docstring checks and unchanged signature/decorator comparisons pass;
+nine documentation code blocks execute and course outputs remain preserved.
+The native owner contract and all relevant user/course guidance are updated.
+This does not alter a frozen package or qualify a replacement release candidate.
+
 ## Native shortcut repair — 2026-10-10
 
 #377 is source contract-tested: `MolSys.get`, `info` and `to_form` respect the

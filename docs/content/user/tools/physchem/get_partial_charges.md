@@ -75,6 +75,12 @@ parameters, original software versions, evidence and detached references.
 output has fewer atoms or is empty. Numeric report totals use elementary charge;
 the returned quantity follows the current PyUnitWizard charge-unit policy.
 
+The getter requires a configured standard for charge. If your policy contains only
+length and time (for example, `['pm', 'fs']`), it raises `NoStandardsError` rather
+than choosing a charge unit for you. Add a charge standard to request quantities,
+for example `['pm', 'fs', 'coulomb']`. Native `assign_partial_charges` stores fixed
+elementary-charge numbers and works with either policy, without changing it.
+
 The full calculated total must agree within **1e-6 e** with complete stored formal
 charges or an explicit `expected_total_charge`. A declaration must also agree with
 complete known formal charges. An integer denotes elementary charge; a scalar
@@ -91,8 +97,8 @@ assert subset['report']['atom_indices'].tolist() == [14, 16]
 
 Numeric result selections are sorted and deduplicated. Rich selection syntax uses
 the source system. `chemical_state='structure'` requires an unambiguous state
-association for the requested frames. Charges describe a chemical state, rather
-than one observation per frame; changing coordinates does not change these models.
+association for the requested structures. Charges describe a chemical state, rather
+than one observation per structure; changing coordinates does not change these models.
 
 ## Storing and exporting
 

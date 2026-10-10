@@ -281,15 +281,19 @@ def calculate(
     molecular_system,
     method,
     selection,
-    frames,
+    structure_indices,
     chemical_state,
     forcefield,
     water_model,
-    expected,
+    expected_total_charge,
     syntax,
 ):
+    """Return validated canonical elementary-charge values and their report.
+
+    Public consumers own quantity presentation or native storage. Scientific
+    attribution retains the physchem operation as the shared calculation owner.
+    """
     from molsysmt import __version__, _ackredit
-    from molsysmt import pyunitwizard as puw
     from molsysmt._private.scientific_citations import SOFTWARE
     from molsysmt.basic import get_form
     from molsysmt.topology._chemical_graph import (
@@ -313,16 +317,24 @@ def calculate(
         from rdkit import Chem
 
         molecular_system = Chem.Mol(molecular_system)
-    source, states, state, state_index, _, _, selection_frames = chemical_graph_context(
-        molecular_system, chemical_state, frames, method == "forcefield", _CALLER
+    source, states, state, state_index, _, _, selection_structures = (
+        chemical_graph_context(
+            molecular_system,
+            chemical_state,
+            structure_indices,
+            method == "forcefield",
+            _CALLER,
+        )
     )
     from molsysmt._private.variables import is_all
     from molsysmt.topology._chemical_graph import validate_chemical_frames
 
-    selection_frames = validate_chemical_frames(source, selection_frames, _CALLER)
+    selection_structures = validate_chemical_frames(
+        source, selection_structures, _CALLER
+    )
     if not states.n_atoms:
         _fail("Charge assignment requires at least one source atom.")
-    total, total_source = _total(state, states.n_atoms, expected)
+    total, total_source = _total(state, states.n_atoms, expected_total_charge)
     view = _state_view(source, states, state_index)
     # Atom types are chemical element symbols in MolSysMT, not docking labels.
     from molsysmt._private.atom_types import CHEMICAL_ATOM_TYPES
@@ -351,7 +363,7 @@ def calculate(
         states,
         state_index,
         selection,
-        frames if rich_selection else selection_frames,
+        structure_indices if rich_selection else selection_structures,
         syntax,
     )
     software = {"molsysmt": __version__, **software}
@@ -396,12 +408,7 @@ def calculate(
     )
     with _ackredit.scope(_CALLER) as provider:
         _ackredit.credit(provider, items, _CALLER)
-    return {
-        "partial_charge": puw.quantity(
-            values[indices], "elementary_charge", standardized=True
-        ),
-        "report": report,
-    }
+    return {"partial_charge": values[indices], "report": report}
 
 
 def _digest(source, state_index, method):

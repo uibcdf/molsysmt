@@ -44,6 +44,108 @@ def write(source, path):
     return path.read_text()
 
 
+@pytest.mark.parametrize("units", [["pm", "fs"], ["pm", "fs", "coulomb"]])
+@pytest.mark.parametrize("form", ["molsysmt.MolSys", "rdkit.Mol"])
+def test_native_assignment_needs_no_charge_presentation_standard(units, form):
+    source = prepared()
+    if form == "rdkit.Mol":
+        source = msm.convert(source, to_form=form)
+        before = Chem.MolToMolBlock(source)
+    else:
+        before = source.copy()
+    with puw.context(standard_units=units):
+        policy = puw.configure.report()
+        result = assign(source, return_report=True)
+        assert puw.configure.report() == policy
+    output, report = result["molecular_system"], result["report"]
+    values = np.asarray(output.molecular_mechanics.partial_charge, dtype=float)
+    np.testing.assert_allclose(
+        values,
+        [
+            0.03194068372,
+            -0.39963024356,
+            0.05268663182,
+            0.05268663182,
+            0.05268663182,
+            0.20962966439,
+        ],
+        rtol=0,
+        atol=1e-10,
+    )
+    assert report["charge_unit"] == "elementary_charge"
+    assert report["coverage"] == "complete"
+    assert report["total_charge"] == pytest.approx(0, abs=1e-10)
+    assert report["attribution"]["target"] == "molsysmt.physchem.get_partial_charges"
+    saved = output.molecular_mechanics.partial_charge_assignment
+    assert saved["software"] == report["software"]
+    assert saved["references"] == report["references"]
+    if form == "rdkit.Mol":
+        assert Chem.MolToMolBlock(source) == before
+        assert not any(atom.HasProp("_GasteigerCharge") for atom in source.GetAtoms())
+    else:
+        assert source.molecular_mechanics.partial_charge is None
+        pd.testing.assert_frame_equal(source.topology.atoms, before.topology.atoms)
+        pd.testing.assert_frame_equal(
+            source.chemical_states._states[0].atom_attributes,
+            before.chemical_states._states[0].atom_attributes,
+        )
+        np.testing.assert_array_equal(
+            puw.get_value(source.structures.coordinates, to_unit="nm"),
+            puw.get_value(before.structures.coordinates, to_unit="nm"),
+        )
+
+
+def test_native_nonzero_total_quantity_needs_no_charge_standard():
+    source = prepared("[NH4+]")
+    declaration = puw.convert(puw.quantity(1, "elementary_charge"), to_unit="coulomb")
+    with puw.context(standard_units=["pm", "fs"]):
+        policy = puw.configure.report()
+        result = assign(source, expected_total_charge=declaration, return_report=True)
+        assert puw.configure.report() == policy
+        with pytest.raises(StructuralInconsistencyError, match="conflicts"):
+            assign(source, expected_total_charge=0)
+        assert puw.configure.report() == policy
+    values = np.asarray(
+        result["molecular_system"].molecular_mechanics.partial_charge, dtype=float
+    )
+    assert values.shape == (5,)
+    assert np.isfinite(values).all()
+    assert values.sum() == pytest.approx(1, abs=1e-10)
+    assert result["report"]["expected_total_charge"] == pytest.approx(1)
+    assert result["report"]["total_charge_source"] == "caller_declaration"
+    assert source.molecular_mechanics.partial_charge is None
+
+
+def test_native_forcefield_assignment_needs_no_charge_standard():
+    pytest.importorskip("openmm")
+    source = msm.convert("molsysmt/data/pdb/ala3.pdb", to_form="molsysmt.MolSys")
+    with puw.context(standard_units=["pm", "fs"]):
+        policy = puw.configure.report()
+        output = msm.build.assign_partial_charges(
+            source,
+            method="forcefield",
+            forcefield="AMBER14",
+            expected_total_charge=0,
+        )
+        assert puw.configure.report() == policy
+    values = np.asarray(output.molecular_mechanics.partial_charge, dtype=float)
+    assert values.shape == (source.get_n_atoms(),)
+    names = source.topology.atoms["atom_name"].to_numpy()
+    groups = source.topology.atoms["group_index"].to_numpy()
+    actual = {
+        name: values[i]
+        for i, (name, group) in enumerate(zip(names, groups))
+        if group == 1
+    }
+    # Independent ff14SB template controls, as in the public getter guard.
+    assert actual["N"] == pytest.approx(-0.4157)
+    assert actual["H"] == pytest.approx(0.2719)
+    assert actual["O"] == pytest.approx(-0.5679)
+    assert values.sum() == pytest.approx(0, abs=1e-8)
+    assert output.molecular_mechanics.partial_charge_assignment["software"]["openmm"]
+    assert source.molecular_mechanics.partial_charge is None
+
+
 def test_assignment_is_detached_and_preserves_domains_and_original_software():
     source = prepared()
     before = source.copy()

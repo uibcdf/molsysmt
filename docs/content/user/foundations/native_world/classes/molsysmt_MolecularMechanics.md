@@ -31,7 +31,10 @@ are separate attributes:
 ## Invariants and Performance
 
 - Native charge values use elementary charge independently of the session's unit
-  policy. Atom masses in `Da` are obtained through public atom attributes; they
+  policy. {func}`molsysmt.build.assign_partial_charges` does not require a charge
+  presentation standard and preserves the caller's policy. The quantity-returning
+  {func}`molsysmt.physchem.get_partial_charges` requires that standard.
+  Atom masses in `Da` are obtained through public atom attributes; they
   are not stored in this container.
 - Merging concatenates prepared columns in input and selected atom order.
   Columns missing from a contributing input are cleared with a warning. Empty

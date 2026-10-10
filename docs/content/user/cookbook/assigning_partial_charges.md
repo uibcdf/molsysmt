@@ -33,6 +33,19 @@ in ChemicalStates; the total check does not establish electrostatic accuracy.
 Save the report with the result for provenance. H5MSM 0.5 does not persist the
 experimental mechanical domain; full mechanical persistence is planned for 0.6.
 
+Native assignment also works when your unit policy contains no charge standard:
+
+```python
+with msm.pyunitwizard.context(standard_units=['pm', 'fs']):
+    molsys = msm.build.assign_partial_charges(
+        msm.systems['caffeine']['caffeine.sdf'], method='gasteiger_marsili')
+    assert molsys.molecular_mechanics.partial_charge_assignment['charge_unit'] == 'elementary_charge'
+```
+
+The operation preserves the active policy. To request a quantity through
+`get_partial_charges`, configure a charge standard too, such as
+`['pm', 'fs', 'coulomb']`; that getter raises `NoStandardsError` if charge is absent.
+
 ## Querying a subset
 
 ```python
