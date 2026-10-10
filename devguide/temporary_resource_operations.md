@@ -48,6 +48,15 @@ use of that wrapper.
   that destination. Never point it at a shared environment or caller evidence.
 - Benchmark file contexts own temporary HDF5/SQLite files through closed readers
   and queries. Caller-selected JSON outputs are evidence, not disposable scratch.
+- The temporal Rust probe compiles inside a parent-owned managed directory and
+  loads the library only in a child. The parent waits for normal/failed exit or
+  kills and reaps the child after communication failure or interruption before
+  retiring that directory. Child temporary HDF5 files also live under this owned
+  root. Compile/start/load/single-query/batch-query/cleanup errors remain visible.
+  A successful JSON report is published only after directory retirement succeeds.
+  Query timings stay inside the child and exclude compilation, process startup
+  and IPC. Index-byte fields do not measure total process RAM. An abrupt kill of
+  the owner cannot execute its Python cleanup scope.
 - Notebook code, saved outputs, run fingerprints, generated Viewer scenes and
   execution logs have distinct purposes. Preserve outputs and logs still needed
   for verification. A source-only review does not qualify notebook execution.
@@ -61,17 +70,20 @@ use of that wrapper.
   under [the release ledger](release_1_0_status.md). This policy review does not
   authorize rebuilding, promotion or publication during the pause.
 
-## Remaining bounded implementation exceptions
+## Verification scope
 
-uibcdf/molsysmt#374 retains the standalone temporal native-probe exception. Its
-two eager runtime PDB bridges and generated file-returning failure custody now
-implement the lifetimes listed above. Owners are dprada/LMMV; review on 2026-10-24 or before
-the next affected invocation. Use an exclusive process scratch root selected
-before interpreter startup, retain it through inspection, and retire it after
-readers, children and loaded libraries end. These are interim native-probe
-procedures, not claims that this remaining operation implements complete cleanup.
+uibcdf/molsysmt#374 repairs the two eager runtime PDB bridges, generated
+file-returning failure custody and temporal native-probe ownership. Its native
+guards execute real Rust libraries and child lifetimes on Linux. They assert
+child exit before directory retirement, rather than relying on unlinking a
+loaded library. Windows/macOS execution and platform release qualification
+are not claimed. Execute the addressable native guard on the corresponding
+platform before claiming lifetime compliance there:
 
-Remove the exceptions only after independent success/failure/caller-custody
-guards establish the relevant lifetimes and report retirement errors. Windows
-loaded-library lifetime requires its own evidence; Linux unlink behavior does
-not establish it. The issue retains the precise operations and acceptance scope.
+```bash
+python -m pytest --receptor=llm -n12 devtools/tests/test_temporal_probe_lifecycle.py
+```
+
+The native cases require `rustc`; a dependency skip is not native-lifetime
+evidence. Frozen-candidate qualification and release preservation remain
+separate under uibcdf/molsysmt#334.

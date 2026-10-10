@@ -65,7 +65,8 @@ subsequent source repairs are recorded below.
 
 The #374 runtime bridge/generated-output cleanup and #368 broken regeneration
 scripts have received bounded repairs recorded below. #374's remaining native
-scope must be verified before closure. New scientific models,
+scope has now been verified on Linux as recorded in the native checkpoint below.
+New scientific models,
 native dispatch redesign and wider format coverage remain separate proposals.
 This overrides the earlier board-review observation of only three open provider
 1.0 issues; it does not change frozen identities or resume publication.
@@ -134,16 +135,40 @@ AlphaFold conversion failure. Each operation owns staging through its preparatio
 before publishing the completed file. PDB-text and UniProt FASTA writers retire
 failed automatically generated outputs, retain explicit writer destinations and
 preserve successful returned files. The
-[record](pending_proposals/legacy_temporary_resource_lifecycle_exceptions.md#generated-output-custody--2026-10-10)
+[record](archive/resolved_proposals/legacy_temporary_resource_lifecycle_exceptions.md#generated-output-custody--2026-10-10)
 and [owner contract](temporary_resource_operations.md) document the writable-parent
-requirement and publication/cleanup boundaries. #374 remains partial solely for
-its loaded temporal native-library probe; actual Windows lifetime evidence is
+requirement and publication/cleanup boundaries. At this checkpoint #374 remained
+partial solely for its loaded temporal native-library probe; Windows evidence is
 still required before a platform claim. The combined lifecycle selection passes
 **86 tests** with Python 3.14 and twelve workers; seven doctest statements and
 fourteen strict API renders pass. All fourteen fast gates and exact-base signature
 comparison pass. Documentation code cells and saved outputs remain unchanged.
 No release artifact or frozen reference
 changes, and this does not qualify a replacement candidate or resume publication.
+
+## Native-probe lifetime repair — 2026-10-10
+
+The generated-output source checkpoint
+`539633b77a4da51e9dd03c5edcd12c5658a4093a` passes all five applicable ordinary
+hosted checks: CI smoke `38043644739`, Ruff, developer-guide integrity,
+MolSysSuite policy and Conda publication governance.
+
+#374's implementation is now complete. The parent owns the compiled temporal
+probe directory and only a child loads its library. It reaps normal/failed exits,
+kills and waits after interruption/communication failure, then retires owned
+scratch before publishing JSON. Child HDF5 scratch stays inside that root. The
+[resolution](archive/resolved_proposals/legacy_temporary_resource_lifecycle_exceptions.md#native-process-lifetime--2026-10-10)
+and [owner contract](temporary_resource_operations.md) state the precise lifetime
+and measurement limits. A complete old/current CLI comparison preserves JSON
+keys and nine deterministic fields; timing values are not claimed as performance
+parity or a new ranking. The Rust kernel stays unchanged.
+
+Executed native evidence is Linux/Python 3.14.7/Rust 1.97.1. Windows/macOS native
+guards have not executed and lifetime/platform-release qualification is not
+claimed. All lifecycle guards pass **97 cases** in twelve workers with no skips;
+the standalone module has eleven cases. Repository Ruff and all fourteen fast
+gates pass. All earlier runtime fixes remain guarded. No installed artifact, frozen
+reference, scientific method or publication state changes in this checkpoint.
 
 ## Native shortcut repair — 2026-10-10
 
@@ -2653,7 +2678,8 @@ controlled failure execution and historical cleanup attribution remain distinct.
 See the [owner review](archive/resolved_proposals/review_temporary_resource_ownership_and_tool_lifecycle.md)
 and [operating contract](temporary_resource_operations.md).
 
-#374 retains bounded post-1.0 legacy optional/native-probe lifecycle debt.
+The bounded #374 legacy optional/native-probe debt is completed in the runtime
+and native-probe repair checkpoints above, with platform evidence limits stated.
 dprada/LMMV own retrospective resource attribution and release closeout under
 #334, with review on 2026-10-24 or publication resume. Name/uid metadata alone
 does not authorize disposal. Shared environments, active/human resources and

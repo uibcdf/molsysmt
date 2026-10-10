@@ -5,6 +5,10 @@ This probe measures only structure/relation incidence indexes. It excludes
 the common relation descriptors and per-occurrence measurements. A run maps
 each structure to a measurement row, so geometry is not discarded. Parallel
 observations and changing relation membership are not encoded here.
+
+The Rust probe runs in a child process. Its parent owns the compiled library
+directory until the child exits; native call timings exclude compilation and
+process startup. This does not measure total process memory or startup latency.
 """
 
 from __future__ import annotations
@@ -12,6 +16,7 @@ from __future__ import annotations
 import argparse
 import ctypes
 import json
+import os
 import statistics
 import subprocess
 import sys
@@ -148,30 +153,32 @@ def time_queries(query, requests):
     }
 
 
-def rust_query(index, block_size, n_relations):
-    """Build and wrap the standalone native probe, keeping its library alive."""
-    temporary = tempfile.TemporaryDirectory()
-    suffix = (
-        ".dll"
-        if sys.platform == "win32"
-        else (".dylib" if sys.platform == "darwin" else ".so")
-    )
-    library_path = Path(temporary.name) / f"interactions_temporal{suffix}"
+def _compile_rust_probe(library_path):
+    """Compiling into the directory owned by the native-process caller."""
     source = Path(__file__).with_name("interactions_temporal_kernel.rs")
-    subprocess.run(
-        [
-            "rustc",
-            "--edition=2021",
-            "-O",
-            "--crate-type=cdylib",
-            str(source),
-            "-o",
-            str(library_path),
-        ],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        subprocess.run(
+            [
+                "rustc",
+                "--edition=2021",
+                "-O",
+                "--crate-type=cdylib",
+                str(source),
+                "-o",
+                str(library_path),
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as error:
+        if error.stderr:
+            sys.stderr.write(error.stderr)
+        raise
+
+
+def _load_rust_query(index, block_size, n_relations, library_path):
+    """Loading native calls and retaining their buffers for the child lifetime."""
     library = ctypes.CDLL(str(library_path))
     function = library.query_temporal_runs
     u32_pointer = ctypes.POINTER(ctypes.c_uint32)
@@ -264,7 +271,62 @@ def rust_query(index, block_size, n_relations):
             )
         return selected, batch_offsets, batch_relations[:count], batch_rows[:count]
 
-    return temporary, library, native_arrays, packed, query, batch_query
+    return library, native_arrays, packed, query, batch_query
+
+
+def _run_native_process(args):
+    """Waiting for native process exit before retiring its compiled library."""
+    suffix = (
+        ".dll"
+        if sys.platform == "win32"
+        else (".dylib" if sys.platform == "darwin" else ".so")
+    )
+    with tempfile.TemporaryDirectory(prefix="molsysmt-temporal-") as scratch:
+        library_path = Path(scratch) / f"interactions_temporal{suffix}"
+        _compile_rust_probe(library_path)
+        child_environment = os.environ.copy()
+        for variable in ("TMPDIR", "TMP", "TEMP"):
+            child_environment[variable] = scratch
+        command = [
+            sys.executable,
+            str(Path(__file__).resolve()),
+            "--frames",
+            str(args.frames),
+            "--relations",
+            str(args.relations),
+            "--active",
+            str(args.active),
+            "--survival",
+            str(args.survival),
+            "--block-size",
+            str(args.block_size),
+            "--rust",
+            "--_native-library",
+            str(library_path),
+        ]
+        if args.hdf:
+            command.append("--hdf")
+        with subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            env=child_environment,
+        ) as child:
+            try:
+                stdout, stderr = child.communicate()
+            except BaseException:
+                if child.poll() is None:
+                    child.kill()
+                child.wait()
+                raise
+            if stderr:
+                sys.stderr.write(stderr)
+            if child.returncode:
+                raise subprocess.CalledProcessError(
+                    child.returncode, command, output=stdout, stderr=stderr
+                )
+    print(stdout, end="")
 
 
 def hdf_round_trip(
@@ -317,7 +379,10 @@ def main():
         action="store_true",
         help="Compare typed HDF5 round trips for the two indexes",
     )
+    parser.add_argument("--_native-library", help=argparse.SUPPRESS)
     args = parser.parse_args()
+    library_path = args._native_library
+    del args._native_library
     if (
         args.frames < 3
         or args.relations < 1
@@ -328,6 +393,16 @@ def main():
         parser.error(
             "invalid positive dimensions, active count, survival, or block size"
         )
+    if library_path is not None and not args.rust:
+        parser.error("the internal native-library option requires --rust")
+    if args.rust and library_path is None:
+        _run_native_process(args)
+        return
+    _benchmark(args, library_path)
+
+
+def _benchmark(args, library_path=None):
+    """Measuring unchanged incidence queries within a single process."""
     by_frame = generate(args.frames, args.relations, args.active, args.survival)
     start = time.perf_counter()
     offsets, relations = frame_major(by_frame)
@@ -382,7 +457,9 @@ def main():
         ),
     }
     if args.rust:
-        native_resources = rust_query(runs, args.block_size, args.relations)
+        native_resources = _load_rust_query(
+            runs, args.block_size, args.relations, library_path
+        )
         native_query, native_batch_query = native_resources[-2:]
         for frame in range(args.frames):
             for actual, expected in zip(
@@ -430,7 +507,6 @@ def main():
             ),
             "rust_one_batch_call": time_batches(native_batch_query),
         }
-        native_resources[0].cleanup()
     if args.hdf:
         rng_measure = np.random.default_rng(18)
         distances = rng_measure.uniform(0.1, 0.5, size=len(relations)).astype(

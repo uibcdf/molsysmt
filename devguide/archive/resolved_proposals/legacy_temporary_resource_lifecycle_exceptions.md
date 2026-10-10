@@ -1,13 +1,13 @@
 ---
 summary: Complete legacy bridge and native-probe temporary-resource lifecycles.
 issue: uibcdf/molsysmt#374
-status: partial
+status: resolved
 opened: 2026-10-10
-closed:
+closed: 2026-10-10
 verification: reproduced
 area: [form, performance]
-guard:
-normative:
+guard: devtools/tests/test_temporal_probe_lifecycle.py
+normative: devguide/temporary_resource_operations.md
 blocked_by: []
 supersedes: []
 ---
@@ -15,8 +15,8 @@ supersedes: []
 # Legacy temporary-resource lifecycle exceptions
 
 **Reported:** 2026-10-10, owner review in uibcdf/molsysmt#371.
-**Status:** Eager runtime bridges and generated output failure custody repaired
-before 1.0; temporal native-probe lifetime remains deferred.
+**Status:** Runtime and native-probe lifecycle implementation completed before
+1.0. Native execution evidence is Linux only; no Windows/macOS claim is made.
 
 ## What
 
@@ -53,7 +53,7 @@ outside the selected pre-1.0 qualification scope; source inspection is not a
 scientific regression or executed platform-leak claim. Shared policy ownership
 remains uibcdf/molsyssuite#104.
 
-## Bounded implementation exception
+## Original bounded implementation exception — retired
 
 - **Owners:** dprada/LMMV.
 - **Review:** 2026-10-24, or before the next affected invocation.
@@ -73,7 +73,8 @@ The initial review inspected the listed source without executing optional
 engines, native compilation or an all-platform failure reproduction. Executed
 runtime evidence is recorded in the implementation checkpoints below. No native
 probe qualification, historical resource deletion or complete-compliance claim
-is made.
+is made by that initial checkpoint. The native execution checkpoint below
+establishes the Linux process lifetime.
 
 ## What was refuted
 
@@ -88,7 +89,7 @@ Close only after the explicit owners establish the listed lifetimes and outcome
 semantics without changing scientific criteria or deleting caller results. Preserve
 public validation, form/unit behavior and dependency direction. No heavyweight
 universal matrix, blanket disk cleanup or release rebuilding is required merely
-to register this debt. See [the owner contract](../temporary_resource_operations.md).
+to register this debt. See [the owner contract](../../temporary_resource_operations.md).
 
 ## Partial implementation — 2026-10-10
 
@@ -187,9 +188,10 @@ conversion Cookbook, Common Core module 12 and the maintained owner table descri
 these exact limits. High-level `convert` still requires an explicit filename for
 file targets; generated-path support belongs to the corresponding form adapters.
 
-The only remaining #374 exception is the loaded temporal native-library probe.
-Its original owner/review date and requirement for actual platform lifetime
-evidence remain in force. No frozen candidate, artifact, tag or release changes.
+At this checkpoint the only remaining #374 exception was the loaded temporal
+native-library probe, completed below. Its requirement for actual platform
+lifetime evidence still applies to any Windows/macOS qualification claim.
+No frozen candidate, artifact, tag or release changes.
 
 The complete repaired runtime lifecycle selection passes **86 tests**, with no
 skips, on Linux/Python 3.14.7 and twelve workers:
@@ -204,3 +206,68 @@ edits preserve all notebook code, saved outputs and execution metadata; their
 execution is not repeated or newly qualified. Focused Ruff, the exact-base public
 signature comparison and all fourteen fast development gates pass. These are
 bounded source checks, not heavy or installed-artifact qualification.
+
+## Native process lifetime — 2026-10-10
+
+**Contract-tested.** The parent now owns compilation inside an explicit managed
+directory; only a child process loads the probe library and performs the existing
+incidence queries. Normal and error exits are reaped before directory retirement.
+Communication failure or interruption kills and waits for the child first. Its
+temporary roots (`TMPDIR`, `TMP`, `TEMP`) all point inside the parent-owned
+directory, so cancellation also retires nested HDF5 scratch. No interpreter
+environment is mutated globally. There is no manual DLL unload or generic
+resource framework.
+
+Compiler errors preserve their original exception and diagnostic stderr. Child
+load/query failures retain their exit status and stderr. A cleanup failure remains
+visible and prevents publishing JSON. Caller receipts and successful measurement
+outputs are preserved. Python-managed failure paths are covered; abrupt owner
+termination cannot run this cleanup scope.
+
+`devtools/tests/test_temporal_probe_lifecycle.py` contains the addressable guard.
+Its two controlled compiler-start/compile failures fail before repair while the
+exception traceback retains the orphaned owned directory. The repaired native
+guards compile real libraries on Linux, including ABI-identical kernels with a
+forced single/batch rejection. They execute actual child load/query/HDF5 paths,
+observe library load before interruption, assert process exit before directory
+retirement, reject parent library loading and preserve caller files. Retirement
+denial is visible and does not emit a success-shaped JSON report.
+
+A separate complete old/current CLI comparison uses the original script and
+kernel from `539633b77a4da51e9dd03c5edcd12c5658a4093a`:
+
+```bash
+python devtools/scripts/benchmark_interactions_temporal.py --frames 9 --relations 12 --active 3 --rust --hdf
+```
+
+Both executions compile and finish successfully on Python 3.14.7 / Rust 1.97.1
+(`8bab26f4f`, Linux). Exact JSON keys and all nine deterministic fields agree,
+including configuration, occurrence/run counts, index bytes and HDF5 file sizes.
+Timing field types/subkeys agree; timings themselves are not treated as parity
+or a new performance ranking. Native query timings still measure direct calls
+inside one process and exclude compilation, child startup and IPC. Index-byte
+fields exclude process/interpreter RAM. The kernel and scientific criteria stay
+unchanged. The historical CLI `--frames` spelling and JSON fields are preserved;
+the hidden child library-path argument is orchestration, not a supported user
+parameter.
+
+This closes the bounded implementation debt on the executed Linux platform.
+Windows/macOS guards have not executed and DLL/platform-release qualification is
+not asserted. The maintained owner contract requires platform execution before
+any such claim. No heavy matrix, frozen artifact, tag or publication changes.
+
+## Final validation — 2026-10-10
+
+All lifecycle guards across the three implementation phases pass **97 cases**
+with twelve workers and no skips on Linux/Python 3.14.7. Eleven belong to the
+standalone probe guard, including a Python-only control that must not compile or
+spawn; the other 86 protect the repaired runtime paths:
+
+```bash
+python -m pytest --receptor=llm -n12 devtools/tests/test_temporal_probe_lifecycle.py tests/form/test_download_resource_lifecycle.py tests/form/test_download_diagnostics.py tests/form/test_remote_file_publication.py tests/form/test_generated_writer_lifecycle.py tests/form/openmm_Simulation/test_bridge_resource_lifecycle.py tests/build/get_missing_bonds/test_pytraj_resource_lifecycle.py
+```
+
+Repository-wide Ruff lint/format checks, the exact-base public API comparison
+and all fourteen fast development gates pass. No Python file under `molsysmt/`
+changes in the native checkpoint. These results do not qualify an installed
+candidate, rewrite previous benchmark numbers or certify another platform.
