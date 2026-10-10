@@ -2535,3 +2535,26 @@ dprada/LMMV own retrospective resource attribution and release closeout under
 does not authorize disposal. Shared environments, active/human resources and
 frozen identities remain protected. This block does not resume publication or
 qualify a replacement candidate.
+
+## Consumer capability triage — 2026-10-10
+
+Resource-owner stabilization at
+`072aa9bdbfb9299f7e3256f9b27f6aae8ea52629` passes all five applicable hosted
+checks: CI smoke (38034435967), Ruff, developer-guide integrity, MolSysSuite
+policy and Conda publication governance. These source checks do not qualify a
+replacement installed candidate.
+
+Provider source/contract inspection classifies three incoming requests as new
+capabilities under the existing admission rule:
+
+- uibcdf/molsysmt#366: [explicit small-molecule standardization](pending_proposals/explicit_small_molecule_standardization.md).
+- uibcdf/molsysmt#369: [explicit full-domain atom permutation](pending_proposals/explicit_atom_permutation.md).
+- uibcdf/molsysmt#375: [fixed-state hydrogen-bond site directions](pending_proposals/fixed_state_hbond_site_directions.md).
+
+Their records distinguish reusable existing tools from missing contracts,
+consumer interim scope and independently checkable acceptance criteria. They
+remain open for post-1.0 design/implementation; triage is not feature delivery,
+scientific validation or a reason to change extraction/site-recognition semantics.
+No runtime code, dependency, frozen reference or candidate artifact changes in
+this triage. The publication pause and remaining exact-pair coordination under
+uibcdf/molsysmt#334, uibcdf/molsysmt#250 and uibcdf/molsysmt#254 remain in effect.
