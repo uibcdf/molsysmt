@@ -189,6 +189,19 @@ nine documentation code blocks execute and course outputs remain preserved.
 The native owner contract and all relevant user/course guidance are updated.
 This does not alter a frozen package or qualify a replacement release candidate.
 
+## Form-registry startup investigation — 2026-10-10
+
+#382 is reproduced and awaits the reusable provider capability requested as
+uibcdf/depdigest#34. Existing metadata detection is lazy, but target validation
+and first conversion dispatch still trigger full registry initialization.
+The [analysis](pending_proposals/first_conversion_triggers_full_form_registry_loading.md)
+and [raw receipt](../devtools/data/form_registry_startup_20261010.json) distinguish
+instrumented validation from unprofiled cold/repeated/prepared public conversions
+on identical bundled PDB bytes. Three tool guards pass. No runtime optimization,
+provider release/admission or changed dependency floor is claimed. Current code,
+frozen artifacts and the publication pause remain unchanged; this performance
+proposal is not by itself a demonstrated functional release blocker.
+
 ## Native shortcut repair — 2026-10-10
 
 #377 is source contract-tested: `MolSys.get`, `info` and `to_form` respect the

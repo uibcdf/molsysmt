@@ -77,12 +77,14 @@ Entries carrying front matter under
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`freeze_1_0_scope_and_complete_bounded_stabilization.md`](freeze_1_0_scope_and_complete_bounded_stabilization.md) — [#334](https://github.com/uibcdf/molsysmt/issues/334) — Freeze 1.0 scope and complete bounded stabilization *(measured)*
 
-### Blocked (2)
+### Blocked (3)
 
 - [`enumerate_ligand_protomers_under_explicit_protonation_site_rules.md`](enumerate_ligand_protomers_under_explicit_protonation_site_rules.md) — [#230](https://github.com/uibcdf/molsysmt/issues/230) — Enumerate ligand protomers under explicit protonation-site rules *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
+- [`first_conversion_triggers_full_form_registry_loading.md`](first_conversion_triggers_full_form_registry_loading.md) — [#382](https://github.com/uibcdf/molsysmt/issues/382) — Avoid loading the complete form registry on first conversion. *(measured)*
+  Blocked by uibcdf/depdigest#34.
 
 ### Partially resolved (9)
 

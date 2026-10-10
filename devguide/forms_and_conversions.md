@@ -52,6 +52,14 @@ holding an instance of a class -- the `(top-level module, class name)` an item o
 has. `molsysmt/form/catalogue.py` reads all of them with one `os.scandir`: **2.35 ms, once
 per process, importing nothing**.
 
+This metadata optimization covers detection, not complete conversion startup.
+Target validation still derives `_dict_forms_lowercase` from DepDigest's
+`LazyRegistry.keys()`, and first module lookup also initializes that registry by
+importing all eligible adapters. Converter submodules remain independently lazy.
+The current cold-conversion proposal is uibcdf/molsysmt#382; its generic provider
+capability is requested as uibcdf/depdigest#34. No indexed registry extension has
+been adopted. See [the reproduction and adoption criteria](pending_proposals/first_conversion_triggers_full_form_registry_loading.md).
+
 Three consequences worth knowing before changing anything here:
 
 - **The class key is compared as strings.** Recognising an `openmm.Topology` never imports
