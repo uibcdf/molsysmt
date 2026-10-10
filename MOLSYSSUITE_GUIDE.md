@@ -110,6 +110,30 @@ in a chat, workaround or downstream issue. Reporting does not promise immediate
 implementation. Use private reporting first for exploitable or confidential findings.
 This adopts [MOLI's universal issue-feedback commitment](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/reporting_protocol.md#universal-issue-feedback-commitment).
 
+### Human-facing issue feedback
+
+During development, tests, scientific exploration and conversations, surface
+actionable suspected defects, inconsistencies, missing analyses and improvements,
+even when uncertain or nonblocking. State what was observed and what remains
+uncertain; identify the owning repository and check for an existing issue.
+When working with a human, explicitly offer to open or update that issue at a
+natural pause. File or update under the applicable authorization; existing
+authorization for the same work does not require another permission request.
+Respect a declined or deferred report, retain only an authorized sanitized
+disposition, and do not publish the human's confidential material without authority.
+The reporting commitment creates a durable feedback route; it does not override
+disclosure authority or promise immediate implementation. Use private reporting
+first for exploitable or confidential findings.
+
+This contributor action applies to every registered member, including early
+development components, under uibcdf/molsyssuite#65. Follow the existing reporting,
+cross-component feedback and durable-instruction routes. Bounded instruction
+exceptions use the working-instruction policy's registered owner, rationale,
+removal condition and expiry. Scientist-facing pilots, opt-in notifications and
+automatic retries remain pending; this instruction does not implement them.
+
+### Reporting ownership and records
+
 Decide ownership before filing:
 
 - one-component behavior is tracked in that component;

@@ -236,3 +236,12 @@ instructions, following
 For work under `devguide/`, also read [devguide/AGENTS.md](devguide/AGENTS.md)
 and its local reporting protocol. Shared instruction proposals belong in
 `uibcdf/molsyssuite`; cross-MOLI contracts belong in `uibcdf/moli`.
+
+## Human-facing issue feedback
+
+Surface actionable suspected defects, inconsistencies, missing analyses and
+improvements, including uncertain or nonblocking findings. When working with a
+human, offer an owning issue at a natural pause; retain existing reporting
+authorization and respect declined/deferred disclosure. Follow
+[the accepted feedback route](MOLSYSSUITE_GUIDE.md#human-facing-issue-feedback)
+for ownership, uncertainty, privacy and exceptions.
