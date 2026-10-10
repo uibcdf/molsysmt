@@ -20,8 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (3)
 
+- [`molsys_atom_ff_type_setter_missing.md`](molsys_atom_ff_type_setter_missing.md) — [#376](https://github.com/uibcdf/molsysmt/issues/376) — MolSys atom_ff_type setting lacks its native adapter *(medium, reproduced)*
+- [`native_molsys_shortcuts_bypass_argument_validation.md`](native_molsys_shortcuts_bypass_argument_validation.md) — [#377](https://github.com/uibcdf/molsysmt/issues/377) — Native MolSys shortcuts bypass argument validation *(medium, reproduced)*
 - [`legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md`](legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md) — [#368](https://github.com/uibcdf/molsysmt/issues/368) — Legacy chemical database generators import a nonexistent CIFFileHandler *(low, inspected)*
 
 ### Partially resolved (1)

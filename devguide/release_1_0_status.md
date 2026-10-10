@@ -53,6 +53,22 @@ output chain fields. Records:
 and [chain labels](archive/resolved_bugs/native_add_drops_declared_chain_ids.md).
 These corrections do not change the paused candidate selection above.
 
+## Renewed pre-1.0 issue review — 2026-10-10
+
+The maintainer requests a substantive review including post-1.0 issues, rather
+than using their milestones alone to exclude possible stabilization work.
+That review reproduces two current public-boundary defects, now admitted to the
+1.0 queue: [MolSys shortcut validation](pending_bugs/native_molsys_shortcuts_bypass_argument_validation.md)
+(#377) and [MolSys mechanical-type setting](pending_bugs/molsys_atom_ff_type_setter_missing.md)
+(#376, received concurrently from DockingMT). Neither is repaired by this review.
+
+The existing #374 runtime bridge cleanup and #368 broken regeneration scripts
+are concrete maintenance candidates for an additional bounded repair round.
+Their remaining scope must be verified before closure. New scientific models,
+native dispatch redesign and wider format coverage remain separate proposals.
+This overrides the earlier board-review observation of only three open provider
+1.0 issues; it does not change frozen identities or resume publication.
+
 ## Sequence and CRD stabilization — 2026-10-09
 
 During the publication pause, #363/#364 repair existing advertised file-adapter
