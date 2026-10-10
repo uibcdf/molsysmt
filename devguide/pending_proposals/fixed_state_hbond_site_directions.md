@@ -1,13 +1,13 @@
 ---
 summary: Expose reusable fixed-state hydrogen-bond site directions through public geometry tools.
 issue: uibcdf/molsysmt#375
-status: open
+status: partial
 opened: 2026-10-10
 closed:
-verification: inspected
+verification: measured
 area: [structure, physchem, pbc, api]
-guard:
-normative:
+guard: tests/structure/test_get_vectors.py
+normative: devguide/structure_vectors.md
 blocked_by: []
 supersedes: []
 ---
@@ -15,7 +15,7 @@ supersedes: []
 # Fixed-state hydrogen-bond site directions
 
 **Reported:** 2026-10-10, provider request from uibcdf/pharmacophoremt#41.
-**Status:** Post-1.0 capability proposal; chemical recognition and geometry stay distinct.
+**Status:** Partial delivery: general directed vectors and donor-H composition are implemented; named acceptor-direction models remain post-1.0.
 
 ## What
 
@@ -67,18 +67,22 @@ lone-pair model. A shared molecular geometry tool would remove duplication while
 PharmacophoreMT retains ownership of complementary ligand hypotheses and their
 projection distances. This provider review did not execute the consumer source.
 
-The [frozen scope](../release_1_0_scope.md#admission-rule) defers these new public
-tools and scientific models. The existing molecular site inventory and interaction
+The initial [frozen scope](../release_1_0_scope.md#admission-rule) deferred these
+new public tools and scientific models. The maintainer subsequently admitted
+`structure.get_vectors` and fixed-state donor-H composition on 2026-10-10;
+acceptor models remain outside that bounded exception. The existing molecular site inventory and interaction
 detectors do not claim to supply them. Environment-dependent hydrogen refinement
 in uibcdf/molsysmt#323 and aromaticity diagnostics in uibcdf/molsysmt#350 remain
 separate concerns, not prerequisites to the elementary donor-vector operation.
 
 ## What is measured and what is assumed
 
-Evidence is source/contract inspection and the consumer issue. No vector kernel,
-acceptor model, scientific comparison or performance benchmark was executed for
-this proposal. A donor-H vector is directly geometric; assigning an acceptor's
-lone-pair directions requires additional scientific assumptions and evidence.
+Initial evidence was source/contract inspection and the consumer issue. The
+partial delivery now has executed geometry controls, documentation examples and
+source-tree performance measurements, described below. No acceptor-direction
+implementation or scientific qualification has been completed. A donor-H vector
+is directly geometric; assigning an acceptor's local directions requires
+additional scientific assumptions and evidence.
 
 ## What was refuted
 
@@ -105,3 +109,120 @@ No implicit protonation, hydrogen addition, environmental optimization, pocket
 inference or pharmacophore projection policy is included. PharmacophoreMT can
 continue its bounded donor-vector migration while recording this provider gap;
 it need not create a new local lone-pair engine to unblock current workflows.
+
+## Partial delivery — 2026-10-10
+
+The maintainer selected `structure.get_vectors`, requested the endpoint/center
+and structure-pair conventions of `get_distances`, required efficient native
+execution and explicitly authorized implementation. The
+[bounded scope admission](../release_1_0_scope.md#bounded-geometry-admission--2026-10-10)
+does not reopen acceptor-model or environmental-refinement work.
+
+The public geometry tool covers ordered atom pairs, Cartesian products, mixed
+atom/center endpoints, nested positive-weight centers, distinct sources and
+nonconsecutive/repeated aligned structure indices. Arrays carry length units;
+dictionary details include distances, normalized directions, source memberships,
+source structure axes, actual periodic images, weighting/reference parameters and
+producer version. The immutable first-source-box convention is explicit.
+
+Existing center kernels and MIC preparation are reused. The new Rust vector
+kernel borrows contiguous inputs, releases the GIL and follows the shared thread
+policy. Identity projections and complete-axis selectors avoid repeated gathers;
+ordered memberships avoid duplicate-discovery work. ChunkedExecutor bounds the
+independent second projection to the current block and writes preallocated output.
+Resident-output planning includes unit presentation; it is not an RSS guarantee.
+
+The donor-H composition is verified against explicitly declared water chemistry
+and executed in the maintained hydrogen-bond cookbook. It retains recognition
+separately from geometry and does not reinterpret an elemental rule as universal
+donor/acceptor chemistry. The old bundled alanine H5MSM fixture lacks bond-chemistry
+columns required for site recognition; that fixture is used for geometry/mass
+controls only, not as a chemically complete site-recognition control.
+
+See [the normative contract](../structure_vectors.md),
+[benchmark procedure and limits](../benchmarking/vectors.md), the public tutorial,
+and `tests/structure/test_get_vectors.py`. Source/unit/scientific controls and
+optimized source-tree measurements do not qualify a new installed candidate.
+Existing frozen package identities and publication pause are unchanged.
+
+Remaining: choose and independently qualify named acceptor local-geometry models,
+including multiplicity, participating atoms, supported chemistry and explicit
+undefined/unsupported outcomes. Consumer adoption is separate from provider
+qualification. General vectors alone do not close uibcdf/molsysmt#375.
+
+
+## Acceptor-model reconnaissance — 2026-10-10
+
+**Evidence:** inspected reference code and documentation; two executed RDKit
+controls. The following is a design proposal, not an implemented acceptor API,
+an electronic-structure calculation or acceptance of a larger release scope.
+
+RDKit's [feature-direction documentation](https://www.rdkit.org/docs/source/rdkit.Chem.Features.FeatDirUtilsRD.html)
+distinguishes finite directions from a cone for incompletely specified
+orientation. The local reference checkout at
+`cbfb37abddcd5b5feeac97d53530ae6be83cac0d` contains
+`rdkit/Chem/Features/FeatDirUtilsRD.py`: two-heavy-neighbor nitrogen uses a negative
+normalized bond-vector sum, oxygen has two rotated directions, and three-neighbor
+tetrahedral geometry uses the opposite neighbor-vector sum, subject to a
+planarity check. These are reference geometric hypotheses, not measurements of
+orbitals or universally valid acceptor assignments.
+
+The single-heavy-neighbor helper requires caution. Its prose describes two
+in-plane directions for a carbonyl and a cone for an unresolved single bond,
+but the branch tests `bond_type > SINGLE` before returning the cone. An executed
+RDKit 2025.09.5 control with explicitly placed acetaldehyde (`CC=O`, oxygen index 2)
+returned one cone; methanol (`CO`, oxygen index 1, implicit hydrogens) raised
+`AttributeError` when the adjacent carbon supplied no other indexed neighbor.
+Both observations concern `GetAcceptor1FeatVects`, not general RDKit chemical
+recognition. The installed helper and the inspected checkout share that branch.
+Do not reproduce a reference implementation blindly or treat parity as an
+independent chemistry oracle. Upstream reporting/coverage remains a separate
+maintainer decision.
+
+Mol* source at `4807179589f43c20f38d689e4acbc3fc8590df14`, in
+`src/mol-model-props/computed/interactions/hydrogen-bonds.ts` and
+`chemistry/geometry.ts`, tests bond-angle and out-of-plane deviations according
+to an ideal local geometry. It does not expose a universal detached lone-pair
+inventory; adopting its hydrogen-bond detection criteria would be a separate
+scientific profile. Its recognition also differs from the fixed-state
+recognition contract already offered here.
+
+[Wood, Pidcock and Allen (2008)](https://doi.org/10.1107/S0108768108015437)
+compare C=O/C=S hydrogen-bond geometries and interaction energies. This supports
+separating acceptor environments; it does not qualify our unimplemented ideal
+geometry or establish a universal sulfur/oxygen rule. Published abstract and
+reference code inspection are separate from reproducing the full paper's
+numerical results.
+
+### Proposed bounded next delivery
+
+| Environment | Proposed geometric representation | Required evidence / refusal |
+| --- | --- | --- |
+| Declared ordinary carbonyl O | Two ideal trigonal directions, 120 degrees to O-to-C, in the carbonyl substituent plane. | Explicit bond order and a nondegenerate local plane; exclude ambiguous resonance/sulfonyl assignments. |
+| Declared pyridine-like N | Opposite bisector of the two normalized neighbor bonds. | Chemically recognized acceptor with the selected state's aromatic/conjugation assignment; do not admit pyrrole or amide by element alone. |
+| Declared nitrile N | Opposite the indexed N-to-C bond direction. | Explicit supported triple-bond environment and nonzero bond vector. |
+| Supported pyramidal amine N | Opposite normalized neighbor-vector sum. | Complete indexed local neighbors including needed hydrogens; reject planar or degenerate arrangements. |
+| Ether, alcohol and water O | Consider an explicitly named ideal tetrahedral model with two directions. | Review conjugation and indexed hydrogen requirements first; a missing rotational reference is unresolved, not an arbitrary chosen axis. |
+| Carboxylate, phosphate, sulfate, sulfonyl, metal-bound and other chemistry | Explicit unsupported outcome in the first bounded profile. | Their distinct angular preferences/chemistry require later named coverage and independent controls. |
+
+Method names should describe their geometry and carry the reference author or
+software separately, as in the existing interaction-method/attribution contract.
+A possible public owner is `physchem.get_hbond_site_directions`, composing
+`get_hbond_sites` and `structure.get_vectors`; its signature and first supported
+profile have not been accepted. The existing recognition function remains a
+coordinate-independent inventory.
+
+A useful result must carry source atom and structure indices, the selected
+chemical state, role, model, supporting atom memberships, a typed sparse table
+of directional records and per-site/per-structure status. Distinguish at least
+supported geometry, unsupported chemistry and undefined geometry. Multiple
+finite directions belong to one site. A cone axis must not be flattened into a
+unique lone-pair vector; cone support can be deferred explicitly. Normalized
+directions are dimensionless; source positions carry length units and observed
+bond images retain the row-box convention. No projection distance is inferred.
+
+Before implementation, specify the chemistry coverage and independent controls
+for rotations/translations, neighbor reordering, multiplicity, nonconsecutive
+structures, unit changes, incomplete chemistry, coincident/collinear/planar
+limits, selected states and PBC. Measure the actual geometric workload before
+adding another compiled kernel; the existing vector kernel is available now.

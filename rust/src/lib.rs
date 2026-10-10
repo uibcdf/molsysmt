@@ -27,6 +27,7 @@ mod series;
 mod symmetric;
 mod threads;
 mod topology;
+mod vectors;
 
 // --------------------------------------------------------------- synthetic bench probes
 
@@ -232,6 +233,7 @@ fn _rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
     axes::register(m)?;
     pca::register(m)?;
     planes::register(m)?;
+    vectors::register(m)?;
     // Synthetic bench probes.
     m.add_function(wrap_pyfunction!(fibonacci_sphere_points, m)?)?;
     m.add_function(wrap_pyfunction!(pairwise_sqdistances, m)?)?;

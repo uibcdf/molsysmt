@@ -2740,3 +2740,29 @@ scientific validation or a reason to change extraction/site-recognition semantic
 No runtime code, dependency, frozen reference or candidate artifact changes in
 this triage. The publication pause and remaining exact-pair coordination under
 uibcdf/molsysmt#334, uibcdf/molsysmt#250 and uibcdf/molsysmt#254 remain in effect.
+
+## Explicit directed-geometry admission — 2026-10-10
+
+The maintainer authorizes the bounded `structure.get_vectors` addition under
+uibcdf/molsysmt#375: distance-like atom/center endpoints, aligned source structure
+indices, original axes, explicit units/images and compiled Rust execution.
+The [scope exception](release_1_0_scope.md#bounded-geometry-admission--2026-10-10)
+and [normative geometry contract](structure_vectors.md) preserve the unresolved
+acceptor-model/environmental-refinement boundaries. #375 remains partially open.
+
+The public tutorial and H-bond cookbook execute with Python 3.14; the independent
+new Common Core 19 section executes and previous course sections are preserved.
+[Reproducible optimized-source measurements](benchmarking/vectors.md) cover
+100,000 atoms, 5,000 structures, Cartesian products and periodic dictionaries.
+They distinguish source runtime from installed candidates and numerical output
+bytes from process RSS. This source addition does not rebuild, requalify or
+replace frozen candidates and does not resume publication under #334.
+
+
+The exact local directed-geometry selection passes **119 tests** with twelve
+workers and Pytest Receptor, including the new API doctest and strict rendered
+docstring. The scope includes distance/center regressions, independent
+triclinic controls and all four installed quantity backends. The final fast
+release gate passes **14/14 checks**; these are source checks, not the full
+platform or installed-pair qualification. #375 remains open for named acceptor
+models; its reference-model reconnaissance is in the maintained pending record.

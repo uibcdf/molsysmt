@@ -1,6 +1,7 @@
 # Preserve public initialization order.
 # isort: off
 from .get_distances import get_distances
+from .get_vectors import get_vectors
 from .get_minimum_distances import get_minimum_distances
 from .get_maximum_distances import get_maximum_distances
 from .get_contacts import get_contacts

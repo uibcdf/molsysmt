@@ -44,6 +44,19 @@ experimental unless a separately justified stability decision changes the regist
 
 ## Included behavior
 
+### Bounded geometry admission — 2026-10-10
+
+The maintainer explicitly admits `structure.get_vectors` under
+uibcdf/molsysmt#375 after reviewing its name, distance-like endpoint/center and
+structure-pair semantics, and Rust execution requirement. Admission covers the
+experimental general geometry tool and its documented composition with existing
+fixed-state donor-H recognition. It does not admit an acceptor lone-pair model,
+environmental hydrogen refinement, GPU execution or another detector. Frozen
+installed candidates retain their original identity; this source addition needs
+later qualification under uibcdf/molsysmt#334 before inclusion in a new candidate.
+
+### Existing scope
+
 - The existing form-agnostic public API, supported form tiers, strict-loss and
   accepted-debt contracts remain authoritative. No universal conversion coverage
   claim or new optional backend is added.

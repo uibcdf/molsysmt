@@ -16,6 +16,7 @@ API Structure
    get_contacts
    get_dihedral_angles
    get_distances
+   get_vectors
    get_least_rmsd
    get_maximum_distances
    get_minimum_distances

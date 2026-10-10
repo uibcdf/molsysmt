@@ -333,3 +333,19 @@ domains have separate memory costs; the window bound is not a process RSS limit.
 Typed dictionaries, pickle and remapping can still materialize all active rows.
 See [the interaction contract](interactions_api.md#bounded-hdf5-writing) for the
 byte policy and [the H5MSM benchmark guide](benchmarking/h5msm.md) for dated evidence.
+
+## Directed vector geometry
+
+`structure.get_vectors` uses ChunkedExecutor for large coordinate-bearing sources,
+including independently aligned structure selections from two sources. The second
+projection is bounded by the current first block. Rust computes pair or Cartesian
+geometry; explicit pairs never create a dense all-pairs index list. Blocks fill
+preallocated resident arrays. Final output, unit-presentation copies, source maps
+and numeric block workspace are budgeted before execution. Input streaming does
+not imply disk-backed vector output or a complete process-RSS bound.
+
+The [geometry contract](structure_vectors.md) defines first-source-box MIC,
+strict center-image validation and unit/axis behavior.
+[Measured workloads](benchmarking/vectors.md) distinguish native runtime, public
+validation/delivery and process RSS. No GPU, checkpoint or incremental writer
+contract is provided by this experimental operation.

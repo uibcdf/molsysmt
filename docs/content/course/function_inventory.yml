@@ -8,6 +8,13 @@ molsysmt.physchem.normalize_aromatic_bond_orders:
   doc_ref: "{func}`molsysmt.physchem.normalize_aromatic_bond_orders`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.normalize_aromatic_bond_orders()**: Normalizes the representation of declared aromatic bonds.\n:::"
 
+molsysmt.structure.get_vectors:
+  name: "msm.structure.get_vectors"
+  first_introduced_in: "Common_Core/19_Structures_and_Trajectories.ipynb"
+  summary: "Computes directed atom or center geometry across aligned structures."
+  doc_ref: "{func}`molsysmt.structure.get_vectors`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.structure.get_vectors()**: Computes directed atom/center geometry across aligned structure selections.\n:::"
+
 molsysmt.physchem.get_peptide_chemical_template:
   name: "msm.physchem.get_peptide_chemical_template"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

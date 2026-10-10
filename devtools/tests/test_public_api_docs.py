@@ -133,6 +133,12 @@ def test_resource_lifecycle_docstrings_render_without_rst_errors(
     _render_api_docstring(tmp_path, function_name, tutorial_label)
 
 
+def test_directed_vector_docstring_renders_without_rst_errors(tmp_path):
+    _render_api_docstring(
+        tmp_path, "molsysmt.structure.get_vectors", "Tutorial_Get_vectors"
+    )
+
+
 @pytest.mark.parametrize(
     "function_name,tutorial_label",
     [

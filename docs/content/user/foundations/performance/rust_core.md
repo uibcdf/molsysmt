@@ -10,6 +10,12 @@ MolSysMT incorporates a compiled, native Rust execution core designed for high-p
 While MolSysMT provides a user-friendly Python API, computationally intensive inner loops are delegated to a compiled **Rust** native core:
 
 - **Distance Matrices & Minimum Image Convention**: Structure-by-structure pair distance evaluations and periodic boundary condition (PBC) minimum image calculations.
+- **Directed Geometry**: Atom-pair and center-to-center vectors reuse the distance
+  engine's periodic-image primitive. Explicit ordered pairs avoid a Cartesian
+  product; optional lengths, normalized directions and images share one native
+  pass. Structural blocks feed preallocated resident output, whose memory still
+  grows with the requested comparisons. Vectors need three length components
+  per comparison, rather than the single scalar stored for a distance.
 - **Solvent Accessible Surface Area (SASA)**: Optimized numerical integration of atomic surface accessibilities.
 - **Root-Mean-Square Deviation (RMSD)**: Fast Kabsch alignment and coordinate superposition over structure sequences.
 

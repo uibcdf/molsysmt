@@ -8,6 +8,7 @@ def digest_output_indices(output_indices, caller=None):
             (
                 "molsysmt.structure.get_contacts.get_contacts",
                 "molsysmt.structure.get_distances.get_distances",
+                "molsysmt.structure.get_vectors.get_vectors",
                 "molsysmt.structure.get_neighbors.get_neighbors",
             )
         ):

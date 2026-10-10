@@ -1,0 +1,267 @@
+{
+  "schema": "molsysmt.get-vectors-benchmark@1",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "logical_cpus": 20,
+  "source_commit": "edc78df0b6363e6b175041380db7a21405bd05b6",
+  "source_dirty": true,
+  "software_version": "0.22.4+212.g5e2721691",
+  "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+  "script_sha256": "f42335a2718405e5f3edc3992f94a6aad686ff4f4d317af79cdc2e5d06ba6cd6",
+  "source_sha256": {
+    "molsysmt/structure/get_vectors.py": "5683e470855b065b027f8697555d948bda1bcd1845e1b5f9f161e571e1338491",
+    "molsysmt/structure/_vectors.py": "6bf209b4b39878a9f2fb9d451ee7b1eb1afb1f21776aa1bab8ba086cce38ba40",
+    "molsysmt/_private/rust_backend.py": "f1af60b6ca4073168ad9d59b9a3ca915b2748faaed57db29e7699b0c950154b2",
+    "rust/src/vectors.rs": "b25eaf970431dcef436afbfb0190790b97a2a1a935bc008eaae1ae43f430685f"
+  },
+  "cases": [
+    {
+      "case": "pairs",
+      "n_atoms": 100000,
+      "n_structures": 10,
+      "pairs": true,
+      "periodic": false,
+      "dictionary": false,
+      "vector_output_bytes": 24000000,
+      "native": {
+        "1": {
+          "seconds": [
+            0.02190860453993082,
+            0.019746518693864346,
+            0.019454610534012318,
+            0.020250407047569752,
+            0.020004750229418278
+          ],
+          "median_seconds": 0.020004750229418278,
+          "returned_array_bytes": 24000000
+        },
+        "12": {
+          "seconds": [
+            0.010303331539034843,
+            0.01254554744809866,
+            0.011221285909414291,
+            0.011540514416992664,
+            0.011738705448806286
+          ],
+          "median_seconds": 0.011540514416992664,
+          "returned_array_bytes": 24000000
+        }
+      },
+      "numpy_nonperiodic_control": {
+        "seconds": [
+          0.006416252814233303,
+          0.006578925997018814,
+          0.006551799364387989,
+          0.007068821229040623,
+          0.006191953085362911
+        ],
+        "median_seconds": 0.006551799364387989
+      },
+      "public": {
+        "off": {
+          "first_call_seconds": 3.2532879197970033,
+          "seconds": [
+            0.0642976351082325,
+            0.06344193127006292,
+            0.06459885090589523
+          ],
+          "median_seconds": 0.0642976351082325
+        },
+        "force": {
+          "first_call_seconds": 0.06377219501882792,
+          "seconds": [
+            0.06238951161503792,
+            0.06184783298522234,
+            0.06246337480843067
+          ],
+          "median_seconds": 0.06238951161503792
+        }
+      },
+      "peak_process_rss_bytes": 656379904
+    },
+    {
+      "case": "cartesian",
+      "n_atoms": 500,
+      "n_structures": 4,
+      "pairs": false,
+      "periodic": false,
+      "dictionary": false,
+      "vector_output_bytes": 24000000,
+      "native": {
+        "1": {
+          "seconds": [
+            0.018762215971946716,
+            0.016139457002282143,
+            0.016876522451639175,
+            0.016468258574604988,
+            0.015409568324685097
+          ],
+          "median_seconds": 0.016468258574604988,
+          "returned_array_bytes": 24000000
+        },
+        "12": {
+          "seconds": [
+            0.013367190025746822,
+            0.010034776292741299,
+            0.011329124681651592,
+            0.011549963615834713,
+            0.01143879909068346
+          ],
+          "median_seconds": 0.01143879909068346,
+          "returned_array_bytes": 24000000
+        }
+      },
+      "numpy_nonperiodic_control": {
+        "seconds": [
+          0.02019817102700472,
+          0.019817227497696877,
+          0.017433899454772472,
+          0.016245274804532528,
+          0.016232039779424667
+        ],
+        "median_seconds": 0.017433899454772472
+      },
+      "public": {
+        "off": {
+          "first_call_seconds": 3.1359064327552915,
+          "seconds": [
+            0.021647905930876732,
+            0.025356438010931015,
+            0.02429795078933239
+          ],
+          "median_seconds": 0.02429795078933239
+        },
+        "force": {
+          "first_call_seconds": 0.02608353365212679,
+          "seconds": [
+            0.02247495297342539,
+            0.025765255093574524,
+            0.025629859417676926
+          ],
+          "median_seconds": 0.025629859417676926
+        }
+      },
+      "peak_process_rss_bytes": 607211520
+    },
+    {
+      "case": "periodic",
+      "n_atoms": 10000,
+      "n_structures": 10,
+      "pairs": true,
+      "periodic": true,
+      "dictionary": true,
+      "vector_output_bytes": 2400000,
+      "native": {
+        "1": {
+          "seconds": [
+            0.01563473977148533,
+            0.01753811351954937,
+            0.01762788835912943,
+            0.01619825791567564,
+            0.015425375662744045
+          ],
+          "median_seconds": 0.01619825791567564,
+          "returned_array_bytes": 6800000
+        },
+        "12": {
+          "seconds": [
+            0.005439712665975094,
+            0.004439430311322212,
+            0.0047614192590117455,
+            0.005166619084775448,
+            0.005018035881221294
+          ],
+          "median_seconds": 0.005018035881221294,
+          "returned_array_bytes": 6800000
+        }
+      },
+      "numpy_nonperiodic_control": null,
+      "public": {
+        "off": {
+          "first_call_seconds": 3.147078577429056,
+          "seconds": [
+            0.021226920187473297,
+            0.020525725558400154,
+            0.02013164572417736
+          ],
+          "median_seconds": 0.020525725558400154
+        },
+        "force": {
+          "first_call_seconds": 0.02087849471718073,
+          "seconds": [
+            0.020891725085675716,
+            0.02010520827025175,
+            0.02017079759389162
+          ],
+          "median_seconds": 0.02017079759389162
+        }
+      },
+      "peak_process_rss_bytes": 476327936
+    },
+    {
+      "case": "structures",
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "pairs": true,
+      "periodic": false,
+      "dictionary": false,
+      "vector_output_bytes": 7440000,
+      "native": {
+        "1": {
+          "seconds": [
+            0.009935379028320312,
+            0.007356708869338036,
+            0.006103296764194965,
+            0.007470942102372646,
+            0.007519281469285488
+          ],
+          "median_seconds": 0.007470942102372646,
+          "returned_array_bytes": 7440000
+        },
+        "12": {
+          "seconds": [
+            0.003491678275167942,
+            0.002845127135515213,
+            0.0025147302076220512,
+            0.002492280676960945,
+            0.002468239516019821
+          ],
+          "median_seconds": 0.0025147302076220512,
+          "returned_array_bytes": 7440000
+        }
+      },
+      "numpy_nonperiodic_control": {
+        "seconds": [
+          0.001755095086991787,
+          0.001330074854195118,
+          0.0012575574219226837,
+          0.0012532947584986687,
+          0.0012568719685077667
+        ],
+        "median_seconds": 0.0012575574219226837
+      },
+      "public": {
+        "off": {
+          "first_call_seconds": 3.1497015822678804,
+          "seconds": [
+            0.02171982079744339,
+            0.02153166476637125,
+            0.0220194011926651
+          ],
+          "median_seconds": 0.02171982079744339
+        },
+        "force": {
+          "first_call_seconds": 0.022273008711636066,
+          "seconds": [
+            0.022480154410004616,
+            0.022401023656129837,
+            0.02253411989659071
+          ],
+          "median_seconds": 0.022480154410004616
+        }
+      },
+      "peak_process_rss_bytes": 512684032
+    }
+  ],
+  "limitations": "Warm source-tree measurements, uncontrolled host load. RSS includes inputs and NumPy controls. No installed-candidate or speed-superiority claim."
+}

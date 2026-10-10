@@ -76,6 +76,25 @@ def get_mic_pair_observations(coordinates1, coordinates2, boxes, structure_indic
     )
 
 
+def get_vectors(coordinates1, coordinates2, boxes, pairs, details):
+    """Compute directed endpoint geometry with the session's native thread policy."""
+    return _rust.get_vectors(
+        coordinates1,
+        coordinates2,
+        boxes,
+        pairs,
+        details,
+        _num_threads_for_size(
+            coordinates1.shape[0]
+            * (
+                coordinates1.shape[1]
+                if pairs
+                else coordinates1.shape[1] * coordinates2.shape[1]
+            )
+        ),
+    )
+
+
 # --------------------------------------------------------------------------- neighbour list
 # Dispatch of molsysmt.lib.structure.neighbor_list.neighbor_list_csr_multi (the hot
 # kernel behind get_contacts and get_neighbors). Bit-for-bit identical results.

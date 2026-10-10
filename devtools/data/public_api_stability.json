@@ -2016,6 +2016,13 @@
       "owner": "build",
       "documentation": "docs/content/user/tools/build/infer_covalent_bonds.md",
       "contract_tests": "tests/build/test_infer_covalent_bonds.py"
+    },
+    "molsysmt.structure.get_vectors": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "structure",
+      "documentation": "docs/content/user/tools/structure/get_vectors.ipynb",
+      "contract_tests": "tests/structure/test_get_vectors.py"
     }
   }
 }

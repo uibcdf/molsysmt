@@ -40,7 +40,10 @@ def digest_output_type(output_type, caller=None):
             if output_type.lower() in ["list", "dictionary"]:
                 return output_type.lower()
 
-    elif caller == "molsysmt.structure.get_distances.get_distances":
+    elif caller in {
+        "molsysmt.structure.get_distances.get_distances",
+        "molsysmt.structure.get_vectors.get_vectors",
+    }:
         if isinstance(output_type, str):
             if output_type.lower() in ["numpy.ndarray", "dictionary"]:
                 return output_type.lower()
