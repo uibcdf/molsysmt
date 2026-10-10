@@ -2495,3 +2495,22 @@ legacy six-position call plus extra-position rejection guard. Both parent and
 original-source transition checks pass; the final TRJPK selection and doctest
 pass 31 cases without warnings. This does not replace installed-pair evidence
 or qualify any frozen artifact. Hosted smoke must pass on the corrective head.
+
+That corrective head, a1ad51b7c2296c667f6221ccca5cfa37ab74ac67, passes hosted
+smoke run 38031801296 and its Ruff, developer-guide, suite-policy and package
+governance checks. The failed first invocation remains recorded above.
+
+## Translated fit-anchor stabilization — 2026-10-10
+
+#367 repairs an existing unique-rotation validation contract used by
+uibcdf/pharmacophoremt#31 and uibcdf/pharmacophoremt#41. Mean subtraction
+could admit three labels at exactly two distinct translated centers. Checking
+differences from a represented anchor rejects the underdetermined fit before
+coordinate mutation while retaining the existing numerical-rank policy and
+Kabsch kernels. The focused fit, analytic geometry, precision and doctest scope
+passes **242 tests** with twelve workers; the changed docstring renders without
+RST warnings. User Guide, Cookbook and all four affected course modules describe
+the constraint. See the [resolved record](archive/resolved_bugs/translated_fit_anchors_admit_underdetermined_rotations.md).
+
+This is main-source stabilization during the publication pause. It does not
+qualify a replacement candidate, modify frozen references or resume publication.

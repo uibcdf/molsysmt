@@ -66,6 +66,14 @@ def test_box_geometry_docstring_renders_without_rst_errors(tmp_path):
     )
 
 
+def test_least_rmsd_fit_docstring_renders_without_rst_errors(tmp_path):
+    _render_api_docstring(
+        tmp_path,
+        "molsysmt.structure.least_rmsd_fit",
+        "Tutorial_Least_rmsd_fit",
+    )
+
+
 def test_nglview_color_docstring_renders_without_rst_errors(tmp_path, monkeypatch):
     _render_api_docstring(
         tmp_path,

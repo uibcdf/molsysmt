@@ -13,6 +13,13 @@ While MolSysMT provides a user-friendly Python API, computationally intensive in
 - **Solvent Accessible Surface Area (SASA)**: Optimized numerical integration of atomic surface accessibilities.
 - **Root-Mean-Square Deviation (RMSD)**: Fast Kabsch alignment and coordinate superposition over structure sequences.
 
+The public boundary checks inputs before invoking a numerical kernel. For rigid
+fitting, both selections must provide at least three non-collinear atom centers;
+repeated centers do not determine additional rotational freedom. All requested
+structures are checked before an in-place fit changes coordinates. Degeneracy is
+assessed with numerical rank after length-unit alignment, without a physical
+near-collinearity threshold. See {ref}`Least RMSD fit <Tutorial_Least_rmsd_fit>`.
+
 ---
 
 ## Memory Safety and PyO3 / C-ABI Integration

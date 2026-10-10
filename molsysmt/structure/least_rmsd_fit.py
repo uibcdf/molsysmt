@@ -35,7 +35,7 @@ def least_rmsd_fit(
     skip_digestion=False,
 ):
     """
-    Superpose a molecular system onto a reference using the Kabsch least-RMSD algorithm.
+    Superposing a molecular system using the Kabsch least-RMSD algorithm.
 
     The optimal rotation matrix and translation vector that minimise the RMSD
     between ``selection_fit`` atoms and their counterparts in the reference are
@@ -103,7 +103,11 @@ def least_rmsd_fit(
     -----
     A unique three-dimensional rotation requires at least three non-collinear
     fit atoms in both systems. A fit based on one atom, two atoms, or collinear
-    atoms is rejected instead of returning an arbitrary rotation.
+    atoms is rejected instead of returning an arbitrary rotation. Repeated atom
+    centers do not supply independent anchors. Numerical rank is checked on
+    differences from a represented fit point after aligning the length units;
+    it uses NumPy's default rank tolerance, not a physical collinearity cutoff.
+    All requested structures are validated before any in-place transformation.
 
 
     See Also
@@ -185,8 +189,11 @@ def least_rmsd_fit(
             )
 
         def _has_unique_rotation(frame):
-            centered = frame - np.mean(frame, axis=0)
-            return np.linalg.matrix_rank(centered) >= 2
+            if frame.shape[0] < 3:
+                return False
+            # Mean subtraction can introduce a spurious direction for duplicates.
+            relative = frame - frame[0]
+            return np.linalg.matrix_rank(relative) >= 2
 
         if not all(_has_unique_rotation(frame) for frame in fit_coords):
             raise StructuralInconsistencyError(
