@@ -78,6 +78,94 @@ def set_partial_charge_to_atom(item, indices="all", value=None, skip_digestion=F
 
 
 @arg_digest(form=form)
+def set_atom_ff_type_to_atom(item, indices="all", value=None, skip_digestion=False):
+    """Setting manual mechanical type labels on the MolSys atom axis.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Native system supplying an atom domain and its mechanical store.
+    indices : str, list, tuple or numpy.ndarray, default='all'
+        Atom indices (0-based) in value order. An empty selection changes nothing.
+    value : list, tuple, numpy.ndarray or None, default=None
+        One-dimensional string labels aligned with selected atoms. None clears
+        the full column and is unavailable for partial selections.
+    skip_digestion : bool, default=False
+        Whether to skip argument digestion for already validated inputs.
+
+    Returns
+    -------
+    None
+        The existing mechanical domain is updated in place.
+
+    Raises
+    ------
+    ArgumentError
+        If indices or value shape are invalid, or a partial edit uses None.
+    StructuralInconsistencyError
+        If the atom domain is absent or the mechanical table has a different size.
+
+    Notes
+    -----
+    Unknown unselected labels remain missing. Partial initialization allocates
+    the full source atom axis, not only the selected rows. Manual replacement
+    delegates to MolecularMechanics and clears named typing provenance while
+    preserving charges, chemical assignments and coordinates. Labels are
+    dimensionless; they are not element symbols or a named chemical calculation.
+    Mechanical edits require explicit owner invalidation of dependent analyses.
+
+    See Also
+    --------
+    molsysmt.basic.set : Setting molecular attribute values.
+    molsysmt.build.assign_autodock_atom_types : Assigning named AutoDock types.
+
+    Examples
+    --------
+    >>> from molsysmt.native import MolSys
+    >>> molsys = MolSys(n_atoms=2)
+    >>> set_atom_ff_type_to_atom(molsys, value=['C', 'O'])
+    >>> molsys.molecular_mechanics.atom_ff_type.tolist()
+    ['C', 'O']
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Set` for public attribute editing.
+
+    .. versionadded:: 1.0.0
+    """
+    import numpy as np
+
+    from molsysmt._private.smonitor import ArgumentError
+    from molsysmt.basic._index_validation import validate_element_indices
+    from molsysmt.form.molsysmt_MolecularMechanics.set import (
+        set_atom_ff_type_to_atom as assign,
+    )
+
+    caller = __name__ + ".set_atom_ff_type_to_atom"
+    indices = validate_element_indices(item, indices, "atom", "indices", caller)
+    if indices is None:
+        raise ArgumentError("indices", value=indices, caller=caller)
+    if not is_all(indices) and not len(indices):
+        return
+    n_atoms = item.get_n_atoms()
+    table = item.molecular_mechanics.atoms_ff
+    if n_atoms is None or (table is not None and len(table) != n_atoms):
+        raise StructuralInconsistencyError(
+            "Mechanical type editing requires a consistent MolSys atom axis."
+        )
+    expected = n_atoms if is_all(indices) else len(indices)
+    if (value is None and not is_all(indices)) or (
+        value is not None and np.shape(value) != (expected,)
+    ):
+        raise ArgumentError("value", value=value, caller=caller)
+    if value is not None:
+        item.molecular_mechanics._ensure_atoms_ff(n_atoms)
+    assign(
+        item.molecular_mechanics, atom_indices=indices, value=value, skip_digestion=True
+    )
+
+
+@arg_digest(form=form)
 def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=False):
     """
     Setting formal charge to atom on form molsysmt.MolSys.

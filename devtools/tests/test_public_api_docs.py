@@ -74,6 +74,28 @@ def test_least_rmsd_fit_docstring_renders_without_rst_errors(tmp_path):
     )
 
 
+def test_molsys_manual_type_setter_docstring_renders_and_example_runs(tmp_path):
+    _render_api_docstring(
+        tmp_path,
+        "molsysmt.form.molsysmt_MolSys.set.set_atom_ff_type_to_atom",
+        "Tutorial_Set",
+    )
+
+    import doctest
+
+    from molsysmt.form.molsysmt_MolSys.set import set_atom_ff_type_to_atom
+
+    example = doctest.DocTestParser().get_doctest(
+        set_atom_ff_type_to_atom.__doc__,
+        {"set_atom_ff_type_to_atom": set_atom_ff_type_to_atom},
+        "set_atom_ff_type_to_atom",
+        "public-docstring",
+        0,
+    )
+    result = doctest.DocTestRunner().run(example)
+    assert result.failed == 0 and result.attempted == 4
+
+
 @pytest.mark.parametrize(
     "function_name,tutorial_label",
     [

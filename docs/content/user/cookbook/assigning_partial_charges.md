@@ -46,6 +46,27 @@ The full graph is calculated before filtering. Extraction instead retains
 the previous numerical charges as a projection, with original source indices.
 Neither operation treats a fragment as a newly parameterized isolated molecule.
 
+## Editing manual labels
+
+Mechanical types are independent of the calculated charges. If you have a
+justified manual declaration, edit types through the combined system:
+
+```python
+charges = molsys.molecular_mechanics.partial_charge.copy()
+msm.set(molsys, element='atom', selection=[14, 16], atom_ff_type=['C', 'C'])
+assert molsys.molecular_mechanics.atom_ff_type[[14, 16]].tolist() == ['C', 'C']
+assert (molsys.molecular_mechanics.partial_charge == charges).all()
+assert molsys.molecular_mechanics.atom_type_assignment is None
+```
+
+Values follow the explicit index order. A first subset edit retains the entire
+atom axis and leaves unselected types unknown. It preserves the independent
+charge report and chemical state, but clears any named typing report; arbitrary
+labels do not establish AutoDock readiness. An empty selection changes nothing,
+and `atom_ff_type=None` clears only the full type column. Explicitly invalidate
+dependent named interactions after mechanical edits. See {ref}`Tutorial_Set`
+and {ref}`Tutorial_Assign_AutoDock_Types` for manual and calculated assignments.
+
 ## Checking a receptor
 
 For an already hydrogenated conventional protein, choose an explicit force field

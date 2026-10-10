@@ -369,6 +369,12 @@ labels are separate parameter assignments. A named chemical-environment profile
 can attach labels with an `atom_type_assignment` report in MolecularMechanics.
 It records the original rule/provider versions and binds labels to chemistry.
 Extraction projects parent labels; manual replacement clears their attribution.
+Use `msm.set(molsys, element='atom', selection=[...], atom_ff_type=[...])`
+to edit labels in the supplied atom-index order. The first subset edit allocates
+the full system atom axis, leaving other labels unknown. An empty selection is
+a no-op; `atom_ff_type=None` clears the full column. Charges, chemical states
+and coordinates remain intact. This manual declaration clears named typing
+provenance and requires owner invalidation of dependent interaction analyses.
 The PDBQT writer rejects stale named reports before writing. Charges and typing
 are independent operations; neither establishes full parameterization. Both
 mechanical reports are excluded from H5MSM 0.5. See

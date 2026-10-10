@@ -64,6 +64,12 @@ def set(
     invalid lengths fail before mutation. Manual replacement clears the named
     provenance of the replaced mechanical attribute.
 
+    On a native MolSys, ``atom_ff_type`` writes its MolecularMechanics domain.
+    A first subset assignment allocates the complete system atom axis, leaving
+    unselected labels unknown. None clears only the full type column; an empty
+    selection changes nothing. Charges and chemical assignments remain intact.
+    These dimensionless manual labels do not certify a named typing scheme.
+
     - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - If `element` is not specified, it is inferred from the attribute definition.

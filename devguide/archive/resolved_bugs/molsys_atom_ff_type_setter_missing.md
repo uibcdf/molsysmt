@@ -1,13 +1,13 @@
 ---
 summary: MolSys atom_ff_type setting lacks its native adapter
 issue: uibcdf/molsysmt#376
-status: open
+status: resolved
 opened: 2026-10-10
-closed:
+closed: 2026-10-10
 severity: medium
 verification: reproduced
 area: [api, attribute, form, native]
-guard:
+guard: tests/native/test_molsys_mechanics_setters.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # MolSys atom_ff_type setting lacks its native adapter
 
 **Reported:** 2026-10-10, uibcdf/dockingmt#49 and uibcdf/dockingmt#5.
-**Status:** Reproduced; admitted to pre-1.0 public-boundary stabilization.
+**Status:** Resolved; the existing mechanical setter now has a validated MolSys adapter.
 
 ## What
 
@@ -91,3 +91,45 @@ that the setter exists; both directions need their own contract evidence.
 
 No graph repair, automatic type inference, downstream setter implementation or
 new H5MSM mechanics persistence is included.
+
+## Resolution — 2026-10-10
+
+**Contract-tested.** `set_atom_ff_type_to_atom` validates selected atom indices,
+full-axis table length and value shape before allocating a mechanical table. It
+reuses the existing MolecularMechanics setter with validated arguments. A first
+subset edit allocates the full source atom axis; labels are stored in explicit
+selection order and unselected rows remain unknown. Empty selections do not
+allocate, and None clears the complete type column without removing charges.
+
+The regression module named in `guard` checks independently expected labels,
+full/subset/empty and malformed selections, no mutation on rejection, preserved
+coordinates/ChemicalStates and both full and structures-only MolSys objects.
+`tests/build/test_assign_autodock_atom_types.py::test_manual_mechanics_subset_setter_clears_typing_provenance`
+additionally edits a real named assignment through both owning-domain and MolSys
+routes and checks that typing attribution is cleared while charge values and
+serialized charge attribution are unchanged.
+
+On Linux/Python 3.14.7, before the adapter existed, the new regression selection
+reported 21 missing-adapter failures (and seven passing controls). After repair,
+the regression module plus the complete existing AutoDock assignment module
+passes **39 tests** with this selection:
+
+```bash
+python -m pytest --receptor=llm -n12 tests/native/test_molsys_mechanics_setters.py tests/build/test_assign_autodock_atom_types.py
+```
+
+The new strict Sphinx render/doctest guard passes **one test**, executing all four
+example statements. Two Sphinx/Napoleon deprecation warnings remain; no RST
+rendering error occurs. Temporary local receipts are not the durable guard.
+
+The public setter docstring, basic.set notes, native Foundations, Toolbox,
+charge Cookbook and shared Common Core module 12 now describe the editing and
+provenance contracts. All four course paths consume that shared module.
+Mechanical edits still require explicit owner invalidation of dependent analyses;
+there is no automatic detector invocation or new H5MSM mechanical persistence.
+This source repair does not qualify or replace the paused frozen artifacts.
+
+Focused Ruff checks and `git diff --check` pass. The 14 fast release gates
+pass, including adapter delivery, dependencies, devguide integrity, course
+structure and public smoke. These are scoped development checks, not the
+mandatory heavy or installed-candidate qualification.

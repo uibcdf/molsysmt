@@ -59,8 +59,9 @@ The maintainer requests a substantive review including post-1.0 issues, rather
 than using their milestones alone to exclude possible stabilization work.
 That review reproduces two current public-boundary defects, now admitted to the
 1.0 queue: [MolSys shortcut validation](pending_bugs/native_molsys_shortcuts_bypass_argument_validation.md)
-(#377) and [MolSys mechanical-type setting](pending_bugs/molsys_atom_ff_type_setter_missing.md)
-(#376, received concurrently from DockingMT). Neither is repaired by this review.
+(#377) and [MolSys mechanical-type setting](archive/resolved_bugs/molsys_atom_ff_type_setter_missing.md)
+(#376, received concurrently from DockingMT). The review admitted these defects;
+subsequent source repairs are recorded below.
 
 The existing #374 runtime bridge cleanup and #368 broken regeneration scripts
 are concrete maintenance candidates for an additional bounded repair round.
@@ -68,6 +69,18 @@ Their remaining scope must be verified before closure. New scientific models,
 native dispatch redesign and wider format coverage remain separate proposals.
 This overrides the earlier board-review observation of only three open provider
 1.0 issues; it does not change frozen identities or resume publication.
+
+## Mechanical type setter repair — 2026-10-10
+
+#376 is now source contract-tested: public MolSys assignments reuse the owning
+MolecularMechanics setter, preserve the complete atom axis on initial subset
+edits, and clear typing attribution independently of charges. Full/subset/empty
+and malformed edits on full and structures-only systems pass with the existing
+AutoDock assignment tests (**39 passes**); a strict docstring render/example
+guard passes separately. User Guide and shared course guidance are updated.
+The frozen pair and publication pause remain unchanged. Applicable exact-source
+and installed-artifact qualification will be required when new candidates are
+selected under #334.
 
 ## Sequence and CRD stabilization — 2026-10-09
 

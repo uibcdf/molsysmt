@@ -231,13 +231,25 @@ def test_attachment_requires_nonempty_single_state_and_source_rdkit_is_unchanged
     ] == properties
 
 
-def test_manual_mechanics_subset_setter_clears_typing_provenance():
+@pytest.mark.parametrize("target", ["mechanics", "molsys"])
+def test_manual_mechanics_subset_setter_clears_typing_provenance(target):
     source = assign(prepared())
+    source = msm.build.assign_partial_charges(source, method="gasteiger_marsili")
+    charges = source.molecular_mechanics.partial_charge.copy()
+    charge_report = pickle.dumps(source.molecular_mechanics.partial_charge_assignment)
     msm.set(
-        source.molecular_mechanics, element="atom", selection=[0], atom_ff_type=["C"]
+        source if target == "molsys" else source.molecular_mechanics,
+        element="atom",
+        selection=[0],
+        atom_ff_type=["C"],
     )
     assert source.molecular_mechanics.atom_type_assignment is None
     assert source.molecular_mechanics.atom_ff_type[3] == "N"
+    np.testing.assert_array_equal(source.molecular_mechanics.partial_charge, charges)
+    assert (
+        pickle.dumps(source.molecular_mechanics.partial_charge_assignment)
+        == charge_report
+    )
 
 
 def test_bound_scheme_and_chemical_state_must_match_output(tmp_path):
