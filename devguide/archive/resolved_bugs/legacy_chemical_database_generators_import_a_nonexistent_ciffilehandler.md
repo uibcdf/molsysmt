@@ -128,3 +128,14 @@ its explicit destination without a completion manifest.
 Original audit based on d47b528dabc0a68bf0ce90660b6c3a71701e674c; repair started
 from 889b3b4fe0ddac4a24105b49a58d3321e8708045. Linux/Python 3.14.7 and mmcif
 1.1.1 on 2026-10-10. Related runtime repair: uibcdf/molsysmt#139.
+
+## Hosted-check follow-up — 2026-10-10
+
+The original repair commit `4393d9fdc0d09a0312b8b8218514444f1278a25d` passes
+five hosted checks, but smoke `38041410267` fails at signature comparison before
+executing tests. Its broad AST discovery classifies the removed, unexported
+maintenance helpers `get_amino_acids_from_gromacs_rtp` and `is_in` as public.
+Their intentional retirement was missing from the waiver registry. Two exact
+file/symbol entries now declare the retirement and its private replacement;
+the guard's detection rules and runtime API protections are unchanged. Recheck
+against `889b3b4fe0ddac4a24105b49a58d3321e8708045`, not only the repair's parent.
