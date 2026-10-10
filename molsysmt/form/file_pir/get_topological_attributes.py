@@ -3,6 +3,7 @@ import types
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
 from molsysmt.element.group.amino_acid.codes import aa1_to_aa3 as _aa1_to_aa3
 
 form = "file:pir"
@@ -122,6 +123,52 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
 
 
 # --- Chain-level ---
+
+
+@arg_digest(form=form)
+@dep_digest("Bio")
+def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
+    """Getting source chain-position indices from a PIR sequence file.
+
+    Parameters
+    ----------
+    item : file:pir
+        Input sequence file, with one chain per sequence record.
+    indices : str, int, list, tuple, or numpy.ndarray, default='all'
+        Source positions to return, retaining their order and repetitions.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    list of int or none
+        Zero-based source record positions. Empty files return an empty list;
+        indices=None returns None. Record IDs are separate string labels.
+
+    Notes
+    -----
+    The existing record-count getter supplies the unrestricted positional axis.
+    No atom topology or coordinates are constructed.
+
+    Examples
+    --------
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> with TemporaryDirectory() as directory:
+    ...     molsys = Path(directory) / 'chains.pir'
+    ...     _ = molsys.write_text('>P1;alpha\\nfirst chain\\nACD*\\n>P1;beta\\nsecond chain\\nGK*\\n')
+    ...     positions = get_chain_index_from_chain(str(molsys), indices=[1, 0, 1])
+    >>> positions
+    [1, 0, 1]
+
+    .. versionadded:: 1.0.0
+    """
+    if indices is None:
+        return None
+    if is_all(indices):
+        count = get_n_chains_from_system(item, skip_digestion=True)
+        return list(range(count))
+    return list(indices)
 
 
 @arg_digest(form=form)
@@ -277,6 +324,52 @@ def get_n_amino_acids_from_chain(item, indices="all", skip_digestion=False):
 
 
 # --- Entity-level (one entity per sequence in PIR) ---
+
+
+@arg_digest(form=form)
+@dep_digest("Bio")
+def get_entity_index_from_entity(item, indices="all", skip_digestion=False):
+    """Getting source entity-position indices from a PIR sequence file.
+
+    Parameters
+    ----------
+    item : file:pir
+        Input sequence file, with one entity per sequence record.
+    indices : str, int, list, tuple, or numpy.ndarray, default='all'
+        Source positions to return, retaining their order and repetitions.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    list of int or none
+        Zero-based source record positions. Empty files return an empty list;
+        indices=None returns None. Record IDs are separate string labels.
+
+    Notes
+    -----
+    The existing record-count getter supplies the unrestricted positional axis.
+    No atom topology or coordinates are constructed.
+
+    Examples
+    --------
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> with TemporaryDirectory() as directory:
+    ...     molsys = Path(directory) / 'chains.pir'
+    ...     _ = molsys.write_text('>P1;alpha\\nfirst chain\\nACD*\\n>P1;beta\\nsecond chain\\nGK*\\n')
+    ...     positions = get_entity_index_from_entity(str(molsys), indices=[1, 0, 1])
+    >>> positions
+    [1, 0, 1]
+
+    .. versionadded:: 1.0.0
+    """
+    if indices is None:
+        return None
+    if is_all(indices):
+        count = get_n_entities_from_system(item, skip_digestion=True)
+        return list(range(count))
+    return list(indices)
 
 
 @arg_digest(form=form)

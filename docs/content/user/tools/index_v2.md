@@ -4,7 +4,7 @@ Welcome to the MolSysMT **Toolbox**. These functional modules provide targeted, 
 
 ---
 
-::::{grid} 1 2 3
+::::{grid} 1 1 2 3
 :gutter: 3
 
 :::{grid-item-card} ⚙️ **Basic**

@@ -25,7 +25,7 @@ def test_published_api_reference_excludes_private_modules():
 def _render_api_docstring(tmp_path, function_name, tutorial_label):
     """Render actual public API text through its NumPy-to-RST boundary."""
     pytest.importorskip("sphinx")
-    from sphinx.application import Sphinx
+    from sphinx.testing.util import SphinxTestApp
 
     source = tmp_path / "source"
     source.mkdir()
@@ -41,21 +41,21 @@ def _render_api_docstring(tmp_path, function_name, tutorial_label):
         encoding="utf-8",
     )
     warnings = StringIO()
-    app = Sphinx(
-        str(source),
-        str(source),
-        str(tmp_path / "html"),
-        str(tmp_path / "doctrees"),
-        "html",
+    app = SphinxTestApp(
+        srcdir=source,
+        builddir=tmp_path,
         status=StringIO(),
         warning=warnings,
         warningiserror=True,
     )
-    app.build(force_all=True)
-    assert app.statuscode == 0, warnings.getvalue()
-    assert warnings.getvalue() == ""
-    rendered = (tmp_path / "html" / "index.html").read_text(encoding="utf-8")
-    assert function_name.rsplit(".", 1)[-1] in rendered
+    try:
+        app.build(force_all=True)
+        assert app.statuscode == 0, warnings.getvalue()
+        assert warnings.getvalue() == ""
+        rendered = (tmp_path / "html" / "index.html").read_text(encoding="utf-8")
+        assert function_name.rsplit(".", 1)[-1] in rendered
+    finally:
+        app.cleanup()
 
 
 def test_box_geometry_docstring_renders_without_rst_errors(tmp_path):
@@ -93,3 +93,41 @@ def test_nglview_color_docstring_renders_without_rst_errors(tmp_path, monkeypatc
     representation = example.globs["view"]._ngl_msg_archive[-1]
     assert representation["reconstruc_color_scheme"] is True
     assert len(representation["kwargs"]["color"]) == len(example.globs["values"])
+
+
+def test_legacy_toolbox_cards_render_without_directive_errors(tmp_path):
+    """Render the retained draft's actual cards, without its separate navigation."""
+    pytest.importorskip("sphinx_design")
+    pytest.importorskip("myst_parser")
+    from sphinx.testing.util import SphinxTestApp
+
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "conf.py").write_text(
+        "extensions = ['myst_parser', 'sphinx_design']\n"
+        "myst_enable_extensions = ['colon_fence']\nmaster_doc = 'index'\n",
+        encoding="utf-8",
+    )
+    draft = REPOSITORY_ROOT / "docs/content/user/tools/index_v2.md"
+    cards = draft.read_text(encoding="utf-8").split("```{eval-rst}", 1)[0]
+    (source / "index.md").write_text(cards, encoding="utf-8")
+    warnings = StringIO()
+    app = SphinxTestApp(
+        srcdir=source,
+        builddir=tmp_path,
+        status=StringIO(),
+        warning=warnings,
+        warningiserror=True,
+    )
+    try:
+        app.build(force_all=True)
+        assert app.statuscode == 0, warnings.getvalue()
+        assert warnings.getvalue() == ""
+        rendered = (tmp_path / "html/index.html").read_text(encoding="utf-8")
+        assert "sd-row-cols-1" in rendered
+        assert "sd-row-cols-md-2" in rendered
+        assert "sd-row-cols-lg-3" in rendered
+        assert "Explore Basic" in rendered
+        assert "Explore Third Party" in rendered
+    finally:
+        app.cleanup()

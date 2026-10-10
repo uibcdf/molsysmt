@@ -53,6 +53,22 @@ output chain fields. Records:
 and [chain labels](archive/resolved_bugs/native_add_drops_declared_chain_ids.md).
 These corrections do not change the paused candidate selection above.
 
+## Sequence and CRD stabilization — 2026-10-09
+
+During the publication pause, #363/#364 repair existing advertised file-adapter
+contracts: FASTA/PIR chain/entity positions, CRD metadata delivery, native string
+IDs and selected conversion axes. The focused public adapter/regression/doctest
+selection passes 93 cases; the delivery audit reports 60 remaining unreachable
+attributes across three forms. Four strict documentation guards also pass,
+including the retained Toolbox draft's invalid grid correction under #144.
+Records: [sequence positions](archive/resolved_bugs/fasta_and_pir_declare_chain_and_entity_indices_without_delivery.md)
+and [CRD metadata/subsets](archive/resolved_bugs/charmm_crd_metadata_delivery_and_native_ids_violate_adapter_contracts.md).
+
+These bounded repairs do not close #139/#144, resume publication or qualify a
+replacement candidate. The frozen pair, receipts and references remain unchanged;
+new runtime sources require applicable candidate qualification when coordination
+resumes. No heavy matrix or new molecular feature is introduced.
+
 ## Native Viewer integration reconciliation — 2026-10-09
 
 Under #354 and uibcdf/molsysviewer#186, current source retires the separate

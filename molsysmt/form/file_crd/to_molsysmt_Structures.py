@@ -17,12 +17,13 @@ def to_molsysmt_Structures(
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
+    item : file:crd
+        Input CHARMM coordinate file in standard or extended format.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Source atom positions to retain, in the requested order.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Structure indices to retain from the single available structure.
+        An empty selection returns zero structures.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -31,6 +32,19 @@ def to_molsysmt_Structures(
     molsysmt.Structures
         Resulting object in molsysmt.Structures form.
 
+
+    Notes
+    -----
+    The coordinate file stores angstroms. Output coordinates are unit-bearing
+    quantities standardized with PyUnitWizard; no box or time is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.systems['POPC']['popc.crd']
+    >>> converted = to_molsysmt_Structures(molsys, atom_indices=[2, 0])
+    >>> converted.n_atoms
+    2
 
     .. versionadded:: 1.0.0
     """
@@ -81,4 +95,9 @@ def to_molsysmt_Structures(
 
     del (x, y, z, coordinates)
 
-    return tmp_item
+    return tmp_item.extract(
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        copy_if_all=False,
+        skip_digestion=True,
+    )

@@ -94,3 +94,18 @@ returns positions on the source coordinate-file axis. A selection such as
 query uses header metadata without loading coordinates. These positions do not
 provide atom IDs, names, groups, bonds or chemical assignments; those require
 a compatible topology. See {ref}`Tutorial_Form_file_inpcrd`.
+
+FASTA and PIR record axes use zero-based chain and entity indices. Source record
+IDs are string labels, independent of their positions. Index queries preserve
+selection order and repetitions; an empty file or selection has an empty axis.
+The existing optional Biopython reader supplies sequence record counts without
+constructing atom-level chemistry. See {ref}`Tutorial_Form_file_fasta` and
+{ref}`Tutorial_Form_file_pir`.
+
+CHARMM CRD supplies positional atom/group metadata through its native topology
+conversion, with string atom, group and chain IDs. Atom-index-only queries read
+just the header count. A selected native MolSys uses the established sorted atom
+order for topology and coordinates together; a coordinate-only Structures subset
+retains requested atom order. Empty structure selections remain empty. CRD
+coordinates carry units, while absent connectivity, box and time are not inferred.
+See {ref}`Tutorial_Form_file_crd`.

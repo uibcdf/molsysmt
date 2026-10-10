@@ -18,12 +18,14 @@ def to_molsysmt_Topology(
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
+    item : file:crd
+        Input CHARMM coordinate file in standard or extended format.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Source atom positions to retain. Native topological extraction uses
+        sorted atom-index order, including in the combined MolSys output.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Structure indices to retain from the single available structure.
+        A topological-only output does not depend on this axis.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -32,6 +34,20 @@ def to_molsysmt_Topology(
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
 
+
+    Notes
+    -----
+    Atom, group and chain IDs are string labels. Positional indices remain
+    integers. Metadata conversion does not establish covalent connectivity
+    or a complete chemical state.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.systems['POPC']['popc.crd']
+    >>> converted = to_molsysmt_Topology(molsys, atom_indices=[2, 0])
+    >>> converted.n_atoms
+    2
 
     .. versionadded:: 1.0.0
     """
@@ -113,15 +129,21 @@ def to_molsysmt_Topology(
     tmp_item.reset_groups(n_groups=n_groups)
     tmp_item.reset_chains(n_chains=n_chains)
 
-    tmp_item.atoms["atom_id"] = np.array(atom_id, dtype=int)
+    tmp_item.atoms["atom_id"] = np.array(
+        [str(value) for value in atom_id], dtype=object
+    )
     tmp_item.atoms["atom_name"] = np.array(atom_name, dtype=object)
     tmp_item.atoms["atom_type"] = np.array(atom_type, dtype=object)
     tmp_item.atoms["group_index"] = np.array(group_index, dtype=int)
     tmp_item.atoms["chain_index"] = np.array(chain_index, dtype=int)
-    tmp_item.groups["group_id"] = np.array(group_id, dtype=int)
+    tmp_item.groups["group_id"] = np.array(
+        [str(value) for value in group_id], dtype=object
+    )
     tmp_item.groups["group_name"] = np.array(group_name, dtype=object)
     tmp_item.groups["group_type"] = np.array(group_type, dtype=object)
-    tmp_item.chains["chain_id"] = np.arange(n_chains, dtype=int)
+    tmp_item.chains["chain_id"] = np.array(
+        [str(index) for index in range(n_chains)], dtype=object
+    )
     tmp_item.chains["chain_name"] = np.array(chain_name, dtype=object)
 
     del (
@@ -136,4 +158,6 @@ def to_molsysmt_Topology(
         chain_name,
     )
 
-    return tmp_item
+    return tmp_item.extract(
+        atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
+    )

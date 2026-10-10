@@ -181,3 +181,23 @@ retains an actual page-rendering and example-execution guard, existing color
 regressions and one re-executed Toolbox notebook. The API page has no diagnostics;
 this is not a new whole-site warning inventory. The legacy `index_v2.md` grid
 error and broader warning/navigation debt remain under this issue.
+
+## Bounded legacy Toolbox grid repair — 2026-10-09
+
+The retained `content/user/tools/index_v2.md` draft supplies three grid-size
+arguments, which Sphinx Design rejects: the directive requires one or four.
+The actual card section fails its strict Sphinx/MyST rendering guard before the
+repair. Four breakpoint values now retain one column on small displays, two on
+medium and three on large displays. The guard
+`devtools/tests/test_public_api_docs.py::test_legacy_toolbox_cards_render_without_directive_errors`
+renders the source card content, rejects all page diagnostics and verifies the
+responsive grid and endpoint cards in HTML. Its separate legacy navigation is
+outside this bounded test; the draft is not newly admitted to published navigation.
+
+All four API/documentation guard cases pass. Rendering applications now use
+Sphinx's test application cleanup to avoid leaking global directive/node
+registrations between serial tests. Six Python warnings remain separate
+(Sphinx 11 deprecations and expected legacy H5MSM notices); they are not page
+diagnostics. The five error locations named in the earlier checkpoint have
+received bounded repairs, but no fresh full-site build or warning inventory is
+claimed. Broader warning, navigation and API-reference debt remains open here.

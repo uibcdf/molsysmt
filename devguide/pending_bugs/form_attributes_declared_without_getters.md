@@ -166,3 +166,22 @@ its compatibility with current native tables or use it as a delivery route.
 The post-repair audit reports **73 unreachable declarations across six forms**,
 with all 96 forms structurally valid and no new delivery debt. This is a dated
 checkpoint, not a claim that the remaining forms have been repaired.
+
+## Sequence-file and CHARMM CRD checkpoint — 2026-10-09
+
+Under uibcdf/molsysmt#363, FASTA/PIR now deliver four advertised chain/entity
+index attributes through their existing optional record-count tools. Under
+uibcdf/molsysmt#364, CHARMM CRD restores nine metadata attributes through a
+header-only atom-index getter and its repaired native Topology pipe. Native IDs
+are strings and subset conversions use the existing extraction tools, keeping
+combined topology/coordinate axes aligned. The earlier CRD watchpoint above is
+now contract-tested rather than source inspection only. Records:
+[sequence positions](../archive/resolved_bugs/fasta_and_pir_declare_chain_and_entity_indices_without_delivery.md)
+and [CRD metadata/subsets](../archive/resolved_bugs/charmm_crd_metadata_delivery_and_native_ids_violate_adapter_contracts.md).
+
+The combined public adapter/regression/doctest selection passes 93 cases without
+skips or warnings. Only these thirteen resolved bits are removed from the
+baseline. The audit reports **60 unreachable declarations across three forms**,
+with 96 structurally valid adapters and no new delivery debt. Remaining PRMTOP,
+TRJPK and CIF-handler debt keeps this general issue open. These are measured
+checkpoints, not promises that all attributes or formats are complete.
