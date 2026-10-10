@@ -171,3 +171,13 @@ renders without page diagnostics. Nondefault length/angle policy controls and
 the public doctest also pass. This is a bounded API repair, not a fresh full-site
 warning inventory; it does not close the other errors or the broader criteria
 above. The initial checkpoint's counts remain historical evidence.
+
+## Bounded NGLView API repair — 2026-10-09
+
+Under uibcdf/molsysmt#361 the unknown `yyy` target is removed and the obsolete,
+invalid public example is replaced by a local example using explicit NGLView.
+The [resolution record](../archive/resolved_bugs/nglview_color_example_uses_obsolete_apis_and_fails_rendering.md)
+retains an actual page-rendering and example-execution guard, existing color
+regressions and one re-executed Toolbox notebook. The API page has no diagnostics;
+this is not a new whole-site warning inventory. The legacy `index_v2.md` grid
+error and broader warning/navigation debt remain under this issue.

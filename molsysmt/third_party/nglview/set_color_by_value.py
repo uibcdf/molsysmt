@@ -16,64 +16,73 @@ def set_color_by_value(
     representation="cartoon",
     syntax="MolSysMT",
 ):
-    """
-    Adding a new representation colored by a color scale.
+    """Adding an NGLView representation colored by numerical values.
 
-    A new representation can be added to an NGL view (NGLWidget) with elements colored by a list of values and a color map.
-
+    Map one value per selected atom or group through a Matplotlib colormap.
+    The view is modified in place; existing representations are retained.
 
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer instance.
-    values : object
-        Argument values.
+        Target NGLView widget. Create it with ``msm.view(molsys, viewer='NGLView')``.
+    values : sequence of float
+        Numerical values aligned with the selected atoms or groups in the order
+        returned by ``msm.select(view, element=element, selection=selection)``.
+        Express all values and limits on the same numerical scale.
     element : str, default='group'
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+        Element whose values are colored: 'atom' or 'group'.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
-    cmap : object, default='bwr_r'
-        Argument cmap.
-    min_value : object, default=None
-        Argument min_value.
-    mid_value : object, default=None
-        Argument mid_value.
-    max_value : object, default=None
-        Argument max_value.
-    representation : object, default='cartoon'
-        Argument representation.
+        Selection of atoms or groups whose values are supplied.
+    cmap : str or matplotlib.colors.Colormap, default='bwr_r'
+        Registered Matplotlib colormap name or colormap object.
+    min_value : float or none, default=None
+        Lower normalization limit. If None, use the minimum supplied value.
+    mid_value : float or none, default=None
+        Optional center of the scale. If supplied, expand both normalization
+        limits symmetrically around it, retaining the more distant endpoint.
+    max_value : float or none, default=None
+        Upper normalization limit. If None, use the maximum supplied value.
+    representation : str, default='cartoon'
+        Representation to add: 'cartoon', 'surface', 'licorice' or 'ball_and_stick'.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+        Selection syntax used to evaluate ``selection``.
 
     Returns
     -------
-    None
-        The method modifies an nglview.NGLWidget object including the new representation.
-
+    none
+        The widget receives a new representation with the requested color scheme.
 
     Notes
     -----
-
-    Have a look to the `YYY`_.
-
-    .. YYY:
-       https://uibcdf.org/molsysmt
+    This helper targets NGLView explicitly. MolSysMT's default viewer is
+    MolSysViewer. Compute values for the same selection and element used here;
+    passing an entire-system value array to a selected subset can misalign colors.
+    Python examples verify representation submission, not browser rendering.
 
     See Also
     --------
-    :func:`molsysmt.basic.view`, :func:`molsysmt.basic.select`
-
+    molsysmt.basic.view
+        Create a view with an explicit viewer backend.
+    molsysmt.basic.select
+        Obtain the selected indices used to align numerical values.
 
     Examples
     --------
     >>> import molsysmt as msm
-    >>> from matplotlib.pyplot import colormaps
-    >>> molecular_system = msm.convert('181L', selection='molecule_type=="protein"')
-    >>> charge_residues = msm.physchem.charge(molecular_system, element='group', definition='physical_pH7') ￼
-    >>> view = msm.view(molecular_system)
+    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'],
+    ...                      selection='molecule_type=="protein"')
+    >>> values = msm.physchem.get_charge(molsys, element='group',
+    ...                                  definition='physical_pH7')
+    >>> view = msm.view(molsys, viewer='NGLView')
     >>> view.clear()
-    >>> msm.thirds.nglview.color_by_value(view, charge_residues)
-    >>> view
+    >>> msm.third_party.nglview.set_color_by_value(view, values) is None
+    True
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_NGLView_Set_color_by_value` for a usage example.
+
+    .. versionadded:: 1.0.0
     """
 
     from matplotlib.colors import Normalize, to_hex

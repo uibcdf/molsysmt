@@ -89,7 +89,6 @@
     "file:fasta": "0x40100000",
     "file:gro": "0x100",
     "file:h5": "0x7d2fddf9f879efffef3c",
-    "file:inpcrd": "0x8",
     "file:mol2": "0xf07801784f3c",
     "file:pir": "0x40100000",
     "file:prmtop": "0x7c100",

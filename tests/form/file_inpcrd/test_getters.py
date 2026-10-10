@@ -36,10 +36,11 @@ def tiny_inpcrd(tmp_path):
     """A well-formed inpcrd holding a different number of atoms (3)."""
     path = tmp_path / "tiny.inpcrd"
     path.write_text(
-        "TINY\n"
-        "    3\n"
-        "  1.0000000  0.0000000  0.0000000  2.0000000  0.0000000  0.0000000\n"
-        "  3.0000000  0.0000000  0.0000000\n"
+        "TINY\n    3\n"
+        + "".join(f"{value:12.7f}" for value in [1.0, 0.0, 0.0, 2.0, 0.0, 0.0])
+        + "\n"
+        + "".join(f"{value:12.7f}" for value in [3.0, 0.0, 0.0])
+        + "\n"
     )
     return str(path)
 
@@ -53,6 +54,7 @@ def tiny_inpcrd(tmp_path):
     "getter",
     [
         "get_n_atoms_from_system",
+        "get_atom_index_from_atom",
         "get_n_structures_from_system",
         "get_coordinates_from_system",
         "get_velocities_from_system",
@@ -128,3 +130,47 @@ def test_mismatched_prmtop_and_inpcrd_are_not_a_molecular_system(prmtop, tiny_in
     # Without get_n_atoms_from_system the atom-count probe raised, the exception
     # was swallowed, and this pair was silently accepted as a valid system.
     assert msm.basic.is_a_molecular_system([prmtop, tiny_inpcrd]) is False
+
+
+@pytest.mark.parametrize(
+    "selection, expected",
+    [("all", [0, 1, 2]), ([2, 0, 2], [2, 0, 2]), (1, [1]), ([], [])],
+)
+def test_atom_indices_preserve_source_positions(tiny_inpcrd, selection, expected):
+    assert (
+        msm.get(tiny_inpcrd, element="atom", selection=selection, atom_index=True)
+        == expected
+    )
+
+
+def test_atom_indices_align_with_selected_coordinates(tiny_inpcrd):
+    indices, coordinates = msm.get(
+        tiny_inpcrd,
+        element="atom",
+        selection=[2, 0, 2],
+        atom_index=True,
+        coordinates=True,
+    )
+    assert indices == [2, 0, 2]
+    assert coordinates.shape == (1, 3, 3)
+    np.testing.assert_allclose(
+        puw.get_value(coordinates, to_unit="nm"),
+        [[[0.3, 0.0, 0.0], [0.1, 0.0, 0.0], [0.3, 0.0, 0.0]]],
+    )
+
+
+def test_atom_index_query_reads_metadata_without_coordinate_conversion(
+    inpcrd, monkeypatch
+):
+    from importlib import import_module
+
+    converter = import_module("molsysmt.form.file_inpcrd.to_molsysmt_Structures")
+
+    def reject_coordinate_conversion(*args, **kwargs):
+        raise AssertionError("An atom-index query must not load coordinate arrays.")
+
+    monkeypatch.setattr(
+        converter, "to_molsysmt_Structures", reject_coordinate_conversion
+    )
+    indices = msm.get(inpcrd, element="atom", atom_index=True)
+    assert indices == list(range(N_ATOMS))

@@ -87,3 +87,10 @@ PDBQT does not contain complete connectivity. A ligand's torsion tree must be
 retained separately and explicitly omitted when projecting to MolSys. No
 chemical preparation is performed. See {ref}`cookbook-native-pdbqt` for writer
 requirements, hydrogen policy, selection, strict reports and unsupported dialects.
+
+For `file:inpcrd`, `msm.get(molsys, element="atom", atom_index=True)`
+returns positions on the source coordinate-file axis. A selection such as
+`[2, 0, 2]` retains that order and repetition without renumbering. An index-only
+query uses header metadata without loading coordinates. These positions do not
+provide atom IDs, names, groups, bonds or chemical assignments; those require
+a compatible topology. See {ref}`Tutorial_Form_file_inpcrd`.

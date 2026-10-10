@@ -52,3 +52,9 @@ Beyond data conversion and selection translation, MolSysMT provides dedicated he
 | **`msm.third_party.nglview`** | NGLView | Helper functions to manipulate NGLView representations (`show_as_cartoon`, `show_as_surface`), overlay 3D shapes (`add_arrows`, `add_cylinders`, `add_hbonds`), customize color schemes, and export HTML views. |
 | **`msm.third_party.openmm`** | OpenMM | Helper functions to construct custom OpenMM forces (`add_harmonic_bond_force`, `pin_atoms`, region restraints) and specialized trajectory reporters (`H5MSMReporter`, `StructuresDictReporter`, `TQDMReporter`). |
 | **`msm.third_party.tleap`** | AMBER LEaP | Helper wrappers to streamline system parameterization and LEaP script generation. |
+
+For NGLView helpers, request `viewer="NGLView"` when creating a view.
+The default `msm.view(molsys)` uses MolSysViewer.
+`msm.third_party.nglview.set_color_by_value` adds a representation in place:
+its numerical values must follow the indices returned by `msm.select` for the
+same atom/group selection. See {ref}`Tutorial_NGLView_Set_color_by_value`.

@@ -119,6 +119,18 @@ metadata. Ordered Seq subsets work; SeqRecord subsets remain explicitly
 unsupported. This correction does not broaden the Tier 2 support guarantee or
 resume artifact production or publication.
 
+#361 repairs the NGLView public example and unknown-target rendering error,
+with seven distinct guard/doctest/color passes and one executed Python 3.14
+Toolbox notebook. [NGLView resolution](archive/resolved_bugs/nglview_color_example_uses_obsolete_apis_and_fails_rendering.md)
+records explicit backend choice and value/selection alignment. Runtime color
+calculations are unchanged; #144 retains the remaining documentation debt.
+
+#362 restores source atom-index delivery for INPCRD, using the existing header
+count without coordinate materialization. [INPCRD resolution](archive/resolved_bugs/inpcrd_declares_atom_indices_without_delivery.md)
+retains six failing controls before repair, 28 passing adapter cases and one
+doctest afterward. These bounded corrections preserve the frozen candidates
+and publication pause; they do not inherit artifact qualification.
+
 ## Qualified pair preparation — 2026-10-08
 
 **Frozen producer:** MolSysMT **1.0.0, ABI3 build 0**, source

@@ -146,3 +146,23 @@ close the general audit or promote these Tier 2 forms.
 
 After the repair the same audit reports **74 unreachable declarations across
 seven forms**, with 96 forms passing structural checks and no new delivery debt.
+
+## INPCRD positional-query checkpoint — 2026-10-09
+
+Under uibcdf/molsysmt#362 the declared `file:inpcrd` atom-index attribute now has
+a direct getter. It reuses the header-count tool without loading coordinates,
+retains selected source positions and aligns with explicit-unit coordinate
+queries. The [resolution record](../archive/resolved_bugs/inpcrd_declares_atom_indices_without_delivery.md)
+retains six failing controls with a valid fixed-width fixture, followed by 28
+adapter passes and one doctest. Only this resolved baseline bit is removed.
+Broader legacy-file and CIF remediation remains open; no other declaration or
+form tier is changed.
+
+Before introducing a CHARMM CRD delivery pipe, inspect its legacy native
+Topology conversion and verify string IDs and hierarchy construction. That source
+currently constructs integer atom/group IDs; this checkpoint does not certify
+its compatibility with current native tables or use it as a delivery route.
+
+The post-repair audit reports **73 unreachable declarations across six forms**,
+with all 96 forms structurally valid and no new delivery debt. This is a dated
+checkpoint, not a claim that the remaining forms have been repaired.
