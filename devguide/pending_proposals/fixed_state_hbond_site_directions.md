@@ -325,3 +325,11 @@ legacy/network-dependent course cells remain unexecuted in this check.
 The full Sphinx HTML build exits successfully, with warnings on other existing
 pages and no reported warnings for the relocated site tutorials/API references.
 This is focused source verification, not full platform/installed qualification.
+
+The local default `python3` Jupyter kernelspec points to Python 3.13, independently
+of the interpreter launching `nbconvert`. The final example execution explicitly
+selected the existing development Python 3.14 through a temporary kernelspec;
+no auxiliary environment was created or shared kernelspec changed. The tutorial
+metadata records the actual Python 3.14 interpreter. The earlier successful
+Python 3.13 execution is additional source evidence, not the required local
+development baseline.
