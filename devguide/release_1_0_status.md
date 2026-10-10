@@ -2486,3 +2486,12 @@ and [TRJPK identity](archive/resolved_bugs/trjpk_identity_conversion_rejects_its
 maintenance; #144 retains broader documentation warning debt. These repairs
 neither resume publication nor qualify a replacement candidate. Frozen refs,
 artifact hashes and receipts remain unchanged; no new heavy matrix is run.
+
+The first hosted smoke run for this repair, 38031440730, stopped at the legacy
+AST signature guard before tests: it rejected the intentional output_filename
+addition in #370. The follow-up makes that argument keyword-only, records the
+exact function/issue in the existing signature-waiver registry, and adds a public
+legacy six-position call plus extra-position rejection guard. Both parent and
+original-source transition checks pass; the final TRJPK selection and doctest
+pass 31 cases without warnings. This does not replace installed-pair evidence
+or qualify any frozen artifact. Hosted smoke must pass on the corrective head.

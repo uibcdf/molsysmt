@@ -9,6 +9,7 @@ def to_file_trjpk(
     output_name=None,
     copy_if_all=True,
     skip_digestion=False,
+    *,
     output_filename=None,
 ):
     """

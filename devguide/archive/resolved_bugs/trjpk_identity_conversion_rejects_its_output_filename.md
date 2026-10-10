@@ -85,3 +85,19 @@ matching function signature.
 
 Linux shared development environment, Python 3.14.7, 2026-10-10.
 Original source: d47b528dabc0a68bf0ce90660b6c3a71701e674c.
+
+## CI qualification follow-up — 2026-10-10
+
+CI run 38031440730 rejected the intentional addition of output_filename before
+executing smoke tests: the legacy AST guard rejects all signature additions,
+including optional parameters. The ordinary fast registry gate is a separate
+check and did not inspect this transition. Existing local runtime guards passed;
+that did not qualify the failed hosted run.
+
+The new output_filename is now keyword-only, preserving the original six
+positional slots. The exact file/function has an issue-bound entry in the guard's
+existing signature_waivers registry. A public regression calls all six original
+positional arguments and verifies destination bytes; another assertion rejects
+an extra positional filename. The validated output_name alias remains supported.
+This records an intentional compatibility repair rather than weakening or
+suppressing the parent-comparison guard. No frozen candidate or artifact changes.

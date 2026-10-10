@@ -215,3 +215,20 @@ def test_identity_conversion_rejects_invalid_or_conflicting_aliases(
             output_name=str(tmp_path / "a.trjpk"),
             output_filename=str(tmp_path / "b.trjpk"),
         )
+
+
+def test_identity_conversion_preserves_legacy_positional_contract(
+    legacy_file, tmp_path
+):
+    from pathlib import Path
+
+    from molsysmt.form.file_trjpk.to_file_trjpk import to_file_trjpk
+
+    destination = str(tmp_path / "positional.trjpk")
+    assert (
+        to_file_trjpk(legacy_file, "all", "all", destination, True, False)
+        == destination
+    )
+    assert Path(destination).read_bytes() == Path(legacy_file).read_bytes()
+    with pytest.raises(TypeError):
+        to_file_trjpk(legacy_file, "all", "all", None, True, False, destination)
