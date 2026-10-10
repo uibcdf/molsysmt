@@ -36,6 +36,8 @@ def get_coordinates_from_atom(
 
     .. versionadded:: 1.0.0
     """
+    if item.get("coordinates") is None or structure_indices is None or indices is None:
+        return None
     coordinates = copy(item["coordinates"])
 
     if not is_all(structure_indices):
@@ -72,8 +74,14 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
+    if structure_indices is None:
+        return None
     if is_all(structure_indices):
-        return item["coordinates"].shape[0]
+        for name in ("coordinates", "velocities", "box", "time", "structure_id"):
+            value = item.get(name)
+            if value is not None:
+                return len(value)
+        return 0
     return len(structure_indices)
 
 
@@ -100,6 +108,8 @@ def get_coordinates_from_system(item, structure_indices="all", skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
+    if item.get("coordinates") is None or structure_indices is None:
+        return None
     coordinates = copy(item["coordinates"])
     if is_all(structure_indices):
         return coordinates

@@ -26,8 +26,9 @@ def extract(
         Structure indices (0-based) to include or process.
     output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+    copy_if_all : bool, default=True
+        Retained for adapter compatibility. A distinct destination always
+        copies the file; no destination retains the source path.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -37,6 +38,12 @@ def extract(
         Resulting object in file:trjpk form.
 
 
+    Notes
+    -----
+    Only identity extraction is implemented. Subset exports use conversion
+    to StructuresDict followed by its TRJPK writer. This function does not
+    overwrite a file with a subset or create a new path implicitly.
+
     .. versionadded:: 1.0.0
     """
 
@@ -44,7 +51,7 @@ def extract(
         output_filename = item
 
     if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all or (output_filename != item):
+        if output_filename != item:
             from shutil import copy as copy_file
 
             copy_file(item, output_filename)

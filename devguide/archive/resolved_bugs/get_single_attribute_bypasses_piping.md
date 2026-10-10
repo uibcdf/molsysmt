@@ -150,6 +150,6 @@ msm.get(item, element=<element from the attribute catalog>, **{attribute: True})
 ```
 
 See
-[`form_attributes_declared_without_getters.md`](../../pending_bugs/form_attributes_declared_without_getters.md)
+[`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md)
 for the forms where the attribute is unreachable even with the pipes working —
 those are a separate defect and will still fail after this one is fixed.

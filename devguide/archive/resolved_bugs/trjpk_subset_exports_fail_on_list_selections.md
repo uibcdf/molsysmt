@@ -1,13 +1,13 @@
 ---
 summary: TRJPK subset exports fail on list selections
 issue: uibcdf/molsysmt#365
-status: open
+status: resolved
 opened: 2026-10-10
-closed:
+closed: 2026-10-10
 severity: medium
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/form/file_trjpk/test_queries_and_roundtrip.py::test_export_selects_both_axes_with_consistent_header
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # TRJPK subset export fails on valid list selections
 
 **Reported:** 2026-10-10, current pre-1.0 issue audit.
-**Status:** Reproduced; no runtime repair implemented in this audit.
+**Status:** Repaired; selected public round-trip guards executed locally.
 
 ## What
 
@@ -94,3 +94,23 @@ new backends or format migration. No runtime or dependency changes in this audit
 Linux shared development environment, Python 3.14.7, NumPy 2.4.6,
 2026-10-10. Audited source: `970fd28e374f3dda58eda0a5ab259bbdf7629402`.
 The reproduction uses managed temporary storage removed after failure.
+
+## Resolution — 2026-10-10
+
+The writer counts list/array selections with len() and applies both coordinate
+axes independently. Every box/time/ID field follows the same structure positions.
+It converts and writes one field at a time in fixed nm/ps units, preserving the
+six-record layout without retaining converted copies of all arrays. General
+StructuresDict structure-count delivery now supports metadata-only payloads;
+absent coordinate keys and explicit None values are both covered.
+
+The guard parameterizes list/array, repeated and empty selections on both axes.
+It independently inspects header counts and raw coordinate values, then checks
+reader results, aligned box/time/ID arrays and source immutability. A nondefault
+angstrom/fs unit-policy case also inspects raw nm/ps disk values and standardized
+quantities after reading, so reciprocal reader/writer unit errors cannot cancel.
+
+The accompanying query and dictionary regressions are included in the 328-case
+focused selection for #139. TRJPK identity/copy dispatch is a distinct bounded
+repair in uibcdf/molsysmt#370; file-level subset extraction, append and bounded
+streaming remain excluded. No format or release artifact is rebuilt.

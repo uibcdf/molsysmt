@@ -131,3 +131,24 @@ def test_legacy_toolbox_cards_render_without_directive_errors(tmp_path):
         assert "Explore Third Party" in rendered
     finally:
         app.cleanup()
+
+
+@pytest.mark.parametrize(
+    "function_name",
+    [
+        "molsysmt.form.file_prmtop.get_structural_attributes.get_box_from_system",
+        "molsysmt.form.file_trjpk.to_file_trjpk.to_file_trjpk",
+        "molsysmt.form.file_trjpk.get_topological_attributes.get_n_atoms_from_system",
+        "molsysmt.form.file_trjpk.get_topological_attributes.get_atom_index_from_atom",
+        "molsysmt.form.file_trjpk.get_structural_attributes.get_n_structures_from_system",
+        "molsysmt.form.file_trjpk.get_structural_attributes.get_coordinates_from_atom",
+        "molsysmt.form.file_trjpk.get_structural_attributes.get_coordinates_from_system",
+        "molsysmt.form.file_trjpk.get_structural_attributes.get_box_from_system",
+        "molsysmt.form.file_trjpk.get_structural_attributes.get_time_from_system",
+        "molsysmt.form.file_trjpk.get_structural_attributes.get_structure_id_from_system",
+    ],
+)
+def test_restored_file_query_docstrings_render_without_rst_errors(
+    tmp_path, function_name
+):
+    _render_api_docstring(tmp_path, function_name, "Restored_file_query")

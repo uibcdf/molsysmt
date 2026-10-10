@@ -22,15 +22,15 @@ MolSysMT seamlessly reads, parses, and writes major third-party disk file format
 | Form Name | Extension | Description | Native Handler / Parser | Streaming Support |
 | :--- | :--- | :--- | :--- | :--- |
 | **`file:pdb`** | `.pdb` | Protein Data Bank file | `PDBFileHandler` | Iterative Streaming (`TopologyIterator`, `StructuresIterator`) |
-| **`file:cif`** | `.cif` / `.mmcif` | Macromolecular Crystallographic Info | `CIFFileHandler` | Iterative Streaming |
-| **`file:cif.gz`** | `.cif.gz` | Gzipped mmCIF file | `CIFFileHandler` | Iterative Streaming |
+| **`file:cif`** | `.cif` / `.mmcif` | Macromolecular Crystallographic Info | `mmcif.io.IoAdapter` | In-Memory Parsing |
+| **`file:cif.gz`** | `.cif.gz` | Gzipped mmCIF file | `mmcif.io.IoAdapter` | In-Memory Parsing |
 | **`file:bcif`** | `.bcif` | Binary mmCIF file | Internal BCIF Parser | In-Memory Parsing |
 | **`file:bcif_gz`** | `.bcif.gz` | Gzipped Binary mmCIF file | Internal BCIF Parser | In-Memory Parsing |
 | **`file:gro`** | `.gro` | GROMACS structure file | `GROFileHandler` | Iterative Streaming |
 | **`file:dcd`** | `.dcd` | CHARMM/NAMD binary trajectory | `mdtraj_DCDTrajectoryFile` | Bounded Chunked Streaming |
 | **`file:xtc`** | `.xtc` | GROMACS compressed trajectory | `mdtraj_XTCTrajectoryFile` | Bounded Chunked Streaming |
 | **`file:h5`** | `.h5` / `.trj.h5` | MDTraj HDF5 trajectory | `mdtraj_HDF5TrajectoryFile` | Chunked Streaming |
-| **`file:trjpk`** | `.trjpk` | Compressed trajectory package | Internal Parser | Bounded Streaming |
+| **`file:trjpk`** | `.trjpk` | Pickled coordinate arrays and structure metadata | Existing TRJPK reader | In-Memory Parsing |
 | **`file:mol2`** | `.mol2` | Tripos MOL2 chemical format | Third-Party Adapter | In-Memory Parsing |
 | **`file:prmtop`** | `.prmtop` | AMBER topology file | `openmm_AmberPrmtopFile` | Full Topology Parsing |
 | **`file:inpcrd`** | `.inpcrd` | AMBER coordinate file | `openmm_AmberInpcrdFile` | Full Coordinate Parsing |

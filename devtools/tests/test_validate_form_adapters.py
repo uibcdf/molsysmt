@@ -138,3 +138,11 @@ def test_tier_1_delivery_debt_is_never_accepted():
     assert validator._tier_1_delivery_violations(violations, tiers) == {
         "contractual": ["atom_name"]
     }
+
+
+def test_registered_forms_have_no_unreachable_attribute_declarations():
+    """Inspecting actual registrations, without accepting debt through a baseline."""
+    from molsysmt.form import _dict_modules
+
+    modules = {name: _dict_modules[name] for name in _dict_modules}
+    assert validator._audit_attribute_delivery(modules) == {}

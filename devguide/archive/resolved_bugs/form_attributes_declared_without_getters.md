@@ -1,13 +1,13 @@
 ---
 summary: Forms declare attributes for which no getter or pipe can deliver a value.
 issue: uibcdf/molsysmt#139
-status: partial
+status: resolved
 opened: 2026-07-13
-closed:
+closed: 2026-10-10
 severity: medium
 verification: measured
 area: [form, attribute]
-guard:
+guard: devtools/tests/test_validate_form_adapters.py::test_registered_forms_have_no_unreachable_attribute_declarations
 normative:
 blocked_by: []
 supersedes: []
@@ -15,8 +15,8 @@ supersedes: []
 
 # Bug: forms declare attributes they cannot deliver
 
-**Status:** Tier 1 resolved; Tier 2 and Tier 3 remediation pending
-**Severity:** medium — remaining debt is outside the contractual Tier 1 surface
+**Status:** Resolved — final registered-adapter delivery audit has no unreachable declarations.
+**Severity:** medium — the original remaining debt was outside the contractual Tier 1 surface
 **Locations:** `molsysmt/form/*/attributes.py`, getter modules, and pipe metadata
 
 ## Problem
@@ -208,3 +208,51 @@ Review retirement/correction of this phantom registration and its documentation
 claims; retain supported `file:cif` routes. Implementing a new native handler
 would require a separately admitted capability. This audit changes no runtime
 registration, declaration, baseline or form tier.
+
+## Final remediation — 2026-10-10
+
+The remaining 60 declarations from the preceding checkpoint are resolved:
+
+- PRMTOP's five box attributes reuse the existing OpenMM AMBER reader and general
+  box geometry tools, through both a direct box getter and a structural pipe.
+  Periodic and nonperiodic cases, empty/None box selection and nondefault units
+  are covered. Topology-to-MolSys still supplies zero coordinate structures.
+- TRJPK's four structural attributes reuse its existing six-record reader.
+  Header counts and positional atom indices now support validated selections;
+  bulk structural queries reuse StructuresDict. Both getters and dictionary
+  export preserve alignment, empty axes and stored fixed nm/ps units, while
+  reading standardizes quantities to the configured units. Metadata-only
+  dictionary structure counts reuse the general StructuresDict getter, and
+  absent coordinates return None rather than being indexed.
+- The nonexistent CIFFileHandler class is retired from discovery, tiers,
+  converter argument metadata, documentation navigation and fake API pages.
+  Real file:cif/file:cif.gz adapters remain. A public selected-coordinate test
+  checks the actual CIF conversion against its source values. The three saved
+  form/conversion catalogs were reexecuted with Python 3.14, preserving code.
+
+`python devtools/scripts/validate_form_adapters.py` audits 95 adapters, all
+structurally conforming, with **0 unreachable declarations across 0 forms**.
+The accepted delivery masks are empty. The new actual-registry guard asserts
+zero debt independently of the baseline, so adding a mask cannot satisfy it.
+Runtime guards also check the restored file routes against source values,
+fixed-unit disk records and the existing general geometry tools.
+
+The focused public/runtime/doctest selection passes 328 cases; ten strict
+Sphinx docstring renders pass; the identity conversion doctest also passes.
+The final TRJPK query/export/identity selection passes 30 cases without warnings.
+Three catalog notebooks execute cleanly. Remaining
+warnings are reported rather than suppressed: optional dependency binary-size
+warnings, expected legacy H5MSM notices and MDAnalysis placeholder-box notices.
+This is bounded delivery qualification, not scientific validation of every
+operation in every optional form.
+
+TRJPK subset export and identity dispatch are tracked separately by
+uibcdf/molsysmt#365 and uibcdf/molsysmt#370. Independent historical chemical database
+generators importing the absent class are tracked by uibcdf/molsysmt#368 and
+remain post-1.0 tooling debt. Legacy placeholder editing/streaming operations
+are not promoted to implemented capabilities. General Sphinx warning debt
+uibcdf/molsysmt#144 remains open.
+
+No frozen release reference or artifact changes, new heavy matrix, tag, Release
+or promotion is authorized by this repair. Changed runtime sources still require
+applicable replacement-candidate qualification after the publication pause ends.

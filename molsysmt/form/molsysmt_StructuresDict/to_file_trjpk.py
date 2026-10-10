@@ -34,94 +34,47 @@ def to_file_trjpk(
         Resulting object in file:trjpk form.
 
 
+    Notes
+    -----
+    Coordinates and box vectors are serialized in nm, time in ps. Both selected
+    axes retain their order and repetitions, including empty axes. Missing
+    optional fields are written as None. Arrays are converted one at a time.
+
     .. versionadded:: 1.0.0
     """
 
-    import pickle as pickle
+    import pickle
 
-    # lengths with nm values and times in ps
+    from .get_structural_attributes import get_n_structures_from_system
 
-    if is_all(atom_indices):
-        if item["coordinates"] is not None:
-            n_atoms = item["coordinates"].shape[1]
-        else:
-            n_atoms = 0
-    else:
-        n_atoms = atom_indices.shape[0]
+    coordinates = item.get("coordinates")
+    n_atoms = (
+        (coordinates.shape[1] if coordinates is not None else 0)
+        if is_all(atom_indices)
+        else len(atom_indices)
+    )
+    n_structures = get_n_structures_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
 
-    if is_all(structure_indices):
-        if item["coordinates"] is not None:
-            n_structures = item["coordinates"].shape[0]
-        elif item["box"] is not None:
-            n_structures = item["box"].shape[0]
-        elif item["time"] is not None:
-            n_structures = item["time"].shape[0]
-        else:
-            n_structures = 0
-    else:
-        n_structures = structure_indices.shape[0]
-
-    with open(output_filename, "wb") as fff:
-        pickle.dump(n_atoms, fff)
-        pickle.dump(n_structures, fff)
-
-        if "coordinates" in item:
-            if item["coordinates"] is not None:
-                coordinates = item["coordinates"]
+    # Serialize one field at a time: avoid retaining converted copies of every array.
+    with open(output_filename, "wb") as stream:
+        pickle.dump(n_atoms, stream)
+        pickle.dump(n_structures, stream)
+        for name, unit in (
+            ("coordinates", "nm"),
+            ("box", "nm"),
+            ("time", "ps"),
+            ("structure_id", None),
+        ):
+            value = item.get(name)
+            if value is not None:
                 if not is_all(structure_indices):
-                    coordinates = coordinates[structure_indices, :, :]
-                elif not is_all(atom_indices):
-                    coordinates = coordinates[:, atom_indices, :]
-                coordinates = puw.get_value(coordinates, to_unit="nm")
-            else:
-                coordinates = None
-        else:
-            coordinates = None
-
-        pickle.dump(coordinates, fff)
-        del coordinates
-
-        if "box" in item:
-            if item["box"] is not None:
-                box = item["box"]
-                if not is_all(structure_indices):
-                    box = box[structure_indices, :, :]
-                box = puw.get_value(box, to_unit="nm")
-            else:
-                box = None
-        else:
-            box = None
-
-        pickle.dump(box, fff)
-        del box
-
-        if "time" in item:
-            if item["time"] is not None:
-                time = item["time"]
-                if not is_all(structure_indices):
-                    time = time[structure_indices]
-                time = puw.get_value(time, to_unit="ps")
-            else:
-                time = None
-        else:
-            time = None
-
-        pickle.dump(time, fff)
-        del time
-
-        if "structure_id" in item:
-            if item["structure_id"] is not None:
-                structure_id = item["structure_id"]
-                if not is_all(structure_indices):
-                    structure_id = structure_id[structure_indices]
-            else:
-                structure_id = None
-        else:
-            structure_id = None
-
-        pickle.dump(structure_id, fff)
-        del structure_id
-
-    tmp_item = output_filename
-
-    return tmp_item
+                    value = value[structure_indices]
+                if name == "coordinates" and not is_all(atom_indices):
+                    value = value[:, atom_indices, :]
+                if unit is not None:
+                    value = puw.get_value(value, to_unit=unit)
+            pickle.dump(value, stream)
+            del value
+    return output_filename

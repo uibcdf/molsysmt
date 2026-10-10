@@ -95,7 +95,6 @@ _TIER_1_FORMS = (
 _TIER_2_FORMS = (
     "biopython.Seq",
     "biopython.SeqRecord",
-    "molsysmt.CIFFileHandler",
 )
 
 _TIER_3_FORMS = (

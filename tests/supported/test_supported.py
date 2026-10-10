@@ -28,7 +28,6 @@ def test_supported_1():
             ("molsysmt.ChemicalStatesDict", "class"),
             ("molsysmt.Interactions", "class"),
             ("molsysmt.InteractionsDict", "class"),
-            ("molsysmt.CIFFileHandler", "class"),
             ("molsysmt.GROFileHandler", "class"),
             ("molsysmt.H5MSMFileHandler", "class"),
             ("molsysmt.MolecularMechanics", "class"),
@@ -157,7 +156,6 @@ def test_supported_2():
         "molsysmt.ChemicalStatesDict",
         "molsysmt.Interactions",
         "molsysmt.InteractionsDict",
-        "molsysmt.CIFFileHandler",
         "molsysmt.GROFileHandler",
         "molsysmt.H5MSMFileHandler",
         "molsysmt.MolecularMechanics",
@@ -264,7 +262,6 @@ def test_supported_3():
         "molsysmt.ChemicalStatesDict",
         "molsysmt.Interactions",
         "molsysmt.InteractionsDict",
-        "molsysmt.CIFFileHandler",
         "molsysmt.GROFileHandler",
         "molsysmt.H5MSMFileHandler",
         "molsysmt.MolecularMechanics",
@@ -326,3 +323,23 @@ def test_supported_3():
 
     assert set(df.index) == set(good_aux_list)
     assert list(df.columns) == ["nglview.NGLWidget"]
+
+
+def test_cif_files_use_real_adapters_without_a_phantom_native_handler(hp35_cif_file):
+    import numpy as np
+
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.form import _dict_modules
+
+    assert "molsysmt.CIFFileHandler" not in _dict_modules
+    assert "molsysmt.CIFFileHandler" not in set(msm.supported.forms().data["Form"])
+    assert "molsysmt.CIFFileHandler" not in msm.supported.conversions().data.index
+    assert "molsysmt.CIFFileHandler" not in msm.supported.conversions().data.columns
+    cif_file = hp35_cif_file
+    structures = msm.convert(cif_file, to_form="molsysmt.Structures", selection=[0, 2])
+    assert structures.coordinates.shape == (1, 2, 3)
+    source = msm.get(cif_file, coordinates=True)
+    np.testing.assert_allclose(
+        puw.get_value(structures.coordinates, to_unit="nm"),
+        puw.get_value(source, to_unit="nm")[:, [0, 2]],
+    )

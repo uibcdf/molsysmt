@@ -51,6 +51,11 @@ sections:
         agents_file: docs/content/user/foundations/support/AGENTS.md
         index_file: docs/content/user/foundations/support/index.md
         index_agents_file: docs/content/user/foundations/support/index.AGENTS.md
+        pages:
+          - name: files
+            description: File parser capabilities, eager CIF/TRJPK reading, fixed TRJPK units and topology-only AMBER box metadata.
+            file: docs/content/user/foundations/support/forms/files.md
+            agents_file: docs/content/user/foundations/support/forms/files.md.AGENTS.md
       - name: ecosystem
         agents_file: docs/content/user/foundations/ecosystem/AGENTS.md
         index_file: docs/content/user/foundations/ecosystem/index.md
@@ -285,6 +290,12 @@ sections:
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
         pages:
+          - file: docs/content/user/tools/form/file/file_prmtop.ipynb
+            agents_file: docs/content/user/tools/form/file/file_prmtop.ipynb.AGENTS.md
+            description: AMBER topology attributes and box geometry without invented coordinate structures.
+          - file: docs/content/user/tools/form/file/file_trjpk.ipynb
+            agents_file: docs/content/user/tools/form/file/file_trjpk.ipynb.AGENTS.md
+            description: Header axis counts, eager structural queries and ordered subset export through StructuresDict.
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
             description: Modular persistence, typed construction, normalization and geometry history, complementary file composition, shared axes and legacy migration.

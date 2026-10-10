@@ -6,7 +6,7 @@ form_info = [
 ]
 
 piped_topological_attribute = "molsysmt.Topology"
-piped_structural_attribute = None
+piped_structural_attribute = "openmm.AmberPrmtopFile"
 piped_any_attribute = None
 bonds_are_explicit = True
 bonds_can_be_computed = False

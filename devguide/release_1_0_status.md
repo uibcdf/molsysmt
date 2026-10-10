@@ -2466,3 +2466,23 @@ The eight-cell exact-source matrix is still running. MolSysViewer must provide
 its exact 0.24.0 staging file/build/hash before the sixteen-cell installed pair
 can run. Public tagging, Release publication and promotion remain pending;
 the available files support the next consumer qualification step.
+
+## Final adapter-delivery stabilization — 2026-10-10
+
+During the publication pause, #139 is resolved: all 95 registered adapters have
+catalog-compatible attribute delivery routes and the accepted delivery masks are
+empty. PRMTOP box geometry and TRJPK queries reuse existing readers and general
+geometry/count tools; the nonexistent native CIFFileHandler registration and
+fake documentation are retired while real CIF file conversions remain tested.
+#365 repairs aligned TRJPK subset export with fixed nm/ps storage; #370 repairs
+its public identity/copy dispatch. The selected public/dictionary/doctest suite
+passes 328 cases, ten strict docstring renders pass, and the three affected
+catalog notebooks execute with unchanged code. Records:
+[delivery audit](archive/resolved_bugs/form_attributes_declared_without_getters.md),
+[TRJPK subsets](archive/resolved_bugs/trjpk_subset_exports_fail_on_list_selections.md)
+and [TRJPK identity](archive/resolved_bugs/trjpk_identity_conversion_rejects_its_output_filename.md).
+
+#368 records independent broken legacy CCD regeneration scripts as post-1.0
+maintenance; #144 retains broader documentation warning debt. These repairs
+neither resume publication nor qualify a replacement candidate. Frozen refs,
+artifact hashes and receipts remain unchanged; no new heavy matrix is run.

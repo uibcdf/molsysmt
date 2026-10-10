@@ -143,7 +143,6 @@ for _form in (
     "mdtraj.AmberRestartFile",
     "mdtraj.HDF5TrajectoryFile",
     "mmcif.PdbxContainers.DataContainer",
-    "molsysmt.CIFFileHandler",
     "molsysmt.MolecularMechanicsDict",
     "openmm.Context",
     "openmm.GromacsTopFile",

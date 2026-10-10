@@ -3,7 +3,7 @@ form_type = "file"
 form_info = ["", ""]
 
 piped_topological_attribute = None
-piped_structural_attribute = None
+piped_structural_attribute = "molsysmt.StructuresDict"
 piped_any_attribute = None
 
 # Form metadata and export initialization retain their established import order.
@@ -30,9 +30,8 @@ _convert_to = {
     "molsysmt.StructuresDict": "to_molsysmt_StructuresDict",
 }
 
+_conversion_opt_kwargs = {"file:trjpk": ["output_filename", "output_name"]}
 
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
+
 bonds_are_explicit = False
 bonds_can_be_computed = False

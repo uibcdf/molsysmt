@@ -14,7 +14,7 @@ def to_molsysmt_StructuresDict(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Input TRJPK file, read using its existing six-record pickle layout.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -25,7 +25,9 @@ def to_molsysmt_StructuresDict(
     Returns
     -------
     molsysmt.StructuresDict
-        Resulting object in molsysmt.StructuresDict form.
+        Dictionary with selected coordinates, box, time and structure IDs.
+        Missing optional fields remain None. Stored nm/ps quantities are
+        standardized to the configured units.
 
 
     .. versionadded:: 1.0.0
@@ -48,17 +50,17 @@ def to_molsysmt_StructuresDict(
             coordinates = coordinates[structure_indices, :, :]
         if not is_all(atom_indices):
             coordinates = coordinates[:, atom_indices, :]
-        coordinates = puw.quantity(coordinates, unit="nm")
+        coordinates = puw.standardize(puw.quantity(coordinates, unit="nm"))
 
     if box is not None:
         if not is_all(structure_indices):
             box = box[structure_indices, :, :]
-        box = puw.quantity(box, unit="nm")
+        box = puw.standardize(puw.quantity(box, unit="nm"))
 
     if time is not None:
         if not is_all(structure_indices):
             time = time[structure_indices]
-        time = puw.quantity(time, unit="ps")
+        time = puw.standardize(puw.quantity(time, unit="ps"))
 
     if mdstep is not None:
         if not is_all(structure_indices):

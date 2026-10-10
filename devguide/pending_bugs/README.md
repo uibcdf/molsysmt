@@ -22,11 +22,10 @@ that front matter -- edit the entries, not this list.
 
 ### Open (1)
 
-- [`trjpk_subset_exports_fail_on_list_selections.md`](trjpk_subset_exports_fail_on_list_selections.md) — [#365](https://github.com/uibcdf/molsysmt/issues/365) — TRJPK subset exports fail on list selections *(medium, reproduced)*
+- [`legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md`](legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md) — [#368](https://github.com/uibcdf/molsysmt/issues/368) — Legacy chemical database generators import a nonexistent CIFFileHandler *(low, inspected)*
 
-### Partially resolved (2)
+### Partially resolved (1)
 
-- [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 
 <!-- /generated -->

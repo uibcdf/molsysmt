@@ -4,7 +4,6 @@ Form adapters for MolSysMT in-memory classes and objects.
 
 | Class | Description |
 | :--- | :--- |
-| [CIFFileHandler](molsysmt_CIFFileHandler.ipynb) | Form adapter for `CIFFileHandler` |
 | [GROFileHandler](molsysmt_GROFileHandler.ipynb) | Form adapter for `GROFileHandler` |
 | [H5MSMFileHandler](molsysmt_H5MSMFileHandler.ipynb) | Form adapter for `H5MSMFileHandler` |
 | [MolSys](molsysmt_MolSys.ipynb) | Form adapter for `MolSys` |
@@ -24,7 +23,6 @@ Form adapters for MolSysMT in-memory classes and objects.
    :maxdepth: 1
    :hidden:
 
-   CIFFileHandler <molsysmt_CIFFileHandler.ipynb>
    GROFileHandler <molsysmt_GROFileHandler.ipynb>
    H5MSMFileHandler <molsysmt_H5MSMFileHandler.ipynb>
    MolSys <molsysmt_MolSys.ipynb>
