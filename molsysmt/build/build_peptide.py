@@ -937,6 +937,8 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
 
     NotSupportedFormError
         Raised if the output form is not recognized or supported.
+    OSError
+        If an intermediate file operation or LEaP scratch cleanup fails.
 
 
     Notes
@@ -948,6 +950,9 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
       when the same characters are also valid SMILES.
     - Terminal caps can be specified explicitly by using residue names such as 'ACE' (N-terminus) and 'NME' (C-terminus).
     - The resulting structure is built in vacuum and can be subsequently solvated using :func:`molsysmt.build.solvate`.
+    - The LEaP engine owns its intermediate directory through construction and
+      conversion. It retires that directory on success and failure; file and
+      cleanup errors propagate to the caller.
 
 
     See Also
@@ -982,11 +987,9 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
     """
 
     if engine == "LEaP":
-        from os import getcwd
-        from shutil import rmtree
+        from tempfile import TemporaryDirectory
 
         from molsysmt._private.files_and_directories import (
-            temp_directory,
             temp_filename,
         )
         from molsysmt.basic import convert
@@ -998,38 +1001,35 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
             [sequence[ii : ii + 3] for ii in range(0, len(sequence), 3)]
         )
 
-        getcwd()
-        working_directory = temp_directory()
-        temp_prmtop = temp_filename(dir=working_directory, extension="prmtop")
-        temp_inpcrd = temp_prmtop.replace("prmtop", "inpcrd")
+        with TemporaryDirectory(prefix="molsysmt-peptide-") as working_directory:
+            temp_prmtop = temp_filename(dir=working_directory, extension="prmtop")
+            temp_inpcrd = temp_prmtop.replace("prmtop", "inpcrd")
 
-        if False:
-            print("Working directory:", working_directory)
+            if False:
+                print("Working directory:", working_directory)
 
-        tleap = TLeap()
+            tleap = TLeap()
 
-        # 'AMBER14'
-        tleap.load_parameters("leaprc.protein.ff14SB")
+            # 'AMBER14'
+            tleap.load_parameters("leaprc.protein.ff14SB")
 
-        # implicit_solvent 'OBC1'
-        tleap.set_global_parameter(PBRadii="mbondi2")
+            # implicit_solvent 'OBC1'
+            tleap.set_global_parameter(PBRadii="mbondi2")
 
-        tleap.make_sequence("peptide", sequence)
-        tleap.check_unit("peptide")
-        tleap.get_total_charge("peptide")
+            tleap.make_sequence("peptide", sequence)
+            tleap.check_unit("peptide")
+            tleap.get_total_charge("peptide")
 
-        tleap.save_unit("peptide", temp_prmtop)
+            tleap.save_unit("peptide", temp_prmtop)
 
-        tleap.run(working_directory=working_directory, verbose=False)
+            tleap.run(working_directory=working_directory, verbose=False)
 
-        del tleap
+            del tleap
 
-        temp_item = convert([temp_prmtop, temp_inpcrd], to_form=to_form)
+            temp_item = convert([temp_prmtop, temp_inpcrd], to_form=to_form)
 
-        if to_form in ["molsysmt.MolSys", "molsysmt.Topology"]:
-            temp_item.topology.chains["chain_name"] = "A"
-
-        rmtree(working_directory)
+            if to_form in ["molsysmt.MolSys", "molsysmt.Topology"]:
+                temp_item.topology.chains["chain_name"] = "A"
 
     elif engine == "MolSysMT":
         from molsysmt import pyunitwizard as puw

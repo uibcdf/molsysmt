@@ -1,0 +1,458 @@
+{
+  "schema": "molsysmt.resource-owner-review@1",
+  "issue": "uibcdf/molsysmt#371",
+  "date": "2026-10-10",
+  "observed_at": "2026-10-10T07:20:50.590821+00:00",
+  "source_parent": "70d1400b9514904fbf9b1a5ca126ddf4591e63dc",
+  "source_scope": "worktree includes current #372/#373 repairs; executable source hashes identify reviewed bytes",
+  "source_sha256": {
+    "molsysmt/_private/execution/persistent_result.py": "6b9f7f22ee3d91f6d09cabd35e935ef819e3fa5908c7524096ddcd5408639e20",
+    "molsysmt/third_party/tleap/tleap.py": "82022afc074f60aa59d99bfc2f83d3d3fadf83d6f442eeb4f0e8c7a860b5c3d6",
+    "molsysmt/build/build_peptide.py": "72a8f0bb815852c3debbc4f6ac33e13242cf909cd22ae66958ff92bdd90c2f45",
+    "devtools/tleap/check_tleap.sh": "c45585f9d593595548c4eecf79b4b4e051d2dc66c74a511c8dd911f0333ececf",
+    "tests/heavy/test_persistent_result.py": "ee7b382d944b7feaf8daea89c81d82ebc094eee3d8575322b49063749cc2373c",
+    "tests/third_party/tleap/test_tleap.py": "bb0bc9a783d852b8e1f465552e7616f0e5b719ac0230f223dfd55ff4a69a3e38",
+    "tests/build/build_peptide/test_leap_resource_lifecycle.py": "376747617b3baac7ddf88f3f9d2cade12f45c0d352d5e1567f94f329e148f6ea",
+    "devtools/tests/test_tleap_check.py": "3eba30a9cf7a73b904c692071be9c090dd8171c5b4c2f1113a966e5e0f02e1e1"
+  },
+  "allocation_inventory": [
+    {
+      "source": "devtools/conda-envs/create_conda_env.py",
+      "line": 53,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_streaming_writer.py",
+      "line": 298,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_ionic_interactions.py",
+      "line": 146,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_ionic_interactions.py",
+      "line": 292,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_specialized_bound.py",
+      "line": 301,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_scope.py",
+      "line": 54,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_streamed_reads.py",
+      "line": 165,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/execute_scientific_evidence.py",
+      "line": 83,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_compound_hdf5.py",
+      "line": 401,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_layouts.py",
+      "line": 620,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/validate_conda_abi3_artifact.py",
+      "line": 103,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_temporal_complete.py",
+      "line": 312,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_pi_pi_interactions.py",
+      "line": 128,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_pi_pi_interactions.py",
+      "line": 199,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_projected_reader.py",
+      "line": 233,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions.py",
+      "line": 167,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_packed_selection.py",
+      "line": 199,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_file_backed.py",
+      "line": 321,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_sqlite.py",
+      "line": 398,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_contract.py",
+      "line": 492,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_edits.py",
+      "line": 201,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_flat_edits.py",
+      "line": 220,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_flat_blocks.py",
+      "line": 367,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_hdf5_writing.py",
+      "line": 110,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/probe_native_pdb_connectivity.py",
+      "line": 74,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_structural_edits.py",
+      "line": 250,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_remap_roundtrip.py",
+      "line": 135,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_temporal.py",
+      "line": 153,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_temporal.py",
+      "line": 444,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_multi_analysis.py",
+      "line": 116,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_cation_pi_interactions.py",
+      "line": 139,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_cation_pi_interactions.py",
+      "line": 213,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_reopened_queries.py",
+      "line": 322,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_indexed_files.py",
+      "line": 141,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_frame_first.py",
+      "line": 102,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/validate_development_archives.py",
+      "line": 48,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/benchmark_interactions_adaptive_blocks.py",
+      "line": 363,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "devtools/scripts/attributed_interaction_oracles.py",
+      "line": 482,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/build/get_missing_bonds.py",
+      "line": 333,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/build/build_peptide.py",
+      "line": 1004,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/build/build_peptide.py",
+      "line": 1005,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/build/get_missing_residues.py",
+      "line": 43,
+      "call": "NamedTemporaryFile",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/_private/files_and_directories.py",
+      "line": 10,
+      "call": "NamedTemporaryFile",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/_private/files_and_directories.py",
+      "line": 18,
+      "call": "mkdtemp",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/_private/execution/persistent_result.py",
+      "line": 44,
+      "call": "NamedTemporaryFile",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/third_party/tleap/tleap.py",
+      "line": 344,
+      "call": "mkdtemp",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/openmm_Simulation/to_pdbfixer_PDBFixer.py",
+      "line": 41,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/string_alphafold_id/to_mmcif_PdbxContainers_DataContainer.py",
+      "line": 72,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/file_bcif_gz/download.py",
+      "line": 57,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/string_pdb_text/to_file_pdb.py",
+      "line": 43,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/string_uniprot_id/to_file_fasta.py",
+      "line": 48,
+      "call": "mkstemp",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/file_cif_gz/download.py",
+      "line": 57,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/file_cif_gz/to_mmcif_PdbxContainers_DataContainer.py",
+      "line": 59,
+      "call": "TemporaryDirectory",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/file_pdb/download.py",
+      "line": 57,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/file_cif/download.py",
+      "line": 57,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/file_bcif/download.py",
+      "line": 57,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    },
+    {
+      "source": "molsysmt/form/string_pdb_id/to_mmcif_PdbxContainers_DataContainer.py",
+      "line": 74,
+      "call": "temp_filename",
+      "evidence": "source-inventory entry; not a lifecycle pass"
+    }
+  ],
+  "inventory_limit": "Python static allocation call names plus explicit Bash/workflow/docs-output review; this is not a universal cleanup validator",
+  "executed": {
+    "initial_handle_and_developer_check": {
+      "failed": 7,
+      "passed": 7
+    },
+    "initial_leap_runtime": {
+      "failed": 5,
+      "passed": 11
+    },
+    "repaired_resource_scope": {
+      "passed": 30
+    },
+    "expanded_selected_regressions_and_doctest": {
+      "passed": 278,
+      "warnings": 23
+    },
+    "strict_docstring_renders": {
+      "passed": 2,
+      "rst_warnings": 0,
+      "python_deprecation_warnings": 4
+    },
+    "platform": "Linux",
+    "python": "3.14.7",
+    "pytest_workers": 12
+  },
+  "owner_dispositions": [
+    {
+      "scope": "Conda helpers and development archives",
+      "owner": "dprada/LMMV",
+      "state": "existing #351/#317 guards rerun in the selected suite"
+    },
+    {
+      "scope": "memmap/LEaP owned failures and caller custody",
+      "owner": "dprada/LMMV",
+      "state": "repaired with executed guards",
+      "issues": [
+        "uibcdf/molsysmt#372",
+        "uibcdf/molsysmt#373"
+      ]
+    },
+    {
+      "scope": "managed benchmark/parser/qualification contexts and explicit receipts",
+      "owner": "invoking MolSysMT task / dprada/LMMV",
+      "state": "source inspected; ordinary retention/cleanup contract; no all-tool or hosted-platform execution claim"
+    },
+    {
+      "scope": "legacy optional bridges, failed generated outputs and standalone loaded library",
+      "owner": "dprada/LMMV",
+      "state": "bounded implementation exception",
+      "issue": "uibcdf/molsysmt#374",
+      "review": "2026-10-24 or before next affected invocation"
+    },
+    {
+      "scope": "paused release artifacts and historical local attribution/retirement",
+      "owner": "dprada/LMMV",
+      "state": "preserve; explicit owner/path review at release closeout",
+      "issue": "uibcdf/molsysmt#334",
+      "review": "2026-10-24 or publication resume"
+    }
+  ],
+  "local_resource_observation": {
+    "metadata_names": 1121,
+    "ownership_proof": false,
+    "disposal": false,
+    "local_uid": 2001,
+    "full_local_snapshot": "/tmp/molsysmt-371-namespace-metadata.json",
+    "explicit_task_inventory": "/tmp/molsysmt-371-owned-resources.json",
+    "retained_purpose": "repair evidence and paused-release closeout; owner dprada/LMMV",
+    "review": "2026-10-24 or release resume; no automatic deletion"
+  },
+  "historical_attribution": "Central 55-path absence report is upstream evidence; no original deletion attribution is inferred or independently certified on this host",
+  "protected": [
+    "primary checkout",
+    "shared development environment",
+    "caller evidence",
+    "active/human/other-session resources",
+    "frozen candidate references and artifacts"
+  ],
+  "limits": [
+    "No global deletion or gigabyte file-content rescue scan",
+    "No new heavy matrix or candidate rebuild/publication",
+    "Injected failure control flow is distinct from actual OS/platform fault qualification",
+    "Unresolved implementation exceptions and retrospective attribution stay assigned to owning issues"
+  ],
+  "validation": {
+    "fast_gates": {
+      "passed": 14,
+      "failed": 0
+    },
+    "ruff": "lint and format pass",
+    "public_api_parent_comparison": "0 unauthorized signature drifts",
+    "bash_syntax": "pass",
+    "notebook_code_and_outputs": "unchanged",
+    "heavy_release_matrices": "not executed"
+  }
+}

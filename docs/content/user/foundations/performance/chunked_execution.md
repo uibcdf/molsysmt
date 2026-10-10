@@ -48,6 +48,15 @@ center = msm.structure.get_center('system.h5msm', selection='all', heavy_mode='o
 
 Configuration sets working estimates rather than an operating-system memory cap. `auto` selects a route using input footprint estimates; ionic calculation also considers its selected coordinate workspace. Unsupported forced combinations raise an explicit error.
 
+## Owning disk-backed results
+
+When a supported operation returns a disk-backed result handle, manage its
+lifetime with a context or explicit `cleanup()`. Automatically created backing
+files are removed on cleanup and on failed mapping construction. A path supplied
+by you stays under your control and is not deleted by those operations. Cleanup
+errors propagate so that failed disk retirement remains visible. Avoid copying
+the complete result into RAM unless it fits your working budget.
+
 ## Ionic analyses and H5MSM 0.5
 
 For supported file calculations, the ionic detector prepares topology, chemical states, and association metadata once, without reading all coordinates or stored analyses. It then projects eligible participant atoms in blocks. Atom-axis identity must be declared, and structure-assigned chemistry must resolve to one known state for the selected structures.

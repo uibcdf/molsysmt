@@ -180,6 +180,11 @@ backing file is deleted by `cleanup()`; a caller-provided path remains under
 caller control. Disk-backed delivery is operation- and size-dependent. It is not
 a general return type for every heavy operation.
 
+If mapping construction fails, the automatically allocated file is retired
+before the exception propagates. Caller-provided files are not deleted.
+Retirement failures stay visible, including the original construction error
+as exception context. See [resource ownership](temporary_resource_operations.md).
+
 Callers receiving a handle must manage its lifecycle explicitly and avoid
 calling `to_memory()` unless the complete output fits in RAM.
 

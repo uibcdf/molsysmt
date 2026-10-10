@@ -74,6 +74,19 @@ def test_least_rmsd_fit_docstring_renders_without_rst_errors(tmp_path):
     )
 
 
+@pytest.mark.parametrize(
+    "function_name,tutorial_label",
+    [
+        ("molsysmt.build.build_peptide", "Tutorial_Build_peptide"),
+        ("molsysmt.third_party.tleap.TLeap.run", "Tutorial_TLeap"),
+    ],
+)
+def test_resource_lifecycle_docstrings_render_without_rst_errors(
+    tmp_path, function_name, tutorial_label
+):
+    _render_api_docstring(tmp_path, function_name, tutorial_label)
+
+
 def test_nglview_color_docstring_renders_without_rst_errors(tmp_path, monkeypatch):
     _render_api_docstring(
         tmp_path,

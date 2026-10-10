@@ -297,7 +297,44 @@ class TLeap:
         return_diagnostics=False,
         keep_working_directory=False,
     ):
-        """Running tLEaP script and returning warnings or structured diagnostics."""
+        """Running a tLEaP script and returning warnings or diagnostics.
+
+        Parameters
+        ----------
+        working_directory : str or None, default=None
+            Directory for the script and intermediates. An explicit directory
+            remains caller-owned; ``None`` creates disposable owned scratch.
+        verbose : bool, default=False
+            Whether to print the child output.
+        strict : bool, default=False
+            Whether critical diagnostic patterns reject the result.
+        return_diagnostics : bool, default=False
+            Whether to return a diagnostic dictionary instead of warning strings.
+        keep_working_directory : bool, default=False
+            Whether to retain generated scratch for caller inspection and cleanup.
+
+        Returns
+        -------
+        list of str or dict
+            Warning strings, or diagnostics including the directory and log paths.
+            A generated working directory is retired before return unless retained.
+
+        Raises
+        ------
+        RuntimeError
+            If the child cannot start, exits unsuccessfully, omits requested
+            outputs or triggers strict rejection.
+        OSError
+            If input/output copying or owned-directory cleanup fails.
+
+        Notes
+        -----
+        Input copying, execution and output collection share the same cleanup
+        scope. Failure does not delete explicit working directories or caller
+        output files. Cleanup errors propagate, and the original process working
+        directory is restored. This method temporarily changes that process
+        directory; its calls must be serialized within one Python process.
+        """
 
         current_directory = os.getcwd()
         temporary_working_directory = False
@@ -308,15 +345,15 @@ class TLeap:
         else:
             os.makedirs(working_directory, exist_ok=True)
 
-        for local_file, source_path in self._input_file_paths.items():
-            destination = os.path.join(working_directory, local_file)
-            if os.path.abspath(source_path) != os.path.abspath(destination):
-                shutil.copy(source_path, destination)
-
         leap_output = ""
         log_path = ""
 
         try:
+            for local_file, source_path in self._input_file_paths.items():
+                destination = os.path.join(working_directory, local_file)
+                if os.path.abspath(source_path) != os.path.abspath(destination):
+                    shutil.copy(source_path, destination)
+
             os.chdir(working_directory)
             self.export_script("leap.in")
 
@@ -428,7 +465,7 @@ class TLeap:
         finally:
             os.chdir(current_directory)
             if temporary_working_directory and not keep_working_directory:
-                shutil.rmtree(working_directory, ignore_errors=True)
+                shutil.rmtree(working_directory)
 
     @staticmethod
     def _sanitize_unit_name(unit_name):

@@ -2514,3 +2514,24 @@ the constraint. See the [resolved record](archive/resolved_bugs/translated_fit_a
 
 This is main-source stabilization during the publication pause. It does not
 qualify a replacement candidate, modify frozen references or resume publication.
+
+## Resource-owner stabilization — 2026-10-10
+
+The preceding fit repair at 70d1400b9514904fbf9b1a5ca126ddf4591e63dc passes all
+five applicable hosted checks, including CI smoke 38032696174.
+
+#371 records the component resource-owner review. #372 repairs orphaned owned
+storage after failed memmap construction; #373 repairs caller-log custody in the
+developer LEaP check and failure cleanup in the wrapper/peptide builder. Selected
+regressions and the peptide doctest pass **278 cases** in twelve workers; both
+changed public docstrings render without RST warnings. Source inspection,
+controlled failure execution and historical cleanup attribution remain distinct.
+See the [owner review](archive/resolved_proposals/review_temporary_resource_ownership_and_tool_lifecycle.md)
+and [operating contract](temporary_resource_operations.md).
+
+#374 retains bounded post-1.0 legacy optional/native-probe lifecycle debt.
+dprada/LMMV own retrospective resource attribution and release closeout under
+#334, with review on 2026-10-24 or publication resume. Name/uid metadata alone
+does not authorize disposal. Shared environments, active/human resources and
+frozen identities remain protected. This block does not resume publication or
+qualify a replacement candidate.

@@ -32,3 +32,10 @@ Run scripts from the repository root.
   rejects failures, errors and skips, and can write a JSON execution certificate
   for the exact commit and environment.
 - `validate_resources.py` checks project resource metadata.
+
+## Temporary resources
+
+Follow the [MolSysMT resource contract](../../devguide/temporary_resource_operations.md)
+when creating tool scratch, retaining receipts or retiring outputs. Source
+inspection and actual success/failure cleanup tests provide different evidence;
+neither permits deleting caller files or frozen release artifacts.

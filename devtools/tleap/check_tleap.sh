@@ -25,7 +25,9 @@ if ! command -v tleap >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "[tleap-check] Found: $(command -v tleap)"
+tleap_executable="$(command -v tleap)"
+tleap_executable="$(cd "$(dirname "${tleap_executable}")" && pwd)/$(basename "${tleap_executable}")"
+echo "[tleap-check] Found: ${tleap_executable}"
 
 tmpdir="$(mktemp -d)"
 cleanup() {
@@ -38,7 +40,7 @@ quit
 EOF
 
 output_file="${tmpdir}/tleap.out"
-if tleap -f "${tmpdir}/leap.in" > "${output_file}" 2>&1; then
+if (cd "${tmpdir}" && "${tleap_executable}" -f leap.in) > "${output_file}" 2>&1; then
   echo "[tleap-check] Smoke test passed."
 else
   echo "[tleap-check] ERROR: tleap smoke test failed. Output follows:" >&2

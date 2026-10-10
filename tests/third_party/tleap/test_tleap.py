@@ -1,10 +1,85 @@
+import errno
 import os
 import shutil
+import subprocess
 from pathlib import Path
 
 import pytest
 
 from molsysmt.third_party.tleap import TLeap
+
+
+@pytest.mark.parametrize("stage", ["copy", "start", "child", "success"])
+def test_owned_workdir_is_retired_on_success_and_failure(monkeypatch, tmp_path, stage):
+    """Cover setup failures as well as child outcomes inside the owned scope."""
+    workdir = tmp_path / "owned"
+    input_file = tmp_path / "input.lib"
+    input_file.write_text("caller input")
+    sentinel = tmp_path / "caller.log"
+    sentinel.write_text("retained evidence")
+    original_cwd = Path.cwd()
+    tleap = TLeap()
+    tleap.load_parameters(str(input_file))
+    if stage == "copy":
+        input_file.unlink()
+
+    def make_directory():
+        workdir.mkdir()
+        return str(workdir)
+
+    def run_child(*args, **kwargs):
+        assert Path.cwd() == workdir
+        if stage == "start":
+            raise FileNotFoundError("missing child")
+        (workdir / "leap.log").write_text("private child log")
+        return subprocess.CompletedProcess(
+            args[0], 17 if stage == "child" else 0, stdout=""
+        )
+
+    monkeypatch.setattr("tempfile.mkdtemp", make_directory)
+    monkeypatch.setattr("subprocess.run", run_child)
+    expected_error = {
+        "copy": FileNotFoundError,
+        "start": RuntimeError,
+        "child": RuntimeError,
+    }
+    if stage == "success":
+        assert tleap.run() == []
+    else:
+        with pytest.raises(expected_error[stage]):
+            tleap.run()
+    assert not workdir.exists()
+    assert Path.cwd() == original_cwd
+    assert sentinel.read_text() == "retained evidence"
+    if stage != "copy":
+        assert input_file.read_text() == "caller input"
+
+
+def test_owned_workdir_removal_failure_is_visible(monkeypatch, tmp_path):
+    """Make an actual rmtree unlink failure visible to the caller."""
+    workdir = tmp_path / "owned"
+    original_cwd = Path.cwd()
+    real_unlink = os.unlink
+
+    def make_directory():
+        workdir.mkdir()
+        return str(workdir)
+
+    def deny_script_unlink(path, *args, **kwargs):
+        if Path(path).name == "leap.in":
+            raise PermissionError(errno.EACCES, "scratch retirement denied", str(path))
+        return real_unlink(path, *args, **kwargs)
+
+    def run_child(*args, **kwargs):
+        return subprocess.CompletedProcess(args[0], 0, stdout="")
+
+    monkeypatch.setattr("tempfile.mkdtemp", make_directory)
+    monkeypatch.setattr("subprocess.run", run_child)
+    monkeypatch.setattr(os, "unlink", deny_script_unlink)
+    with pytest.raises(PermissionError, match="scratch retirement denied"):
+        TLeap().run()
+    assert workdir.exists()
+    assert Path.cwd() == original_cwd
 
 
 def test_save_unit_inpcrd_builds_paired_outputs():

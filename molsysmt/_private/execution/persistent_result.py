@@ -19,6 +19,10 @@ class PersistentResultHandle:
     file instead (the file is NOT deleted on cleanup in that case, giving
     the caller full control over its lifecycle).
 
+    If mapping construction fails, an automatically allocated backing file is
+    removed before the error propagates. Caller-provided paths are not deleted.
+    Retirement failures propagate and retain the original error as context.
+
     Parameters
     ----------
     shape : tuple
@@ -44,9 +48,14 @@ class PersistentResultHandle:
             self._path = Path(path)
             self._path.parent.mkdir(parents=True, exist_ok=True)
 
-        self._array = np.memmap(
-            self._path, dtype=self.dtype, mode="w+", shape=self.shape
-        )
+        try:
+            self._array = np.memmap(
+                self._path, dtype=self.dtype, mode="w+", shape=self.shape
+            )
+        except BaseException:
+            if self._owns_file:
+                self._path.unlink(missing_ok=True)
+            raise
 
     # --- array-like interface ---
 

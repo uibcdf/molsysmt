@@ -3,8 +3,63 @@ Tests for PersistentResultHandle disk-backed output.
 """
 
 import numpy as np
+import pytest
 
 from molsysmt._private.execution import PersistentResultHandle
+
+
+@pytest.mark.parametrize(
+    "failure", [ValueError("invalid mapping"), OSError("disk error")]
+)
+def test_failed_mapping_retires_only_owned_storage(monkeypatch, tmp_path, failure):
+    """Remove allocated scratch on constructor failure and preserve caller files."""
+    import tempfile
+
+    monkeypatch.setattr(tempfile, "tempdir", str(tmp_path))
+
+    def fail_mapping(*args, **kwargs):
+        raise failure
+
+    monkeypatch.setattr(np, "memmap", fail_mapping)
+    caller = tmp_path / "caller.dat"
+    caller.write_bytes(b"caller evidence")
+    with pytest.raises(type(failure), match=str(failure)):
+        PersistentResultHandle((2, 3))
+    assert sorted(tmp_path.iterdir()) == [caller]
+    with pytest.raises(type(failure), match=str(failure)):
+        PersistentResultHandle((2, 3), path=caller)
+    assert caller.read_bytes() == b"caller evidence"
+
+
+def test_constructor_cleanup_failure_is_visible(monkeypatch, tmp_path):
+    """Report a failed scratch retirement rather than losing both errors."""
+    import tempfile
+    from pathlib import Path
+
+    monkeypatch.setattr(tempfile, "tempdir", str(tmp_path))
+
+    def fail_mapping(*args, **kwargs):
+        raise ValueError("invalid mapping")
+
+    def fail_unlink(path, *args, **kwargs):
+        raise PermissionError("scratch retirement denied")
+
+    monkeypatch.setattr(np, "memmap", fail_mapping)
+    monkeypatch.setattr(Path, "unlink", fail_unlink)
+    with pytest.raises(PermissionError, match="scratch retirement denied") as caught:
+        PersistentResultHandle((2, 3))
+    assert isinstance(caught.value.__context__, ValueError)
+    assert str(caught.value.__context__) == "invalid mapping"
+
+
+def test_context_failure_retires_owned_storage():
+    """Remove scratch when a calculation using an established handle fails."""
+    with pytest.raises(RuntimeError, match="calculation failed"):
+        with PersistentResultHandle((2, 3)) as handle:
+            path = handle.path
+            handle[:] = 1
+            raise RuntimeError("calculation failed")
+    assert not path.exists()
 
 
 def test_persistent_result_write_read():
