@@ -22,7 +22,7 @@ that front matter -- edit the entries, not this list.
 
 ### Open (1)
 
-- [`legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md`](legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md) — [#368](https://github.com/uibcdf/molsysmt/issues/368) — Legacy chemical database generators import a nonexistent CIFFileHandler *(low, inspected)*
+- [`amino_acid_met_supplements_reference_an_undeclared_oxt_atom.md`](amino_acid_met_supplements_reference_an_undeclared_oxt_atom.md) — [#380](https://github.com/uibcdf/molsysmt/issues/380) — Amino-acid MET supplements reference an undeclared OXT atom *(low, reproduced)*
 
 ### Partially resolved (1)
 

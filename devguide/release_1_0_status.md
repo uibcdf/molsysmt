@@ -81,9 +81,26 @@ converts its units before updating a copied topology. Source topology, current
 pose, caller paths and nm/angstrom session policies are protected by the
 [export regression](archive/resolved_bugs/simulation_pdb_export_passes_a_structure_axis_box_to_openmm.md).
 The combined lifecycle/export selection passes **13 tests**, and three strict
-API rendering guards pass. The remaining #368 regeneration-script maintenance
-is still open. None of this resumes frozen-pair publication or qualifies newer
-source as an installed candidate.
+API rendering guards pass. The #368 regeneration-script repair is recorded below.
+None of this resumes frozen-pair publication or qualifies newer source as an
+installed candidate.
+
+## Chemical database generation repair — 2026-10-10
+
+#368 now has four inert CLI entry points sharing the existing real mmCIF parser
+and a private maintenance owner. Explicit CCD/RTP/JSON inputs produce the current
+reader schemas, sorted files and input/output hash manifests. Malformed inputs
+and nonempty output directories fail before writing. The
+[record](archive/resolved_bugs/legacy_chemical_database_generators_import_a_nonexistent_ciffilehandler.md)
+and maintained [workflow](chemical_group_database_generation.md) document scope.
+**39 focused tests** pass with Python 3.14 and twelve workers, including existing
+reader delivery, byte reproducibility and a real curated MSE component. No
+distributed databases are regenerated. Validation separately finds #380: two MET
+supplements and their bundled variants contain an undeclared OXT endpoint; the
+new generator rejects that inconsistent source until its chemistry is reviewed.
+The prior source head `889b3b4fe0ddac4a24105b49a58d3321e8708045` passes all five
+ordinary hosted checks. Frozen-candidate identities and the publication pause
+remain unchanged.
 
 ## Native shortcut repair — 2026-10-10
 

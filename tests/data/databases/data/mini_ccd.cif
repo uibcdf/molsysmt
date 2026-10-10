@@ -1,0 +1,80 @@
+# Synthetic name/connectivity fixture; no chemical completeness is claimed.
+data_LIG
+_chem_comp.id LIG
+_chem_comp.name 'EXAMPLE LIGAND'
+_chem_comp.type NON-POLYMER
+loop_
+_chem_comp_atom.comp_id
+_chem_comp_atom.atom_id
+_chem_comp_atom.alt_atom_id
+LIG C1 1C
+LIG O1 1O
+_chem_comp_bond.comp_id LIG
+_chem_comp_bond.atom_id_1 C1
+_chem_comp_bond.atom_id_2 O1
+#
+data_SO4
+_chem_comp.id SO4
+_chem_comp.name 'SULFATE ION'
+_chem_comp.type non-polymer
+_chem_comp.three_letter_code SO4
+loop_
+_chem_comp_atom.comp_id
+_chem_comp_atom.atom_id
+_chem_comp_atom.alt_atom_id
+SO4 S S
+SO4 O1 ?
+_chem_comp_bond.comp_id SO4
+_chem_comp_bond.atom_id_1 S
+_chem_comp_bond.atom_id_2 O1
+#
+data_GLC
+_chem_comp.id GLC
+_chem_comp.name
+;EXAMPLE SUGAR
+with a multiline name
+;
+_chem_comp.type 'L-saccharide, beta linking'
+loop_
+_chem_comp_atom.comp_id
+_chem_comp_atom.atom_id
+_chem_comp_atom.alt_atom_id
+GLC C1 C1
+GLC O1 O1
+_chem_comp_bond.comp_id GLC
+_chem_comp_bond.atom_id_1 C1
+_chem_comp_bond.atom_id_2 O1
+#
+data_NA
+_chem_comp.id NA
+_chem_comp.name 'SODIUM ION'
+_chem_comp.type other
+_chem_comp.three_letter_code NA
+_chem_comp_atom.comp_id NA
+_chem_comp_atom.atom_id NA
+_chem_comp_atom.alt_atom_id Na
+#
+data_ALA
+_chem_comp.id ALA
+_chem_comp.name ALANINE
+_chem_comp.type 'l-peptide linking'
+loop_
+_chem_comp_atom.comp_id
+_chem_comp_atom.atom_id
+_chem_comp_atom.alt_atom_id
+ALA N NT
+ALA CA CA
+_chem_comp_bond.comp_id ALA
+_chem_comp_bond.atom_id_1 N
+_chem_comp_bond.atom_id_2 CA
+#
+data_UNL
+_chem_comp.id UNL
+_chem_comp.name 'UNKNOWN LIGAND'
+_chem_comp.type NON-POLYMER
+#
+data_DNA
+_chem_comp.id DNA
+_chem_comp.name 'UNSELECTED TYPE'
+_chem_comp.type 'DNA LINKING'
+#

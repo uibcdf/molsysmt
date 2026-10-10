@@ -85,6 +85,8 @@ Read these documents in order when first working on MolSysMT:
 - [scientific_evidence_matrix.md](scientific_evidence_matrix.md) — generated
   status view backed by the executable Scientific Truth evidence registry.
 - [structure_preparation_pipeline.md](structure_preparation_pipeline.md)
+- [chemical_group_database_generation.md](chemical_group_database_generation.md)
+  — explicit CCD/RTP/JSON inputs, reader schemas and regeneration provenance.
 - [performance_and_jit.md](performance_and_jit.md)
 - [rust_kernel_optimization_guide.md](rust_kernel_optimization_guide.md) — the
   measured method for optimising the Rust kernels, including what was tried and
