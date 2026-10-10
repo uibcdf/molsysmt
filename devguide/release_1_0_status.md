@@ -63,9 +63,9 @@ That review reproduces two current public-boundary defects, now admitted to the
 (#376, received concurrently from DockingMT). The review admitted these defects;
 subsequent source repairs are recorded below.
 
-The existing #374 runtime bridge cleanup and #368 broken regeneration scripts
-are concrete maintenance candidates for an additional bounded repair round.
-Their remaining scope must be verified before closure. New scientific models,
+The #374 runtime bridge/generated-output cleanup and #368 broken regeneration
+scripts have received bounded repairs recorded below. #374's remaining native
+scope must be verified before closure. New scientific models,
 native dispatch redesign and wider format coverage remain separate proposals.
 This overrides the earlier board-review observation of only three open provider
 1.0 issues; it does not change frozen identities or resume publication.
@@ -74,8 +74,9 @@ This overrides the earlier board-review observation of only three open provider
 
 Two runtime bridges under #374 now retire managed PDB scratch on success and
 write/read/extraction failure; returned data remain usable and removal errors
-propagate. #374 stays partial because generated output failure custody and
-loaded temporal-library lifetime are still pending. The real-engine test found
+propagate. At this checkpoint #374 stayed partial because generated output
+failure custody and loaded temporal-library lifetime were pending. The former
+is repaired in the generated-output checkpoint below. The real-engine test found
 and repaired #379: Simulation PDB export selects one current box and explicitly
 converts its units before updating a copied topology. Source topology, current
 pose, caller paths and nm/angstrom session policies are protected by the
@@ -120,6 +121,29 @@ reproduces the correction from its original inputs. Source/generator/reader test
 pass **72 cases** with Python 3.14 and twelve workers. Both bundled supplements
 can now be supplied to CCD generation. This is a reference-data correction, not
 an installed-package qualification or resumption of publication.
+
+## Generated output lifecycle repair — 2026-10-10
+
+The MET/source checkpoint `514a48de35b12716d75525090e1b5846efaa66c0`
+passes all six ordinary hosted checks: CI smoke `38042286888`, Ruff,
+data freshness, developer-guide integrity, MolSysSuite policy and Conda
+publication governance. This remains source evidence.
+
+#374 now protects caller destinations during RCSB download failure and PDB-ID/
+AlphaFold conversion failure. Each operation owns staging through its preparation
+before publishing the completed file. PDB-text and UniProt FASTA writers retire
+failed automatically generated outputs, retain explicit writer destinations and
+preserve successful returned files. The
+[record](pending_proposals/legacy_temporary_resource_lifecycle_exceptions.md#generated-output-custody--2026-10-10)
+and [owner contract](temporary_resource_operations.md) document the writable-parent
+requirement and publication/cleanup boundaries. #374 remains partial solely for
+its loaded temporal native-library probe; actual Windows lifetime evidence is
+still required before a platform claim. The combined lifecycle selection passes
+**86 tests** with Python 3.14 and twelve workers; seven doctest statements and
+fourteen strict API renders pass. All fourteen fast gates and exact-base signature
+comparison pass. Documentation code cells and saved outputs remain unchanged.
+No release artifact or frozen reference
+changes, and this does not qualify a replacement candidate or resume publication.
 
 ## Native shortcut repair — 2026-10-10
 

@@ -32,11 +32,21 @@ def to_file_bcif(
         Resulting object in file:bcif form.
 
 
+    Notes
+    -----
+    Download and extraction use owned staging beside the destination. Failure
+    before publication preserves an existing destination and retires staging.
+    The parent directory must be writable. Successful output belongs to the
+    caller. Cleanup errors propagate, including after publication; publication
+    is not rolled back if retiring the empty staging directory fails.
+
     .. versionadded:: 1.0.0
     """
 
     import json
+    import os
     import urllib.request
+    from tempfile import TemporaryDirectory
     from urllib.request import urlretrieve
 
     from ..file_bcif.extract import extract
@@ -59,16 +69,20 @@ def to_file_bcif(
     if output_filename is None:
         output_filename = fullbcifurl.split("/")[-1]
 
-    urlretrieve(fullbcifurl, output_filename)
+    destination_directory = os.path.dirname(os.path.abspath(output_filename))
+    with TemporaryDirectory(
+        prefix=".molsysmt-convert-", dir=destination_directory
+    ) as scratch:
+        staged_filename = os.path.join(scratch, "download.bcif")
+        urlretrieve(fullbcifurl, staged_filename)
+        tmp_item = extract(
+            staged_filename,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            output_filename=staged_filename,
+            copy_if_all=False,
+            skip_digestion=True,
+        )
+        os.replace(tmp_item, output_filename)
 
-    tmp_item = output_filename
-    tmp_item = extract(
-        tmp_item,
-        atom_indices=atom_indices,
-        structure_indices=structure_indices,
-        output_filename=tmp_item,
-        copy_if_all=False,
-        skip_digestion=True,
-    )
-
-    return tmp_item
+    return output_filename

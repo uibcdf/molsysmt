@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import random
 import time
+from tempfile import TemporaryDirectory
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -21,7 +22,7 @@ def download_with_retries(
     timeout=30,
     backoff_base=2.0,
 ):
-    """Downloading a remote resource with retry-aware diagnostics."""
+    """Downloading into owned staging and publishing only a complete response."""
 
     headers = {"User-Agent": "MolSysMT/1.0 (+https://uibcdf.org) Python-urllib"}
     last_err = None
@@ -29,21 +30,26 @@ def download_with_retries(
     for attempt in range(retries):
         try:
             req = Request(url, headers=headers)
-            with (
-                urlopen(req, timeout=timeout) as resp,
-                open(output_filename, "wb") as fh,
-            ):
-                while True:
-                    chunk = resp.read(1024 * 64)
-                    if not chunk:
-                        break
-                    fh.write(chunk)
+            destination_directory = os.path.dirname(os.path.abspath(output_filename))
+            with TemporaryDirectory(
+                prefix=".molsysmt-download-", dir=destination_directory
+            ) as scratch:
+                staged_filename = os.path.join(scratch, "payload")
+                with (
+                    urlopen(req, timeout=timeout) as resp,
+                    open(staged_filename, "wb") as fh,
+                ):
+                    while True:
+                        chunk = resp.read(1024 * 64)
+                        if not chunk:
+                            break
+                        fh.write(chunk)
+                os.replace(staged_filename, output_filename)
             return output_filename
 
         except HTTPError as err:
             last_err = err
             if err.code == 429 or (500 <= err.code < 600):
-                _cleanup_partial(output_filename)
                 wait = (backoff_base**attempt) + random.uniform(0, 0.5)
                 _emit_retry_warning(
                     caller=caller,
@@ -58,14 +64,12 @@ def download_with_retries(
                 time.sleep(wait)
                 continue
 
-            _cleanup_partial(output_filename)
             raise RuntimeError(
                 f"Failed to download {resource} (HTTP {err.code}). URL: {url}"
             ) from err
 
         except URLError as err:
             last_err = err
-            _cleanup_partial(output_filename)
             wait = (backoff_base**attempt) + random.uniform(0, 0.5)
             reason = str(getattr(err, "reason", err))
             _emit_retry_warning(
@@ -82,7 +86,6 @@ def download_with_retries(
             continue
 
         except Exception as err:
-            _cleanup_partial(output_filename)
             raise RuntimeError(
                 f"Unexpected error while downloading {resource}: {err}"
             ) from err
@@ -111,11 +114,3 @@ def _emit_retry_warning(
             },
         ),
     )
-
-
-def _cleanup_partial(output_filename):
-    if os.path.exists(output_filename):
-        try:
-            os.remove(output_filename)
-        except OSError:
-            pass

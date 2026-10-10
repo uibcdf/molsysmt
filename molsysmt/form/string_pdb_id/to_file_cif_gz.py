@@ -32,22 +32,43 @@ def to_file_cif_gz(
         Resulting object in file:cif_gz form.
 
 
+    Notes
+    -----
+    Download and extraction use owned staging beside the destination. Failure
+    before publication preserves an existing destination and retires staging.
+    The parent directory must be writable. Successful output belongs to the
+    caller. Cleanup errors propagate, including after publication; publication
+    is not rolled back if retiring the empty staging directory fails.
+
     .. versionadded:: 1.0.0
     """
+
+    import os
+    from tempfile import TemporaryDirectory
 
     from molsysmt.form.string_pdb_id import _extract_pdb_id
 
     from ..file_cif_gz import download
     from ..file_cif_gz.extract import extract
 
-    tmp_item = download(_extract_pdb_id(item), output_filename)
-    tmp_item = extract(
-        tmp_item,
-        atom_indices=atom_indices,
-        structure_indices=structure_indices,
-        output_filename=tmp_item,
-        copy_if_all=False,
-        skip_digestion=True,
-    )
+    pdb_id = _extract_pdb_id(item)
+    if output_filename is None:
+        output_filename = f"{pdb_id}.cif.gz"
 
-    return tmp_item
+    destination_directory = os.path.dirname(os.path.abspath(output_filename))
+    with TemporaryDirectory(
+        prefix=".molsysmt-convert-", dir=destination_directory
+    ) as scratch:
+        staged_filename = os.path.join(scratch, "download.cif.gz")
+        tmp_item = download(pdb_id, output_filename=staged_filename)
+        tmp_item = extract(
+            tmp_item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            output_filename=tmp_item,
+            copy_if_all=False,
+            skip_digestion=True,
+        )
+        os.replace(tmp_item, output_filename)
+
+    return output_filename

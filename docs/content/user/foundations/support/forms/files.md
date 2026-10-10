@@ -121,3 +121,20 @@ Simulation PDB export uses its current context pose and box, rather than an olde
 box stored in the source topology. It converts the single structure box into
 OpenMM units before writing; PDB lengths remain in angstroms under other session
 unit policies. The source topology is unchanged.
+
+RCSB downloads and PDB-ID/AlphaFold file conversions prepare their data in a
+private staging directory beside the destination. They replace the destination
+only after download and any requested extraction succeed. An HTTP, streaming or
+extraction failure preserves an existing destination; partial staging is retired.
+The parent directory must therefore be writable. Cleanup errors remain visible;
+an error retiring the staging directory after publication does not roll back the
+completed file. These operations do not promise crash durability or rollback after
+publication.
+
+The PDB-text and UniProt FASTA adapters can generate output paths when called
+without one. They retire those files if writing or closing fails, and transfer
+successful results to you. Explicit paths in these two writers remain yours;
+a failed direct write can leave partial content for inspection. The high-level
+{func}`molsysmt.basic.convert` continues to require an explicit output filename
+for file targets. See {ref}`Tutorial_Form_file_pdb` and
+{ref}`Tutorial_Form_file_fasta`.

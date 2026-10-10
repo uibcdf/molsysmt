@@ -15,8 +15,8 @@ supersedes: []
 # Legacy temporary-resource lifecycle exceptions
 
 **Reported:** 2026-10-10, owner review in uibcdf/molsysmt#371.
-**Status:** Two eager runtime bridges repaired before 1.0; generated output failure
-custody and temporal native-probe lifetime remain deferred.
+**Status:** Eager runtime bridges and generated output failure custody repaired
+before 1.0; temporal native-probe lifetime remains deferred.
 
 ## What
 
@@ -69,9 +69,11 @@ remains uibcdf/molsyssuite#104.
 
 ## What is measured and what is assumed
 
-The listed source was inspected. No optional engine, native compilation or
-all-platform failure reproduction executes for this follow-up. No historical
-resource deletion or complete-compliance claim is made.
+The initial review inspected the listed source without executing optional
+engines, native compilation or an all-platform failure reproduction. Executed
+runtime evidence is recorded in the implementation checkpoints below. No native
+probe qualification, historical resource deletion or complete-compliance claim
+is made.
 
 ## What was refuted
 
@@ -126,8 +128,9 @@ strict Sphinx without RST errors; the missing-bond docstring executes all three
 example statements. Napoleon emits deprecation warnings, and the example
 correctly warns about its legacy H5MSM input.
 
-The issue remains open/partial: generated file-returning writer/download failures
-and loaded temporal-library lifetime still need owner-specific evidence. Their
+At this checkpoint the issue remains open/partial: generated file-returning
+writer/download failures and loaded temporal-library lifetime still need
+owner-specific evidence. Their
 original bounded exception, review date and Windows exclusions remain in force.
 No frozen artifact, tag, heavy matrix or publication is changed by this phase.
 
@@ -135,3 +138,69 @@ Focused Ruff checks and `git diff --check` pass. All 14 fast release gates
 pass, including adapter delivery, dependencies, devguide integrity, shared
 course structure and public smoke. These checks are development evidence,
 not heavy or installed-artifact candidate qualification.
+
+## Generated output custody — 2026-10-10
+
+**Contract-tested.** The shared RCSB downloader now writes each attempt inside
+owned staging beside its destination. It publishes with `os.replace` only after
+the response and writer close. HTTP/streaming failure and cancellation retire
+staging without deleting or truncating a pre-existing destination. Retry count,
+warning context, default basenames and successful generated-result custody stay
+unchanged. The previous `_cleanup_partial` could delete caller data even on an
+HTTP 404 before opening the destination, and hid removal failures.
+
+All five PDB-ID file converters and both AlphaFold file converters retain owned
+staging through extraction. A rejected selection no longer publishes the download
+or replaces caller evidence. PDB-text and UniProt FASTA writers retire only their
+automatically generated outputs on write/close failure or interruption. Explicit
+writer destinations are retained and may contain partial writes. FASTA descriptor
+wrapping failure also closes the allocated descriptor before retiring its path.
+No network endpoint, retry profile, scientific method, dependency or public
+signature is added. Shared download staging belongs to the existing private
+download owner; compound operations retain owner-local managed contexts.
+
+Before the download repair, the 19-case lifecycle selection fails 16 cases and
+passes three controls. Before the compound-converter repair (with the downloader
+already corrected), its 26 cases fail 19 and pass seven. These are offline
+controlled executions, not remote-provider availability or chemical-parity claims.
+
+Addressable guards:
+
+- `tests/form/test_download_resource_lifecycle.py`: all five RCSB adapters,
+  terminal/transient HTTP errors, interrupted streams, cancellation, retry success,
+  generated success custody and visible retirement failure.
+- `tests/form/test_remote_file_publication.py`: real selection rejection in all
+  five PDB-ID file adapters; absent/existing/default destinations; unchanged
+  successful names; both AlphaFold adapters with controlled download failure,
+  real extraction rejection and success.
+- `tests/form/test_generated_writer_lifecycle.py`: generated versus explicit
+  output custody on write/close failure, descriptor preparation failure, original
+  exception identity, visible retirement errors, validated direct-adapter success
+  and high-level conversion with explicit filenames. PDB text uses a bundled real
+  system; UniProt responses are controlled offline fixtures.
+
+The destination parent must be writable for staging. Atomic replacement changes
+the destination inode rather than writing through it. This does not guarantee
+power-loss durability, concurrent-writer serialization or rollback on a cleanup
+error after publication. User Guide Foundations, PDB/FASTA Toolbox cards,
+conversion Cookbook, Common Core module 12 and the maintained owner table describe
+these exact limits. High-level `convert` still requires an explicit filename for
+file targets; generated-path support belongs to the corresponding form adapters.
+
+The only remaining #374 exception is the loaded temporal native-library probe.
+Its original owner/review date and requirement for actual platform lifetime
+evidence remain in force. No frozen candidate, artifact, tag or release changes.
+
+The complete repaired runtime lifecycle selection passes **86 tests**, with no
+skips, on Linux/Python 3.14.7 and twelve workers:
+
+```bash
+python -m pytest --receptor=llm -n12 tests/form/test_download_resource_lifecycle.py tests/form/test_download_diagnostics.py tests/form/test_remote_file_publication.py tests/form/test_generated_writer_lifecycle.py tests/form/openmm_Simulation/test_bridge_resource_lifecycle.py tests/build/get_missing_bonds/test_pytraj_resource_lifecycle.py
+```
+
+The new PDB-text docstring executes seven example statements; all fourteen
+changed docstrings render through strict Sphinx without warnings. Documentation
+edits preserve all notebook code, saved outputs and execution metadata; their
+execution is not repeated or newly qualified. Focused Ruff, the exact-base public
+signature comparison and all fourteen fast development gates pass. These are
+bounded source checks, not heavy or installed-artifact qualification.

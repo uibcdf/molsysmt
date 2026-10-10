@@ -41,6 +41,14 @@ def download(
         Resulting object in object form.
 
 
+    Notes
+    -----
+    Each attempt uses owned staging beside the destination, which must have a
+    writable parent directory. HTTP and streaming failures preserve an existing
+    destination. Only a complete response is published. Successful output,
+    including a generated temporary path, belongs to the caller. Cleanup errors
+    remain visible; publication is not rolled back on a later retirement error.
+
     .. versionadded:: 1.0.0
     """
 

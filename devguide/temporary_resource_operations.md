@@ -19,6 +19,17 @@ for ownership, retention and explicit disposal. This document does not replace i
 | Simulation to PDBFixer bridge | The converter owns an intermediate PDB through eager fixer construction. | Managed directory exit retires scratch on write/read failure or success; the in-memory fixer survives. Cleanup errors propagate. |
 | `get_missing_bonds(engine='pytraj')` | The audit owns an intermediate PDB through eager topology loading and bond-pair materialization. | Write/read/extraction failures and success retire scratch. Returned pairs are independent; cleanup errors propagate. |
 | Successful file-returning download or conversion | The returned file is a result, even when its path was generated in a temporary location. | Ownership passes to the caller. Do not delete it on successful return. Explicit outputs remain caller-owned. |
+| RCSB file download | Each attempt owns a staging directory beside the destination through response/file close and publication. | Failed attempts retire staging without touching the destination. Only a complete response is published with `os.replace`; cleanup errors are visible. |
+| PDB-ID or AlphaFold file conversion | The converter owns staging through download and extraction. | Download/extraction failure preserves the destination, including an existing default basename. Successful extraction is published without deleting the returned file. |
+| Generated PDB-text or UniProt FASTA output | The writer owns the generated file until successful write and close. | Failure or interruption retires generated output. Explicit destinations are retained and may contain partial writes; cleanup errors propagate. |
+
+Download/conversion staging requires a writable destination parent. Publishing
+uses a same-filesystem replacement after handles close; it does not promise
+power-loss durability, serialization of concurrent writers, preservation of an
+old destination's inode/permissions, or rollback if directory retirement fails
+after publication. The high-level conversion dispatcher still requires an
+explicit filename for file targets; generated paths described here belong to
+the corresponding form adapters.
 
 The LEaP wrapper still uses the process working directory while running; resource
 custody does not establish concurrent-call safety. Preserve existing serialized
@@ -52,14 +63,13 @@ use of that wrapper.
 
 ## Remaining bounded implementation exceptions
 
-uibcdf/molsysmt#374 owns generated file-returning failure custody and standalone
-temporal native-probe exceptions. Its two eager runtime PDB bridges now implement
-the managed lifetimes listed above. Owners are dprada/LMMV; review on 2026-10-24 or before
+uibcdf/molsysmt#374 retains the standalone temporal native-probe exception. Its
+two eager runtime PDB bridges and generated file-returning failure custody now
+implement the lifetimes listed above. Owners are dprada/LMMV; review on 2026-10-24 or before
 the next affected invocation. Use an exclusive process scratch root selected
 before interpreter startup, retain it through inspection, and retire it after
-readers, children and loaded libraries end. Provide explicit output paths for
-file writers when failed creation must be recoverable. These are interim
-procedures, not claims that the original operations implement complete cleanup.
+readers, children and loaded libraries end. These are interim native-probe
+procedures, not claims that this remaining operation implements complete cleanup.
 
 Remove the exceptions only after independent success/failure/caller-custody
 guards establish the relevant lifetimes and report retirement errors. Windows

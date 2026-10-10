@@ -24,12 +24,22 @@ def to_file_fasta(item, atom_indices="all", output_filename=None, skip_digestion
         Resulting object in file:fasta form.
 
 
+    Notes
+    -----
+    Without an output filename, the adapter generates a file and owns it until
+    writing and closing succeed. Failure or interruption retires that generated
+    file; successful output belongs to the caller. Explicit output paths are
+    never removed on failure and may contain partial writes. Cleanup errors
+    propagate. The high-level conversion dispatcher requires an explicit output
+    filename for file targets.
+
     .. versionadded:: 1.0.0
     """
 
     import os
     import tempfile
     import urllib.request
+    from pathlib import Path
 
     if item.startswith("uniprot_id:"):
         accession = item.split("uniprot_id:", 1)[1]
@@ -44,11 +54,22 @@ def to_file_fasta(item, atom_indices="all", output_filename=None, skip_digestion
     with urllib.request.urlopen(req) as response:
         fasta_content = response.read().decode("utf-8")
 
-    if output_filename is None:
+    generated_output = output_filename is None
+    if generated_output:
         fd, output_filename = tempfile.mkstemp(suffix=".fasta")
-        os.close(fd)
-
-    with open(output_filename, "w") as f:
-        f.write(fasta_content)
+        try:
+            try:
+                f = os.fdopen(fd, "w")
+            except BaseException:
+                os.close(fd)
+                raise
+            with f:
+                f.write(fasta_content)
+        except BaseException:
+            Path(output_filename).unlink(missing_ok=True)
+            raise
+    else:
+        with open(output_filename, "w") as f:
+            f.write(fasta_content)
 
     return output_filename
