@@ -8,6 +8,7 @@ form_info = [
 piped_topological_attribute = "molsysmt.Topology"
 piped_structural_attribute = None
 piped_any_attribute = None
+provides_primary_topology = False
 
 # Form metadata and export initialization retain their established import order.
 # isort: off
