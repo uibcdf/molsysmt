@@ -1,7 +1,11 @@
 # Micro-Governance: solve_atoms_with_alternate_locations.ipynb
 
 ## Purpose
-Governance rules and frozen contracts for `docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb` (`msm.build.solve_atoms_with_alternate_locations`).
+Governance rules and frozen contracts for `docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb` (`msm.build.solve_atoms_with_alternate_location`).
+
+Use the singular public function name `solve_atoms_with_alternate_location` in
+API links and executable examples. Preserve the existing plural tutorial filename,
+title and `Tutorial_Solve_atoms_with_alternate_locations` anchor.
 
 ## Variable Naming Invariant
 The canonical variable representing the input molecular system MUST be `molsys`, and occupancy variant MUST be `molsys_occ`.

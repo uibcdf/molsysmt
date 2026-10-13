@@ -92,6 +92,16 @@ The PDB guard now expects the existing canonical lowercase spelling while
 retaining all 304-atom/38-structure truth. Ninety nearby cases and the final full
 suite pass. This is bounded stabilization, not a new molecular protocol.
 
+An additional #144 source checkpoint repairs three broken API-to-tutorial links
+and the alternate-location tutorial's plural API roles. The
+[active record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-api-to-tutorial-link-repair--2026-10-13)
+and [receipt](../devtools/data/api_tutorial_links_repair_20261013.json) retain
+three failing-before/passing-after HTML-link guards, 29 passing API rendering
+cases, three passing module doctests and preservation of notebook code/outputs.
+All 246 current explicit API autodoc declarations resolve in the local inventory;
+the older import-warning counts are historical. This is bounded link repair,
+not a warning-clean full site or a replacement installed candidate.
+
 Reviewing the published acceptance reconciliations and closure criteria for
 [interaction organization](pending_proposals/organize_interaction_detection_by_family_before_1_0.md#acceptance-criteria)
 and [ChemicalStates ownership](pending_proposals/promote_chemical_states_to_a_native_molsys_domain.md#acceptance-criteria)

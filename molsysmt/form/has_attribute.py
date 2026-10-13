@@ -68,7 +68,7 @@ def has_attribute(form, attribute, skip_digestion=False):
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Form > Has attribute <UTF_Has_attribute>`.
+       :ref:`Checking form attributes <Tutorial_Form_Has_attribute>`.
     """
 
     from . import _dict_modules

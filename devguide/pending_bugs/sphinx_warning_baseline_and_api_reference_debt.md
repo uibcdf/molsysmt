@@ -244,3 +244,51 @@ neither a full-site build nor a warning-baseline comparison. Sphinx 9.1.0,
 MyST-NB 1.4.0 and nbformat 5.11.1 are recorded in the receipt. Course structure,
 Ruff and developer-guide checks pass. The broader #144 closure criteria remain
 open, with partial status unchanged.
+
+## Bounded API-to-tutorial link repair — 2026-10-13
+
+The earlier import-failure counts are historical observations. A fresh inventory
+checks the 246 explicit autodoc declarations in current `docs/api/**/*.rst`
+through Sphinx's `import_by_name`, honoring each page's `currentmodule`:
+all resolve. This does not inventory every API role in notebooks or establish
+full-site warning counts.
+
+Three public docstrings still link to removed tutorial labels. They now point to
+the actual stored notebook targets:
+
+| Public function | Tutorial target |
+|---|---|
+| `molsysmt.form.get_attributes` | `Tutorial_Form_Get_attributes` |
+| `molsysmt.form.has_attribute` | `Tutorial_Form_Has_attribute` |
+| `molsysmt.build.solve_atoms_with_alternate_location` | `Tutorial_Solve_atoms_with_alternate_locations` |
+
+The alternate-location tutorial also contained three Markdown API roles using
+the nonexistent plural function name. Those roles now use the singular public
+name, matching the existing executable examples. Its paired instructions record
+that name while retaining the plural tutorial filename, title and stable label.
+A complete JSON comparison confirms that only these three Markdown names change;
+code, saved outputs, execution counts, cell IDs and metadata are preserved.
+Common Core 12 and the affected PDB Frontier course examples already use the
+singular API and need no changes for this repair.
+
+The guard
+`devtools/tests/test_public_api_docs.py::test_api_tutorial_links_resolve_to_actual_notebook_targets`
+builds each real public docstring together with the introduction read from its
+actual tutorial notebook and the actual Forms introduction. It does not inject
+a replacement target. It checks the generated API-to-tutorial hyperlink and the
+tutorial-to-API hyperlink; removing either real target or changing the public
+function name fails. All three cases fail on the original docstrings with their
+undefined labels and pass after repair, with empty Sphinx warning streams.
+
+The complete public-API rendering selection passes **29 cases**, and all three
+changed-module doctests pass, on Python 3.14.7 with twelve workers and
+pytest-receptor. The wider selection retains Python-level Sphinx Napoleon
+deprecations and three existing legacy H5MSM warnings. Focused Ruff and
+developer-guide checks pass. The
+[receipt](../../devtools/data/api_tutorial_links_repair_20261013.json) retains
+versions, before/after outcomes and notebook hashes.
+
+This is a repair of three API/tutorial boundaries, not a reexecution of the full
+notebooks or a fresh full-site warning baseline. Runtime behavior and signatures
+are unchanged; #144 remains partial and release coordination under #334 remains
+paused. Remaining work follows the family-by-family remediation plan above.

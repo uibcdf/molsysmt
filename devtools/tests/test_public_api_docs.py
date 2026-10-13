@@ -1,5 +1,6 @@
 """Structural guards for the published API reference."""
 
+import json
 from io import StringIO
 from pathlib import Path
 
@@ -20,6 +21,73 @@ def test_published_api_reference_excludes_private_modules():
             offenders.append(source.relative_to(REPOSITORY_ROOT).as_posix())
 
     assert offenders == []
+
+
+@pytest.mark.parametrize(
+    "function_name,tutorial_path",
+    [
+        (
+            "molsysmt.form.get_attributes",
+            "docs/content/user/tools/form/get_attributes.ipynb",
+        ),
+        (
+            "molsysmt.form.has_attribute",
+            "docs/content/user/tools/form/has_attribute.ipynb",
+        ),
+        (
+            "molsysmt.build.solve_atoms_with_alternate_location",
+            "docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb",
+        ),
+    ],
+)
+def test_api_tutorial_links_resolve_to_actual_notebook_targets(
+    tmp_path, function_name, tutorial_path
+):
+    """Build both link directions using targets read from the stored notebooks."""
+    pytest.importorskip("myst_parser")
+    from sphinx.testing.util import SphinxTestApp
+
+    def introduction(path):
+        notebook = json.loads((REPOSITORY_ROOT / path).read_text(encoding="utf-8"))
+        cell = next(cell for cell in notebook["cells"] if cell["cell_type"] == "markdown")
+        return "".join(cell["source"])
+
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "conf.py").write_text(
+        "extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'myst_parser']\n"
+        "myst_enable_extensions = ['colon_fence']\nmaster_doc = 'index'\n",
+        encoding="utf-8",
+    )
+    (source / "index.rst").write_text(
+        "API reference\n=============\n\n"
+        f".. autofunction:: {function_name}\n\n"
+        ".. toctree::\n\n   tutorial\n   forms\n",
+        encoding="utf-8",
+    )
+    (source / "tutorial.md").write_text(introduction(tutorial_path), encoding="utf-8")
+    (source / "forms.md").write_text(
+        introduction("docs/content/user/foundations/molecular_system/forms.ipynb"),
+        encoding="utf-8",
+    )
+    warnings = StringIO()
+    app = SphinxTestApp(
+        srcdir=source,
+        builddir=tmp_path,
+        status=StringIO(),
+        warning=warnings,
+        warningiserror=True,
+    )
+    try:
+        app.build(force_all=True)
+        assert app.statuscode == 0, warnings.getvalue()
+        assert warnings.getvalue() == ""
+        api_html = (tmp_path / "html/index.html").read_text(encoding="utf-8")
+        tutorial_html = (tmp_path / "html/tutorial.html").read_text(encoding="utf-8")
+        assert 'href="tutorial.html#' in api_html
+        assert f'href="index.html#{function_name}"' in tutorial_html
+    finally:
+        app.cleanup()
 
 
 def _render_api_docstring(tmp_path, function_name, tutorial_label):

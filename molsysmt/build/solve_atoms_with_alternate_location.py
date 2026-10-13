@@ -91,7 +91,7 @@ def solve_atoms_with_alternate_location(
 
     .. admonition:: Tutorial with more examples
 
-       See :ref:`UserGuide_Tools_Build_SolveAtomsWithAlternateLocations`.
+       See :ref:`Resolving alternate locations <Tutorial_Solve_atoms_with_alternate_locations>`.
 
     .. versionadded:: 1.0.0
     """

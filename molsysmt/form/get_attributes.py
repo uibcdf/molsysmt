@@ -67,7 +67,7 @@ def get_attributes(form, output_type="dictionary", skip_digestion=False):
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Form > Get attributes <UTF_Get_attributes>`.
+       :ref:`Getting form attributes <Tutorial_Form_Get_attributes>`.
     """
 
     from molsysmt.attribute.attributes import attributes as _all_attributes

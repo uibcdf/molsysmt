@@ -1,0 +1,56 @@
+{
+  "owner": "uibcdf/molsysmt#144",
+  "date": "2026-10-13",
+  "source_parent": "4201fb2a062fd48e3ea51b837abcdca7e3541ba9",
+  "scope": "Three actual API-to-tutorial targets and the alternate-location tutorial API links; no runtime/signature changes.",
+  "inventory": {
+    "existing_autodoc_declarations_checked": 246,
+    "import_failures": 0,
+    "method": "Sphinx autosummary import_by_name with each source page currentmodule; no hardcoded adapter operation lists."
+  },
+  "targets": [
+    {
+      "function": "molsysmt.form.get_attributes",
+      "label": "Tutorial_Form_Get_attributes",
+      "notebook": "docs/content/user/tools/form/get_attributes.ipynb"
+    },
+    {
+      "function": "molsysmt.form.has_attribute",
+      "label": "Tutorial_Form_Has_attribute",
+      "notebook": "docs/content/user/tools/form/has_attribute.ipynb"
+    },
+    {
+      "function": "molsysmt.build.solve_atoms_with_alternate_location",
+      "label": "Tutorial_Solve_atoms_with_alternate_locations",
+      "notebook": "docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb"
+    }
+  ],
+  "guard": "devtools/tests/test_public_api_docs.py::test_api_tutorial_links_resolve_to_actual_notebook_targets",
+  "before": {
+    "failed": 3,
+    "cause": "Each API docstring links to an undefined tutorial label."
+  },
+  "after": {
+    "public_api_rendering_guards_passed": 29,
+    "seconds": 8.01,
+    "changed_module_doctests_passed": 3,
+    "doctest_seconds": 4.59,
+    "workers": 12,
+    "receptor": "llm",
+    "sphinx_build_warning_streams": "Empty for the three link projects. Python Napoleon deprecation and legacy H5MSM warnings remain in the wider guard selection."
+  },
+  "versions": {
+    "python": "3.14.7",
+    "sphinx": "9.1.0",
+    "myst-parser": "5.1.0",
+    "pytest": "9.1.1",
+    "pytest-receptor": "1.1.0+19.g6d87a24"
+  },
+  "notebook": {
+    "sha256_before": "ace65aedaed39ac03f2dcf7abdf2fab1a93bf7278b84d30bdbf7316f3d8ea515",
+    "sha256_after": "b45bba3b29f2ede3a141e34eb686f7c64c664f5f19a5aa6820fa39e7f6480449",
+    "verified": "The complete notebook JSON equals the original with only three Markdown API-role names changed; code, outputs, execution counts, metadata, IDs and anchors are unchanged."
+  },
+  "course_review": "Existing Common Core 12 and PDB Frontier paths use the singular public function; no course edits or reexecution required for the link-only change.",
+  "boundaries": "Each project renders the real public docstring and actual stored notebook introduction, including the Forms target, and checks both HTML link directions. It does not render or reexecute the complete notebooks or claim a warning-clean full site. #144 remains partial; release coordination under #334 stays paused."
+}
