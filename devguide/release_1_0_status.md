@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-10
+**Last updated:** 2026-10-13
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -52,6 +52,42 @@ output chain fields. Records:
 [mechanics merge](archive/resolved_bugs/prepared_mechanics_merge_loses_atom_axis.md)
 and [chain labels](archive/resolved_bugs/native_add_drops_declared_chain_ids.md).
 These corrections do not change the paused candidate selection above.
+
+## Additional source stabilization and acceptance review — 2026-10-13
+
+The maintainer authorizes the next bounded sequence: repair the six invalid
+notebook schemas under #144, resume #382 after its provider correction is
+admitted, and review the final acceptance conditions for #250/#254/#334.
+This does not resume publication or select replacement artifact identities.
+
+Source changes after the retained 2026-10-10 delta inventory have their own
+records and must be included when replacement-candidate scope is agreed:
+
+| Work | Source evidence and affected qualification |
+|---|---|
+| #310/#387: declared-state atom correspondences and symmetry-corrected pose RMSD, including anchors and caller-supplied maps | [Chemical correspondence/RMSD record](archive/resolved_proposals/chemically_constrained_pose_rmsd.md) and [explicit-map extension](archive/resolved_proposals/support_anchored_and_caller_supplied_chemical_correspondences_for_pose_rmsd.md) own scientific criteria, optional-engine boundaries, attribution and regression evidence. These source tools are not included merely by retaining the old installed pair. |
+| #385: native gzip PDB input | [Input-adapter record](archive/resolved_proposals/read_gzip_pdb_inputs_through_native_parser.md) owns real-fixture parity, selection, integrity and handler-lifecycle evidence. Experimental Tier 3 and eager input-only scope remain explicit. Exact form rosters now include the adapter. |
+| #386: obsolete pandas composition keywords | [Composition record](archive/resolved_bugs/topology_composition_emits_obsolete_pandas_copy_warnings.md) owns separately executed pandas 2/3 controls for connectivity, chemical-state values and independent output storage. |
+| #144: six notebook-schema repairs | [Active documentation record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-notebook-schema-repair--2026-10-13) and [receipt](../devtools/data/notebook_schema_repair_20261013.json) preserve every JSON value except schema minor and cell IDs. Six guards fail before repair; 11 schema/executor checks pass afterward. A focused six-page HTML build retains stored outputs without schema errors; it does not certify the whole site or re-execute examples. |
+
+For #382, DepDigest 0.15.0 resolves the earlier adapter-inspection requirement,
+but overlapping cold lookup needs uibcdf/depdigest#39. The maintainer chooses
+provider-team delivery of the proposed correction. The
+[prepared consumer record](pending_proposals/first_conversion_triggers_full_form_registry_loading.md#published-015-review-and-prepared-adoption--2026-10-13)
+retains 459 passing prototype checks and same-input startup measurements. MolSysMT
+runtime, released floors and controlled-source pins remain unchanged by that
+preparation. A fixed admitted provider and the remaining direct consumer guards
+are required before adoption; prototype results do not qualify released packages.
+
+Reviewing the published acceptance reconciliations and closure criteria for
+[interaction organization](pending_proposals/organize_interaction_detection_by_family_before_1_0.md#acceptance-criteria)
+and [ChemicalStates ownership](pending_proposals/promote_chemical_states_to_a_native_molsys_domain.md#acceptance-criteria)
+confirms that #250/#254 retain final-candidate obligations under #334. Their
+existing implementation/published-pair evidence remains distinct from a future
+candidate. Do not close them during the publication pause. The October 10 path
+counts are historical and do not describe the newly changed head; refresh the
+delta inventory when candidate coordination resumes. No new build, matrix, tag,
+Release or promotion runs in this checkpoint.
 
 ## Renewed pre-1.0 issue review — 2026-10-10
 
