@@ -128,3 +128,16 @@ tutorials, all unchanged in this adapter work. The new gzip tutorial and modifie
 Module 01 are schema-consistent. The new page is generated and its code executes,
 but the overall documentation build is not clean. This remaining documentation
 validation debt belongs with uibcdf/molsysmt#144 and is not repaired by #385.
+
+## Form-roster follow-up — 2026-10-13
+
+A broader registry-adoption selection found four stale exact-roster assertions
+that omitted file:pdb.gz. The detection battery now uses the frozen 3PTB fixture,
+and all three supported-form rosters include the actual delivered adapter. Exact
+set comparisons remain intact; no missing form is hidden by relaxing a check.
+These roster changes belong to #385, independently of the pending #382 runtime
+adoption and its provider requirement.
+
+After restoring the published runtime, all ten selected roster, inspection and
+dependency-architecture checks pass on Python 3.14.7 with twelve workers and
+pytest-receptor. The provider checkout remains unchanged.

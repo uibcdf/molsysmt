@@ -57,6 +57,10 @@ ROUTES = {
     "file:mol2": ("system", "caffeine", "caffeine.mol2"),
     "file:sdf": ("system", "caffeine", "caffeine.sdf"),
     "file:pdb": ("system", "Met-enkephalin", "met_enkephalin.pdb"),
+    "file:pdb.gz": (
+        "literal",
+        str(Path(__file__).resolve().parents[1] / "form/file_pdb_gz/data/3PTB.pdb.gz"),
+    ),
     "file:prmtop": ("system", "pentalanine", "pentalanine.prmtop"),
     "file:psf": ("system", "POPC", "popc.psf"),
     "file:pdbqt": ("fixture_file", "1iep_ligand.pdbqt"),
