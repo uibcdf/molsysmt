@@ -51,7 +51,7 @@ def digest_atom_id(atom_id, caller=None):
         elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
             return atom_id
 
-    if isinstance(atom_id, (int, np.int64)):
+    if isinstance(atom_id, (int, np.int64, str)):
         return [atom_id]
 
     elif isinstance(atom_id, list):

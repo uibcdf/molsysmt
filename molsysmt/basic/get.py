@@ -95,6 +95,10 @@ def get(
       attribute order. For example, with ``element='atom'``, ``coordinates``
       are evaluated on atoms while ``structure_id`` is evaluated on the system.
       The atom selection is not applied to system-level attributes.
+    - Native B factors retain the requested structure order and repetitions,
+      including a leading axis of size one for a scalar structure index and
+      size zero for an empty selection. B factors carry length-squared units;
+      atom queries may additionally select the atom axis.
     - Native Structures and MolSys objects expose stored temperature, potential
       energy, and kinetic energy series. Total energy is returned only when both
       energy components are present. OpenMM Context and Simulation objects expose
@@ -175,6 +179,10 @@ def get(
     >>> molsys.structures.coordinates = msm.pyunitwizard.quantity(np.zeros((2, 1, 3)), 'nm')
     >>> msm.get(molsys, structure_chemical_state_index=True)
     [0, 0]
+    >>> msm.set(molsys, b_factor=msm.pyunitwizard.quantity([[1], [2]], 'nm**2'))
+    >>> selected = msm.get(molsys, structure_indices=[1, 0, 1], b_factor=True)
+    >>> msm.pyunitwizard.get_value(selected, to_unit='nm**2').tolist()
+    [[2], [1], [2]]
 
 
     >>> molsys = Topology(n_atoms=2)

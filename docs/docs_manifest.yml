@@ -327,6 +327,11 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: editing_labels_and_structure_metadata
+        file: docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb
+        agents_file: docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb.AGENTS.md
+        description: Public string atom-ID edits, selected B-factor axes and H5MSM 0.5 persistence.
+        status: reviewed
       - name: assigning_partial_charges
         file: docs/content/user/cookbook/assigning_partial_charges.md
         agents_file: docs/content/user/cookbook/assigning_partial_charges.md.AGENTS.md

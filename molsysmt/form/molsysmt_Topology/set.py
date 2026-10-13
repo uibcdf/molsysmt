@@ -506,7 +506,7 @@ def set_bond_evidence_to_bond(item, indices="all", value=None, skip_digestion=Fa
 @arg_digest(form=form)
 def set_atom_id_to_atom(item, indices="all", value=None, skip_digestion=False):
     """
-    Setting atom id to atom on form molsysmt.Topology.
+    Setting string atom labels on a native topology.
 
 
     Parameters
@@ -514,20 +514,26 @@ def set_atom_id_to_atom(item, indices="all", value=None, skip_digestion=False):
     item : molecular system
         Argument item.
     indices : object, default='all'
-        Argument indices.
+        Source atom indices to update; 'all' updates the complete atom column.
     value : object, default=None
-        Argument value.
+        Integer or string labels, scalar or aligned with indices. Numeric labels
+        are stored as strings; a single label broadcasts to the selected atoms.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     .. versionadded:: 1.0.0
     """
+    if pd.api.types.is_scalar(value):
+        value = pd.NA if value is None else str(value)
+    else:
+        value = pd.array(value, dtype="string")
+        if len(value) == 1:
+            value = value[0]
+
     if is_all(indices):
-        item.atoms.atom_id = value
+        item.atoms["atom_id"] = pd.Series(value, index=item.atoms.index, dtype="string")
     else:
         item.atoms.loc[indices, "atom_id"] = value
-
-    pass
 
 
 @arg_digest(form=form)

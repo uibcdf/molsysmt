@@ -85,6 +85,10 @@ def set(
       of formal charges. Supply a finite one-dimensional charge quantity or
       numerical values in elementary charge, aligned with the selected atoms.
       Unknown unselected values remain missing; None clears the full charge column.
+    - ``atom_id`` accepts scalar integer/string labels or an aligned vector.
+      Native MolSys/Topology stores numeric labels as strings and preserves
+      lexical labels such as ``'00101'``. A scalar broadcasts over selected
+      atoms; source atom indices do not change.
     - Rich bond order, fractional order, type, aromaticity, conjugation,
       stereochemistry and reference atoms, direction, component participation,
       and evidence are independent attributes; setting one does not infer the
@@ -135,6 +139,10 @@ def set(
     ['HSD']
     >>> from molsysmt.native import MolSys, Topology
     >>> topology = Topology(n_atoms=2)
+    >>> msm.set(topology, selection=[0], atom_id=101)
+    >>> msm.set(topology, selection=[1], atom_id='00101')
+    >>> msm.get(topology, element='atom', atom_id=True)
+    ['101', '00101']
     >>> msm.set(topology, element='atom', chemical_state=0, formal_charge=[1, -1])
     >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
     [1, -1]

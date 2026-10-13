@@ -2648,6 +2648,25 @@ its exact 0.24.0 staging file/build/hash before the sixteen-cell installed pair
 can run. Public tagging, Release publication and promotion remain pending;
 the available files support the next consumer qualification step.
 
+## Native metadata contract stabilization — 2026-10-13
+
+#383 and #384 repair reported native public contracts used by ElastNetMT:
+integer/string scalar atom labels now normalize to native string storage without
+changing source indices, and system-level B-factor queries retain the requested
+structure axis instead of silently selecting every structure. These are bounded
+correctness repairs under the existing admission rule, not new chemistry or
+storage capabilities. The combined 455-test source scope passes with twelve
+workers; the final 18-case label module additionally covers complete-column
+scalar broadcasting. Public get/set doctests, independent new Toolbox/course
+examples and the lightweight H5MSM metadata recipe execute on Python 3.14.
+The documentation build retains the separately tracked warning debt in #144.
+
+Records: [atom labels](archive/resolved_bugs/scalar_atom_id_updates_disagree_with_native_string_storage.md)
+and [B-factor structure selection](archive/resolved_bugs/native_b_factor_queries_ignore_selected_structures.md).
+Frozen sources, artifacts and publication status are unchanged. Replacement
+candidate review and exact installed-consumer qualification remain #334 work;
+these focused checks do not qualify new artifacts or resume publication.
+
 ## Final adapter-delivery stabilization — 2026-10-10
 
 During the publication pause, #139 is resolved: all 95 registered adapters have

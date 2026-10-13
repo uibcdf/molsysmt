@@ -732,13 +732,13 @@ def get_occupancy_from_system(item, structure_indices="all", skip_digestion=Fals
 @arg_digest(form=form)
 def get_b_factor_from_system(item, structure_indices="all", skip_digestion=False):
     """
-    Getting b factor from system in form molsysmt.MolSys.
+    Getting atom B factors for selected structures of a native molecular system.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Native MolSys providing per-structure, per-atom B factors.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
@@ -746,15 +746,19 @@ def get_b_factor_from_system(item, structure_indices="all", skip_digestion=False
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    quantity or None
+        B factors with shape (n_selected_structures, n_atoms) in configured
+        length-squared units. Requested structure order and repetitions are
+        retained. Return None when B factors are unavailable.
 
 
     .. versionadded:: 1.0.0
     """
     from molsysmt.form.molsysmt_Structures import get_b_factor_from_system as aux_get
 
-    return aux_get(item.structures, structure_indices="all", skip_digestion=True)
+    return aux_get(
+        item.structures, structure_indices=structure_indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
