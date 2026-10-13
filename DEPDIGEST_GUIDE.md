@@ -10,9 +10,11 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.14.0`
-- Publication tracking: `uibcdf/depdigest#35`; declaration-based registry: `uibcdf/depdigest#34`
-- Last source update: 2026-10-10
+- Source version: `depdigest@0.15.0`
+- Publication tracking: `uibcdf/depdigest#37` (0.15.0); base registry: `uibcdf/depdigest#34`
+- Adapter-inspection publication tracking: `uibcdf/depdigest#37`; implementation
+  `uibcdf/depdigest#36`. Public 0.14.0 does not provide this option.
+- Last source update: 2026-10-13
 - Consumer synchronization: audit delivery in `uibcdf/molsyssuite#95`;
   declaration-based registry admission/handoff in `uibcdf/molsyssuite#115`.
 
@@ -153,6 +155,28 @@ before retrying. Executables follow current PATH. Consumer imports and dependenc
 probes may have their own import effects. Loading is synchronous without concurrency
 synchronization. `LazyRegistry` remains available with its existing contract.
 The complete contract is in `docs/content/user/declared-registry.md`.
+
+#### Explicit adapter inspection (from 0.15.0, #36)
+
+Current source accepts keyword-only `load_policy="adapter"` on `DeclaredRegistry`.
+The default `"strict"` retains 0.14.0's soft dependency precheck. The explicit adapter
+policy omits that precheck to inspect a requested importable Python implementation;
+identity validation, failure provenance/caching, retry/refresh, mutation and explicit
+discovery remain. Unknown policies raise `ValueError`. Both filesystem and entry-point
+routes support it. `LazyRegistry` is unchanged.
+
+Visibility still follows current configuration. Restricted mode hides an absent
+soft engine, including cached adapters; all-capability mode can expose its adapter
+metadata. Importability/load diagnostics do not prove engine availability or scientific
+execution. Inventory remains actual availability, and hosts retain `dep_digest` or
+`check_dependency` on execution-dependent operations. Real adapter/transitive imports
+can still fail. No engine is installed or silently substituted.
+
+This is **not published 0.14.0 behavior**. Public use requires admitted DepDigest
+>=0.15.0, publicly admitted under #37. Release preparation alone is not admission.
+A controlled source experiment must pin the implementation commit. MolSysMT #382
+adoption/parity and MolSysSuite #115 coordination remain separate from provider
+source/publication evidence.
 
 ### 3.1 Manual Configuration Registration
 Useful for testing or dynamic plugin systems where a root `_depdigest.py` is not feasible.
