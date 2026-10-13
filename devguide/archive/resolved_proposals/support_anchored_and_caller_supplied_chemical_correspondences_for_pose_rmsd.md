@@ -149,3 +149,14 @@ protects both restriction modes with an analytic benzene control. Repeating the
 same Python-3.14 regression selection after this guard gives 285 passed, no
 failures/skips, and the same 56 expected H5MSM warnings. All 12 doctests and the
 docstring/developer-guide validators pass. Scientific runtime semantics are unchanged.
+
+## CI declaration recovery — 2026-10-13
+
+Hosted smoke run 38437018216 for original feature head 55259a5eb stopped before
+tests at the AST public-signature guard: both new keyword-only arguments lacked
+intentional-change declarations. Four other hosted checks passed. The recovery
+records the authorized extension for the two exact file/function entries in the
+existing signature-waiver registry, with #387 and their public guards. Guard logic
+is unchanged. Local comparison against the pre-extension head 43cdcc4f4 and the
+parent succeeds with exactly two declared modifications and no unauthorized drift.
+Hosted checks must pass on the corrective head; the failed original remains evidence.
