@@ -90,6 +90,9 @@ without these additive fields retain unrestricted semantics.
 
 `baseline_atom_correspondence` remains independent: it determines only
 `raw_rmsd`, supplies no anchors and does not admit proposed corrected maps.
+The corrected value is guaranteed not to exceed the baseline only if that map
+belongs to the declared scope. Even a chemically valid baseline can have a smaller
+RMSD if anchors or the proposed candidate set exclude it.
 
 ## Geometric evaluation
 

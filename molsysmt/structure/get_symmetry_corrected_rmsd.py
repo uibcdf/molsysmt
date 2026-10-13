@@ -129,6 +129,9 @@ def get_symmetry_corrected_rmsd(
     evaluate admitted maps. Coordinates are never rotated, translated, centered,
     reflected or periodically imaged. Prepare whole periodic molecules explicitly
     and retain a common receptor coordinate frame before comparison.
+    The corrected value is guaranteed not to exceed raw_rmsd only when the
+    baseline map belongs to the declared search scope. A chemically valid
+    baseline excluded by anchors or the proposed set can have a smaller value.
     Exact ties choose the lexically first source-index mapping. Near ties are
     reported without replacing the actual minimum. Complete chemical context is
     retained when H or other atoms are omitted from the RMSD population.

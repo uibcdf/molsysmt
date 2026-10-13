@@ -85,6 +85,26 @@ def test_multiple_proposed_maps_choose_the_analytic_pose_mapping():
     assert result["n_near_optimal_correspondences"].tolist() == [1, 1]
 
 
+def test_valid_baseline_excluded_by_constraints_can_be_smaller_than_corrected():
+    molsys = system()
+    baseline = np.column_stack((np.arange(6), np.roll(np.arange(6), -1)))
+    for constraints in (
+        dict(fixed_atom_correspondence=[[0, 0], [1, 1]]),
+        dict(candidate_atom_correspondences=identity(6)),
+    ):
+        result = msm.structure.get_symmetry_corrected_rmsd(
+            molsys,
+            selection="all",
+            structure_indices=[1],
+            baseline_atom_correspondence=baseline,
+            **constraints,
+        )
+        assert msm.pyunitwizard.get_value(result["rmsd"], to_unit="nm")[
+            0
+        ] == pytest.approx(0.14)
+        assert msm.pyunitwizard.get_value(result["raw_rmsd"], to_unit="nm")[0] < 1e-14
+
+
 def test_constrained_cache_reuses_search_and_rejects_mutated_constraints(monkeypatch):
     molsys = system()
     cached = msm.topology.get_atom_correspondences(

@@ -138,3 +138,14 @@ pytest-receptor 1.1.0+19.g6d87a24. The initial 92-test run used Python 3.13.14;
 its results are separate from the final Python-3.14 regression evidence.
 
 No release, frozen installed candidate, dependency floor or H5MSM format was changed.
+
+## Clarification — 2026-10-13
+
+A chemically admitted raw baseline may still fall outside an anchored or supplied
+search scope. In that case raw RMSD can be smaller than the conditional corrected
+RMSD. The normative guide, geometry docstring and tutorial state this explicitly.
+`tests/structure/test_get_symmetry_corrected_rmsd.py::test_valid_baseline_excluded_by_constraints_can_be_smaller_than_corrected`
+protects both restriction modes with an analytic benzene control. Repeating the
+same Python-3.14 regression selection after this guard gives 285 passed, no
+failures/skips, and the same 56 expected H5MSM warnings. All 12 doctests and the
+docstring/developer-guide validators pass. Scientific runtime semantics are unchanged.
