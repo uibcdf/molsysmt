@@ -1,0 +1,55 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "date": "2026-10-13",
+  "molsysmt_source_parent": "5f2355dd7339777f943c412a211a548fe68976f0",
+  "source_pins": {
+    "smonitor": {
+      "version": "0.20.0",
+      "sha": "f6230af431a7fc185209fa44364c017d711cc2b7",
+      "release": "https://github.com/uibcdf/smonitor/releases/tag/0.20.0",
+      "provider_issues": [
+        "uibcdf/smonitor#48",
+        "uibcdf/smonitor#50"
+      ]
+    }
+  },
+  "guide_origin": "Unedited standards/SMONITOR_GUIDE.md from public tag 0.20.0.",
+  "local_environment": {
+    "python": "3.14.7",
+    "workers": 12,
+    "pytest_receptor": "llm",
+    "smonitor_distribution_metadata": "0.19.0",
+    "smonitor_runtime": "Editable sibling source; runtime files have no Git diff against tag 0.20.0. Distribution metadata is stale and is not installed-artifact evidence.",
+    "smonitor_source_review_head": "2ff66ccfdfe1ce04dea011199151d126bf4723d4"
+  },
+  "checks": {
+    "passed": 346,
+    "exit_code": 0,
+    "seconds": 11.75
+  },
+  "scope": [
+    "tests/cross_repo/test_smonitor_contracts.py",
+    "tests/cross_repo/test_diagnostics_noise.py",
+    "tests/_private/test_smonitor_catalog_integrity.py",
+    "tests/_private/test_form_tier.py",
+    "tests/_private/smonitor",
+    "tests/form/test_download_diagnostics.py",
+    "tests/form/test_declared_registry_integration.py"
+  ],
+  "retained_full_suite": {
+    "receipt": "devtools/data/form_registry_adoption_20261013.json",
+    "passed": 14067,
+    "failed": 0,
+    "skipped": 2,
+    "smonitor_runtime_commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+    "applicability": "The full suite already used the runtime published as SMonitor 0.20.0. This update changes the controlled source pin and official guide, with no MolSysMT runtime changes."
+  },
+  "public_floor": "Unchanged: smonitor>=0.16.0. The new optional bootstrap_policy=False capability is not adopted.",
+  "boundaries": "Source compatibility and guide synchronization only. Exact installed MolSysMT/Viewer qualification and publication remain paused under #334; no tag, release, upload or promotion is performed.",
+  "guide_sha256": "e4c9464fffc29f442e2a53d6f7c029cbe96a54e76f29e808f3ebbddc4dbfa11d",
+  "fast_gates": {
+    "passed": 14,
+    "failed": 0
+  },
+  "dependency_contract_audit": "PASS"
+}

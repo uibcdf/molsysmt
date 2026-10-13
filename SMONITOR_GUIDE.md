@@ -10,8 +10,8 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.19.0`
-- Last synced: 2026-10-08
+- Source version: `smonitor@0.20.0`
+- Last synced: 2026-10-13
 
 ## What is SMonitor
 
@@ -72,6 +72,14 @@ Detailed diagnostics remain available, and restrictive capture is an explicit
 application/consumer choice. Consumers own their chosen dependency floor,
 integration and receiving tests. A scope controls the provider's documented
 capture paths; it is not a global guarantee over arbitrary third-party code.
+
+**SMonitor >=0.20.0** adds opt-in `bootstrap_policy=False` to
+`DiagnosticBundle`, `emit_from_catalog` and `smonitor.emit`. It registers provider
+declarations and emits through application-owned handlers without installing
+fallback policy or warning/logging hooks. The default `True` preserves the
+existing first-use behavior. A consumer relying on this option must require the
+0.20.0 capability floor and qualify the installed provider separately from
+source integration (`uibcdf/smonitor#48`, `uibcdf/smonitor#50`).
 
 ## 1. Required Configuration Structure
 

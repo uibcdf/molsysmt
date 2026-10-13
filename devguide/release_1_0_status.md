@@ -238,6 +238,35 @@ nine documentation code blocks execute and course outputs remain preserved.
 The native owner contract and all relevant user/course guidance are updated.
 This does not alter a frozen package or qualify a replacement release candidate.
 
+## Released SMonitor source checkpoint — 2026-10-13
+
+The public SMonitor 0.20.0 release is verified. The controlled source manifest now
+pins `f6230af431a7fc185209fa44364c017d711cc2b7`, and `SMONITOR_GUIDE.md`
+is synchronized byte-for-byte from that release's official guide. Provider
+implementation and publication are tracked by uibcdf/smonitor#48 and
+uibcdf/smonitor#50.
+
+MolSysMT retains its existing initialization and diagnostic emission behavior.
+It does not enable the new `bootstrap_policy=False` option. The public floor
+remains `smonitor>=0.16.0`; using that new option would require >=0.20.0 and its
+own receiving tests. The guide's >=0.19.0 application-policy preservation and
+capture capabilities remain separate feature floors, not guarantees added to
+MolSysMT's minimum by updating the controlled source.
+
+On the shared Python 3.14.7 development environment, twelve-worker
+pytest-receptor validation passes **346 diagnostic and form-integration cases**
+in 11.75 seconds. The editable distribution metadata still reports 0.19.0, but
+the imported runtime source has no diff against 0.20.0. The earlier 14,067-pass
+full local suite recorded that exact runtime commit, so its evidence remains
+applicable to this pin/guide update. No MolSysMT runtime files change.
+
+The [source receipt](../devtools/data/support_provider_releases_20261013.json)
+retains versions, scope and the earlier full-suite receipt. The dependency
+contract audit and all 14 fast gates also pass. This is source
+compatibility evidence; exact installed-file and platform/Python qualification
+remain separate under #334. Publication stays paused and frozen artifacts and
+references remain unchanged.
+
 ## Form-registry startup investigation — 2026-10-10
 
 #382 is reproduced and awaits the reusable provider capability requested as
