@@ -210,3 +210,37 @@ tutorials. Their nbformat minor is 4 while cells contain IDs introduced for mino
 5. The gzip tutorial and modified Module 01 are valid. A zero Sphinx exit does not
 prove a clean build. This bounded schema repair remains pending within #144; it
 is separate from gzip input correctness and requires preserving existing outputs.
+
+## Bounded notebook-schema repair — 2026-10-13
+
+The six notebooks in the preceding checkpoint declared nbformat 4.4 but contained
+cell IDs, which that schema rejects. They now declare 4.5, retain their existing
+IDs and assign missing IDs once. New IDs use the first sixteen hexadecimal digits
+of SHA-256 over documentation-relative path, cell position and cell type; stored
+IDs remain attached to their cells during subsequent edits. IDs are unique within
+each notebook. No random identifiers, content rewrites or execution are involved.
+
+The [receipt](../../devtools/data/notebook_schema_repair_20261013.json) records the
+six paths, file hashes, schema versions, preserved/added ID counts and a hash of
+the complete JSON payload excluding only nbformat_minor and per-cell id. A direct
+comparison with the original files confirms that all other JSON values are
+identical: source text and list/string representation, outputs, execution counts,
+cell/notebook metadata and attachments. Existing code execution fingerprints and
+saved outputs therefore remain applicable; this repair does not qualify the
+legacy scientific examples afresh.
+
+The guard `devtools/tests/test_documentation_notebook_schema.py` validates raw
+stored JSON with nbformat, before any reader can normalize or repair it, and checks
+that validation leaves the input unchanged. All six cases fail on the original
+files and pass after repair. The schema cases plus the five notebook-executor
+controls pass 11/11 using Python 3.14.7, twelve workers and pytest-receptor.
+
+A focused Sphinx HTML project copies the actual six notebooks, uses MyST-NB and
+the same notebook reader options, disables execution as in the site configuration,
+and renders each page with its stored outputs. It exits 0 with no ERROR lines or
+Notebook JSON is invalid diagnostics. Its 102 warnings include references to
+pages absent from that isolated project and legacy course directives; this is
+neither a full-site build nor a warning-baseline comparison. Sphinx 9.1.0,
+MyST-NB 1.4.0 and nbformat 5.11.1 are recorded in the receipt. Course structure,
+Ruff and developer-guide checks pass. The broader #144 closure criteria remain
+open, with partial status unchanged.

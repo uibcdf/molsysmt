@@ -1,0 +1,104 @@
+{
+  "schema": "molsysmt.notebook_schema_repair@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/molsysmt#144",
+  "baseline_commit": "31f4476ca00b2a556d74cadc1a364678c6049741",
+  "scope": "six previously invalid notebooks; metadata only",
+  "guard": "devtools/tests/test_documentation_notebook_schema.py",
+  "method": "Promote nbformat minor 4 to 5; retain existing cell IDs; assign missing IDs once using first 16 hex digits of SHA-256(relative documentation path:cell position:cell type). Stored IDs persist on future edits.",
+  "payload_definition": "Complete raw JSON except top-level nbformat_minor and per-cell id, preserving list/string source representation, outputs, execution counts, all cell/notebook metadata and attachments.",
+  "before_guard": {
+    "failed": 6
+  },
+  "records": [
+    {
+      "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 25,
+      "existing_ids_preserved": 1,
+      "new_ids": 24,
+      "payload_sha256": "82b16239f4271ccdf56c51a9942f3ec27f459ac8d97f45cf892fe76503bd4702",
+      "before_file_sha256": "46d7f30295adec70e2b1c5aedec38c6ff9db2fb9321190d31b3d0a265c7961b4",
+      "after_file_sha256": "307e48beb303aced8e7cd3ecb938e1034ce3c64ab905ab546cb7af421bd9364e"
+    },
+    {
+      "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 18,
+      "existing_ids_preserved": 1,
+      "new_ids": 17,
+      "payload_sha256": "e32ac40cf49d29a0b7c0b497958aa8b6698dfb3f7937d4155c628eaf43dc058e",
+      "before_file_sha256": "0d9e84a2514d9adc6bf49f4b66431c2cd0309d5a20c24221395f34c58514756c",
+      "after_file_sha256": "919dded8f2ad2aa89b9c9c011393e263238614a0e9d7381777889620190d0c78"
+    },
+    {
+      "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 13,
+      "existing_ids_preserved": 3,
+      "new_ids": 10,
+      "payload_sha256": "e280249a75969cf7789c5b04a9ab78f883a1622a1eb0cb7268bc313d7e141ab2",
+      "before_file_sha256": "aea5c3dd84c8089f963b0f07ad6a8a9c9804268285135131793ec29e7c05fcc9",
+      "after_file_sha256": "e64a81788512be282665f5ca99c8e6e42046c9503b2bba4e3d3ad431b8ffbf43"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 10,
+      "existing_ids_preserved": 3,
+      "new_ids": 7,
+      "payload_sha256": "4410c08e51b5ce94a49ced77659b1f4ab8cbc4db82f9fe76f6370523d047f39d",
+      "before_file_sha256": "e67950d94d3ca420d35a19a9cec57f3d67c681cf1a3eb8db1185d94884964785",
+      "after_file_sha256": "1195a901a44ef8645a74dcec9b9a266e5e577cb152646dc945c5baae207c1b85"
+    },
+    {
+      "path": "docs/content/user/tools/basic/get.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 79,
+      "existing_ids_preserved": 1,
+      "new_ids": 78,
+      "payload_sha256": "37c4561ad2937d1e55190a658893bdc716f61f07227cf71aa5b169a30e2d6a81",
+      "before_file_sha256": "18f4efa57e4ad04a46f3aaf6e862723abb8e34481622edb3012051a147691150",
+      "after_file_sha256": "e07ca76a10d6effa45baa29f0fd6aecf4e93e5675c25c7ed25b44233543b3d9c"
+    },
+    {
+      "path": "docs/content/user/tools/basic/set.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 26,
+      "existing_ids_preserved": 1,
+      "new_ids": 25,
+      "payload_sha256": "f12010f036e93d95939777214da27e5c809c882903d67ae5bd4ed70f0b9c89fa",
+      "before_file_sha256": "10e9b0bcd7ab0fe7cd76a3448a487b69cb0624d4722ee4609257225b1c2db113",
+      "after_file_sha256": "11fb200b0811bc449ddf6e4ec6fa193ccca2a58be92ed6b3ad91010266dbb6a8"
+    }
+  ],
+  "after_guard": {
+    "passed": 11,
+    "schema_cases": 6,
+    "executor_cases": 5,
+    "workers": 12,
+    "receptor": "llm"
+  },
+  "focused_sphinx": {
+    "exit_code": 0,
+    "pages": 6,
+    "execution": "off; render stored outputs",
+    "schema_error_lines": 0,
+    "error_lines": 0,
+    "warning_lines": 102,
+    "scope": "Copied actual six notebooks into a standalone project using the same MyST-NB reader and notebook options. Unavailable cross-reference targets and legacy course directives are retained warnings; no full-site cleanliness claim."
+  },
+  "software": {
+    "nbformat": "5.11.1",
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39"
+}
