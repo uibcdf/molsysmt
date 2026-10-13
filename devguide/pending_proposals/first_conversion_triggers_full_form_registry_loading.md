@@ -6,17 +6,18 @@ opened: 2026-10-10
 closed:
 verification: measured
 area: [form, performance, deps]
-guard:
+guard: tests/test_form_inspection_visibility.py
 normative: devguide/forms_and_conversions.md
-blocked_by: [uibcdf/depdigest#34]
+blocked_by: [uibcdf/depdigest#36]
 supersedes: []
 ---
 
 # First conversion triggers complete form-registry loading
 
 **Reported:** 2026-10-10 by ElastNetMT, consumer uibcdf/elastnetmt#26.
-**Status:** Reproduced; reusable provider capability requested under
-uibcdf/depdigest#34. Runtime adoption is pending that public interface.
+**Status:** Blocked on the adapter-inspection compatibility extension in
+uibcdf/depdigest#36. DepDigest 0.14.0 supplies selective loading, but its strict
+engine gate does not preserve existing all-capability adapter inspection.
 
 ## What
 
@@ -154,7 +155,8 @@ performance proposal is not by itself a demonstrated functional release blocker.
 
 ## Dependencies and risks
 
-Blocked by uibcdf/depdigest#34. The extension must have a public version/admission
+The initial capability in uibcdf/depdigest#34 is publicly admitted in DepDigest
+0.14.0. Adoption is now blocked by uibcdf/depdigest#36. The extension must have a public version/admission
 contract before changing MolSysMT requirements. Reconcile the existing catalog's
 module cache with provider registrations; do not assume that clearing a registry
 unloads Python modules. Configuration overrides are public through DepDigest,
@@ -191,3 +193,57 @@ changed. The provider request and adoption criteria remain open.
 Ruff checks/formatting, whitespace validation and all fourteen fast development
 gates pass for this preparation checkpoint. The runtime scientific-evidence and
 installed-package matrices are neither executed nor replaced by these checks.
+
+## Published-provider adoption review — 2026-10-13
+
+The maintainer authorized continuing consumer adoption after DepDigest 0.14.0
+was published. Provider source `1b746ece24587e920e49ea20f2bfebde7c3efc24` is
+imported in the shared Python 3.14.7 development environment. Its registry/loader
+runtime files match the admitted source `affd73ef04070a9bf492173c0db615292a73e5d1`.
+The provider worktree has unrelated pending documentation/tests, preserved
+read-only. Its editable distribution metadata remains
+`0.12.0+13.g104661a`; this is source review, not installed-version admission.
+
+**Reproduced compatibility limitation:** with CuPy absent and
+`show_all_capabilities=True`, the declared identity is visible and a native
+MolSys lookup succeeds. Requesting the CuPy adapter through `DeclaredRegistry`
+raises `KeyError` caused by the missing engine. The same adapter can be imported
+through the existing route and exposes its form type and conversion declarations
+without importing or executing CuPy. The published strict gate is working as
+specified, but differs from the existing host metadata-inspection contract.
+
+`msm.supported.forms()` and full capability/converter introspection require
+adapter metadata. The existing form.json supplies identity/type/class/extension,
+not all callable attribute and converter metadata. Dropping failed entries would
+silently remove advertised capabilities. Bypassing provider private checks,
+subclassing its loader or introducing a second consumer registry was rejected.
+
+The owner proposal is uibcdf/depdigest#36, linked to coordination under
+uibcdf/molsyssuite#115. It requests an explicit opt-in adapter-only loading
+policy, retaining the strict default, current visibility filtering, true import
+errors, identity checks and failure/retry semantics. Importability must remain
+separate from optional-engine execution, which stays guarded by dep_digest.
+The exact API, tests and public admission belong to DepDigest.
+
+Consumer compatibility controls are in
+`tests/test_form_inspection_visibility.py`: fresh interpreters simulate absent
+RDKit, verify both public visibility modes and ensure that displayed metadata
+never enables execution of the absent engine. The initial four-case compatibility
+and dependency-architecture selection passes on Python 3.14.7. These protect an existing
+contract; they do not implement the selective loader or establish a speedup.
+
+MolSysMT runtime sources, dependency floors, controlled CI pins and frozen
+artifacts remain unchanged. Source adoption will resume after an admitted
+provider contract can preserve all-capability inspection, indexed native lookup,
+configuration freshness, registrations and converter/scientific parity together.
+
+### Executed consumer preparation evidence — 2026-10-13
+
+Seven focused cases pass on Python 3.14.7 with twelve pytest workers and
+pytest-receptor: the two new visibility/execution guards, existing dependency
+architecture and fresh-worker benchmark integrity controls. The benchmark
+controls run under test load and their timing samples are not retained as a
+performance comparison. Ruff checks and formatting and the developer-guide
+validator pass. This evidence protects current compatibility and measurement
+integrity; it does not qualify an indexed runtime adoption. The front-matter
+guard protects the retained inspection contract, not a completed optimization.

@@ -57,8 +57,10 @@ Target validation still derives `_dict_forms_lowercase` from DepDigest's
 `LazyRegistry.keys()`, and first module lookup also initializes that registry by
 importing all eligible adapters. Converter submodules remain independently lazy.
 The current cold-conversion proposal is uibcdf/molsysmt#382; its generic provider
-capability is requested as uibcdf/depdigest#34. No indexed registry extension has
-been adopted. See [the reproduction and adoption criteria](pending_proposals/first_conversion_triggers_full_form_registry_loading.md).
+capability is published in DepDigest 0.14.0 under uibcdf/depdigest#34.
+No indexed registry extension has been adopted: its strict engine gate cannot
+yet preserve existing adapter inspection when an optional execution engine is
+absent. The explicit adapter-inspection extension is uibcdf/depdigest#36. See [the reproduction and adoption criteria](pending_proposals/first_conversion_triggers_full_form_registry_loading.md).
 
 Three consequences worth knowing before changing anything here:
 
