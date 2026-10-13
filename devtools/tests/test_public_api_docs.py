@@ -49,7 +49,9 @@ def test_api_tutorial_links_resolve_to_actual_notebook_targets(
 
     def introduction(path):
         notebook = json.loads((REPOSITORY_ROOT / path).read_text(encoding="utf-8"))
-        cell = next(cell for cell in notebook["cells"] if cell["cell_type"] == "markdown")
+        cell = next(
+            cell for cell in notebook["cells"] if cell["cell_type"] == "markdown"
+        )
         return "".join(cell["source"])
 
     source = tmp_path / "source"
