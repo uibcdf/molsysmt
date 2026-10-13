@@ -70,14 +70,27 @@ records and must be included when replacement-candidate scope is agreed:
 | #386: obsolete pandas composition keywords | [Composition record](archive/resolved_bugs/topology_composition_emits_obsolete_pandas_copy_warnings.md) owns separately executed pandas 2/3 controls for connectivity, chemical-state values and independent output storage. |
 | #144: six notebook-schema repairs | [Active documentation record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-notebook-schema-repair--2026-10-13) and [receipt](../devtools/data/notebook_schema_repair_20261013.json) preserve every JSON value except schema minor and cell IDs. Six guards fail before repair; 11 schema/executor checks pass afterward. A focused six-page HTML build retains stored outputs without schema errors; it does not certify the whole site or re-execute examples. |
 
-For #382, DepDigest 0.15.0 resolves the earlier adapter-inspection requirement,
-but overlapping cold lookup needs uibcdf/depdigest#39. The maintainer chooses
-provider-team delivery of the proposed correction. The
-[prepared consumer record](pending_proposals/first_conversion_triggers_full_form_registry_loading.md#published-015-review-and-prepared-adoption--2026-10-13)
-retains 459 passing prototype checks and same-input startup measurements. MolSysMT
-runtime, released floors and controlled-source pins remain unchanged by that
-preparation. A fixed admitted provider and the remaining direct consumer guards
-are required before adoption; prototype results do not qualify released packages.
+For #382, DepDigest 0.15.1 is publicly admitted and uibcdf/depdigest#39 is closed.
+The maintainer's provider-team handoff has led to adoption of DeclaredRegistry
+with adapter inspection, requiring >=0.15.1 across the audited installation
+surfaces and pinning its exact public source. The
+[consumer adoption record](pending_proposals/first_conversion_triggers_full_form_registry_loading.md#admitted-provider-consumer-adoption--2026-10-13)
+and [receipt](../devtools/data/form_registry_adoption_20261013.json) retain
+fresh-interpreter sentinel, override/removal, failure/retry, concurrent-read and
+legacy-loader molecular parity controls. The final local Python 3.14 suite passes
+14,067 cases with two omissions and no failures, using twelve workers and
+pytest-receptor; twelve bounded cases each also pass on existing 3.12/3.13
+environments. Local 3.11 runtime qualification is not executed. Exact installed
+and platform/Python admission remain part of #334; #382 stays partial for that
+remaining scope rather than blocked on the provider. No frozen bytes or refs move.
+
+The first full-suite run also reproduces four CRD+PSF refusals and a stale PDB
+download-spelling assertion with the original loader modules. The classifier
+defect is repaired under [#388](archive/resolved_bugs/crd_coordinate_metadata_is_misclassified_as_a_second_primary_topology.md)
+by retaining the CRD metadata pipe and explicitly declaring its topology partial.
+The PDB guard now expects the existing canonical lowercase spelling while
+retaining all 304-atom/38-structure truth. Ninety nearby cases and the final full
+suite pass. This is bounded stabilization, not a new molecular protocol.
 
 Reviewing the published acceptance reconciliations and closure criteria for
 [interaction organization](pending_proposals/organize_interaction_detection_by_family_before_1_0.md#acceptance-criteria)

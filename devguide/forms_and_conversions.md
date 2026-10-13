@@ -52,15 +52,39 @@ holding an instance of a class -- the `(top-level module, class name)` an item o
 has. `molsysmt/form/catalogue.py` reads all of them with one `os.scandir`: **2.35 ms, once
 per process, importing nothing**.
 
-This metadata optimization covers detection, not complete conversion startup.
-Target validation still derives `_dict_forms_lowercase` from DepDigest's
-`LazyRegistry.keys()`, and first module lookup also initializes that registry by
-importing all eligible adapters. Converter submodules remain independently lazy.
-The current cold-conversion proposal is uibcdf/molsysmt#382; its generic provider
-capability is published in DepDigest 0.14.0 under uibcdf/depdigest#34.
-No indexed registry extension has been adopted: its strict engine gate cannot
-yet preserve existing adapter inspection when an optional execution engine is
-absent. The explicit adapter-inspection extension is uibcdf/depdigest#36. See [the reproduction and adoption criteria](pending_proposals/first_conversion_triggers_full_form_registry_loading.md).
+The form registry uses DepDigest's `DeclaredRegistry` with
+`load_policy="adapter"`, requiring published DepDigest >=0.15.1. Declarations
+come from the host catalogue. Enumerating names and normalizing known target
+names does not import adapters. A module lookup loads the requested adapter;
+its own imports and the requested conversion can load further required modules.
+Converter submodules remain independently lazy. Iterating registry values or
+inspecting every adapter's callable capabilities intentionally loads adapters.
+
+DepDigest owns module/failure caches, dependency visibility, diagnostics,
+refresh and explicit discovery. The catalogue delegates module lookup to that
+registry and keeps no competing implementation cache. Real import failures
+propagate with their original cause; retry is explicit. Current configuration
+can hide soft capabilities. All-capability inspection may expose an importable
+adapter without its optional engine, but scientific execution still requires
+the guarded engine. Case normalization and tolerated native target spellings
+are resolved before asking whether a target is a molecular item.
+
+Manual implementations, overrides and removals are respected by catalogue
+lookup and dispatch. Uncatalogued identities are considered after built-in
+detectors fail to match. Host admission still requires an explicit support tier;
+registering an adapter does not certify its scientific criteria or conversions.
+Undeclared filesystem plugins require explicit provider discovery.
+
+Concurrent value lookups on the shared registry serialize through initialization
+and use the same cached implementation or failure. Mutation, discovery,
+retry/refresh and configuration changes require external exclusive coordination.
+An initializer must not wait for another thread needing that registry; arbitrary
+cycles between registries, imports and threads are outside the provider guarantee.
+This loader contract does not make arbitrary molecular edits thread-safe.
+
+The owning provider contracts are uibcdf/depdigest#34, #36 and #39. Consumer
+adoption and bounded measurements are recorded under
+[uibcdf/molsysmt#382](pending_proposals/first_conversion_triggers_full_form_registry_loading.md).
 
 Three consequences worth knowing before changing anything here:
 

@@ -10,8 +10,8 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.15.0`
-- Publication tracking: `uibcdf/depdigest#37` (0.15.0); base registry: `uibcdf/depdigest#34`
+- Source version: `depdigest@0.15.1`
+- Publication tracking: `uibcdf/depdigest#39` (0.15.1); base registry: `uibcdf/depdigest#34`
 - Adapter-inspection publication tracking: `uibcdf/depdigest#37`; implementation
   `uibcdf/depdigest#36`. Public 0.14.0 does not provide this option.
 - Last source update: 2026-10-13
@@ -152,8 +152,8 @@ capabilities can hide cached entries; unrestricted missing soft capabilities emi
 availability diagnostics on request before failure. Manual overrides win. Python
 availability retains `is_installed`'s cache; clear it after installation and refresh
 before retrying. Executables follow current PATH. Consumer imports and dependency
-probes may have their own import effects. Loading is synchronous without concurrency
-synchronization. `LazyRegistry` remains available with its existing contract.
+probes may have their own import effects. The bounded concurrent reader scope
+is defined below. `LazyRegistry` remains available with its existing contract.
 The complete contract is in `docs/content/user/declared-registry.md`.
 
 #### Explicit adapter inspection (from 0.15.0, #36)
@@ -177,6 +177,25 @@ This is **not published 0.14.0 behavior**. Public use requires admitted DepDiges
 A controlled source experiment must pin the implementation commit. MolSysMT #382
 adoption/parity and MolSysSuite #115 coordination remain separate from provider
 source/publication evidence.
+
+#### Concurrent declared value requests (from 0.15.1, #39)
+
+Overlapping declared value requests on one shared registry wait for initialization
+and share its cached value or failure cause, with one initialization/diagnostic.
+This covers strict/adapter policies and filesystem/entry-point routes. True
+same-thread recursion still fails; independent nested requests work. Per-registry
+serialization includes different keys and cached lookups, preserving initiating
+request provenance and unrelated-plugin laziness.
+
+Initialization is synchronous. Initializers must not wait for another thread
+needing the same registry. Mutation, discovery, retry/refresh and configuration
+changes require external exclusive coordination. Metadata/views do not promise
+atomic multi-operation snapshots; arbitrary cyclic cross-registry/import/thread
+interactions are outside this scope. Legacy `LazyRegistry` is unchanged.
+
+Public adoption requires admitted DepDigest >=0.15.1 under #39. Published 0.15.0
+explicitly lacks synchronization. This admission remains separate from MolSysMT
+#382 integration/scientific parity and MolSysSuite #115 coordination.
 
 ### 3.1 Manual Configuration Registration
 Useful for testing or dynamic plugin systems where a root `_depdigest.py` is not feasible.

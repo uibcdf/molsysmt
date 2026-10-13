@@ -77,7 +77,8 @@ def test_convert_multimodel_pdb_id_uses_all_nmr_models_offline(monkeypatch):
 
     ensemble = msm.convert("1L2Y")
 
-    assert requested_ids == ["1L2Y"]
+    # Downloads use the canonical lowercase ID; the ensemble stays complete.
+    assert requested_ids == ["1l2y"]
     assert msm.get_form(ensemble) == "molsysmt.MolSys"
     assert ensemble.topology.n_atoms == 304
     assert ensemble.topology.n_groups == 20

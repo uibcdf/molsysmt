@@ -80,24 +80,29 @@ def form_names():
 
 def forms_lowercase():
     """
-    Lowercased form name -> the canonical spelling.
+    Lowercased visible form name -> the canonical spelling, including registrations.
     """
 
-    return _load()["forms_lowercase"]
+    from molsysmt.form import _dict_modules
+
+    return {name.lower(): name for name in _dict_modules}
 
 
 def form_type(form_name):
     """
-    `'file'`, `'string'` or `'class'`, or None when the form is not declared.
+    `'file'`, `'string'` or `'class'`, or None for an unknown form.
 
     Parameters
     ----------
     form_name : object
-        Argument form_name.
+        Canonical form name whose category is being requested.
     """
 
     declaration = _load()["by_form"].get(form_name)
-    return None if declaration is None else declaration["form_type"]
+    if declaration is not None:
+        return declaration["form_type"]
+    module = module_of(form_name)
+    return None if module is None else module.form_type
 
 
 def plugin_of(form_name):
@@ -107,7 +112,7 @@ def plugin_of(form_name):
     Parameters
     ----------
     form_name : object
-        Argument form_name.
+        Canonical form name whose implementing package is being requested.
     """
 
     declaration = _load()["by_form"].get(form_name)
@@ -166,35 +171,24 @@ def form_of_extension(name):
     return None
 
 
-_modules = {}
-
-
 def module_of(form_name):
     """
     Import and return the plugin implementing a form. Only that one.
 
-    The registry cannot do this: it learns a form's name by importing the module that
-    declares it, so it has to import all of them before it can hand back any. Here the name
-    came from the declaration, so the module is known before it is loaded.
+    Delegate loading, visibility, overrides and cache ownership to DepDigest.
+    The host catalogue supplies declarations; it does not keep a competing cache.
 
     Parameters
     ----------
     form_name : object
-        Argument form_name.
+        Canonical visible form name whose adapter is being requested.
     """
 
-    if form_name in _modules:
-        return _modules[form_name]
+    from molsysmt.form import _dict_modules
 
-    plugin = plugin_of(form_name)
-    if plugin is None:
+    if form_name not in _dict_modules:
         return None
-
-    from importlib import import_module
-
-    module = import_module(f"molsysmt.form.{plugin}")
-    _modules[form_name] = module
-    return module
+    return _dict_modules[form_name]
 
 
 @lru_cache(maxsize=None)

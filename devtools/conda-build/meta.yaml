@@ -29,7 +29,7 @@ requirements:
   - h5py
   - numpy >=1.26,<3
   - argdigest >=0.13.0
-  - depdigest >=0.10.0
+  - depdigest >=0.15.1
   - smonitor >=0.16.0
   - pyunitwizard >=0.28.1
   - pandas

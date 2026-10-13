@@ -1,0 +1,537 @@
+{
+  "schema": "molsysmt.form_registry_adoption@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/molsysmt#382",
+  "baseline_molsysmt_commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+  "provider_public_version": "0.15.1",
+  "provider_public_commit": "13cc73780a7cb645546ae3f396177f98b86a8792",
+  "provider_public_conda_sha256_reported_by_owner": "2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850",
+  "provider_evidence": "https://github.com/uibcdf/depdigest/issues/39#issuecomment-6154738670",
+  "source_review": "The imported provider runtime has no Git diff against public tag 0.15.1. Pending provider evidence files are preserved read-only.",
+  "guide_sha256": "30a188994ba3848c84099c33be145585df126e73e56297f53fffddf190ad6469",
+  "guide_origin": "Unedited standards/DEPDIGEST_GUIDE.md from public tag 0.15.1.",
+  "suite_state": "Inventory refreshed; all dirty/behind sibling checkout states preserved without pull/merge/stash/reset.",
+  "notes": [
+    "Three fresh interpreter trials per mode; unchanged benchmark and input bytes; no concurrent local pytest workload during measurement. Other host load is uncontrolled.",
+    "Source validation uses the shared development interpreter, without a new environment or temporary provider patch. Editable distribution metadata is stale; actual source identities are retained separately.",
+    "The owner qualified the public provider file; this receipt does not claim a MolSysMT installed-artifact qualification.",
+    "native_sha256 identifies compiled-extension bytes, not a molecular-result hash.",
+    "Benchmark parity compares thirteen molecular attributes within each cold/repeated/prepared sequence. Separate guards compare legacy and declared loaders on the same host source with complete and selected atom axes.",
+    "Prepared conversion first-use latency can increase as adapter initialization is deferred; cold-file observations are not a universal speedup promise.",
+    "Required full platform/Python source and installed-pair qualification remain distinct from local evidence and the publication pause."
+  ],
+  "measurements": {
+    "existing_runtime": {
+      "schema": "molsysmt.form_registry_startup_benchmark@1",
+      "mode": "conversion",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "logical_cpus": 20,
+      "input_name": "181l.pdb",
+      "input_sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "tool_sha256": "4614f2a824cc6215fc5368859e8d1c95abc42c45289089961438b5f7de83ebbd",
+      "samples": [
+        {
+          "import_seconds": 0.7003136733546853,
+          "worker_pid": 4,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 5.052151568233967,
+          "conversion_added_form_modules": 1170,
+          "repeated_conversion_seconds": 0.4760284284129739,
+          "prepared_conversion_seconds": 0.049293781630694866,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+                "dirty": false
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "8a7ec95ec36713c991ab966bb11dfb26aaaeb6e2",
+                "dirty": true
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.6837593521922827,
+          "worker_pid": 47,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 5.167291208170354,
+          "conversion_added_form_modules": 1170,
+          "repeated_conversion_seconds": 0.36593661829829216,
+          "prepared_conversion_seconds": 0.041762400418519974,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+                "dirty": false
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "d5c512180c895f3d98886a192a87142bdd5c9a28",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.6545528499409556,
+          "worker_pid": 90,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 4.499889289960265,
+          "conversion_added_form_modules": 1170,
+          "repeated_conversion_seconds": 0.32001234497874975,
+          "prepared_conversion_seconds": 0.03664945159107447,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+                "dirty": false
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "d5c512180c895f3d98886a192a87142bdd5c9a28",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        }
+      ],
+      "median_seconds": {
+        "first_conversion_seconds": 5.052151568233967,
+        "import_seconds": 0.6837593521922827,
+        "prepared_conversion_seconds": 0.041762400418519974,
+        "repeated_conversion_seconds": 0.36593661829829216
+      }
+    },
+    "declared_runtime": {
+      "schema": "molsysmt.form_registry_startup_benchmark@1",
+      "mode": "conversion",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "logical_cpus": 20,
+      "input_name": "181l.pdb",
+      "input_sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "tool_sha256": "4614f2a824cc6215fc5368859e8d1c95abc42c45289089961438b5f7de83ebbd",
+      "samples": [
+        {
+          "import_seconds": 0.5112808560952544,
+          "worker_pid": 6,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 0.9060189900919795,
+          "conversion_added_form_modules": 38,
+          "repeated_conversion_seconds": 0.28313674591481686,
+          "prepared_conversion_seconds": 0.32727977354079485,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "d5c512180c895f3d98886a192a87142bdd5c9a28",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.5074455281719565,
+          "worker_pid": 49,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 0.8957472052425146,
+          "conversion_added_form_modules": 38,
+          "repeated_conversion_seconds": 0.2794171776622534,
+          "prepared_conversion_seconds": 0.3289625998586416,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "d5c512180c895f3d98886a192a87142bdd5c9a28",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.5055856956169009,
+          "worker_pid": 92,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 0.8950787540525198,
+          "conversion_added_form_modules": 38,
+          "repeated_conversion_seconds": 0.28129219450056553,
+          "prepared_conversion_seconds": 0.3308567516505718,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "d5c512180c895f3d98886a192a87142bdd5c9a28",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f6230af431a7fc185209fa44364c017d711cc2b7",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        }
+      ],
+      "median_seconds": {
+        "first_conversion_seconds": 0.8957472052425146,
+        "import_seconds": 0.5074455281719565,
+        "prepared_conversion_seconds": 0.3289625998586416,
+        "repeated_conversion_seconds": 0.28129219450056553
+      }
+    }
+  },
+  "local_compatibility": {
+    "python_3_12": {
+      "passed": 12,
+      "seconds": 80.42,
+      "existing_environment": true,
+      "receptor": "source-loaded, automatic plugin discovery"
+    },
+    "python_3_13": {
+      "passed": 12,
+      "seconds": 57.68,
+      "existing_environment": true
+    },
+    "python_3_14_focused": {
+      "passed": 459
+    },
+    "python_3_14_added_guards_and_digesters": {
+      "passed": 18
+    },
+    "fast_gates": {
+      "passed": 14
+    }
+  },
+  "unqualified_scope": [
+    "No local Python 3.11 MolSysMT runtime qualification: inspected existing 3.11 environments lack the required runtime/test stack; no new environment or package installation is performed.",
+    "The 3.12/3.13 evidence is twelve bounded source cases each, not their full suites.",
+    "No new hosted source matrix, exact installed MolSysMT/Viewer pair or release action during the publication pause."
+  ],
+  "first_full_suite": {
+    "passed": 14062,
+    "failed": 5,
+    "skipped": 2,
+    "seconds": 413.89,
+    "workers": 12,
+    "distribution": "loadfile",
+    "receptor": "llm",
+    "junit_sha256": "a4cc93133ab8f3afbd4e259dedab9a95b75f44927254129d4b109d62754adc67"
+  },
+  "preexisting_failure_audit": {
+    "baseline_modules_commit": "9ae0f81028ef3914a4eef2d126dbe602e120221e",
+    "five_original_runtime_modules_temporarily_restored": true,
+    "same_five_failures_reproduced": true,
+    "adoption_modules_restored_byte_for_byte": true,
+    "crd_classifier_owner": "uibcdf/molsysmt#388",
+    "crd_fix": "Declare provides_primary_topology=False without dropping metadata pipes or relaxing general validation.",
+    "pdb_assertion_fix": "Expect the already specified lowercase normalized download identifier; retain all 38-structure and 304-atom checks. This is a stale guard expectation, not an identifier-parser change.",
+    "nearby_regressions": {
+      "passed": 90,
+      "seconds": 10.75
+    }
+  },
+  "final_full_suite": {
+    "passed": 14067,
+    "failed": 0,
+    "skipped": 2,
+    "workers": 12,
+    "distribution": "loadfile",
+    "receptor": "llm",
+    "junit_sha256": "d81e485254b79aa7b859d6c4c9cf424539a6a88b2e8a8354b7927f7b9cb92922",
+    "junit_summary": [
+      {
+        "tests": "14069",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "2",
+        "time": "416.962"
+      }
+    ]
+  }
+}

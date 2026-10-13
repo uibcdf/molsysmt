@@ -1,13 +1,18 @@
 import os
 
-from depdigest import LazyRegistry
+from depdigest import DeclaredRegistry
 
-# Initialize the generic LazyRegistry from depdigest
-# It will automatically find molsysmt._depdigest and handle filtering
+from . import catalogue
+
+# Adapter inspection is separate from guarded optional-engine execution.
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-_dict_modules = LazyRegistry(
-    package_prefix="molsysmt.form", directory=current_dir, attr_name="form_name"
+_dict_modules = DeclaredRegistry(
+    package_prefix="molsysmt.form",
+    directory=current_dir,
+    declarations={name: catalogue.plugin_of(name) for name in catalogue.form_names()},
+    attr_name="form_name",
+    load_policy="adapter",
 )
 
 

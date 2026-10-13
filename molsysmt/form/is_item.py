@@ -19,6 +19,14 @@ def is_item(item):
 
     from molsysmt.basic import get_form
 
+    # A declared form name describes a target; it is not an instantiated item.
+    # Avoid importing every string/file detector to reject such a name.
+    if isinstance(item, str):
+        from molsysmt.form import catalogue
+
+        if item.lower() in catalogue.forms_lowercase():
+            return False
+
     try:
         get_form(item)
         output = True

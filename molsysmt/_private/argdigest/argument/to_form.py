@@ -44,16 +44,15 @@ def digest_to_form(to_form, caller=None):
     if isinstance(to_form, (list, tuple)):
         return [digest_to_form(ii, caller=caller) for ii in to_form]
     else:
+        # Known names and tolerated spellings do not need item detection.
+        if isinstance(to_form, str):
+            canonical = _dict_forms_lowercase.get(to_form.lower())
+            if canonical is not None:
+                return canonical
+            canonical = _FORM_TOLERANCE_ALIASES.get(to_form.lower())
+            if canonical is not None:
+                return canonical
         if is_file(to_form):
             return to_form
-        else:
-            try:
-                return _dict_forms_lowercase[to_form.lower()]
-            except Exception:
-                pass
-            try:
-                return _FORM_TOLERANCE_ALIASES[to_form.lower()]
-            except Exception:
-                pass
 
     raise ArgumentError("to_form", value=to_form, caller=caller, message=None)

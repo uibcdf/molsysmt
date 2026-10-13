@@ -76,20 +76,19 @@ Entries carrying front matter under
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`freeze_1_0_scope_and_complete_bounded_stabilization.md`](freeze_1_0_scope_and_complete_bounded_stabilization.md) — [#334](https://github.com/uibcdf/molsysmt/issues/334) — Freeze 1.0 scope and complete bounded stabilization *(measured)*
 
-### Blocked (3)
+### Blocked (2)
 
 - [`enumerate_ligand_protomers_under_explicit_protonation_site_rules.md`](enumerate_ligand_protomers_under_explicit_protonation_site_rules.md) — [#230](https://github.com/uibcdf/molsysmt/issues/230) — Enumerate ligand protomers under explicit protonation-site rules *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
-- [`first_conversion_triggers_full_form_registry_loading.md`](first_conversion_triggers_full_form_registry_loading.md) — [#382](https://github.com/uibcdf/molsysmt/issues/382) — Avoid loading the complete form registry on first conversion. *(measured)*
-  Blocked by uibcdf/depdigest#39.
 
-### Partially resolved (10)
+### Partially resolved (11)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
+- [`first_conversion_triggers_full_form_registry_loading.md`](first_conversion_triggers_full_form_registry_loading.md) — [#382](https://github.com/uibcdf/molsysmt/issues/382) — Avoid loading the complete form registry on first conversion. *(measured)*
 - [`fixed_state_hbond_site_directions.md`](fixed_state_hbond_site_directions.md) — [#375](https://github.com/uibcdf/molsysmt/issues/375) — Expose reusable fixed-state hydrogen-bond site directions through public geometry tools. *(measured)*
 - [`local_molecule_names_and_external_enrichment.md`](local_molecule_names_and_external_enrichment.md) — [#25](https://github.com/uibcdf/molsysmt/issues/25) — Separate supported local molecule labels from future database enrichment. *(inspected)*
 - [`native_pdb_bond_inference_with_explicit_policy.md`](native_pdb_bond_inference_with_explicit_policy.md) — [#304](https://github.com/uibcdf/molsysmt/issues/304) — Add native PDB bond inference with explicit policy while retaining OpenMM *(measured)*

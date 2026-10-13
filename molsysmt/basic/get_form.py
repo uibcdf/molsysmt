@@ -56,6 +56,16 @@ def _sweep(molecular_system, *form_types):
     for form in catalogue.forms_of_type(*form_types):
         if _asks(form, molecular_system):
             return form
+    # Explicitly registered/discovered identities may have no on-disk declaration.
+    # They are inspected only after the indexed built-in detectors do not match.
+    from molsysmt.form import _dict_modules
+
+    declared = set(catalogue.form_names())
+    for form in _dict_modules:
+        if form not in declared:
+            module = catalogue.module_of(form)
+            if module.form_type in form_types and _asks(form, molecular_system):
+                return form
     return None
 
 

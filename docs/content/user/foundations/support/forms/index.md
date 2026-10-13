@@ -3,6 +3,13 @@
 
 Welcome to **Forms**, the foundational matrix detailing all object, file, and string data representations supported by MolSysMT.
 
+MolSysMT recognizes forms from declared metadata and confirms a candidate with
+its adapter. A conversion loads the adapters needed by its route; it does not
+initialize every supported format first. The first use of another adapter may
+still have an initialization cost. Listing the complete callable capabilities
+can load additional adapters, and inspecting an optional format does not enable
+calculations when its required engine is absent.
+
 ---
 
 ## Contents

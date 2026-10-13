@@ -52,9 +52,7 @@ def test_dependencies_architecture(monkeypatch):
                 exception_class=LibraryNotFoundError,
             ),
         )
-        _dict_modules.clear()
-        _dict_modules._initialized = False
-        _dict_modules._ensure_initialized()
+        _dict_modules.refresh()
         assert not is_installed("mdtraj")
         assert "mdtraj.Trajectory" not in _dict_modules
         assert "molsysmt.MolSys" in _dict_modules
@@ -82,8 +80,7 @@ def test_dependencies_architecture(monkeypatch):
         is_installed.cache_clear()
         register_package_config("molsysmt", original_config)
         register_package_config(module_root, original_test_config)
-        _dict_modules.clear()
-        _dict_modules._initialized = False
+        _dict_modules.refresh()
 
 
 def test_mmcif_is_registered_as_a_hard_dependency():

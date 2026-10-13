@@ -1,31 +1,31 @@
 ---
 summary: Avoid loading the complete form registry on first conversion.
 issue: uibcdf/molsysmt#382
-status: blocked
+status: partial
 opened: 2026-10-10
 closed:
 verification: measured
 area: [form, performance, deps]
-guard: tests/test_form_inspection_visibility.py
+guard: tests/form/test_declared_registry_integration.py
 normative: devguide/forms_and_conversions.md
-blocked_by: [uibcdf/depdigest#39]
+blocked_by: []
 supersedes: []
 ---
 
 # First conversion triggers complete form-registry loading
 
 **Reported:** 2026-10-10 by ElastNetMT, consumer uibcdf/elastnetmt#26.
-**Status:** Consumer preparation is measured and contract-tested with a proposed
-provider correction. Adoption waits for uibcdf/depdigest#39: overlapping cold
-adapter requests can be mistaken for recursive loading in published 0.15.0.
-The adapter-inspection requirement in uibcdf/depdigest#36 is resolved. MolSysMT
-retains its existing runtime registry and dependency floors.
+**Status:** DepDigest 0.15.1 is publicly admitted and uibcdf/depdigest#39 is closed.
+Consumer adoption and local source validation are complete. Required platform,
+supported-interpreter and installed-pair admission remain under the paused #334.
+Existing preparation statements below describe their dated checkpoints; they
+do not mean that the provider requirement is still blocked.
 
 ## What
 
-An ordinary first conversion to `molsysmt.MolSys` initializes all eligible form
-adapters. Metadata-based detection already avoids that cost, but target validation
-and conversion dispatch still use the generic scan-on-first-access registry.
+The reported first conversion to `molsysmt.MolSys` initialized all eligible form
+adapters. Metadata-based detection already avoided that cost, but target validation
+and conversion dispatch used the generic scan-on-first-access registry.
 Reduce this cold cost without changing scientific conversion behavior, dependency
 visibility or supported registrations.
 
@@ -160,9 +160,9 @@ performance proposal is not by itself a demonstrated functional release blocker.
 
 The initial capability in uibcdf/depdigest#34 is publicly admitted in DepDigest
 0.14.0; adapter-only inspection from uibcdf/depdigest#36 is admitted in 0.15.0.
-Adoption now waits for the cold concurrent-loading correction in
-uibcdf/depdigest#39. A fixed provider must have a public version/admission
-contract before changing MolSysMT requirements. Reconcile the existing catalog's
+The cold concurrent-loading correction in uibcdf/depdigest#39 is publicly
+admitted in 0.15.1. The consumer now requires that floor and uses its exact
+released source pin. Reconcile the existing catalog's
 module cache with provider registrations; do not assume that clearing a registry
 unloads Python modules. Configuration overrides are public through DepDigest,
 and current compatibility guards explicitly exercise filtered discovery.
@@ -380,3 +380,109 @@ by #39 until the fixed public version and its admitted identity are delivered;
 then review the retained consumer patch and run the outstanding consumer guards
 against the actual admitted provider. The original local prototype measurements
 do not qualify that forthcoming version.
+
+## Admitted-provider consumer adoption — 2026-10-13
+
+The owner closes uibcdf/depdigest#39 with published 0.15.1, annotated tag
+13cc73780a7cb645546ae3f396177f98b86a8792 and independent public-file admission.
+The imported provider runtime has no diff from that tag; its pending evidence
+files are preserved read-only. The Suite inventory is refreshed and all dirty
+or behind sibling states are retained without checkout mutations.
+
+MolSysMT now supplies its declarations to DeclaredRegistry(load_policy='adapter'),
+requires depdigest>=0.15.1 across pyproject, both recipes and all runtime-bearing
+floor declarations, and pins the exact public provider commit in controlled
+sources. The integration guide is copied unchanged from that public tag. The
+catalogue's competing module cache is removed. Current visibility, manual
+registrations, overrides/removal and failure causes flow through the owning
+registry. Public refresh replaces legacy private initialization manipulation.
+
+The normalizer resolves registered names and tolerated native spellings before
+item detection. The added sentinel first exposed an unnecessary detector sweep
+for molsysmt.structure; resolving that existing alias early fixes it without
+changing its destination. Unindexed identities still use explicit discovery or
+registration, then fallback detection with the normal host support-tier admission.
+
+### Direct consumer guards
+
+`tests/form/test_declared_registry_integration.py` uses fresh interpreters for
+canonical, uppercase and tolerated targets with unrelated adapters that raise
+on import. A successful conversion alone cannot satisfy this guard: any attempt
+to import the sentinel adapters is rejected even if a loader suppresses its error.
+Other cases verify that catalogue lookup and public detection honor overrides,
+removal and admitted manual identities; an injected real import failure retains
+its exact cause through catalogue and public dispatch, stays cached, and succeeds
+only after explicit retry. Cold concurrent public gzip conversions retain input
+bytes and independent mutable outputs. Finally two atom-selection cases compare
+thirteen actual molecular attributes with the legacy loader on the same host
+source, including an explicit nonmonotonic selection. They do not certify every
+converter or constitute an independent chemical oracle.
+
+Existing absent-engine inspection/execution-refusal and configuration controls
+remain. Twelve bounded integration/visibility/configuration cases pass separately
+on Python 3.12.12 and 3.13.14 using existing environments; no package installation
+or new environment is performed. Python 3.12 loads Pytest Receptor from its source.
+The 3.14 focused conversion/correspondence selection passes 459 cases, and the
+added normalization/visibility selection passes 18. Root full-suite execution and
+its discovered baseline failures are recorded below and in the receipt.
+
+### Same-input source measurements
+
+The [adoption receipt](../../devtools/data/form_registry_adoption_20261013.json)
+retains raw three-trial before/after samples using identical 181L/tool bytes,
+Python 3.14.7, the same shared host and admitted provider runtime. The baseline
+is 9ae0f8102 before consumer mutation. No concurrent local pytest workload runs
+during measurement; other host load is uncontrolled, and root-import medians
+also differ. These are bounded observations, not a causally isolated or universal
+speedup, memory/RSS measurement, complete ElastNetMT workflow or installed result.
+
+| Observation | Existing runtime median | Adopted runtime median |
+|---|---:|---:|
+| Root import | 0.684 s | 0.507 s |
+| First public PDB conversion | 5.052 s | 0.896 s |
+| Repeated file conversion | 0.366 s | 0.281 s |
+| First prepared-MolSys conversion | 0.0418 s | 0.329 s |
+| Form module entries added by first conversion | 1,170 | 38 |
+
+The first later native-adapter use retains a deferred initialization cost; not
+all operations improve in this sequence. Raw software metadata and actual source
+identities remain separate. The unchanged native hash identifies extension bytes,
+not molecular results. User Guide Foundations/Toolbox, course Module 01 and the
+normative forms guide reflect selective loading and optional-engine boundaries.
+Both edited notebooks retain every original code cell and stored output and
+validate against their declared schemas.
+
+### Full-suite baseline failure audit
+
+The first complete Python 3.14 run executes 14,069 cases with twelve workers,
+loadfile distribution and pytest-receptor: 14,062 pass, two skip and five fail.
+The four CRD+PSF failures reproduce after restoring the five changed loader/
+normalization modules from the baseline and belong to uibcdf/molsysmt#388. Its
+adapter flag repair retains the metadata pipe and does not relax the classifier.
+The fifth is a stale uppercase download-ID assertion: the existing normalizer
+and its dedicated tests specify lowercase. Only that auxiliary assertion is
+corrected; the 304 atoms, 20 groups and 38 NMR structures remain checked.
+The same five baseline failures are reproduced and prepared runtime modules are
+restored byte for byte. Ninety nearby regressions pass after the bounded repairs.
+A final whole-suite rerun provides the settled result below.
+
+The final configured suite passes **14,067 cases**, with **two omissions and
+zero failures/errors**, in 417.08 seconds on Python 3.14.7, twelve workers and
+loadfile distribution. It includes the configured basic-API doctests. The two
+omissions are absent CuPy and an invalid-input control inapplicable when installed
+RDKit recognizes CCO as SMILES. Existing warning populations remain explicit in
+the local receptor log. The receipt records the JUnit digest and complete count
+summary. The fourteen final fast gates, Ruff, dependency audit and course/schema
+checks pass. This source result does not qualify an installed artifact or another
+Python/platform cell.
+
+### Remaining qualification boundary
+
+The provider block is removed; local source adoption is separate from release
+admission. Local Python 3.11 runtime qualification is not executed: inspected
+existing environments lack the required runtime/test stack. The other-minor runs
+are bounded cases, not complete suites. The required supported-interpreter/platform
+source matrix, independent scientific-consumer campaigns and installed MolSysMT/
+Viewer pair remain part of the paused #334 qualification. Do not replace frozen
+files/refs, resume publication, or close this proposal as fully qualified from
+local startup timings. No new hosted matrix, package, tag or Release is issued.
