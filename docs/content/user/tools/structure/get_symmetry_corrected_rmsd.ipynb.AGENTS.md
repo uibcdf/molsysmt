@@ -1,0 +1,3 @@
+# Chemical correspondence tutorial contract
+
+Preserve Tutorial_Get_symmetry_corrected_rmsd, explicit fixed-state admission, complete context, source indices versus IDs, independent graph/geometry tools, unaligned Cartesian pose semantics, baseline declaration, typed outputs and limits. Retain the inspiration-versus-execution attribution distinction and the scientific exclusions.

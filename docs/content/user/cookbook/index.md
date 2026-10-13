@@ -7,6 +7,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
 | Recipe | Objective |
 | :--- | :--- |
+| **{doc}`symmetry_pose_rmsd`** | Comparing ligand poses with declared chemical symmetry and a preserved positional baseline. |
 | **{doc}`editing_labels_and_structure_metadata`** | Editing string atom labels and querying selected B factors with H5MSM 0.5 persistence. |
 | **{doc}`assigning_partial_charges`** | Calculating ligand or conventional protein charges with explicit model and coverage. |
 | **{doc}`applying_chemical_templates`** | Filling declared chemical assignments while preserving a ligand pose. |
@@ -38,6 +39,8 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 .. toctree::
    :maxdepth: 1
    :hidden:
+
+   symmetry_pose_rmsd.ipynb
 
    saving_mediated_interactions
    applying_chemical_templates.md

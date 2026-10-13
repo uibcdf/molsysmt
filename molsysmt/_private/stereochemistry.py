@@ -2,14 +2,14 @@
 
 from depdigest import dep_digest
 
+from molsysmt._private.scientific_citations import ARTICLES
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 REFERENCE = {
     "id": "doi:10.1021/acs.jcim.8b00324",
     "type": "article",
-    "title": "Algorithmic Analysis of Cahn-Ingold-Prelog Rules of Stereochemistry: Proposals for Revised Rules and a Guide for Machine Implementation",
-    "doi": "10.1021/acs.jcim.8b00324",
-    "year": 2018,
+    "url": "https://doi.org/10.1021/acs.jcim.8b00324",
+    **ARTICLES["hanson_2018"],
 }
 
 

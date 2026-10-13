@@ -26,6 +26,11 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
 
     """
 
+    from ._correspondence_axes import CALLERS, flat_axis
+
+    if caller in CALLERS and selection is not None and not isinstance(selection, str):
+        return flat_axis(selection, "selection", caller).tolist()
+
     if syntax == "MolSysMT":
         if isinstance(selection, str):
             return selection

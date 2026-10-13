@@ -90,7 +90,7 @@ def scope(target):
                 _failed("finish attribution tracking", error)
 
 
-def credit(ackredit, items, target):
+def credit(ackredit, items, target, *, contextual=False):
     """Register detached bibliographic records and credit the reached branch."""
     if ackredit is None:
         return
@@ -100,6 +100,17 @@ def credit(ackredit, items, target):
                 {key: value for key, value in item.items() if key != "roles"}
             )
             ackredit.register_item(**record)
-            ackredit.track_item(record["id"], used_by=target)
+            if contextual:
+                ackredit.track_item(
+                    record["id"],
+                    used_by=target,
+                    roles=item.get("roles", []),
+                    context={
+                        "relationship": item.get("roles", []),
+                        "version": item.get("version"),
+                    },
+                )
+            else:
+                ackredit.track_item(record["id"], used_by=target)
     except Exception as error:
         _failed("record scientific references", error)

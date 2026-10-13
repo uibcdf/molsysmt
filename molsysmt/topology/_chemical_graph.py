@@ -129,14 +129,14 @@ def chemical_graph_context(
 
 def select_chemical_atoms(source, states, state_index, selection, frames, syntax):
     """Select on a chemistry view for indices, retaining coordinates for rich syntax."""
-    from copy import copy
-
     from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, select
     from molsysmt.native import MolSys, Topology
 
     if not isinstance(selection, str) or is_all(selection):
-        view = copy(states)
+        # Avoid restoration hooks on a shallow copy of shared state records.
+        view = object.__new__(type(states))
+        view.__dict__ = states.__dict__.copy()
         view._reference_index = state_index
         state = "reference"
     else:
@@ -174,7 +174,20 @@ def detached_chemical_graph_view(source, states, state_index, caller):
             reason="Chemical perception requires a chemical element inventory.",
             caller=caller,
         )
-    topology = topology.copy()
+    # Topology's compatibility copy restores shared state before detaching it.
+    # Copy the inventory independently so a read-only analysis never normalizes
+    # the caller's bond table or changes its concrete DataFrame type.
+    from copy import deepcopy
+
+    inventory = object.__new__(type(topology))
+    inventory.__dict__ = deepcopy(
+        {
+            key: value
+            for key, value in topology.__getstate__().items()
+            if key != "_chemical_states_domain"
+        }
+    )
+    topology = inventory
     chemistry = states.copy()
     chemistry._reference_index = state_index
     topology._chemical_states_domain = chemistry
@@ -187,6 +200,9 @@ def validate_chemical_frames(source, frames, caller):
     from molsysmt.basic import convert
     from molsysmt.basic._index_validation import _get_count, validate_structure_indices
 
+    # Chemistry-only requests do not need to assemble a structural domain.
+    if is_all(frames) or frames is None:
+        return frames
     if not is_all(frames) and frames is not None:
         if _get_count(source, "structure") is None:
             source = convert(source, to_form="molsysmt.MolSys")

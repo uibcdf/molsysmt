@@ -398,3 +398,19 @@ occurrences and evaluated coverage are cleared for recalculation. Atom-aligned
 structural observables and force-field parameters without new values are reported
 as dropped. The heavy-atom tool offers strict rejection of that loss. See
 {ref}`Tutorial_Add_missing_heavy_atoms` for repair limits and attribute policy.
+
+## Chemical Correspondence
+
+`chemical_states` supplies declared assignments for
+{func}`molsysmt.topology.get_atom_correspondences`. Its reusable dictionary maps
+positions in both source atom axes, independently of coordinates or string IDs.
+A metric selection retains its full covalent component as chemical context.
+Coordinate changes permit map reuse; chemical changes, atom-axis reordering or
+changed populations require recomputation.
+
+{func}`molsysmt.structure.get_symmetry_corrected_rmsd` evaluates those maps in
+the supplied Cartesian axes, preserving receptor-relative ligand position and
+orientation. Its original positional baseline requires an explicit source map.
+Both experimental tools retain detached original producer versions and scientific
+attribution. See {ref}`Tutorial_Get_atom_correspondences` and
+{ref}`Tutorial_Get_symmetry_corrected_rmsd` for required chemistry and limits.

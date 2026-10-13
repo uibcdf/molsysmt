@@ -11,3 +11,4 @@ from .get_substructure_matches import get_substructure_matches
 from .get_sequence_alignment import get_sequence_alignment
 from .get_sequence_identity import get_sequence_identity
 # isort: on
+from .get_atom_correspondences import get_atom_correspondences

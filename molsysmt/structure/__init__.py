@@ -28,3 +28,4 @@ from .get_principal_axes import get_principal_axes
 from .principal_component_analysis import principal_component_analysis
 from .align_principal_axes import align_principal_axes
 # isort: on
+from .get_symmetry_corrected_rmsd import get_symmetry_corrected_rmsd

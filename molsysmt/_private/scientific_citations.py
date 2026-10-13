@@ -6,6 +6,40 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "hanson_2018": dict(
+        doi="10.1021/acs.jcim.8b00324",
+        title="Algorithmic Analysis of Cahn-Ingold-Prelog Rules of Stereochemistry: Proposals for Revised Rules and a Guide for Machine Implementation",
+        authors=[
+            "Hanson, Robert M.",
+            "Musacchio, Sophia",
+            "Mayfield, John W.",
+            "Vainio, Mikko J.",
+            "Yerin, Andrey",
+            "Redkin, Dmitry",
+        ],
+        year=2018,
+        journal="Journal of Chemical Information and Modeling",
+        volume="58",
+        pages="1755-1765",
+    ),
+    "bell_zhang_2019": dict(
+        doi="10.1186/s13321-019-0362-7",
+        title="DockRMSD: an open-source tool for atom mapping and RMSD calculation of symmetric molecules through graph isomorphism",
+        authors=["Bell, Eric W.", "Zhang, Yang"],
+        year=2019,
+        journal="Journal of Cheminformatics",
+        volume="11",
+        pages="40",
+    ),
+    "meli_biggin_2020": dict(
+        doi="10.1186/s13321-020-00455-2",
+        title="spyrmsd: symmetry-corrected RMSD calculations in Python",
+        authors=["Meli, Rocco", "Biggin, Philip C."],
+        year=2020,
+        journal="Journal of Cheminformatics",
+        volume="12",
+        pages="49",
+    ),
     "gasteiger_marsili": dict(
         doi="10.1016/0040-4020(80)80168-2",
         title="Iterative partial equalization of orbital electronegativity—a rapid access to atomic charges",

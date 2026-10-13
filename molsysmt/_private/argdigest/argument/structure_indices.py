@@ -29,6 +29,11 @@ def digest_structure_indices(structure_indices, molecular_systems=None, caller=N
         If the given structure_indices has not of the correct type.
     """
 
+    from ._correspondence_axes import CALLERS, flat_axis
+
+    if caller in CALLERS:
+        return flat_axis(structure_indices, "structure_indices", caller)
+
     if molecular_systems is not None and caller_matches(
         caller,
         "merge",

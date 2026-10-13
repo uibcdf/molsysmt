@@ -240,12 +240,14 @@ def get_rotatable_bonds(
     software = dict(molsysmt=__version__, numpy=np.__version__, networkx=nx.__version__)
     software.update(conversion_software)
     items = deepcopy(references)
+    from molsysmt._private.scientific_citations import SOFTWARE
+
     for name, version in software.items():
         items.append(
             dict(
                 id=f"software:{name}:{version}",
                 type="software",
-                title=name,
+                **deepcopy(SOFTWARE.get(name, dict(title=name))),
                 version=version,
                 roles=["executed_software"],
             )

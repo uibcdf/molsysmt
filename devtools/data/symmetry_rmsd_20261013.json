@@ -1,0 +1,139 @@
+{
+  "schema": "molsysmt.symmetry_rmsd_benchmark@1",
+  "observed_at": "2026-10-13T16:32:22.591323+00:00",
+  "workload": {
+    "n_atoms": 6,
+    "n_structures": 1000,
+    "n_maps": 12,
+    "coordinate_sha256": "8915de5c353cc94d64a0c2892906ee953fb4bbb13ad305af72349e07363a6afb"
+  },
+  "environment": {
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+    "python": "3.14.7",
+    "molsysmt": "0.22.4+24.g42b487869",
+    "rdkit": "2025.09.5",
+    "numpy": "2.4.6",
+    "num_threads": 1,
+    "chunk_size": 100
+  },
+  "source": {
+    "head": "21987c626d20a305bb591ab536c1519e648a6e59",
+    "worktree": [
+      " M devguide/api_stability_registry.md",
+      " M devguide/pending_proposals/README.md",
+      " M devtools/data/public_api_stability.json",
+      " M docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst",
+      " M docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst",
+      " M docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst",
+      " M docs/api/structure/api_structure.rst",
+      " M docs/api/topology/api_topology.rst",
+      " M docs/content/course/Common_Core/13_Topological_Analysis.ipynb",
+      " M docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+      " M docs/content/course/function_inventory.yml",
+      " M docs/content/user/cookbook/index.md",
+      " M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+      " M docs/content/user/tools/structure/index.md",
+      " M docs/content/user/tools/topology/index.md",
+      " M docs/docs_manifest.yml",
+      " M molsysmt/_ackredit.py",
+      " M molsysmt/_private/argdigest/argument/method.py",
+      " M molsysmt/_private/argdigest/argument/reference_structure_indices.py",
+      " M molsysmt/_private/argdigest/argument/selection.py",
+      " M molsysmt/_private/argdigest/argument/structure_indices.py",
+      " M molsysmt/_private/scientific_citations.py",
+      " M molsysmt/_private/stereochemistry.py",
+      " M molsysmt/structure/__init__.py",
+      " M molsysmt/topology/__init__.py",
+      " M molsysmt/topology/_chemical_graph.py",
+      " M molsysmt/topology/get_rotatable_bonds.py",
+      "?? devguide/chemical_correspondence.md",
+      "?? devguide/pending_proposals/chemically_constrained_pose_rmsd.md",
+      "?? devtools/data/symmetry_rmsd_20261013.json",
+      "?? devtools/scripts/benchmark_symmetry_rmsd.py",
+      "?? docs/api/structure/autosummary/molsysmt.structure.get_symmetry_corrected_rmsd.rst",
+      "?? docs/api/structure/autosummary/molsysmt.structure.get_vectors.rst",
+      "?? docs/api/topology/autosummary/molsysmt.topology.get_atom_correspondences.rst",
+      "?? docs/content/user/cookbook/symmetry_pose_rmsd.ipynb",
+      "?? docs/content/user/cookbook/symmetry_pose_rmsd.ipynb.AGENTS.md",
+      "?? docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb",
+      "?? docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb.AGENTS.md",
+      "?? docs/content/user/tools/topology/get_atom_correspondences.ipynb",
+      "?? docs/content/user/tools/topology/get_atom_correspondences.ipynb.AGENTS.md",
+      "?? molsysmt/_private/argdigest/argument/_correspondence_axes.py",
+      "?? molsysmt/_private/argdigest/argument/baseline_atom_correspondence.py",
+      "?? molsysmt/_private/argdigest/argument/correspondences.py",
+      "?? molsysmt/_private/argdigest/argument/reference_chemical_state.py",
+      "?? molsysmt/_private/argdigest/argument/tie_tolerance.py",
+      "?? molsysmt/_private/scientific_attribution.py",
+      "?? molsysmt/structure/_symmetry_rmsd.py",
+      "?? molsysmt/structure/get_symmetry_corrected_rmsd.py",
+      "?? molsysmt/topology/_atom_correspondences.py",
+      "?? molsysmt/topology/get_atom_correspondences.py",
+      "?? tests/structure/test_get_symmetry_corrected_rmsd.py",
+      "?? tests/topology/test_correspondence_attribution.py",
+      "?? tests/topology/test_get_atom_correspondences.py"
+    ],
+    "file_sha256": {
+      "molsysmt/topology/get_atom_correspondences.py": "27ef8a457febfa62cc9f859db335f00a2c5206eacaf630c91ead8c1d31fbe35a",
+      "molsysmt/topology/_atom_correspondences.py": "c863914a521281b778344a3fc4b707171952230b54ebf388eb8d151780e97019",
+      "molsysmt/structure/get_symmetry_corrected_rmsd.py": "faabefe438fb569f73c0e1604777c7145e2a7d1d2e339b0b573e0d645b6a1b94",
+      "molsysmt/structure/_symmetry_rmsd.py": "555d56f7e28b51dd65d0365c133e4856a2639572bf9fa0f600b58a33505e2f19",
+      "devtools/scripts/benchmark_symmetry_rmsd.py": "7c94bba6861f429020e56ffcc8a58035fec4f9a43dcf6abaf11f9e8e51e54d7d"
+    }
+  },
+  "cases": {
+    "native_eager": {
+      "samples_seconds": [
+        0.10404739063233137,
+        0.10532430373132229,
+        0.1061528492718935
+      ],
+      "median_seconds": 0.10532430373132229,
+      "execution": {
+        "execution": "eager",
+        "n_blocks": 1
+      }
+    },
+    "native_chunked": {
+      "samples_seconds": [
+        0.1130655650049448,
+        0.11255830712616444,
+        0.11198874097317457
+      ],
+      "median_seconds": 0.11255830712616444,
+      "execution": {
+        "execution": "chunked",
+        "n_blocks": 10
+      }
+    },
+    "h5msm_chunked": {
+      "samples_seconds": [
+        0.27071381639689207,
+        0.27325326297432184,
+        0.2695391308516264
+      ],
+      "median_seconds": 0.27071381639689207,
+      "execution": {
+        "execution": "chunked",
+        "n_blocks": 10
+      }
+    },
+    "construct_and_native_eager": {
+      "samples_seconds": [
+        0.10363858193159103,
+        0.10436238441616297,
+        0.10482904687523842
+      ],
+      "median_seconds": 0.10436238441616297
+    }
+  },
+  "storage": {
+    "source_h5msm_bytes": 106409,
+    "source_h5msm_sha256": "e4ae7cd39bcb1fe7cbc38d92ee07ab93e08cbbd7e9b4177f1c138b47b1057a3e",
+    "coordinate_numeric_bytes": 144000,
+    "mapping_numeric_bytes": 2304,
+    "result_axis_numeric_bytes": 32000
+  },
+  "whole_process_peak_rss_bytes": 481955840,
+  "limitations": "Linux warm source calls; no concurrent pytest in retained measurement. Other host load uncontrolled. Peak RSS includes imports and caller-owned data, not incremental work. One small highly symmetric ligand is not a macromolecular scaling study or installed artifact qualification."
+}

@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Get symmetry corrected rmsd](get_symmetry_corrected_rmsd.ipynb) | Comparing declared chemical correspondence and original Cartesian geometry |
 | [Align principal axes](align_principal_axes.ipynb) | Aligning the principal inertia or geometric axes of a molecular system over a reference coordinates axes |
 | [Center](center.ipynb) | Centering a molecular system |
 | [Flip](flip.ipynb) | Flipping a molecular system over a plane |
@@ -35,6 +36,8 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
+
+   get_symmetry_corrected_rmsd.ipynb
 
    align_principal_axes.ipynb
    center.ipynb

@@ -34,3 +34,4 @@ API Structure
    set_dihedral_angles
    shift_dihedral_angles
    translate
+   get_symmetry_corrected_rmsd

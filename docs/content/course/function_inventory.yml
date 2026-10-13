@@ -287,3 +287,15 @@ molsysmt.build.get_peptide_bond_candidates:
   summary: "Reviews adjacent source-group C-N candidates with explicit exclusions."
   doc_ref: "{func}`molsysmt.build.get_peptide_bond_candidates`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.get_peptide_bond_candidates()**: Reviews adjacent backbone C-N evidence.\n:::"
+
+molsysmt.topology.get_atom_correspondences:
+  name: "msm.topology.get_atom_correspondences"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Finds source-index bijections constrained by complete declared chemical states."
+  doc_ref: "{func}`molsysmt.topology.get_atom_correspondences`"
+
+molsysmt.structure.get_symmetry_corrected_rmsd:
+  name: "msm.structure.get_symmetry_corrected_rmsd"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Evaluates chemically admitted pose RMSD without rigid superposition."
+  doc_ref: "{func}`molsysmt.structure.get_symmetry_corrected_rmsd`"

@@ -2030,6 +2030,20 @@
       "owner": "interactions.hbonds",
       "documentation": "docs/content/user/tools/interactions/get_hbond_site_directions.ipynb",
       "contract_tests": "tests/interactions/hbonds/test_get_hbond_site_directions.py"
+    },
+    "molsysmt.topology.get_atom_correspondences": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "topology",
+      "documentation": "docs/content/user/tools/topology/get_atom_correspondences.ipynb",
+      "contract_tests": "tests/topology/test_get_atom_correspondences.py"
+    },
+    "molsysmt.structure.get_symmetry_corrected_rmsd": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "structure",
+      "documentation": "docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb",
+      "contract_tests": "tests/structure/test_get_symmetry_corrected_rmsd.py"
     }
   }
 }
