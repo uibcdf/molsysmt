@@ -304,6 +304,9 @@ sections:
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
         pages:
+          - file: docs/content/user/tools/form/file/file_pdb_gz.ipynb
+            agents_file: docs/content/user/tools/form/file/file_pdb_gz.ipynb.AGENTS.md
+            description: Experimental gzip PDB input, shared parser, connectivity policy and read isolation.
           - file: docs/content/user/tools/form/file/file_prmtop.ipynb
             agents_file: docs/content/user/tools/form/file/file_prmtop.ipynb.AGENTS.md
             description: AMBER topology attributes and box geometry without invented coordinate structures.

@@ -105,6 +105,7 @@ _TIER_3_FORMS = (
     "file:pir",
     "file:prmtop",
     "file:pdbqt",
+    "file:pdb.gz",
     "file:sdf",
     "file:trjpk",
     "molsysmt.ChemicalStates",

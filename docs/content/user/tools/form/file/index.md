@@ -20,6 +20,7 @@ On-disk molecular structure, trajectory, and topology file formats supported by 
 | [mol2](file_mol2.ipynb) | Tripos MOL2 molecular structure file format |
 | [molsys_yaml](file_molsys_yaml.ipynb) | Human-authored declarative YAML molecular system file |
 | [pdb](file_pdb.ipynb) | Protein Data Bank (PDB) format file |
+| [pdb.gz](file_pdb_gz.ipynb) | Gzip PDB input through the native parser |
 | [pir](file_pir.ipynb) | PIR/NBRF sequence file format |
 | [prmtop](file_prmtop.ipynb) | AMBER molecular topology and parameter (prmtop) file format |
 | [psf](file_psf.ipynb) | CHARMM Protein Structure File (PSF) topology format |
@@ -53,6 +54,7 @@ On-disk molecular structure, trajectory, and topology file formats supported by 
    mol2 <file_mol2.ipynb>
    molsys_yaml <file_molsys_yaml.ipynb>
    pdb <file_pdb.ipynb>
+   pdb.gz <file_pdb_gz.ipynb>
    pir <file_pir.ipynb>
    prmtop <file_prmtop.ipynb>
    psf <file_psf.ipynb>

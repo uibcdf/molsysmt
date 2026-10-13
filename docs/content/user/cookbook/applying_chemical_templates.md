@@ -21,6 +21,14 @@ Temporary storage must be available, and parsing remains eager.
 (cookbook-pdb-connectivity-policy)=
 ## Choosing PDB connectivity
 
+Gzip PDB archives use the same connectivity policy through the experimental
+`file:pdb.gz` input adapter. For example,
+`msm.convert("observed.pdb.gz", to_form="molsysmt.MolSys", get_missing_bonds=False)`
+retains deposited connectivity without producing a decompressed file. String and
+Path inputs are accepted. See {ref}`Tutorial_Form_file_pdb_gz` for an executed
+bundled example, native targets, selected structures and integrity diagnostics.
+
+
 Before assessing a PDB input, choose whether to retain only file-declared bonds:
 
 ```python

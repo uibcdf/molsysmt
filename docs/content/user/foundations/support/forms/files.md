@@ -17,11 +17,12 @@ Native file formats are specifically engineered for high-performance storage, tr
 
 ## External
 
-MolSysMT seamlessly reads, parses, and writes major third-party disk file formats across computational chemistry tools:
+MolSysMT supports the following external file forms. Reading, writing and streaming routes vary by adapter:
 
 | Form Name | Extension | Description | Native Handler / Parser | Streaming Support |
 | :--- | :--- | :--- | :--- | :--- |
-| **`file:pdb`** | `.pdb` | Protein Data Bank file | `PDBFileHandler` | Iterative Streaming (`TopologyIterator`, `StructuresIterator`) |
+| **`file:pdb`** | `.pdb` | Protein Data Bank file | `PDBFileHandler` | In-Memory Parsing |
+| **`file:pdb.gz`** | `.pdb.gz` | Experimental gzip PDB input | `PDBFileHandler` | In-Memory Parsing |
 | **`file:cif`** | `.cif` / `.mmcif` | Macromolecular Crystallographic Info | `mmcif.io.IoAdapter` | In-Memory Parsing |
 | **`file:cif.gz`** | `.cif.gz` | Gzipped mmCIF file | `mmcif.io.IoAdapter` | In-Memory Parsing |
 | **`file:bcif`** | `.bcif` | Binary mmCIF file | Internal BCIF Parser | In-Memory Parsing |
@@ -138,3 +139,9 @@ a failed direct write can leave partial content for inspection. The high-level
 {func}`molsysmt.basic.convert` continues to require an explicit output filename
 for file targets. See {ref}`Tutorial_Form_file_pdb` and
 {ref}`Tutorial_Form_file_fasta`.
+
+Gzip PDB input uses the same native parser and connectivity policy, with independent
+decoded buffers and no decompressed disk file. Source archives and neighbors remain
+unchanged. The experimental input adapter supplies native conversions and attribute
+queries; it does not advertise compressed writing or streaming. See
+{ref}`Tutorial_Form_file_pdb_gz`.
