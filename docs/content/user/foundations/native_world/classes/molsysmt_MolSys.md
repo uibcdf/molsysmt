@@ -414,3 +414,10 @@ orientation. Its original positional baseline requires an explicit source map.
 Both experimental tools retain detached original producer versions and scientific
 attribution. See {ref}`Tutorial_Get_atom_correspondences` and
 {ref}`Tutorial_Get_symmetry_corrected_rmsd` for required chemistry and limits.
+
+Partial `fixed_atom_correspondence` anchors restrict the chemical search;
+complete `candidate_atom_correspondences` restrict it to validated proposed maps.
+Both use source indices and preserve the full chemical context. Keep the declared
+`search_scope` with the value: an anchored or supplied-map minimum is conditional,
+and `search_complete` refers to that scope. The baseline map only defines raw
+positional RMSD. Cached dictionaries retain their constraints on reuse.

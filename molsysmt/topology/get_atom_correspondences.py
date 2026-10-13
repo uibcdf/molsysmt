@@ -27,6 +27,9 @@ def get_atom_correspondences(
     max_matches=100000,
     syntax="MolSysMT",
     skip_digestion=False,
+    *,
+    fixed_atom_correspondence=None,
+    candidate_atom_correspondences=None,
 ):
     """Finding chemically constrained bijections without using coordinates.
 
@@ -53,11 +56,21 @@ def get_atom_correspondences(
         Exact declared-state profile, with no resonance or tautomer normalization.
     max_matches : int, default=100000
         Maximum complete-context candidate mappings before projection/filtering.
-        Exceeding the bound raises; no truncated minimum is certified.
+        Anchors prune before this cap. In supplied-map mode it bounds distinct
+        proposed maps. Exceeding the bound raises; no truncated minimum is certified.
     syntax : str, default='MolSysMT'
         Selection syntax used for both molecular systems.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    fixed_atom_correspondence : list, tuple, numpy.ndarray or None, default=None
+        Partial injective query/reference source-index pairs, shape (n_fixed, 2).
+        Anchors may include unselected atoms in the complete covalent components.
+        Matching enforces them during enumeration. None supplies no anchors.
+    candidate_atom_correspondences : list, tuple, numpy.ndarray or None, default=None
+        Complete selected-population maps, shape (n_maps, n_selected, 2), or
+        one map of shape (n_selected, 2). Every map must extend to the declared
+        chemical context and respect all anchors; an invalid map raises.
+        None enumerates all chemical correspondences compatible with the anchors.
 
     Returns
     -------
@@ -68,9 +81,15 @@ def get_atom_correspondences(
         bibliography. Column 0 is the query source index; column 1 is the
         reference source index. Zero matches retain defined shapes. No units
         apply. Equivalent projections are deduplicated and sorted lexically.
+        search_scope distinguishes unrestricted, anchored and supplied-map sets;
+        search_complete applies only to that declared scope. Constraints are
+        detached and included in the consistency digest.
 
     Raises
     ------
+    ArgumentError
+        If anchors or proposed maps have invalid indices, duplicate endpoints,
+        incomplete selected populations or conflicting declarations.
     StructuralInconsistencyError
         If required chemistry is missing, incomplete, changed by conversion,
         potentially stereogenic but unassigned, or outside the supported scope.
@@ -113,6 +132,15 @@ def get_atom_correspondences(
     >>> result = msm.topology.get_atom_correspondences('smiles:c1ccccc1')
     >>> result['atom_correspondences'].shape
     (12, 6, 2)
+    >>> anchored = msm.topology.get_atom_correspondences(
+    ...     'smiles:c1ccccc1', fixed_atom_correspondence=[[0, 0]])
+    >>> anchored['atom_correspondences'].shape
+    (2, 6, 2)
+    >>> proposed = msm.topology.get_atom_correspondences(
+    ...     'smiles:c1ccccc1',
+    ...     candidate_atom_correspondences=result['atom_correspondences'][0])
+    >>> proposed['search_scope']
+    'supplied_atom_correspondences'
 
     .. admonition:: User guide
 
@@ -120,12 +148,17 @@ def get_atom_correspondences(
 
     .. versionadded:: 1.0.0
     """
-    from rdkit import Chem, rdBase
+    from rdkit import rdBase
 
     from molsysmt import __version__, configure
     from molsysmt._private.scientific_attribution import attach_graph_attribution
 
     from ._atom_correspondences import ChemicalGraph, correspondence_digest
+    from ._correspondence_constraints import (
+        candidate_witness,
+        constrained_matches,
+        prepare_constraints,
+    )
 
     caller = "molsysmt.topology.get_atom_correspondences"
     reference = (
@@ -147,6 +180,9 @@ def get_atom_correspondences(
         syntax,
         caller,
     )
+    fixed, candidates = prepare_constraints(
+        first, second, fixed_atom_correspondence, candidate_atom_correspondences, caller
+    )
     width = len(first.atoms)
     budget = configure.max_ram_usage // 4
     # Include candidate tuples, projected keys, both output tables and packing.
@@ -159,13 +195,11 @@ def get_atom_correspondences(
             available_bytes=budget,
             caller=caller,
         )
-    raw = ()
-    if width == len(second.atoms) and len(first.selected) == len(second.selected):
-        parameters = Chem.SubstructMatchParameters()
-        parameters.uniquify = False
-        parameters.useChirality = True
-        parameters.maxMatches = int(bound + 1)
-        raw = second.molecule.GetSubstructMatches(first.molecule, parameters)
+    raw = (
+        constrained_matches(first, second, fixed, bound + 1)
+        if candidates is None
+        else candidates
+    )
     if len(raw) > bound:
         if bound < max_matches:
             raise MemoryBudgetExceededError(
@@ -180,11 +214,20 @@ def get_atom_correspondences(
             reason="Candidate search exceeds max_matches; no partial result is returned.",
         )
     retained = {}
-    for match in raw:
-        if first.admits(second, match):
-            projected = tuple(second.atoms[np.asarray(match)[first.selected_positions]])
-            if projected not in retained or match < retained[projected]:
-                retained[projected] = match
+    if candidates is not None:
+        for candidate in candidates:
+            projected = tuple(candidate[:, 1])
+            retained[projected] = candidate_witness(
+                first, second, fixed, candidate, caller
+            )
+    else:
+        for match in raw:
+            if first.admits(second, match):
+                projected = tuple(
+                    second.atoms[np.asarray(match)[first.selected_positions]]
+                )
+                if projected not in retained or match < retained[projected]:
+                    retained[projected] = match
     ordered = sorted(retained)
     count = len(ordered)
     selected_maps = np.empty((count, len(first.selected), 2), dtype=np.int64)
@@ -210,6 +253,15 @@ def get_atom_correspondences(
         method=method,
         rule_version="declared_graph_isomorphism@1",
         search_complete=True,
+        search_scope="supplied_atom_correspondences"
+        if candidates is not None
+        else "anchored_chemical_correspondences"
+        if len(fixed)
+        else "all_chemical_correspondences",
+        fixed_atom_correspondence=fixed.copy(),
+        candidate_atom_correspondences=None
+        if candidates is None
+        else candidates.copy(),
         n_candidate_matches=len(raw),
         max_matches=max_matches,
         evidence=dict(

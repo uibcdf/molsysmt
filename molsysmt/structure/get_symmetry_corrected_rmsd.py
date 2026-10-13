@@ -39,6 +39,9 @@ def get_symmetry_corrected_rmsd(
     parallel=None,
     num_threads=None,
     skip_digestion=False,
+    *,
+    fixed_atom_correspondence=None,
+    candidate_atom_correspondences=None,
 ):
     """Computing minimum positional RMSD over admitted chemical correspondences.
 
@@ -70,7 +73,8 @@ def get_symmetry_corrected_rmsd(
     method : str, default='declared_graph_isomorphism'
         Exact declared-state graph profile used to admit chemical equivalences.
     max_matches : int, default=100000
-        Candidate enumeration bound when constructing correspondences.
+        Candidate enumeration bound, or distinct proposed-map bound, when
+        constructing correspondences. Anchors prune before enumeration reaches it.
     tie_tolerance : quantity or str, default='1e-12 nm'
         Nonnegative absolute length tolerance for counting near-optimal mappings.
         The chosen mapping always attains the actual computed minimum.
@@ -84,6 +88,15 @@ def get_symmetry_corrected_rmsd(
         Rust worker count, or None for the configured session value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    fixed_atom_correspondence : list, tuple, numpy.ndarray or None, default=None
+        Partial injective query/reference source-index pairs, shape (n_fixed, 2),
+        enforced during chemical search, including unselected context atoms.
+        None supplies no anchors. Cannot accompany cached correspondences.
+    candidate_atom_correspondences : list, tuple, numpy.ndarray or None, default=None
+        Complete proposed selected-population maps, shape (n_maps, n_selected, 2),
+        or a single (n_selected, 2) map. Each must be chemically valid and respect
+        the anchors. None enumerates all compatible maps. Cannot accompany cached
+        correspondences; reuse the constrained topology result instead.
 
     Returns
     -------
@@ -93,6 +106,8 @@ def get_symmetry_corrected_rmsd(
         correspondence_indices selecting rows of the shared correspondence table,
         n_near_optimal_correspondences, graph/result provenance and detached
         bibliography. An empty structure request returns typed empty arrays.
+        search_scope declares whether the minimum covers all chemical maps,
+        anchored maps or only the supplied candidate set.
 
     Raises
     ------
@@ -211,8 +226,15 @@ def get_symmetry_corrected_rmsd(
             method=method,
             max_matches=max_matches,
             syntax=syntax,
+            fixed_atom_correspondence=fixed_atom_correspondence,
+            candidate_atom_correspondences=candidate_atom_correspondences,
         )
     else:
+        if (
+            fixed_atom_correspondence is not None
+            or candidate_atom_correspondences is not None
+        ):
+            raise ArgumentError("correspondences", caller=caller)
         first = ChemicalGraph(
             molecular_system, selection, frames, chemical_state, syntax, caller
         )
@@ -256,6 +278,12 @@ def get_symmetry_corrected_rmsd(
         + 64 * len(frames)
         + 96 * len(reference_atoms)
         + 8 * table.shape[0] * table.shape[1]
+        + 2
+        * sum(
+            np.asarray(correspondences[name]).nbytes
+            for name in ("fixed_atom_correspondence", "candidate_atom_correspondences")
+            if correspondences.get(name) is not None
+        )
     )
     if numeric_bytes > configure.max_ram_usage // 2:
         raise MemoryBudgetExceededError(
@@ -324,6 +352,9 @@ def get_symmetry_corrected_rmsd(
         if baseline_atom_correspondence is None
         else np.array(baseline_atom_correspondence, dtype=np.int64, copy=True),
         method=method,
+        search_scope=correspondences.get(
+            "search_scope", "all_chemical_correspondences"
+        ),
         alignment="none",
         periodic_imaging="none",
         tie_tolerance=puw.standardize(puw.quantity(tolerance, "nm")),

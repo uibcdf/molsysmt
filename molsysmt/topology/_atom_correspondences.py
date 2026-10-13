@@ -301,12 +301,24 @@ def correspondence_digest(result):
             ]
         ).encode()
     )
+    if "search_scope" in result:
+        digest.update(result["search_scope"].encode())
+        for name in ("fixed_atom_correspondence", "candidate_atom_correspondences"):
+            value = result[name]
+            if value is None:
+                digest.update(b"None")
+            else:
+                values = np.asarray(value, dtype=np.int64)
+                digest.update(str(values.shape).encode())
+                digest.update(values.tobytes())
     return digest.hexdigest()
 
 
 def validate_correspondence_result(result, first, second, method, caller):
     """Check a detached result against current graphs without enumerating them again."""
     try:
+        from ._correspondence_constraints import prepare_constraints
+
         if (
             result["source_graph_digest"] != first.digest
             or result["reference_graph_digest"] != second.digest
@@ -341,9 +353,33 @@ def validate_correspondence_result(result, first, second, method, caller):
         rows = [tuple(row) for row in table[:, :, 1]]
         if rows != sorted(set(rows)):
             raise ArgumentError("correspondences", caller=caller)
+        fixed = np.empty((0, 2), dtype=np.int64)
+        if "search_scope" in result:
+            fixed, candidates = prepare_constraints(
+                first,
+                second,
+                result["fixed_atom_correspondence"],
+                result["candidate_atom_correspondences"],
+                caller,
+            )
+            expected_scope = (
+                "supplied_atom_correspondences"
+                if candidates is not None
+                else "anchored_chemical_correspondences"
+                if len(fixed)
+                else "all_chemical_correspondences"
+            )
+            if result["search_scope"] != expected_scope or (
+                candidates is not None and not np.array_equal(table, candidates)
+            ):
+                raise ArgumentError("correspondences", caller=caller)
         for projected, witness in zip(table, witnesses):
             if not np.array_equal(witness[:, 0], first.atoms) or not np.array_equal(
                 projected, witness[first.selected_positions]
+            ):
+                raise ArgumentError("correspondences", caller=caller)
+            if len(fixed) and not np.array_equal(
+                witness[np.searchsorted(first.atoms, fixed[:, 0]), 1], fixed[:, 1]
             ):
                 raise ArgumentError("correspondences", caller=caller)
             positions = np.searchsorted(second.atoms, witness[:, 1])

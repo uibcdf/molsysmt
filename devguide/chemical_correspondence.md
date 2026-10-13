@@ -6,6 +6,8 @@ coordinate evaluation. Their accepted implementation is tracked by
 uibcdf/molsysmt#310. `get_rmsd` retains positional semantics and `get_least_rmsd`
 retains superposition semantics.
 
+Caller constraints extend these tools under uibcdf/molsysmt#387.
+
 ## Declared-state admission
 
 Select a nonempty metric population inside one covalent component. The whole
@@ -45,6 +47,50 @@ or axes changing requires recomputation. Reuse rebuilds and checks current chemi
 context/witnesses without enumerating graph matches again. It retains the original
 map producer and records the new geometry producer separately.
 
+## Anchors and proposed maps
+
+Both public tools accept keyword-only `fixed_atom_correspondence` and
+`candidate_atom_correspondences`. Pair columns are query and reference source
+indices. Selections are canonical populations, never positional pair declarations.
+
+Anchors are a partial injective `(n_fixed, 2)` table, including unselected atoms
+inside the complete components. RDKit compares temporary atom properties on
+detached graph copies during compiled matching, pruning candidates before the
+enumeration cap. Chemistry and chirality still apply; isotope labels are not
+overwritten to encode pins. Empty anchors are equivalent to no anchors.
+Incompatible chemical anchors yield a typed empty topology result and an explicit
+RMSD failure. Duplicate endpoints, booleans, floats, negative/out-of-component
+indices and contradictory candidate declarations raise argument errors.
+
+Proposed maps cover both selected populations bijectively: `(n_selected, 2)`
+for one map or `(n_maps, n_selected, 2)` for a nonempty collection. Each candidate
+must extend through the whole chemical context and respect every anchor. Any
+invalid proposal fails the call; candidates are not silently discarded.
+Duplicates and row/input order do not alter the admitted set or lexical tie order.
+Temporary exact atom/bond properties and chirality-sensitive matching find an
+extension with at most one returned witness per probe. Greedy existence probes
+fix the lexical minimum complete-context witness without materializing factorial
+permutations of unselected H. Worst-case probe count is quadratic in context size
+per candidate; search time itself remains unbounded by the count limit.
+
+`search_scope` is explicit in both results:
+
+| Scope | Meaning of the minimum and `search_complete=True` |
+| --- | --- |
+| `all_chemical_correspondences` | All admitted chemical correspondences. |
+| `anchored_chemical_correspondences` | All admitted correspondences respecting the anchors. |
+| `supplied_atom_correspondences` | Only the distinct validated maps supplied by the caller. |
+
+An anchored or supplied-map minimum does not certify the unrestricted minimum.
+Constraints are detached, canonical and protected by the payload consistency
+digest. Reuse retains the stored scope without enumerating again; passing cached
+`correspondences` together with new constraint arguments raises rather than
+silently changing the candidate set. Earlier unconstrained `@1` dictionaries
+without these additive fields retain unrestricted semantics.
+
+`baseline_atom_correspondence` remains independent: it determines only
+`raw_rmsd`, supplies no anchors and does not admit proposed corrected maps.
+
 ## Geometric evaluation
 
 For each query structure evaluate the equal-weight positional RMSD over admitted
@@ -74,6 +120,13 @@ RAM bounds it. This estimate includes tuples, projected keys and output packing;
 full graph objects and process RSS are not bounded. A count cap does not impose a
 wall-clock timeout.
 
+Anchored enumeration counts complete candidates after anchor pruning and before
+the existing exact-label/projection filter. Supplied-map mode bounds distinct
+proposed maps with `max_matches` and the same candidate reserve. Input digestion,
+canonicalization and detached graph objects are not a total-RSS bound. Geometry
+reserves also include detached constraint tables. Supplying maps avoids global
+enumeration, not chemistry validation or the optional RDKit requirement.
+
 RMSD delivery reuses `execute_projected_geometry` and `ChunkedExecutor`. Resident
 output, detached table copies, local map projections and reference workspace occupy a separate half-RAM
 numeric reserve; blocks use the shared quarter-RAM reserve. The per-structure block
@@ -94,6 +147,11 @@ algorithm semantics. Bibliography is detached in every completed result;
 Ackredit optionally records contextual roles in the application's existing session.
 Failure/absence of attribution preserves science and host records; failed science
 does not earn a completed-operation credit. Reading saved dictionaries credits nothing.
+
+Anchor pruning and witness search use RDKit's documented `atomProperties` and
+`bondProperties` matching API, with MolSysMT constraints and canonicalization:
+[RDKit SubstructMatchParameters](https://www.rdkit.org/docs/source/rdkit.Chem.rdchem.html#rdkit.Chem.rdchem.SubstructMatchParameters).
+No additional publication's anchor algorithm is claimed as faithfully reproduced.
 
 The dictionary schema is typed in-memory interchange; it is not a native domain
 or a new H5MSM result dataset. H5MSM 0.5 supplies source chemistry and coordinates

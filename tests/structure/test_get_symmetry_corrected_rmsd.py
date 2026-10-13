@@ -29,6 +29,200 @@ def identity(count):
     return np.column_stack((np.arange(count), np.arange(count)))
 
 
+def test_anchored_and_supplied_minima_are_not_the_unrestricted_minimum():
+    molsys = system()
+    options = dict(
+        selection="all",
+        structure_indices=[1, 2, 1],
+        baseline_atom_correspondence=identity(6),
+    )
+    unconstrained = msm.structure.get_symmetry_corrected_rmsd(molsys, **options)
+    anchored = msm.structure.get_symmetry_corrected_rmsd(
+        molsys,
+        fixed_atom_correspondence=[[0, 0], [1, 1]],
+        **options,
+    )
+    supplied = msm.structure.get_symmetry_corrected_rmsd(
+        molsys,
+        candidate_atom_correspondences=identity(6)[::-1],
+        **options,
+    )
+    assert unconstrained["search_scope"] == "all_chemical_correspondences"
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(unconstrained["rmsd"], to_unit="nm"),
+        [0, 0.2, 0],
+        atol=1e-14,
+    )
+    for result in (anchored, supplied):
+        np.testing.assert_allclose(
+            msm.pyunitwizard.get_value(result["rmsd"], to_unit="nm"),
+            [0.14, 0.2, 0.14],
+            atol=1e-14,
+        )
+        np.testing.assert_allclose(
+            msm.pyunitwizard.get_value(result["rmsd"], to_unit="nm"),
+            msm.pyunitwizard.get_value(result["raw_rmsd"], to_unit="nm"),
+            atol=1e-14,
+        )
+        assert result["correspondence_indices"].tolist() == [0, 0, 0]
+    assert supplied["search_scope"] == "supplied_atom_correspondences"
+    assert anchored["search_scope"] == "anchored_chemical_correspondences"
+
+
+def test_multiple_proposed_maps_choose_the_analytic_pose_mapping():
+    molsys = system()
+    correct = np.column_stack((np.arange(6), np.roll(np.arange(6), -1)))
+    result = msm.structure.get_symmetry_corrected_rmsd(
+        molsys,
+        selection="all",
+        structure_indices=[1, 0],
+        candidate_atom_correspondences=[correct, identity(6)],
+    )
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(result["rmsd"], to_unit="nm"), [0, 0], atol=1e-14
+    )
+    assert result["correspondence_indices"].tolist() == [1, 0]
+    assert result["n_near_optimal_correspondences"].tolist() == [1, 1]
+
+
+def test_constrained_cache_reuses_search_and_rejects_mutated_constraints(monkeypatch):
+    molsys = system()
+    cached = msm.topology.get_atom_correspondences(
+        molsys,
+        candidate_atom_correspondences=identity(6),
+        fixed_atom_correspondence=[[0, 0]],
+    )
+    monkeypatch.setattr(
+        msm.topology,
+        "get_atom_correspondences",
+        lambda *a, **k: pytest.fail("enumeration repeated"),
+    )
+    observed = msm.structure.get_symmetry_corrected_rmsd(
+        molsys, selection="all", correspondences=cached
+    )
+    assert observed["search_scope"] == "supplied_atom_correspondences"
+    for name in ("fixed_atom_correspondence", "candidate_atom_correspondences"):
+        altered = deepcopy(cached)
+        altered[name].flat[-1] = 1
+        with pytest.raises(ArgumentError):
+            msm.structure.get_symmetry_corrected_rmsd(
+                molsys, selection="all", correspondences=altered
+            )
+    with pytest.raises(ArgumentError):
+        msm.structure.get_symmetry_corrected_rmsd(
+            molsys,
+            selection="all",
+            correspondences=cached,
+            fixed_atom_correspondence=[[0, 0]],
+        )
+    with pytest.raises(ArgumentError):
+        msm.structure.get_symmetry_corrected_rmsd(
+            molsys,
+            selection="all",
+            correspondences=cached,
+            candidate_atom_correspondences=identity(6),
+        )
+
+
+def test_constrained_empty_structures_and_no_compatible_anchor():
+    molsys = system("CCO")
+    empty = msm.structure.get_symmetry_corrected_rmsd(
+        molsys, structure_indices=[], fixed_atom_correspondence=[[0, 0]]
+    )
+    assert empty["rmsd"].shape == (0,) and empty["correspondence_indices"].shape == (0,)
+    with pytest.raises(StructuralInconsistencyError):
+        msm.structure.get_symmetry_corrected_rmsd(
+            molsys, fixed_atom_correspondence=[[0, 2]]
+        )
+
+
+def test_prior_unconstrained_schema_one_cache_retains_unrestricted_meaning():
+    from molsysmt.topology._atom_correspondences import correspondence_digest
+
+    molsys = system()
+    cached = msm.topology.get_atom_correspondences(molsys)
+    for name in (
+        "search_scope",
+        "fixed_atom_correspondence",
+        "candidate_atom_correspondences",
+    ):
+        del cached[name]
+    cached["correspondence_digest"] = correspondence_digest(cached)
+    result = msm.structure.get_symmetry_corrected_rmsd(
+        molsys, selection="all", structure_indices=[1], correspondences=cached
+    )
+    assert result["search_scope"] == "all_chemical_correspondences"
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(result["rmsd"], to_unit="nm"), [0], atol=1e-14
+    )
+
+
+def test_proposed_geometry_matches_independent_rdkit_explicit_map():
+    molsys = system()
+    external = msm.convert(molsys, to_form="rdkit.Mol")
+    proposed = np.column_stack((np.arange(6), np.arange(6)[::-1]))
+    observed = msm.structure.get_symmetry_corrected_rmsd(
+        molsys,
+        selection="all",
+        structure_indices=[1],
+        candidate_atom_correspondences=proposed,
+    )
+    probe, reference = Chem.Mol(external), Chem.Mol(external)
+    conformers = list(external.GetConformers())
+    probe.RemoveAllConformers()
+    reference.RemoveAllConformers()
+    probe.AddConformer(Chem.Conformer(conformers[1]), assignId=True)
+    reference.AddConformer(Chem.Conformer(conformers[0]), assignId=True)
+    expected = (
+        rdMolAlign.CalcRMS(
+            probe,
+            reference,
+            prbId=0,
+            refId=0,
+            map=[proposed.tolist()],
+            symmetrizeConjugatedTerminalGroups=False,
+        )
+        / 10
+    )
+    assert msm.pyunitwizard.get_value(observed["rmsd"], to_unit="nm")[
+        0
+    ] == pytest.approx(expected)
+
+
+def test_constrained_h5msm_streaming_matches_eager_and_uses_active_units(tmp_path):
+    molsys = system()
+    path = str(tmp_path / "anchored.h5msm")
+    msm.convert(molsys, to_form=path)
+    options = dict(
+        selection="all",
+        structure_indices=[2, 1, 0, 1],
+        fixed_atom_correspondence=[[0, 0]],
+        candidate_atom_correspondences=identity(6),
+    )
+    eager = msm.structure.get_symmetry_corrected_rmsd(
+        molsys, heavy_mode="off", **options
+    )
+    with msm.pyunitwizard.context(standard_units=["angstrom", "ps"]):
+        streamed = msm.structure.get_symmetry_corrected_rmsd(
+            path, heavy_mode="force", **options
+        )
+        np.testing.assert_allclose(
+            msm.pyunitwizard.get_value(streamed["rmsd"]),
+            msm.pyunitwizard.get_value(eager["rmsd"], to_unit="nm") * 10,
+            atol=1e-13,
+        )
+    assert streamed["execution"]["execution"] == "chunked"
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(streamed["rmsd"], to_unit="angstrom"),
+        msm.pyunitwizard.get_value(eager["rmsd"], to_unit="nm") * 10,
+        atol=1e-13,
+    )
+    np.testing.assert_array_equal(
+        streamed["correspondences"]["atom_correspondences"],
+        eager["correspondences"]["atom_correspondences"],
+    )
+
+
 def test_corrected_raw_rmsd_and_maps_preserve_nonconsecutive_repeated_structures():
     molsys = system()
     options = dict(

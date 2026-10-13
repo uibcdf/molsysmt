@@ -147,7 +147,7 @@ sections:
           - name: get_atom_correspondences
             file: docs/content/user/tools/topology/get_atom_correspondences.ipynb
             agents_file: docs/content/user/tools/topology/get_atom_correspondences.ipynb.AGENTS.md
-            description: Declared-state correspondence, original source axes, bounded unaligned pose geometry and scientific attribution.
+            description: Declared-state correspondence, anchors and validated proposed maps, source axes, bounded pose geometry and attribution.
           - name: get_rotatable_bonds
             file: docs/content/user/tools/topology/get_rotatable_bonds.md
             agents_file: docs/content/user/tools/topology/get_rotatable_bonds.md.AGENTS.md
@@ -168,7 +168,7 @@ sections:
           - name: get_symmetry_corrected_rmsd
             file: docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb
             agents_file: docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb.AGENTS.md
-            description: Declared-state correspondence, original source axes, bounded unaligned pose geometry and scientific attribution.
+            description: Declared-state correspondence, anchors and validated proposed maps, source axes, bounded pose geometry and attribution.
           - name: get_vectors
             file: docs/content/user/tools/structure/get_vectors.ipynb
             agents_file: docs/content/user/tools/structure/get_vectors.ipynb.AGENTS.md
@@ -338,7 +338,7 @@ sections:
       - name: symmetry_pose_rmsd
         file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb
         agents_file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb.AGENTS.md
-        description: Declared chemical symmetry, retained raw RMSD and original attribution.
+        description: Declared chemical symmetry, conditional map scope, retained raw RMSD and original attribution.
         status: reviewed
       - name: editing_labels_and_structure_metadata
         file: docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb
