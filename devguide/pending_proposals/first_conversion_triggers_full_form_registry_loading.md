@@ -355,3 +355,28 @@ consumer guards for overrides/removal, failed-load retry and an unrelated failin
 adapter sentinel; repeat the source comparison and required compatibility matrix.
 The existing front-matter guard protects inspection compatibility, not completion
 of the optimization.
+
+### Provider response — 2026-10-13
+
+The provider [reports integration](https://github.com/uibcdf/depdigest/issues/39#issuecomment-6152905375)
+of the reviewed per-registry lock in c90edca1ae5d3a2665f8da70f224248d07fd1377.
+Its stronger event-controlled guards observe actual lock contention rather than
+depending on a scheduling delay. The owning scope covers overlapping value
+requests, including different identities, on one registry; mutation, discovery,
+retry, refresh and configuration changes require external exclusive coordination.
+Initializers must not wait for another thread that needs the same registry, and
+arbitrary cross-registry/import/thread cycles remain excluded.
+
+The [candidate update](https://github.com/uibcdf/depdigest/issues/39#issuecomment-6153320557)
+identifies source e2757031aa59fe5639672e3c7ab2f979db2dd6f4 for proposed patch
+0.15.1. The provider reports 300 source tests with five unavailable-workspace
+skips and eight completed Linux/Windows source-matrix cells; four macOS cells
+were still queued at that checkpoint. Installed qualification and public
+admission were pending. These are upstream-reported candidate observations,
+not independently executed MolSysMT evidence or proof of a published dependency.
+
+No consumer change follows from source integration alone. Keep #382 blocked
+by #39 until the fixed public version and its admitted identity are delivered;
+then review the retained consumer patch and run the outstanding consumer guards
+against the actual admitted provider. The original local prototype measurements
+do not qualify that forthcoming version.
