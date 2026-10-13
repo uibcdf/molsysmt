@@ -201,3 +201,12 @@ registrations between serial tests. Six Python warnings remain separate
 diagnostics. The five error locations named in the earlier checkpoint have
 received bounded repairs, but no fresh full-site build or warning inventory is
 claimed. Broader warning, navigation and API-reference debt remains open here.
+
+## Notebook-schema checkpoint — 2026-10-13
+
+The #385 HTML build exits 0 but prints twelve repeated JSON schema errors from
+six untouched notebooks: Common Core 08/10/19, Biophysics 39 and basic get/set
+tutorials. Their nbformat minor is 4 while cells contain IDs introduced for minor
+5. The gzip tutorial and modified Module 01 are valid. A zero Sphinx exit does not
+prove a clean build. This bounded schema repair remains pending within #144; it
+is separate from gzip input correctness and requires preserving existing outputs.
