@@ -10,10 +10,11 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.13.0`
-- Publication tracking: `uibcdf/depdigest#29`; source audit change: `uibcdf/depdigest#27`
-- Last source update: 2026-10-04
-- Consumer synchronization: tracked separately in `uibcdf/molsyssuite#95`
+- Source version: `depdigest@0.14.0`
+- Publication tracking: `uibcdf/depdigest#35`; declaration-based registry: `uibcdf/depdigest#34`
+- Last source update: 2026-10-10
+- Consumer synchronization: audit delivery in `uibcdf/molsyssuite#95`;
+  declaration-based registry admission/handoff in `uibcdf/molsyssuite#115`.
 
 ## What is DepDigest
 
@@ -105,6 +106,53 @@ registry = LazyRegistry(
 ```
 
 ## 3. Advanced Integration
+
+### Declaration-based selective loading (from 0.14.0)
+
+`DeclaredRegistry` is the opt-in provider capability requested in
+`uibcdf/depdigest#34`, with adoption and scientific parity in `uibcdf/molsysmt#382`.
+Public consumers require published DepDigest >=0.14.0; 0.13.0 does not provide
+this API. Source experiments must identify an exact provider commit. Publication
+is tracked separately in `uibcdf/depdigest#35`; consumers retain responsibility
+for their own integration and dependency-floor change.
+
+```python
+from depdigest import DeclaredRegistry
+
+formats = DeclaredRegistry(
+    "my_pkg.formats",
+    "/path/to/my_pkg/formats",
+    declarations={"native": "native_form"},
+    attr_name="format_name",
+)
+names = list(formats.keys())  # metadata; no implementation imports
+native = formats["native"]  # only the requested plugin loads
+```
+
+The host owns canonical declarations, aliases, catalogue parsing and argument/
+converter validation. DepDigest owns dependency filtering, imports, caches and
+diagnostics. Keys/membership/iteration/length enumerate visible declarations,
+including failed ones; `declared_keys()` includes hidden names and `loaded_keys()`
+reports visible successful caches/overrides. Value-view iteration loads plugins.
+Declarations preserve input order and reject duplicate identities/plugin keys.
+Filesystem keys name immediate package directories and attributes must match;
+entry points retain name fallback and reject duplicate requested names before load.
+
+Undeclared plugins require explicit `discover()`, which visits sorted plugin keys,
+preserves existing declarations/overrides and diagnoses/skips failures/collisions.
+Assignment supplies a visible implementation directly. Deletion/clear do not load
+or unload modules. Successful and failed requests are cached. `retry(key)` clears
+one failure; `refresh()` clears failures/entry-point metadata but retains declarations
+and cached implementations. Failed lookup raises `KeyError` chained from its cause.
+
+Current configuration overrides apply to existing registries. Restricted soft
+capabilities can hide cached entries; unrestricted missing soft capabilities emit
+availability diagnostics on request before failure. Manual overrides win. Python
+availability retains `is_installed`'s cache; clear it after installation and refresh
+before retrying. Executables follow current PATH. Consumer imports and dependency
+probes may have their own import effects. Loading is synchronous without concurrency
+synchronization. `LazyRegistry` remains available with its existing contract.
+The complete contract is in `docs/content/user/declared-registry.md`.
 
 ### 3.1 Manual Configuration Registration
 Useful for testing or dynamic plugin systems where a root `_depdigest.py` is not feasible.
