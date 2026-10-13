@@ -147,3 +147,13 @@ Provider guards are `tests/structure/test_get_symmetry_corrected_rmsd.py`,
 `tests/topology/test_correspondence_attribution.py`. DockingMT owns adopting this
 public provider in a separately registered corrected evaluation and preserving
 its original source-identity results.
+
+## CI formatting recovery — 2026-10-13
+
+The first published source head passed developer-guide and Conda-governance checks,
+but Ruff and suite conformance refused four Python files at their format step.
+Local lint had passed; the complete formatting command had not covered these four
+final edits. Their whitespace was corrected and both repository-wide commands,
+`ruff check .` and `ruff format --check .`, now pass. Scientific behavior, inputs
+and benchmark runtime hashes are unchanged. The source checkpoint retains its
+255-test evidence; the follow-up head's remote checks are verified separately.

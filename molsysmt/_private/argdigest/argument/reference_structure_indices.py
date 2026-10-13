@@ -7,7 +7,9 @@ def digest_reference_structure_indices(reference_structure_indices, caller=None)
     from .indices import digest_indices
 
     if caller in CALLERS:
-        return flat_axis(reference_structure_indices, "reference_structure_indices", caller)
+        return flat_axis(
+            reference_structure_indices, "reference_structure_indices", caller
+        )
 
     try:
         return digest_indices(reference_structure_indices, caller=caller)

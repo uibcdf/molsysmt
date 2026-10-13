@@ -54,7 +54,9 @@ def test_faithful_stereo_backend_is_credited_only_when_labels_are_used():
     chiral = msm.topology.get_atom_correspondences("smiles:C[C@H](O)F")
     paper = "doi:10.1021/acs.jcim.8b00324"
     assert paper not in {item["id"] for item in plain["attribution"]["items"]}
-    reference = next(item for item in chiral["attribution"]["items"] if item["id"] == paper)
+    reference = next(
+        item for item in chiral["attribution"]["items"] if item["id"] == paper
+    )
     assert reference["roles"] == ["scientific_criterion"]
     assert len(reference["authors"]) == 6
 
