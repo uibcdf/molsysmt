@@ -136,18 +136,16 @@ def merge(items, atom_indices="all", keep_ids=True, skip_digestion=False):
         bonds_dataframes.append(tmp_bonds)
         source_states.append(source_state)
 
-    output.atoms = pd.concat(atoms_dataframes, ignore_index=True, copy=False)
+    output.atoms = pd.concat(atoms_dataframes, ignore_index=True)
     output._chemical_states_domain._n_atoms = len(output.atoms)
-    output.groups = pd.concat(groups_dataframes, ignore_index=True, copy=False)
-    output.components = pd.concat(components_dataframes, ignore_index=True, copy=False)
-    output.molecules = pd.concat(molecules_dataframes, ignore_index=True, copy=False)
-    output.chains = pd.concat(chains_dataframes, ignore_index=True, copy=False)
-    output.entities = pd.concat(entities_dataframes, ignore_index=True, copy=False)
-    output._set_component_indices(
-        pd.concat(component_indices, ignore_index=True, copy=False)
-    )
+    output.groups = pd.concat(groups_dataframes, ignore_index=True)
+    output.components = pd.concat(components_dataframes, ignore_index=True)
+    output.molecules = pd.concat(molecules_dataframes, ignore_index=True)
+    output.chains = pd.concat(chains_dataframes, ignore_index=True)
+    output.entities = pd.concat(entities_dataframes, ignore_index=True)
+    output._set_component_indices(pd.concat(component_indices, ignore_index=True))
     atom_state_attributes = pd.concat(
-        atom_state_dataframes, ignore_index=True, copy=False, sort=False
+        atom_state_dataframes, ignore_index=True, sort=False
     )
     for attribute in atom_state_attributes.columns:
         output._set_chemical_state_atom_attribute(

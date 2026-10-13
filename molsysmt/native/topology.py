@@ -2049,25 +2049,19 @@ class Topology:
                 tmp_bonds, {index: index + n_atoms for index in range(tmp_item.n_atoms)}
             )
 
-        self.atoms = pd.concat(
-            [self.atoms, tmp_item.atoms], ignore_index=True, copy=False
-        )
+        self.atoms = pd.concat([self.atoms, tmp_item.atoms], ignore_index=True)
         self._chemical_states_domain._n_atoms = len(self.atoms)
         self._reference_chemical_state.component_indices = combined_component_indices
         self._reference_chemical_state.atom_attributes = combined_atom_attributes
         self._reference_chemical_state._normalize_atom_attribute_columns()
-        self.groups = pd.concat(
-            [self.groups, tmp_item.groups], ignore_index=True, copy=False
-        )
+        self.groups = pd.concat([self.groups, tmp_item.groups], ignore_index=True)
         self.molecules = pd.concat(
-            [self.molecules, tmp_item.molecules], ignore_index=True, copy=False
+            [self.molecules, tmp_item.molecules], ignore_index=True
         )
         self.components = pd.concat(
-            [self.components, tmp_item.components], ignore_index=True, copy=False
+            [self.components, tmp_item.components], ignore_index=True
         )
-        self.chains = pd.concat(
-            [self.chains, tmp_item.chains], ignore_index=True, copy=False
-        )
+        self.chains = pd.concat([self.chains, tmp_item.chains], ignore_index=True)
         combined_bonds = self._concatenate_bond_tables(
             self._get_chemical_state_bonds(), tmp_bonds
         )
