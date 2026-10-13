@@ -193,7 +193,7 @@ changes require external exclusive coordination. Metadata/views do not promise
 atomic multi-operation snapshots; arbitrary cyclic cross-registry/import/thread
 interactions are outside this scope. Legacy `LazyRegistry` is unchanged.
 
-Public adoption requires admitted DepDigest >=0.15.1 under #39. Published 0.15.0
+Public adoption requires DepDigest >=0.15.1, publicly admitted under #39. Published 0.15.0
 explicitly lacks synchronization. This admission remains separate from MolSysMT
 #382 integration/scientific parity and MolSysSuite #115 coordination.
 
