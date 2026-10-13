@@ -1,0 +1,161 @@
+diff --git a/molsysmt/basic/get_form.py b/molsysmt/basic/get_form.py
+index 77d3a9ff8..62d904ac1 100644
+--- a/molsysmt/basic/get_form.py
++++ b/molsysmt/basic/get_form.py
+@@ -56,6 +56,16 @@ def _sweep(molecular_system, *form_types):
+     for form in catalogue.forms_of_type(*form_types):
+         if _asks(form, molecular_system):
+             return form
++    # Explicitly registered/discovered identities may have no on-disk declaration.
++    # They are inspected only after the indexed built-in detectors do not match.
++    from molsysmt.form import _dict_modules
++
++    declared = set(catalogue.form_names())
++    for form in _dict_modules:
++        if form not in declared:
++            module = catalogue.module_of(form)
++            if module.form_type in form_types and _asks(form, molecular_system):
++                return form
+     return None
+ 
+ 
+diff --git a/molsysmt/form/__init__.py b/molsysmt/form/__init__.py
+index 22daebaef..58f8ec507 100644
+--- a/molsysmt/form/__init__.py
++++ b/molsysmt/form/__init__.py
+@@ -1,13 +1,18 @@
+ import os
+ 
+-from depdigest import LazyRegistry
++from depdigest import DeclaredRegistry
+ 
+-# Initialize the generic LazyRegistry from depdigest
+-# It will automatically find molsysmt._depdigest and handle filtering
++from . import catalogue
++
++# Adapter inspection is separate from guarded optional-engine execution.
+ current_dir = os.path.dirname(os.path.abspath(__file__))
+ 
+-_dict_modules = LazyRegistry(
+-    package_prefix="molsysmt.form", directory=current_dir, attr_name="form_name"
++_dict_modules = DeclaredRegistry(
++    package_prefix="molsysmt.form",
++    directory=current_dir,
++    declarations={name: catalogue.plugin_of(name) for name in catalogue.form_names()},
++    attr_name="form_name",
++    load_policy="adapter",
+ )
+ 
+ 
+diff --git a/molsysmt/form/catalogue.py b/molsysmt/form/catalogue.py
+index e17411b38..3380f9b6b 100644
+--- a/molsysmt/form/catalogue.py
++++ b/molsysmt/form/catalogue.py
+@@ -83,7 +83,9 @@ def forms_lowercase():
+     Lowercased form name -> the canonical spelling.
+     """
+ 
+-    return _load()["forms_lowercase"]
++    from molsysmt.form import _dict_modules
++
++    return {name.lower(): name for name in _dict_modules}
+ 
+ 
+ def form_type(form_name):
+@@ -97,7 +99,10 @@ def form_type(form_name):
+     """
+ 
+     declaration = _load()["by_form"].get(form_name)
+-    return None if declaration is None else declaration["form_type"]
++    if declaration is not None:
++        return declaration["form_type"]
++    module = module_of(form_name)
++    return None if module is None else module.form_type
+ 
+ 
+ def plugin_of(form_name):
+@@ -166,16 +171,12 @@ def form_of_extension(name):
+     return None
+ 
+ 
+-_modules = {}
+-
+-
+ def module_of(form_name):
+     """
+     Import and return the plugin implementing a form. Only that one.
+ 
+-    The registry cannot do this: it learns a form's name by importing the module that
+-    declares it, so it has to import all of them before it can hand back any. Here the name
+-    came from the declaration, so the module is known before it is loaded.
++    Delegate loading, visibility, overrides and cache ownership to DepDigest.
++    The host catalogue supplies declarations; it does not keep a competing cache.
+ 
+     Parameters
+     ----------
+@@ -183,18 +184,11 @@ def module_of(form_name):
+         Argument form_name.
+     """
+ 
+-    if form_name in _modules:
+-        return _modules[form_name]
++    from molsysmt.form import _dict_modules
+ 
+-    plugin = plugin_of(form_name)
+-    if plugin is None:
++    if form_name not in _dict_modules:
+         return None
+-
+-    from importlib import import_module
+-
+-    module = import_module(f"molsysmt.form.{plugin}")
+-    _modules[form_name] = module
+-    return module
++    return _dict_modules[form_name]
+ 
+ 
+ @lru_cache(maxsize=None)
+diff --git a/molsysmt/form/is_item.py b/molsysmt/form/is_item.py
+index 17be91fc7..6b1253d3e 100644
+--- a/molsysmt/form/is_item.py
++++ b/molsysmt/form/is_item.py
+@@ -19,6 +19,14 @@ def is_item(item):
+ 
+     from molsysmt.basic import get_form
+ 
++    # A declared form name describes a target; it is not an instantiated item.
++    # Avoid importing every string/file detector to reject such a name.
++    if isinstance(item, str):
++        from molsysmt.form import catalogue
++
++        if item.lower() in catalogue.forms_lowercase():
++            return False
++
+     try:
+         get_form(item)
+         output = True
+diff --git a/tests/test_dependencies_architecture.py b/tests/test_dependencies_architecture.py
+index a1b74f712..e52ee9246 100644
+--- a/tests/test_dependencies_architecture.py
++++ b/tests/test_dependencies_architecture.py
+@@ -52,9 +52,7 @@ def test_dependencies_architecture(monkeypatch):
+                 exception_class=LibraryNotFoundError,
+             ),
+         )
+-        _dict_modules.clear()
+-        _dict_modules._initialized = False
+-        _dict_modules._ensure_initialized()
++        _dict_modules.refresh()
+         assert not is_installed("mdtraj")
+         assert "mdtraj.Trajectory" not in _dict_modules
+         assert "molsysmt.MolSys" in _dict_modules
+@@ -82,8 +80,7 @@ def test_dependencies_architecture(monkeypatch):
+         is_installed.cache_clear()
+         register_package_config("molsysmt", original_config)
+         register_package_config(module_root, original_test_config)
+-        _dict_modules.clear()
+-        _dict_modules._initialized = False
++        _dict_modules.refresh()
+ 
+ 
+ def test_mmcif_is_registered_as_a_hard_dependency():

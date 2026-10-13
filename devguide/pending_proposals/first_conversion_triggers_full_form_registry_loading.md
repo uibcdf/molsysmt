@@ -8,16 +8,18 @@ verification: measured
 area: [form, performance, deps]
 guard: tests/test_form_inspection_visibility.py
 normative: devguide/forms_and_conversions.md
-blocked_by: [uibcdf/depdigest#36]
+blocked_by: [uibcdf/depdigest#39]
 supersedes: []
 ---
 
 # First conversion triggers complete form-registry loading
 
 **Reported:** 2026-10-10 by ElastNetMT, consumer uibcdf/elastnetmt#26.
-**Status:** Blocked on the adapter-inspection compatibility extension in
-uibcdf/depdigest#36. DepDigest 0.14.0 supplies selective loading, but its strict
-engine gate does not preserve existing all-capability adapter inspection.
+**Status:** Consumer preparation is measured and contract-tested with a proposed
+provider correction. Adoption waits for uibcdf/depdigest#39: overlapping cold
+adapter requests can be mistaken for recursive loading in published 0.15.0.
+The adapter-inspection requirement in uibcdf/depdigest#36 is resolved. MolSysMT
+retains its existing runtime registry and dependency floors.
 
 ## What
 
@@ -88,8 +90,9 @@ raw samples, the input/tool/native hashes, host/Python and actual editable sourc
 identities independently of distribution versions. PID values are informative;
 PID namespaces can reuse their visible numbers for independent workers.
 
-No optimization, universal speedup, memory saving or installed-candidate
-qualification has been measured. Public comparison on one PDB does not qualify
+These initial measurements precede optimization. A later source prototype is
+measured below; no universal speedup, memory saving or installed-candidate
+qualification is established. Public comparison on one PDB does not qualify
 every form or scientific consumer.
 
 The [retained receipt](../../devtools/data/form_registry_startup_20261010.json)
@@ -156,7 +159,9 @@ performance proposal is not by itself a demonstrated functional release blocker.
 ## Dependencies and risks
 
 The initial capability in uibcdf/depdigest#34 is publicly admitted in DepDigest
-0.14.0. Adoption is now blocked by uibcdf/depdigest#36. The extension must have a public version/admission
+0.14.0; adapter-only inspection from uibcdf/depdigest#36 is admitted in 0.15.0.
+Adoption now waits for the cold concurrent-loading correction in
+uibcdf/depdigest#39. A fixed provider must have a public version/admission
 contract before changing MolSysMT requirements. Reconcile the existing catalog's
 module cache with provider registrations; do not assume that clearing a registry
 unloads Python modules. Configuration overrides are public through DepDigest,
@@ -247,3 +252,106 @@ performance comparison. Ruff checks and formatting and the developer-guide
 validator pass. This evidence protects current compatibility and measurement
 integrity; it does not qualify an indexed runtime adoption. The front-matter
 guard protects the retained inspection contract, not a completed optimization.
+
+## Published 0.15 review and prepared adoption — 2026-10-13
+
+DepDigest #36 is closed and 0.15.0 is published under uibcdf/depdigest#37. The
+older #36 blocking statements above are preparation history. A local prototype
+uses the published adapter policy and temporarily aligns dependency floors and
+the controlled-source pin with 0.15.0. That provisional requirement is insufficient
+for the concurrency case below and is not adopted. The existing provider checkout
+69f152b22 is clean and its depdigest runtime has no diff from the admitted 0.15.0
+tag 01d83c7b1. Distribution metadata is stale and retained separately from source
+evidence. All other checkout state from the suite inventory is preserved read-only.
+
+The prepared design lets the catalogue supply identity declarations and own
+index/extension semantics. DepDigest owns the module cache, configuration
+visibility, errors, refresh and explicit discovery. Catalogue lookup delegates
+to that registry instead of a competing cache. Manual identities are considered
+after built-in detection misses; true load failures propagate. The dependency
+guard uses public refresh rather than private initialization flags. No provider
+private API is used by the prepared runtime.
+
+### Concurrent first load and provider handoff
+
+Two fresh threads requesting the same unloaded gzip adapter produce one module
+and one KeyError reporting recursive loading with unmodified 0.15.0. The provider
+documents no concurrent synchronization; this is a missing consumer capability,
+not a claim that it violated a promised thread-safety contract. Warming every
+adapter, a consumer registry subclass and silent error suppression are rejected.
+
+A temporary provider copy adds a reentrant lock around one registry's public
+lookup. Both overlapping-load guards fail on the original provider and pass with
+the proposal; genuine same-thread recursion remains rejected. The existing
+declared-registry suite plus these guards passes 55 tests. This only tests
+overlapping lookup: concurrent mutation/discovery and arbitrary cycles between
+multiple registries are excluded, and the provider must review the lock tradeoff.
+
+The maintainer chose provider-team delivery. The complete patch and self-contained
+guards are delivered in [uibcdf/depdigest#39](https://github.com/uibcdf/depdigest/issues/39#issuecomment-6152148420).
+The provider checkout, refs and artifacts are untouched. Coordination remains
+linked to uibcdf/molsyssuite#115. MolSysMT adoption waits for a fixed admitted
+version; >=0.15.0 alone is not a sufficient requirement.
+
+### Same-input measurements and bounded validation
+
+The [preparation receipt](../../devtools/data/form_registry_adoption_preparation_20261013.json)
+retains three fresh-process samples for each stage, using the unchanged benchmark
+tool and 181L bytes on Linux/Python 3.14.7, with 20 logical CPUs. No concurrent
+local pytest workload ran during measurement; other host load was uncontrolled.
+The baseline is clean MolSysMT c35252d89. The prepared consumer uses a temporary
+copy of provider 69f152b22, whose runtime matches admitted tag 01d83c7b1, plus the
+unadmitted concurrency patch. Exact patch and registry hashes are in the receipt.
+Stale editable distribution metadata does not identify the running source.
+
+| Conversion-mode observation | Existing runtime | Final prepared source |
+|---|---:|---:|
+| Root import median | 0.508 s | 0.526 s |
+| First public PDB conversion median | 3.838 s | 0.944 s |
+| Repeated PDB conversion median | 0.519 s | 0.289 s |
+| First prepared-MolSys conversion median | 0.0316 s | 0.335 s |
+| Form module entries added by first conversion | 1,170 | 38 |
+
+The initial indexed prototype still loaded 596 module entries and took 3.320 s.
+A separate lookup trace identifies the remaining sweep: convert asks is_item
+about the declared destination name, which tries every text/file detector to
+reject it. The final preparation rejects declared form names directly in that
+predicate, preserving the name-versus-item distinction. Its additional change is
+included in the retained consumer patch, not enabled in the runtime.
+
+Selective loading shifts some cost to the first later use of an adapter. In
+particular the first prepared-MolSys conversion is slower in this sequence;
+the observed cold-file improvement is not a promise that every operation improves.
+Validation-mode diagnostics, before the final predicate fix, add seven module
+entries during target validation and observe no full-registry scan. Those timing
+boundaries differ from conversion mode and are not summed or mixed.
+
+Each trial compares thirteen molecular attributes across its cold, repeated and
+prepared outputs outside timing. This is within-trial parity, not an independent
+scientific oracle or a cross-implementation result fingerprint. The retained
+native SHA-256 identifies unchanged compiled-extension bytes. The tool labels a
+module outside a Git checkout as installed; the receipt explicitly corrects that
+label for the temporary provider copy. No installed artifact is qualified here.
+
+459 tests pass on the final prepared consumer plus proposed provider correction,
+using twelve workers and pytest-receptor. The selection covers visibility with
+absent engines, configuration overrides, detection/form rosters, compressed and
+plain PDB input, atom correspondences, attribution and symmetry-corrected RMSD.
+Existing legacy-H5MSM, NumPy ABI, external placeholder-box and cross-chain-bond
+warnings remain. This does not qualify all forms or supported interpreters.
+
+### Retained runtime and next admission steps
+
+The [consumer preparation patch](../../devtools/data/form_registry_adoption_preparation_20261013.patch)
+is retained for review. It is not enabled and deliberately excludes provisional
+dependency-floor and source-pin changes. Before replaying it, review against the
+then-current sources and select the actually admitted fixed provider version.
+The provider patch and guards remain available in its owning issue.
+
+MolSysMT keeps LazyRegistry, its released dependency floors and controlled source
+pins. No frozen release candidate, tag or publication changes. Remaining work:
+admit the corrected provider; replay and review the consumer design; add direct
+consumer guards for overrides/removal, failed-load retry and an unrelated failing
+adapter sentinel; repeat the source comparison and required compatibility matrix.
+The existing front-matter guard protects inspection compatibility, not completion
+of the optimization.

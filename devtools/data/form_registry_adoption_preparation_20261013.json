@@ -1,0 +1,953 @@
+{
+  "schema": "molsysmt.form_registry_adoption_preparation@1",
+  "date": "2026-10-13",
+  "issue": "uibcdf/molsysmt#382",
+  "status": "prototype_only_waiting_for_depdigest_39",
+  "baseline_molsysmt_commit": "c35252d89a28a8faff11e0014bda91312167f549",
+  "consumer_patch": "form_registry_adoption_preparation_20261013.patch",
+  "consumer_patch_sha256": "87f7137dba3ca78b4b1a917b88b496f6ddf1c0b95477801f58eb3e77baa25781",
+  "provider_preview": {
+    "source_commit": "69f152b22c5a8fe9c9890ea1ee1fbee76512a9c2",
+    "runtime_matches_public_tag": "0.15.0",
+    "public_tag_commit": "01d83c7b176a2b6cdcbdb42d33f3060f2eda5af7",
+    "patch_sha256": "a03d90e7d020f2bb6f5b4b5f847b65d13303252667e9f3aa1811e499ef7b4f52",
+    "patched_registry_sha256": "c1a6dafde0aa635c3bc6c24939400ecfa0ecb97876646b569cd9e4d3e27e83fe",
+    "guard_sha256": "578d756a105f36042b5ec9a1792024b8c2d51c3fed3a2e14c12723a368841860",
+    "handoff": "https://github.com/uibcdf/depdigest/issues/39#issuecomment-6152148420",
+    "kind": "temporary_source_copy_with_unadmitted_patch",
+    "provider_checkout_modified": false
+  },
+  "notes": [
+    "Raw benchmark source.kind=installed for the preview only means no .git directory was found; it is a temporary copy, not an admitted installed artifact.",
+    "Distribution metadata is stale and must not be used as the source identity.",
+    "native_sha256 identifies the compiled extension bytes, not a molecular-result fingerprint.",
+    "Each trial checks 13 public molecular attributes between its cold/repeated/prepared conversions outside timing; this is within-trial parity, not an independent scientific oracle or a cross-implementation hash.",
+    "The initial indexed prototype still swept string/file detectors to reject a target form name. The final patch short-circuits is_item for declared form names.",
+    "Validation-mode preview predates the final is_item fix and is diagnostic only.",
+    "The provisional >=0.15.0 dependency-floor experiment is not retained as an adoptable requirement; it lacks the concurrency fix.",
+    "Three fresh interpreters per retained measurement; no concurrent local pytest workload; other host load uncontrolled.",
+    "Frozen release artifacts, public dependency floors and provider source are unchanged by this preparation."
+  ],
+  "evidence": {
+    "provider_original": {
+      "failed": 2,
+      "passed": 1
+    },
+    "provider_preview": {
+      "passed": 55
+    },
+    "consumer_final_preview": {
+      "passed": 459,
+      "workers": 12,
+      "receptor": "llm",
+      "scope": [
+        "inspection visibility",
+        "dependency configuration",
+        "detection battery",
+        "form rosters",
+        "gzip and plain PDB inputs",
+        "symmetry RMSD and correspondences"
+      ]
+    }
+  },
+  "measurements": {
+    "before": {
+      "schema": "molsysmt.form_registry_startup_benchmark@1",
+      "mode": "conversion",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "logical_cpus": 20,
+      "input_name": "181l.pdb",
+      "input_sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "tool_sha256": "4614f2a824cc6215fc5368859e8d1c95abc42c45289089961438b5f7de83ebbd",
+      "samples": [
+        {
+          "import_seconds": 0.5151745015755296,
+          "worker_pid": 1103355,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 3.854535758495331,
+          "conversion_added_form_modules": 1170,
+          "repeated_conversion_seconds": 0.5188012477010489,
+          "prepared_conversion_seconds": 0.03210115619003773,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": false
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "69f152b22c5a8fe9c9890ea1ee1fbee76512a9c2",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "233a0e58340f67dce893d5be09c293e67580ce87",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.5076341358944774,
+          "worker_pid": 1103412,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 3.777533055283129,
+          "conversion_added_form_modules": 1170,
+          "repeated_conversion_seconds": 0.519817397929728,
+          "prepared_conversion_seconds": 0.031597036868333817,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": false
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "69f152b22c5a8fe9c9890ea1ee1fbee76512a9c2",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "233a0e58340f67dce893d5be09c293e67580ce87",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.5061928080394864,
+          "worker_pid": 1103456,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 3.83844883646816,
+          "conversion_added_form_modules": 1170,
+          "repeated_conversion_seconds": 0.5150632271543145,
+          "prepared_conversion_seconds": 0.03149775043129921,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": false
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "checkout",
+                "commit": "69f152b22c5a8fe9c9890ea1ee1fbee76512a9c2",
+                "dirty": false
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "233a0e58340f67dce893d5be09c293e67580ce87",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        }
+      ],
+      "median_seconds": {
+        "first_conversion_seconds": 3.83844883646816,
+        "import_seconds": 0.5076341358944774,
+        "prepared_conversion_seconds": 0.031597036868333817,
+        "repeated_conversion_seconds": 0.5188012477010489
+      }
+    },
+    "after-preview": {
+      "schema": "molsysmt.form_registry_startup_benchmark@1",
+      "mode": "conversion",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "logical_cpus": 20,
+      "input_name": "181l.pdb",
+      "input_sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "tool_sha256": "4614f2a824cc6215fc5368859e8d1c95abc42c45289089961438b5f7de83ebbd",
+      "samples": [
+        {
+          "import_seconds": 0.5553888827562332,
+          "worker_pid": 4,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 2.84207128174603,
+          "conversion_added_form_modules": 596,
+          "repeated_conversion_seconds": 0.31138141360133886,
+          "prepared_conversion_seconds": 0.034974982030689716,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "8618bd91df690f07908f8ed7faa1a71197338d21",
+                "dirty": true
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.5761343436315656,
+          "worker_pid": 45,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 3.3203474935144186,
+          "conversion_added_form_modules": 596,
+          "repeated_conversion_seconds": 0.3763292357325554,
+          "prepared_conversion_seconds": 0.039560653269290924,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "8618bd91df690f07908f8ed7faa1a71197338d21",
+                "dirty": true
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.7081364570185542,
+          "worker_pid": 86,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 3.4424908934161067,
+          "conversion_added_form_modules": 596,
+          "repeated_conversion_seconds": 0.3351643308997154,
+          "prepared_conversion_seconds": 0.03530958201736212,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "8618bd91df690f07908f8ed7faa1a71197338d21",
+                "dirty": true
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        }
+      ],
+      "median_seconds": {
+        "first_conversion_seconds": 3.3203474935144186,
+        "import_seconds": 0.5761343436315656,
+        "prepared_conversion_seconds": 0.03530958201736212,
+        "repeated_conversion_seconds": 0.3351643308997154
+      }
+    },
+    "after-final-preview": {
+      "schema": "molsysmt.form_registry_startup_benchmark@1",
+      "mode": "conversion",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "logical_cpus": 20,
+      "input_name": "181l.pdb",
+      "input_sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "tool_sha256": "4614f2a824cc6215fc5368859e8d1c95abc42c45289089961438b5f7de83ebbd",
+      "samples": [
+        {
+          "import_seconds": 0.5625923946499825,
+          "worker_pid": 4,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 0.9704151423648,
+          "conversion_added_form_modules": 38,
+          "repeated_conversion_seconds": 0.28863121662288904,
+          "prepared_conversion_seconds": 0.32942859549075365,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "75f48a8739094372b8008e56fd4f236f4c04f0c2",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.522820670157671,
+          "worker_pid": 45,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 0.9016829198226333,
+          "conversion_added_form_modules": 38,
+          "repeated_conversion_seconds": 0.28575969859957695,
+          "prepared_conversion_seconds": 0.33547350857406855,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "75f48a8739094372b8008e56fd4f236f4c04f0c2",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.5258116452023387,
+          "worker_pid": 86,
+          "initial_form_modules": [],
+          "first_conversion_seconds": 0.9443809930235147,
+          "conversion_added_form_modules": 38,
+          "repeated_conversion_seconds": 0.29057155176997185,
+          "prepared_conversion_seconds": 0.3371093152090907,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+13.g7f106f9",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "75f48a8739094372b8008e56fd4f236f4c04f0c2",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        }
+      ],
+      "median_seconds": {
+        "first_conversion_seconds": 0.9443809930235147,
+        "import_seconds": 0.5258116452023387,
+        "prepared_conversion_seconds": 0.33547350857406855,
+        "repeated_conversion_seconds": 0.28863121662288904
+      }
+    },
+    "validation-preview": {
+      "schema": "molsysmt.form_registry_startup_benchmark@1",
+      "mode": "validation",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+      "logical_cpus": 20,
+      "input_name": "181l.pdb",
+      "input_sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "tool_sha256": "4614f2a824cc6215fc5368859e8d1c95abc42c45289089961438b5f7de83ebbd",
+      "samples": [
+        {
+          "import_seconds": 0.7105811350047588,
+          "worker_pid": 4,
+          "initial_form_modules": [],
+          "target_validation_seconds": 0.08874868880957365,
+          "scan_seconds": [],
+          "validation_added_form_modules": 7,
+          "conversion_after_validation_seconds": 3.7532695941627026,
+          "conversion_added_form_modules": 596,
+          "repeated_conversion_seconds": 0.5038017611950636,
+          "prepared_conversion_seconds": 0.050006953068077564,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.8059329306706786,
+          "worker_pid": 45,
+          "initial_form_modules": [],
+          "target_validation_seconds": 0.12741868570446968,
+          "scan_seconds": [],
+          "validation_added_form_modules": 7,
+          "conversion_after_validation_seconds": 3.6003286046907306,
+          "conversion_added_form_modules": 596,
+          "repeated_conversion_seconds": 0.4131750538945198,
+          "prepared_conversion_seconds": 0.05132310837507248,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        },
+        {
+          "import_seconds": 0.8876778213307261,
+          "worker_pid": 86,
+          "initial_form_modules": [],
+          "target_validation_seconds": 0.09433977119624615,
+          "scan_seconds": [],
+          "validation_added_form_modules": 7,
+          "conversion_after_validation_seconds": 3.483232982456684,
+          "conversion_added_form_modules": 596,
+          "repeated_conversion_seconds": 0.35545972641557455,
+          "prepared_conversion_seconds": 0.03993481397628784,
+          "parity_checked": [
+            "atom_index",
+            "atom_id",
+            "atom_name",
+            "atom_type",
+            "group_index",
+            "group_id",
+            "group_name",
+            "bonded_atom_pairs",
+            "bond_order",
+            "formal_charge",
+            "coordinates",
+            "box",
+            "time"
+          ],
+          "n_atoms": 1441,
+          "native_sha256": "42cb073b4a5a00fc7fbda0bf9e70f8cf38e230ca9e8541ce8683a3be2423e3bf",
+          "software": {
+            "molsysmt": {
+              "distribution_version": "0.22.4+24.g42b487869",
+              "source": {
+                "kind": "checkout",
+                "commit": "c35252d89a28a8faff11e0014bda91312167f549",
+                "dirty": true
+              }
+            },
+            "depdigest": {
+              "distribution_version": "0.14.0+1.g1b746ec.dirty",
+              "source": {
+                "kind": "installed",
+                "commit": null,
+                "dirty": null
+              }
+            },
+            "argdigest": {
+              "distribution_version": "0.15.0+1.g5c6711e",
+              "source": {
+                "kind": "checkout",
+                "commit": "7f106f947bc48b371faf5a215c8e63f75cc1dc1c",
+                "dirty": false
+              }
+            },
+            "smonitor": {
+              "distribution_version": "0.19.0",
+              "source": {
+                "kind": "checkout",
+                "commit": "f604b940ab281df4554869fdd24f796ea6d42c27",
+                "dirty": false
+              }
+            },
+            "pyunitwizard": {
+              "distribution_version": "0.28.1+3.g2ab37a5",
+              "source": {
+                "kind": "checkout",
+                "commit": "2ab37a525ce99728ad8aee846b4a4f7acc4f1b65",
+                "dirty": false
+              }
+            }
+          }
+        }
+      ],
+      "median_seconds": {
+        "conversion_after_validation_seconds": 3.6003286046907306,
+        "import_seconds": 0.8059329306706786,
+        "prepared_conversion_seconds": 0.050006953068077564,
+        "repeated_conversion_seconds": 0.4131750538945198,
+        "target_validation_seconds": 0.09433977119624615
+      }
+    }
+  }
+}

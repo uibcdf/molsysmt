@@ -83,7 +83,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 - [`first_conversion_triggers_full_form_registry_loading.md`](first_conversion_triggers_full_form_registry_loading.md) — [#382](https://github.com/uibcdf/molsysmt/issues/382) — Avoid loading the complete form registry on first conversion. *(measured)*
-  Blocked by uibcdf/depdigest#36.
+  Blocked by uibcdf/depdigest#39.
 
 ### Partially resolved (10)
 
