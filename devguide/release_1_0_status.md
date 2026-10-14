@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-13
+**Last updated:** 2026-10-14
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -247,6 +247,34 @@ Strict docstring checks and unchanged signature/decorator comparisons pass;
 nine documentation code blocks execute and course outputs remain preserved.
 The native owner contract and all relevant user/course guidance are updated.
 This does not alter a frozen package or qualify a replacement release candidate.
+
+## Released SMonitor source checkpoint — 2026-10-14
+
+The public SMonitor 0.21.0 release is verified at
+`066b69cad8896cdc126d5586fd53268af4ea6490`; the controlled source manifest now
+selects that commit. It adds opt-in safe audience-specific metadata templates
+and a bounded nonemitting identity bundle, and repairs event-buffer resizing and
+handler delivery with warnings promoted to errors. Provider scope is recorded
+in uibcdf/smonitor#39, uibcdf/smonitor#40, uibcdf/smonitor#41 and
+uibcdf/smonitor#42. MolSysMT does not adopt the new opt-in APIs or change its
+initialization, emission policy or public `smonitor>=0.16.0` floor.
+
+The existing development interpreter has SMonitor 0.20.0 installed. This source
+checkpoint prepends the sibling source root to `PYTHONPATH` for each validation
+command and its subprocesses. The imported source is verified, and its runtime
+has no Git diff against 0.21.0. Source metadata still says 0.19.0; it does not
+identify the tested runtime. No auxiliary environment or installation is used.
+The official guide at tag 0.21.0 is byte-identical to the current copy, including
+its 0.20.0 source-version field, so it is retained without editing owner metadata.
+Suite inventory is refreshed and sibling working states are preserved.
+
+On Python 3.14.7, twelve-worker pytest-receptor validation passes **346 cases**
+with no failures or omissions, and all **14 fast gates** pass. The
+[receipt](../devtools/data/support_provider_releases_20261014.json) retains
+runtime identity, JUnit digest, versions and scope. The previous full local
+suite used 0.20.0; it is not claimed as full-suite evidence for 0.21.0. This is
+focused source compatibility, not qualification of the installed 0.21.0 Conda
+file or a new MolSysMT/Viewer pair. Release coordination under #334 stays paused.
 
 ## Released SMonitor source checkpoint — 2026-10-13
 

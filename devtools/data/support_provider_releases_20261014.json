@@ -1,0 +1,74 @@
+{
+  "owner": "uibcdf/molsysmt#334",
+  "date": "2026-10-14",
+  "molsysmt_source_parent": "e2319c08d9d2deb06427f74bc8d443946f16c013",
+  "source_pin": {
+    "provider": "smonitor",
+    "version": "0.21.0",
+    "commit": "066b69cad8896cdc126d5586fd53268af4ea6490",
+    "release": "https://github.com/uibcdf/smonitor/releases/tag/0.21.0"
+  },
+  "provider_reported_artifact": {
+    "filename": "smonitor-0.21.0-py_2.tar.bz2",
+    "sha256": "62b6cbae37f7fa06374af87923792f00253020955d000294b1a7d37eb9d04e56",
+    "independently_downloaded_by_consumer": false
+  },
+  "runtime_review": {
+    "head": "d6b2394f52cde7296b6b444f3aedf38e6e4064a6",
+    "runtime_diff_against_release_tag": "empty",
+    "dirty": false
+  },
+  "guide": {
+    "origin": "Unedited standards/SMONITOR_GUIDE.md from tag 0.21.0; same bytes as tag 0.20.0. Its source-version metadata intentionally remains unmodified.",
+    "sha256": "e4c9464fffc29f442e2a53d6f7c029cbe96a54e76f29e808f3ebbddc4dbfa11d",
+    "changed": false
+  },
+  "environment": {
+    "python": "3.14.7",
+    "provider_selection": "Existing development interpreter with the sibling source root prepended to PYTHONPATH for these commands and their subprocesses. No new environment, provider patch or installation.",
+    "baseline_installed_smonitor": "0.20.0",
+    "source_version_attribute": "0.19.0",
+    "selected_distribution_metadata": {
+      "smonitor": "0.19.0",
+      "depdigest": "0.15.1",
+      "argdigest": "0.15.0+13.g7f106f9",
+      "pyunitwizard": "0.28.1+3.g2ab37a5"
+    },
+    "identity_warning": "The source checkout carries stale 0.19.0 metadata. Runtime identity is verified by imported source path and Git runtime equivalence to the release tag, not by that version string."
+  },
+  "checks": {
+    "passed": 346,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "seconds": 12.16,
+    "workers": 12,
+    "pytest_receptor": "llm",
+    "junit_sha256": "0edb106880d1ceb307b15a78b01b4ae07432c38c59703612e10a068cce821dc8",
+    "junit_summary": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "346",
+        "time": "12.127",
+        "timestamp": "2026-10-14T01:11:08.907882-06:00",
+        "hostname": "nauta"
+      }
+    ],
+    "fast_gates_passed": 14
+  },
+  "scope": [
+    "tests/cross_repo/test_smonitor_contracts.py",
+    "tests/cross_repo/test_diagnostics_noise.py",
+    "tests/_private/test_smonitor_catalog_integrity.py",
+    "tests/_private/test_form_tier.py",
+    "tests/_private/smonitor",
+    "tests/form/test_download_diagnostics.py",
+    "tests/form/test_declared_registry_integration.py"
+  ],
+  "suite_state": "Inventory refreshed. Behind and dirty sibling checkouts preserved without checkout mutations.",
+  "public_floor": "Unchanged: smonitor>=0.16.0. No new 0.21.0 API or scoped-capture behavior is adopted in MolSysMT.",
+  "boundaries": "Focused provider source compatibility only. The earlier 14,067-case full suite used 0.20.0 and is not claimed as a 0.21.0 full-suite result. Exact installed MolSysMT/Viewer qualification and publication remain paused under #334."
+}
