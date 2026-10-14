@@ -14,7 +14,7 @@ This module presents **Molecular Attributes** as one of the two foundational pil
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block & Glossary
-* Must feature the **Glossary: Attribute** admonition (````{admonition} Glossary: Attribute\n:class: dropdown info`) with an active cross-reference link to the User Guide Foundations documentation (`{ref}`user-foundations``).
+* Must feature the **Glossary: Attribute** admonition (````{admonition} Glossary: Attribute\n:class: dropdown info`) with an active cross-reference link to the User Guide Foundations documentation (`{ref}`user-foundations-index``).
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
 ### 2. Section 1: What is a Molecular Attribute?

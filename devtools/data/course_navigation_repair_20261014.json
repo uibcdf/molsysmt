@@ -1,0 +1,246 @@
+{
+  "owner": "uibcdf/molsysmt#144",
+  "date": "2026-10-14",
+  "source_parent": "bb175ca74c457a1ecfad2e76ce0416098bfbfe4a",
+  "scope": "Common Core Foundations references, eleven nonexistent module links, sequential navigation, and matching template/contributor examples.",
+  "guard": "devtools/tests/test_validate_course.py::test_common_core_navigation_links_reach_real_module_and_foundations_targets",
+  "baseline_replay": {
+    "method": "Execute the final guard with Path.read_text replaced only for Common Core source notebooks by their original Git blobs. No checkout mutation.",
+    "guard_rejected_original": true,
+    "sphinx_warning_lines": 37,
+    "undefined_foundations_labels": 26,
+    "missing_module_links": 11
+  },
+  "validation": {
+    "passed": 37,
+    "seconds": 8.64,
+    "workers": 12,
+    "pytest_receptor": "llm",
+    "scope": [
+      "devtools/tests/test_validate_course.py",
+      "devtools/tests/test_public_api_docs.py",
+      "devtools/tests/test_documentation_notebook_schema.py"
+    ],
+    "sphinx_warning_stream": "Empty for the final twenty-module navigation project.",
+    "python_warning_groups": [
+      "Sphinx/MyST deprecations",
+      "Legacy H5MSM reads in the API guard selection"
+    ],
+    "course_structure": "PASS: 156 notebooks",
+    "ruff_lint": "PASS: whole repository",
+    "ruff_format": "PASS: whole repository"
+  },
+  "versions": {
+    "python": "3.14.7",
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0",
+    "myst-parser": "5.1.0",
+    "pytest": "9.1.1",
+    "pytest-receptor": "1.1.0+19.g6d87a24"
+  },
+  "notebooks": [
+    {
+      "path": "docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+      "sha256_before": "fb919bf454b3b1269a36bf9a532be53cfb68286b329e22b68c3a5f24887615dc",
+      "sha256_after": "d50ead4e9d3502eeb5500c9627207dd6c1a5d962bf6fcecdd0d983ca1c2788a7",
+      "changed_markdown_cells": [
+        3,
+        14
+      ],
+      "preserved_payload_sha256": "3a5710a5faffca9e3112e2ecd9d6fde28419d7c2296219f507ebcfb0ecc9015b"
+    },
+    {
+      "path": "docs/content/course/Common_Core/02_Molecular_Attributes.ipynb",
+      "sha256_before": "e735383bfc57c178655a5486cc930b5cb6ad6347bf4fb027abac226f12cac45e",
+      "sha256_after": "c18f800435833c8df44261c0571526945d6a83ab445c809d9f7c369827076674",
+      "changed_markdown_cells": [
+        0,
+        12,
+        13
+      ],
+      "preserved_payload_sha256": "8478776d2955ab6892ea5498df35024843c3d49f114732baf997d404a3a3c472"
+    },
+    {
+      "path": "docs/content/course/Common_Core/03_Molecular_Elements.ipynb",
+      "sha256_before": "8b701e074fa69d4b3310860ae661c4e086a46bbcd155bd079b0fbd89ccf2f335",
+      "sha256_after": "f5800506b3b916de337a60c9154d6bf34885e9e20b52ac3f6449e483d77efb69",
+      "changed_markdown_cells": [
+        0,
+        16
+      ],
+      "preserved_payload_sha256": "e10da215f885e24a70101d92cf4bd1fcd791e62498c99aa807a908a4429787c4"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "sha256_before": "9dd9a799851330ddd4a42533988c85093102e34a9d847cd024f9f4c033a74709",
+      "sha256_after": "ae2f0f4f4391007842871f9c08da0d71d1091c1a3e168a81d2cf84bab60aaf97",
+      "changed_markdown_cells": [
+        0,
+        11,
+        16
+      ],
+      "preserved_payload_sha256": "a5e655d2c08b2a04f7c209db1ae933c32fb00b574b4cffa346e3b11acf2aa160"
+    },
+    {
+      "path": "docs/content/course/Common_Core/05_Combined_Forms.ipynb",
+      "sha256_before": "2677a50792cc22cf70344fc3b35efecbd19714ea81483911e97f5ab0277cf008",
+      "sha256_after": "6cdfbb2b1e17c15498f4deb19fecf91d6370b9c4d27eef2625d57561a334edd2",
+      "changed_markdown_cells": [
+        13
+      ],
+      "preserved_payload_sha256": "99facfa77ae79cfcb0cac638c2c86676ef816b9db8538be2bc5df1721e9ed86e"
+    },
+    {
+      "path": "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb",
+      "sha256_before": "956b5583cad981752e746d17bf14f0e3e741d358af252fe29423e6cedd8309a0",
+      "sha256_after": "a988134106d526ddedf6d2e788da9e9b3816ecccb5c1f7592bdb208aa3a5ed56",
+      "changed_markdown_cells": [
+        0,
+        12,
+        14
+      ],
+      "preserved_payload_sha256": "65b8c8b7f295a0562de73cdd6f83e2ef9150d6da73109c4ac65c62d2fa959eea"
+    },
+    {
+      "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+      "sha256_before": "b20412f538d6d2b78a229cf4638ceaedc7d6ae6f5c543aa0d2f47ab60ba20388",
+      "sha256_after": "458098840fe8871a80e11d60714ece3cb0841990cb524eac0d53f4688b2aa128",
+      "changed_markdown_cells": [
+        15
+      ],
+      "preserved_payload_sha256": "b51d46e275c7a3af514fc608db638d2c6d51b826e30cf62e1d58f5fa75ef93a3"
+    },
+    {
+      "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+      "sha256_before": "307e48beb303aced8e7cd3ecb938e1034ce3c64ab905ab546cb7af421bd9364e",
+      "sha256_after": "466b476f98f73bbebacab608d8a48498364cbf88ac92adcd8d467c8409d8d44d",
+      "changed_markdown_cells": [
+        24
+      ],
+      "preserved_payload_sha256": "8339c1bc8cd3a276b5ab1cf1749b9052ab1deb31fb86cde4f0ed24a43f23aa4c"
+    },
+    {
+      "path": "docs/content/course/Common_Core/09_Unit_Safety.ipynb",
+      "sha256_before": "ee1b5e9e4a077f65982f2ebc164373885124fe5162ee3b03703df776fb051d8b",
+      "sha256_after": "afe6bc1d4da18aad57f5b1df59d8e27bfee2614f14cd92af48b9c4c5fef8fbce",
+      "changed_markdown_cells": [
+        13
+      ],
+      "preserved_payload_sha256": "a33d29ede5afaa40bd11589ffd1920bd31f9a126214d678c917de678cc2e9f5e"
+    },
+    {
+      "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "sha256_before": "919dded8f2ad2aa89b9c9c011393e263238614a0e9d7381777889620190d0c78",
+      "sha256_after": "6bdd6bb793607c5af43a9a543f2c8660687201d672122ae05dc60a1eb0efd02d",
+      "changed_markdown_cells": [
+        17
+      ],
+      "preserved_payload_sha256": "b0192c2c51c32020daf6a0eab775569406b18f5081ff55ba1f5d9352e5016225"
+    },
+    {
+      "path": "docs/content/course/Common_Core/11_Iterating_Systems.ipynb",
+      "sha256_before": "1c1c388172df4da295770979553f7a5ebe655ccd18206a10ceb505ebdeb22edc",
+      "sha256_after": "1b386fe0cddff8b7f83a1393880dba76bb5273d071ac1b9a969bbccb95c83191",
+      "changed_markdown_cells": [
+        10,
+        11
+      ],
+      "preserved_payload_sha256": "2828db4b29066baa01f1e58b3e9257c3ccb4c5e712c7318dd2e3b5ee92a5d27b"
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256_before": "de0622f322e1db250509261eebcd71064b1015ef00c4835d2c3b8c79722c72aa",
+      "sha256_after": "c4ba84d305e2b474b16a99f9af279934fde45c8bf93e2ff185b71853363b8baa",
+      "changed_markdown_cells": [
+        18
+      ],
+      "preserved_payload_sha256": "3fa37f0a32521e23311cae960d1c92ed38911326d759aa7c99d816b1827f6dd9"
+    },
+    {
+      "path": "docs/content/course/Common_Core/13_Topological_Analysis.ipynb",
+      "sha256_before": "28c23479a28c7b986c67cc1cb655e5a90b0a02ddd9a1124435023936944d0064",
+      "sha256_after": "8ce32ed4c03a5ff0525f4d6f1f681098dce85e983cc774f2c409b4099206051d",
+      "changed_markdown_cells": [
+        15,
+        16
+      ],
+      "preserved_payload_sha256": "480dda08babaee491178f832aac94bd8d5e24851c0b433f9ce1701568c5451f9"
+    },
+    {
+      "path": "docs/content/course/Common_Core/14_System_Comparison_and_Validation.ipynb",
+      "sha256_before": "0ae7c686b8e8bdb74302f2ddb2b2578c30fed9d1b2a35d916605c5b4b9d800a5",
+      "sha256_after": "5a7b1d2b94bd84ecaa5904eeca251e711bc02452a23e44438c9dc289e889d6e2",
+      "changed_markdown_cells": [
+        19
+      ],
+      "preserved_payload_sha256": "81e293e9270154d2665fb0afa3723a0e3799b547d9d82fd2f9fc09439ae4e1d3"
+    },
+    {
+      "path": "docs/content/course/Common_Core/15_Semantic_Labeling.ipynb",
+      "sha256_before": "432cc6cf9b674e079634cc3fefa470557838ba526bd6db77baeb7257c688dab6",
+      "sha256_after": "b3f5cc3a5216c4189e9580dd51307414ef7da33d2464c178c070f2f1a47dc82b",
+      "changed_markdown_cells": [
+        10,
+        11
+      ],
+      "preserved_payload_sha256": "c991369322aa176bdb53640c53e039444fb3a3224fc31a8e898ea5d020ca70bb"
+    },
+    {
+      "path": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+      "sha256_before": "59c0d948206c2a26623ccae027fce389325a460c117f91f92dda958d2b91d881",
+      "sha256_after": "4460016ba4c491f9be1a8744c7cef43c0fc3c1ea96aabb99ade4e7368ba573c1",
+      "changed_markdown_cells": [
+        16
+      ],
+      "preserved_payload_sha256": "bc6914b531adac1c41b61ea473d1fe8ab11747ed6305571faa689a17a0d419bd"
+    },
+    {
+      "path": "docs/content/course/Common_Core/17_Merging_and_Growing_Systems.ipynb",
+      "sha256_before": "cc54d474030699a84a226fe1c90ddb0b83d201f778fd19548bd34cf3893b9d33",
+      "sha256_after": "38d417570f1a051304fc9f60714d30b8d90b4bad6fc18a21d2ca0680319e50a5",
+      "changed_markdown_cells": [
+        15,
+        16
+      ],
+      "preserved_payload_sha256": "2f7c7c600d2da0739376be7b07b8d4e4417d4e75af3468daf4e7a29d7077cf0d"
+    },
+    {
+      "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+      "sha256_before": "54ea30167ee9ba6a9e31ad326faf50c351d608b15545636fd91f92ab077e12a0",
+      "sha256_after": "b88d33a5d13b54dfeaa172b02a0adcfe608208ae71fe939105fd3d2d01d0119c",
+      "changed_markdown_cells": [
+        9
+      ],
+      "preserved_payload_sha256": "c526fc45e30334919ed02492b10d9bbcd6248d9c1a3b805dc7bf62825a8cc68e"
+    },
+    {
+      "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+      "sha256_before": "e64a81788512be282665f5ca99c8e6e42046c9503b2bba4e3d3ad431b8ffbf43",
+      "sha256_after": "34dee5bed7eefba2e9c3c94fab8ca00645885ebdc8c0027ea7b064123e2adc35",
+      "changed_markdown_cells": [
+        12
+      ],
+      "preserved_payload_sha256": "4d85d924fef02eb4d6f7ecab4ab00f0a7d4483b097fc0ca2305eb0372da0b53d"
+    },
+    {
+      "path": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "sha256_before": "85fdd47b1e8ba8db0fd9cf1a98f3289d665780db18b490b745a01c17b4feb799",
+      "sha256_after": "5dd2ac5118346bf0aebf28daf46b69b11807221f317430c8fbb7cdcf6fa0d18e",
+      "changed_markdown_cells": [
+        15
+      ],
+      "preserved_payload_sha256": "fd99ab2e60bbd954297668e207f8339343b2dbe9f35c01d576f7cd49e636c00b"
+    },
+    {
+      "path": "docs/content/course/_template.ipynb",
+      "sha256_before": "537b7d4d9eb5a4480dd8bd8b2812d6610f52725108cffb528c3a540fb9b2a500",
+      "sha256_after": "0e374654f86532f11dd481583846d1ee0a29e6f8d4f489a34f1e587a0f60b4d1",
+      "changed_markdown_cells": [
+        6
+      ],
+      "preserved_payload_sha256": "78f416f3a12af18a3ac5148e4a3c9a4955e9b7bd5e12e32217da124a130bb084"
+    }
+  ],
+  "preservation": "Only Markdown source fields change in 20 Common Core notebooks and the template. All other JSON, including code, outputs, execution counts, metadata, cell IDs and attachments, is identical to the original. Existing semantic anchors and notebook paths are retained.",
+  "boundaries": "The project renders actual module headings and navigation lines with actual Foundations headings and the real Common Core index. It checks twenty Foundations hyperlinks and nineteen sequential next-module destinations. It does not execute code, render full notebooks, qualify legacy scientific outputs, or establish a full-site warning baseline. Native Forms topic links to the generic Core portal and other editorial debt remain under #144. Release coordination remains paused under #334."
+}

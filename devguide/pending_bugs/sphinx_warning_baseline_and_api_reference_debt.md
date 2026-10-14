@@ -292,3 +292,51 @@ This is a repair of three API/tutorial boundaries, not a reexecution of the full
 notebooks or a fresh full-site warning baseline. Runtime behavior and signatures
 are unchanged; #144 remains partial and release coordination under #334 remains
 paused. Remaining work follows the family-by-family remediation plan above.
+
+## Bounded Common Core navigation repair — 2026-10-14
+
+All twenty Common Core notebooks now link to the real Foundations target
+`user-foundations-index`, replacing 26 references to the undefined
+`user-foundations` target. The course template and contributor examples use the
+same current target. Eleven links to removed notebook names are replaced with
+semantic module references and accurate display names:
+
+- Module 02 proceeds to Module 03, Molecular Elements; its transition now
+  describes the atom/group/molecule hierarchy rather than Native Forms.
+- Module 06 points to Module 08's attribute extraction, without promising a
+  nonexistent Interactive Selection module.
+- Modules 11, 13 and 17 use the actual Module 12, 14 and 18 identities.
+- Module 15 points forward to composition in Module 17 in its narrative, while
+  its sequential Next Module link correctly reaches Module 16.
+
+The README and course instructions locate the Native Forms reference model in
+Module 04 rather than a missing Module 02 file. Paired module instructions retain
+their protected topics and use the current navigation identities.
+
+The guard
+`devtools/tests/test_validate_course.py::test_common_core_navigation_links_reach_real_module_and_foundations_targets`
+renders actual stored module headings and navigation lines through MyST-NB,
+with the real Common Core index and actual Foundations/selection-syntax headings.
+The resulting HTML must contain a Foundations hyperlink in every Core module
+and a Next Module hyperlink to the following notebook in the current order.
+It uses no invented replacement labels. Replaying the final guard against the
+original Git notebook content, without modifying the checkout, rejects 26
+undefined Foundations references and eleven missing-module references: 37
+Sphinx warning lines. The corrected project has an empty Sphinx warning stream.
+
+The course/API/schema selection passes **37 tests** in 8.64 seconds on Python
+3.14.7 with twelve workers and pytest-receptor. Python-level MyST/Sphinx
+deprecations and existing H5MSM migration warnings remain visible in that
+selection. The 156-notebook course validator, whole-repository Ruff lint and
+format checks, and developer-guide validation pass. The
+[receipt](../../devtools/data/course_navigation_repair_20261014.json) records
+versions, the negative control, per-notebook hashes and preservation evidence.
+
+Only Markdown source fields change in twenty Core notebooks and the template.
+All other JSON, including code, saved outputs, execution counts, metadata,
+cell IDs and attachments, is identical to the original. Semantic anchors and
+filenames remain unchanged. This does not reexecute scientific examples or
+certify complete notebook rendering or a warning-clean site. Generic portal
+links for deeper topics in Native Forms still need semantic review; the guard
+does not claim to verify those topic descriptions. The broader #144 closure
+criteria remain unmet and release coordination under #334 remains paused.

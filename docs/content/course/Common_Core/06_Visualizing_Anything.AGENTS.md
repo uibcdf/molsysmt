@@ -14,7 +14,7 @@ This module presents **Form-Agnostic Molecular Visualization** using MolSysMT's 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block & Glossary
-* Must feature the **Glossary: Visualization** admonition (````{admonition} Glossary: Visualization\n:class: dropdown info`) with an active cross-reference link to `{ref}`user-foundations``.
+* Must feature the **Glossary: Visualization** admonition (````{admonition} Glossary: Visualization\n:class: dropdown info`) with an active cross-reference link to `{ref}`user-foundations-index``.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
 ### 2. Section 1: Remote & Cloud Systems (`msm.view('pdb_id:')`)
@@ -29,7 +29,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Section 4: Selective Focus & Viewer Backends
 * Must demonstrate focusing view on specific components using basic `selection` arguments.
-* Must note that selection syntax is explored in depth in Module 7 and Module 8.
+* Must link to Module 7 for selection syntax and Module 8 for querying attributes of selected atoms.
 
 ### 6. Challenge & See Also
 * Must include **Challenge 6: The Scene Director** using Barnase-Barstar (`systems['Barnase-Barstar']['barnase_barstar.h5msm']`), and the Key Takeaway box (````{key-takeaway}`).

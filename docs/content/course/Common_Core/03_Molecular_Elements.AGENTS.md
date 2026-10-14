@@ -14,7 +14,7 @@ This module presents **Molecular Elements** as the third foundational pillar of 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block & Glossary
-* Must feature the **Glossary: Element** admonition (````{admonition} Glossary: Element\n:class: dropdown info`) defining `element` as the structural hierarchy level (`atom`, `group`, `component`, `molecule`, `chain`, `entity`, `system`) with a link to `{ref}`user-foundations``.
+* Must feature the **Glossary: Element** admonition (````{admonition} Glossary: Element\n:class: dropdown info`) defining `element` as the structural hierarchy level (`atom`, `group`, `component`, `molecule`, `chain`, `entity`, `system`) with a link to `{ref}`user-foundations-index``.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
 ### 2. Section 1: The 6 Hierarchical Elements

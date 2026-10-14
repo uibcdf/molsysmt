@@ -102,6 +102,16 @@ All 246 current explicit API autodoc declarations resolve in the local inventory
 the older import-warning counts are historical. This is bounded link repair,
 not a warning-clean full site or a replacement installed candidate.
 
+The 2026-10-14 #144 checkpoint additionally repairs Core-to-Foundations and
+renamed-module navigation. The
+[active record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-common-core-navigation-repair--2026-10-14)
+and [receipt](../devtools/data/course_navigation_repair_20261014.json) retain
+37 passing course/API/schema controls, an HTML guard for twenty Foundations
+links and nineteen sequential destinations, and a replay rejecting 37 original
+reference warnings. Only Markdown sources change in twenty Core notebooks and
+the template; all executable content and stored results are preserved. This
+checkpoint leaves the broader documentation debt and publication pause intact.
+
 Reviewing the published acceptance reconciliations and closure criteria for
 [interaction organization](pending_proposals/organize_interaction_detection_by_family_before_1_0.md#acceptance-criteria)
 and [ChemicalStates ownership](pending_proposals/promote_chemical_states_to_a_native_molsys_domain.md#acceptance-criteria)

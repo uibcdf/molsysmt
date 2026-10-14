@@ -4,7 +4,7 @@ This guide governs the development, editorial style, and structural standards fo
 
 All human contributors and AI agents working on course content must strictly adhere to these guidelines.
 
-> **Golden Reference Model:** Module 01 ([`Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 02 ([`Common_Core/02_Native_Forms.ipynb`](Common_Core/02_Native_Forms.ipynb)) are the canonical reference models for all 54 modules in the course. Every new or updated module must mirror their exact visual, structural, and editorial pattern.
+> **Golden Reference Model:** Module 01 ([`Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 04 ([`Common_Core/04_Native_Forms.ipynb`](Common_Core/04_Native_Forms.ipynb)) are the canonical reference models for all 54 modules in the course. Every new or updated module must mirror their exact visual, structural, and editorial pattern.
 
 ---
 
@@ -101,8 +101,8 @@ Every module **must** end with a collapsible `:::{seealso}` admonition box (prec
 - {func}`molsysmt.basic.get` — Topology and coordinate query engine.
 
 **Related Course Modules & Guides:**
-- Next Module: [Module 2: Native Forms](../Common_Core/02_Native_Forms.ipynb)
-- User Guide: {ref}`user-foundations`
+- Next Module: {ref}`Module 2: Molecular Attributes <course-core-molecular-attributes>`
+- User Guide: {ref}`user-foundations-index`
 :::
 ```
 
