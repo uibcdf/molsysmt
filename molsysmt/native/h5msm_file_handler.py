@@ -13,6 +13,17 @@ supported_h5msm_versions = frozenset({"0.3", "0.4"})
 class H5MSMFileHandler:
     """Lightweight handler for reading and writing h5msm files."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary
+
+        file = getattr(self, "file", None)
+        return summary(
+            self,
+            format_version=getattr(self, "format_version", None),
+            is_open=bool(file),
+        )
+
     def __init__(
         self,
         filename,

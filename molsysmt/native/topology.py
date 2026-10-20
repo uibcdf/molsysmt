@@ -661,6 +661,12 @@ _ReferenceChemicalStateStorage = _ChemicalStateStorage
 class Topology:
     """Native stable atom inventory with chemical-state compatibility access."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary, topology_fields
+
+        return summary(self, **topology_fields(self))
+
     def __setattr__(self, name, value):
         if name == "chemical_states":
             raise AttributeError(

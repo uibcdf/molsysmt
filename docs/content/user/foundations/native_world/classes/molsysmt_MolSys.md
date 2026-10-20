@@ -1,6 +1,22 @@
 (user-foundations-native-world-classes-molsysmt-molsys)=
 # MolSys
 
+## Brief Inspection
+
+`repr(molsys)` summarizes stored dimensions and domain presence. It does not
+render coordinates or tables, traverse chemical graphs, validate associations,
+copy data or load structures from disk. `None` denotes an undeclared axis/domain;
+zero denotes an empty declared axis/collection. Named analyses are counted
+without printing their names. The summary's text is for people, not serialization
+or a stable parsing interface. Use native properties or `msm.info()` for data.
+
+The same convention covers the native containers, dictionary wrappers and file
+handlers. A `Structures` summary uses stored array shapes; an absent atom-aligned
+series leaves its atom count unknown. A topology reports bond count only from
+its resolvable reference state. An interaction view counts selected occurrences
+and evaluated structures, while its stored-relation count describes the shared
+backing table. Neither summary resolves ambiguity or certifies scientific readiness.
+
 `molsysmt.MolSys` is the primary native molecular system container in MolSysMT. It can combine topology, chemical states, a 3D structures sequence or ensemble, named interaction results, and molecular mechanics data.
 
 Each named `Interactions` analysis uses positional integer atom and structure

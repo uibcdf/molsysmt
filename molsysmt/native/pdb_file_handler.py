@@ -1271,6 +1271,18 @@ def parse_format33(file):
 class PDBFileHandler:
     """Handle reading and writing PDB coordinate files."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary
+
+        file = getattr(self, "file", None)
+        return summary(
+            self,
+            format_version=getattr(self, "format_version", None),
+            is_open=file is not None and not file.closed,
+            has_entry=getattr(self, "entry", None) is not None,
+        )
+
     def __init__(self, file, io_mode="r", closed=False, skip_digestion=False):
         """Open a PDB file path or buffer in the requested mode."""
 

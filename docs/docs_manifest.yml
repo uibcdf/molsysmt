@@ -31,8 +31,16 @@ sections:
         index_file: docs/content/user/foundations/native_world/index.md
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
         pages:
+          - name: classes_overview
+            file: docs/content/user/foundations/native_world/classes/index.md
+            agents_file: docs/content/user/foundations/native_world/classes/index.AGENTS.md
+            description: Native containers, dictionary wrappers and brief metadata inspection.
+          - name: structures
+            file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
+            description: Structural series and shape-only representation with explicit unknown versus empty atom axes.
           - name: molsys
-            description: Native domains, scoped chemical transfer, retained preparation and reference construction evidence, analysis persistence and coordinate invalidation.
+            description: Native domains, bounded metadata representations, scoped chemistry, retained preparation evidence and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -82,7 +90,7 @@ sections:
             file: docs/content/user/tools/basic/get.ipynb
             agents_file: docs/content/user/tools/basic/get.ipynb.AGENTS.md
           - name: info
-            description: Styled or programmatic summaries with explicit atom or element-level masks.
+            description: Styled/programmatic summaries, explicit element masks and bounded native representations without data rendering.
             file: docs/content/user/tools/basic/info.ipynb
             agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
           - name: convert
@@ -398,6 +406,7 @@ sections:
         agents_file: docs/content/user/cookbook/simulation_workflow.ipynb.AGENTS.md
       - name: big_data_trajectories
         file: docs/content/user/cookbook/big_data_trajectories.ipynb
+        description: Chunked processing and metadata-only native inspection without expanding numeric payloads.
         agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
         status: reviewed
       - name: from_pdb_to_solvated_box
@@ -464,3 +473,8 @@ sections:
   api_reference:
     path: docs/api
     status: stable
+    pages:
+      - name: supported
+        file: docs/api/supported/api_supported.rst
+        agents_file: docs/api/supported/api_supported.rst.AGENTS.md
+        description: Actual public capability-report docstrings with visual and programmatic outputs.

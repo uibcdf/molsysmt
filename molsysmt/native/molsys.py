@@ -162,7 +162,29 @@ def _extend_interaction_atoms(result, n_atoms):
 
 
 class MolSys:
-    """Container holding native molecular-system information domains."""
+    """Container holding native molecular-system information domains.
+
+    Notes
+    -----
+    The human-readable repr reports stored dimensions and domain presence without
+    validating, copying or traversing molecular data. None means an undeclared
+    axis/domain, distinct from an explicitly empty one. It is not serialization;
+    use native properties or info for programmatic inspection.
+
+    Examples
+    --------
+    >>> molsys = MolSys(n_atoms=3)
+    >>> 'n_atoms=3, n_structures=0' in repr(molsys)
+    True
+    >>> 'n_chemical_states=1' in repr(molsys)
+    True
+    """
+
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary, system_fields
+
+        return summary(self, **system_fields(self))
 
     @property
     def interactions(self):

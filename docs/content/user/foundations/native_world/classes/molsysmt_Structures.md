@@ -39,6 +39,12 @@ units and are stored internally in nm. See {ref}`Tutorial_Set`.
 
 ## Invariants and Performance
 
+`repr(structures)` reads stored shape metadata without array conversion, unit
+conversion, alignment validation or payload rendering. No atom-aligned series
+means `n_atoms=None`; an explicit `(n_structures, 0, 3)` coordinate array means
+`n_atoms=0`. This is a brief human summary, not a validity check or interchange
+format. `repr(molsys)` can report these dimensions even when topology is absent.
+
 - **Zero-Copy Views**: Slicing structures returns zero-copy NumPy array views whenever possible.
 - **Float32 Precision Default**: Coordinates and velocities default to `float32` for optimal memory footprint and GPU hardware acceleration.
 - **Float64 Precision for Energies**: Thermodynamic observables (`temperature`, `potential_energy`, `kinetic_energy`, `time`) use double-precision `float64`.

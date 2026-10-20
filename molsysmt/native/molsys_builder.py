@@ -20,6 +20,20 @@ class MolSysBuilder:
     this object.
     """
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, structure_dimensions, summary
+
+        n_structures, _ = structure_dimensions(vars(self).get("structures"))
+        topology = vars(self).get("topology")
+        data = {} if topology is None else vars(topology)
+        return summary(
+            self,
+            n_atoms=size(data.get("atoms")),
+            n_groups=size(data.get("groups")),
+            n_structures=n_structures,
+        )
+
     @signal(tags=["native", "builder"])
     def __init__(self, molecular_system=None, skip_digestion=False):
 

@@ -21,6 +21,16 @@ class MolecularMechanics:
     This experimental domain is not persisted by H5MSM 0.5.
     """
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, summary
+
+        return summary(
+            self,
+            n_atoms=size(vars(self).get("atoms_ff")),
+            forcefield=vars(self).get("forcefield") is not None,
+        )
+
     def __init__(
         self,
         forcefield=None,

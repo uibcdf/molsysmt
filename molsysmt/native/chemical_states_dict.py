@@ -15,6 +15,18 @@ class ChemicalStatesDict:
     representation uses NumPy arrays and is not directly JSON serializable.
     """
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, summary
+
+        data = vars(self).get("data") or {}
+        return summary(
+            self,
+            n_atoms=data.get("n_atoms"),
+            n_chemical_states=size(data.get("states")),
+            reference_chemical_state_index=data.get("reference_chemical_state_index"),
+        )
+
     data: dict
 
     def to_dict(self, copy=True):

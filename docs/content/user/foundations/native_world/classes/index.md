@@ -3,6 +3,12 @@
 
 Welcome to **Classes**, the native object module detailing MolSysMT's core Python data containers and declarative dictionary schemas.
 
+Native objects have brief metadata representations for interactive inspection.
+They distinguish unavailable axes from empty ones and avoid rendering arrays,
+validating chemistry or reading file contents. See {ref}`user-foundations-native-world-classes-molsysmt-molsys`
+and the executed example in {ref}`Tutorial_Info`. Plain Python dictionaries keep
+their ordinary representation.
+
 ---
 
 ## **Contents**

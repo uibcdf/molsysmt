@@ -14,6 +14,19 @@ class InteractionsDict:
     HDF5-backed interchange; it is not a JSON-compatible list of records.
     """
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, summary
+
+        data = vars(self).get("data") or {}
+        return summary(
+            self,
+            n_atoms=data.get("n_atoms"),
+            n_structures=data.get("n_structures"),
+            n_stored_relations=size(data.get("relation_types")),
+            n_occurrences=size(data.get("occurrence_relations")),
+        )
+
     data: dict
 
     def to_dict(self, copy=True):

@@ -83,6 +83,19 @@ class ViewerJSON:
     JSON-compatible dict and `copy()` for deep copies.
     """
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, summary
+
+        data = vars(self).get("data") or {}
+        atoms = data.get("atoms") or {}
+        return summary(
+            self,
+            n_atoms=size(atoms.get("atom_id")),
+            n_structures=size(data.get("structures")),
+            compressed=vars(self).get("compressed", False),
+        )
+
     data: Dict[str, Any] = field(default_factory=_empty_viewer_dict)
 
     # Compression metadata

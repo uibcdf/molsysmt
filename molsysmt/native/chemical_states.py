@@ -40,6 +40,17 @@ class ChemicalStates:
     .. versionadded:: 1.0.0
     """
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import reference_index, size, summary
+
+        return summary(
+            self,
+            n_atoms=vars(self).get("_n_atoms"),
+            n_chemical_states=size(vars(self).get("_states")),
+            reference_chemical_state_index=reference_index(self),
+        )
+
     @arg_digest()
     def __init__(self, n_atoms=0, skip_digestion=False):
         self._n_atoms = int(n_atoms)

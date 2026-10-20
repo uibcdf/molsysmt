@@ -9,6 +9,14 @@ from molsysmt import pyunitwizard as puw
 class GROAtomicCoordinateEntry:
     """In-memory representation of a GRO coordinate entry."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary
+
+        return summary(
+            self, n_atoms=vars(self).get("n_atoms"), n_groups=vars(self).get("n_groups")
+        )
+
     def __init__(self):
 
         self.header = None
@@ -118,6 +126,17 @@ def parse(file):
 
 class GROFileHandler:
     """Handle reading and writing GRO coordinate files."""
+
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary
+
+        file = getattr(self, "file", None)
+        return summary(
+            self,
+            is_open=file is not None and not file.closed,
+            has_entry=getattr(self, "entry", None) is not None,
+        )
 
     def __init__(self, file, io_mode="r", closed=False, skip_digestion=False):
         """Open a GRO file path or buffer in the requested mode."""

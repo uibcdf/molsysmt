@@ -75,7 +75,13 @@ examples. Its [connectivity record](archive/resolved_proposals/selected_state_co
 retains the contract and evidence. #188 now adds programmatic supported-report outputs with 80 passing contract/
 registry cases, four doctests and executed/rendered documentation; its
 [introspection record](archive/resolved_proposals/supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md)
-retains the exact scope. #120 remains in progress; #128/#121/#113 await the requested prior design study.
+retains the exact scope. #120 now supplies bounded native representations;
+its [inspection record](archive/resolved_proposals/native_object_representations.md)
+retains 1,159 passing native/interaction cases, 17 doctests, 88 integrated guards
+for all four issues and executed/rendered examples. All four selected issues
+are source-validated. #128/#121/#113 await the requested prior design study.
+These changes remain outside the frozen historical artifact identities and
+require applicable qualification when replacement candidates are selected.
 
 ## Additional source stabilization and acceptance review — 2026-10-13
 

@@ -624,6 +624,20 @@ class MasterRecord:
 class PDBAtomicCoordinateEntry:
     """Aggregate of PDB record sections for atomic coordinate entries."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, summary
+
+        return summary(
+            self,
+            format_version=vars(self).get("version"),
+            n_models=size(
+                None
+                if vars(self).get("coordinate") is None
+                else vars(self.coordinate).get("model")
+            ),
+        )
+
     def __init__(self):
         """Initialize empty record sections."""
 

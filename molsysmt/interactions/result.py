@@ -151,13 +151,38 @@ class Interactions:
     Scientific criteria live in ``parameters``. Frame-scoped execution details
     live in ``execution_records`` and survive partial compatible recalculation.
     Numeric storage is owned and read-only, including measurement columns.
+    The human-readable repr reports stored relation count, selected occurrence
+    count, evaluated structure count and whether this is a view. Relation count
+    describes the shared backing table, not distinct relations in the view.
+    It builds no inverse indexes and does not materialize selected columns.
     Construct a new result to change observations. Invalidation shares that
     storage with independent frame validity; complete-column access or
-        interchange may pack surviving observations on demand. ``compact()``
-        creates an independent packed snapshot without recalculating observations.
+    interchange may pack surviving observations on demand. ``compact()``
+    creates an independent packed snapshot without recalculating observations.
 
     .. versionadded:: 1.0.0
     """
+
+    def __repr__(self):
+        """Summarizing stored axes and selected occurrences without building indexes."""
+        from molsysmt.native._repr import size, summary
+
+        data = vars(self)
+        count = data.get("_active_count")
+        if count is None:
+            count = size(data.get("_positions"))
+        full = data.get("_is_full")
+
+        return summary(
+            self,
+            class_name="Interactions",
+            n_atoms=data.get("n_atoms"),
+            n_structures=data.get("n_structures"),
+            n_stored_relations=size(data.get("relation_types")),
+            n_occurrences=count,
+            n_evaluated_structures=size(data.get("_coverage")),
+            view=None if full is None else not full,
+        )
 
     def __setattr__(self, name, value):
         if name in _STORAGE_FIELDS and self.__dict__.get("_storage_locked", False):

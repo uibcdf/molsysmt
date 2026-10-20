@@ -135,7 +135,32 @@ def _merge_alternate_locations(target_value, source_value, atom_offset, n_struct
 
 
 class Structures:
-    """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
+    """Storing per-structure data (coordinates, box, time, energies) for a molecular system.
+
+    Notes
+    -----
+    The human-readable repr uses stored shape metadata, without validating or
+    formatting arrays or quantities. n_atoms=None means no atom-aligned series
+    declares that axis; it is distinct from an explicit zero-length atom axis.
+
+    Examples
+    --------
+    >>> repr(Structures())
+    'Structures(n_atoms=None, n_structures=0, coordinates=False, box=False)'
+    """
+
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import structure_dimensions, summary
+
+        n_structures, n_atoms = structure_dimensions(self)
+        return summary(
+            self,
+            n_atoms=n_atoms,
+            n_structures=n_structures,
+            coordinates=vars(self).get("_coordinates") is not None,
+            box=vars(self).get("_box") is not None,
+        )
 
     @property
     def time_step(self):

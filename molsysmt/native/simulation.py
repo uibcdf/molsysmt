@@ -5,6 +5,17 @@ from molsysmt._private.smonitor import MolecularSystemNeededError
 class Simulation:
     """Container for simulation parameters used to build OpenMM objects."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import summary
+
+        return summary(
+            self,
+            integrator=vars(self).get("integrator"),
+            platform=vars(self).get("platform"),
+            molecular_system=vars(self).get("_molecular_system") is not None,
+        )
+
     def __init__(
         self,
         molecular_system=None,

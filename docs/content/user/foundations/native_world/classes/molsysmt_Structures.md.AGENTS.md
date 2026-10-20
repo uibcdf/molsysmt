@@ -8,3 +8,6 @@ Governs `docs/content/user/foundations/native_world/classes/molsysmt_Structures.
 - Internal attributes table MUST faithfully list all frame observables (`coordinates`, `velocities`, `box`, `time`, `structure_id`, `b_factor`, `occupancy`, `alternate_location`, `temperature`, `potential_energy`, `kinetic_energy`).
 - Headings MUST follow balanced 2-3 word standard without `&`.
 - Includes API documentation link to `/api/form/molsysmt_Structures/api_molsysmt_Structures`.
+
+Preserve shape-only human inspection: no validation, quantity conversion or array
+rendering; an undeclared atom axis and an explicit zero-length axis are distinct.

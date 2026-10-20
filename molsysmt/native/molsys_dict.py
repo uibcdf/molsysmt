@@ -32,6 +32,27 @@ def _empty_molsys_dict() -> Dict[str, Any]:
 class MolSysDict:
     """Storing a declared, serializable molecular system representation (`molsysmt.MolSysDict`)."""
 
+    def __repr__(self):
+        """Summarizing stored metadata without reading or rendering payloads."""
+        from ._repr import size, summary
+
+        data = vars(self).get("data") or {}
+        topology = data.get("topology") or {}
+        structures = data.get("structures") or {}
+        n_structures = next(
+            (
+                size(structures[name])
+                for name in ("coordinates", "structure_id", "time", "box")
+                if structures.get(name) is not None
+            ),
+            None,
+        )
+        return summary(
+            self,
+            n_atoms=size(topology.get("atoms")),
+            n_structures=n_structures,
+        )
+
     data: Dict[str, Any] = field(default_factory=_empty_molsys_dict)
 
     def to_dict(self, copy: bool = True) -> Dict[str, Any]:
