@@ -32,3 +32,10 @@ The canonical variable representing the molecular system MUST be `molsys`.
    - `blocks = msm.topology.get_covalent_blocks(molsys, selection='molecule_type=="protein"')`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+
+## State and selection contract
+
+Preserve explicit chemical-state and structure-index scope, strict missing/mixed
+association rejection, original atom indices, induced subset semantics, repeated
+index deduplication, deterministic block order and defined empty outputs. Keep
+the executed six-atom control independent of the bundled visualization examples.

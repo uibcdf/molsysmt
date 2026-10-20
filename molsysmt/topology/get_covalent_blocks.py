@@ -14,6 +14,10 @@ def get_covalent_blocks(
     remove_bonds=None,
     output_type="sets",
     syntax="MolSysMT",
+    *,
+    chemical_state="reference",
+    structure_indices="all",
+    skip_digestion=False,
 ):
     """
     Identifying the sets of atoms that remain covalently connected when bonds are removed.
@@ -22,10 +26,9 @@ def get_covalent_blocks(
     hold together if the given bonds were cut. That is how the groups of atoms rotating
     around a dihedral angle are obtained, for example.
 
-    Called without `remove_bonds` it returns the **components** of the system, since a
-    component is by definition a set of atoms mutually connected through covalent bonds.
-    In that case it adds nothing to `get(molecular_system, element='component')`, which
-    is the ordinary way of asking for them.
+    Without cuts, this partitions the selected induced graph in the requested
+    chemical state. An omitted atom cannot connect two selected atoms. With all
+    atoms and the reference covalent graph, these are the system's components.
 
 
     Parameters
@@ -40,17 +43,32 @@ def get_covalent_blocks(
         Representation used for the returned result.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    chemical_state : str, int or None, default='reference'
+        State supplying stored relationships. 'structure' resolves the state
+        assigned to the selected structures, which must agree on one state.
+    structure_indices : int, list, tuple or numpy.ndarray, default='all'
+        Source structure indices used for state resolution and spatial selections.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     numpy.ndarray or list
-        Covalent blocks as sets of atom indices, or a 0-based block label per atom.
+        Object array of sets of full source atom indices, or an integer array
+        with one block label per source atom and -1 at every unselected atom.
+        Blocks are ordered by their smallest atom index; empty selections give
+        an empty set array or an all-minus-one label array.
 
 
     Raises
     ------
     NotImplementedMethodError
         If `output_type` is unsupported.
+    ArgumentError
+        If an index, selection, cut shape or state request is invalid.
+    StructuralInconsistencyError
+        If the state is unavailable or selected structures have missing/mixed
+        chemical-state associations.
 
 
     Notes
@@ -78,7 +96,12 @@ def get_covalent_blocks(
     from . import get_bondgraph
 
     G = get_bondgraph(
-        molecular_system, nodes_name="atom_index", selection=selection, syntax=syntax
+        molecular_system,
+        nodes_name="atom_index",
+        selection=selection,
+        syntax=syntax,
+        chemical_state=chemical_state,
+        structure_indices=structure_indices,
     )
 
     if remove_bonds is not None:
@@ -132,4 +155,4 @@ def get_covalent_blocks(
     else:
         raise NotImplementedMethodError(caller="molsysmt.topology.get_covalent_blocks")
 
-    return np.array(blocks)
+    return np.array(blocks, dtype=object if output_type == "sets" else int)

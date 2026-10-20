@@ -69,8 +69,10 @@ The maintainer next selects #390, #348, #188 and #120, in order. #390 now
 preserves explicit atom stereo declarations from chemical templates, with strict
 correspondence admission unchanged. Its [handoff record](archive/resolved_proposals/chemical_template_stereo_handoff.md)
 retains 238 passing affected cases, nine focused cases including H5MSM/history,
-two doctests and counterfactual failures under the old reader. #348/#188/#120
-remain in progress; #128/#121/#113 await the requested prior design study.
+two doctests and counterfactual failures under the old reader. #348 is also source-validated: state-aware induced connectivity and general
+spatial selection delegation pass 1,249 affected cases, with executed guide/course
+examples. Its [connectivity record](archive/resolved_proposals/selected_state_connectivity.md)
+retains the contract and evidence. #188/#120 remain in progress; #128/#121/#113 await the requested prior design study.
 
 ## Additional source stabilization and acceptance review — 2026-10-13
 

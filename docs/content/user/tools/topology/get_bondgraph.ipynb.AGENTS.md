@@ -30,3 +30,10 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - Connected components count check.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
+
+## State and selection contract
+
+Preserve explicit chemical-state and structure-index scope, strict missing/mixed
+association rejection, original atom indices, induced subset semantics, repeated
+index deduplication, deterministic block order and defined empty outputs. Keep
+the executed six-atom control independent of the bundled visualization examples.

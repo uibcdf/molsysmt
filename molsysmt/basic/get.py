@@ -122,6 +122,8 @@ def get(
       MolSys. Convert an external form before querying a non-reference state.
     - ``chemical_state='structure'`` requires a native MolSys and rejects
       missing associations or structure selections spanning multiple states.
+    - ``structure_indices`` also scopes internal spatial selections and masks;
+      they use the requested structures rather than the entire structural axis.
     - A native topology with zero groups returns ``None`` for atom-level
       ``group_id``, ``group_name``, and ``group_type`` queries. No group or ligand
       label is invented.
@@ -304,6 +306,7 @@ def get(
             molecular_system,
             element=element,
             selection=selection,
+            structure_indices=structure_indices,
             chemical_state=chemical_state,
             mask=mask,
             syntax=syntax,
@@ -317,6 +320,7 @@ def get(
                 molecular_system,
                 element=element,
                 selection=mask,
+                structure_indices=structure_indices,
                 chemical_state=chemical_state,
                 syntax=syntax,
                 skip_digestion=True,

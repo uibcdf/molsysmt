@@ -13,6 +13,10 @@ def get_bondgraph(
     selection="all",
     syntax="MolSysMT",
     to_form="networkx.Graph",
+    *,
+    chemical_state="reference",
+    structure_indices="all",
+    skip_digestion=False,
 ):
     """
     Building a bond graph from a molecular system.
@@ -30,22 +34,40 @@ def get_bondgraph(
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     to_form : str, default='networkx.Graph'
         Graph form to return; only `'networkx.Graph'` is currently implemented.
+    chemical_state : str, int or None, default='reference'
+        State supplying stored relationships. 'structure' resolves the state
+        assigned to the selected structures, which must agree on one state.
+    structure_indices : int, list, tuple or numpy.ndarray, default='all'
+        Source structure indices used for state resolution and spatial selections.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     networkx.Graph
-        Graph where nodes represent atoms and edges represent bonds.
+        Induced graph on the selected atoms, with full source atom indices as
+        nodes and only stored bonds whose two endpoints are selected as edges.
 
 
     Raises
     ------
-    NotImplementedError
+    NotImplementedMethodError
         If `nodes_name` or `to_form` is not supported.
+    ArgumentError
+        If an index, selection or state request is invalid.
+    StructuralInconsistencyError
+        If the state is unavailable or selected structures have missing/mixed
+        chemical-state associations.
 
 
     Notes
     -----
     - Bonds are taken from `inner_bonded_atom_pairs` at the atom level.
+      Missing connectivity is not inferred or certified complete. Relationship
+      types retain the existing stored-bond behavior; no extra chemical filter
+      is introduced. State resolution never falls back to reference on ambiguity.
+    - Nodes are ordered by source atom index, independently of selection order
+      or repetition. Selecting a subset does not connect it through omitted atoms.
 
 
     Examples
@@ -61,14 +83,20 @@ def get_bondgraph(
     .. versionadded:: 1.0.0
     """
 
-    # tengo que incluir la forma NetworkX para convertir.
-    # en el caso de convert, lo que obtengo es una red con el nombre de los nodos dado por la
-    # con el indice de atomo empezando por cero (todavía no lo he decidido)
+    import numpy as np
 
-    # el caso de este método es que nos da un grafo con los nodos nombrados según
-    # nodes_name en ['atom_index', 'short_string', 'long_string']
+    from molsysmt.basic import convert, get, get_form
+    from molsysmt.native import MolSys, Topology
 
-    from molsysmt.basic import get
+    if chemical_state != "reference" and not isinstance(
+        molecular_system, (MolSys, Topology)
+    ):
+        molecular_system = convert(
+            molecular_system,
+            to_form="molsysmt.Topology"
+            if get_form(molecular_system) == "molsysmt.TopologyDict"
+            else "molsysmt.MolSys",
+        )
 
     output = None
 
@@ -81,11 +109,13 @@ def get_bondgraph(
                 element="atom",
                 selection=selection,
                 syntax=syntax,
+                chemical_state=chemical_state,
+                structure_indices=structure_indices,
                 atom_index=True,
                 inner_bonded_atom_pairs=True,
             )
 
-            G.add_nodes_from(atom_indices)
+            G.add_nodes_from(np.unique(atom_indices).tolist())
             G.add_edges_from(bonded_atoms)
 
         else:

@@ -219,6 +219,13 @@ assigned independently. Each historical envelope declares the original operation
 indices and output dimensions; it is not a certificate for current assignments.
 Copy, extraction, reordering, merging and later edits retain that original
 evidence without rewriting it. Returned history values are independent copies.
+
+State-aware connectivity queries also keep the atom axis intact. The bond graph
+and covalent-block tools accept an explicit state or resolve one from selected
+structures. Missing or mixed associations raise. A selected graph contains only
+bonds whose two endpoints are retained; omitted atoms cannot connect its blocks.
+The label-array output uses -1 outside the selection. This inspects stored
+connectivity without promoting partial chemical coverage to complete.
 Successful fixed-state H generation and terminal attachment also retain historical
 reports, including original source structure counts and evaluated indices.
 `append_preparation_history(records)` archives caller-selected records in append

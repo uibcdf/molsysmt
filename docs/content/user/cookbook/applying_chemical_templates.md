@@ -35,6 +35,14 @@ Do not fill every atom with `unspecified` as a generic preparation shortcut.
 Template application neither infers stereo from coordinates nor certifies
 stereogenicity. Assigned bond stereo keeps its existing reference-atom contract.
 
+Before exporting a retained atom subset, inspect its induced graph with
+`msm.topology.get_bondgraph()` or its blocks with
+`msm.topology.get_covalent_blocks()`, passing the same atom selection and chemical
+state. If the state is assigned by structure, pass `chemical_state='structure'`
+and the relevant `structure_indices`. The retained atoms can be disconnected
+even when their complete component is connected. Both tools keep source indices
+and reject missing/mixed state associations. See {ref}`Tutorial_Get_covalent_blocks`.
+
 (cookbook-pdb-connectivity-policy)=
 ## Choosing PDB connectivity
 
