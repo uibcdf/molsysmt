@@ -5,6 +5,7 @@
 | [Add](add.ipynb) | Adding elements of a molecular system into another molecular system |    
 | [Append structures](append_structures.ipynb) | Adding structures from a molecular system to another molecular system |     
 | [Are multiple molecular systems](are_multiple_molecular_systems.ipynb) | Verifying the validity of a list of molecular systems |
+| [Query capabilities](capability_reports.md) | Inspecting forms, conversion routes, syntaxes and dependencies as data |
 | [Compare](compare.ipynb) | Comparing molecular systems |     
 | [Concatenate structures](concatenate_structures.ipynb) | Concatenating the structures found in a list of molecular systems |
 | [Contains](contains.ipynb) | Checking if a molecular system contains certain elements or attributes |    
@@ -38,6 +39,7 @@
    add.ipynb
    append_structures.ipynb
    are_multiple_molecular_systems.ipynb
+   capability_reports.md
    compare.ipynb
    concatenate_structures.ipynb
    contains.ipynb

@@ -18,3 +18,9 @@ This micro-governance contract governs [`docs/content/user/foundations/molecular
    - Supported forms MUST be rendered programmatically via `{func}`molsysmt.supported.forms`` filtered by `form_type` (`'file'`, `'class'`, `'string'`).
    - Catalog tables render 2 columns: `['Form', 'Info']` (omitting `Type` and `Dependency`).
    - Section titles for catalog categories are `### Files`, `### Classes`, and `### Strings`.
+
+## Public capability data
+
+Preserve the executed capability example using public lists/DataFrames and the
+index/columns/data dictionary. Declared conversion routes do not certify that
+every optional provider or molecular input supports execution.

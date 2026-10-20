@@ -21,10 +21,10 @@ from ._syntaxes import (
 
 
 class _SyntaxCompatibilityModule(ModuleType):
-    def __call__(self):
+    def __call__(self, *args, **kwargs):
         from .supported import syntaxes as syntax_report
 
-        return syntax_report()
+        return syntax_report(*args, **kwargs)
 
 
 sys.modules[__name__].__class__ = _SyntaxCompatibilityModule

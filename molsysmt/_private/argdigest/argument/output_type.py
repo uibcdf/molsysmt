@@ -4,6 +4,19 @@ from molsysmt._private.smonitor import ArgumentError
 def digest_output_type(output_type, caller=None):
 
     if caller in {
+        "molsysmt.supported.supported.forms",
+        "molsysmt.supported.supported.conversions",
+        "molsysmt.supported.supported.syntaxes",
+        "molsysmt.supported.dependencies.dependencies",
+    }:
+        choices = {"styler", "dataframe", "dictionary"}
+        if caller.endswith(".forms"):
+            choices.add("list")
+        if isinstance(output_type, str) and output_type.lower() in choices:
+            return output_type.lower()
+        raise ArgumentError("output_type", value=output_type, caller=caller)
+
+    if caller in {
         "molsysmt.interactions.metal_coordination.get_metal_coordination.get_metal_coordination",
         "molsysmt.interactions.water_bridges.get_water_bridges.get_water_bridges",
         "molsysmt.interactions.halogen_bonds.get_halogen_bonds.get_halogen_bonds",

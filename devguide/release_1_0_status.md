@@ -72,7 +72,10 @@ retains 238 passing affected cases, nine focused cases including H5MSM/history,
 two doctests and counterfactual failures under the old reader. #348 is also source-validated: state-aware induced connectivity and general
 spatial selection delegation pass 1,249 affected cases, with executed guide/course
 examples. Its [connectivity record](archive/resolved_proposals/selected_state_connectivity.md)
-retains the contract and evidence. #188/#120 remain in progress; #128/#121/#113 await the requested prior design study.
+retains the contract and evidence. #188 now adds programmatic supported-report outputs with 80 passing contract/
+registry cases, four doctests and executed/rendered documentation; its
+[introspection record](archive/resolved_proposals/supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md)
+retains the exact scope. #120 remains in progress; #128/#121/#113 await the requested prior design study.
 
 ## Additional source stabilization and acceptance review — 2026-10-13
 

@@ -71,6 +71,12 @@ API of the set of functions to work with the different elements of a molecular s
 API of the functions to work with each of the supported molecular system's forms by MolSysMT.
 :::
 
+:::{grid-item-card} API Supported
+:columns: 3
+:link: supported/api_supported.html
+Forms, conversion declarations, syntax directions and dependency reports.
+:::
+
 :::{grid-item-card} API Third Party
 :columns: 3
 :link: third_party/api_thirds.html
@@ -103,6 +109,7 @@ Functions that integrate MolSysMT with third-party libraries.
    interactions/api_hydrophobic
    element/api_element
    form/api_form
+   supported/api_supported
    third_party/api_thirds
 
 ```

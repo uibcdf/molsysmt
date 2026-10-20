@@ -32,6 +32,13 @@ Run `devguide/support_tiers.ipynb` to display the live classification. Do not ad
 a manually maintained form list to this document: it would become a second and
 potentially contradictory registry.
 
+Use `molsysmt.supported.forms(output_type='list')` to enumerate public form names,
+or `output_type='dataframe'` for their category/dependency/metadata table. Both
+follow the current registry visibility policy; enable all capabilities when
+comparing the complete declaration roster. Rendering is optional. The tier
+registry remains the authority for support classifications; a listed form or
+declared conversion edge does not certify optional-provider execution.
+
 The form-adapter validator and focused registry tests require exact agreement
 between adapter `form_name` declarations and `FORM_TIERS`. Adding or renaming an
 adapter therefore requires an explicit support decision.

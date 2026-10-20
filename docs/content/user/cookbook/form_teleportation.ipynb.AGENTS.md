@@ -8,3 +8,9 @@ Governance rules, frozen contracts, and testing requirements for `form_teleporta
 2. **Variable Naming**: The canonical molecular system variable name MUST be `molsys` (or `molsys_A`, `molsys_B` for multi-system contexts).
 3. **Execution Safety**: All code cells must execute deterministically without raising errors or requiring long simulation runs.
 4. **Closing Block**: Must conclude with a collapsible `:::{seealso}` dropdown referencing related Foundations, Tools, and Showcase units.
+
+## Public capability data
+
+Preserve the executed capability example using public lists/DataFrames and the
+index/columns/data dictionary. Declared conversion routes do not certify that
+every optional provider or molecular input supports execution.

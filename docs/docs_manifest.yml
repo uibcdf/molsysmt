@@ -73,6 +73,10 @@ sections:
         index_agents_file: docs/content/user/tools/basic/index.AGENTS.md
         status: reviewed
         pages:
+          - name: capability_reports
+            file: docs/content/user/tools/basic/capability_reports.md
+            agents_file: docs/content/user/tools/basic/capability_reports.md.AGENTS.md
+            description: Styled and programmatic capability reports with raw metadata, axes, explicit empty filters and declared-route limits.
           - name: get
             description: Attribute queries, incident group bond counts and valid empty connectivity.
             file: docs/content/user/tools/basic/get.ipynb
@@ -411,6 +415,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
+        description: Conversion workflows and public programmatic capability inspection without rendering internals.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, coordinate invalidation, frame replacement, H5MSM persistence and optional tracking diagnostics.

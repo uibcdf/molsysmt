@@ -36,6 +36,11 @@ def digest_to_form(to_form, caller=None):
         A WrongToFormError is raised if the form name is not supported.
 
     """
+    if caller == "molsysmt.supported.supported.conversions":
+        from ._supported import form_filter
+
+        return form_filter(to_form, "to_form", caller)
+
     if to_form is None:
         return None
 
