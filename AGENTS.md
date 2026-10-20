@@ -222,6 +222,14 @@ mandatory executed gates for the exact candidate and required installed file.
 An authorized manual qualification retains the original producer and artifact
 bytes/digest; a marker alone neither waives a gate nor disqualifies that evidence.
 
+## Public release titles
+
+When preparing, publishing or intentionally editing a public GitHub Release, use
+exactly `X.Y.Z` as its title/name, matching the canonical tag and package/project
+version. Put descriptions in the body/notes. Read
+[the local release-title guide](devguide/release_titles.md) and
+[the canonical rule](MOLSYSSUITE_GUIDE.md#github-release-titles).
+
 ## Modular reusable tools
 
 Before adding a feature, inspect existing tools and identify the owning module or

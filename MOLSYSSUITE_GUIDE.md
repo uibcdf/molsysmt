@@ -416,6 +416,22 @@ runtime adoption are independent states. Shared rollout is tracked in
 
 MolSysSuite defines member release identity in its [release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md), enforces it, and maintains the historical-tag inventory and separate `policy-vX.Y.Z` governance-release namespace.
 
+### GitHub Release titles
+
+When preparing, publishing or intentionally editing a public component release,
+set its GitHub Release title/name to exactly `X.Y.Z`, equal to its canonical tag
+and project/package version. Use `0.14.0`, without a project name, `v` prefix,
+subtitle or comment. Put descriptions in the body/notes. Check the separate
+title field: use `--title X.Y.Z` with GitHub CLI, or `name == tag_name == X.Y.Z`
+with the API, including when generating notes. This applies to every registered
+member; existing governance policy-release and archive namespaces retain their
+separate meanings. Follow the release policy's documented exception route.
+Accepted under [MolSysSuite #119](https://github.com/uibcdf/molsyssuite/issues/119),
+with direct MOLI-component adoption in
+[MOLI #68](https://github.com/uibcdf/moli/issues/68).
+
+### Archive tags
+
 Use `archive/<description>` to retain an experiment or another historical commit
 without presenting it as a public release. Record the preserved commit, purpose
 and owner in the tag annotation or an owning issue. Keep the tag stable. An
