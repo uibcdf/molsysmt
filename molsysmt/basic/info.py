@@ -3,6 +3,7 @@ from pandas import DataFrame as df
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
 
 
 def _to_python(val):
@@ -26,9 +27,11 @@ def info(
     syntax="MolSysMT",
     output_type="styler",
     skip_digestion=False,
+    *,
+    mask=None,
 ):
     """
-    Display a summary table of a molecular system or selected elements.
+    Displaying a summary table of a molecular system or selected elements.
 
     This function produces a formatted summary table (as a Pandas *Styler*, *DataFrame*, or *Dictionary*)
     with key attributes of a molecular system, either for the whole system or for a given `element`
@@ -52,13 +55,19 @@ def info(
         Representation used for the returned result.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    mask : str, list, tuple, numpy.ndarray, or None, default=None
+        Optional scope intersected with ``selection`` using ``select`` semantics.
+        Integer indices and Boolean flags belong to the requested element level.
+        A string is a selection expression in ``syntax``. For a system summary,
+        both selection and mask refer to atoms. None or 'all' leaves the scope
+        unrestricted. This argument is keyword-only.
 
     Returns
     -------
-    pandas.io.formats.style.Styler
-        A Pandas *Styler* wrapping a DataFrame with the summary. The exact columns depend on
-        `element` and on the attributes exposed by the input form(s). Its HTML table carries
-        the `dataframe` class, the same one `DataFrame.to_html()` emits.
+    pandas.io.formats.style.Styler, pandas.DataFrame or list of dict
+        Summary in the requested output_type: 'styler' (default), 'dataframe'
+        or 'dictionary' (one record per row). Columns depend on element and the
+        source attributes. The Styler HTML table carries the dataframe class.
 
 
     Raises
@@ -81,6 +90,10 @@ def info(
     - The rendered table is tagged with the `dataframe` class so that notebook viewers and
       documentation themes style it as they style any other Pandas table. Without it the table
       matches no theme rule and renders unstyled once compiled to HTML.
+    - An active mask uses the same sorted, deduplicated intersection as
+      :func:`molsysmt.basic.select`. Atom indices are not converted to group,
+      molecule or other element indices implicitly. System counts summarize
+      the retained atom inventory; structure_indices remains independent.
 
 
     See Also
@@ -108,6 +121,9 @@ def info(
     >>> # If you are working in a Jupyter notebook, you can simply run:
     >>> # msm.info(molsys, element='entity')
     >>> # And the table will be displayed in a nicely formatted style by Pandas.
+    >>> msm.info(molsys, element='atom', selection=[3, 1, 2],
+    ...          mask=[2, 3], output_type='dataframe')['index'].tolist()
+    [2, 3]
 
 
     .. admonition:: Tutorial with more examples
@@ -127,6 +143,17 @@ def info(
     structure_indices = validate_structure_indices(
         molecular_system, structure_indices, "molsysmt.info"
     )
+
+    if mask is not None and not is_all(mask):
+        selection = select(
+            molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            element="atom" if element == "system" else element,
+            mask=mask,
+            syntax=syntax,
+            skip_digestion=True,
+        )
 
     form = get_form(molecular_system)
 

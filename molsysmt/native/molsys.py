@@ -1393,7 +1393,13 @@ class MolSys:
         return function(self, skip_digestion=skip_digestion, **kwargs)
 
     def info(
-        self, element="system", selection="all", syntax="MolSysMT", skip_digestion=False
+        self,
+        element="system",
+        selection="all",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        mask=None,
     ):
         """Summarizing this system or selected topological elements.
 
@@ -1408,6 +1414,10 @@ class MolSys:
             Selection syntax used to evaluate selection expressions.
         skip_digestion : bool, default=False
             Whether to skip argument digestion for already validated inputs.
+        mask : str, list, tuple, numpy.ndarray or None, default=None
+            Scope intersected with selection at the requested element level.
+            For system summaries, selection and mask refer to atoms. None or
+            'all' leaves the scope unrestricted. This argument is keyword-only.
 
         Returns
         -------
@@ -1457,6 +1467,7 @@ class MolSys:
             element=element,
             selection=selection,
             syntax=syntax,
+            mask=mask,
             skip_digestion=skip_digestion,
         )
 

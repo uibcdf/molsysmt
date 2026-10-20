@@ -6,7 +6,11 @@ from molsysmt._private.variables import is_all
 
 def digest_mask(mask, caller=None):
 
-    if caller in ["molsysmt.basic.select.select", "molsysmt.basic.get.get"]:
+    if caller in [
+        "molsysmt.basic.select.select",
+        "molsysmt.basic.get.get",
+        "molsysmt.basic.info.info",
+    ]:
         if mask is None:
             return mask
         elif isinstance(mask, (str, list, tuple, np.ndarray)):

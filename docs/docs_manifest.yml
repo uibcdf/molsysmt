@@ -36,6 +36,7 @@ sections:
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
+        description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
         index_file: docs/content/user/foundations/language/index.md
         index_agents_file: docs/content/user/foundations/language/index.AGENTS.md
@@ -76,6 +77,10 @@ sections:
             description: Attribute queries, incident group bond counts and valid empty connectivity.
             file: docs/content/user/tools/basic/get.ipynb
             agents_file: docs/content/user/tools/basic/get.ipynb.AGENTS.md
+          - name: info
+            description: Styled or programmatic summaries with explicit atom or element-level masks.
+            file: docs/content/user/tools/basic/info.ipynb
+            agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
@@ -387,6 +392,7 @@ sections:
         file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb
         agents_file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb.AGENTS.md
       - name: binding_pocket_isolation
+        description: Pocket extraction and scoped atom/group summaries without implicit mask-axis conversion.
         file: docs/content/user/cookbook/binding_pocket_isolation.ipynb
         agents_file: docs/content/user/cookbook/binding_pocket_isolation.ipynb.AGENTS.md
       - name: trajectory_performance_analysis

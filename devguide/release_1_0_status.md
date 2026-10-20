@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-14
+**Last updated:** 2026-10-20
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -21,6 +21,18 @@ current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
 ## Release coordination paused — 2026-10-08
+
+On 2026-10-20 the maintainer extends the publication postponement by a couple
+of days while awaiting MolSysViewer and authorizes a bounded issue/improvement
+window. The selected #206 extension adds optional keyword-only masks to info,
+with the independent duplicate-intersection correctness repair #389 discovered
+through its guards. The
+[summary-mask record](archive/resolved_proposals/info_selection_masks.md),
+[selection-defect record](archive/resolved_bugs/repeated_selection_or_mask_indices_can_introduce_atoms_outside_their_intersectio.md)
+and [receipt](../devtools/data/info_mask_qualification_20261020.json) retain
+1,075 passing basic/native cases, five passing doctests, fourteen fast gates
+and executed/rendered new documentation sections. Source changes need later
+candidate qualification; the following frozen files/refs and pause are preserved.
 
 The Viewer owner relays an explicit maintainer decision to postpone both
 MolSysMT 1.0 and MolSysViewer 1.0 while a Viewer design/use question is discussed.

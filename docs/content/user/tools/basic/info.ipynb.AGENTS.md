@@ -21,3 +21,10 @@ Governance rules and frozen contracts for `docs/content/user/tools/basic/info.ip
 5. **Cells 5+**: Practical examples showing summary tables at `atom`, `group`, `component`, `molecule`, `chain`, `entity`, and `system` levels.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance.
+
+## Scoped summary contract
+
+Preserve the executed mask example and distinguish group masks from atom masks.
+The default is a Styler; DataFrame and dictionary records are explicit output
+choices. System-summary masks use the atom scope. Native info forwards masks
+to the same validated basic operation.

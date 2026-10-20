@@ -44,6 +44,18 @@ experimental unless a separately justified stability decision changes the regist
 
 ## Included behavior
 
+### Scoped summary admission — 2026-10-20
+
+During the continued publication pause, the maintainer authorizes bounded
+improvements. The selected uibcdf/molsysmt#206 extends basic/native info with
+optional keyword-only masks, using the existing selection owner and element
+axes. Original positional calls and output modes are preserved. The related
+uibcdf/molsysmt#389 repairs incorrect set intersections with duplicate indices;
+it does not introduce another selection engine. These changes receive local
+source qualification and documentation, without replacing frozen artifacts or
+authorizing publication. The execution ledger owns their evidence and the
+remaining exact-candidate obligations.
+
 ### Bounded geometry admission — 2026-10-10
 
 The maintainer explicitly admits `structure.get_vectors` under

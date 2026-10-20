@@ -35,3 +35,9 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 7. Challenge & See Also
 * Must include **Challenge 7: The Selection Master** using SARS-CoV-2 Protease (`pdb_id:6LU7`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-selection-basics-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 6 and Module 8.
+
+### Scoped queries
+
+Preserve the independent mask example shared by select and info, its literal
+source indices and the distinction between atom/group/system summary scopes.
+Active masks must use true set intersections even when indices repeat.

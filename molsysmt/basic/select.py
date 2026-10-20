@@ -97,6 +97,8 @@ def select(
     - Explicit element and structure indices are non-negative and range checked.
       Supported parser failures are exposed as :class:`molsysmt.ArgumentError`
       while retaining the original exception as their cause.
+    - An active mask returns the sorted set intersection with selection.
+      Repeated indices in either input do not duplicate or introduce members.
     - When using the MolSysMT syntax, numeric comparisons on `*_id` fields (for example,
       ``atom_id<10``) are allowed as a convenience: if the underlying IDs are integer-like strings,
       they are temporarily converted to integers inside this function; otherwise a warning is issued
@@ -308,9 +310,7 @@ def select(
             )
         else:
             mask = normalize_mask(molecular_system, mask, element, "molsysmt.select")
-        output_indices = np.intersect1d(
-            output_indices, mask, assume_unique=True
-        ).tolist()
+        output_indices = np.intersect1d(output_indices, mask).tolist()
 
     if to_syntax is None:
         output = output_indices

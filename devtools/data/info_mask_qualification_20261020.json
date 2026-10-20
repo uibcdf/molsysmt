@@ -1,0 +1,85 @@
+{
+  "owner": "uibcdf/molsysmt#206",
+  "related_defect": "uibcdf/molsysmt#389",
+  "date": "2026-10-20",
+  "source_parent": "94e5793563805143dd028519b86cbced4bec0c2f",
+  "python": "3.14.7",
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b"
+  },
+  "before": {
+    "info_rejects_mask": "UnknownArgumentError reproduced by the atom-scope guard.",
+    "selection_duplicate_cases_failed": 4,
+    "literal_counterexample": {
+      "selection": [
+        0
+      ],
+      "mask": [
+        1,
+        1
+      ],
+      "incorrect_result": [
+        1
+      ],
+      "correct_result": []
+    }
+  },
+  "after": {
+    "initial_info_and_selection_cases_passed": 148,
+    "complete_basic_and_native_shortcut_cases_passed": 1075,
+    "seconds": 98.12,
+    "doctests_passed": 5,
+    "doctest_seconds": 5.81,
+    "fast_gates_passed": 14,
+    "workers": 12,
+    "receptor": "llm",
+    "ruff_lint": "whole repository PASS",
+    "ruff_format": "whole repository PASS",
+    "public_signature_guard": "PASS: two explicit optional keyword-only mask additions tracked under #206",
+    "documentation_render": "Actual info/native docstrings, Foundations selection guide and three executed new notebook sections render with an empty Sphinx warning stream."
+  },
+  "notebooks": [
+    {
+      "path": "docs/content/user/tools/basic/info.ipynb",
+      "old_code_and_outputs_preserved": true,
+      "old_notebook_metadata_preserved": true,
+      "schema_before": 4,
+      "schema_after": 5,
+      "new_example_output": [
+        "[2, 3]\n",
+        "[1]\n"
+      ],
+      "sha256": "cd4f61d81ca56cf68760c185869e29b2d2b6ba78373c83ed87b9a50b0744f87b"
+    },
+    {
+      "path": "docs/content/user/cookbook/binding_pocket_isolation.ipynb",
+      "old_code_and_outputs_preserved": true,
+      "old_notebook_metadata_preserved": true,
+      "schema_before": 5,
+      "schema_after": 5,
+      "new_example_output": [
+        "Pocket alpha carbons: 4\nPocket groups: 12\n"
+      ],
+      "sha256": "78dc0f625a15f4c947c2cc42a8f8314245b1bd9183a7b5d28a875af41d16dd6a"
+    },
+    {
+      "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+      "old_code_and_outputs_preserved": true,
+      "old_notebook_metadata_preserved": true,
+      "schema_before": 4,
+      "schema_after": 5,
+      "new_example_output": [
+        "[1, 3]\n"
+      ],
+      "sha256": "233a2eec65b23937a594761543205fe2e59749173bb4132d5041868aad72f6be"
+    }
+  ],
+  "notebook_scope": "Only the new self-contained sections are executed using the existing Python 3.14 interpreter through a temporary kernelspec; no new environment or full-run marks. Existing code/output/metadata are preserved. The two older schema-4 notebooks are upgraded to minor 5 and given deterministic missing cell IDs; existing IDs remain unchanged.",
+  "warnings": "Basic-suite warnings remain visible: legacy H5MSM migration, declared structural-attribute drops, optional backend/unit warnings and imported third-party binary/box diagnostics. No warning population is claimed clean.",
+  "release_boundary": "Maintainer-authorized bounded improvement during the continued publication pause. No candidate replacement, package build, matrix dispatch, tag, Release or promotion."
+}
