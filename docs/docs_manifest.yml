@@ -211,7 +211,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit template transfer, mapped polymer context, scoped bond completion and retained normalization and peptide construction evidence.
+            description: Explicit template and stereo-declaration transfer, mapped polymer context, scoped bond completion and retained preparation evidence.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md

@@ -23,6 +23,23 @@ dependency requirements.
 - {func}`molsysmt.physchem.normalize_aromatic_bond_orders`
 :::
 
+## Transferring stereo declarations
+
+Explicit atom stereochemistry is transferred when declared as `R`, `S`, `r`,
+`s` or `unspecified`. Here `unspecified` is an explicit absence of an assigned
+configuration, not a missing value and not proof that the atom is achiral.
+Missing or `unknown` template values supply no stereo declaration. An existing
+explicit source declaration must agree, including `unspecified`; application
+never replaces it with a different label. Unsupported labels are rejected.
+
+For correspondence workflows, apply the prepared template with its explicit
+map, optionally materialize H with the fixed-state operation, then call
+`msm.topology.get_atom_correspondences()`. It independently checks the complete
+chemical context and rejects potential stereochemistry that is still unassigned.
+Do not fill every atom with `unspecified` as a generic preparation shortcut.
+Template application neither infers stereo from coordinates nor certifies
+stereogenicity. Assigned bond stereo keeps its existing reference-atom contract.
+
 ## Declaring the correspondence
 
 `atom_correspondence` is an exhaustive integer array of shape `(n_selected_atoms, 2)`.

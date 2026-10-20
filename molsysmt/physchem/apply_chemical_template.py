@@ -99,6 +99,12 @@ def apply_chemical_template(
 
     Notes
     -----
+    Explicit atom labels R, S, r, s and unspecified are retained/transferred.
+    Unspecified declares no assigned configuration; it does not certify that
+    an atom is achiral. Missing/unknown template values supply no declaration.
+    Any different explicit source label is a conflict, including unspecified.
+    Downstream get_atom_correspondences independently rejects potential stereo
+    that remains unassigned. This operation does not infer stereo from geometry.
     Runs the same preflight as assess_chemical_template before copying or assigning.
     Only absent supported state fields are filled; explicit conflicts fail. No
     atom, isotope, protomer or geometry is generated. The default adds no edge;

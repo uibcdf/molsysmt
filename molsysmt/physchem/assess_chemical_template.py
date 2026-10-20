@@ -96,6 +96,12 @@ def assess_chemical_template(
 
     Notes
     -----
+    Explicit atom labels R, S, r, s and unspecified are retained/transferred.
+    Unspecified declares no assigned configuration; it does not certify that
+    an atom is achiral. Missing/unknown template values supply no declaration.
+    Any different explicit source label is a conflict, including unspecified.
+    Downstream get_atom_correspondences independently rejects potential stereo
+    that remains unassigned. This operation does not infer stereo from geometry.
     Neither input is changed. Elements/isotopes, stored graph and explicit fields
     must agree. Missing fields can be proposed. Only explicit template completion
     can propose absent edges, with original template bond indices and source pairs

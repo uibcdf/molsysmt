@@ -18,6 +18,23 @@ storage without modifying the source directory. Concurrent preparation jobs can
 read the same source file; no manual decompression beside it is needed.
 Temporary storage must be available, and parsing remains eager.
 
+## Preparing correspondence context
+
+Explicit atom stereochemistry is transferred when declared as `R`, `S`, `r`,
+`s` or `unspecified`. Here `unspecified` is an explicit absence of an assigned
+configuration, not a missing value and not proof that the atom is achiral.
+Missing or `unknown` template values supply no stereo declaration. An existing
+explicit source declaration must agree, including `unspecified`; application
+never replaces it with a different label. Unsupported labels are rejected.
+
+For correspondence workflows, apply the prepared template with its explicit
+map, optionally materialize H with the fixed-state operation, then call
+`msm.topology.get_atom_correspondences()`. It independently checks the complete
+chemical context and rejects potential stereochemistry that is still unassigned.
+Do not fill every atom with `unspecified` as a generic preparation shortcut.
+Template application neither infers stereo from coordinates nor certifies
+stereogenicity. Assigned bond stereo keeps its existing reference-atom contract.
+
 (cookbook-pdb-connectivity-policy)=
 ## Choosing PDB connectivity
 

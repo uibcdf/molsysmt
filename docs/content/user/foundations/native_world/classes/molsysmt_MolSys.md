@@ -211,7 +211,11 @@ subset leaves global connectivity completeness unchanged. Other components stay
 outside that assessment. H5MSM retains the scoped values and the conservative
 global flag. The selected ChemicalStates record retains template-application
 history, accessible with `molsys.chemical_states.get_preparation_history()` and
-preserved by H5MSM 0.5. Each historical envelope declares the original operation's
+preserved by H5MSM 0.5. An explicit atom stereo label `unspecified` is a
+stored declaration, distinct from missing/unknown metadata; it does not certify
+achirality. Template transfer preserves explicit agreements and rejects conflicts.
+Strict correspondence checks still require potentially stereogenic sites to be
+assigned independently. Each historical envelope declares the original operation's
 indices and output dimensions; it is not a certificate for current assignments.
 Copy, extraction, reordering, merging and later edits retain that original
 evidence without rewriting it. Returned history values are independent copies.

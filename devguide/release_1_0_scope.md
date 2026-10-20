@@ -44,6 +44,17 @@ experimental unless a separately justified stability decision changes the regist
 
 ## Included behavior
 
+### Bounded API composition admission — 2026-10-20
+
+The maintainer explicitly selects #390, #348, #188 and #120, in that order,
+during the continued publication pause. Scope covers explicit template atom
+stereo handoff, state-aware selected covalent connectivity, programmatic
+capability reports and lightweight native representations. Reuse existing
+chemical-state resolution, registries and summary data; preserve defaults and
+strict chemical admission. #128, #121 and #113 require a separate pause and
+design study before implementation. No release artifact or publication
+authorization changes.
+
 ### Scoped summary admission — 2026-10-20
 
 During the continued publication pause, the maintainer authorizes bounded

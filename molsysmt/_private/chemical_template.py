@@ -30,13 +30,16 @@ _BOND_FIELDS = (
 )
 
 
-def _value(table, field, index):
+def _value(table, field, index, *, atom_stereo=False):
     if table is None or field not in table:
         return None
     value = table.at[index, field]
     if pd.isna(value) or (
         isinstance(value, str)
-        and value in {"unknown", "unspecified", "nan", "None", "<NA>", ""}
+        and (
+            value in {"unknown", "nan", "None", "<NA>", ""}
+            or (value == "unspecified" and not atom_stereo)
+        )
     ):
         return None
     return value.item() if isinstance(value, np.generic) else value
@@ -260,7 +263,12 @@ def _selected_atoms(molecular_system, source, selection, syntax, caller):
 def _compare(
     report, source_table, template_value, side_field, index, axis, *, aromatic=False
 ):
-    actual = _value(source_table, side_field, index)
+    actual = _value(
+        source_table,
+        side_field,
+        index,
+        atom_stereo=axis == "atom" and side_field == "stereochemistry",
+    )
     if template_value is None:
         if actual is not None:
             _issue(
@@ -514,9 +522,41 @@ def evaluate(
                 index=si,
             )
         for field in _ATOM_FIELDS:
-            if not assigned_atom and _value(state.atom_attributes, field, si) is None:
+            if (
+                not assigned_atom
+                and _value(
+                    state.atom_attributes,
+                    field,
+                    si,
+                    atom_stereo=field == "stereochemistry",
+                )
+                is None
+            ):
                 continue
-            value = _value(ref_state.atom_attributes, field, ti)
+            value = _value(
+                ref_state.atom_attributes,
+                field,
+                ti,
+                atom_stereo=field == "stereochemistry",
+            )
+            if field == "stereochemistry":
+                for side, label, atom_index in (
+                    (
+                        "source",
+                        _value(state.atom_attributes, field, si, atom_stereo=True),
+                        si,
+                    ),
+                    ("template", value, ti),
+                ):
+                    if label not in {None, "unspecified", "R", "S", "r", "s"}:
+                        _issue(
+                            report,
+                            "unassessed",
+                            "unsupported_atom_stereochemistry",
+                            side=side,
+                            field=field,
+                            index=atom_index,
+                        )
             if value is None and field != "stereochemistry":
                 _issue(
                     report,

@@ -65,6 +65,13 @@ output chain fields. Records:
 and [chain labels](archive/resolved_bugs/native_add_drops_declared_chain_ids.md).
 These corrections do not change the paused candidate selection above.
 
+The maintainer next selects #390, #348, #188 and #120, in order. #390 now
+preserves explicit atom stereo declarations from chemical templates, with strict
+correspondence admission unchanged. Its [handoff record](archive/resolved_proposals/chemical_template_stereo_handoff.md)
+retains 238 passing affected cases, nine focused cases including H5MSM/history,
+two doctests and counterfactual failures under the old reader. #348/#188/#120
+remain in progress; #128/#121/#113 await the requested prior design study.
+
 ## Additional source stabilization and acceptance review — 2026-10-13
 
 The maintainer authorizes the next bounded sequence: repair the six invalid
