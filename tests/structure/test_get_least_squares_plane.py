@@ -41,7 +41,7 @@ def _system(coordinates=None, box=None):
 def test_rotated_planes_translation_source_indices_and_nonmutation(heavy_mode):
     xyz, normal, centers = _coordinates()
     source = _system()
-    before_writable = source._coordinates.flags.writeable
+    before_writable = puw.get_value(source.coordinates, to_unit="nm").flags.writeable
     result = msm.structure.get_least_squares_plane(
         source, structure_indices=[2, 0, 2], heavy_mode=heavy_mode
     )
@@ -57,8 +57,11 @@ def test_rotated_planes_translation_source_indices_and_nonmutation(heavy_mode):
         puw.get_value(result["rms_deviation"], to_unit="nm"), 0, atol=1e-14
     )
     np.testing.assert_array_equal(result["structure_indices"], [2, 0, 2])
-    np.testing.assert_array_equal(source._coordinates, xyz)
-    assert source._coordinates.flags.writeable == before_writable
+    np.testing.assert_array_equal(puw.get_value(source.coordinates, to_unit="nm"), xyz)
+    assert (
+        puw.get_value(source.coordinates, to_unit="nm").flags.writeable
+        == before_writable
+    )
     assert result["normals"].shape == (3, 1, 3)
     assert result["method"] == "unweighted_orthogonal_least_squares"
 

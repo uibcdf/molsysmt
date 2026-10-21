@@ -131,7 +131,11 @@ def test_copy_is_independent():
     cloned = molsys.copy()
 
     cloned.topology.atoms.at[0, "atom_name"] = "X"
-    puw.get_value(cloned.structures.coordinates)[0, 0, 0] = -1.0
+    cloned.structures.set_coordinates(
+        indices=[0],
+        structure_indices=[0],
+        value=puw.quantity([[[-1.0, 0.0, 0.0]]], "nm"),
+    )
 
     assert molsys.topology.atoms.at[0, "atom_name"] == "N"
     assert puw.get_value(molsys.structures.coordinates)[0, 0, 0] != -1.0

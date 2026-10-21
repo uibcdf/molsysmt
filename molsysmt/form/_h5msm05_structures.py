@@ -3,6 +3,7 @@
 import h5py
 import numpy as np
 
+from molsysmt.native._structure_array import _StructureArray
 from molsysmt.native.structures import Structures
 
 from ._h5msm05_alternate_location import (
@@ -33,6 +34,18 @@ _FIELDS = {
 }
 _ATOM_FIELDS = frozenset({"coordinates", "velocities", "b_factor", "occupancy"})
 _VECTOR_FIELDS = frozenset({"coordinates", "velocities", "box"})
+
+
+def _series_values(value):
+    return value if isinstance(value, _StructureArray) else np.asarray(value)
+
+
+def _row_blocks(value, maximum):
+    if isinstance(value, _StructureArray):
+        yield from value._row_blocks(maximum)
+    else:
+        for start in range(0, len(value), maximum):
+            yield start, value[start : start + maximum]
 
 
 def _structure_id_kind(value):
@@ -100,7 +113,7 @@ def _prepared_series(structures):
         value = values[name]
         if value is None:
             continue
-        array = np.asarray(value)
+        array = _series_values(value)
         expected = (n_structures,)
         if name in _ATOM_FIELDS:
             expected += (n_atoms,)
@@ -156,7 +169,7 @@ def write_independent_structures(
         value = values[name]
         if value is None:
             continue
-        array = np.asarray(value)
+        array = _series_values(value)
         if name == "structure_id" and id_kind == "string":
             array = array.astype(object)
         options = {"compression": compression} if compression is not None else {}
@@ -176,9 +189,8 @@ def write_independent_structures(
             dataset.attrs["value_kind"] = id_kind
         if unit is not None:
             dataset.attrs["unit"] = unit
-        for start in range(0, n_structures, block_size):
-            stop = min(start + block_size, n_structures)
-            dataset[start:stop] = array[start:stop]
+        for start, rows in _row_blocks(array, block_size):
+            dataset[start : start + len(rows)] = rows
     if structures.bioassembly is not None:
         write_bioassembly(group, prepare_bioassembly(structures.bioassembly))
     if structures.alternate_location is not None:
@@ -243,7 +255,10 @@ def _append_flags(group, structures, values, old_count):
         and bool(structures.constant_box)
         and "box" in group
         and values["box"] is not None
-        and bool(np.allclose(values["box"], group["box"][old_count - 1]))
+        and all(
+            np.allclose(rows, group["box"][old_count - 1])
+            for _, rows in _row_blocks(values["box"], 256)
+        )
     )
     return {
         "constant_time_step": time_constant,
@@ -289,7 +304,7 @@ def append_independent_structures(root, structures, *, block_size=256):
     for name in fields:
         _, unit, ndim, dtype = _FIELDS[name]
         dataset = group[name]
-        array = np.asarray(values[name])
+        array = _series_values(values[name])
         if name == "structure_id":
             incoming_kind = _structure_id_kind(array)
             stored_kind = dataset.attrs.get("value_kind", "int64")
@@ -320,13 +335,12 @@ def append_independent_structures(root, structures, *, block_size=256):
     metadata = _append_flags(group, structures, values, old_count)
     for name in sorted(fields):
         dataset = group[name]
-        array = np.asarray(values[name])
+        array = _series_values(values[name])
         if name == "structure_id" and dataset.attrs.get("value_kind") == "string":
             array = array.astype(object)
         dataset.resize(old_count + count, axis=0)
-        for start in range(0, count, block_size):
-            stop = min(start + block_size, count)
-            dataset[old_count + start : old_count + stop] = array[start:stop]
+        for start, rows in _row_blocks(array, block_size):
+            dataset[old_count + start : old_count + start + len(rows)] = rows
     if stored_alternates:
         append_alternate_location(group, incoming_alt_prepared)
     group.attrs["n_structures"] = old_count + count
@@ -407,7 +421,35 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
             continue
         dataset = group[name]
         _validate_structure_series(group, name, n_structures, n_atoms)
-        if name in _ATOM_FIELDS and atom_selection is not None:
+        if name in {"coordinates", "box"}:
+            shape = (
+                n_structures if frame_selection is None else len(frame_selection),
+                len(atom_selection)
+                if name == "coordinates" and atom_selection is not None
+                else dataset.shape[1],
+                3,
+            )
+
+            def read_geometry(
+                start,
+                stop,
+                *,
+                dataset=dataset,
+                atoms=atom_selection if name == "coordinates" else None,
+            ):
+                if frame_selection is None and atoms is None:
+                    return dataset[start:stop]
+                selected = (
+                    np.arange(start, stop, dtype=np.int64)
+                    if frame_selection is None
+                    else frame_selection[start:stop]
+                )
+                if atoms is not None:
+                    return _atom_rows(dataset, selected, atoms)
+                return _rows(dataset, selected)
+
+            values = _StructureArray._from_reader(shape, read_geometry)
+        elif name in _ATOM_FIELDS and atom_selection is not None:
             values = _atom_rows(dataset, frame_selection, atom_selection)
         else:
             values = _rows(dataset, frame_selection)

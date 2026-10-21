@@ -1,4 +1,4 @@
-"""Copying resident interaction graphs without crossing an interchange boundary."""
+"""Copying resident state; domain owners supply their own lifecycle rules."""
 
 from copy import deepcopy
 from types import MappingProxyType
@@ -44,8 +44,8 @@ def _prepare(value, memo, seen, proxies):
                     replacement = replacement.base
                 if not isinstance(replacement, bytes):
                     raise TypeError(
-                        "The copy memo already replaces immutable interaction storage "
-                        "with a mutable buffer; copy the analysis before its raw arrays"
+                        "The copy memo already replaces immutable native storage "
+                        "with a mutable buffer; copy the owning object before its raw arrays"
                     )
             else:
                 memo[identity] = value.view()

@@ -478,3 +478,13 @@ and deep copies is contract-tested, not a quantified RAM/disk benchmark.
 encoded/file workloads and any subsequent output-assembly improvement require
 separate evidence. The newly observed 0.1 schema-table documentation mismatch
 is tracked independently as uibcdf/molsysmt#393.
+
+### State-only summary regression alignment
+
+The broader native/persistence qualification for uibcdf/molsysmt#121 found an
+old state-only H5MSM test still expecting `MolSys.info()` to require topology.
+That expectation predates this proposal's native partial-domain summaries.
+`tests/form/file_h5msm/test_state_only_molsys_v05_probe.py` now asserts the
+known atom count and explicitly absent hierarchy/structure counts, with topology
+remaining absent. No runtime query behavior is changed by that alignment, and no
+extra scientific information is inferred from chemical states alone.

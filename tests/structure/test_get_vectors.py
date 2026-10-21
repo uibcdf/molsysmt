@@ -39,7 +39,7 @@ def values(result):
 @pytest.mark.parametrize("heavy_mode", ["off", "force"])
 def test_ordered_repeated_pairs_reversed_vectors_and_parallel_outputs(heavy_mode):
     source = system()
-    before = source._coordinates.copy()
+    before = values(source.coordinates).copy()
     result = msm.structure.get_vectors(
         source,
         selection=[[1, 0], [0, 1], [1, 0]],
@@ -63,13 +63,13 @@ def test_ordered_repeated_pairs_reversed_vectors_and_parallel_outputs(heavy_mode
     assert result["atom_indices_2"].tolist() == [0, 1, 0]
     assert result["structure_indices"].tolist() == [2, 0, 2]
     assert result["image_vectors"].dtype == np.int32
-    np.testing.assert_array_equal(source._coordinates, before)
+    np.testing.assert_array_equal(values(source.coordinates), before)
 
 
 @pytest.mark.parametrize("heavy_mode", ["off", "force"])
 def test_aligned_structure_lists_between_sources_and_endpoint_centers(heavy_mode):
     first = system()
-    second = Structures(coordinates=puw.quantity(first._coordinates + 10, "nm"))
+    second = Structures(coordinates=puw.quantity(values(first.coordinates) + 10, "nm"))
     result = msm.structure.get_vectors(
         first,
         selection=[[0, 1], [2]],
@@ -83,8 +83,8 @@ def test_aligned_structure_lists_between_sources_and_endpoint_centers(heavy_mode
         output_type="dictionary",
         heavy_mode=heavy_mode,
     )
-    a = first._coordinates[[2, 0, 2]]
-    b = second._coordinates[[0, 1, 2]]
+    a = values(first.coordinates)[[2, 0, 2]]
+    b = values(second.coordinates)[[0, 1, 2]]
     expected = np.stack(
         (b[:, 1] - (a[:, 0] + 3 * a[:, 1]) / 4, (b[:, 0] + b[:, 2]) / 2 - a[:, 2]),
         axis=1,
@@ -103,7 +103,8 @@ def test_cartesian_product_and_distance_contract():
         source, selection=[2, 0], selection_2=[1, 2], pbc=False
     )
     expected = (
-        source._coordinates[:, None, [1, 2]] - source._coordinates[:, [2, 0], None]
+        values(source.coordinates)[:, None, [1, 2]]
+        - values(source.coordinates)[:, [2, 0], None]
     )
     assert observed.shape == (3, 2, 2, 3)
     np.testing.assert_array_equal(values(observed), expected)
@@ -176,7 +177,7 @@ def test_units_and_coordinates_only_h5msm_selection(tmp_path, heavy_mode):
 
 
 def test_raw_quantity_form_and_input_length_unit():
-    xyz = puw.quantity(system()._coordinates * 10, "angstrom")
+    xyz = puw.quantity(values(system().coordinates) * 10, "angstrom")
     observed = msm.structure.get_vectors(xyz, selection=[0], selection_2=[1], pbc=False)
     np.testing.assert_allclose(values(observed)[:, 0, 0], [[3, 4, 0]] * 3)
 
@@ -248,10 +249,10 @@ def test_split_periodic_centers_are_rejected_without_mutation():
         coordinates=puw.quantity([[[0.1, 0, 0], [9.9, 0, 0]]], "nm"),
         box=puw.quantity([np.diag([10.0, 10.0, 10.0])], "nm"),
     )
-    before = source._coordinates.copy()
+    before = values(source.coordinates).copy()
     with pytest.raises(NotImplementedMethodError):
         msm.structure.get_vectors(source, selection=[0, 1], center_of_atoms=True)
-    np.testing.assert_array_equal(source._coordinates, before)
+    np.testing.assert_array_equal(values(source.coordinates), before)
 
 
 @pytest.mark.parametrize(
@@ -290,7 +291,7 @@ def test_invalid_contracts_fail(kwargs):
 
 
 def test_nonfinite_coordinates_and_singular_box_fail():
-    xyz = system()._coordinates.copy()
+    xyz = values(system().coordinates).copy()
     xyz[0, 0, 0] = np.nan
     source = Structures(coordinates=puw.quantity(xyz, "nm"))
     with pytest.raises(StructuralInconsistencyError):
@@ -319,8 +320,8 @@ def test_second_center_and_mass_weighted_center():
         source, selection=[0, 1], center_of_atoms_2=True, pbc=False
     )
     expected = (
-        source._coordinates[:, [0, 1]].mean(axis=1)[:, None, None]
-        - source._coordinates[:, [0, 1], None]
+        values(source.coordinates)[:, [0, 1]].mean(axis=1)[:, None, None]
+        - values(source.coordinates)[:, [0, 1], None]
     )
     np.testing.assert_allclose(values(observed), expected)
     source = msm.convert(
@@ -338,9 +339,11 @@ def test_second_center_and_mass_weighted_center():
     masses = puw.get_value(
         msm.physchem.get_mass(source, element="atom", selection=[0, 1, 2])
     )
-    center = np.average(source.structures._coordinates[:, :3], axis=1, weights=masses)
+    center = np.average(
+        values(source.structures.coordinates)[:, :3], axis=1, weights=masses
+    )
     np.testing.assert_allclose(
-        values(observed)[:, 0, 0], source.structures._coordinates[:, 3] - center
+        values(observed)[:, 0, 0], values(source.structures.coordinates)[:, 3] - center
     )
 
 
@@ -396,8 +399,8 @@ def test_declared_donor_pairs_compose_without_chemical_reinterpretation():
         source, selection=pairs, pairs=True, pbc=False, output_type="dictionary"
     )
     expected = (
-        source.structures._coordinates[:, pairs[:, 1]]
-        - source.structures._coordinates[:, pairs[:, 0]]
+        values(source.structures.coordinates)[:, pairs[:, 1]]
+        - values(source.structures.coordinates)[:, pairs[:, 0]]
     )
     np.testing.assert_allclose(values(result["vectors"]), expected)
     np.testing.assert_allclose(
@@ -439,8 +442,8 @@ def test_output_backend_and_unit_policy_are_preserved(backend, module):
 def test_native_strided_inputs_and_shape_rejection():
     from molsysmt import _rust
 
-    first = system()._coordinates[:, ::-1]
-    second = system()._coordinates
+    first = values(system().coordinates)[:, ::-1]
+    second = values(system().coordinates)
     result = _rust.get_vectors(first, second, None, True, False, 1)
     np.testing.assert_array_equal(result[0], second - first)
     with pytest.raises(ValueError, match="axes"):

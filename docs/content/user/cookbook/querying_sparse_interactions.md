@@ -280,6 +280,31 @@ role, unit, and evaluated atom-scope conventions. The example uses the default
 pass its actual `evaluation_mode`, selected atoms, and searched atom universe
 to `from_records`. A complete result can be attached to `MolSys`
 under an analysis name; extraction remaps its atom and structure indices.
+Explore a standalone geometry variant with shared protected coordinate/box
+storage, before deciding whether to calculate a new analysis:
+
+```python
+variant = molsys.structures.copy(deep=False)
+variant.set_coordinates(indices=[3], structure_indices=[3],
+    value=msm.pyunitwizard.quantity([[[1., 0., 0.]]], "nm"))
+assert msm.pyunitwizard.get_value(
+    molsys.structures.get_coordinates(indices=[3], structure_indices=[3]),
+    to_unit="nm",
+).tolist() == [[[0., 0., 0.]]]
+assert msm.pyunitwizard.get_value(
+    variant.get_coordinates(indices=[3], structure_indices=[3]),
+    to_unit="nm",
+).tolist() == [[[1., 0., 0.]]]
+```
+
+The variant owns its geometry edits and metadata. Selected getters return
+editable output arrays; coordinate/box storage itself is protected. This
+standalone `Structures` copy carries no named analyses or topology. Use a
+matching molecular system and recalculate appropriate evidence before attaching
+analyses to changed geometry. Complete-system deferred copying remains under
+development; `msm.copy(molsys)` retains its current independent snapshot route.
+See {ref}`Independent Copies <user-foundations-structures-copying>`.
+
 Geometry edits through `msm.set(molsys, coordinates=..., structure_indices=[...])`
 or its box setter automatically replace affected named results with snapshots
 whose edited frames are unevaluated. They remove old observations and preserve

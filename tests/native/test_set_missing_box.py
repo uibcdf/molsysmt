@@ -27,7 +27,10 @@ def test_full_box_assignment_initializes_missing_series_with_units(native, domai
     np.testing.assert_allclose(
         puw.get_value(msm.get(source, box=True), to_unit="nm"), matrices / 10
     )
-    assert not structures._box.flags.writeable
+    assert not puw.get_value(structures.box, to_unit="nm").flags.writeable
+    for block in structures._box._blocks:
+        with pytest.raises(ValueError):
+            block.flags.writeable = True
     assert structures.n_structures == 2
 
 

@@ -13,6 +13,7 @@ from molsysmt._private.smonitor import (
 )
 from molsysmt._private.variables import is_all
 
+from ._structure_array import _StructureArray
 from .queries import NativeQueries
 
 
@@ -188,17 +189,18 @@ class Structures(NativeQueries):
     def coordinates(self):
         if self._coordinates is None:
             return None
-        # Return a view wrapped in quantity. The view inherits writeable = False.
-        return puw.quantity(self._coordinates, "nm")
+        return puw.quantity(self._coordinates._dense(), "nm")
 
     @coordinates.setter
     def coordinates(self, value):
         val = _raw_value(value, "nm")
-        if val is not None:
-            val = np.asarray(val, dtype=np.float64)
-            # Make the array read-only to prevent side-effects in views
-            val.flags.writeable = False
-        self._coordinates = val
+        self._coordinates = (
+            val._fork()
+            if isinstance(val, _StructureArray)
+            else None
+            if val is None
+            else _StructureArray(val)
+        )
 
     @property
     def velocities(self):
@@ -214,16 +216,18 @@ class Structures(NativeQueries):
     def box(self):
         if self._box is None:
             return None
-        return puw.quantity(self._box, "nm")
+        return puw.quantity(self._box._dense(), "nm")
 
     @box.setter
     def box(self, value):
         val = _raw_value(value, "nm")
-        if val is not None:
-            val = np.asarray(val, dtype=np.float64)
-            # Make the array read-only to prevent side-effects in views
-            val.flags.writeable = False
-        self._box = val
+        self._box = (
+            val._fork()
+            if isinstance(val, _StructureArray)
+            else None
+            if val is None
+            else _StructureArray(val)
+        )
 
     @property
     def b_factor(self):
@@ -471,13 +475,15 @@ class Structures(NativeQueries):
             value = payload.get(name)
             if value is None:
                 continue
-            array = np.asarray(value)
-            if array.ndim < 2:
+            shape = getattr(value, "shape", None)
+            if shape is None:
+                shape = np.asarray(value).shape
+            if len(shape) < 2:
                 raise StructuralInconsistencyError(
                     reason=f"Structural attribute {name!r} has no atom axis.",
                     caller=caller,
                 )
-            atom_sizes[name] = array.shape[1]
+            atom_sizes[name] = shape[1]
 
         if atom_sizes:
             expected_name, expected = next(iter(atom_sizes.items()))
@@ -505,11 +511,21 @@ class Structures(NativeQueries):
         )
 
     def _assign_frame_payload(self, payload):
-        """Replacing all frame-aligned data from a validated raw payload."""
-
+        """Preparing owned raw series before publishing a validated replacement."""
+        self._payload_dimensions(payload, caller="molsysmt.native.Structures")
+        candidate = {}
         for name in _FRAME_ATTRIBUTES:
-            setattr(self, name, deepcopy(payload.get(name)))
-        self._validate_alignment()
+            value = payload.get(name)
+            if name in {"coordinates", "box"}:
+                if isinstance(value, _StructureArray):
+                    value = value._fork(deep=True)
+                elif value is not None:
+                    value = _StructureArray(_raw_value(value, "nm"))
+            else:
+                value = deepcopy(value)
+            key = name if name in {"structure_id", "alternate_location"} else "_" + name
+            candidate[key] = value
+        self.__dict__.update(candidate)
 
     def __setstate__(self, state):
         """Restore current storage or migrate legacy public array fields."""
@@ -518,6 +534,10 @@ class Structures(NativeQueries):
         self.__dict__.update(restored.__dict__)
         if "_coordinates" in state:
             self.__dict__.update(state)
+            for name in ("_coordinates", "_box"):
+                value = getattr(self, name)
+                if value is not None and not isinstance(value, _StructureArray):
+                    setattr(self, name, _StructureArray(value))
             return
 
         legacy_fields = {
@@ -833,8 +853,7 @@ class Structures(NativeQueries):
             if is_all(atom_indices) and is_all(structure_indices):
                 coords_raw = _raw_value(coordinates, "nm")
                 new_coords = np.concatenate([self._coordinates, coords_raw], axis=0)
-                new_coords.flags.writeable = False
-                self._coordinates = new_coords
+                self.coordinates = new_coords
             else:
                 raise NotImplementedMethodError()
 
@@ -870,8 +889,7 @@ class Structures(NativeQueries):
             if is_all(structure_indices):
                 box_raw = _raw_value(box, "nm")
                 new_box = np.concatenate([self._box, box_raw], axis=0)
-                new_box.flags.writeable = False
-                self._box = new_box
+                self.box = new_box
             else:
                 raise NotImplementedMethodError()
 
@@ -973,10 +991,67 @@ class Structures(NativeQueries):
             else:
                 raise NotImplementedMethodError()
 
-    def copy(self):
-        from copy import deepcopy
+    @arg_digest()
+    def copy(self, deep=True, *, skip_digestion=False):
+        """Copying independently editable structures with controlled allocation.
 
-        return deepcopy(self)
+        Parameters
+        ----------
+        deep : bool, default=True
+            Copy coordinate/box bytes eagerly. False shares protected blocks
+            until edits replace affected blocks. Other mutable series and
+            metadata are copied independently in both modes.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        Structures
+            Independent structure data preserving units, axes and concrete type.
+
+        Notes
+        -----
+        Python copy.copy uses the deferred allocation mode; copy.deepcopy uses
+        eager coordinate/box allocation and the enclosing workflow's memo.
+        Full coordinates/box properties may assemble multiple blocks. Selected
+        get() and specialized getters read the requested structures directly.
+        This does not yet provide the same ownership protocol for a complete MolSys.
+
+        Examples
+        --------
+        >>> structures = Structures(coordinates=puw.quantity(np.zeros((2, 3, 3)), 'nm'))
+        >>> duplicate = structures.copy(deep=False)
+        >>> duplicate.set_coordinates(indices=[0], structure_indices=[1],
+        ...     value=puw.quantity([[[1., 2., 3.]]], 'nm'))
+        >>> float(puw.get_value(structures.get_coordinates(), to_unit='nm').sum())
+        0.0
+
+        .. versionadded:: 1.0.0
+        """
+        if not isinstance(skip_digestion, bool):
+            from molsysmt._private.argdigest.argument.skip_digestion import (
+                digest_skip_digestion,
+            )
+
+            digest_skip_digestion(skip_digestion)
+        return deepcopy(self) if deep else self.__copy__()
+
+    def __copy__(self):
+        """Copying domain handles while sharing protected coordinate/box blocks."""
+        from ._copy import _clone
+
+        memo = {
+            id(value): value._fork()
+            for value in (self._coordinates, self._box)
+            if value is not None
+        }
+        return _clone(self, memo)
+
+    def __deepcopy__(self, memo):
+        """Copying eager structure data without running restoration or migration."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
 
     @arg_digest()
     def extract(
@@ -1006,31 +1081,17 @@ class Structures(NativeQueries):
             else:
                 tmp_item.time = deepcopy(self.time[structure_indices])
 
-        if self.coordinates is not None:
-            if is_all(structure_indices):
-                if is_all(atom_indices):
-                    tmp_item.coordinates = deepcopy(self.coordinates)
-                else:
-                    tmp_item.coordinates = deepcopy(
-                        self.coordinates[:, atom_indices, :]
-                    )
-            else:
-                if is_all(atom_indices):
-                    tmp_item.coordinates = deepcopy(
-                        self.coordinates[structure_indices, :, :]
-                    )
-                else:
-                    tmp_item.coordinates = deepcopy(
-                        self.coordinates[
-                            np.ix_(structure_indices, atom_indices, [0, 1, 2])
-                        ]
-                    )
+        if self._coordinates is not None:
+            tmp_item.coordinates = self.get_coordinates(
+                indices=atom_indices,
+                structure_indices=structure_indices,
+                skip_digestion=True,
+            )
 
-        if self.box is not None:
-            if is_all(structure_indices):
-                tmp_item.box = deepcopy(self.box)
-            else:
-                tmp_item.box = deepcopy(self.box[structure_indices, :, :])
+        if self._box is not None:
+            tmp_item.box = self.get_box(
+                structure_indices=structure_indices, skip_digestion=True
+            )
 
         if self.velocities is not None:
             if is_all(structure_indices):
@@ -1242,49 +1303,75 @@ class Structures(NativeQueries):
     def get_coordinates(
         self, indices="all", structure_indices="all", skip_digestion=False
     ):
+        """Getting owned coordinates for selected atoms and structures.
 
-        if is_all(indices):
-            if is_all(structure_indices):
-                return self.coordinates.copy()
-            else:
-                return self.coordinates[structure_indices, :, :].copy()
-        else:
-            if is_all(structure_indices):
-                return self.coordinates[:, indices, :].copy()
-            else:
-                return self.coordinates[
-                    np.ix_(structure_indices, indices, [0, 1, 2])
-                ].copy()
+        Parameters
+        ----------
+        indices : str or array-like of int, default='all'
+            Atom indices, preserving order and repetitions.
+        structure_indices : str or array-like of int, default='all'
+            Structure indices, preserving order and repetitions.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        quantity or None
+            Editable coordinates in nm with shape (n_structures, n_atoms, 3),
+            independent of stored data. None denotes an absent coordinate series.
+
+        Notes
+        -----
+        Selected reads access pertinent protected blocks. A complete read needs
+        its complete output array. Use get(coordinates=True) for session output units.
+
+        .. versionadded:: 1.0.0
+        """
+
+        if self._coordinates is None:
+            return None
+        return puw.quantity(self._coordinates._select(structure_indices, indices), "nm")
 
     @arg_digest()
     def set_coordinates(
         self, indices="all", structure_indices="all", value=None, skip_digestion=False
     ):
-        if self._coordinates is None:
-            return
+        """Assigning coordinates with independent protected storage.
 
-        self._coordinates.flags.writeable = True
-        try:
-            raw_val = _raw_value(value, "nm")
-            if is_all(indices):
-                if is_all(structure_indices):
-                    self._coordinates.flags.writeable = False
-                    self.coordinates = value
-                    return
-                else:
-                    self._coordinates[structure_indices, :, :] = raw_val[:, :, :]
-            else:
-                if is_all(structure_indices):
-                    self._coordinates[:, indices, :] = raw_val[:, :, :]
-                else:
-                    self._coordinates[np.ix_(structure_indices, indices)] = raw_val[
-                        :, :, :
-                    ]
-        finally:
-            if self._coordinates is not None:
-                self._coordinates.flags.writeable = False
+        Parameters
+        ----------
+        indices : str or array-like of int, default='all'
+            Atom indices to update. Repetitions use the last supplied value.
+        structure_indices : str or array-like of int, default='all'
+            Structure indices to update. Repetitions use the last supplied value.
+        value : quantity, default=None
+            Length-valued coordinates with shape (n_selected_structures,
+            n_selected_atoms, 3). Stored values use nm. An explicit quantity is
+            required; assign coordinates=None to clear the complete series.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
-        pass
+        Returns
+        -------
+        None
+            Coordinates are replaced on this domain.
+
+        Notes
+        -----
+        Full selections initialize or replace the series. Partial writes to an
+        existing series prepare affected blocks before publication; empty axes
+        do nothing. Editing this domain directly does not invalidate an attached
+        MolSys's analyses. Use msm.set(molsys, coordinates=...) or explicitly
+        invalidate the owner's affected structures.
+
+        .. versionadded:: 1.0.0
+        """
+        if is_all(indices) and is_all(structure_indices):
+            self.coordinates = value
+        elif self._coordinates is not None:
+            self._coordinates = self._coordinates._replace(
+                _raw_value(value, "nm"), structure_indices, indices
+            )
 
     @arg_digest()
     def get_velocities(
@@ -1438,13 +1525,31 @@ class Structures(NativeQueries):
 
     @arg_digest()
     def get_box(self, structure_indices="all", skip_digestion=False):
+        """Getting owned periodic box vectors for selected structures.
 
-        if is_all(structure_indices):
-            return self.box.copy()
-        else:
-            return self.box[structure_indices, :, :].copy()
+        Parameters
+        ----------
+        structure_indices : str or array-like of int, default='all'
+            Structure indices, preserving order and repetitions.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
-        pass
+        Returns
+        -------
+        quantity or None
+            Editable boxes in nm with shape (n_structures, 3, 3), independent of
+            stored data. Box vectors are rows. None denotes an absent box series.
+
+        Notes
+        -----
+        Selected reads access pertinent protected blocks. Use get(box=True) for
+        session output units.
+
+        .. versionadded:: 1.0.0
+        """
+        if self._box is None:
+            return None
+        return puw.quantity(self._box._select(structure_indices), "nm")
 
     @arg_digest()
     def set_box(self, structure_indices="all", value=None, skip_digestion=False):
@@ -1455,9 +1560,10 @@ class Structures(NativeQueries):
         structure_indices : int, list, tuple, or numpy.ndarray, default='all'
             Structure indices (0-based) to update. Use 'all' to initialize a
             missing box series; a partial update requires an existing series.
-        value : quantity or None, default=None
+        value : quantity, default=None
             Box matrices with shape (n_selected_structures, 3, 3), carrying
-            length units. Internal storage uses nm. None clears the full series.
+            length units. An explicit quantity is required. Internal storage
+            uses nm; assign box=None to clear the complete series.
         skip_digestion : bool, default=False
             Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -1484,12 +1590,4 @@ class Structures(NativeQueries):
                 caller="molsysmt.native.Structures.set_box",
             )
 
-        self._box.flags.writeable = True
-        try:
-            raw_val = _raw_value(value, "nm")
-            self._box[structure_indices, :, :] = raw_val[:, :, :]
-        finally:
-            if self._box is not None:
-                self._box.flags.writeable = False
-
-        pass
+        self._box = self._box._replace(_raw_value(value, "nm"), structure_indices)

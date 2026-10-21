@@ -246,7 +246,7 @@ class Interactions(NativeQueries):
         .. versionadded:: 1.0.0
         """
         _check_skip_digestion(skip_digestion)
-        from ._copy import _clone
+        from molsysmt.native._copy import _clone
 
         return _clone(self, {})
 
@@ -279,7 +279,7 @@ class Interactions(NativeQueries):
 
         .. versionadded:: 1.0.0
         """
-        from ._copy import _clone
+        from molsysmt.native._copy import _clone
 
         return _clone(self, {})
 
@@ -314,7 +314,7 @@ class Interactions(NativeQueries):
 
         .. versionadded:: 1.0.0
         """
-        from ._copy import _clone
+        from molsysmt.native._copy import _clone
 
         return _clone(self, memo)
 

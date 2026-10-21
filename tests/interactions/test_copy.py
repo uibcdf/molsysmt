@@ -241,7 +241,7 @@ def test_graph_copy_preserves_column_alias_when_analysis_is_copied_first():
 def test_graph_copy_rejects_mutable_array_already_in_memo():
     source = _analysis()
     original = source.participant_atoms.copy()
-    with pytest.raises(TypeError, match="copy the analysis before its raw arrays"):
+    with pytest.raises(TypeError, match="copy the owning object before its raw arrays"):
         copy.deepcopy([source.participant_atoms, source])
     np.testing.assert_array_equal(source.participant_atoms, original)
     with pytest.raises(ValueError):

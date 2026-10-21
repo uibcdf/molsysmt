@@ -46,7 +46,9 @@ def has_attribute(
     if attribute == "structure_index":
         return molecular_system.n_structures > 0
     if attribute in {"box_shape", "box_angles", "box_lengths", "box_volume"}:
-        return molecular_system.box is not None
+        return molecular_system._box is not None
+    if attribute in {"coordinates", "box"}:
+        return getattr(molecular_system, "_" + attribute) is not None
     if attribute == "n_bioassemblies":
         return molecular_system.bioassembly is not None
     if attribute == "total_energy":

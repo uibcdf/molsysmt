@@ -22,8 +22,9 @@ over shared protected storage with controlled writes. A reproducible development
 prototype and contract probes now compare storage layouts. Earlier bounded
 recommendations are retained below as alternatives. The final storage layout
 and public signatures are not frozen; no native copy-on-write API is delivered
-for complete molecular systems yet. `Interactions.copy()` and its Python copy
-hooks now provide the first resident implementation boundary, described below.
+for complete molecular systems yet. `Interactions` and standalone `Structures`
+now provide resident copy boundaries, described below. Their complete-system
+owner coupling remains pending.
 
 ## What
 
@@ -669,14 +670,148 @@ environment:
   complete-system performance qualification or release gate is inferred from
   this focused run.
 
+## Second resident boundary: protected Structures
+
+**Implemented:** `Structures.copy(deep=True, skip_digestion=False)` retains eager
+coordinate/box allocation by default. `deep=False` and Python `copy.copy()` create
+independent geometry handles over protected blocks. Python `copy.deepcopy()`
+uses eager geometry allocation and the enclosing memo. Every mode eagerly
+detaches other mutable series, alternate-site and biological-assembly metadata.
+Concrete supported types, ordinary extension state, slots, cycles and repeated
+domain references survive without constructor/restoration calls.
+
+Coordinates and boxes use `_StructureArray` in `molsysmt/native`. Inputs are
+converted explicitly to nm float64 and frozen in independently owned byte
+buffers without changing caller array flags or retaining writable aliases.
+An internal initial budget of 1 MiB chooses the number of complete structures
+per block; a structure larger than that budget remains one block. This is a
+provisional implementation detail behind the storage boundary, not a proven
+universal optimum or a public tuning parameter. There is no hidden complete
+contiguous base that retired blocks keep alive.
+
+Selected getters read only pertinent blocks, preserving nonconsecutive and
+repeated axes, and return owned editable arrays. Native/form-agnostic queries,
+attribute presence, counts, native iteration and selected extraction use the
+same storage route. Full coordinate/box properties are read snapshots and may
+assemble the complete series; full editable getters likewise need a complete
+output array. Arbitrary internal NumPy coercion/indexing and current full-axis
+append/add operations remain explicit materialization boundaries. No zero-copy
+whole-array promise is inferred from deferred copies.
+
+The H5MSM 0.5 codec uses storage metadata and row views rather than coercing the
+complete protected geometry to a NumPy array. Write/append slices are bounded
+by both storage blocks and the codec's row limit. Reads capture canonical nm
+float64 blocks directly from selected HDF5 rows before constructing the resident
+domain, avoiding an additional complete coordinate staging array. Full contiguous
+reads use dataset slices; nonconsecutive/repeated selections retain their order.
+The file schema, declared units and resident-data memory requirement are unchanged.
+The guard forbids dense native projection and rejects geometry dataset reads or
+writes larger than its small block budget, including the constant-box append
+check. This is not a disk-backed native domain or a new public direct-file query API.
+
+Selected setters construct replacement blocks before publishing a new storage
+handle. Repeated indices use explicit last-assignment semantics. Empty selected
+axes do not replace storage. Failed validation or failure while allocating a
+later replacement block leaves the old storage intact. Whole structure-payload
+replacement now prepares all owned series before dictionary publication, avoiding
+a second eager coordinate copy and preventing a failed append from publishing
+only some series. This is the standalone domain boundary; MolSys's existing
+conservative invalidation context still publishes unevaluated coverage on a
+delegation failure.
+
+The representation-neutral shell/memo/proxy helper moved from
+`interactions/_copy.py` to `native/_copy.py` because both resident types now use
+it. It does not own domain attachment or rebind molecular owner references;
+each domain must supply those rules. The ordinary `deep` Boolean digester is
+reusable by subsequent native copy boundaries.
+
+The production guard `tests/native/test_structure_copy.py` asserts protected
+block sharing/replacement, eager allocation, input/output alias independence,
+non-default units, repeated axes, failure atomicity, subclass/memo semantics,
+H5MSM/pickle and native/Rust selected geometry without a full dense read.
+Existing box-initialization guards now check read protection and immutable
+backing buffers rather than requiring the old private ndarray representation.
+The ordinary MolSys independent-copy test edits through its supported native
+setter instead of relying on the old deep-copy fallback accidentally making a
+read-only property writable. The declared protected property behavior is
+unchanged; eager native copies now preserve it consistently.
+
+Geometry oracle and direct Rust-boundary fixtures now explicitly obtain NumPy
+coordinate arrays, retaining analytical values, nonmutation/read protection and
+the original strided Rust input. They no longer assume the private geometry
+handle itself is an ndarray or add ndarray-like flags/operators solely to
+satisfy an obsolete representation check. The parallel-control protection test
+uses deterministic values and checks actual immutable buffers and read snapshots.
+
+The expanded persistence run also exposed an independent constructor/codec
+bioassembly mismatch, now tracked as uibcdf/molsysmt#396. Copy tests use existing
+schema-compatible native metadata and do not claim to fix that normalizer.
+The older state-only info expectation is aligned under uibcdf/molsysmt#128.
+
+Foundations, the basic-copy Toolbox page, the sparse-interaction Cookbook and
+Common Core modules 4 and 20 now distinguish eager/deferred standalone geometry,
+independent analysis metadata, owned output arrays and pending whole-MolSys
+integration. No H5MSM schema version, dependency, scientific criterion or
+Ackredit calculation boundary changes.
+
+### Structure-boundary qualification
+
+On 2026-10-21 in the existing Linux/Python 3.14.7 environment:
+
+- `python -m pytest --receptor=llm -n 12` over native domains, native/H5MSM form
+  adapters, public copy/iterator/append/add/conversion routes, sparse lifecycle,
+  vector/plane/distance/PBC geometry and the storage-study guards passed all
+  **1,724 cases** in 78.09 s, with no omissions. The receptor retained 799 warnings
+  in 16 groups: predominantly expected legacy-file notices, plus deliberate
+  incompatibility/drop/GPU/memory-budget probes and existing pandas/unit notices.
+- The 22 native-copy cases also pass after strengthening eager/deferred
+  persistence with an actual coordinate edit under an angstrom/ns application
+  policy and independent literal nm expectations. The final additional case
+  verifies full coordinate initialization and explicit property-based removal;
+  the validated setter continues to require a quantity. These are ownership and
+  I/O contracts, not a complete-system speed/RSS benchmark.
+- All 15 Structures/Interactions result-module doctest items passed; all 14 fast
+  gates, package/changed-test Ruff checks and formatting, public docstring
+  validation and course/developer-guide checks passed. The added Cookbook variant
+  executes with its explicit synthetic setup. Changed course/Toolbox cells are
+  explanatory Markdown; executable cells remain unchanged.
+- Client-installed matrices, complete scientific suites, complete MolSys owner
+  hooks and a release/package qualification are not inferred from this scope.
+
+## Client coordination
+
+At the maintainer's request, uibcdf/molsyssuite#122 owns the cross-component
+contract/adoption coordination. Owner-local notices are:
+
+- uibcdf/topomt#97: the existing Topography shallow path reaches the provider
+  owner defect; preserve registry/feature ownership and decide molecular input
+  reference versus snapshot semantics.
+- uibcdf/dockingmt#51: ligand/receptor/pose variants must preserve their input
+  systems and retained preparation evidence.
+- uibcdf/molsysviewer#259: qualify view/composition independence, named analyses,
+  geometry editing and session/persistence behavior.
+- uibcdf/pharmacophoremt#60: retain intentional live molecular references in
+  pharmacophore copies and request explicit editable molecular variants where needed.
+- uibcdf/elastnetmt#28: preserve snapshot, geometric invariance and model/cache
+  validity responsibilities.
+
+The opening notices pin the delivered Interactions checkpoint
+`85b8b038008de4b6ac05e6f6c3e5028935bd3f85`, identify complete-system work as pending,
+and request owner-local qualification only when that provider boundary is ready.
+They do not change source/dependency pins, claim installed-client qualification,
+authorize publication or introduce another release blocker. Component checkouts
+were refreshed read-only before the handoff: TopoMT is diverged, DockingMT,
+PharmacophoreMT and ElastNetMT lag their remotes, and Viewer has unrelated active
+work. Those branches, worktrees and source files were preserved.
+
 ### Remaining native integration
 
 Do not close #121 on this boundary. `MolSys.copy()` still reconstructs domains
 and remaps analyses; its generic Python shallow fallback still steals the
 topology owner. Molecular-container copy hooks, owner/edit publication, pandas
-mutation/alias policy, complete shared-coordinate storage, other resident types
+mutation/alias policy, whole-system use of shared-coordinate storage, other resident types
 and payload wrappers remain pending. The interaction helper is deliberately
-private and representation-specific until other domains establish compatible
+private and ownership-neutral while other domains establish compatible
 ownership semantics. Their hooks must propagate one memo, but a generic state
 copier alone cannot rebind molecular domain ownership correctly.
 

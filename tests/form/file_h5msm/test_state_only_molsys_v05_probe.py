@@ -29,8 +29,18 @@ def test_state_only_molsys_preserves_absent_topology(tmp_path, n_states):
     assert result.to_form("molsysmt.ChemicalStates").n_atoms == 3
 
     assert result.get(n_atoms=True) == 3
-    with pytest.raises(ValueError, match="requires a topology"):
-        result.info()
+    summary = result.info(output_type="dataframe").iloc[0]
+    assert summary["n_atoms"] == 3
+    for attribute in (
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_structures",
+    ):
+        assert summary[attribute] is None
+    assert result.topology is None
     subset = result.extract(atom_indices=[2, 0])
     assert subset.topology is None
     assert subset.structures is None

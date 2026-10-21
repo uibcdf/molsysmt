@@ -39,7 +39,7 @@ sections:
           - name: structures
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
-            description: Structural series and shape-only representation with explicit unknown versus empty atom axes.
+            description: Aligned structural series, protected coordinate/box blocks, eager or deferred independent copies and shape-only representations.
           - name: molsys
             description: Native domains, bounded metadata representations, scoped chemistry, retained preparation evidence and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md

@@ -124,21 +124,22 @@ def test_parallel_false_rejects_a_conflicting_local_thread_count():
         resolve(parallel=False, num_threads=4)
 
 
-def test_zero_copy_read_only_views():
-    """Verify that native Structures returns read-only zero-copy views for coordinates and box."""
+def test_protected_read_only_snapshots():
+    """Verify protected native coordinate/box storage and read snapshots."""
     # Create a small native structures instance
-    coors = np.random.rand(10, 5, 3)  # n_structures=10, n_atoms=5
+    coors = np.arange(150.0, dtype=np.float64).reshape(10, 5, 3)
     box = np.eye(3).reshape(1, 3, 3).repeat(10, axis=0)  # [10, 3, 3]
 
     structs = Structures(
         coordinates=puw.quantity(coors, "nm"), box=puw.quantity(box, "nm")
     )
 
-    # Internal arrays should be float64 numpy arrays and read-only
-    assert structs._coordinates is not None
-    assert structs._coordinates.flags.writeable is False
-    assert structs._box is not None
-    assert structs._box.flags.writeable is False
+    for storage in (structs._coordinates, structs._box):
+        assert storage is not None
+        for block in storage._blocks:
+            assert block.dtype == np.float64
+            with pytest.raises(ValueError):
+                block.flags.writeable = True
 
     # Coordinates retrieved via getter property should be wrapped in quantity
     coords_q = structs.coordinates
