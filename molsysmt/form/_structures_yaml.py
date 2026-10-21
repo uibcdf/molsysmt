@@ -6,6 +6,7 @@ import numpy as np
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import FormatError
+from molsysmt.form._serialization import to_builtin
 
 QUANTITY_FIELDS = {
     "coordinates": "nm",
@@ -19,19 +20,6 @@ _SITE_FIELDS = {"location_id", "atom_id", "occupancy", "coordinates", "b_factor"
 
 def _invalid(reason):
     return FormatError(reason=f"Structures YAML: {reason}", caller="molsysmt.convert")
-
-
-def to_builtin(value):
-    """Convert dimensionless containers and NumPy scalars to safe YAML values."""
-    if isinstance(value, Mapping):
-        return {to_builtin(key): to_builtin(item) for key, item in value.items()}
-    if isinstance(value, np.ndarray):
-        return to_builtin(value.tolist())
-    if isinstance(value, np.generic):
-        return value.item()
-    if isinstance(value, (list, tuple)):
-        return [to_builtin(item) for item in value]
-    return value
 
 
 def quantity_record(value, field, unit, *, reading=False):

@@ -108,8 +108,14 @@ versus 339--355 ms with the same public reconstruction control, and selected
 three-position labels around 1.5 ms at 100,000 atoms. The #128 study retains
 fixture, source/environment provenance and limitations; full summaries, memory
 peaks and disk throughput are not covered by those timings.
-The separately discovered dictionary schema documentation discrepancies are
-tracked in uibcdf/molsysmt#393; no schema expansion is implied.
+The subsequently discovered dictionary schema discrepancies are source-resolved
+under [#393](archive/resolved_bugs/native_dictionary_guides_describe_fields_outside_their_implemented_0_1_schemas.md),
+with guarded real-payload tables and executable examples. The related
+[#394 scalar transport repair](archive/resolved_bugs/native_declarative_dictionaries_retain_numpy_scalars_that_break_json_and_yaml_se.md)
+normalizes NumPy numbers in Topology/MolSys/Builder record writers. Together they
+pass 304 affected cases and 21 converter doctests; no format or public signature
+changes. The separately reported Structures constructor/temperature-series
+inconsistency remains open as uibcdf/molsysmt#395.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

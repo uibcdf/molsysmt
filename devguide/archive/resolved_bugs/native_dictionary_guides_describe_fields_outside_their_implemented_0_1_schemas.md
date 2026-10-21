@@ -1,13 +1,13 @@
 ---
 summary: Native dictionary guides describe fields outside their implemented 0.1 schemas
 issue: uibcdf/molsysmt#393
-status: open
+status: resolved
 opened: 2026-10-21
-closed:
+closed: 2026-10-21
 severity: medium
-verification: inspected
+verification: reproduced
 area: [docs, form]
-guard:
+guard: tests/documentation/test_dictionary_schemas.py
 normative:
 blocked_by: []
 supersedes: []
@@ -59,3 +59,29 @@ same concrete discrepancy; do not expand the review to unrelated formats.
 
 No schema change is authorized by this report. The #128 query implementation
 remains separately tracked in its own record.
+
+## Resolution — 2026-10-21
+
+Corrected the three Foundations dictionary pages against current writers and
+readers. TopologyDict now lists real membership/endpoints and reference-chemistry
+limits. MolSysDict documents its four fixed-unit structural fields, refusal of
+attached analyses/preparation history and reportable chemical/mechanics losses.
+StructuresDict is documented as a plain dictionary of arrays/quantities, with
+no public constructor or in-memory base64/JSON representation. Broken form-API
+links are replaced with existing public tools/owner references.
+
+The course, conversion tutorial and conversion cookbook now explain these
+same fidelity boundaries. The actual examples perform JSON or quantity-aware
+native round trips with independent expected atom IDs, bond counts and physical
+coordinates/time. The guard checks emitted record keys and concrete payload
+types, not merely whether a table or example exists. All three historical
+tables from source `17431bbb33ef6b8ee25df12193b4a2b45bc8df8e` fail these
+real-payload checks. Complete corrected pages render with zero Sphinx diagnostics.
+
+**Contract/parity tested:** 304 dictionary, builder, YAML, conversion-truth and
+documentation cases pass with twelve workers and pytest-receptor. Six final
+documentation guards pass after diagnostic refinement. These are overlapping
+campaigns, not 310 distinct cases. No serialization schema was expanded.
+The scalar transport defect discovered while executing the examples is resolved
+independently under uibcdf/molsysmt#394. The constructor-temperature discrepancy
+is retained separately in uibcdf/molsysmt#395 and is not repaired here.

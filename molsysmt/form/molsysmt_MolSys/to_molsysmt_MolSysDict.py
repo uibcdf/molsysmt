@@ -1,19 +1,7 @@
-import pandas as pd
-
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt.form._serialization import normalize_scalar as _normalize_scalar
 from molsysmt.native import MolSysDict
-
-
-def _normalize_scalar(value):
-    if value is None:
-        return None
-    try:
-        if pd.isna(value):
-            return None
-    except Exception:
-        pass
-    return value
 
 
 @arg_digest(form="molsysmt.MolSys")
@@ -46,6 +34,24 @@ def to_molsysmt_MolSysDict(
         If topology, chemical states, or structures are absent, or interaction
         analyses cannot be represented by MolSysDict 0.1.
 
+
+    Notes
+    -----
+    Nullable table fields become Python scalars or None, including typed isotope
+    and bond-order numbers. The emitted record schema is 0.1; primitive scalar
+    transport does not imply preservation of every native chemical assignment.
+    Coordinates and box values are lists in nm; time values are lists in ps.
+
+    Examples
+    --------
+    >>> import json
+    >>> import molsysmt as msm
+    >>> from molsysmt.native import MolSys
+    >>> molsys = MolSys(n_atoms=1)
+    >>> molsys.topology.atoms.loc[0, "isotope"] = 13
+    >>> records = msm.convert(molsys, to_form="molsysmt.MolSysDict").to_dict()
+    >>> json.loads(json.dumps(records))["topology"]["atoms"][0]["isotope"]
+    13
 
     .. versionadded:: 1.0.0
     """

@@ -17,8 +17,6 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`native_dictionary_guides_describe_fields_outside_their_implemented_0_1_schemas.md`](native_dictionary_guides_describe_fields_outside_their_implemented_0_1_schemas.md) — [#393](https://github.com/uibcdf/molsysmt/issues/393) — Native dictionary guides describe fields outside their implemented 0.1 schemas *(medium, inspected)*
+*No entries.*
 
 <!-- /generated -->
