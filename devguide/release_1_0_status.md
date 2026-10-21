@@ -79,7 +79,14 @@ retains the exact scope. #120 now supplies bounded native representations;
 its [inspection record](archive/resolved_proposals/native_object_representations.md)
 retains 1,159 passing native/interaction cases, 17 doctests, 88 integrated guards
 for all four issues and executed/rendered examples. All four selected issues
-are source-validated. #128/#121/#113 await the requested prior design study.
+are source-validated. On 2026-10-21 the maintainer begins the prior #128 study,
+expanding it from MolSys/Topology/Structures to relevant native domains and
+representations used by suite clients. The [native-query study](pending_proposals/native_query_shortcuts.md)
+records existing access paths, baseline methodology and the proposed shared
+validated core. It introduces no optimized runtime route or new public methods.
+The builder validation bypass discovered during this inventory is tracked
+separately in [#391's record](pending_bugs/builder_shortcuts_bypass_argument_validation.md).
+#128 remains open; #121/#113 still await their separate prior design studies.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

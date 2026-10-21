@@ -5,6 +5,12 @@ hot MolSysMT coordinate paths.
 
 Current baseline scripts:
 
+- `native_queries.py`: validates small synthetic expected results and measures
+  current native/general queries under issue #128. Includes `MolSys`,
+  `Topology`, `Structures`, `ChemicalStates`, `Interactions`, `MolSysBuilder`
+  and their supported dictionary representations. Adapter/property timings
+  have narrower contracts and are not implemented native-query speedups.
+  See the [native-query study](../devguide/pending_proposals/native_query_shortcuts.md).
 - `h5msm_interactions.py`: checks parity and measures private selective H5MSM
   0.5 queries alongside public `write_layers`/`read_layers`, file size, and
   queries after a public load.
@@ -28,6 +34,7 @@ Run:
 
 ```bash
 python benchmarks/structure_coordinate_paths.py
+python benchmarks/native_queries.py --iterations 3 --repeats 5 --output /tmp/native-queries.json
 python benchmarks/rust/bench_release_runtime.py --output /tmp/molsysmt-rust-runtime.json
 ```
 
