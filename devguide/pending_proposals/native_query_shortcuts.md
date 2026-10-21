@@ -430,4 +430,51 @@ render without diagnostics. All fourteen fast gates and full Ruff checks pass;
 the public-signature guard reports zero new drifts against the resident head.
 This is source qualification, not installed-artifact or full-suite evidence.
 
-Comparative timings will be recorded after the completed campaign.
+### Dictionary timing checkpoint
+
+Source `535dbb45fef6c06fbba62a902e76b15f6d161245` is recorded in
+[`dictionary_queries_20261021.json`](../../benchmarks/baselines/dictionary_queries_20261021.json).
+The reproducer is `benchmarks/dictionary_queries.py`:
+
+```bash
+python benchmarks/dictionary_queries.py --iterations 3 --repeats 3 \
+    --output /tmp/dictionary-queries.json
+```
+
+The sequential campaign uses declared unbonded carbon atoms with string labels,
+no structures, independently checked outputs and one untimed warm-up per route.
+Each median contains three blocks of three calls. It records source/benchmark
+hashes, CPU, Python and package versions/import origins. No tests or other
+benchmarks run concurrently. The reconstruction control disables only the
+private stored-read capability for the same public calls, retaining normal
+validation, diagnostics and converters. This is a controlled fallback in the
+same source, not a timing of a separate historical checkout.
+
+| Form, 32 atoms | Query | Direct (ms) | Reconstruction control (ms) |
+| --- | --- | ---: | ---: |
+| TopologyDict | Atom count | 0.452 | 338.679 |
+| MolSysDict | Atom count | 0.356 | 355.325 |
+| TopologyDict | ID/name/type at three nonconsecutive positions, including repetition | 1.399 | 667.345 |
+| MolSysDict | Same selected labels | 1.322 | 700.982 |
+| TopologyDict | All atom names | 0.862 | 341.094 |
+| MolSysDict | All atom names | 0.572 | 385.536 |
+
+At 100,000 atoms, direct count calls take 0.354--0.400 ms and the three-position
+combined label query takes 1.463--1.465 ms. Returning all 100,000 names takes
+31.35--31.89 ms, reflecting a real linear result/field-read cost. The artifact
+also records 1,000-atom cases. Reconstruction controls are bounded to 32 atoms;
+no large-case historical speedup is inferred. These small synthetic fixtures
+expose the avoidable builder cost, not a universal latency/speedup guarantee.
+
+The mechanism guard additionally passes with a missing atom type outside the
+selection, preventing accidental whole-inventory inference for a selected query.
+Its final strengthened version passes all 20 cases, following the 397-case
+regression campaign. No extra runtime change followed that campaign. Complete
+info, coordinate delivery, cold startup, peak memory, disk use and actual suite
+client throughput are not measured by this artifact. Avoiding builder creation
+and deep copies is contract-tested, not a quantified RAM/disk benchmark.
+
+#128 remains partial: derived dictionary acquisition/reconstruction, concrete
+encoded/file workloads and any subsequent output-assembly improvement require
+separate evidence. The newly observed 0.1 schema-table documentation mismatch
+is tracked independently as uibcdf/molsysmt#393.

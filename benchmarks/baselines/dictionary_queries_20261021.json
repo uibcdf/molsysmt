@@ -1,0 +1,213 @@
+{
+  "schema": "molsysmt.dictionary_queries_benchmark@1",
+  "generated_at_utc": "2026-10-21T19:10:57.264694+00:00",
+  "source_commit": "535dbb45fef6c06fbba62a902e76b15f6d161245",
+  "benchmark_sha256": "b7fc70942a0536ed0480221720b2872d142f8cd0f1e188b375abac1a76a382e8",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+    "packages": {
+      "molsysmt": {
+        "version": "0.23.0+93.g48aba006f",
+        "import_path": "{CHECKOUT_PARENT}/molsysmt/molsysmt/__init__.py"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "import_path": "{PYTHON_PREFIX}/lib/python3.14/site-packages/numpy/__init__.py"
+      },
+      "pandas": {
+        "version": "2.3.3",
+        "import_path": "{PYTHON_PREFIX}/lib/python3.14/site-packages/pandas/__init__.py"
+      },
+      "argdigest": {
+        "version": "0.16.0+1.g6dabaf7",
+        "import_path": "{CHECKOUT_PARENT}/argdigest/argdigest/__init__.py"
+      },
+      "smonitor": {
+        "version": "0.21.0+1.gd6b2394",
+        "import_path": "{CHECKOUT_PARENT}/smonitor/smonitor/__init__.py"
+      },
+      "pyunitwizard": {
+        "version": "0.28.1+15.g6c62ca6",
+        "import_path": "{CHECKOUT_PARENT}/pyunitwizard/pyunitwizard/__init__.py"
+      }
+    }
+  },
+  "iterations": 3,
+  "repeats": 3,
+  "reconstruction_limit": 32,
+  "methodology": {
+    "fixture": "Declared unbonded C atoms with string IDs/names/types; no structures.",
+    "warmup": "Independent expected-value assertions and one untimed call per route.",
+    "timing": "Sequential, normal GC, median/min/max wall time per call in repeated blocks.",
+    "control": "Same public queries with only the private stored-read capability disabled; complete native conversion retained.",
+    "limitations": "One environment; synthetic atom queries only. No full info, coordinates, disk IO, cold startup, memory peaks or client throughput."
+  },
+  "records": [
+    {
+      "class": "TopologyDict",
+      "n_atoms": 32,
+      "direct": {
+        "count": {
+          "median_seconds": 0.0004519893360945086,
+          "min_seconds": 0.0004175266658421606,
+          "max_seconds": 0.0005872649974965801
+        },
+        "selected_labels": {
+          "median_seconds": 0.0013991529995109886,
+          "min_seconds": 0.0013925563350009422,
+          "max_seconds": 0.001720631669741124
+        },
+        "all_names": {
+          "median_seconds": 0.0008623233297839761,
+          "min_seconds": 0.0006351770037629952,
+          "max_seconds": 0.0009507503321704766
+        }
+      },
+      "reconstruction_control": {
+        "count": {
+          "median_seconds": 0.3386793630003619,
+          "min_seconds": 0.33822482132624526,
+          "max_seconds": 0.36165632933261804
+        },
+        "selected_labels": {
+          "median_seconds": 0.667345253333527,
+          "min_seconds": 0.6639033236715477,
+          "max_seconds": 0.6707787683311229
+        },
+        "all_names": {
+          "median_seconds": 0.34109362699867535,
+          "min_seconds": 0.33994613867253065,
+          "max_seconds": 0.35233530200396973
+        }
+      }
+    },
+    {
+      "class": "MolSysDict",
+      "n_atoms": 32,
+      "direct": {
+        "count": {
+          "median_seconds": 0.00035600200256643194,
+          "min_seconds": 0.00033135066041722894,
+          "max_seconds": 0.0003681636687057714
+        },
+        "selected_labels": {
+          "median_seconds": 0.0013215483340900391,
+          "min_seconds": 0.0012990146642550826,
+          "max_seconds": 0.001426357669212545
+        },
+        "all_names": {
+          "median_seconds": 0.0005720596624693522,
+          "min_seconds": 0.0005666099993201593,
+          "max_seconds": 0.0005871806642971933
+        }
+      },
+      "reconstruction_control": {
+        "count": {
+          "median_seconds": 0.355325090669794,
+          "min_seconds": 0.35303667732902494,
+          "max_seconds": 0.36065375300434727
+        },
+        "selected_labels": {
+          "median_seconds": 0.7009823630020643,
+          "min_seconds": 0.687912226334447,
+          "max_seconds": 0.7414634019951336
+        },
+        "all_names": {
+          "median_seconds": 0.3855356006630852,
+          "min_seconds": 0.3465234183337695,
+          "max_seconds": 0.4210015620046761
+        }
+      }
+    },
+    {
+      "class": "TopologyDict",
+      "n_atoms": 1000,
+      "direct": {
+        "count": {
+          "median_seconds": 0.0005840233255488178,
+          "min_seconds": 0.0005398129966730872,
+          "max_seconds": 0.0006083853368181735
+        },
+        "selected_labels": {
+          "median_seconds": 0.0015844373362294089,
+          "min_seconds": 0.0015714363350222509,
+          "max_seconds": 0.0020121033303439617
+        },
+        "all_names": {
+          "median_seconds": 0.0011969109958348174,
+          "min_seconds": 0.0010568986666233589,
+          "max_seconds": 0.0012334503311042984
+        }
+      },
+      "reconstruction_control": {}
+    },
+    {
+      "class": "MolSysDict",
+      "n_atoms": 1000,
+      "direct": {
+        "count": {
+          "median_seconds": 0.0006733233264336983,
+          "min_seconds": 0.0006358126702252775,
+          "max_seconds": 0.0007030226697679609
+        },
+        "selected_labels": {
+          "median_seconds": 0.0014418186619877815,
+          "min_seconds": 0.0014206829946488142,
+          "max_seconds": 0.0015401806643543143
+        },
+        "all_names": {
+          "median_seconds": 0.0015794936625752598,
+          "min_seconds": 0.001053375667349125,
+          "max_seconds": 0.0016003299970179796
+        }
+      },
+      "reconstruction_control": {}
+    },
+    {
+      "class": "TopologyDict",
+      "n_atoms": 100000,
+      "direct": {
+        "count": {
+          "median_seconds": 0.00039975333493202925,
+          "min_seconds": 0.00038087099286106724,
+          "max_seconds": 0.0004696780039618413
+        },
+        "selected_labels": {
+          "median_seconds": 0.0014629310074572761,
+          "min_seconds": 0.001419361001656701,
+          "max_seconds": 0.0015125029992001753
+        },
+        "all_names": {
+          "median_seconds": 0.03135230499901809,
+          "min_seconds": 0.0290454083296936,
+          "max_seconds": 0.03199733366879324
+        }
+      },
+      "reconstruction_control": {}
+    },
+    {
+      "class": "MolSysDict",
+      "n_atoms": 100000,
+      "direct": {
+        "count": {
+          "median_seconds": 0.00035433600229832035,
+          "min_seconds": 0.00033373166418944794,
+          "max_seconds": 0.0004522563249338418
+        },
+        "selected_labels": {
+          "median_seconds": 0.0014654616728269805,
+          "min_seconds": 0.0014352319994941354,
+          "max_seconds": 0.001733939997696628
+        },
+        "all_names": {
+          "median_seconds": 0.03188881333335303,
+          "min_seconds": 0.0289618630001011,
+          "max_seconds": 0.03220678666063274
+        }
+      },
+      "reconstruction_control": {}
+    }
+  ]
+}

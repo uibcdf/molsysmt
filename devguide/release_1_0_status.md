@@ -103,7 +103,11 @@ already normalized ID/name/type strings without native reconstruction, including
 combined selected queries. Other/defaulted fields and complete info summaries
 retain their converters. It passes 397 affected regression cases, 36 adapter
 doctests and the fourteen fast gates, with executed guide/course examples.
-Comparative dictionary timings remain to be recorded in the #128 study.
+The dated dictionary benchmark records 32-atom counts at 0.36--0.45 ms
+versus 339--355 ms with the same public reconstruction control, and selected
+three-position labels around 1.5 ms at 100,000 atoms. The #128 study retains
+fixture, source/environment provenance and limitations; full summaries, memory
+peaks and disk throughput are not covered by those timings.
 The separately discovered dictionary schema documentation discrepancies are
 tracked in uibcdf/molsysmt#393; no schema expansion is implied.
 These changes remain outside the frozen historical artifact identities and
