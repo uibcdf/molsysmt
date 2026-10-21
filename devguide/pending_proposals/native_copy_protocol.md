@@ -1,12 +1,12 @@
 ---
 summary: Native objects need an explicit copy ownership and memo contract
 issue: uibcdf/molsysmt#121
-status: open
+status: active
 opened: 2026-10-21
 closed:
 verification: reproduced
-area: [native, api, basic]
-guard:
+area: [native, api, basic, performance, tests]
+guard: devtools/tests/test_native_copy_study.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,13 +17,12 @@ supersedes: []
 **Reported:** Existing issue #121 requests `copy()`, `__copy__()` and
 `__deepcopy__()` and names TopoMT's `Topography` as a reference. The maintainer
 requested a design study before implementation.
-**Status:** Source inventory, client inspection and small executed probes
-complete. Earlier bounded recommendations are retained below as alternatives.
-The maintainer asks for the best long-term architecture with client migration
-allowed; the current direction to investigate is independent native handles
-over shared immutable storage with controlled writes. Copy-on-write remains a
-design candidate, not an implemented or qualified native capability. No public
-copy semantics have been accepted yet.
+**Status:** The maintainer accepted advancing toward independent native handles
+over shared protected storage with controlled writes. A reproducible development
+prototype and contract probes now compare storage layouts. Earlier bounded
+recommendations are retained below as alternatives. The final storage layout
+and public signatures are not frozen; no native copy-on-write API is delivered
+yet.
 
 ## What
 
@@ -289,6 +288,9 @@ there is no scientific attribution execution boundary to register with Ackredit.
 
 ## Long-term ownership and independent editing
 
+The maintainer authorized this direction on 2026-10-21. Proceed with contract
+probes and layout comparison before changing the runtime implementation.
+
 ### The distinction that determines the design
 
 Logical independence is a user-visible property: changing one copied system
@@ -396,6 +398,68 @@ MolSysMT's native NumPy buffers or interaction invalidation. Arrow's
 [columnar format](https://arrow.apache.org/docs/format/Columnar.html) illustrates
 buffer locality and zero-copy trade-offs and explicitly leaves mutation
 coordination to implementations. Neither reference mandates a new dependency.
+
+## Development prototype and comparison campaign
+
+The executable study is
+[`devtools/scripts/study_native_copy.py`](../../devtools/scripts/study_native_copy.py).
+Its regression module is
+[`devtools/tests/test_native_copy_study.py`](../../devtools/tests/test_native_copy_study.py).
+These are development tools, not exported native forms or production copy hooks.
+
+The prototype compares three coordinate storage strategies with the same
+independent-edit semantics:
+
+- one contiguous immutable coordinate buffer, replaced on edit;
+- separately owned immutable structure blocks, replacing touched blocks;
+- one contiguous immutable base with block views, preserving the initial
+  full-read fast path and replacing touched blocks after edits.
+
+All contenders eagerly copy topology/chemical states, mechanics and other
+structural series. Existing interaction invalidation snapshots provide separate
+scientific metadata and coverage. This does not implement general
+Interactions copy hooks, all-array-header isolation, native domain callbacks,
+chemical copy-on-write, partial MolSys support or extension/subclass copying.
+Such cases remain implementation acceptance work for #121.
+
+The native bridge explicitly materializes editable coordinate storage before
+passing it to current MolSys setters and the public H5MSM 0.5 converter. The
+study checks that the bridge remains independently editable and retains a single
+chemical-state authority with the correct topology owner. Its H5MSM measurement
+includes complete coordinate materialization; it is not a claim of direct
+block-backed native writing.
+
+Warm operation timings and a separate traced-allocation pass cover initial
+capture/freezing, coordinate-handle forks, complete prototype forks, one-atom
+edits, batched/repeated edits, dense edits, nonconsecutive/repeated selections,
+complete reads before/after edits, block scans and public H5MSM writes. Subject
+preparation is outside individual operation timing; the combined fork/edit
+case includes both. Tracemalloc is not process RSS and cannot account for all
+native HDF5 or compiled allocations. Retained immutable byte owners are counted
+separately from the logical slice sizes so that hybrid base retention is visible.
+
+Run in the existing development environment:
+
+```bash
+python -m pytest --receptor=llm -n 12 devtools/tests/test_native_copy_study.py
+python devtools/scripts/study_native_copy.py --case 32x9 --blocks 1,3 \
+    --repeats 2 --io --output /tmp/molsysmt121-smoke.json
+python devtools/scripts/study_native_copy.py --repeats 3 --io \
+    --output /tmp/molsysmt121-comparison.json
+```
+
+The default matrix uses 62 atoms x 5,000 structures, 10,000 x 128 and 100,000 x
+64, comparing the complete contiguous array and blocks of 1, 8 and 32 structures
+with both independent and shared backing storage. Large 24 GB coordinate
+systems are not allocated by this initial matrix. No timing result from these
+development models alone can establish that a layout wins complete client
+workflows or every chemical/structural field.
+
+**Checkpoint (2026-10-21):** 64 study tests pass with 12 pytest workers,
+including native distance calculations and H5MSM 0.5/unit assertions. The
+14 fast repository gates and repository-wide Ruff checks pass. This qualifies
+the development model and its measurement harness, not a public copy API.
+Comparative results are recorded separately after fixing the measured source.
 
 ### Reproducing the ownership defect
 
