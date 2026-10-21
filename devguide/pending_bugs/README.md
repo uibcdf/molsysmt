@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md`](validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md) — [#396](https://github.com/uibcdf/molsysmt/issues/396) — Validated native bioassembly operations cannot round trip through H5MSM 0.5 *(medium, reproduced)*
+
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
