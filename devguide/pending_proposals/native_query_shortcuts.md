@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** Original issue #128; expanded by the maintainer on 2026-10-21
 to native forms used by TopoMT, DockingMT, PharmacophoreMT and ElastNetMT.
-**Status:** Resident native query phase contract-tested; comparative timings pending.
+**Status:** Resident native query phase contract-tested; initial comparison measured,
+with shared scalar-output optimization under comparative measurement.
 Dictionary/encoded/file/mechanics follow-up remains outside this implementation.
 
 ## What
@@ -298,3 +299,35 @@ Seven new shared-method doctest examples and 34 current count examples pass;
 changed method docstrings and new Foundations/Toolbox/Cookbook/course sections
 render with zero Sphinx diagnostics. The public-signature guard records four
 explicit inherited-method waivers while preserving positional call semantics.
+
+### First resident comparison and remaining scalar overhead
+
+Source `cbb8959e38a1088cefc0f1a7d73589d6b54b9ad6` is measured in
+[`native_queries_resident_20261021.json`](../../benchmarks/baselines/native_queries_resident_20261021.json):
+
+```bash
+python benchmarks/native_queries.py --dictionary-limit 0 --iterations 20 \
+    --repeats 5 --output /tmp/native-resident.json
+```
+
+Eighteen resident cases compare fully validated native and general routes in
+the same sequential process, with identical independently checked results.
+At 32 atoms, native atom-count calls take 0.349--0.395 ms versus 0.506--0.570 ms
+through basic.get (about 1.4--1.6 times faster). MolSys info DataFrame acquisition
+takes 7.183 ms versus 8.638 ms. ChemicalStates/Interactions info shows little or
+no advantage in this first iteration; no universal summary speedup is claimed.
+
+Profiling identifies remaining scalar-output quantity probing: a plain atom
+count still calls PyUnitWizard.is_quantity and emits a probe miss. The shared
+output assembler now bypasses that inspection for exact built-in scalars
+outside its physical wrapping table; physical quantities, custom scalar
+subclasses and arrays retain their existing path. This also benefits the
+form-agnostic entry point. The affected get/info/native selection passes 373
+tests after this bounded change, including explicit guards against probing a
+plain count and nondefault-unit selected-coordinate tests. The previous
+2,285-case campaign qualifies the resident implementation before this delta.
+
+ArgDigest's registry discovery, caller patterns and per-decorator normalization
+selection were inspected at the declared 0.13.0 floor. This is source inspection,
+not an installed-provider minimum-version qualification. The current environment
+uses the provider versions/import origins recorded in each artifact.

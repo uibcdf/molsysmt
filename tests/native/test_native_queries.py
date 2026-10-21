@@ -320,3 +320,15 @@ def test_hierarchy_counts_follow_only_explicit_parent_links():
         ]
         assert operation(element="atom", selection=[1], **flags) == [0] * 9
         assert operation(element="atom", selection=[], **flags) == [0] * 9
+
+
+@pytest.mark.parametrize("native", [False, True])
+def test_plain_scalar_counts_do_not_probe_quantity_backends(
+    molsys, monkeypatch, native
+):
+    def forbidden(value):
+        raise AssertionError("a plain atom count needs no quantity-backend probe")
+
+    monkeypatch.setattr(msm.pyunitwizard, "is_quantity", forbidden)
+    operation = molsys.get if native else lambda **kwargs: msm.get(molsys, **kwargs)
+    assert operation(n_atoms=True) == 4

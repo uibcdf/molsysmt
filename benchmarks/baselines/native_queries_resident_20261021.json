@@ -1,0 +1,1348 @@
+{
+  "schema": "molsysmt.native_queries_baseline@1",
+  "generated_at_utc": "2026-10-21T18:42:10.836834+00:00",
+  "source_commit": "cbb8959e38a1088cefc0f1a7d73589d6b54b9ad6",
+  "benchmark_sha256": "2e3c141007be3755e26dbc7667b94a1f4ea7c67d1ed78410feac55a8945dd656",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "machine": "x86_64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+    "packages": {
+      "molsysmt": {
+        "version": "0.23.0+93.g48aba006f",
+        "import_path": "{CHECKOUT_PARENT}/molsysmt/molsysmt/__init__.py"
+      },
+      "argdigest": {
+        "version": "0.16.0+1.g6dabaf7",
+        "import_path": "{CHECKOUT_PARENT}/argdigest/argdigest/__init__.py"
+      },
+      "smonitor": {
+        "version": "0.21.0+1.gd6b2394",
+        "import_path": "{CHECKOUT_PARENT}/smonitor/smonitor/__init__.py"
+      },
+      "pyunitwizard": {
+        "version": "0.28.1+15.g6c62ca6",
+        "import_path": "{CHECKOUT_PARENT}/pyunitwizard/pyunitwizard/__init__.py"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "import_path": "{PYTHON_PREFIX}/lib/python3.14/site-packages/numpy/__init__.py"
+      },
+      "pandas": {
+        "version": "2.3.3",
+        "import_path": "{PYTHON_PREFIX}/lib/python3.14/site-packages/pandas/__init__.py"
+      }
+    }
+  },
+  "iterations": 20,
+  "repeats": 5,
+  "methodology": {
+    "fixtures": "Synthetic unbonded atoms, one reference state, deterministic nm coordinates.",
+    "warmup": "Validation and one untimed call per route; imports and construction excluded.",
+    "timing": "Sequential routes, normal garbage collection, median/min/max per-call wall time.",
+    "info": "Table construction only; no notebook display or HTML rendering.",
+    "adapter": "Narrower contract; excludes general selection/output normalization.",
+    "trusted": "Internal diagnostic only; public boundary validation excluded.",
+    "query": "Warm sparse interaction query; includes validated domain selection, excludes first index build.",
+    "limitations": "Single process/environment; no new native implementation, cold start or memory benchmark."
+  },
+  "records": [
+    {
+      "class": "MolSys",
+      "n_atoms": 32,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.000546043050417211,
+          "min_seconds": 0.0005290985005558469,
+          "max_seconds": 0.0005859298995346762
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.423730133567006e-05,
+          "min_seconds": 3.787409950746223e-05,
+          "max_seconds": 4.980785015504807e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.104249481111765e-06,
+          "min_seconds": 3.068249498028308e-06,
+          "max_seconds": 3.2801995985209943e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003772687996388413,
+          "min_seconds": 0.00035682129964698106,
+          "max_seconds": 0.0004368276509921998
+        },
+        "info_dataframe": {
+          "median_seconds": 0.008638128799793776,
+          "min_seconds": 0.008409962449513841,
+          "max_seconds": 0.008670867099135648
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007182730399654247,
+          "min_seconds": 0.007058985700132326,
+          "max_seconds": 0.007323338750575203
+        },
+        "info_styler": {
+          "median_seconds": 0.00892583039967576,
+          "min_seconds": 0.00860840084933443,
+          "max_seconds": 0.009453893700265326
+        },
+        "method_info_styler": {
+          "median_seconds": 0.007769053599622567,
+          "min_seconds": 0.0072458719994756395,
+          "max_seconds": 0.007931993399688508
+        },
+        "get_selected_atom_indices": {
+          "median_seconds": 0.000726129999384284,
+          "min_seconds": 0.0006745266990037635,
+          "max_seconds": 0.0007346123005845584
+        },
+        "method_get_selected_atom_indices": {
+          "median_seconds": 0.00045208880037534983,
+          "min_seconds": 0.00043777829996543004,
+          "max_seconds": 0.0005249898502370342
+        },
+        "get_coordinates_all": {
+          "median_seconds": 0.0006105185995693319,
+          "min_seconds": 0.0005941611991147511,
+          "max_seconds": 0.0006311530989478343
+        },
+        "method_get_coordinates_all": {
+          "median_seconds": 0.00037089520046720283,
+          "min_seconds": 0.00032312895054928956,
+          "max_seconds": 0.00041577150113880634
+        },
+        "get_coordinates_selected": {
+          "median_seconds": 0.0008798203503829427,
+          "min_seconds": 0.000838988448958844,
+          "max_seconds": 0.0009720446498249658
+        },
+        "method_get_coordinates_selected": {
+          "median_seconds": 0.0004923154003336095,
+          "min_seconds": 0.0004634275508578867,
+          "max_seconds": 0.0005025977501645684
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Topology",
+      "n_atoms": 32,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005556001997319981,
+          "min_seconds": 0.0005432412508525886,
+          "max_seconds": 0.0005950576000032015
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.985674993600696e-05,
+          "min_seconds": 3.633544984040782e-05,
+          "max_seconds": 5.108775076223537e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.1698000384494662e-06,
+          "min_seconds": 2.7921007131226362e-06,
+          "max_seconds": 3.5556498914957046e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 5.638503353111446e-07,
+          "min_seconds": 5.434005288407206e-07,
+          "max_seconds": 9.199997293762863e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003950959493522532,
+          "min_seconds": 0.00035521449899533764,
+          "max_seconds": 0.00042360980005469174
+        },
+        "info_dataframe": {
+          "median_seconds": 0.008402805650257505,
+          "min_seconds": 0.008110755649977364,
+          "max_seconds": 0.012391677949926816
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007651579850062262,
+          "min_seconds": 0.007069707149639726,
+          "max_seconds": 0.008217741799307987
+        },
+        "info_styler": {
+          "median_seconds": 0.008916859349119477,
+          "min_seconds": 0.008556032599881292,
+          "max_seconds": 0.0093063741500373
+        },
+        "method_info_styler": {
+          "median_seconds": 0.007324447149585467,
+          "min_seconds": 0.007096807700872887,
+          "max_seconds": 0.007540878349391278
+        },
+        "get_selected_atom_indices": {
+          "median_seconds": 0.0006313521997071802,
+          "min_seconds": 0.0005993164493702352,
+          "max_seconds": 0.0007419026500429027
+        },
+        "method_get_selected_atom_indices": {
+          "median_seconds": 0.000455822900403291,
+          "min_seconds": 0.000428432050102856,
+          "max_seconds": 0.0005120382513268851
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Structures",
+      "n_atoms": 32,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005695020008715801,
+          "min_seconds": 0.0005428060510894283,
+          "max_seconds": 0.0006136388503364288
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.64616488898173e-05,
+          "min_seconds": 4.341455060057342e-05,
+          "max_seconds": 5.106709868414327e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 4.44604957010597e-06,
+          "min_seconds": 4.40414878539741e-06,
+          "max_seconds": 6.65440020384267e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 2.32345046242699e-06,
+          "min_seconds": 2.248649252578616e-06,
+          "max_seconds": 3.132100391667336e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003493959491606802,
+          "min_seconds": 0.00032759035093476996,
+          "max_seconds": 0.00040281340043293314
+        },
+        "info_dataframe": {
+          "median_seconds": 0.005259168750490062,
+          "min_seconds": 0.005014554099761881,
+          "max_seconds": 0.005424710249644704
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.004732964500726666,
+          "min_seconds": 0.004635045700706541,
+          "max_seconds": 0.0051608378009404985
+        },
+        "info_styler": {
+          "median_seconds": 0.005324600050516892,
+          "min_seconds": 0.005050942148955073,
+          "max_seconds": 0.005464878850034438
+        },
+        "method_info_styler": {
+          "median_seconds": 0.005185696699481923,
+          "min_seconds": 0.004839466400153469,
+          "max_seconds": 0.005396913249569479
+        },
+        "get_coordinates_all": {
+          "median_seconds": 0.0005410878497059457,
+          "min_seconds": 0.0004938317506457679,
+          "max_seconds": 0.0005689012497896329
+        },
+        "method_get_coordinates_all": {
+          "median_seconds": 0.00031849685037741435,
+          "min_seconds": 0.0002892842006986029,
+          "max_seconds": 0.00034877895086538047
+        },
+        "get_coordinates_selected": {
+          "median_seconds": 0.0008311360506922938,
+          "min_seconds": 0.0007483653505914844,
+          "max_seconds": 0.000948727349168621
+        },
+        "method_get_coordinates_selected": {
+          "median_seconds": 0.0004566487987176515,
+          "min_seconds": 0.0004490570499910973,
+          "max_seconds": 0.0004835952495341189
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "ChemicalStates",
+      "n_atoms": 32,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005059424001956359,
+          "min_seconds": 0.0004928655005642212,
+          "max_seconds": 0.0005876908006030134
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.665584954433143e-05,
+          "min_seconds": 3.5672250669449566e-05,
+          "max_seconds": 4.402949998620898e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.159600262530148e-06,
+          "min_seconds": 2.124351158272475e-06,
+          "max_seconds": 2.312549622729421e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 1.234991941601038e-07,
+          "min_seconds": 6.545014912262559e-08,
+          "max_seconds": 1.320993760600686e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00034582700027385727,
+          "min_seconds": 0.0003411748999496922,
+          "max_seconds": 0.0003740915999514982
+        },
+        "info_dataframe": {
+          "median_seconds": 0.004684836950036697,
+          "min_seconds": 0.00460270260082325,
+          "max_seconds": 0.004780768349883146
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.0046007527998881415,
+          "min_seconds": 0.004414779649232514,
+          "max_seconds": 0.004922071749751922
+        },
+        "info_styler": {
+          "median_seconds": 0.005331762151035946,
+          "min_seconds": 0.004911433900997508,
+          "max_seconds": 0.00569893819920253
+        },
+        "method_info_styler": {
+          "median_seconds": 0.004950116349209566,
+          "min_seconds": 0.004617288449662737,
+          "max_seconds": 0.006429934701009188
+        },
+        "get_n_chemical_states": {
+          "median_seconds": 0.0005289647000608966,
+          "min_seconds": 0.0005094767999253236,
+          "max_seconds": 0.0006154987495392561
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Interactions",
+      "n_atoms": 32,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005332861503120512,
+          "min_seconds": 0.0005056923997472041,
+          "max_seconds": 0.0005678478002664634
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.82843500119634e-05,
+          "min_seconds": 3.7483400956261906e-05,
+          "max_seconds": 4.6474199916701767e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.106200554408133e-06,
+          "min_seconds": 2.086650056298822e-06,
+          "max_seconds": 2.2312000510282814e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003523886509356089,
+          "min_seconds": 0.00031419695005752146,
+          "max_seconds": 0.00035726610076380894
+        },
+        "info_dataframe": {
+          "median_seconds": 0.005361603650089819,
+          "min_seconds": 0.005039865149592515,
+          "max_seconds": 0.0058761741500347854
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.0054044007498305294,
+          "min_seconds": 0.005081490200245753,
+          "max_seconds": 0.005551495100371539
+        },
+        "info_styler": {
+          "median_seconds": 0.005659932050912175,
+          "min_seconds": 0.005494994999025948,
+          "max_seconds": 0.005861363348958548
+        },
+        "method_info_styler": {
+          "median_seconds": 0.00507657654961804,
+          "min_seconds": 0.004986266000196337,
+          "max_seconds": 0.005323348050296772
+        },
+        "domain_query_warm": {
+          "median_seconds": 0.0003912760512321256,
+          "min_seconds": 0.0003813183502643369,
+          "max_seconds": 0.00044500320072984325
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "MolSysBuilder",
+      "n_atoms": 32,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005654506996506826,
+          "min_seconds": 0.0005115752996061928,
+          "max_seconds": 0.000648474000627175
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.560290060704574e-05,
+          "min_seconds": 3.5045150434598325e-05,
+          "max_seconds": 3.713019978022203e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.342349373269826e-06,
+          "min_seconds": 3.291800385341048e-06,
+          "max_seconds": 5.837550270371139e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 7.776005077175796e-07,
+          "min_seconds": 5.577996489591896e-07,
+          "max_seconds": 2.089299960061908e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003686998490593396,
+          "min_seconds": 0.00035209865018259734,
+          "max_seconds": 0.00046123804931994525
+        },
+        "info_dataframe": {
+          "median_seconds": 0.009267608600202948,
+          "min_seconds": 0.008655997300229501,
+          "max_seconds": 0.010336957999970763
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007626783850719221,
+          "min_seconds": 0.0074117122014285995,
+          "max_seconds": 0.008113649349252228
+        },
+        "info_styler": {
+          "median_seconds": 0.008759953049593604,
+          "min_seconds": 0.00837308244954329,
+          "max_seconds": 0.009259617498901206
+        },
+        "method_info_styler": {
+          "median_seconds": 0.007254696250311099,
+          "min_seconds": 0.007187272800365463,
+          "max_seconds": 0.007472598949971143
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "MolSys",
+      "n_atoms": 1000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.000561426549393218,
+          "min_seconds": 0.0004848099997616373,
+          "max_seconds": 0.0005773679004050791
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.873579989885911e-05,
+          "min_seconds": 3.7095999869052323e-05,
+          "max_seconds": 4.702034930232912e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.0541006708517672e-06,
+          "min_seconds": 3.0210998374968766e-06,
+          "max_seconds": 3.216198820155114e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00035986875009257345,
+          "min_seconds": 0.000345799550996162,
+          "max_seconds": 0.00044041979999747126
+        },
+        "info_dataframe": {
+          "median_seconds": 0.009126506649772636,
+          "min_seconds": 0.008956200499960687,
+          "max_seconds": 0.009363009549269918
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007569589201011695,
+          "min_seconds": 0.007458881101047155,
+          "max_seconds": 0.007779015149571933
+        },
+        "info_styler": {
+          "median_seconds": 0.009309325799404179,
+          "min_seconds": 0.009232904099917505,
+          "max_seconds": 0.009466250499826856
+        },
+        "method_info_styler": {
+          "median_seconds": 0.007627285149646923,
+          "min_seconds": 0.007406099350191653,
+          "max_seconds": 0.007796599149878602
+        },
+        "get_selected_atom_indices": {
+          "median_seconds": 0.000698794198979158,
+          "min_seconds": 0.000651111600745935,
+          "max_seconds": 0.0007254575000843033
+        },
+        "method_get_selected_atom_indices": {
+          "median_seconds": 0.000464967500010971,
+          "min_seconds": 0.00042609920055838304,
+          "max_seconds": 0.0004953844996634871
+        },
+        "get_coordinates_all": {
+          "median_seconds": 0.0006009553995681927,
+          "min_seconds": 0.0005520343009266071,
+          "max_seconds": 0.0006256886495975778
+        },
+        "method_get_coordinates_all": {
+          "median_seconds": 0.00038745575002394614,
+          "min_seconds": 0.00035611890052678064,
+          "max_seconds": 0.0004326622001826763
+        },
+        "get_coordinates_selected": {
+          "median_seconds": 0.0009599367491318844,
+          "min_seconds": 0.0008843687988701277,
+          "max_seconds": 0.0009769337993930094
+        },
+        "method_get_coordinates_selected": {
+          "median_seconds": 0.000501978799002245,
+          "min_seconds": 0.0004784228513017297,
+          "max_seconds": 0.0005418412998551503
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Topology",
+      "n_atoms": 1000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005618597497232258,
+          "min_seconds": 0.0005388459001551382,
+          "max_seconds": 0.000611041700176429
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.6609350829385224e-05,
+          "min_seconds": 3.913885011570528e-05,
+          "max_seconds": 5.2063849580008537e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.9213508241809906e-06,
+          "min_seconds": 2.76440114248544e-06,
+          "max_seconds": 3.61775018973276e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 6.666508852504194e-07,
+          "min_seconds": 5.797002813778817e-07,
+          "max_seconds": 6.850503268651665e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0004148421503487043,
+          "min_seconds": 0.0003664235497126356,
+          "max_seconds": 0.0004394517003674991
+        },
+        "info_dataframe": {
+          "median_seconds": 0.009109800351143348,
+          "min_seconds": 0.008873561301152222,
+          "max_seconds": 0.009194278799986933
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007544385449727997,
+          "min_seconds": 0.007404320051136892,
+          "max_seconds": 0.007764521399803925
+        },
+        "info_styler": {
+          "median_seconds": 0.008936811549938284,
+          "min_seconds": 0.0088261141005205,
+          "max_seconds": 0.009540715700131841
+        },
+        "method_info_styler": {
+          "median_seconds": 0.007464427649392746,
+          "min_seconds": 0.007340921250579413,
+          "max_seconds": 0.0077164939502836205
+        },
+        "get_selected_atom_indices": {
+          "median_seconds": 0.0007012821501120925,
+          "min_seconds": 0.000687460599874612,
+          "max_seconds": 0.0007334726993576624
+        },
+        "method_get_selected_atom_indices": {
+          "median_seconds": 0.00043486384965945034,
+          "min_seconds": 0.0004029492993140593,
+          "max_seconds": 0.00047604619903722777
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Structures",
+      "n_atoms": 1000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005897673487197608,
+          "min_seconds": 0.0005598557007033377,
+          "max_seconds": 0.0006208638500538654
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.93781510158442e-05,
+          "min_seconds": 4.238950059516355e-05,
+          "max_seconds": 5.320485070114955e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 7.787249342072754e-06,
+          "min_seconds": 6.5873988205567e-06,
+          "max_seconds": 8.492199413012713e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 2.4774999474175274e-06,
+          "min_seconds": 2.386850246693939e-06,
+          "max_seconds": 3.396649844944477e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003908357000909746,
+          "min_seconds": 0.00038060415099607783,
+          "max_seconds": 0.0004207227495498955
+        },
+        "info_dataframe": {
+          "median_seconds": 0.00563193090056302,
+          "min_seconds": 0.005151781100721564,
+          "max_seconds": 0.005757403650204651
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.004894072649767623,
+          "min_seconds": 0.00486850735032931,
+          "max_seconds": 0.005062891800480429
+        },
+        "info_styler": {
+          "median_seconds": 0.005220622051274404,
+          "min_seconds": 0.0051548169503803365,
+          "max_seconds": 0.005337463600153569
+        },
+        "method_info_styler": {
+          "median_seconds": 0.004959940900153015,
+          "min_seconds": 0.004814690399507526,
+          "max_seconds": 0.005042004449933302
+        },
+        "get_coordinates_all": {
+          "median_seconds": 0.0006301238507148809,
+          "min_seconds": 0.0005998779495712369,
+          "max_seconds": 0.0006595077007659711
+        },
+        "method_get_coordinates_all": {
+          "median_seconds": 0.00033946899930015206,
+          "min_seconds": 0.0003111197001999244,
+          "max_seconds": 0.0003504345004330389
+        },
+        "get_coordinates_selected": {
+          "median_seconds": 0.0008594205501140095,
+          "min_seconds": 0.0007658902992261574,
+          "max_seconds": 0.0008822731004329398
+        },
+        "method_get_coordinates_selected": {
+          "median_seconds": 0.00046106429945211855,
+          "min_seconds": 0.0004357202007668093,
+          "max_seconds": 0.0005023321500630118
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "ChemicalStates",
+      "n_atoms": 1000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.000528100150404498,
+          "min_seconds": 0.0005079731010482647,
+          "max_seconds": 0.0005554503994062542
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.245704913046211e-05,
+          "min_seconds": 3.8773950655013324e-05,
+          "max_seconds": 4.9988900718744846e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.1475996365770697e-06,
+          "min_seconds": 2.401250822003931e-06,
+          "max_seconds": 3.2838506740517914e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 1.4425022527575492e-07,
+          "min_seconds": 7.619964890182018e-08,
+          "max_seconds": 1.571999746374786e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00035177524987375366,
+          "min_seconds": 0.00033189985115313905,
+          "max_seconds": 0.0004067984991706908
+        },
+        "info_dataframe": {
+          "median_seconds": 0.004816003650194034,
+          "min_seconds": 0.00469012445100816,
+          "max_seconds": 0.004886616849398706
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.004551286950299982,
+          "min_seconds": 0.004487987649918068,
+          "max_seconds": 0.0045828927497495895
+        },
+        "info_styler": {
+          "median_seconds": 0.00483813739992911,
+          "min_seconds": 0.004789260549296159,
+          "max_seconds": 0.004889048849872779
+        },
+        "method_info_styler": {
+          "median_seconds": 0.004731725000601728,
+          "min_seconds": 0.00467643715091981,
+          "max_seconds": 0.004831972149258945
+        },
+        "get_n_chemical_states": {
+          "median_seconds": 0.0005586844999925233,
+          "min_seconds": 0.0005434134000097401,
+          "max_seconds": 0.0006004904498695396
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Interactions",
+      "n_atoms": 1000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005529794507310726,
+          "min_seconds": 0.0005089882499305532,
+          "max_seconds": 0.0005742348002968356
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.853004891425371e-05,
+          "min_seconds": 3.7449649244081226e-05,
+          "max_seconds": 4.219645052216947e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.5996007025241854e-06,
+          "min_seconds": 2.4287510314024985e-06,
+          "max_seconds": 3.1483505154028535e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003517695993650705,
+          "min_seconds": 0.00031820425065234306,
+          "max_seconds": 0.0003712701000040397
+        },
+        "info_dataframe": {
+          "median_seconds": 0.005189720549969934,
+          "min_seconds": 0.005025177499919664,
+          "max_seconds": 0.0052125613001408055
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.004869802450411953,
+          "min_seconds": 0.0047710009501315655,
+          "max_seconds": 0.005194303399184719
+        },
+        "info_styler": {
+          "median_seconds": 0.005189844200504013,
+          "min_seconds": 0.0051660738507052885,
+          "max_seconds": 0.005347297150001396
+        },
+        "method_info_styler": {
+          "median_seconds": 0.00491483759979019,
+          "min_seconds": 0.004841278449748643,
+          "max_seconds": 0.004974609300552402
+        },
+        "domain_query_warm": {
+          "median_seconds": 0.0003919713999493979,
+          "min_seconds": 0.00037047360092401505,
+          "max_seconds": 0.00041118134977295994
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "MolSysBuilder",
+      "n_atoms": 1000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005266469001071527,
+          "min_seconds": 0.0005094873995403759,
+          "max_seconds": 0.0005821699989610352
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.786859888350591e-05,
+          "min_seconds": 3.513195115374401e-05,
+          "max_seconds": 4.198855021968484e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.8766997274942694e-06,
+          "min_seconds": 2.863800909835845e-06,
+          "max_seconds": 4.7339999582618475e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 6.558504537679255e-07,
+          "min_seconds": 5.863505066372454e-07,
+          "max_seconds": 6.70699228066951e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00038714919937774537,
+          "min_seconds": 0.00035487114946590735,
+          "max_seconds": 0.0004254053506883793
+        },
+        "info_dataframe": {
+          "median_seconds": 0.0085325323001598,
+          "min_seconds": 0.008412863349076361,
+          "max_seconds": 0.008689671999309211
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007148347799375188,
+          "min_seconds": 0.007040069501090329,
+          "max_seconds": 0.007305612901109271
+        },
+        "info_styler": {
+          "median_seconds": 0.008786208600213286,
+          "min_seconds": 0.008522540000558364,
+          "max_seconds": 0.009005209249153268
+        },
+        "method_info_styler": {
+          "median_seconds": 0.00765494904917432,
+          "min_seconds": 0.007317472899740096,
+          "max_seconds": 0.007877249849843792
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "MolSys",
+      "n_atoms": 100000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005438523992779664,
+          "min_seconds": 0.0005143984002643265,
+          "max_seconds": 0.000570315500954166
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.0674599586054685e-05,
+          "min_seconds": 3.527359949657693e-05,
+          "max_seconds": 4.3063350312877445e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.0405994039028882e-06,
+          "min_seconds": 3.0038499971851707e-06,
+          "max_seconds": 3.374899097252637e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003702975503983907,
+          "min_seconds": 0.0003278128497186117,
+          "max_seconds": 0.0003734768994036131
+        },
+        "info_dataframe": {
+          "median_seconds": 0.009071797349315602,
+          "min_seconds": 0.00876834220107412,
+          "max_seconds": 0.00992905374878319
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007331551999959629,
+          "min_seconds": 0.0072964301507454365,
+          "max_seconds": 0.007471950149920303
+        },
+        "info_styler": {
+          "median_seconds": 0.00883705219894182,
+          "min_seconds": 0.00875797254993813,
+          "max_seconds": 0.008868965999863577
+        },
+        "method_info_styler": {
+          "median_seconds": 0.0074366437489516105,
+          "min_seconds": 0.007367239850282203,
+          "max_seconds": 0.007795671949861571
+        },
+        "get_selected_atom_indices": {
+          "median_seconds": 0.0006888602511025965,
+          "min_seconds": 0.0006744550497387536,
+          "max_seconds": 0.0007606496990774758
+        },
+        "method_get_selected_atom_indices": {
+          "median_seconds": 0.0004481912488699891,
+          "min_seconds": 0.00041201064886990934,
+          "max_seconds": 0.0004946362998452969
+        },
+        "get_coordinates_all": {
+          "median_seconds": 0.002173360050073825,
+          "min_seconds": 0.00208365565049462,
+          "max_seconds": 0.0025655280987848528
+        },
+        "method_get_coordinates_all": {
+          "median_seconds": 0.0018028623511781917,
+          "min_seconds": 0.0016949743003351614,
+          "max_seconds": 0.001925969700096175
+        },
+        "get_coordinates_selected": {
+          "median_seconds": 0.0008911989498301409,
+          "min_seconds": 0.0008339970998349599,
+          "max_seconds": 0.0009125968994339928
+        },
+        "method_get_coordinates_selected": {
+          "median_seconds": 0.0005097558503621257,
+          "min_seconds": 0.0004851514502661303,
+          "max_seconds": 0.0005358653492294252
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Topology",
+      "n_atoms": 100000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005334197005140596,
+          "min_seconds": 0.00047978909860830755,
+          "max_seconds": 0.000563693699950818
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.974305000156164e-05,
+          "min_seconds": 3.6948399792891e-05,
+          "max_seconds": 4.669119953177869e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.7824993594549595e-06,
+          "min_seconds": 2.759949711617082e-06,
+          "max_seconds": 2.9508504667319357e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 6.288988515734672e-07,
+          "min_seconds": 5.490510375238955e-07,
+          "max_seconds": 6.434507668018341e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00042703229992184787,
+          "min_seconds": 0.0003439713502302766,
+          "max_seconds": 0.0004543340503005311
+        },
+        "info_dataframe": {
+          "median_seconds": 0.008711504349776078,
+          "min_seconds": 0.008558080099464859,
+          "max_seconds": 0.009348562499508262
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.008022431550489272,
+          "min_seconds": 0.007881085999542847,
+          "max_seconds": 0.008217581699136644
+        },
+        "info_styler": {
+          "median_seconds": 0.008840270050859545,
+          "min_seconds": 0.008735908000380732,
+          "max_seconds": 0.008964805699361023
+        },
+        "method_info_styler": {
+          "median_seconds": 0.007790869948803447,
+          "min_seconds": 0.007580269149912056,
+          "max_seconds": 0.008512740400328766
+        },
+        "get_selected_atom_indices": {
+          "median_seconds": 0.0007427203498082235,
+          "min_seconds": 0.0007212602999061346,
+          "max_seconds": 0.0007919750496512279
+        },
+        "method_get_selected_atom_indices": {
+          "median_seconds": 0.0004723964011645876,
+          "min_seconds": 0.000445336799020879,
+          "max_seconds": 0.0005058459006249905
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Structures",
+      "n_atoms": 100000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0006382209990988486,
+          "min_seconds": 0.0005384786505601369,
+          "max_seconds": 0.0006461053999373689
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.468035040190443e-05,
+          "min_seconds": 4.216524976072833e-05,
+          "max_seconds": 6.314214988378808e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 4.7473993618041275e-06,
+          "min_seconds": 4.3374995584599675e-06,
+          "max_seconds": 7.1143003879114985e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 2.2178501239977777e-06,
+          "min_seconds": 2.1421510609798133e-06,
+          "max_seconds": 2.584149478934705e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003840534001938067,
+          "min_seconds": 0.0003686093492433429,
+          "max_seconds": 0.0004037588500068523
+        },
+        "info_dataframe": {
+          "median_seconds": 0.0053035890494356865,
+          "min_seconds": 0.005127269400691148,
+          "max_seconds": 0.005695861649292056
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.005106663350306917,
+          "min_seconds": 0.0050516975999926215,
+          "max_seconds": 0.005535641500318889
+        },
+        "info_styler": {
+          "median_seconds": 0.0055179203496663835,
+          "min_seconds": 0.005440777249168605,
+          "max_seconds": 0.00590960795088904
+        },
+        "method_info_styler": {
+          "median_seconds": 0.006061719650460873,
+          "min_seconds": 0.005129583200323395,
+          "max_seconds": 0.006509680750605184
+        },
+        "get_coordinates_all": {
+          "median_seconds": 0.0023164152502431535,
+          "min_seconds": 0.002099242850090377,
+          "max_seconds": 0.002621725700737443
+        },
+        "method_get_coordinates_all": {
+          "median_seconds": 0.0020756614496349355,
+          "min_seconds": 0.0019934264491894282,
+          "max_seconds": 0.0021792275991174394
+        },
+        "get_coordinates_selected": {
+          "median_seconds": 0.0008926719005103223,
+          "min_seconds": 0.000867219700012356,
+          "max_seconds": 0.0009149398494628258
+        },
+        "method_get_coordinates_selected": {
+          "median_seconds": 0.0005045097001129762,
+          "min_seconds": 0.0004570624005282298,
+          "max_seconds": 0.000528071699955035
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "ChemicalStates",
+      "n_atoms": 100000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.000570175600296352,
+          "min_seconds": 0.0005525045999092981,
+          "max_seconds": 0.0006022367990226485
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.3600199569482355e-05,
+          "min_seconds": 3.615769965108484e-05,
+          "max_seconds": 4.86273507704027e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 2.2825508494861426e-06,
+          "min_seconds": 2.2590989829041065e-06,
+          "max_seconds": 2.455549838487059e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 1.2700038496404886e-07,
+          "min_seconds": 7.03497789800167e-08,
+          "max_seconds": 1.4289980754256248e-07
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00038805049989605324,
+          "min_seconds": 0.000358875650272239,
+          "max_seconds": 0.000428293900040444
+        },
+        "info_dataframe": {
+          "median_seconds": 0.005447280350199435,
+          "min_seconds": 0.005161389250133652,
+          "max_seconds": 0.005713592200481799
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.004718373800278642,
+          "min_seconds": 0.004704570499598049,
+          "max_seconds": 0.005208216801111121
+        },
+        "info_styler": {
+          "median_seconds": 0.005162319949886296,
+          "min_seconds": 0.00498869755101623,
+          "max_seconds": 0.0054146557507920075
+        },
+        "method_info_styler": {
+          "median_seconds": 0.004870819399366155,
+          "min_seconds": 0.004767082948819734,
+          "max_seconds": 0.004951778500981163
+        },
+        "get_n_chemical_states": {
+          "median_seconds": 0.0005770530013251118,
+          "min_seconds": 0.0005347478509065695,
+          "max_seconds": 0.000616693300253246
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "Interactions",
+      "n_atoms": 100000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005690476507879793,
+          "min_seconds": 0.0005489408504217863,
+          "max_seconds": 0.0006329372990876436
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 4.891024873359129e-05,
+          "min_seconds": 4.528034914983436e-05,
+          "max_seconds": 5.5322950356639924e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.100449976045638e-06,
+          "min_seconds": 2.3280008463189006e-06,
+          "max_seconds": 4.055550380144268e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.00042758019990287723,
+          "min_seconds": 0.00041131049947580324,
+          "max_seconds": 0.00043284040002617986
+        },
+        "info_dataframe": {
+          "median_seconds": 0.005636048800079152,
+          "min_seconds": 0.0055353247007587925,
+          "max_seconds": 0.0064205680493614635
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.005214408050233032,
+          "min_seconds": 0.005092120698827784,
+          "max_seconds": 0.005474346700066235
+        },
+        "info_styler": {
+          "median_seconds": 0.005571113849873655,
+          "min_seconds": 0.0053225694500724785,
+          "max_seconds": 0.005939943049452267
+        },
+        "method_info_styler": {
+          "median_seconds": 0.005288564150396269,
+          "min_seconds": 0.005096810900431592,
+          "max_seconds": 0.00531609284953447
+        },
+        "domain_query_warm": {
+          "median_seconds": 0.0004819053501705639,
+          "min_seconds": 0.0004570686491206288,
+          "max_seconds": 0.0004896705489954911
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    },
+    {
+      "class": "MolSysBuilder",
+      "n_atoms": 100000,
+      "n_structures": 8,
+      "has_get_method": true,
+      "has_info_method": true,
+      "routes": {
+        "get_n_atoms": {
+          "median_seconds": 0.0005611273503745906,
+          "min_seconds": 0.000549094850430265,
+          "max_seconds": 0.0006583989001228474
+        },
+        "adapter_n_atoms_validated": {
+          "median_seconds": 3.940110036637634e-05,
+          "min_seconds": 3.578559990273789e-05,
+          "max_seconds": 4.218264948576689e-05
+        },
+        "adapter_n_atoms_trusted_internal": {
+          "median_seconds": 3.127899253740907e-06,
+          "min_seconds": 3.096451109740883e-06,
+          "max_seconds": 3.980100154876709e-06
+        },
+        "property_n_atoms": {
+          "median_seconds": 6.995498551987111e-07,
+          "min_seconds": 6.077490979805588e-07,
+          "max_seconds": 1.421548950020224e-06
+        },
+        "method_get_n_atoms": {
+          "median_seconds": 0.0003907106496626511,
+          "min_seconds": 0.0003699132998008281,
+          "max_seconds": 0.00040687165019335223
+        },
+        "info_dataframe": {
+          "median_seconds": 0.008939366300182883,
+          "min_seconds": 0.008874578950053547,
+          "max_seconds": 0.009167077951133251
+        },
+        "method_info_dataframe": {
+          "median_seconds": 0.007538200850831345,
+          "min_seconds": 0.007292078099271748,
+          "max_seconds": 0.007831237350183073
+        },
+        "info_styler": {
+          "median_seconds": 0.009597238400601782,
+          "min_seconds": 0.008894026548659895,
+          "max_seconds": 0.01020415365055669
+        },
+        "method_info_styler": {
+          "median_seconds": 0.00787988350057276,
+          "min_seconds": 0.007359412951336708,
+          "max_seconds": 0.00793631650012685
+        }
+      },
+      "count_profile": {
+        "api/introspection.py:is_quantity": 1,
+        "core/decorator.py:_run_digestion": 2,
+        "api/introspection.py:get_form": 1,
+        "basic/where_is_attribute.py:where_is_attribute": 2,
+        "basic/get_form.py:get_form": 10,
+        "forms/api_pint.py:is_quantity": 1
+      }
+    }
+  ]
+}

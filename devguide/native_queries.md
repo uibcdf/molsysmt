@@ -68,6 +68,13 @@ single-domain provider instead:
   standardization from the common executor.
 - Share `info` columns and presentation, including evaluated structure scope.
 
+Output assembly returns exact built-in scalars directly when the attribute is
+outside the canonical physical-unit wrapping table. Such values cannot be
+quantity-backend objects. Physical fields retain wrapping/standardization, and
+custom numeric subclasses and array/quantity containers retain the ordinary
+quantity inspection path. This avoids emitting quantity-probe misses for plain
+counts without changing the unit policy or weakening a public boundary.
+
 Native methods do not call the decorated universal `get`/`info`. Specific form
 providers remain reused; this is not a rewrite of every attribute getter or
 native table. There is no persistent cache of mutable values/counts and no

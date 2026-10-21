@@ -494,6 +494,11 @@ def _get(
     def _standardize(value, attribute):
         if value is None:
             return None
+        # Exact built-in scalars cannot carry a unit backend. Keep physical
+        # fields on their wrapping path and custom numeric subclasses on the
+        # ordinary quantity check.
+        if type(value) in (bool, int, float, str) and attribute not in _CANONICAL_UNITS:
+            return value
         if puw.is_quantity(value):
             return puw.standardize(value)
         if attribute in _CANONICAL_UNITS:
