@@ -1,0 +1,1645 @@
+{
+  "scope": "experimental layouts, not native API qualification",
+  "campaign": "reads_only",
+  "units": {
+    "coordinates": "nm",
+    "time": "ps"
+  },
+  "python": "3.14.7",
+  "numpy": "2.4.6",
+  "packages": {
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7"
+  },
+  "measured_at_utc": "2026-10-21T21:01:08.962142+00:00",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "cpu": "x86_64",
+  "logical_cpus": 20,
+  "source_commit": "365b9a030d19603e16232e2b0e160ee00aab3768",
+  "study_sha256": "4be67b12132dce937bc15f0bd466de079ed81f89265b07051024e3e1a378db3c",
+  "source_worktree_dirty": false,
+  "measurement": "one warm-up; fresh edit subjects; median; separate tracemalloc pass, not RSS",
+  "chemistry_policy": "eager native topology/chemistry copy in all contenders",
+  "io_policy": "public H5MSM write after complete coordinate materialization",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 5000,
+      "layout": "contiguous",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 7440000,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 14880000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00012070499360561371,
+          "samples_seconds": [
+            0.00012070499360561371,
+            0.00013179797679185867,
+            0.00010440399637445807
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.284697934053838e-05,
+          "samples_seconds": [
+            4.818200250156224e-05,
+            4.2063998989760876e-05,
+            4.284697934053838e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0006342100095935166,
+          "samples_seconds": [
+            0.0005967089964542538,
+            0.0006814929947722703,
+            0.0006342100095935166
+          ],
+          "traced_peak_bytes": 7440925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0001500530051998794,
+          "samples_seconds": [
+            0.0001500530051998794,
+            0.000125508988276124,
+            0.00016614998457953334
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.00013725997996516526,
+          "samples_seconds": [
+            0.00017082001431845129,
+            0.00012181399506516755,
+            0.00013725997996516526
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 8.725599036552012e-05,
+          "samples_seconds": [
+            8.725599036552012e-05,
+            0.00010419898899272084,
+            8.506799349561334e-05
+          ],
+          "traced_peak_bytes": 901
+        },
+        "block_scan": {
+          "median_seconds": 0.00035168498288840055,
+          "samples_seconds": [
+            0.00037574401358142495,
+            0.00034480798058211803,
+            0.00035168498288840055
+          ],
+          "traced_peak_bytes": 1368
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 1,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 1488,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7441488,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010327901691198349,
+          "samples_seconds": [
+            0.00010762899182736874,
+            0.00010327901691198349,
+            9.835799573920667e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0022588980209548026,
+          "samples_seconds": [
+            0.0032403400109615177,
+            0.002121344004990533,
+            0.0022588980209548026
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "owned_full_read": {
+          "median_seconds": 0.00250736900488846,
+          "samples_seconds": [
+            0.002004311012569815,
+            0.00250736900488846,
+            0.0027348089788574725
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0001476239995099604,
+          "samples_seconds": [
+            0.0001725819893181324,
+            0.00013998299255035818,
+            0.0001476239995099604
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.00011336701572872698,
+          "samples_seconds": [
+            0.00011336701572872698,
+            0.00013291198411025107,
+            9.790598414838314e-05
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.002960042009362951,
+          "samples_seconds": [
+            0.00258613598998636,
+            0.002960042009362951,
+            0.0032459729991387576
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "block_scan": {
+          "median_seconds": 0.008149022003635764,
+          "samples_seconds": [
+            0.008080369996605441,
+            0.008149022003635764,
+            0.009165825002128258
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 1,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 1488,
+      "edited_branch_referenced_coordinate_bytes": 7441488,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7441488,
+      "referenced_bytes_after_replacing_all_but_last_structure": 14878512,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.0001008089748211205,
+          "samples_seconds": [
+            0.00010646699229255319,
+            0.0001008089748211205,
+            9.820298873819411e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.01010038331151e-05,
+          "samples_seconds": [
+            6.297300569713116e-05,
+            4.01010038331151e-05,
+            3.7793011870235205e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.000517323991516605,
+          "samples_seconds": [
+            0.0005445459973998368,
+            0.000509142002556473,
+            0.000517323991516605
+          ],
+          "traced_peak_bytes": 7440925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.00011130300117656589,
+          "samples_seconds": [
+            0.0001034500019159168,
+            0.00011130300117656589,
+            0.00011505000293254852
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.00012471101945266128,
+          "samples_seconds": [
+            0.00012471101945266128,
+            0.00013326399493962526,
+            0.00011152500519528985
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.002951639995444566,
+          "samples_seconds": [
+            0.003073829022468999,
+            0.002951639995444566,
+            0.0025372869858983904
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "block_scan": {
+          "median_seconds": 0.008506306010531262,
+          "samples_seconds": [
+            0.008506306010531262,
+            0.008774018002441153,
+            0.008067540999036282
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 8,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 11904,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7451904,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.0001017669856082648,
+          "samples_seconds": [
+            0.00010791898239403963,
+            0.0001017669856082648,
+            9.913399117067456e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0011198399879503995,
+          "samples_seconds": [
+            0.0009675890032667667,
+            0.0011479649983812124,
+            0.0011198399879503995
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0008448250009678304,
+          "samples_seconds": [
+            0.0008448250009678304,
+            0.0007675870147068053,
+            0.0009318260126747191
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "one_structure_read": {
+          "median_seconds": 8.906199946068227e-05,
+          "samples_seconds": [
+            9.516201680526137e-05,
+            8.906199946068227e-05,
+            8.815998444333673e-05
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 9.745798888616264e-05,
+          "samples_seconds": [
+            0.00010364499757997692,
+            9.745798888616264e-05,
+            9.532200056128204e-05
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0009852710063569248,
+          "samples_seconds": [
+            0.0009852710063569248,
+            0.0010508170234970748,
+            0.0009816730162128806
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "block_scan": {
+          "median_seconds": 0.0014597650151699781,
+          "samples_seconds": [
+            0.0018828189931809902,
+            0.0013958720082882792,
+            0.0014597650151699781
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 8,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 11904,
+      "edited_branch_referenced_coordinate_bytes": 7451904,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7451904,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00011866001295857131,
+          "samples_seconds": [
+            0.00012673798482865095,
+            0.00011866001295857131,
+            0.00011191502562724054
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 3.9767008274793625e-05,
+          "samples_seconds": [
+            4.368700319901109e-05,
+            3.9767008274793625e-05,
+            3.826100146397948e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0005128870252519846,
+          "samples_seconds": [
+            0.0005463100096676499,
+            0.0005067650054115802,
+            0.0005128870252519846
+          ],
+          "traced_peak_bytes": 7440925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.00010939998901449144,
+          "samples_seconds": [
+            0.00010939998901449144,
+            0.0001111250021494925,
+            9.192098514176905e-05
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.00011562599684111774,
+          "samples_seconds": [
+            0.00012332099140621722,
+            0.00010443601058796048,
+            0.00011562599684111774
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0011357949988450855,
+          "samples_seconds": [
+            0.0012069609947502613,
+            0.0011095240188296884,
+            0.0011357949988450855
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "block_scan": {
+          "median_seconds": 0.0013620120007544756,
+          "samples_seconds": [
+            0.0013620120007544756,
+            0.0013478600012604147,
+            0.0015022100124042481
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 32,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 47616,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7487616,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00011956898379139602,
+          "samples_seconds": [
+            0.00012691100710071623,
+            0.00011956898379139602,
+            0.00010465498780831695
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0005959339905530214,
+          "samples_seconds": [
+            0.0008228700025938451,
+            0.0005959339905530214,
+            0.0005752530123572797
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0005850730231031775,
+          "samples_seconds": [
+            0.0006256680062506348,
+            0.0005850730231031775,
+            0.000575083977309987
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "one_structure_read": {
+          "median_seconds": 9.623600635677576e-05,
+          "samples_seconds": [
+            9.623600635677576e-05,
+            0.00010999399819411337,
+            9.097400470636785e-05
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 9.792300988920033e-05,
+          "samples_seconds": [
+            0.00010331399971619248,
+            9.792300988920033e-05,
+            9.659197530709207e-05
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.001097877015126869,
+          "samples_seconds": [
+            0.000857350998558104,
+            0.0011249109811615199,
+            0.001097877015126869
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "block_scan": {
+          "median_seconds": 0.0006203520169947296,
+          "samples_seconds": [
+            0.0006203520169947296,
+            0.000608044007094577,
+            0.0007737189880572259
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 32,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 47616,
+      "edited_branch_referenced_coordinate_bytes": 7487616,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7487616,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.0001559919910505414,
+          "samples_seconds": [
+            0.00021657798788510263,
+            0.0001559919910505414,
+            0.00012711301678791642
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 6.954401032999158e-05,
+          "samples_seconds": [
+            6.954401032999158e-05,
+            5.134899402037263e-05,
+            8.330799755640328e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0006209409912116826,
+          "samples_seconds": [
+            0.0006486350030172616,
+            0.0006209409912116826,
+            0.000523936003446579
+          ],
+          "traced_peak_bytes": 7440925
+        },
+        "one_structure_read": {
+          "median_seconds": 8.88319918885827e-05,
+          "samples_seconds": [
+            9.244598913937807e-05,
+            8.88319918885827e-05,
+            8.408600115217268e-05
+          ],
+          "traced_peak_bytes": 7192
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0001155560021288693,
+          "samples_seconds": [
+            0.0001155560021288693,
+            0.0001131269964389503,
+            0.00013033501454629004
+          ],
+          "traced_peak_bytes": 11680
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0009166189993266016,
+          "samples_seconds": [
+            0.0009166189993266016,
+            0.0008391400042455643,
+            0.000989743013633415
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "block_scan": {
+          "median_seconds": 0.0009658909984864295,
+          "samples_seconds": [
+            0.0009658909984864295,
+            0.0009894780232571065,
+            0.0008860109956003726
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 128,
+      "layout": "contiguous",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 30720000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 61440000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010253000073134899,
+          "samples_seconds": [
+            0.00011880599777214229,
+            0.00010253000073134899,
+            9.856998804025352e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.226897726766765e-05,
+          "samples_seconds": [
+            4.614499630406499e-05,
+            4.226897726766765e-05,
+            3.9440987166017294e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0030745560070499778,
+          "samples_seconds": [
+            0.0030745560070499778,
+            0.002784029027679935,
+            0.003181706997565925
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0002664059866219759,
+          "samples_seconds": [
+            0.0002664059866219759,
+            0.00027099301223643124,
+            0.0002588219940662384
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.000768750993302092,
+          "samples_seconds": [
+            0.0007770519878249615,
+            0.000768750993302092,
+            0.0007674630032852292
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.00012483398313634098,
+          "samples_seconds": [
+            0.00014896798529662192,
+            0.00011556502431631088,
+            0.00012483398313634098
+          ],
+          "traced_peak_bytes": 901
+        },
+        "block_scan": {
+          "median_seconds": 0.0021607830130960792,
+          "samples_seconds": [
+            0.002520743990316987,
+            0.0021607830130960792,
+            0.0019408730149734765
+          ],
+          "traced_peak_bytes": 1368
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 1,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 240000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 30960000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010571599705144763,
+          "samples_seconds": [
+            0.00010571599705144763,
+            0.00010196500807069242,
+            0.00010904300143010914
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.005080025992356241,
+          "samples_seconds": [
+            0.005459717009216547,
+            0.005080025992356241,
+            0.005016532988520339
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "owned_full_read": {
+          "median_seconds": 0.005039189010858536,
+          "samples_seconds": [
+            0.004731549997814,
+            0.005039189010858536,
+            0.005168509000213817
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "one_structure_read": {
+          "median_seconds": 0.00026271300157532096,
+          "samples_seconds": [
+            0.00027866699383594096,
+            0.00026271300157532096,
+            0.00025868500233627856
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0010916369792539626,
+          "samples_seconds": [
+            0.0009870129870250821,
+            0.001250467001227662,
+            0.0010916369792539626
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.00505428301403299,
+          "samples_seconds": [
+            0.00531584900454618,
+            0.004970478999894112,
+            0.00505428301403299
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "block_scan": {
+          "median_seconds": 0.0026213749952148646,
+          "samples_seconds": [
+            0.002961212012451142,
+            0.0026189210184384137,
+            0.0026213749952148646
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 1,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 240000,
+      "edited_branch_referenced_coordinate_bytes": 30960000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 30960000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 61200000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010339298751205206,
+          "samples_seconds": [
+            0.00010339298751205206,
+            9.939898154698312e-05,
+            0.00010560598457232118
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.0812999941408634e-05,
+          "samples_seconds": [
+            4.501899820752442e-05,
+            4.0812999941408634e-05,
+            3.7722988054156303e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0031464430212508887,
+          "samples_seconds": [
+            0.0031464430212508887,
+            0.002897789003327489,
+            0.0031939350010361522
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0002709800028242171,
+          "samples_seconds": [
+            0.00026682799216359854,
+            0.0002709800028242171,
+            0.0002755420282483101
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0008241359901148826,
+          "samples_seconds": [
+            0.0007725519826635718,
+            0.0008241359901148826,
+            0.0008550790080334991
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.004833442013477907,
+          "samples_seconds": [
+            0.005015572998672724,
+            0.004787319980096072,
+            0.004833442013477907
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "block_scan": {
+          "median_seconds": 0.003032010019524023,
+          "samples_seconds": [
+            0.003416350024053827,
+            0.0027372580079827458,
+            0.003032010019524023
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 8,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 1920000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 32640000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00013547297567129135,
+          "samples_seconds": [
+            0.00013547297567129135,
+            0.00014985099551267922,
+            0.00011674300185404718
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.005443469999590889,
+          "samples_seconds": [
+            0.005443469999590889,
+            0.005808582005556673,
+            0.00474468499305658
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.005007075989851728,
+          "samples_seconds": [
+            0.005160069005796686,
+            0.004558109998470172,
+            0.005007075989851728
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0002808980061672628,
+          "samples_seconds": [
+            0.0003619920171331614,
+            0.0002808980061672628,
+            0.00025791299412958324
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0007710290083196014,
+          "samples_seconds": [
+            0.0007769229996483773,
+            0.0007710290083196014,
+            0.0007677449902985245
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.004994655988411978,
+          "samples_seconds": [
+            0.004994655988411978,
+            0.004804469004739076,
+            0.005278878001263365
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0019588919822126627,
+          "samples_seconds": [
+            0.0020857930066995323,
+            0.0019588919822126627,
+            0.0018907070043496788
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 8,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 1920000,
+      "edited_branch_referenced_coordinate_bytes": 32640000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 32640000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010502201621420681,
+          "samples_seconds": [
+            0.00010502201621420681,
+            0.0001025320088956505,
+            0.00012392899952828884
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.4917978812009096e-05,
+          "samples_seconds": [
+            4.4917978812009096e-05,
+            4.044399247504771e-05,
+            5.499698454514146e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0031007179932203144,
+          "samples_seconds": [
+            0.003529992012772709,
+            0.0031007179932203144,
+            0.0030174859857652336
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0002605119952932,
+          "samples_seconds": [
+            0.0002668089873623103,
+            0.0002605119952932,
+            0.0002570569922681898
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0010963210079353303,
+          "samples_seconds": [
+            0.0010963210079353303,
+            0.0011178120039403439,
+            0.0010480369965080172
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0046169349807314575,
+          "samples_seconds": [
+            0.0046169349807314575,
+            0.004516532993875444,
+            0.004811816004803404
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0021980589954182506,
+          "samples_seconds": [
+            0.0020775090088136494,
+            0.002249175013275817,
+            0.0021980589954182506
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 32,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 7680000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 38400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00011303997598588467,
+          "samples_seconds": [
+            0.00011303997598588467,
+            0.00011786300456151366,
+            0.00010054500307887793
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0033163470216095448,
+          "samples_seconds": [
+            0.003425992006668821,
+            0.0033163470216095448,
+            0.0029651049990206957
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0028112049913033843,
+          "samples_seconds": [
+            0.0028875629941467196,
+            0.0028112049913033843,
+            0.002736309019383043
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0002656010037753731,
+          "samples_seconds": [
+            0.0002656010037753731,
+            0.00027268100529909134,
+            0.0002565339964348823
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0007674299995414913,
+          "samples_seconds": [
+            0.0007743479800410569,
+            0.0007674299995414913,
+            0.0007638649840373546
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.003508604975650087,
+          "samples_seconds": [
+            0.003508604975650087,
+            0.0032678440038580447,
+            0.0035396690072957426
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0024580640019848943,
+          "samples_seconds": [
+            0.0024580640019848943,
+            0.0025715630035847425,
+            0.002258314983919263
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 32,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 7680000,
+      "edited_branch_referenced_coordinate_bytes": 38400000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 38400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.0001098320062737912,
+          "samples_seconds": [
+            0.0001098320062737912,
+            0.00011343799997121096,
+            9.565401705913246e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.580497625283897e-05,
+          "samples_seconds": [
+            4.580497625283897e-05,
+            4.0368991903960705e-05,
+            9.906798368319869e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.0033517949923407286,
+          "samples_seconds": [
+            0.0032542959961574525,
+            0.0033517949923407286,
+            0.0037919060268905014
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.00026662700111046433,
+          "samples_seconds": [
+            0.00026662700111046433,
+            0.00026930298190563917,
+            0.0002613179967738688
+          ],
+          "traced_peak_bytes": 563720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.0009983610070776194,
+          "samples_seconds": [
+            0.001030982006341219,
+            0.000792373000876978,
+            0.0009983610070776194
+          ],
+          "traced_peak_bytes": 1283744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0034586309920996428,
+          "samples_seconds": [
+            0.0032613899966236204,
+            0.003848367981845513,
+            0.0034586309920996428
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0019454499997664243,
+          "samples_seconds": [
+            0.0019398270233068615,
+            0.0019454499997664243,
+            0.0021515910048037767
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 64,
+      "layout": "contiguous",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 153600000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 307200000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00012033901293762028,
+          "samples_seconds": [
+            0.00012954100384376943,
+            0.00012033901293762028,
+            9.64459904935211e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.111099406145513e-05,
+          "samples_seconds": [
+            4.543998511508107e-05,
+            4.111099406145513e-05,
+            3.928100340999663e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.03438486700179055,
+          "samples_seconds": [
+            0.03438486700179055,
+            0.0349549240199849,
+            0.03354950199718587
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0020261110039427876,
+          "samples_seconds": [
+            0.0018727989809121937,
+            0.0023811020073480904,
+            0.0020261110039427876
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.00735104302293621,
+          "samples_seconds": [
+            0.00735104302293621,
+            0.007336566981393844,
+            0.00765955398674123
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.00011937500676140189,
+          "samples_seconds": [
+            0.00011937500676140189,
+            0.00013930100249126554,
+            0.00011699000606313348
+          ],
+          "traced_peak_bytes": 901
+        },
+        "block_scan": {
+          "median_seconds": 0.012042645015753806,
+          "samples_seconds": [
+            0.011254436016315594,
+            0.012081396009307355,
+            0.012042645015753806
+          ],
+          "traced_peak_bytes": 1368
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 1,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 2400000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 156000000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010335302795283496,
+          "samples_seconds": [
+            0.0001224149891640991,
+            0.00010335302795283496,
+            0.00010227799066342413
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.03560716600622982,
+          "samples_seconds": [
+            0.035059692978393286,
+            0.03624909100471996,
+            0.03560716600622982
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.03418649299419485,
+          "samples_seconds": [
+            0.03395075400476344,
+            0.03418649299419485,
+            0.03462213301099837
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.00200522001250647,
+          "samples_seconds": [
+            0.0020022389944642782,
+            0.002057137025985867,
+            0.00200522001250647
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.008005001989658922,
+          "samples_seconds": [
+            0.008005001989658922,
+            0.008264951000455767,
+            0.00780332600697875
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03560506697976962,
+          "samples_seconds": [
+            0.03560506697976962,
+            0.035572199994931,
+            0.0395062179886736
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.014119200001005083,
+          "samples_seconds": [
+            0.013955831993371248,
+            0.014119200001005083,
+            0.014395749982213601
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 1,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 2400000,
+      "edited_branch_referenced_coordinate_bytes": 156000000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 156000000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 304800000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00013720302376896143,
+          "samples_seconds": [
+            0.00012841998250223696,
+            0.00013720302376896143,
+            0.00013877201126888394
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.867598181590438e-05,
+          "samples_seconds": [
+            7.487699622288346e-05,
+            4.867598181590438e-05,
+            4.576300852932036e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.03702162200352177,
+          "samples_seconds": [
+            0.0367667080136016,
+            0.03702162200352177,
+            0.0370241139899008
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0023406480031553656,
+          "samples_seconds": [
+            0.002399026998318732,
+            0.0023227290075737983,
+            0.0023406480031553656
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.009167884010821581,
+          "samples_seconds": [
+            0.009167884010821581,
+            0.009594202012522146,
+            0.00888643498183228
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03823202499188483,
+          "samples_seconds": [
+            0.03841159399598837,
+            0.03805159899638966,
+            0.03823202499188483
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.013425793993519619,
+          "samples_seconds": [
+            0.013425793993519619,
+            0.013809562980895862,
+            0.013196018990129232
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 8,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 19200000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 172800000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00012047300697304308,
+          "samples_seconds": [
+            0.00012668900308199227,
+            0.00012047300697304308,
+            0.00011507698218338192
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0407610870024655,
+          "samples_seconds": [
+            0.0407610870024655,
+            0.03890026800218038,
+            0.04107998500694521
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.04024748000665568,
+          "samples_seconds": [
+            0.04116254299879074,
+            0.04024748000665568,
+            0.03938283599563874
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.00233066501095891,
+          "samples_seconds": [
+            0.00233066501095891,
+            0.0025067579990718514,
+            0.002289717987878248
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.009534017997793853,
+          "samples_seconds": [
+            0.009090692998142913,
+            0.009598749020369723,
+            0.009534017997793853
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.039887151011498645,
+          "samples_seconds": [
+            0.039887151011498645,
+            0.04018641301081516,
+            0.039362810988677666
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.013100045005558059,
+          "samples_seconds": [
+            0.012643842987017706,
+            0.013100045005558059,
+            0.013562035979703069
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 8,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 19200000,
+      "edited_branch_referenced_coordinate_bytes": 172800000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 172800000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00011280298349447548,
+          "samples_seconds": [
+            0.00012012099614366889,
+            0.00011280298349447548,
+            0.00011051201727241278
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 5.272802081890404e-05,
+          "samples_seconds": [
+            5.272802081890404e-05,
+            6.199500057846308e-05,
+            4.375400021672249e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.03664225302054547,
+          "samples_seconds": [
+            0.03662937300396152,
+            0.038121477991808206,
+            0.03664225302054547
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.002387494983850047,
+          "samples_seconds": [
+            0.002387494983850047,
+            0.0023935929930303246,
+            0.002132130990503356
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.009019302990054712,
+          "samples_seconds": [
+            0.009603169979527593,
+            0.009019302990054712,
+            0.008859703986672685
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0387798199953977,
+          "samples_seconds": [
+            0.03724251699168235,
+            0.0387798199953977,
+            0.03975828900001943
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.013485308998497203,
+          "samples_seconds": [
+            0.013485308998497203,
+            0.013381276017753407,
+            0.01377522200345993
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 32,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 76800000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 230400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00011833300231955945,
+          "samples_seconds": [
+            0.00011218598228879273,
+            0.00011833300231955945,
+            0.00014189898502081633
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.035070154001004994,
+          "samples_seconds": [
+            0.035070154001004994,
+            0.03609703099937178,
+            0.03498445302830078
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.034872664022259414,
+          "samples_seconds": [
+            0.03544853700441308,
+            0.03424008100409992,
+            0.034872664022259414
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.0018478750134818256,
+          "samples_seconds": [
+            0.0018029720231425017,
+            0.0018618309986777604,
+            0.0018478750134818256
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.007333597983233631,
+          "samples_seconds": [
+            0.007816955010639504,
+            0.007333597983233631,
+            0.0071936940075829625
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.034975175018189475,
+          "samples_seconds": [
+            0.03279947201372124,
+            0.034975175018189475,
+            0.03528425600961782
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.011901954014319927,
+          "samples_seconds": [
+            0.011901954014319927,
+            0.011664293007925153,
+            0.011998700996628031
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 32,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 76800000,
+      "edited_branch_referenced_coordinate_bytes": 230400000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 230400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": null,
+      "operations": {
+        "selected_read": {
+          "median_seconds": 0.00010105798719450831,
+          "samples_seconds": [
+            0.000105745013570413,
+            0.00010105798719450831,
+            9.856297401711345e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.1633000364527106e-05,
+          "samples_seconds": [
+            4.56910056527704e-05,
+            4.1633000364527106e-05,
+            3.920498420484364e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "owned_full_read": {
+          "median_seconds": 0.03608419498777948,
+          "samples_seconds": [
+            0.03512237101676874,
+            0.036264789989218116,
+            0.03608419498777948
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "one_structure_read": {
+          "median_seconds": 0.001931382983457297,
+          "samples_seconds": [
+            0.0018425190064590424,
+            0.0022096479951869696,
+            0.001931382983457297
+          ],
+          "traced_peak_bytes": 5603720
+        },
+        "nonconsecutive_structures_read": {
+          "median_seconds": 0.00812212799792178,
+          "samples_seconds": [
+            0.00812212799792178,
+            0.009257544006686658,
+            0.007604698999784887
+          ],
+          "traced_peak_bytes": 12803744
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.034224920003907755,
+          "samples_seconds": [
+            0.03373609500704333,
+            0.0360811080026906,
+            0.034224920003907755
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.012732447008602321,
+          "samples_seconds": [
+            0.012732447008602321,
+            0.012176671007182449,
+            0.013088209001580253
+          ],
+          "traced_peak_bytes": 1392
+        }
+      }
+    }
+  ]
+}

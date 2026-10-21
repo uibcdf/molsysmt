@@ -531,6 +531,64 @@ the query contract. A protected-view timing must not be presented as the cost
 of an editable copy. Existing public getter behavior must be preserved or
 changed explicitly, not incidentally by selecting a faster storage layout.
 
+The separate artifact
+[`native_copy_reads_20261021.json`](../../benchmarks/baselines/native_copy_reads_20261021.json)
+contains 21 read cases measured against clean source
+`365b9a030d19603e16232e2b0e160ee00aab3768`, with study SHA-256
+`4be67b12132dce937bc15f0bd466de079ed81f89265b07051024e3e1a378db3c`.
+It uses the same host/environment and timing policy as the complete campaign.
+It does not repeat H5MSM writes; the artifact's I/O policy names the bridge
+route, not an additional executed write qualification.
+
+For the 100,000-atom, 64-structure case:
+
+| Layout | Owned complete read, ms | One complete structure, ms | Four nonconsecutive/repeated complete structures, ms |
+| --- | ---: | ---: | ---: |
+| Contiguous | 34.385 | 2.026 | 7.351 |
+| Separate blocks, one structure | 34.186 | 2.005 | 8.005 |
+| Shared base, one structure | 37.022 | 2.341 | 9.168 |
+| Separate blocks, eight structures | 40.247 | 2.331 | 9.534 |
+| Shared base, eight structures | 36.642 | 2.387 | 9.019 |
+
+The owned complete read has a traced peak of about 146.49 MiB in every layout:
+one output coordinate array. The block prototype reuses its concatenated output
+instead of allocating a second complete copy. This is why the earlier
+protected-view timings must not determine the editable-output API contract.
+These warm prototype measurements do not prove statistically distinct client
+throughput across small differences between layouts.
+
+### Next implementation boundary
+
+The campaigns support pursuing independent handles over protected shared
+storage, with local replacement, rather than making every small edit duplicate
+all coordinates. They do not settle one universal block size or justify
+discarding a storage layout solely from these development models.
+
+Proceed with native mutation ownership and output contracts before exporting
+deferred copying:
+
+1. Preserve existing owned/editable public query results; use protected views
+   only where that contract is explicit. Keep units and repeated axis selections.
+2. Give each copied native domain its own owner handle and route writes through
+   shared native preparation/publication machinery. Extend the prototype's
+   failure and invalidation guards to real native setters; do not add scientific
+   criteria or copy rules in form converters.
+3. Decide the direct pandas/table access policy, old-domain-alias behavior and
+   all non-coordinate series before claiming complete copy isolation. Retain
+   eager copying of a field if it cannot yet be shared safely.
+4. Implement native interaction copy hooks without encoding, remapping or
+   materializing lazy results; preserve occurrence identity and independently
+   owned mutable metadata. Extend the same memo/owner rules across MolSys,
+   Topology, ChemicalStates, Structures and the other admitted native domains.
+5. Keep the coordinate layout behind an internal storage contract. Compare
+   byte-based granularity/adaptation and explicit retention reclamation before
+   fixing defaults; native iteration/Rust/H5MSM routes need their own tests.
+
+#121 remains active. The public `.copy(deep=False)` and Python copy hooks are
+not implemented by this study, and the existing generic shallow MolSys owner
+defect is not yet fixed. The 71 guards and 42 comparative cases qualify the
+development evidence, not a completed library rollout or release candidate.
+
 ### Reproducing the ownership defect
 
 Run from the repository root in the existing development environment:
