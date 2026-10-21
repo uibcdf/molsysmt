@@ -5,6 +5,16 @@ Welcome to **The Native World**, the architectural home of MolSysMT's native obj
 
 The 15 native forms in MolSysMT are organized below into three primary categories: **Classes**, **Files**, and **File Handlers**.
 
+Logical independence does not always require duplicating numeric bytes. An
+`Interactions` copy owns independent mutable metadata and array headers while
+sharing proven immutable storage. Its query selection and evaluated coverage
+remain intact, including lazy invalidation and replacement. Python deep copies
+preserve repeated analysis references and cycles through one copy memo. These
+guarantees are specific to the analysis object; shared-storage copying of a
+complete molecular system is still under development. See
+{ref}`Copying analyses <user-tools-interactions-copying>` for the raw-column
+ordering boundary and practical examples.
+
 ---
 
 ## **Contents**

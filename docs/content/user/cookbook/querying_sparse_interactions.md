@@ -73,6 +73,25 @@ for empty pages. A participant-atom budget guards large compound groups before
 copying them. See {ref}`Inspecting bounded pages <user-tools-interactions-pages>`
 for the compact relation catalog and the separate query/index memory costs.
 
+Keep an independent analysis when exploring a different invalidation decision:
+
+```python
+from copy import copy
+
+independent = copy(interactions)
+independent.parameters["purpose"] = "alternative coverage"
+alternative = independent.invalidate_structures([3])
+assert alternative.evaluated_structure_indices.tolist() == [0, 1]
+assert interactions.evaluated_structure_indices.tolist() == [0, 1, 3]
+assert "purpose" not in interactions.parameters
+```
+
+The copies share immutable numeric bytes, with separate array headers and
+mutable metadata. No detector runs and no sparse columns are packed just to
+copy the result. For enclosing graphs, copied raw arrays and query-cache costs,
+see {ref}`Copying analyses <user-tools-interactions-copying>`. This does not
+establish the same storage-sharing protocol for a complete `MolSys`.
+
 Attach the complete result to a native molecular system to keep its atom and
 structure index spaces together. H5MSM 0.5 stores the named analysis alongside
 the structures. The same query works after loading it:

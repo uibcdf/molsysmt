@@ -6,7 +6,7 @@ opened: 2026-10-21
 closed:
 verification: reproduced
 area: [native, api, basic, performance, tests]
-guard: devtools/tests/test_native_copy_study.py
+guard: tests/interactions/test_copy.py
 normative:
 blocked_by: []
 supersedes: []
@@ -22,7 +22,8 @@ over shared protected storage with controlled writes. A reproducible development
 prototype and contract probes now compare storage layouts. Earlier bounded
 recommendations are retained below as alternatives. The final storage layout
 and public signatures are not frozen; no native copy-on-write API is delivered
-yet.
+for complete molecular systems yet. `Interactions.copy()` and its Python copy
+hooks now provide the first resident implementation boundary, described below.
 
 ## What
 
@@ -584,10 +585,100 @@ deferred copying:
    byte-based granularity/adaptation and explicit retention reclamation before
    fixing defaults; native iteration/Rust/H5MSM routes need their own tests.
 
-#121 remains active. The public `.copy(deep=False)` and Python copy hooks are
-not implemented by this study, and the existing generic shallow MolSys owner
-defect is not yet fixed. The 71 guards and 42 comparative cases qualify the
-development evidence, not a completed library rollout or release candidate.
+#121 remains active. The public `.copy(deep=False)` and molecular-container
+Python copy hooks are not implemented by the storage study, and the existing
+generic shallow MolSys owner defect is not yet fixed. The 71 development guards
+and 42 comparative cases qualify the storage evidence, not a completed library
+rollout or release candidate. The interaction-specific boundary below is now
+implemented separately.
+
+## First resident boundary: interaction copies
+
+**Implemented and contract-tested:** `Interactions.copy(skip_digestion=False)`,
+`copy.copy(analysis)` and `copy.deepcopy(analysis)` allocate a concrete-type shell
+without invoking constructors, restoration, interchange, remapping or packing.
+The public native method uses the existing ArgDigest result boundary; Python
+protocol hooks accept their standard protocol arguments. A private helper owns
+the representation-specific mechanics, not form adapters or the universal
+dispatcher.
+
+The helper shares numeric bytes only after following a NumPy array's backing
+chain to an immutable `bytes` owner. A nonwriteable flag alone is not accepted
+as evidence. It creates separate array headers, detaches mutable arrays/query
+indexes, copies nested metadata and retains the original lazy graph. Filtered
+roots, replacement segments and existing packed caches receive independent
+analysis handles. Missing packed caches remain missing. The source's handles,
+headers, cache state, metadata and validity are unchanged by copying or by
+querying the copy. No coordinate sharing mechanism is introduced here.
+
+Python's standard copy memo preserves repeated analysis/metadata references,
+cycles, concrete subclasses and extension slots. Mapping proxies receive their
+own backing dictionaries while preserving graph aliases. Slot reads do not
+invoke normal constructors, inference or migration. Writable extension arrays
+are copied rather than trusted as protected data.
+
+### Raw-column memo boundary
+
+**Reproduced and guarded limitation:** a standard NumPy `deepcopy(column)`
+produces mutable storage. If an enclosing graph copies a raw protected column
+before the analysis referring to it, the existing memo replacement cannot both
+retain that exact earlier object and satisfy protected analysis storage. The
+implementation raises `TypeError` instead of silently accepting the mutable
+replacement. `deepcopy([analysis, analysis.participant_atoms])` preserves the
+alias safely; the reverse order is explicitly rejected. This boundary is
+documented and tested. It is not a claim of order-independent copying for every
+arbitrary graph containing raw arrays. Revisit the storage-handle/public-array
+exposure design before extending the guarantee; do not remove the rejection
+without a real ownership solution.
+
+### Verification scope
+
+The production guard is `tests/interactions/test_copy.py`. It covers complete,
+reordered query, invalidated, invalidated-query and replaced analyses; parallel
+occurrences; compound participants; periodic vectors; source maps; evaluated-empty
+and unevaluated structures; producer/execution metadata; independent headers,
+query indexes, extension slots and memo cycles. It forbids constructors,
+encoding/decoding, remapping and lazy packing during copy. H5MSM 0.5 round trips
+the copied full analysis under an angstrom/ns application policy while retaining
+declared nm measurement values and occurrence identity. Query views remain
+queries; copying does not make them attachable as full named analyses.
+
+Foundations, Toolbox, Cookbook and the Common Core specialized-domains module
+now explain the analysis-specific guarantees and their limits. This phase adds
+no dependency, scientific method, attribution boundary, schema field or release
+candidate. Existing scientific attribution metadata is copied as stored rather
+than registering a new calculation with Ackredit.
+
+Local qualification on 2026-10-21, Linux/Python 3.14.7 in the existing development
+environment:
+
+- 74 interaction-copy cases are included in a 378-test focused run covering the
+  sparse result lifecycle, native MolSys/chemistry associations, public copy,
+  H5MSM 0.5 and the 71 storage-prototype guards. The run used
+  `python -m pytest --receptor=llm -n 12` and passed in 17.92 s. One existing
+  `StructuralAttributeDropWarning` reports the deliberate partial-charge drop
+  in a concatenation test; no test failed or was skipped.
+- All 11 result-module doctest items passed, including the three copy entry
+  points. The added Toolbox and Cookbook copy examples were executed against
+  their page's synthetic construction blocks.
+- All 14 fast repository gates passed. Ruff checks and formatting passed for
+  the production package and the added guard; the public docstring validator,
+  developer-guide/index checks and course structure validator passed.
+- Course code cells are unchanged; the new explanation and reference were
+  added to its interaction overview. No installed-client matrix, native
+  complete-system performance qualification or release gate is inferred from
+  this focused run.
+
+### Remaining native integration
+
+Do not close #121 on this boundary. `MolSys.copy()` still reconstructs domains
+and remaps analyses; its generic Python shallow fallback still steals the
+topology owner. Molecular-container copy hooks, owner/edit publication, pandas
+mutation/alias policy, complete shared-coordinate storage, other resident types
+and payload wrappers remain pending. The interaction helper is deliberately
+private and representation-specific until other domains establish compatible
+ownership semantics. Their hooks must propagate one memo, but a generic state
+copier alone cannot rebind molecular domain ownership correctly.
 
 ### Reproducing the ownership defect
 
@@ -610,7 +701,10 @@ PY
 This is observable before any coordinate or bond edit. It is covered by this
 copy-ownership theme rather than a second duplicate issue.
 
-### Reproducing interaction reconstruction
+### Reproducing interaction reconstruction at the inspected baseline
+
+This historical probe describes the source before the interaction hooks above;
+it no longer reproduces reconstruction for current `Interactions` copies.
 
 ```bash
 python - <<'PY'
@@ -660,9 +754,12 @@ inventory view explicitly to avoid that shallow-copy restoration behavior.
 Revisit this consumer after the new protocol is proven; do not remove the
 workaround merely because hooks have been added.
 
-No representative timing, RSS/peak-memory, large-trajectory or installed-client
-benchmark has been run for #121. Buffer sharing and source-state probes are
-not performance qualification. Speed or memory improvements remain unmeasured.
+At the initial diagnosis checkpoint, no representative timing, RSS/peak-memory,
+large-trajectory or installed-client benchmark had been run for #121. The later
+development campaigns above now provide bounded storage-layout measurements.
+They do not qualify native complete-system copying or installed clients, and
+the production interaction-copy guards establish ownership rather than a new
+end-to-end performance ranking.
 
 ## What was refuted
 
@@ -731,7 +828,9 @@ unqualified claim that all native types are complete.
 Inspected MolSysMT `3d47650271ea518042419b24de1a108a187415c4` and TopoMT
 `c3f72a9177ab8a205b69fefc2963800a2d0b4feb` on 2026-10-21. Local probes used
 Linux, Python 3.14.7, NumPy 2.4.6 and pandas 2.3.3 in the existing development
-environment. TopoMT was read only. No runtime implementation was changed.
+environment. TopoMT was read only. No runtime implementation was changed during
+that initial source-inspection checkpoint; the interaction implementation above
+was added in the subsequent phase on the same date.
 
 The final reevaluation additionally inspected DockingMT
 `7275377152d515792d4c971d3de7798a33e09b72`, MolSysViewer

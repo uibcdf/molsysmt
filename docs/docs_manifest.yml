@@ -27,6 +27,7 @@ sections:
             file: docs/content/user/foundations/molecular_system/attributes.ipynb
             agents_file: docs/content/user/foundations/molecular_system/attributes.AGENTS.md
       - name: native_world
+        description: Native representations and analysis-specific logical independence over shared immutable storage.
         agents_file: docs/content/user/foundations/native_world/AGENTS.md
         index_file: docs/content/user/foundations/native_world/index.md
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
@@ -272,7 +273,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, bounded pages, provenance, optional tracking diagnostics, frame replacement and HDF5 writing.
+            description: Sparse queries, bounded pages, independent analysis copies, provenance, optional tracking diagnostics, structure replacement and HDF5 writing.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbond_sites
@@ -427,7 +428,7 @@ sections:
         description: Conversion workflows and public programmatic capability inspection without rendering internals.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, coordinate invalidation, frame replacement, H5MSM persistence and optional tracking diagnostics.
+        description: Sparse queries, independent analysis copies, coordinate invalidation, structure replacement, H5MSM persistence and optional tracking diagnostics.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

@@ -213,6 +213,112 @@ class Interactions(NativeQueries):
         )
 
     @arg_digest(**_RESULT_DIGEST)
+    def copy(self, *, skip_digestion=False):
+        """Creating an independent analysis without packing its observations.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        Interactions
+            Independent mutable metadata, array headers and query caches, with
+            shared immutable numeric bytes and unchanged lazy representation.
+
+        Notes
+        -----
+        This has the same ownership contract as ``copy.copy(analysis)``.
+        It preserves the original atom and structure index spaces and does not
+        attach the copy to a molecular system or recalculate observations.
+
+        Examples
+        --------
+        >>> analysis = Interactions.from_records([], n_atoms=0, n_structures=1,
+        ...     evaluated_structure_indices=[0], method="example", measure_units={})
+        >>> duplicate = analysis.copy()
+        >>> duplicate is analysis
+        False
+        >>> duplicate.n_interactions
+        0
+
+        .. versionadded:: 1.0.0
+        """
+        _check_skip_digestion(skip_digestion)
+        from ._copy import _clone
+
+        return _clone(self, {})
+
+    def __copy__(self):
+        """Creating an independent analysis while sharing immutable numeric bytes.
+
+        Returns
+        -------
+        Interactions
+            Result with independent metadata, array headers and query caches.
+
+        Notes
+        -----
+        ``copy.copy(result)`` detaches mutable state, including nested metadata.
+        This type-specific protocol preserves query order, occurrence indices
+        and lazy invalidation/replacement without serialization or compaction.
+        Proven immutable byte buffers remain shared; writable arrays are copied.
+        It does not change the copy behavior of other native types.
+
+        Examples
+        --------
+        >>> from copy import copy
+        >>> analysis = Interactions.from_records([], n_atoms=0, n_structures=1,
+        ...     evaluated_structure_indices=[0], method="example", measure_units={})
+        >>> duplicate = copy(analysis)
+        >>> duplicate is analysis
+        False
+        >>> duplicate.evaluated_structure_indices.tolist()
+        [0]
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _clone
+
+        return _clone(self, {})
+
+    def __deepcopy__(self, memo):
+        """Copying an analysis graph with the enclosing workflow's shared memo.
+
+        Parameters
+        ----------
+        memo : dict
+            Standard Python copy memo preserving repeated references and cycles.
+
+        Returns
+        -------
+        Interactions
+            Independent analysis preserving its concrete type and lazy state.
+            Immutable bytes may remain shared, as for ``copy.copy(result)``.
+
+        Raises
+        ------
+        TypeError
+            The memo already maps a protected column to a mutable buffer.
+            Copy an enclosing graph's analysis before its raw column arrays.
+
+        Examples
+        --------
+        >>> from copy import deepcopy
+        >>> analysis = Interactions.from_records([], n_atoms=0, n_structures=1,
+        ...     evaluated_structure_indices=[0], method="example", measure_units={})
+        >>> duplicated = deepcopy([analysis, analysis])
+        >>> duplicated[0] is duplicated[1]
+        True
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _clone
+
+        return _clone(self, memo)
+
+    @arg_digest(**_RESULT_DIGEST)
     def __init__(
         self,
         *,

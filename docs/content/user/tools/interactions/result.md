@@ -96,6 +96,52 @@ columns, explicit evaluated-structure indices, measurement units, and optional
 periodic-image vectors. Use `relation(index)` to inspect the type and roles
 referenced by a result's `relation_indices` column.
 
+(user-tools-interactions-copying)=
+## Copying analyses
+
+Use `analysis.copy()`, Python's `copy.copy(analysis)` or
+`copy.deepcopy(analysis)` to obtain an independent analysis. All three detach
+nested mutable metadata and existing query
+indexes. They preserve occurrence indices, query order, evaluated coverage,
+source maps, evidence, units, producer versions and periodic images. Copying a
+filtered or replaced analysis retains its lazy representation and does not
+serialize, remap or compact its observations. An existing packed cache is
+copied independently; an absent cache stays absent.
+
+```python
+from copy import copy, deepcopy
+
+independent = copy(interactions)
+independent.parameters["note"] = "independent metadata"
+assert "note" not in interactions.parameters
+pair = deepcopy([interactions, interactions])
+assert pair[0] is pair[1]
+assert pair[0] is not interactions
+native_copy = interactions.copy()
+assert native_copy is not interactions
+```
+
+Numeric columns backed by immutable bytes share those bytes through independent
+NumPy array headers, including for deep copies. Writable arrays and read-only
+views of mutable buffers are copied. Copying therefore costs more when an
+analysis has built mutable query indexes or extensive metadata; it is not an
+unconditional constant-memory operation.
+
+Python's NumPy deep-copy fallback turns an independently copied raw column into
+a mutable array. When copying an enclosing graph, put the analysis before its
+raw column references, for example
+`deepcopy([analysis, analysis.participant_atoms])`. The reverse order raises
+`TypeError` rather than substituting mutable storage into the analysis through
+the shared copy memo. Repeated analysis and metadata references and cycles are
+preserved with that memo.
+
+These guarantees apply to `Interactions`. They do not yet provide shared-storage
+copying for complete `MolSys` objects. Copying also keeps the same atom and
+structure spaces: it does not align an analysis to a different molecular system.
+The native `copy()` method validates `skip_digestion` like other native public
+boundaries. It does not yet accept a `deep` option; all three entry points have
+the ownership semantics described here.
+
 (user-tools-interactions-pages)=
 ## Inspecting bounded pages
 
