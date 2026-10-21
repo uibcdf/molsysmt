@@ -99,10 +99,9 @@ requested data, but avoids an additional complete coordinate staging array.
 File schemas and canonical nm units are unchanged. This is resident storage,
 not an object that queries coordinates lazily from disk.
 
-This protocol currently covers standalone `Structures` and
-{ref}`interaction analyses <user-tools-interactions-copying>`. Complete `MolSys`
-deferred copying and domain-owner editing are still under development. Editing
-an attached `molsys.structures` directly still requires explicit invalidation of
+This protocol also underlies {ref}`MolSys copies <user-foundations-molsys-copying>`
+and complements {ref}`interaction analyses <user-tools-interactions-copying>`.
+Editing an attached `molsys.structures` directly still requires explicit invalidation of
 the owner's analyses; the automatic boundary is `msm.set(molsys, ...)`. See
 {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 

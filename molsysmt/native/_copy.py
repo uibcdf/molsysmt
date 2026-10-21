@@ -66,13 +66,18 @@ def _prepare(value, memo, seen, proxies):
             _prepare(item, memo, seen, proxies)
 
 
-def _clone(source, memo):
+def _clone(source, memo, *, exclude=()):
     """Detach mutable state while retaining immutable bytes and lazy graph shape."""
     if id(source) in memo:
         return memo[id(source)]
     result = object.__new__(type(source))
     memo[id(source)] = result
-    state = (vars(source), _slots(source))
+    attributes = vars(source)
+    if exclude:
+        attributes = {
+            key: value for key, value in attributes.items() if key not in exclude
+        }
+    state = (attributes, _slots(source))
     proxies = []
     _prepare(state, memo, set(), proxies)
     attributes, slots = deepcopy(state, memo)

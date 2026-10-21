@@ -89,8 +89,8 @@ assert "purpose" not in interactions.parameters
 The copies share immutable numeric bytes, with separate array headers and
 mutable metadata. No detector runs and no sparse columns are packed just to
 copy the result. For enclosing graphs, copied raw arrays and query-cache costs,
-see {ref}`Copying analyses <user-tools-interactions-copying>`. This does not
-establish the same storage-sharing protocol for a complete `MolSys`.
+see {ref}`Copying analyses <user-tools-interactions-copying>`. For a complete
+system, use the {ref}`MolSys copy contract <user-foundations-molsys-copying>`.
 
 Attach the complete result to a native molecular system to keep its atom and
 structure index spaces together. H5MSM 0.5 stores the named analysis alongside
@@ -151,7 +151,7 @@ the evaluated status of the affected frames before a new calculation. Native
 even for a frame previously evaluated with no observations:
 
 ```python
-molsys_edited = molsys.copy()
+molsys_edited = molsys.copy(deep=False)
 previous_view = molsys_edited.interactions["example"].query(structure_indices=[3])
 msm.set(molsys_edited, selection=[0], structure_indices=[1],
         coordinates=msm.pyunitwizard.quantity([[[0.1, 0.0, 0.0]]], "nm"))
@@ -301,9 +301,11 @@ The variant owns its geometry edits and metadata. Selected getters return
 editable output arrays; coordinate/box storage itself is protected. This
 standalone `Structures` copy carries no named analyses or topology. Use a
 matching molecular system and recalculate appropriate evidence before attaching
-analyses to changed geometry. Complete-system deferred copying remains under
-development; `msm.copy(molsys)` retains its current independent snapshot route.
-See {ref}`Independent Copies <user-foundations-structures-copying>`.
+analyses to changed geometry. To carry the entire system instead, use
+`molsys.copy(deep=False)` and edit through `msm.set` as above: only the copy's
+affected structures become unevaluated. `msm.copy(molsys)` uses eager geometry
+allocation. See {ref}`MolSys copies <user-foundations-molsys-copying>` and
+{ref}`Structures copies <user-foundations-structures-copying>`.
 
 Geometry edits through `msm.set(molsys, coordinates=..., structure_indices=[...])`
 or its box setter automatically replace affected named results with snapshots

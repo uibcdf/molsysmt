@@ -33,6 +33,13 @@ Inside `molsysmt.Topology`, data is maintained across seven canonical tabular Da
 
 ## Invariants and Performance
 
+Python `copy.copy(topology)` and `copy.deepcopy(topology)` copy canonical tables
+and chemical states independently, preserving supported native extension state
+without legacy restoration. A standalone copy does not retain its source
+MolSys's weak ownership link. Copying an enclosing `MolSys` binds the copied
+topology to that copied system and preserves its single chemical-state authority.
+These paths copy tables eagerly. See {ref}`Independent Copies <user-foundations-molsys-copying>`.
+
 - **String Identifier Invariant**: All element IDs (`atom_id`, `group_id`, `molecule_id`, `component_id`, `entity_id`, `chain_id`, `bond_id`) are strictly normalized and stored as **string** representations.
 - **Hierarchical Index Links**: Structural parent-child relationships use integer 0-indexed vectors (`group_index`, `chain_index`, `molecule_index`, `entity_index`).
 - **Chain Labels During Addition**: With `keep_ids=True`, native addition preserves explicit chain IDs and names, even when two chains share a label. Incoming positional chain indices are offset independently. `keep_ids=False` regenerates local IDs.

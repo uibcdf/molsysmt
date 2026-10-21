@@ -88,6 +88,7 @@
     }
   },
   "signature_waivers": {
+    "molsysmt/native/molsys.py:MolSys.copy": "Accepted native ownership extension under uibcdf/molsysmt#121: add optional deep=True and keyword-only skip_digestion=False, preserving eager no-argument geometry copying. Both modes detach canonical tables and domain handles, retain one ChemicalStates authority, rebind topology ownership and preserve sparse occurrence identities without remapping. Guards: tests/native/test_molsys_copy.py.",
     "molsysmt/native/structures.py:Structures.copy": "Accepted native ownership extension under uibcdf/molsysmt#121: add optional deep=True and keyword-only skip_digestion=False while preserving eager no-argument copying. deep=False shares only protected coordinate/box blocks behind independent handles; other mutable fields are detached. Guards: tests/native/test_structure_copy.py.",
     "molsysmt/data/databases/amino_acids/make_amino_acids_db.py:get_amino_acids_from_gromacs_rtp": "#368: retire an unexported maintenance-script helper together with the broken CIFFileHandler generator; explicit RTP regeneration now delegates to the private data/_make owner.",
     "molsysmt/data/databases/amino_acids/make_amino_acids_db.py:is_in": "#368: retire an unexported maintenance-script deduplication helper; the restored generator delegates to the private data/_make owner. No public molecular-system API changes.",

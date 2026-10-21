@@ -30,6 +30,11 @@ are separate attributes:
 
 ## Invariants and Performance
 
+Python copies and enclosing `MolSys` copies preserve stored parameters, producer
+reports and supported extension state through the same copy memo, without
+running a constructor or legacy restoration. Mutable mechanics data remain
+independent. This does not add mechanics persistence to H5MSM 0.5.
+
 - Native charge values use elementary charge independently of the session's unit
   policy. {func}`molsysmt.build.assign_partial_charges` does not require a charge
   presentation standard and preserves the caller's policy. The quantity-returning

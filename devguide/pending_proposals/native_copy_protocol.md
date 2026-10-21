@@ -21,10 +21,12 @@ requested a design study before implementation.
 over shared protected storage with controlled writes. A reproducible development
 prototype and contract probes now compare storage layouts. Earlier bounded
 recommendations are retained below as alternatives. The final storage layout
-and public signatures are not frozen; no native copy-on-write API is delivered
-for complete molecular systems yet. `Interactions` and standalone `Structures`
-now provide resident copy boundaries, described below. Their complete-system
-owner coupling remains pending.
+and public signatures are not frozen. `Interactions`, standalone `Structures`
+and complete/partial `MolSys` now provide resident copy boundaries, described
+below. Molecular copies preserve owner bindings and may defer coordinate/box
+allocation. General table copy-on-write, direct-domain edit observation and
+the remaining resident/wrapper convenience methods are not delivered by this
+boundary.
 
 ## What
 
@@ -764,6 +766,8 @@ On 2026-10-21 in the existing Linux/Python 3.14.7 environment:
   and ownership guard; the validator itself is unchanged. Ruff, developer-guide
   integrity and both governance checks passed on that source. This failed run
   is not counted as smoke qualification.
+  The scoped declaration subsequently passed smoke in `efd827560`
+  (run `39683171377`, inspected with `gh-run-receptor`).
 
 - `python -m pytest --receptor=llm -n 12` over native domains, native/H5MSM form
   adapters, public copy/iterator/append/add/conversion routes, sparse lifecycle,
@@ -811,20 +815,89 @@ were refreshed read-only before the handoff: TopoMT is diverged, DockingMT,
 PharmacophoreMT and ElastNetMT lag their remotes, and Viewer has unrelated active
 work. Those branches, worktrees and source files were preserved.
 
+## Third resident boundary: molecular ownership
+
+**Implemented:** `MolSys.copy(deep=True, skip_digestion=False)` retains eager
+geometry allocation by default. `deep=False` and Python `copy.copy()` seed
+independent coordinate/box storage handles over proven immutable blocks before
+copying the native graph. Python `copy.deepcopy()` propagates the caller's memo
+and eagerly copies geometry. Both modes detach canonical tables, other mutable
+series, mechanics data, named-analysis handles and ordinary extension metadata.
+The universal `msm.copy(molsys)` keeps its registered-form dispatch and eager
+default; native hooks do not register arbitrary subclasses as universal forms.
+
+The molecular hook binds the copied topology's weak owner to the new system.
+The topology hook excludes its old owner before traversing fields, rather than
+removing it after recursion: when an explicit extension points back to an
+enclosing MolSys, that enclosing copy can bind the topology during the same
+memo traversal. Roots at the system, topology, chemistry or mechanics preserve
+the same copied objects. Merely having a weak owner link does not clone its
+source system when copying a standalone topology.
+
+Topology and experimental mechanics Python hooks copy current state without
+their serialization restoration hooks. ChemicalStates and private state records
+use their ordinary constructor-free Python deep-copy route. The single memo
+preserves one copied ChemicalStates collection behind both molecular and
+topology access, nullable structure/state associations and explicit cycles.
+Absent topology, chemistry or structures remain absent; no default domain is
+synthesized. No constructor, remap, inference, interchange or dense coordinate
+projection is required by these hooks. Analysis caches and lazy filtered/patched
+representations retain their existing copy contracts and producer metadata.
+
+Geometry edits through `msm.set` invalidate affected structures in each copied
+analysis, including evaluated-empty structures and atoms with no old interaction.
+The original system's geometry, ownership and evaluated coverage remain intact;
+held result/query snapshots remain unchanged. Chemistry replacement on the copy
+retains its single authority and invalidates only that copy's named analyses.
+This does not add observation of direct attached-domain/table writes.
+
+`tests/native/test_molsys_copy.py` supplies 57 cases across Python shallow/deep,
+native eager/deferred and universal base-form copying. Guards cover domains and
+canonical table values/dtypes, direct ownership, actual angstrom-valued geometry
+edits, full/filtered/patched analyses, source maps and parallel handles, partial
+domains, memo ordering/cycles, a native subclass with slots, failed allocation,
+invalid allocation modes and H5MSM/pickle restoration. Native constructors,
+restoration, remapping, lazy packing and dense geometry projection are forbidden
+while the relevant copies execute. The native subclass fixture uses trusted
+construction; it does not qualify subclass constructor digestion or automatic
+registration as a universal form.
+
+**Contract-tested:** Linux/Python 3.14.7, existing development environment,
+`python -m pytest --receptor=llm -n 12`: **3,397 passed**, no omissions, in
+81.14 s. Scope: native domains, MolSys/Topology/Structures and H5MSM adapters,
+public copy, iteration, append/add/multi-input conversion, sparse copy/validity/
+replacement, vector/plane/distance/PBC geometry and copy-study/API-guard tooling.
+The receptor retained 801 warnings in 16 groups, predominantly legacy H5MSM
+notices plus existing/deliberate compatibility, pandas, unit, GPU and memory
+policy probes. This is not a full scientific or installed-client qualification.
+All **19 doctest items** across MolSys/Structures/Interactions and all **14 fast
+gates** passed. The signature registry names the optional MolSys extension and
+its owning guard; the signature validator itself is unchanged.
+
+Foundations for molecular domains, Toolbox copy/interaction pages, the sparse
+Cookbook and Common Core modules 4/20 now describe molecular eager/deferred
+copying, current edit boundaries and unchanged analysis identity. This adds no
+dependency, scientific calculation/attribution boundary, file schema or release.
+
 ### Remaining native integration
 
-Do not close #121 on this boundary. `MolSys.copy()` still reconstructs domains
-and remaps analyses; its generic Python shallow fallback still steals the
-topology owner. Molecular-container copy hooks, owner/edit publication, pandas
-mutation/alias policy, whole-system use of shared-coordinate storage, other resident types
-and payload wrappers remain pending. The interaction helper is deliberately
-private and ownership-neutral while other domains establish compatible
-ownership semantics. Their hooks must propagate one memo, but a generic state
-copier alone cannot rebind molecular domain ownership correctly.
+Do not close #121 on this boundary. Direct attached-domain edit publication,
+pandas mutation/alias policy, the standalone convenience methods of other
+resident types, MolSysBuilder and payload wrappers remain pending. Canonical
+tables currently copy eagerly and inherit pandas' handling of arbitrary Python
+objects in cells and table metadata; their own wrapper/subclass preservation
+also needs a deliberate contract. The general native helper remains private:
+domain owner rebinding belongs to its molecular hook, not a generic state copy.
+Actual resident memory/time/read/edit/persistence measurements are still needed
+before claiming a production performance ranking or optimal block budget.
+Client-installed/source adoption evidence is not inferred from provider tests.
 
-### Reproducing the ownership defect
+### Historical ownership defect
 
-Run from the repository root in the existing development environment:
+The following probe reproduced the defect at the initial inspected source
+before the molecular hooks. The current guard instead requires independent
+topologies and unchanged original ownership; it must not reproduce these old
+printed results. Run from the repository root at that baseline:
 
 ```bash
 python - <<'PY'

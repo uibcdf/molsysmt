@@ -1245,44 +1245,86 @@ class MolSys(NativeQueries):
         }
 
     @signal(tags=["native"])
-    def copy(self):
-        """Deep-copy the MolSys."""
+    @arg_digest()
+    def copy(self, deep=True, *, skip_digestion=False):
+        """Copying a molecular system with independent domain ownership.
 
-        if (
-            self.topology is None
-            or self.chemical_states is None
-            or self.structures is None
-        ):
-            tmp_item = MolSys._from_partial_domains(
-                chemical_states=(
-                    None
-                    if self.chemical_states is None
-                    else self.chemical_states.copy()
-                ),
-                topology=None if self.topology is None else self.topology.copy(),
-                structures=None if self.structures is None else self.structures.copy(),
-                interactions={
-                    name: result.remap() for name, result in self.interactions.items()
-                },
+        Parameters
+        ----------
+        deep : bool, default=True
+            Copy coordinate/box bytes eagerly. False shares their protected
+            blocks until edits replace affected blocks. Mutable tables, other
+            series, named analysis handles and metadata are independent in both
+            modes. Immutable sparse observation bytes may remain shared.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        MolSys
+            A copy preserving the concrete type, present domains, index spaces,
+            chemical-state associations and stored analysis provenance.
+
+        Notes
+        -----
+        Python copy.copy uses deferred geometry allocation; copy.deepcopy uses
+        eager geometry allocation with the containing graph's memo. Copying
+        invokes no native constructor, legacy migration, remapping or inference.
+        Each copied topology belongs to its copied system and refers to that
+        system's single ChemicalStates authority. Absent domains remain absent.
+        Canonical tables are copied eagerly; this is not table copy-on-write.
+
+        Coordinate changes through msm.set invalidate the affected structures
+        only in the edited system. Editing an attached Structures or
+        ChemicalStates object directly still requires explicit owner invalidation.
+        Native copying does not make arbitrary external resources copyable.
+
+        Examples
+        --------
+        >>> molsys = MolSys(n_atoms=2)
+        >>> molsys_A = molsys.copy(deep=False)
+        >>> molsys_A.topology is molsys.topology
+        False
+        >>> molsys_A.chemical_states is molsys.chemical_states
+        False
+        >>> molsys_A.chemical_states.n_atoms
+        2
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-molsys-copying` and :ref:`Tutorial_Copy`.
+
+        .. versionadded:: 1.0.0
+        """
+        from copy import deepcopy
+
+        if not isinstance(skip_digestion, bool):
+            from molsysmt._private.argdigest.argument.skip_digestion import (
+                digest_skip_digestion,
             )
-            tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
-            if self._structure_chemical_state_indices is not None:
-                tmp_item._structure_chemical_state_indices = (
-                    self._structure_chemical_state_indices.copy()
-                )
-            return tmp_item
-        tmp_item = MolSys()
-        tmp_item.topology = self.topology.copy()
-        tmp_item.structures = self.structures.copy()
-        tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
-        if self._structure_chemical_state_indices is not None:
-            tmp_item._structure_chemical_state_indices = (
-                self._structure_chemical_state_indices.copy()
-            )
-        tmp_item.interactions = {
-            name: result.remap() for name, result in self.interactions.items()
-        }
-        return tmp_item
+
+            digest_skip_digestion(skip_digestion)
+        return deepcopy(self) if deep else self.__copy__()
+
+    def __copy__(self):
+        """Copying independent domains over shared protected geometry blocks."""
+        memo = {}
+        if self.structures is not None:
+            for value in (self.structures._coordinates, self.structures._box):
+                if value is not None:
+                    memo[id(value)] = value._fork()
+        return self.__deepcopy__(memo)
+
+    def __deepcopy__(self, memo):
+        """Copying the native graph and binding topology to its new owner."""
+        from ._copy import _clone
+
+        if id(self) in memo:
+            return memo[id(self)]
+        result = _clone(self, memo)
+        if result._topology is not None:
+            result._topology._molsys_owner_ref = weakref.ref(result)
+        return result
 
     def add_missing_bonds(
         self,

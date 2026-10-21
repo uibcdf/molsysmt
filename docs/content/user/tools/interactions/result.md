@@ -135,8 +135,8 @@ raw column references, for example
 the shared copy memo. Repeated analysis and metadata references and cycles are
 preserved with that memo.
 
-These guarantees apply to `Interactions`. They do not yet provide shared-storage
-copying for complete `MolSys` objects. Copying also keeps the same atom and
+These guarantees apply to `Interactions`, including analyses copied with an
+enclosing {ref}`MolSys <user-foundations-molsys-copying>`. Copying keeps the same atom and
 structure spaces: it does not align an analysis to a different molecular system.
 The native `copy()` method validates `skip_digestion` like other native public
 boundaries. It does not yet accept a `deep` option; all three entry points have

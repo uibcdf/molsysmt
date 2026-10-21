@@ -67,13 +67,50 @@ A partial MolSys can be summarized without topology. Missing domains are not
 invented. `Interactions.get()` exposes its declared molecular axes; occurrence
 selection and bounded export retain their specialized sparse methods.
 
+(user-foundations-molsys-copying)=
+## Independent Copies
+
+`molsys.copy()` and `copy.deepcopy(molsys)` copy coordinate and box bytes eagerly.
+`molsys.copy(deep=False)` and `copy.copy(molsys)` instead share protected geometry
+blocks until an edit replaces affected blocks. Both modes create independent
+native domains, canonical tables, other mutable series and named-analysis handles.
+The universal `msm.copy(molsys)` keeps the eager default. Assigning
+`molsys_A = molsys` still refers to the same live system.
+
+Each copied topology belongs to its copied system. Its compatibility chemistry
+and `molsys_A.chemical_states` refer to one copied collection. Structure-to-state
+assignments, missing domains, local/source index maps, producer versions and
+occurrence indices survive unchanged. Copying does not reconstruct the system,
+remap interactions, infer chemistry or pack a lazy analysis. Immutable sparse
+numeric bytes can remain shared in both modes. Existing query caches and mutable
+metadata still need independent storage; a deferred copy is not cost-free.
+
+```python
+molsys_A = molsys.copy(deep=False)
+assert molsys_A.topology is not molsys.topology
+assert molsys_A.chemical_states is not molsys.chemical_states
+```
+
+Edit copied coordinates through `msm.set(molsys_A, ...)` to invalidate the affected
+structures in every named analysis on that copy. The original's coordinates,
+coverage and previous query snapshots remain unchanged. Direct edits to an
+attached `structures` or `chemical_states` domain still require explicit owner
+invalidation. See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
+
+Tables are copied eagerly; this is not table copy-on-write. Use their canonical
+molecular columns rather than storing arbitrary mutable Python objects inside
+cells. Such objects and table metadata follow pandas' own copy protocols and
+are outside this qualified molecular-data boundary. External resources must
+supply their own copy support. Plain dictionary forms retain Python dictionary
+copy semantics; they do not acquire MolSys domain ownership.
+
 ## Internal Attributes
 
 The native container exposes these domains:
 
 | Attribute | Internal Object Class | Description |
 | :--- | :--- | :--- |
-| **`topology`** | `molsysmt.Topology` | Topological graph containing atom, residue, group, component, molecule, and chain inventories. |
+| **`topology`** | `molsysmt.Topology` | Stable atom, group, molecule, entity and chain inventories, with compatibility access to chemical connectivity. |
 | **`structures`** | `molsysmt.Structures` | Structural container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and structure timestamps. |
 | **`chemical_states`** | `molsysmt.ChemicalStates` | State-dependent covalent bonds and atom-level chemical assignments. |
 | **`interactions`** | Named `molsysmt.Interactions` results | Sparse observations with declared atom and structure index domains. |

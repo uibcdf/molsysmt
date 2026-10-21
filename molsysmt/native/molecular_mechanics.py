@@ -115,6 +115,16 @@ class MolecularMechanics:
         if legacy_partial_charge is not None:
             self._legacy_partial_charge = legacy_partial_charge
 
+    def __copy__(self):
+        """Copying independent mechanics state without running restoration."""
+        return self.__deepcopy__({})
+
+    def __deepcopy__(self, memo):
+        """Copying stored parameters and producer metadata with one graph memo."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
+
     # ------------------------------------------------------------------
     # atoms_ff helpers
     # ------------------------------------------------------------------

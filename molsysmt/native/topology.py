@@ -683,6 +683,16 @@ class Topology(NativeQueries):
         state.pop("_molsys_owner_ref", None)
         return state
 
+    def __copy__(self):
+        """Copying independent topology state without retaining its owner link."""
+        return self.__deepcopy__({})
+
+    def __deepcopy__(self, memo):
+        """Copying current tables and chemistry without legacy restoration."""
+        from ._copy import _clone
+
+        return _clone(self, memo, exclude=("_molsys_owner_ref",))
+
     @property
     def _chemical_states(self):
         return self._chemical_states_domain._states
