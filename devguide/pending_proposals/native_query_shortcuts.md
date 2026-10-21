@@ -23,8 +23,8 @@ Dictionary/encoded/file/mechanics follow-up remains outside this implementation.
 ## What
 
 Provide efficient native access when the input's representation and domain
-owners are already known. `MolSys.get()` and `MolSys.info()` currently call
-the universal providers. Repeated small queries should not rediscover forms,
+owners are already known. Before the resident implementation, `MolSys.get()`
+and `MolSys.info()` called the universal providers. Repeated small queries should not rediscover forms,
 search complementary items or reconstruct native containers unnecessarily.
 
 The proposal extends beyond `MolSys`, `Topology` and `Structures`, but does not
@@ -32,9 +32,9 @@ require every native class to have identical query semantics.
 
 ## How
 
-### Inventory and proposed order
+### Initial inventory and proposed order
 
-| Native family | Inspected current route | Proposed treatment |
+| Native family | Route inspected before implementation | Proposed treatment |
 | --- | --- | --- |
 | `MolSys` | General `get` and `info` shortcuts delegate to `basic`; supports independent and partial domains. | First implementation target; explicit native ownership and preserved state/structure semantics. |
 | `Topology` | No general instance `get`/`info`; form getters read its tables and chemical-state facade. | Include in the first shared-core implementation; adding instance methods is a public API addition. |
@@ -146,7 +146,8 @@ Interpretation:
   0.39--0.66 ms across these cases. This fixture has only two occurrences: it
   demonstrates the distinct existing API and is not a sparse-engine scaling test.
 
-No speedup of a future implementation has yet been measured. The direct adapter
+In that initial baseline, no future implementation speedup had been measured.
+The direct adapter
 omits parts of the general query contract, and the trusted adapter explicitly
 omits boundary validation; neither is an equivalent replacement benchmark.
 Returning a raw property also omits the complete query/output contract.
@@ -157,7 +158,7 @@ deliberately bounds dictionaries to 32 atoms. Small unbonded synthetic fixtures
 do not establish client-level throughput, complex selection performance,
 multi-state behavior, cold-start time, memory peaks or installed-package parity.
 
-### Recommended next implementation slices
+### Initial implementation slices
 
 1. Repair builder boundary correctness in #391, retaining that issue's own
    regression evidence.
@@ -176,7 +177,7 @@ multi-state behavior, cold-start time, memory peaks or installed-package parity.
 Each implementation slice must measure the complete validated before/after
 route; narrower adapter timings above are reference costs only.
 
-### Study checks
+### Initial study checks
 
 The completed baseline's embedded assertions pass, and its recorded benchmark
 SHA-256 matches the script. The existing
