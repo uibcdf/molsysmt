@@ -386,3 +386,47 @@ def test_materialized_branch_preserves_native_distance_workflow(branch):
         rtol=1e-12,
         atol=1e-12,
     )
+
+
+def test_owned_reads_are_mutable_and_do_not_change_either_branch(branch):
+    source, truth = branch
+    clone = source._fork()
+    values = puw.get_value(clone._get_owned_coordinates(), to_unit="nm")
+    values[:] = -5.0
+    np.testing.assert_array_equal(
+        puw.get_value(source._get_coordinates(), to_unit="nm"), truth
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(clone._get_coordinates(), to_unit="nm"), truth
+    )
+    assert values.flags.owndata
+
+
+def test_read_campaign_records_owned_and_selected_full_atom_reads(tmp_path):
+    output = tmp_path / "reads.json"
+    study.main(
+        [
+            "--case",
+            "4x5",
+            "--blocks",
+            "3",
+            "--repeats",
+            "1",
+            "--reads-only",
+            "--output",
+            str(output),
+        ]
+    )
+    record = json.loads(output.read_text())
+    assert record["campaign"] == "reads_only"
+    for case in record["cases"]:
+        assert set(case["operations"]) == {
+            "selected_read",
+            "full_read",
+            "owned_full_read",
+            "one_structure_read",
+            "nonconsecutive_structures_read",
+            "full_read_after_edit",
+            "block_scan",
+        }
+        assert case["file_bytes"] is None

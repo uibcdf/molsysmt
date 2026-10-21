@@ -1,0 +1,2778 @@
+{
+  "scope": "experimental layouts, not native API qualification",
+  "units": {
+    "coordinates": "nm",
+    "time": "ps"
+  },
+  "python": "3.14.7",
+  "numpy": "2.4.6",
+  "packages": {
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7"
+  },
+  "measured_at_utc": "2026-10-21T20:50:33.510644+00:00",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "cpu": "x86_64",
+  "logical_cpus": 20,
+  "source_commit": "4e8cbad485c4757d49dc908d193d28bfdbb01c37",
+  "study_sha256": "9c06847797b78fab8db09b1f603fd50cfb9a91791deeb4265445f35dde8a43c8",
+  "source_worktree_dirty": false,
+  "measurement": "one warm-up; fresh edit subjects; median; separate tracemalloc pass, not RSS",
+  "chemistry_policy": "eager native topology/chemistry copy in all contenders",
+  "io_policy": "public H5MSM write after complete coordinate materialization",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 5000,
+      "layout": "contiguous",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 7440000,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 14880000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.017942568025318906,
+          "samples_seconds": [
+            0.01867875101743266,
+            0.017225326999323443,
+            0.017942568025318906
+          ],
+          "traced_peak_bytes": 7659623
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 8.409842848777771e-07,
+          "samples_seconds": [
+            2.562999725341797e-06,
+            8.409842848777771e-07,
+            4.410103429108858e-07
+          ],
+          "traced_peak_bytes": 576
+        },
+        "fork": {
+          "median_seconds": 0.016801371006295085,
+          "samples_seconds": [
+            0.016813121997984126,
+            0.01610024500405416,
+            0.016801371006295085
+          ],
+          "traced_peak_bytes": 217470
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.007599004980875179,
+          "samples_seconds": [
+            0.007599004980875179,
+            0.007241728977533057,
+            0.007605527003761381
+          ],
+          "traced_peak_bytes": 14881369
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.024457060993881896,
+          "samples_seconds": [
+            0.023641601001145318,
+            0.024457060993881896,
+            0.02468880600645207
+          ],
+          "traced_peak_bytes": 14996914
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.007867363980039954,
+          "samples_seconds": [
+            0.008109616988804191,
+            0.007867363980039954,
+            0.007062384014716372
+          ],
+          "traced_peak_bytes": 14881481
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.028016897005727515,
+          "samples_seconds": [
+            0.02840995299629867,
+            0.028016897005727515,
+            0.02764936297899112
+          ],
+          "traced_peak_bytes": 22366170
+        },
+        "dense_edit": {
+          "median_seconds": 0.024714913015486673,
+          "samples_seconds": [
+            0.025660541985416785,
+            0.024663604999659583,
+            0.024714913015486673
+          ],
+          "traced_peak_bytes": 22402025
+        },
+        "selected_read": {
+          "median_seconds": 0.0001206439919769764,
+          "samples_seconds": [
+            0.0001316010020673275,
+            0.0001206439919769764,
+            0.00011740002082660794
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 8.311899728141725e-05,
+          "samples_seconds": [
+            8.311899728141725e-05,
+            9.220099309459329e-05,
+            4.803997580893338e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 8.905798313207924e-05,
+          "samples_seconds": [
+            8.2238984759897e-05,
+            8.905798313207924e-05,
+            0.00011815299512818456
+          ],
+          "traced_peak_bytes": 901
+        },
+        "block_scan": {
+          "median_seconds": 0.00036194699350744486,
+          "samples_seconds": [
+            0.0003879420110024512,
+            0.00036194699350744486,
+            0.000350372982211411
+          ],
+          "traced_peak_bytes": 1368
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.27276800500112586,
+          "samples_seconds": [
+            0.2720398810051847,
+            0.27276800500112586,
+            0.2730922880000435
+          ],
+          "traced_peak_bytes": 7818555
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 1,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 1488,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7441488,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.024842164013534784,
+          "samples_seconds": [
+            0.024842164013534784,
+            0.023974160983925685,
+            0.02616541800671257
+          ],
+          "traced_peak_bytes": 9143807
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.870234988629818e-07,
+          "samples_seconds": [
+            8.080096449702978e-07,
+            4.870234988629818e-07,
+            4.1298335418105125e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.016708509996533394,
+          "samples_seconds": [
+            0.017264823021832854,
+            0.0163854300044477,
+            0.016708509996533394
+          ],
+          "traced_peak_bytes": 216858
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0006272990140132606,
+          "samples_seconds": [
+            0.0006272990140132606,
+            0.0007336979906540364,
+            0.0005936909874435514
+          ],
+          "traced_peak_bytes": 185949
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.017511206009658054,
+          "samples_seconds": [
+            0.017511206009658054,
+            0.017752758983988315,
+            0.016816254996228963
+          ],
+          "traced_peak_bytes": 301049
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0006832339859101921,
+          "samples_seconds": [
+            0.0006826989992987365,
+            0.0007866680098231882,
+            0.0006832339859101921
+          ],
+          "traced_peak_bytes": 198060
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.005321253003785387,
+          "samples_seconds": [
+            0.006086845009122044,
+            0.005321253003785387,
+            0.004875017999438569
+          ],
+          "traced_peak_bytes": 282329
+        },
+        "dense_edit": {
+          "median_seconds": 0.08278971002437174,
+          "samples_seconds": [
+            0.08278971002437174,
+            0.08296915399841964,
+            0.0810315019916743
+          ],
+          "traced_peak_bytes": 16627176
+        },
+        "selected_read": {
+          "median_seconds": 0.0001059159985743463,
+          "samples_seconds": [
+            0.00012579801841638982,
+            0.0001059159985743463,
+            0.000100066012237221
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0021153150009922683,
+          "samples_seconds": [
+            0.0021153150009922683,
+            0.0020320180046837777,
+            0.002479713992215693
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.002390512003330514,
+          "samples_seconds": [
+            0.002390512003330514,
+            0.002421426004730165,
+            0.0022828919754829258
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "block_scan": {
+          "median_seconds": 0.0078189900086727,
+          "samples_seconds": [
+            0.0078189900086727,
+            0.00845743200625293,
+            0.007440262008458376
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.2762608180055395,
+          "samples_seconds": [
+            0.2762608180055395,
+            0.28267880898783915,
+            0.2755803120089695
+          ],
+          "traced_peak_bytes": 7817783
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 1,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 1488,
+      "edited_branch_referenced_coordinate_bytes": 7441488,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7441488,
+      "referenced_bytes_after_replacing_all_but_last_structure": 14878512,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.019964370992965996,
+          "samples_seconds": [
+            0.019698841992067173,
+            0.020726931019453332,
+            0.019964370992965996
+          ],
+          "traced_peak_bytes": 8419093
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.019828677177429e-07,
+          "samples_seconds": [
+            7.690105121582747e-07,
+            5.019828677177429e-07,
+            3.809982445091009e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.016844667989062145,
+          "samples_seconds": [
+            0.017195794003782794,
+            0.016844667989062145,
+            0.01573421197826974
+          ],
+          "traced_peak_bytes": 216909
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0006085750064812601,
+          "samples_seconds": [
+            0.0006085750064812601,
+            0.0005969369958620518,
+            0.0006959969759918749
+          ],
+          "traced_peak_bytes": 185949
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.017656384996371344,
+          "samples_seconds": [
+            0.018312156986212358,
+            0.016311551997205243,
+            0.017656384996371344
+          ],
+          "traced_peak_bytes": 301198
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0006980739999562502,
+          "samples_seconds": [
+            0.000696823000907898,
+            0.0007681039860472083,
+            0.0006980739999562502
+          ],
+          "traced_peak_bytes": 198060
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.005109350982820615,
+          "samples_seconds": [
+            0.005350730993086472,
+            0.005109350982820615,
+            0.004923488013446331
+          ],
+          "traced_peak_bytes": 282074
+        },
+        "dense_edit": {
+          "median_seconds": 0.07966170698637143,
+          "samples_seconds": [
+            0.08029027498560026,
+            0.07945892499992624,
+            0.07966170698637143
+          ],
+          "traced_peak_bytes": 16627176
+        },
+        "selected_read": {
+          "median_seconds": 0.0001104090188164264,
+          "samples_seconds": [
+            0.00011579800047911704,
+            0.00010307697812095284,
+            0.0001104090188164264
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.1937018977478147e-05,
+          "samples_seconds": [
+            4.76340064778924e-05,
+            4.1937018977478147e-05,
+            4.004899528808892e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.002852142002666369,
+          "samples_seconds": [
+            0.003088437981205061,
+            0.002290199976414442,
+            0.002852142002666369
+          ],
+          "traced_peak_bytes": 7480192
+        },
+        "block_scan": {
+          "median_seconds": 0.00768517900723964,
+          "samples_seconds": [
+            0.00849351001670584,
+            0.00765324299572967,
+            0.00768517900723964
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.27701296500163153,
+          "samples_seconds": [
+            0.2809537109860685,
+            0.27313584098010324,
+            0.27701296500163153
+          ],
+          "traced_peak_bytes": 7817858
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 8,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 11904,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7451904,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.019838263018755242,
+          "samples_seconds": [
+            0.018608232989208773,
+            0.019838263018755242,
+            0.020621601986931637
+          ],
+          "traced_peak_bytes": 7843939
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.899920895695686e-07,
+          "samples_seconds": [
+            7.469789125025272e-07,
+            4.899920895695686e-07,
+            3.550085239112377e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.016533333982806653,
+          "samples_seconds": [
+            0.016533333982806653,
+            0.016297035006573424,
+            0.01735998599906452
+          ],
+          "traced_peak_bytes": 216810
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0010460240009706467,
+          "samples_seconds": [
+            0.0010460240009706467,
+            0.0010781460150610656,
+            0.0007668990001548082
+          ],
+          "traced_peak_bytes": 161365
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.019528422999428585,
+          "samples_seconds": [
+            0.0198869310261216,
+            0.019528422999428585,
+            0.016694991994882002
+          ],
+          "traced_peak_bytes": 276713
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0006418180128093809,
+          "samples_seconds": [
+            0.0005670719838235527,
+            0.0006418180128093809,
+            0.0006489729858003557
+          ],
+          "traced_peak_bytes": 161277
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.004334917000960559,
+          "samples_seconds": [
+            0.004334917000960559,
+            0.004324053006712347,
+            0.0048185649793595076
+          ],
+          "traced_peak_bytes": 222758
+        },
+        "dense_edit": {
+          "median_seconds": 0.02727222500834614,
+          "samples_seconds": [
+            0.02655818799394183,
+            0.02923279901733622,
+            0.02727222500834614
+          ],
+          "traced_peak_bytes": 15327801
+        },
+        "selected_read": {
+          "median_seconds": 0.00010440702317282557,
+          "samples_seconds": [
+            0.00011349000851623714,
+            0.00010440702317282557,
+            9.843602310866117e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0007667859899811447,
+          "samples_seconds": [
+            0.000826370989670977,
+            0.0007667859899811447,
+            0.0007532820163760334
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0011409219878260046,
+          "samples_seconds": [
+            0.0016327349876519293,
+            0.0011358959891367704,
+            0.0011409219878260046
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "block_scan": {
+          "median_seconds": 0.0016035450098570436,
+          "samples_seconds": [
+            0.0017787319957278669,
+            0.0016035450098570436,
+            0.0015911780064925551
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.27186585901654325,
+          "samples_seconds": [
+            0.27659057299024425,
+            0.27017529599834234,
+            0.27186585901654325
+          ],
+          "traced_peak_bytes": 7817907
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 8,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 11904,
+      "edited_branch_referenced_coordinate_bytes": 7451904,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7451904,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.01836903698858805,
+          "samples_seconds": [
+            0.017851219017757103,
+            0.019156105001457036,
+            0.01836903698858805
+          ],
+          "traced_peak_bytes": 7753944
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.80009475722909e-07,
+          "samples_seconds": [
+            8.509960025548935e-07,
+            4.80009475722909e-07,
+            3.6100391298532486e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.01622913099708967,
+          "samples_seconds": [
+            0.017365458013955504,
+            0.01622913099708967,
+            0.016119726991746575
+          ],
+          "traced_peak_bytes": 217155
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0005490019975695759,
+          "samples_seconds": [
+            0.0005489449831657112,
+            0.0006193839944899082,
+            0.0005490019975695759
+          ],
+          "traced_peak_bytes": 161365
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.017439882998587564,
+          "samples_seconds": [
+            0.017439882998587564,
+            0.01774046799982898,
+            0.01655714400112629
+          ],
+          "traced_peak_bytes": 276762
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0006060469895601273,
+          "samples_seconds": [
+            0.0007497090264223516,
+            0.0005993490049149841,
+            0.0006060469895601273
+          ],
+          "traced_peak_bytes": 161277
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.00453350500902161,
+          "samples_seconds": [
+            0.004600296990247443,
+            0.0043689130106940866,
+            0.00453350500902161
+          ],
+          "traced_peak_bytes": 222758
+        },
+        "dense_edit": {
+          "median_seconds": 0.026964583987137303,
+          "samples_seconds": [
+            0.026964583987137303,
+            0.02656803501304239,
+            0.02704759201151319
+          ],
+          "traced_peak_bytes": 15327801
+        },
+        "selected_read": {
+          "median_seconds": 0.00011863899999298155,
+          "samples_seconds": [
+            0.00012796299415640533,
+            0.00011863899999298155,
+            0.00011607600026763976
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 5.100600537844002e-05,
+          "samples_seconds": [
+            5.409898585639894e-05,
+            5.100600537844002e-05,
+            4.8959976993501186e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0011512959899846464,
+          "samples_seconds": [
+            0.0011512959899846464,
+            0.0011440270172897726,
+            0.0011732999992091209
+          ],
+          "traced_peak_bytes": 7445192
+        },
+        "block_scan": {
+          "median_seconds": 0.0013381979952100664,
+          "samples_seconds": [
+            0.0013409859966486692,
+            0.0013381979952100664,
+            0.0013360010052565485
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.27229771300335415,
+          "samples_seconds": [
+            0.27229771300335415,
+            0.27173405498615466,
+            0.2768696940038353
+          ],
+          "traced_peak_bytes": 7817913
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 32,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 47616,
+      "edited_branch_referenced_coordinate_bytes": 7440000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7487616,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.018243614002130926,
+          "samples_seconds": [
+            0.01835717001813464,
+            0.01764155100681819,
+            0.018243614002130926
+          ],
+          "traced_peak_bytes": 7705238
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.440080374479294e-07,
+          "samples_seconds": [
+            7.950002327561378e-07,
+            4.440080374479294e-07,
+            3.7299469113349915e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.016103164001833647,
+          "samples_seconds": [
+            0.01596179499756545,
+            0.016103164001833647,
+            0.016767893015639856
+          ],
+          "traced_peak_bytes": 216956
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0005609320069197565,
+          "samples_seconds": [
+            0.0005609320069197565,
+            0.0007195340003818274,
+            0.0005444609851110727
+          ],
+          "traced_peak_bytes": 193333
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.01708970102481544,
+          "samples_seconds": [
+            0.01708970102481544,
+            0.01704517100006342,
+            0.01724457900854759
+          ],
+          "traced_peak_bytes": 308235
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0005828220164403319,
+          "samples_seconds": [
+            0.0006177129980642349,
+            0.0005699169996660203,
+            0.0005828220164403319
+          ],
+          "traced_peak_bytes": 193245
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.004695179988630116,
+          "samples_seconds": [
+            0.004695179988630116,
+            0.0046435080002993345,
+            0.004702525999164209
+          ],
+          "traced_peak_bytes": 286643
+        },
+        "dense_edit": {
+          "median_seconds": 0.021422599005745724,
+          "samples_seconds": [
+            0.021396197989815846,
+            0.021432562003610656,
+            0.021422599005745724
+          ],
+          "traced_peak_bytes": 15188805
+        },
+        "selected_read": {
+          "median_seconds": 0.00012739902012981474,
+          "samples_seconds": [
+            0.00012739902012981474,
+            0.00012991999392397702,
+            0.00011944398283958435
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.0005804499960504472,
+          "samples_seconds": [
+            0.0006331530166789889,
+            0.0005748939875047654,
+            0.0005804499960504472
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0007266319880727679,
+          "samples_seconds": [
+            0.0006682680104859173,
+            0.0008576370019000024,
+            0.0007266319880727679
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "block_scan": {
+          "median_seconds": 0.0006658950005657971,
+          "samples_seconds": [
+            0.0006985609943512827,
+            0.0006658950005657971,
+            0.000633675983408466
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.27358035699580796,
+          "samples_seconds": [
+            0.27358035699580796,
+            0.2717879000119865,
+            0.27790788002312183
+          ],
+          "traced_peak_bytes": 7817716
+        }
+      }
+    },
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "block_structures": 32,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 7440000,
+      "replacement_coordinate_bytes": 47616,
+      "edited_branch_referenced_coordinate_bytes": 7487616,
+      "parent_and_edited_branch_unique_coordinate_bytes": 7487616,
+      "referenced_bytes_after_replacing_all_but_last_structure": 7440000,
+      "file_bytes": 4493131,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.01786693898611702,
+          "samples_seconds": [
+            0.01755990501260385,
+            0.01786693898611702,
+            0.018011492997175083
+          ],
+          "traced_peak_bytes": 7682955
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.500034265220165e-07,
+          "samples_seconds": [
+            8.149945642799139e-07,
+            4.500034265220165e-07,
+            3.580062184482813e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.018222026003059,
+          "samples_seconds": [
+            0.018958544998895377,
+            0.017282504006288946,
+            0.018222026003059
+          ],
+          "traced_peak_bytes": 216957
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0007028029940556735,
+          "samples_seconds": [
+            0.0007028029940556735,
+            0.0008330600103363395,
+            0.000599902996327728
+          ],
+          "traced_peak_bytes": 193333
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.017571046017110348,
+          "samples_seconds": [
+            0.016697832994395867,
+            0.017571046017110348,
+            0.023365150002064183
+          ],
+          "traced_peak_bytes": 308483
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0005777659825980663,
+          "samples_seconds": [
+            0.0005724609945900738,
+            0.0006079879822209477,
+            0.0005777659825980663
+          ],
+          "traced_peak_bytes": 193245
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.004695674026152119,
+          "samples_seconds": [
+            0.005500271014170721,
+            0.004695674026152119,
+            0.004420855984790251
+          ],
+          "traced_peak_bytes": 286643
+        },
+        "dense_edit": {
+          "median_seconds": 0.02097986900480464,
+          "samples_seconds": [
+            0.020519915007753298,
+            0.021369524009060115,
+            0.02097986900480464
+          ],
+          "traced_peak_bytes": 15188805
+        },
+        "selected_read": {
+          "median_seconds": 0.00014067799202166498,
+          "samples_seconds": [
+            0.00014067799202166498,
+            0.00014116699458099902,
+            9.969199891202152e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.751398228108883e-05,
+          "samples_seconds": [
+            5.288299871608615e-05,
+            4.751398228108883e-05,
+            4.512499435804784e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0008962559804785997,
+          "samples_seconds": [
+            0.0010107660200446844,
+            0.0008962559804785997,
+            0.0007742230081930757
+          ],
+          "traced_peak_bytes": 7441448
+        },
+        "block_scan": {
+          "median_seconds": 0.0008734110160730779,
+          "samples_seconds": [
+            0.0008561259892303497,
+            0.0008734110160730779,
+            0.0008821579976938665
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.27647802501451224,
+          "samples_seconds": [
+            0.2891594099928625,
+            0.27647802501451224,
+            0.2764287480094936
+          ],
+          "traced_peak_bytes": 7817858
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 128,
+      "layout": "contiguous",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 30720000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 61440000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.02799621399026364,
+          "samples_seconds": [
+            0.0270616420020815,
+            0.02817992601194419,
+            0.02799621399026364
+          ],
+          "traced_peak_bytes": 31769299
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.839974619448185e-07,
+          "samples_seconds": [
+            9.959912858903408e-07,
+            5.839974619448185e-07,
+            4.820176400244236e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.022840871009975672,
+          "samples_seconds": [
+            0.022840871009975672,
+            0.02294240999617614,
+            0.022704518982209265
+          ],
+          "traced_peak_bytes": 1046455
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.028664256999036297,
+          "samples_seconds": [
+            0.028664256999036297,
+            0.030609806010033935,
+            0.028513032011687756
+          ],
+          "traced_peak_bytes": 61441369
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.055330282979412004,
+          "samples_seconds": [
+            0.05759834899799898,
+            0.055330282979412004,
+            0.05375495599582791
+          ],
+          "traced_peak_bytes": 62045230
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.03213681900524534,
+          "samples_seconds": [
+            0.03128692600876093,
+            0.03257199400104582,
+            0.03213681900524534
+          ],
+          "traced_peak_bytes": 61441481
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.1080394450109452,
+          "samples_seconds": [
+            0.10847809197730385,
+            0.1080394450109452,
+            0.10348576301475987
+          ],
+          "traced_peak_bytes": 92166927
+        },
+        "dense_edit": {
+          "median_seconds": 0.05756958300480619,
+          "samples_seconds": [
+            0.05756958300480619,
+            0.05791247999877669,
+            0.05652704800013453
+          ],
+          "traced_peak_bytes": 92243577
+        },
+        "selected_read": {
+          "median_seconds": 0.00011321200872771442,
+          "samples_seconds": [
+            0.00011321200872771442,
+            0.00010275098611600697,
+            0.0001316589768975973
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.179400275461376e-05,
+          "samples_seconds": [
+            4.586100112646818e-05,
+            4.179400275461376e-05,
+            3.9512000512331724e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.00013539299834519625,
+          "samples_seconds": [
+            0.000146695994772017,
+            0.00011516400263644755,
+            0.00013539299834519625
+          ],
+          "traced_peak_bytes": 901
+        },
+        "block_scan": {
+          "median_seconds": 0.0025481949851382524,
+          "samples_seconds": [
+            0.0026557730161584914,
+            0.0025481949851382524,
+            0.0022543859959114343
+          ],
+          "traced_peak_bytes": 1368
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 1.044733011018252,
+          "samples_seconds": [
+            1.044733011018252,
+            1.1375572239921894,
+            0.9535558199859224
+          ],
+          "traced_peak_bytes": 31991413
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 1,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 240000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 30960000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.027262873016297817,
+          "samples_seconds": [
+            0.02630552600021474,
+            0.027262873016297817,
+            0.028258472972083837
+          ],
+          "traced_peak_bytes": 31807036
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.399924702942371e-07,
+          "samples_seconds": [
+            8.00006091594696e-07,
+            5.399924702942371e-07,
+            3.4397817216813564e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.019933728995965794,
+          "samples_seconds": [
+            0.019933728995965794,
+            0.019983575999503955,
+            0.019329725007992238
+          ],
+          "traced_peak_bytes": 1046455
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0005475229991134256,
+          "samples_seconds": [
+            0.0005336430040188134,
+            0.0005682540067937225,
+            0.0005475229991134256
+          ],
+          "traced_peak_bytes": 482377
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.02074168299441226,
+          "samples_seconds": [
+            0.02074168299441226,
+            0.020098220004001632,
+            0.021626477013342083
+          ],
+          "traced_peak_bytes": 1086191
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0011741880152840167,
+          "samples_seconds": [
+            0.0009460900037083775,
+            0.0012585229997057468,
+            0.0011741880152840167
+          ],
+          "traced_peak_bytes": 2164328
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.004099402023712173,
+          "samples_seconds": [
+            0.004710524983238429,
+            0.004099402023712173,
+            0.004020311986096203
+          ],
+          "traced_peak_bytes": 2170533
+        },
+        "dense_edit": {
+          "median_seconds": 0.03438577501219697,
+          "samples_seconds": [
+            0.035365660005481914,
+            0.0343227629782632,
+            0.03438577501219697
+          ],
+          "traced_peak_bytes": 61802112
+        },
+        "selected_read": {
+          "median_seconds": 0.00010701100109145045,
+          "samples_seconds": [
+            0.00012486998457461596,
+            0.00010701100109145045,
+            0.00010066901450045407
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.005259794008452445,
+          "samples_seconds": [
+            0.005852264002896845,
+            0.005259794008452445,
+            0.005121289024828002
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.005256145988823846,
+          "samples_seconds": [
+            0.005256145988823846,
+            0.005833193979924545,
+            0.004814455984160304
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "block_scan": {
+          "median_seconds": 0.0027509499923326075,
+          "samples_seconds": [
+            0.0028262950072530657,
+            0.0027509499923326075,
+            0.0024918859999161214
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.8476844579854514,
+          "samples_seconds": [
+            0.8476844579854514,
+            0.84567186498316,
+            0.8755906709993724
+          ],
+          "traced_peak_bytes": 31991956
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 1,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 240000,
+      "edited_branch_referenced_coordinate_bytes": 30960000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 30960000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 61200000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.02645877900067717,
+          "samples_seconds": [
+            0.02484832500340417,
+            0.02719818099285476,
+            0.02645877900067717
+          ],
+          "traced_peak_bytes": 31788714
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.169996827840805e-07,
+          "samples_seconds": [
+            7.599883247166872e-07,
+            4.169996827840805e-07,
+            3.6900746636092663e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.019953469978645444,
+          "samples_seconds": [
+            0.019953469978645444,
+            0.01928717299597338,
+            0.020784516003914177
+          ],
+          "traced_peak_bytes": 1046504
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0005229969974607229,
+          "samples_seconds": [
+            0.0005098640103824437,
+            0.0006300249951891601,
+            0.0005229969974607229
+          ],
+          "traced_peak_bytes": 482377
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.020666134980274364,
+          "samples_seconds": [
+            0.020211491006193683,
+            0.020666134980274364,
+            0.022596905997488648
+          ],
+          "traced_peak_bytes": 1086338
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0008604159811511636,
+          "samples_seconds": [
+            0.0010133670002687722,
+            0.0008521440031472594,
+            0.0008604159811511636
+          ],
+          "traced_peak_bytes": 2164328
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.004071356990607455,
+          "samples_seconds": [
+            0.004344487999333069,
+            0.004071356990607455,
+            0.0040375509997829795
+          ],
+          "traced_peak_bytes": 2170278
+        },
+        "dense_edit": {
+          "median_seconds": 0.03523958000005223,
+          "samples_seconds": [
+            0.0355312819883693,
+            0.0336225530190859,
+            0.03523958000005223
+          ],
+          "traced_peak_bytes": 61802112
+        },
+        "selected_read": {
+          "median_seconds": 0.00011548801558092237,
+          "samples_seconds": [
+            0.00011548801558092237,
+            0.00015539300511591136,
+            0.00011364699457772076
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 5.423699622042477e-05,
+          "samples_seconds": [
+            6.436900002881885e-05,
+            4.445199738256633e-05,
+            5.423699622042477e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0049105930083896965,
+          "samples_seconds": [
+            0.0049105930083896965,
+            0.004609377996530384,
+            0.005027069011703134
+          ],
+          "traced_peak_bytes": 30721216
+        },
+        "block_scan": {
+          "median_seconds": 0.0026574220100883394,
+          "samples_seconds": [
+            0.0026574220100883394,
+            0.002977016003569588,
+            0.002582802000688389
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.8427900480164681,
+          "samples_seconds": [
+            0.8351902379945386,
+            0.8427900480164681,
+            0.9188404140004423
+          ],
+          "traced_peak_bytes": 31991710
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 8,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 1920000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 32640000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.026627741986885667,
+          "samples_seconds": [
+            0.027561755996430293,
+            0.026627741986885667,
+            0.026196054997853935
+          ],
+          "traced_peak_bytes": 31773150
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.309993866831064e-07,
+          "samples_seconds": [
+            7.759954314678907e-07,
+            5.309993866831064e-07,
+            3.530003596097231e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.01974548801081255,
+          "samples_seconds": [
+            0.01974548801081255,
+            0.01954054000088945,
+            0.020280903991078958
+          ],
+          "traced_peak_bytes": 1046354
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0008019660017453134,
+          "samples_seconds": [
+            0.0008019660017453134,
+            0.0009762499830685556,
+            0.0007313830137718469
+          ],
+          "traced_peak_bytes": 3841481
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.021308239025529474,
+          "samples_seconds": [
+            0.021308239025529474,
+            0.022350262996042147,
+            0.020435963990166783
+          ],
+          "traced_peak_bytes": 4445243
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0008449640008620918,
+          "samples_seconds": [
+            0.0008449640008620918,
+            0.0008597790147177875,
+            0.0007557130011264235
+          ],
+          "traced_peak_bytes": 3841593
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.005854024988366291,
+          "samples_seconds": [
+            0.005854024988366291,
+            0.005799954000394791,
+            0.0062011160189285874
+          ],
+          "traced_peak_bytes": 5767090
+        },
+        "dense_edit": {
+          "median_seconds": 0.032574116019532084,
+          "samples_seconds": [
+            0.033111638011178,
+            0.032574116019532084,
+            0.032534789002966136
+          ],
+          "traced_peak_bytes": 63447952
+        },
+        "selected_read": {
+          "median_seconds": 0.00010430198744870722,
+          "samples_seconds": [
+            0.00011687001097016037,
+            0.00010430198744870722,
+            0.00010024500079452991
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.004758607014082372,
+          "samples_seconds": [
+            0.004823345982003957,
+            0.004582850000588223,
+            0.004758607014082372
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.004817682987777516,
+          "samples_seconds": [
+            0.004817682987777516,
+            0.004720892000477761,
+            0.004876765015069395
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0023117710079532117,
+          "samples_seconds": [
+            0.0023117710079532117,
+            0.002147431019693613,
+            0.0023244690091814846
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.8370707500143908,
+          "samples_seconds": [
+            0.8605576429981738,
+            0.834882084018318,
+            0.8370707500143908
+          ],
+          "traced_peak_bytes": 31991761
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 8,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 1920000,
+      "edited_branch_referenced_coordinate_bytes": 32640000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 32640000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.025985918997321278,
+          "samples_seconds": [
+            0.02460117801092565,
+            0.026855069008888677,
+            0.025985918997321278
+          ],
+          "traced_peak_bytes": 31771215
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.220063030719757e-07,
+          "samples_seconds": [
+            9.139766916632652e-07,
+            5.220063030719757e-07,
+            3.4700497053563595e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.0206602219841443,
+          "samples_seconds": [
+            0.0206602219841443,
+            0.020829162996960804,
+            0.019361640006536618
+          ],
+          "traced_peak_bytes": 1046257
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0009588900138624012,
+          "samples_seconds": [
+            0.0009588900138624012,
+            0.0009923299949150532,
+            0.0009309420129284263
+          ],
+          "traced_peak_bytes": 3841481
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.02179821699974127,
+          "samples_seconds": [
+            0.022422598995035514,
+            0.020667881006374955,
+            0.02179821699974127
+          ],
+          "traced_peak_bytes": 4445392
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0007933109882287681,
+          "samples_seconds": [
+            0.0008081050182227045,
+            0.0007694170053582639,
+            0.0007933109882287681
+          ],
+          "traced_peak_bytes": 3841593
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.006103032996179536,
+          "samples_seconds": [
+            0.006103032996179536,
+            0.0057060690014623106,
+            0.006448973988881335
+          ],
+          "traced_peak_bytes": 5767090
+        },
+        "dense_edit": {
+          "median_seconds": 0.034335889999056235,
+          "samples_seconds": [
+            0.034335889999056235,
+            0.03232014999957755,
+            0.035357554006623104
+          ],
+          "traced_peak_bytes": 63447952
+        },
+        "selected_read": {
+          "median_seconds": 0.00010194300557486713,
+          "samples_seconds": [
+            0.0001129040028899908,
+            0.00010194300557486713,
+            9.880898869596422e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 5.988500197418034e-05,
+          "samples_seconds": [
+            7.796302088536322e-05,
+            4.8080983106046915e-05,
+            5.988500197418034e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0050756359996739775,
+          "samples_seconds": [
+            0.0050756359996739775,
+            0.004468599014217034,
+            0.005162183981155977
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0020982479909434915,
+          "samples_seconds": [
+            0.002569231000961736,
+            0.0020982479909434915,
+            0.002047512010904029
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.8380402830080129,
+          "samples_seconds": [
+            0.8684923950058874,
+            0.8380402830080129,
+            0.8354958279815037
+          ],
+          "traced_peak_bytes": 31991708
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 32,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 7680000,
+      "edited_branch_referenced_coordinate_bytes": 30720000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 38400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.02454434600076638,
+          "samples_seconds": [
+            0.02422787999967113,
+            0.02454434600076638,
+            0.025140343001112342
+          ],
+          "traced_peak_bytes": 31769875
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 6.039917934685946e-07,
+          "samples_seconds": [
+            8.310016710311174e-07,
+            6.039917934685946e-07,
+            3.649911377578974e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.020119055989198387,
+          "samples_seconds": [
+            0.020119055989198387,
+            0.019306428002892062,
+            0.021333999000489712
+          ],
+          "traced_peak_bytes": 1046502
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.002205438999226317,
+          "samples_seconds": [
+            0.002280076005263254,
+            0.002205438999226317,
+            0.002017345017520711
+          ],
+          "traced_peak_bytes": 15361385
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.02187834700453095,
+          "samples_seconds": [
+            0.023163517995271832,
+            0.02187834700453095,
+            0.021663621009793133
+          ],
+          "traced_peak_bytes": 15965247
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0022313960071187466,
+          "samples_seconds": [
+            0.00223822399857454,
+            0.0022313960071187466,
+            0.0020997209940105677
+          ],
+          "traced_peak_bytes": 15361497
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.018811882007867098,
+          "samples_seconds": [
+            0.01998146899859421,
+            0.01871131799998693,
+            0.018811882007867098
+          ],
+          "traced_peak_bytes": 23046943
+        },
+        "dense_edit": {
+          "median_seconds": 0.0503331110230647,
+          "samples_seconds": [
+            0.05091832298785448,
+            0.04968912500771694,
+            0.0503331110230647
+          ],
+          "traced_peak_bytes": 69204340
+        },
+        "selected_read": {
+          "median_seconds": 0.00014583399752154946,
+          "samples_seconds": [
+            0.00014583399752154946,
+            0.00011625699698925018,
+            0.00020738999592140317
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.002807982004014775,
+          "samples_seconds": [
+            0.002909454982727766,
+            0.002807982004014775,
+            0.0026356349990237504
+          ],
+          "traced_peak_bytes": 30720925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0033734430035110563,
+          "samples_seconds": [
+            0.0033676930179353803,
+            0.0037169970164541155,
+            0.0033734430035110563
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0018853700021281838,
+          "samples_seconds": [
+            0.002068510017124936,
+            0.0018853700021281838,
+            0.0018742870015557855
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.8468639469938353,
+          "samples_seconds": [
+            0.8382070119841956,
+            0.8522200379811693,
+            0.8468639469938353
+          ],
+          "traced_peak_bytes": 31991759
+        }
+      }
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 128,
+      "block_structures": 32,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 30720000,
+      "replacement_coordinate_bytes": 7680000,
+      "edited_branch_referenced_coordinate_bytes": 38400000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 38400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 30720000,
+      "file_bytes": 17770233,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.025620184984290972,
+          "samples_seconds": [
+            0.027728398999897763,
+            0.025620184984290972,
+            0.024551917013013735
+          ],
+          "traced_peak_bytes": 31769488
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.599860403686762e-07,
+          "samples_seconds": [
+            9.479990694671869e-07,
+            4.599860403686762e-07,
+            3.530003596097231e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.019479638984194025,
+          "samples_seconds": [
+            0.02068656901246868,
+            0.019354001997271553,
+            0.019479638984194025
+          ],
+          "traced_peak_bytes": 1046504
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.002094616007525474,
+          "samples_seconds": [
+            0.002103367995005101,
+            0.002094616007525474,
+            0.001998708990868181
+          ],
+          "traced_peak_bytes": 15361385
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.02272474201163277,
+          "samples_seconds": [
+            0.02157835999969393,
+            0.02272474201163277,
+            0.022817677992861718
+          ],
+          "traced_peak_bytes": 15965296
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0020898469956591725,
+          "samples_seconds": [
+            0.002105280989781022,
+            0.0020338530011940747,
+            0.0020898469956591725
+          ],
+          "traced_peak_bytes": 15361497
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.018528748012613505,
+          "samples_seconds": [
+            0.018528748012613505,
+            0.018911262013716623,
+            0.018347831995924935
+          ],
+          "traced_peak_bytes": 23046994
+        },
+        "dense_edit": {
+          "median_seconds": 0.032132060994626954,
+          "samples_seconds": [
+            0.032132060994626954,
+            0.03148609699564986,
+            0.03252086599241011
+          ],
+          "traced_peak_bytes": 69204340
+        },
+        "selected_read": {
+          "median_seconds": 0.0001021779899019748,
+          "samples_seconds": [
+            0.00011319102486595511,
+            0.0001021779899019748,
+            9.813701035454869e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.2024010326713324e-05,
+          "samples_seconds": [
+            4.5446999138221145e-05,
+            4.2024010326713324e-05,
+            3.9343984099105e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.0034071250120177865,
+          "samples_seconds": [
+            0.003393310005776584,
+            0.003446283983066678,
+            0.0034071250120177865
+          ],
+          "traced_peak_bytes": 30720901
+        },
+        "block_scan": {
+          "median_seconds": 0.0020234300172887743,
+          "samples_seconds": [
+            0.0020234300172887743,
+            0.0019386549829505384,
+            0.0021347570000216365
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 0.8299540639854968,
+          "samples_seconds": [
+            0.8485367280081846,
+            0.8299540639854968,
+            0.8273138049989939
+          ],
+          "traced_peak_bytes": 31992105
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 64,
+      "layout": "contiguous",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 153600000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 307200000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.14925324500654824,
+          "samples_seconds": [
+            0.14867240798776038,
+            0.14925324500654824,
+            0.15458058600779623
+          ],
+          "traced_peak_bytes": 163645111
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.220063030719757e-07,
+          "samples_seconds": [
+            1.0189833119511604e-06,
+            5.220063030719757e-07,
+            4.390021786093712e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.056138237996492535,
+          "samples_seconds": [
+            0.055953267990844324,
+            0.056138237996492535,
+            0.06017077199066989
+          ],
+          "traced_peak_bytes": 10042410
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.1272686909942422,
+          "samples_seconds": [
+            0.1272686909942422,
+            0.1227862490050029,
+            0.12809035202371888
+          ],
+          "traced_peak_bytes": 307201369
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.18063483200967312,
+          "samples_seconds": [
+            0.18063483200967312,
+            0.18078806099947542,
+            0.17977642099140212
+          ],
+          "traced_peak_bytes": 312934205
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.12287820799974725,
+          "samples_seconds": [
+            0.12287820799974725,
+            0.12253501400118694,
+            0.12428221802110784
+          ],
+          "traced_peak_bytes": 307201481
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 1.061136117001297,
+          "samples_seconds": [
+            1.0674335599760525,
+            1.061136117001297,
+            1.0594444400048815
+          ],
+          "traced_peak_bytes": 460806415
+        },
+        "dense_edit": {
+          "median_seconds": 0.25292348201037385,
+          "samples_seconds": [
+            0.25292348201037385,
+            0.25077283900463954,
+            0.26347471299231984
+          ],
+          "traced_peak_bytes": 461602553
+        },
+        "selected_read": {
+          "median_seconds": 0.0001422420027665794,
+          "samples_seconds": [
+            0.0001373109989799559,
+            0.00014344500959850848,
+            0.0001422420027665794
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.754701512865722e-05,
+          "samples_seconds": [
+            6.690699956379831e-05,
+            4.754701512865722e-05,
+            4.5294000301510096e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.00012634799350053072,
+          "samples_seconds": [
+            0.00013270499766804278,
+            0.00012634799350053072,
+            0.00011631599045358598
+          ],
+          "traced_peak_bytes": 901
+        },
+        "block_scan": {
+          "median_seconds": 0.011899831995833665,
+          "samples_seconds": [
+            0.011829766997834668,
+            0.011899831995833665,
+            0.012433213007170707
+          ],
+          "traced_peak_bytes": 1368
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 3.9175041489943396,
+          "samples_seconds": [
+            3.9175041489943396,
+            3.8728045070020016,
+            3.9274622249940876
+          ],
+          "traced_peak_bytes": 165850883
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 1,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 2400000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 156000000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.1524086970021017,
+          "samples_seconds": [
+            0.15105405799113214,
+            0.1571046749886591,
+            0.1524086970021017
+          ],
+          "traced_peak_bytes": 163663441
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 4.650210030376911e-07,
+          "samples_seconds": [
+            7.640046533197165e-07,
+            4.650210030376911e-07,
+            3.309978637844324e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.05484513900591992,
+          "samples_seconds": [
+            0.05463603598764166,
+            0.05589423299534246,
+            0.05484513900591992
+          ],
+          "traced_peak_bytes": 10042164
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0010837709996849298,
+          "samples_seconds": [
+            0.001137518003815785,
+            0.0010837709996849298,
+            0.00108042499050498
+          ],
+          "traced_peak_bytes": 4801865
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.057783517986536026,
+          "samples_seconds": [
+            0.057108824024908245,
+            0.058127085998421535,
+            0.057783517986536026
+          ],
+          "traced_peak_bytes": 10534457
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.005093239975394681,
+          "samples_seconds": [
+            0.005277541000396013,
+            0.0049916059942916036,
+            0.005093239975394681
+          ],
+          "traced_peak_bytes": 21603816
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.008357739017810673,
+          "samples_seconds": [
+            0.008242140989750624,
+            0.008357739017810673,
+            0.008719161996850744
+          ],
+          "traced_peak_bytes": 21609048
+        },
+        "dense_edit": {
+          "median_seconds": 0.21692091002478264,
+          "samples_seconds": [
+            0.22023908997653052,
+            0.21564542400301434,
+            0.21692091002478264
+          ],
+          "traced_peak_bytes": 310421568
+        },
+        "selected_read": {
+          "median_seconds": 0.00011927398736588657,
+          "samples_seconds": [
+            0.00012898497516289353,
+            0.00011927398736588657,
+            9.99400217551738e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.03315289900638163,
+          "samples_seconds": [
+            0.03290252000442706,
+            0.03315289900638163,
+            0.0338375479914248
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03369712398853153,
+          "samples_seconds": [
+            0.03369712398853153,
+            0.03389821000746451,
+            0.03354602100444026
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.012191555986646563,
+          "samples_seconds": [
+            0.012191555986646563,
+            0.012303096998948604,
+            0.012074027996277437
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 3.990111908002291,
+          "samples_seconds": [
+            3.936507092003012,
+            3.9914215919852722,
+            3.990111908002291
+          ],
+          "traced_peak_bytes": 165851228
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 1,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 2400000,
+      "edited_branch_referenced_coordinate_bytes": 156000000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 156000000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 304800000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.15780314797302708,
+          "samples_seconds": [
+            0.15780314797302708,
+            0.1518046600103844,
+            0.16000947001157328
+          ],
+          "traced_peak_bytes": 163654792
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 8.229981176555157e-07,
+          "samples_seconds": [
+            1.0890071280300617e-06,
+            8.229981176555157e-07,
+            4.6601053327322006e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.05776484697707929,
+          "samples_seconds": [
+            0.05889342198497616,
+            0.05776484697707929,
+            0.05720303297857754
+          ],
+          "traced_peak_bytes": 10042461
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.0011260320025030524,
+          "samples_seconds": [
+            0.001094807987101376,
+            0.0011260320025030524,
+            0.0013613970077130944
+          ],
+          "traced_peak_bytes": 4801865
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.059606754017295316,
+          "samples_seconds": [
+            0.059606754017295316,
+            0.06005772700882517,
+            0.05785842100158334
+          ],
+          "traced_peak_bytes": 10534505
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.0054997070110403,
+          "samples_seconds": [
+            0.0054997070110403,
+            0.005351826024707407,
+            0.005881360004423186
+          ],
+          "traced_peak_bytes": 21603816
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.00822296499973163,
+          "samples_seconds": [
+            0.00822296499973163,
+            0.008743848971789703,
+            0.008001419017091393
+          ],
+          "traced_peak_bytes": 21609048
+        },
+        "dense_edit": {
+          "median_seconds": 0.16663276200415567,
+          "samples_seconds": [
+            0.16663276200415567,
+            0.16505400100140832,
+            0.17257194701232947
+          ],
+          "traced_peak_bytes": 310421568
+        },
+        "selected_read": {
+          "median_seconds": 0.00010394901619292796,
+          "samples_seconds": [
+            0.00011450902093201876,
+            0.00010394901619292796,
+            9.870599023997784e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.392900154925883e-05,
+          "samples_seconds": [
+            6.401800783351064e-05,
+            4.392900154925883e-05,
+            4.180902033112943e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03488978199311532,
+          "samples_seconds": [
+            0.035513162991264835,
+            0.03473302401835099,
+            0.03488978199311532
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.011958691000472754,
+          "samples_seconds": [
+            0.012771192996297032,
+            0.011958691000472754,
+            0.011865293985465541
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 3.9594902349926997,
+          "samples_seconds": [
+            3.87592915201094,
+            3.9947125920152757,
+            3.9594902349926997
+          ],
+          "traced_peak_bytes": 165850932
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 8,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 19200000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 172800000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.151773816003697,
+          "samples_seconds": [
+            0.15409000401268713,
+            0.1516575389832724,
+            0.151773816003697
+          ],
+          "traced_peak_bytes": 163646748
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.820184014737606e-07,
+          "samples_seconds": [
+            1.2170057743787766e-06,
+            5.820184014737606e-07,
+            4.649918992072344e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.056766360998153687,
+          "samples_seconds": [
+            0.056766360998153687,
+            0.05542443599551916,
+            0.05722937101381831
+          ],
+          "traced_peak_bytes": 10042213
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.005129319994011894,
+          "samples_seconds": [
+            0.005280604003928602,
+            0.005078913003671914,
+            0.005129319994011894
+          ],
+          "traced_peak_bytes": 38401417
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.06444661400746554,
+          "samples_seconds": [
+            0.06444661400746554,
+            0.059928056987700984,
+            0.06612473700079136
+          ],
+          "traced_peak_bytes": 44134108
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.005145610019098967,
+          "samples_seconds": [
+            0.005169786018086597,
+            0.005145610019098967,
+            0.004839137982344255
+          ],
+          "traced_peak_bytes": 38401529
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.039693722006632015,
+          "samples_seconds": [
+            0.039693722006632015,
+            0.038548284996068105,
+            0.04111227497924119
+          ],
+          "traced_peak_bytes": 57606514
+        },
+        "dense_edit": {
+          "median_seconds": 0.24695767599041574,
+          "samples_seconds": [
+            0.2536570990050677,
+            0.2415560589870438,
+            0.24695767599041574
+          ],
+          "traced_peak_bytes": 327204488
+        },
+        "selected_read": {
+          "median_seconds": 0.00011554302182048559,
+          "samples_seconds": [
+            0.00011554302182048559,
+            0.00010398798622190952,
+            0.0001248359913006425
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.035562100005336106,
+          "samples_seconds": [
+            0.03618889601784758,
+            0.035562100005336106,
+            0.035248079017037526
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03689871900132857,
+          "samples_seconds": [
+            0.03715335301239975,
+            0.036658988014096394,
+            0.03689871900132857
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.011753496975870803,
+          "samples_seconds": [
+            0.011753496975870803,
+            0.011727776000043377,
+            0.012742443999741226
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 3.9667314229882322,
+          "samples_seconds": [
+            3.9667314229882322,
+            4.013034233008511,
+            3.962138296017656
+          ],
+          "traced_peak_bytes": 165850885
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 8,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 19200000,
+      "edited_branch_referenced_coordinate_bytes": 172800000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 172800000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.15183410700410604,
+          "samples_seconds": [
+            0.15183410700410604,
+            0.15267893599229865,
+            0.1502101790101733
+          ],
+          "traced_peak_bytes": 163645970
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.449983291327953e-07,
+          "samples_seconds": [
+            1.1659867595881224e-06,
+            5.449983291327953e-07,
+            4.969770088791847e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.05759934097295627,
+          "samples_seconds": [
+            0.05759934097295627,
+            0.05991668999195099,
+            0.056361312977969646
+          ],
+          "traced_peak_bytes": 10042314
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.00512259200331755,
+          "samples_seconds": [
+            0.005025221995310858,
+            0.005767541006207466,
+            0.00512259200331755
+          ],
+          "traced_peak_bytes": 38401417
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.0631868029886391,
+          "samples_seconds": [
+            0.0627913560019806,
+            0.06371319200843573,
+            0.0631868029886391
+          ],
+          "traced_peak_bytes": 44134106
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.005094029998872429,
+          "samples_seconds": [
+            0.0052920960006304085,
+            0.005094029998872429,
+            0.004774553992319852
+          ],
+          "traced_peak_bytes": 38401529
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.041171588003635406,
+          "samples_seconds": [
+            0.041333800996653736,
+            0.041171588003635406,
+            0.03842209099093452
+          ],
+          "traced_peak_bytes": 57606208
+        },
+        "dense_edit": {
+          "median_seconds": 0.16313332799472846,
+          "samples_seconds": [
+            0.16070233599748462,
+            0.16313332799472846,
+            0.16701893098070286
+          ],
+          "traced_peak_bytes": 327204488
+        },
+        "selected_read": {
+          "median_seconds": 0.00014247201033867896,
+          "samples_seconds": [
+            0.00013098199269734323,
+            0.00017720600590109825,
+            0.00014247201033867896
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 4.561498644761741e-05,
+          "samples_seconds": [
+            4.825601354241371e-05,
+            4.561498644761741e-05,
+            4.249298945069313e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03629329800605774,
+          "samples_seconds": [
+            0.035215312003856525,
+            0.03825299101299606,
+            0.03629329800605774
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.011742907983716577,
+          "samples_seconds": [
+            0.011620445002336055,
+            0.011742907983716577,
+            0.011905434977961704
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 4.046932853991166,
+          "samples_seconds": [
+            3.9985917620069813,
+            4.053889082017122,
+            4.046932853991166
+          ],
+          "traced_peak_bytes": 165850782
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 32,
+      "layout": "separate_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 76800000,
+      "edited_branch_referenced_coordinate_bytes": 153600000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 230400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.15640577700105496,
+          "samples_seconds": [
+            0.15655657497700304,
+            0.15628778500831686,
+            0.15640577700105496
+          ],
+          "traced_peak_bytes": 163645481
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.179899744689465e-07,
+          "samples_seconds": [
+            1.0039948392659426e-06,
+            5.179899744689465e-07,
+            3.7500285543501377e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.0577156119979918,
+          "samples_seconds": [
+            0.0577156119979918,
+            0.05914705898612738,
+            0.05731240700697526
+          ],
+          "traced_peak_bytes": 10042409
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.06710079798358493,
+          "samples_seconds": [
+            0.06720977500663139,
+            0.06710079798358493,
+            0.06705549501930363
+          ],
+          "traced_peak_bytes": 153601369
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.12611954400199465,
+          "samples_seconds": [
+            0.1296234879991971,
+            0.12611954400199465,
+            0.12462139301351272
+          ],
+          "traced_peak_bytes": 159334306
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.067441727995174,
+          "samples_seconds": [
+            0.067441727995174,
+            0.06577864597784355,
+            0.0700264059996698
+          ],
+          "traced_peak_bytes": 153601481
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.5653717970126309,
+          "samples_seconds": [
+            0.5653717970126309,
+            0.5618501719727647,
+            0.5698791400063783
+          ],
+          "traced_peak_bytes": 230406466
+        },
+        "dense_edit": {
+          "median_seconds": 0.2650097319856286,
+          "samples_seconds": [
+            0.26062269997783005,
+            0.2650097319856286,
+            0.265939511009492
+          ],
+          "traced_peak_bytes": 384802802
+        },
+        "selected_read": {
+          "median_seconds": 0.00016604800475761294,
+          "samples_seconds": [
+            0.00016604800475761294,
+            0.00013733698870055377,
+            0.0001674539817031473
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 0.034508044976973906,
+          "samples_seconds": [
+            0.034508044976973906,
+            0.03590684398659505,
+            0.03360206802608445
+          ],
+          "traced_peak_bytes": 153600925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.035887022997485474,
+          "samples_seconds": [
+            0.035887022997485474,
+            0.03829980501905084,
+            0.035877936985343695
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.013107801991282031,
+          "samples_seconds": [
+            0.013054631999693811,
+            0.013107801991282031,
+            0.01344889000756666
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 4.241311511985259,
+          "samples_seconds": [
+            4.124928866978735,
+            4.252236702013761,
+            4.241311511985259
+          ],
+          "traced_peak_bytes": 165850685
+        }
+      }
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 64,
+      "block_structures": 32,
+      "layout": "shared_base_blocks",
+      "source_coordinate_bytes": 153600000,
+      "replacement_coordinate_bytes": 76800000,
+      "edited_branch_referenced_coordinate_bytes": 230400000,
+      "parent_and_edited_branch_unique_coordinate_bytes": 230400000,
+      "referenced_bytes_after_replacing_all_but_last_structure": 153600000,
+      "file_bytes": 72788799,
+      "operations": {
+        "capture_and_freeze": {
+          "median_seconds": 0.15810278299613856,
+          "samples_seconds": [
+            0.1556342739786487,
+            0.15810278299613856,
+            0.16017676901537925
+          ],
+          "traced_peak_bytes": 163645497
+        },
+        "coordinate_handle_fork": {
+          "median_seconds": 5.989859346300364e-07,
+          "samples_seconds": [
+            1.0379881132394075e-06,
+            5.989859346300364e-07,
+            4.099856596440077e-07
+          ],
+          "traced_peak_bytes": 224
+        },
+        "fork": {
+          "median_seconds": 0.058973187988158315,
+          "samples_seconds": [
+            0.05884526699082926,
+            0.058973187988158315,
+            0.06134029699023813
+          ],
+          "traced_peak_bytes": 10042211
+        },
+        "edit_one_atom": {
+          "median_seconds": 0.06680212001083419,
+          "samples_seconds": [
+            0.06779159500729293,
+            0.06680212001083419,
+            0.06643001700285822
+          ],
+          "traced_peak_bytes": 153601369
+        },
+        "fork_then_edit": {
+          "median_seconds": 0.12737274801474996,
+          "samples_seconds": [
+            0.12737274801474996,
+            0.12839791001169942,
+            0.12466501901508309
+          ],
+          "traced_peak_bytes": 159334207
+        },
+        "batched_eight_edits": {
+          "median_seconds": 0.06858840401400812,
+          "samples_seconds": [
+            0.06858840401400812,
+            0.06864632701035589,
+            0.06706099098664708
+          ],
+          "traced_peak_bytes": 153601481
+        },
+        "repeated_eight_edits": {
+          "median_seconds": 0.5714578939951025,
+          "samples_seconds": [
+            0.5714578939951025,
+            0.5695023180160206,
+            0.5727723250165582
+          ],
+          "traced_peak_bytes": 230406466
+        },
+        "dense_edit": {
+          "median_seconds": 0.27115267398767173,
+          "samples_seconds": [
+            0.27115267398767173,
+            0.27098210499389097,
+            0.2712213479971979
+          ],
+          "traced_peak_bytes": 384802802
+        },
+        "selected_read": {
+          "median_seconds": 0.00010347500210627913,
+          "samples_seconds": [
+            0.00011583400191739202,
+            0.00010347500210627913,
+            9.868797496892512e-05
+          ],
+          "traced_peak_bytes": 4000
+        },
+        "full_read": {
+          "median_seconds": 5.88349939789623e-05,
+          "samples_seconds": [
+            5.88349939789623e-05,
+            6.422499427571893e-05,
+            5.8214995078742504e-05
+          ],
+          "traced_peak_bytes": 925
+        },
+        "full_read_after_edit": {
+          "median_seconds": 0.03524288401240483,
+          "samples_seconds": [
+            0.03413924400229007,
+            0.03524288401240483,
+            0.03563335500075482
+          ],
+          "traced_peak_bytes": 153600901
+        },
+        "block_scan": {
+          "median_seconds": 0.01214165598503314,
+          "samples_seconds": [
+            0.012872768013039604,
+            0.011982095980783924,
+            0.01214165598503314
+          ],
+          "traced_peak_bytes": 1392
+        },
+        "materialize_and_public_h5msm_write": {
+          "median_seconds": 4.109222716011573,
+          "samples_seconds": [
+            4.1530656830000225,
+            4.109222716011573,
+            4.105182756000431
+          ],
+          "traced_peak_bytes": 165850885
+        }
+      }
+    }
+  ]
+}

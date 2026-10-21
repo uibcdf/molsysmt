@@ -461,6 +461,76 @@ including native distance calculations and H5MSM 0.5/unit assertions. The
 the development model and its measurement harness, not a public copy API.
 Comparative results are recorded separately after fixing the measured source.
 
+### Initial complete campaign
+
+The retained artifact is
+[`native_copy_20261021.json`](../../benchmarks/baselines/native_copy_20261021.json):
+21 cases measured against clean source
+`4e8cbad485c4757d49dc908d193d28bfdbb01c37`, with study SHA-256
+`9c06847797b78fab8db09b1f603fd50cfb9a91791deeb4265445f35dde8a43c8`.
+The host is an Intel Xeon E5-2630 v4 at 2.20 GHz, with 20 logical CPUs;
+Python/package/platform identities and individual samples are in the artifact.
+This uses the shared development environment, including the recorded development
+versions of PyUnitWizard and ArgDigest; it is not a published dependency-floor
+qualification. Each timing is the median of three warm samples; allocations
+are from a separate execution. Temporary H5MSM files are removed after use.
+
+For 100,000 atoms x 64 structures (146.48 MiB of float64 coordinates):
+
+| Coordinate layout | Edit one atom, ms | New coordinate bytes, MiB | Traced edit peak, MiB | Full protected read before/after edit, ms |
+| --- | ---: | ---: | ---: | ---: |
+| Complete contiguous buffer | 127.269 | 146.48 | 292.97 | 0.048 / 0.126 |
+| Separate one-structure blocks | 1.084 | 2.29 | 4.58 | 33.153 / 33.697 |
+| Shared base, one-structure blocks | 1.126 | 2.29 | 4.58 | 0.044 / 34.890 |
+| Separate eight-structure blocks | 5.129 | 18.31 | 36.62 | 35.562 / 36.899 |
+| Shared base, eight-structure blocks | 5.123 | 18.31 | 36.62 | 0.046 / 36.293 |
+
+These are prototype storage/quantity operations, not public native method
+speedups. In particular, `full_read` returns a protected shared view when the
+layout permits one and an assembled independent array otherwise. It is not
+equivalent to a public getter promising an independently editable array.
+The read-contract follow-up below separates those requirements.
+
+Findings and limits:
+
+- Replacing a complete array for every sparse edit is expensive in the large
+  coordinate case. Block granularity changes both time and temporary memory.
+- The shared-base strategy retains the initial contiguous-read fast path, but
+  assembling after edits is still a full read cost. The one-structure hybrid
+  result references 290.68 MiB of immutable backing bytes after replacing all
+  but the last structure, versus 146.48 MiB for separate blocks. This is
+  byte-owner accounting, not a measurement of process RSS or a GC experiment.
+- Complete prototype forks cost about 55-59 ms in that case, despite sharing
+  coordinate bytes: other domains are still copied eagerly. A cheap coordinate
+  handle is not evidence of a cheap complete MolSys copy.
+- Materialization plus public H5MSM writing costs about 3.9-4.2 seconds there.
+  Those numbers include the current native bridge and writer; they do not
+  distinguish a future streaming writer or certify one layout as faster I/O.
+- Dense edits include the prototype's Python-level grouping/assignment loops.
+  They are not an inherent lower bound for blocked storage and must not be
+  used alone to discard it. Batched and repeated edits are separate workloads.
+- A fixed number of structures per block is not yet a universal policy:
+  structure size differs greatly between the three datasets. Candidate byte
+  budgets and adaptive representation changes remain design work.
+
+### Read-contract follow-up
+
+The extended harness adds `owned_full_read`, one-structure reads with all atoms,
+and nonconsecutive whole-structure reads. Owned reads duplicate a shared view
+but reuse an already materialized independent output instead of copying it
+again. Its ownership/CLI additions pass 71 tests, including mutation of returned
+arrays without changing either branch.
+
+```bash
+python devtools/scripts/study_native_copy.py --reads-only --repeats 3 \
+    --output /tmp/molsysmt121-reads.json
+```
+
+This is a separate measurement campaign because output ownership is part of
+the query contract. A protected-view timing must not be presented as the cost
+of an editable copy. Existing public getter behavior must be preserved or
+changed explicitly, not incidentally by selecting a faster storage layout.
+
 ### Reproducing the ownership defect
 
 Run from the repository root in the existing development environment:

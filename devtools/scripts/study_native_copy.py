@@ -104,6 +104,10 @@ class _Coordinates:
             output[target] = self.blocks[block][local, atoms]
         return output
 
+    def _owned_read(self):
+        values = self._read()
+        return values if values.flags.owndata else values.copy()
+
     def _replace(self, values, structure_indices, atom_indices):
         structures = _axis(structure_indices, self.shape[0])
         atoms = _axis(atom_indices, self.shape[1])
@@ -173,6 +177,9 @@ class _Branch:
             puw.quantity(self._coordinates._read(structure_indices, atom_indices), "nm")
         )
 
+    def _get_owned_coordinates(self):
+        return puw.standardize(puw.quantity(self._coordinates._owned_read(), "nm"))
+
     def _set_coordinates(self, value, structure_indices, atom_indices):
         # Reuse the real coordinate value contract, then extract explicit nm.
         normalized = digest_coordinates(value)
@@ -210,11 +217,9 @@ class _Branch:
         topology = self._topology.copy()
         structures = object.__new__(Structures)
         structures.__dict__ = deepcopy(self._structure_state)
-        values = self._coordinates._read()
+        values = self._coordinates._owned_read()
         # Existing native setters enable writes; they cannot edit bytes-backed
         # immutable views. This bridge pays for owned mutable native storage.
-        if not values.flags.owndata:
-            values = values.copy()
         structures.coordinates = puw.quantity(values, "nm")
         result = MolSys._from_partial_domains(
             topology=topology,
@@ -291,7 +296,9 @@ def _measure(prepare, operation, repeats):
     }
 
 
-def _case(n_atoms, n_structures, block_size, repeats, io, shared_base=False):
+def _case(
+    n_atoms, n_structures, block_size, repeats, io, shared_base=False, reads_only=False
+):
     source, truth = _fixture(n_atoms, n_structures)
     base = _Branch(source, block_size, shared_base)
     selected = [n_structures - 1, 0, n_structures // 2, 0]
@@ -356,12 +363,37 @@ def _case(n_atoms, n_structures, block_size, repeats, io, shared_base=False):
             lambda branch: branch._get_coordinates(selected, atoms),
         ),
         "full_read": (lambda: base, lambda branch: branch._get_coordinates()),
+        "owned_full_read": (
+            lambda: base,
+            lambda branch: branch._get_owned_coordinates(),
+        ),
+        "one_structure_read": (
+            lambda: base,
+            lambda branch: branch._get_coordinates(edit_structures),
+        ),
+        "nonconsecutive_structures_read": (
+            lambda: base,
+            lambda branch: branch._get_coordinates(selected),
+        ),
         "full_read_after_edit": (
             lambda: fork_then_edit(base),
             lambda branch: branch._get_coordinates(),
         ),
         "block_scan": (lambda: base, scan),
     }
+    if reads_only:
+        operations = {
+            name: operations[name]
+            for name in (
+                "selected_read",
+                "full_read",
+                "owned_full_read",
+                "one_structure_read",
+                "nonconsecutive_structures_read",
+                "full_read_after_edit",
+                "block_scan",
+            )
+        }
     results = {
         name: _measure(*functions, repeats) for name, functions in operations.items()
     }
@@ -444,8 +476,11 @@ def main(argv=None):
     parser.add_argument("--blocks", default="1,8,32")
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--io", action="store_true")
+    parser.add_argument("--reads-only", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
+    if args.io and args.reads_only:
+        parser.error("The read-only campaign does not repeat H5MSM writes.")
     cases = [
         tuple(map(int, value.split("x")))
         for value in (args.case or ["62x5000", "10000x128", "100000x64"])
@@ -457,6 +492,7 @@ def main(argv=None):
     root = Path(__file__).resolve().parents[2]
     result = {
         "scope": "experimental layouts, not native API qualification",
+        "campaign": "reads_only" if args.reads_only else "complete",
         "units": {"coordinates": "nm", "time": "ps"},
         "python": platform.python_version(),
         "numpy": np.__version__,
@@ -487,7 +523,13 @@ def main(argv=None):
             for shared_base in [False, True] if block < n_structures else [False]:
                 result["cases"].append(
                     _case(
-                        n_atoms, n_structures, block, args.repeats, args.io, shared_base
+                        n_atoms,
+                        n_structures,
+                        block,
+                        args.repeats,
+                        args.io,
+                        shared_base,
+                        args.reads_only,
                     )
                 )
                 print(
