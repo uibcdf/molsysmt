@@ -31,3 +31,16 @@ complement its specialized sparse occurrence queries.
 .. automethod:: molsysmt.Interactions.get
 
 .. automethod:: molsysmt.Interactions.info
+
+.. _API Native Structure Inputs:
+
+Constructing and appending Structures
+-------------------------------------
+
+Native structure inputs retain explicit physical units and a shared structure
+axis. Temperature and energies accept a real scalar for one structure or a
+one-dimensional series. Query output follows the active unit policy.
+
+.. automethod:: molsysmt.native.Structures.__init__
+
+.. automethod:: molsysmt.native.Structures.append

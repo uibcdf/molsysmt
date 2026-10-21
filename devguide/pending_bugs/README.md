@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`structures_constructor_rejects_per_structure_temperature_quantities_accepted_by_.md`](structures_constructor_rejects_per_structure_temperature_quantities_accepted_by_.md) — [#395](https://github.com/uibcdf/molsysmt/issues/395) — Structures constructor rejects per-structure temperature quantities accepted by its native storage *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

@@ -11,27 +11,30 @@ functions_with_boolean = (
 )
 
 
-def digest_potential_energy(potential_energy, caller=None):
-    """Checks if potential_energy arguments has the correct type.
+def digest_potential_energy(potential_energy, caller=None, structure_series=False):
+    """Digesting potential energy for scalar settings or structural series.
 
     Parameters
-    ---------
-    potential_energy: None, integer, list, tuple or ndarray
-        The potential_energy argument.
-
-    caller: str, optional
-        Name of the function or method that is being digested.
+    ----------
+    potential_energy : quantity, bool or None
+        Physical value with energy/mole units, such as kJ/mol. Boolean flags are
+        admitted only by query callers; None denotes an absent value.
+    caller : str, optional
+        ArgDigest contract key used for query admission and diagnostics.
+    structure_series : bool, default=False
+        Decorator-owned context at native structure boundaries. Admit a real
+        one-dimensional quantity or normalize a scalar to a length-one series.
+        Other callers retain the scalar setting contract.
 
     Returns
     -------
-    ndarray
-        The potential_energy with correct type
+    quantity, bool or None
+        Standardized physical value, a query flag, or an absent value.
 
     Raises
-    -------
-    WrongStepError
-        If potential_energy is not a valid argument.
-
+    ------
+    ArgumentError
+        If units or values do not satisfy the selected context.
     """
 
     if caller is not None and caller.endswith(functions_with_boolean):
@@ -40,6 +43,16 @@ def digest_potential_energy(potential_energy, caller=None):
 
     if potential_energy is None:
         return None
+
+    if structure_series:
+        from ._structure_series import digest_structure_series
+
+        return digest_structure_series(
+            potential_energy,
+            "potential_energy",
+            {"[L]": 2, "[M]": 1, "[T]": -2, "[mol]": -1},
+            caller,
+        )
 
     value, unit = puw.get_value_and_unit(potential_energy)
 

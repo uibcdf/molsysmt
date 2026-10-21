@@ -286,7 +286,7 @@ class Structures(NativeQueries):
         return n_atoms
 
     @signal(tags=["native"])
-    @arg_digest()
+    @arg_digest(structure_series=True)
     def __init__(
         self,
         constant_time_step=False,
@@ -308,6 +308,78 @@ class Structures(NativeQueries):
         occupancy=None,
         skip_digestion=False,
     ):
+        """Constructing aligned coordinate structures and optional observables.
+
+        Parameters
+        ----------
+        constant_time_step : bool, default=False
+            Whether a constant time step is declared. Explicit series must still align.
+        time_step : quantity, optional
+            Declared time increment, with time units such as ps.
+        constant_id_step : bool, default=False
+            Whether a constant structure-label increment is declared.
+        id_step : int, optional
+            Declared increment between structure labels.
+        constant_box : bool, default=False
+            Whether a constant periodic box is declared. Explicit series must still align.
+        structure_id : array-like, optional
+            Structure labels, shape (n_structures,); distinct from positional indices.
+        time : quantity, optional
+            Time values, shape (n_structures,), with time units such as ps.
+        coordinates : quantity, optional
+            Cartesian coordinates, shape (n_structures, n_atoms, 3), with length units.
+            A single structure may use shape (n_atoms, 3). Internal lengths are in nm.
+        velocities : quantity, optional
+            Atomic velocities, shape (n_structures, n_atoms, 3), with length/time units.
+        box : quantity, optional
+            Periodic box vectors in rows, shape (n_structures, 3, 3), with length units.
+        b_factor : quantity, optional
+            Atomic B-factors, shape (n_structures, n_atoms), with length-squared units.
+        alternate_location : sequence of dict, optional
+            Sparse alternate-site mappings on the atom axis, one mapping per structure.
+        bioassembly : dict, optional
+            Biological assembly metadata, stored separately from aligned series.
+        temperature : quantity, optional
+            One temperature per structure, shape (n_structures,), with temperature units.
+            A scalar represents one structure and becomes a length-one series.
+        potential_energy : quantity, optional
+            Potential energy per structure, shape (n_structures,), with energy/mole units.
+            A scalar becomes a length-one series. Internal values use kJ/mol.
+        kinetic_energy : quantity, optional
+            Kinetic energy per structure, shape (n_structures,), with energy/mole units.
+            A scalar becomes a length-one series. Internal values use kJ/mol.
+        occupancy : array-like, optional
+            Dimensionless atomic occupancies, shape (n_structures, n_atoms).
+        skip_digestion : bool, default=False
+            Whether to skip argument digestion for already normalized internal inputs.
+
+        Raises
+        ------
+        ArgumentError
+            If an observable lacks compatible units, is not real-valued, or has rank > 1.
+        StructuralInconsistencyError
+            If supplied structure/atom axes disagree or stored observable ranks are invalid.
+
+        Notes
+        -----
+        Observable values require explicit units. Omitted observables remain None.
+        Empty series represent zero structures; a scalar is never broadcast across
+        several coordinate structures. Temperature is stored in K and energies in
+        kJ/mol; get() standardizes quantities using the active unit policy.
+        Neither coordinates nor topology are required for an observable-only object.
+
+        Examples
+        --------
+        >>> from molsysmt import pyunitwizard as puw
+        >>> from molsysmt.native import Structures
+        >>> molsys = Structures(temperature=puw.quantity([300000., 301000.], 'mK'))
+        >>> molsys.n_structures
+        2
+        >>> puw.get_value(molsys.get(temperature=True), to_unit='K').tolist()
+        [300.0, 301.0]
+
+        .. versionadded:: 1.0.0
+        """
 
         self._time_step = None
         self._time = None
@@ -360,6 +432,14 @@ class Structures(NativeQueries):
     @staticmethod
     def _payload_dimensions(payload, caller, payload_error=False):
         """Validating shared structure and atom axes for one payload."""
+
+        for name in _SYSTEM_LEVEL_OBSERVABLES:
+            value = payload.get(name)
+            if value is not None and np.ndim(value) != 1:
+                raise StructuralInconsistencyError(
+                    reason=f"Structural observable {name!r} must have one value per structure in a one-dimensional array.",
+                    caller=caller,
+                )
 
         lengths = {
             name: len(value) for name, value in payload.items() if value is not None
@@ -459,7 +539,7 @@ class Structures(NativeQueries):
                 self.__dict__[key] = value
 
     @signal(tags=["native"])
-    @arg_digest()
+    @arg_digest(structure_series=True)
     def append(
         self,
         structure_id=None,
@@ -478,7 +558,78 @@ class Structures(NativeQueries):
         attribute_policy="intersection",
         skip_digestion=False,
     ):
-        """Append one or more structures and associated metadata to this object."""
+        """Appending selected structures and their aligned metadata.
+
+        Parameters
+        ----------
+        structure_id : array-like, optional
+            Labels for the incoming structures, distinct from positional indices.
+        time : quantity, optional
+            Incoming time series, shape (n_structures,), with time units such as ps.
+        coordinates : quantity, optional
+            Incoming coordinates, shape (n_structures, n_atoms, 3), with length units.
+        velocities : quantity, optional
+            Incoming velocities, shape (n_structures, n_atoms, 3), with length/time units.
+        box : quantity, optional
+            Box vectors in rows, shape (n_structures, 3, 3), with length units.
+        temperature : quantity, optional
+            Incoming temperatures, shape (n_structures,), with temperature units.
+            A scalar becomes a length-one series and is not broadcast.
+        potential_energy : quantity, optional
+            Incoming potential energies, shape (n_structures,), with energy/mole units.
+            A scalar becomes a length-one series. Internal values use kJ/mol.
+        kinetic_energy : quantity, optional
+            Incoming kinetic energies, shape (n_structures,), with energy/mole units.
+            A scalar becomes a length-one series. Internal values use kJ/mol.
+        b_factor : quantity, optional
+            Incoming atomic B-factors, shape (n_structures, n_atoms), with length-squared units.
+        alternate_location : sequence of dict, optional
+            Sparse alternate-site mappings, one mapping per incoming structure.
+        occupancy : array-like, optional
+            Incoming dimensionless occupancies, shape (n_structures, n_atoms).
+        atom_indices : str or list of int, default='all'
+            Incoming atom positions to append. The default includes every incoming atom.
+        structure_indices : str or list of int, default='all'
+            Incoming structure positions to append, preserving order and repetitions.
+        attribute_policy : {'intersection', 'strict'}, default='intersection'
+            Keep shared series and warn when dropping one-sided series, or reject
+            one-sided series under strict policy. An empty target adopts the incoming data.
+        skip_digestion : bool, default=False
+            Whether to skip argument digestion for already normalized internal inputs.
+
+        Returns
+        -------
+        None
+            The receiver is updated in place.
+
+        Raises
+        ------
+        ArgumentError
+            If observable units, numeric types or ranks are invalid, or policy is unknown.
+        ArgumentLengthError
+            If incoming structure-series lengths or the target/incoming atom counts disagree.
+        StructuralInconsistencyError
+            If stored series are malformed or strict policy refuses one-sided attributes.
+
+        Notes
+        -----
+        Observable quantities follow the constructor's one-dimensional contract.
+        Compatible units are converted before storage; get() follows the active
+        output unit policy. Invalid units, ranks and axis lengths are rejected
+        before changing the stored series. Existing attribute-policy semantics
+        also apply to temperature and energy observables.
+
+        Examples
+        --------
+        >>> from molsysmt import pyunitwizard as puw
+        >>> from molsysmt.native import Structures
+        >>> molsys = Structures(temperature=puw.quantity([300., 301.], 'K'))
+        >>> molsys.append(temperature=puw.quantity(302000., 'mK'))
+        >>> puw.get_value(molsys.get(temperature=True), to_unit='K').tolist()
+        [300.0, 301.0, 302.0]
+
+        .. versionadded:: 1.0.0
+        """
 
         if attribute_policy not in {"intersection", "strict"}:
             from molsysmt._private.smonitor import ArgumentError

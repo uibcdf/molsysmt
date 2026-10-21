@@ -114,8 +114,13 @@ with guarded real-payload tables and executable examples. The related
 [#394 scalar transport repair](archive/resolved_bugs/native_declarative_dictionaries_retain_numpy_scalars_that_break_json_and_yaml_se.md)
 normalizes NumPy numbers in Topology/MolSys/Builder record writers. Together they
 pass 304 affected cases and 21 converter doctests; no format or public signature
-changes. The separately reported Structures constructor/temperature-series
-inconsistency remains open as uibcdf/molsysmt#395.
+changes. The subsequently authorized
+[#395 structure-observable correction](archive/resolved_bugs/structures_constructor_rejects_per_structure_temperature_quantities_accepted_by_.md)
+now admits aligned temperature/potential-energy/kinetic-energy series in native
+construction and append, preserving scalar simulation-setting semantics. It
+passes 1,276 affected cases, ten method doctests, executed guide/course examples
+and fourteen fast gates. H5MSM/StructuresDict and nondefault-unit round trips
+are covered; no storage schema, public signature or artifact identity changes.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

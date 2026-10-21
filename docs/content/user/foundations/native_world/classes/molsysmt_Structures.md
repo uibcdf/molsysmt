@@ -37,6 +37,27 @@ structure axis. Partial box updates require an existing series; they do not
 invent periodic boxes for unspecified structures. Box quantities carry length
 units and are stored internally in nm. See {ref}`Tutorial_Set`.
 
+## Aligned Observables
+
+Temperature, potential energy and kinetic energy can be supplied directly to
+native `Structures` construction and `append()` as unit-bearing series of shape
+`(n_structures,)`. Each value belongs to one structure. A scalar becomes a
+length-one series; it is not broadcast across a longer coordinate block.
+Missing observables remain `None`, and an empty series represents zero structures.
+
+Compatible units are converted on storage (K and kJ/mol); `get()` applies your
+active output unit policy. Bare values, Boolean/complex values, matrices and
+incompatible units are rejected. Series lengths must match the same coordinate
+or metadata structure axis. Invalid append units, ranks or lengths leave the
+object unchanged. Existing append policies apply: `intersection` keeps shared
+attributes, while `strict` refuses one-sided attributes.
+
+These observables survive supported `StructuresDict` and H5MSM 0.5 round trips.
+MolSysDict 0.1 and the current structures YAML codec do not store these three
+thermodynamic series. Converting to those formats does not extend their schema.
+Scalar temperatures in simulation settings keep their existing contract.
+See the {ref}`native input reference <API Native Structure Inputs>`.
+
 ## Invariants and Performance
 
 `repr(structures)` reads stored shape metadata without array conversion, unit

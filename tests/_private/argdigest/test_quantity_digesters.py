@@ -125,3 +125,22 @@ def test_structure_index_and_n_structures_support_native_and_contains_contexts()
 def test_quantity_digesters_reject_wrong_dimensionalities(digester, bad_value):
     with pytest.raises(ArgumentError):
         digester(bad_value)
+
+
+@pytest.mark.parametrize(
+    "digester,unit",
+    [
+        (digest_temperature, "K"),
+        (digest_potential_energy, "kJ/mol"),
+        (digest_kinetic_energy, "kJ/mol"),
+    ],
+)
+def test_structure_series_admission_does_not_broaden_scalar_settings(digester, unit):
+    value = puw.quantity([1.0, 2.0], unit)
+    with pytest.raises(ArgumentError):
+        digester(value, caller="molsysmt.native.simulation.__init__")
+    scalar = digester(
+        puw.quantity(1.0, unit), caller="molsysmt.native.simulation.__init__"
+    )
+    assert np.isscalar(puw.get_value(scalar))
+    assert digester(True, caller=BOOL_CALLER) is True

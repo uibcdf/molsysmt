@@ -11,27 +11,30 @@ functions_with_boolean = (
 )
 
 
-def digest_temperature(temperature, caller=None):
-    """Checks if temperature arguments has the correct type.
+def digest_temperature(temperature, caller=None, structure_series=False):
+    """Digesting temperature for scalar settings or structural series.
 
     Parameters
-    ---------
-    temperature: None, integer, list, tuple or ndarray
-        The temperature argument.
-
-    caller: str, optional
-        Name of the function or method that is being digested.
+    ----------
+    temperature : quantity, bool or None
+        Physical value with temperature units, such as K. Boolean flags are
+        admitted only by query callers; None denotes an absent value.
+    caller : str, optional
+        ArgDigest contract key used for query admission and diagnostics.
+    structure_series : bool, default=False
+        Decorator-owned context at native structure boundaries. Admit a real
+        one-dimensional quantity or normalize a scalar to a length-one series.
+        Other callers retain the scalar setting contract.
 
     Returns
     -------
-    ndarray
-        The temperature with correct type
+    quantity, bool or None
+        Standardized physical value, a query flag, or an absent value.
 
     Raises
-    -------
-    WrongStepError
-        If temperature is not a valid argument.
-
+    ------
+    ArgumentError
+        If units or values do not satisfy the selected context.
     """
 
     if caller is not None and caller.endswith(functions_with_boolean):
@@ -40,6 +43,11 @@ def digest_temperature(temperature, caller=None):
 
     if temperature is None:
         return temperature
+
+    if structure_series:
+        from ._structure_series import digest_structure_series
+
+        return digest_structure_series(temperature, "temperature", {"[K]": 1}, caller)
 
     value, unit = puw.get_value_and_unit(temperature)
 
