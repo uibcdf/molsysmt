@@ -17,8 +17,10 @@ supersedes: []
 **Reported:** Existing issue #121 requests `copy()`, `__copy__()` and
 `__deepcopy__()` and names TopoMT's `Topography` as a reference. The maintainer
 requested a design study before implementation.
-**Status:** Initial source inventory and small executed probes complete. The
-public shallow-copy semantics below are proposed, not implemented or accepted.
+**Status:** Source inventory, client inspection and small executed probes
+complete. A final reevaluation below revises the initial preference for an
+independent `copy.copy()`. All proposed semantics remain unaccepted and
+unimplemented.
 
 ## What
 
@@ -51,26 +53,29 @@ registry-ownership correction is tracked by uibcdf/topomt#74. This is useful
 ownership guidance, not evidence that shared editable molecular coordinates
 would preserve MolSysMT's interaction-validity guarantees.
 
-### Proposed bounded public contract for discussion
+### Initial bounded public contract considered
 
 1. `.copy()` returns an independently editable molecular snapshot. Preserve
    current calls; do not introduce `deep=False` without an agreed safe meaning.
 2. `copy.deepcopy(obj, memo)` uses native hooks, registers its shell before
    traversing domains, and carries the same memo through the entire graph.
    Preserve cycles, repeated references and concrete supported subclasses.
-3. For resident molecular containers, prefer a documented domain-defined
+3. One candidate for resident molecular containers is a documented domain-defined
    `copy.copy(obj)` that also isolates mutable molecular domains. It may share
    strictly immutable interaction numeric buffers, but must own analysis
    metadata and named-analysis containers independently. This is intentionally
    stronger isolation than Python's generic shallow instance fallback; it is
    not a promise of constant-time or constant-memory copying of coordinates.
    The maintainer must agree to this semantic choice before implementation.
+   The reevaluation below now prefers explicit rejection of an unsafe shallow
+   operation over silently paying for an independent mutable snapshot.
 4. `Interactions.copy()` and its protocol hooks must preserve full/view state,
    selected occurrence indices, coverage, source maps, parallel observations,
    image vectors, provenance and lazy filtered/patched representation.
-   Independent deep-copy storage and immutable-buffer sharing in the shallow
-   path must be distinguished and tested. Do not materialize a whole analysis
-   merely to copy its small owner/metadata shell.
+   Mutable storage independence and immutable-buffer sharing must be
+   distinguished and tested. Logical independence does not require physical
+   duplication of genuinely immutable bytes, even for a deep copy. Do not
+   materialize a whole analysis merely to copy its small owner/metadata shell.
 5. Document wrapper-specific shallow behavior explicitly. Plain Python
    dictionaries retain Python's own semantics. Do not silently present all
    serializable forms as if they owned the same domains as `MolSys`.
@@ -96,6 +101,183 @@ ownership, representation and subclass behavior. The existing shallow MolSys
 fallback demonstrably changes the original's ownership link. A seemingly
 lightweight interaction copy also goes through serialization instead of
 reusing immutable storage.
+
+## Final reevaluation before the maintainer decision
+
+### Client evidence
+
+Read-only inspection of five sibling components finds the following concrete
+routes. This is a bounded source study, not a complete behavioral audit or
+installed-client qualification.
+
+| Component | Observed requirement | Consequence for #121 |
+| --- | --- | --- |
+| DockingMT | Prepared ligands/receptors and pose conversion call `msm.copy()` before replacing coordinates. | Independent `.copy()` semantics are necessary; shared editable buffers would change the source. |
+| MolSysViewer | View copying calls `msm.copy()`; source composition creates a detached candidate before mutation/publication. | Preserve independent candidate edits and the active system on failure. |
+| TopoMT | `InputContext` saves/reconstructs independent molecular snapshots. `Topography.__copy__` additionally calls `copy.copy()` on each ordinary stored attribute, including native MolSys references. | Preserve independent snapshots. Changing the MolSys shallow protocol affects an existing indirect consumer, not just new code. |
+| PharmacophoreMT | `copy_pharmacophore` explicitly deep-copies sites/metadata while retaining molecular references. | Analysis copying can intentionally share a source reference; this is not a request for another editable MolSys wrapper sharing coordinate buffers. |
+| ElastNetMT | Inspected invariance/cache tests use `msm.copy()` before edits. No direct MolSys shallow-copy requirement was identified in inspected production code. | Preserve independent systems without inventing an unobserved shallow workflow requirement. |
+
+**Executed client reproduction:** With a synthetic two-atom, one-structure
+MolSys passed to `Topography`, `topography.copy(deep=False)` changes the
+stored original MolSys topology owner to `copied._molsys`, while coordinate
+buffers remain shared. This is the same provider defect already tracked by
+#121, reached by a real client operation. It does not establish that TopoMT
+requires a new shallow molecular-system abstraction.
+
+### Rebinding ownership alone is insufficient
+
+An experimental, temporary shell probe allocated a new MolSys, topology and
+Structures wrapper with shared payloads and correctly separate topology owner
+references. It separately copied the named-analysis dictionary. A validated
+public `msm.set()` editing atom 0 in structure 0 through the clone produced:
+
+```text
+original_owner_intact: true
+original_coordinate_after_clone_edit: [1.0, 2.0, 3.0]
+original_evaluated_structures: [0, 1]
+clone_evaluated_structures: [1]
+```
+
+The original coordinates changed but its original analysis still claimed
+structure 0 as evaluated. The probe was not installed as an implementation.
+The mechanism follows `Structures.set_coordinates` modifying selected rows
+in place while the MolSys setter invalidates observations only on its target.
+Thus the issue cannot be solved by adjusting a weak reference alone.
+
+Reproduce this temporary shell experiment from the repository root:
+
+```bash
+python - <<'PY'
+import weakref
+import numpy as np
+import molsysmt as msm
+from molsysmt import pyunitwizard as puw
+from molsysmt.native import MolSys
+
+source = MolSys(n_atoms=2)
+source.structures.coordinates = puw.quantity(np.zeros((2, 2, 3)), "nm")
+source.interactions = {"pair": msm.Interactions.from_records(
+    [{"structure_index": 0, "interaction_type": "pair", "participants": [
+        {"role": "a", "atom_indices": [0]},
+        {"role": "b", "atom_indices": [1]}]}],
+    n_atoms=2, n_structures=2,
+    evaluated_structure_indices=[0, 1], method="synthetic")}
+# Experimental wrappers only; not an implementation of the proposed API.
+clone = object.__new__(MolSys)
+clone.__dict__ = source.__dict__.copy()
+for name, original in (("_topology", source.topology),
+                       ("structures", source.structures)):
+    wrapper = object.__new__(type(original))
+    wrapper.__dict__ = original.__dict__.copy()
+    setattr(clone, name, wrapper)
+clone.topology._molsys_owner_ref = weakref.ref(clone)
+clone._interactions = dict(source._interactions)
+msm.set(clone, selection=[0], structure_indices=[0],
+        coordinates=puw.quantity([[[1., 2., 3.]]], "nm"))
+print(source.topology._molsys_owner_ref() is source)
+print(puw.get_value(source.structures.coordinates, to_unit="nm")[0, 0].tolist())
+print(source.interactions["pair"].evaluated_structure_indices.tolist())
+print(clone.interactions["pair"].evaluated_structure_indices.tolist())
+# True; [1.0, 2.0, 3.0]; [0, 1]; [1] at the inspected source.
+PY
+```
+
+`Structures` coordinates normally expose a non-writeable array, but their
+supported setters enable writes and modify the owned buffer. That storage is
+not equivalent to the bytes-backed immutable numeric storage in `Interactions`.
+On the tested arrays, enabling writeability succeeds for the coordinate store
+and raises `ValueError` for the interaction participant store.
+
+### Alternatives and trade-offs
+
+All alternatives retain independent `.copy()`/`deepcopy()` as the primary
+editing route. The table concerns mutable resident molecular containers;
+payload dictionaries and immutable interaction storage have distinct contracts.
+
+| Alternative | Advantages | Costs and limitations |
+| --- | --- | --- |
+| A. Make `copy.copy()` an independent mutable molecular snapshot | Safe ownership/editing; existing TopoMT calls continue returning a system; straightforward implementation relative to shared-state machinery. | Stronger than the generic Python shallow contract; coordinate duplication may be large and happen indirectly; shallow/deep operations cease to express a useful payload-sharing distinction for these domains. |
+| B. Share editable payloads between separately editable wrappers | Low initial numerical allocation; follows the usual shallow-sharing expectation. | Owner rebinding does not protect interaction validity; mutations can silently change the other system. Needs explicit shared lifecycle semantics or accepts loss of the required independent validity guarantees. |
+| C. Explicitly reject shallow copying of mutable molecular containers | Clear failure before corruption or a hidden large allocation; `.copy()` and `deepcopy()` keep their existing independent purpose; no speculative shared-state engine. | An intentional API restriction; existing indirect callers such as TopoMT must select sharing or independent copying explicitly before rollout. |
+| D. Introduce native copy-on-write or shared revision/invalidation state | Could make sharing cheap while preserving an agreed edit model. | Different models have different semantics: copy-on-write isolates edits, shared invalidation does not. Every supported write/alias route and field needs coverage; pandas alone does not cover native NumPy coordinate storage. Additional architecture and measurements are required. |
+
+Sharing one existing MolSys by ordinary reference is already cheap and retains
+one owner and validity lifecycle. It is an appropriate choice when a client
+intends to share the whole molecular system. It does not create a detached
+editing candidate and is not an independent snapshot.
+
+**Revised recommendation, pending maintainer decision:** Prefer C for the six
+mutable resident molecular containers (`MolSys`, `Topology`, `Structures`,
+`ChemicalStates`, `MolSysBuilder`, `MolecularMechanics`), with an explanatory
+protocol error pointing to independent `.copy()`/`deepcopy()`. Implement
+independent native copies and explicit memo/ownership handling. Support a
+lightweight copy of `Interactions` using independently owned mutable metadata
+and shared genuinely immutable numeric bytes. Preserve standard shallow
+payload-sharing semantics for the dictionary wrappers where no molecular
+ownership/invalidation invariant is promised.
+
+The rejection is a proposed supported restriction, not a placeholder that
+pretends to implement a usable shallow molecular clone. If the maintainer
+does not explicitly accept that narrower outcome for #121, the shallow-copy
+part must remain open rather than being reported as delivered. If the maintainer
+instead prioritizes uninterrupted existing `copy.copy()` calls, A remains a
+defensible alternative, provided its payload cost and domain-defined semantics
+are prominent. B is unsuitable with the current validity contract; D should
+not be silently added as a small pre-1.0 copy fix.
+
+Before adopting C, coordinate the TopoMT call site: its shallow Topography copy
+can deliberately retain the existing MolSys reference if molecular sharing is
+intended, or explicitly request an independent molecular snapshot. That choice
+belongs to TopoMT's owner and must be tested there. No sibling code was edited
+and no new shared-suite copy policy is being asserted.
+
+### Memory scale and immutable sharing
+
+The following is exact buffer-size arithmetic for one resident float64
+coordinate array, `n_atoms * n_structures * 3 * 8`, not measured RSS, a timing
+benchmark, or an allocation of these large systems:
+
+| Atoms | Structures | Source coordinates | Additional bytes for one independent coordinate copy |
+| ---: | ---: | ---: | ---: |
+| 10,000 | 1,000 | 240,000,000 | 240,000,000 |
+| 100,000 | 100 | 240,000,000 | 240,000,000 |
+| 100,000 | 10,000 | 24,000,000,000 | 24,000,000,000 |
+
+The largest case requires 48 GB in decimal units for the two coordinate
+buffers alone. This excludes topology, other structural series, interactions
+and temporary allocations. It makes hidden snapshot semantics in an indirectly
+called `copy.copy()` materially relevant. Native coordinate setters currently
+normalize to float64; an external float32 input is not evidence that native
+copying would need only half these bytes.
+
+For `Interactions`, copying mutable metadata while sharing proven immutable
+bytes is compatible with independent edits to the metadata. A fresh ndarray
+header must protect each copy's shape/array metadata; merely sharing the exact
+same ndarray object would not establish complete logical independence. A small
+probe created `source.participant_atoms.view()`, reshaped the new header to
+`(2, 1)` without changing the original `(2,)`, retained shared bytes and still
+rejected enabling writeability. Lazy index/cache ownership also needs explicit
+tests; this buffer probe does not qualify a complete copy implementation.
+
+### External references and limits
+
+- [Python 3.14 copy protocol](https://docs.python.org/3.14/library/copy.html)
+  distinguishes shallow sharing from recursive copying, describes memo use
+  and allows class-specific hooks. It also warns that deep copying can copy
+  more than intended.
+- [NumPy ndarray copy hook](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.__copy__.html)
+  returns an array copy. This is a legitimate precedent for type-specific
+  behavior, not proof that duplicating a complete molecular object graph would
+  be the least surprising MolSysMT contract.
+- [pandas 2.3.3 copy contract](https://pandas.pydata.org/pandas-docs/version/2.3.3/reference/api/pandas.DataFrame.copy.html)
+  distinguishes deep and shallow data copying, documents copy-on-write as a
+  different edit model, and does not recursively duplicate arbitrary Python
+  objects inside object columns. Table copying alone is not a proof of a full
+  recursive native graph contract.
+
+These references inform API/ownership design, not a scientific computation;
+there is no scientific attribution execution boundary to register with Ackredit.
 
 ### Reproducing the ownership defect
 
@@ -215,8 +397,12 @@ unqualified claim that all native types are complete.
 - A shared memo preserves graph aliases and cycles; supported subclasses retain
   their type and extension state without calling ordinary constructors.
 - Interaction hooks preserve parallel occurrence identity, reordered query
-  views, invalidated/replaced results, metadata and periodic geometry; shallow
-  immutable storage sharing and deep buffer independence are asserted directly.
+  views, invalidated/replaced results, metadata and periodic geometry. Assert
+  independent mutable data/array metadata and safe immutable-byte sharing
+  directly; a deep copy need not duplicate proven immutable bytes.
+- The accepted `__copy__` contract either provides its documented ownership
+  guarantees or rejects the operation before touching the source. If C is
+  chosen, qualify the affected TopoMT route before rollout.
 - No form discovery, inference, migration, encoding or disk I/O is needed to
   copy an ordinary resident object. Copying a lazy result does not pack it.
 - Focused memory/timing probes use fixed data sizes and account for the allowed
@@ -230,3 +416,19 @@ Inspected MolSysMT `3d47650271ea518042419b24de1a108a187415c4` and TopoMT
 `c3f72a9177ab8a205b69fefc2963800a2d0b4feb` on 2026-10-21. Local probes used
 Linux, Python 3.14.7, NumPy 2.4.6 and pandas 2.3.3 in the existing development
 environment. TopoMT was read only. No runtime implementation was changed.
+
+The final reevaluation additionally inspected DockingMT
+`7275377152d515792d4c971d3de7798a33e09b72`, MolSysViewer
+`1d3fa6eddec5f06f21dee1e925445114c67fec38`, PharmacophoreMT
+`a1ea9cc4025fefdbff5e30f3ecced2bcdfacd83d` and ElastNetMT
+`8a54148945fa98df3b5c62c6152575eda08f32c3`. The consumer/sharing probes ran
+against MolSysMT `1cf296319455526c548b5f9f99592dfac6d7e02a` in the same local
+environment on 2026-10-21. Source observations do not qualify installed clients
+or any replacement release candidate.
+
+A bounded `suite_status.py` refresh of these five clients found local branch
+divergence/lag in TopoMT, DockingMT, PharmacophoreMT and ElastNetMT, and unrelated
+uncommitted documentation/sandbox work in MolSysViewer. All worktrees and branch
+states were preserved. Read-only comparison against fetched `origin/main`
+confirmed that the client copy routes cited above had no remote differences;
+this study does not qualify other newer client code.
