@@ -18,9 +18,12 @@ supersedes: []
 `__deepcopy__()` and names TopoMT's `Topography` as a reference. The maintainer
 requested a design study before implementation.
 **Status:** Source inventory, client inspection and small executed probes
-complete. A final reevaluation below revises the initial preference for an
-independent `copy.copy()`. All proposed semantics remain unaccepted and
-unimplemented.
+complete. Earlier bounded recommendations are retained below as alternatives.
+The maintainer asks for the best long-term architecture with client migration
+allowed; the current direction to investigate is independent native handles
+over shared immutable storage with controlled writes. Copy-on-write remains a
+design candidate, not an implemented or qualified native capability. No public
+copy semantics have been accepted yet.
 
 ## What
 
@@ -102,7 +105,7 @@ fallback demonstrably changes the original's ownership link. A seemingly
 lightweight interaction copy also goes through serialization instead of
 reusing immutable storage.
 
-## Final reevaluation before the maintainer decision
+## Reevaluation against the current implementation
 
 ### Client evidence
 
@@ -207,7 +210,7 @@ one owner and validity lifecycle. It is an appropriate choice when a client
 intends to share the whole molecular system. It does not create a detached
 editing candidate and is not an independent snapshot.
 
-**Revised recommendation, pending maintainer decision:** Prefer C for the six
+**Earlier bounded recommendation, not accepted:** Prefer C for the six
 mutable resident molecular containers (`MolSys`, `Topology`, `Structures`,
 `ChemicalStates`, `MolSysBuilder`, `MolecularMechanics`), with an explanatory
 protocol error pointing to independent `.copy()`/`deepcopy()`. Implement
@@ -225,6 +228,11 @@ instead prioritizes uninterrupted existing `copy.copy()` calls, A remains a
 defensible alternative, provided its payload cost and domain-defined semantics
 are prominent. B is unsuitable with the current validity contract; D should
 not be silently added as a small pre-1.0 copy fix.
+
+The maintainer subsequently removed client compatibility and near-term
+stabilization convenience as reasons to choose the final architecture. The
+long-term direction below supersedes C as the preferred target to investigate;
+it does not retroactively qualify D or promise a release date.
 
 Before adopting C, coordinate the TopoMT call site: its shallow Topography copy
 can deliberately retain the existing MolSys reference if molecular sharing is
@@ -278,6 +286,116 @@ tests; this buffer probe does not qualify a complete copy implementation.
 
 These references inform API/ownership design, not a scientific computation;
 there is no scientific attribution execution boundary to register with Ackredit.
+
+## Long-term ownership and independent editing
+
+### The distinction that determines the design
+
+Logical independence is a user-visible property: changing one copied system
+does not change the other or its interaction validity. Physical duplication is
+a storage decision. A copy can share immutable data initially and separate the
+changed storage before an edit. Rejecting shallow copying avoids today's defect
+but does not supply this useful independent, low-allocation operation.
+
+Given the maintainer's explicit priority for long-term design and willingness
+to migrate clients, investigate D rather than freeze C as a permanent API
+limitation. This is an architectural recommendation, not a measured ranking
+showing that one particular block layout is optimal.
+
+### Candidate public semantics, still for agreement
+
+| Intent | Candidate operation | Proposed meaning |
+| --- | --- | --- |
+| Share the complete live object | Ordinary Python reference assignment | One system, one owner/validity lifecycle; edits are visible through both references. |
+| Obtain an eager independent copy | `.copy(deep=True)` and the existing default `.copy()` | Copy mutable payloads immediately; preserve graph aliases with the native memo rules. Proven immutable storage can remain shared where the contract explicitly permits it. |
+| Obtain a deferred independent copy | `.copy(deep=False)` and `copy.copy()` | Independent domain/owner handles sharing proven immutable payload storage initially; separate the affected storage before a supported write. |
+| Recursively copy a containing Python graph | `copy.deepcopy(obj, memo)` | Preserve the deep-copy graph contract, including extension state, aliases and cycles; no accidental reset of the supplied memo. |
+
+Deferred independent copying is a type-specific contract analogous to pandas'
+copy-on-write behavior; it is not generic Python shallow mutation sharing.
+That distinction must be prominent in docstrings and examples. The meaning of
+application-owned extension attributes also needs explicit treatment; isolation
+of scientific domains does not prove recursive isolation of arbitrary Python
+extensions in the shallow protocol.
+
+### Candidate internal architecture
+
+1. Each MolSys copy has its own domain handles, named-analysis container,
+   state/structure association and mutation/validity state. Do not share whole
+   mutable `Topology`, `ChemicalStates` or `Structures` instances between copies.
+2. Handles can refer to immutable storage shared with other handles. Within
+   each system, its ChemicalStates handle remains the sole chemical domain and
+   the topology compatibility facade refers to that handle. Do not duplicate
+   chemical assignments or create a second source of chemistry.
+3. A supported edit prepares its writable destination, validates the candidate
+   and publishes changed storage through the owning domain. Stage the affected
+   MolSys analysis invalidation using the existing validity rules. A geometry
+   edit makes the affected structures unevaluated only in the edited branch;
+   neither branch runs a detector automatically.
+4. Factor preparation/publication below the public setters so native methods,
+   form adapters and builders reuse one mutation mechanism. Native edits must
+   not rediscover forms or call universal dispatch. Backend writes must never
+   modify a shared published buffer.
+5. External arrays and table access must not bypass that mechanism while the
+   API promises isolation. Define protected reads, copies or explicit editing
+   operations for the current mutable pandas/table routes. A direct subdomain
+   edit must either notify its owner or be an explicitly detached operation;
+   the existing manual-invalidation exclusions cannot silently become a claim
+   of complete mutation tracking.
+6. Metadata and cache ownership need their own treatment. Scientific method,
+   units and provenance dictionaries must not become mutable aliases between
+   independent analyses. Only proven immutable buffers may be reused; an
+   ndarray's non-writeable flag alone is insufficient. Each reader/copy needs
+   independent array metadata where shape changes are possible.
+
+### Granularity is an open engineering decision
+
+Compare detaching one contiguous field/domain with detaching affected structure
+blocks. The first is simpler and keeps an eager NumPy array available, but one
+small edit can duplicate the complete trajectory. Blocks can reduce that edit
+cost and fit the existing chunked executor, but a request for one contiguous
+array covering every structure may have to materialize all active blocks.
+Repeated full-array materialization could outweigh cheap cloning and edits.
+
+Do not promise constant-time cloning, structure-sized allocation for every
+edit, or zero-copy full-array access simultaneously. Compare actual coordinate
+reads, structure/atom selections, Rust consumers, iteration and H5MSM writes.
+Retain the public quantity shapes and PyUnitWizard policy; changing a private
+store must not silently expose bare magnitudes or a different public object.
+No additional dependency or compiled backend is justified by the design alone.
+
+The current H5MSM 0.5 scientific datasets need not encode an in-memory ownership
+graph. Persistence writes the chosen system's logical values and named
+analyses, using blocks where the provider supports them. That compatibility is
+plausible, not verified until actual native read/write routes are tested.
+
+### Evidence needed before choosing this architecture
+
+- A native ownership prototype covering coordinates, a chemical-state edit,
+  independent analysis metadata and owner-local invalidation. A geometry-only
+  model cannot settle the complete native contract.
+- Both edit directions, multiple generations of copies, partial systems,
+  no-op/failed edits, captured old reads, frame coverage and occurrence identity.
+- Explicit direct-table/array and external-input alias policies, including
+  edits through a domain obtained before a copy was made.
+- Physical allocation and timing for cloning, sparse and dense edits, repeated
+  edits, selected and complete-array reads, iteration, H5MSM persistence and
+  release of old branches/views. Account for initial freezing and temporary
+  write buffers, not just the final replacement payload.
+- Client adaptation/qualification for intentional shared source references
+  versus independent editable candidates. A coherent provider contract comes
+  first; existing client code may change rather than determine the semantics.
+
+The existing interaction snapshots and TopoMT's immutable geometry snapshots
+provide local examples of immutable-byte sharing and independent array headers.
+They are reusable design evidence, not a drop-in general mutation engine for
+Topology or Structures. The
+[pandas copy-on-write contract](https://pandas.pydata.org/docs/user_guide/copy_on_write.html)
+is an external reference for deferred independent edits; it does not cover
+MolSysMT's native NumPy buffers or interaction invalidation. Arrow's
+[columnar format](https://arrow.apache.org/docs/format/Columnar.html) illustrates
+buffer locality and zero-copy trade-offs and explicitly leaves mutation
+coordination to implementations. Neither reference mandates a new dependency.
 
 ### Reproducing the ownership defect
 
@@ -378,9 +496,11 @@ then reconcile the five payload wrappers. Preserve partial and explicitly
 absent domains. Decide the protocol semantics before adding signatures or
 changing user documentation to promise them.
 
-Do not implement a shared writable-coordinate view, an automatic dependency
-tracker, general copy-on-write, file-resource cloning, another chemical store,
-interaction compaction/remapping, or a new scientific detector under #121.
+The implementation scope is pending the long-term design decision; native
+copy-on-write is now a candidate to investigate under #121 rather than an
+automatic post-1.0 exclusion. Do not silently introduce shared mutable views,
+a general dependency tracker, file-resource cloning, another chemical store,
+interaction compaction/remapping, or a new scientific detector.
 Simulation and file-resource behavior stays an explicit follow-up, not an
 unqualified claim that all native types are complete.
 
@@ -403,6 +523,10 @@ unqualified claim that all native types are complete.
 - The accepted `__copy__` contract either provides its documented ownership
   guarantees or rejects the operation before touching the source. If C is
   chosen, qualify the affected TopoMT route before rollout.
+- If deferred independent copying is adopted, qualify every promised mutation
+  and alias boundary before advertising it. Measure the storage granularity
+  against real read/edit/persistence workloads; an isolated geometry prototype
+  does not establish native-library support.
 - No form discovery, inference, migration, encoding or disk I/O is needed to
   copy an ordinary resident object. Copying a lazy result does not pack it.
 - Focused memory/timing probes use fixed data sizes and account for the allowed
