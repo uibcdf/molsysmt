@@ -3,6 +3,11 @@
 API Basic
 =========
 
+.. toctree::
+   :maxdepth: 1
+
+   api_native_queries
+
 .. currentmodule:: molsysmt.basic
 
 .. autosummary::

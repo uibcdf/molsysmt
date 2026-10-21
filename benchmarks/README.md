@@ -10,6 +10,10 @@ Current baseline scripts:
   `Topology`, `Structures`, `ChemicalStates`, `Interactions`, `MolSysBuilder`
   and their supported dictionary representations. Adapter/property timings
   have narrower contracts and are not implemented native-query speedups.
+  The dated `native_queries_20261021.json` baseline and the resident/scalar
+  comparisons retain separate source commits and benchmark hashes. Compare
+  fully validated native/general routes within a campaign; property/trusted
+  timings remain narrower references.
   See the [native-query study](../devguide/pending_proposals/native_query_shortcuts.md).
 - `h5msm_interactions.py`: checks parity and measures private selective H5MSM
   0.5 queries alongside public `write_layers`/`read_layers`, file size, and

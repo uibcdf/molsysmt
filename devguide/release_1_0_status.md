@@ -91,6 +91,10 @@ method doctests and 34 adjacent count doctests, with executed/rendered guide
 and course examples. Broader dictionary/file work is not claimed complete.
 The builder validation bypass discovered during this inventory is tracked
 separately in [#391's record](archive/resolved_bugs/builder_shortcuts_bypass_argument_validation.md).
+The shared scalar-output delta passes 373 affected get/info/native cases.
+Dated paired resident benchmarks (32 to 100,000 atoms, eight structures) record
+native count-query gains around twofold and more modest info gains; they do
+not certify disk access, cold startup or complete client throughput.
 #128 remains partial for its separately scoped representation/file follow-up;
 #391 and the discovered [nullable count defect](archive/resolved_bugs/selected_hierarchy_counts_follow_missing_parents.md)
 are source-resolved. #121/#113 still await their separate prior design studies.

@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** Original issue #128; expanded by the maintainer on 2026-10-21
 to native forms used by TopoMT, DockingMT, PharmacophoreMT and ElastNetMT.
-**Status:** Resident native query phase contract-tested; initial comparison measured,
-with shared scalar-output optimization under comparative measurement.
+**Status:** Resident native query phase contract-tested and comparatively measured.
+Representation/file follow-up remains pending.
 Dictionary/encoded/file/mechanics follow-up remains outside this implementation.
 
 ## What
@@ -331,3 +331,59 @@ ArgDigest's registry discovery, caller patterns and per-decorator normalization
 selection were inspected at the declared 0.13.0 floor. This is source inspection,
 not an installed-provider minimum-version qualification. The current environment
 uses the provider versions/import origins recorded in each artifact.
+
+
+### Final resident timing checkpoint — 2026-10-21
+
+Source `84a98e76b58237423d2a44df0f93c3bb4c27f2cd` includes the shared scalar
+optimization. The same command and 18 resident cases are recorded in
+[`native_queries_scalar_20261021.json`](../../benchmarks/baselines/native_queries_scalar_20261021.json).
+Both paths use default public validation and diagnostics. One untimed call and
+independent result assertions precede timing; each median has five blocks of
+20 calls. The artifact records CPU, Python, package import origins, source and
+benchmark SHA-256. No competing test/benchmark campaign ran during timing.
+
+| Case | General get count (ms) | Native get count (ms) | Ratio | General info DataFrame (ms) | Native info DataFrame (ms) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| MolSys, 32 atoms | 0.499 | 0.218 | 2.28 | 7.901 | 6.058 |
+| Topology, 32 atoms | 0.381 | 0.188 | 2.03 | 7.948 | 5.756 |
+| Structures, 32 atoms | 0.526 | 0.288 | 1.83 | 6.722 | 6.500 |
+| MolSys, 100,000 atoms | 0.561 | 0.207 | 2.71 | 9.692 | 7.176 |
+| Topology, 100,000 atoms | 0.531 | 0.301 | 1.76 | 9.021 | 6.726 |
+| Structures, 100,000 atoms | 0.497 | 0.204 | 2.43 | 5.830 | 5.217 |
+
+The ratio is general/native within the same campaign. Small count queries show
+useful gains, with no claim of fixed machine-independent latency. Summary
+improvements are more modest: MolSys/Topology improve about 1.3 times in these
+rows, and some other domain summaries show little gain or timing noise.
+This does not justify claiming every info call is faster.
+
+For 100,000 atoms and eight structures, MolSys selected-coordinate queries
+(three requested atom positions by three structure positions, including
+repetitions) take 0.700 ms natively versus 1.338 ms generally. Full-coordinate
+output takes 2.453 versus 2.858 ms: copying roughly 19.2 MB limits the gain.
+Cold startup, peak memory, compressed/disk I/O, complex-expression speed and
+real client-workflow throughput remain unmeasured here. Sparse interaction
+occurrence algorithms are unchanged.
+
+The two quantity-probe guards raise if either query path probes a plain count;
+physical quantities and nondefault units remain covered by the 373-case delta
+selection. This is a bounded output-assembly improvement shared by both entry
+points, not suppressed validation or disabled scientific diagnostics.
+
+The implementation's remaining #128 work is explicit: dictionary stored-field
+access/reconstruction, specialized encoded/file workloads and any further
+profile-driven common-output improvement. The existing interaction occurrence
+API and the ChemicalStates metadata scope are preserved. #121/#113 still need
+their separately agreed design studies.
+
+
+### Final source checks
+
+After the scalar delta and API navigation additions, all 14 fast gates pass.
+The public-signature guard reports zero unauthorized changes against the
+pre-implementation source, with four documented inherited-method waivers.
+Ruff checking/format verification, the 247-function docstring validator and
+strict rendering of the actual native API page/new guide/course sections pass.
+These are source checks, not release qualification. No tag, package promotion,
+public release or new full CI matrix is authorized by this work.
