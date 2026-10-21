@@ -371,7 +371,7 @@ def _get(
 
     if _native is None:
         piped_molecular_systems, piped_attributes = _piped_molecular_system(
-            molecular_system, element, in_attributes
+            molecular_system, element, in_attributes, indices=indices
         )
     else:
         piped_molecular_systems, piped_attributes = None, None
@@ -644,7 +644,7 @@ def _group_attributes_by_element(element, selection, in_attributes):
     return output
 
 
-def _piped_molecular_system(molecular_system, element, in_attributes):
+def _piped_molecular_system(molecular_system, element, in_attributes, *, indices="all"):
     """Resolve piped attributes across items for get(); returns tuple (item, attribute list) or (None, None)."""
 
     from molsysmt.attribute import (
@@ -665,6 +665,16 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
         form = [form]
+
+    # A form can prove that this particular bulk query reads stored fields.
+    # Retain its ordinary conversion pipes for derived or defaulted values.
+    if len(in_attributes) > 1 and all(
+        (probe := getattr(_dict_modules[aux_form], "_can_get_without_conversion", None))
+        is not None
+        and probe(item, element, in_attributes, indices)
+        for item, aux_form in zip(molecular_system, form)
+    ):
+        return None, None
 
     for aux_form in form:
         topological_pipes[aux_form] = getattr(

@@ -51,6 +51,15 @@ reconstructed_system = msm.convert(sys_dict, to_form='molsysmt.MolSys')
 
 ---
 
+## Querying Attributes
+
+For `TopologyDict` and `MolSysDict`, `msm.get()` reads the atom count,
+indices and already stored string ID/name/type fields directly. Missing fields
+keep their normal defaults and element inference. Hierarchy counts and complete
+`info()` summaries can still require native conversion. For repeated queries
+across many attributes, convert once to a resident native object. A dictionary
+inventory query does not validate unrelated serialized domains.
+
 ## API Documentation
 
 Methods and form conversions for `molsysmt.MolSysDict` are documented in the [{doc}`molsysmt.MolSysDict API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].

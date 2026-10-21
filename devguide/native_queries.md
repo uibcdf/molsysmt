@@ -119,6 +119,39 @@ existing native zero atom count; time does not infer atoms. MolSys retains its
 separate partial-domain rules for an undeclared atom axis. Shape-only `repr`
 remains distinct from this validating data query.
 
+## Declarative dictionary queries
+
+`TopologyDict` and `MolSysDict` continue to use `msm.get()` and `msm.info()`;
+they do not acquire the resident instance methods. Their topological adapters
+read these values without copying or finalizing a native object:
+
+- `n_atoms` from the system or an atom selection;
+- `atom_index` from atoms;
+- `atom_id`, `atom_name` and `atom_type` from atoms when the requested fields
+  are already stored strings.
+
+Flat atom selections preserve order/repetitions and basic-tool index/mask
+validation. Lists returned for stored labels are detached. There is no cache:
+later dictionary edits are observed. These queries read the requested inventory;
+they do not validate unrelated hierarchy, chemistry or coordinate payloads.
+
+Missing or non-string atom fields retain the converter's normalization,
+defaults and element inference. Nested selections retain the existing native
+route. Other topological getters and complete `info` summaries still use the
+declared conversion pipes. In particular, group, chain, molecule and entity
+counts cannot generally be replaced by serialized list lengths: finalization
+can supply missing memberships or infer parents.
+
+The private form probe `_can_get_without_conversion` allows the shared basic
+executor to bypass a bulk pipe only when every requested field has a direct
+route for the actual selected indices. Unsupported/mixed queries keep ordinary
+piping, including complementary forms. Do not set the general pipe metadata to
+`None` merely because a subset of getters becomes direct.
+
+These are reads of the existing 0.1 schema, not a new dictionary format or a
+multi-state chemical serialization contract. Existing structure/unit delivery
+and non-reference chemical-state restrictions remain unchanged.
+
 ## Evidence and remaining scope
 
 The semantic and mechanism guards live in
@@ -134,5 +167,7 @@ property/trusted-adapter costs are not equivalent native-query speedups.
 
 Dictionary forms, file handlers, ViewerJSON, Simulation and experimental
 MolecularMechanics do not acquire these instance methods. Direct dictionary
-field reads and specialized disk access remain separate pending study scope.
+reads beyond the bounded atom inventory and specialized disk access remain
+pending study scope. Stored-atom query and fallback guards live in
+`tests/form/molsysmt_TopologyDict/test_direct_queries.py` for both dictionary forms.
 No new dependency, numerical method, Rust kernel or persistence format is added.

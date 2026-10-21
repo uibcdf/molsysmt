@@ -24,3 +24,9 @@ _convert_to = {
     "molsysmt.MolSys": "to_molsysmt_MolSys",
     "file:molsys_yaml": "to_file_molsys_yaml",
 }
+
+
+def _can_get_without_conversion(item, element, requested_attributes, indices="all"):
+    from molsysmt.form._dict_atom_queries import can_query
+
+    return can_query(item, element, requested_attributes, indices, nested=True)

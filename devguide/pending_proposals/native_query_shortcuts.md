@@ -17,8 +17,9 @@ supersedes: []
 **Reported:** Original issue #128; expanded by the maintainer on 2026-10-21
 to native forms used by TopoMT, DockingMT, PharmacophoreMT and ElastNetMT.
 **Status:** Resident native query phase contract-tested and comparatively measured.
-Representation/file follow-up remains pending.
-Dictionary/encoded/file/mechanics follow-up remains outside this implementation.
+Bounded stored-atom dictionary reads are implemented; qualification and
+comparative measurements are in progress below. Broader representation/file
+follow-up remains pending.
 
 ## What
 
@@ -372,7 +373,7 @@ physical quantities and nondefault units remain covered by the 373-case delta
 selection. This is a bounded output-assembly improvement shared by both entry
 points, not suppressed validation or disabled scientific diagnostics.
 
-The implementation's remaining #128 work is explicit: dictionary stored-field
+At the resident checkpoint, remaining #128 work includes dictionary stored-field
 access/reconstruction, specialized encoded/file workloads and any further
 profile-driven common-output improvement. The existing interaction occurrence
 API and the ChemicalStates metadata scope are preserved. #121/#113 still need
@@ -388,3 +389,45 @@ Ruff checking/format verification, the 247-function docstring validator and
 strict rendering of the actual native API page/new guide/course sections pass.
 These are source checks, not release qualification. No tag, package promotion,
 public release or new full CI matrix is authorized by this work.
+
+## Stored-atom dictionary phase — 2026-10-21
+
+The maintainer authorizes continuing the representation study. Source inspection
+confirms that a native builder's finalization can create one group per orphan
+atom, a fallback chain and inferred molecules/entities. Replacing those getters
+with serialized list lengths would change results. This phase therefore reads
+only the stable atom inventory/count and already normalized atom ID/name/type
+strings. Missing/non-string fields and other attributes retain the native
+converter. No chemical inference rules or defaults are copied into the reader.
+
+The shared private form reader serves both TopologyDict and MolSysDict. The
+basic executor can bypass a bulk conversion only when the form proves that all
+requested attributes for the actual selection are direct. General pipe metadata
+stays intact for derived/mixed queries. No cache, copied native system, public
+method, dependency or schema change is added.
+
+**Implemented:** direct stored counts/indices/labels, detached result lists and
+live reads after dictionary edits. Public explicit-index/mask validation remains
+shared. Reading an atom inventory is not a validation pass over unrelated
+serialized domains. Rectangular nested selections retain their existing native
+route; no new ragged-selection contract is introduced.
+
+The guard in `tests/form/molsysmt_TopologyDict/test_direct_queries.py` exercises
+both dictionary forms. Its mechanism test forbids builder construction, deep
+serialization copies and universal conversion during claimed direct queries.
+Independent expected values cover nonconsecutive/repeated atoms, Boolean masks,
+empty selections and invalid indices. Fallback tests require native defaults,
+numeric-ID normalization, element inference and parents absent from the stored
+lists. Complete info summaries and coordinate acquisition still follow their
+existing providers; no improvement to those paths is asserted here.
+
+**Contract/parity tested:** 397 affected basic get/info, dictionary and resident
+native cases pass with twelve workers and pytest-receptor. All 36 dictionary
+adapter doctest examples pass, as do the seven shared native and 34 adjacent
+count examples retained by the rendering check. The three changed guide/course
+examples execute in the existing development interpreter; their changed sections
+render without diagnostics. All fourteen fast gates and full Ruff checks pass;
+the public-signature guard reports zero new drifts against the resident head.
+This is source qualification, not installed-artifact or full-suite evidence.
+
+Comparative timings will be recorded after the completed campaign.

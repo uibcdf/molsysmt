@@ -52,6 +52,15 @@ data = top_dict.to_dict()
 
 ---
 
+## Querying Attributes
+
+For `TopologyDict` and `MolSysDict`, `msm.get()` reads the atom count,
+indices and already stored string ID/name/type fields directly. Missing fields
+keep their normal defaults and element inference. Hierarchy counts and complete
+`info()` summaries can still require native conversion. For repeated queries
+across many attributes, convert once to a resident native object. A dictionary
+inventory query does not validate unrelated serialized domains.
+
 ## API Documentation
 
 Detailed methods for `molsysmt.TopologyDict` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].

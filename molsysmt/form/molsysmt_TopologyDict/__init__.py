@@ -23,3 +23,9 @@ _convert_to = {
     "molsysmt.Topology": "to_molsysmt_Topology",
     "file:topology_yaml": "to_file_topology_yaml",
 }
+
+
+def _can_get_without_conversion(item, element, requested_attributes, indices="all"):
+    from molsysmt.form._dict_atom_queries import can_query
+
+    return can_query(item, element, requested_attributes, indices, nested=False)

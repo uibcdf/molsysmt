@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-20
+**Last updated:** 2026-10-21
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -98,6 +98,14 @@ not certify disk access, cold startup or complete client throughput.
 #128 remains partial for its separately scoped representation/file follow-up;
 #391 and the discovered [nullable count defect](archive/resolved_bugs/selected_hierarchy_counts_follow_missing_parents.md)
 are source-resolved. #121/#113 still await their separate prior design studies.
+The subsequent #128 dictionary phase reads stored atom counts, indices and
+already normalized ID/name/type strings without native reconstruction, including
+combined selected queries. Other/defaulted fields and complete info summaries
+retain their converters. It passes 397 affected regression cases, 36 adapter
+doctests and the fourteen fast gates, with executed guide/course examples.
+Comparative dictionary timings remain to be recorded in the #128 study.
+The separately discovered dictionary schema documentation discrepancies are
+tracked in uibcdf/molsysmt#393; no schema expansion is implied.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

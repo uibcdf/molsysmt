@@ -65,8 +65,11 @@ preservation of specialized methods. Existing MolSys positional arguments stay
 in place; new options are keyword-only. Related builder boundary and nullable
 selected-count defects are tracked as #391/#392. The
 [native contract](native_queries.md) records the delivered boundary and fallback.
-Dictionary reconstruction, encoded payloads, mechanics and file-access redesign
-remain separate study scope. #121/#113 retain their prior-study requirement.
+The maintainer's subsequent continuation admits the bounded dictionary study
+and direct stored-atom reads in TopologyDict/MolSysDict, preserving conversion
+for inferred/defaulted fields and hierarchy. Broader dictionary reconstruction,
+encoded payloads, mechanics and file-access redesign remain separate study
+scope. #121/#113 retain their prior-study requirement.
 This admission does not select replacement artifacts or authorize publication.
 
 ### Scoped summary admission — 2026-10-20

@@ -2,6 +2,15 @@ import inspect
 import types
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt.form._dict_atom_queries import (
+    query_docstring as _query_docstring,
+)
+from molsysmt.form._dict_atom_queries import (
+    read as _read_stored_atoms,
+)
+from molsysmt.form._dict_atom_queries import (
+    supports as _supports_stored_atoms,
+)
 
 form = "molsysmt.MolSysDict"
 
@@ -25,20 +34,28 @@ def _make_wrapper(name, target):
             call_arguments.append(f"{parameter.name}={parameter.name}")
     call_arguments = ", ".join(call_arguments)
 
+    attribute, element = name[4:].rsplit("_from_", 1)
+    direct_arguments = "indices=indices, " if "indices" in signature.parameters else ""
+
     namespace = {
         "__name__": __name__,
         "arg_digest": arg_digest,
         "target": target,
         "form": form,
+        "_read_stored_atoms": _read_stored_atoms,
     }
     # The generated wrapper receives this converter through locals().
     from .to_molsysmt_MolSys import to_molsysmt_MolSys  # noqa: F401
 
     namespace.update(locals())
-    source = f"@arg_digest(form=form)\ndef {name}({parameter_list}):\n    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)\n    return target({call_arguments})\n"
+    source = f"@arg_digest(form=form)\ndef {name}({parameter_list}):\n    stored = _read_stored_atoms(item, {attribute!r}, {element!r}, {direct_arguments}nested=True)\n    if stored is not NotImplemented:\n        return stored\n    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)\n    return target({call_arguments})\n"
     exec(source, namespace)
     wrapper = namespace[name]
-    wrapper.__doc__ = f"Delegating {name} through the native target form."
+    wrapper.__doc__ = (
+        _query_docstring(attribute, element, form)
+        if _supports_stored_atoms(attribute, element)
+        else f"Delegating {name} through the native target form."
+    )
     return wrapper
 
 
