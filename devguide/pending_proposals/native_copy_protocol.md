@@ -758,6 +758,13 @@ Ackredit calculation boundary changes.
 
 On 2026-10-21 in the existing Linux/Python 3.14.7 environment:
 
+- The first hosted smoke run for `300c31990` failed at the signature guard:
+  the intentional `Structures.copy` extension lacked its scoped declaration.
+  The registry now names the accepted #121 arguments, unchanged eager default
+  and ownership guard; the validator itself is unchanged. Ruff, developer-guide
+  integrity and both governance checks passed on that source. This failed run
+  is not counted as smoke qualification.
+
 - `python -m pytest --receptor=llm -n 12` over native domains, native/H5MSM form
   adapters, public copy/iterator/append/add/conversion routes, sparse lifecycle,
   vector/plane/distance/PBC geometry and the storage-study guards passed all
