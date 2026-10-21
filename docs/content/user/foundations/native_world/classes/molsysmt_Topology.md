@@ -101,3 +101,7 @@ separately. See {ref}`Tutorial_Rotatable_Bonds` for exact criteria and limits.
 ## API Documentation
 
 All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].
+
+## Native Queries
+
+Query its atom/group hierarchy and state-dependent attributes with `topology.get(...)`. `chemical_state` follows the basic query rules; ChemicalStates remains the owner of assignments and bonds. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.

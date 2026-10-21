@@ -47,14 +47,25 @@ states are not automatically assigned to structures. See {ref}`Tutorial_Convert`
 
 Direct `MolSys.add` and `Topology.add` calls also validate `keep_ids` as a boolean, including its default `True`. Leave `skip_digestion=False` for ordinary public calls; trusted delegation is not required to use these methods.
 
-The convenience methods `molsys.get(...)`, `molsys.info(...)` and
-`molsys.to_form(...)` likewise leave validation enabled by default. The first
-two delegate to the public basic operation; conversion delegates to the
-registered target adapter. Those providers normalize element aliases and
-scalar selections and reject invalid options. `get` accepts boolean attribute
-requests such as `n_atoms=True`, while `to_form` uses converter options such as
-`atom_indices` and `structure_indices`. Set `skip_digestion=True` only for
-arguments already checked against that provider's complete contract.
+## Native Queries
+
+`get()` and `info()` share the basic-tool query and table contracts, using known
+native providers for explicit index requests. They validate input by default.
+`Topology`, `Structures`, `ChemicalStates`, `Interactions` and `MolSysBuilder`
+offer the same pattern for the attributes available in their own domains.
+Selection expressions retain the existing selector. No query builds or converts
+the native system merely to locate its data.
+
+Use keyword arguments to mirror the free functions. Native `get()` accepts
+`chemical_state` by keyword; native `info()` accepts `structure_indices`,
+`output_type` and `mask` by keyword. Existing MolSys positional calls retain
+their meaning. `to_form()` continues to use the registered target converter.
+Leave `skip_digestion=False` for user input. The executed examples are in
+{ref}`Tutorial_Get` and {ref}`Tutorial_Info`.
+
+A partial MolSys can be summarized without topology. Missing domains are not
+invented. `Interactions.get()` exposes its declared molecular axes; occurrence
+selection and bounded export retain their specialized sparse methods.
 
 ## Internal Attributes
 

@@ -26,8 +26,8 @@ Governance rules and frozen contracts for `docs/content/user/tools/basic/info.ip
 
 Preserve the executed mask example and distinguish group masks from atom masks.
 The default is a Styler; DataFrame and dictionary records are explicit output
-choices. System-summary masks use the atom scope. Native info forwards masks
-to the same validated basic operation.
+choices. System-summary masks use the atom scope. Native info shares the validated basic contract and table implementation,
+using known native providers for explicit index requests.
 
 Preserve the native-repr example: it is bounded human inspection, not an info
 table, validity check or serialization API. Missing axes and empty axes differ.

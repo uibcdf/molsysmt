@@ -56,6 +56,28 @@ def _get_hierarchy_from_atom(item, level, attribute, indices):
     ]
 
 
+def _count_hierarchy_from_atom(item, level, indices):
+    """Count declared selected memberships without counting missing parents."""
+    if level == "chain":
+        values = item.atoms["chain_index"].iloc[indices]
+        return int(values.nunique(dropna=True))
+    values = _get_hierarchy_from_atom(item, level, "index", indices)
+    return len({value for value in (values or []) if value is not None})
+
+
+def _count_typed_hierarchy_from_atom(item, level, kind, indices):
+    """Count distinct declared parents of one type in the selected inventory."""
+    table = item.groups if level == "group" else item.molecules
+    values = table[level + "_type"].to_numpy()
+    if not is_all(indices):
+        mapped = _get_hierarchy_from_atom(item, level, "index", indices)
+        parents = np.asarray(
+            sorted({value for value in (mapped or []) if value is not None}), dtype=int
+        )
+        values = values[parents]
+    return int(np.count_nonzero(values == kind))
+
+
 @arg_digest(form=form)
 def get_formal_charge_from_atom(item, indices="all", skip_digestion=False):
     """
@@ -1638,35 +1660,42 @@ def get_total_n_atoms_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_groups_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n groups from atom in form molsysmt.Topology.
-
+    """Counting groups represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships represented by selected atoms.
+        With all atoms, returns the complete declared group inventory size.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_groups_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    if indices == "all":
-        output = item.groups.shape[0]
-    else:
-        group_indices_from_atom = item.atoms["group_index"].to_numpy()
-        output = np.unique(group_indices_from_atom[indices]).size
-        del group_indices_from_atom
-
-    return output
+    if is_all(indices):
+        return len(item.groups)
+    return _count_hierarchy_from_atom(item, "group", indices)
 
 
 @arg_digest(form=form)
@@ -1697,38 +1726,42 @@ def get_total_n_groups_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_molecules_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n molecules from atom in form molsysmt.Topology.
-
+    """Counting molecules represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared molecule memberships represented by selected atoms.
+        With all atoms, returns the complete declared molecule inventory size.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_molecules_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    if indices == "all":
-        output = item.molecules.shape[0]
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        aux = group_indices_from_atoms[indices]
-        aux = molecule_indices_from_groups[aux]
-        output = np.unique(aux).size
-        del group_indices_from_atoms, molecule_indices_from_groups, aux
-
-    return output
+    if is_all(indices):
+        return len(item.molecules)
+    return _count_hierarchy_from_atom(item, "molecule", indices)
 
 
 @arg_digest(form=form)
@@ -1759,45 +1792,42 @@ def get_total_n_molecules_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_entities_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n entities from atom in form molsysmt.Topology.
-
+    """Counting entities represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared entity memberships represented by selected atoms.
+        With all atoms, returns the complete declared entity inventory size.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_entities_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    if indices == "all":
-        output = item.entities.shape[0]
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        entity_indices_from_molecules = item.molecules["entity_index"].to_numpy()
-        aux = group_indices_from_atoms[indices]
-        aux = molecule_indices_from_groups[aux]
-        aux = entity_indices_from_molecules[aux]
-        output = np.unique(aux).size
-        del (
-            group_indices_from_atoms,
-            molecule_indices_from_groups,
-            entity_indices_from_molecules,
-            aux,
-        )
-
-    return output
+    if is_all(indices):
+        return len(item.entities)
+    return _count_hierarchy_from_atom(item, "entity", indices)
 
 
 @arg_digest(form=form)
@@ -1887,35 +1917,42 @@ def get_total_n_components_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_chains_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n chains from atom in form molsysmt.Topology.
-
+    """Counting chains represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared chain memberships represented by selected atoms.
+        With all atoms, returns the complete declared chain inventory size.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_chains_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    if indices == "all":
-        output = item.chains.shape[0]
-    else:
-        chain_indices_from_atoms = item.atoms["chain_index"].to_numpy()
-        output = np.unique(chain_indices_from_atoms[indices]).size
-        del chain_indices_from_atoms
-
-    return output
+    if is_all(indices):
+        return len(item.chains)
+    return _count_hierarchy_from_atom(item, "chain", indices)
 
 
 @arg_digest(form=form)
@@ -2082,40 +2119,40 @@ def get_total_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False)
 
 @arg_digest(form=form)
 def get_n_amino_acids_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n amino acids from atom in form molsysmt.Topology.
-
+    """Counting amino acids represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing amino acids type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_amino_acids_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "amino acid"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "amino acid"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "amino acid", indices)
 
 
 @arg_digest(form=form)
@@ -2146,40 +2183,40 @@ def get_total_n_amino_acids_from_atom(item, indices="all", skip_digestion=False)
 
 @arg_digest(form=form)
 def get_n_nucleotides_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n nucleotides from atom in form molsysmt.Topology.
-
+    """Counting nucleotides represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing nucleotides type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_nucleotides_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "nucleotide"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "nucleotide"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "nucleotide", indices)
 
 
 @arg_digest(form=form)
@@ -2210,40 +2247,40 @@ def get_total_n_nucleotides_from_atom(item, indices="all", skip_digestion=False)
 
 @arg_digest(form=form)
 def get_n_ions_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n ions from atom in form molsysmt.Topology.
-
+    """Counting ions represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing ions type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_ions_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "ion"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "ion"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "ion", indices)
 
 
 @arg_digest(form=form)
@@ -2274,40 +2311,40 @@ def get_total_n_ions_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_waters_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n waters from atom in form molsysmt.Topology.
-
+    """Counting waters represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing waters type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_waters_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "water"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "water"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "water", indices)
 
 
 @arg_digest(form=form)
@@ -2338,40 +2375,40 @@ def get_total_n_waters_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_small_molecules_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n small molecules from atom in form molsysmt.Topology.
-
+    """Counting small molecules represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing small molecules type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_small_molecules_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "small molecule"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "small molecule"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "small molecule", indices)
 
 
 @arg_digest(form=form)
@@ -2402,40 +2439,40 @@ def get_total_n_small_molecules_from_atom(item, indices="all", skip_digestion=Fa
 
 @arg_digest(form=form)
 def get_n_lipids_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n lipids from atom in form molsysmt.Topology.
-
+    """Counting lipids represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing lipids type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_lipids_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "lipid"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "lipid"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "lipid", indices)
 
 
 @arg_digest(form=form)
@@ -2466,40 +2503,40 @@ def get_total_n_lipids_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_saccharides_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n saccharides from atom in form molsysmt.Topology.
-
+    """Counting saccharides represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared group memberships having the existing saccharides type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_saccharides_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups["group_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(group_type_from_groups == "saccharide"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux] == "saccharide"))
-        del group_indices_from_atoms, aux
-
-    del group_type_from_groups
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "group", "saccharide", indices)
 
 
 @arg_digest(form=form)
@@ -2530,42 +2567,40 @@ def get_total_n_saccharides_from_atom(item, indices="all", skip_digestion=False)
 
 @arg_digest(form=form)
 def get_n_peptides_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n peptides from atom in form molsysmt.Topology.
-
+    """Counting peptides represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared molecule memberships having the existing peptides type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_peptides_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(molecule_type_from_molecules == "peptide"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "peptide"))
-        del group_indices_from_atoms, molecule_indices_from_groups, aux
-
-    del molecule_type_from_molecules
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "molecule", "peptide", indices)
 
 
 @arg_digest(form=form)
@@ -2596,42 +2631,40 @@ def get_total_n_peptides_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_proteins_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n proteins from atom in form molsysmt.Topology.
-
+    """Counting proteins represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared molecule memberships having the existing proteins type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_proteins_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(molecule_type_from_molecules == "protein"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "protein"))
-        del group_indices_from_atoms, molecule_indices_from_groups, aux
-
-    del molecule_type_from_molecules
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "molecule", "protein", indices)
 
 
 @arg_digest(form=form)
@@ -2662,42 +2695,40 @@ def get_total_n_proteins_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_dnas_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n dnas from atom in form molsysmt.Topology.
-
+    """Counting dnas represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared molecule memberships having the existing dnas type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_dnas_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(molecule_type_from_molecules == "dna"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "dna"))
-        del group_indices_from_atoms, molecule_indices_from_groups, aux
-
-    del molecule_type_from_molecules
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "molecule", "dna", indices)
 
 
 @arg_digest(form=form)
@@ -2728,42 +2759,40 @@ def get_total_n_dnas_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_rnas_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n rnas from atom in form molsysmt.Topology.
-
+    """Counting rnas represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared molecule memberships having the existing rnas type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_rnas_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(molecule_type_from_molecules == "rna"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "rna"))
-        del group_indices_from_atoms, molecule_indices_from_groups, aux
-
-    del molecule_type_from_molecules
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "molecule", "rna", indices)
 
 
 @arg_digest(form=form)
@@ -2794,44 +2823,40 @@ def get_total_n_rnas_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_polysaccharides_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting n polysaccharides from atom in form molsysmt.Topology.
-
+    """Counting polysaccharides represented by selected atoms.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        Native Topology supplying the atom inventory and declared parent links.
+    indices : str or list of int, default='all'
+        Source atom indices to inspect. Repetitions do not duplicate a parent
+        count; an empty list represents no memberships. 'all' uses the full
+        declared inventory.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Distinct declared molecule memberships having the existing polysaccharides type.
+        With all atoms, counts matching rows in the complete declared table.
+        Missing parent links contribute zero and are never used as array indices.
 
+    Notes
+    -----
+    Counts use explicit hierarchy and existing type assignments. They do not
+    infer missing groups, molecules or chemical classifications.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> get_n_polysaccharides_from_atom(Topology(n_atoms=2), indices=[1])
+    0
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = int(np.count_nonzero(molecule_type_from_molecules == "polysaccharide"))
-    else:
-        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
-        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
-        aux = np.unique(group_indices_from_atoms[indices])
-        aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(
-            np.count_nonzero(molecule_type_from_molecules[aux] == "polysaccharide")
-        )
-        del group_indices_from_atoms, molecule_indices_from_groups, aux
-
-    del molecule_type_from_molecules
-
-    return output
+    return _count_typed_hierarchy_from_atom(item, "molecule", "polysaccharide", indices)
 
 
 @arg_digest(form=form)

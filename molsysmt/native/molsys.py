@@ -8,6 +8,8 @@ from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
+from .queries import NativeQueries
+
 
 def _merged_bioassembly(target, source, chain_offset):
     """Merging two bioassembly catalogues, whose entries are keyed by chain index.
@@ -161,7 +163,7 @@ def _extend_interaction_atoms(result, n_atoms):
     return _decode_interactions(encoded)
 
 
-class MolSys:
+class MolSys(NativeQueries):
     """Container holding native molecular-system information domains.
 
     Notes
@@ -1413,178 +1415,6 @@ class MolSys:
         function = load_converter(molsysmt_MolSys, molsysmt_MolSys._convert_to[to_form])
 
         return function(self, skip_digestion=skip_digestion, **kwargs)
-
-    def info(
-        self,
-        element="system",
-        selection="all",
-        syntax="MolSysMT",
-        skip_digestion=False,
-        *,
-        mask=None,
-    ):
-        """Summarizing this system or selected topological elements.
-
-        Parameters
-        ----------
-        element : str, default='system'
-            Element level to summarize, such as atom, group, chain or system.
-            Valid aliases are normalized by molsysmt.basic.info.
-        selection : str, int, list, tuple or numpy.ndarray, default='all'
-            Elements to include, as positional indices or a selection expression.
-        syntax : str, default='MolSysMT'
-            Selection syntax used to evaluate selection expressions.
-        skip_digestion : bool, default=False
-            Whether to skip argument digestion for already validated inputs.
-        mask : str, list, tuple, numpy.ndarray or None, default=None
-            Scope intersected with selection at the requested element level.
-            For system summaries, selection and mask refer to atoms. None or
-            'all' leaves the scope unrestricted. This argument is keyword-only.
-
-        Returns
-        -------
-        pandas.io.formats.style.Styler
-            A summary table; its data attribute exposes the underlying DataFrame.
-
-        Raises
-        ------
-        ArgumentError
-            If arguments do not satisfy the public info contract.
-        ValueError
-            If this system has no topology domain.
-
-        Notes
-        -----
-        Argument validation and normalization are delegated to the decorated
-        molsysmt.basic.info boundary with the caller's skip_digestion flag.
-        Use molsysmt.info for other output representations or structure selection.
-
-        See Also
-        --------
-        molsysmt.basic.info : Summarizing any supported molecular-system form.
-
-        Examples
-        --------
-        >>> from molsysmt.native import MolSys
-        >>> molsys = MolSys(n_atoms=2)
-        >>> molsys.info(element='atoms', selection=1).data['index'].tolist()
-        [1]
-
-        .. admonition:: User guide
-
-           See :ref:`Tutorial_Info` for summary tables.
-
-        .. versionadded:: 1.0.0
-        """
-
-        if self.topology is None:
-            raise ValueError(
-                "MolSys.info requires a topology; inspect chemical_states directly."
-            )
-
-        from molsysmt.basic import info as _info
-
-        return _info(
-            self,
-            element=element,
-            selection=selection,
-            syntax=syntax,
-            mask=mask,
-            skip_digestion=skip_digestion,
-        )
-
-    def get(
-        self,
-        element="system",
-        selection="all",
-        structure_indices="all",
-        mask=None,
-        syntax="MolSysMT",
-        get_missing_bonds=True,
-        output_type="values",
-        skip_digestion=False,
-        **kwargs,
-    ):
-        """Getting attributes through the validated public query boundary.
-
-        Parameters
-        ----------
-        element : str, default='system'
-            Element level to query, such as atom, group or system. Valid aliases
-            are normalized by molsysmt.basic.get.
-        selection : str, int, list, tuple or numpy.ndarray, default='all'
-            Elements to include, as positional indices or a selection expression.
-        structure_indices : str, int, list, tuple or numpy.ndarray, default='all'
-            Structure indices (0-based) to include in the requested order.
-        mask : str, int, list, tuple, numpy.ndarray or None, default=None
-            Additional element selection used to restrict the selected elements.
-        syntax : str, default='MolSysMT'
-            Selection syntax used to evaluate selection and mask expressions.
-        get_missing_bonds : bool, default=True
-            Whether to obtain missing connectivity when required by the query.
-        output_type : str, default='values'
-            Result representation: values or dictionary.
-        skip_digestion : bool, default=False
-            Whether to skip argument digestion for already validated inputs.
-        **kwargs
-            Attribute names requested with boolean values, such as n_atoms=True
-            or coordinates=True, under the public get attribute contract.
-
-        Returns
-        -------
-        object
-            A single attribute value, multiple values, or an attribute dictionary.
-            Physical quantities retain their units; coordinates have shape
-            (n_structures, n_atoms, 3) for the selected axes.
-
-        Raises
-        ------
-        ArgumentError
-            If option values or attribute flags are invalid.
-        UnknownArgumentError
-            If a keyword does not belong to the public get contract.
-
-        Notes
-        -----
-        This method forwards input and the caller's skip_digestion flag to
-        decorated molsysmt.basic.get. That provider owns the validation and
-        normalization; the shortcut does not duplicate the attribute catalog.
-        Leave digestion enabled for ordinary user input.
-
-        See Also
-        --------
-        molsysmt.basic.get : Getting attributes from any supported form.
-
-        Examples
-        --------
-        >>> from molsysmt.native import MolSys
-        >>> molsys = MolSys(n_atoms=3)
-        >>> molsys.get(element='atoms', selection=1, atom_index=True)
-        [1]
-        >>> molsys.get(n_atoms=True, output_type='dictionary')
-        {'n_atoms': 3}
-
-        .. admonition:: User guide
-
-           See :ref:`Tutorial_Get` for attribute queries.
-
-        .. versionadded:: 1.0.0
-        """
-
-        from molsysmt.basic import get as _get
-
-        return _get(
-            self,
-            element=element,
-            selection=selection,
-            structure_indices=structure_indices,
-            mask=mask,
-            syntax=syntax,
-            get_missing_bonds=get_missing_bonds,
-            output_type=output_type,
-            skip_digestion=skip_digestion,
-            **kwargs,
-        )
 
     def _get_n_atoms(self):
         if self.topology is not None:

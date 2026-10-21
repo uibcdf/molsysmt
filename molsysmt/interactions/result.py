@@ -10,6 +10,7 @@ from types import MappingProxyType
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt.native.queries import NativeQueries
 
 from ._query_modes import validate_query_mode
 
@@ -131,7 +132,7 @@ def _software_versions(software):
     return software.copy()
 
 
-class Interactions:
+class Interactions(NativeQueries):
     """Storing sparse interaction observations and querying their participants.
 
     Instances use local atom and structure indices, with explicit maps to the

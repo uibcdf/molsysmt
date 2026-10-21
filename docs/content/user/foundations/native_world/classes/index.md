@@ -9,6 +9,12 @@ validating chemistry or reading file contents. See {ref}`user-foundations-native
 and the executed example in {ref}`Tutorial_Info`. Plain Python dictionaries keep
 their ordinary representation.
 
+Resident `MolSys`, `Topology`, `Structures`, `ChemicalStates`, `Interactions`
+and `MolSysBuilder` objects also share validated `get()`/`info()` methods.
+They follow the basic-tool arguments and outputs for each available domain;
+use named options to preserve the legacy MolSys positional convention.
+See {ref}`Tutorial_Get` and {ref}`Tutorial_Info` for executed examples.
+
 ---
 
 ## **Contents**

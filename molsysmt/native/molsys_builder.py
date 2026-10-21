@@ -7,8 +7,10 @@ from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import ArgumentChoiceError, StructuralInconsistencyError
 
+from .queries import NativeQueries
 
-class MolSysBuilder:
+
+class MolSysBuilder(NativeQueries):
     """Building a native molecular system incrementally from declared elements.
 
     Notes
@@ -756,43 +758,3 @@ class MolSysBuilder:
         output.structures = self.structures.copy()
 
         return output
-
-    def info(
-        self, element="system", selection="all", syntax="MolSysMT", skip_digestion=False
-    ):
-        from molsysmt.basic import info as _info
-
-        return _info(
-            self,
-            element=element,
-            selection=selection,
-            syntax=syntax,
-            skip_digestion=True,
-        )
-
-    def get(
-        self,
-        element="system",
-        selection="all",
-        structure_indices="all",
-        mask=None,
-        syntax="MolSysMT",
-        get_missing_bonds=True,
-        output_type="values",
-        skip_digestion=False,
-        **kwargs,
-    ):
-        from molsysmt.basic import get as _get
-
-        return _get(
-            self,
-            element=element,
-            selection=selection,
-            structure_indices=structure_indices,
-            mask=mask,
-            syntax=syntax,
-            get_missing_bonds=get_missing_bonds,
-            output_type=output_type,
-            skip_digestion=True,
-            **kwargs,
-        )

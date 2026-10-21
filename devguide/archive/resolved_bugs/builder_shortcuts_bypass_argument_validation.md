@@ -1,13 +1,13 @@
 ---
 summary: MolSysBuilder query shortcuts bypass argument validation
 issue: uibcdf/molsysmt#391
-status: open
+status: resolved
 opened: 2026-10-21
-closed:
+closed: 2026-10-21
 severity: medium
 verification: reproduced
 area: [api, argdigest]
-guard:
+guard: tests/native/test_native_queries.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-21, while expanding the native-query study in
 uibcdf/molsysmt#128 at the maintainer's request.
-**Status:** Reproduced; repair pending. No runtime change accompanies this report.
+**Status:** Resolved through the shared validated native query boundary.
 
 ## What
 
@@ -93,3 +93,24 @@ change builder construction, finalization, mutation or scientific inference.
 
 2026-10-21, Linux x86_64 development checkout; Python 3.14.7. The reproduction
 uses only native construction and query functions, without external files.
+
+
+## Resolution — 2026-10-21
+
+**Contract-tested.** MolSysBuilder inherits the shared native get/info boundary.
+ArgDigest rejects invalid skip/output/attribute flags and unknown keywords,
+normalizes supported element/attribute aliases and scalar selections, and
+executes directly against the editable domains. Existing positional calls
+remain valid; info additionally supports the shared keyword-only options.
+
+`tests/native/test_native_queries.py` independently expects rejection of the
+reported invalid options for every resident type, including the builder, and
+checks live counts after adding an atom. The original unconditional bypass
+admits these options or fails valid alias normalization and cannot satisfy
+those assertions. No builder finalization is used for the queries.
+
+The combined basic/native/interaction/connectivity selection passes 2,285 tests
+with 12 workers and Pytest Receptor. Seven shared-method doctest examples pass;
+new executable sections in the User Guide/Cookbook/course and changed method
+API docstrings render without diagnostics. This closes boundary correctness,
+not the separate remaining #128 representation/file optimization scope.

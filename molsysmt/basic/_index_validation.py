@@ -8,7 +8,9 @@ from molsysmt._private.smonitor import ArgumentError, NotWithThisFormError
 from molsysmt._private.variables import is_all
 
 
-def validate_element_indices(molecular_system, indices, element, argument, caller):
+def validate_element_indices(
+    molecular_system, indices, element, argument, caller, *, count_getter=None
+):
     """
     Validate and normalize element indices without invoking the public API recursively.
 
@@ -42,7 +44,11 @@ def validate_element_indices(molecular_system, indices, element, argument, calle
             message=f"'{argument}' must be a one-dimensional collection of integer indices.",
         )
 
-    n_elements = _get_count(molecular_system, element)
+    n_elements = (
+        _get_count(molecular_system, element)
+        if count_getter is None
+        else count_getter(element)
+    )
     if n_elements is None:
         return array.astype(np.int64).tolist()
 
@@ -61,7 +67,7 @@ def validate_element_indices(molecular_system, indices, element, argument, calle
     return array.astype(np.int64).tolist()
 
 
-def normalize_mask(molecular_system, mask, element, caller):
+def normalize_mask(molecular_system, mask, element, caller, *, count_getter=None):
     """
     Normalize a Boolean mask or validate an index-based mask.
 
@@ -82,7 +88,11 @@ def normalize_mask(molecular_system, mask, element, caller):
 
     array = np.asarray(mask)
     if array.ndim == 1 and np.issubdtype(array.dtype, np.bool_):
-        n_elements = _get_count(molecular_system, element)
+        n_elements = (
+            _get_count(molecular_system, element)
+            if count_getter is None
+            else count_getter(element)
+        )
         if n_elements is not None and array.size != n_elements:
             raise ArgumentError(
                 argument="mask",
@@ -95,10 +105,14 @@ def normalize_mask(molecular_system, mask, element, caller):
             )
         return np.flatnonzero(array).astype(np.int64).tolist()
 
-    return validate_element_indices(molecular_system, mask, element, "mask", caller)
+    return validate_element_indices(
+        molecular_system, mask, element, "mask", caller, count_getter=count_getter
+    )
 
 
-def validate_structure_indices(molecular_system, structure_indices, caller):
+def validate_structure_indices(
+    molecular_system, structure_indices, caller, *, count_getter=None
+):
     """
     Validate explicit structure indices when a structure count is available.
 
@@ -121,6 +135,7 @@ def validate_structure_indices(molecular_system, structure_indices, caller):
         "structure",
         "structure_indices",
         caller,
+        count_getter=count_getter,
     )
 
 

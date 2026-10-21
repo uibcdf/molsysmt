@@ -250,28 +250,30 @@ def get_alternate_location_from_atom(
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-    """
-    Getting n atoms from system in form molsysmt.Structures.
-
+    """Getting the native atom count from aligned structural observables.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Native Structures whose stored observables define the available axes.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip digestion of already validated arguments.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Atom count from coordinates, velocities, B factors or occupancies.
+        Returns zero when no atom-aligned series is present; a time or box
+        series alone does not establish a nonzero atom count.
 
+    Raises
+    ------
+    StructuralInconsistencyError
+        If stored observables disagree on an atom or structure axis.
 
     .. versionadded:: 1.0.0
     """
-    output = item.coordinates.shape[1]
-
-    return output
+    return item.n_atoms
 
 
 @arg_digest(form=form)

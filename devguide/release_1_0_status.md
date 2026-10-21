@@ -83,10 +83,17 @@ are source-validated. On 2026-10-21 the maintainer begins the prior #128 study,
 expanding it from MolSys/Topology/Structures to relevant native domains and
 representations used by suite clients. The [native-query study](pending_proposals/native_query_shortcuts.md)
 records existing access paths, baseline methodology and the proposed shared
-validated core. It introduces no optimized runtime route or new public methods.
+validated core. The maintainer subsequently authorizes the resident implementation: six native
+types now share validated get/info and direct explicit-index acquisition, with
+the current specialized queries retained. See the [native contract](native_queries.md).
+This resident source phase passes 2,285 affected regression cases, seven shared
+method doctests and 34 adjacent count doctests, with executed/rendered guide
+and course examples. Broader dictionary/file work is not claimed complete.
 The builder validation bypass discovered during this inventory is tracked
-separately in [#391's record](pending_bugs/builder_shortcuts_bypass_argument_validation.md).
-#128 remains open; #121/#113 still await their separate prior design studies.
+separately in [#391's record](archive/resolved_bugs/builder_shortcuts_bypass_argument_validation.md).
+#128 remains partial for its separately scoped representation/file follow-up;
+#391 and the discovered [nullable count defect](archive/resolved_bugs/selected_hierarchy_counts_follow_missing_parents.md)
+are source-resolved. #121/#113 still await their separate prior design studies.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

@@ -89,3 +89,7 @@ system = builder.build()
 ## API Documentation
 
 Detailed methods for `molsysmt.MolSysBuilder` are documented in the [{doc}`molsysmt.MolSysBuilder API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
+
+## Native Queries
+
+Inspect the current staging data with `builder.get(...)` and `builder.info(...)` without finalizing a system. Both methods validate options by default, including attribute flags and skip_digestion; new atoms are visible to later queries. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.

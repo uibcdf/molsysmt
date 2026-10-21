@@ -129,7 +129,7 @@ def _routes(name, obj, n_atoms, n_structures, values):
     if hasattr(type(obj), "n_atoms"):
         assert obj.n_atoms == n_atoms
         routes["property_n_atoms"] = lambda: obj.n_atoms
-    if hasattr(obj, "get") and name in ("MolSys", "MolSysBuilder"):
+    if hasattr(obj, "get") and not name.endswith("Dict"):
         assert obj.get(n_atoms=True) == n_atoms
         routes["method_get_n_atoms"] = lambda: obj.get(n_atoms=True)
 
@@ -144,6 +144,17 @@ def _routes(name, obj, n_atoms, n_structures, values):
         table = result if output_type == "dataframe" else result.data
         assert table["n_atoms"].tolist() == [n_atoms]
         routes["info_" + output_type] = info
+        if hasattr(obj, "info"):
+
+            def native_info(output_type=output_type):
+                return obj.info(output_type=output_type)
+
+            native_result = native_info()
+            native_table = (
+                native_result if output_type == "dataframe" else native_result.data
+            )
+            assert native_table.equals(table)
+            routes["method_info_" + output_type] = native_info
     if name in ("MolSys", "Topology"):
         indices = [n_atoms - 1, 0, 2]
 
@@ -152,6 +163,12 @@ def _routes(name, obj, n_atoms, n_structures, values):
 
         assert selected() == indices
         routes["get_selected_atom_indices"] = selected
+
+        def native_selected():
+            return obj.get(element="atom", selection=indices, atom_index=True)
+
+        assert native_selected() == indices
+        routes["method_get_selected_atom_indices"] = native_selected
     if name in ("MolSys", "Structures"):
         atoms = [n_atoms - 1, 0, n_atoms - 1]
         structures = [n_structures - 1, 0, n_structures - 1]
@@ -171,6 +188,14 @@ def _routes(name, obj, n_atoms, n_structures, values):
                 msm.pyunitwizard.get_value(coordinates(), to_unit="nm"), expected
             )
             routes["get_" + kind] = coordinates
+
+            def native_coordinates(kwargs=kwargs):
+                return obj.get(element="atom", coordinates=True, **kwargs)
+
+            np.testing.assert_allclose(
+                msm.pyunitwizard.get_value(native_coordinates(), to_unit="nm"), expected
+            )
+            routes["method_get_" + kind] = native_coordinates
     if name == "ChemicalStates":
 
         def inventory():

@@ -1,12 +1,12 @@
 ---
 summary: Native objects query their domains without universal form dispatch
 issue: uibcdf/molsysmt#128
-status: active
+status: partial
 opened: 2026-10-21
 closed:
 verification: measured
 area: [api, basic, performance]
-guard:
+guard: tests/native/test_native_queries.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** Original issue #128; expanded by the maintainer on 2026-10-21
 to native forms used by TopoMT, DockingMT, PharmacophoreMT and ElastNetMT.
-**Status:** Baseline and architecture study. No optimized runtime route or new
-public method is implemented by this study.
+**Status:** Resident native query phase contract-tested; comparative timings pending.
+Dictionary/encoded/file/mechanics follow-up remains outside this implementation.
 
 ## What
 
@@ -200,9 +200,11 @@ also pass. No library runtime source changed in this study.
 
 ## Scope and exclusions
 
-This stage is an evidence-producing study under the maintainer's release pause.
-It does not close #128, add public methods, change defaults or stabilize new
-scientific behavior. #121 and #113 retain their separate prior-study requirement.
+The maintainer subsequently authorizes the resident native implementation during
+the release pause. It adds the shared get/info pattern to six resident types,
+preserving existing positional arguments and basic-tool result semantics.
+It does not stabilize new scientific behavior or close the dictionary/file
+follow-up scope of #128. #121 and #113 retain their separate prior-study requirement.
 No candidate artifact identity or publication authorization changes.
 
 ## Acceptance criteria for subsequent implementation
@@ -235,3 +237,64 @@ Source before this study: `7ef2085d9b011b97bcb94644c0c48b14f96bdb02`.
 The baseline artifact records Python, CPU, platform, package metadata versions,
 actual import origins, repetitions, fixture sizes, date and benchmark SHA-256.
 This development-environment evidence is not installed-artifact qualification.
+
+
+## Resident native implementation — 2026-10-21
+
+The maintainer accepts a repeated public `get()`/`info()` pattern matching the
+basic tools as closely as compatibility allows. `MolSys`, `Topology`,
+`Structures`, `ChemicalStates`, `Interactions` and `MolSysBuilder` now inherit
+that pattern from `native/queries.py`. Existing specialized accessors remain.
+The [native query contract](../native_queries.md) states the delivered scope,
+legacy positional order, keyword-only additions and expression fallback.
+
+`basic.get._get` and `basic.info._info` share execution/output assembly; native
+providers resolve a known class directly and bypass general discovery, search
+and conversion for flat index queries. Public native boundaries use ArgDigest's
+supported registry discovery, local normalization tables and attribute-domain
+contracts. Existing value digesters are reused with their basic-provider
+semantic context. No global wildcard registration is installed and no duplicate
+attribute catalogue is introduced. Private execution helpers stay undecorated.
+
+Structure scope is propagated through every info acquisition and recursive
+expression-mask selection. The Structures count adapter uses existing native
+alignment rather than dereferencing absent coordinates. Selected nullable
+hierarchy counts reuse existing parent mapping; that separately tracked defect
+and its guards belong to uibcdf/molsysmt#392. The builder's unconditional
+validation bypass is repaired by the common boundary under uibcdf/molsysmt#391.
+
+The new tests assert literal expected counts, parent memberships, duplicate and
+empty axes, coordinate values/copies and angstrom output under a nondefault unit
+policy. They also reject invalid/unknown arguments and test state selection,
+partial systems, editable builders, inherited native query methods and sparse
+views. A mechanism guard forbids universal get/info/get_form/where/select/convert
+for the claimed native cases, while expression queries retain their fallback.
+Executed new examples cover Foundations, both Toolbox tutorials, the Cookbook
+and course module 4. Existing notebook cells/outputs are retained.
+
+The resident implementation does not add dictionary instance methods, direct
+file queries, a mechanics redesign, new ChemicalStates attribute families or a
+replacement for Interactions.query. Those distinctions are part of the public
+contract rather than implicit missing implementation.
+
+
+### Resident correctness qualification
+
+The final selected basic/native/interaction/connectivity campaign passes 2,285
+cases on Linux/Python 3.14.7 with `--receptor=llm -n 12`:
+
+```bash
+python -m pytest --receptor=llm -n 12 tests/basic tests/native tests/interactions \
+    tests/topology/test_selected_state_connectivity.py
+```
+
+It includes 54 new native-query cases, the existing shortcut boundary guards,
+public get/info, sparse occurrence queries, extraction and H5MSM workflows.
+Warnings remain visible (411 across 20 categories, dominated by legacy H5MSM
+reads and intentional tiny-memory-budget tests). This is not the full package
+suite, browser qualification or an installed-candidate matrix.
+
+Seven new shared-method doctest examples and 34 current count examples pass;
+changed method docstrings and new Foundations/Toolbox/Cookbook/course sections
+render with zero Sphinx diagnostics. The public-signature guard records four
+explicit inherited-method waivers while preserving positional call semantics.

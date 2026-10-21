@@ -5,8 +5,10 @@ import numpy as np
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
+from .queries import NativeQueries
 
-class ChemicalStates:
+
+class ChemicalStates(NativeQueries):
     """Holding chemical states over one stable atom-index domain.
 
     The collection owns the state records. A state contains covalent bonds,

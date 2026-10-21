@@ -10,6 +10,7 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 
 from .chemical_states import ChemicalStates
+from .queries import NativeQueries
 
 _ACTIVE_CHEMICAL_STATE_INDICES = ContextVar(
     "molsysmt_active_chemical_state_indices", default={}
@@ -658,7 +659,7 @@ class _ChemicalStateStorage:
 _ReferenceChemicalStateStorage = _ChemicalStateStorage
 
 
-class Topology:
+class Topology(NativeQueries):
     """Native stable atom inventory with chemical-state compatibility access."""
 
     def __repr__(self):

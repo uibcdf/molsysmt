@@ -303,6 +303,7 @@ def select(
             mask = select(
                 molecular_system,
                 selection=mask,
+                structure_indices=structure_indices,
                 element=element,
                 chemical_state=chemical_state,
                 syntax=syntax,

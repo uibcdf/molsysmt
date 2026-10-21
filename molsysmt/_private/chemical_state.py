@@ -54,7 +54,9 @@ def resolve_chemical_state(function):
         if chemical_state == "reference":
             return function(*args, **kwargs)
 
-        molecular_system = arguments.arguments.get("molecular_system")
+        molecular_system = arguments.arguments.get(
+            "molecular_system", arguments.arguments.get("self")
+        )
         from molsysmt._private.h5msm import maybe_read_modular_h5msm
 
         native_system = maybe_read_modular_h5msm(molecular_system)

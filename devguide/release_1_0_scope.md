@@ -55,6 +55,20 @@ strict chemical admission. #128, #121 and #113 require a separate pause and
 design study before implementation. No release artifact or publication
 authorization changes.
 
+### Native query admission — 2026-10-21
+
+After the prior #128 design study, the maintainer authorizes the common native
+get/info pattern with basic-tool arguments and outputs. Scope covers resident
+MolSys, Topology, Structures, ChemicalStates, Interactions and MolSysBuilder,
+shared validated execution, current explicit-index query optimization and
+preservation of specialized methods. Existing MolSys positional arguments stay
+in place; new options are keyword-only. Related builder boundary and nullable
+selected-count defects are tracked as #391/#392. The
+[native contract](native_queries.md) records the delivered boundary and fallback.
+Dictionary reconstruction, encoded payloads, mechanics and file-access redesign
+remain separate study scope. #121/#113 retain their prior-study requirement.
+This admission does not select replacement artifacts or authorize publication.
+
 ### Scoped summary admission — 2026-10-20
 
 During the continued publication pause, the maintainer authorizes bounded

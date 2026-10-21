@@ -62,3 +62,7 @@ meaning in a Structures-only H5MSM 0.5 file. See {ref}`Tutorial_Get_least_square
 executed examples and PBC requirements.
 
 Detailed methods, getters, and converters for `molsysmt.Structures` are documented in the [{doc}`molsysmt.Structures API Reference </api/form/molsysmt_Structures/api_molsysmt_Structures>`].
+
+## Native Queries
+
+Use `structures.get(element="atom", selection=[...], structure_indices=[...], coordinates=True)` for selected quantities. Existing `get_coordinates()`, `get_box()` and `get_time()` remain available. General get/info options and output units follow the basic query contract. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.

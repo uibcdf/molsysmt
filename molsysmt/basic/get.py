@@ -222,6 +222,37 @@ def get(
     .. versionadded:: 1.0.0
     """
 
+    return _get(
+        molecular_system,
+        element=element,
+        selection=selection,
+        structure_indices=structure_indices,
+        mask=mask,
+        syntax=syntax,
+        get_missing_bonds=get_missing_bonds,
+        output_type=output_type,
+        chemical_state=chemical_state,
+        skip_digestion=skip_digestion,
+        **kwargs,
+    )
+
+
+def _get(
+    molecular_system,
+    element="system",
+    selection="all",
+    structure_indices="all",
+    mask=None,
+    syntax="MolSysMT",
+    get_missing_bonds=True,
+    output_type="values",
+    chemical_state="reference",
+    skip_digestion=False,
+    *,
+    _native=None,
+    **kwargs,
+):
+    """Execute a validated query using general or known-native providers."""
     from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.attribute import (
         attributes,
@@ -230,7 +261,16 @@ def get(
 
     from .. import get_form, select, where_is_attribute
 
-    molecular_system = maybe_read_modular_h5msm(molecular_system)
+    if _native is not None:
+        get_form = _native.form_of
+        select = _native.select
+        where_is_attribute = _native.locate
+        from functools import partial
+
+        query = partial(_get, _native=_native)
+    else:
+        query = get
+        molecular_system = maybe_read_modular_h5msm(molecular_system)
     form = get_form(molecular_system)
 
     if isinstance(form, (list, tuple)):
@@ -260,7 +300,10 @@ def get(
         from ._index_validation import validate_structure_indices
 
         structure_indices = validate_structure_indices(
-            molecular_system, structure_indices, "molsysmt.get"
+            molecular_system,
+            structure_indices,
+            "molsysmt.get",
+            count_getter=None if _native is None else _native.count,
         )
 
     attribute_groups = _group_attributes_by_element(element, selection, in_attributes)
@@ -278,7 +321,7 @@ def get(
             target_selection = selection if use_requested_selection else "all"
             target_mask = mask if use_requested_selection else None
             output_dictionary.update(
-                get(
+                query(
                     molecular_system,
                     element=target_element,
                     selection=target_selection,
@@ -326,9 +369,12 @@ def get(
                 skip_digestion=True,
             )
 
-    piped_molecular_systems, piped_attributes = _piped_molecular_system(
-        molecular_system, element, in_attributes
-    )
+    if _native is None:
+        piped_molecular_systems, piped_attributes = _piped_molecular_system(
+            molecular_system, element, in_attributes
+        )
+    else:
+        piped_molecular_systems, piped_attributes = None, None
 
     if piped_molecular_systems is None:
         output = []
@@ -380,7 +426,12 @@ def get(
                                 ),
                             )
                     else:
-                        result = aux_get(aux_item, **dict_indices)
+                        if _native is None:
+                            result = aux_get(aux_item, **dict_indices)
+                        else:
+                            result = aux_get(
+                                aux_item, skip_digestion=True, **dict_indices
+                            )
 
                 if (result is not None) and in_attribute.endswith("_id"):
                     result = _coerce_ids_to_string(result)
@@ -401,7 +452,7 @@ def get(
             if aux_molecular_system is None:
                 aux_molecular_system = molecular_system
 
-            aux_dict = get(
+            aux_dict = query(
                 aux_molecular_system,
                 element=element,
                 selection=indices,

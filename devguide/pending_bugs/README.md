@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`builder_shortcuts_bypass_argument_validation.md`](builder_shortcuts_bypass_argument_validation.md) — [#391](https://github.com/uibcdf/molsysmt/issues/391) — MolSysBuilder query shortcuts bypass argument validation *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

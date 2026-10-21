@@ -135,14 +135,53 @@ def info(
     .. versionadded:: 1.0.0
     """
 
+    return _info(
+        molecular_system,
+        element=element,
+        selection=selection,
+        structure_indices=structure_indices,
+        syntax=syntax,
+        output_type=output_type,
+        skip_digestion=skip_digestion,
+        mask=mask,
+    )
+
+
+def _info(
+    molecular_system,
+    element="system",
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    output_type="styler",
+    skip_digestion=False,
+    *,
+    mask=None,
+    _native=None,
+):
+    """Build the shared summary using general or known-native acquisition."""
     from molsysmt.form import _dict_modules
 
     from . import get, get_form, select
     from ._index_validation import validate_structure_indices
 
+    if _native is not None:
+        get = _native.get
+        get_form = _native.form_of
+        select = _native.select
+
     structure_indices = validate_structure_indices(
-        molecular_system, structure_indices, "molsysmt.info"
+        molecular_system,
+        structure_indices,
+        "molsysmt.info",
+        count_getter=None if _native is None else _native.count,
     )
+
+    # Counts and spatial selections observe the same requested structures.
+    from functools import partial
+
+    get = partial(get, structure_indices=structure_indices)
+    select = partial(select, structure_indices=structure_indices)
 
     if mask is not None and not is_all(mask):
         selection = select(

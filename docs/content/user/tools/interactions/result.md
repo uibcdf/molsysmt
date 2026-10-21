@@ -650,3 +650,13 @@ once. Internal queries require all actual branch atoms, including mediator
 O and the participating H. An unused water H is not an extra participant.
 Both analyses retain evaluated-empty frames, original references/producer
 versions, units and observed images through named H5MSM 0.5 conversion.
+
+## Querying molecular metadata
+
+An analysis also offers the native `get()`/`info()` pattern. For example,
+`analysis.get(n_atoms=True, n_structures=True, output_type="dictionary")`
+returns its declared source-axis sizes, and
+`analysis.info(output_type="dataframe")` returns the shared molecular summary.
+These sizes describe the analysis domain, not the number of selected occurrences.
+Use `query()`, `between_selections()` and `to_page()` for occurrences, measures,
+coverage and bounded export. No occurrence engine or scientific definition changes.

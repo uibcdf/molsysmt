@@ -13,6 +13,8 @@ from molsysmt._private.smonitor import (
 )
 from molsysmt._private.variables import is_all
 
+from .queries import NativeQueries
+
 
 def _raw_value(quantity, canonical_unit):
     if quantity is None:
@@ -134,7 +136,7 @@ def _merge_alternate_locations(target_value, source_value, atom_offset, n_struct
     return merged
 
 
-class Structures:
+class Structures(NativeQueries):
     """Storing per-structure data (coordinates, box, time, energies) for a molecular system.
 
     Notes
