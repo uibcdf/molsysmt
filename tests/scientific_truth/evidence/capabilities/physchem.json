@@ -79,5 +79,36 @@
       }
     ],
     "gap": null
+  },
+  "molsysmt.physchem.get_sasa": {
+    "domain": "physchem",
+    "status": "partial",
+    "claim": "Nonperiodic native Shrake\u2013Rupley per-atom SASA on isolated, separated and overlapping carbon-sphere fixtures.",
+    "units": [
+      "nm**2"
+    ],
+    "periodic_behavior": "Nonperiodic fixtures only; no periodic scientific claim.",
+    "contract_test_area": "tests/physchem/get_sasa",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+        "oracle": "Sphere area 4*pi*(0.17+0.14)**2 nm**2, with explicit carbon and probe radii.",
+        "tolerance": "external_float32_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+        "oracle": "Equal-sphere accessible area 2*pi*R**2+pi*R*d per atom, R=d=0.31 nm.",
+        "tolerance": "shrake_rupley_sampling_area_atol"
+      },
+      {
+        "class": "external",
+        "test": "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+        "oracle": "MDTraj Topology and Trajectory constructed directly from literal carbon-sphere inputs; public change_radii fixes carbon radius to 0.17 nm.",
+        "tolerance": "shrake_rupley_sampling_area_atol"
+      }
+    ],
+    "gap": "Carbon fixtures and brute-force occlusion only. Other elements, general proteins, cell-list behavior and sampling convergence need separate governed evidence; wrapper-engine agreement is regression parity."
   }
 }

@@ -1,0 +1,21 @@
+{
+  "molsysmt.build.build_peptide": {
+    "domain": "build",
+    "status": "partial",
+    "claim": "Native standard-peptide construction: inventory and named bond graph against independently scripted Amber LEaP for three declared sequences.",
+    "units": [
+      "dimensionless"
+    ],
+    "periodic_behavior": "Nonperiodic fixtures only; no periodic scientific claim.",
+    "contract_test_area": "tests/build/build_peptide",
+    "scientific_evidence": [
+      {
+        "class": "external",
+        "test": "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+        "oracle": "Amber LEaP with leaprc.protein.ff14SB, literal sequence input and direct ParMed parsing; no MolSysMT converter constructs the oracle.",
+        "comparison": "exact"
+      }
+    ],
+    "gap": "Only three standard sequences are governed here; the existing 40-sequence wrapper parity campaign remains additional regression evidence. Geometry, energies, force-field assignments and arbitrary chemistry are not certified."
+  }
+}

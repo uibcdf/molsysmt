@@ -156,3 +156,24 @@ def test_ensemble_reductions_reject_empty_frame_selections(function_name):
 
     with pytest.raises(ArgumentError):
         function(system, selection="all", structure_indices=[], heavy_mode="off")
+
+
+@pytest.mark.parametrize("heavy_mode", ["off", "force"])
+def test_rmsf_matches_explicit_population_variance(float64_kernel_atol, heavy_mode):
+    """Check population variance about the ensemble mean without fitting."""
+    coordinates = np.array(
+        [
+            [[-1.0, 0.0, 0.0], [1.0, 0.0, 0.0]],
+            [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]],
+            [[1.0, 0.0, 0.0], [4.0, 0.0, 0.0]],
+        ]
+    )
+    observed = msm.structure.get_rmsf(
+        _structures(coordinates), selection="all", heavy_mode=heavy_mode
+    )
+    np.testing.assert_allclose(
+        _values(observed),
+        [np.sqrt(2 / 3), np.sqrt(2)],
+        atol=float64_kernel_atol,
+        rtol=0,
+    )

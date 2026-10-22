@@ -41,7 +41,7 @@ the main Python-native incumbent and is narrow and tied to OpenMM; the alternati
 domain-specific. This is the thinnest class and the one where MolSysMT's `build`
 namespace has the least-occupied ground — conditional on that namespace acquiring
 governed evidence, which it does not have today
-([`pending_proposals/the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](pending_proposals/the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md)).
+([`archive/resolved_proposals/the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](archive/resolved_proposals/the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md)).
 
 **Conversion with declared fidelity.** InterMol pursued validated MD-input conversion and
 is dormant; ParmEd converts widely without reporting loss; MDAnalysis exposes

@@ -10,5 +10,26 @@
     "validated": "At least one assertion-bearing analytic, external, or versioned-reference oracle is registered; execution is certified separately.",
     "partial": "Evidence exists but does not independently establish the complete declared claim.",
     "gap": "No governed independent scientific oracle is currently registered."
-  }
+  },
+  "claimed_api_symbols": [
+    "molsysmt.build.build_peptide",
+    "molsysmt.physchem.get_sasa",
+    "molsysmt.structure.get_rmsf",
+    "molsysmt.structure.get_secondary_structure"
+  ],
+  "experimental_api_scopes": [
+    "molsysmt.build",
+    "molsysmt.physchem",
+    "molsysmt.structure",
+    "molsysmt.topology",
+    "molsysmt.interactions.hbonds",
+    "molsysmt.interactions.disulfides",
+    "molsysmt.interactions.ionic",
+    "molsysmt.interactions.pi_pi",
+    "molsysmt.interactions.cation_pi",
+    "molsysmt.interactions.halogen_bonds",
+    "molsysmt.interactions.hydrophobic",
+    "molsysmt.interactions.metal_coordination",
+    "molsysmt.interactions.water_bridges"
+  ]
 }

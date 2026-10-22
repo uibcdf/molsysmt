@@ -9,15 +9,18 @@ pytest. Release evidence requires the separate zero-skip execution certificate
 from `execute_scientific_evidence.py` on the exact candidate commit.
 A gap means that governed independent evidence is absent; it does not by
 itself mean that the function is untested or scientifically incorrect.
+Claimed is an explicit evidence-review scope, not approval of manuscript
+wording or promotion to a Stable API. Counts are per scope; a symbol may
+belong to both. APIs outside these scopes are not certified by this matrix.
 
 ## Summary
 
-| Status | Stable APIs |
-| --- | ---: |
-| validated | 43 |
-| partial | 0 |
-| gap | 0 |
-| total | 43 |
+| Status | Stable APIs | Claimed APIs |
+| --- | ---: | ---: |
+| validated | 43 | 1 |
+| partial | 0 | 2 |
+| gap | 0 | 1 |
+| total | 43 | 4 |
 
 ## Governed tolerances
 
@@ -26,66 +29,150 @@ itself mean that the function is untested or scientifically incorrect.
 | `public_six_decimal_atol` | 5e-07 | 0 | Half of the last reported decimal place in public box lengths, angles, and reconstructed matrices. |
 | `float64_kernel_atol` | 1e-12 | 0 | Detects numerical regressions while allowing ordinary float64 propagation. |
 | `external_float32_atol` | 1e-06 | 0 | Conservative shared threshold for MDTraj and MDAnalysis agreement in the reported unit. |
+| `shrake_rupley_sampling_area_atol` | 0.0101 | 0 | Eight sphere-patch areas, 8 * 4*pi*0.31**2/960, rounded upward; allows different sampling orientations for the one-cap fixture, not general SASA accuracy. |
 
-## pbc
+## Stable scientific APIs
 
-| Stable API | Status | Evidence | Gap |
-| --- | --- | --- | --- |
-| `molsysmt.pbc.get_angles_from_box` | validated | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products` (public_six_decimal_atol) | — |
-| `molsysmt.pbc.get_box_from_lengths_and_angles` | validated | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix` (public_six_decimal_atol) | — |
-| `molsysmt.pbc.get_box_with_shape` | validated | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors` (float64_kernel_atol) | — |
-| `molsysmt.pbc.get_lengths_and_angles_from_box` | validated | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry` (public_six_decimal_atol) | — |
-| `molsysmt.pbc.get_lengths_from_box` | validated | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms` (public_six_decimal_atol) | — |
-| `molsysmt.pbc.get_shape_from_angles` | validated | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures` (exact) | — |
-| `molsysmt.pbc.get_shape_from_box` | validated | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors` (exact) | — |
-| `molsysmt.pbc.get_volume_from_box` | validated | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume` (float64_kernel_atol) | — |
-| `molsysmt.pbc.get_volume_from_lengths_and_angles` | validated | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form` (float64_kernel_atol) | — |
-| `molsysmt.pbc.has_pbc` | validated | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly` (exact) | — |
-| `molsysmt.pbc.unwrap` | validated | analytic: `tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion` (float64_kernel_atol) | — |
-| `molsysmt.pbc.wrap_to_mic` | validated | analytic: `tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block` (float64_kernel_atol) | — |
-| `molsysmt.pbc.wrap_to_pbc` | validated | analytic: `tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block` (float64_kernel_atol) | — |
+| API | Stability | Status | Declared claim and scope | Evidence | Gap |
+| --- | --- | --- | --- | --- | --- |
+| `molsysmt.pbc.get_angles_from_box` | stable | validated | Recovering cell angles from row-vector box matrices. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products` (public_six_decimal_atol) | — |
+| `molsysmt.pbc.get_box_from_lengths_and_angles` | stable | validated | Constructing a canonical row-vector periodic box from lengths and angles. | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix` (public_six_decimal_atol) | — |
+| `molsysmt.pbc.get_box_with_shape` | stable | validated | Constructing canonical periodic-box vectors for a requested cell shape and characteristic length. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors` (float64_kernel_atol) | — |
+| `molsysmt.pbc.get_lengths_and_angles_from_box` | stable | validated | Recovering cell lengths and angles from row-vector box matrices. | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry` (public_six_decimal_atol) | — |
+| `molsysmt.pbc.get_lengths_from_box` | stable | validated | Recovering cell-vector lengths from row-vector box matrices. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms` (public_six_decimal_atol) | — |
+| `molsysmt.pbc.get_shape_from_angles` | stable | validated | Classifying periodic-cell shape from cell angles. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures` (exact) | — |
+| `molsysmt.pbc.get_shape_from_box` | stable | validated | Classifying periodic-cell shape from its box matrix. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors` (exact) | — |
+| `molsysmt.pbc.get_volume_from_box` | stable | validated | Computing periodic-cell volume from a row-vector box matrix. | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume` (float64_kernel_atol) | — |
+| `molsysmt.pbc.get_volume_from_lengths_and_angles` | stable | validated | Computing periodic-cell volume from lengths and angles. | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form` (float64_kernel_atol) | — |
+| `molsysmt.pbc.has_pbc` | stable | validated | Determining whether a molecular system carries explicit periodic-box data. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly` (exact) | — |
+| `molsysmt.pbc.unwrap` | stable | validated | Restoring atom-wise temporal continuity across periodic boundaries. | analytic: `tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion` (float64_kernel_atol) | — |
+| `molsysmt.pbc.wrap_to_mic` | stable | validated | Reconstructing covalent blocks through minimum-image displacements. | analytic: `tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block` (float64_kernel_atol) | — |
+| `molsysmt.pbc.wrap_to_pbc` | stable | validated | Placing coordinates in the primary periodic cell while optionally preserving covalent blocks. | analytic: `tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block` (float64_kernel_atol) | — |
+| `molsysmt.physchem.get_atomic_radius` | stable | validated | Retrieving element-level or ProtOr-typed atomic radii for selected atoms. | versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values` (float64_kernel_atol)<br>versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms` (float64_kernel_atol) | — |
+| `molsysmt.physchem.get_charge` | stable | validated | Retrieving residue-scale formalized charges or force-field partial charges in elementary-charge units according to the selected definition. | versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states` (float64_kernel_atol)<br>versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values` (float64_kernel_atol)<br>external: `tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters` (float64_kernel_atol) | — |
+| `molsysmt.physchem.get_mass` | stable | validated | Retrieving atomic or aggregated masses. | versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation` (float64_kernel_atol)<br>external: `tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values` (float64_kernel_atol) | — |
+| `molsysmt.structure.align_principal_axes` | stable | validated | Aligning non-degenerate principal axes to a proper target basis. | analytic: `tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target` (float64_kernel_atol) | — |
+| `molsysmt.structure.center` | stable | validated | Translating selected structural centers to the requested position. | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target` (float64_kernel_atol) | — |
+| `molsysmt.structure.flip` | stable | validated | Applying a geometrically defined reflection or axis flip. | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_angles` | stable | validated | Computing bond-independent Cartesian angles for atom triplets. | external: `tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis` (external_float32_atol) | — |
+| `molsysmt.structure.get_center` | stable | validated | Computing geometric or weighted Cartesian centers. | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_contacts` | stable | validated | Classifying atom or element pairs by a distance cutoff. | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff` (exact) | — |
+| `molsysmt.structure.get_dihedral_angles` | stable | validated | Computing signed Cartesian dihedral angles for atom quartets. | external: `tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj` (external_float32_atol) | — |
+| `molsysmt.structure.get_distances` | stable | validated | Computing Cartesian or minimum-image distances. | external: `tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj` (external_float32_atol) | — |
+| `molsysmt.structure.get_least_rmsd` | stable | validated | Computing RMSD after optimal rigid superposition. | external: `tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform` (external_float32_atol) | — |
+| `molsysmt.structure.get_maximum_distances` | stable | validated | Computing maximum pair distances between selected element sets. | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_minimum_distances` | stable | validated | Computing minimum pair distances between selected element sets. | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_neighbors` | stable | validated | Finding neighboring elements under a distance criterion. | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_principal_axes` | stable | validated | Computing ordered geometric covariance or inertia principal axes. | analytic: `tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_radius_of_gyration` | stable | validated | Computing geometric or weighted radius of gyration. | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_rmsd` | stable | validated | Computing raw coordinate RMSD without optimal superposition. | external: `tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis` (external_float32_atol) | — |
+| `molsysmt.structure.least_rmsd_align` | stable | validated | Aligning homologous structures through sequence correspondence and least-RMSD rigid superposition. | analytic: `tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform` (float64_kernel_atol) | — |
+| `molsysmt.structure.least_rmsd_fit` | stable | validated | Fitting structures through least-RMSD rigid superposition. | analytic: `tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform` (float64_kernel_atol) | — |
+| `molsysmt.structure.move_away` | stable | validated | Translating one selection away from a reference center by a requested displacement. | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement` (float64_kernel_atol) | — |
+| `molsysmt.structure.principal_component_analysis` | stable | validated | Computing dimensionless covariance eigenvectors and squared-coordinate eigenvalues in descending variance order. | analytic: `tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance` (float64_kernel_atol) | — |
+| `molsysmt.structure.rotate` | stable | validated | Applying proper rotation matrices to coordinates. | analytic: `tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame` (float64_kernel_atol) | — |
+| `molsysmt.structure.set_dihedral_angles` | stable | validated | Setting signed dihedral angles through coordinate rotation. | analytic: `tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block` (float64_kernel_atol) | — |
+| `molsysmt.structure.shift_dihedral_angles` | stable | validated | Shifting signed dihedral angles through coordinate rotation. | analytic: `tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut` (float64_kernel_atol) | — |
+| `molsysmt.structure.translate` | stable | validated | Applying Cartesian translation vectors to coordinates. | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements` (float64_kernel_atol) | — |
+| `molsysmt.topology.get_bondgraph` | stable | validated | Constructing the covalent graph represented by chemical-state bonds. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges` (exact) | — |
+| `molsysmt.topology.get_covalent_blocks` | stable | validated | Identifying connected components of the covalent graph. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components` (exact) | — |
+| `molsysmt.topology.get_covalent_paths` | stable | validated | Identifying ordered covalent paths under the documented chain convention. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths` (exact) | — |
+| `molsysmt.topology.get_dihedral_quartets` | stable | validated | Enumerating bonded atom quartets that define covalent dihedrals. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths` (exact) | — |
 
-## structure
+## Claimed scientific APIs
 
-| Stable API | Status | Evidence | Gap |
-| --- | --- | --- | --- |
-| `molsysmt.structure.align_principal_axes` | validated | analytic: `tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target` (float64_kernel_atol) | — |
-| `molsysmt.structure.center` | validated | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target` (float64_kernel_atol) | — |
-| `molsysmt.structure.flip` | validated | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_angles` | validated | external: `tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis` (external_float32_atol) | — |
-| `molsysmt.structure.get_center` | validated | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_contacts` | validated | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff` (exact) | — |
-| `molsysmt.structure.get_dihedral_angles` | validated | external: `tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj` (external_float32_atol) | — |
-| `molsysmt.structure.get_distances` | validated | external: `tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj` (external_float32_atol) | — |
-| `molsysmt.structure.get_least_rmsd` | validated | external: `tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform` (external_float32_atol) | — |
-| `molsysmt.structure.get_maximum_distances` | validated | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_minimum_distances` | validated | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_neighbors` | validated | analytic: `tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_principal_axes` | validated | analytic: `tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_radius_of_gyration` | validated | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance` (float64_kernel_atol) | — |
-| `molsysmt.structure.get_rmsd` | validated | external: `tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis` (external_float32_atol) | — |
-| `molsysmt.structure.least_rmsd_align` | validated | analytic: `tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform` (float64_kernel_atol) | — |
-| `molsysmt.structure.least_rmsd_fit` | validated | analytic: `tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform` (float64_kernel_atol) | — |
-| `molsysmt.structure.move_away` | validated | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement` (float64_kernel_atol) | — |
-| `molsysmt.structure.principal_component_analysis` | validated | analytic: `tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance` (float64_kernel_atol) | — |
-| `molsysmt.structure.rotate` | validated | analytic: `tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame` (float64_kernel_atol) | — |
-| `molsysmt.structure.set_dihedral_angles` | validated | analytic: `tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block` (float64_kernel_atol) | — |
-| `molsysmt.structure.shift_dihedral_angles` | validated | analytic: `tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut` (float64_kernel_atol) | — |
-| `molsysmt.structure.translate` | validated | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements` (float64_kernel_atol) | — |
+| API | Stability | Status | Declared claim and scope | Evidence | Gap |
+| --- | --- | --- | --- | --- | --- |
+| `molsysmt.build.build_peptide` | experimental | partial | Native standard-peptide construction: inventory and named bond graph against independently scripted Amber LEaP for three declared sequences. | external: `tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap` (exact) | Only three standard sequences are governed here; the existing 40-sequence wrapper parity campaign remains additional regression evidence. Geometry, energies, force-field assignments and arbitrary chemistry are not certified. |
+| `molsysmt.physchem.get_sasa` | experimental | partial | Nonperiodic native Shrake–Rupley per-atom SASA on isolated, separated and overlapping carbon-sphere fixtures. | analytic: `tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form` (external_float32_atol)<br>analytic: `tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area` (shrake_rupley_sampling_area_atol)<br>external: `tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj` (shrake_rupley_sampling_area_atol) | Carbon fixtures and brute-force occlusion only. Other elements, general proteins, cell-list behavior and sampling convergence need separate governed evidence; wrapper-engine agreement is regression parity. |
+| `molsysmt.structure.get_rmsf` | experimental | validated | Unaligned per-atom RMSF about the selected ensemble mean on a three-structure analytic fixture. | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_secondary_structure` | experimental | gap | Secondary-structure assignment for protein groups through the supported backend. | — | No governed independent assignment oracle is registered. Existing backend/shape/vocabulary tests do not establish independent DSSP accuracy; obtain a versioned assignment reference or independent implementation with declared conventions. |
 
-## physchem
+## Experimental symbols outside the reviewed scopes
 
-| Stable API | Status | Evidence | Gap |
-| --- | --- | --- | --- |
-| `molsysmt.physchem.get_atomic_radius` | validated | versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values` (float64_kernel_atol)<br>versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms` (float64_kernel_atol) | — |
-| `molsysmt.physchem.get_charge` | validated | versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states` (float64_kernel_atol)<br>versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values` (float64_kernel_atol)<br>external: `tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters` (float64_kernel_atol) | — |
-| `molsysmt.physchem.get_mass` | validated | versioned-reference: `tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation` (float64_kernel_atol)<br>external: `tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values` (float64_kernel_atol) | — |
+This namespace inventory includes public operations and configuration
+symbols. These symbols have not been classified here; absence is not
+a scientific gap assessment. Expand the explicit Claimed inventory
+after reviewing each operation's claim and available evidence.
 
-## topology
-
-| Stable API | Status | Evidence | Gap |
-| --- | --- | --- | --- |
-| `molsysmt.topology.get_bondgraph` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges` (exact) | — |
-| `molsysmt.topology.get_covalent_blocks` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components` (exact) | — |
-| `molsysmt.topology.get_covalent_paths` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths` (exact) | — |
-| `molsysmt.topology.get_dihedral_quartets` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths` (exact) | — |
+- `molsysmt.build.add_missing_bonds`
+- `molsysmt.build.add_missing_heavy_atoms`
+- `molsysmt.build.add_missing_hydrogens`
+- `molsysmt.build.add_missing_terminal_cappings`
+- `molsysmt.build.add_terminal_atoms`
+- `molsysmt.build.assign_autodock_atom_types`
+- `molsysmt.build.assign_partial_charges`
+- `molsysmt.build.get_covalent_bond_candidates`
+- `molsysmt.build.get_disulfide_bonds`
+- `molsysmt.build.get_missing_bonds`
+- `molsysmt.build.get_missing_heavy_atoms`
+- `molsysmt.build.get_missing_residues`
+- `molsysmt.build.get_missing_terminal_cappings`
+- `molsysmt.build.get_non_standard_residues`
+- `molsysmt.build.get_peptide_bond_candidates`
+- `molsysmt.build.get_residue_chemical_coverage`
+- `molsysmt.build.has_hydrogens`
+- `molsysmt.build.infer_covalent_bonds`
+- `molsysmt.build.is_solvated`
+- `molsysmt.build.make_bioassembly`
+- `molsysmt.build.make_water_box`
+- `molsysmt.build.mutate`
+- `molsysmt.build.reconcile_protonation`
+- `molsysmt.build.remove_overlapping_molecules`
+- `molsysmt.build.solvate`
+- `molsysmt.build.solve_atoms_with_alternate_location`
+- `molsysmt.interactions.cation_pi.get_cation_pi_interactions`
+- `molsysmt.interactions.disulfides.get_disulfide_candidates`
+- `molsysmt.interactions.halogen_bonds.get_halogen_bonds`
+- `molsysmt.interactions.hbonds.acceptor_exclusion_rules`
+- `molsysmt.interactions.hbonds.acceptor_inclusion_rules`
+- `molsysmt.interactions.hbonds.donor_exclusion_rules`
+- `molsysmt.interactions.hbonds.donor_inclusion_rules`
+- `molsysmt.interactions.hbonds.get_acceptor_atoms`
+- `molsysmt.interactions.hbonds.get_buch_hbonds`
+- `molsysmt.interactions.hbonds.get_donor_atoms`
+- `molsysmt.interactions.hbonds.get_hbond_site_directions`
+- `molsysmt.interactions.hbonds.get_hbond_sites`
+- `molsysmt.interactions.hbonds.get_hbonds`
+- `molsysmt.interactions.hbonds.get_luzard_chandler_hbonds`
+- `molsysmt.interactions.hydrophobic.get_hydrophobic_interactions`
+- `molsysmt.interactions.ionic.get_ionic_interactions`
+- `molsysmt.interactions.metal_coordination.get_metal_coordination`
+- `molsysmt.interactions.pi_pi.get_pi_pi_interactions`
+- `molsysmt.interactions.water_bridges.get_water_bridges`
+- `molsysmt.physchem.apply_chemical_template`
+- `molsysmt.physchem.assess_chemical_template`
+- `molsysmt.physchem.get_area_buried`
+- `molsysmt.physchem.get_aromatic_rings`
+- `molsysmt.physchem.get_aromaticity`
+- `molsysmt.physchem.get_autodock_atom_types`
+- `molsysmt.physchem.get_buried_fraction`
+- `molsysmt.physchem.get_charge_centers`
+- `molsysmt.physchem.get_chemical_readiness`
+- `molsysmt.physchem.get_cip_stereochemistry`
+- `molsysmt.physchem.get_electronegativity`
+- `molsysmt.physchem.get_halogen_bond_sites`
+- `molsysmt.physchem.get_hydrogen_inventory`
+- `molsysmt.physchem.get_hydrophobic_sites`
+- `molsysmt.physchem.get_hydrophobicity`
+- `molsysmt.physchem.get_metal_coordination_sites`
+- `molsysmt.physchem.get_partial_charges`
+- `molsysmt.physchem.get_peptide_chemical_template`
+- `molsysmt.physchem.get_polarity`
+- `molsysmt.physchem.get_protor_atom_type`
+- `molsysmt.physchem.get_protor_vdw_radius`
+- `molsysmt.physchem.get_surface_area`
+- `molsysmt.physchem.get_transmembrane_tendency`
+- `molsysmt.physchem.get_volume`
+- `molsysmt.physchem.get_water_sites`
+- `molsysmt.physchem.normalize_aromatic_bond_orders`
+- `molsysmt.structure.get_least_squares_plane`
+- `molsysmt.structure.get_symmetry_corrected_rmsd`
+- `molsysmt.structure.get_vectors`
+- `molsysmt.topology.get_atom_correspondences`
+- `molsysmt.topology.get_rigid_fragments`
+- `molsysmt.topology.get_rings`
+- `molsysmt.topology.get_rotatable_bonds`
+- `molsysmt.topology.get_sequence_alignment`
+- `molsysmt.topology.get_sequence_identity`
+- `molsysmt.topology.get_substructure_matches`

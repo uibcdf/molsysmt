@@ -6,7 +6,17 @@ lives under `tests/scientific_truth/`.
 
 The machine-readable evidence contract lives under
 `tests/scientific_truth/evidence/`. Its domain files must classify every Stable
-scientific API exactly once as `validated`, `partial`, or `gap`. The generated
+scientific API exactly once as `validated`, `partial`, or `gap`. An additional explicit
+`claimed_api_symbols` list selects public Stable or Experimental operations for
+evidence review. Each selected symbol also needs a classification; the union is
+stored once, even when an operation belongs to both scopes. `Claimed` describes
+the review scope, not approved manuscript wording or a change in API stability.
+The initial review covers peptide construction, SASA, RMSF and secondary
+structure, following #190. Other experimental symbols in the declared
+`experimental_api_scopes` appear separately as unreviewed: they are neither
+silently certified nor automatically classified as scientific gaps.
+
+The generated
 status view is [`scientific_evidence_matrix.md`](scientific_evidence_matrix.md).
 A `gap` records absent governed independent evidence; it does not imply that an
 operation lacks ordinary tests or that its implementation is incorrect.
@@ -17,7 +27,7 @@ Scientific validation has two separate gates, and neither substitutes for the
 other:
 
 1. `python devtools/scripts/validate_scientific_evidence.py` validates the Stable
-   API inventory, evidence classes, oracle provenance, tolerances, pytest node
+   and Claimed API inventories, evidence classes, oracle provenance, tolerances, pytest node
    addresses, and generated matrix. It is intentionally fast and does **not**
    execute pytest. Its success message therefore says *registry structure valid*,
    not that the scientific results passed.
@@ -215,3 +225,30 @@ Each new entry must state the mathematical quantity, convention, input and
 output shapes, units, periodic behavior, dtype, tolerance, degenerate behavior,
 and oracle provenance. Curated molecular reference systems must be bundled,
 versioned, deterministic, and documented before they become validation evidence.
+
+## Experimental review boundaries
+
+The initial Claimed inventory is intentionally finite. Build-peptide evidence
+compares named atom inventories and bond graphs against directly scripted Amber
+LEaP with ff14SB and direct ParMed parsing. It does not certify geometry, energies
+or arbitrary chemical preparation. The existing 40-sequence comparison through
+MolSysMT's LEaP wrapper remains additional regression evidence, not a substitute
+for independent oracle construction.
+
+SASA evidence uses explicit carbon/probe radii, isolated-sphere and spherical-cap
+areas, and an independently constructed MDTraj topology/trajectory. The sampled
+one-cap tolerance corresponds to eight surface patches at 960 points on a
+0.31-nm inflated sphere; it is a fixture-specific discretization allowance,
+not a universal error bound. Other elements, general proteins and cell-list
+accuracy require separate evidence. No tolerance was increased to pass a failure.
+
+RMSF has an analytic population-variance construction without structural fitting.
+Secondary-structure assignment has an explicit independent-evidence gap; backend
+agreement alone would not independently establish DSSP accuracy.
+
+The zero-skip certificate executes every cited node across both scopes, including
+references attached to Partial entries. A passing certificate proves those cases
+ran; it does not fill a Gap, extend a fixture's declared claim or certify every
+experimental profile. Required oracles already belong to the full test environment
+(AmberTools, ParMed and MDTraj). A minimal environment may skip optional external
+tests, but cannot receive a passing zero-skip certificate for the expanded registry.

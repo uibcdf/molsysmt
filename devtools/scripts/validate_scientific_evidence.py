@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Validating the scientific evidence matrix for stable public operations."""
+"""Validating scientific evidence separately from public API stability."""
 
 from __future__ import annotations
 
@@ -68,6 +68,14 @@ def stable_scientific_api(api_registry: dict, scopes: list[str]) -> set[str]:
         name
         for name, entry in api_registry["symbols"].items()
         if name.rsplit(".", 1)[0] in scopes and entry["stability"] == "stable"
+    }
+
+
+def evidence_scopes(registry: dict, api_registry: dict) -> dict[str, set[str]]:
+    """Keep mandatory Stable coverage separate from explicitly reviewed claims."""
+    return {
+        "Stable": stable_scientific_api(api_registry, registry["stable_api_scopes"]),
+        "Claimed": set(registry.get("claimed_api_symbols", [])),
     }
 
 
@@ -171,15 +179,35 @@ def validate_registry(
     ):
         errors.append("Every status definition must be a non-empty string.")
 
-    expected = stable_scientific_api(api_registry, scopes)
+    claimed = registry.get("claimed_api_symbols", [])
+    if not isinstance(claimed, list) or not all(
+        isinstance(name, str) for name in claimed
+    ):
+        return errors + ["claimed_api_symbols must be a list of public API symbols."]
+    if len(claimed) != len(set(claimed)):
+        errors.append("claimed_api_symbols must not contain duplicates.")
+    for name in claimed:
+        entry = api_registry["symbols"].get(name)
+        if entry is None or entry.get("stability") not in {"stable", "experimental"}:
+            errors.append(
+                f"Claimed scientific API must be Stable or Experimental: {name}"
+            )
+    experimental_scopes = registry.get("experimental_api_scopes", [])
+    if not isinstance(experimental_scopes, list) or not all(
+        isinstance(scope, str) and scope for scope in experimental_scopes
+    ):
+        return errors + ["experimental_api_scopes must be a list of namespace strings."]
+
+    stable = stable_scientific_api(api_registry, scopes)
+    expected = stable | set(claimed)
     registered = set(capabilities)
     for name in sorted(expected - registered):
         errors.append(
-            f"Stable scientific API is missing evidence classification: {name}"
+            f"{'Stable' if name in stable else 'Claimed'} scientific API is missing evidence classification: {name}"
         )
     for name in sorted(registered - expected):
         errors.append(
-            f"Evidence entry is not a Stable API in the governed scopes: {name}"
+            f"Evidence entry is outside Stable and Claimed scientific scopes: {name}"
         )
 
     for tolerance_name, tolerance in sorted(tolerances.items()):
@@ -288,13 +316,10 @@ def validate_registry(
     return errors
 
 
-def render_document(registry: dict) -> str:
+def render_document(registry: dict, api_registry: dict) -> str:
     """Render a reviewable Markdown matrix from the normative evidence data."""
     capabilities = registry["capabilities"]
-    counts = {
-        status: sum(entry["status"] == status for entry in capabilities.values())
-        for status in ("validated", "partial", "gap")
-    }
+    scopes = evidence_scopes(registry, api_registry)
     lines = [
         "# Scientific Evidence Matrix",
         "",
@@ -307,15 +332,30 @@ def render_document(registry: dict) -> str:
         "from `execute_scientific_evidence.py` on the exact candidate commit.",
         "A gap means that governed independent evidence is absent; it does not by",
         "itself mean that the function is untested or scientifically incorrect.",
+        "Claimed is an explicit evidence-review scope, not approval of manuscript",
+        "wording or promotion to a Stable API. Counts are per scope; a symbol may",
+        "belong to both. APIs outside these scopes are not certified by this matrix.",
         "",
         "## Summary",
         "",
-        "| Status | Stable APIs |",
-        "| --- | ---: |",
-        f"| validated | {counts['validated']} |",
-        f"| partial | {counts['partial']} |",
-        f"| gap | {counts['gap']} |",
-        f"| total | {len(capabilities)} |",
+        "| Status | Stable APIs | Claimed APIs |",
+        "| --- | ---: | ---: |",
+        *[
+            f"| {status} | "
+            + " | ".join(
+                str(
+                    sum(
+                        capabilities[name]["status"] == status
+                        for name in names
+                        if name in capabilities
+                    )
+                )
+                for names in scopes.values()
+            )
+            + " |"
+            for status in ("validated", "partial", "gap")
+        ],
+        f"| total | {len(scopes['Stable'])} | {len(scopes['Claimed'])} |",
         "",
         "## Governed tolerances",
         "",
@@ -328,19 +368,20 @@ def render_document(registry: dict) -> str:
             f"{tolerance['rationale']} |"
         )
 
-    for domain in ("pbc", "structure", "physchem", "topology"):
+    for scope, names in scopes.items():
         lines.extend(
             (
                 "",
-                f"## {domain}",
+                f"## {scope} scientific APIs",
                 "",
-                "| Stable API | Status | Evidence | Gap |",
-                "| --- | --- | --- | --- |",
+                "| API | Stability | Status | Declared claim and scope | Evidence | Gap |",
+                "| --- | --- | --- | --- | --- | --- |",
             )
         )
-        for name, entry in sorted(capabilities.items()):
-            if entry["domain"] != domain:
+        for name in sorted(names):
+            if name not in capabilities:
                 continue
+            entry = capabilities[name]
             evidence = (
                 "<br>".join(
                     f"{item['class']}: `{item['test']}` "
@@ -350,7 +391,33 @@ def render_document(registry: dict) -> str:
                 or "—"
             )
             gap = entry["gap"] or "—"
-            lines.append(f"| `{name}` | {entry['status']} | {evidence} | {gap} |")
+            stability = (
+                api_registry["symbols"].get(name, {}).get("stability", "unknown")
+            )
+            claim = entry["claim"].replace("|", "\\|")
+            lines.append(
+                f"| `{name}` | {stability} | {entry['status']} | {claim} | {evidence} | {gap} |"
+            )
+    other = sorted(
+        name
+        for name, entry in api_registry["symbols"].items()
+        if entry["stability"] == "experimental"
+        and name.rsplit(".", 1)[0] in registry.get("experimental_api_scopes", [])
+        and name not in capabilities
+    )
+    lines.extend(
+        [
+            "",
+            "## Experimental symbols outside the reviewed scopes",
+            "",
+            "This namespace inventory includes public operations and configuration",
+            "symbols. These symbols have not been classified here; absence is not",
+            "a scientific gap assessment. Expand the explicit Claimed inventory",
+            "after reviewing each operation's claim and available evidence.",
+            "",
+            *[f"- `{name}`" for name in other],
+        ]
+    )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -362,7 +429,7 @@ def main(argv: list[str] | None = None) -> int:
     registry, load_errors = read_evidence_registry()
     api_registry = _read_json(API_REGISTRY_PATH)
     errors = load_errors + validate_registry(registry, api_registry)
-    expected_document = render_document(registry)
+    expected_document = render_document(registry, api_registry)
     if args.write_doc:
         GENERATED_DOC_PATH.write_text(expected_document, encoding="utf-8")
     elif (

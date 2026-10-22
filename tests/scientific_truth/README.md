@@ -53,6 +53,19 @@ in this suite. They must not call a MolSysMT converter to construct the oracle.
     skip. `pytest.importorskip()` may describe an optional user environment, but
     the controlled release environment must provide that oracle.
 
+The evidence registry separates mandatory Stable coverage from an explicit
+Claimed review scope of Stable or Experimental public operations. Both scopes
+use the same evidence rules. Claimed means selected for evidence assessment,
+not accepted manuscript wording. The generated matrix also lists unreviewed
+experimental symbols without assigning them a scientific status.
+
+`external/ambertools/` constructs reference peptide graphs by running literal
+LEaP scripts and parsing their outputs directly with ParMed. No MolSysMT
+conversion constructs the oracle. `physchem/test_sasa.py` specifies its sphere
+radii independently and compares native SASA with analytic areas and a directly
+constructed MDTraj trajectory. Ordinary wrapper-engine parity tests remain
+regression evidence outside this independent-oracle classification.
+
 The executable evidence registry is split by domain under `evidence/`, with
 governed numerical thresholds in `evidence/tolerances.json`. The validator
 generates `devguide/scientific_evidence_matrix.md`; conventions and rationale

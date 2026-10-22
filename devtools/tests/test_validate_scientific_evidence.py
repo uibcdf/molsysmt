@@ -1,4 +1,7 @@
 import json
+from copy import deepcopy
+
+import pytest
 
 from devtools.scripts import validate_scientific_evidence as validator
 
@@ -61,6 +64,90 @@ def test_registry_accepts_exact_stable_inventory_and_independent_evidence(tmp_pa
     registry, api_registry = _fixture(tmp_path)
 
     assert validator.validate_registry(registry, api_registry, tmp_path) == []
+
+
+def _claimed_fixture(tmp_path):
+    registry, api = _fixture(tmp_path)
+    name = "molsysmt.domain.experimental"
+    api["symbols"][name] = {"stability": "experimental"}
+    registry["claimed_api_symbols"] = [name]
+    entry = deepcopy(registry["capabilities"]["molsysmt.domain.quantity"])
+    entry.update(
+        status="gap", scientific_evidence=[], gap="Obtain an independent oracle."
+    )
+    registry["capabilities"][name] = entry
+    return registry, api, name
+
+
+def test_explicit_experimental_scope_accepts_a_gap_without_promoting_stability(
+    tmp_path,
+):
+    registry, api, name = _claimed_fixture(tmp_path)
+    assert validator.validate_registry(registry, api, tmp_path) == []
+    assert api["symbols"][name]["stability"] == "experimental"
+    del registry["capabilities"][name]
+    assert (
+        f"Claimed scientific API is missing evidence classification: {name}"
+        in validator.validate_registry(registry, api, tmp_path)
+    )
+
+
+@pytest.mark.parametrize("stability", [None, "internal", "deprecated"])
+def test_claimed_scope_rejects_unknown_or_nonpublic_contracts(tmp_path, stability):
+    registry, api, name = _claimed_fixture(tmp_path)
+    if stability is None:
+        del api["symbols"][name]
+    else:
+        api["symbols"][name]["stability"] = stability
+    assert (
+        f"Claimed scientific API must be Stable or Experimental: {name}"
+        in validator.validate_registry(registry, api, tmp_path)
+    )
+
+
+def test_claimed_scope_cannot_silently_absorb_other_experimental_entries(tmp_path):
+    registry, api, name = _claimed_fixture(tmp_path)
+    registry["claimed_api_symbols"] = []
+    assert (
+        f"Evidence entry is outside Stable and Claimed scientific scopes: {name}"
+        in validator.validate_registry(registry, api, tmp_path)
+    )
+
+
+def test_claimed_scope_rejects_duplicates(tmp_path):
+    registry, api, name = _claimed_fixture(tmp_path)
+    registry["claimed_api_symbols"].append(name)
+    assert (
+        "claimed_api_symbols must not contain duplicates."
+        in validator.validate_registry(registry, api, tmp_path)
+    )
+
+
+def test_generated_matrix_keeps_stability_evidence_and_unreviewed_symbols_separate(
+    tmp_path,
+):
+    registry, api, name = _claimed_fixture(tmp_path)
+    registry["experimental_api_scopes"] = ["molsysmt.domain"]
+    api["symbols"]["molsysmt.domain.unreviewed"] = {"stability": "experimental"}
+    text = validator.render_document(registry, api)
+    assert "| gap | 0 | 1 |" in text
+    assert "| total | 1 | 1 |" in text
+    assert f"`{name}` | experimental | gap" in text
+    assert "## Claimed scientific APIs" in text
+    assert "- `molsysmt.domain.unreviewed`" in text
+    assert "not approval of manuscript" in text
+
+
+def test_overlapping_stable_and_claimed_scopes_keep_one_capability_and_evidence_node(
+    tmp_path,
+):
+    registry, api = _fixture(tmp_path)
+    registry["claimed_api_symbols"] = ["molsysmt.domain.quantity"]
+    assert validator.validate_registry(registry, api, tmp_path) == []
+    assert "| total | 1 | 1 |" in validator.render_document(registry, api)
+    assert validator.scientific_test_nodes(registry) == [
+        "tests/scientific_truth/test_quantity.py::test_matches_closed_form"
+    ]
 
 
 def test_registry_rejects_unclassified_stable_scientific_api(tmp_path):

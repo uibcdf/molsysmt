@@ -439,5 +439,36 @@
       }
     ],
     "gap": null
+  },
+  "molsysmt.structure.get_rmsf": {
+    "domain": "structure",
+    "status": "validated",
+    "claim": "Unaligned per-atom RMSF about the selected ensemble mean on a three-structure analytic fixture.",
+    "units": [
+      "nm"
+    ],
+    "periodic_behavior": "Nonperiodic fixtures only; no periodic scientific claim.",
+    "contract_test_area": "tests/structure/get_rmsf",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+        "oracle": "Coordinates (-1,0,1) nm for one atom and (1,1,4) nm for another imply RMSF sqrt(2/3) and sqrt(2) nm.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": null
+  },
+  "molsysmt.structure.get_secondary_structure": {
+    "domain": "structure",
+    "status": "gap",
+    "claim": "Secondary-structure assignment for protein groups through the supported backend.",
+    "units": [
+      "dimensionless"
+    ],
+    "periodic_behavior": "Nonperiodic fixtures only; no periodic scientific claim.",
+    "contract_test_area": "tests/structure/get_secondary_structure",
+    "scientific_evidence": [],
+    "gap": "No governed independent assignment oracle is registered. Existing backend/shape/vocabulary tests do not establish independent DSSP accuracy; obtain a versioned assignment reference or independent implementation with declared conventions."
   }
 }

@@ -1,13 +1,13 @@
 ---
 summary: The evidence matrix cannot show the surfaces the manuscript will lead with.
 issue: uibcdf/molsysmt#190
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-10-22
 verification: measured
 area: [tests, build]
-guard:
-normative:
+guard: devtools/tests/test_validate_scientific_evidence.py::test_explicit_experimental_scope_accepts_a_gap_without_promoting_stability
+normative: devguide/scientific_validation.md
 blocked_by: []
 supersedes: []
 ---
@@ -15,14 +15,14 @@ supersedes: []
 # Proposal: let the evidence matrix say "gap" about the experimental surfaces
 
 **Raised:** 2026-08-19, during the external audit recorded in
-[`../archive/assessments/external_audit_august_2026.md`](../archive/assessments/external_audit_august_2026.md),
+[`../archive/assessments/external_audit_august_2026.md`](../assessments/external_audit_august_2026.md),
 while working out what a referee would check first.
-**Status:** proposed. Nothing here questions the current contract's correctness; it
-questions its scope at the moment a manuscript points readers at it.
+**Status:** Resolved. Stable and explicitly reviewed experimental claims now
+appear separately, with bounded independent oracles and remaining gaps.
 
 ## What
 
-[`scientific_validation.md`](../scientific_validation.md) scopes the evidence contract to
+[`scientific_validation.md`](../../scientific_validation.md) scopes the evidence contract to
 the stable surface: *"Its domain files must classify every Stable scientific API exactly
 once as `validated`, `partial`, or `gap`."* The generated matrix therefore reports
 
@@ -174,3 +174,60 @@ visibility, not coverage.
 
 Measured 2026-08-19 on Linux 7.0.0-28-generic x86_64, Python 3.13.14, MolSysMT
 `0.21.0+325.g7cedab74a` at repository commit `dc0e06014`.
+
+## Reassessment and implementation — 2026-10-22
+
+The original counts above describe August, not the current experimental surface.
+At baseline `cdf7808e1e8a5b28038ea22fd743adb76247222a`, 43 Stable operations
+remain governed and 66 Experimental symbols exist in the four original
+build/physchem/structure/topology namespaces. Additional interaction namespaces
+now have curated tests. Their existence does not establish their independent
+scientific scope; they are visible in an unreviewed inventory rather than being
+silently certified or automatically labelled Gap.
+
+Implementation adds an explicit `claimed_api_symbols` review inventory,
+validation of public symbol membership and complete classification, separate
+scope summaries and API stability columns. Four initial operations implement
+the original proposal's examples plus analytic RMSF. The scope is not a finalized
+paper-claim list. No runtime API or scientific algorithm is changed.
+
+The new independent peptide oracle uses literal LEaP sequence scripts and direct
+ParMed parsing; expected named atom inventories and bonds are never built through
+MolSysMT. Existing 40-sequence wrapper parity stays intact. SASA adds independent
+sphere/cap areas and direct MDTraj inputs at fixed, separately governed sampling
+tolerance. Secondary structure remains Gap rather than inventing an assignment
+oracle. RMSF is checked against explicit population variances in eager and forced
+heavy execution.
+
+Scientific attribution integration is not changed: these are test oracles and
+review metadata, not new production methods or calculation-result attribution
+boundaries. Oracle software and conventions are identified in the tests and
+matrix. The manuscript remains owned by #191.
+
+### Executed qualification
+
+- `python -m pytest devtools/tests/test_validate_scientific_evidence.py devtools/tests/test_execute_scientific_evidence.py tests/scientific_truth --receptor=llm -n 12`: 390 passed, no skips, 39.91 seconds. Three expected legacy-file warnings.
+- `python devtools/scripts/execute_scientific_evidence.py --receptor=llm --certificate /tmp/molsysmt-190-scientific-evidence.json`: 52 cited nodes, 63 passing cases, zero failures/errors/skips. Development certificate with tracked source dirty, not installed-candidate evidence.
+- SASA numeric guards pass on their first execution after correcting test setup to use the native class import. RMSF setup was corrected to use its actual public arguments and an explicit all-atom selection. Neither setup correction changed production behavior or numerical tolerances.
+
+The generated summaries retain 43 Stable validated declarations and four Claimed
+operations: one Validated, two Partial, one Gap. The rest of the experimental
+namespace inventory is unreviewed, not implicitly classified. Metadata guards
+reject missing claimed classifications, nonpublic/unknown symbols, duplicates,
+parity-only Validated claims and stale evidence nodes. Rendering tests preserve
+separate scope counts, explicit gaps and overlap without duplicate evidence nodes.
+
+Environment: Linux x86_64, Python 3.14.7, NumPy 2.4.6, MDTraj 1.11.1,
+ParMed 4.3.1, AmberTools 26.0 (Conda build
+`cuda_None_nompi_py314h2f9d5e2_100`), pytest 9.1.1,
+Pytest Receptor 1.2.1+22.g00a31c4. No oracle software was newly installed.
+
+### Closure
+
+The proposal's visibility contract is implemented without promoting Experimental
+APIs or requiring every experimental method to be scientifically certified.
+The maintained scientific-validation guide absorbs the scope rules; registry
+and rendering guards protect coverage, classification, provenance and separate
+counts. Independent numeric cases and the zero-skip runner validate the initial
+review inventory. Subsequent expansion of manuscript claims needs explicit
+review and metadata, not a revival of this resolved infrastructure proposal.
