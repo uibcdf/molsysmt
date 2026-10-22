@@ -408,6 +408,10 @@ chemical values. Bond tools rebuild components after publication; if rebuilding
 fails, bonds can already have changed and analyses remain invalidated.
 Previous table handles do not follow replacement. A chemical collection already
 owned by another MolSys is copied on attachment, preserving separate owners.
+This owner separation also applies when a native subclass stores its weak link
+in a slot. Native copies preserve distinct parent/child slot values and their
+aliases; this does not extend H5MSM or dictionary schemas. Arbitrary live
+resources need their own copy support.
 Subclasses inheriting `MolSys`, `Topology` or `ChemicalStates` constructors keep
 their native count validation. Construct them normally, without skipping
 argument digestion. This does not register a distinct molecular-system form.

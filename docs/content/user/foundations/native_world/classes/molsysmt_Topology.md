@@ -109,6 +109,11 @@ separately. See {ref}`Tutorial_Rotatable_Bonds` for exact criteria and limits.
 
 All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].
 
+Native copying preserves distinct parent/child slot storage and graph aliases,
+and omits the old owner even when stored in a slot. Canonical molecular columns
+are independent; arbitrary mutable cells and pandas metadata follow pandas'
+own copy protocols. This does not add persistent schema fields.
+
 ## Inherited Construction
 
 A subclass inheriting the native constructor accepts the same atom, group,

@@ -378,7 +378,11 @@ topology copy is detached. If your client subclasses `MolSys`, `Topology` or
 `ChemicalStates`, it can inherit the native constructor and use ordinary validated
 count arguments. Copying preserves supported subclass attributes without calling
 that constructor again; the subclass still needs its own form integration if it
-introduces a distinct molecular-system form. Appending a state through
+introduces a distinct molecular-system form. Owner detachment also works when
+the link is stored in a subclass slot. Slots declared by different classes
+retain their separate values and aliases. Repeated references to canonical
+tables follow the shared deepcopy memo; arbitrary mutable table-cell data and
+pandas metadata retain pandas' own copy rules. Appending a state through
 `molsys.chemical_states.append_state()` also makes every analysis unevaluated.
 Explicit structure-to-state assignments stay unchanged; with multiple states,
 structures without an explicit assignment resolve to unknown. Existing state

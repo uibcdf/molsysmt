@@ -17,8 +17,7 @@ def _native_deferred(source):
     return source.copy(deep=False)
 
 
-@pytest.fixture
-def source():
+def _copy_system():
     result = build_minimal_molsys(n_structures=3)
     result.structures.box = puw.quantity(np.repeat(np.eye(3)[None], 3, axis=0), "nm")
     result.chemical_states.append_state()
@@ -58,6 +57,11 @@ def source():
     }
     result.notes = {"items": [1]}
     return result
+
+
+@pytest.fixture
+def source():
+    return _copy_system()
 
 
 @pytest.fixture(

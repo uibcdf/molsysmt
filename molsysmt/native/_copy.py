@@ -1,7 +1,7 @@
 """Copying resident state; domain owners supply their own lifecycle rules."""
 
 from copy import deepcopy
-from types import MappingProxyType
+from types import MappingProxyType, MemberDescriptorType
 
 import numpy as np
 
@@ -28,22 +28,37 @@ def _deferred_geometry_memo(structures):
     }
 
 
-def _slots(source):
-    """Read extension slots without invoking constructors or storage properties."""
+def _slots(source, *, exclude=(), qualified=False):
+    """Read declared slot storage, retaining its owner when copying resident state."""
     values = {}
+    declared = set()
+    shadowed = set()
     for cls in type(source).__mro__:
-        names = cls.__dict__.get("__slots__", ())
-        if isinstance(names, str):
-            names = (names,)
-        for name in names:
-            if name in {"__dict__", "__weakref__"}:
+        for name, descriptor in vars(cls).items():
+            if (
+                name in exclude
+                or not isinstance(descriptor, MemberDescriptorType)
+                or descriptor.__objclass__ is not cls
+                or descriptor.__name__ != name
+            ):
                 continue
-            if name.startswith("__") and not name.endswith("__"):
-                name = f"_{cls.__name__.lstrip('_')}{name}"
+            if not qualified:
+                if name in declared:
+                    shadowed.add(name)
+                declared.add(name)
             try:
-                values[name] = getattr(source, name)
+                value = descriptor.__get__(source, type(source))
             except AttributeError:
-                pass
+                continue
+            key = (cls, name) if qualified else name
+            values[key] = value
+    if not qualified:
+        for name in sorted(shadowed):
+            if name in values:
+                raise TypeError(
+                    f"Serialization cannot preserve repeated slot name {name!r}; "
+                    "provide a subclass serialization hook"
+                )
     return values
 
 
@@ -99,13 +114,13 @@ def _clone(source, memo, *, exclude=()):
         attributes = {
             key: value for key, value in attributes.items() if key not in exclude
         }
-    state = (attributes, _slots(source))
+    state = (attributes, _slots(source, exclude=exclude, qualified=True))
     proxies = []
     _prepare(state, memo, set(), proxies)
     attributes, slots = deepcopy(state, memo)
     result.__dict__.update(attributes)
-    for name, value in slots.items():
-        object.__setattr__(result, name, value)
+    for (cls, name), value in slots.items():
+        vars(cls)[name].__set__(result, value)
     for contents, target in proxies:
         target.update(deepcopy(contents, memo))
     return result

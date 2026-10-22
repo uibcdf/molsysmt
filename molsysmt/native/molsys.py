@@ -1343,10 +1343,16 @@ class MolSys(NativeQueries):
         Each copied topology belongs to its copied system and refers to that
         system's single ChemicalStates authority. Absent domains remain absent.
         Canonical tables are copied eagerly; this is not table copy-on-write.
+        Repeated references to those tables follow the containing graph's memo.
+        Arbitrary mutable objects in table cells and pandas metadata follow
+        pandas' own copy rules, outside this molecular-data guarantee.
+        Extension slots retain their declaring classes, values and aliases,
+        including distinct parent and child slots with the same name.
 
         Coordinate and box changes through msm.set or the attached Structures
         setters invalidate the affected structures only in the edited system.
-        Direct ChemicalStates edits still require explicit owner invalidation.
+        Controlled chemical-state edits also notify the owner. Raw table/array
+        writes and uncoordinated domain edits require explicit invalidation.
         Native copying does not make arbitrary external resources copyable.
 
         Examples

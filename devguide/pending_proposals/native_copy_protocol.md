@@ -7,7 +7,7 @@ closed:
 verification: reproduced
 area: [native, api, basic, performance, tests]
 guard: tests/interactions/test_copy.py
-normative:
+normative: devguide/native_copy.md
 blocked_by: []
 supersedes: []
 ---
@@ -1651,3 +1651,77 @@ resource-workload decisions and installed-client adoption. Raw record/table
 writes, other private inventory operations and uncoordinated domain replacement
 still require explicit owning invalidation. This phase does not close #121 or
 qualify a release artifact.
+
+
+### Slot ownership and canonical table boundaries (2026-10-22)
+
+**Reproduced:** The review after #404 found three storage losses in the common
+resident copy helper. Owner exclusions applied only to `__dict__`, allowing a
+standalone Topology/ChemicalStates/Structures subclass with a slotted weak owner
+to retain its original system. Reading slots by `getattr(name)` collapsed
+separate parent/child slots with the same name and lost the hidden base value.
+Iterating an already exhausted `__slots__` declaration also lost stored values.
+The initial 27-case boundary module had **25 failures and two passes**; its two
+canonical-table graph-order cases already preserved the expected identities.
+
+**Implemented / contract-tested:** Resident slot discovery now reads actual
+member descriptors, identifies storage by declaring class and name, and restores
+that same descriptor without native constructors or ordinary attribute lookup.
+Private, unset and iterator-declared slots retain their expected state. All
+slot values share the same deepcopy memo as ordinary attributes, preserving
+aliases and cycles. Owner/transient exclusions apply to slot storage too.
+Standalone domains detach; complete systems rebind copied slotted domains to
+the copied owner. Real coordinate, bond and inventory edits verify that only
+the intended system's interaction coverage changes.
+
+The name-keyed ChemicalStates pickle state cannot distinguish slots declared
+with the same name by different classes. It now raises TypeError if either
+slot stores a value, including when the other slot is unset, instead of
+discarding or restoring a value to the wrong slot. That subclass needs its own
+serialization hook. Normal slot pickles keep their
+existing shape and weak-owner exclusion. Resident copying preserves both values
+and does not serialize. No H5MSM field or format changes.
+
+**Settled boundary:** Canonical molecular table data remain eagerly independent;
+repeated references to the same table follow the enclosing graph memo in either
+root order. This does not promise preservation of every shared-buffer relation
+between distinct pandas/NumPy views. Arbitrary mutable Python cell values and
+pandas metadata retain pandas' own protocol, outside the qualified molecular-data
+boundary already stated in the User Guide. Ordinary extension data follows the
+standard deepcopy protocol. Live resources require their own copy support; a
+real live-file refusal is tested without transferring source native ownership
+or altering attached analyses. General table copy-on-write and resource reopening
+are not introduced.
+
+**Guard:** `tests/native/test_copy_boundaries.py` has 41 cases covering standalone
+and complete slotted owners under native/Python operations, actual edit-driven
+coverage, parent/child slot storage, iterator/private/unset slots, graph/table
+aliases, serialization refusal and live-resource failure. The existing MolSys
+fixture now has a reusable test factory so these cases use the same molecular
+and analysis data. The earlier 324-case cross-family copy selection also passed.
+The normative boundary is consolidated in [native_copy.md](../native_copy.md).
+Foundations, Toolbox, Cookbook and Common Core module 4 explain these limits;
+notebook code and saved outputs remain unchanged. Ackredit does not apply to
+these storage-lifecycle corrections. Scientific criteria, dependencies, physical
+units, producer provenance and release identity are unchanged.
+
+**Qualified locally:** **4,219 tests passed**, without omissions, using Pytest
+Receptor and 12 workers (53.09 s). Scope: native classes, interactions, native
+MolSys/Topology/Structures form adapters and H5MSM adapters. The 683 visible
+warnings cover eight groups: legacy H5MSM reads, synthetic memory-budget probes,
+pandas migration, synthetic atom names and existing merge policies. All 14 fast
+release gates, package/new-test Ruff, public signature stability and public
+docstring fidelity (247 functions) pass. Native class docstrings pass 67 examples.
+A direct comparison confirms unchanged code cells, execution counts and saved
+outputs in Common Core module 4. This uses the existing Linux development
+environment on 2026-10-22, Python 3.14.7 and pandas 2.3.3, with no auxiliary
+environment. These are source-boundary checks, not a performance benchmark or
+installed release qualification.
+
+**Still open:** #121 requires the remaining representative mutable-observable /
+dense-analysis workload qualification and client-adoption review before closure.
+Raw data writes and uncoordinated domain/axis replacement remain explicit
+invalidation boundaries, rather than silently becoming general observers.
+Simulation settings and live resources retain separate configuration/I/O scope.
+The slot correction and table qualification do not certify arbitrary user
+objects, installed clients, another platform or a release artifact.

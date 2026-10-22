@@ -1075,6 +1075,9 @@ class Structures(NativeQueries):
         get() and specialized getters read the requested structures directly.
         MolSys.copy also owns its copied topology, chemistry and analysis handles
         independently, with the same eager/deferred geometry allocation choice.
+        Standalone copies omit their weak molecular owner, including an owner
+        stored in an extension slot. Other slots retain their declaring classes,
+        values and shared-memo aliases.
 
         Examples
         --------

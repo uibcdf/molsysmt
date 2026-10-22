@@ -145,8 +145,15 @@ See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 Tables are copied eagerly; this is not table copy-on-write. Use their canonical
 molecular columns rather than storing arbitrary mutable Python objects inside
 cells. Such objects and table metadata follow pandas' own copy protocols and
-are outside this qualified molecular-data boundary. External resources must
-supply their own copy support. Plain dictionary forms retain Python dictionary
+are outside this qualified molecular-data boundary. Repeated references to a canonical table follow the containing graph's memo;
+this does not preserve every shared-buffer relationship between distinct views.
+Subclass slots retain their values and aliases, including separate parent and
+child storage with the same name. Standalone copies omit the old owner even
+when that link is stored in a slot. External resources must supply their own
+copy support; a failed copy does not transfer the source's native ownership.
+Resident extension support does not add persistent schema fields.
+ChemicalStates's default pickle hook refuses ambiguous slot names with stored values rather
+than silently dropping one value; such subclasses need a serialization hook. Plain dictionary forms retain Python dictionary
 copy semantics; they do not acquire MolSys domain ownership.
 
 Loading one H5MSM 0.5 file into one `MolSys` already creates an independent

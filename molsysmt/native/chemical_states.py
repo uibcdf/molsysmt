@@ -373,8 +373,7 @@ class ChemicalStates(NativeQueries):
             for name, value in vars(self).items()
             if name != "_molsys_owner_ref"
         }
-        slots = _slots(self)
-        slots.pop("_molsys_owner_ref", None)
+        slots = _slots(self, exclude=("_molsys_owner_ref",))
         return (attributes, slots) if slots else attributes
 
     @arg_digest()
@@ -400,6 +399,9 @@ class ChemicalStates(NativeQueries):
         Standalone copies and pickles omit the weak owner link; complete MolSys
         copies and restoration rebind their own collection. Attaching a collection
         already owned by another MolSys creates independent chemical tables.
+        Owner links are omitted whether stored in attributes or extension slots.
+        Native copies preserve distinct parent/child slot storage; the default
+        pickle hook rejects ambiguous slot names with stored values instead of discarding data.
 
         Examples
         --------

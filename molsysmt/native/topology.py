@@ -2199,6 +2199,9 @@ class Topology(NativeQueries):
         MolSys weak owner is excluded; a separately copied topology can be
         attached to another system. Copying preserves stored IDs, chemical
         states, dirty flags and extension state without inference or migration.
+        Owner exclusion also applies to extension slots. Other slots retain
+        distinct declaring-class storage and shared-memo aliases. Arbitrary
+        mutable table-cell values and pandas metadata follow pandas' copy rules.
 
         Examples
         --------
