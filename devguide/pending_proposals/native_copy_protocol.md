@@ -951,6 +951,18 @@ mechanics-dictionary and sparse-payload Cookbook examples execute successfully.
 The registered scientific suite and installed-client/package matrices are not
 inferred from this source-level scope.
 
+**Additional consumer qualification:** unchanged runtime source `6614f13fc`
+also passed 204 tests in 31.54 s for chemical-template application, connectivity,
+context/selection, stereochemistry, receptor/EST preparation, fixed-state
+hydrogens, preparation history and partial-charge assignment. These routes use
+the changed state/mechanics copies directly. A separate 14-case aromatic
+bond-order normalization run passed in 5.28 s. Both used
+`python -m pytest --receptor=llm -n 12` in the same environment with no omissions;
+the 204-case run retained 34 existing pandas/drop warnings. No runtime changes
+were made after these or the broader qualification. The exact source commit's
+five hosted checks passed, including smoke run `39700026715`, inspected with
+`gh-run-receptor`; the other four checks were inspected as a receptor aggregate.
+
 Foundations includes a cross-family copy table, Builder staging behavior,
 wrapper contracts and the corrected plain mechanics-dictionary schema. Toolbox,
 Cookbook and Common Core modules 4/20 reflect the distinction between native
