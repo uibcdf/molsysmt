@@ -92,6 +92,22 @@ copy the result. For enclosing graphs, copied raw arrays and query-cache costs,
 see {ref}`Copying analyses <user-tools-interactions-copying>`. For a complete
 system, use the {ref}`MolSys copy contract <user-foundations-molsys-copying>`.
 
+For interchange, copy the typed payload without decoding its columns:
+
+```python
+payload = msm.convert(interactions, to_form="molsysmt.InteractionsDict")
+payload_copy = msm.copy(payload)
+assert payload_copy is not payload
+assert payload_copy.data is not payload.data
+from_payload = msm.convert(payload_copy, to_form="molsysmt.Interactions")
+assert from_payload.query(structure_indices=[3]).n_interactions == 1
+```
+
+`payload.copy()` and Python `copy.copy(payload)` also own independent mutable
+payload data; a wrapper copy does not validate its schema. Direct Python copies
+of plain dictionary forms retain Python's shallow semantics. See
+{ref}`Native Copying <user-foundations-resident-copying>`.
+
 Attach the complete result to a native molecular system to keep its atom and
 structure index spaces together. H5MSM 0.5 stores the named analysis alongside
 the structures. The same query works after loading it:

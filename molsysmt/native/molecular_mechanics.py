@@ -1,8 +1,7 @@
-from copy import deepcopy
-
 import pandas as pd
 
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
 
 # Preserve the legacy native mechanics module namespace.
 from molsysmt._private.smonitor import *  # noqa: F403
@@ -213,49 +212,45 @@ class MolecularMechanics:
 
         return tmp_dict
 
-    def copy(self):
-        """Create a deep copy of the MolecularMechanics object."""
+    @arg_digest()
+    def copy(self, *, skip_digestion=False):
+        """Copying stored mechanics parameters and producer metadata independently.
 
-        tmp_molecular_mechanics = MolecularMechanics()
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
-        tmp_molecular_mechanics.atoms_ff = deepcopy(self.atoms_ff)
-        tmp_molecular_mechanics.partial_charge_assignment = deepcopy(
-            self.partial_charge_assignment
-        )
+        Returns
+        -------
+        MolecularMechanics
+            Independent parameters preserving the concrete native type.
 
-        tmp_molecular_mechanics.atom_type_assignment = deepcopy(
-            self.atom_type_assignment
-        )
+        Notes
+        -----
+        Parameter tables, settings, assignment reports and supported extension
+        state are retained with one copy memo, without construction or legacy
+        restoration. Canonical tables copy eagerly. This does not add force-field
+        calculation or mechanics persistence to H5MSM 0.5.
 
-        tmp_molecular_mechanics.forcefield = deepcopy(self.forcefield)
+        Examples
+        --------
+        >>> mechanics = MolecularMechanics(forcefield='example')
+        >>> duplicate = mechanics.copy()
+        >>> duplicate is mechanics
+        False
+        >>> duplicate.forcefield
+        'example'
 
-        tmp_molecular_mechanics.non_bonded_method = deepcopy(self.non_bonded_method)
-        tmp_molecular_mechanics.cutoff_distance = deepcopy(self.cutoff_distance)
-        tmp_molecular_mechanics.switch_distance = deepcopy(self.switch_distance)
-        tmp_molecular_mechanics.dispersion_correction = deepcopy(
-            self.dispersion_correction
-        )
-        tmp_molecular_mechanics.ewald_error_tolerance = deepcopy(
-            self.ewald_error_tolerance
-        )
+        .. admonition:: User guide
 
-        tmp_molecular_mechanics.hydrogen_mass = deepcopy(self.hydrogen_mass)
+           See :ref:`user-foundations-resident-copying` for native and payload copy contracts.
 
-        tmp_molecular_mechanics.constraints = deepcopy(self.constraints)
-        tmp_molecular_mechanics.flexible_constraints = deepcopy(
-            self.flexible_constraints
-        )
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
 
-        tmp_molecular_mechanics.water_model = deepcopy(self.water_model)
-        tmp_molecular_mechanics.rigid_water = deepcopy(self.rigid_water)
-
-        tmp_molecular_mechanics.implicit_solvent = deepcopy(self.implicit_solvent)
-        tmp_molecular_mechanics.solute_dielectric = deepcopy(self.solute_dielectric)
-        tmp_molecular_mechanics.solvent_dielectric = deepcopy(self.solvent_dielectric)
-        tmp_molecular_mechanics.salt_concentration = deepcopy(self.salt_concentration)
-        tmp_molecular_mechanics.kappa = deepcopy(self.kappa)
-
-        return tmp_molecular_mechanics
+        return _copy_independently(self, skip_digestion)
 
     def set_parameters(self, return_non_processed=False, **kwargs):
         """Standardize and set available parameters from keyword arguments."""

@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+
 
 @dataclass
 class InteractionsDict:
@@ -34,10 +36,55 @@ class InteractionsDict:
 
         return deepcopy(self.data) if copy else self.data
 
-    def copy(self):
-        """Returning an independent columnar payload."""
+    def __copy__(self):
+        """Copying independent mutable state through the native graph protocol."""
+        return self.__deepcopy__({})
 
-        return InteractionsDict(deepcopy(self.data))
+    def __deepcopy__(self, memo):
+        """Copying current state with the containing graph's memo."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
+
+    @arg_digest()
+    def copy(self, *, skip_digestion=False):
+        """Copying sparse interchange columns and provenance independently.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        InteractionsDict
+            An independent columnar payload with unchanged occurrence identities.
+
+        Notes
+        -----
+        Python copy.copy and copy.deepcopy detach mutable payload data and
+        preserve graph aliases and supported extension state. Immutable bytes
+        may remain shared. Copying neither decodes an analysis, packs a query
+        nor certifies the payload schema.
+
+        Examples
+        --------
+        >>> payload = InteractionsDict(data={'n_atoms': 2})
+        >>> duplicate = payload.copy()
+        >>> duplicate is payload
+        False
+        >>> duplicate.data['n_atoms']
+        2
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-resident-copying` for native and payload copy contracts.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
+
+        return _copy_independently(self, skip_digestion)
 
 
 def _encode_interactions(result):

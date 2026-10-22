@@ -67,6 +67,32 @@ A partial MolSys can be summarized without topology. Missing domains are not
 invented. `Interactions.get()` exposes its declared molecular axes; occurrence
 selection and bounded export retain their specialized sparse methods.
 
+(user-foundations-resident-copying)=
+## Native Copying
+
+Native convenience methods and Python copy hooks retain the current concrete
+supported type, ordinary extension state, graph aliases and cycles. Public
+`copy()` methods validate `skip_digestion`; leave it `False` for user calls.
+Copying preserves stored data and does not infer chemistry, normalize tables,
+decode a payload or certify a schema.
+
+| Object | `copy()` and `copy.deepcopy()` | Python `copy.copy()` |
+| :--- | :--- | :--- |
+| `MolSys`, `Structures`, `MolSysBuilder` | Eager geometry by default; `copy(deep=False)` shares protected coordinate/box blocks. Other mutable fields detach. | Independent state over protected geometry blocks. |
+| `Topology`, `ChemicalStates`, `MolecularMechanics` | Independent canonical tables and metadata, copied eagerly. No `deep` argument. | The same independent molecular-data contract. |
+| `Interactions` | Independent analysis handles, metadata and array headers; immutable sparse bytes may remain shared. No `deep` argument. | The same independent sparse-result contract. |
+| `MolSysDict`, `TopologyDict`, `ChemicalStatesDict`, `InteractionsDict`, `ViewerJSON` | Independent wrapper and mutable payload, without decoding. No `deep` argument. | Independent wrapper and mutable payload, with the same graph memo rules. |
+
+The wrapped interchange payloads retain their own schemas. Preserving ordinary
+Python extensions in a resident copy does not add persistent schema fields.
+Copying a wrapper
+does not add MolSys owner bindings or convert it to a native molecular domain.
+Plain Python dictionary forms, including `StructuresDict` and
+`MolecularMechanicsDict`, retain Python's shallow `dict.copy()`/`copy.copy()`
+semantics. Use `msm.copy(data)` for an independent registered-form snapshot.
+`Simulation` settings and live file/resource handlers retain their separate
+reference/resource contracts.
+
 (user-foundations-molsys-copying)=
 ## Independent Copies
 

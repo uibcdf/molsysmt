@@ -4,13 +4,14 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form="molsysmt.MolecularMechanicsDict")
 def copy(item, skip_digestion=False):
     """
-    Creating a copy of an item of form molsysmt.MolecularMechanicsDict.
+    Copying a mechanical parameter dictionary independently.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Mechanical parameter dictionary. Nested lists, numeric arrays and
+        quantities are detached while preserving their units and values.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,4 +24,6 @@ def copy(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    return item.copy()
+    from copy import deepcopy
+
+    return deepcopy(item)

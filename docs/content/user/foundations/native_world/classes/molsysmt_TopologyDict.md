@@ -7,6 +7,11 @@ bonds. It does not store the complete native chemical-state domain.
 
 ## Declarative Schema
 
+`payload.copy()`, Python `copy.copy(payload)` and `copy.deepcopy(payload)` detach
+mutable record data and metadata without rebuilding topology or validating the
+schema. Public `msm.copy(payload)` uses the same independent payload contract.
+See {ref}`Native Copying <user-foundations-resident-copying>`.
+
 `data` contains the following keys. Indices are zero-based positions in the
 corresponding record lists; IDs are string labels, not positions.
 

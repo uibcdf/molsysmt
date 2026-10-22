@@ -636,22 +636,10 @@ class _ChemicalStateStorage:
             self.atom_attributes.drop(columns=name, inplace=True)
 
     def copy(self):
-        """Return an independent copy of this private chemical state."""
+        """Copying current private state without construction or normalization."""
+        from copy import deepcopy
 
-        output = _ChemicalStateStorage(
-            n_atoms=len(self.atom_attributes.index),
-            bonds=self.bonds.copy(),
-            components=self.components.copy(),
-            component_indices=self.component_indices.copy(deep=True),
-            state_id=self.state_id,
-            connectivity_completeness=self.connectivity_completeness,
-            component_completeness=self.component_completeness,
-            component_evidence=self.component_evidence,
-            provenance_index=self.provenance_index,
-            preparation_history=self._preparation_history,
-        )
-        output.atom_attributes = self.atom_attributes.copy(deep=True)
-        return output
+        return deepcopy(self)
 
 
 # Keeping the old private class name allows pickles produced during the staged
@@ -2122,26 +2110,45 @@ class Topology(NativeQueries):
         del tmp_item
 
     @signal(tags=["native"])
-    def copy(self):
-        """Return a deep copy of the topology tables."""
+    @arg_digest()
+    def copy(self, *, skip_digestion=False):
+        """Copying canonical topology tables and chemistry independently.
 
-        tmp_item = Topology()
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
 
-        tmp_item.atoms = self.atoms.copy()
-        tmp_item.groups = self.groups.copy()
-        tmp_item.molecules = self.molecules.copy()
-        tmp_item.entities = self.entities.copy()
-        tmp_item.chains = self.chains.copy()
-        tmp_item._chemical_states_domain = self._chemical_states_domain.copy()
+        Returns
+        -------
+        Topology
+            An independent topology preserving the concrete native type.
 
-        tmp_item._atoms_dirty = self._atoms_dirty
-        tmp_item._groups_dirty = self._groups_dirty
-        tmp_item._components_dirty = self._components_dirty
-        tmp_item._molecules_dirty = self._molecules_dirty
-        tmp_item._entities_dirty = self._entities_dirty
-        tmp_item._chains_dirty = self._chains_dirty
+        Notes
+        -----
+        Canonical tables and mutable metadata are copied eagerly. The source
+        MolSys weak owner is excluded; a separately copied topology can be
+        attached to another system. Copying preserves stored IDs, chemical
+        states, dirty flags and extension state without inference or migration.
 
-        return tmp_item
+        Examples
+        --------
+        >>> topology = Topology(n_atoms=2)
+        >>> duplicate = topology.copy()
+        >>> duplicate is topology
+        False
+        >>> duplicate.n_atoms
+        2
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-resident-copying` for native and payload copy contracts.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
+
+        return _copy_independently(self, skip_digestion)
 
     @signal(tags=["native"])
     def add_bonds(self, bonded_atom_pairs, skip_digestion=False):

@@ -6,6 +6,8 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from molsysmt._private.argdigest import arg_digest
+
 
 @dataclass
 class ChemicalStatesDict:
@@ -34,10 +36,55 @@ class ChemicalStatesDict:
 
         return deepcopy(self.data) if copy else self.data
 
-    def copy(self):
-        """Returning an independent typed payload."""
+    def __copy__(self):
+        """Copying independent mutable state through the native graph protocol."""
+        return self.__deepcopy__({})
 
-        return ChemicalStatesDict(deepcopy(self.data))
+    def __deepcopy__(self, memo):
+        """Copying current state with the containing graph's memo."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
+
+    @arg_digest()
+    def copy(self, *, skip_digestion=False):
+        """Copying typed chemical-state columns and metadata independently.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        ChemicalStatesDict
+            An independent wrapper preserving column dtypes and null masks.
+
+        Notes
+        -----
+        Python copy.copy and copy.deepcopy detach mutable payload data with
+        the same graph memo. Immutable numeric bytes may remain shared behind
+        separate array headers. Copying neither decodes chemical states nor
+        certifies the payload schema.
+
+        Examples
+        --------
+        >>> payload = ChemicalStatesDict(data={'n_atoms': 2})
+        >>> duplicate = payload.copy()
+        >>> duplicate is payload
+        False
+        >>> duplicate.data['n_atoms']
+        2
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-resident-copying` for native and payload copy contracts.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
+
+        return _copy_independently(self, skip_digestion)
 
 
 def _encode_series(series):

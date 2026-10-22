@@ -83,17 +83,72 @@ class MolSysBuilder(NativeQueries):
 
     @property
     def n_structures(self):
-        for attribute in ("coordinates", "velocities", "box", "time", "structure_id"):
-            values = getattr(self.structures, attribute)
-            if values is not None:
-                return len(values)
-        return 0
+        return self.structures.n_structures
 
-    def copy(self):
-        tmp_item = MolSysBuilder(skip_digestion=True)
-        tmp_item.topology = self.topology.copy()
-        tmp_item.structures = self.structures.copy()
-        return tmp_item
+    @arg_digest()
+    def copy(self, deep=True, *, skip_digestion=False):
+        """Copying an editable staging system without compiling it.
+
+        Parameters
+        ----------
+        deep : bool, default=True
+            Copy coordinate/box bytes eagerly. False shares protected geometry
+            until edits replace affected blocks. Canonical staging tables,
+            other mutable series and metadata remain independent in both modes.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        MolSysBuilder
+            An independent builder preserving its concrete type and declared data.
+
+        Notes
+        -----
+        Python copy.copy uses deferred geometry allocation; copy.deepcopy uses
+        eager geometry allocation and the enclosing graph's memo. Copying does
+        not call build(), synthesize parents, normalize tables or invent domains.
+        A partially assembled builder remains partially assembled. The builder
+        stores no named analyses, mechanics or structure/state associations.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> builder.add_atom(atom_name='C', atom_type='C')
+        0
+        >>> duplicate = builder.copy(deep=False)
+        >>> duplicate.n_atoms, duplicate.n_groups
+        (1, 0)
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-resident-copying` and :ref:`Tutorial_Editable`.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
+
+        if deep:
+            return _copy_independently(self, skip_digestion)
+        if not isinstance(skip_digestion, bool):
+            from molsysmt._private.argdigest.argument.skip_digestion import (
+                digest_skip_digestion,
+            )
+
+            digest_skip_digestion(skip_digestion)
+        return self.__copy__()
+
+    def __copy__(self):
+        """Copying independent staging state over protected geometry blocks."""
+        from ._copy import _clone, _deferred_geometry_memo
+
+        return _clone(self, _deferred_geometry_memo(self.structures))
+
+    def __deepcopy__(self, memo):
+        """Copying current staging data with the containing graph's memo."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
 
     def _ensure_atom_editable(self):
         if (

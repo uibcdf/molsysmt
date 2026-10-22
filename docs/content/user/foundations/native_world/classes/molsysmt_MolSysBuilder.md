@@ -7,7 +7,9 @@
 
 ## Overview and Role
 
-While `molsysmt.MolSys` is an immutable state container optimized for fast computation, `molsysmt.MolSysBuilder` provides an active, mutable staging environment. It allows users to incrementally declare atoms, group residues, specify covalent bonds, assign 3D coordinates, and validate system integrity before compiling back into a production `molsysmt.MolSys` object.
+`MolSys` coordinates molecular domains for computation and analysis. `MolSysBuilder`
+stages incremental declarations: atoms, groups, covalent bonds and 3D structures
+can be assembled and validated before producing a `MolSys`.
 
 For most users and workflows, the recommended entry point to create and work with an editable builder is the {func}`molsysmt.build.editable` tool (see the {ref}`Editable Tutorial <Tutorial_Editable>`). Calling `msm.build.editable(molsys)` converts any supported molecular system format into an active `MolSysBuilder` instance ready for editing, while calling `msm.build.editable()` without arguments initializes an empty builder from scratch.
 
@@ -16,6 +18,14 @@ Under the hood, `MolSysBuilder` manages staging instances of native `Topology` a
 ---
 
 ## Internal Staging Tables
+
+`builder.copy()` and Python `copy.deepcopy(builder)` copy staging data eagerly.
+`builder.copy(deep=False)` and Python `copy.copy(builder)` share protected
+coordinate/box blocks through independent handles. Staging tables, other series
+and metadata detach in both modes. Copying does not call `build()`, invent missing
+groups/parents or normalize incomplete declarations. Counts read stored axis
+metadata without assembling coordinates. See
+{ref}`Native Copying <user-foundations-resident-copying>`.
 
 Inside `molsysmt.MolSysBuilder`, staging data is organized across internal topological data frames and structural coordinate buffers:
 
@@ -72,7 +82,7 @@ builder.add_bond(atom_index_1=1, atom_index_2=2, bond_order=1, bond_type='covale
 coords = np.array([[[0.0, 0.0, 0.0], [0.145, 0.0, 0.0], [0.245, 0.12, 0.0]]]) * msm.pyunitwizard.unit('nm')
 builder.set_coordinates(coords)
 
-# 4. Validate and compile into a final immutable MolSys instance
+# 4. Validate and compile into a MolSys instance
 system = builder.build()
 ```
 

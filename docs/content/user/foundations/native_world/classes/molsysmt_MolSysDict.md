@@ -7,6 +7,12 @@ narrower than the domains available in a native `MolSys`.
 
 ## Declarative Schema
 
+`payload.copy()`, Python `copy.copy(payload)` and `copy.deepcopy(payload)` detach
+mutable payload data and metadata while preserving supported wrapper extensions.
+They do not reconstruct a system or validate schema 0.1. The public
+`msm.copy(payload)` uses the same independent payload contract. See
+{ref}`Native Copying <user-foundations-resident-copying>`.
+
 | Key | Stored value | Meaning |
 | :--- | :--- | :--- |
 | `format` | string | Format identifier, `molsysmt`. |

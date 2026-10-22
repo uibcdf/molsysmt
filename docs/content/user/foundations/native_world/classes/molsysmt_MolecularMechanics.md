@@ -30,7 +30,7 @@ are separate attributes:
 
 ## Invariants and Performance
 
-Python copies and enclosing `MolSys` copies preserve stored parameters, producer
+`mechanics.copy()`, Python copies and enclosing `MolSys` copies preserve stored parameters, producer
 reports and supported extension state through the same copy memo, without
 running a constructor or legacy restoration. Mutable mechanics data remain
 independent. This does not add mechanics persistence to H5MSM 0.5.

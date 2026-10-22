@@ -1038,14 +1038,9 @@ class Structures(NativeQueries):
 
     def __copy__(self):
         """Copying domain handles while sharing protected coordinate/box blocks."""
-        from ._copy import _clone
+        from ._copy import _clone, _deferred_geometry_memo
 
-        memo = {
-            id(value): value._fork()
-            for value in (self._coordinates, self._box)
-            if value is not None
-        }
-        return _clone(self, memo)
+        return _clone(self, _deferred_geometry_memo(self))
 
     def __deepcopy__(self, memo):
         """Copying eager structure data without running restoration or migration."""

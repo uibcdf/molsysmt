@@ -216,6 +216,13 @@ It avoids one Python dictionary per occurrence. It is a typed Python payload,
 not JSON data. A query view's `to_dict()` has a different purpose: it reports
 selected occurrences and cannot reconstruct the full result.
 
+`columns.copy()`, Python `copy.copy(columns)`/`copy.deepcopy(columns)` and
+`msm.copy(columns)` independently copy that wrapper and its mutable payload,
+preserving typed columns and producer metadata without decoding an analysis.
+The same wrapper contract applies to `ChemicalStatesDict`; neither operation
+validates its payload schema. See
+{ref}`Native Copying <user-foundations-resident-copying>`.
+
 `interactions.software` maps producer software names to the versions used
 when calculating the observations. Both hydrogen-bond and disulfide adapters record
 `{"molsysmt": msm.__version__}` at calculation time. The dictionary also

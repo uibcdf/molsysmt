@@ -6,6 +6,28 @@ from types import MappingProxyType
 import numpy as np
 
 
+def _copy_independently(source, skip_digestion):
+    """Use the native deep-copy hook after checking the public delegation flag."""
+    if not isinstance(skip_digestion, bool):
+        from molsysmt._private.argdigest.argument.skip_digestion import (
+            digest_skip_digestion,
+        )
+
+        digest_skip_digestion(skip_digestion)
+    return deepcopy(source)
+
+
+def _deferred_geometry_memo(structures):
+    """Seed independent handles for protected geometry in one native domain."""
+    if structures is None:
+        return {}
+    return {
+        id(value): value._fork()
+        for value in (structures._coordinates, structures._box)
+        if value is not None
+    }
+
+
 def _slots(source):
     """Read extension slots without invoking constructors or storage properties."""
     values = {}

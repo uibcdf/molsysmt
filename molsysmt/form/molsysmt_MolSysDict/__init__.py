@@ -11,6 +11,7 @@ bonds_can_be_computed = True
 # Form metadata and export initialization retain their established import order.
 # isort: off
 from .is_form import is_form  # noqa: E402
+from .copy import copy  # noqa: E402
 from .attributes import attributes  # noqa: E402
 from .has_attribute import has_attribute  # noqa: E402
 from .extract import extract  # noqa: E402

@@ -33,7 +33,7 @@ Inside `molsysmt.Topology`, data is maintained across seven canonical tabular Da
 
 ## Invariants and Performance
 
-Python `copy.copy(topology)` and `copy.deepcopy(topology)` copy canonical tables
+`topology.copy()`, Python `copy.copy(topology)` and `copy.deepcopy(topology)` copy canonical tables
 and chemical states independently, preserving supported native extension state
 without legacy restoration. A standalone copy does not retain its source
 MolSys's weak ownership link. Copying an enclosing `MolSys` binds the copied

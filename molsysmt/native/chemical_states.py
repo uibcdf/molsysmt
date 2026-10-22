@@ -332,14 +332,55 @@ class ChemicalStates(NativeQueries):
         state._preparation_history.extend(records)
         return tuple(range(start, start + len(records)))
 
-    def copy(self):
-        """Returning an independent copy of the collection."""
+    def __copy__(self):
+        """Copying independent mutable state through the native graph protocol."""
+        return self.__deepcopy__({})
 
-        clone = ChemicalStates(n_atoms=self._n_atoms, skip_digestion=True)
-        clone._replace_states(
-            [state.copy() for state in self._states], self._reference_index
-        )
-        return clone
+    def __deepcopy__(self, memo):
+        """Copying current state with the containing graph's memo."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
+
+    @arg_digest()
+    def copy(self, *, skip_digestion=False):
+        """Copying a chemical-state collection independently.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        ChemicalStates
+            Independent state records over the same local atom-index domain.
+
+        Notes
+        -----
+        State inventory, reference selection, typed assignments, preparation
+        history and supported extension state are retained without a constructor
+        or normalization. Mutable tables are copied eagerly. No molecular
+        owner is notified because creating a copy changes neither system.
+
+        Examples
+        --------
+        >>> states = ChemicalStates(n_atoms=2)
+        >>> duplicate = states.copy()
+        >>> duplicate is states
+        False
+        >>> duplicate.n_atoms
+        2
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-resident-copying` for native and payload copy contracts.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
+
+        return _copy_independently(self, skip_digestion)
 
     def _extract_atoms(self, atom_indices):
         """Return states remapped to one ordered subset of the atom axis."""

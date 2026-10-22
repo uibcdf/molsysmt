@@ -9,6 +9,7 @@ bonds_can_be_computed = False
 provides_atom_domain = True
 
 from .attributes import attributes  # noqa: E402
+from .copy import copy  # noqa: E402
 from .get_structural_attributes import *  # noqa: E402, F403
 from .get_topological_attributes import *  # noqa: E402, F403
 from .has_attribute import has_attribute  # noqa: E402

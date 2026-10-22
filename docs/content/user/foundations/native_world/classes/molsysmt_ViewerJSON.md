@@ -13,6 +13,11 @@ As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema wrapped b
 
 ## Declarative Schema
 
+`payload.copy()`, Python copies and `msm.copy(payload)` retain the graphics data,
+schema descriptions and compression metadata in independent mutable containers.
+They do not decode a molecular system, render a scene or certify JSON-safe
+contents. See {ref}`Native Copying <user-foundations-resident-copying>`.
+
 The underlying `data` dictionary of `ViewerJSON` follows a standardized graphics payload schema:
 
 | Top-Level Key | Value Type | Description |
@@ -20,7 +25,7 @@ The underlying `data` dictionary of `ViewerJSON` follows a standardized graphics
 | **`"version"`** | String (`"0.1"`) | Graphics payload schema version tag. |
 | **`"atoms"`** | Dictionary of Lists | Columnar per-atom vectors: `atom_id`, `atom_name`, `group_id`, `group_name`, `chain_id`, `entity_id`, `element_symbol`, `formal_charge`. |
 | **`"bonds"`** | Dictionary | Bond connectivity mapping: `atom_pairs` (`[[atom1, atom2], ...]`) and optional `order` list. |
-| **`"structures"`** | List of Dicts | Frame list containing `coordinates` in `nm` `([[x, y, z], ...])`, optional `time` in `ps`, and optional periodic `box` vectors (`v0`, `v1`, `v2` in `nm`). |
+| **`"structures"`** | List of Dicts | Structure list containing `coordinates` in `nm` `([[x, y, z], ...])`, optional `time` in `ps`, and optional periodic `box` vectors (`v0`, `v1`, `v2` in `nm`). |
 
 ---
 

@@ -6,6 +6,8 @@ from copy import deepcopy
 from dataclasses import dataclass, field
 from typing import Any, Dict, Literal, Optional, TextIO, Union
 
+from molsysmt._private.argdigest import arg_digest
+
 CompressionKind = Literal["none", "gzip"]
 
 
@@ -120,11 +122,55 @@ class ViewerJSON:
         """
         return deepcopy(self.data) if copy else self.data
 
-    def copy(self) -> "ViewerJSON":
-        """Return a deep copy of the instance."""
-        return deepcopy(self)
+    def __copy__(self):
+        """Copying independent mutable state through the native graph protocol."""
+        return self.__deepcopy__({})
 
-    # --- Serialización JSON ---
+    def __deepcopy__(self, memo):
+        """Copying current state with the containing graph's memo."""
+        from ._copy import _clone
+
+        return _clone(self, memo)
+
+    @arg_digest()
+    def copy(self, *, skip_digestion=False) -> "ViewerJSON":
+        """Copying graphics payload and compression metadata independently.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        ViewerJSON
+            An independent graphics wrapper retaining compression settings and schema.
+
+        Notes
+        -----
+        Python copy.copy and copy.deepcopy detach mutable payload data and
+        supported extension state. Copying does not render a scene, encode JSON
+        or certify that the payload is JSON serializable. Plain Python dict
+        values retain their ordinary copying behavior outside this wrapper.
+
+        Examples
+        --------
+        >>> payload = ViewerJSON()
+        >>> duplicate = payload.copy()
+        >>> duplicate is payload
+        False
+        >>> duplicate.compressed
+        False
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-resident-copying` for native and payload copy contracts.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._copy import _copy_independently
+
+        return _copy_independently(self, skip_digestion)
 
     def dumps(self, indent: Optional[int] = None) -> str:
         """Return a JSON text representation."""

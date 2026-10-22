@@ -1308,12 +1308,9 @@ class MolSys(NativeQueries):
 
     def __copy__(self):
         """Copying independent domains over shared protected geometry blocks."""
-        memo = {}
-        if self.structures is not None:
-            for value in (self.structures._coordinates, self.structures._box):
-                if value is not None:
-                    memo[id(value)] = value._fork()
-        return self.__deepcopy__(memo)
+        from ._copy import _deferred_geometry_memo
+
+        return self.__deepcopy__(_deferred_geometry_memo(self.structures))
 
     def __deepcopy__(self, memo):
         """Copying the native graph and binding topology to its new owner."""

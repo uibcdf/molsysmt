@@ -24,9 +24,10 @@ recommendations are retained below as alternatives. The final storage layout
 and public signatures are not frozen. `Interactions`, standalone `Structures`
 and complete/partial `MolSys` now provide resident copy boundaries, described
 below. Molecular copies preserve owner bindings and may defer coordinate/box
-allocation. General table copy-on-write, direct-domain edit observation and
-the remaining resident/wrapper convenience methods are not delivered by this
-boundary.
+allocation. The remaining resident convenience methods and named payload
+wrappers now use independent graph copies. General table copy-on-write,
+direct-domain edit observation and production performance qualification are
+not delivered by these boundaries.
 
 ## What
 
@@ -879,15 +880,92 @@ Cookbook and Common Core modules 4/20 now describe molecular eager/deferred
 copying, current edit boundaries and unchanged analysis identity. This adds no
 dependency, scientific calculation/attribution boundary, file schema or release.
 
+## Fourth resident boundary: remaining classes and payloads
+
+**Implemented:** `Topology.copy`, `ChemicalStates.copy` and
+`MolecularMechanics.copy` now use the constructor-free Python graph protocol,
+with validated keyword-only `skip_digestion=False`. They preserve stored
+tables, reference selection, history, producer reports, ordinary extension
+metadata, concrete supported subclasses and graph aliases. Their canonical
+tables still copy eagerly, and they expose no ineffective `deep` selector.
+The private chemical-state convenience copy also preserves current state
+without constructor validation/normalization.
+
+`MolSysBuilder.copy(deep=True, skip_digestion=False)` retains eager geometry
+allocation by default. Its deferred mode and Python shallow hook use independent
+handles over protected coordinate/box blocks; tables and other mutable fields
+detach in both modes. Copying does not compile a builder, synthesize parents or
+normalize incomplete declarations. `n_structures` now delegates to the stored
+Structures axis metadata rather than assembling the coordinate property.
+
+MolSys, Structures and MolSysBuilder share a private helper that seeds deferred
+geometry handles. Convenience methods without geometry share the small native
+helper for independent copying and strict validation of the delegation flag,
+including truthy non-Boolean values that a decorator might otherwise bypass.
+These helpers do not discover forms, validate schemas or rebind domain owners.
+
+`MolSysDict`, `TopologyDict`, `ChemicalStatesDict`, `InteractionsDict` and
+`ViewerJSON` now detach mutable payload data under native and both Python copy
+operations. Frozen numeric bytes may remain shared through independent array
+headers. Compression/schema descriptors and ordinary wrapper extensions survive
+the graph copy, but this adds no persistent schema fields. Unlike these wrapper
+instances, plain dictionary forms keep Python's shallow `dict.copy()` semantics.
+Copying is not admission, decoding, remapping or proof of JSON serialization.
+
+Registered MolSysDict, TopologyDict, ChemicalStatesDict and InteractionsDict
+forms lacked public `copy` adapters: `msm.copy` raised AttributeError despite
+their native methods. Four small adapters now delegate to the validated native
+boundary. A separate plain MolecularMechanicsDict adapter incorrectly used
+`dict.copy`; it now deep-copies nested parameters, arrays and quantities as the
+universal copy contract promises. A two-case guard reproduced both universal
+and direct-adapter aliasing before that fix. Schema keys and form names remain
+unchanged.
+
+The initial 86-case remaining-family probe had 59 failures on the preceding
+source: unsupported delegation arguments, lost extension/subclass state,
+shared payloads and dense builder counts. The final
+`tests/native/test_remaining_copy.py` has 97 cases covering nine resident/wrapper
+families, convenience/Python protocols, graph memo aliases, slots, invalid
+flags, incomplete staging and actual angstrom-valued edits. Registered native
+reconstruction is checked for the four molecular/typed payloads; generated
+ViewerJSON value copying and serialization of an independently JSON-safe
+payload are separate checks.
+
+Those additional interoperability probes exposed two independent, pre-existing
+ViewerJSON defects: native reading rejects alphabetic chain IDs
+(uibcdf/molsysmt#397), and generated bond scalars can be NumPy integers rejected
+by JSON encoding (uibcdf/molsysmt#398). Both reproduce without copying. They
+are reported separately; their codecs are unchanged and this copy qualification
+does not claim to repair either round trip.
+
+**Contract-tested:** in the existing Linux/Python 3.14.7 environment,
+`python -m pytest --receptor=llm -n 12` passed **3,676 cases** in 83.24 s, with
+no omissions. Scope extends the third-boundary campaign to Builder, all five
+payload-wrapper form adapters and the plain mechanics-dictionary adapter.
+The receptor retained 847 warnings in 17 groups, mainly legacy H5MSM notices
+and existing/deliberate atom-name, compatibility, pandas, unit, GPU and memory
+policy probes. All 18 doctest items in the nine changed native modules and four
+new copy adapters passed; all 14 fast gates, scoped signature-drift declarations,
+Ruff checks, formatting and public docstring checks passed. Updated plain
+mechanics-dictionary and sparse-payload Cookbook examples execute successfully.
+The registered scientific suite and installed-client/package matrices are not
+inferred from this source-level scope.
+
+Foundations includes a cross-family copy table, Builder staging behavior,
+wrapper contracts and the corrected plain mechanics-dictionary schema. Toolbox,
+Cookbook and Common Core modules 4/20 reflect the distinction between native
+domains, payload wrappers and plain Python dictionaries. No scientific method,
+attribution execution boundary, dependency, schema version or release is added.
+
 ### Remaining native integration
 
-Do not close #121 on this boundary. Direct attached-domain edit publication,
-pandas mutation/alias policy, the standalone convenience methods of other
-resident types, MolSysBuilder and payload wrappers remain pending. Canonical
-tables currently copy eagerly and inherit pandas' handling of arbitrary Python
-objects in cells and table metadata; their own wrapper/subclass preservation
-also needs a deliberate contract. The general native helper remains private:
-domain owner rebinding belongs to its molecular hook, not a generic state copy.
+Do not close #121 on this boundary. Direct attached-domain edit publication and
+pandas mutation/alias policy remain open. Canonical tables currently copy eagerly
+and inherit pandas' handling of arbitrary Python objects in cells and table
+metadata; their wrapper/subclass preservation also needs a deliberate contract.
+Simulation settings and live resource handlers retain their separately stated
+reference/I/O semantics. The general native helper remains private: molecular
+owner rebinding belongs to its domain hook, not a generic state copy.
 Actual resident memory/time/read/edit/persistence measurements are still needed
 before claiming a production performance ranking or optimal block budget.
 Client-installed/source adoption evidence is not inferred from provider tests.
