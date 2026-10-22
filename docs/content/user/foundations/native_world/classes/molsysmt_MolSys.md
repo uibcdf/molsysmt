@@ -124,7 +124,11 @@ full `coordinates`/`box` assignments also notify its owner. The original's
 geometry, coverage and previous query snapshots remain unchanged. Standalone
 domain copies have no owner. Assigning an already attached `Structures` to
 another system creates an independent domain wrapper with deferred geometry
-allocation, preserving the original owner. Direct chemistry/table edits and
+allocation, preserving the original owner. Assigning another system's
+`ChemicalStates` likewise creates independent chemical tables and retains one
+authority shared by the destination's topology and chemical domain. Standalone
+chemical copies/pickles omit their weak owner link; system copies/restoration
+rebind it. Unobserved chemistry/table edits and
 whole-domain replacement still require explicit owner invalidation. Use
 `MolSys` extraction/append operations to change axes with attached analyses.
 See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
@@ -441,7 +445,8 @@ calculation from a calculated absence. See
 copyable example and the complete edit policy.
 
 Changing chemical-state atom or scientific bond assignments through
-`msm.set(molsys, ...)`, or replacing `molsys.chemical_states`, marks every
+`msm.set(molsys, ...)` or `msm.set(molsys.topology, ...)`, or replacing
+`molsys.chemical_states`, marks every
 named analysis unevaluated. Charge centers, aromatic participants and
 hydrogen-bond roles can change at fixed coordinates. MolSysMT conservatively
 invalidates all covered structures because it does not infer each method's
@@ -449,8 +454,9 @@ chemical dependencies. Empty atom/bond selections and bond ID changes preserve
 analyses. Assigning or clearing `structure_chemical_state_index` invalidates
 only the selected structures. Earlier result/query snapshots remain available.
 
-Separately accessed Topology/ChemicalStates collections, direct topology
-replacement, mechanics changes and raw table/array edits require explicit
+Native topology bond addition/removal and replacing its bond table also notify
+the owner. Standalone topology copies are detached. Direct ChemicalStates
+collection edits, whole-topology replacement, mechanics changes and raw table/array edits require explicit
 owner invalidation. Recalculate and attach new results before claiming that
 these changed data have been evaluated.
 

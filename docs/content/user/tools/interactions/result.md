@@ -354,7 +354,7 @@ the affected frame, considering the detector's complete declared atom scope.
 | --- | --- |
 | Coordinates or box through `msm.set` | Selected frames become unevaluated. |
 | Empty atom/frame selection, time or identifier edit | Results remain valid. |
-| Scientific chemical-state edits through `msm.set`, or replacing `chemical_states` | All covered frames become unevaluated. |
+| Scientific chemical-state changes through `msm.set` on the system or attached topology, native topology bond edits, or replacing `chemical_states` | All covered structures become unevaluated. |
 | Changing `structure_chemical_state_index` | Selected frames become unevaluated. |
 | Attached `structures.set_coordinates()` / `set_box()`, or full coordinate/box property assignment | The affected structures become unevaluated in every named analysis. |
 | Raw/private writes, other domain edits or whole-domain replacement | You must invalidate the owning analyses explicitly. |
@@ -397,7 +397,17 @@ Invalid direct native writes leave geometry and analyses unchanged. The public
 system setter conservatively invalidates after delegation starts if a delegated
 operation fails, since an extension may already have written part of the data.
 
-Whole-domain replacement, raw/private writes, and direct domain append/add
+Controlled chemical-state setters on an attached topology also notify its
+owner, including `msm.set(molsys.topology, ...)`, native `add_bonds()` /
+`remove_bonds()` and replacing `topology.bonds`. Scientific changes invalidate
+all covered structures; bond-label-only changes and empty selections preserve
+analyses. Invalid assignments and invalidation allocation failure preserve
+chemical values. Bond tools rebuild components after publication; if rebuilding
+fails, bonds can already have changed and analyses remain invalidated.
+Previous table handles do not follow replacement. A chemical collection already
+owned by another MolSys is copied on attachment, preserving separate owners.
+
+Whole-domain replacement, raw/private writes, and direct structure-domain append/add
 are outside this boundary. Use the owning `MolSys` extraction/append/add tools
 to change axes while preserving analysis alignment. For coordinate writes
 outside the automatic owner boundary, invalidate the

@@ -112,3 +112,23 @@ All methods, getters, and converters for `molsysmt.Topology` are documented in t
 ## Native Queries
 
 Query its atom/group hierarchy and state-dependent attributes with `topology.get(...)`. `chemical_state` follows the basic query rules; ChemicalStates remains the owner of assignments and bonds. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.
+
+## Controlled Edits
+
+When a topology belongs to a `MolSys`, chemical-state assignments through
+`msm.set(molsys.topology, ...)` notify that owner. This covers formal charges,
+aromaticity, hydrogen/radical assignments, atom/bond stereochemistry, scientific
+bond fields and component membership. Native `add_bonds()` / `remove_bonds()`
+and replacing the `bonds` table notify it too. Changed chemistry makes every
+named analysis unevaluated, including previously evaluated-empty structures;
+earlier result/query snapshots survive. No detector runs automatically.
+
+Values are validated and prepared before publication. Invalid assignments or
+failure to allocate invalidation leave chemical values and analyses unchanged.
+Bond IDs and empty selections do not invalidate. Bond addition/removal rebuilds
+components after publishing bonds; a rebuilding failure can leave changed bonds
+with analyses already invalidated. Old table handles do not follow replacement.
+Raw cell/array edits, chemical-state collection changes and whole-topology
+replacement still need explicit owner invalidation. Standalone topology copies
+have no owner link. See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`
+for the shared analysis validity policy.

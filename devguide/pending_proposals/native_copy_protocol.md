@@ -28,8 +28,8 @@ allocation. The remaining resident convenience methods and named payload
 wrappers now use independent graph copies. The production resident campaign
 below measures copying, edits and consumers on three bounded synthetic systems.
 It records H5MSM I/O/public-load allocation bottlenecks and the measured
-refinements below. Attached coordinate/box setters now publish owner invalidation
-without dense geometry materialization. General table copy-on-write, other direct
+refinements below. Attached coordinate/box setters and controlled topology chemical-state edits now
+publish owner invalidation without dense geometry materialization. General table copy-on-write, other direct
 domain mutation observation and full production/client performance qualification
 are not delivered by these boundaries.
 
@@ -1485,3 +1485,92 @@ mutations still need explicit owner invalidation; no array/DataFrame observer
 or chemical dependency graph is implied. General table alias/subclass/object
 cell policy, large mutable observable/resource workloads and installed-client
 adoption remain outstanding. Do not close #121 on this checkpoint.
+
+
+### Controlled chemical publication and authority ownership — 2026-10-22
+
+**Implemented:** Chemical-state atom and scientific bond setters invoked on an
+attached topology now notify the owning MolSys, including
+`msm.set(molsys.topology, ...)`. Native bond addition/removal, full bond-table
+replacement, and controlled component-membership assignment use the same staged
+invalidation. Every covered structure in every named analysis becomes
+unevaluated, including evaluated-empty structures and edits to atoms that had
+no previous occurrence. Editing an explicitly selected nonreference chemical
+state also uses this conservative all-structure rule. No detector runs and no
+per-analysis chemical dependency graph is inferred.
+
+Atom-column, bond-table and membership candidates are validated before
+publication. An invalid partial atom assignment cannot materialize a new
+missing-valued column before reporting its error. Failed input validation and
+invalidation-allocation failure preserve chemical values and analyses. Bond
+addition/removal rebuilds components after bond publication; a subsequent
+rebuilding failure can leave the new bond table published, with analyses already
+invalidated. Empty requests are no-ops. Bond IDs are labels: comparing scientific
+columns excludes them without making two whole-table copies. Previous table
+handles do not follow replacement. Nested MolSys/topology delegation reuses
+staged invalidation and does not repeat it per analysis. Coordinate/box storage
+is neither copied nor materialized by chemical publication.
+
+Native bond tools now use ArgDigest and their existing `skip_digestion` argument.
+Their native-boundary digesters reject malformed/noninteger/Boolean indices.
+The decorators declare this context explicitly, so inherited bond methods keep
+their validation contract when a subclass lives in another module; other form
+routes retain their previous digestion behavior. The private storage
+normalizer prepares canonical typed atom tables independently before publishing
+instead of mutating a live partial column and validating afterward. Scientific
+criteria and physical-unit conventions are unchanged.
+
+**Ownership:** ChemicalStates has one weak MolSys owner, retained through the
+single collection referenced by the system and topology facade. Attaching a
+collection already owned by another system copies mutable chemistry instead of
+sharing it between owners. Chemistry-only partial systems follow the same rule.
+Replacement detaches the previous collection. Standalone copies and pickles omit
+the weak link; complete system copying/restoration rebinds it. A retained
+collection does not retain its former molecular system. Serialization retains
+supported subclass slots. This is eager chemical-table independence, not table
+copy-on-write. It adds no competing chemistry store.
+
+**Guard:** `tests/native/test_topology_owner.py` covers real ionic observations,
+evaluated-empty/unevaluated coverage, sparse provenance/maps and earlier views,
+direct native/form chemical changes, bond labels and empty requests, malformed
+and invalid writes, prepublication allocation failure, postpublication component
+failure, nonreference states, component membership, standalone/system copy,
+pickle/H5MSM restoration, cross-owner collection attachment, weak lifetime,
+partial systems and slotted state serialization. Its geometry spies reject both
+protected-array materialization and copying during chemical assignment.
+
+**Qualified locally:** The final aggregate passes **4,244 tests**, without
+omissions, with Pytest Receptor and 12 workers (58.82 s). Its selection is
+`tests/native`, `tests/form/molsysmt_Topology`, `tests/form/molsysmt_MolSys`,
+`tests/form/molsysmt_Structures`, `tests/form/file_h5msm`, `tests/interactions`
+and `tests/topology`. All 45 focused owner tests pass. The 698 visible warnings
+cover legacy H5MSM, deliberate low-memory probes, pandas migration, synthetic
+unknown atom names and existing structural merge policies. All 14 fast release
+gates, package/new-test Ruff, public docstring fidelity and signature stability
+pass; native chemical ownership docstrings pass 16 examples. These are local
+source checks, not installed-client or final-release qualification.
+
+The expanded topological consumer tests use existing network-backed PDB examples: a sandbox run waited
+in `download_with_retries` and was interrupted, rather than counted as passed.
+The same consumer suite passed 1,314 tests when executed with network access;
+its inputs and expectations were unchanged. The existing development environment
+is used throughout. User Foundations, Toolbox, Cookbook and Common Core modules
+4/10/20 describe the current boundaries. Course code and saved outputs are
+unchanged. Ackredit is not applicable to these storage/validation changes;
+scientific algorithms, producer provenance, dependency floors, H5MSM schema and
+release identity are unchanged.
+
+**Distinct finding:** Ordinary inherited constructors of externally declared
+ChemicalStates/MolSys/Topology subclasses reject valid atom counts. This was
+reproduced separately and reported as [uibcdf/molsysmt#404](https://github.com/uibcdf/molsysmt/issues/404).
+The slotted serialization fixture uses known-valid trusted construction, as the
+existing native subclass copy fixtures do; this is not evidence that ordinary
+subclass constructor dispatch works. Resolve caller/receiver validation under
+that owning issue without weakening native argument checks.
+
+**Still open under #121:** Direct writes to DataFrames/Series/arrays, direct
+ChemicalStates collection/record mutations, whole-domain replacement and direct
+structure-domain axis changes are not observed by this boundary. Their callers
+must invalidate explicitly or use a coordinated owning operation. Table
+alias/subclass/arbitrary-object policy, large mutable observable/resource
+workloads and installed-client adoption remain outstanding. Keep #121 active.

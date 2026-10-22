@@ -340,7 +340,20 @@ class ChemicalStates(NativeQueries):
         """Copying current state with the containing graph's memo."""
         from ._copy import _clone
 
-        return _clone(self, memo)
+        return _clone(self, memo, exclude=("_molsys_owner_ref",))
+
+    def __getstate__(self):
+        """Serialize state records without retaining a molecular owner link."""
+        from ._copy import _slots
+
+        attributes = {
+            name: value
+            for name, value in vars(self).items()
+            if name != "_molsys_owner_ref"
+        }
+        slots = _slots(self)
+        slots.pop("_molsys_owner_ref", None)
+        return (attributes, slots) if slots else attributes
 
     @arg_digest()
     def copy(self, *, skip_digestion=False):
@@ -362,6 +375,9 @@ class ChemicalStates(NativeQueries):
         history and supported extension state are retained without a constructor
         or normalization. Mutable tables are copied eagerly. No molecular
         owner is notified because creating a copy changes neither system.
+        Standalone copies and pickles omit the weak owner link; complete MolSys
+        copies and restoration rebind their own collection. Attaching a collection
+        already owned by another MolSys creates independent chemical tables.
 
         Examples
         --------

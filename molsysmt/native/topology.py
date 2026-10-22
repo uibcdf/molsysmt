@@ -1,4 +1,4 @@
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from contextvars import ContextVar
 
 import numpy as np
@@ -459,7 +459,13 @@ class _ChemicalStateStorage:
     def _normalize_atom_attribute_columns(self):
         """Validate names, order, and nullable dtypes of atom-state columns."""
 
-        unknown_columns = set(self.atom_attributes.columns) - set(
+        self.atom_attributes = self._validated_atom_attributes(self.atom_attributes)
+
+    @classmethod
+    def _validated_atom_attributes(cls, table):
+        """Prepare a canonical table without publishing changes to a state."""
+
+        unknown_columns = set(table.columns) - set(
             _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES
         )
         if unknown_columns:
@@ -470,13 +476,12 @@ class _ChemicalStateStorage:
         ordered_columns = [
             name
             for name in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES
-            if name in self.atom_attributes.columns
+            if name in table.columns
         ]
-        self.atom_attributes = self.atom_attributes.reindex(columns=ordered_columns)
+        candidate = table.reindex(columns=ordered_columns)
         for name in ordered_columns:
-            self.atom_attributes[name] = self._coerce_atom_attribute(
-                name, self.atom_attributes[name]
-            )
+            candidate[name] = cls._coerce_atom_attribute(name, candidate[name])
+        return candidate
 
     @staticmethod
     def _coerce_atom_attribute(name, values):
@@ -597,6 +602,11 @@ class _ChemicalStateStorage:
     def set_atom_attribute(self, name, values, atom_indices=None):
         """Set a complete or partial optional atom-state column."""
 
+        self.atom_attributes = self._prepare_atom_attribute(name, values, atom_indices)
+
+    def _prepare_atom_attribute(self, name, values, atom_indices=None):
+        """Validate an atom-column replacement without changing the current table."""
+
         if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
             raise StructuralInconsistencyError(
                 reason=f"Unknown chemical-state atom attribute {name!r}.",
@@ -606,23 +616,22 @@ class _ChemicalStateStorage:
             normalized_values = self._values_with_length(
                 values, len(self.atom_attributes.index), name
             )
-            self.atom_attributes[name] = self._coerce_atom_attribute(
-                name, normalized_values
-            )
+            column = self._coerce_atom_attribute(name, normalized_values)
         else:
             indices = self._normalize_atom_indices(atom_indices)
             normalized_values = self._values_with_length(values, len(indices), name)
             if name not in self.atom_attributes.columns:
-                self.atom_attributes[name] = pd.array(
+                column = pd.array(
                     [pd.NA] * len(self.atom_attributes.index),
                     dtype=_CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES[name],
                 )
+            else:
+                column = self.atom_attributes[name].array.copy()
             coerced_values = self._coerce_atom_attribute(name, normalized_values)
-            self.atom_attributes.loc[indices, name] = coerced_values
-            self.atom_attributes[name] = self._coerce_atom_attribute(
-                name, self.atom_attributes[name]
-            )
-        self._normalize_atom_attribute_columns()
+            column[indices] = coerced_values
+        candidate = self.atom_attributes.copy(deep=False)
+        candidate[name] = column
+        return self._validated_atom_attributes(candidate)
 
     def remove_atom_attribute(self, name):
         """Remove an optional atom-state column if it is materialized."""
@@ -879,15 +888,33 @@ class Topology(NativeQueries):
     ):
         """Set one private atom-state attribute on a resolved state."""
 
+        if atom_indices is not None and np.asarray(atom_indices).size == 0:
+            return
         state = self._resolve_chemical_state(state_index=state_index)
         state._ensure_compatibility(self.n_atoms)
-        state.set_atom_attribute(name, values, atom_indices=atom_indices)
+        candidate = state._prepare_atom_attribute(name, values, atom_indices)
+        with self._invalidating_chemical_interactions():
+            state.atom_attributes = candidate
+
+    def _invalidating_chemical_interactions(self, changed=True):
+        """Stage conservative owner invalidation for a prepared chemical edit."""
+        owner_ref = getattr(self, "_molsys_owner_ref", None)
+        owner = None if owner_ref is None else owner_ref()
+        if not changed or owner is None:
+            return nullcontext()
+        return owner._invalidating_interaction_frames("all")
 
     def _remove_chemical_state_atom_attribute(self, name, state_index=None):
         """Remove one private optional atom-state attribute."""
 
         state = self._resolve_chemical_state(state_index=state_index)
-        state.remove_atom_attribute(name)
+        if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
+            state.remove_atom_attribute(name)
+            return
+        if name in state.atom_attributes.columns:
+            candidate = state.atom_attributes.drop(columns=name)
+            with self._invalidating_chemical_interactions():
+                state.atom_attributes = candidate
 
     @staticmethod
     def _coerce_bond_table(value, n_atoms=None):
@@ -1284,6 +1311,9 @@ class Topology(NativeQueries):
                     caller="molsysmt.native.Topology",
                 )
 
+        if not len(indices):
+            return
+
         if name not in bonds.columns:
             bonds[name] = pd.array(
                 [pd.NA] * len(bonds), dtype=_BOND_OPTIONAL_DTYPES[name]
@@ -1313,6 +1343,9 @@ class Topology(NativeQueries):
                     caller="molsysmt.native.Topology",
                 )
 
+        if not len(indices):
+            return
+
         if values is None or values is pd.NA:
             normalized = [[pd.NA, pd.NA] for _ in indices]
         else:
@@ -1338,22 +1371,36 @@ class Topology(NativeQueries):
     def _set_chemical_state_bonds(self, value, state_index=None):
         """Replace the authoritative bond table without reinterpreting metadata."""
 
-        if state_index is None:
-            state = self._ensure_state_for_mutation()
-        else:
-            state = self._resolve_chemical_state(state_index=state_index)
-        state.bonds = self._coerce_bond_table(value, n_atoms=self.n_atoms)
-        if state.bonds.shape[0] and state.connectivity_completeness == "unavailable":
-            state.connectivity_completeness = "partial"
+        candidate = self._coerce_bond_table(value, n_atoms=self.n_atoms)
+        self._publish_chemical_state_bonds(candidate, state_index)
+
+    def _publish_chemical_state_bonds(self, candidate, state_index=None):
+        """Publish prepared bonds after staging owner invalidation, ignoring labels."""
+        state = (
+            None
+            if state_index is None and not self._chemical_states
+            else self._resolve_chemical_state(state_index=state_index)
+        )
+        columns = tuple(name for name in candidate.columns if name != "bond_id")
+        changed = (
+            state is None
+            or columns
+            != tuple(name for name in state.bonds.columns if name != "bond_id")
+            or any(not state.bonds[name].equals(candidate[name]) for name in columns)
+        )
+        with self._invalidating_chemical_interactions(changed):
+            if state is None:
+                state = self._ensure_state_for_mutation()
+            state.bonds = candidate
+            if len(candidate) and state.connectivity_completeness == "unavailable":
+                state.connectivity_completeness = "partial"
 
     def _reset_chemical_state_bonds(self, n_bonds=0, state_index=None):
         """Reset one state's bond table, allowing explicit construction rows."""
 
-        if state_index is None:
-            state = self._ensure_state_for_mutation()
-        else:
-            state = self._resolve_chemical_state(state_index=state_index)
-        state.bonds = Bonds_DataFrame(n_bonds=n_bonds)
+        self._publish_chemical_state_bonds(
+            Bonds_DataFrame(n_bonds=n_bonds), state_index
+        )
 
     def _append_chemical_state_bonds(
         self,
@@ -1392,6 +1439,8 @@ class Topology(NativeQueries):
                 )
 
         n_new_bonds = bonded_atom_pairs.shape[0]
+        if not n_new_bonds:
+            return
 
         def _metadata_values(values, field):
             if values is None:
@@ -1448,8 +1497,10 @@ class Topology(NativeQueries):
         if is_all(bond_indices):
             self._reset_chemical_state_bonds(n_bonds=0, state_index=state_index)
             return
-        bonds.drop(bond_indices, inplace=True)
-        bonds.reset_index(drop=True, inplace=True)
+        if np.asarray(bond_indices).size == 0:
+            return
+        candidate = bonds.drop(bond_indices).reset_index(drop=True)
+        self._set_chemical_state_bonds(candidate, state_index=state_index)
 
     def _append_chemical_state(self, state_id=None, set_as_reference=False):
         """Append an empty private chemical state and return its index."""
@@ -1482,7 +1533,12 @@ class Topology(NativeQueries):
 
     @bonds.setter
     def bonds(self, value):
-        """Replace the bond table owned by the reference chemical state."""
+        """Replacing reference-state bonds after validating canonical chemistry.
+
+        Scientific changes invalidate every named analysis in the owning MolSys.
+        Bond-label-only changes preserve analyses. Previously held tables and
+        interaction snapshots remain independent of this replacement.
+        """
 
         self._set_chemical_state_bonds(value)
 
@@ -1746,6 +1802,8 @@ class Topology(NativeQueries):
     def _set_component_indices(self, values, atom_indices=None, state_index=None):
         """Set authoritative component membership for a resolved state."""
 
+        if atom_indices is not None and np.asarray(atom_indices).size == 0:
+            return
         state = self._resolve_chemical_state(state_index=state_index)
         state._ensure_compatibility(self.n_atoms)
         if atom_indices is None:
@@ -1758,7 +1816,7 @@ class Topology(NativeQueries):
                     reason="Chemical-state component indices must be non-negative or missing.",
                     caller="molsysmt.native.Topology",
                 )
-            state.component_indices = pd.Series(normalized, index=range(self.n_atoms))
+            candidate = pd.Series(normalized, index=range(self.n_atoms))
         else:
             indices = state._normalize_atom_indices(np.atleast_1d(atom_indices))
             normalized = _ChemicalStateStorage._values_with_length(
@@ -1770,11 +1828,10 @@ class Topology(NativeQueries):
                     reason="Chemical-state component indices must be non-negative or missing.",
                     caller="molsysmt.native.Topology",
                 )
-            state.component_indices.loc[indices] = normalized
-            state.component_indices = pd.Series(
-                pd.array(state.component_indices, dtype="Int64"),
-                index=range(self.n_atoms),
-            )
+            candidate = state.component_indices.copy()
+            candidate.loc[indices] = normalized
+        with self._invalidating_chemical_interactions():
+            state.component_indices = candidate
 
     def _component_indices_are_missing(self, state_index=None):
         """Return whether any resolved-state component membership is unknown."""
@@ -2151,9 +2208,56 @@ class Topology(NativeQueries):
         return _copy_independently(self, skip_digestion)
 
     @signal(tags=["native"])
+    @arg_digest(native_topology_bonds=True)
     def add_bonds(self, bonded_atom_pairs, skip_digestion=False):
-        """Append new bonds given atom index pairs."""
+        """Adding covalent edges and rebuilding their connected components.
 
+        Parameters
+        ----------
+        bonded_atom_pairs : array-like of int
+            Atom-index pairs with shape (n_bonds, 2), within this topology's
+            atom domain. Self-edges and duplicate unordered pairs are rejected.
+            An empty sequence changes nothing.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        None
+            Bonds and component assignments are updated in the resolved state.
+
+        Raises
+        ------
+        ArgumentError
+            If pairs are malformed or do not contain integer indices.
+        StructuralInconsistencyError
+            If endpoints are out of range, self-edges or duplicate edges.
+
+        Notes
+        -----
+        An attached topology notifies its owning MolSys before publishing bonds:
+        every named analysis becomes unevaluated, including evaluated-empty
+        structures. No detector runs automatically. Invalid input or failure to
+        stage invalidation preserves the bond table and analyses. A subsequent
+        component-rebuilding failure can leave the new bonds published, with
+        analyses already invalidated. Standalone copies have no owner link.
+
+        Examples
+        --------
+        >>> topology = Topology(n_atoms=3)
+        >>> topology.add_bonds([[0, 1]])
+        >>> topology.n_bonds
+        1
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-native-world-classes-molsysmt-topology`.
+
+        .. versionadded:: 1.0.0
+        """
+
+        if np.asarray(bonded_atom_pairs).size == 0:
+            return
         self._append_chemical_state_bonds(bonded_atom_pairs)
 
         self.rebuild_components(
@@ -2163,9 +2267,58 @@ class Topology(NativeQueries):
             redefine_types=True,
         )
 
+    @arg_digest(native_topology_bonds=True)
     def remove_bonds(self, bond_indices="all", skip_digestion=False):
-        """Drop bonds by index."""
+        """Removing covalent edges and rebuilding their connected components.
 
+        Parameters
+        ----------
+        bond_indices : int or array-like of int or str, default='all'
+            Positional bond indices to remove; 'all' removes every bond. An
+            empty sequence changes nothing. Remaining indices are compacted.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for inputs already satisfying this contract.
+
+        Returns
+        -------
+        None
+            Bonds and component assignments are updated in the resolved state.
+
+        Raises
+        ------
+        ArgumentError
+            If indices are not integers or a one-dimensional sequence.
+        KeyError
+            If a requested bond index is unavailable.
+
+        Notes
+        -----
+        An attached topology invalidates every named analysis in its MolSys
+        before publishing changed bonds. This includes evaluated-empty coverage;
+        earlier result/query snapshots survive. Invalid input and invalidation
+        allocation failure preserve the original table and analyses. Component
+        rebuilding follows publication and can fail after the chemical edit;
+        analyses remain invalidated. No detector runs automatically.
+
+        Examples
+        --------
+        >>> topology = Topology(n_atoms=3)
+        >>> topology.add_bonds([[0, 1], [1, 2]])
+        >>> topology.remove_bonds([0])
+        >>> topology.n_bonds
+        1
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-native-world-classes-molsysmt-topology`.
+
+        .. versionadded:: 1.0.0
+        """
+
+        if not is_all(bond_indices) and np.asarray(bond_indices).size == 0:
+            return
+        if is_all(bond_indices) and not self.n_bonds:
+            return
         self._remove_chemical_state_bonds(bond_indices=bond_indices)
 
         self.rebuild_components(

@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 
-def digest_bond_indices(bond_indices, caller=None):
+def digest_bond_indices(bond_indices, caller=None, native_topology_bonds=False):
     """Checks if bond_indices has the expected type and value.
 
     Parameters
@@ -27,6 +27,25 @@ def digest_bond_indices(bond_indices, caller=None):
     ArgumentError
         If the given indices are not of the correct type.
     """
+
+    if native_topology_bonds:
+        if is_all(bond_indices):
+            return "all"
+        try:
+            values = np.asarray(bond_indices)
+            booleans = any(
+                isinstance(value, (bool, np.bool_))
+                for value in np.asarray(bond_indices, dtype=object).flat
+            )
+            if values.ndim == 0:
+                values = values.reshape(1)
+            if values.ndim == 1 and not len(values):
+                return np.empty(0, dtype=np.int64)
+            if values.ndim == 1 and values.dtype.kind in "iu" and not booleans:
+                return values
+        except (TypeError, ValueError):
+            pass
+        raise ArgumentError("bond_indices", value=bond_indices, caller=caller)
 
     if (
         caller == "molsysmt.topology.get_rigid_fragments.get_rigid_fragments"

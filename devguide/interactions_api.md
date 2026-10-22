@@ -1049,8 +1049,8 @@ boundary; use coordinated MolSys operations for aligned axis changes.
 Guards are `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py` and
 `tests/native/test_structure_owner.py`.
 
-Public `msm.set` atom-state and scientific bond-state assignments on native
-MolSys invalidate all evaluated frames in every named analysis. Owner-level
+Public `msm.set` atom-state and scientific bond-state changes on native
+MolSys or its attached Topology invalidate all evaluated structures in every named analysis. Owner-level
 `MolSys.chemical_states` replacement does the same. This includes atom charges,
 aromaticity, radical and hydrogen assignments, stereochemistry, bond order and
 type, aromaticity/conjugation, direction and reference atoms, component
@@ -1068,7 +1068,22 @@ allocation failures and uncertain delegate writes; no detector is invoked.
 Earlier views, metadata, source maps and original producer versions survive.
 The guard is `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`.
 
-Raw arrays/DataFrames, separate Topology or ChemicalStates aliases, direct
+Native topology bond addition/removal and full bond-table replacement use the
+same staged owner invalidation, while bond-label-only changes preserve analyses.
+Atom-column, bond-table and component-membership candidates are prepared before
+publication; invalid native assignments and invalidation allocation failure
+preserve chemical values and analyses. Bond tools rebuild components after
+publication, so a rebuilding error can leave new bonds with invalidated analyses.
+Empty selections are no-ops. Comparison of scientific bond fields reads columns
+without copying complete tables merely to ignore bond IDs. No geometry is copied
+or materialized. Nested system/topology delegation invalidates once per analysis.
+Copies and pickle/H5MSM restoration preserve the topology's single weak owner.
+ChemicalStates also carries a weak MolSys owner: standalone copying/serialization
+omits it, system copying/restoration rebinds it, and attaching another system's
+collection copies chemical tables instead of sharing a mutable authority.
+The guard is `tests/native/test_topology_owner.py`.
+
+Raw arrays/DataFrames, direct ChemicalStates collection/record edits, direct
 Topology replacement and MolecularMechanics changes require explicit owner
 invalidation. They do not acquire an observer protocol through the controlled
 setters. Editors of individual observations and finer chemical dependencies remain

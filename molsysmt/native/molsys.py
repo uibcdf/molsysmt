@@ -357,14 +357,37 @@ class MolSys(NativeQueries):
                     ),
                     caller="molsysmt.native.MolSys",
                 )
+        domain = None if absent_chemistry else value._chemical_states_domain
+        domain = self._owned_chemical_states(domain)
         previous = getattr(self, "_topology", None)
         if previous is not None and previous is not value:
             previous._molsys_owner_ref = None
         self._topology = value
-        self._chemical_states_domain = (
-            None if absent_chemistry else value._chemical_states_domain
-        )
+        self._bind_chemical_states(domain)
+        if domain is not None:
+            value._chemical_states_domain = domain
         value._molsys_owner_ref = weakref.ref(self)
+
+    def _owned_chemical_states(self, value):
+        """Prepare independent chemistry when a collection has another owner."""
+        owner_ref = getattr(value, "_molsys_owner_ref", None)
+        owner = None if owner_ref is None else owner_ref()
+        return (
+            value.copy(skip_digestion=True)
+            if owner is not None and owner is not self
+            else value
+        )
+
+    def _bind_chemical_states(self, value):
+        """Bind prepared chemistry without duplicating its topology authority."""
+        previous = getattr(self, "_chemical_states_domain", None)
+        if previous is not None and previous is not value:
+            owner_ref = getattr(previous, "_molsys_owner_ref", None)
+            if owner_ref is not None and owner_ref() is self:
+                previous._molsys_owner_ref = None
+        self._chemical_states_domain = value
+        if value is not None:
+            value._molsys_owner_ref = weakref.ref(self)
 
     @property
     def chemical_states(self):
@@ -395,6 +418,7 @@ class MolSys(NativeQueries):
     def _replace_chemical_states(self, value):
         """Keep one state authority visible through both native domains."""
 
+        value = self._owned_chemical_states(value)
         if self.topology is not None and value.n_atoms != self.topology.n_atoms:
             from molsysmt._private.smonitor import StructuralInconsistencyError
 
@@ -442,7 +466,7 @@ class MolSys(NativeQueries):
                     caller="molsysmt.native.MolSys",
                 )
         with self._invalidating_interaction_frames("all"):
-            self._chemical_states_domain = value
+            self._bind_chemical_states(value)
             if self.topology is not None:
                 self.topology._chemical_states_domain = value
 
@@ -547,6 +571,8 @@ class MolSys(NativeQueries):
             result.topology = topology
             if chemical_states is not None:
                 result.chemical_states = chemical_states
+        elif chemical_states is not None:
+            result._bind_chemical_states(result._owned_chemical_states(chemical_states))
         result.interactions = {} if interactions is None else interactions
         return result
 
@@ -573,6 +599,11 @@ class MolSys(NativeQueries):
                 else self._topology._chemical_states_domain
             )
             self._topology._molsys_owner_ref = weakref.ref(self)
+        self._bind_chemical_states(
+            self._owned_chemical_states(self._chemical_states_domain)
+        )
+        if self.topology is not None and self.chemical_states is not None:
+            self.topology._chemical_states_domain = self.chemical_states
         if "_structure_chemical_state_indices" not in self.__dict__:
             legacy_indices = getattr(self.structures, "_chemical_state_indices", None)
             self._structure_chemical_state_indices = (
@@ -1358,6 +1389,8 @@ class MolSys(NativeQueries):
             result._topology._molsys_owner_ref = weakref.ref(result)
         if result.structures is not None:
             result.structures._molsys_owner_ref = weakref.ref(result)
+        if result.chemical_states is not None:
+            result.chemical_states._molsys_owner_ref = weakref.ref(result)
         return result
 
     def add_missing_bonds(

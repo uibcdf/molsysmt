@@ -372,8 +372,10 @@ assert molsys.interactions['example'].n_interactions == 0
 assert previous_ring_view.n_interactions == 1
 ```
 
-Direct Topology/ChemicalStates aliases, topology replacement, mechanics changes
-and raw table/array writes need explicit owner invalidation. Use
+Chemical-state setters invoked on `molsys.topology` also notify the owner, as
+do its native bond addition/removal and full `bonds` replacement. A standalone
+topology copy is detached. Direct ChemicalStates collection changes, whole
+topology replacement, mechanics changes and raw table/array writes need explicit owner invalidation. Use
 `analysis.invalidate_structures(...)` to replace each affected named result
 before calculating new evidence.
 
