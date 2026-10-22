@@ -902,7 +902,11 @@ def convert(
 
     output = None
 
+    incoming_system = molecular_system
     molecular_system = maybe_read_modular_h5msm(molecular_system)
+    fresh_file_result = molecular_system is not incoming_system and not isinstance(
+        incoming_system, (list, tuple)
+    )
     from molsysmt._private.native_composition import compose_partial_molsys
 
     molecular_system = compose_partial_molsys(molecular_system)
@@ -987,6 +991,15 @@ def convert(
 
     # If one to one
     if not isinstance(from_form, (list, tuple)):
+        conversion_options = kwargs
+        if (
+            fresh_file_result
+            and from_form == "molsysmt.MolSys"
+            and to_form == "molsysmt.MolSys"
+        ):
+            # The reader already owns this new resident graph. Preserve explicit
+            # copy choices while avoiding a second full snapshot by default.
+            conversion_options = {"copy_if_all": False, **kwargs}
         output = _convert_one_to_one(
             molecular_system,
             from_form,
@@ -995,7 +1008,7 @@ def convert(
             structure_indices=structure_indices,
             syntax=syntax,
             skip_digestion=True,
-            **kwargs,
+            **conversion_options,
         )
 
     # If multiple to one

@@ -62,6 +62,15 @@ msm.convert(molsys, to_form="file:h5msm", output_filename="converted.h5msm")
 assert msm.convert("converted.h5msm").structures.n_structures == 2
 ```
 
+Loading a single file as a single `MolSys` creates a fresh resident system
+without a second eager copy by default. Repeated loads are independently
+editable; editing a loaded object does not write back to its file. Explicit
+`copy_if_all=True` requests the additional snapshot, while converting an
+already resident `MolSys` still copies by default. Multiple-output and composed
+input conversions retain their own copy rules. Public 0.5 conversion still
+loads resident data before extracting a requested subset; it is not a public
+selective-file query API.
+
 `msm.h5msm.write` creates a new file and rejects domain data that the current
 0.5 codec cannot encode. Coordinates are stored in nanometers and time in
 picoseconds. `msm.h5msm.read` reconstructs a native `MolSys` when the file's

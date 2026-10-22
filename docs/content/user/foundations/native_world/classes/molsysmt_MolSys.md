@@ -130,6 +130,14 @@ are outside this qualified molecular-data boundary. External resources must
 supply their own copy support. Plain dictionary forms retain Python dictionary
 copy semantics; they do not acquire MolSys domain ownership.
 
+Loading one H5MSM 0.5 file into one `MolSys` already creates an independent
+resident system. Public `msm.convert(filename, to_form='molsysmt.MolSys')`
+uses that fresh system without taking another eager snapshot by default.
+Repeated loads remain independent, and explicit `copy_if_all=True` still
+requests the extra snapshot. Converting an existing resident `MolSys` keeps
+its independent-copy default. This does not make file conversion a lazy or
+selective coordinate reader.
+
 ## Internal Attributes
 
 The native container exposes these domains:

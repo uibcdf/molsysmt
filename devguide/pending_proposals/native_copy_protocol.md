@@ -1107,6 +1107,42 @@ detector, attribution method, dependency floor or file schema changed.
    is implied. General pandas/table alias policy and automatic publication of
    direct attached-domain edits remain design work. Keep #121 active.
 
+### H5MSM fresh-load ownership boundary — 2026-10-21 local
+
+**Implemented / contract-tested:** `basic.convert` now recognizes a single
+H5MSM 0.5 path materialized by its reader. For one `molsysmt.MolSys` output,
+the default native conversion reuses that fresh independent resident graph
+instead of taking a second eager snapshot. The ordinary converter still
+validates options, performs selections/remapping and returns conversion reports.
+Explicit `copy_if_all=True` requests the additional snapshot; explicit False
+remains supported. Existing resident inputs retain their independent-copy
+default. Lists/composed inputs, multiple outputs, legacy files and conversion
+to other forms retain their existing routes and ownership semantics.
+
+Guard:
+`tests/basic/convert/one_to_one/test_h5msm05_load_ownership.py`. Twelve
+parameterized guards reject an extra MolSys deep copy on the original
+`460b3e5bf` source, across full/partial domains and string/Path input. Additional
+cases protect explicit copy choices, existing resident ownership, independently
+edited repeated loads, non-default output units, nonconsecutive selection/source
+maps, parallel occurrences, coverage, preflight reports and argument rejection.
+Multiple MolSys outputs must still own distinct topologies.
+
+The focused integrated campaign passed **841 tests**, no omissions, using
+`pytest-receptor` and 12 workers; its 644 warnings are expected legacy H5MSM
+deprecations. Scope: the new guards, complementary H5MSM composition, all
+`tests/form/file_h5msm`, native Structures/MolSys copy guards and the public
+interaction/H5MSM workflow. No schema, units or scientific-method changes were
+made. This is source-level Linux evidence, not installed/client qualification.
+
+The chunk-layout comparison follows this reader correction. It retains
+automatic HDF5 layout as an explicit reference even if the runtime default
+later changes. The bounded study compares 64 KiB, 256 KiB and 1 MiB aligned
+coordinate chunks with complete xyz tuples. A separate larger run compares
+the provisional 256 KiB compromise with the original automatic layout on both
+240 MB coordinate cases. The larger results and any production adoption belong
+to a subsequent dated checkpoint; they are not inferred from the small study.
+
 ### Historical ownership defect
 
 The following probe reproduced the defect at the initial inspected source
