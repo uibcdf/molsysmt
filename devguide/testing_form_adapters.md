@@ -59,6 +59,10 @@ attributes the target representation can preserve, and document known loss.
 When a route uses `molsysmt.MolSys` as an intermediate, include a test that would
 detect loss or reindexing at both edges.
 
+The [conversion execution guide](conversion_execution.md) defines the executable
+resident-native smoke profile and explicitly inventoried remaining edges. A green
+inventory is not an execution result, and a successful smoke case is not fidelity.
+
 ## Heavy forms
 
 Follow `SCALABILITY.md`. Framework tests with synthetic reducers are necessary

@@ -1,0 +1,1036 @@
+{
+  "schema_version": 1,
+  "profile": "resident-native-v1",
+  "source_forms": [
+    "molsysmt.MolSys",
+    "molsysmt.Topology",
+    "molsysmt.Structures",
+    "molsysmt.MolSysDict",
+    "molsysmt.TopologyDict",
+    "molsysmt.StructuresDict",
+    "molsysmt.MolSysBuilder",
+    "molsysmt.ChemicalStates",
+    "molsysmt.ChemicalStatesDict",
+    "molsysmt.Interactions",
+    "molsysmt.InteractionsDict",
+    "molsysmt.MolecularMechanics",
+    "molsysmt.MolecularMechanicsDict"
+  ],
+  "target_forms": [
+    "molsysmt.MolSys",
+    "molsysmt.Topology",
+    "molsysmt.Structures",
+    "molsysmt.MolSysDict",
+    "molsysmt.TopologyDict",
+    "molsysmt.StructuresDict",
+    "molsysmt.MolSysBuilder",
+    "molsysmt.ChemicalStates",
+    "molsysmt.ChemicalStatesDict",
+    "molsysmt.Interactions",
+    "molsysmt.InteractionsDict",
+    "molsysmt.MolecularMechanics",
+    "molsysmt.MolecularMechanicsDict"
+  ],
+  "accepted_unexecuted_edges": {
+    "MDAnalysis.AtomGroup": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "MDAnalysis.AtomGroup",
+        "MDAnalysis.Universe",
+        "molsysmt.MolSys",
+        "molsysmt.Topology"
+      ]
+    },
+    "MDAnalysis.Topology": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "MDAnalysis.Topology",
+        "molsysmt.Topology"
+      ]
+    },
+    "MDAnalysis.Universe": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "MDAnalysis.Universe",
+        "file:pdb",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget"
+      ]
+    },
+    "MDAnalysis.topology.PDBParser": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "MDAnalysis.Topology",
+        "MDAnalysis.topology.PDBParser",
+        "molsysmt.MolSys",
+        "molsysmt.Topology"
+      ]
+    },
+    "XYZ": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "cupy_ndarray",
+        "file:xyznpy",
+        "molsysmt.MolSys",
+        "molsysmt.MolecularMechanics",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "biopython.PDBStructure": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "biopython.Seq": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "file:fasta",
+        "file:pir"
+      ]
+    },
+    "biopython.SeqRecord": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.SeqRecord",
+        "file:fasta",
+        "file:pir"
+      ]
+    },
+    "cupy_ndarray": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "molsysmt.Structures"
+      ]
+    },
+    "file:bcif": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:bcif",
+        "file:h5msm",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "file:bcif.gz": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:bcif.gz",
+        "file:h5msm",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "file:cif": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:cif",
+        "file:h5msm",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "file:cif.gz": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:cif.gz",
+        "file:h5msm",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "file:crd": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:crd",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openmm.CharmmCrdFile"
+      ]
+    },
+    "file:dcd": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:dcd",
+        "file:h5msm",
+        "mdtraj.DCDTrajectoryFile",
+        "molsysmt.MolSys",
+        "molsysmt.Structures"
+      ]
+    },
+    "file:fasta": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "file:fasta",
+        "molsysmt.Topology",
+        "string:amino_acids_1"
+      ]
+    },
+    "file:gro": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:gro",
+        "mdtraj.GroTrajectoryFile",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.GROFileHandler",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.GromacsGroFile",
+        "openmm.Modeller",
+        "openmm.Topology"
+      ]
+    },
+    "file:h5": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:h5",
+        "file:h5msm",
+        "file:pdb",
+        "mdtraj.HDF5TrajectoryFile",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Topology"
+      ]
+    },
+    "file:h5msm": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:h5msm",
+        "molsysmt.H5MSMFileHandler",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "string:amino_acids_1",
+        "string:amino_acids_3"
+      ]
+    },
+    "file:inpcrd": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:inpcrd",
+        "molsysmt.Structures",
+        "openmm.AmberInpcrdFile"
+      ]
+    },
+    "file:mdcrd": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:mdcrd"
+      ]
+    },
+    "file:mol2": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:mol2",
+        "file:pdb",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.Topology",
+        "parmed.Structure"
+      ]
+    },
+    "file:molsys_yaml": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:molsys_yaml",
+        "molsysmt.MolSys",
+        "molsysmt.MolSysDict"
+      ]
+    },
+    "file:pdb": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "MDAnalysis.Topology",
+        "MDAnalysis.Universe",
+        "MDAnalysis.topology.PDBParser",
+        "file:mol2",
+        "file:pdb",
+        "mdtraj.PDBTrajectoryFile",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.PDBFileHandler",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.PDBFile",
+        "openmm.Simulation",
+        "openmm.System",
+        "openmm.Topology",
+        "parmed.Structure",
+        "pdbfixer.PDBFixer",
+        "pytraj.Topology",
+        "pytraj.Trajectory",
+        "string:pdb_text"
+      ]
+    },
+    "file:pdb.gz": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.PDBFileHandler",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "string:pdb_text"
+      ]
+    },
+    "file:pdbqt": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdbqt",
+        "molsysmt.MolSys",
+        "molsysmt.MolecularMechanics",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "string:pdbqt_text"
+      ]
+    },
+    "file:pir": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "file:fasta",
+        "file:pir",
+        "string:amino_acids_1"
+      ]
+    },
+    "file:prmtop": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdb",
+        "file:prmtop",
+        "mdtraj.Topology",
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.AmberPrmtopFile",
+        "openmm.Modeller",
+        "openmm.Topology"
+      ]
+    },
+    "file:psf": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:psf",
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
+        "openmm.CharmmPsfFile",
+        "openmm.Topology"
+      ]
+    },
+    "file:sdf": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:sdf",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology"
+      ]
+    },
+    "file:smi": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:smi",
+        "molsysmt.Topology",
+        "rdkit.Mol",
+        "string:smiles"
+      ]
+    },
+    "file:structures_yaml": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:structures_yaml",
+        "molsysmt.Structures",
+        "molsysmt.StructuresDict"
+      ]
+    },
+    "file:top": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:top",
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
+        "parmed.GromacsTopologyFile"
+      ]
+    },
+    "file:topology_yaml": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:topology_yaml",
+        "molsysmt.Topology",
+        "molsysmt.TopologyDict"
+      ]
+    },
+    "file:trjpk": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:trjpk",
+        "molsysmt.StructuresDict"
+      ]
+    },
+    "file:xtc": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:h5msm",
+        "file:xtc",
+        "mdtraj.Trajectory",
+        "mdtraj.XTCTrajectoryFile",
+        "molsysmt.Structures"
+      ]
+    },
+    "file:xyz": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "file:xyz"
+      ]
+    },
+    "file:xyznpy": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "file:xyznpy"
+      ]
+    },
+    "mdtraj.AmberRestartFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.AmberRestartFile",
+        "molsysmt.MolSys",
+        "molsysmt.Structures"
+      ]
+    },
+    "mdtraj.DCDTrajectoryFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.DCDTrajectoryFile",
+        "molsysmt.MolSys",
+        "molsysmt.Structures"
+      ]
+    },
+    "mdtraj.GroTrajectoryFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.GroTrajectoryFile",
+        "molsysmt.MolSys",
+        "molsysmt.Structures"
+      ]
+    },
+    "mdtraj.HDF5TrajectoryFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.HDF5TrajectoryFile",
+        "mdtraj.Topology",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openmm.Topology"
+      ]
+    },
+    "mdtraj.PDBTrajectoryFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.PDBTrajectoryFile",
+        "mdtraj.Topology",
+        "molsysmt.MolSys",
+        "molsysmt.Structures"
+      ]
+    },
+    "mdtraj.Topology": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:top",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.Topology",
+        "openmm.Topology",
+        "parmed.GromacsTopologyFile",
+        "parmed.Structure",
+        "string:amino_acids_1",
+        "string:amino_acids_3"
+      ]
+    },
+    "mdtraj.Trajectory": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "file:pdb",
+        "file:xtc",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.Topology",
+        "parmed.Structure",
+        "pdbfixer.PDBFixer",
+        "pytraj.Topology",
+        "pytraj.Trajectory",
+        "string:amino_acids_1",
+        "string:amino_acids_3"
+      ]
+    },
+    "mdtraj.XTCTrajectoryFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.XTCTrajectoryFile",
+        "molsysmt.Structures"
+      ]
+    },
+    "mmcif.PdbxContainers.DataContainer": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdb",
+        "mdtraj.Trajectory",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.MolecularMechanics",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openmm.Topology",
+        "string:amino_acids_1",
+        "string:amino_acids_3",
+        "string:pdb_id",
+        "string:pdb_text"
+      ]
+    },
+    "molsysmt.GROFileHandler": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.GROFileHandler",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget"
+      ]
+    },
+    "molsysmt.H5MSMFileHandler": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.H5MSMFileHandler",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget"
+      ]
+    },
+    "molsysmt.MolSys": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "biopython.PDBStructure",
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "file:h5msm",
+        "file:molsys_yaml",
+        "file:pdb",
+        "file:pdbqt",
+        "file:psf",
+        "file:sdf",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.ViewerJSON",
+        "molsysviewer.MolSysView",
+        "networkx.Graph",
+        "nglview.NGLWidget",
+        "openmm.Context",
+        "openmm.Modeller",
+        "openmm.Simulation",
+        "openmm.System",
+        "openmm.Topology",
+        "parmed.Structure",
+        "pdbfixer.PDBFixer",
+        "pytraj.Topology",
+        "pytraj.Trajectory",
+        "rdkit.Mol",
+        "string:amino_acids_1",
+        "string:amino_acids_3",
+        "string:pdb_text",
+        "string:pdbqt_text"
+      ]
+    },
+    "molsysmt.MolSysDict": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:molsys_yaml"
+      ]
+    },
+    "molsysmt.PDBFileHandler": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.PDBFileHandler",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget"
+      ]
+    },
+    "molsysmt.Structures": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "file:h5msm",
+        "file:structures_yaml",
+        "molsysmt.ViewerJSON"
+      ]
+    },
+    "molsysmt.StructuresDict": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:structures_yaml",
+        "file:trjpk"
+      ]
+    },
+    "molsysmt.Topology": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:h5msm",
+        "file:pdb",
+        "file:psf",
+        "file:topology_yaml",
+        "mdtraj.Topology",
+        "molsysmt.ViewerJSON",
+        "networkx.Graph",
+        "nglview.NGLWidget",
+        "openmm.Topology",
+        "parmed.Structure",
+        "pytraj.Topology",
+        "string:amino_acids_1",
+        "string:amino_acids_3",
+        "string:pdb_text"
+      ]
+    },
+    "molsysmt.TopologyDict": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:topology_yaml"
+      ]
+    },
+    "molsysmt.ViewerJSON": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.ViewerJSON"
+      ]
+    },
+    "molsysviewer.MolSysView": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysviewer.MolSysView"
+      ]
+    },
+    "networkx.Graph": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "networkx.Graph"
+      ]
+    },
+    "nglview.NGLWidget": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Topology",
+        "string:amino_acids_1",
+        "string:amino_acids_3",
+        "string:pdb_text"
+      ]
+    },
+    "openff.Molecule": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openff.Molecule",
+        "openff.Topology",
+        "rdkit.Mol",
+        "string:smiles"
+      ]
+    },
+    "openff.Topology": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openff.Molecule",
+        "openmm.Topology"
+      ]
+    },
+    "openmm.AmberInpcrdFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.Structures",
+        "openmm.AmberInpcrdFile"
+      ]
+    },
+    "openmm.AmberPrmtopFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.Topology",
+        "openmm.AmberPrmtopFile",
+        "openmm.System",
+        "openmm.Topology"
+      ]
+    },
+    "openmm.CharmmCrdFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "openmm.CharmmCrdFile"
+      ]
+    },
+    "openmm.CharmmPsfFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.Topology",
+        "openmm.CharmmPsfFile",
+        "openmm.Topology"
+      ]
+    },
+    "openmm.Context": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.Structures",
+        "openmm.Context",
+        "openmm.System"
+      ]
+    },
+    "openmm.GromacsGroFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openmm.GromacsGroFile"
+      ]
+    },
+    "openmm.GromacsTopFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.Topology",
+        "openmm.GromacsTopFile",
+        "openmm.Topology"
+      ]
+    },
+    "openmm.Modeller": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdb",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.Simulation",
+        "openmm.System",
+        "openmm.Topology",
+        "pdbfixer.PDBFixer"
+      ]
+    },
+    "openmm.PDBFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.PDBFile",
+        "openmm.Topology"
+      ]
+    },
+    "openmm.Simulation": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdb",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openmm.Context",
+        "openmm.Modeller",
+        "openmm.Simulation",
+        "openmm.Topology",
+        "pdbfixer.PDBFixer"
+      ]
+    },
+    "openmm.State": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "XYZ",
+        "molsysmt.Structures",
+        "openmm.State"
+      ]
+    },
+    "openmm.System": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "openmm.Context",
+        "openmm.System"
+      ]
+    },
+    "openmm.Topology": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdb",
+        "file:psf",
+        "mdtraj.Topology",
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
+        "networkx.Graph",
+        "nglview.NGLWidget",
+        "openmm.Context",
+        "openmm.Modeller",
+        "openmm.PDBFile",
+        "openmm.Simulation",
+        "openmm.System",
+        "openmm.Topology",
+        "parmed.Structure",
+        "pdbfixer.PDBFixer",
+        "string:amino_acids_1",
+        "string:amino_acids_3",
+        "string:pdb_text"
+      ]
+    },
+    "parmed.GromacsTopologyFile": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:top",
+        "mdtraj.Topology",
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
+        "openmm.Topology",
+        "parmed.GromacsTopologyFile",
+        "parmed.Structure"
+      ]
+    },
+    "parmed.Structure": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:mol2",
+        "file:pdb",
+        "file:psf",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.Topology",
+        "parmed.GromacsTopologyFile",
+        "parmed.Structure"
+      ]
+    },
+    "pdbfixer.PDBFixer": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "file:pdb",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.Topology",
+        "pdbfixer.PDBFixer",
+        "string:amino_acids_1",
+        "string:amino_acids_3"
+      ]
+    },
+    "pytraj.Topology": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.Topology",
+        "pytraj.Topology",
+        "pytraj.Trajectory"
+      ]
+    },
+    "pytraj.Trajectory": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "pytraj.Topology",
+        "pytraj.Trajectory"
+      ]
+    },
+    "rdkit.Mol": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:smi",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "openff.Molecule",
+        "rdkit.Mol",
+        "string:smiles"
+      ]
+    },
+    "string:alphafold_id": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:bcif",
+        "file:fasta",
+        "file:h5msm",
+        "file:pdb",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.PDBFile",
+        "openmm.Topology",
+        "string:alphafold_id",
+        "string:amino_acids_1",
+        "string:pdb_text"
+      ]
+    },
+    "string:amino_acids_1": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "string:amino_acids_1",
+        "string:amino_acids_3"
+      ]
+    },
+    "string:amino_acids_3": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "biopython.Seq",
+        "biopython.SeqRecord",
+        "string:amino_acids_1",
+        "string:amino_acids_3"
+      ]
+    },
+    "string:pdb_id": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:bcif",
+        "file:bcif.gz",
+        "file:cif",
+        "file:cif.gz",
+        "file:fasta",
+        "file:h5msm",
+        "file:pdb",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "mmcif.PdbxContainers.DataContainer",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.PDBFile",
+        "openmm.Topology",
+        "pdbfixer.PDBFixer",
+        "string:pdb_id",
+        "string:pdb_text"
+      ]
+    },
+    "string:pdb_text": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdb",
+        "mdtraj.Topology",
+        "mdtraj.Trajectory",
+        "molsysmt.MolSys",
+        "molsysmt.PDBFileHandler",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget",
+        "openmm.Modeller",
+        "openmm.PDBFile",
+        "openmm.Simulation",
+        "openmm.System",
+        "openmm.Topology",
+        "pdbfixer.PDBFixer",
+        "string:pdb_text"
+      ]
+    },
+    "string:pdbqt_text": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:pdbqt",
+        "molsysmt.MolSys",
+        "molsysmt.MolecularMechanics",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "string:pdbqt_text"
+      ]
+    },
+    "string:smiles": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:smi",
+        "molsysmt.Topology",
+        "openff.Molecule",
+        "rdkit.Mol",
+        "string:smiles"
+      ]
+    },
+    "string:uniprot_id": {
+      "reason": "Not exercised by the resident-native-v1 profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "targets": [
+        "file:fasta",
+        "molsysmt.Topology",
+        "string:uniprot_id"
+      ]
+    }
+  }
+}

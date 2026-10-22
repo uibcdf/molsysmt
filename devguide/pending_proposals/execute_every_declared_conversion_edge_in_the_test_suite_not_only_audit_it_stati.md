@@ -1,7 +1,7 @@
 ---
 summary: Execute every declared conversion edge in the test suite, not only audit it statically.
 issue: uibcdf/molsysmt#181
-status: open
+status: partial
 opened: 2026-08-19
 closed:
 verification: measured
@@ -17,8 +17,8 @@ supersedes: []
 **Reported:** 2026-08-19, from the post-mortem of
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
-**Status:** open, post-1.0 by decision. The gap is measured; the cost of closing it is
-not.
+**Status:** partial. The resident-native execution profile is implemented;
+external/file/network profiles remain coverage debt.
 
 ## What
 
@@ -136,3 +136,51 @@ Out of scope:
 MolSysMT at `bc42b2eaa`, 2026-08-19. Edge counts from the `_convert_to` dictionaries in
 `molsysmt/form/*/__init__.py`; test counts from `tests/`; timing from
 `pytest tests/form -n 14 --dist loadfile`.
+
+
+## First executable profile — 2026-10-22
+
+At baseline cdf7808e1, discovery reports 96 forms and 596 declared direct edges.
+The new resident-native-v1 profile selects 41 edges among thirteen native and
+dictionary forms. Each case executes the declared adapter with digestion enabled
+and its public conversion route on fresh inputs. The two harness controls
+reject callable exceptions and wrong output forms. The inventory audit is
+explicitly non-executing and independent of capability visibility settings.
+
+The other 555 edges are individually listed as accepted unexecuted debt for
+this profile, with fixture/profile reasons. This is not a claim that no existing
+adapter test exercises them, nor that they are impossible to execute. New routes
+must be covered or explicitly accounted for; retired/newly covered debt fails
+the audit until removed. The inventory has no automatic baseline rewrite route.
+
+The first run found two genuine digest metadata defects, tracked and repaired
+under uibcdf/molsysmt#418. Neither failing edge was skipped or removed from the
+profile. Mirrored adapter regressions fail before the repair (four failed, two
+passed) and preserve copy policy and foreign-form rejection after it.
+
+```bash
+python -m pytest tests/conversion_truth tests/form/molsysmt_MolecularMechanics tests/form/molsysmt_MolecularMechanicsDict devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12
+```
+
+Result: 194 passed, no skips, 17.77 seconds; four expected legacy H5MSM warnings.
+Linux x86_64, Python 3.14.7, NumPy 2.4.6, pytest 9.1.1. Source development evidence,
+not installed release qualification. The [operational guide](../conversion_execution.md)
+records current commands, scope and expansion obligations. No fidelity or
+scientific-accuracy guarantee follows from output-form smoke coverage.
+
+Remaining work: source fixtures and executable profiles for external objects,
+file/string formats and separately marked network identifiers, with honest
+optional-dependency handling. #181 stays partial; #334 release coordination is
+unchanged. The bounded block does not satisfy whole-graph execution acceptance.
+
+Final combined regression on 2026-10-22 executes the scientific suite and registry
+controls, conversion truth, mechanics adapters, inventory audit and real-takeaway
+rendering controls: **587 passed**, zero skips/failures, 54.75 seconds, with twelve
+workers and Pytest Receptor. Seven expected legacy H5MSM warnings remain. Command:
+
+```bash
+python -m pytest devtools/tests/test_validate_scientific_evidence.py devtools/tests/test_execute_scientific_evidence.py devtools/tests/test_audit_conversion_execution.py devtools/tests/test_course_takeaway_rendering.py tests/scientific_truth tests/conversion_truth tests/form/molsysmt_MolecularMechanics tests/form/molsysmt_MolecularMechanicsDict --receptor=llm -n 12
+```
+
+All fourteen fast release gates, full-package Ruff check and format verification
+also pass. No new release matrix, artifact production or publication is implied.

@@ -1,7 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
 
-@arg_digest(form="molsysmt.MoleculeMechanics")
+@arg_digest(form="molsysmt.MolecularMechanics")
 def to_molsysmt_MolecularMechanics(item, copy_if_all=True, skip_digestion=False):
     """
     Converting from molsysmt.MolecularMechanics to molsysmt.MolecularMechanics.
@@ -10,8 +10,8 @@ def to_molsysmt_MolecularMechanics(item, copy_if_all=True, skip_digestion=False)
     ----------
     item : molsysmt.MolecularMechanics
         Source item in molsysmt.MolecularMechanics form.
-    copy_if_all : object
-        Argument copy_if_all.
+    copy_if_all : bool, default=True
+        Whether to return an independent copy. If False, return the input object.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
