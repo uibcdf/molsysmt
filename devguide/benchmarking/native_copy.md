@@ -2,8 +2,8 @@
 
 **Role:** operational guide for the production-path measurements owned by
 [#121](https://github.com/uibcdf/molsysmt/issues/121). The
-[active design record](../pending_proposals/native_copy_protocol.md) separates
-implemented ownership guarantees from unresolved mutation and table policies.
+[implementation record](../archive/resolved_proposals/native_copy_protocol.md) separates
+qualified source boundaries, measured limitations and client-adoption follow-ups.
 
 ## Reproducing the campaign
 
@@ -101,7 +101,7 @@ general table copy-on-write, direct-domain owner notification or client adoption
 
 The [2026-10-21 snapshot](../../benchmarks/baselines/native_copy_resident_20261021.json)
 contains the three default cases. Its interpretation and remaining decisions
-are recorded in the [owning proposal](../pending_proposals/native_copy_protocol.md).
+are recorded in the [owning proposal](../archive/resolved_proposals/native_copy_protocol.md).
 The older `native_copy_20261021.json` and `native_copy_reads_20261021.json`
 measure experimental layouts in `study_native_copy.py`; they are not production
 native-path measurements and must not be substituted for this campaign.
@@ -166,3 +166,103 @@ of 5.243/5.742 s and resident loads of 0.951/1.532 s for the two 240 MB cases.
 The traced incremental load peaks are 242.582/259.747 MB, compared with the
 original 482.608/501.228 MB before eliminating the second native snapshot.
 Those peaks are not total process RSS; full resident data still needs RAM.
+
+
+## Observables and interaction-heavy profiles
+
+The additional profiles measure the four copy/edit operations only:
+
+```bash
+python devtools/scripts/benchmark_native_copy.py --workload mutable_observables \
+    --repeats 3 --output /tmp/native-copy-mutable.json
+python devtools/scripts/benchmark_native_copy.py --workload many_interactions \
+    --repeats 3 --output /tmp/native-copy-many.json
+python devtools/scripts/benchmark_native_copy.py --workload many_interactions \
+    --warm-atom-index --operation deferred_copy --operation eager_copy \
+    --repeats 3 --output /tmp/native-copy-indexed.json
+```
+
+`mutable_observables` adds float64 velocities in nm/ps, B factors in nm²,
+occupancy and a mutable extension signal with an alias and an owner cycle.
+The latter is resident extension data, not a new persistent schema field.
+These arrays are copied eagerly in both geometry modes. Reported unique mutable
+bytes cover only these named arrays, not every object in the molecular system.
+
+`many_interactions` adds two synthetic typed-column analyses. Each has up to
+256 occurrences per evaluated structure, variable counts, empty coverage and a
+final unevaluated structure. One catalog is reused; the other cycles through up
+to `min(128 * n_structures, n_atoms * (n_atoms - 1))` directed pairs. Only stored
+relations/occurrences are allocated. No quadratic atom-pair matrix is created.
+The first default case has 640,000 occurrences in each additional analysis.
+`--warm-atom-index` builds the atom/relation/occurrence indexes before warm-up,
+so copies include independent mutable query caches. Frame checks also warm their
+ordinary query state. These are synthetic storage workloads, not scientific
+interaction-detector benchmarks.
+
+Every result is checked outside timing against analytical coordinates,
+observable values/units, metadata aliases, owners, relation indices,
+measurements, coverage and independence. Corrupt observables and deliberately
+stale coverage fail the benchmark guards. Editing includes invalidation of all
+three named analyses; preparing the independent branch remains outside timing.
+
+### Dated results
+
+The 2026-10-22 Linux/Python 3.14.7 snapshots use three timed samples, one same-shape
+warm-up and a separate tracemalloc pass per fresh worker. Numeric thread counts
+are one. The JSON records CPU, package versions, base commit, dirty state and
+implementation hashes. MB below means decimal MB of traced incremental peak,
+not total RSS. No timing threshold or confidence interval is claimed.
+
+| Workload | Atoms × structures | Deferred ms | Eager ms | Deferred peak MB | Eager peak MB |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Mutable observables | 62 × 5,000 | 10.11 | 14.20 | 14.98 | 22.79 |
+| Mutable observables | 10,000 × 1,000 | 93.81 | 249.60 | 401.70 | 641.81 |
+| Mutable observables | 100,000 × 100 | 95.63 | 236.74 | 405.88 | 645.90 |
+| Many interactions | 62 × 5,000 | 2.35 | 3.78 | 0.12 | 7.92 |
+| Many interactions | 10,000 × 1,000 | 19.00 | 166.60 | 0.96 | 240.80 |
+| Many interactions | 100,000 × 100 | 9.36 | 159.05 | 8.95 | 245.81 |
+| Atom indexes built | 62 × 5,000 | 3.35 | 5.45 | 10.48 | 18.28 |
+| Atom indexes built | 10,000 × 1,000 | 19.50 | 164.91 | 6.06 | 246.16 |
+| Atom indexes built | 100,000 × 100 | 8.46 | 154.25 | 8.95 | 248.72 |
+
+Source snapshots:
+[mutable](../../benchmarks/baselines/native_copy_mutable_20261022.json),
+[many interactions](../../benchmarks/baselines/native_copy_many_20261022.json),
+[indexed](../../benchmarks/baselines/native_copy_indexed_20261022.json).
+The corresponding `*_before_catalogs_20261022.json` snapshots retain the controls
+before the immutable-string-tuple optimization. Tool hashes match across each
+comparison. A profiling pass identified tuple traversal as the dominant cost;
+the 10,000 × 1,000 deferred interaction-heavy median changes from 104.00 to
+19.00 ms, and the indexed case from 108.70 to 19.50 ms. This is one local
+campaign, not a universal speedup. Repeated elements are exact built-in strings;
+string subclasses and mutable tuple members keep their copy protocols.
+
+The remaining approximately 400 MB extra allocation in the large mutable
+profile follows the current eager-observable contract. Exploring broader
+protected storage is tracked after 1.0 in
+[uibcdf/molsysmt#405](https://github.com/uibcdf/molsysmt/issues/405). Atom indexes
+also have a real independent-copy cost; immutable occurrence columns do not make
+all analysis metadata/caches free. Edit peaks exclude branch preparation and
+must not be presented as the total cost of making and editing a molecular copy.
+
+## Source client qualification
+
+```bash
+python -m devtools.scripts.qualify_topomt_native_copy \
+    --output /tmp/topomt-native-copy.json
+```
+
+The [2026-10-22 probe](../../benchmarks/baselines/topomt_native_copy_20261022.json)
+executes both `Topography.copy(deep=False)` and `deep=True`, preserving independent
+feature registries, native owners, metadata and geometry/coverage edits. It also
+checks eager/deferred coordinate storage and parallel observation identity.
+The checkout is not modified. TopoMT HEAD is
+`c3f72a9177ab8a205b69fefc2963800a2d0b4feb`, clean but one commit ahead and two
+behind its fetched origin/main; the four inspected copy/feature files are
+identical to that remote reference. This does not qualify the complete remote
+application, InputContext recovery, its scientific engines or installed packages.
+Reported development version strings can describe an earlier editable build;
+the exact source SHA, status, import paths and code hashes identify this probe.
+Further owner-local adoption remains in uibcdf/molsyssuite#122 and its linked
+client issues. Exact installed-pair release qualification remains in
+uibcdf/molsysmt#334.

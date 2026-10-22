@@ -1,12 +1,12 @@
 ---
 summary: Native objects need an explicit copy ownership and memo contract
 issue: uibcdf/molsysmt#121
-status: active
+status: resolved
 opened: 2026-10-21
-closed:
+closed: 2026-10-22
 verification: reproduced
 area: [native, api, basic, performance, tests]
-guard: tests/interactions/test_copy.py
+guard: tests/native/test_molsys_copy.py
 normative: devguide/native_copy.md
 blocked_by: []
 supersedes: []
@@ -17,21 +17,12 @@ supersedes: []
 **Reported:** Existing issue #121 requests `copy()`, `__copy__()` and
 `__deepcopy__()` and names TopoMT's `Topography` as a reference. The maintainer
 requested a design study before implementation.
-**Status:** The maintainer accepted advancing toward independent native handles
-over shared protected storage with controlled writes. A reproducible development
-prototype and contract probes now compare storage layouts. Earlier bounded
-recommendations are retained below as alternatives. The final storage layout
-and public signatures are not frozen. `Interactions`, standalone `Structures`
-and complete/partial `MolSys` now provide resident copy boundaries, described
-below. Molecular copies preserve owner bindings and may defer coordinate/box
-allocation. The remaining resident convenience methods and named payload
-wrappers now use independent graph copies. The production resident campaign
-below measures copying, edits and consumers on three bounded synthetic systems.
-It records H5MSM I/O/public-load allocation bottlenecks and the measured
-refinements below. Attached coordinate/box setters and controlled topology chemical-state edits now
-publish owner invalidation without dense geometry materialization. General table copy-on-write, other direct
-domain mutation observation and full production/client performance qualification
-are not delivered by these boundaries.
+**Status:** Implemented and source-qualified for the resident types and explicit
+boundaries in [the normative contract](../../native_copy.md). The historical design
+studies and staged checkpoints below explain the alternatives and discoveries;
+the final acceptance section records the completed source scope. Client adoption
+continues under uibcdf/molsyssuite#122 and release-artifact qualification under
+uibcdf/molsysmt#334. Neither is inferred from these source checks.
 
 ## What
 
@@ -411,9 +402,9 @@ coordination to implementations. Neither reference mandates a new dependency.
 ## Development prototype and comparison campaign
 
 The executable study is
-[`devtools/scripts/study_native_copy.py`](../../devtools/scripts/study_native_copy.py).
+[`devtools/scripts/study_native_copy.py`](../../../devtools/scripts/study_native_copy.py).
 Its regression module is
-[`devtools/tests/test_native_copy_study.py`](../../devtools/tests/test_native_copy_study.py).
+[`devtools/tests/test_native_copy_study.py`](../../../devtools/tests/test_native_copy_study.py).
 These are development tools, not exported native forms or production copy hooks.
 
 The prototype compares three coordinate storage strategies with the same
@@ -473,7 +464,7 @@ Comparative results are recorded separately after fixing the measured source.
 ### Initial complete campaign
 
 The retained artifact is
-[`native_copy_20261021.json`](../../benchmarks/baselines/native_copy_20261021.json):
+[`native_copy_20261021.json`](../../../benchmarks/baselines/native_copy_20261021.json):
 21 cases measured against clean source
 `4e8cbad485c4757d49dc908d193d28bfdbb01c37`, with study SHA-256
 `9c06847797b78fab8db09b1f603fd50cfb9a91791deeb4265445f35dde8a43c8`.
@@ -541,7 +532,7 @@ of an editable copy. Existing public getter behavior must be preserved or
 changed explicitly, not incidentally by selecting a faster storage layout.
 
 The separate artifact
-[`native_copy_reads_20261021.json`](../../benchmarks/baselines/native_copy_reads_20261021.json)
+[`native_copy_reads_20261021.json`](../../../benchmarks/baselines/native_copy_reads_20261021.json)
 contains 21 read cases measured against clean source
 `365b9a030d19603e16232e2b0e160ee00aab3768`, with study SHA-256
 `4be67b12132dce937bc15f0bd466de079ed81f89265b07051024e3e1a378db3c`.
@@ -998,10 +989,10 @@ Client-installed/source adoption evidence is not inferred from provider tests.
 ### Production resident campaign — 2026-10-21 local / 2026-10-22 UTC
 
 **Benchmarked:**
-[`benchmark_native_copy.py`](../../devtools/scripts/benchmark_native_copy.py)
+[`benchmark_native_copy.py`](../../../devtools/scripts/benchmark_native_copy.py)
 executes the implemented native objects, not the earlier experimental `_Branch`
 layouts. The
-[raw snapshot](../../benchmarks/baselines/native_copy_resident_20261021.json)
+[raw snapshot](../../../benchmarks/baselines/native_copy_resident_20261021.json)
 records base `6e11395a976a2e0a2a3c8e046185a07aa131165a`, the dirty development
 worktree, exact tool/runtime-file hashes, raw samples and package versions.
 All recorded implementation hashes matched the files after the campaign.
@@ -1028,7 +1019,7 @@ suite completed near controller startup; no further test or benchmark campaign
 was launched during measurement. Do not rank small latency differences from
 this development run. The filesystem cache is warm/uncontrolled;
 these are not physical-disk throughput or cold-start measurements. See the
-[operational guide](../benchmarking/native_copy.md) for operation boundaries,
+[operational guide](../../benchmarking/native_copy.md) for operation boundaries,
 fixture and memory definitions.
 
 Median times, rounded; atoms × structures name each column:
@@ -1150,7 +1141,7 @@ to a subsequent dated checkpoint; they are not inferred from the small study.
 ### H5MSM layout adoption and production remeasurement — 2026-10-21 local
 
 **Benchmarked:** the
-[bounded layout study](../../benchmarks/baselines/h5msm_structure_chunks_20261021.json)
+[bounded layout study](../../../benchmarks/baselines/h5msm_structure_chunks_20261021.json)
 compares automatic coordinates with complete-xyz 64 KiB, 256 KiB and 1 MiB
 chunks on 62 × 512, 10,000 × 128 and 100,000 × 16 fixtures. Each case/layout
 uses a fresh worker, one warm-up, three timed samples and a separate traced
@@ -1167,7 +1158,7 @@ size and full transfer (9.34 ms; 22.89 MB versus 26.31 MB with 64 KiB).
 These timings do not prove a universal optimum. The provisional **256 KiB**
 choice was then compared with automatic layout on the two 240 MB coordinate
 cases, using two timed samples per operation:
-[large controlled snapshot](../../benchmarks/baselines/h5msm_structure_chunks_large_20261021.json).
+[large controlled snapshot](../../../benchmarks/baselines/h5msm_structure_chunks_large_20261021.json).
 
 | Larger control | 10,000 × 1,000: auto → aligned 256 KiB | 100,000 × 100: auto → aligned 256 KiB |
 | --- | ---: | ---: |
@@ -1206,7 +1197,7 @@ chooser to reproduce alternatives; it is not an alternate runtime provider.
 
 **Production remeasurement:** the original resident benchmark tool was rerun
 with only its public H5MSM write/read operations and two timed repetitions:
-[refined snapshot](../../benchmarks/baselines/native_copy_h5msm_refined_20261021.json).
+[refined snapshot](../../../benchmarks/baselines/native_copy_h5msm_refined_20261021.json).
 This run uses the default runtime writer, without a dataset-creation override:
 
 | Public runtime operation | 62 × 5,000 | 10,000 × 1,000 | 100,000 × 100 |
@@ -1414,7 +1405,7 @@ this study does not qualify other newer client code.
 ### Independent assembly boundary follow-up — 2026-10-22
 
 The public-construction mismatch found during persistence qualification is
-resolved separately under [uibcdf/molsysmt#396](../archive/resolved_bugs/validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md).
+resolved separately under [uibcdf/molsysmt#396](../resolved_bugs/validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md).
 Assembly validation now retains operation arrays and unit-bearing translations,
 without mutating caller metadata. Analytical direct/named/loaded assembly tests
 also exercise the extraction consumer. This does not resolve #121's remaining
@@ -1699,7 +1690,7 @@ coverage, parent/child slot storage, iterator/private/unset slots, graph/table
 aliases, serialization refusal and live-resource failure. The existing MolSys
 fixture now has a reusable test factory so these cases use the same molecular
 and analysis data. The earlier 324-case cross-family copy selection also passed.
-The normative boundary is consolidated in [native_copy.md](../native_copy.md).
+The normative boundary is consolidated in [native_copy.md](../../native_copy.md).
 Foundations, Toolbox, Cookbook and Common Core module 4 explain these limits;
 notebook code and saved outputs remain unchanged. Ackredit does not apply to
 these storage-lifecycle corrections. Scientific criteria, dependencies, physical
@@ -1725,3 +1716,95 @@ invalidation boundaries, rather than silently becoming general observers.
 Simulation settings and live resources retain separate configuration/I/O scope.
 The slot correction and table qualification do not certify arbitrary user
 objects, installed clients, another platform or a release artifact.
+
+
+## Final source acceptance — 2026-10-22
+
+The resident copy implementation is complete for the stated scope. The final
+campaign covers the previously missing mutable-observable and interaction-heavy
+loads, and the original concrete TopoMT route now passes. Native geometry,
+eager table/observable ownership, sparse immutable storage, memo/slot semantics,
+public validation and controlled edit invalidation are defined by
+[the maintained contract](../../native_copy.md), rather than the earlier alternatives.
+
+### Measurements and the resulting optimization
+
+The benchmark adds two additional workloads and optional atom-index warming.
+All three fixed cases (62 × 5,000, 10,000 × 1,000, 100,000 × 100) execute the
+four copy/edit operations for mutable observables and many interactions; the
+indexed workload executes both copy modes. Workers run sequentially, with one
+numeric thread, one same-shape warm-up, three timed samples and a separate
+allocation pass. These are synthetic resident workloads, not detector timings.
+Both controls and the final reruns are committed in `benchmarks/baselines/`;
+[the operational guide](../../benchmarking/native_copy.md) links all snapshots,
+reproduction commands, metrics, units and limitations. Each records Linux host,
+Python 3.14.7, dependency versions, base source b501bfd69, dirty source state and
+implementation hashes. The final recorded helper/tool hashes match the delivered
+code; the snapshots are not clean installed artifacts or release producers.
+
+A profiling pass on the 10,000 × 1,000 interaction-heavy fixture attributes
+384,787 preparation calls and 384,809 deepcopy calls largely to immutable role
+and relation-name tuples. Reusing only exact built-in-string tuples through the
+memo removes that repeated traversal without bypassing string subclasses,
+mutable members or enclosing graph memo entries. The final median deferred
+copy changes from 104.00 to 19.00 ms; the indexed case changes from 108.70 to
+19.50 ms. Before/after benchmark-tool hashes match. A semantic traversal guard
+and mutable/subclass independence guard protect this optimization. These are
+one-campaign medians, not confidence intervals or universal speedup claims.
+
+The large mutable profile still needs approximately 400 MB of additional
+independent observable arrays. At 10,000 × 1,000 its deferred traced peak is
+401.70 MB versus 641.81 MB for eager geometry; median copy times are 93.81 and
+249.60 ms. That is consistent with the documented eager-observable boundary,
+not evidence for zero-cost molecular branching. A compatible broader design is
+tracked after 1.0 in [uibcdf/molsysmt#405](https://github.com/uibcdf/molsysmt/issues/405).
+Indexed-query caches also have independent-copy costs. Edit timings/peaks exclude
+branch creation; RSS counters and process HWM are not incremental operation peaks.
+
+### Client evidence and remaining owners
+
+The reproducible source probe exercises `Topography.copy(deep=False/True)` with
+real native systems and named interactions. Both pass owner binding, feature
+registry separation, mutable metadata, eager/deferred geometry, selected edits,
+retained original coverage and parallel occurrence identity. TopoMT source is
+c3f72a9177ab8a205b69fefc2963800a2d0b4feb, clean but 1 ahead/2 behind its fetched
+origin/main. The inspected copy/feature files match that remote. No checkout,
+client code, pin or package is changed. Exact paths, reported development version
+labels and file hashes are recorded; those labels can reflect an older editable
+build and are not substituted for source identity. InputContext recovery and
+scientific-engine execution are not implied by this registry/native-copy probe.
+
+Suite-wide owner-local qualification stays in uibcdf/molsyssuite#122 and its
+client issues (uibcdf/topomt#97, uibcdf/dockingmt#51, uibcdf/molsysviewer#259,
+uibcdf/pharmacophoremt#60 and uibcdf/elastnetmt#28). They retain intentional
+reference/cache decisions, application workflows and future installed-adoption
+ownership. They are not unfinished implementations inside this provider issue.
+The exact release/package matrix remains under uibcdf/molsysmt#334.
+
+### Gates, exclusions and closure
+
+The final combined source selection passes **4,250 tests**, without omissions,
+with 12 workers and Pytest Receptor in 53.60 seconds. It includes native classes,
+interactions, native/H5MSM form adapters and benchmark guards. Its 682 visible
+warnings form eight groups: legacy H5MSM, deliberate low-memory probes, pandas
+migration, synthetic names and existing merge policies. A focused 72-case copy /
+benchmark selection also passes. The obsolete benchmark guard was corrected to
+inject genuinely stale evidence after a supported owner-notifying write; it no
+longer mistakes correct invalidation for a benchmark failure. An initial new
+optimization guard targeted a CPython dispatch entry absent in 3.14 and was
+replaced by a direct native traversal guard. That interrupted campaign is not
+counted as successful; the complete final run above uses the corrected guard.
+
+All 14 fast gates pass. The ordinary copy/owner/H5MSM qualification from previous
+checkpoints remains applicable outside the two-line immutable-tuple optimization;
+the final aggregate exercises that code too. No dependency, scientific method,
+physical-unit convention, H5MSM schema, release tag or published floor changes.
+Ackredit does not apply to storage/copy bookkeeping.
+
+Canonical table columns are independently copied; arbitrary pandas cell objects
+and metadata keep their own protocols. Raw data writes and uncoordinated domain
+or axis changes still need explicit invalidation. Live resources and Simulation
+configuration keep their own contracts. These exclusions are maintained scope,
+not an implicit promise of future observers, resource reopening or table COW.
+The source implementation closes #121 with a native MolSys guard and the
+normative contract; the linked owners retain the clearly separated follow-ups.

@@ -231,3 +231,36 @@ def test_live_resource_failure_does_not_transfer_the_source_owner(
         assert all(
             source.interactions[name] is value for name, value in previous.items()
         )
+
+
+def test_immutable_string_catalogs_do_not_reenter_element_copy(monkeypatch):
+    import molsysmt.native._copy as native_copy
+
+    source = Topology(n_atoms=2)
+    source.role_catalog = ("donor", "acceptor") * 1000
+    labels = {id(value) for value in source.role_catalog}
+    original = native_copy._prepare
+
+    def checked(value, *args):
+        if id(value) in labels:
+            pytest.fail("Copy traversed an immutable role catalog element by element")
+        return original(value, *args)
+
+    monkeypatch.setattr(native_copy, "_prepare", checked)
+    duplicate = source.copy()
+    assert duplicate.role_catalog is source.role_catalog
+
+
+def test_string_subclasses_and_mutable_tuple_items_keep_their_copy_protocol():
+    class Label(str):
+        pass
+
+    label = Label("example")
+    label.notes = [1]
+    source = Topology(n_atoms=2)
+    source.extra = ((label,), ([1],))
+    duplicate = source.copy()
+    duplicate.extra[0][0].notes.append(2)
+    duplicate.extra[1][0].append(2)
+    assert label.notes == [1]
+    assert source.extra[1][0] == [1]

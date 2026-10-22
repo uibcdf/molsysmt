@@ -1,0 +1,46 @@
+{
+  "measured_at_utc": "2026-10-22T20:06:52.193029+00:00",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "probe_sha256": "3ac31d05db6dfcd0494e6729851c6dc2ba45ed87803da7a0806e3f3e5df5afdf",
+  "scope": "source-client registry/native copy route; no installed-package or scientific-engine qualification",
+  "molsysmt": {
+    "reported_version": "0.23.0+93.g48aba006f",
+    "import_path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+    "head": "b501bfd69ad3e692ceeb865ebcdbd0cd1deed173",
+    "worktree_status": "M devguide/native_copy.md\n M devtools/scripts/benchmark_native_copy.py\n M devtools/tests/test_benchmark_native_copy.py\n M molsysmt/native/_copy.py\n M tests/native/test_copy_boundaries.py\n?? devtools/scripts/qualify_topomt_native_copy.py",
+    "ahead_behind_origin_main": "0\t0",
+    "sha256": {
+      "molsysmt/native/_copy.py": "6adc1738727097c2ed474b8a4d14792bfe724bce1969e3ddb6f305fad6c05994",
+      "molsysmt/native/molsys.py": "7d984e9220782e7d38dc3dcb18dc022788fc4a14ae1a1384f427cecfe113182d",
+      "molsysmt/native/structures.py": "1431c9bc050d7b674671bbfa478ba20fede52e62c1983cf18f2f6c7b7cd53a71",
+      "molsysmt/native/topology.py": "c4a3ad7fac0aa5b24f7b13ec73cf80429bf106899857f4c26888201560ea31ca",
+      "molsysmt/native/chemical_states.py": "bd7185a3120a9fe47745bc2022a2a91aaf06172774c2977ec085521204eb56b5",
+      "devtools/scripts/benchmark_native_copy.py": "485f181a7edbaa77b2c0fa8c1ba40db364c6dbb74bd90d1ab8b64caeb6f53220"
+    }
+  },
+  "topomt": {
+    "reported_version": "1.0.0+70.g303bd33.dirty",
+    "import_path": "/home/diego/repos@uibcdf/topomt/topomt/__init__.py",
+    "head": "c3f72a9177ab8a205b69fefc2963800a2d0b4feb",
+    "worktree_status": "",
+    "ahead_behind_origin_main": "1\t2",
+    "sha256": {
+      "topomt/topography/Topography.py": "60764f532abd8c3a9faa01c6b42c5d77743b2b2b8247fa8a141b52792aa1ba70",
+      "topomt/features/BaseFeature.py": "37b58873a03ffc29198d8c7f56eb2edf2865ca6b935c6ac36dbfa95728bad42b",
+      "topomt/features/Pocket.py": "fa4e4c61c3e261ae8a2c32b9efcc59a8f337a8908487dd6ca60a196ec6b25854",
+      "topomt/features/Channel.py": "2bddc23b81abc60734b8433409161b75e99ff538666daecc59d9707d1e0764cd"
+    }
+  },
+  "version_note": "Reported development version strings may reflect an earlier editable build; source commits, status and hashes identify the tested code.",
+  "results": [
+    {
+      "deep": false,
+      "ownership_metadata_registry_geometry_and_coverage": "passed"
+    },
+    {
+      "deep": true,
+      "ownership_metadata_registry_geometry_and_coverage": "passed"
+    }
+  ]
+}

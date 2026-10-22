@@ -1,0 +1,664 @@
+{
+  "scope": "production resident native paths; synthetic data; no installed-client qualification",
+  "measured_at_utc": "2026-10-22T20:05:46.301922+00:00",
+  "source_commit": "b501bfd69ad3e692ceeb865ebcdbd0cd1deed173",
+  "worktree_dirty": true,
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_native_copy.py": "485f181a7edbaa77b2c0fa8c1ba40db364c6dbb74bd90d1ab8b64caeb6f53220",
+    "molsysmt/native/_structure_array.py": "bdd86cd3a5e4664894658ef65c92ecb252206f5dbbb0f47dc2071276d693b051",
+    "molsysmt/native/_copy.py": "6adc1738727097c2ed474b8a4d14792bfe724bce1969e3ddb6f305fad6c05994",
+    "molsysmt/native/structures.py": "1431c9bc050d7b674671bbfa478ba20fede52e62c1983cf18f2f6c7b7cd53a71",
+    "molsysmt/native/molsys.py": "7d984e9220782e7d38dc3dcb18dc022788fc4a14ae1a1384f427cecfe113182d",
+    "molsysmt/interactions/result.py": "76b5e188f634ac05d7ecc28368e4cd1d7e01c5ac4b7b9ba0af817dc5eee2ff20",
+    "molsysmt/form/_h5msm05_structures.py": "59c946dd14042e8d429f8d8868f53d6d0d0253077174e483a109dc85ec2efd8e",
+    "molsysmt/native/topology.py": "c4a3ad7fac0aa5b24f7b13ec73cf80429bf106899857f4c26888201560ea31ca",
+    "molsysmt/native/chemical_states.py": "bd7185a3120a9fe47745bc2022a2a91aaf06172774c2977ec085521204eb56b5"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "smonitor": "0.21.0+1.gd6b2394"
+  },
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "logical_cpus": 20,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "RAYON_NUM_THREADS": "1"
+  },
+  "repeats": 3,
+  "workload": "many_interactions",
+  "atom_indexes_warmed": false,
+  "iterator_chunk": 32,
+  "measurement": "fresh worker per case/operation; same-shape warm-up; median; fresh deferred edit subjects outside timing; separate tracemalloc pass",
+  "rss_scope": "Linux address space, including imports, fixture and warm-up; before/retained counters are not operation peak; HWM includes earlier allocations; release need not return allocator arenas to OS",
+  "byte_scope": "unique immutable coordinate/box bytes; excludes tables, analyses, Python headers and allocator overhead",
+  "io_scope": "public H5MSM 0.5 conversion with coordinates, box, time, topology, chemical states and named analysis; warm OS cache; no fsync durability claim",
+  "fixture": "baseline plus two typed-column synthetic analyses, each up to 256 observations per evaluated structure; reused versus changing pair catalogs; no quadratic atom-pair allocation",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.0023511300096288323,
+          "samples": [
+            {
+              "seconds": 0.0023511300096288323,
+              "rss_before_bytes": 266379264,
+              "rss_retained_bytes": 266379264,
+              "process_hwm_bytes": 273702912
+            },
+            {
+              "seconds": 0.002257577987620607,
+              "rss_before_bytes": 266379264,
+              "rss_retained_bytes": 266379264,
+              "process_hwm_bytes": 273702912
+            },
+            {
+              "seconds": 0.0025885910145007074,
+              "rss_before_bytes": 266379264,
+              "rss_retained_bytes": 266379264,
+              "process_hwm_bytes": 273702912
+            }
+          ],
+          "traced_operation_peak_bytes": 116392,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 7800000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 640000,
+              "numeric_bytes": 23165616
+            },
+            "changing": {
+              "relations": 3782,
+              "occurrences": 640000,
+              "numeric_bytes": 23311776
+            }
+          },
+          "rss_after_releasing_result_bytes": 266379264,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.0037843759928364307,
+          "samples": [
+            {
+              "seconds": 0.0038673649833071977,
+              "rss_before_bytes": 266403840,
+              "rss_retained_bytes": 266403840,
+              "process_hwm_bytes": 273883136
+            },
+            {
+              "seconds": 0.0035806439991574734,
+              "rss_before_bytes": 266403840,
+              "rss_retained_bytes": 266403840,
+              "process_hwm_bytes": 273883136
+            },
+            {
+              "seconds": 0.0037843759928364307,
+              "rss_before_bytes": 266403840,
+              "rss_retained_bytes": 266403840,
+              "process_hwm_bytes": 273883136
+            }
+          ],
+          "traced_operation_peak_bytes": 7917883,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 15600000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 640000,
+              "numeric_bytes": 23165616
+            },
+            "changing": {
+              "relations": 3782,
+              "occurrences": 640000,
+              "numeric_bytes": 23311776
+            }
+          },
+          "rss_after_releasing_result_bytes": 266403840,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.0032844090019352734,
+          "samples": [
+            {
+              "seconds": 0.0032844090019352734,
+              "rss_before_bytes": 281358336,
+              "rss_retained_bytes": 281358336,
+              "process_hwm_bytes": 281358336
+            },
+            {
+              "seconds": 0.0029610649798996747,
+              "rss_before_bytes": 281358336,
+              "rss_retained_bytes": 281358336,
+              "process_hwm_bytes": 281358336
+            },
+            {
+              "seconds": 0.003505447006318718,
+              "rss_before_bytes": 281358336,
+              "rss_retained_bytes": 281358336,
+              "process_hwm_bytes": 281358336
+            }
+          ],
+          "traced_operation_peak_bytes": 2250096,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 8847552,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 640000,
+              "numeric_bytes": 23165616
+            },
+            "changing": {
+              "relations": 3782,
+              "occurrences": 640000,
+              "numeric_bytes": 23311776
+            }
+          },
+          "rss_after_releasing_result_bytes": 281362432,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.0037077850138302892,
+          "samples": [
+            {
+              "seconds": 0.003953307983465493,
+              "rss_before_bytes": 281329664,
+              "rss_retained_bytes": 281329664,
+              "process_hwm_bytes": 281329664
+            },
+            {
+              "seconds": 0.0029611880017910153,
+              "rss_before_bytes": 281329664,
+              "rss_retained_bytes": 281329664,
+              "process_hwm_bytes": 281329664
+            },
+            {
+              "seconds": 0.0037077850138302892,
+              "rss_before_bytes": 281329664,
+              "rss_retained_bytes": 281329664,
+              "process_hwm_bytes": 281329664
+            }
+          ],
+          "traced_operation_peak_bytes": 2250811,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 8847552,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 640000,
+              "numeric_bytes": 23165616
+            },
+            "changing": {
+              "relations": 3782,
+              "occurrences": 640000,
+              "numeric_bytes": 23311776
+            }
+          },
+          "rss_after_releasing_result_bytes": 281333760,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        }
+      ]
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 1000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.018997792998561636,
+          "samples": [
+            {
+              "seconds": 0.018997792998561636,
+              "rss_before_bytes": 440913920,
+              "rss_retained_bytes": 440913920,
+              "process_hwm_bytes": 685248512
+            },
+            {
+              "seconds": 0.019457071990473196,
+              "rss_before_bytes": 440913920,
+              "rss_retained_bytes": 440913920,
+              "process_hwm_bytes": 685248512
+            },
+            {
+              "seconds": 0.01806134099024348,
+              "rss_before_bytes": 440913920,
+              "rss_retained_bytes": 440913920,
+              "process_hwm_bytes": 685248512
+            }
+          ],
+          "traced_operation_peak_bytes": 961266,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 240072000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 127872,
+              "numeric_bytes": 4712512
+            },
+            "changing": {
+              "relations": 128000,
+              "occurrences": 127872,
+              "numeric_bytes": 9827392
+            }
+          },
+          "rss_after_releasing_result_bytes": 440913920,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.16659908299334347,
+          "samples": [
+            {
+              "seconds": 0.1655213129997719,
+              "rss_before_bytes": 443658240,
+              "rss_retained_bytes": 673939456,
+              "process_hwm_bytes": 684883968
+            },
+            {
+              "seconds": 0.16659908299334347,
+              "rss_before_bytes": 443658240,
+              "rss_retained_bytes": 673939456,
+              "process_hwm_bytes": 684883968
+            },
+            {
+              "seconds": 0.16708063299302012,
+              "rss_before_bytes": 443658240,
+              "rss_retained_bytes": 673939456,
+              "process_hwm_bytes": 684883968
+            }
+          ],
+          "traced_operation_peak_bytes": 240796273,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 480144000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 127872,
+              "numeric_bytes": 4712512
+            },
+            "changing": {
+              "relations": 128000,
+              "occurrences": 127872,
+              "numeric_bytes": 9827392
+            }
+          },
+          "rss_after_releasing_result_bytes": 443658240,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.0030614279967267066,
+          "samples": [
+            {
+              "seconds": 0.0033901949936989695,
+              "rss_before_bytes": 476315648,
+              "rss_retained_bytes": 476962816,
+              "process_hwm_bytes": 685174784
+            },
+            {
+              "seconds": 0.0030614279967267066,
+              "rss_before_bytes": 476962816,
+              "rss_retained_bytes": 476962816,
+              "process_hwm_bytes": 685174784
+            },
+            {
+              "seconds": 0.0029198230186011642,
+              "rss_before_bytes": 476962816,
+              "rss_retained_bytes": 476962816,
+              "process_hwm_bytes": 685174784
+            }
+          ],
+          "traced_operation_peak_bytes": 1981026,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 241032000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 127872,
+              "numeric_bytes": 4712512
+            },
+            "changing": {
+              "relations": 128000,
+              "occurrences": 127872,
+              "numeric_bytes": 9827392
+            }
+          },
+          "rss_after_releasing_result_bytes": 476962816,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.0035797340096905828,
+          "samples": [
+            {
+              "seconds": 0.004369283007690683,
+              "rss_before_bytes": 477302784,
+              "rss_retained_bytes": 477945856,
+              "process_hwm_bytes": 685346816
+            },
+            {
+              "seconds": 0.003463244007434696,
+              "rss_before_bytes": 477945856,
+              "rss_retained_bytes": 477945856,
+              "process_hwm_bytes": 685346816
+            },
+            {
+              "seconds": 0.0035797340096905828,
+              "rss_before_bytes": 477945856,
+              "rss_retained_bytes": 477945856,
+              "process_hwm_bytes": 685346816
+            }
+          ],
+          "traced_operation_peak_bytes": 2941892,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 241992000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 127872,
+              "numeric_bytes": 4712512
+            },
+            "changing": {
+              "relations": 128000,
+              "occurrences": 127872,
+              "numeric_bytes": 9827392
+            }
+          },
+          "rss_after_releasing_result_bytes": 477949952,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        }
+      ]
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 100,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.009363157994812354,
+          "samples": [
+            {
+              "seconds": 0.008799181989161298,
+              "rss_before_bytes": 440365056,
+              "rss_retained_bytes": 440369152,
+              "process_hwm_bytes": 676077568
+            },
+            {
+              "seconds": 0.009895494004013017,
+              "rss_before_bytes": 440369152,
+              "rss_retained_bytes": 440369152,
+              "process_hwm_bytes": 676077568
+            },
+            {
+              "seconds": 0.009363157994812354,
+              "rss_before_bytes": 440369152,
+              "rss_retained_bytes": 440369152,
+              "process_hwm_bytes": 676077568
+            }
+          ],
+          "traced_operation_peak_bytes": 8948466,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 240007200,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 12672,
+              "numeric_bytes": 1263712
+            },
+            "changing": {
+              "relations": 12800,
+              "occurrences": 12672,
+              "numeric_bytes": 1770592
+            }
+          },
+          "rss_after_releasing_result_bytes": 440373248,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.15905387699604034,
+          "samples": [
+            {
+              "seconds": 0.15905387699604034,
+              "rss_before_bytes": 440303616,
+              "rss_retained_bytes": 680181760,
+              "process_hwm_bytes": 680181760
+            },
+            {
+              "seconds": 0.15623103998950683,
+              "rss_before_bytes": 440320000,
+              "rss_retained_bytes": 680194048,
+              "process_hwm_bytes": 680194048
+            },
+            {
+              "seconds": 0.17208939100964926,
+              "rss_before_bytes": 440320000,
+              "rss_retained_bytes": 680194048,
+              "process_hwm_bytes": 680194048
+            }
+          ],
+          "traced_operation_peak_bytes": 245809623,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 480014400,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 12672,
+              "numeric_bytes": 1263712
+            },
+            "changing": {
+              "relations": 12800,
+              "occurrences": 12672,
+              "numeric_bytes": 1770592
+            }
+          },
+          "rss_after_releasing_result_bytes": 440324096,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.0038033489836379886,
+          "samples": [
+            {
+              "seconds": 0.006969889014726505,
+              "rss_before_bytes": 484143104,
+              "rss_retained_bytes": 488144896,
+              "process_hwm_bytes": 677109760
+            },
+            {
+              "seconds": 0.0037344949960242957,
+              "rss_before_bytes": 488144896,
+              "rss_retained_bytes": 488148992,
+              "process_hwm_bytes": 677109760
+            },
+            {
+              "seconds": 0.0038033489836379886,
+              "rss_before_bytes": 488148992,
+              "rss_retained_bytes": 488148992,
+              "process_hwm_bytes": 677109760
+            }
+          ],
+          "traced_operation_peak_bytes": 4838002,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 242407200,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 12672,
+              "numeric_bytes": 1263712
+            },
+            "changing": {
+              "relations": 12800,
+              "occurrences": 12672,
+              "numeric_bytes": 1770592
+            }
+          },
+          "rss_after_releasing_result_bytes": 488157184,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.019347722991369665,
+          "samples": [
+            {
+              "seconds": 0.019347722991369665,
+              "rss_before_bytes": 483377152,
+              "rss_retained_bytes": 504975360,
+              "process_hwm_bytes": 676143104
+            },
+            {
+              "seconds": 0.01872034597909078,
+              "rss_before_bytes": 484978688,
+              "rss_retained_bytes": 506576896,
+              "process_hwm_bytes": 676143104
+            },
+            {
+              "seconds": 0.019580773019697517,
+              "rss_before_bytes": 485109760,
+              "rss_retained_bytes": 506576896,
+              "process_hwm_bytes": 676143104
+            }
+          ],
+          "traced_operation_peak_bytes": 21640754,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 259207200,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 12672,
+              "numeric_bytes": 1263712
+            },
+            "changing": {
+              "relations": 12800,
+              "occurrences": 12672,
+              "numeric_bytes": 1770592
+            }
+          },
+          "rss_after_releasing_result_bytes": 485117952,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        }
+      ]
+    }
+  ]
+}

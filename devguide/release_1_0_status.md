@@ -124,10 +124,13 @@ and fourteen fast gates. H5MSM/StructuresDict and nondefault-unit round trips
 are covered; no storage schema, public signature or artifact identity changes.
 The subsequent #121 source work implements protected native geometry copies,
 whole-MolSys ownership boundaries and bounded H5MSM geometry transfers. The
-[native-copy record](pending_proposals/native_copy_protocol.md) and
+[native-copy record](archive/resolved_proposals/native_copy_protocol.md) and
 [benchmark guide](benchmarking/native_copy.md) retain the dated measurements and
-limitations. #121 remains active for direct attached-domain edit publication,
-table alias policy and representative client/resource qualification.
+limitations. #121 now defines the resident copy/ownership boundary, with controlled edit
+publication, explicit table/slot/resource limits, the additional workload
+campaign and a passing TopoMT source copy route. Cross-client adoption remains
+under uibcdf/molsyssuite#122; #405 tracks broader observable storage after 1.0.
+Installed-release qualification remains separate under #334.
 The independent [#396 assembly repair](archive/resolved_bugs/validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md)
 aligns validated native operations with the existing H5MSM 0.5 codec, including
 chain scopes and translation units. It does not change the file schema.

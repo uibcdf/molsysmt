@@ -88,6 +88,8 @@ def _prepare(value, memo, seen, proxies):
                 memo[identity] = value.view()
     elif identity in memo:
         return
+    elif type(value) is tuple and all(type(item) is str for item in value):
+        memo[identity] = value
     elif isinstance(value, MappingProxyType):
         contents = dict(value)
         target = {}

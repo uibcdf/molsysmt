@@ -1,0 +1,364 @@
+{
+  "scope": "production resident native paths; synthetic data; no installed-client qualification",
+  "measured_at_utc": "2026-10-22T19:59:52.648376+00:00",
+  "source_commit": "b501bfd69ad3e692ceeb865ebcdbd0cd1deed173",
+  "worktree_dirty": true,
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_native_copy.py": "485f181a7edbaa77b2c0fa8c1ba40db364c6dbb74bd90d1ab8b64caeb6f53220",
+    "molsysmt/native/_structure_array.py": "bdd86cd3a5e4664894658ef65c92ecb252206f5dbbb0f47dc2071276d693b051",
+    "molsysmt/native/_copy.py": "bfed9507418693122fb56603d244e5455e992d6b9e75cbe7cdac5366bd9eef1d",
+    "molsysmt/native/structures.py": "1431c9bc050d7b674671bbfa478ba20fede52e62c1983cf18f2f6c7b7cd53a71",
+    "molsysmt/native/molsys.py": "7d984e9220782e7d38dc3dcb18dc022788fc4a14ae1a1384f427cecfe113182d",
+    "molsysmt/interactions/result.py": "76b5e188f634ac05d7ecc28368e4cd1d7e01c5ac4b7b9ba0af817dc5eee2ff20",
+    "molsysmt/form/_h5msm05_structures.py": "59c946dd14042e8d429f8d8868f53d6d0d0253077174e483a109dc85ec2efd8e",
+    "molsysmt/native/topology.py": "c4a3ad7fac0aa5b24f7b13ec73cf80429bf106899857f4c26888201560ea31ca",
+    "molsysmt/native/chemical_states.py": "bd7185a3120a9fe47745bc2022a2a91aaf06172774c2977ec085521204eb56b5"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "smonitor": "0.21.0+1.gd6b2394"
+  },
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "logical_cpus": 20,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "RAYON_NUM_THREADS": "1"
+  },
+  "repeats": 3,
+  "workload": "many_interactions",
+  "atom_indexes_warmed": true,
+  "iterator_chunk": 32,
+  "measurement": "fresh worker per case/operation; same-shape warm-up; median; fresh deferred edit subjects outside timing; separate tracemalloc pass",
+  "rss_scope": "Linux address space, including imports, fixture and warm-up; before/retained counters are not operation peak; HWM includes earlier allocations; release need not return allocator arenas to OS",
+  "byte_scope": "unique immutable coordinate/box bytes; excludes tables, analyses, Python headers and allocator overhead",
+  "io_scope": "public H5MSM 0.5 conversion with coordinates, box, time, topology, chemical states and named analysis; warm OS cache; no fsync durability claim",
+  "fixture": "baseline plus two typed-column synthetic analyses, each up to 256 observations per evaluated structure; reused versus changing pair catalogs; no quadratic atom-pair allocation",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.005873304005945101,
+          "samples": [
+            {
+              "seconds": 0.005682821007212624,
+              "rss_before_bytes": 266584064,
+              "rss_retained_bytes": 266584064,
+              "process_hwm_bytes": 274190336
+            },
+            {
+              "seconds": 0.005954202002612874,
+              "rss_before_bytes": 266584064,
+              "rss_retained_bytes": 266584064,
+              "process_hwm_bytes": 274190336
+            },
+            {
+              "seconds": 0.005873304005945101,
+              "rss_before_bytes": 266584064,
+              "rss_retained_bytes": 266584064,
+              "process_hwm_bytes": 274190336
+            }
+          ],
+          "traced_operation_peak_bytes": 10479070,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 7800000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 267768
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 640000,
+              "numeric_bytes": 28289200
+            },
+            "changing": {
+              "relations": 3782,
+              "occurrences": 640000,
+              "numeric_bytes": 28523056
+            }
+          },
+          "rss_after_releasing_result_bytes": 266584064,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.00772036801208742,
+          "samples": [
+            {
+              "seconds": 0.00772036801208742,
+              "rss_before_bytes": 266194944,
+              "rss_retained_bytes": 266194944,
+              "process_hwm_bytes": 273739776
+            },
+            {
+              "seconds": 0.008003743016161025,
+              "rss_before_bytes": 266194944,
+              "rss_retained_bytes": 266194944,
+              "process_hwm_bytes": 273739776
+            },
+            {
+              "seconds": 0.0071303969889413565,
+              "rss_before_bytes": 266194944,
+              "rss_retained_bytes": 266194944,
+              "process_hwm_bytes": 273739776
+            }
+          ],
+          "traced_operation_peak_bytes": 18280515,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 15600000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 267768
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 640000,
+              "numeric_bytes": 28289200
+            },
+            "changing": {
+              "relations": 3782,
+              "occurrences": 640000,
+              "numeric_bytes": 28523056
+            }
+          },
+          "rss_after_releasing_result_bytes": 266194944,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        }
+      ]
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 1000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.10870066299685277,
+          "samples": [
+            {
+              "seconds": 0.10870066299685277,
+              "rss_before_bytes": 448434176,
+              "rss_retained_bytes": 448434176,
+              "process_hwm_bytes": 685469696
+            },
+            {
+              "seconds": 0.10877632498159073,
+              "rss_before_bytes": 448434176,
+              "rss_retained_bytes": 448434176,
+              "process_hwm_bytes": 685469696
+            },
+            {
+              "seconds": 0.103090657008579,
+              "rss_before_bytes": 448434176,
+              "rss_retained_bytes": 448434176,
+              "process_hwm_bytes": 685469696
+            }
+          ],
+          "traced_operation_peak_bytes": 6054822,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 240072000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 213384
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 127872,
+              "numeric_bytes": 5818576
+            },
+            "changing": {
+              "relations": 128000,
+              "occurrences": 127872,
+              "numeric_bytes": 14002384
+            }
+          },
+          "rss_after_releasing_result_bytes": 448434176,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.29223465398536064,
+          "samples": [
+            {
+              "seconds": 0.25224765902385116,
+              "rss_before_bytes": 451022848,
+              "rss_retained_bytes": 686424064,
+              "process_hwm_bytes": 686424064
+            },
+            {
+              "seconds": 0.29223465398536064,
+              "rss_before_bytes": 451022848,
+              "rss_retained_bytes": 686424064,
+              "process_hwm_bytes": 686424064
+            },
+            {
+              "seconds": 0.29635876198881306,
+              "rss_before_bytes": 451022848,
+              "rss_retained_bytes": 686424064,
+              "process_hwm_bytes": 686424064
+            }
+          ],
+          "traced_operation_peak_bytes": 246163257,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 480144000,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 213384
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 127872,
+              "numeric_bytes": 5818576
+            },
+            "changing": {
+              "relations": 128000,
+              "occurrences": 127872,
+              "numeric_bytes": 14002384
+            }
+          },
+          "rss_after_releasing_result_bytes": 451022848,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        }
+      ]
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 100,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.018717837985605,
+          "samples": [
+            {
+              "seconds": 0.018717837985605,
+              "rss_before_bytes": 443768832,
+              "rss_retained_bytes": 443785216,
+              "process_hwm_bytes": 676851712
+            },
+            {
+              "seconds": 0.01890423402073793,
+              "rss_before_bytes": 443785216,
+              "rss_retained_bytes": 443785216,
+              "process_hwm_bytes": 676851712
+            },
+            {
+              "seconds": 0.018531540990807116,
+              "rss_before_bytes": 443785216,
+              "rss_retained_bytes": 443785216,
+              "process_hwm_bytes": 676851712
+            }
+          ],
+          "traced_operation_peak_bytes": 8948466,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 240007200,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 1605384
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 12672,
+              "numeric_bytes": 2168176
+            },
+            "changing": {
+              "relations": 12800,
+              "occurrences": 12672,
+              "numeric_bytes": 2979184
+            }
+          },
+          "rss_after_releasing_result_bytes": 443789312,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.16557745798490942,
+          "samples": [
+            {
+              "seconds": 0.16557745798490942,
+              "rss_before_bytes": 443707392,
+              "rss_retained_bytes": 683581440,
+              "process_hwm_bytes": 683581440
+            },
+            {
+              "seconds": 0.16511694100336172,
+              "rss_before_bytes": 443707392,
+              "rss_retained_bytes": 683581440,
+              "process_hwm_bytes": 683581440
+            },
+            {
+              "seconds": 0.1678439989918843,
+              "rss_before_bytes": 443707392,
+              "rss_retained_bytes": 683581440,
+              "process_hwm_bytes": 683581440
+            }
+          ],
+          "traced_operation_peak_bytes": 248723757,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 480014400,
+          "source_mutable_array_bytes": 0,
+          "source_and_result_unique_mutable_array_bytes": 0,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 1605384
+            },
+            "reused": {
+              "relations": 128,
+              "occurrences": 12672,
+              "numeric_bytes": 2168176
+            },
+            "changing": {
+              "relations": 12800,
+              "occurrences": 12672,
+              "numeric_bytes": 2979184
+            }
+          },
+          "rss_after_releasing_result_bytes": 443707392,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        }
+      ]
+    }
+  ]
+}

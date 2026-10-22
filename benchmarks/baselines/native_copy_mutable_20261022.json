@@ -1,0 +1,544 @@
+{
+  "scope": "production resident native paths; synthetic data; no installed-client qualification",
+  "measured_at_utc": "2026-10-22T20:04:53.054550+00:00",
+  "source_commit": "b501bfd69ad3e692ceeb865ebcdbd0cd1deed173",
+  "worktree_dirty": true,
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_native_copy.py": "485f181a7edbaa77b2c0fa8c1ba40db364c6dbb74bd90d1ab8b64caeb6f53220",
+    "molsysmt/native/_structure_array.py": "bdd86cd3a5e4664894658ef65c92ecb252206f5dbbb0f47dc2071276d693b051",
+    "molsysmt/native/_copy.py": "6adc1738727097c2ed474b8a4d14792bfe724bce1969e3ddb6f305fad6c05994",
+    "molsysmt/native/structures.py": "1431c9bc050d7b674671bbfa478ba20fede52e62c1983cf18f2f6c7b7cd53a71",
+    "molsysmt/native/molsys.py": "7d984e9220782e7d38dc3dcb18dc022788fc4a14ae1a1384f427cecfe113182d",
+    "molsysmt/interactions/result.py": "76b5e188f634ac05d7ecc28368e4cd1d7e01c5ac4b7b9ba0af817dc5eee2ff20",
+    "molsysmt/form/_h5msm05_structures.py": "59c946dd14042e8d429f8d8868f53d6d0d0253077174e483a109dc85ec2efd8e",
+    "molsysmt/native/topology.py": "c4a3ad7fac0aa5b24f7b13ec73cf80429bf106899857f4c26888201560ea31ca",
+    "molsysmt/native/chemical_states.py": "bd7185a3120a9fe47745bc2022a2a91aaf06172774c2977ec085521204eb56b5"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "smonitor": "0.21.0+1.gd6b2394"
+  },
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "logical_cpus": 20,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "RAYON_NUM_THREADS": "1"
+  },
+  "repeats": 3,
+  "workload": "mutable_observables",
+  "atom_indexes_warmed": false,
+  "iterator_chunk": 32,
+  "measurement": "fresh worker per case/operation; same-shape warm-up; median; fresh deferred edit subjects outside timing; separate tracemalloc pass",
+  "rss_scope": "Linux address space, including imports, fixture and warm-up; before/retained counters are not operation peak; HWM includes earlier allocations; release need not return allocator arenas to OS",
+  "byte_scope": "unique immutable coordinate/box bytes; excludes tables, analyses, Python headers and allocator overhead",
+  "io_scope": "public H5MSM 0.5 conversion with coordinates, box, time, topology, chemical states and named analysis; warm OS cache; no fsync durability claim",
+  "fixture": "baseline plus float64 velocities (nm/ps), B factors (nm**2), occupancy and a mutable extension signal with aliases and an owner cycle",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.010112974006915465,
+          "samples": [
+            {
+              "seconds": 0.010112974006915465,
+              "rss_before_bytes": 199049216,
+              "rss_retained_bytes": 213798912,
+              "process_hwm_bytes": 222224384
+            },
+            {
+              "seconds": 0.009968774975277483,
+              "rss_before_bytes": 199049216,
+              "rss_retained_bytes": 213798912,
+              "process_hwm_bytes": 222224384
+            },
+            {
+              "seconds": 0.01060903602046892,
+              "rss_before_bytes": 199049216,
+              "rss_retained_bytes": 213798912,
+              "process_hwm_bytes": 222224384
+            }
+          ],
+          "traced_operation_peak_bytes": 14983380,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 7800000,
+          "source_mutable_array_bytes": 14880000,
+          "source_and_result_unique_mutable_array_bytes": 29760000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            }
+          },
+          "rss_after_releasing_result_bytes": 199053312,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.014200793986674398,
+          "samples": [
+            {
+              "seconds": 0.014200793986674398,
+              "rss_before_bytes": 199172096,
+              "rss_retained_bytes": 221257728,
+              "process_hwm_bytes": 230023168
+            },
+            {
+              "seconds": 0.0133055149926804,
+              "rss_before_bytes": 199172096,
+              "rss_retained_bytes": 221257728,
+              "process_hwm_bytes": 230146048
+            },
+            {
+              "seconds": 0.01423710401286371,
+              "rss_before_bytes": 199172096,
+              "rss_retained_bytes": 221257728,
+              "process_hwm_bytes": 230146048
+            }
+          ],
+          "traced_operation_peak_bytes": 22784625,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 15600000,
+          "source_mutable_array_bytes": 14880000,
+          "source_and_result_unique_mutable_array_bytes": 29760000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            }
+          },
+          "rss_after_releasing_result_bytes": 199176192,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.0022123639937490225,
+          "samples": [
+            {
+              "seconds": 0.0022617010108660907,
+              "rss_before_bytes": 268865536,
+              "rss_retained_bytes": 268865536,
+              "process_hwm_bytes": 268865536
+            },
+            {
+              "seconds": 0.0022123639937490225,
+              "rss_before_bytes": 271343616,
+              "rss_retained_bytes": 271343616,
+              "process_hwm_bytes": 271343616
+            },
+            {
+              "seconds": 0.002161745011107996,
+              "rss_before_bytes": 271347712,
+              "rss_retained_bytes": 271347712,
+              "process_hwm_bytes": 271347712
+            }
+          ],
+          "traced_operation_peak_bytes": 2163358,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 8847552,
+          "source_mutable_array_bytes": 14880000,
+          "source_and_result_unique_mutable_array_bytes": 29760000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            }
+          },
+          "rss_after_releasing_result_bytes": 252207104,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.0025395359843969345,
+          "samples": [
+            {
+              "seconds": 0.0023896909842733294,
+              "rss_before_bytes": 268771328,
+              "rss_retained_bytes": 268771328,
+              "process_hwm_bytes": 268771328
+            },
+            {
+              "seconds": 0.0025791359948925674,
+              "rss_before_bytes": 271253504,
+              "rss_retained_bytes": 271253504,
+              "process_hwm_bytes": 271253504
+            },
+            {
+              "seconds": 0.0025395359843969345,
+              "rss_before_bytes": 271253504,
+              "rss_retained_bytes": 271253504,
+              "process_hwm_bytes": 271253504
+            }
+          ],
+          "traced_operation_peak_bytes": 2164087,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 8847552,
+          "source_mutable_array_bytes": 14880000,
+          "source_and_result_unique_mutable_array_bytes": 29760000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 3334,
+              "numeric_bytes": 240560
+            }
+          },
+          "rss_after_releasing_result_bytes": 252112896,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        }
+      ]
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 1000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.09381078599835746,
+          "samples": [
+            {
+              "seconds": 0.09381078599835746,
+              "rss_before_bytes": 834478080,
+              "rss_retained_bytes": 1234485248,
+              "process_hwm_bytes": 1275527168
+            },
+            {
+              "seconds": 0.09876642501330934,
+              "rss_before_bytes": 835739648,
+              "rss_retained_bytes": 1235746816,
+              "process_hwm_bytes": 1275547648
+            },
+            {
+              "seconds": 0.09076294300029986,
+              "rss_before_bytes": 835739648,
+              "rss_retained_bytes": 1235746816,
+              "process_hwm_bytes": 1275547648
+            }
+          ],
+          "traced_operation_peak_bytes": 401698430,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 240072000,
+          "source_mutable_array_bytes": 401024000,
+          "source_and_result_unique_mutable_array_bytes": 802048000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            }
+          },
+          "rss_after_releasing_result_bytes": 835825664,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.24960381299024448,
+          "samples": [
+            {
+              "seconds": 0.25187649999861605,
+              "rss_before_bytes": 833462272,
+              "rss_retained_bytes": 1456451584,
+              "process_hwm_bytes": 1516326912
+            },
+            {
+              "seconds": 0.24960381299024448,
+              "rss_before_bytes": 815058944,
+              "rss_retained_bytes": 1456451584,
+              "process_hwm_bytes": 1516433408
+            },
+            {
+              "seconds": 0.24479302199324593,
+              "rss_before_bytes": 815058944,
+              "rss_retained_bytes": 1456451584,
+              "process_hwm_bytes": 1516433408
+            }
+          ],
+          "traced_operation_peak_bytes": 641806965,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 480144000,
+          "source_mutable_array_bytes": 401024000,
+          "source_and_result_unique_mutable_array_bytes": 802048000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            }
+          },
+          "rss_after_releasing_result_bytes": 815136768,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.002345025015529245,
+          "samples": [
+            {
+              "seconds": 0.0021972369868308306,
+              "rss_before_bytes": 1279016960,
+              "rss_retained_bytes": 1279016960,
+              "process_hwm_bytes": 1679790080
+            },
+            {
+              "seconds": 0.002349279006011784,
+              "rss_before_bytes": 1281323008,
+              "rss_retained_bytes": 1281323008,
+              "process_hwm_bytes": 1681129472
+            },
+            {
+              "seconds": 0.002345025015529245,
+              "rss_before_bytes": 1282359296,
+              "rss_retained_bytes": 1282359296,
+              "process_hwm_bytes": 1682108416
+            }
+          ],
+          "traced_operation_peak_bytes": 1958265,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 241032000,
+          "source_mutable_array_bytes": 401024000,
+          "source_and_result_unique_mutable_array_bytes": 802048000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            }
+          },
+          "rss_after_releasing_result_bytes": 881336320,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.0025862620095722377,
+          "samples": [
+            {
+              "seconds": 0.0029247150232549757,
+              "rss_before_bytes": 1280262144,
+              "rss_retained_bytes": 1280262144,
+              "process_hwm_bytes": 1681092608
+            },
+            {
+              "seconds": 0.0025862620095722377,
+              "rss_before_bytes": 1282416640,
+              "rss_retained_bytes": 1282416640,
+              "process_hwm_bytes": 1682280448
+            },
+            {
+              "seconds": 0.0024553670082241297,
+              "rss_before_bytes": 1283448832,
+              "rss_retained_bytes": 1283448832,
+              "process_hwm_bytes": 1683255296
+            }
+          ],
+          "traced_operation_peak_bytes": 2919248,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 241992000,
+          "source_mutable_array_bytes": 401024000,
+          "source_and_result_unique_mutable_array_bytes": 802048000,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 666,
+              "numeric_bytes": 128016
+            }
+          },
+          "rss_after_releasing_result_bytes": 882667520,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        }
+      ]
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 100,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.09562582799117081,
+          "samples": [
+            {
+              "seconds": 0.09562582799117081,
+              "rss_before_bytes": 855855104,
+              "rss_retained_bytes": 1255862272,
+              "process_hwm_bytes": 1295695872
+            },
+            {
+              "seconds": 0.09475278400350362,
+              "rss_before_bytes": 856035328,
+              "rss_retained_bytes": 1256042496,
+              "process_hwm_bytes": 1295749120
+            },
+            {
+              "seconds": 0.10593091798364185,
+              "rss_before_bytes": 856035328,
+              "rss_retained_bytes": 1256042496,
+              "process_hwm_bytes": 1295749120
+            }
+          ],
+          "traced_operation_peak_bytes": 405876930,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 240007200,
+          "source_mutable_array_bytes": 400102400,
+          "source_and_result_unique_mutable_array_bytes": 800204800,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            }
+          },
+          "rss_after_releasing_result_bytes": 856039424,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.23674405299243517,
+          "samples": [
+            {
+              "seconds": 0.23674405299243517,
+              "rss_before_bytes": 855302144,
+              "rss_retained_bytes": 1475981312,
+              "process_hwm_bytes": 1535881216
+            },
+            {
+              "seconds": 0.23301195501699112,
+              "rss_before_bytes": 855302144,
+              "rss_retained_bytes": 1475981312,
+              "process_hwm_bytes": 1535881216
+            },
+            {
+              "seconds": 0.2383217870083172,
+              "rss_before_bytes": 855302144,
+              "rss_retained_bytes": 1475981312,
+              "process_hwm_bytes": 1535881216
+            }
+          ],
+          "traced_operation_peak_bytes": 645898865,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 480014400,
+          "source_mutable_array_bytes": 400102400,
+          "source_and_result_unique_mutable_array_bytes": 800204800,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            }
+          },
+          "rss_after_releasing_result_bytes": 855404544,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.0026010820001829416,
+          "samples": [
+            {
+              "seconds": 0.0026010820001829416,
+              "rss_before_bytes": 1300344832,
+              "rss_retained_bytes": 1300344832,
+              "process_hwm_bytes": 1699893248
+            },
+            {
+              "seconds": 0.0028076690214220434,
+              "rss_before_bytes": 1309544448,
+              "rss_retained_bytes": 1309544448,
+              "process_hwm_bytes": 1709248512
+            },
+            {
+              "seconds": 0.0024274330062326044,
+              "rss_before_bytes": 1309749248,
+              "rss_retained_bytes": 1309749248,
+              "process_hwm_bytes": 1709297664
+            }
+          ],
+          "traced_operation_peak_bytes": 4829630,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 242407200,
+          "source_mutable_array_bytes": 400102400,
+          "source_and_result_unique_mutable_array_bytes": 800204800,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            }
+          },
+          "rss_after_releasing_result_bytes": 904339456,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.006797473004553467,
+          "samples": [
+            {
+              "seconds": 0.006797473004553467,
+              "rss_before_bytes": 1317416960,
+              "rss_retained_bytes": 1317416960,
+              "process_hwm_bytes": 1717288960
+            },
+            {
+              "seconds": 0.006272194994380698,
+              "rss_before_bytes": 1326616576,
+              "rss_retained_bytes": 1326616576,
+              "process_hwm_bytes": 1726447616
+            },
+            {
+              "seconds": 0.0071722069988027215,
+              "rss_before_bytes": 1326821376,
+              "rss_retained_bytes": 1326821376,
+              "process_hwm_bytes": 1726693376
+            }
+          ],
+          "traced_operation_peak_bytes": 21632238,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 259207200,
+          "source_mutable_array_bytes": 400102400,
+          "source_and_result_unique_mutable_array_bytes": 800204800,
+          "source_analyses": {
+            "pairs": {
+              "relations": 1,
+              "occurrences": 66,
+              "numeric_bytes": 804816
+            }
+          },
+          "rss_after_releasing_result_bytes": 926908416,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        }
+      ]
+    }
+  ]
+}

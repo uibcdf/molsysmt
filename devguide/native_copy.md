@@ -1,8 +1,8 @@
 # Resident native copy contract
 
 **Role:** normative. This document describes implemented copying boundaries.
-The unresolved acceptance work remains in the
-[#121 record](pending_proposals/native_copy_protocol.md); measurements belong in
+Implementation and source qualification are recorded in the
+[#121 record](archive/resolved_proposals/native_copy_protocol.md); measurements belong in
 [the operational benchmark guide](benchmarking/native_copy.md).
 
 ## Supported resident operations
@@ -40,6 +40,11 @@ Raw table/array writes and uncoordinated domain/axis changes require explicit
 invalidation. This is not a general observer or a chemical dependency graph.
 
 ## Graph identity and extension data
+
+Tuples containing only exact built-in strings are immutable and may be reused
+through the memo. This avoids re-copying large relation/role catalogs one label
+at a time. String subclasses, tuple subclasses and containers with mutable
+members retain their ordinary copy protocols.
 
 Python's shared deepcopy memo preserves repeated object references and cycles
 across supported native domains, canonical tables, ordinary extension data and
