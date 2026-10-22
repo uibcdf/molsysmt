@@ -6,7 +6,10 @@ functions_with_boolean = (
 )
 
 
-def digest_n_atoms(n_atoms, caller=None):
+def digest_n_atoms(n_atoms, caller=None, native_constructor=None):
+
+    if native_constructor is not None:
+        caller = native_constructor
 
     if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_atoms, bool):

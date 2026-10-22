@@ -1,7 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
 
 
-def digest_n_bonds(n_bonds, caller=None):
+def digest_n_bonds(n_bonds, caller=None, native_constructor=None):
+
+    if native_constructor is not None:
+        caller = native_constructor
 
     if caller == "molsysmt.basic.get.get":
         if isinstance(n_bonds, bool):

@@ -28,6 +28,15 @@ complete contract. See {ref}`user-tools-interactions-result`.
 
 ---
 
+## Inherited Construction
+
+Subclasses of `MolSys`, `Topology` and `ChemicalStates` can inherit their native
+constructors, including from another module. They accept the same count arguments
+and retain the base class's validation rules. Construct them normally;
+`skip_digestion=True` is reserved for already validated internal delegation.
+Native copying preserves supported subclass attributes and slots, but does not
+register a new molecular-system form or guarantee subclass-specific operations.
+
 ## Overview and Role
 
 As a user, `molsysmt.MolSys` is the central object returned when loading, converting, or processing molecular systems. By composing dedicated sub-containers, `MolSys` ensures strict separation of concerns while providing a unified gateway for selections, spatial queries, and form transformations.

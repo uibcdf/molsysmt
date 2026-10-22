@@ -173,6 +173,10 @@ class MolSys(NativeQueries):
     axis/domain, distinct from an explicitly empty one. It is not serialization;
     use native properties or info for programmatic inspection.
 
+    Subclasses inheriting the constructor retain its native count validation,
+    including when the subclass is defined in another module. Ordinary user
+    construction does not require skip_digestion.
+
     Examples
     --------
     >>> molsys = MolSys(n_atoms=3)
@@ -471,7 +475,7 @@ class MolSys(NativeQueries):
                 self.topology._chemical_states_domain = value
 
     @signal(tags=["native"])
-    @arg_digest()
+    @arg_digest(native_constructor="molsysmt.native.molsys.__init__")
     def __init__(
         self,
         n_atoms=0,

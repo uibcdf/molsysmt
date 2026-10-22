@@ -408,6 +408,9 @@ chemical values. Bond tools rebuild components after publication; if rebuilding
 fails, bonds can already have changed and analyses remain invalidated.
 Previous table handles do not follow replacement. A chemical collection already
 owned by another MolSys is copied on attachment, preserving separate owners.
+Subclasses inheriting `MolSys`, `Topology` or `ChemicalStates` constructors keep
+their native count validation. Construct them normally, without skipping
+argument digestion. This does not register a distinct molecular-system form.
 Appending a chemical state also invalidates all named analyses, including
 previously evaluated-empty structures. Existing states and coordinates are not
 copied. Explicit structure-to-state assignments stay unchanged; an absent

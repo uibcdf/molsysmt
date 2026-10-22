@@ -1563,10 +1563,14 @@ release identity are unchanged.
 **Distinct finding:** Ordinary inherited constructors of externally declared
 ChemicalStates/MolSys/Topology subclasses reject valid atom counts. This was
 reproduced separately and reported as [uibcdf/molsysmt#404](https://github.com/uibcdf/molsysmt/issues/404).
-The slotted serialization fixture uses known-valid trusted construction, as the
-existing native subclass copy fixtures do; this is not evidence that ordinary
-subclass constructor dispatch works. Resolve caller/receiver validation under
-that owning issue without weakening native argument checks.
+The original slotted serialization fixture used trusted construction; that was
+not evidence that ordinary subclass constructor dispatch worked. The bounded
+#404 correction now declares constructor value context and tests ordinary
+construction, every native count and subsequent subclass copies without a
+bypass. It preserves query flags and existing base-class value rules. The
+existing subclass fixtures now use normal validation. General provider-level
+contract ownership is proposed in uibcdf/argdigest#37; #121's broader subclass
+and arbitrary-extension acceptance remains separate.
 
 **Still open under #121:** Direct writes to DataFrames/Series/arrays,
 other private ChemicalStates collection/record mutations, whole-domain replacement

@@ -43,9 +43,9 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy, controlled chemical-state editing, weak owner notification and detached copies.
+            description: Native hierarchy, inherited construction, controlled chemical-state editing, weak owner notification and detached copies.
           - name: molsys
-            description: Native domains, bounded metadata, independent geometry and chemical authorities, controlled edits, state inventory publication and analysis invalidation.
+            description: Native domains, inherited construction, bounded metadata, independent geometry and chemical authorities, controlled edits, state inventory publication and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language

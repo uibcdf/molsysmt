@@ -657,7 +657,12 @@ _ReferenceChemicalStateStorage = _ChemicalStateStorage
 
 
 class Topology(NativeQueries):
-    """Native stable atom inventory with chemical-state compatibility access."""
+    """Holding a stable atom inventory with chemical-state compatibility access.
+
+    Subclasses inheriting the constructor retain its native count validation,
+    including when the subclass is defined in another module. Ordinary user
+    construction does not require skip_digestion.
+    """
 
     def __repr__(self):
         """Summarizing stored metadata without reading or rendering payloads."""
@@ -708,7 +713,7 @@ class Topology(NativeQueries):
     def _reference_chemical_state_index(self, value):
         self._chemical_states_domain._set_reference_index(value)
 
-    @arg_digest()
+    @arg_digest(native_constructor="molsysmt.native.topology.__init__")
     def __init__(
         self,
         n_atoms=0,

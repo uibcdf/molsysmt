@@ -29,6 +29,8 @@ class ChemicalStates(NativeQueries):
     -----
     A new standalone collection has no states. An ordinary native Topology
     creates one reference state for its historical compatibility behavior.
+    Subclasses inheriting this constructor retain its atom-count validation,
+    including when the subclass is defined in another module.
 
     Examples
     --------
@@ -55,7 +57,7 @@ class ChemicalStates(NativeQueries):
             reference_chemical_state_index=reference_index(self),
         )
 
-    @arg_digest()
+    @arg_digest(native_constructor="molsysmt.native.chemical_states.__init__")
     def __init__(self, n_atoms=0, skip_digestion=False):
         self._n_atoms = int(n_atoms)
         if self._n_atoms < 0:

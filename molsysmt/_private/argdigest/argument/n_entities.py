@@ -6,7 +6,10 @@ functions_with_boolean = (
 )
 
 
-def digest_n_entities(n_entities, caller=None):
+def digest_n_entities(n_entities, caller=None, native_constructor=None):
+
+    if native_constructor is not None:
+        caller = native_constructor
 
     if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_entities, bool):

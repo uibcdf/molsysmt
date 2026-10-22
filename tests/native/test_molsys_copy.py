@@ -291,7 +291,7 @@ class _ExtendedMolSys(MolSys):
     "copier", [copy.copy, copy.deepcopy, _native_deferred, MolSys.copy]
 )
 def test_copy_preserves_concrete_subclass_slots_and_self_cycle(copier):
-    source = _ExtendedMolSys(n_atoms=2, skip_digestion=True)
+    source = _ExtendedMolSys(n_atoms=2)
     source.extra = {"owner": source, "values": [1]}
     source.again = source
     duplicate = copier(source)

@@ -44,8 +44,14 @@ keyword admission reuses the canonical attribute domain.
 
 Native wildcard registrations belong only to those methods' decorator plans;
 they do not broaden other APIs' aliases or keyword domains. Inherited native
-methods retain their contract under a subclass's runtime caller. Constructor
-validation remains a separate existing contract.
+methods retain their contract under a subclass's runtime caller. The native
+MolSys, Topology and ChemicalStates constructors declare their value context
+through `native_constructor`, so inherited constructors retain their existing
+count rules even in another module. That decorator context is not an admitted
+public argument and does not bypass digestion. It does not change ArgDigest's
+normalization or function-contract lookup. General provider support for a
+declared inherited contract owner is proposed in
+[uibcdf/argdigest#37](https://github.com/uibcdf/argdigest/issues/37).
 
 Private execution/provider helpers are undecorated. Trusted provider calls
 receive normalized options, selected indices validated against the available

@@ -310,7 +310,7 @@ def test_partial_chemical_domain_owns_its_collection_independently(ionic_system)
 
 
 def test_chemical_state_pickle_preserves_subclass_slots_without_an_owner():
-    states = _SlottedStates(n_atoms=2, skip_digestion=True)
+    states = _SlottedStates(n_atoms=2)
     states.extra = {"values": [1]}
     restored = pickle.loads(pickle.dumps(states))
     assert type(restored) is _SlottedStates
@@ -319,7 +319,7 @@ def test_chemical_state_pickle_preserves_subclass_slots_without_an_owner():
 
 
 def test_inherited_native_bond_methods_preserve_their_validation_contract():
-    topology = _ExternalTopology(n_atoms=3, skip_digestion=True)
+    topology = _ExternalTopology(n_atoms=3)
     topology.add_bonds(((0, 1),))
     assert topology.n_bonds == 1
     with pytest.raises(ArgumentError):
