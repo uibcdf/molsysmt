@@ -107,7 +107,8 @@ separately. See {ref}`Tutorial_Rotatable_Bonds` for exact criteria and limits.
 
 ## API Documentation
 
-All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].
+See {ref}`API Native Queries` for resident-object queries and
+{func}`molsysmt.basic.convert` for form-agnostic conversion.
 
 Native copying preserves distinct parent/child slot storage and graph aliases,
 and omits the old owner even when stored in a slot. Canonical molecular columns

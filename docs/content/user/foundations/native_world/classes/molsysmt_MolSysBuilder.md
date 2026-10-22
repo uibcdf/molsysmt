@@ -98,7 +98,8 @@ system = builder.build()
 
 ## API Documentation
 
-Detailed methods for `molsysmt.MolSysBuilder` are documented in the [{doc}`molsysmt.MolSysBuilder API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
+See {ref}`API Native Queries` for resident-object queries and
+{func}`molsysmt.basic.convert` for form-agnostic conversion.
 
 ## Native Queries
 

@@ -7,4 +7,4 @@ Governs `docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
 - MUST preserve top anchor `(user-foundations-native-world-classes-molsysmt-topology)=`.
 - Internal attributes table MUST faithfully list all 7 canonical data frames (`atoms`, `groups`, `components`, `molecules`, `entities`, `chains`, `bonds`).
 - Headings MUST follow balanced 2-3 word standard without `&`.
-- Includes API documentation link to `/api/form/molsysmt_Topology/api_molsysmt_Topology`.
+- Includes links to existing native-query and conversion API targets; do not invent per-form API page paths.

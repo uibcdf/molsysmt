@@ -59,4 +59,5 @@ charges or parameterize a force field. See
 
 ## API Documentation
 
-Detailed methods are documented in the [{doc}`MolecularMechanics API Reference </api/form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics>`].
+Use {func}`molsysmt.basic.convert` for conversion and the
+{doc}`form tools reference </api/form/api_form>` for form discovery and capabilities.

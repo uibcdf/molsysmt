@@ -474,7 +474,11 @@ sections:
   developer_hub:
     path: docs/content/developer
     status: in_progress
-    pages: []
+    pages:
+      - name: testing
+        file: docs/content/developer/testing/index.md
+        agents_file: docs/content/developer/testing/AGENTS.md
+        description: Scientific evidence review, executable conversion profiles and current source, package and documentation CI boundaries.
   api_reference:
     path: docs/api
     status: stable

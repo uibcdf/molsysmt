@@ -1,0 +1,56 @@
+{
+  "issue": "uibcdf/molsysmt#144",
+  "date": "2026-10-22",
+  "baseline_commit": "cdf7808e1e8a5b28038ea22fd743adb76247222a",
+  "evidence_scope": "local development sources, notebook execution disabled; not installed release qualification",
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "versions": {
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0",
+    "docutils": "0.22.4",
+    "pytest": "9.1.1"
+  },
+  "command": "python -m sphinx -E -q -j 12 -b html -w <warning-log> docs <output-directory>",
+  "builds": {
+    "before": {
+      "exit_code": 0,
+      "warnings": 739,
+      "errors": 0,
+      "families": {
+        "myst.header": 411,
+        "myst.directive_unknown": 24,
+        "myst.directive_parse": 270,
+        "docutils": 1,
+        "toc.not_included": 17,
+        "myst.xref_missing": 5,
+        "ref.doc": 6,
+        "ref.ref": 1,
+        "misc.highlighting_failure": 4
+      },
+      "warning_log_sha256": "54c431cdd8daa2c41067b5d4dcdaff28d42e45c9400a25847478adb9d3ef4ec8"
+    },
+    "after": {
+      "exit_code": 0,
+      "warnings": 711,
+      "errors": 0,
+      "families": {
+        "myst.header": 411,
+        "myst.directive_unknown": 2,
+        "myst.directive_parse": 270,
+        "docutils": 1,
+        "toc.not_included": 17,
+        "myst.xref_missing": 5,
+        "ref.ref": 1,
+        "misc.highlighting_failure": 4
+      },
+      "warning_log_sha256": "cee889cb37a23493d3aee1a9f3c4392b1f06a5f82d6acbdd95bb890fefdec4a4"
+    }
+  },
+  "guard": "devtools/tests/test_course_takeaway_rendering.py",
+  "guard_result": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  }
+}

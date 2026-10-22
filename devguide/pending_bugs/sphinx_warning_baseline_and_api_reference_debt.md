@@ -340,3 +340,58 @@ certify complete notebook rendering or a warning-clean site. Generic portal
 links for deeper topics in Native Forms still need semantic review; the guard
 does not claim to verify those topic descriptions. The broader #144 closure
 criteria remain unmet and release coordination under #334 remains paused.
+
+
+## Bounded native links and course directive repair — 2026-10-22
+
+A forced full-site HTML build on the development source based on cdf7808e1
+reports 739 `WARNING:` records, zero `ERROR:` records and exit 0. This supersedes
+neither the historical measurements nor their environment: it is a new baseline.
+
+The repair redirects six nonexistent per-form reference paths in the native
+Foundations pages to actual native-query and conversion/form API targets.
+Paired instructions retain their protected topics and require real API targets.
+It preserves all other page sections. The configured local `key_takeaway`
+extension registers the course's existing directive as a standard Docutils
+admonition with a default title. No notebook, stored output or heading changes;
+no warning suppression. Its guard renders the actual twenty Common Core blocks,
+the course template and Foundations block, comparing the parsed body and inline
+content against standard admonitions. Without registration the negative control
+reports the unknown directive and produces no admonition nodes. Both cases pass.
+
+Developer testing docs also use the existing distance-test directory and current
+Python 3.11–3.14 matrices, distinguish PR/push/scheduled checks and correct the
+release/manual documentation deployment trigger. Maintainer CI-skip policy is
+linked rather than reduced to general advice to skip prose commits. The generated
+`get_vectors` API page is retained because the current structure autosummary
+already declares it; unrelated generated formatting rewrites are restored.
+
+```bash
+python -m pytest devtools/tests/test_course_takeaway_rendering.py --receptor=llm -n 12
+python -m sphinx -E -q -j 12 -b html -w /tmp/molsysmt-144-warnings-after.log docs /tmp/molsysmt-144-html
+```
+
+The clean full-site rebuild exits 0 with **711 warnings and zero errors**:
+
+| Family | Before | After |
+|---|---:|---:|
+| myst.header | 411 | 411 |
+| myst.directive_parse | 270 | 270 |
+| myst.directive_unknown | 24 | 2 |
+| toc.not_included | 17 | 17 |
+| ref.doc | 6 | 0 |
+| myst.xref_missing | 5 | 5 |
+| misc.highlighting_failure | 4 | 4 |
+| docutils | 1 | 1 |
+| ref.ref | 1 | 1 |
+
+The remaining unknown directives are `tabs` in the citation page and `info` in
+Common Core 01. No broad course/header rewrite or global warning ratchet is
+claimed. The proposed complete-warning closure criteria remain unmet, so #144
+stays partial. Notebook execution is disabled in this build; rendering a block
+is not a new scientific qualification of the notebook's executable examples.
+
+Linux x86_64, Python 3.14.7, Sphinx 9.1.0, MyST-NB 1.4.0 and the current development
+Viewer source; local source evidence, not installed release qualification.
+The [receipt](../../devtools/data/documentation_warning_repair_20261022.json)
+records sanitized counts, warning-log digests, versions and the rendering guard.

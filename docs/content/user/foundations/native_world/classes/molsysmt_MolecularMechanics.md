@@ -52,4 +52,5 @@ independent. This does not add mechanics persistence to H5MSM 0.5.
 
 ## API Documentation
 
-Detailed methods and converters for `molsysmt.MolecularMechanics` are documented in the [{doc}`molsysmt.MolecularMechanics API Reference </api/form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics>`].
+Use {func}`molsysmt.basic.convert` for conversion and the
+{doc}`form tools reference </api/form/api_form>` for form discovery and capabilities.

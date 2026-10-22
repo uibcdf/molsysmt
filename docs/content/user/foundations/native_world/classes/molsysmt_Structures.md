@@ -154,7 +154,8 @@ separate memory costs; explicit source atom and structure indices preserve their
 meaning in a Structures-only H5MSM 0.5 file. See {ref}`Tutorial_Get_least_squares_plane` for
 executed examples and PBC requirements.
 
-Detailed methods, getters, and converters for `molsysmt.Structures` are documented in the [{doc}`molsysmt.Structures API Reference </api/form/molsysmt_Structures/api_molsysmt_Structures>`].
+See {ref}`API Native Queries` for resident-object queries and
+{func}`molsysmt.basic.convert` for form-agnostic conversion.
 
 ## Native Queries
 

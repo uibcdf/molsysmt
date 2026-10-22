@@ -9,4 +9,4 @@ Governs `docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md`.
 - Table omits physical units column (composed sub-containers hold units).
 - Omits separate serialization section (handled in `MolSysDict`).
 - Headings MUST follow balanced 2-3 word standard without `&`.
-- Includes API documentation link to `/api/form/molsysmt_MolSys/api_molsysmt_MolSys`.
+- Includes links to existing native-query and conversion API targets; do not invent per-form API page paths.

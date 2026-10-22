@@ -505,7 +505,8 @@ that need not be consecutive numbers or match those indices.
 
 ## API Documentation
 
-Detailed methods, converters, and getters for `molsysmt.MolSys` are documented in the [{doc}`molsysmt.MolSys API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
+See {ref}`API Native Queries` for resident-object queries and
+{func}`molsysmt.basic.convert` for form-agnostic conversion.
 
 Metal coordination candidates and one- or two-water hydrogen-bond paths can be named
 independent analyses in `molsys.interactions`. Their observed geometry does not
