@@ -191,21 +191,23 @@ Repository-wide `ruff check .` and `ruff format --check .` pass.
 
 ### Remaining route to 1.0
 
-1. Review the newly received uibcdf/molsysmt#413 with the Viewer owner. It asks
-   for a public coordination boundary for supported controlled molecular edits,
-   including pre-edit recovery, commit/failure signals and observer lifetimes.
-   It reports no reproduced defect in a supported provider setter. It is
-   separate from arbitrary raw-array mutation (#407), and does not itself
-   authorize a new API, implementation or release. Agree scope and acceptance
-   before changing the candidate direction.
-2. Reconcile the remaining result/domain acceptance under #250 and #254
+The consumer has withdrawn the general observer/notification request under
+uibcdf/molsysmt#413 after reviewing explicit reconciliation. Its
+[withdrawal record](archive/resolved_proposals/viewer_controlled_edit_notifications_withdrawn.md)
+retains the consumer decision and boundaries: direct Python edits require explicit
+Viewer reconciliation; future tools integration can coordinate its own edits and
+scene update. No new generic provider deliverable remains under #413. Viewer-side
+reconciliation and the redesigned tools add-on are not certified as implemented.
+The publication pause remains in effect.
+
+1. Reconcile the remaining result/domain acceptance under #250 and #254
    with Viewer feedback. Existing source guards and historical packages are
    evidence for their tested scope, not acceptance of a newly selected pair.
-3. Under #334, after the design decision, select immutable replacement source
+2. Under #334, after the design decision, select immutable replacement source
    and artifact identities; qualify the applicable exact-candidate scientific,
    full platform/interpreter and installed-pair gates and public documentation.
    This local single-environment run cannot replace those gates.
-4. Obtain final publication approval. Preserve the earlier qualified package
+3. Obtain final publication approval. Preserve the earlier qualified package
    pair, refs and artifacts throughout the current pause.
 
 #382 retains separately scoped startup/platform/installed qualification;
@@ -3100,3 +3102,23 @@ triclinic controls and all four installed quantity backends. The final fast
 release gate passes **14/14 checks**; these are source checks, not the full
 platform or installed-pair qualification. #375 remains open for named acceptor
 models; its reference-model reconnaissance is in the maintained pending record.
+
+## Bounded conversion stabilization — 2026-10-22
+
+The #181 execution profile now covers 70 declared direct edges among native,
+MDTraj and OpenMM resident forms, with 526 edges explicitly outside that profile.
+The [conversion guide](conversion_execution.md) and
+[receipt](../devtools/data/conversion_execution_engines_20261022.json) retain
+scope and commands. This is execution coverage, not whole-graph or full-fidelity
+certification. It exposed the repaired #419 source-form delegation failures and
+#420 coordinate-unit, selection and explicit-box defects. The broader regression
+passes 2,178 cases without skips; all fourteen fast gates pass. Sources are
+published through `55f04ebfe364c1918a912e2d76aee8db95959dde`, whose five ordinary
+push checks pass. These remain source checks, not a replacement installed pair.
+
+The prior #190 evidence-scope proposal is resolved; experimental claims, independent
+oracles, partial evidence and gaps are visible separately in the generated matrix.
+The full-site documentation baseline remains 711 warnings and no errors under #144.
+Further bounded conversion/documentation cleanup can proceed in the authorized
+improvement window; neither completing every conversion profile nor eliminating
+all historical warnings is newly made a prerequisite for 1.0.
