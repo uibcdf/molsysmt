@@ -1,9 +1,10 @@
-"""Execute each registered edge of the resident-native profile and its public route.
+"""Execute each registered resident/native-engine edge and its public route.
 
 This is reachability evidence, not a fidelity or scientific accuracy certificate.
 Sources are rebuilt for each call so mutation by one adapter cannot mask another.
 """
 
+import numpy as np
 import pytest
 
 import molsysmt as msm
@@ -20,6 +21,32 @@ EDGES = sorted(planned_edges(declared_edges(), PLAN))
 
 
 def _source(form):
+    if form.startswith("mdtraj."):
+        md = pytest.importorskip("mdtraj")
+        topology = md.Topology()
+        group = topology.add_residue("HOH", topology.add_chain())
+        oxygen = topology.add_atom("O", md.element.oxygen, group)
+        for name in ("H1", "H2"):
+            hydrogen = topology.add_atom(name, md.element.hydrogen, group)
+            topology.add_bond(oxygen, hydrogen)
+        if form == "mdtraj.Topology":
+            return topology
+        return md.Trajectory(_water_coordinates(), topology)
+    if form.startswith("openmm."):
+        pytest.importorskip("openmm")
+        from openmm import app, unit
+
+        topology = app.Topology()
+        group = topology.addResidue("HOH", topology.addChain("A"), id="1")
+        oxygen = topology.addAtom("O", app.element.oxygen, group, id="1")
+        for index, name in enumerate(("H1", "H2"), start=2):
+            hydrogen = topology.addAtom(
+                name, app.element.hydrogen, group, id=str(index)
+            )
+            topology.addBond(oxygen, hydrogen)
+        if form == "openmm.Topology":
+            return topology
+        return app.Modeller(topology, _water_coordinates()[0] * unit.nanometer)
     system = build_minimal_molsys(n_structures=2)
     if form in {"molsysmt.ChemicalStates", "molsysmt.ChemicalStatesDict"}:
         source = system.chemical_states
@@ -52,12 +79,30 @@ def _source(form):
     return source if msm.get_form(source) == form else msm.convert(source, to_form=form)
 
 
-def _execute_direct(source, target, item):
+def _water_coordinates():
+    # A literal three-atom, two-structure fixture in nanometers.
+    first = np.array([[0.0, 0.0, 0.0], [0.095, 0.0, 0.0], [-0.024, 0.092, 0.0]])
+    return np.stack([first, first + [0.1, 0.2, 0.3]])
+
+
+def _edge_arguments(source, target):
+    if (source, target) in {
+        ("mdtraj.Topology", "mdtraj.Trajectory"),
+        ("openmm.Topology", "openmm.Modeller"),
+        ("openmm.Topology", "molsysmt.MolSys"),
+    }:
+        return {
+            "coordinates": msm.pyunitwizard.quantity(_water_coordinates()[:1], "nm")
+        }
+    return {}
+
+
+def _execute_direct(source, target, item, **kwargs):
     from molsysmt.form import _dict_modules, load_converter
 
     module = _dict_modules[source]
     converter = load_converter(module, module._convert_to[target])
-    result = converter(item)
+    result = converter(item, **kwargs)
     assert msm.get_form(result) == target
     return result
 
@@ -66,9 +111,17 @@ def _execute_direct(source, target, item):
     "source,target", EDGES, ids=[f"{source}->{target}" for source, target in EDGES]
 )
 def test_declared_resident_edge_executes_directly_and_publicly(source, target):
+    for form in (source, target):
+        if form.startswith("mdtraj."):
+            pytest.importorskip("mdtraj")
+        elif form.startswith("openmm."):
+            pytest.importorskip("openmm")
+    arguments = _edge_arguments(source, target)
     assert msm.get_form(_source(source)) == source
-    _execute_direct(source, target, _source(source))
-    result = msm.convert(_source(source), to_form=target)
+    _execute_direct(source, target, _source(source), **arguments)
+    result = msm.convert(
+        _source(source), to_form=target, **_edge_arguments(source, target)
+    )
     assert msm.get_form(result) == target
 
 

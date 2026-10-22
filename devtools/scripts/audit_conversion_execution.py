@@ -33,7 +33,7 @@ def read_plan(path=BASELINE_PATH):
 
 
 def planned_edges(graph, plan):
-    """Select the resident profile from the actual declared graph."""
+    """Select resident-native and external-engine edges from the declared graph."""
     return {
         (source, target)
         for source, target in graph

@@ -20,12 +20,17 @@ python -m pytest tests/conversion_truth/test_declared_native_edges.py --receptor
 python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=llm
 ```
 
-`devtools/data/conversion_execution_baseline.json` defines the initial
-`resident-native-v1` profile: thirteen native containers and dictionary forms.
+`devtools/data/conversion_execution_baseline.json` defines the
+`resident-native-engines-v2` profile: thirteen native containers/dictionary
+forms and four resident MDTraj/OpenMM forms. The original native-v1 subset
+remains covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
 input; domain fixtures include mechanics parameters and a nonempty interaction
-analysis. Dictionary fixture preparation is not an independent fidelity oracle.
+analysis. External water fixtures are built with their providers' own topology
+APIs and literal coordinates. Dictionary fixture preparation is not an independent
+fidelity oracle. Topology-only sources receive explicit coordinate quantities for
+coordinate-bearing targets; a topology alone is not treated as a trajectory.
 
 Each case calls the declared converter with normal argument digestion, then
 calls public `convert` with a separately prepared source. Both must return the
@@ -43,10 +48,12 @@ profile become cases automatically. Extending a profile requires a real source
 fixture and removal of the corresponding debt; do not regenerate the baseline
 to absorb a failure. The audit reports planned cases, never successful execution.
 
-Further profiles need file/string fixtures, coordinate-bearing external inputs,
-and separately marked network cases. Optional dependencies should produce clear
+Further profiles need file/string fixtures, other external objects and
+separately marked network cases. Optional dependencies should produce clear
 skips only when genuinely unavailable; a provider-complete qualification must
-report those skips explicitly. This initial profile needs no external provider.
+report those skips explicitly. The thirteen-form native subset needs no external provider; the expanded cases
+skip only when MDTraj/OpenMM is genuinely unavailable during setup. Conversion
+exceptions are never interpreted as optional-provider skips.
 Neither a green inventory nor this bounded profile establishes that every
 conversion in MolSysMT executes. See [form adapter testing](testing_form_adapters.md)
 for value, unit, hierarchy and loss checks.

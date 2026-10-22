@@ -65,7 +65,7 @@ a development checkout does not qualify a different installed release artifact.
 
 ## 4. Conversion Execution
 
-The resident-native profile discovers declared direct routes between its covered
+The resident/native-engine profile discovers declared direct routes between its covered
 forms and executes each adapter and its public conversion route on fresh inputs.
 It checks execution and output form; fidelity remains a separate test obligation.
 

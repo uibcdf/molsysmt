@@ -184,3 +184,58 @@ python -m pytest devtools/tests/test_validate_scientific_evidence.py devtools/te
 
 All fourteen fast release gates, full-package Ruff check and format verification
 also pass. No new release matrix, artifact production or publication is implied.
+
+
+## Resident MDTraj/OpenMM expansion — 2026-10-22
+
+The next bounded profile extends both graph axes with `mdtraj.Topology`,
+`mdtraj.Trajectory`, `openmm.Topology` and `openmm.Modeller`. The profile is now
+`resident-native-engines-v2`: 70 declared edges (29 additional) and 526 explicitly
+unexecuted edges, still within the 596-edge graph. Only newly covered edges were
+removed from the debt inventory; no new exception or accepted failure was added.
+
+External water inputs use each provider's own topology API and literal
+three-atom coordinate arrays. Native inputs remain fresh four-atom systems.
+Topology-only sources receive explicit unit-bearing coordinates for targets
+that require geometry. Setup skips a provider-specific case only if the needed
+optional package is genuinely unavailable; conversion exceptions propagate.
+The direct/public reachability assertion is unchanged and does not certify
+fidelity. The original thirteen-form native subset remains covered.
+
+Execution found two broken cross-engine container routes and a nested topology
+selection route, recorded under uibcdf/molsysmt#419. Investigating the otherwise
+passing topology-to-trajectory route's unit-stripping warnings exposed silent
+tenfold coordinate scaling for angstrom input, ignored atom selection and a
+lost explicit cell, recorded under uibcdf/molsysmt#420. Neither defect was hidden
+by excluding its edge. Mirrored conversion guards add physical values, selected
+coordinates, source-order duplicate selection and box checks beyond the smoke
+profile's weaker output-form promise.
+
+The focused updated selection passes 100 cases without warnings. The independent
+original #420 guards first produce six failures and two passing nanometer
+controls; the original cross-engine guards produce eight failures. Nested subset
+controls additionally reproduce two failures before correcting the source-form
+import. These negative runs distinguish repaired runtime defects from broader
+scientific or format-fidelity claims.
+
+The conversion tutorial and Native Forms course module now explain full-source
+coordinate axes, explicit units and the single-structure Modeller boundary.
+Only Markdown source text changes: executable cells, saved outputs, execution
+counts, notebook/cell metadata and cell IDs are identical to the baseline.
+No full notebook re-execution is claimed for prose changes. The operational guide
+is updated; #181 remains partial pending external/file/string/network profiles.
+
+### Expanded qualification
+
+The full relevant regression command and environment are retained in the
+[receipt](../../devtools/data/conversion_execution_engines_20261022.json):
+2,178 passed, zero skips/failures, 123.67 seconds. Ten existing dummy-PDB-cell
+warnings and five legacy H5MSM notices remain. A separate final doctest passes.
+The full documentation build exits 0 with 711 warnings and no errors, without
+new warning families or a whole-site cleanup claim. All fourteen fast gates
+and applicable Ruff check/format controls pass. MDTraj 1.11.1 and OpenMM 8.6.1
+were already installed; no dependency version or installed environment changes.
+
+The repaired defects are archived under their own issue identities. This
+profile is a more useful execution baseline, not whole-graph completion:
+526 edges still require profiles and fixtures, so #181 remains partial.

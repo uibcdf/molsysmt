@@ -1,0 +1,61 @@
+{
+  "issue": "uibcdf/molsysmt#181",
+  "related_bugs": [
+    "uibcdf/molsysmt#419",
+    "uibcdf/molsysmt#420"
+  ],
+  "date": "2026-10-22",
+  "baseline_commit": "be860a74e8d73495fd1bb58ac1535991963f2130",
+  "scope": "local development sources; not installed release or whole-graph qualification",
+  "profile": "resident-native-engines-v2",
+  "declared_edges": 596,
+  "selected_edges": 70,
+  "accepted_unexecuted_edges": 526,
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "versions": {
+    "numpy": "2.4.6",
+    "mdtraj": "1.11.1",
+    "openmm": "8.6.1",
+    "pytest": "9.1.1",
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0"
+  },
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/mdtraj_Topology tests/form/mdtraj_Trajectory tests/form/openmm_Modeller tests/form/openmm_Topology tests/basic/convert/one_to_one/test_convert_from_mdtraj_Trajectory.py tests/basic/convert/mult_to_one/test_convert_mult_to_mdtraj_Trajectory.py devtools/tests/test_audit_conversion_execution.py molsysmt/form/mdtraj_Topology/to_mdtraj_Trajectory.py --receptor=llm -n 12",
+    "passed": 2178,
+    "skipped": 0,
+    "failed": 0,
+    "seconds": 123.67,
+    "workers": 12,
+    "warnings": {
+      "dummy_pdb_cell": 10,
+      "legacy_h5msm": 5
+    }
+  },
+  "doctest": {
+    "command": "python -m pytest molsysmt/form/mdtraj_Topology/to_mdtraj_Trajectory.py --receptor=llm -n 12",
+    "passed": 1,
+    "failed": 0
+  },
+  "docs_build": {
+    "command": "python -m sphinx -E -q -j 12 -b html -w <warning-log> docs <output-directory>",
+    "exit_code": 0,
+    "warnings": 711,
+    "errors": 0,
+    "notebook_execution": "disabled",
+    "warning_log_sha256": "e80492e0aae6bce359869a332b286dae5c4c0c5143c87a1debf70fbb99e6aaa5"
+  },
+  "preserved_notebooks": [
+    {
+      "path": "docs/content/user/tools/basic/convert.ipynb",
+      "non_markdown_payload_sha256": "79c4683818a3c8be27e008d59fb158ec2f97b49cff0468996a52a65d00e5b0a7",
+      "code_outputs_metadata_ids_preserved": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "non_markdown_payload_sha256": "b44937fc35cf31675ac09854416e36a65ec41b928b4ab6b5d7d7c696448d1472",
+      "code_outputs_metadata_ids_preserved": true
+    }
+  ]
+}
