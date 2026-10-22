@@ -26,8 +26,8 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 
 A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
 
-The current central member-policy release is MolSysSuite `policy-v1.5.9`, as
-recorded in `suite.toml`. Each member's effective automated policy is the
+The current central member-policy release is recorded in `suite.toml`. Each
+member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
 the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
 platform-contract context for the suite; it is not a source of member
