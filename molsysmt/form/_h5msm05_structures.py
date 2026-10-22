@@ -1,5 +1,7 @@
 """Private, independent structural-series probe for H5MSM 0.5."""
 
+from math import gcd
+
 import h5py
 import numpy as np
 
@@ -34,6 +36,7 @@ _FIELDS = {
 }
 _ATOM_FIELDS = frozenset({"coordinates", "velocities", "b_factor", "occupancy"})
 _VECTOR_FIELDS = frozenset({"coordinates", "velocities", "box"})
+_GEOMETRY_CHUNK_BYTES = 256 * 1024
 
 
 def _series_values(value):
@@ -46,6 +49,20 @@ def _row_blocks(value, maximum):
     else:
         for start in range(0, len(value), maximum):
             yield start, value[start : start + maximum]
+
+
+def _coordinate_chunks(array, transfer_rows):
+    """Bound raw xyz chunks and align their temporal axis with native writes."""
+    if not array.shape[0] or not array.shape[1]:
+        return None
+    vector_bytes = 3 * np.dtype(np.float64).itemsize
+    common = gcd(array._block_size, transfer_rows)
+    limit = min(
+        common, max(1, _GEOMETRY_CHUNK_BYTES // (array.shape[1] * vector_bytes))
+    )
+    rows = next(value for value in range(limit, 0, -1) if common % value == 0)
+    atoms = min(array.shape[1], max(1, _GEOMETRY_CHUNK_BYTES // (rows * vector_bytes)))
+    return rows, atoms, 3
 
 
 def _structure_id_kind(value):
@@ -173,6 +190,10 @@ def write_independent_structures(
         if name == "structure_id" and id_kind == "string":
             array = array.astype(object)
         options = {"compression": compression} if compression is not None else {}
+        if name == "coordinates" and isinstance(array, _StructureArray):
+            chunks = _coordinate_chunks(array, block_size)
+            if chunks is not None:
+                options["chunks"] = chunks
         stored_dtype = (
             h5py.string_dtype("utf-8")
             if name == "structure_id" and id_kind == "string"

@@ -1015,7 +1015,8 @@ class Structures(NativeQueries):
         eager coordinate/box allocation and the enclosing workflow's memo.
         Full coordinates/box properties may assemble multiple blocks. Selected
         get() and specialized getters read the requested structures directly.
-        This does not yet provide the same ownership protocol for a complete MolSys.
+        MolSys.copy also owns its copied topology, chemistry and analysis handles
+        independently, with the same eager/deferred geometry allocation choice.
 
         Examples
         --------

@@ -1,0 +1,210 @@
+{
+  "scope": "production resident native paths; synthetic data; no installed-client qualification",
+  "measured_at_utc": "2026-10-22T02:25:31.250618+00:00",
+  "source_commit": "760ea1905401372e41da9072a64df3441de74450",
+  "worktree_dirty": true,
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_native_copy.py": "8a913d19a9d4e90bdec94f54b6195d80d1a5d13d960ee239c8e61d6ac24a727e",
+    "molsysmt/native/_structure_array.py": "bdd86cd3a5e4664894658ef65c92ecb252206f5dbbb0f47dc2071276d693b051",
+    "molsysmt/native/_copy.py": "4137734df0234d79c611df834c2729ef5a5edabe2c5c2bf60542b49032de4b3b",
+    "molsysmt/native/structures.py": "cbb04d216e3e0acaa7a9b787198f3c3e8c9546de39f237d4e7e4a0835d663995",
+    "molsysmt/native/molsys.py": "d8df1f4f560d2836ba24db7207e1ffa88233d21dfefe841ef397267e2edbb527",
+    "molsysmt/interactions/result.py": "76b5e188f634ac05d7ecc28368e4cd1d7e01c5ac4b7b9ba0af817dc5eee2ff20",
+    "molsysmt/form/_h5msm05_structures.py": "59c946dd14042e8d429f8d8868f53d6d0d0253077174e483a109dc85ec2efd8e"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "smonitor": "0.21.0+1.gd6b2394"
+  },
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "logical_cpus": 20,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "RAYON_NUM_THREADS": "1"
+  },
+  "repeats": 2,
+  "iterator_chunk": 32,
+  "measurement": "fresh worker per case/operation; same-shape warm-up; median; fresh deferred edit subjects outside timing; separate tracemalloc pass",
+  "rss_scope": "Linux address space, including imports, fixture and warm-up; before/retained counters are not operation peak; HWM includes earlier allocations; release need not return allocator arenas to OS",
+  "byte_scope": "unique immutable coordinate/box bytes; excludes tables, analyses, Python headers and allocator overhead",
+  "io_scope": "public H5MSM 0.5 conversion with coordinates, box, time, topology, chemical states and named analysis; warm OS cache; no fsync durability claim",
+  "fixture": "linear float64 nm coordinates; one chemical state; one sparse analysis with parallel observations, evaluated-empty structures, final unevaluated structure; no velocities or arbitrary extension metadata",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "operations": [
+        {
+          "operation": "h5msm_write",
+          "median_seconds": 0.21744084950478282,
+          "samples": [
+            {
+              "seconds": 0.21568227099487558,
+              "rss_before_bytes": 244768768,
+              "rss_retained_bytes": 244883456,
+              "process_hwm_bytes": 244883456
+            },
+            {
+              "seconds": 0.21919942801469006,
+              "rss_before_bytes": 247033856,
+              "rss_retained_bytes": 247033856,
+              "process_hwm_bytes": 247033856
+            }
+          ],
+          "traced_operation_peak_bytes": 252564,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 247050240,
+          "file_bytes": 3553032,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "h5msm_read",
+          "median_seconds": 0.13043166151328478,
+          "samples": [
+            {
+              "seconds": 0.13182398202479817,
+              "rss_before_bytes": 245022720,
+              "rss_retained_bytes": 245792768,
+              "process_hwm_bytes": 245792768
+            },
+            {
+              "seconds": 0.1290393410017714,
+              "rss_before_bytes": 245792768,
+              "rss_retained_bytes": 245997568,
+              "process_hwm_bytes": 245997568
+            }
+          ],
+          "traced_operation_peak_bytes": 8625945,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 15600000,
+          "rss_after_releasing_result_bytes": 246882304,
+          "file_bytes": 3553032,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        }
+      ]
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 1000,
+      "operations": [
+        {
+          "operation": "h5msm_write",
+          "median_seconds": 5.243267282508896,
+          "samples": [
+            {
+              "seconds": 5.2228838720184285,
+              "rss_before_bytes": 713789440,
+              "rss_retained_bytes": 713871360,
+              "process_hwm_bytes": 719269888
+            },
+            {
+              "seconds": 5.263650692999363,
+              "rss_before_bytes": 715567104,
+              "rss_retained_bytes": 715612160,
+              "process_hwm_bytes": 721031168
+            }
+          ],
+          "traced_operation_peak_bytes": 684013,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 715878400,
+          "file_bytes": 81032938,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "h5msm_read",
+          "median_seconds": 0.9509598660079064,
+          "samples": [
+            {
+              "seconds": 0.9567152610106859,
+              "rss_before_bytes": 711503872,
+              "rss_retained_bytes": 721248256,
+              "process_hwm_bytes": 721248256
+            },
+            {
+              "seconds": 0.9452044710051268,
+              "rss_before_bytes": 712740864,
+              "rss_retained_bytes": 722604032,
+              "process_hwm_bytes": 722604032
+            }
+          ],
+          "traced_operation_peak_bytes": 242581672,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 480144000,
+          "rss_after_releasing_result_bytes": 715112448,
+          "file_bytes": 81032938,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        }
+      ]
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 100,
+      "operations": [
+        {
+          "operation": "h5msm_write",
+          "median_seconds": 5.742037061019801,
+          "samples": [
+            {
+              "seconds": 5.909138192015234,
+              "rss_before_bytes": 499851264,
+              "rss_retained_bytes": 500830208,
+              "process_hwm_bytes": 761729024
+            },
+            {
+              "seconds": 5.574935930024367,
+              "rss_before_bytes": 498884608,
+              "rss_retained_bytes": 500936704,
+              "process_hwm_bytes": 762064896
+            }
+          ],
+          "traced_operation_peak_bytes": 6533949,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 514322432,
+          "file_bytes": 88664506,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "h5msm_read",
+          "median_seconds": 1.5321330955048325,
+          "samples": [
+            {
+              "seconds": 1.5191172659979202,
+              "rss_before_bytes": 510754816,
+              "rss_retained_bytes": 763342848,
+              "process_hwm_bytes": 763342848
+            },
+            {
+              "seconds": 1.5451489250117447,
+              "rss_before_bytes": 514752512,
+              "rss_retained_bytes": 763379712,
+              "process_hwm_bytes": 763379712
+            }
+          ],
+          "traced_operation_peak_bytes": 259747425,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 480014400,
+          "rss_after_releasing_result_bytes": 521416704,
+          "file_bytes": 88664506,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        }
+      ]
+    }
+  ]
+}

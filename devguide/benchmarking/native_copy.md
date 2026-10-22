@@ -105,3 +105,64 @@ are recorded in the [owning proposal](../pending_proposals/native_copy_protocol.
 The older `native_copy_20261021.json` and `native_copy_reads_20261021.json`
 measure experimental layouts in `study_native_copy.py`; they are not production
 native-path measurements and must not be substituted for this campaign.
+
+## Comparing HDF5 coordinate chunks
+
+The layout study keeps the coordinate payload and native transfer blocks fixed
+and changes only the initial HDF5 coordinate dataset's physical chunks:
+
+```bash
+python -m devtools.scripts.study_h5msm_structure_chunks \
+    --output /tmp/h5msm-structure-chunks.json
+python -m devtools.scripts.study_h5msm_structure_chunks \
+    --case 10000x1000 --case 100000x100 --layout auto \
+    --layout aligned_256k --repeats 2 --output /tmp/h5msm-structure-chunks-large.json
+```
+
+The default bounded cases are 62 × 512, 10,000 × 128 and 100,000 × 16.
+The [bounded snapshot](../../benchmarks/baselines/h5msm_structure_chunks_20261021.json)
+compares automatic HDF5 chunks with 64 KiB, 256 KiB and 1 MiB candidates.
+The study explicitly forces its `auto` control even after a runtime layout
+change. Other candidates keep xyz together, cap uncompressed chunk bytes and
+choose a temporal extent dividing both resident block size and the codec's
+256-row transfer limit. It patches dataset creation only in an isolated study
+worker. It does not modify the original file, runtime configuration or schema.
+
+Each case/layout has an independent worker, same-shape warm-up, untraced timing
+samples and separate allocation tracing. Public write/load include the complete
+synthetic system. Two additional reads open a fresh HDF5 handle and use the
+**private structures codec**: one complete structure, or two atoms in four
+explicitly ordered/nonconsecutive/repeated structures. These are not public
+selective-file APIs. Opening each handle resets its HDF5 raw chunk cache;
+the OS cache is warm/uncontrolled. Values, shapes, units, owner bindings,
+provenance and coverage are checked outside timing as applicable.
+
+Compare file size, public write/load and both selected reads together. A layout
+with faster bulk transfer may worsen sparse reads, and smaller compressed
+chunks can increase file overhead. The linear fixture's compressibility is not
+a universal molecular-data model. A chosen runtime budget remains an internal
+policy, not a user-visible chunk-shape guarantee or a proven global optimum.
+Append retains an existing dataset's layout; its first/last writes can be
+partial chunks when the old structure count is not chunk-aligned.
+
+The [larger controlled snapshot](../../benchmarks/baselines/h5msm_structure_chunks_large_20261021.json)
+compares automatic layout with 256 KiB on both 240 MB coordinate cases. The
+runtime adopts that provisional compromise for new coordinate datasets; the
+normative [geometry I/O contract](../h5msm_format.md#resident-geometry-io) defines
+its scope. The 64 KiB alternative remains relevant if sparse-file queries
+dominate a future workload; 1 MiB worsened the two-atom query in the bounded
+100,000-atom case. Do not select a layout from bulk timings alone.
+
+After adoption, repeat the unmodified public production paths:
+
+```bash
+python devtools/scripts/benchmark_native_copy.py --operation h5msm_write \
+    --operation h5msm_read --repeats 2 --output /tmp/native-copy-h5msm-refined.json
+```
+
+The [refined production snapshot](../../benchmarks/baselines/native_copy_h5msm_refined_20261021.json)
+uses the runtime default, without a dataset-creation patch. It records writes
+of 5.243/5.742 s and resident loads of 0.951/1.532 s for the two 240 MB cases.
+The traced incremental load peaks are 242.582/259.747 MB, compared with the
+original 482.608/501.228 MB before eliminating the second native snapshot.
+Those peaks are not total process RSS; full resident data still needs RAM.

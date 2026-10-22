@@ -12,6 +12,11 @@ Current baseline scripts:
   RSS; see the [native-copy benchmark guide](../devguide/benchmarking/native_copy.md)
   and the dated `native_copy_resident_20261021.json` snapshot. The older
   `study_native_copy.py` snapshots compare prototypes, not these production paths.
+  The `native_copy_h5msm_refined_20261021.json` snapshot remeasures public
+  persistence after the fresh-load and coordinate-chunk refinements.
+  `../devtools/scripts/study_h5msm_structure_chunks.py` retains explicit automatic
+  and aligned-layout controls, including private selected-reader measurements;
+  it does not define a public selective-file API.
 - `native_queries.py`: validates small synthetic expected results and measures
   current native/general queries under issue #128. Includes `MolSys`,
   `Topology`, `Structures`, `ChemicalStates`, `Interactions`, `MolSysBuilder`

@@ -25,6 +25,28 @@ with explicit associations; MolecularMechanics is outside 0.5. Absence of an opt
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
 
+## Resident geometry I/O
+
+The 0.5 coordinate writer transfers protected native blocks without assembling
+the full coordinate array. New coordinate datasets keep xyz together and bound
+the uncompressed HDF5 chunk size using an internal 256 KiB budget. Their temporal
+chunk extent divides the native storage and writer transfer extents, avoiding
+repeated partial compressed-chunk writes during initial creation. The precise
+shape/budget is an implementation policy, not an on-disk schema requirement.
+Empty axes retain HDF5's automatic chunk handling; readers accept older automatic
+layouts. Append preserves the dataset's existing layout and may touch partial
+edge chunks. Other series retain their existing layout policy.
+
+Loading one 0.5 path as one `MolSys` through public conversion uses the fresh
+resident graph without another eager snapshot by default. Explicit copy requests
+are honored; conversion of existing resident objects retains independent-copy
+semantics. Complete resident loading still requires storage for all loaded data,
+and public conversion can load the file before extracting a requested subset.
+This is not a public lazy-coordinate or selective-file query contract.
+Guards: `tests/form/file_h5msm/test_geometry_chunk_layout.py` and
+`tests/basic/convert/one_to_one/test_h5msm05_load_ownership.py`. Measurements and
+their limitations are in the [native-copy benchmark guide](benchmarking/native_copy.md).
+
 ## Version 0.5 interaction metadata
 
 Named analyses are optional and may accompany structures, chemistry, topology,

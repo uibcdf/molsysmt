@@ -27,8 +27,8 @@ below. Molecular copies preserve owner bindings and may defer coordinate/box
 allocation. The remaining resident convenience methods and named payload
 wrappers now use independent graph copies. The production resident campaign
 below measures copying, edits and consumers on three bounded synthetic systems.
-It identifies H5MSM I/O and public-load allocation work before performance
-closeout. General table copy-on-write, direct-domain edit observation and full
+It records H5MSM I/O/public-load allocation bottlenecks and the measured
+refinements below. General table copy-on-write, direct-domain edit observation and full
 production/client performance qualification are not delivered by these boundaries.
 
 ## What
@@ -988,7 +988,8 @@ reference/I/O semantics. The general native helper remains private: molecular
 owner rebinding belongs to its domain hook, not a generic state copy.
 The production campaign below now measures resident memory/time/read/edit and
 persistence on fixed synthetic systems. It does not establish an optimal block
-budget or clear the observed H5MSM I/O/allocation costs.
+budget. The subsequent H5MSM checkpoint measures and addresses the observed
+I/O/allocation costs without qualifying all workloads.
 Client-installed/source adoption evidence is not inferred from provider tests.
 
 ### Production resident campaign — 2026-10-21 local / 2026-10-22 UTC
@@ -1142,6 +1143,99 @@ coordinate chunks with complete xyz tuples. A separate larger run compares
 the provisional 256 KiB compromise with the original automatic layout on both
 240 MB coordinate cases. The larger results and any production adoption belong
 to a subsequent dated checkpoint; they are not inferred from the small study.
+
+### H5MSM layout adoption and production remeasurement — 2026-10-21 local
+
+**Benchmarked:** the
+[bounded layout study](../../benchmarks/baselines/h5msm_structure_chunks_20261021.json)
+compares automatic coordinates with complete-xyz 64 KiB, 256 KiB and 1 MiB
+chunks on 62 × 512, 10,000 × 128 and 100,000 × 16 fixtures. Each case/layout
+uses a fresh worker, one warm-up, three timed samples and a separate traced
+pass. `study_h5msm_structure_chunks.py` changes only the physical coordinate
+dataset chunks in that worker and retains the original auto control. Public
+write/load include the complete system; two selected reads use the private
+structures codec with fresh file handles. The synthetic fixture, units,
+hardware and warm-cache limitations match the operational guide.
+
+The 1 MiB candidate improves bulk transfer but worsens the two-atom private
+query on the 100,000-atom fixture (22.68 ms versus 9.79 ms automatic).
+64 KiB is faster for that query (6.07 ms), but 256 KiB balances it against file
+size and full transfer (9.34 ms; 22.89 MB versus 26.31 MB with 64 KiB).
+These timings do not prove a universal optimum. The provisional **256 KiB**
+choice was then compared with automatic layout on the two 240 MB coordinate
+cases, using two timed samples per operation:
+[large controlled snapshot](../../benchmarks/baselines/h5msm_structure_chunks_large_20261021.json).
+
+| Larger control | 10,000 × 1,000: auto → aligned 256 KiB | 100,000 × 100: auto → aligned 256 KiB |
+| --- | ---: | ---: |
+| Public complete-system write | 33.992 → 5.240 s | 19.853 → 5.587 s |
+| Public complete-system load, fresh-load fix in both arms | 8.620 → 0.984 s | 4.892 → 1.543 s |
+| Private complete-structure read | 35.29 → 4.51 ms | 43.32 → 11.95 ms |
+| Private two-atom/four-structure read | 11.06 → 7.39 ms | 12.22 → 9.21 ms |
+| Whole H5MSM file | 97.684 → 81.033 MB | 110.389 → 88.665 MB |
+
+The automatic chunks were `(32, 313, 1)` and `(4, 3125, 1)`, compared with
+`(1, 10000, 3)` and `(1, 10922, 3)`. Changing only coordinate layout while
+holding the reader fix constant isolates the layout contribution. In both
+arms, the public-load traced peaks were about 242.582 MB and 259.748 MB,
+respectively: eliminating the extra native snapshot accounts for the reduction
+from the original approximately 482.608/501.228 MB peaks; chunk alignment
+primarily changes access cost and file size. This does not mean total RSS
+halved: the original benchmark source, imports and other resident data remain
+outside the incremental traced-operation peak.
+
+**Implemented / contract-tested:** new 0.5 coordinate datasets now use this
+bounded aligned layout. The private `_coordinate_chunks` helper belongs to
+the existing structures codec; there is no public tuning parameter, new
+schema, dependency or scientific method. Boxes and other series retain their
+existing layout. Empty axes retain automatic HDF5 handling; readers accept
+old automatic layouts. Appends preserve a dataset's existing chunks and can
+touch partial edge chunks. The native 1 MiB geometry storage budget is unchanged.
+
+`tests/form/file_h5msm/test_geometry_chunk_layout.py` checks actual raw chunk
+bytes, whole xyz tuples and alignment of observed write boundaries under two
+different small transfer budgets, with and without compression. Its four
+layout guards fail on the old writer because real chunks exceed the configured
+bound. It also forbids full protected-array assembly during write, append and
+codec read, then verifies selected values/units after an unaligned append and
+checks both empty-axis cases. The study keeps an independent experimental
+chooser to reproduce alternatives; it is not an alternate runtime provider.
+
+**Production remeasurement:** the original resident benchmark tool was rerun
+with only its public H5MSM write/read operations and two timed repetitions:
+[refined snapshot](../../benchmarks/baselines/native_copy_h5msm_refined_20261021.json).
+This run uses the default runtime writer, without a dataset-creation override:
+
+| Public runtime operation | 62 × 5,000 | 10,000 × 1,000 | 100,000 × 100 |
+| --- | ---: | ---: | ---: |
+| Write | 0.217 s | 5.243 s | 5.742 s |
+| Resident load | 0.130 s | 0.951 s | 1.532 s |
+| Incremental traced load peak | 8.626 MB | 242.582 MB | 259.747 MB |
+| Whole H5MSM file | 3.553 MB | 81.033 MB | 88.665 MB |
+
+The raw snapshots retain commit/dirty-state and file hashes. The controlled
+studies used the fresh-load correction whose code is preserved in `760ea1905`,
+before the later explanatory docstring addition. The refined production run
+records that addition and the final codec/Structures hashes. Tool versions and
+measured source bytes are recoverable without treating the base commit as the
+entire dirty measured worktree. The layout and refined campaigns ran sequentially
+without other benchmark/test campaigns during worker measurements. Support-library versions
+remain development sources where recorded; none of these measurements qualifies
+an installed release, other platform, cold physical disk or arbitrary chemistry.
+
+Final integrated scope passed **881 tests**, no omissions, with 12 workers and
+`pytest-receptor`; the 644 warnings are expected legacy deprecations. This adds
+the physical-layout and study/benchmark guards to the fresh-load campaign.
+The revised `convert` and `Structures.copy` docstrings pass **20 doctest
+examples**. Foundations, Toolbox, Cookbook and course Module 04 explain the
+resident load/copy distinction. Notebook code cells and saved outputs are
+unchanged; no notebook execution claim is inferred from prose edits.
+
+**Remaining #121 decisions:** direct attached-domain edit publication,
+pandas/table alias and mutation policy, representative large mutable observables
+and dense-analysis workloads, live-resource scope and installed-client adoption.
+The observed H5MSM bottlenecks are addressed for the measured boundary; keep
+the general issue active rather than calling native copying fully qualified.
 
 ### Historical ownership defect
 

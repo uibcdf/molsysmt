@@ -829,6 +829,11 @@ def convert(
     - Converting to ``file:h5msm`` writes H5MSM 0.5. Legacy 0.3 and 0.4
       files remain readable and can be migrated with
       :func:`molsysmt.h5msm.migrate_to_05`.
+    - Loading one H5MSM 0.5 path as one MolSys uses the reader's fresh resident
+      graph without a second eager snapshot by default. Repeated loads remain
+      independent; explicit ``copy_if_all=True`` still requests that snapshot.
+      Existing resident inputs retain their independent-copy default. This
+      optimization does not provide lazy or selective file-backed coordinates.
     - A native ChemicalStates (or ChemicalStatesDict) and Structures pair can
       compose a topology-free MolSys, in either item order. Supplying the pair
       declares that their atom indices correspond; full axis counts must agree.
