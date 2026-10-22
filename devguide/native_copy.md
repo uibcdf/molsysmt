@@ -99,3 +99,9 @@ itself preserves both values and does not use that pickle state.
 
 These guards qualify the named source boundaries. They do not certify every
 external extension, installed client, platform, scientific profile or release.
+
+Further investigations are tracked separately: large mutable-observable storage
+in [#405](https://github.com/uibcdf/molsysmt/issues/405),
+[safer mutation boundaries](pending_proposals/post_1_0_safer_native_mutation_boundaries.md)
+in #407 and [representative client qualification](pending_proposals/post_1_0_native_copy_client_qualification.md)
+in #408. These proposals do not extend the implemented contract above.

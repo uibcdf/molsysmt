@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (30)
+### Open (32)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -57,6 +57,8 @@ Entries carrying front matter under
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`post_1_0_chemically_specific_metal_coordination.md`](post_1_0_chemically_specific_metal_coordination.md) — [#337](https://github.com/uibcdf/molsysmt/issues/337) — Post-1.0 chemically specific metal coordination *(inspected)*
 - [`post_1_0_individual_interaction_editing.md`](post_1_0_individual_interaction_editing.md) — [#335](https://github.com/uibcdf/molsysmt/issues/335) — Post-1.0 individual interaction editing *(inspected)*
+- [`post_1_0_native_copy_client_qualification.md`](post_1_0_native_copy_client_qualification.md) — [#408](https://github.com/uibcdf/molsysmt/issues/408) — Extend native-copy qualification with representative client workflows after 1.0 *(inspected)*
+- [`post_1_0_safer_native_mutation_boundaries.md`](post_1_0_safer_native_mutation_boundaries.md) — [#407](https://github.com/uibcdf/molsysmt/issues/407) — Evaluate safer native mutation boundaries for interaction validity after 1.0 *(inspected)*
 - [`post_1_0_streaming_interactions_and_h5msm_append.md`](post_1_0_streaming_interactions_and_h5msm_append.md) — [#336](https://github.com/uibcdf/molsysmt/issues/336) — Post-1.0 streaming interactions and H5MSM append *(inspected)*
 - [`post_1_0_water_paths_beyond_two_mediators.md`](post_1_0_water_paths_beyond_two_mediators.md) — [#338](https://github.com/uibcdf/molsysmt/issues/338) — Post-1.0 water paths beyond two mediators *(inspected)*
 - [`preserve_atom_correspondence_through_lossy_molecular_exports.md`](preserve_atom_correspondence_through_lossy_molecular_exports.md) — [#223](https://github.com/uibcdf/molsysmt/issues/223) — Preserve atom correspondence through lossy molecular exports *(inspected)*
