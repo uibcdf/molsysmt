@@ -2,6 +2,39 @@
 
 from pathlib import Path
 
+MODULAR_HANDLER_REASON = (
+    "H5MSM 0.5 cannot be opened as molsysmt.H5MSMFileHandler; "
+    "that handler supports only H5MSM 0.3 and 0.4. "
+    "Use molsysmt.convert(path, to_form='molsysmt.MolSys') for a resident load, "
+    "or molsysmt.h5msm.read_layers(path, layers=...) to load selected domains."
+)
+
+
+def validate_h5msm_handler_target(item, to_form):
+    """Reject a legacy-handler target before materializing any 0.5 domains."""
+    targets = to_form if isinstance(to_form, (list, tuple)) else [to_form]
+    if "molsysmt.H5MSMFileHandler" not in targets:
+        return
+    if isinstance(item, (list, tuple)):
+        for part in item:
+            validate_h5msm_handler_target(part, to_form)
+        return
+    if not isinstance(item, (str, Path)) or not str(item).endswith(".h5msm"):
+        return
+    if not Path(item).is_file():
+        return
+
+    import h5py
+
+    from molsysmt._private.smonitor import FormatError
+
+    with h5py.File(item, "r") as file:
+        version = file.attrs.get("version")
+    if isinstance(version, bytes):
+        version = version.decode()
+    if version == "0.5":
+        raise FormatError(reason=MODULAR_HANDLER_REASON, caller="molsysmt.convert")
+
 
 def modular_h5msm_axes(item):
     """Read present 0.5 layer axes without materializing any domain arrays."""

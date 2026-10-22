@@ -1,15 +1,49 @@
 """Conventions a form plugin must follow, enforced so they cannot quietly erode."""
 
+import ast
 import pathlib
 import re
+
+import pytest
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 FORM_ROOT = REPO_ROOT / "molsysmt" / "form"
 
-_PACKAGE_ATTRIBUTE_IMPORT = re.compile(
-    r"^\s*from (?:molsysmt\.form\.[A-Za-z0-9_]+|\.\.[A-Za-z0-9_]+) import to_[A-Za-z0-9_]+",
-    re.M,
+def _ambiguous_converter_imports(source):
+    found = []
+    for node in ast.walk(ast.parse(source)):
+        if not isinstance(node, ast.ImportFrom):
+            continue
+        module = node.module or ""
+        if node.level == 0 and module.startswith("molsysmt.form."):
+            name = module.removeprefix("molsysmt.form.")
+        elif node.level == 2:
+            name = module
+        else:
+            continue
+        package = FORM_ROOT / name
+        if "." in name or not (package / "__init__.py").is_file():
+            continue
+        for alias in node.names:
+            if alias.name.startswith("to_") and (package / f"{alias.name}.py").is_file():
+                found.append(ast.unparse(node))
+    return found
+
+
+@pytest.mark.parametrize(
+    "source, ambiguous",
+    [
+        ("from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology", True),
+        ("from ..molsysmt_MolSys import to_molsysmt_Topology as convert", True),
+        ("from molsysmt.form.molsysmt_MolSys import (copy,\n to_molsysmt_Topology)", True),
+        ("from molsysmt.form._serialization import to_builtin", False),
+        ("from .._serialization import to_builtin", False),
+        ("from molsysmt.form.molsysmt_MolSys.to_molsysmt_Topology import to_molsysmt_Topology", False),
+        ("example = 'from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology'", False),
+    ],
 )
+def test_converter_import_guard_distinguishes_packages_from_helpers(source, ambiguous):
+    assert bool(_ambiguous_converter_imports(source)) is ambiguous
 
 
 def test_converters_are_imported_from_their_own_submodule():
@@ -30,7 +64,7 @@ def test_converters_are_imported_from_their_own_submodule():
         p for root in ("molsysmt", "tests") for p in (REPO_ROOT / root).rglob("*.py")
     ]
     for path in searched:
-        found = _PACKAGE_ATTRIBUTE_IMPORT.findall(path.read_text())
+        found = _ambiguous_converter_imports(path.read_text())
         if found:
             offenders[str(path.relative_to(REPO_ROOT))] = found
 

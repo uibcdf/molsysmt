@@ -12,7 +12,7 @@ from molsysmt.native import Structures
 from tests.native.test_preparation_history import assert_tree
 
 
-def declared_source():
+def declared_source(n_states=1):
     molsys = msm.physchem.get_peptide_chemical_template(
         ["PHE"], "ammonium", "carboxylate"
     )["template"]
@@ -30,6 +30,9 @@ def declared_source():
         time=msm.pyunitwizard.quantity([0, 1], "fs"),
     )
     molsys.structures = structures
+    for _ in range(1, n_states):
+        molsys.chemical_states.append_state()
+    # The synthetic analysis describes the completed fixture, not an earlier inventory.
     molsys.interactions = {
         "empty": msm.Interactions.from_records(
             [],
@@ -45,8 +48,7 @@ def declared_source():
 def test_normalization_preserves_nonaromatic_chemistry_pose_and_all_other_states(
     tmp_path,
 ):
-    source, aromatic = declared_source()
-    source.chemical_states.append_state()
+    source, aromatic = declared_source(n_states=2)
     original = source.copy()
     with msm.pyunitwizard.context(standard_units=["pm", "fs", "coulomb"]):
         result = msm.physchem.normalize_aromatic_bond_orders(source)

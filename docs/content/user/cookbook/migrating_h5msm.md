@@ -24,6 +24,10 @@ saved file; use an explicit write to persist your changes. Loading a subset
 through this conversion can still require materializing the file first. See
 {ref}`user-tools-form-h5msm-05` for layer selection and copy boundaries.
 
+After migration, use these 0.5 readers rather than `H5MSMFileHandler`.
+That handler supports only 0.3 and 0.4; requesting it for the migrated file
+raises `FormatError` with resident-load and selected-layer alternatives.
+
 ## Resolving unit errors
 
 Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.

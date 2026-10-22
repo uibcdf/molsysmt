@@ -141,6 +141,74 @@ inputs use resident native construction; default structure 0 is unchanged.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 
+## H5MSM handler boundary and local suite checkpoint — 2026-10-22
+
+The bounded diagnostic improvement #411 identifies H5MSM 0.5 requested as
+`molsysmt.H5MSMFileHandler` before materializing its domains. The direct
+constructor explains the same supported 0.3/0.4 boundary and recovery paths;
+resident 0.5 loading and legacy handler support remain covered. Its
+[record](archive/resolved_proposals/h5msm_handler_version_boundary.md) retains 45 passing
+focused cases, the convert doctest, 247 validated public docstrings, executed
+course/tutorial notebooks, rendered pages and 14 passing fast gates.
+This adds no 0.5 file-backed reader; that separate capability remains outside
+this diagnostic improvement.
+
+The maintainer-authorized complete local run uses the current development
+environment, Linux x86_64/Python 3.14.7 and 12 workers:
+
+```bash
+python -m pytest --receptor=llm -n 12
+```
+
+The first complete run records **15,046 passed, 13 failed, two skipped** in
+459.36 seconds. One guard needed the new #411 message; the other findings are
+tracked separately: chemical fixtures declaring coverage before state append
+(#414), a retired form-copy spy (#415), generated ViewerJSON keyword-union
+drift (#416), and a helper-import false positive (#417). Their repairs retain
+scientific/transactionality checks and add positive/negative import controls.
+The combined affected selection passes 138 cases. The second complete run
+passes **15,066 cases with two skips**, exit 0, in **416.96 seconds**, with
+1,726 warnings in 52 groups. The skips are CuPy when unavailable and the
+without-RDKit SMILES fallback when RDKit is installed. The seven additional
+cases exercise the corrected import guard. The first run remains recorded
+as failed; no deselection was introduced. Records:
+[chemical fixtures](archive/resolved_bugs/chemical_preparation_fixture_coverage.md),
+[projection guard](archive/resolved_bugs/coordinate_projection_guard_observes_retired_copy.md),
+[argument catalog](archive/resolved_bugs/converter_argument_catalog_viewer_selectors.md),
+[import guard](archive/resolved_bugs/converter_import_guard_helper_false_positive.md).
+Production source is baseline
+`70103677841fba359c7e1ca9b092d04d41e5807e` plus the #411/#414–#417 changes recorded here.
+Relevant runtime versions are NumPy 2.4.6, h5py 3.16.0, pytest 9.1.1 and
+pytest-xdist 3.8.0; Pytest Receptor is `1.2.1+22.g00a31c4`. This uses existing
+editable development dependencies, not an isolated installed candidate.
+Viewer source is `d96b073f23247e25cd42c95af545b6d20e7fa982`, with 23 dirty
+paths observed and preserved. No independent Viewer qualification is inferred.
+
+### Remaining route to 1.0
+
+1. Review the newly received uibcdf/molsysmt#413 with the Viewer owner. It asks
+   for a public coordination boundary for supported controlled molecular edits,
+   including pre-edit recovery, commit/failure signals and observer lifetimes.
+   It reports no reproduced defect in a supported provider setter. It is
+   separate from arbitrary raw-array mutation (#407), and does not itself
+   authorize a new API, implementation or release. Agree scope and acceptance
+   before changing the candidate direction.
+2. Reconcile the remaining result/domain acceptance under #250 and #254
+   with Viewer feedback. Existing source guards and historical packages are
+   evidence for their tested scope, not acceptance of a newly selected pair.
+3. Under #334, after the design decision, select immutable replacement source
+   and artifact identities; qualify the applicable exact-candidate scientific,
+   full platform/interpreter and installed-pair gates and public documentation.
+   This local single-environment run cannot replace those gates.
+4. Obtain final publication approval. Preserve the earlier qualified package
+   pair, refs and artifacts throughout the current pause.
+
+#382 retains separately scoped startup/platform/installed qualification;
+#128 retains its dictionary/file follow-up. Broader documentation debt #144,
+newer-MKL requalification #403 and the explicit post-1.0 native-copy/mutation/
+client-workflow improvements #405/#407/#408 remain tracked. Their existence
+is not an instruction to reopen general feature development before 1.0.
+
 ## Removal ownership correction — 2026-10-22
 
 The reporting Viewer requirement #406 is source-resolved in the

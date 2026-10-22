@@ -77,10 +77,16 @@ class H5MSMFileHandler:
         self.format_version = None if raw_version is None else str(raw_version)
         if self.format_version not in supported_h5msm_versions:
             self.file.close()
+            from molsysmt._private.h5msm import MODULAR_HANDLER_REASON
+
             raise FormatError(
                 reason=(
-                    f"Unsupported H5MSM version {self.format_version!r}; "
-                    f"expected one of {sorted(supported_h5msm_versions)}."
+                    MODULAR_HANDLER_REASON
+                    if self.format_version == "0.5"
+                    else (
+                        f"Unsupported H5MSM version {self.format_version!r}; "
+                        f"expected one of {sorted(supported_h5msm_versions)}."
+                    )
                 ),
                 caller="molsysmt.native.H5MSMFileHandler",
             )

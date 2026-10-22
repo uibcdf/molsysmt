@@ -114,8 +114,7 @@ def test_factory_and_normalization_evidence_survives_another_reader_version(
 
 
 def test_unchanged_normalization_records_one_operation_and_preserves_analyses():
-    source, _ = declared_source()
-    source.chemical_states.append_state()
+    source, _ = declared_source(n_states=2)
     history0 = source.chemical_states.get_preparation_history(0)
     history1 = source.chemical_states.get_preparation_history(1)
     first = msm.physchem.normalize_aromatic_bond_orders(source, chemical_state=0)

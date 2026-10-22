@@ -93,23 +93,28 @@ def test_selected_projected_sources_preserve_axes_and_units(
 
 
 def test_native_coordinate_getter_copies_only_the_projection(monkeypatch):
-    from molsysmt.form.molsysmt_Structures import get_structural_attributes as getters
+    from molsysmt.native._structure_array import _StructureArray
 
-    shapes = []
-    original = getters.copy
-
-    def observed(value):
-        shapes.append(puw.get_value(value).shape)
-        return original(value)
-
-    monkeypatch.setattr(getters, "copy", observed)
     structures = _structures()
-    selected = msm.get(
-        structures, selection=[3, 0], structure_indices=[4, 1], coordinates=True
-    )
-    assert shapes == [(2, 2, 3)]
+    original = puw.get_value(structures.coordinates, to_unit="nm")
+    expected = original[np.ix_([4, 1], [3, 0])]
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("A selected coordinate read materialized the complete source")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(_StructureArray, "_dense", forbidden)
+        patch.setattr(_StructureArray, "__array__", forbidden)
+        selected = msm.get(
+            structures, selection=[3, 0], structure_indices=[4, 1], coordinates=True
+        )
+    assert selected.shape == (2, 2, 3)
+    assert puw.has_unit(selected, "nm")
+    np.testing.assert_array_equal(puw.get_value(selected, to_unit="nm"), expected)
     selected[0, 0, 0] = puw.quantity(999, "nm")
-    assert puw.get_value(structures.coordinates, to_unit="nm")[4, 3, 0] != 999
+    np.testing.assert_array_equal(
+        puw.get_value(structures.coordinates, to_unit="nm"), original
+    )
 
 
 def test_modular_iterator_projects_labels_time_and_closes_on_early_exit(tmp_path):

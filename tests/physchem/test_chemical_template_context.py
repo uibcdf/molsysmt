@@ -47,6 +47,8 @@ def peptide_case(names=None, **choices):
         ),
         time=msm.pyunitwizard.quantity([0.0, 1.0], "ps"),
     )
+    # Declare coverage only after the fixture's chemical-state inventory is complete.
+    source.chemical_states._append_state(template.chemical_states._states[0].copy())
     source.interactions = {
         "old": msm.Interactions.from_records(
             [],
@@ -56,7 +58,6 @@ def peptide_case(names=None, **choices):
             method="control",
         )
     }
-    source.chemical_states._append_state(template.chemical_states._states[0].copy())
     selected = msm.select(source, selection="group_index == 1")
     pairs = source.chemical_states.get_bonds()[["atom1_index", "atom2_index"]].to_numpy(
         dtype=np.int64

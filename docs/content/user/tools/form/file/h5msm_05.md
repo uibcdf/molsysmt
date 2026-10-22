@@ -16,6 +16,11 @@ analyses are stored with a `MolSys`. `msm.convert` and `msm.h5msm.read` read 0.5
 instruction. The older file-form adapters remain available for legacy 0.3/0.4
 operations. General 0.5 file queries currently materialize a native `MolSys`;
 use `msm.h5msm.read_layers` to load only selected layers.
+`molsysmt.H5MSMFileHandler` supports only 0.3 and 0.4: requesting that target
+for a 0.5 file raises `FormatError` before loading its domains. The direct
+constructor rejects it too. A resident load or selected-layer read is the
+supported alternative, not a 0.5 file-backed handler. See
+{ref}`user-foundations-native-world-file-handlers-molsysmt-h5msmfilehandler`.
 Native `MolSys` round trips also support structures and attached interactions
 without topology or chemical states, provided their atom and structure axes
 are explicitly linked in the file.

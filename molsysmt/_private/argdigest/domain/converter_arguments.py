@@ -767,12 +767,14 @@ CONVERTER_ARGUMENTS = {
         "skip_digestion",
     ),
     "molsysmt.ViewerJSON": (
+        "atom_indices",
         "compression",
         "compression_opts",
         "float_precision",
         "get_missing_bonds",
         "int_precision",
         "skip_digestion",
+        "structure_indices",
     ),
     "molsysviewer.MolSysView": (
         "atom_indices",

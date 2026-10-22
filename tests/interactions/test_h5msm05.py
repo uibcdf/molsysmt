@@ -56,7 +56,7 @@ def test_interaction_only_file_preserves_maps_scope_images_and_empty_frames(tmp_
     np.testing.assert_array_equal(observed.evaluated_structure_indices, [0, 2])
     assert observed.query(structure_indices=[0]).n_interactions == 0
 
-    with pytest.raises(FormatError, match="Unsupported H5MSM version"):
+    with pytest.raises(FormatError, match="H5MSM 0.5 cannot be opened as"):
         H5MSMFileHandler(filename, io_mode="r")
     with pytest.raises(FileExistsError):
         write_interactions_file(filename, {})

@@ -802,6 +802,9 @@ def convert(
 
     Raises
     ------
+    FormatError
+        If an H5MSM 0.5 file is requested as ``molsysmt.H5MSMFileHandler``.
+        This handler supports only 0.3 and 0.4; load 0.5 as a resident MolSys.
     NotSupportedFormError
         If the input system or the requested target form is not supported.
     NotCompatibleConversionError
@@ -901,13 +904,17 @@ def convert(
     """
 
     from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
-    from molsysmt._private.h5msm import maybe_read_modular_h5msm
+    from molsysmt._private.h5msm import (
+        maybe_read_modular_h5msm,
+        validate_h5msm_handler_target,
+    )
 
     from . import get_form
 
     output = None
 
     incoming_system = molecular_system
+    validate_h5msm_handler_target(molecular_system, to_form)
     molecular_system = maybe_read_modular_h5msm(molecular_system)
     fresh_file_result = molecular_system is not incoming_system and not isinstance(
         incoming_system, (list, tuple)
