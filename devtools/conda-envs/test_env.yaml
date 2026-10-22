@@ -9,6 +9,8 @@ dependencies:
 - versioningit>=3.0
 - h5py
 - numpy >=1.26,<3
+# Keep the CI linear algebra backend explicit instead of solver-selected MKL.
+- libblas=*=*openblas
 - pandas
 - networkx
 - tqdm
