@@ -69,6 +69,10 @@ def extract(
     - When the input is an H5MSM file, extracting a subset to the same file
       form requires a distinct ``output_filename``. Use
       ``to_form='molsysmt.MolSys'`` for an in-memory subset.
+    - ViewerJSON extraction preserves explicit atom order, remaps retained bond
+      endpoints and keeps bond columns aligned. Atom indices must be unique;
+      structure indices preserve their requested order and repetitions. Only
+      selected graphics data are copied, leaving the source unchanged.
 
 
     See Also

@@ -23,7 +23,7 @@ that front matter -- edit the entries, not this list.
 ### Open (2)
 
 - [`validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md`](validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md) — [#396](https://github.com/uibcdf/molsysmt/issues/396) — Validated native bioassembly operations cannot round trip through H5MSM 0.5 *(medium, reproduced)*
-- [`viewerjson_atom_extraction_retains_source_bond_endpoints.md`](viewerjson_atom_extraction_retains_source_bond_endpoints.md) — [#399](https://github.com/uibcdf/molsysmt/issues/399) — ViewerJSON atom extraction retains source bond endpoints *(medium, reproduced)*
+- [`viewerjson_native_reader_disagrees_with_legacy_bond_getters.md`](viewerjson_native_reader_disagrees_with_legacy_bond_getters.md) — [#400](https://github.com/uibcdf/molsysmt/issues/400) — ViewerJSON native reader disagrees with legacy bond getters *(medium, reproduced)*
 
 ### Partially resolved (1)
 

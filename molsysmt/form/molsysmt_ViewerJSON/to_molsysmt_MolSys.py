@@ -128,6 +128,8 @@ def _collect_coordinates(frames, n_atoms):
         if positions is None:
             continue
         arr = np.array(positions, dtype=float)
+        if arr.shape == (0,):
+            arr = arr.reshape(0, 3)
         if n_atoms is not None:
             if arr.shape[0] < n_atoms:
                 pad = np.full((n_atoms - arr.shape[0], 3), np.nan, dtype=float)
@@ -152,7 +154,9 @@ def _collect_coordinates(frames, n_atoms):
 
 
 @arg_digest(form="molsysmt.ViewerJSON")
-def to_molsysmt_MolSys(item, skip_digestion=False):
+def to_molsysmt_MolSys(
+    item, skip_digestion=False, *, atom_indices="all", structure_indices="all"
+):
     """
     Converting from molsysmt.ViewerJSON to molsysmt.MolSys.
 
@@ -163,6 +167,10 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Unique atom indices (0-based) in the requested order.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) in the requested order, including repetitions.
 
     Returns
     -------
@@ -171,6 +179,8 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
 
     Raises
     ------
+    ArgumentError
+        If an index is out of range or atom indices repeat.
     FormatError
         If declared axis indices are invalid or identity metadata conflicts.
 
@@ -200,6 +210,18 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+
+    from molsysmt._private.variables import is_all
+
+    if not is_all(atom_indices) or not is_all(structure_indices):
+        from .extract import extract
+
+        item = extract(
+            item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
 
     atoms = item.data.get("atoms", {}) or {}
     frames = (

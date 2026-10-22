@@ -938,7 +938,9 @@ by JSON encoding (uibcdf/molsysmt#398). Both reproduce without copying. They
 were reported separately; their codecs were unchanged at that copy checkpoint.
 Subsequent corrections and their independent guards are recorded under #397/#398,
 now resolved. Their qualification does not extend the copy benchmark or imply
-lossless graphics persistence. Atom-subset extraction remains tracked in #399.
+lossless graphics persistence. The independent atom-subset extraction defect
+is now resolved under #399, with its own route and memory-boundary guards.
+Direct legacy-bond import remains independently tracked in #400.
 
 **Contract-tested:** in the existing Linux/Python 3.14.7 environment,
 `python -m pytest --receptor=llm -n 12` passed **3,676 cases** in 83.24 s, with

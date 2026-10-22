@@ -67,6 +67,21 @@ through the native connectivity tool, and supplies a synthetic molecule per
 group. It does not recover omitted molecule labels or the full native hierarchy.
 Use H5MSM for full-domain persistence.
 
+## Subset Semantics
+
+Atom subsets preserve the requested order. Bonds survive only when both atoms
+are retained; endpoints and every aligned bond column are remapped together.
+Repeated atom indices are rejected because extraction does not clone atoms.
+Structure selections preserve order and repetitions, including empty selections.
+Selected data and wrapper metadata are independent of the source. Graphics data
+are selected before copying, so discarded structures are not copied. Empty atom
+selections recover native coordinates with shape `(n_structures, 0, 3)`.
+
+Optional group/chain/entity indices retain source positions; the native reader
+compacts them on recovery. Legacy endpoint fields gain canonical atom pairs when
+extracting atoms. Bond sets remain separate graphics blocks during extraction;
+this does not define a multi-set native chemistry import policy.
+
 ## Invariants and Performance
 
 - **Pure JSON Primitives**: Native topology exports use Python scalars and containers, including `null` for missing table values. Bond endpoints remain integer positions. `dumps()` and `dump()` use the standard JSON encoder; manually supplied payloads must already satisfy this contract.
