@@ -1083,7 +1083,18 @@ omits it, system copying/restoration rebinds it, and attaching another system's
 collection copies chemical tables instead of sharing a mutable authority.
 The guard is `tests/native/test_topology_owner.py`.
 
-Raw arrays/DataFrames, direct ChemicalStates collection/record edits, direct
+Appending a state through `molsys.chemical_states.append_state()` also marks
+all named analyses unevaluated. The new record and list of state references are
+prepared before publication; failure to allocate the record or invalidation
+preserves the collection and analysis handles. Existing states and geometry are
+not copied. Explicit structure-to-state assignments remain unchanged. With more
+than one state, an absent assignment resolves to unknown rather than implicitly
+selecting a state. Earlier results remain historical snapshots. Standalone
+collections have no owner to notify. Appending preparation history archives
+independent evidence without applying chemistry and preserves analyses.
+The guard is `tests/native/test_chemical_states_owner.py`.
+
+Raw arrays/DataFrames, other private ChemicalStates collection/record edits, direct
 Topology replacement and MolecularMechanics changes require explicit owner
 invalidation. They do not acquire an observer protocol through the controlled
 setters. Editors of individual observations and finer chemical dependencies remain

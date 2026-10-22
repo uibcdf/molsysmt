@@ -1568,9 +1568,9 @@ existing native subclass copy fixtures do; this is not evidence that ordinary
 subclass constructor dispatch works. Resolve caller/receiver validation under
 that owning issue without weakening native argument checks.
 
-**Still open under #121:** Direct writes to DataFrames/Series/arrays, direct
-ChemicalStates collection/record mutations, whole-domain replacement and direct
-structure-domain axis changes are not observed by this boundary. Their callers
+**Still open under #121:** Direct writes to DataFrames/Series/arrays,
+other private ChemicalStates collection/record mutations, whole-domain replacement
+and direct structure-domain axis changes are not observed by this boundary. Their callers
 must invalidate explicitly or use a coordinated owning operation. Table
 alias/subclass/arbitrary-object policy, large mutable observable/resource
 workloads and installed-client adoption remain outstanding. Keep #121 active.
@@ -1589,3 +1589,61 @@ retains the original partial-availability behavior. Added guards are
 `test_removing_bonds_preserves_the_declared_connectivity_completeness` in
 `tests/native/test_topology_owner.py`. This is part of #121's scientific-behavior
 preservation, not a new chemical inference method.
+
+
+### Chemical-state inventory publication (2026-10-22)
+
+**Reproduced:** Public `ChemicalStates.append_state()` changed an attached
+collection without invalidating its MolSys analyses. Eleven of the 16 new
+regression cases failed before the correction. Adding a state can change the
+interpretation of structures without explicit state associations, even when
+coordinates stay fixed.
+
+**Implemented / contract-tested:** The common append operation validates the
+new record and prepares a list of state references before staged publication.
+An attached collection marks every named analysis unevaluated, including
+previously evaluated-empty structures. The first state becomes the reference;
+later states preserve the reference. Explicit structure-to-state assignments
+are unchanged. An absent association resolves to unknown when multiple states
+exist; the append operation does not choose or assign a new state. Standalone
+collections have no owner to notify. Repeated appends reuse already invalidated
+analyses, and retained result/query snapshots remain historical snapshots.
+
+No existing state record, chemical table or coordinate payload is copied.
+Preparing the new reference list costs O(number of states) references; this is
+not a new constant-time collection or a table copy-on-write design. Failure to
+construct the new record or prepare invalidation preserves the collection and
+original analysis handles. Appending preparation history still archives detached
+evidence without applying chemistry, so attached analyses remain valid.
+
+**Guard:** `tests/native/test_chemical_states_owner.py` covers empty/single/multiple
+state inventories, nullable explicit and implicit structure associations,
+prepublication allocation failure, geometry/state copy rejection, standalone
+copies, system copy/deepcopy/pickle/H5MSM ownership, chemistry-only partial
+systems, detached history and repeated invalidation. The nonreference-state
+chemical-edit guard in `tests/native/test_topology_owner.py` now reattaches valid
+analyses after setup, so the new inventory invalidation cannot hide a missing
+notification from the subsequent edit.
+
+**Qualified locally:** **4,262 tests passed**, without omissions, using Pytest
+Receptor and 12 workers in the existing development environment (54.53 s).
+The scope is native classes, native Topology/MolSys/Structures and H5MSM form
+adapters, interactions and topology tools. The 694 visible warnings fall into
+eight groups: legacy H5MSM reads, deliberate memory-budget probes, pandas
+migration, synthetic unknown atom names and existing merge policies.
+Foundations, Toolbox, Cookbook and Common Core modules 4/10/20 explain inventory
+publication versus historical evidence; notebook code and saved outputs are
+unchanged. Ackredit is not applicable to this storage lifecycle correction.
+Scientific criteria, producer attribution, physical-unit policy, dependency
+floors, H5MSM schema and release identity are unchanged.
+
+All 14 fast release gates, package/new-test Ruff, public docstring fidelity
+(247 functions) and public signature stability pass. ChemicalStates docstrings
+pass 17 doctest examples. A direct comparison confirms that course modules
+4/10/20 retain identical code cells, execution counts and saved outputs.
+
+**Still open:** #121 retains its remaining alias/subclass/arbitrary-object and
+resource-workload decisions and installed-client adoption. Raw record/table
+writes, other private inventory operations and uncoordinated domain replacement
+still require explicit owning invalidation. This phase does not close #121 or
+qualify a release artifact.

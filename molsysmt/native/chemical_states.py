@@ -1,5 +1,7 @@
 """Native collection of discrete chemical states."""
 
+from contextlib import nullcontext
+
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
@@ -145,10 +147,19 @@ class ChemicalStates(NativeQueries):
         """Append one validated record and return its positional index."""
 
         state._ensure_compatibility(self._n_atoms)
-        self._states.append(state)
-        index = len(self._states) - 1
-        if len(self._states) == 1 or set_as_reference:
-            self._reference_index = index
+        index = len(self._states)
+        states = self._states + [state]
+        reference = index if index == 0 or set_as_reference else self._reference_index
+        owner_ref = getattr(self, "_molsys_owner_ref", None)
+        owner = owner_ref() if owner_ref is not None else None
+        publication = (
+            owner._invalidating_interaction_frames("all")
+            if owner is not None
+            else nullcontext()
+        )
+        with publication:
+            self._states = states
+            self._reference_index = reference
         return index
 
     def _set_reference_index(self, state_index):
@@ -184,6 +195,13 @@ class ChemicalStates(NativeQueries):
         -----
         A state added to an empty collection becomes the reference state.
         Later states leave the current reference unchanged.
+
+        When this collection belongs to a MolSys, appending a state invalidates
+        all attached interaction analyses, including evaluated structures without
+        occurrences. Existing state records and coordinates are not copied.
+        Explicit structure-to-state associations are preserved; no association
+        to the new state is inferred. With multiple states, structures without
+        an explicit association resolve to an unknown state.
 
         .. versionadded:: 1.0.0
         """
@@ -298,8 +316,10 @@ class ChemicalStates(NativeQueries):
         chemistry, align atoms or structures, verify source authenticity, or credit
         a new calculation. Retain intervening maps separately. Records keep their
         original operation indices; repeated records are appended in input order.
-        Invalid input leaves the history unchanged. H5MSM and ChemicalStatesDict
-        preserve the imported records. The supported template construction,
+        Attached interaction analyses remain valid: recording history does not
+        apply chemical changes. Invalid input leaves the history unchanged.
+        H5MSM and ChemicalStatesDict preserve the imported records.
+        The supported template construction,
         application, normalization, H-generation and attachment reports contain
         no coordinate snapshots.
 

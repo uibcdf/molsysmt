@@ -374,8 +374,14 @@ assert previous_ring_view.n_interactions == 1
 
 Chemical-state setters invoked on `molsys.topology` also notify the owner, as
 do its native bond addition/removal and full `bonds` replacement. A standalone
-topology copy is detached. Direct ChemicalStates collection changes, whole
-topology replacement, mechanics changes and raw table/array writes need explicit owner invalidation. Use
+topology copy is detached. Appending a state through
+`molsys.chemical_states.append_state()` also makes every analysis unevaluated.
+Explicit structure-to-state assignments stay unchanged; with multiple states,
+structures without an explicit assignment resolve to unknown. Existing state
+records and coordinates are not copied. Appending preparation history preserves
+analyses because it only archives evidence. Other private collection changes,
+whole topology replacement, mechanics changes and raw table/array writes need
+explicit owner invalidation. Use
 `analysis.invalidate_structures(...)` to replace each affected named result
 before calculating new evidence.
 

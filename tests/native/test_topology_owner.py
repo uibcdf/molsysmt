@@ -219,7 +219,13 @@ def test_component_membership_edit_notifies_owner(ionic_system):
 
 def test_nonreference_state_edit_still_invalidates_all_owner_coverage(ionic_system):
     states = ionic_system.chemical_states
+    originals = dict(ionic_system.interactions)
     states.append_state()
+    ionic_system._set_structure_chemical_state_indices([0] * 4)
+    ionic_system.interactions = originals
+    np.testing.assert_array_equal(
+        ionic_system.interactions["ionic"].evaluated_structure_indices, [0, 1, 2]
+    )
     with ionic_system.topology._using_chemical_state(1):
         msm.set(ionic_system.topology, selection=[0], formal_charge=[0])
     assert states._states[0].atom_attributes.loc[0, "formal_charge"] == 1

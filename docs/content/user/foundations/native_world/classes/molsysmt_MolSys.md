@@ -455,8 +455,13 @@ analyses. Assigning or clearing `structure_chemical_state_index` invalidates
 only the selected structures. Earlier result/query snapshots remain available.
 
 Native topology bond addition/removal and replacing its bond table also notify
-the owner. Standalone topology copies are detached. Direct ChemicalStates
-collection edits, whole-topology replacement, mechanics changes and raw table/array edits require explicit
+the owner. Standalone topology copies are detached.
+`molsys.chemical_states.append_state()` also makes all analyses unevaluated,
+without copying existing states or coordinates. Explicit structure-to-state
+assignments remain unchanged. With multiple states, structures without an
+explicit assignment resolve to unknown. Appending preparation history only
+archives evidence and preserves analyses. Other private chemical collection
+edits, whole-topology replacement, mechanics changes and raw table/array edits require explicit
 owner invalidation. Recalculate and attach new results before claiming that
 these changed data have been evaluated.
 

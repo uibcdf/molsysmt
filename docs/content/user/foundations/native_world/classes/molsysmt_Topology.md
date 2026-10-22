@@ -130,7 +130,9 @@ components after publishing bonds; a rebuilding failure can leave changed bonds
 with analyses already invalidated. Old table handles do not follow replacement.
 Reserving empty bond rows does not declare partial connectivity; removing
 bonds preserves the existing connectivity-completeness declaration.
-Raw cell/array edits, chemical-state collection changes and whole-topology
-replacement still need explicit owner invalidation. Standalone topology copies
+Appending a state to the owning system's `chemical_states` also invalidates all
+analyses; appending preparation history preserves them because it only archives
+evidence. Raw cell/array edits, other private chemical-state collection changes
+and whole-topology replacement still need explicit owner invalidation. Standalone topology copies
 have no owner link. See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`
 for the shared analysis validity policy.

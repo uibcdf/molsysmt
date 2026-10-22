@@ -45,7 +45,7 @@ sections:
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
             description: Native hierarchy, controlled chemical-state editing, weak owner notification and detached copies.
           - name: molsys
-            description: Native domains, bounded metadata, independent geometry and chemical authorities, controlled edits and analysis invalidation.
+            description: Native domains, bounded metadata, independent geometry and chemical authorities, controlled edits, state inventory publication and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -277,7 +277,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, bounded pages, independent copies, provenance, geometry and chemical owner invalidation, replacement and HDF5 writing.
+            description: Sparse queries, bounded pages, independent copies, provenance, geometry and chemical owner invalidation, state inventory publication, replacement and HDF5 writing.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbond_sites
@@ -432,7 +432,7 @@ sections:
         description: Conversion workflows and public programmatic capability inspection without rendering internals.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, independent copies, geometry and chemical owner notification, structure replacement and H5MSM persistence.
+        description: Sparse queries, independent copies, geometry and chemical owner notification, state inventory publication, structure replacement and H5MSM persistence.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

@@ -355,6 +355,8 @@ the affected frame, considering the detector's complete declared atom scope.
 | Coordinates or box through `msm.set` | Selected frames become unevaluated. |
 | Empty atom/frame selection, time or identifier edit | Results remain valid. |
 | Scientific chemical-state changes through `msm.set` on the system or attached topology, native topology bond edits, or replacing `chemical_states` | All covered structures become unevaluated. |
+| `molsys.chemical_states.append_state()` | All covered structures become unevaluated; explicit state associations are preserved. |
+| `molsys.chemical_states.append_preparation_history(...)` | Results remain valid: only historical evidence is archived. |
 | Changing `structure_chemical_state_index` | Selected frames become unevaluated. |
 | Attached `structures.set_coordinates()` / `set_box()`, or full coordinate/box property assignment | The affected structures become unevaluated in every named analysis. |
 | Raw/private writes, other domain edits or whole-domain replacement | You must invalidate the owning analyses explicitly. |
@@ -406,6 +408,11 @@ chemical values. Bond tools rebuild components after publication; if rebuilding
 fails, bonds can already have changed and analyses remain invalidated.
 Previous table handles do not follow replacement. A chemical collection already
 owned by another MolSys is copied on attachment, preserving separate owners.
+Appending a chemical state also invalidates all named analyses, including
+previously evaluated-empty structures. Existing states and coordinates are not
+copied. Explicit structure-to-state assignments stay unchanged; an absent
+assignment resolves to unknown once multiple states exist. Appending preparation
+history does not apply chemistry and preserves analyses.
 
 Whole-domain replacement, raw/private writes, and direct structure-domain append/add
 are outside this boundary. Use the owning `MolSys` extraction/append/add tools
