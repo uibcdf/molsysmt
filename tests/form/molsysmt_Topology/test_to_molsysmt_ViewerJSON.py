@@ -1,7 +1,14 @@
+import json
+
+import numpy as np
+import pandas as pd
+import pytest
+
+import molsysmt as msm
 from molsysmt.form.molsysmt_Topology.to_molsysmt_ViewerJSON import (
     to_molsysmt_ViewerJSON,
 )
-from molsysmt.native import MolSys, ViewerJSON
+from molsysmt.native import MolSys, Topology, ViewerJSON
 
 
 def _minimal_topology():
@@ -57,3 +64,46 @@ def test_topology_to_ViewerJSON():
     assert data["bonds"]["indexA"] == [0]
     assert data["bonds"]["indexB"] == [1]
     assert data["frames"] == []
+
+
+@pytest.mark.parametrize("with_bonds", [False, True])
+def test_topology_export_has_json_scalars(with_bonds, tmp_path):
+    """The producer supplies ordinary JSON data before any encoder runs."""
+    topo = Topology(n_atoms=3)
+    if with_bonds:
+        topo.add_bonds([[0, 1], [1, 2]])
+        topo.bonds["bond_order"] = pd.Series([1, None], dtype="Int8")
+        topo.bonds["bond_type"] = pd.Series(["single", None], dtype="string")
+    viewer = msm.convert(topo, to_form="molsysmt.ViewerJSON")
+    data = viewer.to_dict(copy=False)
+
+    def check_json_types(value):
+        assert type(value) in (dict, list, str, int, float, bool, type(None))
+        if isinstance(value, dict):
+            for key, child in value.items():
+                assert type(key) is str
+                check_json_types(child)
+        elif isinstance(value, list):
+            for child in value:
+                check_json_types(child)
+
+    check_json_types(data)
+    expected = {
+        "atom_pairs": [[0, 1], [1, 2]] if with_bonds else [],
+        "order": [1, None] if with_bonds else [],
+        "type": ["single", None] if with_bonds else [],
+        "indexA": [0, 1] if with_bonds else [],
+        "indexB": [1, 2] if with_bonds else [],
+    }
+    assert json.loads(json.dumps(data))["bonds"] == expected
+    assert json.loads(viewer.dumps())["bonds"] == expected
+    path = tmp_path / "viewer.json"
+    viewer.dump(str(path))
+    assert json.loads(path.read_text())["bonds"] == expected
+
+
+def test_topology_export_normalizes_nullable_numpy_atom_fields():
+    topo = _minimal_topology()
+    topo._set_chemical_state_atom_attribute("formal_charge", [np.int64(1), None])
+    viewer = msm.convert(topo, to_form="molsysmt.ViewerJSON")
+    assert json.loads(viewer.dumps())["atoms"]["formal_charge"] == [1, None]

@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
@@ -5,7 +6,15 @@ from molsysmt.native import ViewerJSON
 
 
 def _series_to_list(series):
-    return [None if pd.isna(ii) else ii for ii in series]
+    """Exporting nullable table scalars as ordinary JSON values."""
+    return [
+        None
+        if pd.isna(value)
+        else value.item()
+        if isinstance(value, np.generic)
+        else value
+        for value in series
+    ]
 
 
 @arg_digest(form="molsysmt.Topology")
@@ -24,8 +33,18 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     Returns
     -------
     molsysmt.ViewerJSON
-        Resulting object in molsysmt.ViewerJSON form.
+        Graphics payload containing ordinary JSON scalars and containers.
+        Missing table values become null; bond endpoints are positional indices.
 
+    Examples
+    --------
+    >>> import json
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=2)
+    >>> topology.add_bonds([[0, 1]])
+    >>> payload = to_molsysmt_ViewerJSON(topology)
+    >>> json.loads(payload.dumps())["bonds"]["atom_pairs"]
+    [[0, 1]]
 
     .. versionadded:: 1.0.0
     """

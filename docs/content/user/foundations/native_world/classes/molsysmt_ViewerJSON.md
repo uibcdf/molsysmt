@@ -7,7 +7,7 @@
 
 ## Overview and Role
 
-As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema wrapped by the `ViewerJSON` dataclass when calling `msm.view(system)` or converting a system for web rendering. It encapsulates atomic coordinates, element symbols, residue/chain labels, bond connectivity, and periodic box dimensions into a pure, serializable JSON schema.
+As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema wrapped by the `ViewerJSON` dataclass when calling `msm.view(molsys)` or converting a system for web rendering. It encapsulates atomic coordinates, element symbols, group/chain labels, bond connectivity, and periodic box dimensions into a pure, serializable JSON schema.
 
 ---
 
@@ -35,7 +35,7 @@ The underlying `data` dictionary of `ViewerJSON` follows a standardized graphics
 import molsysmt as msm
 
 # 1. Convert molecular system to a ViewerJSON object
-viewer_obj = msm.convert(system, to_form='molsysmt.ViewerJSON')
+viewer_obj = msm.convert(molsys, to_form='molsysmt.ViewerJSON')
 
 # 2. Export payload as JSON string or write to gzipped file
 json_str = viewer_obj.dumps(indent=2)
@@ -49,7 +49,7 @@ view = msm.view(viewer_obj)
 
 ## Invariants and Performance
 
-- **Pure JSON Primitives**: All internal values are strictly primitive Python types (`dict`, `list`, `str`, `int`, `float`, `None`).
+- **Pure JSON Primitives**: Native topology exports use Python scalars and containers, including `null` for missing table values. Bond endpoints remain integer positions. `dumps()` and `dump()` use the standard JSON encoder; manually supplied payloads must already satisfy this contract.
 - **Built-In Gzip Compression**: Supports direct gzip compression (`compression="gzip"`) for fast network transmission.
 
 ---

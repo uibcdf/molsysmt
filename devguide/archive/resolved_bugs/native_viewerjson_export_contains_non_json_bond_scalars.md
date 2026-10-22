@@ -1,13 +1,13 @@
 ---
 summary: Native ViewerJSON export contains non-JSON bond scalars
 issue: uibcdf/molsysmt#398
-status: open
+status: resolved
 opened: 2026-10-21
-closed:
+closed: 2026-10-21
 severity: medium
 verification: reproduced
 area: [form, convert, tests]
-guard:
+guard: tests/form/molsysmt_Topology/test_to_molsysmt_ViewerJSON.py::test_topology_export_has_json_scalars
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Native ViewerJSON export contains non-JSON bond scalars
 
 **Reported:** 2026-10-21 during registered payload copying checks for #121.
-**Status:** Open; reproduced on the original generated payload before copying.
+**Status:** Resolved; the native exporter normalizes nullable table scalars.
 
 ## What
 
@@ -81,3 +81,24 @@ payload returned by `to_dict`.
 
 Observed 2026-10-21, Linux, Python 3.14.7, development environment. Both the native
 topology exporter and wrapper JSON encoder are unchanged from `e83d854b2`.
+
+## Resolution — 2026-10-21
+
+The topology exporter converts NumPy scalar values to their Python counterparts
+and missing values to None at its table boundary. Bond pairs, endpoint columns,
+orders, types and formal charges share this route. The wrapper and standard
+JSON encoder remain unchanged. MolSys still transfers its locally owned
+intermediate payloads without defensive duplicate copies. No new dependency,
+scientific method, attribution boundary or persistence schema was introduced.
+
+**Contract-tested:** before the fix, the new bonded-payload guard failed on an
+int64 endpoint and the nullable formal-charge guard failed on an int16 value
+(2 failed, 2 passed). After the fix, the focused native Topology/MolSys/Structures
+export and ViewerJSON reader tests obtained **14 passed**, no omissions, with
+`python -m pytest --receptor=llm -n 12` on Linux/Python 3.14.7.
+The guard recursively checks concrete JSON types before encoding and literal
+bond values after standard encoding, wrapper encoding and disk writing. Separate
+tests cover nullable formal charges and MolSys coordinate/time conversion from
+angstrom/femtosecond to nanometer/picosecond. This is provider-source evidence;
+rendering, installed clients, non-finite input policy and full-suite qualification
+are not claimed. The independent reader defect remains tracked in #397.

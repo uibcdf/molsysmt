@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
-- [`native_viewerjson_export_contains_non_json_bond_scalars.md`](native_viewerjson_export_contains_non_json_bond_scalars.md) — [#398](https://github.com/uibcdf/molsysmt/issues/398) — Native ViewerJSON export contains non-JSON bond scalars *(medium, reproduced)*
 - [`validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md`](validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md) — [#396](https://github.com/uibcdf/molsysmt/issues/396) — Validated native bioassembly operations cannot round trip through H5MSM 0.5 *(medium, reproduced)*
 - [`viewerjson_native_decoding_rejects_string_chain_ids.md`](viewerjson_native_decoding_rejects_string_chain_ids.md) — [#397](https://github.com/uibcdf/molsysmt/issues/397) — ViewerJSON native decoding rejects string chain IDs *(medium, reproduced)*
 

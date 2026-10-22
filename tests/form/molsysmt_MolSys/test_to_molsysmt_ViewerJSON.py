@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 
 from molsysmt import pyunitwizard as puw
@@ -72,6 +74,25 @@ def test_molsys_to_ViewerJSON():
     assert data["structures"][0]["box"]["v0"] == [1.0, 0.0, 0.0]
     assert data["structures"][0]["box"]["v1"] == [0.0, 1.0, 0.0]
     assert data["structures"][0]["box"]["v2"] == [0.0, 0.0, 1.0]
+
+
+def test_molsys_export_serializes_bonds_and_fixed_units():
+    molsys = _build_minimal_molsys()
+    molsys.structures.coordinates = puw.quantity(
+        [[[0.0, 0.0, 0.0], [10.0, 0.0, 0.0]]], "angstrom"
+    )
+    molsys.structures.time = puw.quantity([1000.0], "femtosecond")
+    viewer = to_molsysmt_ViewerJSON(molsys)
+    data = json.loads(viewer.dumps())
+    assert json.loads(json.dumps(viewer.to_dict())) == data
+    assert data["bonds"]["atom_pairs"] == [[0, 1]]
+    assert data["bonds"]["order"] == [1]
+    assert data["bonds"]["indexA"] == [0]
+    assert data["bonds"]["indexB"] == [1]
+    np.testing.assert_allclose(
+        data["structures"][0]["coordinates"], [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]]
+    )
+    np.testing.assert_allclose(data["structures"][0]["time"], 1.0)
 
 
 def test_molsys_to_ViewerJSON_does_not_alias_the_source():
