@@ -5,6 +5,13 @@ hot MolSysMT coordinate paths.
 
 Current baseline scripts:
 
+- `../devtools/scripts/benchmark_native_copy.py`: measures production resident
+  `MolSys` copying, controlled edits/invalidation, selected/full coordinate reads,
+  iteration, Rust distance consumption and public H5MSM 0.5 write/load in isolated
+  workers. It separates immutable geometry bytes, traced allocations and process
+  RSS; see the [native-copy benchmark guide](../devguide/benchmarking/native_copy.md)
+  and the dated `native_copy_resident_20261021.json` snapshot. The older
+  `study_native_copy.py` snapshots compare prototypes, not these production paths.
 - `native_queries.py`: validates small synthetic expected results and measures
   current native/general queries under issue #128. Includes `MolSys`,
   `Topology`, `Structures`, `ChemicalStates`, `Interactions`, `MolSysBuilder`

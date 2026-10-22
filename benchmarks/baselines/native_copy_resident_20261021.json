@@ -1,0 +1,990 @@
+{
+  "scope": "production resident native paths; synthetic data; no installed-client qualification",
+  "measured_at_utc": "2026-10-22T01:48:55.653675+00:00",
+  "source_commit": "6e11395a976a2e0a2a3c8e046185a07aa131165a",
+  "worktree_dirty": true,
+  "implementation_sha256": {
+    "devtools/scripts/benchmark_native_copy.py": "8a913d19a9d4e90bdec94f54b6195d80d1a5d13d960ee239c8e61d6ac24a727e",
+    "molsysmt/native/_structure_array.py": "bdd86cd3a5e4664894658ef65c92ecb252206f5dbbb0f47dc2071276d693b051",
+    "molsysmt/native/_copy.py": "4137734df0234d79c611df834c2729ef5a5edabe2c5c2bf60542b49032de4b3b",
+    "molsysmt/native/structures.py": "a104ca73c6e82fa8f8579cd6152b949a3a51956e5d5766583ed6123806df7a0e",
+    "molsysmt/native/molsys.py": "d8df1f4f560d2836ba24db7207e1ffa88233d21dfefe841ef397267e2edbb527",
+    "molsysmt/interactions/result.py": "76b5e188f634ac05d7ecc28368e4cd1d7e01c5ac4b7b9ba0af817dc5eee2ff20",
+    "molsysmt/form/_h5msm05_structures.py": "a7e33907cbc068519dac4a59e82037860deb3cb0082a28021aac2fd611e7ef12"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyunitwizard": "0.28.1+15.g6c62ca6",
+    "h5py": "3.16.0",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "smonitor": "0.21.0+1.gd6b2394"
+  },
+  "cpu": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+  "logical_cpus": 20,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "RAYON_NUM_THREADS": "1"
+  },
+  "repeats": 3,
+  "iterator_chunk": 32,
+  "measurement": "fresh worker per case/operation; same-shape warm-up; median; fresh deferred edit subjects outside timing; separate tracemalloc pass",
+  "rss_scope": "Linux address space, including imports, fixture and warm-up; before/retained counters are not operation peak; HWM includes earlier allocations; release need not return allocator arenas to OS",
+  "byte_scope": "unique immutable coordinate/box bytes; excludes tables, analyses, Python headers and allocator overhead",
+  "io_scope": "public H5MSM 0.5 conversion with coordinates, box, time, topology, chemical states and named analysis; warm OS cache; no fsync durability claim",
+  "fixture": "linear float64 nm coordinates; one chemical state; one sparse analysis with parallel observations, evaluated-empty structures, final unevaluated structure; no velocities or arbitrary extension metadata",
+  "cases": [
+    {
+      "n_atoms": 62,
+      "n_structures": 5000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.0018425099842716008,
+          "samples": [
+            {
+              "seconds": 0.0018425099842716008,
+              "rss_before_bytes": 183484416,
+              "rss_retained_bytes": 183484416,
+              "process_hwm_bytes": 191078400
+            },
+            {
+              "seconds": 0.0018589380197227001,
+              "rss_before_bytes": 183484416,
+              "rss_retained_bytes": 183484416,
+              "process_hwm_bytes": 191078400
+            },
+            {
+              "seconds": 0.001566309976624325,
+              "rss_before_bytes": 183484416,
+              "rss_retained_bytes": 183484416,
+              "process_hwm_bytes": 191078400
+            }
+          ],
+          "traced_operation_peak_bytes": 110916,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 7800000,
+          "rss_after_releasing_result_bytes": 183488512,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.002541933994507417,
+          "samples": [
+            {
+              "seconds": 0.002692809997824952,
+              "rss_before_bytes": 191057920,
+              "rss_retained_bytes": 191057920,
+              "process_hwm_bytes": 191057920
+            },
+            {
+              "seconds": 0.002536331012379378,
+              "rss_before_bytes": 191057920,
+              "rss_retained_bytes": 191057920,
+              "process_hwm_bytes": 191057920
+            },
+            {
+              "seconds": 0.002541933994507417,
+              "rss_before_bytes": 191057920,
+              "rss_retained_bytes": 191057920,
+              "process_hwm_bytes": 191057920
+            }
+          ],
+          "traced_operation_peak_bytes": 7912193,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 15600000,
+          "rss_after_releasing_result_bytes": 191062016,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.002313296019565314,
+          "samples": [
+            {
+              "seconds": 0.002313296019565314,
+              "rss_before_bytes": 223850496,
+              "rss_retained_bytes": 224034816,
+              "process_hwm_bytes": 224034816
+            },
+            {
+              "seconds": 0.0026337440067436546,
+              "rss_before_bytes": 224034816,
+              "rss_retained_bytes": 224034816,
+              "process_hwm_bytes": 224034816
+            },
+            {
+              "seconds": 0.0021479849820025265,
+              "rss_before_bytes": 224034816,
+              "rss_retained_bytes": 224034816,
+              "process_hwm_bytes": 224034816
+            }
+          ],
+          "traced_operation_peak_bytes": 2163622,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 8847552,
+          "rss_after_releasing_result_bytes": 224112640,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.002583783003501594,
+          "samples": [
+            {
+              "seconds": 0.0026980600086972117,
+              "rss_before_bytes": 223465472,
+              "rss_retained_bytes": 223649792,
+              "process_hwm_bytes": 223649792
+            },
+            {
+              "seconds": 0.002583783003501594,
+              "rss_before_bytes": 223653888,
+              "rss_retained_bytes": 223653888,
+              "process_hwm_bytes": 223653888
+            },
+            {
+              "seconds": 0.002084551000734791,
+              "rss_before_bytes": 223653888,
+              "rss_retained_bytes": 223653888,
+              "process_hwm_bytes": 223653888
+            }
+          ],
+          "traced_operation_peak_bytes": 2164218,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 8847552,
+          "rss_after_releasing_result_bytes": 223731712,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "selected_read",
+          "median_seconds": 0.0007987079734448344,
+          "samples": [
+            {
+              "seconds": 0.0007987079734448344,
+              "rss_before_bytes": 187285504,
+              "rss_retained_bytes": 187289600,
+              "process_hwm_bytes": 191070208
+            },
+            {
+              "seconds": 0.0008269640093203634,
+              "rss_before_bytes": 187293696,
+              "rss_retained_bytes": 187293696,
+              "process_hwm_bytes": 191070208
+            },
+            {
+              "seconds": 0.0007333950197789818,
+              "rss_before_bytes": 187293696,
+              "rss_retained_bytes": 187293696,
+              "process_hwm_bytes": 191070208
+            }
+          ],
+          "traced_operation_peak_bytes": 27787,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 187293696,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "full_read",
+          "median_seconds": 0.0013028690009377897,
+          "samples": [
+            {
+              "seconds": 0.0013028690009377897,
+              "rss_before_bytes": 190754816,
+              "rss_retained_bytes": 190754816,
+              "process_hwm_bytes": 191201280
+            },
+            {
+              "seconds": 0.0012277080095373094,
+              "rss_before_bytes": 190754816,
+              "rss_retained_bytes": 190754816,
+              "process_hwm_bytes": 191201280
+            },
+            {
+              "seconds": 0.0014545050216838717,
+              "rss_before_bytes": 190754816,
+              "rss_retained_bytes": 190754816,
+              "process_hwm_bytes": 191201280
+            }
+          ],
+          "traced_operation_peak_bytes": 7442617,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 190754816,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "iterate_coordinates",
+          "median_seconds": 0.03295219800202176,
+          "samples": [
+            {
+              "seconds": 0.03266642801463604,
+              "rss_before_bytes": 221917184,
+              "rss_retained_bytes": 221933568,
+              "process_hwm_bytes": 221937664
+            },
+            {
+              "seconds": 0.03335770798730664,
+              "rss_before_bytes": 221937664,
+              "rss_retained_bytes": 221949952,
+              "process_hwm_bytes": 221949952
+            },
+            {
+              "seconds": 0.03295219800202176,
+              "rss_before_bytes": 221949952,
+              "rss_retained_bytes": 221949952,
+              "process_hwm_bytes": 221949952
+            }
+          ],
+          "traced_operation_peak_bytes": 359502,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 222310400,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "rust_distances",
+          "median_seconds": 0.01010670600226149,
+          "samples": [
+            {
+              "seconds": 0.008875998988514766,
+              "rss_before_bytes": 231907328,
+              "rss_retained_bytes": 232103936,
+              "process_hwm_bytes": 232108032
+            },
+            {
+              "seconds": 0.01010670600226149,
+              "rss_before_bytes": 232108032,
+              "rss_retained_bytes": 232108032,
+              "process_hwm_bytes": 232108032
+            },
+            {
+              "seconds": 0.012117189995478839,
+              "rss_before_bytes": 232108032,
+              "rss_retained_bytes": 232108032,
+              "process_hwm_bytes": 232108032
+            }
+          ],
+          "traced_operation_peak_bytes": 476450,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 232157184,
+          "file_bytes": null,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "h5msm_write",
+          "median_seconds": 0.27804709499469027,
+          "samples": [
+            {
+              "seconds": 0.283902325987583,
+              "rss_before_bytes": 250454016,
+              "rss_retained_bytes": 250593280,
+              "process_hwm_bytes": 250593280
+            },
+            {
+              "seconds": 0.27804709499469027,
+              "rss_before_bytes": 252723200,
+              "rss_retained_bytes": 252723200,
+              "process_hwm_bytes": 252723200
+            },
+            {
+              "seconds": 0.2747713899880182,
+              "rss_before_bytes": 252731392,
+              "rss_retained_bytes": 252731392,
+              "process_hwm_bytes": 252731392
+            }
+          ],
+          "traced_operation_peak_bytes": 252686,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 252735488,
+          "file_bytes": 4500969,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        },
+        {
+          "operation": "h5msm_read",
+          "median_seconds": 0.17043560202000663,
+          "samples": [
+            {
+              "seconds": 0.1744483719812706,
+              "rss_before_bytes": 251355136,
+              "rss_retained_bytes": 252170240,
+              "process_hwm_bytes": 252170240
+            },
+            {
+              "seconds": 0.17043560202000663,
+              "rss_before_bytes": 252178432,
+              "rss_retained_bytes": 252190720,
+              "process_hwm_bytes": 252190720
+            },
+            {
+              "seconds": 0.15628749199095182,
+              "rss_before_bytes": 252190720,
+              "rss_retained_bytes": 253235200,
+              "process_hwm_bytes": 253235200
+            }
+          ],
+          "traced_operation_peak_bytes": 16088532,
+          "source_geometry_bytes": 7800000,
+          "source_and_result_unique_geometry_bytes": 15600000,
+          "rss_after_releasing_result_bytes": 253239296,
+          "file_bytes": 4500969,
+          "coordinate_block_structures": 704,
+          "coordinate_blocks": 8
+        }
+      ]
+    },
+    {
+      "n_atoms": 10000,
+      "n_structures": 1000,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.0023614000238012522,
+          "samples": [
+            {
+              "seconds": 0.002547073003370315,
+              "rss_before_bytes": 413208576,
+              "rss_retained_bytes": 413335552,
+              "process_hwm_bytes": 651898880
+            },
+            {
+              "seconds": 0.0023614000238012522,
+              "rss_before_bytes": 413335552,
+              "rss_retained_bytes": 413335552,
+              "process_hwm_bytes": 651898880
+            },
+            {
+              "seconds": 0.0020265810017008334,
+              "rss_before_bytes": 413335552,
+              "rss_retained_bytes": 413335552,
+              "process_hwm_bytes": 651898880
+            }
+          ],
+          "traced_operation_peak_bytes": 960898,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 240072000,
+          "rss_after_releasing_result_bytes": 413376512,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.15540866600349545,
+          "samples": [
+            {
+              "seconds": 0.15109130600467324,
+              "rss_before_bytes": 413204480,
+              "rss_retained_bytes": 653565952,
+              "process_hwm_bytes": 653565952
+            },
+            {
+              "seconds": 0.15540866600349545,
+              "rss_before_bytes": 413204480,
+              "rss_retained_bytes": 653565952,
+              "process_hwm_bytes": 653565952
+            },
+            {
+              "seconds": 0.16356082900892943,
+              "rss_before_bytes": 413204480,
+              "rss_retained_bytes": 653565952,
+              "process_hwm_bytes": 653565952
+            }
+          ],
+          "traced_operation_peak_bytes": 240790583,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 480144000,
+          "rss_after_releasing_result_bytes": 413290496,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.0035437220067251474,
+          "samples": [
+            {
+              "seconds": 0.0026309509994462132,
+              "rss_before_bytes": 457474048,
+              "rss_retained_bytes": 458117120,
+              "process_hwm_bytes": 651997184
+            },
+            {
+              "seconds": 0.003777456993702799,
+              "rss_before_bytes": 456196096,
+              "rss_retained_bytes": 458117120,
+              "process_hwm_bytes": 651997184
+            },
+            {
+              "seconds": 0.0035437220067251474,
+              "rss_before_bytes": 456196096,
+              "rss_retained_bytes": 458117120,
+              "process_hwm_bytes": 651997184
+            }
+          ],
+          "traced_operation_peak_bytes": 1958454,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 241032000,
+          "rss_after_releasing_result_bytes": 455925760,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.004712675989139825,
+          "samples": [
+            {
+              "seconds": 0.003700333007145673,
+              "rss_before_bytes": 456290304,
+              "rss_retained_bytes": 459169792,
+              "process_hwm_bytes": 652070912
+            },
+            {
+              "seconds": 0.00487077099387534,
+              "rss_before_bytes": 456290304,
+              "rss_retained_bytes": 459169792,
+              "process_hwm_bytes": 652070912
+            },
+            {
+              "seconds": 0.004712675989139825,
+              "rss_before_bytes": 456290304,
+              "rss_retained_bytes": 459169792,
+              "process_hwm_bytes": 652070912
+            }
+          ],
+          "traced_operation_peak_bytes": 2919368,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 241992000,
+          "rss_after_releasing_result_bytes": 456019968,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "selected_read",
+          "median_seconds": 0.0007383260235656053,
+          "samples": [
+            {
+              "seconds": 0.0009135959844570607,
+              "rss_before_bytes": 420909056,
+              "rss_retained_bytes": 420913152,
+              "process_hwm_bytes": 652054528
+            },
+            {
+              "seconds": 0.0007348500075750053,
+              "rss_before_bytes": 420917248,
+              "rss_retained_bytes": 420917248,
+              "process_hwm_bytes": 652054528
+            },
+            {
+              "seconds": 0.0007383260235656053,
+              "rss_before_bytes": 420917248,
+              "rss_retained_bytes": 420917248,
+              "process_hwm_bytes": 652054528
+            }
+          ],
+          "traced_operation_peak_bytes": 27787,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 420917248,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "full_read",
+          "median_seconds": 0.05582496299757622,
+          "samples": [
+            {
+              "seconds": 0.055827095988206565,
+              "rss_before_bytes": 413728768,
+              "rss_retained_bytes": 653729792,
+              "process_hwm_bytes": 653729792
+            },
+            {
+              "seconds": 0.053176176006672904,
+              "rss_before_bytes": 413728768,
+              "rss_retained_bytes": 653729792,
+              "process_hwm_bytes": 653729792
+            },
+            {
+              "seconds": 0.05582496299757622,
+              "rss_before_bytes": 413728768,
+              "rss_retained_bytes": 653729792,
+              "process_hwm_bytes": 653729792
+            }
+          ],
+          "traced_operation_peak_bytes": 240002617,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 413728768,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "iterate_coordinates",
+          "median_seconds": 0.2599549810111057,
+          "samples": [
+            {
+              "seconds": 0.26307839297805913,
+              "rss_before_bytes": 455241728,
+              "rss_retained_bytes": 455462912,
+              "process_hwm_bytes": 652165120
+            },
+            {
+              "seconds": 0.2599549810111057,
+              "rss_before_bytes": 455462912,
+              "rss_retained_bytes": 455467008,
+              "process_hwm_bytes": 652165120
+            },
+            {
+              "seconds": 0.2583943010249641,
+              "rss_before_bytes": 455467008,
+              "rss_retained_bytes": 455467008,
+              "process_hwm_bytes": 652165120
+            }
+          ],
+          "traced_operation_peak_bytes": 16854152,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 473808896,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "rust_distances",
+          "median_seconds": 0.0090072920138482,
+          "samples": [
+            {
+              "seconds": 0.007999508990906179,
+              "rss_before_bytes": 465428480,
+              "rss_retained_bytes": 465432576,
+              "process_hwm_bytes": 652374016
+            },
+            {
+              "seconds": 0.01122922301874496,
+              "rss_before_bytes": 465453056,
+              "rss_retained_bytes": 465453056,
+              "process_hwm_bytes": 652374016
+            },
+            {
+              "seconds": 0.0090072920138482,
+              "rss_before_bytes": 465457152,
+              "rss_retained_bytes": 465457152,
+              "process_hwm_bytes": 652374016
+            }
+          ],
+          "traced_operation_peak_bytes": 124546,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 465457152,
+          "file_bytes": null,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "h5msm_write",
+          "median_seconds": 34.28049456598819,
+          "samples": [
+            {
+              "seconds": 34.28049456598819,
+              "rss_before_bytes": 585146368,
+              "rss_retained_bytes": 580243456,
+              "process_hwm_bytes": 959950848
+            },
+            {
+              "seconds": 34.507564313011244,
+              "rss_before_bytes": 580091904,
+              "rss_retained_bytes": 538677248,
+              "process_hwm_bytes": 959950848
+            },
+            {
+              "seconds": 32.123005705012474,
+              "rss_before_bytes": 538689536,
+              "rss_retained_bytes": 538689536,
+              "process_hwm_bytes": 960577536
+            }
+          ],
+          "traced_operation_peak_bytes": 684013,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 538972160,
+          "file_bytes": 97683611,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        },
+        {
+          "operation": "h5msm_read",
+          "median_seconds": 8.66267708700616,
+          "samples": [
+            {
+              "seconds": 8.874379526998382,
+              "rss_before_bytes": 578637824,
+              "rss_retained_bytes": 960491520,
+              "process_hwm_bytes": 960491520
+            },
+            {
+              "seconds": 8.66267708700616,
+              "rss_before_bytes": 579248128,
+              "rss_retained_bytes": 961241088,
+              "process_hwm_bytes": 961241088
+            },
+            {
+              "seconds": 8.653371067979606,
+              "rss_before_bytes": 579272704,
+              "rss_retained_bytes": 961269760,
+              "process_hwm_bytes": 961269760
+            }
+          ],
+          "traced_operation_peak_bytes": 482607801,
+          "source_geometry_bytes": 240072000,
+          "source_and_result_unique_geometry_bytes": 480144000,
+          "rss_after_releasing_result_bytes": 579313664,
+          "file_bytes": 97683611,
+          "coordinate_block_structures": 4,
+          "coordinate_blocks": 250
+        }
+      ]
+    },
+    {
+      "n_atoms": 100000,
+      "n_structures": 100,
+      "operations": [
+        {
+          "operation": "deferred_copy",
+          "median_seconds": 0.006399404024705291,
+          "samples": [
+            {
+              "seconds": 0.006395886011887342,
+              "rss_before_bytes": 435384320,
+              "rss_retained_bytes": 435384320,
+              "process_hwm_bytes": 672186368
+            },
+            {
+              "seconds": 0.006399404024705291,
+              "rss_before_bytes": 435384320,
+              "rss_retained_bytes": 435384320,
+              "process_hwm_bytes": 672186368
+            },
+            {
+              "seconds": 0.0067880169954150915,
+              "rss_before_bytes": 435384320,
+              "rss_retained_bytes": 435384320,
+              "process_hwm_bytes": 672186368
+            }
+          ],
+          "traced_operation_peak_bytes": 8948098,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 240007200,
+          "rss_after_releasing_result_bytes": 435482624,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "eager_copy",
+          "median_seconds": 0.1525325489928946,
+          "samples": [
+            {
+              "seconds": 0.150300089007942,
+              "rss_before_bytes": 432488448,
+              "rss_retained_bytes": 675561472,
+              "process_hwm_bytes": 675561472
+            },
+            {
+              "seconds": 0.1525325489928946,
+              "rss_before_bytes": 432488448,
+              "rss_retained_bytes": 675561472,
+              "process_hwm_bytes": 675561472
+            },
+            {
+              "seconds": 0.16263036901364103,
+              "rss_before_bytes": 432488448,
+              "rss_retained_bytes": 675561472,
+              "process_hwm_bytes": 675561472
+            }
+          ],
+          "traced_operation_peak_bytes": 245803983,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 480014400,
+          "rss_after_releasing_result_bytes": 432488448,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "edit_one_atom",
+          "median_seconds": 0.00271661501028575,
+          "samples": [
+            {
+              "seconds": 0.00411807099590078,
+              "rss_before_bytes": 479907840,
+              "rss_retained_bytes": 483909632,
+              "process_hwm_bytes": 672129024
+            },
+            {
+              "seconds": 0.002293969999300316,
+              "rss_before_bytes": 483909632,
+              "rss_retained_bytes": 483909632,
+              "process_hwm_bytes": 672129024
+            },
+            {
+              "seconds": 0.00271661501028575,
+              "rss_before_bytes": 483909632,
+              "rss_retained_bytes": 483913728,
+              "process_hwm_bytes": 672129024
+            }
+          ],
+          "traced_operation_peak_bytes": 4829894,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 242407200,
+          "rss_after_releasing_result_bytes": 483913728,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "edit_eight_structures",
+          "median_seconds": 0.015432145999511704,
+          "samples": [
+            {
+              "seconds": 0.0152605650073383,
+              "rss_before_bytes": 479059968,
+              "rss_retained_bytes": 500662272,
+              "process_hwm_bytes": 672079872
+            },
+            {
+              "seconds": 0.015432145999511704,
+              "rss_before_bytes": 479059968,
+              "rss_retained_bytes": 500662272,
+              "process_hwm_bytes": 672079872
+            },
+            {
+              "seconds": 0.01598091798950918,
+              "rss_before_bytes": 479064064,
+              "rss_retained_bytes": 500670464,
+              "process_hwm_bytes": 672079872
+            }
+          ],
+          "traced_operation_peak_bytes": 21632598,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 259207200,
+          "rss_after_releasing_result_bytes": 477601792,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "selected_read",
+          "median_seconds": 0.0007904710073489696,
+          "samples": [
+            {
+              "seconds": 0.0007904710073489696,
+              "rss_before_bytes": 437956608,
+              "rss_retained_bytes": 437964800,
+              "process_hwm_bytes": 672264192
+            },
+            {
+              "seconds": 0.0007664660224691033,
+              "rss_before_bytes": 437968896,
+              "rss_retained_bytes": 437968896,
+              "process_hwm_bytes": 672264192
+            },
+            {
+              "seconds": 0.0007927970145829022,
+              "rss_before_bytes": 437968896,
+              "rss_retained_bytes": 437968896,
+              "process_hwm_bytes": 672264192
+            }
+          ],
+          "traced_operation_peak_bytes": 27627,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 437972992,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "full_read",
+          "median_seconds": 0.05212626900174655,
+          "samples": [
+            {
+              "seconds": 0.051783547998638824,
+              "rss_before_bytes": 432807936,
+              "rss_retained_bytes": 672808960,
+              "process_hwm_bytes": 682131456
+            },
+            {
+              "seconds": 0.05539206799585372,
+              "rss_before_bytes": 441610240,
+              "rss_retained_bytes": 681611264,
+              "process_hwm_bytes": 682131456
+            },
+            {
+              "seconds": 0.05212626900174655,
+              "rss_before_bytes": 441610240,
+              "rss_retained_bytes": 681611264,
+              "process_hwm_bytes": 682131456
+            }
+          ],
+          "traced_operation_peak_bytes": 240002617,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 441610240,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "iterate_coordinates",
+          "median_seconds": 0.2940873400075361,
+          "samples": [
+            {
+              "seconds": 0.3034645439765882,
+              "rss_before_bytes": 475099136,
+              "rss_retained_bytes": 485343232,
+              "process_hwm_bytes": 672391168
+            },
+            {
+              "seconds": 0.28790736399241723,
+              "rss_before_bytes": 485343232,
+              "rss_retained_bytes": 486391808,
+              "process_hwm_bytes": 672391168
+            },
+            {
+              "seconds": 0.2940873400075361,
+              "rss_before_bytes": 486391808,
+              "rss_retained_bytes": 486400000,
+              "process_hwm_bytes": 672391168
+            }
+          ],
+          "traced_operation_peak_bytes": 160820178,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 474951680,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "rust_distances",
+          "median_seconds": 0.004981637990567833,
+          "samples": [
+            {
+              "seconds": 0.004981637990567833,
+              "rss_before_bytes": 479629312,
+              "rss_retained_bytes": 479637504,
+              "process_hwm_bytes": 672292864
+            },
+            {
+              "seconds": 0.004725748993223533,
+              "rss_before_bytes": 479637504,
+              "rss_retained_bytes": 479641600,
+              "process_hwm_bytes": 672292864
+            },
+            {
+              "seconds": 0.0051573169766925275,
+              "rss_before_bytes": 479641600,
+              "rss_retained_bytes": 479645696,
+              "process_hwm_bytes": 672292864
+            }
+          ],
+          "traced_operation_peak_bytes": 48705,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 479653888,
+          "file_bytes": null,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "h5msm_write",
+          "median_seconds": 19.623562840017257,
+          "samples": [
+            {
+              "seconds": 19.623562840017257,
+              "rss_before_bytes": 500895744,
+              "rss_retained_bytes": 503287808,
+              "process_hwm_bytes": 1001705472
+            },
+            {
+              "seconds": 19.76349958300125,
+              "rss_before_bytes": 500912128,
+              "rss_retained_bytes": 503107584,
+              "process_hwm_bytes": 1005244416
+            },
+            {
+              "seconds": 19.612813683022978,
+              "rss_before_bytes": 626315264,
+              "rss_retained_bytes": 500801536,
+              "process_hwm_bytes": 1006067712
+            }
+          ],
+          "traced_operation_peak_bytes": 6533949,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": null,
+          "rss_after_releasing_result_bytes": 511827968,
+          "file_bytes": 110389264,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        },
+        {
+          "operation": "h5msm_read",
+          "median_seconds": 5.188352817000123,
+          "samples": [
+            {
+              "seconds": 5.1753144090180285,
+              "rss_before_bytes": 502030336,
+              "rss_retained_bytes": 1005453312,
+              "process_hwm_bytes": 1005453312
+            },
+            {
+              "seconds": 5.188352817000123,
+              "rss_before_bytes": 503422976,
+              "rss_retained_bytes": 1006284800,
+              "process_hwm_bytes": 1006284800
+            },
+            {
+              "seconds": 5.21163506899029,
+              "rss_before_bytes": 503422976,
+              "rss_retained_bytes": 1007083520,
+              "process_hwm_bytes": 1007083520
+            }
+          ],
+          "traced_operation_peak_bytes": 501228006,
+          "source_geometry_bytes": 240007200,
+          "source_and_result_unique_geometry_bytes": 480014400,
+          "rss_after_releasing_result_bytes": 522354688,
+          "file_bytes": 110389264,
+          "coordinate_block_structures": 1,
+          "coordinate_blocks": 100
+        }
+      ]
+    }
+  ]
+}

@@ -25,9 +25,11 @@ and public signatures are not frozen. `Interactions`, standalone `Structures`
 and complete/partial `MolSys` now provide resident copy boundaries, described
 below. Molecular copies preserve owner bindings and may defer coordinate/box
 allocation. The remaining resident convenience methods and named payload
-wrappers now use independent graph copies. General table copy-on-write,
-direct-domain edit observation and production performance qualification are
-not delivered by these boundaries.
+wrappers now use independent graph copies. The production resident campaign
+below measures copying, edits and consumers on three bounded synthetic systems.
+It identifies H5MSM I/O and public-load allocation work before performance
+closeout. General table copy-on-write, direct-domain edit observation and full
+production/client performance qualification are not delivered by these boundaries.
 
 ## What
 
@@ -984,9 +986,126 @@ metadata; their wrapper/subclass preservation also needs a deliberate contract.
 Simulation settings and live resource handlers retain their separately stated
 reference/I/O semantics. The general native helper remains private: molecular
 owner rebinding belongs to its domain hook, not a generic state copy.
-Actual resident memory/time/read/edit/persistence measurements are still needed
-before claiming a production performance ranking or optimal block budget.
+The production campaign below now measures resident memory/time/read/edit and
+persistence on fixed synthetic systems. It does not establish an optimal block
+budget or clear the observed H5MSM I/O/allocation costs.
 Client-installed/source adoption evidence is not inferred from provider tests.
+
+### Production resident campaign — 2026-10-21 local / 2026-10-22 UTC
+
+**Benchmarked:**
+[`benchmark_native_copy.py`](../../devtools/scripts/benchmark_native_copy.py)
+executes the implemented native objects, not the earlier experimental `_Branch`
+layouts. The
+[raw snapshot](../../benchmarks/baselines/native_copy_resident_20261021.json)
+records base `6e11395a976a2e0a2a3c8e046185a07aa131165a`, the dirty development
+worktree, exact tool/runtime-file hashes, raw samples and package versions.
+All recorded implementation hashes matched the files after the campaign.
+The dirty changes were the new benchmark, its tests and documentation; no
+runtime implementation changed during measurement. The existing Python 3.14.7
+development environment includes source builds of some support libraries; this
+is not published-dependency or installed-client qualification.
+
+Reproduce from the repository root:
+
+```bash
+python devtools/scripts/benchmark_native_copy.py --repeats 3 \
+    --output /tmp/native-copy-resident.json
+python -m pytest --receptor=llm -n 12 \
+    devtools/tests/test_benchmark_native_copy.py
+```
+
+The campaign used Linux on an Intel Xeon E5-2630 v4 at 2.20 GHz, about 32.9 GB
+physical RAM, and temporary files on `/tmp` tmpfs (16 GiB capacity). OMP,
+OpenBLAS, MKL and Rayon thread environment variables were fixed to one. Each
+case/operation has a fresh subprocess, one same-shape warm-up, three untraced
+timing samples and a separate allocation-tracing pass. The small correctness
+suite completed near controller startup; no further test or benchmark campaign
+was launched during measurement. Do not rank small latency differences from
+this development run. The filesystem cache is warm/uncontrolled;
+these are not physical-disk throughput or cold-start measurements. See the
+[operational guide](../benchmarking/native_copy.md) for operation boundaries,
+fixture and memory definitions.
+
+Median times, rounded; atoms × structures name each column:
+
+| Operation | 62 × 5,000 | 10,000 × 1,000 | 100,000 × 100 |
+| --- | ---: | ---: | ---: |
+| Deferred `MolSys.copy(deep=False)` | 1.84 ms | 2.36 ms | 6.40 ms |
+| Eager `MolSys.copy()` | 2.54 ms | 155.41 ms | 152.53 ms |
+| Edit one atom in one structure, including invalidation | 2.31 ms | 3.54 ms | 2.72 ms |
+| Batched edit in eight structures, including invalidation | 2.58 ms | 4.71 ms | 15.43 ms |
+| Two atoms / four explicitly ordered structure indices | 0.80 ms | 0.74 ms | 0.79 ms |
+| Full coordinate property | 1.30 ms | 55.83 ms | 52.13 ms |
+| All-coordinate iteration plus checksum, chunk 32 | 32.95 ms | 259.96 ms | 294.09 ms |
+| Public Rust distance calculation, two atoms / all structures | 10.11 ms | 9.01 ms | 4.98 ms |
+| Public complete-system H5MSM write | 0.278 s | 34.280 s | 19.624 s |
+| Public complete-system H5MSM resident load | 0.170 s | 8.663 s | 5.188 s |
+
+Copy/edit geometry accounting, decimal MB; these are unique immutable backing
+bytes, excluding tables, analyses, metadata and allocator overhead:
+
+| Geometry footprint | 62 × 5,000 | 10,000 × 1,000 | 100,000 × 100 |
+| --- | ---: | ---: | ---: |
+| Original coordinates + box | 7.800 MB | 240.072 MB | 240.007 MB |
+| Additional geometry for deferred copy | 0 MB | 0 MB | 0 MB |
+| Additional geometry for eager copy | 7.800 MB | 240.072 MB | 240.007 MB |
+| Additional geometry after one-atom edit of deferred branch | 1.048 MB | 0.960 MB | 2.400 MB |
+| Additional geometry after eight-structure batch | 1.048 MB | 1.920 MB | 19.200 MB |
+
+The current 1 MiB budget produces 704, 4 and 1 structures per coordinate block
+respectively. One 100,000-atom structure exceeds that budget and remains a
+complete 2.4 MB block. Deferred copies still allocate independent canonical
+tables/metadata: their traced operation peaks are 0.111, 0.961 and 8.948 MB;
+the corresponding eager-copy peaks are 7.912, 240.791 and 245.804 MB. These are
+incremental allocations traced separately, not total process RSS. RSS before,
+retained-result and worker high-water counters are in the JSON with their
+explicit lifetime limits. Releasing an object does not promise immediate OS
+reclamation of allocator arenas.
+
+**Contract-tested:** all ten benchmark operations pass their small-fixture
+guards (**16 tests**, no omissions, 12 workers). Every measured sample checks
+values/units, owner bindings, chemical authority, original-source isolation,
+evaluated-empty/unevaluated coverage and parallel occurrence identity outside
+timing as applicable. The validator rejects intentionally stale coverage after
+a direct-domain edit, and rejects incorrect coordinates. It therefore does not
+accept a cheaper edit that silently bypasses owner invalidation. No scientific
+detector, attribution method, dependency floor or file schema changed.
+
+#### Findings and next implementation boundary
+
+1. **Measured:** deferring geometry allocation benefits the larger resident
+   snapshots while preserving independent mutable tables and domain ownership.
+   In the 10,000 × 1,000 case it reduces this copy's median latency by about
+   66-fold; the 62-atom case benefits much less. This is a local result for
+   these payloads, not a universal ratio or zero-RAM-copy claim.
+2. **Measured:** full coordinate properties allocate about 240 MB in the large
+   cases. Selected queries remain small; chunk-32 iteration traces peaks of
+   16.854 MB and 160.820 MB for the two 240 MB trajectories. Atom count and
+   structure count both matter when choosing an iterator chunk.
+3. **Measured / inspected:** public H5MSM write/load costs require a separate
+   I/O refinement before performance closeout. The writer passes protected
+   coordinate blocks of 4 or 1 structures to HDF5, whose installed automatic
+   chunk chooser gives temporal extents 32 or 4 for the two large dataset
+   shapes. A metadata-only diagnostic with h5py's chooser gives chunk shapes
+   `(32, 313, 1)` and `(4, 3125, 1)`. Repeated partial compressed-chunk access
+   is a plausible mechanism; this has not yet been isolated against an aligned
+   layout. Compare aligned layouts on write, full load, selected reads and file
+   size before choosing a fix. Preserve bounded transfers and the existing
+   schema/units; do not optimize only the write case.
+4. **Measured / inspected:** public resident load traces 482.608 MB and
+   501.228 MB for the large cases. The codec's protected reader is bounded,
+   but `basic.convert` first materializes the file through
+   `maybe_read_modular_h5msm` and then uses the native same-form converter,
+   whose default `copy_if_all=True` takes another eager snapshot. This is a
+   concrete candidate for the extra resident allocation. Qualify a fresh-file
+   ownership path separately, preserving explicit user copy choices, selections,
+   partial-domain behavior, owner links and named analyses. The current benchmark
+   does not establish a lower public-load allocation bound.
+5. **Still open:** no budget sweep proves 1 MiB optimal; no dense-interaction,
+   large mutable-observable/metadata, installed-client or other-platform campaign
+   is implied. General pandas/table alias policy and automatic publication of
+   direct attached-domain edits remain design work. Keep #121 active.
 
 ### Historical ownership defect
 

@@ -17,6 +17,11 @@ The [ring participant guide](rings.md) records chemistry preparation on known
 isolated cycles and a large acyclic tail, with result buffer sizes and explicit
 limits on interpreting total process memory.
 
+The [resident native-copy guide](native_copy.md) measures actual molecular
+copies, controlled edits/invalidation, coordinate consumers and complete-system
+H5MSM 0.5 conversion. It distinguishes production paths from layout prototypes
+and immutable backing bytes from allocator tracing and process RSS.
+
 ## What to measure
 
 Measure separately:
