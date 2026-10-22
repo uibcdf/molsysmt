@@ -90,3 +90,9 @@ across those four workflow routes only after the replacement runtime passes
 hosted import and numerical qualification with the complete dependency set.
 Do not infer installed-candidate or other-platform qualification from the
 single smoke recovery.
+
+Future replacement qualification and retirement of this ceiling are tracked by
+[uibcdf/molsysmt#403](https://github.com/uibcdf/molsysmt/issues/403), with the
+[active acceptance plan](pending_proposals/requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md).
+A replacement may be a corrected build of 2026.2.0 or a later version. Withdrawal
+of a broken package alone does not qualify that replacement.
