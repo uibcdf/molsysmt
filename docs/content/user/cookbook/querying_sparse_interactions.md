@@ -159,6 +159,37 @@ without the other layers. Both `read` and `read_layers` currently materialize
 the selected interaction result in memory; they are not file-backed query
 objects.
 
+## Removing selected data
+
+Use the public removal operation to keep molecular domains and named analyses
+aligned. This synthetic example removes atom index 8 and structure index 4:
+
+```python
+molsys_trimmed = msm.remove(molsys, selection=[8], structure_indices=[4])
+assert msm.get(molsys, n_atoms=True) == 9
+assert msm.get(molsys_trimmed, n_atoms=True) == 8
+assert molsys_trimmed.interactions["example"].n_interactions == 1
+assert molsys_trimmed.interactions["example"].evaluated_structure_indices.tolist() == [0, 1, 3]
+assert molsys_trimmed.interactions["example"].query(structure_indices=[1]).n_interactions == 0
+```
+
+The default `in_place=False` returns an independent candidate, including for an
+empty removal. Observations involving removed participants disappear; source
+maps and surviving coverage follow extraction. This is a projection of original
+observations, not a fresh calculation over the reduced molecular environment.
+
+For an explicit edit, `msm.remove(molsys, selection=[8], in_place=True)` updates
+that system and returns `None`. It prepares all domains and remapped analyses
+before publication. Old domain/result references remain historical snapshots;
+retrieve the current domains from `molsys`. Client metadata is retained without
+automatically remapping its caches. Pass the owning MolSys rather than resizing
+an attached Topology or Structures independently. Other forms use the normal
+out-of-place route, with `to_form` when needed. See {ref}`Tutorial_Remove`.
+
+For a file or file-handler input, specify `to_form='molsysmt.MolSys'` or a
+distinct destination path. This is required even for an empty removal: another
+reference to the source file would not be an independent candidate.
+
 ## Editing a structure
 
 An atom that had no previous interactions can acquire one after moving. Reset

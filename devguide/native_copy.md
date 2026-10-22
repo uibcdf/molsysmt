@@ -39,6 +39,14 @@ does not apply chemistry. Prior snapshots remain historical results. See
 Raw table/array writes and uncoordinated domain/axis changes require explicit
 invalidation. This is not a general observer or a chemical dependency graph.
 
+`msm.remove` is a coordinated subset operation: its False default returns an
+independent result, while explicit True prepares a complete native subset and
+then replaces the target's domains together, returning None. Old domain handles
+are detached; named analyses follow extraction's source maps and coverage rather
+than a new calculation. Attached standalone domains cannot be resized in place.
+File inputs require an explicit independent output target. See the
+[removal tutorial](../docs/content/user/tools/basic/remove.ipynb).
+
 ## Graph identity and extension data
 
 Tuples containing only exact built-in strings are immutable and may be reused

@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-21
+**Last updated:** 2026-10-22
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -140,6 +140,34 @@ including repetitions, while preserving structure labels and times. Direct file
 inputs use resident native construction; default structure 0 is unchanged.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
+
+## Removal ownership correction — 2026-10-22
+
+The reporting Viewer requirement #406 is source-resolved in the
+[removal record](archive/resolved_bugs/remove_ignores_in_place_and_ownership.md).
+`msm.remove` now defaults to False, preserving established return-new calls and
+making no-op candidates independent. Explicit True updates supported native
+targets after preparation and returns None. Attached domains, unsupported mutation
+and ambiguous disk destinations are rejected. Named analyses follow extraction;
+historical snapshots remain intact. The intentional default correction is recorded
+for clients before replacing any installed candidate.
+
+The associated [#410 converter repair](archive/resolved_bugs/molsys_dict_conversion_ignores_selections.md)
+preserves requested dictionary axes by reusing dictionary extraction. Two stale
+ownership/chemical-coverage guards are corrected under
+[#409](archive/resolved_bugs/complementary_conversion_guard_requires_shared_owner.md).
+The [#412 allocation guard](archive/resolved_bugs/allocation_guard_rejects_lower_peak.md)
+keeps its ceilings while distinguishing growth from reduction and per-edit work
+from initialization. The final focused selection passes 125 cases; the removal
+record preserves the broader 5,478 passing cases and its one subsequently repaired
+guard failure without claiming an all-green broad run. Eleven doctest examples,
+two executed notebooks, recipe/dictionary examples and scoped HTML rendering pass.
+These are source checks, not a new installed pair or a publication decision.
+
+The separate H5MSM 0.5 handler-capability/diagnostic proposal #411 remains open;
+legacy handlers intentionally support 0.3/0.4. Its initial native-0.5-support claim
+was disproved and corrected. It does not introduce a 1.0 file-backed-reader gate.
+The publication pause and all historical artifact/ref identities remain intact.
 
 ## Additional source stabilization and acceptance review — 2026-10-13
 

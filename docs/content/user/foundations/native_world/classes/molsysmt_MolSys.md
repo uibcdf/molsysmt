@@ -43,6 +43,14 @@ As a user, `molsysmt.MolSys` is the central object returned when loading, conver
 
 Some native operations edit a `MolSys` in place; `extract` returns an independent subset. A partial `MolSys` retains only the information domains that were available in its source.
 
+The general `msm.remove` tool returns an independent subset by default, even
+when nothing is removed. Explicit `in_place=True` keeps the MolSys identity,
+replaces its domains together and returns `None`. Previously held domains and
+analysis views remain snapshots; obtain current domains again from the edited
+system. An attached Topology or Structures cannot be resized on its own.
+Named analyses follow extraction's index projection and retain their original
+evaluated scope; removal does not recalculate them. See {ref}`Tutorial_Remove`.
+
 If you hold chemical states and structures separately, use
 `msm.convert([chemical_states, structures], to_form='molsysmt.MolSys')`.
 The chemistry may also be a `ChemicalStatesDict`. The pair declares matching

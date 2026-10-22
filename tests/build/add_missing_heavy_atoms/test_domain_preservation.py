@@ -115,12 +115,20 @@ def test_repair_retains_atom_chemistry_state_metadata_and_named_analysis(
 
 def test_multiple_chemical_states_fail_before_atom_domain_expansion():
     source = incomplete_serine()
+    control = source.interactions["declared-analysis"]
     source.chemical_states._append_state(source.chemical_states._states[0].copy())
+    assert (
+        source.interactions["declared-analysis"].evaluated_structure_indices.size == 0
+    )
+    # Declare the synthetic control on the prepared input, after inventory edits.
+    # The following rejected repair must not invalidate or replace it.
+    source.interactions = {"declared-analysis": control}
     original = source.copy()
     with pytest.raises(StructuralInconsistencyError, match="one chemical state"):
         msm.build.add_missing_heavy_atoms(source)
     pd.testing.assert_frame_equal(source.topology.atoms, original.topology.atoms)
     assert source.chemical_states.n_chemical_states == 2
+    assert source.interactions["declared-analysis"] is control
     assert source.interactions[
         "declared-analysis"
     ].evaluated_structure_indices.tolist() == [0]

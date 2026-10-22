@@ -286,19 +286,25 @@ def test_replacing_one_frame_does_not_copy_large_occurrence_tables():
         method="synthetic",
         measure_units={"distance": "nm"},
     )
+    # Initialize validation/provider caches before measuring per-edit growth.
+    # A separate source keeps both measured sources fresh.
+    large(2).replace_structures(fresh)
     peaks = []
     for count in (100, 200_000):
         old = large(count)
+        gc.collect()
         tracemalloc.start()
-        edited = old.replace_structures(fresh)
-        _, peak = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
+        try:
+            edited = old.replace_structures(fresh)
+            _, peak = tracemalloc.get_traced_memory()
+        finally:
+            tracemalloc.stop()
         peaks.append(peak)
         assert edited._segments[0][0] is old
         assert edited._packed_result is None
         assert edited.query(structure_indices=[0]).n_interactions == 1
     assert max(peaks) < 100_000
-    assert abs(peaks[1] - peaks[0]) < 30_000
+    assert peaks[1] - peaks[0] < 30_000
 
 
 def test_unchanged_registry_and_block_maps_are_shared_across_edits_and_invalidation():

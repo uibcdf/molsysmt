@@ -156,10 +156,36 @@ def test_full_axes_and_independent_copy_policy(split_system):
         puw.get_value(source.structures.coordinates, to_unit="nm"),
     )
     shared = msm.convert(inputs, copy_if_all=False)
-    assert shared.structures is inputs[1].structures
+    assert shared.structures is not inputs[1].structures
+    assert shared.structures._molsys_owner_ref() is shared
+    assert inputs[1].structures._molsys_owner_ref() is inputs[1]
+    assert np.shares_memory(
+        shared.structures._coordinates._blocks[0],
+        inputs[1].structures._coordinates._blocks[0],
+    )
     assert shared.topology is not inputs[0].topology
     assert inputs[0].structures is None and inputs[1].topology is None
     assert inputs[0].topology._molsys_owner_ref() is inputs[0]
+    original = puw.get_value(inputs[1].structures.coordinates, to_unit="nm").copy()
+    shared.interactions = dict(source.interactions)
+    inputs[1].interactions = dict(source.interactions)
+    msm.set(
+        shared,
+        selection=[0],
+        structure_indices=[2],
+        coordinates=puw.quantity([[[99.0, 0, 0]]], "nm"),
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(inputs[1].structures.coordinates, to_unit="nm"), original
+    )
+    assert shared.interactions["synthetic"].n_interactions == 0
+    assert inputs[1].interactions["synthetic"].n_interactions == 1
+    np.testing.assert_array_equal(
+        shared.interactions["synthetic"].evaluated_structure_indices, [0]
+    )
+    np.testing.assert_array_equal(
+        inputs[1].interactions["synthetic"].evaluated_structure_indices, [0, 2]
+    )
 
 
 def test_explicit_state_association_survives_without_invalidating_analyses(

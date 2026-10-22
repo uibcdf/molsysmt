@@ -65,7 +65,17 @@ assert set(data['structures']) == {'structure_id', 'time', 'box', 'coordinates'}
 assert abs(data['structures']['coordinates'][0][1][0] - 0.12) < 1e-12
 rebuilt = msm.convert(msm.MolSysDict(data=data), to_form='molsysmt.MolSys')
 assert msm.get(rebuilt, n_atoms=True, n_structures=True) == [2, 1]
+
+molsys_A = msm.convert(molsys_dict, selection=[1], structure_indices=[0, 0],
+                      to_form='molsysmt.MolSys')
+assert msm.get(molsys_A, n_atoms=True, n_structures=True) == [1, 2]
+assert msm.get(molsys_A, element='atom', atom_id=True) == ['20']
 ```
+
+Selected reconstruction reuses dictionary extraction: retained atoms follow
+sorted source indices, while structure indices keep their order and repetitions.
+The input payload stays unchanged. The same correspondence applies when
+`msm.extract` or `msm.remove` requests MolSys output from this dictionary.
 
 ## Fidelity Limits
 

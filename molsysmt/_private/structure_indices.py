@@ -26,5 +26,6 @@ def complementary_structure_indices(molecular_system, structure_indices):
     structure_indices = structure_indices[structure_indices < n_structures]
 
     mask = np.ones(n_structures, dtype=bool)
-    mask[structure_indices] = False
+    if structure_indices.size:
+        mask[structure_indices] = False
     return list(np.where(mask)[0])
