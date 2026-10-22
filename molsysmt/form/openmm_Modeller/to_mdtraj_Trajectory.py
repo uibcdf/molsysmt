@@ -1,8 +1,11 @@
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import LibraryNotFoundError
 
 
 @arg_digest(form="openmm.Modeller")
+@dep_digest("mdtraj")
+@dep_digest("openmm")
 def to_mdtraj_Trajectory(
     item, atom_indices="all", structure_indices="all", skip_digestion=False
 ):
@@ -30,15 +33,12 @@ def to_mdtraj_Trajectory(
     .. versionadded:: 1.0.0
     """
 
-    try:
-        from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
-    except Exception:
-        raise LibraryNotFoundError("MDTraj")
+    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
     from molsysmt import pyunitwizard as puw
-    from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
 
     from ..mdtraj_Trajectory.extract import extract as extract_mdtraj_Trajectory
+    from .to_mdtraj_Topology import to_mdtraj_Topology
 
     tmp_topology = to_mdtraj_Topology(item, skip_digestion=False)
     positions = puw.get_value(item.positions, to_unit="nanometers")

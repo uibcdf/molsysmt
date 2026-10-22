@@ -1,7 +1,11 @@
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="mdtraj.Trajectory")
+@dep_digest("mdtraj")
+@dep_digest("openmm")
 def to_openmm_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from mdtraj.Trajectory to openmm.Topology.
@@ -25,10 +29,11 @@ def to_openmm_Topology(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
     from molsysmt.form.mdtraj_Topology.to_openmm_Topology import (
         to_openmm_Topology as mdtraj_Topology_to_openmm_Topology,
     )
+
+    from .to_mdtraj_Topology import to_mdtraj_Topology
 
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
     tmp_item = mdtraj_Topology_to_openmm_Topology(tmp_item, skip_digestion=True)
