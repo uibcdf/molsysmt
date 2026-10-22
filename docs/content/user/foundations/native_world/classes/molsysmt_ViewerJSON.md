@@ -23,7 +23,7 @@ The underlying `data` dictionary of `ViewerJSON` follows a standardized graphics
 | Top-Level Key | Value Type | Description |
 | :--- | :--- | :--- |
 | **`"version"`** | String (`"0.1"`) | Graphics payload schema version tag. |
-| **`"atoms"`** | Dictionary of Lists | Columnar per-atom vectors: `atom_id`, `atom_name`, `group_id`, `group_name`, `chain_id`, `entity_id`, `element_symbol`, `formal_charge`. |
+| **`"atoms"`** | Dictionary of Lists | Columnar per-atom vectors: `atom_id`, `atom_name`, `group_id`, `group_name`, `chain_id`, `entity_id`, `element_symbol`, `formal_charge`. Native exports also supply `group_index`, `chain_index` and `entity_index` to distinguish repeated labels. |
 | **`"bonds"`** | Dictionary | Bond connectivity mapping: `atom_pairs` (`[[atom1, atom2], ...]`) and optional `order` list. |
 | **`"structures"`** | List of Dicts | Structure list containing `coordinates` in `nm` `([[x, y, z], ...])`, optional `time` in `ps`, and optional periodic `box` vectors (`v0`, `v1`, `v2` in `nm`). |
 
@@ -46,6 +46,26 @@ view = msm.view(viewer_obj)
 ```
 
 ---
+
+## Identity and Recovery
+
+ID fields are string labels, including leading zeros; they are never parsed as
+positions. Native exports include per-atom `group_index`, `chain_index` and
+`entity_index`. On native recovery, these columns distinguish repeated labels
+and compact represented axes in source index order. Null membership remains
+unknown. Invalid indices and conflicting labels, group names or entity
+assignments raise a format error.
+
+For older payloads without these columns, chain/entity IDs define identity;
+group IDs define identity within a chain. Two groups sharing an ID in the same
+chain, or two chains/entities sharing an ID, cannot be distinguished by those
+legacy labels alone. Supply positional columns when separate identities matter.
+
+ViewerJSON is a graphics projection: the reader preserves represented atoms,
+groups, chains, entities and stored bonds, reconstructs connected components
+through the native connectivity tool, and supplies a synthetic molecule per
+group. It does not recover omitted molecule labels or the full native hierarchy.
+Use H5MSM for full-domain persistence.
 
 ## Invariants and Performance
 

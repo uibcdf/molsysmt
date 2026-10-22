@@ -3,6 +3,7 @@ import pandas as pd
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import FormatError
 from molsysmt.native import MolSys, Structures, Topology
 from molsysmt.pbc import get_box_from_lengths_and_angles
 
@@ -19,22 +20,61 @@ def _safe_array(values, length, dtype=object):
     return arr
 
 
-def _group_indices_from_ids(ids):
-    ids_clean = [ii for ii in ids if ii is not None]
-    if not ids_clean:
-        return [0] * len(ids), [None]
-    unique_ids = list(pd.unique(np.asarray(ids_clean, dtype=object)))
-    mapping = {gid: idx for idx, gid in enumerate(unique_ids)}
-    return [mapping.get(ii, 0) for ii in ids], unique_ids
+def _labels(values, n_atoms):
+    """Normalizing labels without interpreting them as positions."""
+    return [
+        None if pd.isna(value) else str(value) for value in _safe_array(values, n_atoms)
+    ]
 
 
-def _chain_indices_from_ids(ids):
-    ids_clean = [ii for ii in ids if ii is not None]
-    if not ids_clean:
-        return [0] * len(ids), [None]
-    unique_ids = list(pd.unique(np.asarray(ids_clean, dtype=object)))
-    mapping = {cid: idx for idx, cid in enumerate(unique_ids)}
-    return [mapping.get(ii, 0) for ii in ids], unique_ids
+def _axis(atoms, name, n_atoms, scope=None):
+    """Decoding positional identity, with a declared legacy label fallback."""
+    label_name, index_name = f"{name}_id", f"{name}_index"
+    labels = _labels(atoms.get(label_name), n_atoms)
+    if index_name in atoms:
+        keys = atoms[index_name]
+        if (
+            not isinstance(keys, list)
+            or len(keys) != n_atoms
+            or any(
+                value is not None and (type(value) is not int or value < 0)
+                for value in keys
+            )
+        ):
+            raise FormatError(
+                reason=f"ViewerJSON {index_name} must contain one nonnegative integer or null per atom."
+            )
+        # Keep the source axis order even when the first atom belongs to a later element.
+        unique = sorted({value for value in keys if value is not None})
+    else:
+        keys = [
+            None if label is None else (scope[i], label) if scope is not None else label
+            for i, label in enumerate(labels)
+        ]
+        unique = list(dict.fromkeys(value for value in keys if value is not None))
+    mapping = {key: i for i, key in enumerate(unique)}
+    indices = [mapping.get(key) for key in keys]
+    rows = {}
+    for row, index in enumerate(indices):
+        if index is None:
+            continue
+        first = rows.setdefault(index, row)
+        if labels[row] != labels[first]:
+            raise FormatError(
+                reason=f"ViewerJSON {label_name} disagrees within one {index_name}."
+            )
+    first_rows = [rows[index] for index in range(len(unique))]
+    return indices, [labels[row] for row in first_rows], first_rows
+
+
+def _per_group(values, group_indices, first_rows, field):
+    """Checking that an atom-aligned value is well defined for each group."""
+    for row, group in enumerate(group_indices):
+        if group is not None and values[row] != values[first_rows[group]]:
+            raise FormatError(
+                reason=f"ViewerJSON {field} disagrees within one group_index."
+            )
+    return [values[row] for row in first_rows]
 
 
 def _box_dict_to_array(box_dict):
@@ -127,8 +167,36 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     Returns
     -------
     molsysmt.MolSys
-        Resulting object in molsysmt.MolSys form.
+        Native system with string ID labels and local positional indices.
 
+    Raises
+    ------
+    FormatError
+        If declared axis indices are invalid or identity metadata conflicts.
+
+    Notes
+    -----
+    Per-atom group_index, chain_index and entity_index columns distinguish
+    elements with repeated labels. Present indices must be nonnegative integers
+    or null; selected axes are compacted in source index order. Conflicting
+    labels for one index are rejected. Without these columns, chain/entity IDs
+    define identity and group IDs define identity within a chain. Such legacy
+    payloads cannot distinguish repeated group IDs within one chain or repeated
+    chain/entity IDs. Inconsistent group names or entity assignments are rejected.
+    The graphics projection omits the component/molecule hierarchy. Components
+    are rebuilt by the native connectivity tool from stored bonds; the reader
+    supplies one synthetic molecule per represented group, with local string IDs.
+
+    Examples
+    --------
+    >>> from molsysmt.native import ViewerJSON
+    >>> payload = ViewerJSON(data={"atoms": {"atom_id": ["007"],
+    ...     "atom_name": ["C"], "group_id": ["L"], "chain_id": ["A"]}})
+    >>> molsys = to_molsysmt_MolSys(payload)
+    >>> molsys.topology.atoms["atom_id"].tolist()
+    ['007']
+    >>> molsys.topology.chains["chain_id"].tolist()
+    ['A']
 
     .. versionadded:: 1.0.0
     """
@@ -147,20 +215,6 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     atom_name = _safe_array(
         atoms.get("atom_name", None), len(atom_id) or None, dtype=object
     )
-    group_id_raw = _safe_array(
-        atoms.get("group_id", atoms.get("group_ig", None)),
-        len(atom_name) or None,
-        dtype=object,
-    )
-    group_name = _safe_array(
-        atoms.get("group_name", None), len(atom_name) or None, dtype=object
-    )
-    chain_id_raw = _safe_array(
-        atoms.get("chain_id", None), len(atom_name) or None, dtype=object
-    )
-    entity_id_raw = _safe_array(
-        atoms.get("entity_id", None), len(atom_name) or None, dtype=object
-    )
     formal_charge = _safe_array(
         atoms.get("formal_charge", None), len(atom_name) or None, dtype=object
     )
@@ -172,59 +226,64 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     if n_atoms is None:
         n_atoms = 0
 
-    group_indices, unique_group_ids = _group_indices_from_ids(group_id_raw.tolist())
-    chain_indices, unique_chain_ids = _chain_indices_from_ids(chain_id_raw.tolist())
+    chain_indices, chain_ids, _ = _axis(atoms, "chain", n_atoms)
+    entity_indices, entity_ids, _ = _axis(atoms, "entity", n_atoms)
+    # Keep the historical group_ig spelling as a read-only compatibility route.
+    group_atoms = dict(atoms)
+    if "group_id" not in group_atoms and "group_ig" in group_atoms:
+        group_atoms["group_id"] = group_atoms["group_ig"]
+    group_indices, group_ids, group_rows = _axis(
+        group_atoms, "group", n_atoms, scope=chain_indices
+    )
+    group_names = _per_group(
+        _labels(atoms.get("group_name"), n_atoms),
+        group_indices,
+        group_rows,
+        "group_name",
+    )
+    group_entities = _per_group(
+        entity_indices, group_indices, group_rows, "entity_index"
+    )
+    n_groups = len(group_ids)
 
     topo = Topology(
         n_atoms=n_atoms,
-        n_groups=max(len(unique_group_ids), 1),
-        n_components=max(len(unique_group_ids), 1),
-        n_molecules=max(len(unique_group_ids), 1),
-        n_entities=max(len(entity_id_raw) if entity_id_raw is not None else 1, 1),
-        n_chains=max(len(unique_chain_ids), 1),
+        n_groups=n_groups,
+        n_components=0,
+        n_molecules=n_groups,
+        n_entities=len(entity_ids),
+        n_chains=len(chain_ids),
         n_bonds=0,
         skip_digestion=True,
     )
 
-    topo.atoms["atom_id"] = pd.Series(atom_id, dtype="Int64")
+    topo.atoms["atom_id"] = pd.Series(atom_id, dtype="string")
     topo.atoms["atom_name"] = pd.Series(atom_name, dtype=str)
+    topo.atoms["atom_type"] = pd.Series(
+        _labels(atoms.get("element_symbol"), n_atoms), dtype="string"
+    )
     topo.atoms["group_index"] = pd.Series(group_indices, dtype="Int64")
-    topo._set_component_indices(pd.Series(group_indices, dtype="Int64"))
     topo.atoms["chain_index"] = pd.Series(chain_indices, dtype="Int64")
 
-    topo.groups["group_id"] = pd.Series(unique_group_ids, dtype="Int64")
-    topo.groups["group_name"] = pd.Series(
-        group_name[: len(unique_group_ids)], dtype=str
-    )
-    topo.groups["group_type"] = pd.Series([""] * len(unique_group_ids), dtype=str)
-    topo.groups["molecule_index"] = pd.Series(
-        np.zeros(len(unique_group_ids), dtype=int), dtype="Int64"
-    )
-
-    topo.components["component_id"] = pd.Series(unique_group_ids, dtype="Int64")
-    topo.components["component_name"] = pd.Series(
-        group_name[: len(unique_group_ids)], dtype=str
-    )
-    topo.components["component_type"] = pd.Series(
-        [""] * len(unique_group_ids), dtype=str
-    )
+    topo.groups["group_id"] = pd.Series(group_ids, dtype="string")
+    topo.groups["group_name"] = pd.Series(group_names, dtype="string")
+    topo.groups["group_type"] = pd.Series([""] * n_groups, dtype=str)
+    topo.groups["molecule_index"] = pd.Series(np.arange(n_groups), dtype="Int64")
 
     topo.molecules["molecule_id"] = pd.Series(
-        np.arange(len(unique_group_ids)), dtype="Int64"
+        np.arange(n_groups).astype(str), dtype="string"
     )
-    topo.molecules["molecule_name"] = pd.Series([""] * len(unique_group_ids), dtype=str)
-    topo.molecules["molecule_type"] = pd.Series([""] * len(unique_group_ids), dtype=str)
-    topo.molecules["entity_index"] = pd.Series(
-        np.zeros(len(unique_group_ids), dtype=int), dtype="Int64"
-    )
+    topo.molecules["molecule_name"] = pd.Series([""] * n_groups, dtype=str)
+    topo.molecules["molecule_type"] = pd.Series([""] * n_groups, dtype=str)
+    topo.molecules["entity_index"] = pd.Series(group_entities, dtype="Int64")
 
-    topo.entities["entity_id"] = pd.Series(entity_id_raw, dtype="Int64")
+    topo.entities["entity_id"] = pd.Series(entity_ids, dtype="string")
     topo.entities["entity_name"] = pd.Series([""] * len(topo.entities), dtype=str)
     topo.entities["entity_type"] = pd.Series([""] * len(topo.entities), dtype=str)
 
-    topo.chains["chain_id"] = pd.Series(unique_chain_ids, dtype="Int64")
-    topo.chains["chain_name"] = pd.Series([""] * len(unique_chain_ids), dtype=str)
-    topo.chains["chain_type"] = pd.Series([""] * len(unique_chain_ids), dtype=str)
+    topo.chains["chain_id"] = pd.Series(chain_ids, dtype="string")
+    topo.chains["chain_name"] = pd.Series([""] * len(chain_ids), dtype=str)
+    topo.chains["chain_type"] = pd.Series([""] * len(chain_ids), dtype=str)
 
     if bonds:
         atom_pairs = bonds.get("atom_pairs", [])
@@ -240,6 +299,8 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
             types=bond_types,
             sort=False,
         )
+
+    topo.rebuild_components(redefine_types=False, redefine_names=False)
 
     coordinates, times, boxes = _collect_coordinates(
         frames, n_atoms if n_atoms > 0 else None

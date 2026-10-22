@@ -935,8 +935,10 @@ Those additional interoperability probes exposed two independent, pre-existing
 ViewerJSON defects: native reading rejects alphabetic chain IDs
 (uibcdf/molsysmt#397), and generated bond scalars can be NumPy integers rejected
 by JSON encoding (uibcdf/molsysmt#398). Both reproduce without copying. They
-are reported separately; their codecs are unchanged and this copy qualification
-does not claim to repair either round trip.
+were reported separately; their codecs were unchanged at that copy checkpoint.
+Subsequent corrections and their independent guards are recorded under #397/#398,
+now resolved. Their qualification does not extend the copy benchmark or imply
+lossless graphics persistence. Atom-subset extraction remains tracked in #399.
 
 **Contract-tested:** in the existing Linux/Python 3.14.7 environment,
 `python -m pytest --receptor=llm -n 12` passed **3,676 cases** in 83.24 s, with

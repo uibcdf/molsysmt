@@ -36,6 +36,12 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
         Graphics payload containing ordinary JSON scalars and containers.
         Missing table values become null; bond endpoints are positional indices.
 
+    Notes
+    -----
+    Per-atom group_index, chain_index and entity_index columns retain distinct
+    identities when labels repeat. ID columns remain strings; this graphics
+    projection omits molecule metadata and is not a full topology archive.
+
     Examples
     --------
     >>> import json
@@ -82,15 +88,19 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     chain_id = [chain_id_map.get(ii, None) for ii in atom_chain_index]
 
     entity_id = []
+    entity_index = []
     for g_idx in atom_group_index:
         if g_idx is None:
             entity_id.append(None)
+            entity_index.append(None)
             continue
         mol_idx = mol_index_map.get(g_idx, None)
         if mol_idx is None:
             entity_id.append(None)
+            entity_index.append(None)
             continue
         ent_idx = ent_index_map.get(mol_idx, None)
+        entity_index.append(ent_idx)
         entity_id.append(entity_id_map.get(ent_idx, None))
 
     atoms_block = data["atoms"]
@@ -100,6 +110,10 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     atoms_block["group_name"] = group_name
     atoms_block["chain_id"] = chain_id
     atoms_block["entity_id"] = entity_id
+    # Labels need not be unique. Separate positional columns retain identity.
+    atoms_block["group_index"] = atom_group_index
+    atoms_block["chain_index"] = atom_chain_index
+    atoms_block["entity_index"] = entity_index
     atoms_block["element_symbol"] = _series_to_list(atoms_df["atom_type"])
     formal_charge = topo._get_chemical_state_atom_attribute("formal_charge")
     atoms_block["formal_charge"] = (

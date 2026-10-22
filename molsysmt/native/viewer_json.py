@@ -76,7 +76,13 @@ class ViewerJSON:
     The underlying `data` dict follows the viewer schema:
 
     - `atoms`: per-atom columns (ids/names/group/chain/entity ids, element symbol, optional charges).
-      All ids/names are strings; charges are unitless integers.
+      IDs/names are strings; formal charges are integers and partial charges, when
+      present, are numerical values in elementary-charge units.
+      Native exports also include optional `group_index`, `chain_index` and
+      `entity_index` columns to distinguish repeated labels. The native reader
+      compacts represented axes in source index order. Legacy payloads without
+      these columns identify groups by label within a chain, and chains/entities
+      by label. They cannot distinguish separate identities with the same label.
     - `bonds`: `atom_pairs` (0-based index pairs) and optional `order`.
     - `structures`: list of structures with `coordinates` (nm), optional `time` (ps), and optional
       `box` with box vectors (`v0`, `v1`, `v2` in nm).
@@ -108,7 +114,7 @@ class ViewerJSON:
     schema: Dict[str, str] = field(
         default_factory=lambda: {
             "version": "Schema version for viewer_json.",
-            "atoms": "Dict with per-atom columns: ids, names, residue, chain, entity, element, charge.",
+            "atoms": "Dict with per-atom IDs, names, group/chain/entity indices, element and charge.",
             "bonds": "Dict with bonded atom indices and bond order.",
             "structures": "List of structures with coordinates (nm), time (ps) and optional box.",
         }
