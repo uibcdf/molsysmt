@@ -334,3 +334,11 @@ def test_restored_file_query_docstrings_render_without_rst_errors(
     tmp_path, function_name
 ):
     _render_api_docstring(tmp_path, function_name, "Restored_file_query")
+
+
+def test_mdtraj_topology_geometry_docstring_renders_without_rst_errors(tmp_path):
+    _render_api_docstring(
+        tmp_path,
+        "molsysmt.form.mdtraj_Topology.to_mdtraj_Trajectory.to_mdtraj_Trajectory",
+        "Tutorial_Convert",
+    )

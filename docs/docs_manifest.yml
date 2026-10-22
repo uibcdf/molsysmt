@@ -100,8 +100,8 @@ sections:
             agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
+            description: Form conversion, explicit topology-plus-coordinate inputs, physical units and declared selection/structure scope.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
-            description: Form conversion and declared composition of complementary native or H5MSM domains.
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
