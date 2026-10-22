@@ -4,6 +4,8 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import ArgumentError, FormatError
 from molsysmt._private.variables import is_all
 
+from ._bonds import _decode_bond_block
+
 
 def _subset_column(values, indices, length, field):
     """Selecting an aligned JSON column without NumPy scalar coercion."""
@@ -27,28 +29,11 @@ def _subset_bonds(bonds, atom_map, n_atoms):
         result["sets"] = [
             _subset_bonds(block, atom_map, n_atoms) for block in bonds["sets"]
         ]
-    has_aliases = "indexA" in bonds or "indexB" in bonds
-    if has_aliases:
-        a, b = bonds.get("indexA"), bonds.get("indexB")
-        if not isinstance(a, list) or not isinstance(b, list) or len(a) != len(b):
-            raise FormatError(
-                reason="ViewerJSON bond indexA and indexB must be aligned lists."
-            )
-        alias_pairs = [list(pair) for pair in zip(a, b)]
-    pairs = bonds.get("atom_pairs", alias_pairs if has_aliases else None)
-    if pairs is None:
+    block = _decode_bond_block(bonds, n_atoms=n_atoms)
+    if not any(field in bonds for field in ("atom_pairs", "indexA", "indexB")):
         return result
-    if not isinstance(pairs, list) or any(
-        not isinstance(pair, list)
-        or len(pair) != 2
-        or any(type(index) is not int or not 0 <= index < n_atoms for index in pair)
-        for pair in pairs
-    ):
-        raise FormatError(
-            reason="ViewerJSON bond atom_pairs must contain valid pairs of atom indices."
-        )
-    if has_aliases and alias_pairs != pairs:
-        raise FormatError(reason="ViewerJSON bond endpoint encodings disagree.")
+    pairs = block["atom_pairs"]
+    has_aliases = "indexA" in bonds or "indexB" in bonds
     rows = [i for i, (a, b) in enumerate(pairs) if a in atom_map and b in atom_map]
     for field, values in bonds.items():
         if field not in ("atom_pairs", "indexA", "indexB", "sets") and isinstance(

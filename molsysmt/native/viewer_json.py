@@ -84,6 +84,11 @@ class ViewerJSON:
       these columns identify groups by label within a chain, and chains/entities
       by label. They cannot distinguish separate identities with the same label.
     - `bonds`: `atom_pairs` (0-based index pairs) and optional `order`.
+      Native recovery and bond queries also accept aligned legacy `indexA`/`indexB`
+      columns or a wrapper containing one bond definition. Multiple `sets` are
+      ambiguous for native chemistry: explicitly assign the desired set to
+      `data['bonds']` on a copy before conversion or bond queries. Graphics copying
+      and extraction can retain separate sets without mapping them to chemical states.
     - `structures`: list of structures with `coordinates` (nm), optional `time` (ps), and optional
       `box` with box vectors (`v0`, `v1`, `v2` in nm).
 

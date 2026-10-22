@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md`](validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md) — [#396](https://github.com/uibcdf/molsysmt/issues/396) — Validated native bioassembly operations cannot round trip through H5MSM 0.5 *(medium, reproduced)*
-- [`viewerjson_native_reader_disagrees_with_legacy_bond_getters.md`](viewerjson_native_reader_disagrees_with_legacy_bond_getters.md) — [#400](https://github.com/uibcdf/molsysmt/issues/400) — ViewerJSON native reader disagrees with legacy bond getters *(medium, reproduced)*
 
 ### Partially resolved (1)
 

@@ -7,6 +7,8 @@ from molsysmt._private.smonitor import FormatError
 from molsysmt.native import MolSys, Structures, Topology
 from molsysmt.pbc import get_box_from_lengths_and_angles
 
+from ._bonds import _read_bonds
+
 
 def _safe_array(values, length, dtype=object):
     arr = np.array(values if values is not None else [], dtype=dtype)
@@ -182,7 +184,8 @@ def to_molsysmt_MolSys(
     ArgumentError
         If an index is out of range or atom indices repeat.
     FormatError
-        If declared axis indices are invalid or identity metadata conflicts.
+        If identity or bond metadata conflict, endpoints are invalid, or more
+        than one bond set is declared without explicit selection.
 
     Notes
     -----
@@ -196,6 +199,12 @@ def to_molsysmt_MolSys(
     The graphics projection omits the component/molecule hierarchy. Components
     are rebuilt by the native connectivity tool from stored bonds; the reader
     supplies one synthetic molecule per represented group, with local string IDs.
+    Bonds accept canonical atom_pairs or aligned legacy indexA/indexB columns.
+    Empty collections and wrappers containing one bond definition are supported.
+    Multiple bond sets are rejected; copy the payload and assign the intended
+    set to data['bonds'] before native conversion. Sets do not declare a mapping
+    to chemical states. Order/type columns use the existing native chemical-state
+    translation; arbitrary graphics metadata do not become chemical assignments.
 
     Examples
     --------
@@ -230,7 +239,6 @@ def to_molsysmt_MolSys(
         )
         or []
     )
-    bonds = item.data.get("bonds", {}) or {}
 
     # Atom-level fields
     atom_id = _safe_array(atoms.get("atom_id", None), None, dtype=object)
@@ -247,6 +255,8 @@ def to_molsysmt_MolSys(
     n_atoms = len(atom_name) if atom_name is not None else len(atom_id)
     if n_atoms is None:
         n_atoms = 0
+
+    bonds = _read_bonds(item.data.get("bonds"), n_atoms=n_atoms)
 
     chain_indices, chain_ids, _ = _axis(atoms, "chain", n_atoms)
     entity_indices, entity_ids, _ = _axis(atoms, "entity", n_atoms)
@@ -307,8 +317,8 @@ def to_molsysmt_MolSys(
     topo.chains["chain_name"] = pd.Series([""] * len(chain_ids), dtype=str)
     topo.chains["chain_type"] = pd.Series([""] * len(chain_ids), dtype=str)
 
-    if bonds:
-        atom_pairs = bonds.get("atom_pairs", [])
+    if bonds["atom_pairs"]:
+        atom_pairs = bonds["atom_pairs"]
         bond_orders = bonds.get("order", None)
         bond_types = bonds.get("type", None)
         if bond_orders is not None and len(bond_orders) == 0:

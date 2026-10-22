@@ -5,6 +5,8 @@ import numpy as np
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
+from ._bonds import _read_bonds
+
 form = "molsysmt.ViewerJSON"
 
 
@@ -13,12 +15,9 @@ def _atoms_dict(item):
 
 
 def _bonds_dict(item):
-    bonds = item.data.get("bonds", {}) or {}
-    if isinstance(bonds, dict) and "sets" in bonds:
-        sets = bonds.get("sets", [])
-        if sets:
-            return sets[0] or {}
-    return bonds
+    return _read_bonds(
+        item.data.get("bonds"), n_atoms=_n_atoms_from_atoms(_atoms_dict(item))
+    )
 
 
 def _structures_list(item):
@@ -124,16 +123,16 @@ def get_n_bonds_from_system(item, skip_digestion=False):
         Resulting object in object form.
 
 
+    Notes
+    -----
+    Flat bonds, aligned legacy indexA/indexB columns and a unique sets wrapper
+    describe one bond population. Multiple sets, contradictory endpoint encodings
+    or misaligned columns raise FormatError; select one set explicitly on a copy.
+
     .. versionadded:: 1.0.0
     """
     bonds = _bonds_dict(item)
-    pairs = bonds.get("atom_pairs", None)
-    if pairs is not None:
-        return len(pairs)
-    index_a = bonds.get("indexA", None)
-    if index_a is not None:
-        return len(index_a)
-    return 0
+    return len(bonds["atom_pairs"])
 
 
 @arg_digest(form=form)
@@ -223,6 +222,12 @@ def get_bond_index_from_bond(item, indices="all", skip_digestion=False):
         Resulting object in object form.
 
 
+    Notes
+    -----
+    Flat bonds, aligned legacy indexA/indexB columns and a unique sets wrapper
+    describe one bond population. Multiple sets, contradictory endpoint encodings
+    or misaligned columns raise FormatError; select one set explicitly on a copy.
+
     .. versionadded:: 1.0.0
     """
     n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
@@ -252,12 +257,16 @@ def get_bond_order_from_bond(item, indices="all", skip_digestion=False):
         Resulting object in object form.
 
 
+    Notes
+    -----
+    Flat bonds, aligned legacy indexA/indexB columns and a unique sets wrapper
+    describe one bond population. Multiple sets, contradictory endpoint encodings
+    or misaligned columns raise FormatError; select one set explicitly on a copy.
+
     .. versionadded:: 1.0.0
     """
     bonds = _bonds_dict(item)
-    values = _normalize_list(
-        bonds.get("order", None), get_n_bonds_from_system(item, skip_digestion=True)
-    )
+    values = _normalize_list(bonds.get("order", None), len(bonds["atom_pairs"]))
     if is_all(indices):
         return values.tolist()
     return values[indices].tolist()
@@ -284,13 +293,19 @@ def get_bond_type_from_bond(item, indices="all", skip_digestion=False):
         Resulting object in object form.
 
 
+    Notes
+    -----
+    Flat bonds, aligned legacy indexA/indexB columns and a unique sets wrapper
+    describe one bond population. Multiple sets, contradictory endpoint encodings
+    or misaligned columns raise FormatError; select one set explicitly on a copy.
+
     .. versionadded:: 1.0.0
     """
     bonds = _bonds_dict(item)
     values = bonds.get("type", None)
     if values is None:
         return None
-    values = _normalize_list(values, get_n_bonds_from_system(item, skip_digestion=True))
+    values = _normalize_list(values, len(bonds["atom_pairs"]))
     if is_all(indices):
         return values.tolist()
     return values[indices].tolist()

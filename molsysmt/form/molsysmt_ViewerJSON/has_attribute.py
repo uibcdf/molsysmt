@@ -1,4 +1,5 @@
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import FormatError
 
 from . import attributes
 from . import get_topological_attributes as get_topo
@@ -29,6 +30,12 @@ def has_attribute(
         True if condition is satisfied, False otherwise.
 
 
+    Notes
+    -----
+    With include_none=False, ambiguous or malformed bond definitions raise
+    FormatError rather than being reported as an absent attribute. The
+    include_none=True capability query does not validate stored bond data.
+
     .. versionadded:: 1.0.0
     """
 
@@ -39,10 +46,6 @@ def has_attribute(
         return True
 
     atoms = molecular_system.data.get("atoms", {}) or {}
-    bonds = molecular_system.data.get("bonds", {}) or {}
-    if isinstance(bonds, dict) and "sets" in bonds:
-        sets = bonds.get("sets", [])
-        bonds = sets[0] if sets else {}
     structures = (
         molecular_system.data.get(
             "structures",
@@ -84,7 +87,7 @@ def has_attribute(
         "bond_type": lambda: get_topo.get_bond_type_from_bond(
             molecular_system, skip_digestion=True
         ),
-        "bonded_atoms": lambda: bonds.get("atom_pairs", None),
+        "bonded_atoms": lambda: get_topo._bonds_dict(molecular_system)["atom_pairs"],
         "coordinates": lambda: [
             frame.get("coordinates")
             for frame in structures
@@ -98,6 +101,8 @@ def has_attribute(
 
     try:
         value = checkers[attribute]()
+    except FormatError:
+        raise
     except Exception:
         return False
 

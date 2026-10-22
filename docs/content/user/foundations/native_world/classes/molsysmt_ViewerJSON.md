@@ -7,7 +7,7 @@
 
 ## Overview and Role
 
-As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema wrapped by the `ViewerJSON` dataclass when calling `msm.view(molsys)` or converting a system for web rendering. It encapsulates atomic coordinates, element symbols, group/chain labels, bond connectivity, and periodic box dimensions into a pure, serializable JSON schema.
+`molsysmt.ViewerJSON` wraps a graphics dictionary for explicit transport and supported viewer conversion. It is not a required internal representation for every visualization backend. It encapsulates atomic coordinates, element symbols, group/chain labels, bond connectivity, and periodic box dimensions into a pure, serializable JSON schema.
 
 ---
 
@@ -66,6 +66,20 @@ groups, chains, entities and stored bonds, reconstructs connected components
 through the native connectivity tool, and supplies a synthetic molecule per
 group. It does not recover omitted molecule labels or the full native hierarchy.
 Use H5MSM for full-domain persistence.
+
+## Bond Recovery
+
+Native recovery and bond queries accept canonical `atom_pairs`, aligned legacy
+`indexA`/`indexB` columns, or a `sets` wrapper containing a single bond definition.
+Empty collections represent zero bonds. If both endpoint encodings are present,
+they must agree. Populated order/type lists and other bond columns must align
+with the bond rows; missing values remain unknown.
+
+Multiple sets raise a format error for native conversion and bond queries. They
+do not declare which chemistry to use or how sets map to chemical states.
+Choose a set explicitly on a copy before recovery. Copying, serialization and
+graphics extraction can still retain separate sets. Full chemical-state
+persistence belongs in H5MSM.
 
 ## Subset Semantics
 

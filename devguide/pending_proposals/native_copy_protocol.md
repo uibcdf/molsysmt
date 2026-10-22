@@ -940,7 +940,9 @@ Subsequent corrections and their independent guards are recorded under #397/#398
 now resolved. Their qualification does not extend the copy benchmark or imply
 lossless graphics persistence. The independent atom-subset extraction defect
 is now resolved under #399, with its own route and memory-boundary guards.
-Direct legacy-bond import remains independently tracked in #400.
+Direct legacy-bond import and bond queries were subsequently reconciled under
+#400. Those separate codec fixes do not extend native copy guarantees or provide
+a multi-set chemical-state mapping.
 
 **Contract-tested:** in the existing Linux/Python 3.14.7 environment,
 `python -m pytest --receptor=llm -n 12` passed **3,676 cases** in 83.24 s, with

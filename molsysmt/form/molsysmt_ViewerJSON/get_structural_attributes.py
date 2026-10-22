@@ -9,15 +9,6 @@ def _atoms_dict(item):
     return item.data.get("atoms", {}) or {}
 
 
-def _bonds_dict(item):
-    bonds = item.data.get("bonds", {}) or {}
-    if isinstance(bonds, dict) and "sets" in bonds:
-        sets = bonds.get("sets", [])
-        if sets:
-            return sets[0] or {}
-    return bonds
-
-
 def _structures_list(item):
     frames = item.data.get(
         "structures", item.data.get("estructures", item.data.get("frames", None))
