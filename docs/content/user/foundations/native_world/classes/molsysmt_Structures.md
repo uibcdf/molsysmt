@@ -76,6 +76,12 @@ constructing again from those containers retains the same shapes. H5MSM 0.5
 preserves both chain scopes and stores translations in nm. See
 {ref}`the assembly recipe <cookbook-h5msm-assembly-operations>`.
 
+Building an assembly applies each operation to every selected source structure.
+Operations expand the atom axis, while structure indices keep their requested
+order and repetitions. Structure IDs and times follow that selected structure
+axis; IDs remain labels rather than positional selectors. See
+{ref}`Make bioassembly <Tutorial_Make_bioassembly>`.
+
 ## Invariants and Performance
 
 `repr(structures)` reads stored shape metadata without array conversion, unit

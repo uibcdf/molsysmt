@@ -131,6 +131,10 @@ table alias policy and representative client/resource qualification.
 The independent [#396 assembly repair](archive/resolved_bugs/validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md)
 aligns validated native operations with the existing H5MSM 0.5 codec, including
 chain scopes and translation units. It does not change the file schema.
+The subsequent [#401 selected-structure repair](archive/resolved_bugs/make_bioassembly_ignores_requested_structure_indices.md)
+applies assembly operations to the requested structures in their supplied order,
+including repetitions, while preserving structure labels and times. Direct file
+inputs use resident native construction; default structure 0 is unchanged.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

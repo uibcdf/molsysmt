@@ -14,7 +14,7 @@ def make_bioassembly(
     skip_digestion=False,
 ):
     """
-    Construct the biological assembly of a molecular system from its asymmetric unit.
+    Constructing a biological assembly from its asymmetric unit.
 
     Many structures deposited in the PDB represent only the asymmetric unit, while the
     biologically relevant form (the bioassembly) is obtained by applying a set of
@@ -37,9 +37,13 @@ def make_bioassembly(
         are not supported by this builder. None selects the first stored assembly.
         The supplied dictionary is not modified.
     structure_indices : int, list, tuple, or numpy.ndarray, default=0
-        Structure indices (0-based) to include or process.
+        Positional structure indices to include, preserving their order and
+        repetitions. Each assembly operation is applied to every selected
+        structure. Use 'all' for the full structure axis; the default selects
+        structure 0. These are indices, not structure IDs.
     to_form : object, default=None
-        Argument to_form.
+        Output molecular-system form. None retains the resident input form;
+        file inputs are loaded as molsysmt.MolSys before assembly construction.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -47,7 +51,8 @@ def make_bioassembly(
     -------
     molecular system
         The biological assembly as a merged molecular system in the form specified
-        by ``to_form`` (or in the same form as the input if ``to_form`` is None).
+        by ``to_form``. With ``to_form=None``, resident inputs retain their form
+        and file inputs produce a molsysmt.MolSys.
 
 
     Raises
@@ -90,8 +95,14 @@ def make_bioassembly(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import copy, extract, get, merge
+    from molsysmt.basic import convert, copy, extract, get, merge
+    from molsysmt.form import is_file
     from molsysmt.structure import rotate, translate
+
+    if is_file(molecular_system):
+        molecular_system = convert(
+            molecular_system, to_form="molsysmt.MolSys", skip_digestion=True
+        )
 
     if bioassembly is None:
         aux_bioassemblies = get(molecular_system, bioassembly=True)
@@ -125,7 +136,7 @@ def make_bioassembly(
 
         subsystem = extract(
             molecular_system,
-            structure_indices=[0],
+            structure_indices=structure_indices,
             selection="chain_index in @chains",
             syntax="MolSysMT",
             skip_digestion=True,
@@ -147,7 +158,7 @@ def make_bioassembly(
 
             subsystem = extract(
                 molecular_system,
-                structure_indices=[0],
+                structure_indices=structure_indices,
                 selection="chain_index in @chains",
                 syntax="MolSysMT",
                 skip_digestion=True,

@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`make_bioassembly_ignores_requested_structure_indices.md`](make_bioassembly_ignores_requested_structure_indices.md) — [#401](https://github.com/uibcdf/molsysmt/issues/401) — make_bioassembly ignores requested structure indices *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

@@ -118,6 +118,19 @@ and does not modify the input. Building coordinates with
 compatible topology and coordinates. That builder accepts a common chain set
 or identical sets repeated per operation; heterogeneous sets remain unsupported.
 
+For a complete ensemble with topology, coordinates, at least three structures
+and an assembly named `"1"`, use
+`msm.build.make_bioassembly(molsys, bioassembly="1", structure_indices=[2, 0, 2])`
+to build those three structures in that order. Every operation acts on each
+selected structure; operation copies are combined along the atom axis. Structure
+labels and times follow the selected source structures. Omitting
+`structure_indices` selects structure 0; `"all"` selects the complete axis.
+
+You can supply the complete H5MSM path directly instead of `molsys`; the builder
+loads a native in-memory system and leaves the source file unchanged. Its default
+result for a file input is a `MolSys`. This resident load may materialize the
+file before selecting structures; it is not a bounded disk-query interface.
+
 ## Keeping analyses without coordinates
 
 Named analyses can declare a structure-index domain even when coordinates are
