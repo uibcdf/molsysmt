@@ -322,3 +322,20 @@ def test_inherited_native_bond_methods_preserve_their_validation_contract():
         topology.remove_bonds([0.5])
     topology.remove_bonds(np.int32(0))
     assert topology.n_bonds == 0
+
+
+def test_reserving_empty_bond_rows_does_not_claim_known_connectivity():
+    topology = msm.native.Topology(n_atoms=3, n_bonds=2)
+    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"
+    topology.reset_bonds(n_bonds=1)
+    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"
+    topology.bonds = pd.DataFrame({"atom1_index": [0], "atom2_index": [1]})
+    assert topology._reference_chemical_state.connectivity_completeness == "partial"
+
+
+def test_removing_bonds_preserves_the_declared_connectivity_completeness():
+    topology = msm.native.Topology(n_atoms=3)
+    topology.add_bonds([[0, 1], [1, 2]])
+    topology._reference_chemical_state.connectivity_completeness = "unavailable"
+    topology.remove_bonds([0])
+    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"

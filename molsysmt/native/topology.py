@@ -1374,7 +1374,9 @@ class Topology(NativeQueries):
         candidate = self._coerce_bond_table(value, n_atoms=self.n_atoms)
         self._publish_chemical_state_bonds(candidate, state_index)
 
-    def _publish_chemical_state_bonds(self, candidate, state_index=None):
+    def _publish_chemical_state_bonds(
+        self, candidate, state_index=None, *, declared_edges=True
+    ):
         """Publish prepared bonds after staging owner invalidation, ignoring labels."""
         state = (
             None
@@ -1392,14 +1394,18 @@ class Topology(NativeQueries):
             if state is None:
                 state = self._ensure_state_for_mutation()
             state.bonds = candidate
-            if len(candidate) and state.connectivity_completeness == "unavailable":
+            if (
+                declared_edges
+                and len(candidate)
+                and state.connectivity_completeness == "unavailable"
+            ):
                 state.connectivity_completeness = "partial"
 
     def _reset_chemical_state_bonds(self, n_bonds=0, state_index=None):
         """Reset one state's bond table, allowing explicit construction rows."""
 
         self._publish_chemical_state_bonds(
-            Bonds_DataFrame(n_bonds=n_bonds), state_index
+            Bonds_DataFrame(n_bonds=n_bonds), state_index, declared_edges=False
         )
 
     def _append_chemical_state_bonds(
@@ -1500,7 +1506,8 @@ class Topology(NativeQueries):
         if np.asarray(bond_indices).size == 0:
             return
         candidate = bonds.drop(bond_indices).reset_index(drop=True)
-        self._set_chemical_state_bonds(candidate, state_index=state_index)
+        candidate = self._coerce_bond_table(candidate, n_atoms=self.n_atoms)
+        self._publish_chemical_state_bonds(candidate, state_index, declared_edges=False)
 
     def _append_chemical_state(self, state_id=None, set_as_reference=False):
         """Append an empty private chemical state and return its index."""

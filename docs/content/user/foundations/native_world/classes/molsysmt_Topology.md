@@ -128,6 +128,8 @@ failure to allocate invalidation leave chemical values and analyses unchanged.
 Bond IDs and empty selections do not invalidate. Bond addition/removal rebuilds
 components after publishing bonds; a rebuilding failure can leave changed bonds
 with analyses already invalidated. Old table handles do not follow replacement.
+Reserving empty bond rows does not declare partial connectivity; removing
+bonds preserves the existing connectivity-completeness declaration.
 Raw cell/array edits, chemical-state collection changes and whole-topology
 replacement still need explicit owner invalidation. Standalone topology copies
 have no owner link. See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`

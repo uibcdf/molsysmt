@@ -1539,11 +1539,11 @@ pickle/H5MSM restoration, cross-owner collection attachment, weak lifetime,
 partial systems and slotted state serialization. Its geometry spies reject both
 protected-array materialization and copying during chemical assignment.
 
-**Qualified locally:** The final aggregate passes **4,244 tests**, without
-omissions, with Pytest Receptor and 12 workers (58.82 s). Its selection is
+**Qualified locally:** The final aggregate passes **4,246 tests**, without
+omissions, with Pytest Receptor and 12 workers (58.34 s). Its selection is
 `tests/native`, `tests/form/molsysmt_Topology`, `tests/form/molsysmt_MolSys`,
 `tests/form/molsysmt_Structures`, `tests/form/file_h5msm`, `tests/interactions`
-and `tests/topology`. All 45 focused owner tests pass. The 698 visible warnings
+and `tests/topology`. All 47 focused owner tests pass. The 695 visible warnings
 cover legacy H5MSM, deliberate low-memory probes, pandas migration, synthetic
 unknown atom names and existing structural merge policies. All 14 fast release
 gates, package/new-test Ruff, public docstring fidelity and signature stability
@@ -1574,3 +1574,18 @@ structure-domain axis changes are not observed by this boundary. Their callers
 must invalidate explicitly or use a coordinated owning operation. Table
 alias/subclass/arbitrary-object policy, large mutable observable/resource
 workloads and installed-client adoption remain outstanding. Keep #121 active.
+
+
+#### Preserving connectivity declarations during publication
+
+Final review of the shared bond publisher found that construction-only
+`reset_bonds(n_bonds=...)` must not inherit the valid-edge setter's promotion
+from unavailable to partial connectivity. Empty reserved rows are not known
+edges. Selected bond removal must also retain the original completeness flag,
+as before this refactoring. Both routes now explicitly publish without
+introducing a new connectivity declaration; actual validated bond replacement
+retains the original partial-availability behavior. Added guards are
+`test_reserving_empty_bond_rows_does_not_claim_known_connectivity` and
+`test_removing_bonds_preserves_the_declared_connectivity_completeness` in
+`tests/native/test_topology_owner.py`. This is part of #121's scientific-behavior
+preservation, not a new chemical inference method.
