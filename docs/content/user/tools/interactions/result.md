@@ -356,7 +356,8 @@ the affected frame, considering the detector's complete declared atom scope.
 | Empty atom/frame selection, time or identifier edit | Results remain valid. |
 | Scientific chemical-state edits through `msm.set`, or replacing `chemical_states` | All covered frames become unevaluated. |
 | Changing `structure_chemical_state_index` | Selected frames become unevaluated. |
-| Direct writes through arrays or separate domain objects | You must invalidate the owning analyses explicitly. |
+| Attached `structures.set_coordinates()` / `set_box()`, or full coordinate/box property assignment | The affected structures become unevaluated in every named analysis. |
+| Raw/private writes, other domain edits or whole-domain replacement | You must invalidate the owning analyses explicitly. |
 
 For example, attach a synthetic result to matching coordinates, then move one
 atom in a previously evaluated-empty frame:
@@ -385,7 +386,21 @@ assert current.query(structure_indices=[0]).n_interactions == 1
 assert previous_view.n_interactions == 1  # A snapshot of the earlier analysis.
 ```
 
-For explicit coordinate writes outside that owner boundary, invalidate the
+The same automatic policy applies to `molsys.structures.set_coordinates(...)`,
+`set_box(...)`, full `coordinates`/`box` property assignments, and
+`msm.set(molsys.structures, ...)`. A domain alias still refers to its attached
+owner. Standalone domain copies drop that link; complete system copies bind
+their domains to the new owner. The link is weak and does not retain the system.
+Notification reads dimensions and updates sparse coverage without assembling
+the coordinate series. A nested public/native edit does not repeat invalidation.
+Invalid direct native writes leave geometry and analyses unchanged. The public
+system setter conservatively invalidates after delegation starts if a delegated
+operation fails, since an extension may already have written part of the data.
+
+Whole-domain replacement, raw/private writes, and direct domain append/add
+are outside this boundary. Use the owning `MolSys` extraction/append/add tools
+to change axes while preserving analysis alignment. For coordinate writes
+outside the automatic owner boundary, invalidate the
 named analyses yourself:
 
 ```python

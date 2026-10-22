@@ -1032,9 +1032,22 @@ be partial. No detector runs automatically. Recalculate the complete declared
 atom scope of an affected frame explicitly. Assigning a detector result under
 an existing name replaces that analysis and does not merge its frame coverage;
 `current.replace_structures(fresh)` instead replaces only the frames evaluated
-by a compatible full recalculation. This validity primitive does not run a detector. Direct writes through a
-separate Structures object still require explicit owner invalidation.
-The guard is `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py`.
+by a compatible full recalculation. This validity primitive does not run a detector.
+Attached native `Structures.set_coordinates` / `set_box` and complete
+coordinate/box property assignments now use the same owner invalidation.
+This also covers a form setter invoked on that domain directly. Direct native
+setters prepare and validate geometry before staging invalidation, so invalid
+units, shapes, selections, incompatible axes and snapshot allocation failure
+leave both geometry and analyses unchanged. Nested public/native delegation
+reuses staged snapshots, coalescing broader scopes into one final publication.
+Each domain wrapper has one weak owner. Domain copies omit it; whole-system
+copies and pickle restoration rebind it. Attaching another system's domain
+copies its mutable wrapper/metadata with deferred geometry allocation.
+Preflight reads shape metadata, without materializing protected coordinates.
+Whole-domain replacement and direct domain append/add remain outside this
+boundary; use coordinated MolSys operations for aligned axis changes.
+Guards are `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py` and
+`tests/native/test_structure_owner.py`.
 
 Public `msm.set` atom-state and scientific bond-state assignments on native
 MolSys invalidate all evaluated frames in every named analysis. Owner-level

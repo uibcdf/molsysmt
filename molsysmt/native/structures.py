@@ -194,13 +194,14 @@ class Structures(NativeQueries):
     @coordinates.setter
     def coordinates(self, value):
         val = _raw_value(value, "nm")
-        self._coordinates = (
+        candidate = (
             val._fork()
             if isinstance(val, _StructureArray)
             else None
             if val is None
             else _StructureArray(val)
         )
+        self._publish_geometry("coordinates", candidate)
 
     @property
     def velocities(self):
@@ -221,13 +222,56 @@ class Structures(NativeQueries):
     @box.setter
     def box(self, value):
         val = _raw_value(value, "nm")
-        self._box = (
+        candidate = (
             val._fork()
             if isinstance(val, _StructureArray)
             else None
             if val is None
             else _StructureArray(val)
         )
+        self._publish_geometry("box", candidate)
+
+    def _publish_geometry(
+        self, name, candidate, structure_indices="all", atom_indices=None
+    ):
+        """Publish prepared geometry and its owner's invalidation together."""
+        if candidate is getattr(self, "_" + name):
+            return
+        if name == "box" and candidate is not None and candidate.shape[1:] != (3, 3):
+            raise StructuralInconsistencyError(
+                reason="Periodic boxes must have shape (n_structures, 3, 3).",
+                caller="molsysmt.native.Structures",
+            )
+        owner_ref = getattr(self, "_molsys_owner_ref", None)
+        owner = None if owner_ref is None else owner_ref()
+        if owner is None:
+            setattr(self, "_" + name, candidate)
+            return
+        # Builders may populate a fresh domain in stages. Once analyses exist,
+        # geometry edits must preserve their declared axes and series alignment.
+        if getattr(owner, "_interactions", {}):
+            payload = self._frame_payload()
+            payload[name] = candidate
+            n_structures, n_atoms = self._payload_dimensions(
+                payload, caller="molsysmt.native.Structures"
+            )
+            if any(
+                result.n_structures != n_structures
+                or (
+                    name == "coordinates"
+                    and candidate is not None
+                    and result.n_atoms != n_atoms
+                )
+                for result in owner._interactions.values()
+            ):
+                raise StructuralInconsistencyError(
+                    reason="Geometry edits cannot resize axes with attached interactions; use extraction or append_structures.",
+                    caller="molsysmt.native.Structures",
+                )
+        with owner._invalidating_interaction_frames(
+            structure_indices, atom_indices=atom_indices
+        ):
+            setattr(self, "_" + name, candidate)
 
     @property
     def b_factor(self):
@@ -563,6 +607,14 @@ class Structures(NativeQueries):
         for key, value in state.items():
             if key not in legacy_fields and key not in {"n_atoms", "n_structures"}:
                 self.__dict__[key] = value
+
+    def __getstate__(self):
+        """Exclude the weak owner link from standalone and enclosing serialization."""
+        return {
+            key: value
+            for key, value in vars(self).items()
+            if key != "_molsys_owner_ref"
+        }
 
     @signal(tags=["native"])
     @arg_digest(structure_series=True)
@@ -1047,13 +1099,15 @@ class Structures(NativeQueries):
         """Copying domain handles while sharing protected coordinate/box blocks."""
         from ._copy import _clone, _deferred_geometry_memo
 
-        return _clone(self, _deferred_geometry_memo(self))
+        return _clone(
+            self, _deferred_geometry_memo(self), exclude=("_molsys_owner_ref",)
+        )
 
     def __deepcopy__(self, memo):
         """Copying eager structure data without running restoration or migration."""
         from ._copy import _clone
 
-        return _clone(self, memo)
+        return _clone(self, memo, exclude=("_molsys_owner_ref",))
 
     @arg_digest()
     def extract(
@@ -1362,18 +1416,28 @@ class Structures(NativeQueries):
         -----
         Full selections initialize or replace the series. Partial writes to an
         existing series prepare affected blocks before publication; empty axes
-        do nothing. Editing this domain directly does not invalidate an attached
-        MolSys's analyses. Use msm.set(molsys, coordinates=...) or explicitly
-        invalidate the owner's affected structures.
+        do nothing. When attached to a MolSys, successful edits invalidate all
+        named analyses on the affected structures, including evaluated-empty
+        coverage. Other structures and previously obtained snapshots survive.
+        No detector runs automatically. Copies of this domain have no owner.
+
+        Examples
+        --------
+        >>> structures = Structures(coordinates=puw.quantity(np.zeros((1, 1, 3)), 'nm'))
+        >>> structures.set_coordinates(indices=[0], structure_indices=[0],
+        ...     value=puw.quantity([[[10., 20., 30.]]], 'angstrom'))
+        >>> np.allclose(puw.get_value(structures.get_coordinates(), to_unit='nm'), [[[1., 2., 3.]]])
+        True
 
         .. versionadded:: 1.0.0
         """
         if is_all(indices) and is_all(structure_indices):
             self.coordinates = value
         elif self._coordinates is not None:
-            self._coordinates = self._coordinates._replace(
+            candidate = self._coordinates._replace(
                 _raw_value(value, "nm"), structure_indices, indices
             )
+            self._publish_geometry("coordinates", candidate, structure_indices, indices)
 
     @arg_digest()
     def get_velocities(
@@ -1579,6 +1643,13 @@ class Structures(NativeQueries):
         StructuralInconsistencyError
             If a partial update is requested before a box series exists.
 
+        Notes
+        -----
+        When attached to a MolSys, successful box edits or clearing the full
+        series invalidate all named analyses on the affected structures.
+        Untouched structures and earlier snapshots survive. Invalid writes
+        leave geometry and analyses unchanged; no detector runs automatically.
+
         .. versionadded:: 1.0.0
         """
         if is_all(structure_indices):
@@ -1592,4 +1663,5 @@ class Structures(NativeQueries):
                 caller="molsysmt.native.Structures.set_box",
             )
 
-        self._box = self._box._replace(_raw_value(value, "nm"), structure_indices)
+        candidate = self._box._replace(_raw_value(value, "nm"), structure_indices)
+        self._publish_geometry("box", candidate, structure_indices)

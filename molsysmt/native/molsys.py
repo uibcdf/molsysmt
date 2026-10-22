@@ -251,7 +251,8 @@ class MolSys(NativeQueries):
         ):
             yield
             return
-        analyses = dict(self.interactions)
+        pending = getattr(self, "_pending_interaction_edits", None)
+        analyses = dict(self.interactions) if pending is None else pending["analyses"]
         frames = (
             np.arange(self._get_n_structures(), dtype=np.int64)
             if is_all(structure_indices)
@@ -266,10 +267,42 @@ class MolSys(NativeQueries):
             else result
             for name, result in analyses.items()
         }
+        if pending is not None:
+            # Native setters may be reached inside an already staged public
+            # edit. Reuse its invalidated snapshots; broader nested scopes add
+            # their coverage to the same publication instead of losing it.
+            pending["analyses"] = candidate
+            yield
+            return
+        pending = {"analyses": candidate}
+        self._pending_interaction_edits = pending
         try:
             yield
         finally:
-            self._interactions = candidate
+            self._interactions = pending["analyses"]
+            del self._pending_interaction_edits
+
+    @property
+    def structures(self):
+        """Returning the structure domain whose geometry edits notify this system."""
+        return self._structures
+
+    @structures.setter
+    def structures(self, value):
+        from .structures import Structures
+
+        if value is not None and not isinstance(value, Structures):
+            raise TypeError("MolSys structures must be native Structures or None.")
+        owner_ref = getattr(value, "_molsys_owner_ref", None)
+        owner = None if owner_ref is None else owner_ref()
+        if owner is not None and owner is not self:
+            value = value.copy(deep=False)
+        previous = getattr(self, "_structures", None)
+        if previous is not None and previous is not value:
+            previous._molsys_owner_ref = None
+        self._structures = value
+        if value is not None:
+            value._molsys_owner_ref = weakref.ref(self)
 
     @property
     def topology(self):
@@ -520,11 +553,13 @@ class MolSys(NativeQueries):
     def __setstate__(self, state):
         """Restore a molecular system and finish coordinated legacy migration."""
 
+        structures = state.pop("structures", state.pop("_structures", None))
         legacy_topology = state.pop("topology", None)
         state.pop("_chemical_states", None)
         had_chemical_states = "_chemical_states_domain" in state
         chemical_states = state.pop("_chemical_states_domain", None)
         self.__dict__.update(state)
+        self.structures = structures
         if legacy_topology is not None:
             self.topology = legacy_topology
             if had_chemical_states and chemical_states is None:
@@ -1274,9 +1309,9 @@ class MolSys(NativeQueries):
         system's single ChemicalStates authority. Absent domains remain absent.
         Canonical tables are copied eagerly; this is not table copy-on-write.
 
-        Coordinate changes through msm.set invalidate the affected structures
-        only in the edited system. Editing an attached Structures or
-        ChemicalStates object directly still requires explicit owner invalidation.
+        Coordinate and box changes through msm.set or the attached Structures
+        setters invalidate the affected structures only in the edited system.
+        Direct ChemicalStates edits still require explicit owner invalidation.
         Native copying does not make arbitrary external resources copyable.
 
         Examples
@@ -1313,14 +1348,16 @@ class MolSys(NativeQueries):
         return self.__deepcopy__(_deferred_geometry_memo(self.structures))
 
     def __deepcopy__(self, memo):
-        """Copying the native graph and binding topology to its new owner."""
+        """Copying the native graph and binding domains to their new owner."""
         from ._copy import _clone
 
         if id(self) in memo:
             return memo[id(self)]
-        result = _clone(self, memo)
+        result = _clone(self, memo, exclude=("_pending_interaction_edits",))
         if result._topology is not None:
             result._topology._molsys_owner_ref = weakref.ref(result)
+        if result.structures is not None:
+            result.structures._molsys_owner_ref = weakref.ref(result)
         return result
 
     def add_missing_bonds(

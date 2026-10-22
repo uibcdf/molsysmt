@@ -239,7 +239,7 @@ Selected queries and HDF5 saving avoid packing the complete surviving analysis.
 Saving traverses active blocks in numeric windows and preserves any existing
 complete-column cache. Typed dictionary export, pickle and remapping may still
 materialize all active rows temporarily. Earlier snapshots can keep shared storage alive.
-For direct domain/array writes, explicit invalidation and recalculation/attachment
+For attached geometry setters, other direct writes, and recalculation/attachment
 rules, see {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 
 Attaching a separately loaded analysis declares that its local atom and
@@ -323,15 +323,19 @@ affected structures become unevaluated. `msm.copy(molsys)` uses eager geometry
 allocation. See {ref}`MolSys copies <user-foundations-molsys-copying>` and
 {ref}`Structures copies <user-foundations-structures-copying>`.
 
-Geometry edits through `msm.set(molsys, coordinates=..., structure_indices=[...])`
-or its box setter automatically replace affected named results with snapshots
+Geometry edits through `msm.set(molsys, coordinates=..., structure_indices=[...])`,
+`molsys.structures.set_coordinates(...)` or their box setters automatically
+replace affected named results with snapshots
 whose edited frames are unevaluated. They remove old observations and preserve
 untouched frames and previous query views. This is conservative per-structure
 invalidation, even when only one atom moved; it does not calculate new results.
-If you edit `molsys.structures` separately, explicitly call
-`analysis.invalidate_structures([structure_index])` and replace each affected
-named result before re-evaluating. An unevaluated frame differs from one
-evaluated with zero observations.
+Full `coordinates`/`box` assignments on the attached domain do the same.
+For raw/private storage writes, whole-domain replacement or other unobserved
+edits, explicitly call `analysis.invalidate_structures([structure_index])` and
+replace each affected named result before re-evaluating. Use the owning system's
+append/add tools when changing axes. An unevaluated structure differs from one
+evaluated with zero observations. A standalone `Structures.copy()` has no owner;
+a `MolSys` copy's structure setters invalidate only the copy's analyses.
 
 The synthetic system above demonstrates the automatic boundary:
 

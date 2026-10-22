@@ -28,8 +28,10 @@ allocation. The remaining resident convenience methods and named payload
 wrappers now use independent graph copies. The production resident campaign
 below measures copying, edits and consumers on three bounded synthetic systems.
 It records H5MSM I/O/public-load allocation bottlenecks and the measured
-refinements below. General table copy-on-write, direct-domain edit observation and full
-production/client performance qualification are not delivered by these boundaries.
+refinements below. Attached coordinate/box setters now publish owner invalidation
+without dense geometry materialization. General table copy-on-write, other direct
+domain mutation observation and full production/client performance qualification
+are not delivered by these boundaries.
 
 ## What
 
@@ -979,7 +981,8 @@ attribution execution boundary, dependency, schema version or release is added.
 
 ### Remaining native integration
 
-Do not close #121 on this boundary. Direct attached-domain edit publication and
+Do not close #121 on this boundary. The geometry checkpoint below closes direct
+attached coordinate/box setter publication; other domain edits and the
 pandas mutation/alias policy remain open. Canonical tables currently copy eagerly
 and inherit pandas' handling of arbitrary Python objects in cells and table
 metadata; their wrapper/subclass preservation also needs a deliberate contract.
@@ -1416,3 +1419,69 @@ Assembly validation now retains operation arrays and unit-bearing translations,
 without mutating caller metadata. Analytical direct/named/loaded assembly tests
 also exercise the extraction consumer. This does not resolve #121's remaining
 direct attached-domain mutation or table-alias decisions.
+
+
+### Attached geometry publication — 2026-10-22
+
+**Implemented:** A native `Structures` wrapper attached to `MolSys` has one weak
+owner. `set_coordinates`, `set_box` and complete coordinate/box property
+assignments prepare protected storage before publication, then stage the owner's
+existing per-structure interaction invalidation. Calls through a domain alias
+or `msm.set(molsys.structures, ...)` follow the same path. Every named analysis
+loses occurrences and evaluated coverage on affected structures, including
+previously evaluated-empty structures and atoms with no previous observations.
+No scientific detector runs. Other structures, producer metadata, index maps
+and previously obtained result/query snapshots survive.
+
+The preflight reads lengths and shapes, without assembling protected geometry.
+Partial writes still replace only affected storage blocks. Invalidation allocation
+failure, invalid units/shapes/selections and incompatible attached-analysis axes
+leave a direct native edit unpublished. Public `msm.set(molsys, ...)` retains its
+conservative failure-after-delegation policy for extensions that may partially
+write. Nested public/native invalidation reuses staged snapshots instead of
+allocating them twice; broader nested scopes contribute to the same final
+publication, including when delegation subsequently fails.
+
+Standalone domain copies and pickles omit the weak owner. Complete native
+copies and MolSys pickle restoration rebind the copied/restored domain to its
+own system. Restoration accepts the former public `structures` state key.
+Assigning an already attached domain to another MolSys copies its wrapper and
+mutable metadata using deferred geometry allocation; it does not steal the
+original owner or duplicate all coordinate bytes. Replacing a domain detaches
+the previous wrapper. A retained domain does not keep its owner alive. Resident
+representations read the new private storage key without validation or payload
+materialization.
+
+**Guard:** `tests/native/test_structure_owner.py` protects selected/nonconsecutive
+and repeated edits, empty selections and evaluated-empty coverage, full native/
+property/form assignment, clearing geometry, invalid dimensions/units/selections,
+snapshot-allocation failure, eager/deferred owner isolation, weak lifetime,
+standalone/system pickle and legacy restoration, H5MSM restoration, nondefault
+unit policy, forbidden dense geometry access, one invalidation per analysis
+through public delegation and nested scope/failure publication.
+
+**Qualified locally:** The complete selection of `tests/native`,
+`tests/form/molsysmt_MolSys`, `tests/form/molsysmt_Structures`,
+`tests/form/file_h5msm` and `tests/interactions` passes **2,885 tests** with
+Pytest Receptor and 12 workers, without omissions (41.69 s). Its 681 visible
+warnings cover legacy H5MSM, intentional tiny-memory-budget probes, pandas
+migration, unknown synthetic atom names and existing structural merge policies.
+The 37 focused owner tests include one corrected test that originally passed
+`indices` to native `get`, whose public contract uses `selection`; the final
+full run uses the corrected query. Native ownership docstrings pass 16
+examples. Ruff over the package and new guards, all 14 fast release gates,
+public docstring fidelity and public signature stability pass. These are local
+source checks, not installed-client or final-release qualification.
+
+User Foundations, Toolbox,
+Cookbook and Common Core modules 4/10/20 describe the same notification boundary;
+notebook code and saved outputs remain unchanged. No dependency, scientific
+method, attribution requirement, H5MSM schema or release identity is added.
+
+**Still open under #121:** Whole-domain replacement and direct domain append/add
+are outside this automatic notification boundary. Use coordinated MolSys
+extraction/append/add for aligned axis changes. Other direct chemistry/table
+mutations still need explicit owner invalidation; no array/DataFrame observer
+or chemical dependency graph is implied. General table alias/subclass/object
+cell policy, large mutable observable/resource workloads and installed-client
+adoption remain outstanding. Do not close #121 on this checkpoint.

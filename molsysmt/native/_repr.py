@@ -97,7 +97,7 @@ def system_fields(system):
     data = vars(system)
     topology = data.get("_topology", data.get("topology"))
     states = data.get("_chemical_states_domain")
-    structures = data.get("structures")
+    structures = data.get("_structures", data.get("structures"))
     analyses = data.get("_interactions", {})
     first_analysis = next(iter(analyses.values()), None)
     n_structures, n_atoms = structure_dimensions(structures)

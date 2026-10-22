@@ -117,11 +117,17 @@ assert molsys_A.topology is not molsys.topology
 assert molsys_A.chemical_states is not molsys.chemical_states
 ```
 
-Edit copied coordinates through `msm.set(molsys_A, ...)` to invalidate the affected
-structures in every named analysis on that copy. The original's coordinates,
-coverage and previous query snapshots remain unchanged. Direct edits to an
-attached `structures` or `chemical_states` domain still require explicit owner
-invalidation. See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
+Edit copied coordinates through `msm.set(molsys_A, ...)` or
+`molsys_A.structures.set_coordinates(...)` to invalidate the affected structures
+in every named analysis on that copy. The attached domain's `set_box()` and
+full `coordinates`/`box` assignments also notify its owner. The original's
+geometry, coverage and previous query snapshots remain unchanged. Standalone
+domain copies have no owner. Assigning an already attached `Structures` to
+another system creates an independent domain wrapper with deferred geometry
+allocation, preserving the original owner. Direct chemistry/table edits and
+whole-domain replacement still require explicit owner invalidation. Use
+`MolSys` extraction/append operations to change axes with attached analyses.
+See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 
 Tables are copied eagerly; this is not table copy-on-write. Use their canonical
 molecular columns rather than storing arbitrary mutable Python objects inside

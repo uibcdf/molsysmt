@@ -97,6 +97,18 @@ assembling the complete coordinate series. Full `coordinates` and `box`
 properties are protected read snapshots; assembling several blocks needs an
 output array. A full editable getter likewise needs its complete output memory.
 
+An attached domain's `set_coordinates()` and `set_box()`, and full assignments
+to its `coordinates`/`box` properties, notify its owning `MolSys`. Every named
+analysis loses occurrences and evaluated coverage on the affected structures;
+this includes previously empty results and edits to nonparticipating atoms.
+Other structures and earlier snapshots survive. No interactions are recalculated.
+Invalid units, selections, shapes or invalidation-allocation failures leave a
+direct native edit unpublished. Geometry setters cannot resize axes with attached
+analyses; use the owning system's extraction/append tools. ID/time edits do not
+invalidate. Raw/private storage writes, whole-domain replacement and direct
+domain append/add operations are outside this notification boundary. See
+{ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
+
 (user-foundations-structures-copying)=
 ## Independent Copies
 
@@ -105,6 +117,9 @@ box bytes. `structures.copy(deep=False)` and `copy.copy(structures)` share
 protected blocks and replace affected blocks before editing. Both modes own
 independent mutable metadata and other series. Copying invokes no constructor,
 legacy restoration or form discovery, and preserves the concrete supported type.
+Standalone copies drop their weak owner link; complete `MolSys` copies rebind
+their copied structure domain to the copied system. Holding a structure domain
+does not keep its former owner alive.
 
 Blocks are dimensioned by an internal byte budget with at least one complete
 structure per block. A small edit copies its affected blocks rather than every
