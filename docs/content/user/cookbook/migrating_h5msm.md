@@ -81,6 +81,43 @@ before selection, and each domain must have one provider. You remain responsible
 for the declared index correspondence. This example assumes the selected atoms
 are not coupled to stored assembly metadata requiring additional chain remapping.
 
+(cookbook-h5msm-assembly-operations)=
+## Saving assembly operations
+
+Constructing assembly metadata normally produces operation arrays that can be
+saved directly. This self-contained example stores one identity operation with
+a translation of 1 nm along x; no topology is needed to preserve the metadata:
+
+```python
+import numpy as np
+import molsysmt as msm
+from molsysmt.native import Structures
+
+puw = msm.pyunitwizard
+structures = Structures(bioassembly={
+    "1": {
+        "chain_indices": [0],
+        "rotations": [np.eye(3)],
+        "translations": puw.quantity([[10.0, 0.0, 0.0]], "angstrom"),
+    },
+})
+msm.h5msm.write_layers("assembly_05.h5msm", structures=structures)
+molsys = msm.convert("assembly_05.h5msm")
+operation = molsys.structures.bioassembly["1"]
+assert operation["rotations"].shape == (1, 3, 3)
+np.testing.assert_allclose(
+    puw.get_value(operation["translations"], to_unit="nm"), [[1.0, 0.0, 0.0]]
+)
+```
+
+`chain_indices=[0]` declares one chain set shared by the operations. A nested
+sequence supplies one set per operation. Reconstructing with
+`Structures(bioassembly=structures.bioassembly)` keeps the operation shapes
+and does not modify the input. Building coordinates with
+{func}`molsysmt.build.make_bioassembly` additionally requires a system with
+compatible topology and coordinates. That builder accepts a common chain set
+or identical sets repeated per operation; heterogeneous sets remain unsupported.
+
 ## Keeping analyses without coordinates
 
 Named analyses can declare a structure-index domain even when coordinates are

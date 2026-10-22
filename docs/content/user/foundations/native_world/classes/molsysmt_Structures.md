@@ -60,6 +60,22 @@ thermodynamic series. Converting to those formats does not extend their schema.
 Scalar temperatures in simulation settings keep their existing contract.
 See the {ref}`native input reference <API Native Structure Inputs>`.
 
+## Assembly Operations
+
+`bioassembly` maps assembly names to dictionaries with `chain_indices`,
+`rotations` and `translations`. Rotations have shape `(n_operations, 3, 3)`
+and must be finite, orthonormal matrices with determinant +1. Translations are
+length quantities of shape `(n_operations, 3)`, or a list of unit-bearing
+three-component vectors. Compatible length units follow your output unit policy.
+These axes count operations, not structures or atoms.
+
+Use a flat nonnegative integer sequence for a chain set shared by every operation,
+or one sequence per operation. Operation counts must match. Normal construction
+creates independent normalized containers without modifying your input mapping;
+constructing again from those containers retains the same shapes. H5MSM 0.5
+preserves both chain scopes and stores translations in nm. See
+{ref}`the assembly recipe <cookbook-h5msm-assembly-operations>`.
+
 ## Invariants and Performance
 
 `repr(structures)` reads stored shape metadata without array conversion, unit

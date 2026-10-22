@@ -47,6 +47,24 @@ Guards: `tests/form/file_h5msm/test_geometry_chunk_layout.py` and
 `tests/basic/convert/one_to_one/test_h5msm05_load_ownership.py`. Measurements and
 their limitations are in the [native-copy benchmark guide](benchmarking/native_copy.md).
 
+## Version 0.5 assembly metadata
+
+Native `Structures` construction normalizes each named biological assembly to
+one operation axis: proper finite rotations `(n_operations, 3, 3)` and
+unit-bearing translations `(n_operations, 3)`. Translation lists may supply
+different compatible length units. Rotation/translation counts agree; chain
+scope is either a shared nonnegative integer sequence or one sequence per
+operation. Validation creates independent containers and does not partially
+mutate the supplied mapping on failure. Repeated construction is idempotent.
+General structure/point transform axes are unchanged.
+
+The existing typed codec preserves operation order and chain scope and writes
+translations in nm. This repairs normal constructor-to-writer interoperability
+without changing the file schema or relaxing its shape checks. The storage
+codec's finite-matrix checks do not replace public proper-rotation validation
+when a caller deliberately bypasses digestion. Guard:
+`tests/form/file_h5msm/test_validated_bioassembly.py`.
+
 ## Version 0.5 interaction metadata
 
 Named analyses are optional and may accompany structures, chemistry, topology,

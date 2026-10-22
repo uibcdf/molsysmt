@@ -97,7 +97,8 @@ native count-query gains around twofold and more modest info gains; they do
 not certify disk access, cold startup or complete client throughput.
 #128 remains partial for its separately scoped representation/file follow-up;
 #391 and the discovered [nullable count defect](archive/resolved_bugs/selected_hierarchy_counts_follow_missing_parents.md)
-are source-resolved. #121/#113 still await their separate prior design studies.
+are source-resolved. #113 still awaits its separate prior design study;
+#121 has subsequently entered implementation and measured native-copy acceptance.
 The subsequent #128 dictionary phase reads stored atom counts, indices and
 already normalized ID/name/type strings without native reconstruction, including
 combined selected queries. Other/defaulted fields and complete info summaries
@@ -121,6 +122,15 @@ construction and append, preserving scalar simulation-setting semantics. It
 passes 1,276 affected cases, ten method doctests, executed guide/course examples
 and fourteen fast gates. H5MSM/StructuresDict and nondefault-unit round trips
 are covered; no storage schema, public signature or artifact identity changes.
+The subsequent #121 source work implements protected native geometry copies,
+whole-MolSys ownership boundaries and bounded H5MSM geometry transfers. The
+[native-copy record](pending_proposals/native_copy_protocol.md) and
+[benchmark guide](benchmarking/native_copy.md) retain the dated measurements and
+limitations. #121 remains active for direct attached-domain edit publication,
+table alias policy and representative client/resource qualification.
+The independent [#396 assembly repair](archive/resolved_bugs/validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md)
+aligns validated native operations with the existing H5MSM 0.5 codec, including
+chain scopes and translation units. It does not change the file schema.
 These changes remain outside the frozen historical artifact identities and
 require applicable qualification when replacement candidates are selected.
 

@@ -1407,3 +1407,12 @@ uncommitted documentation/sandbox work in MolSysViewer. All worktrees and branch
 states were preserved. Read-only comparison against fetched `origin/main`
 confirmed that the client copy routes cited above had no remote differences;
 this study does not qualify other newer client code.
+
+### Independent assembly boundary follow-up — 2026-10-22
+
+The public-construction mismatch found during persistence qualification is
+resolved separately under [uibcdf/molsysmt#396](../archive/resolved_bugs/validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md).
+Assembly validation now retains operation arrays and unit-bearing translations,
+without mutating caller metadata. Analytical direct/named/loaded assembly tests
+also exercise the extraction consumer. This does not resolve #121's remaining
+direct attached-domain mutation or table-alias decisions.

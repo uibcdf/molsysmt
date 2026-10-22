@@ -27,8 +27,15 @@ def make_bioassembly(
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    bioassembly : object, default=None
-        Argument bioassembly.
+    bioassembly : str or dict, default=None
+        Name of a stored assembly, or an operation dictionary containing
+        ``chain_indices``, ``rotations`` and ``translations``. Rotations have
+        shape (n_operations, 3, 3) and must be proper rotation matrices.
+        Translations carry length units and have shape (n_operations, 3), or
+        are a list of unit-bearing vectors. Chain indices select a common set
+        or the same set repeated per operation. Different per-operation sets
+        are not supported by this builder. None selects the first stored assembly.
+        The supplied dictionary is not modified.
     structure_indices : int, list, tuple, or numpy.ndarray, default=0
         Structure indices (0-based) to include or process.
     to_form : object, default=None
@@ -166,12 +173,16 @@ def make_bioassembly(
 def _all_chains_equal(bioassembly):
     """Check that all biological assemblies share the same chain index array."""
 
+    chain_sets = bioassembly["chain_indices"]
+    if not len(chain_sets) or not isinstance(chain_sets[0], (list, tuple, np.ndarray)):
+        return False
+
     output = True
 
     first_chains = bioassembly["chain_indices"][0]
 
     for chains in bioassembly["chain_indices"]:
-        if not np.all(chains == first_chains):
+        if not np.array_equal(chains, first_chains):
             output = False
             break
 

@@ -342,7 +342,13 @@ class Structures(NativeQueries):
         alternate_location : sequence of dict, optional
             Sparse alternate-site mappings on the atom axis, one mapping per structure.
         bioassembly : dict, optional
-            Biological assembly metadata, stored separately from aligned series.
+            Mapping of assembly names to operation dictionaries, stored separately
+            from aligned series. Each dictionary contains proper rotation matrices
+            ``rotations`` of shape (n_operations, 3, 3), unit-bearing length
+            ``translations`` of shape (n_operations, 3), and ``chain_indices``.
+            Chain indices are a common integer sequence or one sequence per
+            operation. Translations also accept a list of unit-bearing vectors.
+            Validation does not modify the supplied mapping.
         temperature : quantity, optional
             One temperature per structure, shape (n_structures,), with temperature units.
             A scalar represents one structure and becomes a length-one series.

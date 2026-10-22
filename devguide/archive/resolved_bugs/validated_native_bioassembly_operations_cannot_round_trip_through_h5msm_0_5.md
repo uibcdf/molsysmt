@@ -1,13 +1,13 @@
 ---
 summary: Validated native bioassembly operations cannot round trip through H5MSM 0.5
 issue: uibcdf/molsysmt#396
-status: open
+status: resolved
 opened: 2026-10-21
-closed:
+closed: 2026-10-22
 severity: medium
 verification: reproduced
 area: [native, form, units, tests]
-guard:
+guard: tests/form/file_h5msm/test_validated_bioassembly.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-21 during the native structure-copy persistence tests for
 uibcdf/molsysmt#121.
-**Status:** Open; the constructor/codec boundary needs a coordinated fix.
+**Status:** Resolved on 2026-10-22; the reproduction below describes the original defect.
 
 ## What
 
@@ -87,9 +87,9 @@ progress. The implicated digesters and H5MSM assembly codec have no changes in
 that work. Existing schema-compatible metadata assigned directly to the native
 field round-trips; this does not qualify public constructor validation.
 
-**Not qualified:** all supported chain-scope and multi-operation combinations.
-Translation normalization may expose an additional shape mismatch after the
-rotation error is resolved and must be covered in the same boundary tests.
+**Initial unqualified scope:** common/per-operation scopes and multi-operation
+translations were not yet qualified at opening. The resolution below supplies
+those tests; this historical reproduction is not current behavior.
 
 ## What was refuted
 
@@ -105,9 +105,9 @@ rotation error is resolved and must be covered in the same boundary tests.
 Align native assembly validation and typed H5MSM 0.5 persistence. Preserve
 proper-rotation checks and explicit translation units. Do not change general
 structure/point transform shapes solely to repair an assembly-specific caller.
-No fix, scientific algorithm, dependency floor or release decision is delivered
-by this report. #121's copy tests use schema-compatible native metadata and do
-not claim to resolve this constructor defect.
+The initial #121 copy tests use schema-compatible native metadata and do not
+resolve this constructor defect. The separate repair below changes neither a
+scientific algorithm, a dependency floor nor a release decision.
 
 ## Acceptance criteria
 
@@ -119,3 +119,48 @@ not claim to resolve this constructor defect.
   scopes fail clearly before publication.
 - A public constructor-to-H5MSM regression guard exercises ordinary validation;
   `skip_digestion=True` alone cannot satisfy it.
+
+## Resolution — 2026-10-22
+
+**Implemented:** assembly digesters now preserve exactly one operation axis,
+reusing the existing proper-rotation validator. Translation vectors retain
+explicit length units, including mixed input units and nondefault output policy.
+Common chain indices and per-operation chain scopes retain their distinct
+meaning. Counts, malformed axes, nonfinite matrices/vectors and invalid chain
+indices fail at validation. New containers prevent partial mutation of caller
+metadata and make repeated normal construction idempotent.
+
+Extraction uses the chain sequence length rather than an ambiguous NumPy truth
+value. The builder recognizes flat common sets separately from repeated
+per-operation sets, including a single common chain. Its preexisting limit on
+heterogeneous per-operation sets remains explicit. General rotation/translation
+coordinate axes and the H5MSM storage schema are unchanged. Trusted codec input
+that deliberately bypasses validation retains its existing storage checks.
+
+**Contract-tested:** the new public regression module covers one/multiple/zero
+operations, empty chain scopes, both scope encodings, matrix/list translation
+inputs, input nonmutation, repeated construction, malformed operations and
+public H5MSM round trips. The initial 23-case counterfactual produced 17 failures
+and six passes against the original implementation. The final guard also
+includes common-single-chain and explicit unsupported-builder cases.
+
+**Analytically checked:** direct dictionaries, named assemblies and reloaded
+H5MSM assemblies produce the expected identity and quarter-turn-plus-translation
+coordinates for selected chain sets. This verifies geometry independently of
+another codec's output.
+
+**Validation:** Linux/Python 3.14.7 in the existing development environment;
+12 workers and `pytest-receptor`. The first integrated H5MSM/copy/geometry/build
+campaign passed 841 tests with 614 expected legacy deprecation warnings. A
+separate PDB/BCIF/native-parser campaign passed 481 tests with one expected
+cross-chain covalent-bond warning. Eleven docstring examples and the new
+self-contained assembly-persistence recipe execute successfully. Notebook code
+cells and their saved outputs are unchanged; their prose was updated, without
+claiming a new complete course/notebook execution. The final focused rerun passes 34 tests, including all 27 new public guards and
+the bundled-system assembly builder. All fourteen fast gates, full-package Ruff,
+docstring fidelity, public API drift, dependency and developer-guide checks pass.
+The full installed/platform release matrix is not claimed.
+
+The independent builder defect that ignores nondefault structure indices is
+tracked as uibcdf/molsysmt#401; the analytical assembly checks here deliberately
+use structure 0. It does not invalidate this operation-shape/persistence repair.

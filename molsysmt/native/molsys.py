@@ -972,7 +972,7 @@ class MolSys(NativeQueries):
                 retained_assemblies = {}
                 for assembly_id, assembly in tmp_item.structures.bioassembly.items():
                     chain_indices = assembly["chain_indices"]
-                    if chain_indices and isinstance(
+                    if len(chain_indices) and isinstance(
                         chain_indices[0], (list, tuple, np.ndarray)
                     ):
                         retained_operations = [

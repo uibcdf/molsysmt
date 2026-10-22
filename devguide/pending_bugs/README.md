@@ -22,7 +22,7 @@ that front matter -- edit the entries, not this list.
 
 ### Open (1)
 
-- [`validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md`](validated_native_bioassembly_operations_cannot_round_trip_through_h5msm_0_5.md) — [#396](https://github.com/uibcdf/molsysmt/issues/396) — Validated native bioassembly operations cannot round trip through H5MSM 0.5 *(medium, reproduced)*
+- [`make_bioassembly_ignores_requested_structure_indices.md`](make_bioassembly_ignores_requested_structure_indices.md) — [#401](https://github.com/uibcdf/molsysmt/issues/401) — make_bioassembly ignores requested structure indices *(medium, reproduced)*
 
 ### Partially resolved (1)
 
