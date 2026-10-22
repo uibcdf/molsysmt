@@ -9,6 +9,7 @@ import pytest
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 FORM_ROOT = REPO_ROOT / "molsysmt" / "form"
 
+
 def _ambiguous_converter_imports(source):
     found = []
     for node in ast.walk(ast.parse(source)):
@@ -25,7 +26,10 @@ def _ambiguous_converter_imports(source):
         if "." in name or not (package / "__init__.py").is_file():
             continue
         for alias in node.names:
-            if alias.name.startswith("to_") and (package / f"{alias.name}.py").is_file():
+            if (
+                alias.name.startswith("to_")
+                and (package / f"{alias.name}.py").is_file()
+            ):
                 found.append(ast.unparse(node))
     return found
 
@@ -35,11 +39,20 @@ def _ambiguous_converter_imports(source):
     [
         ("from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology", True),
         ("from ..molsysmt_MolSys import to_molsysmt_Topology as convert", True),
-        ("from molsysmt.form.molsysmt_MolSys import (copy,\n to_molsysmt_Topology)", True),
+        (
+            "from molsysmt.form.molsysmt_MolSys import (copy,\n to_molsysmt_Topology)",
+            True,
+        ),
         ("from molsysmt.form._serialization import to_builtin", False),
         ("from .._serialization import to_builtin", False),
-        ("from molsysmt.form.molsysmt_MolSys.to_molsysmt_Topology import to_molsysmt_Topology", False),
-        ("example = 'from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology'", False),
+        (
+            "from molsysmt.form.molsysmt_MolSys.to_molsysmt_Topology import to_molsysmt_Topology",
+            False,
+        ),
+        (
+            "example = 'from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology'",
+            False,
+        ),
     ],
 )
 def test_converter_import_guard_distinguishes_packages_from_helpers(source, ambiguous):

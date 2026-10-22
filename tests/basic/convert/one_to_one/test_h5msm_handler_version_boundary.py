@@ -25,9 +25,7 @@ def test_modular_handler_rejected_before_domain_loading(
     def forbidden(*args, **kwargs):
         pytest.fail("An unsupported handler request materialized modular domains")
 
-    monkeypatch.setattr(
-        "molsysmt.form._h5msm05_modular.read_molsys_file", forbidden
-    )
+    monkeypatch.setattr("molsysmt.form._h5msm05_modular.read_molsys_file", forbidden)
     source = path_type(path)
     if input_kind == "list":
         source = [source]

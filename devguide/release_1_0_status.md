@@ -184,6 +184,11 @@ editable development dependencies, not an isolated installed candidate.
 Viewer source is `d96b073f23247e25cd42c95af545b6d20e7fa982`, with 23 dirty
 paths observed and preserved. No independent Viewer qualification is inferred.
 
+A formatting-only follow-up corrects the initial push's Ruff and suite-policy
+format checks. Both affected test-module ASTs are verified identical before
+and after formatting, retaining the complete local suite results above.
+Repository-wide `ruff check .` and `ruff format --check .` pass.
+
 ### Remaining route to 1.0
 
 1. Review the newly received uibcdf/molsysmt#413 with the Viewer owner. It asks
