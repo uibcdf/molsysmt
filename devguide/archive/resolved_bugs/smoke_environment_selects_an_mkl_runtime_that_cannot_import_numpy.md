@@ -1,13 +1,13 @@
 ---
 summary: Smoke environment selects an MKL runtime that cannot import NumPy
 issue: uibcdf/molsysmt#402
-status: open
+status: resolved
 opened: 2026-10-22
-closed:
+closed: 2026-10-22
 severity: medium
 verification: reproduced
 area: [ci]
-guard:
+guard: tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,8 @@ supersedes: []
 # Smoke environment selects an MKL runtime that cannot import NumPy
 
 **Reported:** 2026-10-22 during exact-head qualification after uibcdf/molsysmt#396.
-**Status:** Open; a bounded test-environment backend selection is under qualification.
+**Status:** Resolved for the maintained source-test workflow runtime; upstream
+package compatibility and the full installed/platform release matrix remain separate.
 
 ## What
 
@@ -38,9 +39,11 @@ validation and package installation finish before the failing import step.
 
 `devtools/conda-envs/test_env.yaml` leaves the BLAS implementation unconstrained.
 The CI solve selects the MKL route, whose native runtime cannot load the library
-named in the error. This establishes an unusable solved environment, not the
-precise upstream packaging or loader cause. It does not establish a defect in
-the biological assembly calculation.
+named in the error. Bounded inspection of the official archive manifests now
+confirms that the expected GNU LP64 library is absent from the selected 2026.2.0
+package, while present in the known-green 2026.1.0 package. Whether this is an
+intentional upstream split with missing consumer dependencies or a packaging
+omission remains unqualified. It does not establish a biological assembly defect.
 
 The first recovery tried the documented
 [conda-forge OpenBLAS selection](https://conda-forge.org/docs/maintainer/knowledge_base/#switching-blas-implementation).
@@ -78,9 +81,9 @@ It selects MKL 2026.1.0 `hd2095e1_245`, NumPy 2.5.4 `py314hd3a7d6b_0`,
 libblas 3.11.0 `11_h5875eb1_mkl`, NumExpr 2.14.2 `mkl_py314h85e79cc_1`,
 MDTraj 1.11.2 and AmberTools 26.0. Only solver metadata is downloaded into
 isolated temporary paths; no new environment or packages are installed.
-This qualifies solvability, not import or numerical execution. No independent
-upstream MKL package reproduction, other-platform solve or successful recovery
-CI is claimed yet. The historical baseline and failed recoveries remain distinct.
+At that checkpoint this qualified solvability only. The successful hosted
+recovery is recorded below. Other-platform and installed-candidate execution
+are not inferred; the historical baseline and failed recoveries remain distinct.
 
 ## What was refuted
 
@@ -110,3 +113,45 @@ a cross-platform/installed-candidate or MKL scientific-accuracy qualification.
 2026-10-22, GitHub-hosted Ubuntu, Python 3.14; exact commit and native package
 versions above. GH Run Receptor identified the failed import job; the native
 job-log endpoint supplied the MKL diagnostic while workflow logs were pending.
+
+## Official archive comparison — 2026-10-22
+
+**Inspected:** the `info/paths.json` manifests inside the exact conda-forge
+artifacts, fetched using bounded HTTP byte ranges. Only small ZIP metadata/info
+members were read; neither large runtime payload was downloaded or installed.
+
+| Official Linux artifact | GNU LP64 interface | Dispatcher |
+| --- | --- | --- |
+| [mkl-2026.1.0-hd2095e1_245.conda](https://conda.anaconda.org/conda-forge/linux-64/mkl-2026.1.0-hd2095e1_245.conda) | `lib/libmkl_gf_lp64.so.3` present, SHA-256 `abac42e4cc105b66e75c484375b54ad913f5b6c86b6a139be8d80627535cef2f` | `lib/libmkl_rt.so.3` present |
+| [mkl-2026.2.0-hd2095e1_881.conda](https://conda.anaconda.org/conda-forge/linux-64/mkl-2026.2.0-hd2095e1_881.conda) | No `libmkl_gf_lp64` entry | `lib/libmkl_rt.so.3` present |
+
+This confirms the immediate missing-library mismatch reported by the hosted
+runtime. It does not establish whether another upstream package is now intended
+to own that interface, nor whether an MKL/BLAS recipe dependency must change.
+The temporary fence follows the known-green package line while that upstream
+compatibility boundary remains unresolved.
+
+## Resolution and recovery qualification — 2026-10-22
+
+**Implemented:** `df4dff8043f3b980d65ba2805c8b4e8bc23ef0d6` removes the
+unsatisfiable OpenBLAS entry and applies the temporary MKL ceiling through
+`pinned_packages` in smoke/full/weekly/benchmark source workflow configuration.
+This is a solve constraint, not a new platform-independent MKL dependency.
+The complete optional test dependency list remains unchanged. The durable
+removal condition is maintained in `devguide/dependency_contract_audit.md`.
+
+**Contract-tested:** [recovery run 39822175042](https://github.com/uibcdf/molsysmt/actions/runs/39822175042)
+on that exact source installs MKL 2026.1.0 `hd2095e1_245` and the expected
+libblas build. Import, controlled-version validation, public API/docstring/form
+checks and the **13 smoke tests** actually execute and pass. Its 62 warnings
+remain visible in the run. GH Run Receptor reports terminal success. All five
+applicable exact-source checks pass, including dependency-contract and suite
+policy gates. The existing RMSD regression module is part of that executed
+smoke selection and requires a working native numerical/import runtime.
+
+The two failed runs above remain evidence of different failures; neither is
+relabeled successful. The upstream 2026.2.0 package is not fixed or certified
+by this consumer recovery. Full-platform/installed-package release gates are
+still required when candidates are selected. Public runtime dependency floors,
+MolSysMT numerical algorithms, scientific thresholds and publication identities
+are unchanged.

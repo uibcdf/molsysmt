@@ -74,3 +74,19 @@ A successful build with notebook execution disabled verifies compilation, not
 the scientific calculations saved in notebooks. Record warnings and distinguish
 fresh builds from incremental ones; do not compare their counts as a regression
 measure. Installed candidate and provider qualification remains separate.
+
+## Temporary source-test runtime constraint
+
+The maintained smoke/full/weekly/benchmark source workflows currently set
+`pinned_packages: [mkl<2026.2]` in their Conda configuration. This constrains
+MKL only when the solve otherwise installs it; it is not a public MolSysMT
+runtime dependency or a requirement to install MKL on every platform. The
+optional test packages and the public floors remain unchanged.
+
+The [#402 incident record](archive/resolved_bugs/smoke_environment_selects_an_mkl_runtime_that_cannot_import_numpy.md)
+retains the failing official artifact manifest, rejected OpenBLAS solve and
+successful exact-source Linux recovery. Remove or revise the ceiling together
+across those four workflow routes only after the replacement runtime passes
+hosted import and numerical qualification with the complete dependency set.
+Do not infer installed-candidate or other-platform qualification from the
+single smoke recovery.

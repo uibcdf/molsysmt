@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`make_bioassembly_ignores_requested_structure_indices.md`](make_bioassembly_ignores_requested_structure_indices.md) — [#401](https://github.com/uibcdf/molsysmt/issues/401) — make_bioassembly ignores requested structure indices *(medium, reproduced)*
-- [`smoke_environment_selects_an_mkl_runtime_that_cannot_import_numpy.md`](smoke_environment_selects_an_mkl_runtime_that_cannot_import_numpy.md) — [#402](https://github.com/uibcdf/molsysmt/issues/402) — Smoke environment selects an MKL runtime that cannot import NumPy *(medium, reproduced)*
 
 ### Partially resolved (1)
 
