@@ -92,6 +92,19 @@ def test_single_operation_from_original_reproducer_is_serializable(tmp_path):
     )
 
 
+def test_empty_translation_matrix_still_requires_length_units():
+    with pytest.raises(msm.ArgumentError):
+        Structures(
+            bioassembly={
+                "1": {
+                    "chain_indices": [],
+                    "rotations": np.empty((0, 3, 3)),
+                    "translations": puw.quantity(np.empty((0, 3)), "ps"),
+                }
+            }
+        )
+
+
 @pytest.mark.parametrize("chains", [[], [[]]])
 def test_empty_operations_and_empty_chain_scopes_are_distinct(tmp_path, chains):
     count = len(chains)

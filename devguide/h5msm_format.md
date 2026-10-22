@@ -52,7 +52,8 @@ their limitations are in the [native-copy benchmark guide](benchmarking/native_c
 Native `Structures` construction normalizes each named biological assembly to
 one operation axis: proper finite rotations `(n_operations, 3, 3)` and
 unit-bearing translations `(n_operations, 3)`. Translation lists may supply
-different compatible length units. Rotation/translation counts agree; chain
+different compatible length units. Empty quantity matrices still require length
+units. Rotation/translation counts agree; chain
 scope is either a shared nonnegative integer sequence or one sequence per
 operation. Validation creates independent containers and does not partially
 mutate the supplied mapping on failure. Repeated construction is idempotent.

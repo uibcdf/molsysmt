@@ -164,3 +164,20 @@ The full installed/platform release matrix is not claimed.
 The independent builder defect that ignores nondefault structure indices is
 tracked as uibcdf/molsysmt#401; the analytical assembly checks here deliberately
 use structure 0. It does not invalidate this operation-shape/persistence repair.
+
+## Same-day empty-quantity follow-up — 2026-10-22
+
+After the initial source closure, an additional counterfactual showed that an
+empty `(0, 3)` translation quantity with time units bypassed per-vector unit
+validation. `test_empty_translation_matrix_still_requires_length_units` fails
+against `277ca6ebb` because no error is raised. Whole quantity matrices now
+pass once through the existing translation validator before extracting their
+operation axis; this checks dimensionality even when no vectors are present.
+List inputs retain per-vector validation for mixed compatible units. This is a
+bounded continuation of the same assembly-input contract, without a schema or
+public signature change. The new guard joins the existing module.
+
+The final H5MSM/copy/geometry/bundled-builder rerun passes **843 tests**
+with 12 workers, no omissions and the same 614 legacy warnings. Ruff and
+developer-guide/index checks pass again; earlier unchanged-scope evidence
+remains applicable.

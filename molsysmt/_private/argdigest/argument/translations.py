@@ -18,10 +18,9 @@ def digest_translations(translations, caller=None):
                         caller=caller,
                         message="Assembly translations must have shape (n_operations, 3).",
                     )
-                translations = [
-                    translations[index] for index in range(len(translations))
-                ]
-            if isinstance(translations, (np.ndarray, list, tuple)):
+                normalized = digest_translation(translations, caller=caller)
+                values = puw.get_value(normalized, to_unit="nm")[0]
+            elif isinstance(translations, (np.ndarray, list, tuple)):
                 vectors = []
                 for translation in translations:
                     vector = digest_translation(translation, caller=caller)
@@ -34,13 +33,15 @@ def digest_translations(translations, caller=None):
                         )
                     vectors.append(puw.get_value(vector, to_unit="nm")[0, 0])
                 values = np.asarray(vectors, dtype=np.float64).reshape(-1, 3)
-                if not np.all(np.isfinite(values)):
-                    raise ArgumentError(
-                        "translations",
-                        value=translations,
-                        caller=caller,
-                        message="Assembly translations must contain only finite values.",
-                    )
-                return puw.standardize(puw.quantity(values, "nm"))
+            else:
+                raise ArgumentError("translations", value=translations, caller=caller)
+            if not np.all(np.isfinite(values)):
+                raise ArgumentError(
+                    "translations",
+                    value=translations,
+                    caller=caller,
+                    message="Assembly translations must contain only finite values.",
+                )
+            return puw.standardize(puw.quantity(values, "nm"))
 
     raise ArgumentError("translations", value=translations, caller=caller, message=None)
