@@ -20,8 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (3)
 
+- [`distances_heavy_discards_second_selection.md`](distances_heavy_discards_second_selection.md) — [#441](https://github.com/uibcdf/molsysmt/issues/441) — Heavy distances discard the second atom selection within one system. *(medium, reproduced)*
+- [`radius_of_gyration_heavy_relabels_nm_as_standard_length.md`](radius_of_gyration_heavy_relabels_nm_as_standard_length.md) — [#440](https://github.com/uibcdf/molsysmt/issues/440) — Heavy radius of gyration relabels nm values as the active length unit. *(medium, reproduced)*
 - [`sequence_identity_counts_nonsequence_groups.md`](sequence_identity_counts_nonsequence_groups.md) — [#439](https://github.com/uibcdf/molsysmt/issues/439) — Sequence identity counts non-sequence groups and returns shifted group indices. *(medium, reproduced)*
 
 ### Partially resolved (1)

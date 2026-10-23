@@ -1,0 +1,249 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "base_commits": {
+    "provider": "c4b71b2069b3613f0b1e340f7448f645cc80f0b4",
+    "viewer": "9fdd801022f662cb572fbca6a98a17f0d3e90602"
+  },
+  "environment": "Linux, Python 3.14.7, molsyssuite@uibcdf_3.14, working source. Concurrent unrelated PDBQT source work preserved; not a frozen full-provider or installed artifact pair.",
+  "functions": [
+    {
+      "provider": "molsysmt.structure.get_distances",
+      "bound": "view.addons.molsysmt.structure.get_distances",
+      "primary": "current view.molsys",
+      "effects": "Scientific return; no molecular edit, automatic preparation, result attachment or scene projection; native caches retained.",
+      "skip_digestion": "native declared control forwarded",
+      "auxiliary_system": "Explicit molecular_system_2 and its selectors/weights; caller-stable, no auxiliary-view locks.",
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_vectors",
+      "bound": "view.addons.molsysmt.structure.get_vectors",
+      "primary": "current view.molsys",
+      "effects": "Scientific return; no molecular edit, automatic preparation, result attachment or scene projection; native caches retained.",
+      "skip_digestion": "native declared control forwarded",
+      "auxiliary_system": "Explicit molecular_system_2 and its selectors/weights; caller-stable, no auxiliary-view locks.",
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_center",
+      "bound": "view.addons.molsysmt.structure.get_center",
+      "primary": "current view.molsys",
+      "effects": "Scientific return; no molecular edit, automatic preparation, result attachment or scene projection; native caches retained.",
+      "skip_digestion": "native declared control forwarded",
+      "auxiliary_system": null,
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_radius_of_gyration",
+      "bound": "view.addons.molsysmt.structure.get_radius_of_gyration",
+      "primary": "current view.molsys",
+      "effects": "Scientific return; no molecular edit, automatic preparation, result attachment or scene projection; native caches retained.",
+      "skip_digestion": "native declared control forwarded",
+      "auxiliary_system": null,
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_angles",
+      "bound": "view.addons.molsysmt.structure.get_angles",
+      "primary": "current view.molsys",
+      "effects": "Scientific return; no molecular edit, automatic preparation, result attachment or scene projection; native caches retained.",
+      "skip_digestion": "native declared control forwarded",
+      "auxiliary_system": null,
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_dihedral_angles",
+      "bound": "view.addons.molsysmt.structure.get_dihedral_angles",
+      "primary": "current view.molsys",
+      "effects": "Scientific return; no molecular edit, automatic preparation, result attachment or scene projection; native caches retained.",
+      "skip_digestion": "addon-only keyword, never forwarded into scientific flags",
+      "auxiliary_system": null,
+      "root_alias": false
+    }
+  ],
+  "native_export_inventory": {
+    "method": "Owning AST discover_exports(package-init) on structure/__init__.py; namespace names only, not qualification of unreceived callables.",
+    "exports": 28,
+    "dispositions": [
+      {
+        "name": "align_principal_axes",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "center",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "flip",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_angles",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_center",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_contacts",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_dihedral_angles",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_distances",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_least_rmsd",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_least_squares_plane",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_maximum_distances",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_minimum_distances",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_neighbors",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_principal_axes",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_radius_of_gyration",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_rmsd",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_rmsf",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_secondary_structure",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_symmetry_corrected_rmsd",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_vectors",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "least_rmsd_align",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "least_rmsd_fit",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "move_away",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "principal_component_analysis",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "rotate",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "set_dihedral_angles",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "shift_dihedral_angles",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "translate",
+        "status": "pending-adaptation"
+      }
+    ]
+  },
+  "checks": {
+    "focused": {
+      "passed": 54,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "1eb51788d74163813a19e6dc0ae22c1e9aee6a063452221f82afccbb9021cd43"
+    },
+    "complete_applicable_regression": {
+      "passed": 364,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "c4c979e62fc4d159462dab39d5a2ab6d777f06a277ce9f8ea22422b3fa943767"
+    },
+    "guide_blocks": 14,
+    "native_docstring_examples": {
+      "attempted": 16,
+      "failed": 0,
+      "context": "Copied native examples, with np supplied as in their owning scientific modules."
+    },
+    "package_python_files": 15,
+    "ruff": "check and format pass"
+  },
+  "scientific_scope": {
+    "independent_numeric_references": "Eager distances/vectors without PBC, weighted centers and radii in nm across eager/heavy modes; ordered repeated structure selections.",
+    "parity_only": "Other native output/PBC/angle/configuration routes; parity does not independently certify science. Alternate-unit forced Rg and two-population forced distances retain known native defects.",
+    "limits": [
+      {
+        "issue": "uibcdf/molsysmt#440",
+        "finding": "Native heavy radius attaches standard-unit label to numeric nm values; pm probe gives 1000-fold physical discrepancy. No wrapper correction."
+      },
+      {
+        "issue": "uibcdf/molsysmt#441",
+        "finding": "Native same-system heavy distances discard the second selection; 3x2 endpoint request becomes first-population 3x3. No hidden route override."
+      }
+    ]
+  },
+  "scope_limits": [
+    "No GPU or optional alternate-engine qualification.",
+    "No universal bounded RAM/trajectory-transfer claim; native accumulated outputs scale with requested scopes.",
+    "No graphical task panels, RMSD/fit/transform wrappers or remaining structure exports received here.",
+    "Native snapshots and pending synchronization remain independent; reads do not synchronize scene."
+  ],
+  "prior_topology_ci": {
+    "run": 40014551589,
+    "provider": "c4b71b2069b3613f0b1e340f7448f645cc80f0b4",
+    "conclusion": "success",
+    "scope": "Previous topology delivery; not the uncommitted structure block."
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_basic.py": "c5e3c4961c34ff0f0317e39af7678fbfb0cc65facf44dbb42fd97d9259d28002",
+    "molsysviewer_molsysmt/_structure.py": "fe2dd096e4e581f5b6b14c8a17d86434cdda19b30af0630b9645fb94422b2ae2",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "4595d7f9a93a0731c2e917aff565b8f5dbcd0edb7a146869b6fc2cc0df39bc2a",
+    "devtools/scripts/viewer_tools_contract.py": "16425a43f76955dfd4ebb7a2ff0c51a4854ca222f746ba0a5ce21cb4bfee4000",
+    "molsysmt/structure/get_distances.py": "8c0b37be9e8ed3878d8a2a25af4f200d7d94456d697c48f7e682d3dcc765c024",
+    "molsysmt/structure/get_vectors.py": "d2bc8d4e88245087f4dc52148ff6e98f4b3abb0d5404ab062d38671a1c3a24ff",
+    "molsysmt/structure/get_center.py": "db5a81fc8f842069266e0c2d18ebf023935401322678d342f51117e9bae8b5f8",
+    "molsysmt/structure/get_radius_of_gyration.py": "2ce2268191381336b53d5fd06a4494bc100a6030a760ac0b99c28fccc1c9609a",
+    "molsysmt/structure/get_angles.py": "33dc027ff76aa0808112ed3b47e8b8e2f750f343fda7686af28e2fdddbd8bedf",
+    "molsysmt/structure/get_dihedral_angles.py": "d347358cfa0fe89f27d77d231084de50e1a916c9433ef4bfdfc1dc89f4c8f5ee"
+  }
+}

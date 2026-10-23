@@ -29,3 +29,9 @@ with optional RDKit/Biopython routes, chemistry prerequisites, search limits and
 native independent reference ownership. Keep the known sequence/group-axis
 limitation linked to its owning issue until a native fix is received; do not
 hide it with an addon-specific formula or implicit filtering/preparation.
+
+Preserve the six received structure readers, native physical quantities,
+independent secondary systems, output metadata and explicit periodic/weight/engine
+choices. Never treat centers as coordinate edits or silently correct native
+heavy routes. Keep #440/#441 visible until native fixes are actually received;
+distinguish numerical references on supported routes from mere native parity.

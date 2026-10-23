@@ -25,6 +25,11 @@ correspondences, sequence alignment and sequence identity. Native scientific
 limitations remain applicable, including the sequence/group mapping limitation
 below. This receiving is not a certification of every possible input or engine.
 Topology functions keep their module path; they do not gain invented root aliases.
+The first `view.addons.molsysmt.structure` slice adds `get_distances`,
+`get_vectors`, `get_center`, `get_radius_of_gyration`, `get_angles` and
+`get_dihedral_angles`. These return native scientific quantities and metadata;
+coordinate-changing operations remain outside this received slice.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -476,3 +481,93 @@ MolSysViewer documents discovery, activation, configuration, lifecycle, its
 addon catalogue and how to create an addon in its
 [addon guide](https://www.uibcdf.org/molsysviewer/content/user/introduction/addons.html).
 This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
+
+## Computing geometry on the current system
+
+The structure wrappers keep atom/structure selections, endpoint order, weights,
+periodic choices, native output formats and execution controls explicit. They
+return native results without attaching a measurement, selecting atoms or
+changing coordinates. The additional `molecular_system_2` of distances/vectors
+is an ordinary caller-owned input with its own selectors; it is not implicitly
+the displayed system or another locked view.
+
+```python
+with msv.demo['pentalanine'] as view:
+    structure = view.addons.molsysmt.structure
+    distances = structure.get_distances(
+        selection=[0, 2, 4], selection_2=[1, 3],
+        structure_indices=[2, 0, 2], pbc=False, heavy_mode='off',
+    )
+    directed = structure.get_vectors(
+        selection=[0, 2, 4], selection_2=[1, 3],
+        structure_indices=[2, 0, 2], pbc=False, output_type='dictionary',
+    )
+```
+
+{doc}`structure/get_distances` keeps native Cartesian/pair and array/dictionary
+choices, including their supported index conventions and exceptions.
+{doc}`structure/get_vectors` points from the first endpoint to the second,
+retaining sparse endpoint memberships, both structure axes, periodic images,
+distances and directions in dictionary output. Zero-length vectors retain
+undefined NaN directions. Indices are source positions, not scene object IDs.
+Repeated/nonconsecutive structure choices and auxiliary selectors stay native.
+
+```python
+with msv.demo['pentalanine'] as view:
+    structure = view.addons.molsysmt.structure
+    centers = structure.get_center(
+        selection=[[0, 2], [4, 5]], structure_indices=[2, 0],
+        weights='masses', heavy_mode='off',
+    )
+    radii = structure.get_radius_of_gyration(
+        selection="atom_type!='H'", structure_indices=[2, 0],
+        weights='masses', heavy_mode='off', use_gpu=False,
+    )
+```
+
+{doc}`structure/get_center` returns geometric or weighted centers; it does not
+center the molecule. Nested atom selections retain separate centers and native
+weight interpretation. {doc}`structure/get_radius_of_gyration` returns one
+length quantity per selected structure. Neither aligns, unwraps or prepares
+coordinates. Inspect or explicitly convert physical units with PyUnitWizard;
+the addon does not convert quantities to bare arrays or impose display units.
+
+:::{warning}
+Native forced/automatic chunking has two known source defects awaiting provider
+receiving: radius of gyration can relabel nm values under alternate length units
+([#440](https://github.com/uibcdf/molsysmt/issues/440)), and same-system distances
+can discard the second selection ([#441](https://github.com/uibcdf/molsysmt/issues/441)).
+These affected routes are not scientifically qualified by addon parity tests.
+The examples explicitly use heavy_mode='off' for those operations on this small
+demo. That choice does not guarantee a large calculation fits memory. No hidden
+routing override or unit/formula correction is performed by the addon.
+:::
+
+```python
+with msv.demo['pentalanine'] as view:
+    structure = view.addons.molsysmt.structure
+    angles = structure.get_angles(
+        triplets=[[0, 1, 2]], structure_indices=[2, 0, 2],
+        pbc=False, use_gpu=False,
+    )
+    dihedrals = structure.get_dihedral_angles(
+        phi=True, psi=True, structure_indices=[2, 0, 2],
+        pbc=False, use_gpu=False,
+    )
+```
+
+{doc}`structure/get_angles` retains explicit source atom triplets and
+{doc}`structure/get_dihedral_angles` retains explicit quartets or named dihedral
+flags. Multiple named types retain their native list and order. Angular
+quantities follow the active standard-angle policy, including a PyUnitWizard
+context; explicitly request radians or degrees when extracting numeric values.
+The native dihedral function has no declared skip_digestion parameter: the
+addon-only keyword controls addon validation and is never injected into named
+scientific flags. Native public validation and view-lifetime checks remain active.
+
+Backend, periodic and streaming behavior stays native; optional GPU routes were
+not qualified by these CPU receiving examples. Chunked input processing does
+not guarantee constant memory, and returned outputs can still scale with the
+requested atom pairs and structures. These are calculations, not automatic
+scene measurements or coordinate edits. Remaining structure exports, including
+RMSD/fit tools and transformations, still need individual addon receiving.

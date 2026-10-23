@@ -6,6 +6,7 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _BasicTools
+from ._structure import _StructureTools
 from ._topology import _TopologyTools
 
 
@@ -14,6 +15,7 @@ class _MolSysMTTools:
         self._view_ref = ref(view)
         self.basic = _BasicTools(self)
         self.topology = _TopologyTools(self)
+        self.structure = _StructureTools(self)
 
     def _view(self):
         view = self._view_ref()
@@ -76,6 +78,7 @@ class _MolSysMTTools:
         return [
             "basic",
             "topology",
+            "structure",
             "get_sync_status",
             "sync_view",
             *_BasicTools._NAMES,

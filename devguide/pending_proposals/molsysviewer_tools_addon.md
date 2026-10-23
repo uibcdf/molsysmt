@@ -19,9 +19,8 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers and sync controls now have source receiving,
-while other
-editing families, panels and broad coverage
+all eleven current topology readers, six structure calculations and sync controls
+now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
@@ -400,3 +399,37 @@ cuts and correspondences are scientific outputs, not edits or scene objects.
 This completes the reviewed topology mirror only. The broader source ledger,
 other modules, general edits, lazy/support utilities, panels and installed
 compatibility remain pending; #421 and uibcdf/molsysviewer#264 stay partial.
+
+
+## Six structure calculations received — 2026-10-23
+
+The first explicit structure namespace receives distances, vectors, centers,
+radius of gyration, angles and dihedrals with native signatures/options/results.
+It reuses the host's serialized reader, resolves the current primary system per
+call and keeps an auxiliary system and selectors caller-owned. No coordinate
+edit, automatic preparation, result attachment, measurement creation or scene
+projection is introduced. Missing native dihedral skip_digestion is handled by
+an addon-only keyword, never injected into scientific named flags.
+
+The [source receipt](../../devtools/data/molsysviewer_tools_structure_receiving_20261023.json)
+records 54 focused cases, the one complete applicable regression, fourteen guide
+examples and sixteen passing native-docstring examples. Packaging metadata guards
+now include all fifteen addon Python files. Module 16 gains narrative only; all
+existing executable cells/outputs and protected course topics remain unchanged.
+Ruff and local guide checks pass. These are source checks, not an installed
+artifact pair, optional GPU qualification or general memory bound.
+
+Independent coordinate references protect supported distance/vector and weighted
+center/radius routes. Native CPU/PBC/output/angle behavior is also parity-tested.
+Native forced calculations reveal two scientific defects, filed with maintainer
+authorization: uibcdf/molsysmt#440 (radius physical scale in alternate length
+units) and #441 (second distance population discarded). Affected-route parity
+is explicitly not a scientific pass; the addon neither silently switches mode
+nor overrides units/formulas. Their native reports retain independent bundled
+reproductions and required guard outcomes.
+
+Owning AST namespace discovery accounts for all current structure exports;
+only these six are received. Other calculations, transformations, support/lazy
+utilities and graphical panels remain pending. #421 and uibcdf/molsysviewer#264
+stay partial. Prior topology CI 40014551589 passes on provider c4b71b206;
+new exact-head CI is still needed for this structure delivery.

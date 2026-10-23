@@ -11,8 +11,8 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
-controls and the eleven current `topology` analysis readers under
-`view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+controls, eleven current `topology` analysis readers and six `structure`
+calculations under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -282,3 +282,28 @@ prettyprint retains native stdout/None behavior. get_sequence_identity lacks a
 declared native skip flag: its addon keyword controls only addon digestion.
 Native sequence/group-axis mismatch uibcdf/molsysmt#439 remains visible; source
 parity is not certification of that scientific result or a wrapper formula fix.
+
+
+## Initial geometric structure readers — 2026-10-23
+
+The explicit structure namespace receives get_distances, get_vectors, get_center,
+get_radius_of_gyration, get_angles and get_dihedral_angles. These reuse the existing
+current-primary serialized reader, preserving scientific selectors, physical
+quantities, weights, PBC, output metadata and supported execution choices.
+Auxiliary molecular_system_2 inputs, selectors and weights remain explicit and
+caller-stable. No auxiliary-view locks or atom/structure pairing guesses are added.
+
+Centers are returned coordinates, not centering edits; geometry results are not
+scene measurements or attached analyses. Repeated/nonconsecutive structure choices
+and native tuple/dictionary/list outputs remain native. Dihedral named flags are
+not repurposed for addon controls: the added keyword-only skip_digestion is not
+forwarded to the native helper, which lacks a declared flag. Native validation
+still runs. Other native escape hatches remain explicit native parameters.
+
+Known heavy-mode defects uibcdf/molsysmt#440/#441 are preserved and visibly
+reported, not silently corrected by changing routing, units or formulas. Native
+parity for those affected routes does not qualify numerical correctness. Source
+examples explicitly choose eager mode for affected small-system calculations;
+that is not a large-system memory guarantee. Optional GPU/alternate engines,
+remaining structure exports and coordinate-changing operations need separate
+receiving. No new host runtime, public API or frontend transport is needed here.

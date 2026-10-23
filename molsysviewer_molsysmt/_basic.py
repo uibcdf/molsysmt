@@ -61,7 +61,7 @@ def _native_documentation(name, module="basic"):
                 "the actual current view.molsys; later external edits retain explicit "
                 "reconciliation responsibilities.\n"
             )
-        if module == "topology":
+        if module in {"topology", "structure"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The result is a native scientific value, not a scene object. "
