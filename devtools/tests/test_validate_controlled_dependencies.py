@@ -43,7 +43,7 @@ def test_controlled_source_pins_must_be_full_unique_commit_references():
 def test_cli_checks_the_real_runtime_contract_against_installed_versions(monkeypatch):
     versions = {
         "smonitor": "0.16.0",
-        "depdigest": "0.11.0",
+        "depdigest": "0.15.1",
         "pyunitwizard": "0.28.1",
         "argdigest": "0.14.0",
     }
