@@ -3209,3 +3209,23 @@ and Pytest Receptor; one meaningful doctest, executable User Guide examples
 and the updated course notebook pass. All 14 fast gates pass. Detailed scope,
 known warnings, hashes and environment are in the
 [projection receipt](../devtools/data/atom_projection_20261022.json).
+
+
+## Known-source PDBQT pose reader — 2026-10-22
+
+The maintainer-authorized #226 extension is implemented and contract-tested in
+`molsysmt.form.read_pdbqt_poses`, under the experimental form namespace. It
+requires one complete source state and a completed PDBQT export map; validates
+every pose; imports only observed coordinates; and rejects missing source atoms
+unless the caller explicitly requests a retained subsystem. It never restores
+omitted H from old coordinates. The User Guide, Cookbook and executed course
+Module 19 document this boundary.
+
+The final focused source run passed 838 tests with zero failures/skips and 37
+unsuppressed warnings. Its real Vina 1IEP case compares imported positions with
+the engine's numeric array within PDBQT quantization. One doctest, Ruff, API and
+docstring checks and all 14 fast gates pass. See the
+[source receipt](../devtools/data/pdbqt_pose_read_20261022.json) and
+[resolved #226 record](archive/resolved_proposals/read_pdbqt_pose_ensembles_against_a_known_ligand_source.md).
+This does not qualify a new installed pair, change publication authorization
+under #334, or complete #223's earlier-preparation map composition.

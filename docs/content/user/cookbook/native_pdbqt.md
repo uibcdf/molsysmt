@@ -7,6 +7,14 @@ Meeko or Vina installation. A string is explicit: prepend `pdbqt_text:` to its
 raw contents. Raw text without that prefix is not promised as PDBQT; its
 PDB-like atom records can otherwise be confused with ordinary PDB.
 
+For a multi-MODEL docking ensemble, use
+{func}`molsysmt.form.read_pdbqt_poses` with the known prepared source and its
+completed export map. It validates every pose and imports only returned
+coordinates onto that known chemical graph. Missing source atoms require an
+explicit retained-subsystem policy; absent H never inherit original positions.
+See {ref}`Tutorial_Read_PDBQT_Poses`. Generic form queries/conversions below
+retain their single-system profile.
+
 `msm.get_form()` confirms the declared `pdbqt_text:` representation through its
 own detector without trying the unrelated RDKit SMILES parser. This recognition
 does not validate PDBQT syntax or chemistry: reading/conversion still checks the

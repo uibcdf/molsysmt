@@ -348,6 +348,11 @@ sections:
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
         pages:
+          - name: read_pdbqt_poses
+            file: docs/content/user/tools/form/read_pdbqt_poses.md
+            agents_file: docs/content/user/tools/form/read_pdbqt_poses.md.AGENTS.md
+            description: Known-source pose ensembles, completed export maps, strict identity and explicit missing-atom policy.
+            status: reviewed
           - file: docs/content/user/tools/form/file/file_pdb_gz.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb_gz.ipynb.AGENTS.md
             description: Experimental gzip PDB input, shared parser, connectivity policy and read isolation.

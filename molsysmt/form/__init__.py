@@ -30,6 +30,7 @@ from .is_item import is_item  # noqa: E402
 from .is_file import is_file  # noqa: E402
 from .load_converter import load_converter  # noqa: E402
 from .is_string import is_string  # noqa: E402
+from .read_pdbqt_poses import read_pdbqt_poses  # noqa: E402
 # isort: on
 
 RESOURCE_FORMS = {

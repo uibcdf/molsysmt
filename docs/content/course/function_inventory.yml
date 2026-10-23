@@ -1,3 +1,9 @@
+molsysmt.form.read_pdbqt_poses:
+  name: "msm.form.read_pdbqt_poses"
+  first_introduced_in: "Common_Core/19_Structures_and_Trajectories.ipynb"
+  summary: "Reads pose coordinates against a known source and completed export map. Absent H coordinates are never invented."
+  doc_ref: "{func}`molsysmt.form.read_pdbqt_poses`"
+
 molsysmt.build.merge_nonpolar_hydrogens:
   name: "msm.build.merge_nonpolar_hydrogens"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

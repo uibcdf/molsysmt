@@ -15,3 +15,4 @@ API Form
    is_item
    is_string
    load_converter
+   read_pdbqt_poses

@@ -155,3 +155,17 @@ execute as one tested workflow. Updated course Module 12 executed in 18.5 s.
 Ruff check/format, 248 public docstrings, the API stability guard and all
 14 fast gates pass. API/scientific-evidence generated views are refreshed;
 this is not new scientific admission. No full or installed matrix was started.
+
+
+## Known-source pose consumer delivered — 2026-10-22
+
+#226 now implements `molsysmt.form.read_pdbqt_poses` with completed export maps,
+all-model identity validation and explicit missing-atom policy. New writer maps
+include `output_atom_ff_types` to validate a pose even with a topology-only known
+source. This is an additive typed field, not a payload or mapping-axis change.
+The bounded reader is documented in the
+[User Guide](../../docs/content/user/tools/form/read_pdbqt_poses.md); its delivered
+contract/evidence lives in the
+[resolved #226 record](../archive/resolved_proposals/read_pdbqt_pose_ensembles_against_a_known_ligand_source.md).
+Earlier generation-map composition and downstream adoption remain separate
+pending #223 work.

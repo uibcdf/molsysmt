@@ -1,0 +1,85 @@
+{
+  "schema": "molsysmt.pdbqt_pose_read_qualification@1",
+  "date": "2026-10-22",
+  "issue": "uibcdf/molsysmt#226",
+  "scope": "Source checkout only; not full-suite, installed-candidate or release qualification.",
+  "parent_checkpoint": "af44df89e178f353ff1366c57822220cdc467e0b",
+  "environment": {
+    "platform": "Linux",
+    "python": "3.14.7",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "vina": "1.2.7",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py": "046b64600202be5412a72ad2460bb987f64ce9c340dc1d84ae8e0bcb4f97c9e4",
+    "molsysmt/_private/argdigest/argument/atom_map.py": "d1be044f39657312d19723f1786feddfd67ffdf014df258fa9589faea46edfe1",
+    "molsysmt/_private/argdigest/argument/missing_atoms.py": "ac97a7a4aa718f7f7a2c46b6ce71fbabbc99edd336cb10607739d17dc5521eb7",
+    "molsysmt/_private/pdbqt_poses.py": "314a82a48a74595930d43feed7451a8eb2c0cc2955f24ee29142f8b2cb5d5f52",
+    "molsysmt/_private/pdbqt_writer.py": "d43a7e7e5591037b6dcf6eb6cbd5369fdcf9dcad436ea79fddad396cbd102252",
+    "molsysmt/form/__init__.py": "90d8b41a37210a8a43d6f6c59bc0f913f49b16a913600888980d97b18239a24c",
+    "molsysmt/form/read_pdbqt_poses.py": "72a94b33fe10a102697176c2f74259972bb1f2dba44e52ba835a03dde4b1e5ad",
+    "tests/form/file_pdbqt/test_known_source_poses.py": "14a8f12d8458c420b54041d95057686ab3d81dcab23c3b6e141f75320ad8dbcf"
+  },
+  "tests": {
+    "command": "python -m pytest tests/form/file_pdbqt tests/build/test_merge_nonpolar_hydrogens.py tests/basic/convert/mult_to_one/test_native_mechanics_composition.py tests/form/file_sdf tests/form/molsysmt_MolecularMechanics tests/conversion_truth tests/build/test_assign_partial_charges.py tests/build/test_assign_autodock_atom_types.py tests/physchem/get_hydrogen_inventory tests/test_argument_contract.py tests/test_ackredit.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 838,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 50.3,
+    "warnings": {
+      "legacy_h5msm_04": 28,
+      "mdanalysis_mass_deprecation": 6,
+      "structural_attribute_drop": 2,
+      "preexisting_optional_numpy_binary_size_warning": 1
+    }
+  },
+  "other_checks": {
+    "doctest": {
+      "passed": 1,
+      "seconds": 1.24
+    },
+    "course": {
+      "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+      "executed": 1,
+      "seconds": 11.3
+    },
+    "fast_gates": "14/14 passed",
+    "api_stability": "zero unauthorized signature drifts; form namespace remains experimental",
+    "docstrings": "249 public functions pass"
+  },
+  "real_engine": {
+    "method": "Vina; deliberately all-rigid reordered known ligand; not docking accuracy evidence",
+    "source_corpus": "tests/form/data/vina_examples/manifest.json",
+    "manifest_sha256": "4beb4fb8c1264795e4cc6162a085618dd43f5aeb476e4802ecd0622c464a6d07",
+    "ligand": "1iep_ligand.sdf",
+    "receptor": "1iep_receptor.pdbqt",
+    "cpu": 1,
+    "seed": 14,
+    "exhaustiveness": 1,
+    "max_evals": 100,
+    "requested_poses": 2,
+    "min_rmsd_angstrom": 0.1,
+    "coordinate_tolerance_angstrom": 0.00051,
+    "guard": "tests/form/file_pdbqt/test_known_source_poses.py::test_real_vina_output_matches_engine_coordinate_axis"
+  },
+  "boundaries": [
+    "One complete known chemical state and a completed writer map.",
+    "Missing atoms error by default; explicit omit returns only a retained subsystem.",
+    "No H reconstruction, graph inference, score interpretation or prior source geometry/analyses/mechanics.",
+    "Resident input parsing; selected coordinate storage only, all models validated.",
+    "Sidecar report is not a native H5MSM domain; no H5MSM schema change.",
+    "No new external dependency; optional Vina is used only by the integration test.",
+    "No tags, releases, promotions or installed/full matrices launched."
+  ]
+}

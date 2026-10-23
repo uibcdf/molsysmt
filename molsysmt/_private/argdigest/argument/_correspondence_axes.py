@@ -5,6 +5,7 @@ import numpy as np
 from molsysmt._private.smonitor import ArgumentError
 
 CALLERS = {
+    "molsysmt.form.read_pdbqt_poses.read_pdbqt_poses",
     "molsysmt.topology.get_atom_correspondences.get_atom_correspondences",
     "molsysmt.structure.get_symmetry_corrected_rmsd.get_symmetry_corrected_rmsd",
 }

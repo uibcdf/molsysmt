@@ -372,6 +372,9 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
         source_atom_names=topology.atoms.atom_name.to_numpy(copy=True),
         source_atom_types=topology.atoms.atom_type.to_numpy(copy=True),
         output_atom_names=np.asarray([atom["atom_name"] for atom in record["atoms"]]),
+        output_atom_ff_types=np.asarray(
+            [atom["atom_ff_type"] for atom in record["atoms"]]
+        ),
         source_atom_status=np.full(n_atoms, "retained", dtype="U8"),
         charge_unit="elementary_charge",
         partial_charge_before_rounding=charges[inverse].copy(),
