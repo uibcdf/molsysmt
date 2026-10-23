@@ -199,6 +199,14 @@ def test_docs_extra_supplies_the_configured_theme_and_extensions():
         "myst_nb": "myst-nb",
     }
     for module in modules:
+        local_source = ROOT / "docs" / "_ext" / module.replace(".", "/")
+        if (
+            local_source.with_suffix(".py").is_file()
+            or (local_source / "__init__.py").is_file()
+        ):
+            # conf.py puts docs/_ext on sys.path: this is the delivery route,
+            # not a missing third-party distribution.
+            continue
         provider = (
             "sphinx"
             if module.startswith("sphinx.ext.")
