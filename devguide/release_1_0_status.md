@@ -3182,3 +3182,30 @@ Qualification: **751 passed, zero failures/skips, 50.79 s**, with 12 workers and
 Pytest Receptor; one converter doctest and the updated course notebook pass.
 All 14 fast gates pass. Details, warnings, executable-file hashes and environment
 are in the [bounded source receipt](../devtools/data/sdf_legacy_valence_20261022.json).
+
+## Prepared-atom projection and completed PDBQT maps — 2026-10-22
+
+The bounded #223 implementation adds experimental
+`build.merge_nonpolar_hydrogens`, with explicit H/HD policy, retained/merged/
+excluded maps, parent virtual-H bookkeeping and charge conservation before
+rounding. Derived assignments preserve their original calculation reports.
+The native PDBQT writer still retains every supplied atom; optional
+`return_atom_map=True` reports actual written order, ROOT/branch representation,
+source axes, precision and payload hash. Ordinary returns remain unchanged.
+Ackredit records Meeko as an inspected reference implementation, without making
+it a dependency or claiming another source-charge calculation.
+
+The source workflow is documented in the new projection tutorial and executed
+course Module 12. Broader upstream generation-map composition, consumer adoption
+and MODEL-aware pose reconstruction remain pending in #223/#226. No new format
+version, detector or installed/release matrix is introduced. Public API and
+scientific-evidence generated views classify the new tool as experimental,
+outside the core scientific admission contract. #430 records native composition
+limitations discovered here: numeric charge delivery is repaired, while explicit
+four-domain reference-state metadata routing remains pending.
+
+Qualification: **799 passed, zero failures/skips, 50.51 s**, with 12 workers
+and Pytest Receptor; one meaningful doctest, executable User Guide examples
+and the updated course notebook pass. All 14 fast gates pass. Detailed scope,
+known warnings, hashes and environment are in the
+[projection receipt](../devtools/data/atom_projection_20261022.json).

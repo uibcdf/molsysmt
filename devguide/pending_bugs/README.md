@@ -20,8 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Partially resolved (1)
+### Partially resolved (2)
 
+- [`native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md`](native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md) — [#430](https://github.com/uibcdf/molsysmt/issues/430) — Native domain composition fails on charges and explicit chemical-state metadata *(medium, reproduced)*
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 
 <!-- /generated -->

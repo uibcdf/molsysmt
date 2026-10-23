@@ -62,6 +62,57 @@ def as_text(payload):
     return PREFIX + payload
 
 
+def restore_export_axis(mapping, source, atoms, structures):
+    """Restore a completed writer map onto the full caller atom/structure axes."""
+    import numpy as np
+
+    from molsysmt.topology._chemical_graph import chemical_graph_digest
+
+    n_atoms = source.topology.n_atoms
+    retained = (
+        np.arange(n_atoms, dtype=np.int64)
+        if atoms is None or is_all(atoms)
+        else np.unique(atoms)
+    )
+    mapping["output_to_source_atom_indices"] = retained[
+        mapping["output_to_source_atom_indices"]
+    ]
+    forward = np.full(n_atoms, -1, dtype=np.int64)
+    forward[mapping["output_to_source_atom_indices"]] = np.arange(
+        mapping["n_output_atoms"], dtype=np.int64
+    )
+    mapping["source_to_output_atom_indices"] = forward
+    mapping["n_source_atoms"] = n_atoms
+    for field, column in (
+        ("source_atom_ids", "atom_id"),
+        ("source_atom_names", "atom_name"),
+        ("source_atom_types", "atom_type"),
+    ):
+        values = source.topology.atoms[column]
+        mapping[field] = (
+            values.astype(object).where(values.notna(), None).to_numpy(copy=True)
+        )
+    mapping["source_chemical_digest"] = (
+        None
+        if mapping["chemical_state_index"] is None
+        else chemical_graph_digest(source, mapping["chemical_state_index"])
+    )
+    mapping["source_atom_status"] = np.where(forward >= 0, "retained", "omitted")
+    mapping["ordered_root_source_atom_indices"] = retained[
+        mapping["ordered_root_source_atom_indices"]
+    ]
+    first = mapping["first_root_source_atom_index"]
+    if first is not None:
+        mapping["first_root_source_atom_index"] = int(retained[first])
+    mapping["branch_source_atom_pairs"] = retained[mapping["branch_source_atom_pairs"]]
+    mapping["source_structure_indices"] = (
+        np.arange(source.structures.n_structures, dtype=np.int64)
+        if structures is None or is_all(structures)
+        else np.asarray(structures, dtype=np.int64).copy()
+    )
+    return mapping
+
+
 def structure_count(item, structure_indices, *, text):
     import numpy as np
 

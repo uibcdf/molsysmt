@@ -161,3 +161,22 @@ The supported layout follows the
 [AutoDock4.2.6 manual](https://autodock.scripps.edu/wp-content/uploads/sites/56/2021/10/AutoDock4.2.6_UserGuide.pdf)
 and was checked against [Vina's PDBQT parser](https://github.com/ccsb-scripps/AutoDock-Vina/blob/develop/src/lib/parse_pdbqt.cpp).
 These are format references, not method names or required software providers.
+
+## Projecting nonpolar hydrogens explicitly
+
+The writer continues to retain every atom supplied to it. Apply the separate
+{func}`molsysmt.build.merge_nonpolar_hydrogens` operation when you explicitly
+want an H/HD type-driven reduction with charge transfer. It returns an independent
+MolSys and optional source/retained/merged maps, preserving the original named
+charge calculation as provenance of a derived assignment. Unknown parent H
+inventories and missing chemistry remain errors.
+
+Both native PDBQT outputs accept `return_atom_map=True`: the return becomes
+`(destination_or_text, map)`. The `molsysmt.atom_export@1` map records actual
+written order and serials, source indices, ROOT order/first atom, oriented
+branches, charge precision and payload SHA-256. These completed facts are
+separate from the preflight conversion report. Default output is unchanged.
+See {ref}`Tutorial_Merge_Nonpolar_Hydrogens` for map composition, units, original
+versus derived provenance, explicit name projection and serialization examples.
+Maps describe the prepared input; earlier H generation retains its own history.
+No pose reader or implicit H-coordinate reconstruction is introduced here.

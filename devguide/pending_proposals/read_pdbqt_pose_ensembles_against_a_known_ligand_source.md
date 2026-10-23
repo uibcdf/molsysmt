@@ -53,3 +53,14 @@ Pose ensemble parsing and reconstruction against a known source; score/rank inte
 Related tracked work: uibcdf/molsysmt#214
 Cross-component implementation links: uibcdf/dockingmt#8.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.
+
+## Provider prerequisite delivered — 2026-10-22
+
+#223 now provides a public typed nonpolar-H transform and opt-in completed
+PDBQT writer maps. Maps distinguish retained/merged/excluded source atoms and
+actual written atom order/serials, including rooted traversal and full-input
+selection axes. This is the prepared-source/export boundary needed here; it
+does not implement a MODEL reader or recover omitted H coordinates. The next
+reader must validate these declared axes against each model rather than infer
+identity from positions or names. Earlier preparation-generated H keep their
+separate source-history mapping.

@@ -43,6 +43,7 @@
    fixed_state_hydrogens.md
    assign_autodock_atom_types.md
    assign_partial_charges.md
+   merge_nonpolar_hydrogens.md
    add_terminal_atoms.md
    add_missing_terminal_cappings.ipynb
    build_peptide.ipynb

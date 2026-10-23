@@ -1,0 +1,92 @@
+{
+  "schema": "molsysmt.atom_projection_qualification@1",
+  "date": "2026-10-22",
+  "issues": [
+    "uibcdf/molsysmt#223",
+    "uibcdf/molsysmt#226",
+    "uibcdf/molsysmt#430"
+  ],
+  "scope": "Source checkout; bounded typed-H transform and completed PDBQT maps, not installed-candidate or full-suite qualification.",
+  "parent_checkpoint": "e9ab365596158d2b623c54f38a72b28196d4d30c",
+  "environment": {
+    "platform": "Linux",
+    "python": "3.14.7",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "ackredit": "0.12.0+16.g28d3643",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/_private/hydrogen_projection.py": "2b6fb4356556057fa80b63297bf35a5fdfba86b483990f417f54641d90a5c251",
+    "molsysmt/_private/pdbqt_writer.py": "89e55e40a07c9bde4824ca782b340540319941e73a361dc71ed3038cbcf9dcb5",
+    "molsysmt/_private/pdbqt_adapter.py": "39f1c1e44ed5c4d6e3ce5d7f1a7a30d407ac469de941cb2dab36a26e58402b7a",
+    "molsysmt/_private/argdigest/argument/return_atom_map.py": "38407ced9925fa5caae0bbe2f06dfaf69103b530629bc6e7b4bf47232bdffbc8",
+    "molsysmt/_private/argdigest/domain/converter_arguments.py": "d1f347a6af4f5e4134bdfab1db613455d1dd08dfa9eec0cf007517cb73a5b62e",
+    "molsysmt/build/merge_nonpolar_hydrogens.py": "eccdec81bbddb85c3647e1c6404fae38b1fb00ea2970b2097ae19994dfed9fa8",
+    "molsysmt/build/__init__.py": "51e39a906a4413356a96157f95801960b85f09674a6180ee40cdb8fec0cddbc6",
+    "molsysmt/form/molsysmt_MolSys/__init__.py": "74cf2a8b9f15ac82cdf99b2252825e081a10eae87c5b70c89ce50797514f632c",
+    "molsysmt/form/molsysmt_MolSys/to_file_pdbqt.py": "fb468f16e90c053b2626d131a8377e81e696e46201389ec83dab33efa8a32290",
+    "molsysmt/form/molsysmt_MolSys/to_string_pdbqt_text.py": "0a0026376a502a7d9a7513b53492dc386704774ce72de57ba488abe51dc3a5e1",
+    "molsysmt/form/molsysmt_MolecularMechanics/get_mechanical_attributes.py": "412a8449fd95a8e7db10611869c26b04aa07d2020029b47675dd0a792b05efc5",
+    "tests/build/test_merge_nonpolar_hydrogens.py": "bc65934d50d00c292f69997717b4ba721fd2aaa980c938f5c745920b764e1916",
+    "tests/basic/convert/mult_to_one/test_native_mechanics_composition.py": "1fc7f5c9fd1fd3c2a6eb18a0e723e93e68d7407eaab3eb96785e8a27ec177f3d"
+  },
+  "tests": {
+    "command": "python -m pytest tests/build/test_merge_nonpolar_hydrogens.py tests/basic/convert/mult_to_one/test_native_mechanics_composition.py tests/form/file_pdbqt tests/form/file_sdf tests/form/molsysmt_MolecularMechanics tests/conversion_truth tests/build/test_assign_partial_charges.py tests/build/test_assign_autodock_atom_types.py tests/physchem/get_hydrogen_inventory tests/test_argument_contract.py tests/test_ackredit.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 799,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 50.51,
+    "warnings": {
+      "legacy_h5msm_04": 30,
+      "mdanalysis_mass_deprecation": 6,
+      "structural_attribute_drop": 2,
+      "preexisting_optional_numpy_binary_size_warning": 1
+    }
+  },
+  "other_checks": {
+    "doctest": {
+      "passed": 1,
+      "seconds": 1.3
+    },
+    "course": {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "executed": 1,
+      "seconds": 18.5
+    },
+    "fast_gates": "14/14 passed",
+    "api_stability": "zero unauthorized drifts; two function-scoped additive keyword waivers under #223",
+    "docstrings": "248 public functions pass"
+  },
+  "reference": {
+    "software": "Meeko",
+    "version": "0.8.0",
+    "commit": "1eac18bd6d1111f35f9f1abaa8af502c2668d054",
+    "role": "inspected reference implementation; not a runtime dependency or copied implementation"
+  },
+  "controls": [
+    "Independent declared methanol and misleading atom names",
+    "Named Gasteiger methanol matches published consumer transfer values",
+    "Original hash-verified 1IEP and 5X72 source ligands: synthetic transfer charges, not published docking charge reproduction",
+    "Nonconsecutive indices/serials, actual reversed ROOT order and oriented branches",
+    "Derived binding and original calculation provenance survive copy/pickle; stale edits fail",
+    "Real Ackredit capture, reused references and no loading credit",
+    "Fresh interpreter rejects actual optional chemical-engine imports while allowing metadata lookup",
+    "User Guide code blocks execute as one workflow"
+  ],
+  "limits": [
+    "Experimental operation outside core scientific admission.",
+    "Unknown parent H inventory and unsupported H/force-field contexts are rejected.",
+    "General upstream generated-atom map composition and consumer adoption remain pending.",
+    "MODEL-aware source reconstruction remains #226.",
+    "H5MSM 0.5 does not persist MolecularMechanics.",
+    "Explicit four-native-domain reference-state metadata routing remains #430; three-domain numeric charge delivery is repaired.",
+    "No new release/installed matrix, tag or promotion is authorized."
+  ]
+}

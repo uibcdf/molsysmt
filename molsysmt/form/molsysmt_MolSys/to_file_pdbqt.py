@@ -11,6 +11,7 @@ def to_file_pdbqt(
     *,
     typing_scheme=None,
     torsion_tree=None,
+    return_atom_map=False,
 ):
     """Writing one native structure as explicit AutoDock4 PDBQT data.
 
@@ -32,11 +33,14 @@ def to_file_pdbqt(
     torsion_tree : dict or None, default=None
         Keyword-only molsysmt.pdbqt-torsion-tree@1 dictionary bound to selected
         atom IDs and order. None writes a rigid receptor; a tree writes a ligand.
+    return_atom_map : bool, default=False
+        Return (destination, completed atom-export map) when True. The map records
+        actual written order, source indices/IDs, rooted traversal and charge rounding.
 
     Returns
     -------
-    str or pathlib.Path
-        Destination path.
+    str, pathlib.Path or tuple
+        Destination path; optionally paired with a molsysmt.atom_export@1 dict.
 
     Raises
     ------
@@ -71,7 +75,7 @@ def to_file_pdbqt(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt._private.pdbqt_adapter import write_payload
+    from molsysmt._private.pdbqt_adapter import restore_export_axis, write_payload
     from molsysmt._private.pdbqt_writer import serialize
     from molsysmt._private.variables import is_all
     from molsysmt.basic._index_validation import (
@@ -89,6 +93,13 @@ def to_file_pdbqt(
     if not is_all(atoms) or not is_all(frames):
         selected = extract(item, atom_indices=atoms, structure_indices=frames)
     payload = serialize(
-        selected, typing_scheme=typing_scheme, torsion_tree=torsion_tree
+        selected,
+        typing_scheme=typing_scheme,
+        torsion_tree=torsion_tree,
+        return_atom_map=return_atom_map,
     )
+    if return_atom_map:
+        payload, mapping = payload
+        mapping = restore_export_axis(mapping, item, atoms, frames)
+        return write_payload(payload, output_filename), mapping
     return write_payload(payload, output_filename)

@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 135 |
+| experimental | 136 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -191,6 +191,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.is_solvated` | experimental | active | pre-1.0 |
 | `molsysmt.build.make_bioassembly` | experimental | active | pre-1.0 |
 | `molsysmt.build.make_water_box` | experimental | active | pre-1.0 |
+| `molsysmt.build.merge_nonpolar_hydrogens` | experimental | active | 1.0.0 |
 | `molsysmt.build.mutate` | experimental | active | pre-1.0 |
 | `molsysmt.build.reconcile_protonation` | experimental | active | 1.0.0 |
 | `molsysmt.build.remove_overlapping_molecules` | experimental | active | pre-1.0 |

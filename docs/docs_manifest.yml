@@ -139,6 +139,11 @@ sections:
             file: docs/content/user/tools/build/assign_partial_charges.md
             agents_file: docs/content/user/tools/build/assign_partial_charges.md.AGENTS.md
             status: reviewed
+          - name: merge_nonpolar_hydrogens
+            file: docs/content/user/tools/build/merge_nonpolar_hydrogens.md
+            agents_file: docs/content/user/tools/build/merge_nonpolar_hydrogens.md.AGENTS.md
+            description: Type-driven H projection, derived charges, source maps and completed PDBQT export order.
+            status: reviewed
           - name: fixed_state_hydrogens
             description: Fixed-state local H generation, original domains, typed report persistence and explicit component history import.
             file: docs/content/user/tools/build/fixed_state_hydrogens.md

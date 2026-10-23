@@ -15,6 +15,7 @@ API Build
    add_missing_terminal_cappings
    assign_autodock_atom_types
    assign_partial_charges
+   merge_nonpolar_hydrogens
    build_peptide
    editable
    get_disulfide_bonds

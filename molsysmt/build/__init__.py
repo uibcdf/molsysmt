@@ -30,3 +30,4 @@ from .assign_partial_charges import assign_partial_charges
 # isort: on
 
 from .assign_autodock_atom_types import assign_autodock_atom_types
+from .merge_nonpolar_hydrogens import merge_nonpolar_hydrogens

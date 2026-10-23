@@ -175,7 +175,9 @@
     "molsysmt/native/molsys_builder.py:MolSysBuilder.info": "#128/#391: the existing method is inherited from NativeQueries with preserved positional arguments/defaults. Add keyword-only chemical_state to get; add keyword-only structure_indices/output_type (and builder mask) to info. All attribute validation remains enabled and uses the canonical basic contract. Guard: tests/native/test_native_queries.py.",
     "molsysmt/form/molsysmt_ViewerJSON/to_molsysmt_MolSys.py:to_molsysmt_MolSys": "Accepted ViewerJSON extraction correction under uibcdf/molsysmt#399: add keyword-only atom_indices and structure_indices, both defaulting to all, while preserving item and positional skip_digestion. Delegate selected conversion to the graphics extractor so public convert/extract with a target form cannot silently ignore atom order, bond remapping or the structure list. Guard: tests/form/molsysmt_ViewerJSON/test_extract.py::test_target_form_routes_honor_the_same_selection.",
     "molsysmt/form/molsysmt_ViewerJSON/to_molsysmt_ViewerJSON.py:to_molsysmt_ViewerJSON": "Accepted ViewerJSON extraction correction under uibcdf/molsysmt#399: add keyword-only atom_indices and structure_indices, both defaulting to all, while preserving item and positional skip_digestion. Delegate selected conversion to the graphics extractor so public convert/extract with a target form cannot silently ignore atom order, bond remapping or the structure list. Guard: tests/form/molsysmt_ViewerJSON/test_extract.py::test_target_form_routes_honor_the_same_selection.",
-    "molsysmt/form/file_pdb/to_file_pdb.py:to_file_pdb": "Accepted correction under uibcdf/molsysmt#422: retain the original six positional parameters, including output_name, and add only keyword-only output_filename for the standard public conversion dispatcher. Both destination spellings are supported individually; conflicting destinations are rejected. Restores the legacy slot after d7b03450f. Guards: tests/form/file_pdb/test_identity_conversion.py (actual positional copy, direct/public keyword copies and signature boundary)."
+    "molsysmt/form/file_pdb/to_file_pdb.py:to_file_pdb": "Accepted correction under uibcdf/molsysmt#422: retain the original six positional parameters, including output_name, and add only keyword-only output_filename for the standard public conversion dispatcher. Both destination spellings are supported individually; conflicting destinations are rejected. Restores the legacy slot after d7b03450f. Guards: tests/form/file_pdb/test_identity_conversion.py (actual positional copy, direct/public keyword copies and signature boundary).",
+    "molsysmt/form/molsysmt_MolSys/to_file_pdbqt.py:to_file_pdbqt": "Maintainer-authorized additive pre-1.0 export extension under uibcdf/molsysmt#223: append keyword-only return_atom_map=False. Existing positional parameters, defaults and ordinary return types remain unchanged; True returns the destination/text with an actual completed-export map. Guard: tests/build/test_merge_nonpolar_hydrogens.py::test_completed_writer_map_records_actual_tree_order_and_rounding.",
+    "molsysmt/form/molsysmt_MolSys/to_string_pdbqt_text.py:to_string_pdbqt_text": "Maintainer-authorized additive pre-1.0 export extension under uibcdf/molsysmt#223: append keyword-only return_atom_map=False. Existing positional parameters, defaults and ordinary return types remain unchanged; True returns the destination/text with an actual completed-export map. Guard: tests/build/test_merge_nonpolar_hydrogens.py::test_completed_writer_map_records_actual_tree_order_and_rounding."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {
@@ -2073,6 +2075,14 @@
       "owner": "structure",
       "documentation": "docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb",
       "contract_tests": "tests/structure/test_get_symmetry_corrected_rmsd.py"
+    },
+    "molsysmt.build.merge_nonpolar_hydrogens": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "1.0.0",
+      "documentation": "docs/content/user/tools/build/merge_nonpolar_hydrogens.md",
+      "contract_tests": "tests/build/test_merge_nonpolar_hydrogens.py",
+      "owner": "build"
     }
   }
 }

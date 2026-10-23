@@ -132,14 +132,17 @@ def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    numpy.ndarray or None
+        Float64 charge values in canonical elementary-charge units, or None
+        when no charge column is stored. Object-backed native storage is
+        normalized so public setters and native composition can consume it.
 
     .. versionadded:: 1.0.0
     """
     pc = item.partial_charge
     if pc is None:
         return None
+    pc = np.asarray(pc, dtype=np.float64)
     if is_all(indices):
         return pc
     return pc[indices]

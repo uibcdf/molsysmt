@@ -116,6 +116,7 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.build.is_solvated`
 - `molsysmt.build.make_bioassembly`
 - `molsysmt.build.make_water_box`
+- `molsysmt.build.merge_nonpolar_hydrogens`
 - `molsysmt.build.mutate`
 - `molsysmt.build.reconcile_protonation`
 - `molsysmt.build.remove_overlapping_molecules`

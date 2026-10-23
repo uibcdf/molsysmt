@@ -110,7 +110,7 @@ def _field(value, width, name, *, integer=False):
     return text.rjust(width)
 
 
-def serialize(item, *, typing_scheme, torsion_tree=None):
+def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
     """Validate all inputs before producing text; preserve every present hydrogen."""
     if typing_scheme != "autodock4":
         fail(
@@ -285,7 +285,7 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
             )
         output.append(f"TORSDOF {torsdof}")
         payload = "\n".join([*output, ""])
-    parse(payload)
+    record = parse(payload)
     import json
 
     remarks = []
@@ -338,4 +338,61 @@ def serialize(item, *, typing_scheme, torsion_tree=None):
             "REMARK MOLSYSMT_ATOM_TYPES "
             + json.dumps(provenance, sort_keys=True, separators=(",", ":"))
         )
-    return "\n".join([*remarks, payload]) if remarks else payload
+    payload = "\n".join([*remarks, payload]) if remarks else payload
+    if not return_atom_map:
+        return payload
+    import hashlib
+    from copy import deepcopy
+
+    from molsysmt import __version__
+
+    by_id = {value: index for index, value in enumerate(atom_ids)}
+    written_ids = np.asarray([str(atom["serial"]) for atom in record["atoms"]])
+    inverse = np.asarray([by_id[value] for value in written_ids], dtype=np.int64)
+    forward = np.empty(n_atoms, dtype=np.int64)
+    forward[inverse] = np.arange(n_atoms, dtype=np.int64)
+    written_charge = np.asarray([atom["partial_charge"] for atom in record["atoms"]])
+    tree = deepcopy(record["torsion_tree"])
+    root = np.empty(0, dtype=np.int64)
+    branches = np.empty((0, 2), dtype=np.int64)
+    if tree is not None:
+        root = inverse[tree["fragment_atom_indices"][: tree["fragment_offsets"][1]]]
+        branches = inverse[tree["branch_atom_pairs"]]
+    mapping = dict(
+        schema="molsysmt.atom_export@1",
+        software={"molsysmt": __version__},
+        target_form="file:pdbqt",
+        typing_scheme=typing_scheme,
+        n_source_atoms=n_atoms,
+        n_output_atoms=n_atoms,
+        source_to_output_atom_indices=forward,
+        output_to_source_atom_indices=inverse,
+        source_atom_ids=atom_ids.copy(),
+        output_atom_ids=written_ids,
+        source_atom_names=topology.atoms.atom_name.to_numpy(copy=True),
+        source_atom_types=topology.atoms.atom_type.to_numpy(copy=True),
+        output_atom_names=np.asarray([atom["atom_name"] for atom in record["atoms"]]),
+        source_atom_status=np.full(n_atoms, "retained", dtype="U8"),
+        charge_unit="elementary_charge",
+        partial_charge_before_rounding=charges[inverse].copy(),
+        written_partial_charge=written_charge,
+        total_charge_before_rounding=float(charges.sum()),
+        written_total_charge=float(written_charge.sum()),
+        charge_rounding_error_bound=0.0005 * n_atoms,
+        charge_decimal_places=3,
+        torsion_tree=tree,
+        ordered_root_source_atom_indices=root,
+        first_root_source_atom_index=None if not len(root) else int(root[0]),
+        branch_source_atom_pairs=branches,
+        payload_sha256=hashlib.sha256(payload.encode("utf-8")).hexdigest(),
+        chemical_state_index=None,
+        chemical_state_id=None,
+    )
+    if item.chemical_states is not None and item.chemical_states.n_chemical_states:
+        index = item.chemical_states._reference_index
+        if index is not None:
+            mapping.update(
+                chemical_state_index=index,
+                chemical_state_id=item.chemical_states._states[index].state_id,
+            )
+    return payload, mapping

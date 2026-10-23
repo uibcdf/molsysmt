@@ -1,3 +1,9 @@
+molsysmt.build.merge_nonpolar_hydrogens:
+  name: "msm.build.merge_nonpolar_hydrogens"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Projects typed nonpolar hydrogens with conserved charges and explicit source maps."
+  doc_ref: "{func}`molsysmt.build.merge_nonpolar_hydrogens`"
+
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
