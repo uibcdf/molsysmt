@@ -1,3 +1,9 @@
+molsysmt.form.project_atom_names:
+  name: "msm.form.project_atom_names"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Projects export atom labels explicitly while retaining original names, IDs and index maps."
+  doc_ref: "{func}`molsysmt.form.project_atom_names`"
+
 molsysmt.form.compose_atom_maps:
   name: "msm.form.compose_atom_maps"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

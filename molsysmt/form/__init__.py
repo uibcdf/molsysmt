@@ -32,6 +32,7 @@ from .load_converter import load_converter  # noqa: E402
 from .is_string import is_string  # noqa: E402
 from .read_pdbqt_poses import read_pdbqt_poses  # noqa: E402
 from .compose_atom_maps import compose_atom_maps  # noqa: E402
+from .project_atom_names import project_atom_names  # noqa: E402
 # isort: on
 
 RESOURCE_FORMS = {

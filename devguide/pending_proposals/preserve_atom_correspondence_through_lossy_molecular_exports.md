@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
 **Status:** Partial. Typed-H projection, completed PDBQT maps, known-source pose
-reading and typed stage composition are implemented. Explicit backend atom-name
-projection and consumer adoption remain pending.
+reading, typed stage composition and explicit backend atom-name projection are
+implemented. Consumer adoption remains pending.
 
 ## What
 
@@ -235,11 +235,88 @@ pipeline evidence, not a new installed artifact or complete chemical validation.
 
 ### Remaining provider and consumer slices
 
-The backend atom-name projection requested in the 181L consumer comment remains
-explicitly unfinished. `msm.set` can apply caller-selected names and this new tool
-can record a declared rename, but it does not choose/apply a backend naming policy
-or replace that consumer preparation operation. No implicit truncation or
-collision-renaming was added. Existing PDBQT width/serial checks remain active.
-This issue stays partial rather than claiming those added consumer criteria or
-production adoption are complete. DockingMT receiving/removal stays owned by
-uibcdf/dockingmt#49/#5/#33; a known full molecular permutation stays #369.
+The backend atom-name projection requested in the 181L consumer comment is now
+implemented below. DockingMT receiving/removal remains owned by
+uibcdf/dockingmt#49/#5/#33; a known full molecular permutation remains #369.
+This provider work does not certify consumer adoption or the consumer's chemistry.
+
+## Explicit atom-name projection — 2026-10-23
+
+`form.project_atom_names` applies the experimental `preserve_or_base36` policy
+for explicitly requested `file:pdbqt`/`string:pdbqt_text` constraints. It returns
+native MolSys, optionally with a detached `molsysmt.atom_map@1` label report.
+No file is written. Selection controls renaming only: atoms, structures and IDs
+retain their original order and scope. Other forms delegate to native conversion; report source axes then describe
+the converted native input, under that converter's own contract. Ready MolSys
+inputs need no chemical engine. Native `copy(deep=False)` preserves
+independent mutable domains and shares protected coordinate/box blocks, avoiding
+a trajectory-sized geometry copy for labels.
+
+All existing valid nonempty printable ASCII names up to four characters are
+reserved first, including unselected atoms. Existing valid duplicate labels are
+retained. Invalid selected labels receive their first ASCII letter, uppercased
+(or X), and an ascending base-36 counter. The prefix is lexical, never inferred
+chemistry. Allocation runs in sorted unique source-index order. New labels do
+not collide within a group. Unknown group membership causes a declared
+system-wide namespace for all atoms rather than invented group assignments;
+known inconsistent group indices reject. Each prefix has 36³ candidates, with
+explicit exhaustion and no partial result, silent truncation or collision repair
+inside the writer. Invalid unselected names and unrelated field constraints
+remain the writer's responsibility.
+
+The report retains complete source/output names and string IDs, identity int64
+maps, selected/renamed source indices, policy parameters and producer version.
+`compose_atom_maps` preserves and validates the two index scopes, including JSON
+restoration. Place the report at the actual rename step; actual written order
+still belongs to the subsequent writer map. Reports are declared correspondence,
+not atom matching or origin authentication. No native form or H5MSM schema is
+added. General label assignment reuses public `set`.
+
+Chemical assignments, partial charges, types and scientific reports are copied
+unchanged. No scientific calculation is newly credited. Template-sensitive
+force-field charge bindings can fail their existing validation after renaming;
+this operation does not silently rebind them. Apply projection before those
+assignments, or explicitly recalculate/replace them. The named Gasteiger and
+chemical-environment typing path is exercised through rename, H projection,
+rooted export and pose reading, retaining original attribution and absent origins
+for generated H.
+
+### Qualification and consumer evidence
+
+The final combined selection passes **765 tests**, zero failures/skips, in
+42.60 seconds with twelve workers and Pytest Receptor. It includes mapped
+PDBQT/pipeline tests, native copy ownership, conversion truth, argument/attribution
+contracts, graph correspondences, symmetry-RMSD and the newly repaired unit-axis
+guards. The 35 retained warnings comprise 25 legacy H5MSM notices, six MDAnalysis
+mass deprecations, one previously tracked optional NumPy ABI-size warning and
+three expected structural drops. The separate two-function doctest run passes
+in 0.69 seconds. The new User Guide examples execute within the suite; course
+Module 12 executes in 44.2 seconds. All 251 public docstrings and parent signature
+checks pass. Primary guard: `tests/form/test_project_atom_names.py`.
+
+The actual-loader sentinel also runs ready-native renaming and composition
+without loading RDKit, Meeko, OpenMM, MDAnalysis, MDTraj, Vina or Ackredit.
+A 100,000-atom/10,000-group case checks compact one-dimensional map storage and
+collision reuse without an atom-pair matrix. This is bounded contract evidence,
+not a comparative speed/memory benchmark.
+
+`devtools/scripts/qualify_atom_name_projection.py --archive FILE` verifies the
+immutable archive hash reported in uibcdf/dockingmt#33 and reconstructs only
+its original label/ID/group axes through the consumer's declared inverse rename
+map. It projects **1,313 names among 2,603 atoms and 162 groups**, checks native
+output/report agreement, original IDs/source preservation, width and new-name
+collision freedom, and composes the reversible report. It repeats no chemistry,
+coordinates or docking. No sibling source/data is edited. The retained archive
+remains an independent consumer producer; this replay is not consumer migration
+or installed/public qualification.
+
+Qualification exposed uibcdf/molsysmt#433: the shared positional-axis validator
+silently stripped physical units. Its general repair rejects quantity wrappers
+before casting, rather than adding a naming-only check. The correspondence and
+symmetry-RMSD User Guide notebooks also execute (16.8 and 13.2 seconds).
+
+The [source receipt](../../devtools/data/atom_name_projection_20261023.json)
+records exact commands, versions, executable hashes and the consumer archive
+SHA-256. #223 remains partial for downstream receiving/removal. #181 coverage
+and #334 release coordination retain their existing scope; no package build,
+release, tag or full/installed matrix is initiated here.

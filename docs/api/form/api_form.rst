@@ -17,3 +17,4 @@ API Form
    load_converter
    read_pdbqt_poses
    compose_atom_maps
+   project_atom_names

@@ -61,6 +61,9 @@ def read_pdbqt_poses(
 
     Notes
     -----
+    Positional atom/structure indices require plain integer values; quantity
+    wrappers are rejected, including explicit dimensionless quantities.
+
     This experimental resident reader reuses the bounded AutoDock4 parser.
     It validates serials, names, elements, written charges, available AutoDock
     labels and the exported tree in every pose. It does not infer graph edges,

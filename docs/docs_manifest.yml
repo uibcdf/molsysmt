@@ -358,6 +358,11 @@ sections:
             agents_file: docs/content/user/tools/form/compose_atom_maps.md.AGENTS.md
             description: Typed atom-lineage composition, generated origins, separate fusion representatives and declared stage axes.
             status: reviewed
+          - name: project_atom_names
+            file: docs/content/user/tools/form/project_atom_names.md
+            agents_file: docs/content/user/tools/form/project_atom_names.md.AGENTS.md
+            description: Explicit export name projection, deterministic collision policy and reversible label maps.
+            status: reviewed
           - file: docs/content/user/tools/form/file/file_pdb_gz.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb_gz.ipynb.AGENTS.md
             description: Experimental gzip PDB input, shared parser, connectivity policy and read isolation.

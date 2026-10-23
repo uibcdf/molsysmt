@@ -1,0 +1,115 @@
+{
+  "schema": "molsysmt.atom_name_projection_qualification@1",
+  "date": "2026-10-23",
+  "issue": "uibcdf/molsysmt#223",
+  "related_defect": "uibcdf/molsysmt#433",
+  "parent_checkpoint": "7367e68ae25230bbe981efdf8a8c563126849e8f",
+  "scope": "Source-level label and pipeline contracts; not consumer adoption, chemical certification or installed/release qualification.",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/form/project_atom_names.py": "75a2bf2d7c42fb66b2101d702a751f6be38dd3099a25a772099a3ab01b8c01a9",
+    "molsysmt/_private/atom_name_projection.py": "637208b989d4d90aee56f15ca17b69186ed77116d94b60bb030a525a328f1580",
+    "molsysmt/form/__init__.py": "0dc34925846782bff9aac7483f9333cfa90594f28a69d5c2deceee2ddd271174",
+    "molsysmt/_private/atom_maps.py": "50e26f60883710b8aaadef2431b5cfc7fe8c42edb5097c8b0af40149a218b2fe",
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py": "cd043139f0b927091acbb8999971784acf55581b33e100c9671980e76fce2081",
+    "molsysmt/form/read_pdbqt_poses.py": "15cc6cb7c7dde9bfc524d1b698eb521303e2e835b47450ed8f0f6d6171123264",
+    "molsysmt/topology/get_atom_correspondences.py": "5cb3b49ee6afc717017c03221d57c7248dada80497fd8cda6138edba9173ccd4",
+    "molsysmt/structure/get_symmetry_corrected_rmsd.py": "c7abc237000db5f2f4572cd3c6cc6f3d7880ea21e62b84b7e32ce543480e13c6",
+    "tests/form/test_project_atom_names.py": "aac03856ad388d5e3166f71eb72bbac4d9e0ca480ec1fd3858956c4bec2f6a35",
+    "tests/form/test_compose_atom_maps.py": "15510bea7d7137c5a507a943861af91f825eff1e169528095de50bdb78f08286",
+    "tests/test_correspondence_axis_units.py": "422374fce81ce608adeb594f43a4c2bb509bcb71b0918a1ad7f5b9b7410dcb33",
+    "devtools/scripts/qualify_atom_name_projection.py": "c07aa1ee025500a627172b92ec85381992897c7021b6f5b16a85cdf691a0b559"
+  },
+  "regression": {
+    "command": "python -m pytest tests/form/test_project_atom_names.py tests/form/test_compose_atom_maps.py tests/form/file_pdbqt tests/build/test_merge_nonpolar_hydrogens.py tests/build/add_missing_hydrogens/test_fixed_state.py tests/build/add_missing_hydrogens/test_preparation_history.py tests/conversion_truth tests/test_argument_contract.py tests/test_ackredit.py tests/native/test_molsys_copy.py tests/test_correspondence_axis_units.py tests/topology/test_get_atom_correspondences.py tests/topology/test_correspondence_attribution.py tests/structure/test_get_symmetry_corrected_rmsd.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 765,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 42.6,
+    "warnings": {
+      "legacy_h5msm_04": 25,
+      "mdanalysis_mass_deprecation": 6,
+      "previously_tracked_numpy_binary_size": 1,
+      "structural_attribute_drop": 3
+    }
+  },
+  "unit_axis_baseline": {
+    "passed": 2,
+    "failed": 19,
+    "guard": "tests/test_correspondence_axis_units.py",
+    "final_cases_passed": 21,
+    "mechanism": "Public calls reached spies replacing scientific/label kernels; dimensionless quantity list member accepted. Warning recording prevents a caught warning-as-error from falsely satisfying rejection."
+  },
+  "documentation": {
+    "doctest": {
+      "command": "python -m pytest --doctest-modules molsysmt/form/project_atom_names.py molsysmt/form/compose_atom_maps.py --receptor=llm",
+      "passed": 2,
+      "seconds": 0.69
+    },
+    "notebooks": [
+      {
+        "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+        "seconds": 44.2
+      },
+      {
+        "path": "docs/content/user/tools/topology/get_atom_correspondences.ipynb",
+        "seconds": 16.8
+      },
+      {
+        "path": "docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb",
+        "seconds": 13.2
+      }
+    ],
+    "user_guide_code": "executed in primary test selection",
+    "public_docstrings": 251,
+    "signature_guard": "zero unauthorized drifts",
+    "full_site_render": "not repeated"
+  },
+  "consumer_archive_replay": {
+    "archive_sha256": "5b9bd57c4f72d63ec9283c971056d71e34f3360a365338f2bee1e3dbe6105cf0",
+    "reference": "uibcdf/dockingmt#33",
+    "archive_url": "https://github.com/uibcdf/dockingmt/blob/365668e30f5f519adf4abc5c5e5e387d50af00a1/devguide/validation/data/181l_receptor/audit_2026-10-06.json.gz",
+    "atoms": 2603,
+    "groups": 162,
+    "renamed": 1313,
+    "seconds": 0.5917,
+    "scope": "Label-only reconstruction from archived source names, IDs, group memberships and declared inverse rename map. No chemical preparation, charge assignment, geometry or docking calculation repeated. Not consumer adoption or installed qualification.",
+    "all_output_names_fit": true,
+    "new_names_group_unique": true,
+    "ids_and_source_preserved": true,
+    "command": "python devtools/scripts/qualify_atom_name_projection.py --archive FILE"
+  },
+  "attribution": "No new scientific method or credit. Original scientific assignments/reports retained; label transformation is a local explicit policy.",
+  "remaining": [
+    "DockingMT adoption/removal under uibcdf/dockingmt#49/#5/#33.",
+    "H5MSM schema and molecular forms unchanged.",
+    "Template-sensitive bindings may reject renamed output; no rebinding or recertification.",
+    "No claim of exhaustive index validation elsewhere in MolSysMT."
+  ],
+  "checks": {
+    "fast_gates": "14/14 pass",
+    "ruff_check": "whole checkout pass",
+    "ruff_format_check": "whole checkout pass",
+    "final_unit_guard_and_doctests": {
+      "command": "python -m pytest tests/test_correspondence_axis_units.py --doctest-modules molsysmt/form/project_atom_names.py molsysmt/form/compose_atom_maps.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 23,
+      "seconds": 5.64
+    }
+  }
+}

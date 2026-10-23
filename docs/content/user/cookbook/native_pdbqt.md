@@ -21,6 +21,16 @@ projection, writer and pose reports in order. It distinguishes direct coordinate
 correspondence from a merged atom's representative and leaves generated atoms
 without an original source index. See {ref}`Tutorial_Compose_Atom_Maps`.
 
+If preparation creates names such as `H1291`, explicitly call
+{func}`molsysmt.form.project_atom_names` with `to_form='file:pdbqt'` before
+serialization. Its native output retains the entire atom/structure axes, and
+`return_report=True` supplies a reversible label map for the composition chain.
+Valid names are reserved before invalid selected names are replaced; the writer
+still rejects invalid unselected names and other unsupported fields. Apply this
+before template-sensitive charge assignment, whose binding may otherwise become
+invalid. No implicit truncation, charge rebinding or new calculation occurs.
+See {ref}`Tutorial_Project_Atom_Names`.
+
 `msm.get_form()` confirms the declared `pdbqt_text:` representation through its
 own detector without trying the unrelated RDKit SMILES parser. This recognition
 does not validate PDBQT syntax or chemistry: reading/conversion still checks the

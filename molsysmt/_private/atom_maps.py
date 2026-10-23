@@ -229,6 +229,26 @@ def direct(raw):
         if name in raw:
             stage[name] = deepcopy(raw[name])
     rooted_metadata(stage)
+    for name in ("selected_atom_indices", "renamed_atom_indices"):
+        if name in raw:
+            values = array(raw[name], name)
+            if values.ndim != 1:
+                fail(f"{name} must have one index axis.")
+            values = integers(raw[name], name, values.shape)
+            if (
+                np.any(values < 0)
+                or np.any(values >= n_source)
+                or len(np.unique(values)) != len(values)
+            ):
+                fail(
+                    f"{name} must contain unique indices within the stage source axis."
+                )
+            stage[name] = values
+    if "renamed_atom_indices" in stage and "selected_atom_indices" in stage:
+        if not np.isin(
+            stage["renamed_atom_indices"], stage["selected_atom_indices"]
+        ).all():
+            fail("Renamed atom indices must belong to the stage's selected atom scope.")
     if any(name in raw for name in _CHARGE_SCALARS):
         if raw.get("charge_unit") != "elementary_charge":
             fail(

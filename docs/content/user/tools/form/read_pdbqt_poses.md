@@ -17,6 +17,9 @@ graph or the coordinates of hydrogens removed during preparation.
 {func}`molsysmt.form.read_pdbqt_poses`
 :::
 
+Positional structure indices must be plain integers. Physical quantities and
+explicit dimensionless quantity wrappers are rejected before reading poses.
+
 ## Keeping the known source and export map
 
 This executable example uses optional RDKit **during preparation**. The pose

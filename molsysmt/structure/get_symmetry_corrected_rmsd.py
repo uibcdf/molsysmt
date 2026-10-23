@@ -123,6 +123,9 @@ def get_symmetry_corrected_rmsd(
 
     Notes
     -----
+    Positional atom/structure indices require plain integer values; quantity
+    wrappers are rejected, including explicit dimensionless quantities.
+
     Experimental MolSysMT implementation inspired by Bell and Zhang (2019) and
     Meli and Biggin (2020); neither external algorithm is reproduced faithfully.
     RDKit executes graph matching; the bundled Rust positional RMSD kernels

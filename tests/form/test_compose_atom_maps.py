@@ -426,6 +426,13 @@ class DeniedEngines(importlib.abc.MetaPathFinder):
                 spec.loader = DeniedLoader()
             return spec
 sys.meta_path.insert(0, DeniedEngines())
+from molsysmt.native import MolSys
+source = MolSys(n_atoms=2)
+msm.set(source, atom_name=['H1291', 'H0'])
+renamed = msm.form.project_atom_names(source, to_form='file:pdbqt', return_report=True)
+assert renamed['report']['output_atom_names'].tolist() == ['H1', 'H0']
+assert source.topology.atoms.atom_name.tolist() == ['H1291', 'H0']
+assert msm.form.compose_atom_maps([renamed['report']])['source_to_output_atom_indices'].tolist() == [0, 1]
 stage = dict(schema='molsysmt.atom_map@1', n_source_atoms=2, n_output_atoms=1,
     source_to_output_atom_indices=[0,-1], output_to_source_atom_indices=[0])
 result = msm.form.compose_atom_maps([stage])

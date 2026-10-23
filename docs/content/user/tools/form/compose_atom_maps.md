@@ -9,6 +9,11 @@ it does not match molecules, identify atoms by proximity or generate coordinates
 The typed `molsysmt.atom_map@1` result uses one-dimensional NumPy arrays and a
 small list of normalized stages. It never creates an atom-pair matrix.
 
+For an explicit export rename, use
+{func}`molsysmt.form.project_atom_names` and insert its report at the actual
+renaming step. Original and projected labels remain separate; selected/renamed
+source indices survive typed stage normalization and JSON restoration.
+
 :::{versionadded} 1.0.0
 :::
 

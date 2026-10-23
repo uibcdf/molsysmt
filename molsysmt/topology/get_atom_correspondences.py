@@ -100,6 +100,9 @@ def get_atom_correspondences(
 
     Notes
     -----
+    Positional atom/structure indices require plain integer values; quantity
+    wrappers are rejected, including explicit dimensionless quantities.
+
     Experimental MolSysMT profile inspired by graph-isomorphism pose comparison
     in Bell and Zhang (2019) and Meli and Biggin (2020), not a faithful reproduction
     of DockRMSD or sPyRMSD. RDKit executes stereochemical substructure matching;
