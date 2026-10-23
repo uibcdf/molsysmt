@@ -11,13 +11,14 @@ The initial experimental source implementation provides six queries under
 `view.addons.molsysmt.basic`: `get`, `select`, `info`, `get_attributes`,
 `has_attribute` and `get_label`, plus independent extraction with `extract`.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
-Other scientific modules, bound-system editing tools and graphical task panels are still being implemented. This is not a complete MolSysMT mirror
+Other scientific modules, bound-system editing tools and graphical task panels
+are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
-Source checkouts need refreshed editable-install metadata after the entry point
-changes. No manual registration is needed in a correctly installed compatible
+Source checkouts need current generated distribution metadata as well as an
+editable installation after an entry-point change. No manual registration is needed in a correctly installed compatible
 environment. Ordinary MolSysMT import and the core visualization backend work
 independently of this optional interface.
 

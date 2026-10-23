@@ -191,3 +191,11 @@ Viewer receiving under uibcdf/molsysviewer#264 now admits a retained
 View extraction. That boundary does not yet qualify managed mutation, deferred
 synchronization or failed-rebuild recovery. This phase adds no mutator or task
 panel and does not alter the published compatibility floor.
+
+
+The two user-guide Python blocks execute sequentially with real automatic
+entry-point discovery after refreshing a stale, ignored local egg-info that
+shadowed the already-correct editable distribution. Automatic discovery and
+bound extraction also pass from the Viewer checkout. The metadata diagnosis
+and conditional refresh procedure belong to the maintained integration guide;
+no manual registration or host lookup exception is introduced.

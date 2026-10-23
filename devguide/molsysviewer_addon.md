@@ -1,14 +1,16 @@
 # Native MolSysViewer integration
 
 **Role:** normative provider/consumer boundary
-**Decision:** uibcdf/molsysmt#354, coordinated with uibcdf/molsysviewer#186
+**Decisions:** legacy retirement under uibcdf/molsysmt#354 /
+uibcdf/molsysviewer#186; redesigned tools under uibcdf/molsysmt#421 /
+uibcdf/molsysviewer#264
 
 MolSysMT supplies the native molecular-system, scientific calculation and H5MSM
 backend used by MolSysViewer. The source now ships a redesigned
 `molsysviewer_molsysmt` integration, discovered through the new
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
-Its initial experimental facade provides six `basic` read/query tools and
-their root aliases under `view.addons.molsysmt`. Editing and graphical task
+Its initial experimental facade provides six `basic` read/query tools, native
+independent extraction and their root aliases under `view.addons.molsysmt`. Editing and graphical task
 panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -36,11 +38,12 @@ MolSysMT owns the scientific operation and molecular data fidelity.
 
 ## Migration
 
-Replace calls to the removed `view.addons.molsysmt` facade with native Viewer
-operations where provided, or with public `msm.basic`, `msm.build`,
+Migrate calls to retired addon editing/rendering APIs to native Viewer
+operations where provided, or to public `msm.basic`, `msm.build`,
 `msm.structure`, `msm.topology`, `msm.pbc`, `msm.physchem` and
-`msm.interactions` tools. Do not restore the old addon namespace or silently
-rewrite legacy serialized UI/session state. Viewer owns scene/session migration.
+`msm.interactions` tools. The redesigned facade deliberately reuses the `view.addons.molsysmt` name
+without restoring those retired methods. Do not silently rewrite legacy
+serialized UI/session state. Viewer owns scene/session migration.
 
 The removed adapters wrapped existing public tools; their panel state and
 rendering projection were UI-specific, not another scientific engine. Their
@@ -83,3 +86,26 @@ guards. See the [user reference](../docs/content/user/tools/molsysviewer_tools.m
 Broader coverage, edit synchronization, panels and exact installed qualification
 remain pending under the implementation issue.
 The withdrawn observer request uibcdf/molsysmt#413 remains closed.
+
+
+## Development metadata receiving
+
+Automatic discovery consumes installed distribution entry points. A source
+checkout can also contain ignored local `molsysmt.egg-info` generated before the
+new entry point existed; Python metadata discovery may prefer it to a correct
+editable installation in site-packages. Inspect the selected distribution's
+public `entry_points` before changing the host or registering modules manually.
+If that local metadata is stale, regenerate it from this checkout with its
+configured setuptools backend:
+
+```bash
+python -c 'from setuptools import setup; setup(script_args=["egg_info"])'
+```
+
+Use the selected development interpreter. This refreshes generated metadata,
+not a scientific implementation, public package, dependency floor or host
+allowlist. Restart the importing process and verify ordinary discovery from
+both checkout working directories. The initial receiving exercise reproduced
+this shadowing and then ran both user-guide code blocks plus the bound extraction
+without explicit addon registration. These are development-source checks, not
+clean installed-artifact qualification.
