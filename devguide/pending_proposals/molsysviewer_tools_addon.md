@@ -18,8 +18,9 @@ supersedes: []
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
-copy/conversion/preflight, composition queries, read-only comparison and sync
-controls now have source receiving, while other
+copy/conversion/preflight, composition/identity queries, read-only comparison,
+all eleven current topology readers and sync controls now have source receiving,
+while other
 editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -369,3 +370,33 @@ its dated snapshot; this name-only delta does not qualify all new functions or
 untracked native class/form-specific iterator APIs. The receipt lists all basic
 and topology exports as received, conditional or pending rather than silently
 omitting them.
+
+
+## Eleven topology exports received in source — 2026-10-23
+
+The explicit topology namespace now also wraps get_rings, get_rigid_fragments,
+get_rotatable_bonds, get_substructure_matches, get_atom_correspondences,
+get_sequence_alignment and get_sequence_identity. All eleven baseline exports
+have current-primary binding, native signatures/defaults/returns and serialized
+reads. No new host runtime, unrestricted proxy, automatic molecular preparation,
+result attachment or scene update is introduced. Optional engines remain native.
+
+The [completion receipt](../../devtools/data/molsysviewer_tools_topology_completion_20261023.json)
+records 39 focused cases, 310 applicable regression cases, eleven guide examples,
+37 passing docstring examples and Ruff checks. Module 13 gains narrative only;
+its code cells and outputs remain unchanged. The prior 40012474771 smoke was
+cancelled during main advancement, not a passing test result. The new exact-head
+hosted smoke is still required; these working-source results are not a clean
+solver-installed artifact pair.
+
+Native identity on capped pentalanine reveals a scientific group/sequence-axis
+mismatch, filed with maintainer authorization as uibcdf/molsysmt#439. The addon
+preserves native behavior, documents the limitation and demonstrates explicit
+amino-acid selections; it does not implement a competing formula. Reference
+inputs remain explicit/caller-stable, search limits retain native scope, and
+insufficient chemistry raises rather than being silently prepared. Hypothetical
+cuts and correspondences are scientific outputs, not edits or scene objects.
+
+This completes the reviewed topology mirror only. The broader source ledger,
+other modules, general edits, lazy/support utilities, panels and installed
+compatibility remain pending; #421 and uibcdf/molsysviewer#264 stay partial.

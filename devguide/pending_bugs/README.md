@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`sequence_identity_counts_nonsequence_groups.md`](sequence_identity_counts_nonsequence_groups.md) — [#439](https://github.com/uibcdf/molsysmt/issues/439) — Sequence identity counts non-sequence groups and returns shifted group indices. *(medium, reproduced)*
+
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

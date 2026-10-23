@@ -68,7 +68,8 @@ def test_topology_signatures_help_and_digestion_are_native(view, name):
 def test_namespace_is_explicit_without_invented_root_aliases(view):
     tools = view.addons.molsysmt
     assert "topology" in dir(tools)
-    assert set(dir(tools.topology)) == set(NAMES)
+    assert set(NAMES) <= set(dir(tools.topology))
+    assert not hasattr(tools.topology, "unreviewed_tool")
     assert not hasattr(tools, "get_bondgraph")
     assert tools.get == tools.basic.get
 

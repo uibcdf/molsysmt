@@ -1,0 +1,155 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-addon-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "native_defect": "uibcdf/molsysmt#439",
+  "base_commits": {
+    "provider": "3c43a9554858f015b33a5a2940926f5ec56bab32",
+    "viewer": "4b58da6b1c24e3d7fdeff44fe2d2423bcbbf1909"
+  },
+  "scope": "All eleven current topology exports have explicit bound wrappers at this baseline. This completes this namespace mirror, not the complete addon, every scientific input, GUI or installed artifact qualification.",
+  "environment": "Linux; molsyssuite@uibcdf_3.14; Python 3.14.7; working source with concurrent native stereo/documentation edits preserved.",
+  "functions": [
+    {
+      "provider": "molsysmt.topology.get_atom_correspondences",
+      "bound": "view.addons.molsysmt.topology.get_atom_correspondences",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_bondgraph",
+      "bound": "view.addons.molsysmt.topology.get_bondgraph",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_covalent_blocks",
+      "bound": "view.addons.molsysmt.topology.get_covalent_blocks",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_covalent_paths",
+      "bound": "view.addons.molsysmt.topology.get_covalent_paths",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "addon-only keyword; not forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_dihedral_quartets",
+      "bound": "view.addons.molsysmt.topology.get_dihedral_quartets",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "addon-only keyword; not forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_rigid_fragments",
+      "bound": "view.addons.molsysmt.topology.get_rigid_fragments",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_rings",
+      "bound": "view.addons.molsysmt.topology.get_rings",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_rotatable_bonds",
+      "bound": "view.addons.molsysmt.topology.get_rotatable_bonds",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_sequence_alignment",
+      "bound": "view.addons.molsysmt.topology.get_sequence_alignment",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_sequence_identity",
+      "bound": "view.addons.molsysmt.topology.get_sequence_identity",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "addon-only keyword; not forwarded"
+    },
+    {
+      "provider": "molsysmt.topology.get_substructure_matches",
+      "bound": "view.addons.molsysmt.topology.get_substructure_matches",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native result and native caches; no molecular edit, preparation, attachment, coordinate alignment, adoption or scene projection.",
+      "skip_digestion": "declared native parameter forwarded"
+    }
+  ],
+  "checks": {
+    "focused": {
+      "tests": 39,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "1bf52edd074ee32d0b1899cc36be33dab0a5ace000fe0b782110ce200329c189"
+    },
+    "complete_applicable_regression": {
+      "tests": 310,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "8b8eb1540ac460aa0460427dbd66f750b52385ed305676a9474c230b595660f0"
+    },
+    "regression_composition": "215 addon + 30 packaging + 11 dependency routes + 54 devguide tests; one complete invocation, 72.09 s.",
+    "guide_blocks": 11,
+    "docstrings": {
+      "attempted": 37,
+      "failed": 0
+    },
+    "ruff": "check and format pass; 16 files",
+    "source_inventory_files": 14
+  },
+  "limits": [
+    "Native sequence identity with caps/mixed groups can miscount and return shifted indices; #439 open. Explicit sequence-contributing group selections demonstrated, no addon formula override.",
+    "Insufficient chemistry is rejected; the SDF-to-RDKit fixture path is an explicit caller choice, not hidden preparation.",
+    "Native RDKit/Biopython availability, constraints and errors retained; missing-dependency environments were not exercised locally.",
+    "Auxiliary reference inputs remain caller-stable; no auxiliary view locks or automatic correspondence adoption.",
+    "Native search and cyclic-block bounds do not promise universal process RAM or runtime limits.",
+    "The earlier export-name delta remains a dated inventory. Other namespaces, class/lazy utilities, editing families and GUI remain pending.",
+    "Prior topology CI smoke 40012474771 cancelled on main advancement, not passing receiving. New exact-head hosted qualification pending."
+  ],
+  "source_sha256": {
+    "molsysviewer_molsysmt/_topology.py": "2538d88790fa31eb28afcee9399ad14b580398b7c115ea037ba78d021c385117",
+    "molsysviewer_molsysmt/_api.py": "e0d0e492a6772ad2187f0b4e3db520e4ef426d364e57b1301d1c6cefc59ddba2",
+    "molsysviewer_molsysmt/_basic.py": "e0948173470703dcd93110d302d84e8fd122869846d02d50c0b6912b82c3e28d",
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": "cd7832ba778be0fa5d95346945355ade2eee4466ff69d894c53bdebd2b78afd9",
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": "153394dcfdd7bc834b5ac826059c7565844725ff441037abde51f90019a2d112",
+    "molsysmt/topology/get_atom_correspondences.py": "5cb3b49ee6afc717017c03221d57c7248dada80497fd8cda6138edba9173ccd4",
+    "molsysmt/topology/get_bondgraph.py": "e56817796aa23b30479ef847d5cec6703cdc373208233388fc813db621df07d1",
+    "molsysmt/topology/get_covalent_blocks.py": "3349db86fcc84b1f325751ffd0bcd5b267a2b7cb526c19efba634f568f9e2845",
+    "molsysmt/topology/get_covalent_paths.py": "f231221bea36d142e0c3d355a6aee53080ebc91922394f9d6b315eaa53d44fc4",
+    "molsysmt/topology/get_dihedral_quartets.py": "bfc56e440b1d6c02fda7679c490df9714d8aa6d9795acde6f5dde0e024342cc7",
+    "molsysmt/topology/get_rigid_fragments.py": "02e9cafe7d2a13d008c3145542f56ae5e840fb9946a5f8e3ef3a2d1c7eb1f980",
+    "molsysmt/topology/get_rings.py": "0326ba97278247c74eaa9afdcf5d56dc9fc49802d609c4306998a74aa8d7743f",
+    "molsysmt/topology/get_rotatable_bonds.py": "90c20a3fb14e755df83f6419bc4cff5c7918fd9fdb45401bcc5f331351fee625",
+    "molsysmt/topology/get_sequence_alignment.py": "040654bd3e418392d91a786e3897b032904a69de2b582616ac00144931a8f36e",
+    "molsysmt/topology/get_sequence_identity.py": "6932a32e03eb6e5881311b5cfe128dfa84bf67c4c2055916d2e178ccdc82b1e3",
+    "molsysmt/topology/get_substructure_matches.py": "9eef9bea0f940c03f526c57a05c09a04d09867d2b4c4dbf1dd6d599b8d1e8b29"
+  }
+}

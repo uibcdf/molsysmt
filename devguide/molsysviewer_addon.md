@@ -9,10 +9,11 @@ MolSysMT supplies the native molecular-system, scientific calculation and H5MSM
 backend used by MolSysViewer. The source now ships a redesigned
 `molsysviewer_molsysmt` integration, discovered through the new
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
-Its initial experimental facade provides six `basic` read/query tools, native
-independent extraction, managed native removal and their root aliases under
-`view.addons.molsysmt`, with synchronization controls. Other edit families and
-graphical task panels remain pending. Old root entry points and retired adapter files remain
+Its experimental facade provides native `basic` queries/independent outputs,
+retained-axis removal and geometry setting, root basic aliases, synchronization
+controls and the eleven current `topology` analysis readers under
+`view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
 
@@ -255,3 +256,29 @@ attachment or scene projection is added. Source get_bondgraph/get_covalent_block
 have declared native skip flags; path/quartet wrappers add a keyword-only addon
 flag without passing it into undeclared scientific **kwargs. Native validation
 of those public operations remains active.
+
+
+## Chemical-graph and sequence receiving — 2026-10-23
+
+All eleven topology exports at the reviewed baseline have explicit primary-bound
+wrappers. The seven additional readers are get_rings, get_rigid_fragments,
+get_rotatable_bonds, get_substructure_matches, get_atom_correspondences,
+get_sequence_alignment and get_sequence_identity. They reuse the serialized
+reader and never prepare missing chemistry, transform coordinates, attach results
+or update the scene. The caller chooses native chemical assumptions, states,
+search policies, match/block limits, patterns, constraints and optional engines.
+No chemistry assignments or scientific interpretation are duplicated in the addon.
+
+Source bond indices in explicit rigid cuts remain distinct from atom pairs in
+covalent-block cuts. Native sparse membership, empty shape, source-index and
+query-order contracts remain intact. Search bounds retain their actual native
+scope and errors; no partial answer is substituted. RDKit/Biopython imports and
+dependency checks remain at their native runtime boundaries.
+
+Correspondence and sequence references remain explicit, caller-stable inputs.
+A native None correspondence reference retains its self-reference behavior.
+There is no auxiliary-view lock or implicit coordinate fit/adoption. Sequence
+prettyprint retains native stdout/None behavior. get_sequence_identity lacks a
+declared native skip flag: its addon keyword controls only addon digestion.
+Native sequence/group-axis mismatch uibcdf/molsysmt#439 remains visible; source
+parity is not certification of that scientific result or a wrapper formula fix.

@@ -23,3 +23,9 @@ contracts. Graph cuts are analytical and never delete molecular bonds. Keep
 ragged quartet blocks as native lists/sets, no implicit visualization or chemistry
 preparation, and distinguish declared native skip flags from addon-only controls.
 Do not advertise unreceived topology functions or invent root aliases.
+
+Preserve the eleven explicitly received topology exports at the reviewed baseline,
+with optional RDKit/Biopython routes, chemistry prerequisites, search limits and
+native independent reference ownership. Keep the known sequence/group-axis
+limitation linked to its owning issue until a native fix is received; do not
+hide it with an addon-specific formula or implicit filtering/preparation.

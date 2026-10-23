@@ -82,7 +82,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental bound basic/topology tools, explicit collection checks, native contracts and managed editing; source capability inventory and lifecycle.
+          description: Experimental native basic tools and eleven topology readers, explicit collection checks, managed editing and source-only qualification.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

@@ -18,8 +18,12 @@ helpers `get_form`, `is_a_molecular_system`, `where_is_attribute` and the explic
 collection utility `are_multiple_molecular_systems` are also available in source.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 
-The first `view.addons.molsysmt.topology` slice provides `get_bondgraph`,
-`get_covalent_blocks`, `get_covalent_paths` and `get_dihedral_quartets`.
+The current `view.addons.molsysmt.topology` namespace wraps all eleven native
+exports at the reviewed baseline: bond graphs, covalent blocks/paths, dihedral
+quartets, rings, rigid fragments, rotatable bonds, SMARTS matches, atom
+correspondences, sequence alignment and sequence identity. Native scientific
+limitations remain applicable, including the sequence/group mapping limitation
+below. This receiving is not a certification of every possible input or engine.
 Topology functions keep their module path; they do not gain invented root aliases.
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -368,13 +372,87 @@ automatically calculated graph per displayed structure. Paths/quartets do not
 acquire new state or structure parameters absent from their native interfaces.
 No topology is prepared, connectivity certified complete, analysis attached or
 scene updated by these wrappers. Native derived/cache behavior remains native.
-The remaining topology functions still need receiving.
+The additional received graph and sequence tools are described below.
 
 `get_bondgraph` and `get_covalent_blocks` forward native `skip_digestion`.
 The native path/quartet signatures do not declare it, so their addon-only keyword
 controls the wrapper boundary and is never inserted into scientific **kwargs.
 Their native public validation remains active. The same view-lifetime and
 pending-read rules apply to these calls as to the received `basic` readers.
+
+## Reading chemical graphs and sequences
+
+With sufficient declared chemistry, native graph tools also return ring
+memberships, source-bond torsion classifications, explicit-cut fragments,
+SMARTS matches and atom correspondences. They never fill missing chemical
+metadata or apply their outputs to the scene. RDKit remains optional and is
+required by SMARTS/correspondence matching; Biopython supplies sequence alignment.
+The example below explicitly chooses the RDKit input-conversion route. That
+choice belongs to the caller, not an implicit addon preparation step.
+
+```python
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems['caffeine']['caffeine.sdf'], to_form='rdkit.Mol')
+with msv.new_view(molsys) as view:
+    topology = view.addons.molsysmt.topology
+    rings = topology.get_rings()
+    torsions = topology.get_rotatable_bonds(method='conjugation_restricted')
+    fragments = topology.get_rigid_fragments(
+        bond_indices=torsions['rotatable_bond_indices'],
+    )
+    matches = topology.get_substructure_matches(['[#8]', '[#9]'])
+    n_atoms = view.addons.molsysmt.basic.get(n_atoms=True)
+    identity_map = [[index, index] for index in range(n_atoms)]
+    correspondence = topology.get_atom_correspondences(
+        fixed_atom_correspondence=identity_map, max_matches=1,
+    )
+```
+
+{doc}`topology/get_rings` returns sparse sorted memberships of a minimum cycle
+basis, not every cycle or an aromaticity assignment. A partial-ring selection
+can be rejected. Its block-size limit is not a universal RAM/runtime bound.
+{doc}`topology/get_rotatable_bonds` retains explicit experimental graph criteria
+and exclusions. {doc}`topology/get_rigid_fragments` cuts chosen source bond
+indices analytically: it does not remove bonds or rotate coordinates. Packed
+memberships and source-index arrays remain native, without becoming regions.
+
+{doc}`topology/get_substructure_matches` keeps pattern order, query-column
+order, empty matrix shapes and its pre-selection match bound.
+{doc}`topology/get_atom_correspondences` preserves full chemical context,
+independent reference selectors/states, source-index pairs, anchors, supplied
+candidates, evidence and search limits. Its default None reference uses the
+current system, as native MolSysMT does. It does not infer a visual alignment or
+authorize adopting a different atom order. Caller-owned references must remain
+stable; the addon does not lock another view. No truncated result is substituted
+when a scientific search bound is exceeded.
+
+```python
+with msv.demo['pentalanine'] as view:
+    reference = view.addons.molsysmt.basic.copy()
+    topology = view.addons.molsysmt.topology
+    amino_acids = "group_type=='amino acid'"
+    aligned = topology.get_sequence_alignment(
+        selection=amino_acids, reference_molecular_system=reference,
+        reference_selection=amino_acids,
+    )
+    identity, groups, reference_groups = topology.get_sequence_identity(
+        selection=amino_acids, reference_molecular_system=reference,
+        reference_selection=amino_acids,
+    )
+```
+
+{doc}`topology/get_sequence_alignment` preserves the native strings, engine,
+alignment index and prettyprint branch, which prints and returns None.
+{doc}`topology/get_sequence_identity` returns the native percentage and matched
+source group lists. It currently needs explicit sequence-contributing group
+selections for capped/mixed systems: default 'all' on bundled capped pentalanine
+counts caps in the denominator and shifts matched source indices
+([MolSysMT #439](https://github.com/uibcdf/molsysmt/issues/439)). The addon
+preserves this native limitation and never silently substitutes another formula.
+The identity helper lacks a declared native skip_digestion parameter; its addon
+flag controls only addon digestion, leaving native public validation active.
+No sequence result edits topology, fits coordinates or selects scene objects.
 
 ## Reusing tool references
 
