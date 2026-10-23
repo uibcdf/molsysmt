@@ -15,9 +15,9 @@ supersedes: []
 # Preserve atom correspondence through lossy molecular exports
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
-**Status:** Partial. A public typed-H projection and completed PDBQT export
-map are implemented; generalized upstream generation-map composition and
-consumer adoption remain pending.
+**Status:** Partial. Typed-H projection, completed PDBQT maps, known-source pose
+reading and typed stage composition are implemented. Explicit backend atom-name
+projection and consumer adoption remain pending.
 
 ## What
 
@@ -122,7 +122,7 @@ real-file transfer controls use declared synthetic charges; they do not
 reproduce published docking charges or certify scoring suitability. Tree-order
 controls use nonconsecutive serial IDs and reversed ROOT order.
 
-**Bounds and remaining work:** reports refer to this prepared input. Earlier
+**Bounds at the first delivery checkpoint:** reports referred to this prepared input. Earlier
 generated atoms need their own preparation history/map (including explicit
 absence of a pre-generation source index); no source identity is invented.
 There is no general map-composition/discovery engine or new map persistence
@@ -180,3 +180,66 @@ axes before selection. Explicit ChemicalStates supplies chemistry rather than
 list-order attribute overrides. See the
 [resolved record](../archive/resolved_bugs/native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md).
 This repair does not complete #223's upstream atom-map composition or receiving.
+
+
+## Typed stage composition — 2026-10-23
+
+`form.compose_atom_maps` now joins the existing terminal-attachment, fixed-state
+hydrogen-addition, typed-H projection, PDBQT writer and known-source pose reports,
+plus explicit `molsysmt.atom_map@1` declarations. It returns detached int64 direct
+maps with -1 for absent origin/correspondence, a separate representative array
+for fusion and generated-output indices. A generated atom never receives an
+invented pre-generation index; a merged H never receives its parent's position.
+Representatives can follow later fusion, and disappear if their recipient is
+omitted. Original local merge/parent evidence remains in normalized stages.
+
+The result is sparse by correspondence (one-dimensional axes, not atom-pair
+matrices). Counts, inverse partial permutations, typed indices and available
+adjacent labels are checked; intentional renaming needs an explicitly declared
+identity-index stage. Reports are declarations, not authentication of origin or
+chemical matching. Incremental composition flattens prior normalized stages and
+checks their aggregate arrays/labels before joining another operation. JSON
+array lists restore through the same public boundary.
+
+A pose report is adapted from its known-source graph domain to its sequential
+input **written PDBQT atom order**; the output is the reader's native order. This
+is essential when the writer selected fewer atoms than the known source or
+reordered ROOT. Its declared export SHA-256 binds the previous writer stage.
+No structure-index composition, geometry recovery, atom matching or new charge
+calculation is performed. Original structure selections remain stage metadata.
+
+Normalized stages preserve producer/method/engine/parameters, references and
+optional scientific attribution without crediting those calculations again.
+Original charge totals, conservation/rounding bounds and local transfers carry
+explicit elementary-charge units. Writer ROOT order, first ROOT atom and oriented
+source branch pairs retain their stage-local source domain; the torsion tree
+retains its written output axis and reuses the existing PDBQT tree validator.
+Full original readiness/inventory reports and coordinates are not duplicated.
+The result is a typed sidecar, not a molecular form or H5MSM schema extension.
+
+Primary guard: `tests/form/test_compose_atom_maps.py`. It uses independent
+expected arrays; actual terminal/H generation, charge aggregation, writer order
+and pose pipelines; omission after a merge; incremental/JSON stages; explicit
+rename evidence; malformed maps/creation/charge records; rooted branch direction;
+empty and 100,000-atom array scopes; and a fresh-process optional-engine/Ackredit
+loader rejection. The complete User Guide workflow executes and course Module 12
+is synchronized. The final source selection passed **568 tests**, zero failures/skips, in 42.48 s
+with 12 workers and Pytest Receptor. The 39 retained warnings are 29 legacy H5MSM,
+six MDAnalysis mass deprecations, one previously recorded optional NumPy ABI-size
+warning and three expected structural-attribute drops. One meaningful doctest,
+all 250 public docstrings, Ruff, the signature guard and all 14 fast gates pass.
+The final Module 12 executed in 18.5 s. The
+[source receipt](../../devtools/data/atom_map_composition_20261023.json) records
+commands, environment and executable hashes. This is source-level contract and
+pipeline evidence, not a new installed artifact or complete chemical validation.
+
+### Remaining provider and consumer slices
+
+The backend atom-name projection requested in the 181L consumer comment remains
+explicitly unfinished. `msm.set` can apply caller-selected names and this new tool
+can record a declared rename, but it does not choose/apply a backend naming policy
+or replace that consumer preparation operation. No implicit truncation or
+collision-renaming was added. Existing PDBQT width/serial checks remain active.
+This issue stays partial rather than claiming those added consumer criteria or
+production adoption are complete. DockingMT receiving/removal stays owned by
+uibcdf/dockingmt#49/#5/#33; a known full molecular permutation stays #369.

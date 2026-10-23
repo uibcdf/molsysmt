@@ -15,6 +15,12 @@ explicit retained-subsystem policy; absent H never inherit original positions.
 See {ref}`Tutorial_Read_PDBQT_Poses`. Generic form queries/conversions below
 retain their single-system profile.
 
+To trace those atoms back through H generation and nonpolar-H merging, use
+{func}`molsysmt.form.compose_atom_maps` with the completed preparation,
+projection, writer and pose reports in order. It distinguishes direct coordinate
+correspondence from a merged atom's representative and leaves generated atoms
+without an original source index. See {ref}`Tutorial_Compose_Atom_Maps`.
+
 `msm.get_form()` confirms the declared `pdbqt_text:` representation through its
 own detector without trying the unrelated RDKit SMILES parser. This recognition
 does not validate PDBQT syntax or chemistry: reading/conversion still checks the

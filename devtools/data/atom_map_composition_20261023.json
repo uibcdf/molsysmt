@@ -1,0 +1,67 @@
+{
+  "schema": "molsysmt.atom_map_composition_qualification@1",
+  "date": "2026-10-23",
+  "issue": "uibcdf/molsysmt#223",
+  "parent_checkpoint": "af560ab4ba5810b2dc2bf02ef91db4d2b9dc330d",
+  "scope": "Source checkout; experimental typed correspondence, not chemical matching or installed/release qualification.",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/_private/atom_maps.py": "bb48abcf44218d270b592c6516c0a9cd63d15abdbb3f82d849ed58e086c08cc6",
+    "molsysmt/_private/argdigest/argument/atom_maps.py": "6fb2ba171cb6b7ce7797113a745076e77eaec9612b7cb366cdf371e190f5e80c",
+    "molsysmt/form/compose_atom_maps.py": "f144e165cc9b326c71e0afbc5b295ca741b446bebc67be4c6b8fb4557daaec1f",
+    "molsysmt/form/__init__.py": "eda49648d234aace42f7ae4aa7732bc765b22fe49d8e3078b797adb6559a6f80",
+    "tests/form/test_compose_atom_maps.py": "1ff930ad5b929824f38edface7ec189f39453dc8f7d8183ad64079a639ccad13"
+  },
+  "tests": {
+    "command": "python -m pytest tests/form/test_compose_atom_maps.py tests/form/file_pdbqt tests/build/test_merge_nonpolar_hydrogens.py tests/build/add_terminal_atoms tests/build/add_missing_hydrogens/test_fixed_state.py tests/build/add_missing_hydrogens/test_preparation_history.py tests/conversion_truth tests/test_argument_contract.py tests/test_ackredit.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 568,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 42.48,
+    "warnings": {
+      "legacy_h5msm_04": 29,
+      "mdanalysis_mass_deprecation": 6,
+      "preexisting_optional_numpy_binary_size_warning": 1,
+      "structural_attribute_drop": 3
+    }
+  },
+  "checks": {
+    "doctest": {
+      "passed": 1,
+      "seconds": 0.11
+    },
+    "course": {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "executed": 1,
+      "seconds": 18.5
+    },
+    "fast_gates": "14/14 pass",
+    "ruff": "pass",
+    "docstrings": "250 public functions pass",
+    "signature_stability": "zero unauthorized drifts"
+  },
+  "boundaries": [
+    "One-dimensional partial atom maps; generated origins remain -1.",
+    "Fusion representatives never imply direct coordinate correspondence.",
+    "Stage source/output axes, labels and protocol bindings are declarations, not authenticated identity.",
+    "Pose input is the actual written PDBQT axis; native output is the reader axis.",
+    "Typed stages retain original charge totals/precision, rooted metadata and attribution; no scientific calculation is credited again.",
+    "No H5MSM schema or molecular form added.",
+    "Explicit backend name-projection operation and consumer adoption remain pending under #223."
+  ]
+}

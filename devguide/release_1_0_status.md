@@ -3253,3 +3253,19 @@ and [receipt](../devtools/data/native_domain_composition_20261022.json).
 Partial-MolSys/file composition still excludes mechanics, as does H5MSM 0.5
 persistence. These fixes do not change #334's publication pause or replace
 exact installed-pair qualification.
+
+
+## Atom-map stage composition — 2026-10-23
+
+The bounded #223 extension adds experimental `form.compose_atom_maps`: typed
+direct and representative correspondences, explicit generated origins, creation/
+projection/export/pose stages, incremental JSON round trips and source immutability.
+The PDBQT pose adapter respects written versus known-source axes, and normalized
+writer metadata retains ROOT order/origin, oriented branches and precision
+evidence. Source arrays remain one-dimensional, including the 100,000-atom guard.
+The owning [#223 record](pending_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
+and [source receipt](../devtools/data/atom_map_composition_20261023.json) retain
+commands, 568 passing focused cases, warnings, 18.5 s course execution and the
+14 fast-gate checkpoint. Explicit backend atom-name projection and consumer
+receiving remain pending. There is no new molecular form, H5MSM schema, installed
+pair qualification or publication authorization under #334.

@@ -1,3 +1,9 @@
+molsysmt.form.compose_atom_maps:
+  name: "msm.form.compose_atom_maps"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Composes declared direct and representative atom axes across preparation and export."
+  doc_ref: "{func}`molsysmt.form.compose_atom_maps`"
+
 molsysmt.form.read_pdbqt_poses:
   name: "msm.form.read_pdbqt_poses"
   first_introduced_in: "Common_Core/19_Structures_and_Trajectories.ipynb"
