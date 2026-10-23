@@ -32,7 +32,7 @@ def digest_box_lengths(box_lengths, caller=None):
         If box_vectors doesn't have the correct shape.
     """
 
-    if caller == "molsysmt.basic.get.get":
+    if caller in {"molsysmt.basic.get.get", "molsysmt.basic.compare.compare"}:
         if isinstance(box_lengths, bool):
             return box_lengths
         else:

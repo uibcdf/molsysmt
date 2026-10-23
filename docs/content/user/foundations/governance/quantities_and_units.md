@@ -103,3 +103,11 @@ with puw.context(default_form='openmm.unit', default_parser='openmm.unit'):
 ```
 
 - **Fast-Track Acceleration (`puw.fast_track`)**: For high-frequency internal calculations involving canonical units (`nm`, `ps`, `e`), MolSysMT registers fast-track unit handlers in `puw.fast_track` to strip and re-wrap units without dimensional AST parsing overhead.
+
+### Comparing physical values
+
+{func}`molsysmt.basic.compare` converts quantity-valued normalized attributes,
+such as box lengths, angles and volume, to compatible common units before
+numerical comparison. Equal raw magnitudes do not establish physical equality.
+Incompatible dimensions compare unequal, and a missing unit is not inferred
+from the other operand. See {ref}`Tutorial_Compare` for explicit attribute queries.

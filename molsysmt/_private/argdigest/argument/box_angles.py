@@ -26,7 +26,7 @@ def digest_box_angles(box_angles, caller=None):
         If box_vectors doesn't have the correct shape.
     """
 
-    if caller == "molsysmt.basic.get.get":
+    if caller in {"molsysmt.basic.get.get", "molsysmt.basic.compare.compare"}:
         if isinstance(box_angles, bool):
             return box_angles
         else:

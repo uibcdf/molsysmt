@@ -259,3 +259,94 @@ def test_compare_box_one_none(t4_h5msm_molsys):
     # if box appears in required atts it must be False; if absent the intersection is empty → result is {}
     if "box" in result:
         assert result["box"] is False
+
+
+def test_compare_real_structural_quantities_without_implicit_unit_stripping():
+    molsys = msm.convert(
+        msm.systems["pentalanine"]["traj_pentalanine.h5msm"],
+        structure_indices=[0, 8, 3],
+    )
+    with warnings.catch_warnings(record=True) as observed:
+        warnings.simplefilter("always")
+        result = msm.compare(
+            molsys,
+            molsys,
+            attribute_type="structural",
+            include_none=True,
+            output_type="dictionary",
+        )
+    assert result and all(result.values())
+    assert not [
+        w for w in observed if type(w.message).__name__ == "UnitStrippedWarning"
+    ]
+
+
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+def test_compare_compatible_structure_units_and_real_differences(unit):
+    with puw.context(
+        standard_units=[unit, "ps", "K", "mole", "Da", "e", "kJ/mol", "radians"]
+    ):
+        first = Structures(box=puw.quantity(np.diag([1.0, 2.0, 3.0])[None], "nm"))
+        second = Structures(
+            box=puw.quantity(np.diag([10.0, 20.0, 30.0])[None], "angstrom")
+        )
+        different = Structures(box=puw.quantity(np.diag([1.0, 2.0, 4.0])[None], "nm"))
+        options = dict(
+            box_lengths=True, box_angles=True, box_volume=True, output_type="dictionary"
+        )
+        with warnings.catch_warnings(record=True) as observed:
+            warnings.simplefilter("always")
+            equal = msm.compare(first, second, **options)
+            unequal = msm.compare(first, different, **options)
+    assert equal == {"box_lengths": True, "box_angles": True, "box_volume": True}
+    assert unequal == {"box_lengths": False, "box_angles": True, "box_volume": False}
+    assert not [
+        w for w in observed if type(w.message).__name__ == "UnitStrippedWarning"
+    ]
+
+
+@pytest.mark.parametrize(
+    ("unit", "magnitude", "expected"),
+    [
+        ("angstrom", 10.0, True),
+        ("angstrom", 1.0, False),
+        ("ps", 1.0, False),
+    ],
+)
+def test_compare_receives_explicit_quantity_units_without_assuming_raw_magnitude(
+    monkeypatch,
+    unit,
+    magnitude,
+    expected,
+):
+    first, second = Structures(), Structures()
+    original_get = msm.basic.get
+
+    def get(molecular_system, **kwargs):
+        if kwargs.get("box_lengths"):
+            value = (
+                puw.quantity([[1.0, 1.0, 1.0]], "nm")
+                if molecular_system is first
+                else puw.quantity([[magnitude] * 3], unit)
+            )
+            return {"box_lengths": value}
+        return original_get(molecular_system, **kwargs)
+
+    monkeypatch.setattr(msm.basic, "get", get)
+    with warnings.catch_warnings(record=True) as observed:
+        warnings.simplefilter("always")
+        result = msm.compare(first, second, box_lengths=True, include_none=True)
+    assert result is expected
+    assert not [
+        w for w in observed if type(w.message).__name__ == "UnitStrippedWarning"
+    ]
+
+
+@pytest.mark.parametrize("attribute", ["box_lengths", "box_angles", "box_volume"])
+def test_explicit_derived_box_switches_and_physical_values_are_distinct(attribute):
+    from molsysmt._private.smonitor import ArgumentError
+
+    molsys = Structures(box=puw.quantity(np.eye(3)[None], "nm"))
+    assert msm.compare(molsys, molsys, **{attribute: True}) is True
+    with pytest.raises(ArgumentError):
+        msm.compare(molsys, molsys, **{attribute: puw.quantity([1.0, 1.0, 1.0], "nm")})

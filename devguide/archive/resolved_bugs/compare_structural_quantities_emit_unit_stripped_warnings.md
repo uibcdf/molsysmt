@@ -1,13 +1,13 @@
 ---
 summary: Structural compare emits UnitStrippedWarning when normalizing quantities.
 issue: uibcdf/molsysmt#435
-status: open
+status: resolved
 opened: 2026-10-23
-closed:
+closed: 2026-10-23
 severity: low
 verification: reproduced
 area: [basic, units]
-guard:
+guard: tests/basic/compare/test_compare_structural.py::test_compare_real_structural_quantities_without_implicit_unit_stripping
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Structural compare emits UnitStrippedWarning when normalizing quantities
 
 **Reported:** 2026-10-23, while receiving the MolSysViewer tools comparison API.
-**Status:** open; native reproduction confirmed, no scientific fix applied.
+**Status:** Resolved at the source boundary; no installed/release qualification is claimed.
 
 ## What
 
@@ -104,3 +104,27 @@ interpreter, provider source `5911dace61c667138e0596ff631dc628d9b85ac1` and bund
 checkout retains unrelated autosummary modifications; this is not an installed
 artifact or release qualification. The reproduction above is the command's
 Python body and needs no network or live browser.
+
+## Resolution — 2026-10-23
+
+The normalized-array comparison checks quantities with PyUnitWizard, verifies
+compatibility and extracts values explicitly, converting the second operand to
+the first operand's units. It never infers units for an unlabelled array or
+compares equal magnitudes in incompatible dimensions. Existing shape, missing
+value and numerical-tolerance rules are retained. No warning filter is added.
+The separate explicit derived-box selector defect is uibcdf/molsysmt#437.
+
+The real pentalanine reproduction now returns the all-True structural report
+without UnitStrippedWarning. Literal nm/angstrom boxes and nm/pm application
+policies verify equivalent and distinct observations. A controlled adapter
+response exercises retained differing units and incompatible dimensions at
+the public comparison boundary. It fails for the original magnitude-only
+normalizer. Query selectors retain strict boolean validation.
+
+Qualification: 179 comparison, PBC, argument-contract and bound-predicate cases
+pass in 20.62 s with 12 workers and pytest-receptor (79 existing legacy-H5MSM
+warnings). The public compare doctest passes in 5.60 s (three legacy warnings).
+The comparison tutorial, course module 14 and conversion cookbook execute in
+14.7, 10.6 and 13.5 s respectively. Foundations unit guidance and the docstring
+state the explicit-normalization behavior. These are source-level controls,
+not a full scientific or installed release matrix.

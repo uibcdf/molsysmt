@@ -86,6 +86,9 @@ def compare(
     - Selection syntaxes are described in :ref:`Introduction_Selection`.
     - Differences in array shapes or collection sizes are ordinary inequality results.
       They return ``False`` for the affected attribute without emitting a warning.
+    - Quantity-valued normalized attributes are compared after explicit conversion
+      to the first operand's units. Incompatible dimensions, or a quantity paired
+      with an unlabelled array, compare unequal; units are never inferred.
     - Matching missing metadata entries compare equal, including numeric NaN values.
       A missing entry and a populated entry compare unequal.
     - Backward compatibility: the alias `attributes_type` is accepted and normalized
@@ -344,6 +347,19 @@ def compare(
             return True
         if a is None or b is None:
             return False
+
+        from molsysmt import pyunitwizard as puw
+
+        quantity_a = puw.is_quantity(a)
+        quantity_b = puw.is_quantity(b)
+        if quantity_a or quantity_b:
+            if not (quantity_a and quantity_b) or not puw.are_compatible(a, b):
+                return False
+            # Preserve physical meaning before entering NumPy; never infer a unit
+            # for a bare array from the other operand.
+            unit = puw.get_unit(a)
+            a = puw.get_value(a)
+            b = puw.get_value(b, to_unit=unit)
 
         try:
             a_arr = np.asarray(a)
