@@ -15,7 +15,8 @@ from molsysmt._private.smonitor import (
 )
 from molsysmt.configure import with_configure_overrides
 
-from ._vectors import CALLER, Endpoint, VectorsReducer
+from ._geometry_endpoints import Endpoint
+from ._vectors import CALLER, VectorsReducer
 
 
 @signal(tags=["api", "structure"])

@@ -362,7 +362,31 @@ every parsed model or a complete source text. Source changes reject queries.
 
 These forms supply coordinate chunks to the existing ChunkedExecutor; center
 parity is directly guarded. Per-operation heavy eligibility and scientific pair
-semantics remain owned by those operations (including uibcdf/molsysmt#441 for
-distances). Explicit full outputs and the known-source pose reader remain
+semantics remain owned by those operations. The uibcdf/molsysmt#441
+guard now covers both distance populations and separate structure axes on
+indexed PDBQT input. Explicit full outputs and the known-source pose reader remain
 materialized. Use an explicit indexed handler context for deterministic early
 exit and metadata reuse. See [PDBQT measurements](benchmarking/pdbqt.md).
+
+## Selected scalar distance reduction
+
+The flat same-system heavy route resolves each endpoint through the shared
+`structure._geometry_endpoints` delivery tools, also used by vectors. Aligned
+structure axes share a coordinate-union read; differing axes request the second
+endpoint only for the current first block. Atom and structure orders, including
+repetitions, reach the existing Rust scalar distance kernels. PBC uses the first
+endpoint box. No vector tensor is allocated to compute scalar norms.
+
+The output planner uses the selected `(n_structures, n_first, n_second)` axes.
+Resident output is preallocated; oversized output uses the executor's existing
+persistent handle. Per-block unit scaling precedes writes, so changing the active
+length standard does not materialize a full disk result. Work blocks account for
+the pair slab as well as projected endpoints, and one slab over budget fails
+before the kernel. This is not an atom-tiled kernel or a complete RSS guarantee.
+Empty axes retain defined shapes. Centers, explicit pairs and two-system
+calculations keep their eager route; no general force-mode support is implied.
+
+`tests/structure/get_distances/test_heavy_endpoints.py` guards literal geometry,
+selected output bytes, quantity policy, bounded second reads, PBC, metadata and
+indexed PDBQT. Vector behavior remains covered independently after extracting
+the shared private delivery tools.

@@ -1,0 +1,55 @@
+{
+  "schema": "molsysmt.distances_heavy_endpoints@1",
+  "date": "2026-10-23",
+  "issue": "uibcdf/molsysmt#441",
+  "parent_checkpoint": "7a068bc82bae4dc3bba6cd852a5ac5cee8d2a40a",
+  "scope": "Native flat same-system endpoint correction; existing Rust scalar kernels, no release/installed qualification.",
+  "source_sha256": {
+    "molsysmt/structure/get_distances.py": "35bf96fdd478b255f811d057640e331ae100238bf93b9238de46a0f8eda9327e",
+    "molsysmt/structure/get_vectors.py": "82faa2d9bcc4d2280553b9b91818ecc666d97ebb7188bdcf66841b20dc43bbce",
+    "molsysmt/structure/_geometry_endpoints.py": "01a841eff1462b6c0aa47ece33792a11b964cc3cf04daf8cb17eab6ecee42bdd",
+    "molsysmt/structure/_vectors.py": "b94eda0aabd8b012e19dcd5a0d18412b2d9048088755768a9d1f621a1b74b8c8",
+    "tests/structure/get_distances/test_heavy_endpoints.py": "2c565d5257d99f043fa03e0e18f15d2c62c18841131e38c2629ad32a74b6c0c7"
+  },
+  "regression": {
+    "command": "python -m pytest tests/structure/get_distances tests/structure/test_get_vectors.py tests/heavy tests/interactions/hbonds --receptor=llm -n 12",
+    "passed": 377,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 22.05,
+    "warnings": {
+      "legacy_h5msm": 49,
+      "intentional_memory_pressure": 7
+    }
+  },
+  "counterfactual": {
+    "initial_literal_guard_failed": 14,
+    "log_retained_in_local_tmp": true
+  },
+  "doctest": {
+    "passed": 1,
+    "seconds": 4.5,
+    "warnings_legacy_h5msm": 1
+  },
+  "documentation": {
+    "notebooks_executed": [
+      "docs/content/user/tools/structure/get_distances.ipynb",
+      "docs/content/user/cookbook/big_data_trajectories.ipynb",
+      "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb"
+    ],
+    "seconds": [
+      10.1,
+      10.2,
+      12.2
+    ],
+    "public_docstrings_passed": 250,
+    "fast_gates_passed": 14,
+    "sphinx_completed_with_existing_warnings": true
+  },
+  "limits": [
+    "Centers, explicit atom pairs and two-system inputs keep their eager route.",
+    "Explicit heavy structure lists pair positionally with equal lengths.",
+    "One scalar slab must fit numerical work; no atom tiling or process-RSS guarantee.",
+    "Geometry/scientific kernels unchanged; no new detector/profile or performance claim."
+  ]
+}

@@ -46,7 +46,8 @@ center = msm.structure.get_center('system.h5msm', selection='all', heavy_mode='f
 center = msm.structure.get_center('system.h5msm', selection='all', heavy_mode='off')
 ```
 
-Configuration sets working estimates rather than an operating-system memory cap. `auto` selects a route using input footprint estimates; ionic calculation also considers its selected coordinate workspace. Unsupported forced combinations raise an explicit error.
+Configuration sets working estimates rather than an operating-system memory cap. `auto` selects a route using input footprint estimates; ionic calculation also considers its selected coordinate workspace. Unsupported combinations either retain their documented eager route or fail
+explicitly; `force` is not a universal out-of-core guarantee.
 
 ## Owning disk-backed results
 
@@ -56,6 +57,25 @@ files are removed on cleanup and on failed mapping construction. A path supplied
 by you stays under your control and is not deleted by those operations. Cleanup
 errors propagate so that failed disk retirement remains visible. Avoid copying
 the complete result into RAM unless it fits your working budget.
+
+## Distance endpoints and output storage
+
+Flat atom populations within one system retain their own memberships on the
+heavy route, including unequal population sizes. Explicit structure lists are
+paired positionally with equal lengths; they are not a Cartesian product of
+structures. The second endpoint is read only for the current first block when
+its structure list differs. PBC uses the first endpoint box. Numeric nm blocks
+are converted to the active length standard before storage.
+
+The scalar output shape is the selected structure count × first population
+size × second population size. It is preallocated in RAM or stored in a
+`PersistentResultHandle` if its numeric size exceeds the configured budget.
+A quantity can therefore have a disk-backed magnitude. Access that magnitude
+in blocks and release it with `cleanup()` after use. The estimate is not a
+process-RSS cap: input metadata, the caller's source and runtime caches remain
+separate. A single pair slab must fit the numerical work budget; atom-axis
+tiling is not implemented. Centers, explicit atom pairs and two-system
+calculations retain the existing eager route.
 
 ## Ionic analyses and H5MSM 0.5
 

@@ -5,7 +5,11 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.execution import Reducer
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import (
+    ArgumentError,
+    MemoryBudgetExceededError,
+    NotImplementedMethodError,
+)
 from molsysmt._private.variables import (
     is_all,
     is_iterable_of_iterables,
@@ -14,84 +18,88 @@ from molsysmt._private.variables import (
 
 
 class _DistancesReducer(Reducer):
-    """
-    Reducer for get_distances heavy path.
+    """Reducing selected endpoint blocks with the scalar Rust distance kernels."""
 
-    Supports single-system, all-vs-all atom distances per frame.
-    PBC is applied per chunk when box is provided.
-    Accumulates (chunk_size, n_atoms, n_atoms) arrays and concatenates on finalize,
-    or writes directly into a PersistentResultHandle when output_handle is in metadata.
-    """
-
-    def __init__(self, pbc):
-        self._pbc = pbc
-        self._chunks = []
-        self._output_handle = None
-        self._frame_offset = 0
+    def __init__(self, first, second, universe, pbc, scale):
+        self.first, self.second = first, second
+        self._pbc, self.scale = pbc, scale
+        self.shared = np.array_equal(first.frames, second.frames)
+        self.first_positions = np.searchsorted(universe, first.atoms)
+        self.second_positions = (
+            np.searchsorted(universe, second.atoms) if self.shared else None
+        )
+        self.first_identity = np.array_equal(
+            self.first_positions, np.arange(len(universe))
+        )
+        self.second_identity = self.shared and np.array_equal(
+            self.second_positions, np.arange(len(universe))
+        )
+        self.symmetric = self.shared and np.array_equal(first.atoms, second.atoms)
 
     def estimate_output_shape(self, metadata):
-        """Use disk-backing only when the output would exceed the RAM budget."""
+        """Plan actual selected output axes, never the global atom count."""
         import molsysmt.configure as config
 
-        n_structures = metadata["n_structures"]
-        n_atoms = metadata["n_atoms"]
-        output_bytes = n_structures * n_atoms * n_atoms * 8
-        if output_bytes > config.max_ram_usage:
-            return (n_structures, n_atoms, n_atoms)
-        return None
+        shape = (metadata["n_structures"], self.first.count, self.second.count)
+        return shape if np.prod(shape) * 8 > config.max_ram_usage else None
 
     def initialize(self, metadata):
-        self._chunks = []
         self._frame_offset = 0
         self._output_handle = metadata.get("output_handle")
+        if self._output_handle is None:
+            self._values = np.empty(
+                (len(self.first.frames), self.first.count, self.second.count)
+            )
+        else:
+            self._values = self._output_handle
 
     def consume(self, chunk):
-        coords = np.array(chunk["coordinates"], dtype=np.float64)  # writable
-        if self._pbc and chunk.get("box") is not None:
-            box = np.array(chunk["box"], dtype=np.float64)
-            result = _kernels.get_mic_distances_single_system(coords, box)
-        else:
-            result = _kernels.get_distances_single_system(coords)
+        from ._geometry_endpoints import read_coordinates
 
-        if self._output_handle is not None:
-            n = result.shape[0]
-            self._output_handle[self._frame_offset : self._frame_offset + n] = result
-            self._frame_offset += n
+        size = len(chunk["coordinates"])
+        end = self._frame_offset + size
+        coordinates = chunk["coordinates"]
+        first = np.ascontiguousarray(
+            coordinates if self.first_identity else coordinates[:, self.first_positions]
+        )
+        if self.symmetric:
+            second = first
+        elif self.shared:
+            second = np.ascontiguousarray(
+                coordinates
+                if self.second_identity
+                else coordinates[:, self.second_positions]
+            )
         else:
-            self._chunks.append(result)
+            second = self.second.geometry(
+                read_coordinates(
+                    self.second, self.second.frames[self._frame_offset : end], True
+                ),
+                None,
+            )
+        box = chunk.get("box") if self._pbc else None
+        if box is not None:
+            result = (
+                _kernels.get_mic_distances_single_system(first, box)
+                if self.symmetric
+                else _kernels.get_mic_distances(first, second, box)
+            )
+        else:
+            result = (
+                _kernels.get_distances_single_system(first)
+                if self.symmetric
+                else _kernels.get_distances(first, second)
+            )
+        # Convert each block before storage, avoiding a full disk-result copy.
+        if self.scale != 1.0:
+            result *= self.scale
+        self._values[self._frame_offset : end] = result
+        self._frame_offset = end
 
     def finalize(self):
         if self._output_handle is not None:
             self._output_handle.flush()
-            return self._output_handle
-        return np.concatenate(self._chunks, axis=0)
-
-    # --- optional extensions ---
-
-    def checkpoint(self):
-        if self._output_handle is not None:
-            # Disk-backed: record frame offset only; the handle file persists on disk
-            return {"frame_offset": self._frame_offset, "disk_backed": True}
-        return {"chunks": [c.tolist() for c in self._chunks], "disk_backed": False}
-
-    def restore(self, state):
-        if state.get("disk_backed"):
-            # Cannot reconnect to a PersistentResultHandle across process boundaries.
-            # Resuming disk-backed reductions requires same-process continuation.
-            raise NotImplementedError(
-                "_DistancesReducer cannot restore a disk-backed checkpoint "
-                "across separate process invocations."
-            )
-        self._chunks = [np.array(c, dtype=np.float64) for c in state["chunks"]]
-        self._frame_offset = 0
-        self._output_handle = None
-
-    def merge(self, other):
-        if self._output_handle is not None or other._output_handle is not None:
-            raise NotImplementedError(
-                "_DistancesReducer.merge() is not supported with disk-backed output."
-            )
-        self._chunks.extend(other._chunks)
+        return self._values
 
 
 # Keep this decorator import beside the public function below.
@@ -167,8 +175,11 @@ def get_distances(
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     heavy_mode : {'auto', 'force', 'off'}, default='auto'
         Policy controlling the chunked path for memory-intensive calculations.
-        Coordinate and box blocks use nm internally; the result retains its
-        length unit independently of session standard units.
+        Flat atom populations in one system use bounded coordinate blocks and
+        the requested, positionally paired structure lists. Internal nm blocks
+        are converted to the active PyUnitWizard length standard for output.
+        Centers, explicit atom pairs and two-system calculations use the eager
+        route. Output exceeding the RAM budget is stored in a disk-backed handle.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
     parallel : bool or None, default=None
@@ -180,14 +191,21 @@ def get_distances(
 
     Returns
     -------
-    numpy.ndarray or dict
-        Distances with shape `(n_structures, n_selection[, n_selection_2])` or structured dictionaries, depending on `output_type`.
+    quantity, tuple or dict
+        Distances with shape `(n_structures, n_selection[, n_selection_2])`
+        or structured dictionaries, depending on `output_type`. Heavy output
+        exceeding the RAM budget has a PersistentResultHandle magnitude; index
+        it in blocks and call its `cleanup()` after use.
 
 
     Raises
     ------
     NotImplementedMethodError
         If a requested path/output is not supported.
+    ArgumentError
+        If explicit structure lists differ in length on the heavy route.
+    MemoryBudgetExceededError
+        If one selected scalar slab exceeds the numerical work budget.
 
 
     Notes
@@ -195,6 +213,15 @@ def get_distances(
     - Uses minimum image convention when `pbc=True` and box is available.
     - When `pairs=True`, expects explicit pairs; otherwise Cartesian products of selections are used.
 
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.systems["pentalanine"]["traj_pentalanine.h5msm"]
+    >>> result = get_distances(molsys, selection=[0, 2, 4], selection_2=[1, 3],
+    ...                        structure_indices=[0], pbc=False, heavy_mode="force")
+    >>> result.shape
+    (1, 3, 2)
 
     .. versionadded:: 1.0.0
     """
@@ -225,39 +252,34 @@ def get_distances(
             selection_2 = selection
         if structure_indices_2 is None:
             structure_indices_2 = structure_indices
-        atom_indices_2 = select(molecular_system_2, selection=selection_2)
+        atom_indices_2 = select(
+            molecular_system_2, selection=selection_2, syntax=syntax
+        )
     else:
         if selection_2 is not None:
-            atom_indices_2 = select(molecular_system, selection=selection_2)
+            atom_indices_2 = select(
+                molecular_system, selection=selection_2, syntax=syntax
+            )
         else:
             atom_indices_2 = None
 
-    if is_iterable_of_iterables(atom_indices):
+    if len(atom_indices) and is_iterable_of_iterables(atom_indices):
         center_of_atoms = True
 
-    if is_iterable_of_iterables(atom_indices_2):
+    if (
+        atom_indices_2 is not None
+        and len(atom_indices_2)
+        and is_iterable_of_iterables(atom_indices_2)
+    ):
         center_of_atoms_2 = True
 
     if engine == "MolSysMT":
-        from molsysmt.basic import get_form
-        from molsysmt.form import is_file as _is_file
-
-        in_memory = True
-        if _is_file(get_form(molecular_system)):
-            in_memory = False
-
-        if in_memory:
-            if molecular_system_2 is not None:
-                if _is_file(get_form(molecular_system_2)):
-                    in_memory = False
-
         # Decide eager vs heavy based on footprint
         from molsysmt._private.execution.memory_policy import (
             decide_mode,
             estimate_footprint,
         )
         from molsysmt.basic import get as msm_get
-        from molsysmt.basic import get_form
 
         if is_all(atom_indices):
             _n_atoms_est = msm_get(molecular_system, element="system", n_atoms=True)
@@ -272,39 +294,80 @@ def get_distances(
         heavy_eligible = (
             molecular_system_2 is None
             and not center_of_atoms
+            and not center_of_atoms_2
             and not pairs
-            and not is_iterable_of_iterables(atom_indices)
         )
 
         if mode == "heavy" and heavy_eligible:
-            from molsysmt.form import _dict_modules
-
-            form = get_form(molecular_system)
-            form_module = _dict_modules.get(form)
-            form_heavy = getattr(form_module, "_heavy_support", {})
-            attrs = ["coordinates"]
-            if pbc and form_heavy.get("box", False):
-                attrs.append("box")
-
+            import molsysmt.configure as config
             from molsysmt._private.execution import ChunkedExecutor
 
-            reducer = _DistancesReducer(pbc=pbc and "box" in attrs)
-            executor = ChunkedExecutor(
+            from ._geometry_endpoints import Endpoint
+
+            caller = "molsysmt.structure.get_distances"
+            first = Endpoint(
+                molecular_system,
+                atom_indices,
+                structure_indices,
+                False,
+                None,
+                syntax,
+                caller=caller,
+            )
+            second = Endpoint(
+                molecular_system,
+                atom_indices if atom_indices_2 is None else atom_indices_2,
+                structure_indices
+                if structure_indices_2 is None
+                else structure_indices_2,
+                False,
+                None,
+                syntax,
+                caller=caller,
+            )
+            if len(first.frames) != len(second.frames):
+                raise ArgumentError(
+                    "structure_indices_2",
+                    caller=caller,
+                    message="Structure lists must have equal length.",
+                )
+            shared = np.array_equal(first.frames, second.frames)
+            universe = (
+                np.union1d(first.universe, second.universe)
+                if shared
+                else first.universe
+            )
+            unit_probe = puw.standardize(puw.quantity(1.0, "nm"))
+            output_unit = puw.get_unit(unit_probe)
+            scale = float(puw.get_value(unit_probe))
+            reducer = _DistancesReducer(first, second, universe, pbc, scale)
+            # Include the scalar pair slab when bounding work, rather than only
+            # the much smaller coordinate input. One structure is the minimum.
+            work_bytes = 16 * first.count * second.count + 48 * (
+                len(universe) + len(second.universe)
+            )
+            if len(first.frames) and work_bytes > config.max_ram_usage:
+                raise MemoryBudgetExceededError(
+                    reason="One selected distance slab exceeds the numerical work budget.",
+                    predicted_bytes=work_bytes,
+                    available_bytes=config.max_ram_usage,
+                    caller=caller,
+                )
+            max_chunk_size = max(
+                1, int(config.max_ram_usage * 0.1) // max(1, work_bytes)
+            )
+            dist_val = ChunkedExecutor(
                 molecular_system=molecular_system,
-                form=form,
+                form=first.form,
                 operation="get_distances",
                 reducer=reducer,
-                atom_indices=atom_indices,
-                structure_indices=None
-                if is_all(structure_indices)
-                else structure_indices,
-                heavy_mode=heavy_mode,
-                attributes=attrs,
-            )
-            dist_val = (
-                executor.execute()
-            )  # (n_structures, n_atoms, n_atoms), float64, nm
-            distances = puw.quantity(dist_val, "nm")
+                atom_indices=universe,
+                structure_indices=first.frames,
+                heavy_mode="force",
+                attributes=["coordinates", "box"] if pbc else ["coordinates"],
+                max_chunk_size=max_chunk_size,
+            ).execute()
+            distances = puw.quantity(dist_val, output_unit)
 
         else:
             distances = _get_distances_in_memory(
