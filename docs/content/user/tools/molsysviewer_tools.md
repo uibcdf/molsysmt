@@ -60,10 +60,11 @@ trusted-call contract; it does not bypass view lifetime checks.
 ## Extracting a molecular subset
 
 ```python
-subset = view.addons.molsysmt.basic.extract(
-    selection=[0, 2, 4], structure_indices=[2, 0, 2],
-    to_form="molsysmt.MolSys",
-)
+with msv.demo["pentalanine"] as view:
+    subset = view.addons.molsysmt.basic.extract(
+        selection=[0, 2, 4], structure_indices=[2, 0, 2],
+        to_form="molsysmt.MolSys",
+    )
 ```
 
 This returns the native molecular result and leaves the view unchanged. Structure
