@@ -138,3 +138,14 @@ jobs:
             tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py \
             tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \
             tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py
+
+
+      - name: Receive the bound MolSysViewer tools
+        shell: bash -l {0}
+        run: |
+          # This integration tier uses the exact host installed above. A missing
+          # receiver must fail before pytest can skip an optional-host module.
+          python -c "from molsysviewer.system_edits import SystemEditsManager; assert callable(SystemEditsManager.synchronize)"
+          python -m pytest --receptor=ci \
+            tests/molsysviewer_molsysmt/test_read_tools.py \
+            tests/molsysviewer_molsysmt/test_remove_tools.py
