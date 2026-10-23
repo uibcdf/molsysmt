@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`compare_structural_quantities_emit_unit_stripped_warnings.md`](compare_structural_quantities_emit_unit_stripped_warnings.md) — [#435](https://github.com/uibcdf/molsysmt/issues/435) — Structural compare emits UnitStrippedWarning when normalizing quantities. *(low, reproduced)*
+
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
