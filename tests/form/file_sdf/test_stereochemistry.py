@@ -120,3 +120,93 @@ def test_stereo_writer_failure_preserves_existing_destination(tmp_path):
     with pytest.raises(FormatError):
         msm.convert(native, to_form=target)
     assert Path(target).read_text() == "protected bytes"
+
+
+@pytest.mark.parametrize("change", ["invert", "remove", "isotope", "hydrogen"])
+def test_readback_verification_rejects_real_stereo_or_graph_changes(
+    tmp_path,
+    monkeypatch,
+    change,
+):
+    from molsysmt._private import stereochemistry
+
+    molecule = Chem.MolFromSmiles("N[C@@H](C)C(=O)O")
+    rdDepictor.Compute2DCoords(molecule)
+    native = msm.convert(molecule, to_form="molsysmt.MolSys")
+    original = stereochemistry._retain_declared_valences
+
+    def corrupted_payload(text, record):
+        text = original(text, record)
+        altered = Chem.MolFromMolBlock(text, sanitize=False, removeHs=False)
+        if change == "invert":
+            altered.GetAtomWithIdx(1).InvertChirality()
+        elif change == "remove":
+            Chem.RemoveStereochemistry(altered)
+        elif change == "isotope":
+            altered.GetAtomWithIdx(0).SetIsotope(15)
+        else:
+            atom = altered.GetAtomWithIdx(0)
+            atom.SetNoImplicit(True)
+            atom.SetNumExplicitHs(1)
+            altered.UpdatePropertyCache(strict=False)
+        return Chem.MolToMolBlock(altered, forceV3000=True)
+
+    monkeypatch.setattr(stereochemistry, "_retain_declared_valences", corrupted_payload)
+    target = tmp_path / "protected.sdf"
+    target.write_bytes(b"protected bytes")
+    with pytest.raises(FormatError, match="stereochemistry"):
+        msm.convert(
+            native, to_form=target, stereo_engine="rdkit", ctfile_version="V3000"
+        )
+    assert target.read_bytes() == b"protected bytes"
+
+
+@pytest.mark.parametrize("version", ["V2000", "V3000"])
+def test_explicit_rdkit_1iep_retains_virtual_h_policy(tmp_path, version):
+    source = Path(__file__).parents[1] / "data/vina_examples/1iep_ligand.sdf"
+    original = source.read_bytes()
+    native = msm.convert(source, stereo_engine="rdkit", discard_properties=True)
+    target = tmp_path / "1iep.sdf"
+    msm.convert(native, to_form=target, stereo_engine="rdkit", ctfile_version=version)
+    restored = msm.convert(target, stereo_engine="rdkit")
+    for attribute in (
+        "allows_implicit_hydrogens",
+        "n_explicit_hydrogens",
+        "n_implicit_hydrogens",
+    ):
+        assert msm.get(restored, selection=[31], **{attribute: True}) == msm.get(
+            native, selection=[31], **{attribute: True}
+        )
+    assert msm.get(restored, selection=[31], allows_implicit_hydrogens=True) == [False]
+    assert msm.get(restored, selection=[31], n_explicit_hydrogens=True) == [0]
+    assert msm.get(restored, selection=[31], n_implicit_hydrogens=True) == [0]
+    assert source.read_bytes() == original
+
+
+def test_stereo_writer_credits_executed_cip_and_rdkit_only(tmp_path):
+    ackredit = pytest.importorskip("ackredit")
+    from rdkit import rdBase
+
+    source = Path(__file__).parents[1] / "data/vina_examples/1iep_ligand.sdf"
+    native = msm.convert(source, stereo_engine="rdkit", discard_properties=True)
+    with ackredit.session("SDF writer attribution"):
+        msm.convert(native, to_form=tmp_path / "native.sdf", stereo_engine=None)
+        assert not ackredit.get_used_items()
+        msm.convert(native, to_form=tmp_path / "rdkit.sdf", stereo_engine="rdkit")
+        used = set(ackredit.get_used_items())
+        assert "doi:10.1021/acs.jcim.8b00324" in used
+        assert f"software:rdkit:{rdBase.rdkitVersion}" in used
+        assert f"software:molsysmt:{msm.__version__}" in used
+
+
+def test_stereo_writer_survives_optional_attribution_absence(tmp_path, monkeypatch):
+    from molsysmt import _ackredit
+
+    source = Path(__file__).parents[1] / "data/vina_examples/1iep_ligand.sdf"
+    native = msm.convert(source, stereo_engine="rdkit", discard_properties=True)
+    monkeypatch.setattr(_ackredit, "backend", lambda: None)
+    target = tmp_path / "without-ackredit.sdf"
+    msm.convert(native, to_form=target, stereo_engine="rdkit")
+    restored = msm.convert(target, stereo_engine="rdkit")
+    assert restored.topology.n_atoms == 69 and restored.topology.n_bonds == 73
+    assert sum(msm.get(restored, formal_charge=True)) == 1

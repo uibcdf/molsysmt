@@ -307,22 +307,10 @@ def get_cip_stereochemistry(
         "software": {"molsysmt": __version__, "rdkit": rdBase.rdkitVersion},
         "references": [dict(REFERENCE)],
     }
-    from copy import deepcopy
-
     from molsysmt import _ackredit
-    from molsysmt._private.scientific_citations import SOFTWARE
+    from molsysmt._private.stereochemistry import cip_attribution_items
 
-    items = [dict(REFERENCE, roles=["scientific_criterion"])]
-    for name, version in result["software"].items():
-        items.append(
-            dict(
-                id=f"software:{name}:{version}",
-                type="software",
-                **deepcopy(SOFTWARE.get(name, dict(title=name))),
-                version=version,
-                roles=["executed_software"],
-            )
-        )
+    items = cip_attribution_items(result["software"])
     result["attribution"] = dict(
         schema="molsysmt.scientific_attribution@1", target=caller, items=items
     )

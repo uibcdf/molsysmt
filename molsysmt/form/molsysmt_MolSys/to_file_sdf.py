@@ -47,6 +47,13 @@ def to_file_sdf(
 
     Notes
     -----
+    The optional RDKit route verifies accurate CIP inventories and the isomeric
+    graph after encoding. Verification copies ignore only transient non-CIP
+    tags inferred by RDKit's 3D reader; declared and genuine CIP stereo remain
+    protected. The source graph, H policy and coordinates are not repaired.
+    Successful stereo encoding credits RDKit and the Hanson 2018 CIP method
+    through optional Ackredit; provider absence does not prevent serialization.
+
     Atom and bond serials are assigned by output order. SDF does not retain
     arbitrary native IDs, hierarchy, mechanics, interactions or SD properties.
     Coordinates are converted explicitly to angstroms, regardless of unit policy.

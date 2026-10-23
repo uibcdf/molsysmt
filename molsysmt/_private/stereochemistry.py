@@ -13,6 +13,26 @@ REFERENCE = {
 }
 
 
+def cip_attribution_items(software):
+    """Build detached credits for accurate CIP labeling and executed software."""
+    from copy import deepcopy
+
+    from molsysmt._private.scientific_citations import SOFTWARE
+
+    items = [dict(deepcopy(REFERENCE), roles=["scientific_criterion"])]
+    for name, version in software.items():
+        items.append(
+            dict(
+                id=f"software:{name}:{version}",
+                type="software",
+                **deepcopy(SOFTWARE.get(name, dict(title=name))),
+                version=version,
+                roles=["executed_software"],
+            )
+        )
+    return items
+
+
 @dep_digest("rdkit")
 def assign_cip(molecule):
     """Assign accurate labels on a private RDKit molecule, clearing stale labels."""
@@ -228,13 +248,58 @@ def write_stereo_sdf(item, record):
     if restored is None:
         _fail("Serialized stereo could not be read back.")
     assign_cip(restored)
-    if Chem.MolToSmiles(restored, isomericSmiles=True) != Chem.MolToSmiles(
-        molecule, isomericSmiles=True
+    # Accurate labels protect genuine stereo before canonicalizing transient
+    # non-CIP tags introduced by the MolBlock reader's 3D interpretation.
+    if _cip_signature(restored) != _cip_signature(molecule) or (
+        _verification_smiles(restored) != _verification_smiles(molecule)
     ):
         _fail(
             "SDF coordinates or encoding cannot preserve the requested stereochemistry."
         )
+    from rdkit import rdBase
+
+    from molsysmt import __version__, _ackredit
+
+    caller = "molsysmt._private.stereochemistry.write_stereo_sdf"
+    items = cip_attribution_items(
+        {"molsysmt": __version__, "rdkit": rdBase.rdkitVersion}
+    )
+    with _ackredit.scope(caller) as provider:
+        _ackredit.credit(provider, items, caller)
     return text + "$$$$\n"
+
+
+def _cip_signature(molecule):
+    """Describe supported CIP stereo on the original atom and bond axes."""
+    atoms, bonds = native_labels(molecule)
+    bond_labels = {
+        tuple(sorted((bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()))): label
+        for bond, (label, _) in zip(molecule.GetBonds(), bonds)
+    }
+    return atoms, bond_labels
+
+
+def _verification_smiles(molecule):
+    """Compare isomeric graphs without spurious non-CIP tags inferred from 3D.
+
+    RDKit's RemoveNonExplicit3DChirality operates only on a verification copy.
+    Restore every accurate-CIP-tagged center, so even genuine tags originating
+    from 3D retain their full isomeric-SMILES protection. Explicit wedge/CFG
+    declarations are untouched by that RDKit operation. The encoded molecule
+    and output text are never changed here.
+    """
+    from rdkit import Chem
+
+    copy = Chem.Mol(molecule)
+    protected_tags = {
+        atom.GetIdx(): atom.GetChiralTag()
+        for atom in copy.GetAtoms()
+        if atom.HasProp("_CIPCode")
+    }
+    Chem.RemoveNonExplicit3DChirality(copy)
+    for index, tag in protected_tags.items():
+        copy.GetAtomWithIdx(index).SetChiralTag(tag)
+    return Chem.MolToSmiles(copy, isomericSmiles=True)
 
 
 def _retain_declared_valences(text, record):

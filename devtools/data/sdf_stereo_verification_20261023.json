@@ -1,0 +1,71 @@
+{
+  "schema": "molsysmt.sdf_stereo_verification_qualification@1",
+  "date": "2026-10-23",
+  "issue": "uibcdf/molsysmt#436",
+  "parent_checkpoint": "3c43a9554858f015b33a5a2940926f5ec56bab32",
+  "scope": "Source-level explicit RDKit SDF preservation; no chemical repair, fallback, installed package or release qualification.",
+  "environment": {
+    "python": "3.14.7",
+    "rdkit": "2025.9.5",
+    "pyunitwizard": "0.28.1+15.g6c62ca6"
+  },
+  "input": {
+    "path": "tests/form/data/vina_examples/1iep_ligand.sdf",
+    "sha256": "051b8742c32adc05c07fb486a4e7c9327f84e131cee33ac4e6a568d07553eb38"
+  },
+  "source_sha256": {
+    "molsysmt/_private/stereochemistry.py": "ed2274d4a5f22b16103ddd0bc66b59ebb836aa284aeadc731e30b32d01e79dff",
+    "molsysmt/physchem/get_cip_stereochemistry.py": "b4858d0d12b57ce11a7bd3a5c03216eeee31d8833cb84b2e78109643ce44fda2",
+    "molsysmt/form/molsysmt_MolSys/to_file_sdf.py": "149aaae1fc94709ae9c63b3a9a17d7c3c3ca53c7cf0c6bf64e08da1472d99f74",
+    "tests/form/file_sdf/test_stereochemistry.py": "4dcc97790683ddbf8b0fc8dff4973cf3d765d5a2597d26a67015e829b8d76adf",
+    "tests/form/file_sdf/test_real_vina_examples.py": "77109c4be297b8f38c803479285d4b1aec9b71741436186eba19a1dfc93841c4"
+  },
+  "regression": {
+    "command": "python -m pytest tests/form/file_sdf tests/form/file_pdbqt tests/physchem/test_get_cip_stereochemistry.py tests/physchem/test_chemical_template_stereochemistry.py tests/topology/test_correspondence_attribution.py tests/test_ackredit.py tests/conversion_truth --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 827,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 54.01,
+    "warnings": {
+      "legacy_h5msm": 21,
+      "mdanalysis_mass_deprecation": 6,
+      "pandas_fillna_future": 2,
+      "structural_attribute_drop": 2,
+      "previously_reported_numpy_binary_size": 1
+    }
+  },
+  "counterfactual": {
+    "baseline": "3c43a9554",
+    "outcome": "Original write_stereo_sdf rejects the same unmodified 1IEP V2000 and V3000 exports and preserves preexisting bytes.",
+    "route": "Public writer with the unmodified baseline helper loaded in a disposable interpreter."
+  },
+  "negative_controls": [
+    "CIP inversion",
+    "CIP removal",
+    "isotope change",
+    "H inventory change"
+  ],
+  "positive_controls": [
+    "Original 1IEP, 1S63 and both 5X72 configurations",
+    "V2000 and V3000",
+    "Independent RDKit graph/CIP checks",
+    "Source coordinates/chemistry unchanged",
+    "Declared 1IEP valence and virtual/implicit H policy"
+  ],
+  "attribution": [
+    "Shared detached Hanson 2018 and executed-software records",
+    "Real Ackredit session receives credits only on explicit stereo encoding",
+    "Optional provider absence preserves serialization"
+  ],
+  "documentation": {
+    "doctests_passed": 1,
+    "seconds": 7.59,
+    "course": "Module 01 prose reviewed and updated; executable course code unchanged.",
+    "recipe": "docs/content/user/cookbook/native_sdf.md"
+  },
+  "limitations": [
+    "The receiving consumer RDKit 2026.03.1 environment was not rerun locally.",
+    "No arbitrary stereo representation or preparation guarantee."
+  ]
+}

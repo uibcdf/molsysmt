@@ -350,3 +350,17 @@ Python files, all 96 form adapters passed delivery checks, the API stability
 guard found zero unauthorized signature changes, the docstring validator passed
 247 functions and all 14 fast release gates passed. No full/installed release
 matrix was started, and these results do not authorize a tag or publication.
+
+
+## Explicit stereo-writer correction — 2026-10-23
+
+The previously recorded 1IEP optional-writer refusal is resolved under
+uibcdf/molsysmt#436. Accurate CIP inventories and the isomeric graph remain
+verified; transient non-CIP marks inferred during 3D readback are handled on
+comparison copies only. Both V2000/V3000 preserve the original source chemistry,
+coordinates and atom-31 valence/H policy. Real 1S63 and 5X72 controls also pass,
+and deliberate stereo/isotope/H changes still protect the destination.
+The [resolution](../archive/resolved_bugs/native_sdf_stereo_verification_rejects_inferred_noncip_tags.md)
+and [receipt](../../devtools/data/sdf_stereo_verification_20261023.json) own the
+827-case source evidence. The receiving RDKit 2026.03.1 environment, wider SDF
+profile and consumer adoption remain separate; #215 stays partial.

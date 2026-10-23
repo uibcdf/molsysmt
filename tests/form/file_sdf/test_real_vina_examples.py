@@ -89,7 +89,7 @@ def test_original_sdf_identity_copies_keep_unsupported_flags_and_properties(
     assert output.read_bytes() == path.read_bytes()
 
 
-@pytest.mark.parametrize("case_name", STEREO_CASES)
+@pytest.mark.parametrize("case_name", LIGANDS)
 @pytest.mark.parametrize("version", ["V2000", "V3000"])
 def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
     vina_reference_corpus, case_name, version, tmp_path
@@ -108,7 +108,8 @@ def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
         if atom.HasProp("_CIPCode")
     }
     assert expected_labels == {
-        int(index): label for index, label in record["sdf_atom_stereochemistry"].items()
+        int(index): label
+        for index, label in record.get("sdf_atom_stereochemistry", {}).items()
     }
     with msm.pyunitwizard.context(standard_units=["pm", "fs"]):
         native = msm.convert(

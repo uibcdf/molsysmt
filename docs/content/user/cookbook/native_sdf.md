@@ -147,7 +147,14 @@ atom labels are stored in `chemical_states`; double bonds retain the relative
 cis/trans relation and explicit reference atoms. Use
 {ref}`Tutorial_Get_CIP_stereochemistry` to query absolute E/Z independently.
 Writing verifies the encoded configuration by reading the payload back before
-opening the destination. Incompatible geometry or unencodable labels raise
+opening the destination. Accurate CIP inventories must agree on the atom and
+bond axes. For the additional isomeric-graph check, verification copies use
+RDKit's `RemoveNonExplicit3DChirality` to discard transient non-CIP tags inferred
+by its 3D reader, while preserving every accurate-CIP-tagged center. Explicit
+wedge/CFG declarations, the encoded payload, chemistry and coordinates are not
+changed by that comparison. The executed RDKit/CIP branch contributes its
+software and Hanson 2018 reference to an optional Ackredit session.
+Incompatible geometry or unencodable labels raise
 instead of overwriting the file. Byte-preserving identity copies need no stereo
 provider. Converter options are not validated by the public preflight report.
 Native subset extraction can invalidate a center's chemical configuration;
@@ -193,10 +200,12 @@ The format interpretation follows [BIOVIA CTFile Formats 2020](https://discover.
 RDKit's parser was inspected for legacy-header and valence interoperability;
 the native implementation does not execute or copy that parser. Optional CIP
 calculation keeps its separate scientific attribution. The real 1IEP input is
-covered by native reading/writing, and versionless 1S63 by explicit stereo
-reading/writing. This does not establish arbitrary 3D-stereo round trips:
-1IEP through the optional stereo writer still rejects a reconstruction mismatch
-before opening the destination; its dependency-free round trip is covered.
+covered by native and explicit RDKit reading/writing, and versionless 1S63 by
+explicit stereo reading/writing. The preserving profile includes V2000/V3000
+round trips, independent graph/CIP checks, unchanged source coordinates and the
+1IEP virtual-H/valence policy. Genuine CIP inversion/loss, isotope or H-inventory
+changes still fail verification before the destination is opened. These bounded
+controls do not establish arbitrary 3D-stereo round trips or chemical preparation.
 
 :::{seealso}
 :class: dropdown
