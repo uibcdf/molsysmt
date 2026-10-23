@@ -206,6 +206,24 @@ for applicability, timing and bounded exceptions. Cross-link MOLI when its direc
 components or platform contracts are affected. One-consumer findings stay local until
 wider impact becomes plausible; confidential findings use private reporting first.
 
+## Release and package-publication notices
+
+For every new component release, including a source/tag-only release without a
+published package, and every new package version/build/distribution route, open
+or update a release-specific issue in `uibcdf/molsyssuite` as part of closeout.
+MolI components outside suite membership report to `uibcdf/moli` through its
+separately owned rule. Include exact version/tag/source/release identity, the
+actual package channels/files/digests and verification evidence or explicit
+unpublished/pending state, and ecosystem pins/packages/consumer follow-up owners.
+Update the same component/version notice when packages arrive later.
+
+Follow the [release-notice policy and template](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_notifications.md).
+The notice is required even without known consumer impact; it supplements the
+separate advance shared-provider impact notice. Reporting does not authorize
+automatic consumer updates, immutable tag/file replacement or a scientific run,
+and is not a new central pre-release permission gate. Retain an owned bounded
+exception or private/sanitized handoff when required by that policy.
+
 ## UIBCDF development support
 
 MOLI [catalogs four UIBCDF-owned support resources](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/support_infrastructure.md):
