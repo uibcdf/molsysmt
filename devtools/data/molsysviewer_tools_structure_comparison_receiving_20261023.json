@@ -1,0 +1,229 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "base_commits": {
+    "provider": "8ebb1b4d5bec058e3be837a35e29ef649f0a5333",
+    "viewer": "3b9085820935dae8f7eb498aea90318f36479f0e"
+  },
+  "provenance": "Linux; Python 3.14.7; molsyssuite@uibcdf_3.14; source receiving with unrelated concurrent PDBQT work preserved. Not a frozen full-provider or installed artifact qualification.",
+  "functions": [
+    {
+      "provider": "molsysmt.structure.get_rmsd",
+      "bound": "view.addons.molsysmt.structure.get_rmsd",
+      "primary": "current view.molsys",
+      "effects": "Native scientific result only; no in-place coordinate fit, preparation, attachment, adoption or scene update.",
+      "root_alias": false,
+      "skip_digestion": "addon-only keyword, not forwarded; native public validation remains active"
+    },
+    {
+      "provider": "molsysmt.structure.get_least_rmsd",
+      "bound": "view.addons.molsysmt.structure.get_least_rmsd",
+      "primary": "current view.molsys",
+      "effects": "Native scientific result only; no in-place coordinate fit, preparation, attachment, adoption or scene update.",
+      "root_alias": false,
+      "skip_digestion": "native declared keyword forwarded"
+    },
+    {
+      "provider": "molsysmt.structure.get_principal_axes",
+      "bound": "view.addons.molsysmt.structure.get_principal_axes",
+      "primary": "current view.molsys",
+      "effects": "Native scientific result only; no in-place coordinate fit, preparation, attachment, adoption or scene update.",
+      "root_alias": false,
+      "skip_digestion": "native declared keyword forwarded"
+    },
+    {
+      "provider": "molsysmt.structure.get_least_squares_plane",
+      "bound": "view.addons.molsysmt.structure.get_least_squares_plane",
+      "primary": "current view.molsys",
+      "effects": "Native scientific result only; no in-place coordinate fit, preparation, attachment, adoption or scene update.",
+      "root_alias": false,
+      "skip_digestion": "native declared keyword forwarded"
+    }
+  ],
+  "checks": {
+    "focused": {
+      "passed": 36,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "9b2afa23a269f4dccb0266a2cae7075dd15d1a6c8d857531d59327afe23ffe7e"
+    },
+    "complete_applicable_regression": {
+      "passed": 400,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "663888194506d335b898971c1be40daad0c4f4b97a9c82dfc0f29a06735e7633"
+    },
+    "guide_blocks": 17,
+    "native_docstrings": {
+      "attempted": 26,
+      "failed": 0,
+      "scope": "Copied native examples with np supplied as in their original modules."
+    },
+    "ruff": "check and format pass; 17 files",
+    "addon_python_files": 15
+  },
+  "independent_references": [
+    "Raw RMSD against NumPy norm in nm/pm contexts and eager/forced modes with nonconsecutive repeated query structures and separate reference selection.",
+    "Minimum RMSD against NumPy SVD/Kabsch and a translated-reference test; both coordinate domains unchanged.",
+    "Principal geometric moments and eigenbasis against weighted covariance; orthonormal/right-handed properties with native sign/subspace semantics.",
+    "Plane centers, normals and orthogonal residuals against NumPy SVD across eager/forced modes and alternate units."
+  ],
+  "independence_scope": "Reviewed direct metric/plane/eigenbasis paths and numeric/plain-property selections do not call the defective distance matrix. Rich selectors and optional engines retain native dependencies; no universal selector/backend independence claim.",
+  "native_export_inventory": {
+    "method": "Owning AST discover_exports(package-init) on structure/__init__.py; names only.",
+    "exports": 28,
+    "received": 10,
+    "pending": 18,
+    "dispositions": [
+      {
+        "name": "align_principal_axes",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "center",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "flip",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_angles",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_center",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_contacts",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_dihedral_angles",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_distances",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_least_rmsd",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_least_squares_plane",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_maximum_distances",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_minimum_distances",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_neighbors",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_principal_axes",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_radius_of_gyration",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_rmsd",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_rmsf",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_secondary_structure",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_symmetry_corrected_rmsd",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_vectors",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "least_rmsd_align",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "least_rmsd_fit",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "move_away",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "principal_component_analysis",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "rotate",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "set_dihedral_angles",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "shift_dihedral_angles",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "translate",
+        "status": "pending-adaptation"
+      }
+    ]
+  },
+  "held_routes": {
+    "distance_dependents": [
+      "get_minimum_distances",
+      "get_maximum_distances",
+      "get_contacts",
+      "get_neighbors"
+    ],
+    "reason": "Maintainer requires waiting for MolSysMT team to fix #441. No addon alternative or hidden routing override.",
+    "rmsf": "Not exposed; native forced-unit discrepancy reported as uibcdf/molsysmt#442 with explicit filing authorization. Scientific team owns the correction."
+  },
+  "limits": [
+    "Optional GPU/alternate engines, universal RAM bounds and unreceived transformations remain outside scope.",
+    "Native principal axes/moments are numeric arrays with native conventions; no fabricated unit metadata.",
+    "Minimum RMSD returns a value without mutating/fitting either input in place. Auxiliary reference inputs remain caller-owned/stable; no auxiliary-view locks.",
+    "Native plane membership/deviation/deterministic sign and typed-empty contracts retained; no hidden unwrapping, aromaticity inference or scene shape."
+  ],
+  "prior_structure_ci": {
+    "run": 40016357086,
+    "provider": "8ebb1b4d5bec058e3be837a35e29ef649f0a5333",
+    "conclusion": "success",
+    "scope": "Previous six structure readers; not this new four-reader delivery."
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_structure.py": "16167de7e8c2154f94a063d5c5c5eb39f612af3951f154a15ee777d8ace31798",
+    "tests/molsysviewer_molsysmt/test_structure_comparison_tools.py": "d9e8ed3e491e24e043c37aacf3aa26b4ef33c5bbea920072d56ddd9b03e8965d",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "d0749d37d3ba5573e6a8c4a70950bc73c0487003a543ae7236af54aac4eeff29",
+    "molsysmt/structure/get_rmsd.py": "b8f6cae8afbefc5ebe19147b208a540f235d630857c30bed85cdf2f66af4beca",
+    "molsysmt/structure/get_least_rmsd.py": "366e1bbad765466831cb1c41b88a16e06f7605f45ba30972a7ea63c52012d02d",
+    "molsysmt/structure/get_principal_axes.py": "74b6eb1a836ff3626b980fb0907285c60407080b59893f57dbbe606c764af36c",
+    "molsysmt/structure/get_least_squares_plane.py": "d6705a9a731e3695438431aabf424081473c9bb422953a1476b105a04db869a6",
+    "molsysmt/structure/get_rmsf.py": "0eac2ac395965782a35389a60259286fb8f1410b9f3315ff21877de4042a0f99"
+  }
+}

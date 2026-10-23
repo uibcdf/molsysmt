@@ -35,3 +35,9 @@ independent secondary systems, output metadata and explicit periodic/weight/engi
 choices. Never treat centers as coordinate edits or silently correct native
 heavy routes. Keep #440/#441 visible until native fixes are actually received;
 distinguish numerical references on supported routes from mere native parity.
+
+Preserve the four additional independent structure readers: raw/minimum RMSD,
+principal axes and least-squares planes. Minimum RMSD does not fit either input
+in place. Keep references caller-owned, axis/moment arrays native, plane results
+separate from shapes and rich-selection/optional-engine limits explicit. Retain
+#441 ownership/waiting and pending RMSF #442 until actual provider receiving.

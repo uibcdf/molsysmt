@@ -25,9 +25,10 @@ correspondences, sequence alignment and sequence identity. Native scientific
 limitations remain applicable, including the sequence/group mapping limitation
 below. This receiving is not a certification of every possible input or engine.
 Topology functions keep their module path; they do not gain invented root aliases.
-The first `view.addons.molsysmt.structure` slice adds `get_distances`,
-`get_vectors`, `get_center`, `get_radius_of_gyration`, `get_angles` and
-`get_dihedral_angles`. These return native scientific quantities and metadata;
+The current `view.addons.molsysmt.structure` slice adds `get_distances`,
+`get_vectors`, `get_center`, `get_radius_of_gyration`, `get_angles`,
+`get_dihedral_angles`, `get_rmsd`, `get_least_rmsd`, `get_principal_axes` and
+`get_least_squares_plane`. Results retain native quantities, arrays and metadata;
 coordinate-changing operations remain outside this received slice.
 
 Other scientific modules, editing families and graphical task panels
@@ -570,4 +571,84 @@ not qualified by these CPU receiving examples. Chunked input processing does
 not guarantee constant memory, and returned outputs can still scale with the
 requested atom pairs and structures. These are calculations, not automatic
 scene measurements or coordinate edits. Remaining structure exports, including
-RMSD/fit tools and transformations, still need individual addon receiving.
+RMSF, fitting transformations and other unlisted tools still need individual
+addon receiving.
+
+
+## Comparing structures without modifying their coordinates
+
+```python
+with msv.demo['pentalanine'] as view:
+    structure = view.addons.molsysmt.structure
+    reference = view.addons.molsysmt.basic.copy()
+    raw_rmsd = structure.get_rmsd(
+        selection='backbone', structure_indices=[2, 0, 2],
+        reference_molecular_system=reference, reference_structure_index=0,
+        heavy_mode='force', use_gpu=False,
+    )
+    minimum_rmsd = structure.get_least_rmsd(
+        selection='backbone', structure_indices=[2, 0, 2],
+        reference_molecular_system=reference, reference_structure_index=0,
+        use_gpu=False,
+    )
+```
+
+{doc}`structure/get_rmsd` measures deviations in the supplied coordinate frame;
+no fit is performed. {doc}`structure/get_least_rmsd` computes the minimum after
+an optimal superposition internally, returning a length quantity without
+changing either system. It does not call a scene alignment or move the displayed
+molecule. Explicit reference inputs, their atom selection and reference structure
+index stay native and caller-owned; None retains native self-reference behavior.
+Matching counts do not infer chemical atom correspondence. Both inputs must have
+the intended order and coordinate conventions. No implicit PBC reconstruction,
+preparation or alignment is added.
+
+The native `get_rmsd` signature has no skip_digestion parameter. Its addon-only
+keyword governs addon digestion and is never forwarded. Scientific validation
+still runs. Quantities retain the actual native units; explicitly convert values
+when a numeric consumer requires nm or another unit. Supported native streaming
+and optional-engine limits remain native, not a universal RAM/GPU guarantee.
+
+## Inspecting axes and fitting planes
+
+```python
+with msv.demo['pentalanine'] as view:
+    axes, moments = view.addons.molsysmt.structure.get_principal_axes(
+        selection='backbone', structure_indices=[2, 0, 2],
+        principal_axes_type='geometric', use_gpu=False,
+    )
+```
+
+{doc}`structure/get_principal_axes` returns native numeric arrays, including the
+moment convention and numeric scale of the selected native coordinate/weight
+route. The addon does not invent physical unit labels for bare moment arrays.
+Axes are rows ordered by ascending eigenvalue, with a right-handed orthonormal
+basis. Individual signs are arbitrary; repeated eigenvalues determine a subspace
+rather than unique individual directions. Inspecting axes does not align coordinates.
+
+```python
+with msv.demo['pentalanine'] as view:
+    planes = view.addons.molsysmt.structure.get_least_squares_plane(
+        selection=[[0, 10, 25, 40], [4, 14, 27, 45]],
+        structure_indices=[2, 0, 2], pbc=False, heavy_mode='force',
+    )
+```
+
+{doc}`structure/get_least_squares_plane` returns native sparse source memberships,
+structure indices, length-quantity centers/deviations and numeric normals. It
+fits coordinates without inferring aromaticity, creating rings or adding a plane
+shape to the scene. Degenerate groups, missing boxes and split periodic groups
+retain their native rejection; no hidden unwrapping or fabricated normal follows.
+An explicit empty structure scope retains native typed empty outputs. Plane
+normals describe unoriented planes; a deterministic sign is not temporal continuity.
+
+These four metric/fitting routes do not call the affected distance-matrix path
+in the reviewed numeric/property-selection scenarios. Rich selection syntaxes
+and optional engines keep their own native execution dependencies; this is not
+a blanket certification of every selector. Distance-based min/max/contact/neighbor
+wrappers remain pending while the owner addresses
+[#441](https://github.com/uibcdf/molsysmt/issues/441). The addon supplies no
+alternative distance implementation or hidden route change. RMSF also remains
+unreceived after a separate forced-unit discrepancy was reported as
+[#442](https://github.com/uibcdf/molsysmt/issues/442); its scientific team owns
+the correction, alongside the previously documented native issues.

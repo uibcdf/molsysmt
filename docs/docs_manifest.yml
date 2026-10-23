@@ -82,7 +82,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental basic tools, eleven topology readers and six structure calculations; native effects, physical units and bounded source receiving.
+          description: Experimental basic tools, eleven topology readers and ten structure calculations; native physical results, reference ownership and bounded source receiving.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

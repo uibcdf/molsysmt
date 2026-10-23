@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, six structure calculations and sync controls
+all eleven current topology readers, ten structure calculations and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -433,3 +433,34 @@ only these six are received. Other calculations, transformations, support/lazy
 utilities and graphical panels remain pending. #421 and uibcdf/molsysviewer#264
 stay partial. Prior topology CI 40014551589 passes on provider c4b71b206;
 new exact-head CI is still needed for this structure delivery.
+
+
+## Four distance-independent structure readers — 2026-10-23
+
+The maintainer requires waiting for the MolSysMT development team on #441.
+No scientific distance fix, alternative algorithm or hidden heavy-mode routing
+is introduced here. Min/max/contact/neighbor wrappers remain pending. Reviewed
+raw/minimum RMSD, principal axes and least-squares planes use independent direct
+paths with numeric/plain-property selectors and are now explicitly received.
+Rich selectors and optional engines retain their own native dependency limits.
+
+The [source receipt](../../devtools/data/molsysviewer_tools_structure_comparison_receiving_20261023.json)
+records 36 focused cases and one complete applicable regression, seventeen
+executed guide blocks, twenty-six native-docstring examples and Ruff checks.
+NumPy norms, Kabsch/SVD, weighted covariance and plane residuals protect actual
+values, while lifecycle, pending reads, source/reference preservation and native
+errors have integration receiving. Module 16 gains narrative only; existing
+code/output and protected transformation/RMSD topics remain unchanged. Packaging
+inventory remains fifteen addon Python sources; no host runtime or protocol changes.
+
+A separate native RMSF forced-unit defect was reproduced without Viewer and
+filed with maintainer authorization as uibcdf/molsysmt#442. RMSF remains unreceived;
+the scientific team owns its correction. Prior #440/#441 affected routes retain
+their explicit limits. The owning AST inventory now accounts for ten received
+and eighteen pending structure exports, not a complete scientific toolbox.
+
+Previous six-reader structure smoke 40016357086 passes on provider 8ebb1b4d5.
+That evidence is retained under its scope; new exact-head receiving remains
+pending for these four readers. The overall addon and Viewer receiving remain
+partial, with other namespaces, mutations, graphical panels and clean installed
+compatibility unfinished. No freeze, tag or release is authorized by this work.

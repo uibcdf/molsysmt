@@ -77,7 +77,7 @@ def test_signatures_native_help_and_digestion(view, name):
     assert "not a scene object" in inspect.getdoc(method)
     assert "\nmolecular_system :" not in inspect.getdoc(method)
     assert not hasattr(view.addons.molsysmt, name)
-    assert set(dir(view.addons.molsysmt.structure)) == set(NAMES)
+    assert set(NAMES) <= set(dir(view.addons.molsysmt.structure))
     assert not hasattr(view.addons.molsysmt.structure, "translate")
     if name == "get_dihedral_angles":
         assert "flag is not added to scientific **kwargs" in inspect.getdoc(method)

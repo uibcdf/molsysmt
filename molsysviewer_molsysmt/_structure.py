@@ -14,6 +14,10 @@ class _StructureTools:
         "get_radius_of_gyration",
         "get_angles",
         "get_dihedral_angles",
+        "get_rmsd",
+        "get_least_rmsd",
+        "get_principal_axes",
+        "get_least_squares_plane",
     )
 
     def __init__(self, owner):
@@ -245,4 +249,126 @@ class _StructureTools:
                 "use_gpu": use_gpu,
             },
             kwargs,
+        )
+
+    @_native_documentation("get_rmsd", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_rmsd(
+        self,
+        selection='atom_type!="H"',
+        structure_indices="all",
+        reference_molecular_system=None,
+        reference_selection=None,
+        reference_structure_index=0,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        heavy_mode="auto",
+        use_gpu=None,
+        parallel=None,
+        num_threads=None,
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_rmsd",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "reference_molecular_system": reference_molecular_system,
+                "reference_selection": reference_selection,
+                "reference_structure_index": reference_structure_index,
+                "syntax": syntax,
+                "engine": engine,
+                "heavy_mode": heavy_mode,
+                "use_gpu": use_gpu,
+                "parallel": parallel,
+                "num_threads": num_threads,
+            },
+        )
+
+    @_native_documentation("get_least_rmsd", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_least_rmsd(
+        self,
+        selection='atom_type!="H"',
+        structure_indices="all",
+        reference_molecular_system=None,
+        reference_selection=None,
+        reference_structure_index=0,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        use_gpu=None,
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_least_rmsd",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "reference_molecular_system": reference_molecular_system,
+                "reference_selection": reference_selection,
+                "reference_structure_index": reference_structure_index,
+                "syntax": syntax,
+                "engine": engine,
+                "use_gpu": use_gpu,
+                "parallel": parallel,
+                "num_threads": num_threads,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_principal_axes", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_principal_axes(
+        self,
+        selection="all",
+        structure_indices="all",
+        weights=None,
+        principal_axes_type="inertia",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        use_gpu=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_principal_axes",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "weights": weights,
+                "principal_axes_type": principal_axes_type,
+                "syntax": syntax,
+                "engine": engine,
+                "use_gpu": use_gpu,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_least_squares_plane", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_least_squares_plane(
+        self,
+        selection="all",
+        structure_indices="all",
+        pbc=False,
+        syntax="MolSysMT",
+        heavy_mode="auto",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_least_squares_plane",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "pbc": pbc,
+                "syntax": syntax,
+                "heavy_mode": heavy_mode,
+                "skip_digestion": skip_digestion,
+            },
         )

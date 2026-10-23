@@ -11,7 +11,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
-controls, eleven current `topology` analysis readers and six `structure`
+controls, eleven current `topology` analysis readers and ten `structure`
 calculations under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
@@ -307,3 +307,28 @@ examples explicitly choose eager mode for affected small-system calculations;
 that is not a large-system memory guarantee. Optional GPU/alternate engines,
 remaining structure exports and coordinate-changing operations need separate
 receiving. No new host runtime, public API or frontend transport is needed here.
+
+
+## Independent structural comparison and fitting readers — 2026-10-23
+
+The source also receives get_rmsd, get_least_rmsd, get_principal_axes and
+get_least_squares_plane through the existing serialized reader. They preserve
+native signatures, return quantities/arrays/dictionaries and reference inputs.
+Raw RMSD does not fit coordinates; minimum RMSD optimizes a temporary comparison
+without transforming either input. References stay caller-stable, with native
+selection/reference-index defaults, not an auxiliary-view transaction. Its
+missing native skip parameter is handled by an addon-only keyword, never forwarded.
+
+Axes retain native numeric moments, ascending eigenvalues, row basis and
+sign/degenerate-subspace semantics. Plane results retain sparse memberships,
+source structure order, typed empties and native quantity/normal fields. Fitting
+a plane does not create a shape, certify chemistry or unwrap periodic groups.
+No source/scene edit, automatic attachment or new host runtime follows.
+
+The reviewed direct calculations and numeric/property selectors avoid the
+get_distances path affected by uibcdf/molsysmt#441. General rich selectors and
+optional engines retain their own dependencies. The maintainer requires waiting
+for the MolSysMT scientific team to fix #441; min/max/contact/neighbor wrappers
+remain pending, with no addon alternative or hidden routing correction. RMSF
+also remains unreceived after native forced-unit issue uibcdf/molsysmt#442.
+Other scientific corrections remain with their owning team.
