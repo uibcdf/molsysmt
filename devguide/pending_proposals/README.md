@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (28)
+### Open (29)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -65,6 +65,7 @@ Entries carrying front matter under
 - [`requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md`](requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md) — [#403](https://github.com/uibcdf/molsysmt/issues/403) — Requalify newer MKL builds and retire the temporary runtime ceiling *(upstream)*
 - [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Retire Topology.bonds after 1.0 in favor of ChemicalStates *(inspected)*
   Blocked by uibcdf/molsysmt#254.
+- [`review_h5msm05_module_ownership_and_location.md`](review_h5msm05_module_ownership_and_location.md) — [#438](https://github.com/uibcdf/molsysmt/issues/438) — Review ownership and location of form/_h5msm05_* implementation modules *(inspected)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
