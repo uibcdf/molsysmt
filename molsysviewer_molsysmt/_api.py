@@ -13,11 +13,14 @@ class _MolSysMTTools:
         self._view_ref = ref(view)
         self.basic = _BasicTools(self)
 
-    def _target(self):
+    def _view(self):
         view = self._view_ref()
         if view is None or view.closed:
             raise RuntimeError("MolSysMT tools cannot operate on a closed view.")
-        target = view.molsys
+        return view
+
+    def _target(self):
+        target = self._view().molsys
         if target is None:
             raise ValueError("Load a molecular system before using this MolSysMT tool.")
         return target

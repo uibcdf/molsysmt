@@ -13,7 +13,9 @@ The experimental source implementation provides six queries under
 managed native removal with `remove`, the coordinates/box routes of `set`,
 and native `copy`, `convert` and `get_conversion_report`. Presence/composition
 checks `contains`, `is_composed_of` and the read-only `compare` route are also
-received; the topology-rebuilding comparison mode remains pending.
+received; the topology-rebuilding comparison mode remains pending. Identification
+helpers `get_form`, `is_a_molecular_system`, `where_is_attribute` and the explicit
+collection utility `are_multiple_molecular_systems` are also available in source.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -61,6 +63,48 @@ The bound methods omit the primary `molecular_system` argument. You cannot
 override it with another system. Inspect a signature or call `help` on the
 method for the remaining native parameters. `skip_digestion` keeps the native
 trusted-call contract; it does not bypass view lifetime checks.
+
+## Identifying systems and locating attributes
+
+```python
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    resident_form = tools.basic.get_form()
+    valid_single = tools.basic.is_a_molecular_system()
+    molsys, owning_form = tools.basic.where_is_attribute("coordinates")
+    with msv.MolSysView() as empty:
+        valid_container = empty.addons.molsysmt.basic.are_multiple_molecular_systems(
+            [molsys],
+        )
+```
+
+{doc}`basic/get_form` identifies the current resident system, usually
+`molsysmt.MolSys`, rather than the filename or original format passed to loading.
+{doc}`basic/is_a_molecular_system` retains native input classification and
+consistency checks; it is not a claim that the system is chemically complete or
+ready for simulation.
+
+{doc}`basic/where_is_attribute` returns the native item/form pair with its actual
+`include_none` and fallback semantics. The item can be the current `view.molsys`
+itself; it is a live reference, not a copied snapshot. Locating a possible owner
+is not proof that an attribute currently has a non-None value. Use `has_attribute`
+for the corresponding availability query. Later direct edits through the returned
+item retain explicit reconciliation responsibilities.
+
+{doc}`basic/are_multiple_molecular_systems` is an explicit-input utility: its
+`molecular_systems` collection remains required. The addon never prefixes that
+collection with the current system and does not merge items or load a result
+into the view. Native inspection may still read the supplied inputs. It may
+run on an empty view, but the owning view must remain open. Inputs are
+caller-owned and must remain stable; this utility takes no managed-edit locks.
+Native True for a one-item valid container does not mean there are at least two
+systems, nor decide how sources should be composed or loaded.
+
+Native `get_form`, `is_a_molecular_system` and `are_multiple_molecular_systems`
+deliberately have no digestion escape-hatch parameter. Their addon wrappers add
+keyword-only `skip_digestion=False` for the addon boundary only; they never pass
+it to or redecorate the native helper. View lifetime checks still run. The
+ordinary native `skip_digestion` parameter of `where_is_attribute` remains native.
 
 ## Checking composition and comparing systems
 

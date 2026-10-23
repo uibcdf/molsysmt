@@ -310,3 +310,33 @@ It also retains the prior source-pair pandas failures and experimental Qt scope.
 Native structural comparison emits UnitStrippedWarning; observed parity remains
 intact and the warning is not silently suppressed by the addon. Forced two-input
 rebuild, broader namespaces and panels remain separate receiving work.
+
+
+The native structural-comparison quantity warning is now separately reported in
+uibcdf/molsysmt#435, at the maintainer's request. It reproduces without Viewer;
+observed parity is preserved and no wrong scientific result is demonstrated.
+Keep the fix in the native comparison/unit owner rather than adding a filter
+or alternate algorithm to this addon.
+
+
+## Identity and explicit collection receiving — 2026-10-23
+
+Receive bound get_form, is_a_molecular_system and where_is_attribute, plus the
+explicit-input are_multiple_molecular_systems utility. Do not guess a single
+primary slot for a collection classifier. Native input inspection is preserved;
+there is no promise of I/O-free classification. It remains usable before loading a
+system, but requires a live owning view and caller-stable inputs rather than
+implicit edit locking. Identity readers retain serialized current-target access.
+Native live owner references and fallback policies remain unchanged.
+
+The three intentionally undigested native helpers stay untouched. Their facade
+adds a keyword-only addon digestion control without forwarding an unsupported
+scientific parameter; ordinary where_is_attribute forwarding remains native.
+The bounded guard is `tests/molsysviewer_molsysmt/test_identity_tools.py`.
+
+The [dated identity receipt](../../devtools/data/molsysviewer_tools_identity_receiving_20261023.json)
+records all four binding/digestion dispositions, 28 focused cases, 239 applicable
+addon/packaging/dependency/devguide checks and all eight guide examples. Module 04
+only gains availability prose; its executable cells and outputs are unchanged.
+The source checks preserved the concurrent native namespace/documentation work;
+they are not an exact clean full-provider or installed-candidate claim.

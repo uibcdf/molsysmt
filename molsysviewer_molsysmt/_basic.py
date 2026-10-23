@@ -21,11 +21,45 @@ def _native_documentation(name):
         # Keep the provider's parameter/result definitions as the help source.
         # Examples are explicitly native calls, not invented addon signatures.
         first, _, rest = doc.partition("\n")
+        binding = (
+            "This utility keeps its explicit molecular_systems collection; "
+            "no current view.molsys is inserted. "
+            if name == "are_multiple_molecular_systems"
+            else "The primary molecular system is the current view.molsys. "
+        )
         function.__doc__ = (
-            first + "\n\nThe primary molecular system is the current view.molsys. "
-            "The remaining parameters and returns follow the native function below. "
+            first
+            + "\n\n"
+            + binding
+            + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if name in {
+            "get_form",
+            "is_a_molecular_system",
+            "are_multiple_molecular_systems",
+        }:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "skip_digestion : bool, keyword-only, default=False\n"
+                "    Control addon argument digestion only. The native helper deliberately "
+                "has no digestion escape hatch and receives no such argument. View lifetime "
+                "checks remain active.\n"
+            )
+        if name == "are_multiple_molecular_systems":
+            function.__doc__ += (
+                "The explicit collection may be checked before this view loads a system. "
+                "Inputs are caller-owned and must remain stable during the native call; "
+                "the utility acquires no managed-edit locks for them. It neither combines "
+                "systems nor loads or adopts a result into the view.\n"
+            )
+        if name == "where_is_attribute":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The native item/form pair is returned without copying. Its item may be "
+                "the actual current view.molsys; later external edits retain explicit "
+                "reconciliation responsibilities.\n"
+            )
         if name in {"copy", "convert", "get_conversion_report"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -85,6 +119,10 @@ class _BasicTools:
         "get_attributes",
         "has_attribute",
         "get_label",
+        "get_form",
+        "where_is_attribute",
+        "is_a_molecular_system",
+        "are_multiple_molecular_systems",
         "contains",
         "is_composed_of",
         "compare",
@@ -271,6 +309,44 @@ class _BasicTools:
                 "skip_digestion": skip_digestion,
             },
             kwargs,
+        )
+
+    @_native_documentation("get_form")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_form(self, *, skip_digestion=False):
+        return self._call("get_form", {})
+
+    @_native_documentation("is_a_molecular_system")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def is_a_molecular_system(self, *, skip_digestion=False):
+        return self._call("is_a_molecular_system", {})
+
+    @_native_documentation("are_multiple_molecular_systems")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def are_multiple_molecular_systems(
+        self, molecular_systems, *, skip_digestion=False
+    ):
+        self._owner._view()
+        from molsysmt.basic import are_multiple_molecular_systems
+
+        # This is an explicit-input utility, not a bound-primary reader. Its
+        # collection remains caller-owned, including before a view is loaded.
+        return are_multiple_molecular_systems(molecular_systems)
+
+    @_native_documentation("where_is_attribute")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def where_is_attribute(self, attribute, include_none=False, skip_digestion=False):
+        return self._call(
+            "where_is_attribute",
+            {
+                "attribute": attribute,
+                "include_none": include_none,
+                "skip_digestion": skip_digestion,
+            },
         )
 
     @_native_documentation("contains")

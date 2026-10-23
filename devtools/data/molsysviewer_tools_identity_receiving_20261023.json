@@ -1,0 +1,112 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "native_warning_issue": "uibcdf/molsysmt#435",
+  "base_commits": {
+    "provider": "f121ffe0b73a9ee980cb1922d652145738bb2bd2",
+    "viewer": "4efbe96587552b9fa2e177dd1088615129e5e081"
+  },
+  "provenance": "Working sources in molsyssuite@uibcdf_3.14, explicitly selected development interpreter. Concurrent unrelated provider namespace/doc reorganization and autosummary work preserved. Source hashes identify the relevant paths; not a frozen clean full-provider or installed artifact qualification.",
+  "functions": [
+    {
+      "provider": "molsysmt.basic.get_form",
+      "bound": "view.addons.molsysmt.basic.get_form",
+      "root_alias": "view.addons.molsysmt.get_form",
+      "input": "Actual current view.molsys implicit.",
+      "digestion": "Keyword-only addon skip_digestion added; never forwarded to the deliberately undigested native helper.",
+      "effects": "Serialized native reader; no projection, adoption or extra copies.",
+      "lifetime": "Requires loaded primary in a live view; cached facade resolves current target.",
+      "guard": "tests/molsysviewer_molsysmt/test_identity_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.is_a_molecular_system",
+      "bound": "view.addons.molsysmt.basic.is_a_molecular_system",
+      "root_alias": "view.addons.molsysmt.is_a_molecular_system",
+      "input": "Actual current view.molsys implicit.",
+      "digestion": "Keyword-only addon skip_digestion added; never forwarded to the deliberately undigested native helper.",
+      "effects": "Serialized native reader; no projection, adoption or extra copies.",
+      "lifetime": "Requires loaded primary in a live view; cached facade resolves current target.",
+      "guard": "tests/molsysviewer_molsysmt/test_identity_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.where_is_attribute",
+      "bound": "view.addons.molsysmt.basic.where_is_attribute",
+      "root_alias": "view.addons.molsysmt.where_is_attribute",
+      "input": "Actual current view.molsys implicit.",
+      "digestion": "Native skip_digestion forwarded unchanged.",
+      "effects": "Serialized native reader; no projection, adoption or extra copies.",
+      "lifetime": "Requires loaded primary in a live view; cached facade resolves current target.",
+      "guard": "tests/molsysviewer_molsysmt/test_identity_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.are_multiple_molecular_systems",
+      "bound": "view.addons.molsysmt.basic.are_multiple_molecular_systems",
+      "root_alias": "view.addons.molsysmt.are_multiple_molecular_systems",
+      "input": "Explicit required molecular_systems collection; no implicit primary or prefix.",
+      "digestion": "Keyword-only addon skip_digestion added; never forwarded to the deliberately undigested native helper.",
+      "effects": "Caller-owned explicit-input utility; no managed-edit lock; no adoption or loading into view; native inspection/I/O unchanged.",
+      "lifetime": "Owning view must be live; empty view permitted.",
+      "guard": "tests/molsysviewer_molsysmt/test_identity_tools.py"
+    }
+  ],
+  "checks": {
+    "identity_file": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "junit_sha256": "1c1c3239b641725bef481164f704bcc994892692dbc8bc8caf6ead698a9522a4"
+    },
+    "addon_packaging_dependency_and_devguide_regression": {
+      "passed": 239,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 52.7,
+      "composition": "144 addon cases + 30 packaging + 11 dependency-route + 54 developer-guide guards.",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/ devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_rust_wheel.py devtools/tests/test_validate_rust_sdist.py devtools/tests/test_audit_dependency_contract.py devtools/tests/test_validate_devguide.py -x",
+      "junit_sha256": "7f740714426fe3006f74d1e5ae8b4f2642da6e628c3594953bdd4d1842e5c163"
+    },
+    "guide_blocks": {
+      "executed": 8,
+      "exit_code": 0
+    },
+    "course_module_04": {
+      "scope": "One narrative extension; JSON equality verifies every other cell/field and all executable cells/outputs preserved."
+    },
+    "source_wheel_sdist_inventory": {
+      "addon_python_files": 13,
+      "scope": "Metadata/source inclusion guards, not installed byte qualification."
+    },
+    "native_warning_report": {
+      "issue": "uibcdf/molsysmt#435",
+      "state": "open",
+      "reproduction": "Pure native pentalanine, structures [0,8,3], structural self-comparison, include_none=True, dictionary output: all True; six UnitStrippedWarning entries under always filter at compare.py:349/350. Coordinates-only comparison emitted none in that exercise.",
+      "scientific_mismatch_demonstrated": false,
+      "scientific_fix_applied": false
+    },
+    "prior_predicate_smoke": {
+      "run": 40004181383,
+      "state": "success",
+      "scope": "Previous predicate source only; not this identity delivery."
+    }
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_api.py": "8a9faa41086a326c68a94cc399c9bad7204da7aff13e3b6dcebe2853a4d11c8f",
+    "molsysviewer_molsysmt/_basic.py": "283c23808d1c7d873ce430828fe177926f9d6e75272ea864c343606bdb06623a",
+    "tests/molsysviewer_molsysmt/test_identity_tools.py": "02c5e25358c730217e2c918722be00812014b4c34e89444907fb5077509d7543",
+    "molsysmt/basic/get_form.py": "26b0d167a28928d45d7dd63fa724a0c1bef4ac28a3ea8588e75729387b564ac8",
+    "molsysmt/basic/is_a_molecular_system.py": "a18b0e8e9b430b1fe551e68db9a0a9194e20a89f08c65c478dd1a0876ca631f1",
+    "molsysmt/basic/are_multiple_molecular_systems.py": "35df184234b8d5cb8c24dc97d5211154902af5ed21b8b014540daa64f8ed2fdb",
+    "molsysmt/basic/where_is_attribute.py": "7bd55162eebe0ef9b92b4c845f9adf3bf92a1621f323852966b61fde131cb4df"
+  },
+  "remaining": [
+    "Broader scientific namespaces and other effect families",
+    "Mutating compare topology-rebuild route",
+    "Graphical addon panels",
+    "New hosted identity gates and exact installed-pair qualification",
+    "Native scientific warning fix under uibcdf/molsysmt#435"
+  ],
+  "publication_authorized": false
+}

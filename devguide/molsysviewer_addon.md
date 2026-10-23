@@ -208,3 +208,32 @@ error. No independent alias vocabulary or value normalizer is introduced.
 not admitted by the reader route. It fails before writes, including trusted
 calls. Receive its primary/auxiliary effects and reconciliation separately;
 experimental status does not excuse silently forwarding that mutation.
+
+
+Native structural comparison can currently emit UnitStrippedWarning during
+implicit quantity conversion (uibcdf/molsysmt#435). Preserve the provider outcome;
+do not introduce a downstream filter or comparison algorithm. The report is a
+native usability/unit-boundary finding, not a demonstrated scientific mismatch.
+
+
+## Identity readers and an explicit collection utility
+
+The source facade receives bound `get_form`, `is_a_molecular_system` and
+`where_is_attribute`. They resolve the actual current MolSys and use the
+serialized native reader. The returned attribute item retains native ownership,
+including a live reference to the bound MolSys; no defensive copy or external
+write observer is introduced.
+
+`are_multiple_molecular_systems(molecular_systems)` keeps its explicit collection
+input. It is not a bound-primary operation: the addon neither inserts a system
+nor combines/adopts sources. It can run before loading a system, while still
+checking the owning view's lifetime. Inputs remain caller-owned/stable and do not
+acquire edit locks. A one-item valid container keeps the native True result;
+this is not a source-composition/load-mode decision.
+
+The three native identification/classification helpers deliberately have no
+ArgDigest escape hatch. Their addon boundary supplies keyword-only
+skip_digestion, does not forward it, and leaves the native function undecorated.
+`where_is_attribute` retains its ordinary native signature minus the primary
+input. This explicit exception avoids recursive form digestion and honors the
+addon public-boundary controls without weakening scientific validation.
