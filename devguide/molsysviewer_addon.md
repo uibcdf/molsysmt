@@ -60,3 +60,19 @@ The 1.0 publication pause and exact-candidate gates remain authoritative.
 Pre-generated documentation HTML contains its original embedded Viewer runtime;
 refresh it through the normal final documentation qualification with the agreed
 Viewer source, rather than rewriting frozen JavaScript snapshots by hand.
+
+## Planned tools addon (not current runtime)
+
+The maintainer has accepted a redesigned provider-owned tools addon under
+uibcdf/molsysmt#421, coordinated with uibcdf/molsysviewer#264. The
+[implementation record](pending_proposals/molsysviewer_tools_addon.md) owns
+the source ledger, expert scientific API mirror and task-oriented panels.
+Preserve native mutation/return semantics; qualified bound-system edits will
+synchronize by default, while independent results require explicit adoption.
+Provider documentation will explain capabilities and use; Viewer documentation
+owns general management, creation and catalogue links.
+
+This is planned work, not an available namespace or exemption from the current
+legacy-absence packaging guards. Qualify the new host/protocol and update those
+guards with positive compatibility evidence before shipping the new integration.
+The withdrawn observer request uibcdf/molsysmt#413 remains closed.
