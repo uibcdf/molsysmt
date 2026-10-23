@@ -478,7 +478,7 @@ sections:
       - name: testing
         file: docs/content/developer/testing/index.md
         agents_file: docs/content/developer/testing/AGENTS.md
-        description: Scientific evidence review, executable conversion profiles and current source, package and documentation CI boundaries.
+        description: Scientific evidence review, executable resident/H5MSM conversion profiles, schema/resource boundaries and source/package/documentation CI.
   api_reference:
     path: docs/api
     status: stable

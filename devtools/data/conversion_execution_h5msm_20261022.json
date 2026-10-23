@@ -1,0 +1,71 @@
+{
+  "issue": "uibcdf/molsysmt#181",
+  "date": "2026-10-22",
+  "baseline_commit": "35a9fc4919485dd0da987134cb5ec9a867d77916",
+  "scope": "local source tests; no runtime code changes or installed-candidate qualification",
+  "profile": "resident-h5msm-v3",
+  "declared_edges": 596,
+  "selected_edges": 82,
+  "added_h5msm_edges": 12,
+  "accepted_unexecuted_edges": 514,
+  "version_scope": {
+    "direct_disk_handler_witness": "0.4; supported low-level legacy adapters",
+    "public_file_output": "0.5",
+    "legacy_handler": "0.3/0.4 only; modular 0.5 rejection tested before materialization",
+    "public_modular_inputs": [
+      "complete",
+      "topology-only",
+      "structures-only",
+      "chemical-states-only",
+      "interactions-only"
+    ]
+  },
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/file_h5msm tests/form/molsysmt_H5MSMFileHandler tests/native/test_h5msm_file_handler.py tests/interactions/test_h5msm05.py tests/interactions/test_public_molsys_h5msm_workflow.py tests/interactions/test_software_provenance.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+    "passed": 1488,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 31.57,
+    "workers": 12,
+    "warnings": {
+      "LegacyH5MSMWarning_04": 649,
+      "LegacyH5MSMWarning_03": 5
+    }
+  },
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "versions": {
+    "numpy": "2.4.6",
+    "h5py": "3.16.0",
+    "pytest": "9.1.1",
+    "pytest-xdist": "3.8.0",
+    "pytest-receptor": "1.2.1+22.g00a31c4",
+    "sphinx": "9.1.0",
+    "myst-parser": "5.1.0"
+  },
+  "production_changes": false,
+  "new_runtime_defects_demonstrated": false,
+  "documentation": {
+    "scope": "actual developer-testing page in a focused MyST/Sphinx project; not a new full-site inventory",
+    "exit_code": 0,
+    "warnings": 0,
+    "notebook_execution": "not applicable"
+  },
+  "focused_profile": {
+    "command": "python -m pytest tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_native_edges.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+    "passed": 98,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 16.69,
+    "warnings": 17
+  },
+  "fast_gates": {
+    "passed": 14,
+    "total": 14
+  },
+  "style": {
+    "ruff_check": "pass",
+    "ruff_format_check": "pass",
+    "formatting_only_followup": "AST verified unchanged"
+  }
+}

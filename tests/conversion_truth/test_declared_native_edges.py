@@ -17,7 +17,13 @@ from devtools.scripts.audit_conversion_execution import (
 from tests.native.test_molsys import build_minimal_molsys
 
 PLAN = read_plan()
-EDGES = sorted(planned_edges(declared_edges(), PLAN))
+# Disk/handler routes have explicit resource and schema fixtures in their own module.
+H5MSM_FORMS = {"file:h5msm", "molsysmt.H5MSMFileHandler"}
+EDGES = sorted(
+    (source, target)
+    for source, target in planned_edges(declared_edges(), PLAN)
+    if not ({source, target} & H5MSM_FORMS)
+)
 
 
 def _source(form):

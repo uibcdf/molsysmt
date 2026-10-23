@@ -2,7 +2,8 @@
 """Inventory declared direct conversion routes and planned executable smoke coverage.
 
 This command checks the plan and accepted unexecuted debt, not execution. Run
-``pytest tests/conversion_truth/test_declared_native_edges.py`` for evidence.
+both ``test_declared_native_edges.py`` and ``test_declared_h5msm_edges.py`` under
+``tests/conversion_truth`` for execution evidence.
 """
 
 from __future__ import annotations
@@ -33,7 +34,7 @@ def read_plan(path=BASELINE_PATH):
 
 
 def planned_edges(graph, plan):
-    """Select resident-native and external-engine edges from the declared graph."""
+    """Select currently profiled edges from the actual declared graph."""
     return {
         (source, target)
         for source, target in graph

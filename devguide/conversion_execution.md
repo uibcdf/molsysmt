@@ -13,17 +13,17 @@ installed optional providers must not silently change the declared inventory.
 # Check the plan against the graph; does not execute converters
 python devtools/scripts/audit_conversion_execution.py --json
 
-# Execute the resident-native profile, including direct and public routes
-python -m pytest tests/conversion_truth/test_declared_native_edges.py --receptor=llm -n 12
+# Execute all profiled edges, including direct and public routes
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py --receptor=llm -n 12
 
 # Exercise the inventory's adversarial controls
 python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=llm
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-native-engines-v2` profile: thirteen native containers/dictionary
-forms and four resident MDTraj/OpenMM forms. The original native-v1 subset
-remains covered.
+`resident-h5msm-v3` profile: thirteen native containers/dictionary forms, four
+resident MDTraj/OpenMM forms, and H5MSM disk/handler forms. The original
+native-v1 and engine-v2 subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
 input; domain fixtures include mechanics parameters and a nonempty interaction
@@ -37,6 +37,37 @@ calls public `convert` with a separately prepared source. Both must return the
 declared target form. No runtime exceptions are converted into skips or accepted
 failures. Two adversarial controls prove that a broken callable or wrong output
 form fails this check. Existing fidelity suites add their separate assertions.
+
+## H5MSM schema and resource boundaries
+
+`test_declared_native_edges.py` executes the resident subset;
+`test_declared_h5msm_edges.py` executes every selected edge involving a disk
+path or `H5MSMFileHandler`, with fresh temporary sources and destinations. Both
+modules derive their cases from the same declared graph and profile. The graph
+remains version-agnostic; the fixtures and assertions state their version scope.
+
+The existing low-level legacy adapters read/write 0.4, while public `convert`
+writes 0.5 and materializes modular input through the versioned reader before
+resident dispatch. File output tests assert 0.4 for raw legacy adapter calls and
+0.5 for the public route. This is execution evidence for different supported
+paths, not codec parity. No assertion certifies that every registered low-level
+adapter directly reads 0.5. The handler supports only 0.3/0.4 and rejects 0.5;
+changing that capability is outside this profile.
+
+Handler sources use context managers. New handler results are closed separately;
+alias results are closed once by their source owner. Cases assert closed HDF5
+identifiers. Setup writes a small 0.4 fixture with the existing legacy adapter;
+it is not an independent expected-data oracle.
+
+Additional public 0.5 controls cover a complete system and topology-only,
+structures-only, chemical-states-only and interactions-only files. They check
+stored domain presence, explicit nm coordinate/box values, named analyses,
+parallel occurrence indices, source-axis maps and empty/unevaluated coverage.
+A nonconsecutive/repeated structure selection plus atom selection checks geometry
+and analysis remapping together. These bounded value assertions supplement the
+weaker per-edge smoke promise; they do not certify every format field. A negative
+control proves that rejecting 0.5 as a legacy handler does not first materialize
+the resident domains.
 
 ## Coverage debt
 

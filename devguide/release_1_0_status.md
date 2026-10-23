@@ -3122,3 +3122,15 @@ The full-site documentation baseline remains 711 warnings and no errors under #1
 Further bounded conversion/documentation cleanup can proceed in the authorized
 improvement window; neither completing every conversion profile nor eliminating
 all historical warnings is newly made a prerequisite for 1.0.
+
+## H5MSM conversion execution profile — 2026-10-22
+
+The subsequent bounded #181 block extends the profile from 70 to 82 declared
+edges, leaving 514 explicit coverage-debt edges. Twelve new disk/handler
+witnesses distinguish the low-level legacy schema from public 0.5 conversion.
+Additional modular-domain, remapping and handler-rejection controls pass with
+the existing H5MSM/interaction/provenance suites: 1,488 passes, no skips/failures.
+The [receipt](../devtools/data/conversion_execution_h5msm_20261022.json) retains
+commands, versions and limits. No production code or handler capability changes;
+source-test coverage is not a replacement candidate qualification. Publication
+remains paused under #334 and #181 stays partial.

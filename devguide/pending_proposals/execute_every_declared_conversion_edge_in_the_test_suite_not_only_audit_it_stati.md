@@ -17,8 +17,8 @@ supersedes: []
 **Reported:** 2026-08-19, from the post-mortem of
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
-**Status:** partial. The resident-native execution profile is implemented;
-external/file/network profiles remain coverage debt.
+**Status:** partial. Resident-native, MDTraj/OpenMM and bounded H5MSM execution
+profiles are implemented; remaining external/file/network routes remain debt.
 
 ## What
 
@@ -239,3 +239,65 @@ were already installed; no dependency version or installed environment changes.
 The repaired defects are archived under their own issue identities. This
 profile is a more useful execution baseline, not whole-graph completion:
 526 edges still require profiles and fixtures, so #181 remains partial.
+
+
+## H5MSM schema-aware expansion — 2026-10-22
+
+The `resident-h5msm-v3` profile adds `file:h5msm` and
+`molsysmt.H5MSMFileHandler` to the declared graph rectangle: 82 selected edges,
+including 12 additional disk/handler edges, and 514 explicitly unexecuted edges
+out of the unchanged 596-edge graph. Only these newly exercised edges are removed
+from debt. The native/engine and disk modules partition the selected routes by
+source/target form, using one inventory. Debt reasons now use profile-independent
+wording to avoid rewriting them for each legitimate expansion.
+
+Inspection confirms the intended version boundary: low-level registered adapters
+use the legacy 0.4 schema, while public `convert` writes 0.5 and reads modular data
+before resident dispatch. The handler deliberately supports only 0.3/0.4. The
+profile tests those supported paths without claiming raw-adapter 0.5 parity or
+changing the handler. Fresh rich native fixtures supply complete hierarchy,
+coordinates, cells and time; temporary handler sources/results are closed under
+explicit ownership and their HDF5 identifiers are checked.
+
+Nineteen disk/schema cases pass: twelve direct/public edge witnesses, five public
+modular-domain combinations, a joint geometry/analysis remap, and a negative
+handler-target control. Modular cases retain domain absence, named parallel
+observations, occurrence indices, source maps and evaluated-empty/unevaluated
+coverage. The remap selects atom indices [2, 0] in source order and structure
+indices [2, 0, 2], checking both quantities and result axes. No scientific-method
+or exhaustive H5MSM-field fidelity claim follows.
+
+Initial new-test failures were harness mistakes: source maps are object metadata,
+whereas occurrence indices are exposed by the public query dictionary. The guards
+were corrected to the actual public interfaces; no production behavior or expected
+numeric values were changed. The final focused disk module passes 19 cases with
+17 expected legacy-read warnings. No new runtime defect has been established in
+this block. Existing H5MSM and interaction workflow regressions are run separately.
+
+### H5MSM regression qualification
+
+```bash
+python -m pytest tests/conversion_truth tests/form/file_h5msm tests/form/molsysmt_H5MSMFileHandler tests/native/test_h5msm_file_handler.py tests/interactions/test_h5msm05.py tests/interactions/test_public_molsys_h5msm_workflow.py tests/interactions/test_software_provenance.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12
+```
+
+Result: **1,488 passed**, zero skips/failures, 31.57 seconds. The 654 warnings
+are all expected legacy reads: 649 for 0.4 and five for 0.3, retaining the
+migration guidance. Additional software-provenance controls verify the original
+producer survives a different writer/reader; the new synthetic analysis also
+retains an explicitly supplied producer marker, method, parameters, measurements
+and units rather than inheriting the current installed version at read time.
+
+The [receipt](../../devtools/data/conversion_execution_h5msm_20261022.json)
+records scope, commands, versions and outcomes. The updated developer testing
+page renders in a focused MyST/Sphinx project with zero diagnostics. No full-site
+warning inventory, notebook execution, dependency changes or installed-pair
+qualification is claimed. H5MSMFileHandler capability and all production code
+remain unchanged. #181 remains partial; remaining routes include other external,
+file/string and network profiles. Completing them all is not a newly imposed
+pre-1.0 release requirement.
+
+The final profile-only command (both execution modules and inventory controls)
+passes 98 cases in 16.69 seconds, with no skips/failures and 17 expected 0.4
+warnings. All fourteen fast gates pass. Whole-repository Ruff check and format
+checks pass; the final whitespace-only formatting correction preserves the test
+module AST exactly and does not change the retained outcomes.
