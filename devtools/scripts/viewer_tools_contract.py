@@ -17,6 +17,7 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_private/__init__.py",
         "molsysviewer_molsysmt/_private/argument/__init__.py",
         "molsysviewer_molsysmt/_private/argument/skip_digestion.py",
+        "molsysviewer_molsysmt/_private/argument/update_view.py",
     }
 )
 

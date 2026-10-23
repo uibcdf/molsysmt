@@ -17,7 +17,8 @@ supersedes: []
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
-lifetime and new discovery/packaging route; editing, panels and broad coverage
+lifetime and new discovery/packaging route; retained-axis removal and sync controls
+now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
@@ -199,3 +200,35 @@ shadowed the already-correct editable distribution. Automatic discovery and
 bound extraction also pass from the Viewer checkout. The metadata diagnosis
 and conditional refresh procedure belong to the maintained integration guide;
 no manual registration or host lookup exception is introduced.
+
+
+## Managed retained-axis edit receiving
+
+The first writer is native `basic.remove`, with the provider's False default,
+independent outputs, true in-place mutation, native None return and authoritative
+retained atom/structure maps. `update_view=False` defers only scene projection;
+`get_sync_status` and `sync_view` expose the shared host state/retry route.
+Provider preparation reuses owned native validators and publication contracts;
+Viewer owns map composition, stale-index gates, scene metadata checkpoint/retry
+and explicit replacement recovery. Empty in-place axes are rejected before
+execution by the initial receiver; independent outputs preserve native behavior.
+
+The source receiving guard is `tests/molsysviewer_molsysmt/test_remove_tools.py`,
+using actual demos and native operations. A fault-injecting real widget interrupts
+projection after science, checking retry without a second removal or double
+remapping and preservation of handle identities. The generic coordinate/uncertain
+and locking cases also exercise actual native setters. No scientific success is
+mocked. Ordinary read/extract guards remain applicable. Installed artifact
+qualification, wider effects and task panels are not implied by these results.
+
+
+Source receiving checkpoint: Viewer `9da52e5500c9f8637e2f6f76eea0eb81ce783882`. Routine smoke/docs/full-fallback
+source routes now pin that managed-edit receiver; explicit candidate inputs retain
+precedence. Local receiving passes 17 remove/control cases, 20 read/extract cases,
+30 packaging guards and all three guide Python blocks in
+`molsyssuite@uibcdf_3.14`. Viewer retains its once-run full-suite result (3,266 pass,
+21 skips, two subsequently corrected inventory/TypeScript failures), focused
+corrections and the real Chromium receiving evidence under uibcdf/molsysviewer#264.
+These are working-source checks, not a frozen installed pair. Hosted exact-source
+CI remains to be inspected after this delivery; no runtime dependency floor,
+package, tag or release is changed.

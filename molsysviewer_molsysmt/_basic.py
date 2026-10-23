@@ -26,6 +26,17 @@ def _native_documentation(name):
             "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if name == "remove":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "update_view : bool, keyword-only, default=True\n"
+                "    Reconcile an in-place edit immediately. False defers only the scene update; "
+                "call tools.sync_view() to apply pending edits. Independent outputs are never adopted. "
+                "The initial retained-axis receiver rejects removal of every atom or structure "
+                "before executing in-place science. Use in_place=False for those outputs.\n"
+                "A scene update failure raises SystemEditSyncError with science_completed=True, "
+                "operation_id and scientific_result; retry synchronization, not removal.\n"
+            )
         return function
 
     return decorate
@@ -40,6 +51,7 @@ class _BasicTools:
         "has_attribute",
         "get_label",
         "extract",
+        "remove",
     )
 
     def __init__(self, owner):
@@ -53,10 +65,18 @@ class _BasicTools:
             raise TypeError(
                 "The primary molecular_system is bound to view.molsys and cannot be overridden."
             )
-        target = self._owner._target()
         from molsysmt import basic
 
-        return getattr(basic, name)(target, **parameters, **(extra or {}))
+        view = self._owner._view_ref()
+        self._owner._target()
+        coordinator = getattr(view.addons.manager, "system_edits", None)
+
+        def call(target):
+            return getattr(basic, name)(target, **parameters, **(extra or {}))
+
+        if coordinator is not None:
+            return coordinator.read(call)
+        return call(self._owner._target())
 
     @_native_documentation("get")
     @signal(tags=["addon", "get"])
@@ -236,3 +256,115 @@ class _BasicTools:
                 "skip_digestion": skip_digestion,
             },
         )
+
+    @_native_documentation("remove")
+    @signal(tags=["addon", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def remove(
+        self,
+        selection=None,
+        structure_indices=None,
+        to_form=None,
+        syntax="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        parameters = {
+            "selection": selection,
+            "structure_indices": structure_indices,
+            "to_form": to_form,
+            "syntax": syntax,
+            "in_place": in_place,
+            "skip_digestion": skip_digestion,
+        }
+        # This branch determines integration, so it remains validated even when
+        # native argument digestion is explicitly skipped.
+        from molsysmt._private.argdigest.argument.in_place import digest_in_place
+
+        in_place = digest_in_place(
+            in_place, caller="molsysviewer_molsysmt.basic.remove"
+        )
+        if not isinstance(update_view, bool):
+            raise TypeError("update_view must be a boolean.")
+        if not in_place:
+            return self._call("remove", parameters)
+
+        view = self._owner._view_ref()
+        self._owner._target()  # Closed/empty rejection before host access.
+        coordinator = getattr(view.addons.manager, "system_edits", None)
+        if coordinator is None:
+            raise RuntimeError(
+                "This Viewer host lacks managed molecular-edit receiving. Update the host before in-place edits."
+            )
+        return coordinator.execute(
+            lambda target: self._prepare_removal(target, parameters),
+            name="molsysmt.basic.remove",
+            update_view=update_view,
+        )
+
+    @staticmethod
+    def _prepare_removal(target, parameters):
+        from molsysmt import basic
+        from molsysmt._private.variables import is_all
+        from molsysmt.basic._index_validation import (
+            validate_element_indices,
+            validate_structure_indices,
+        )
+        from molsysmt.native._subset import validate_removal_target
+
+        validate_removal_target(target, parameters["to_form"])
+        selection = parameters["selection"]
+        atoms = (
+            []
+            if selection is None
+            else basic.select(
+                target,
+                selection=selection,
+                syntax=parameters["syntax"],
+                skip_digestion=parameters["skip_digestion"],
+            )
+        )
+        atoms = validate_element_indices(
+            target, atoms, "atom", "selection", "molsysmt.remove"
+        )
+        n_atoms, n_frames = (
+            int(target.get_n_atoms()),
+            int(target.structures.n_structures),
+        )
+        removed_atoms = set(range(n_atoms)) if is_all(atoms) else set(atoms)
+        frames = validate_structure_indices(
+            target, parameters["structure_indices"], "molsysmt.remove"
+        )
+        removed_frames = (
+            set(range(n_frames))
+            if is_all(frames)
+            else set([] if frames is None else frames)
+        )
+        atom_map = (
+            None
+            if not removed_atoms
+            else {
+                old: new
+                for new, old in enumerate(
+                    i for i in range(n_atoms) if i not in removed_atoms
+                )
+            }
+        )
+        frame_map = (
+            None
+            if not removed_frames
+            else [i for i in range(n_frames) if i not in removed_frames]
+        )
+        return {
+            "run": lambda: basic.remove(target, **parameters),
+            "changed": bool(removed_atoms or removed_frames),
+            "atom_index_map": atom_map if removed_atoms else None,
+            "structure_index_map": frame_map if removed_frames else None,
+            "interactions_policy": "preserve",
+            # Native removal prepares an extracted candidate and publishes a
+            # new state dictionary once. The host also checks dictionary identity
+            # before accepting this atomic-rejection declaration.
+            "failure_atomic": True,
+        }

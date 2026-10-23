@@ -10,8 +10,9 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysviewer_molsysmt` integration, discovered through the new
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its initial experimental facade provides six `basic` read/query tools, native
-independent extraction and their root aliases under `view.addons.molsysmt`. Editing and graphical task
-panels remain pending. Old root entry points and retired adapter files remain
+independent extraction, managed native removal and their root aliases under
+`view.addons.molsysmt`, with synchronization controls. Other edit families and
+graphical task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
 
@@ -109,3 +110,40 @@ both checkout working directories. The initial receiving exercise reproduced
 this shadowing and then ran both user-guide code blocks plus the bound extraction
 without explicit addon registration. These are development-source checks, not
 clean installed-artifact qualification.
+
+
+## Managed retained-axis removal
+
+The source facade admits `basic.remove` with native scientific options/defaults
+and a keyword-only `update_view=True`. Independent native outputs remain caller
+owned; `in_place=True` edits the actual bound MolSys and retains native None.
+The preparation adapter uses the provider's own selection/index validation and
+native candidate-publication contract, supplying authoritative retained maps to
+the generic Viewer coordinator. No second scientific removal engine exists.
+Atomic native rejection is qualified only while the same state dictionary remains;
+uncertain writes need explicit recovery. The receiver rejects empty in-place axes
+before science; independent native empty results retain their native behavior.
+
+`get_sync_status` returns detached integration metadata and `sync_view` retries
+projection without repeating science. Deferred removals compose maps; scene
+indices remain unavailable until reconciliation. Native readers are serialized
+with managed writes but read pending scientific results. Raw external writes and
+returned live references remain outside automatic synchronization.
+
+Source guards are `tests/molsysviewer_molsysmt/test_remove_tools.py` and the
+existing read/packaging guards, received against the coordinated Viewer host
+under uibcdf/molsysviewer#264. Broader namespace/effect qualification and graphical
+task panels remain pending under uibcdf/molsysmt#421. This does not qualify any
+published package pair or authorize a release.
+
+
+Source receiving checkpoint: Viewer `9da52e5500c9f8637e2f6f76eea0eb81ce783882`. Routine smoke/docs/full-fallback
+source routes now pin that managed-edit receiver; explicit candidate inputs retain
+precedence. Local receiving passes 17 remove/control cases, 20 read/extract cases,
+30 packaging guards and all three guide Python blocks in
+`molsyssuite@uibcdf_3.14`. Viewer retains its once-run full-suite result (3,266 pass,
+21 skips, two subsequently corrected inventory/TypeScript failures), focused
+corrections and the real Chromium receiving evidence under uibcdf/molsysviewer#264.
+These are working-source checks, not a frozen installed pair. Hosted exact-source
+CI remains to be inspected after this delivery; no runtime dependency floor,
+package, tag or release is changed.

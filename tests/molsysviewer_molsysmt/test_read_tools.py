@@ -80,7 +80,7 @@ def test_nonconsecutive_coordinates_keep_values_units_and_scene(view):
     assert actual.shape == (3, 3, 3)
     assert view.molsys is target
     assert view.export_state() == before
-    assert not hasattr(tools.basic, "remove")
+    assert callable(tools.basic.remove)
     assert not hasattr(tools, "set")
 
 
