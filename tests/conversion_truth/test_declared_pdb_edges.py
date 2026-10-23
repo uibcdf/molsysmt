@@ -99,6 +99,8 @@ def test_declared_pdb_edge_executes_directly_and_publicly(
             pytest.importorskip("mdtraj")
         elif form.startswith("openmm."):
             pytest.importorskip("openmm")
+        elif form.startswith("MDAnalysis."):
+            pytest.importorskip("MDAnalysis")
     for route in ("direct", "public"):
         with _source(source, tmp_path / route, rich_molsys) as item:
             assert msm.get_form(item) == source

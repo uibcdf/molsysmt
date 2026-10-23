@@ -28,8 +28,9 @@ def to_file_pdb(
         Structure indices (0-based) to include or process.
     output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    multiframe : object, default=True
-        Argument multiframe.
+    multiframe : bool, default=True
+        Whether to write the selected structures as PDB MODEL records. False
+        requires selecting one structure and writes a single-structure file.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -43,7 +44,13 @@ def to_file_pdb(
     """
 
     atom_group = item.atoms if is_all(atom_indices) else item.atoms[atom_indices]
-    frames = "all" if is_all(structure_indices) else structure_indices
+    frames = (
+        "all"
+        if is_all(structure_indices)
+        else None
+        if structure_indices is None
+        else list(structure_indices)
+    )
     atom_group.write(output_filename, frames=frames, multiframe=multiframe)
 
     return output_filename

@@ -29,6 +29,38 @@ EDGES = sorted(
 
 
 def _source(form):
+    if form == "MDAnalysis.Universe":
+        mda = pytest.importorskip("MDAnalysis")
+        universe = mda.Universe.empty(
+            3, n_residues=1, atom_resindex=[0, 0, 0], trajectory=True
+        )
+        for name, values in {
+            "names": ["O", "H1", "H2"],
+            "types": ["O", "H", "H"],
+            "elements": ["O", "H", "H"],
+            "ids": [17, 3, 45],
+            "resnames": ["HOH"],
+            "resids": [7],
+            "segids": ["W"],
+            "chainIDs": ["A"] * 3,
+            "masses": [15.999, 1.008, 1.008],
+            "charges": [-0.834, 0.417, 0.417],
+            "bonds": [(0, 1), (0, 2)],
+            "altLocs": [""] * 3,
+            "icodes": [""],
+            "occupancies": [1.0] * 3,
+            "tempfactors": [0.0] * 3,
+            "record_types": ["ATOM"] * 3,
+            "formalcharges": [0] * 3,
+        }.items():
+            universe.add_TopologyAttr(name, values)
+        # MDAnalysis's native boundary uses angstroms and box angles in degrees.
+        universe.load_new(
+            _water_coordinates() * 10,
+            order="fac",
+            dimensions=np.array([[20, 20, 20, 90, 90, 90]] * 2),
+        )
+        return universe
     if form.startswith("mdtraj."):
         md = pytest.importorskip("mdtraj")
         topology = md.Topology()
@@ -124,6 +156,8 @@ def test_declared_resident_edge_executes_directly_and_publicly(source, target):
             pytest.importorskip("mdtraj")
         elif form.startswith("openmm."):
             pytest.importorskip("openmm")
+        elif form.startswith("MDAnalysis."):
+            pytest.importorskip("MDAnalysis")
     arguments = _edge_arguments(source, target)
     assert msm.get_form(_source(source)) == source
     _execute_direct(source, target, _source(source), **arguments)

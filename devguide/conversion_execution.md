@@ -21,10 +21,11 @@ python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=ll
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-files-v5` profile: thirteen native containers/dictionary forms, four
+`resident-files-v6` profile: thirteen native containers/dictionary forms, four
 resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
-forms, and SDF/PDBQT file/text forms. Earlier native, engine, H5MSM and PDB
-subsets remain covered.
+forms, SDF/PDBQT file/text forms and `MDAnalysis.Universe`. The profile selects
+140 of 596 declared edges; 456 remain explicit coverage debt. Earlier native,
+engine, H5MSM, PDB and docking-format subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
 input; domain fixtures include mechanics parameters and a nonempty interaction
@@ -124,6 +125,23 @@ It exposed uibcdf/molsysmt#426: declared text used to reach unrelated SMILES
 heuristics. Generic registry-confirmed prefix dispatch repairs that path. The
 subsequent SDF grammar expansion is tracked separately within uibcdf/molsysmt#215.
 
+## MDAnalysis Universe execution
+
+Seven selected edges use `MDAnalysis.Universe`: its identity, PDB, MDTraj,
+MolSys, Topology and Structures outputs, plus the PDB-to-Universe route.
+The resident and PDB executors retain their disjoint ownership. Fresh water
+universes have three atoms, two distinguishable structures, explicit topology,
+charges and cells. Provider-native coordinates use angstroms and box angles use
+degrees. These literal inputs do not certify that all attributes survive every
+output format. Missing MDAnalysis produces a setup skip; an actual converter
+failure remains a failure.
+
+Execution exposed uibcdf/molsysmt#432. The public PDB writer option `multiframe`
+now receives boolean validation before side effects. Direct selected-structure
+calls pass validated index arrays to MDAnalysis as lists. Separate guards check
+both direct/public rejection, unchanged existing destinations, PDB MODEL/atom
+record counts and the literal coordinates of the selected structure.
+
 ## Coverage debt
 
 Edges outside the profile are explicitly listed by source and target, with a
@@ -138,7 +156,7 @@ Further profiles need file/string fixtures, other external objects and
 separately marked network cases. Optional dependencies should produce clear
 skips only when genuinely unavailable; a provider-complete qualification must
 report those skips explicitly. The thirteen-form native subset needs no external provider; the expanded cases
-skip only when MDTraj/OpenMM is genuinely unavailable during setup. Conversion
+skip only when MDTraj/OpenMM/MDAnalysis is genuinely unavailable during setup. Conversion
 exceptions are never interpreted as optional-provider skips.
 Neither a green inventory nor this bounded profile establishes that every
 conversion in MolSysMT executes. See [form adapter testing](testing_form_adapters.md)

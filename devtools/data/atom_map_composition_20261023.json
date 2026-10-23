@@ -63,5 +63,13 @@
     "Typed stages retain original charge totals/precision, rooted metadata and attribution; no scientific calculation is credited again.",
     "No H5MSM schema or molecular form added.",
     "Explicit backend name-projection operation and consumer adoption remain pending under #223."
-  ]
+  ],
+  "format_followup": {
+    "reason": "Published CI accepted lint but rejected formatting of the atom_maps digester. Original hashes/evidence above describe the initial implementation.",
+    "path": "molsysmt/_private/argdigest/argument/atom_maps.py",
+    "formatted_sha256": "137dd8b59cad05fa2f00d665fee651bb5772679074843fe7a76b6f3d53926faf",
+    "regression_receipt": "devtools/data/conversion_execution_mdanalysis_20261023.json",
+    "ruff_check": "whole checkout pass",
+    "ruff_format_check": "whole checkout pass"
+  }
 }

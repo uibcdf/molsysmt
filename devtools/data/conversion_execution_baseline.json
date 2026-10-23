@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-files-v5",
+  "profile": "resident-files-v6",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -26,7 +26,8 @@
     "molsysmt.PDBFileHandler",
     "file:sdf",
     "file:pdbqt",
-    "string:pdbqt_text"
+    "string:pdbqt_text",
+    "MDAnalysis.Universe"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -53,7 +54,8 @@
     "molsysmt.PDBFileHandler",
     "file:sdf",
     "file:pdbqt",
-    "string:pdbqt_text"
+    "string:pdbqt_text",
+    "MDAnalysis.Universe"
   ],
   "accepted_unexecuted_edges": {
     "MDAnalysis.AtomGroup": {
@@ -75,12 +77,6 @@
     "MDAnalysis.Universe": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "MDAnalysis.Universe",
-        "file:pdb",
-        "mdtraj.Trajectory",
-        "molsysmt.MolSys",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
         "nglview.NGLWidget"
       ]
     },
@@ -294,7 +290,6 @@
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
         "MDAnalysis.Topology",
-        "MDAnalysis.Universe",
         "MDAnalysis.topology.PDBParser",
         "file:mol2",
         "mdtraj.PDBTrajectoryFile",

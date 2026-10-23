@@ -416,3 +416,34 @@ and independent original-file tests belong to uibcdf/molsysmt#215.
 The graph profile remains `resident-files-v5`: 133 selected / 596 declared edges,
 463 explicit coverage-debt edges. More witnesses strengthen covered routes;
 they do not count as additional conversion edges or close #181.
+
+## MDAnalysis Universe expansion — 2026-10-23
+
+The `resident-files-v6` profile adds seven declared routes: Universe identity,
+PDB, MDTraj, MolSys, Topology and Structures outputs, and PDB-to-Universe.
+It now selects **140 of 596 edges**, with 456 individually listed coverage-debt
+edges. Only the seven newly covered routes leave that debt inventory; no graph
+edge is removed or added. Resident/PDB executors remain a disjoint partition.
+Fresh provider-native water fixtures carry three atoms and two distinguishable
+structures, explicit topology and cells, angstrom coordinates and degree angles.
+MDAnalysis setup skips only if the optional provider is unavailable.
+
+Execution found two argument-boundary defects under uibcdf/molsysmt#432: an
+unvalidated boolean writer flag and an ndarray/list mismatch for direct selected
+PDB output. Fourteen mirrored guards protect early rejection before writer or
+destination changes, valid single/multiple-structure output and literal selected
+coordinates. The original controls had eleven failures and three passes; the
+repair restores ordinary validated delegation rather than bypassing digestion.
+
+The combined regression passes **379 tests**, zero failures/skips, in 34.31 seconds
+with twelve workers and Pytest Receptor. All 27 warnings are legacy H5MSM notices.
+It includes the entire conversion-truth suite, MDAnalysis adapters, atom-map
+composition, execution-inventory controls and argument contracts. The atom-map
+digester formatting correction is included in this execution; earlier CI rejected
+its formatting even though lint passed. Whole-checkout Ruff lint and formatting
+now pass, as do the fourteen fast gates.
+
+The [receipt](../../devtools/data/conversion_execution_mdanalysis_20261023.json)
+records versions, commands and tested source hashes. #181 remains partial: this
+is bounded route execution, not all-attribute fidelity or installed/release
+qualification. #334's release pause and external-package gates remain unchanged.

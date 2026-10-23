@@ -1,0 +1,116 @@
+{
+  "schema": "molsysmt.conversion_execution_qualification@1",
+  "date": "2026-10-23",
+  "issue": "uibcdf/molsysmt#181",
+  "related_defect": "uibcdf/molsysmt#432",
+  "baseline_commit": "86a2094fadd1e37a9dba1ba42739f552381b0e42",
+  "scope": "Local source execution; not installed-pair or release qualification.",
+  "profile": "resident-files-v6",
+  "declared_edges": 596,
+  "selected_edges": 140,
+  "added_edges": 7,
+  "accepted_unexecuted_edges": 456,
+  "added_routes": [
+    [
+      "MDAnalysis.Universe",
+      "MDAnalysis.Universe"
+    ],
+    [
+      "MDAnalysis.Universe",
+      "file:pdb"
+    ],
+    [
+      "MDAnalysis.Universe",
+      "mdtraj.Trajectory"
+    ],
+    [
+      "MDAnalysis.Universe",
+      "molsysmt.MolSys"
+    ],
+    [
+      "MDAnalysis.Universe",
+      "molsysmt.Structures"
+    ],
+    [
+      "MDAnalysis.Universe",
+      "molsysmt.Topology"
+    ],
+    [
+      "file:pdb",
+      "MDAnalysis.Universe"
+    ]
+  ],
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/MDAnalysis_Universe tests/form/test_compose_atom_maps.py devtools/tests/test_audit_conversion_execution.py tests/test_argument_contract.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 379,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 34.31,
+    "warnings": {
+      "legacy_h5msm_04": 27
+    }
+  },
+  "original_defect": {
+    "passed": 3,
+    "failed": 11,
+    "missing_digester_warnings": 14,
+    "mechanisms": [
+      "Invalid multiframe reaches writer through both routes.",
+      "Digested ndarray structure selection fails external scalar comparison on direct route."
+    ]
+  },
+  "guard": "tests/form/MDAnalysis_Universe/test_pdb_multiframe.py",
+  "fixture": "Provider-native three-atom/two-structure water, explicit topology, angstrom coordinates and degree box angles; fresh inputs per direct/public call.",
+  "bounds": [
+    "Declared graph unchanged.",
+    "Output-form smoke does not certify attribute fidelity.",
+    "Missing optional providers skip only at setup.",
+    "Atom-map formatting correction rerun in this regression.",
+    "No new scientific method or Ackredit calculation boundary."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "MDAnalysis": "2.10.0",
+      "mdtraj": "1.11.1",
+      "openmm": "8.6.1",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/form/MDAnalysis_Universe/to_file_pdb.py": "bb6b883e723c22e04e2dce5be20bbfd3bdbc361acdc2ee0506772819712338c6",
+    "molsysmt/_private/argdigest/argument/multiframe.py": "31960ca1a3054804e072e85a114008b2f6b2f85b74f9f9cc2913c6522fc326c4",
+    "tests/form/MDAnalysis_Universe/test_pdb_multiframe.py": "f728e55d643016a0ba0627ba0ed3be140fef041f3d0381195522c96e744cc751",
+    "tests/conversion_truth/test_declared_native_edges.py": "bfc6ebcaeb781a359edeb574266e7fe67df6a779d9ce6b1f4c7d684f74e44b29",
+    "tests/conversion_truth/test_declared_pdb_edges.py": "1066a80b9d46c4f58c99b159040a8f989b47fd822b253f93f6944b7583a3069c",
+    "devtools/data/conversion_execution_baseline.json": "9a955f6e8cc0c0c28e65b4c5334d840c794488eb96bced2cff09e32dd66adbcc"
+  },
+  "checks": {
+    "fast_gates": "14/14 pass",
+    "ruff_check": "whole checkout pass",
+    "ruff_format_check": "whole checkout pass",
+    "docstring_validation": "250 public functions pass",
+    "signature_stability": "zero unauthorized drifts",
+    "doctest": {
+      "command": "python -m pytest --doctest-modules molsysmt/form/MDAnalysis_Universe/to_file_pdb.py molsysmt/form/compose_atom_maps.py --receptor=llm",
+      "passed": 1,
+      "seconds": 0.16
+    },
+    "documentation": {
+      "command": "python docs/execute_notebooks.py -q -f -n 12 docs/content/user/tools/basic/convert.ipynb docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+      "executed": 2,
+      "failures": 0,
+      "seconds": [
+        59.5,
+        11.9
+      ]
+    }
+  }
+}
