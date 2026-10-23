@@ -37,6 +37,17 @@ def _native_documentation(name):
                 "A scene update failure raises SystemEditSyncError with science_completed=True, "
                 "operation_id and scientific_result; retry synchronization, not removal.\n"
             )
+        if name == "set":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "update_view : bool, keyword-only, default=True\n"
+                "    Reconcile the bound edit immediately; False defers projection only. "
+                "The initial receiver admits coordinates and box with retained atom/structure "
+                "axes, native units/selection/order and native None return. Other attributes "
+                "are rejected before scientific execution. Native setters invalidate only "
+                "affected structures; no detector runs. Use sync_view() to retry projection, "
+                "not set() again. Potentially partial writes require explicit recovery.\n"
+            )
         return function
 
     return decorate
@@ -52,6 +63,7 @@ class _BasicTools:
         "get_label",
         "extract",
         "remove",
+        "set",
     )
 
     def __init__(self, owner):
@@ -368,3 +380,48 @@ class _BasicTools:
             # before accepting this atomic-rejection declaration.
             "failure_atomic": True,
         }
+
+    @_native_documentation("set")
+    @signal(tags=["addon", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def set(
+        self,
+        element=None,
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        chemical_state="reference",
+        skip_digestion=False,
+        *,
+        update_view=True,
+        **kwargs,
+    ):
+        if "molecular_system" in kwargs:
+            raise TypeError(
+                "The primary molecular_system is bound to view.molsys and cannot be overridden."
+            )
+        if not isinstance(update_view, bool):
+            raise TypeError("update_view must be a boolean.")
+        self._owner._target()
+        from ._geometry import _geometry_token, _prepare_geometry_set
+
+        view = self._owner._view_ref()
+        coordinator = getattr(view.addons.manager, "system_edits", None)
+        if coordinator is None:
+            raise RuntimeError(
+                "This Viewer host lacks managed molecular-edit receiving."
+            )
+        parameters = {
+            "element": element,
+            "selection": selection,
+            "structure_indices": structure_indices,
+            "syntax": syntax,
+            "chemical_state": chemical_state,
+            "skip_digestion": skip_digestion,
+        }
+        return coordinator.execute(
+            lambda target: _prepare_geometry_set(target, parameters, kwargs),
+            name="molsysmt.basic.set",
+            update_view=update_view,
+            rejection_check=_geometry_token,
+        )

@@ -232,3 +232,33 @@ corrections and the real Chromium receiving evidence under uibcdf/molsysviewer#2
 These are working-source checks, not a frozen installed pair. Hosted exact-source
 CI remains to be inspected after this delivery; no runtime dependency floor,
 package, tag or release is changed.
+
+
+## Coordinates and box source receiving — 2026-10-23
+
+`basic.set` now has an explicit partial effect inventory: coordinates and box,
+retained nonempty axes, native scientific signature/None return, and update_view.
+Other attribute names remain valid native names but their effects are unreceived;
+keyword typos are rejected through the shared native ArgDigest attribute domain.
+Provider-owned preflight normalizes units/selectors and checks the integration's
+retained dimensions before native execution. No second molecular authority exists.
+
+Nested writes are received through the host's explicit rejection_check token
+reader, so an older host rejects before science rather than silently ignoring a
+plan option. Tests cover native parity, nonconsecutive/repeated structures,
+coverage/snapshots (also actual Buch results), deferred removal plus geometry,
+invalid requests, partial-write uncertainty and connector interruption/retry.
+The visual synchronization currently rebuilds the scene: bounded or incremental
+trajectory transfer is not established by this receiver. Broad attributes,
+other namespaces, task panels and installed pair qualification remain pending.
+
+The geometry source delivery receives Viewer
+`deaba4cbea43015859544b1b393ecbe02dd2ee19`. Routine source pins and smoke
+preflight now require its explicit rejection token argument, and smoke runs
+the read, remove and set guards. Local source checks pass 23 setter cases,
+37 existing addon cases, 30 packaging guards and all four guide Python blocks
+in `molsyssuite@uibcdf_3.14`. Viewer reports 3,278 core passes with 21 skips,
+eight coordinator cases and real Chromium coordinate/box receiving. The source
+receipt is owned under uibcdf/molsysviewer#264. Course Module 06 availability
+prose is updated; its executable cells and outputs are unchanged. New hosted
+checks and exact installed-pair qualification remain pending.

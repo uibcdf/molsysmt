@@ -9,8 +9,8 @@ supplied as the primary input.
 
 The experimental source implementation provides six queries under
 `view.addons.molsysmt.basic`: `get`, `select`, `info`, `get_attributes`,
-`has_attribute` and `get_label`, plus independent extraction with `extract`
-and managed native removal with `remove`.
+`has_attribute` and `get_label`, plus independent extraction with `extract`,
+managed native removal with `remove`, and the coordinates/box routes of `set`.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -120,6 +120,61 @@ unchanged counts do not certify correspondence. Explicit recovery through
 scene reconciliation and loads a replacement. This is not scientific Undo and
 does not revert caller-held references to the old edited system. Ordinary
 `view.load` cannot silently discard unresolved managed edits.
+
+## Setting coordinates and periodic boxes
+
+The source receiver admits `basic.set` for **coordinates** and **box**, with
+the current atom and structure axes retained. Its native parameters/defaults
+remain visible; `update_view=True` is the additional keyword-only integration
+control. Native setting edits the bound system and returns None; it does not
+need or invent an `in_place` flag.
+
+```python
+import numpy as np
+from molsysmt import pyunitwizard as puw
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0, 8, 3]) as view:
+        tools = view.addons.molsysmt
+        coordinates = tools.basic.get(
+            element="atom", selection=[2, 0],
+            structure_indices=[2, 0], coordinates=True,
+        )
+        tools.basic.set(
+            selection=[2, 0], structure_indices=[2, 0],
+            coordinates=coordinates + puw.quantity(0.1, "nm"),
+        )
+        boxes = puw.quantity(np.tile(np.diag([3, 4, 5]), (3, 1, 1)), "nm")
+        tools.basic.set(box=boxes, update_view=False)
+        tools.sync_view()
+```
+
+Units, selection order and repeated-index writes follow {doc}`basic/set`.
+Supply one coordinate block or box matrix per selected structure; no broadcast
+is added. Coordinates use atom-level selection with element=None or atom;
+element=system keeps native whole-system semantics and ignores atom selection.
+Boxes require element=None or system. Initialize a missing box with all
+structures before partial replacement; `tools.basic.set(box=None)` clears the
+complete series. Coordinate-axis initialization/resizing/clearing and other
+attributes are not received yet and fail before writing through this wrapper.
+
+MolSysMT invalidates named interaction analyses only on edited structures,
+including previously evaluated-empty ones. Unedited structures and earlier
+snapshots remain available; setting geometry never recalculates a detector.
+Valid empty selections are native no-ops. Geometry and removal edits can be
+deferred together and reconciled once. The existing synchronization-failure and
+uncertain-state recovery rules above also apply to this setter.
+
+Multiple attributes are validated before delegation, but an unexpected error
+after a native write may leave partial data. This route therefore requires a
+host that checks nested geometry/analysis state on rejection; an older receiver
+rejects the request before scientific execution. It does not promise scientific
+rollback. To use other native attributes, first synchronize pending work, then
+use MolSysMT with explicit Viewer reconciliation until their effects are received.
+
+Native geometry storage replaces affected blocks. The current visual receiver
+still rebuilds the scene when synchronizing, so a small setter request is not a
+promise of incremental or bounded trajectory transfer to the browser.
 
 ## Reusing tool references
 

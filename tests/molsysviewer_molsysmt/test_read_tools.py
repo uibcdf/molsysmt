@@ -81,7 +81,7 @@ def test_nonconsecutive_coordinates_keep_values_units_and_scene(view):
     assert view.molsys is target
     assert view.export_state() == before
     assert callable(tools.basic.remove)
-    assert not hasattr(tools, "set")
+    assert callable(tools.set)
 
 
 @pytest.mark.parametrize(

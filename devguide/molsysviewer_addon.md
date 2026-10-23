@@ -147,3 +147,22 @@ corrections and the real Chromium receiving evidence under uibcdf/molsysviewer#2
 These are working-source checks, not a frozen installed pair. Hosted exact-source
 CI remains to be inspected after this delivery; no runtime dependency floor,
 package, tag or release is changed.
+
+
+## Geometry-only basic.set receiving
+
+Source admits the coordinate/box routes of `basic.set` with native parameters,
+None return and keyword-only update_view. The addon reuses the native ArgDigest
+attribute domain; integration rejects unreceived attributes and axis changes
+before writes. Native unit/selector tools own input interpretation and native
+setters own per-structure invalidation. Analyses on untouched structures and
+old snapshots survive. No automatic calculation or coordinate broadcasting is
+introduced. The current host synchronizes through a scene rebuild, not a
+guaranteed incremental transfer.
+
+The host executor's explicit rejection_check token reader covers nested protected
+geometry and analysis snapshots. It may certify an unchanged rejection without
+declaring a multi-attribute call atomic; changed/uncertain state instead requires
+explicit recovery. Hosts without that keyword reject before executing science.
+Guard: `tests/molsysviewer_molsysmt/test_set_tools.py`; broader attribute/effect
+receiving remains open under uibcdf/molsysmt#421 and uibcdf/molsysviewer#264.
