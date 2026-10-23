@@ -349,3 +349,20 @@ strict center-image validation and unit/axis behavior.
 [Measured workloads](benchmarking/vectors.md) distinguish native runtime, public
 validation/delivery and process RSS. No GPU, checkpoint or incremental writer
 contract is provided by this experimental operation.
+
+
+## PDBQT indexed input
+
+`PDBQTFileHandler(path, storage_mode='indexed')` retains source-bound byte
+ranges and one parsed reference model. File-form StructuresIterator uses this
+mode automatically; the principal basic.Iterator is unchanged. Every model is
+validated before iteration. Working memory includes index/ID metadata, the
+reference/preamble, a current model and requested blocks. It does not retain
+every parsed model or a complete source text. Source changes reject queries.
+
+These forms supply coordinate chunks to the existing ChunkedExecutor; center
+parity is directly guarded. Per-operation heavy eligibility and scientific pair
+semantics remain owned by those operations (including uibcdf/molsysmt#441 for
+distances). Explicit full outputs and the known-source pose reader remain
+materialized. Use an explicit indexed handler context for deterministic early
+exit and metadata reuse. See [PDBQT measurements](benchmarking/pdbqt.md).

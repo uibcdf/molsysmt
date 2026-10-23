@@ -361,7 +361,7 @@ sections:
           - name: pdbqt_file_handler
             file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md
             agents_file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md.AGENTS.md
-            description: Resident PDBQT snapshot, per-form structure iterators and explicit metadata/conversion bounds.
+            description: Resident/indexed PDBQT storage, per-form structure iterators, source binding and bounded file output.
             status: reviewed
           - name: read_pdbqt_poses
             file: docs/content/user/tools/form/read_pdbqt_poses.md

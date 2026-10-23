@@ -36,5 +36,5 @@ def has_attribute(
         return False
     if include_none:
         return True
-    with PDBQTFileHandler(molecular_system) as handler:
+    with PDBQTFileHandler(molecular_system, storage_mode="indexed") as handler:
         return handler_has(handler, attribute, skip_digestion=True)

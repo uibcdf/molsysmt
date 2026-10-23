@@ -10,17 +10,18 @@
 :::{versionadded} 1.0.0
 :::
 
-The experimental handler owns a read-only **resident text snapshot**. It validates
-all model bodies on opening, retains compact structure ranges and one reference
-record, and builds coordinate arrays only for the requested structures. File
-changes after opening do not change that snapshot. Copies share immutable text
-and indexes but have independent lifetimes and mutable projection caches.
+The experimental handler supports two storage modes:
 
-This initial handler still loads a file's text into RAM. Disk-backed indexing,
-first-block latency and large-file memory benchmarks remain
-[uibcdf/molsysmt#434](https://github.com/uibcdf/molsysmt/issues/434). A structure
-iterator avoids a complete coordinate trajectory; it does not make resident
-source text disappear.
+- `storage_mode='resident'` (default) keeps a read-only text snapshot. Later
+  file changes do not change that snapshot.
+- `storage_mode='indexed'` keeps an uncompressed UTF-8 file open and reads model
+  bodies through byte offsets. Changes, replacement or removal of its source
+  cause a clear error; reopen the handler to validate a new source.
+
+Both validate every model on opening, keep one parsed reference model, and
+create coordinate arrays for requested structures. Copies close independently;
+indexed copies share a guarded descriptor until the final owner releases it.
+Use context managers for deterministic cleanup. Explicit text remains resident.
 
 ## Opening and querying a document
 
@@ -85,7 +86,7 @@ A handler iterator borrows its input and never closes the caller's handler.
 File/text iterators create an owned handler, released on exhaustion, failure,
 explicit `close()` or their own context exit. For early termination through
 `msm.Iterator`, keep an explicit handler context as above: that owner releases
-the snapshot when the enclosing context ends.
+the owned source when the enclosing context ends.
 
 ```python
 from pathlib import Path
@@ -98,12 +99,53 @@ with TemporaryDirectory() as directory:
             path, chunk=1, coordinates=True) as iterator:
         assert next(iterator).shape == (1, 1, 3)
     assert iterator.closed
+
+    with PDBQTFileHandler(path, storage_mode='indexed') as handler:
+        assert handler.storage_mode == 'indexed'
+        chunks = list(msm.Iterator(handler, coordinates=True,
+                                  structure_indices=[1, 0, 1], chunk=2))
+        assert [value.shape for value in chunks] == [(2, 1, 3), (1, 1, 3)]
+        output = Path(directory) / 'copy.pdbqt'
+        msm.convert(handler, to_form=output)
+        assert output.read_bytes() == path.read_bytes()
 ```
+
+File-form iterators use indexed storage automatically. Reusing an explicitly
+opened indexed handler avoids repeated validation in separate file queries.
+Source identity, size and timestamps are checked around reads. This is a source
+consistency check, not cryptographic authentication or a filesystem snapshot.
+Reading through copied handlers is serialized at their shared descriptor;
+closing one copy does not close another. An interrupted owned iterator closes
+its source; an iterator borrowing your handler leaves it open.
+
+## Choosing storage for a large ensemble
+
+On 2026-10-23, the synthetic 8,192-structure × 64-atom comparison used a 39.7 MiB
+file. Additional measured process peak above a warmed runtime was 79.4 MiB in
+resident mode and 5.4 MiB indexed. Opening and full validation took approximately
+8.5 s and 9.0 s respectively. Indexed storage saves source-text memory; opening
+still examines every model. See the
+[benchmark procedure and complete measurements](https://github.com/uibcdf/molsysmt/blob/main/devguide/benchmarking/pdbqt.md)
+for fixtures, versions and measurement limits.
+
+The working set also includes indexes, model IDs, the reference model and
+preamble metadata; a very large individual model or preamble can dominate it.
+Queries and iterators preserve ordered/repeated indices. A request for all
+coordinates, a complete text string or a selected native system materializes
+that requested result. Selected handler extraction currently produces a resident
+document; use block queries or file output for large subsets. The mapped
+known-source `read_poses` remains eager in its source metadata.
+
+Full-atom file output streams source ranges; rigid atom subsets are written
+one selected model at a time. Temporary destination files are committed only
+after successful completion, preserving an existing destination on failure.
+Uncompressed files are the supported indexed profile. Compressed random access
+and reusable index sidecars require separate designs; no sidecar is created.
 
 ## Preserving document evidence
 
-The handler retains ROOT/BRANCH/TORSDOF, opaque remarks, MODEL labels and source
-text. `get_torsion_tree(structure_index=0)` returns detached declared evidence;
+The handler preserves access to ROOT/BRANCH/TORSDOF, opaque remarks, MODEL
+labels and source text. `get_torsion_tree(structure_index=0)` returns detached declared evidence;
 no complete connectivity, aromaticity or formal charges are inferred.
 
 Full identity conversions to `file:pdbqt` or `string:pdbqt_text` preserve the

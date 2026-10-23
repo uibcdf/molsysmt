@@ -18,7 +18,7 @@ def to_file_pdbqt(
     atom_indices : int, list, tuple or numpy.ndarray, default='all'
         Source atom indices (0-based) to include; serials remain string IDs.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
-        Structure indices (0-based). Only zero exists in the supported profile.
+        Source structure positions, independent of MODEL IDs; serialized selections must be nonempty and unique.
     output_filename : str or pathlib.Path, default=None
         Destination path; required for file output. Validation precedes writing.
     skip_digestion : bool, default=False
@@ -37,7 +37,7 @@ def to_file_pdbqt(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt._private.pdbqt_adapter import selected_payload, write_payload
+    from molsysmt.native import PDBQTFileHandler
 
-    payload = selected_payload(item, atom_indices, structure_indices, text=False)
-    return write_payload(payload, output_filename)
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
+        return handler._write_file(output_filename, atom_indices, structure_indices)

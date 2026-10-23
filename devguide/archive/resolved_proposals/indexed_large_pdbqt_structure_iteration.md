@@ -1,12 +1,12 @@
 ---
 summary: Support indexed and bounded-memory iteration over large PDBQT structure ensembles
 issue: uibcdf/molsysmt#434
-status: partial
+status: resolved
 opened: 2026-10-23
-closed:
-verification: reproduced
+closed: 2026-10-23
+verification: measured
 area: [form, performance]
-guard:
+guard: tests/native/test_pdbqt_indexed_file_handler.py
 normative:
 blocked_by: []
 supersedes: []
@@ -15,9 +15,9 @@ supersedes: []
 # Large PDBQT documents through form-specific structure iterators
 
 **Reported:** 2026-10-23, during the maintainer's PDBQT handler review.
-**Status:** Partial. Resident indexed snapshots and form-specific coordinate
-blocks are implemented and contract-tested. Disk-backed reads, large-file
-measurements and remaining scalability features stay pending after 1.0.
+**Status:** Resolved for the documented uncompressed indexed profile.
+The resident checkpoint below is historical; the indexed implementation and
+qualification sections record the completed scope.
 
 ## What
 
@@ -72,10 +72,12 @@ handler's buffers/index and any validation caches in peak RSS.
 Contract-tested: the PDBQT adapters support homogeneous MODEL ensembles, and
 the known-source reader preserves the declared source chemistry. The generic
 Iterator delegates structural requests to each form's StructuresIterator.
-No large-file scalability benchmark has been executed for this proposal.
+At opening, no large-file scalability benchmark had been executed. The dated
+indexed qualification below supersedes that initial evidence status.
 
-Assumed: a shared indexed/streaming implementation will reduce repeated I/O and
-trajectory-sized allocations. This is a design hypothesis, not measured speedup.
+Initial hypothesis: shared indexed/streaming delivery would reduce
+trajectory-sized allocations. The completed measurements below support the
+memory benefit, not a speedup.
 
 ## Acceptance criteria
 
@@ -155,4 +157,90 @@ executed successfully. All 14 fast repository gates passed. No full scientific
 or installed release matrix was run, and no large-file benchmark is claimed.
 
 The machine-readable scope, source hashes and limitations are recorded in
-[`pdbqt_handler_20261023.json`](../../devtools/data/pdbqt_handler_20261023.json).
+[`pdbqt_handler_20261023.json`](../../../devtools/data/pdbqt_handler_20261023.json).
+
+## Indexed-file implementation — 2026-10-23
+
+The maintainer authorizes completing the uncompressed indexed profile now.
+`PDBQTFileHandler(..., storage_mode='indexed')` retains a binary descriptor,
+byte ranges, MODEL IDs and one parsed reference model. The resident default
+retains its original snapshot behavior. File-form getters and iterators use
+indexed temporary owners, so the unchanged universal facade does not first
+read the source into a complete text string during metadata resolution.
+
+MODEL grammar is shared between text and file offset producers. UTF-8 and CRLF
+byte/character differences are guarded. Every model is validated up front;
+source identity, size and nanosecond timestamps are checked around selected
+reads. An edited, replaced or removed source requires reopening. This is an
+operational consistency guard, not authentication or a filesystem snapshot.
+
+Copies share a locked source lease with independent close ownership. Python
+copies and abandoned handles release their leases; context managers provide
+deterministic release. Owned iterators release on exhaustion, errors and
+interruption; borrowed handlers remain caller-owned. File output is atomic and
+bounded: full-atom source ranges use byte chunks, and rigid atom subsets use
+one selected model at a time. An output string, resident selection/extraction
+or complete requested coordinate/native output still materializes that result.
+The known-source mapped reader remains eager in its source metadata.
+
+The existing ChunkedExecutor consumes coordinate chunks without another
+trajectory API; center parity is guarded. Operation-specific scientific
+qualification remains separate, including the reported distances defect
+uibcdf/molsysmt#441. This registration is not a claim that every heavy
+geometry combination is already qualified.
+
+### Measurements and limits
+
+The [benchmark procedure](../../benchmarking/pdbqt.md) and
+[trial receipt](../../../devtools/data/pdbqt_storage_benchmark_20261023.json) retain
+12 fresh-process trials over 256, 2,048 and 8,192 structures × 64 atoms.
+For the 39.67 MiB largest file, additional process peak is approximately
+79.38 MiB resident and 5.44 MiB indexed. Opening is approximately 8.46 versus
+9.00 seconds; selected four-structure queries are 4.00 versus 4.32 ms. Thus the
+measured gain is working memory, with some I/O/check overhead, not uniform
+speedup. Full validation still dominates first-block latency. The OS page
+cache is uncontrolled; no cold-disk claim or timing threshold is introduced.
+Source hashing rejects mixed-source benchmark runs.
+
+Working memory also depends on range/ID metadata, the reference model, retained
+preamble, a current model and coordinate blocks; large individual metadata can
+dominate it. The allocation regression rejects a source-sized input-text copy
+under tracemalloc, while separate RSS measurements cover actual process memory.
+Original Vina fixtures and an engine-generated ensemble provide bounded
+real-input and coordinate references, not chemical preparation validation.
+
+### Explicit scope decisions
+
+- Supported: uncompressed UTF-8 files, resident text, ordered/repeated query axes,
+  unique serialized structure selections, concurrent copied-handle reads,
+  source binding, deterministic ownership and bounded file output.
+- No persistent index is written. Reopening revalidates; a reusable sidecar
+  would need its own source/schema identity and stale-index policy.
+- Compressed random access is unsupported. Ordinary gzip seeking does not
+  acquire a validated indexed contract merely because an iterator exists.
+- Descriptor access is serialized; no parallel decoder or Rust parser speedup
+  is claimed. Windows may prevent replacement/unlink of an open source, in
+  which case the mutation is denied and the original remains valid.
+- No new H5MSM schema, full/installed release matrix, tag or package publication.
+
+### Final qualification receipt — 2026-10-23
+
+The combined indexed/resident handler, file/text adapters, known-source poses,
+conversion truth, units and argument/plugin regression passed **520 tests**
+in 38.26 seconds with `--receptor=llm -n 12`. The 37 warnings are 30 legacy
+H5MSM reads, six MDAnalysis mass deprecations and one previously tracked NumPy
+binary-size warning. No failure or skip occurred. The allocation guard, source
+mutation/atomic-output guards, resource/interruption guards and original Vina
+ensemble check ran in that selection.
+
+The executable handler guide example passed, course module 19 executed,
+250 selected docstrings passed and all 14 fast repository gates passed. The
+Sphinx build completed with existing documentation warnings. The principal
+Iterator implementation is unchanged. The scoped machine-readable receipt is
+[`pdbqt_indexed_qualification_20261023.json`](../../../devtools/data/pdbqt_indexed_qualification_20261023.json).
+
+The primary guard inspects requested byte reads, rejects a source-sized text
+allocation, checks copied resource ownership and verifies atomic output on
+source failure. Together these assertions protect the promised storage
+behavior rather than merely accepting an iterator-shaped result. No installed
+release matrix or publication is implied.

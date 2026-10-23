@@ -9,14 +9,18 @@ def selected_native(
 ):
     from molsysmt.native import PDBQTFileHandler
 
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(
+        item, storage_mode="resident" if text else "indexed"
+    ) as handler:
         return handler._to_native(atom_indices, structure_indices, discard_torsion_tree)
 
 
 def selected_payload(item, atom_indices, structure_indices, *, text):
     from molsysmt.native import PDBQTFileHandler
 
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(
+        item, storage_mode="resident" if text else "indexed"
+    ) as handler:
         return handler._payload(atom_indices, structure_indices)
 
 
@@ -87,7 +91,9 @@ def restore_export_axis(mapping, source, atoms, structures):
 def structure_count(item, structure_indices, *, text):
     from molsysmt.native import PDBQTFileHandler
 
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(
+        item, storage_mode="resident" if text else "indexed"
+    ) as handler:
         return len(
             handler._axis(structure_indices, handler.n_structures, "structure_indices")
         )
@@ -133,7 +139,9 @@ def identity_selection(item, source_form, selection, structure_indices, syntax):
     with (
         item.copy()
         if source_form == "molsysmt.PDBQTFileHandler"
-        else PDBQTFileHandler(item)
+        else PDBQTFileHandler(
+            item, storage_mode="indexed" if source_form == "file:pdbqt" else "resident"
+        )
     ) as handler:
         atoms = select(handler._native(), selection=selection, syntax=syntax)
         structures = handler._axis(

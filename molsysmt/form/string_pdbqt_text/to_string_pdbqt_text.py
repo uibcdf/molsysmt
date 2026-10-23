@@ -14,7 +14,7 @@ def to_string_pdbqt_text(
     atom_indices : int, list, tuple or numpy.ndarray, default='all'
         Source atom indices (0-based) to include; serials remain string IDs.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
-        Structure indices (0-based). Only zero exists in the supported profile.
+        Source structure positions, independent of MODEL IDs; serialized selections must be nonempty and unique.
     skip_digestion : bool, default=False
         Whether to skip argument digestion. Default is False.
 

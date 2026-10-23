@@ -292,7 +292,9 @@ principal Iterator. Selected coordinate buffers are block-sized; metadata-only
 Topology/MolecularMechanics conversions do not allocate the full ensemble.
 The resident source text and up-front full-document validation remain explicit
 limitations. Disk-backed indexing and large-file qualification are owned by
-[the #434 record](indexed_large_pdbqt_structure_iteration.md), which stays partial.
+[the #434 record](../archive/resolved_proposals/indexed_large_pdbqt_structure_iteration.md).
+That resident checkpoint was partial; the indexed checkpoint below records its
+subsequent completion.
 
 API organization follows operation ownership: `build.project_atom_names` with
 `target_form`, `basic.compose_atom_maps` (also `msm.compose_atom_maps`), and
@@ -321,3 +323,14 @@ or installed release matrix was run, and no large-file benchmark is claimed.
 
 The machine-readable scope, source hashes and limitations are recorded in
 [`pdbqt_handler_20261023.json`](../../devtools/data/pdbqt_handler_20261023.json).
+
+## Indexed storage checkpoint — 2026-10-23
+
+The bounded uncompressed file profile is now implemented and qualified under
+uibcdf/molsysmt#434. File getters and per-form structure iterators use indexed
+owners; the public handler offers explicit resident/indexed storage, source
+consistency checks, shared leases and bounded atomic file output. The dated
+benchmark is maintained in [PDBQT storage](../benchmarking/pdbqt.md).
+Full validation remains an opening cost; text/full requested outputs and the
+known-source mapped metadata retain their documented eager scope. This does
+not broaden chemical interpretation or close the remaining #214 scope.

@@ -18,7 +18,7 @@ def to_molsysmt_Structures(
     atom_indices : int, list, tuple or numpy.ndarray, default='all'
         Source atom indices (0-based) to include; serials remain string IDs.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
-        Structure indices (0-based). Only zero exists in the supported profile.
+        Source structure positions, independent of MODEL IDs; serialized selections must be nonempty and unique.
     discard_torsion_tree : bool, default=True
         Authorize omission of the format-specific torsion tree. A full MolSys
         conversion requires explicit True for a ligand with ROOT. Reduced

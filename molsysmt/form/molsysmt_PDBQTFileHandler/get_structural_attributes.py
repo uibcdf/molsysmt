@@ -12,7 +12,7 @@ def get_coordinates_from_atom(
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     indices : int, list, tuple or numpy.ndarray, default='all'
         Source element positions to query. Structural getters preserve requested atom
         order and repetitions.
@@ -48,7 +48,7 @@ def get_occupancy_from_atom(
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     indices : int, list, tuple or numpy.ndarray, default='all'
         Source element positions to query. Structural getters preserve requested atom
         order and repetitions.
@@ -84,7 +84,7 @@ def get_b_factor_from_atom(
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     indices : int, list, tuple or numpy.ndarray, default='all'
         Source element positions to query. Structural getters preserve requested atom
         order and repetitions.
@@ -117,7 +117,7 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
         Source structure positions, independent of MODEL labels. Query/iteration order
         and repetitions are preserved; serialized documents require unique positions.
@@ -147,7 +147,7 @@ def get_structure_index_from_system(
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
         Source structure positions, independent of MODEL labels. Query/iteration order
         and repetitions are preserved; serialized documents require unique positions.
@@ -176,7 +176,7 @@ def get_structure_id_from_system(item, structure_indices="all", skip_digestion=F
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
         Source structure positions, independent of MODEL labels. Query/iteration order
         and repetitions are preserved; serialized documents require unique positions.

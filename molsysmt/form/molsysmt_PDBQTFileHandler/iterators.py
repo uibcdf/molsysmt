@@ -56,7 +56,7 @@ class StructuresIterator(PDBQTStructuresIterator):
 
         Notes
         -----
-        Coordinates are allocated per requested block; the source text snapshot remains resident. An existing handler is borrowed. Exhaustion, failure, close and context exit release owned handlers only.
+        Coordinates are allocated per requested block. File input uses source-bound indexed storage; explicit text remains resident. Handler input retains its chosen mode. Exhaustion, failure, close and context exit release owned handlers only.
 
         .. versionadded:: 1.0.0
         """
@@ -88,7 +88,7 @@ class StructuresIterator(PDBQTStructuresIterator):
 
         Notes
         -----
-        Coordinates are allocated per requested block; the source text snapshot remains resident. An existing handler is borrowed. Exhaustion, failure, close and context exit release owned handlers only.
+        Coordinates are allocated per requested block. File input uses source-bound indexed storage; explicit text remains resident. Handler input retains its chosen mode. Exhaustion, failure, close and context exit release owned handlers only.
 
         .. versionadded:: 1.0.0
         """

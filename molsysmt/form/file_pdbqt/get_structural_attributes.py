@@ -38,7 +38,7 @@ def get_coordinates_from_atom(
 
     if indices is None or structure_indices is None:
         return None
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
         return handler._series("coordinates", indices, structure_indices)
 
 
@@ -77,7 +77,7 @@ def get_occupancy_from_atom(
 
     if indices is None or structure_indices is None:
         return None
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
         return handler._series("occupancy", indices, structure_indices)
 
 
@@ -115,7 +115,7 @@ def get_b_factor_from_atom(
 
     if indices is None or structure_indices is None:
         return None
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
         return handler._series("b_factor", indices, structure_indices)
 
 
@@ -150,7 +150,7 @@ def get_structure_id_from_system(item, structure_indices="all", skip_digestion=F
     )
     from molsysmt.native import PDBQTFileHandler
 
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
         return get_attribute(handler, structure_indices=structure_indices)
 
 
@@ -187,5 +187,5 @@ def get_structure_index_from_system(
     )
     from molsysmt.native import PDBQTFileHandler
 
-    with PDBQTFileHandler(item) as handler:
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
         return get_attribute(handler, structure_indices=structure_indices)

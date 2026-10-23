@@ -14,7 +14,7 @@ def extract(
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     atom_indices : int, list, tuple or numpy.ndarray, default='all'
         Source atom positions to retain. Native graph extraction uses the native
         canonical subset order.

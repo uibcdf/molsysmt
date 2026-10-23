@@ -1,4 +1,4 @@
-"""Adapting indexed resident PDBQT documents through native contracts."""
+"""Adapting resident or indexed PDBQT documents through native contracts."""
 
 from .attributes import attributes
 from .copy import copy
@@ -10,8 +10,9 @@ from .is_form import is_form
 from .iterators import StructuresIterator, TopologyIterator
 
 form_name = "molsysmt.PDBQTFileHandler"
+_heavy_support = {"coordinates": True}
 form_type = "class"
-form_info = ["Validated resident PDBQT document", ""]
+form_info = ["Validated resident or indexed PDBQT document", ""]
 piped_topological_attribute = "molsysmt.Topology"
 piped_structural_attribute = None
 piped_any_attribute = None

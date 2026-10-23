@@ -14,7 +14,7 @@ def to_file_pdbqt(
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     atom_indices : int, list, tuple or numpy.ndarray, default='all'
         Source atom positions to retain. Native graph extraction uses the native
         canonical subset order.
@@ -37,7 +37,4 @@ def to_file_pdbqt(
 
     .. versionadded:: 1.0.0
     """
-    payload = item._payload(atom_indices, structure_indices)
-    from molsysmt._private.pdbqt_adapter import write_payload
-
-    return write_payload(payload, output_filename)
+    return item._write_file(output_filename, atom_indices, structure_indices)

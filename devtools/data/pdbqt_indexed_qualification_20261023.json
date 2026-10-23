@@ -1,0 +1,45 @@
+{
+  "schema": "molsysmt.pdbqt_indexed_qualification@1",
+  "date": "2026-10-23",
+  "issue": "uibcdf/molsysmt#434",
+  "parent_checkpoint": "b236c6e1206f791cfdedd2d44b9587d02bc79405",
+  "scope": "Uncompressed indexed source storage and per-form iteration; no installed/release qualification.",
+  "benchmark": {
+    "path": "devtools/data/pdbqt_storage_benchmark_20261023.json",
+    "sha256": "a5bb1b136d80e35646dfb4da6b6a430b918e80079be07a10d98a3f0905b8d96b",
+    "trials": 12,
+    "cold_disk": false
+  },
+  "regression": {
+    "command": "python -m pytest tests/native/test_pdbqt_file_handler.py tests/native/test_pdbqt_indexed_file_handler.py tests/form/file_pdbqt tests/conversion_truth tests/test_correspondence_axis_units.py tests/test_argument_contract.py tests/test_form_plugin_conventions.py --receptor=llm -n 12",
+    "passed": 520,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 38.26,
+    "warnings": {
+      "legacy_h5msm": 30,
+      "mdanalysis_mass": 6,
+      "known_numpy_binary_size": 1
+    }
+  },
+  "documentation": {
+    "handler_example_passed": 1,
+    "course_module_19_executed": true,
+    "docstrings_passed": 250,
+    "fast_gates_passed": 14,
+    "sphinx_completed_with_existing_warnings": true
+  },
+  "limits": [
+    "Full validation at opening; OS page cache uncontrolled.",
+    "Resident text and fully requested outputs remain resident.",
+    "Known-source mapped pose metadata remain eager.",
+    "No compressed input, persistent sidecar or parallel decoder.",
+    "Distance heavy endpoint repair tracked separately in uibcdf/molsysmt#441."
+  ],
+  "source_sha256": {
+    "molsysmt/native/pdbqt_file_handler.py": "b757f541f6d287ac2e639e3af3d15e277318bc455faea61c9d5d365adfa916ff",
+    "molsysmt/_private/pdbqt_indexed_document.py": "07bf698bcd6a06bf3d8aa5ddfe006ffb1c1762a8364531df5aec3a9ec35cfda9",
+    "molsysmt/_private/pdbqt_document.py": "db728bcafdcc26cc595535d520f505d2a39c2345f3e133d9c4e5b1019f38b210",
+    "tests/native/test_pdbqt_indexed_file_handler.py": "da5a4c2eaac7c2671782d0bb5d02950de97126d3c368b6991f739eca3260d3ef"
+  }
+}

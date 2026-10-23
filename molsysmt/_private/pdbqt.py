@@ -4,8 +4,6 @@ Fields and tree grammar follow the AutoDock4.2.6 manual and Vina's
 parse_pdbqt.cpp. No third-party implementation is copied.
 """
 
-from pathlib import Path
-
 import numpy as np
 
 from molsysmt._private.autodock_types import decode_atom_ff_type
@@ -27,12 +25,10 @@ def read(item, *, text=False):
 
     from molsysmt._private.pdbqt_document import PDBQTDocument
 
-    document = (
-        PDBQTDocument(item, start_offset=len(PREFIX))
-        if text
-        else PDBQTDocument(Path(item).read_bytes().decode("utf-8"))
-    )
-    return dict(document.first)
+    if text:
+        return dict(PDBQTDocument(item, start_offset=len(PREFIX)).first)
+    with PDBQTFileHandler(item, storage_mode="indexed") as handler:
+        return dict(handler._document.first)
 
 
 def parse(payload):

@@ -32,7 +32,15 @@ class PDBQTStructuresIterator:
 
         self._owns = not isinstance(molecular_system, PDBQTFileHandler)
         self._handler = (
-            molecular_system if not self._owns else PDBQTFileHandler(molecular_system)
+            molecular_system
+            if not self._owns
+            else PDBQTFileHandler(
+                molecular_system,
+                storage_mode="resident"
+                if isinstance(molecular_system, str)
+                and molecular_system.startswith("pdbqt_text:")
+                else "indexed",
+            )
         )
         self._closed = False
         try:

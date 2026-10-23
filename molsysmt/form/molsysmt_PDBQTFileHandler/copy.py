@@ -8,7 +8,7 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     skip_digestion : bool, default=False
         Whether to skip argument digestion for already validated inputs.
 

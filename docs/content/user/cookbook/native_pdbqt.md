@@ -15,8 +15,11 @@ explicit retained-subsystem policy; absent H never inherit original positions.
 See {ref}`Tutorial_Read_PDBQT_Poses`. Generic form queries/conversions below
 retain only the partial chemistry declared in PDBQT.
 For coordinate blocks without a complete ensemble array, use the
-{ref}`PDBQT handler <Tutorial_Form_PDBQTFileHandler>`. Its source text remains
-resident; disk-backed large-file reads remain pending.
+{ref}`PDBQT handler <Tutorial_Form_PDBQTFileHandler>`. Use
+`PDBQTFileHandler(path, storage_mode='indexed')` for source-bound disk reads;
+file-form iterators choose this mode automatically. Opening validates every
+model. Full coordinate/text/native results and known-source pose reading remain
+materialized outputs; use block queries for large raw-coordinate ensembles.
 
 To trace those atoms back through H generation and nonpolar-H merging, use
 {func}`molsysmt.basic.compose_atom_maps` with the completed preparation,

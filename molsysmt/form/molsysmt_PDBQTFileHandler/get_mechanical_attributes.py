@@ -12,7 +12,7 @@ def get_atom_ff_type_from_atom(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     indices : int, list, tuple or numpy.ndarray, default='all'
         Source element positions to query. Structural getters preserve requested atom
         order and repetitions.
@@ -43,7 +43,7 @@ def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
     indices : int, list, tuple or numpy.ndarray, default='all'
         Source element positions to query. Structural getters preserve requested atom
         order and repetitions.

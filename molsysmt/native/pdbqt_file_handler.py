@@ -10,15 +10,17 @@ from molsysmt._private.variables import is_all
 
 
 class PDBQTFileHandler:
-    """Managing a read-only resident PDBQT snapshot with indexed structures.
+    """Managing validated PDBQT snapshots or source-bound indexed file reads.
 
-    The source text is resident; coordinate blocks are materialized on request.
-    This is not disk-backed large-file streaming (see uibcdf/molsysmt#434).
-    Trees and opaque remarks remain document data, not inferred chemistry.
+    Resident storage retains the complete source text. Indexed storage retains
+    a read-only descriptor, byte ranges and one reference model; requested
+    coordinate blocks are materialized on demand. Both modes validate every
+    model before returning. Trees and remarks are document evidence, not
+    inferred complete chemistry.
     """
 
     @arg_digest()
-    def __init__(self, item, skip_digestion=False):
+    def __init__(self, item, skip_digestion=False, *, storage_mode="resident"):
         """Opening a PDBQT path or explicit pdbqt_text: snapshot.
 
         Parameters
@@ -28,6 +30,25 @@ class PDBQTFileHandler:
             on opening; atom identity, charges, types and trees must be invariant.
         skip_digestion : bool, default=False
             Whether to skip argument digestion.
+        storage_mode : str, default='resident'
+            'resident' owns a text snapshot independent of later file changes.
+            'indexed' requires an uncompressed UTF-8 file, retains source-bound
+            byte offsets and reads selected model bodies. File changes or path
+            replacement invalidate indexed queries. Opening always validates
+            every model; retained text/index/reference metadata and coordinate
+            blocks have distinct memory costs.
+
+        Notes
+        -----
+        Copies have independent close ownership. Indexed copies share a guarded
+        descriptor until the final owner closes or is collected. Use a context
+        manager for deterministic release. The file-form StructuresIterator uses
+        indexed storage automatically; text is already resident. Reusing one
+        indexed handler avoids repeated opening/validation through file queries.
+        Source binding checks identity, size and nanosecond timestamps, not
+        cryptographic authenticity or an immutable filesystem snapshot.
+
+        .. versionadded:: 1.0.0
         """
         from molsysmt._private.pdbqt import PREFIX
         from molsysmt._private.pdbqt_document import PDBQTDocument
@@ -38,23 +59,48 @@ class PDBQTFileHandler:
 
         if get_form(item) not in {"file:pdbqt", "string:pdbqt_text"}:
             raise ArgumentError("item", value=item, caller="PDBQTFileHandler")
+        self._storage_mode = storage_mode
         if isinstance(item, str) and item.startswith(PREFIX):
+            if storage_mode == "indexed":
+                raise ArgumentError(
+                    "storage_mode",
+                    value=storage_mode,
+                    caller="PDBQTFileHandler",
+                    message="Indexed storage requires an uncompressed PDBQT file path.",
+                )
             self._document = PDBQTDocument(item, start_offset=len(PREFIX))
+        elif storage_mode == "indexed":
+            from molsysmt._private.pdbqt_indexed_document import PDBQTIndexedDocument
+
+            self._document = PDBQTIndexedDocument(item)
         else:
             self._document = PDBQTDocument(Path(item).read_bytes().decode("utf-8"))
+        from weakref import finalize
+
+        self._finalizer = finalize(self, self._document.release)
 
     def __repr__(self):
-        return f"PDBQTFileHandler(closed={self.closed}, n_structures={None if self.closed else self.n_structures})"
+        document = getattr(self, "_document", None)
+        mode = getattr(self, "_storage_mode", None)
+        count = None if document is None else len(document.labels)
+        return f"PDBQTFileHandler(closed={document is None}, storage_mode={mode!r}, n_structures={count})"
 
     @property
     def closed(self):
         return self._document is None
+
+    @property
+    def storage_mode(self):
+        """Report resident snapshot or source-bound indexed storage."""
+        return self._storage_mode
 
     def _require_open(self):
         if self.closed:
             raise FormatError(
                 reason="PDBQTFileHandler is closed.", caller="PDBQTFileHandler"
             )
+
+        self._document.validate_source()
 
     @property
     def n_atoms(self):
@@ -68,7 +114,7 @@ class PDBQTFileHandler:
 
     @arg_digest()
     def close(self, skip_digestion=False):
-        """Closing this handler and releasing its resident document reference.
+        """Closing this handler and releasing its document ownership.
 
         Parameters
         ----------
@@ -82,6 +128,9 @@ class PDBQTFileHandler:
         """
         self._document = None
         self._native_cache = None
+        finalizer = getattr(self, "_finalizer", None)
+        if finalizer is not None:
+            finalizer()
 
     def __enter__(self):
         self._require_open()
@@ -93,7 +142,7 @@ class PDBQTFileHandler:
 
     @arg_digest()
     def copy(self, skip_digestion=False):
-        """Copying independent ownership of an immutable PDBQT snapshot.
+        """Copying independent ownership of the validated PDBQT document.
 
         Parameters
         ----------
@@ -103,13 +152,27 @@ class PDBQTFileHandler:
         Returns
         -------
         PDBQTFileHandler
-            Open copy sharing source text and compact indexes. Each handle closes
-            independently; mutable native projection caches are not shared.
+            Open copy sharing immutable source text or an indexed-source lease.
+            Each handle closes independently; projection caches are not shared.
+            Indexed copies retain the same source-change checks.
         """
         self._require_open()
         output = object.__new__(type(self))
+        self._document.acquire()
         output._document = self._document
         output._native_cache = None
+        output._storage_mode = self._storage_mode
+        from weakref import finalize
+
+        output._finalizer = finalize(output, output._document.release)
+        return output
+
+    def __copy__(self):
+        return self.copy()
+
+    def __deepcopy__(self, memo):
+        output = self.copy()
+        memo[id(self)] = output
         return output
 
     def _axis(self, value, size, name):
@@ -484,8 +547,7 @@ class PDBQTFileHandler:
         bodies = []
         for index in selected:
             if atoms_full:
-                start, stop = self._document.offsets[index]
-                body = self._document._text[start:stop]
+                body = self._document.body(index)
             else:
                 body = serialize(
                     self._to_native(atoms, [index], True), typing_scheme="autodock4"
@@ -498,3 +560,31 @@ class PDBQTFileHandler:
                 )
             bodies.append(body)
         return self._document.prefix + "".join(bodies)
+
+    def _write_file(self, output_filename, atom_indices, structure_indices):
+        from molsysmt._private.pdbqt import fail
+
+        self._require_open()
+        structures = self._axis(
+            structure_indices, self.n_structures, "structure_indices"
+        )
+        atoms = self._axis(atom_indices, self.n_atoms, "atom_indices")
+        if not len(structures) or len(np.unique(structures)) != len(structures):
+            fail(
+                "PDBQT serialized structure selections must be nonempty and unique; getters/iterators preserve repeated indices."
+            )
+        if np.array_equal(np.unique(atoms), np.arange(self.n_atoms)):
+            return self._document.stream_to(output_filename, structures)
+
+        def chunks():
+            for position, index in enumerate(structures):
+                payload = self._payload(atom_indices, [int(index)])
+                if position:
+                    payload = payload.removeprefix(self._document.prefix)
+                for offset in range(0, len(payload), 64 * 1024):
+                    try:
+                        yield payload[offset : offset + 64 * 1024].encode("utf-8")
+                    except UnicodeEncodeError:
+                        fail("PDBQT text must be encodable as UTF-8.")
+
+        return self._document.write_chunks(output_filename, chunks())

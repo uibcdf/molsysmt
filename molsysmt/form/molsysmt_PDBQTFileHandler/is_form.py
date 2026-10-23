@@ -4,7 +4,7 @@ def is_form(item):
     Parameters
     ----------
     item : molecular system
-        Open PDBQT handler retaining a validated resident document snapshot.
+        Open PDBQT handler with resident snapshot or source-bound indexed storage.
 
     Returns
     -------

@@ -15,6 +15,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .read_poses import read_poses
 
 form_name = "file:pdbqt"
+_heavy_support = {"coordinates": True}
 form_type = "file"
 form_info = ["Bounded AutoDock4 PDBQT profile", "https://autodock.scripps.edu/"]
 piped_topological_attribute = "molsysmt.Topology"

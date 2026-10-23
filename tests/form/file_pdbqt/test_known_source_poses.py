@@ -377,7 +377,9 @@ assert not roots.intersection(name.split(".")[0] for name in sys.modules)
     assert completed.returncode == 0, completed.stdout + completed.stderr
 
 
-def test_real_vina_output_matches_engine_coordinate_axis(vina_reference_corpus):
+def test_real_vina_output_matches_engine_coordinate_axis(
+    vina_reference_corpus, tmp_path
+):
     """Exercise real engine syntax/rounding; this is not docking accuracy evidence."""
     Chem = pytest.importorskip("rdkit.Chem")
     Vina = pytest.importorskip("vina").Vina
@@ -427,3 +429,29 @@ def test_real_vina_output_matches_engine_coordinate_axis(vina_reference_corpus):
     assert result["report"]["n_input_structures"] == len(engine_xyz)
     assert output.topology.n_bonds == source.topology.n_bonds
     assert output.get_n_atoms() == 40
+
+    # The same engine ensemble is also consumed through the indexed raw form.
+    from molsysmt.native import PDBQTFileHandler
+
+    path = tmp_path / "real-vina-poses.pdbqt"
+    path.write_text(payload)
+    with PDBQTFileHandler(path, storage_mode="indexed") as indexed:
+        wanted = [len(engine_xyz) - 1, 0, len(engine_xyz) - 1]
+        blocks = [
+            msm.pyunitwizard.get_value(block, to_unit="angstrom")
+            for block in msm.Iterator(
+                indexed, coordinates=True, structure_indices=wanted, chunk=2
+            )
+        ]
+        np.testing.assert_allclose(
+            np.concatenate(blocks), engine_xyz[wanted], atol=0.00051, rtol=0
+        )
+        mapped = indexed.read_poses(source, mapping)
+        np.testing.assert_allclose(
+            msm.pyunitwizard.get_value(
+                mapped.structures.coordinates, to_unit="angstrom"
+            )[:, mapping["output_to_source_atom_indices"]],
+            engine_xyz,
+            atol=0.00051,
+            rtol=0,
+        )
