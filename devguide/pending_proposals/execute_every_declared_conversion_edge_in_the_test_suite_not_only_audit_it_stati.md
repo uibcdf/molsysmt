@@ -17,7 +17,7 @@ supersedes: []
 **Reported:** 2026-08-19, from the post-mortem of
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
-**Status:** partial. Resident-native, MDTraj/OpenMM and bounded H5MSM execution
+**Status:** partial. Resident-native, MDTraj/OpenMM and bounded H5MSM/PDB execution
 profiles are implemented; remaining external/file/network routes remain debt.
 
 ## What
@@ -301,3 +301,45 @@ passes 98 cases in 16.69 seconds, with no skips/failures and 17 expected 0.4
 warnings. All fourteen fast gates pass. Whole-repository Ruff check and format
 checks pass; the final whitespace-only formatting correction preserves the test
 module AST exactly and does not change the retained outcomes.
+
+## PDB file/text/handler expansion — 2026-10-22
+
+The `resident-h5msm-pdb-v4` profile adds three PDB forms and 32 declared edges:
+114 selected edges out of 596, leaving 482 individually listed unexecuted edges.
+The literal local water input has two distinguishable structures and CONECT
+records. Native and engine sources have explicit coordinates; topology-only
+sources receive matching full-source quantities. Each edge executes directly
+and through public `convert` with a fresh source/output, normal digestion and
+explicit handler ownership. A separate guard checks the three executor modules
+partition the selected graph exactly once.
+
+After correcting two harness mistakes (the handler is exported by `native`,
+and HETATM is a valid coordinate record), the initial profile reproduces four
+runtime failures. They became uibcdf/molsysmt#422 (file destination argument),
+uibcdf/molsysmt#423 (two wrong PDB export delegations), and uibcdf/molsysmt#424
+(unsupported closed buffer passed to MDTraj). A subsequent resource probe
+reproduces a separate successful-conversion scratch leak, uibcdf/molsysmt#425.
+All are repaired with source adapters and existing native/PDB/MDTraj tools;
+no new scientific method or chemical inference rule is introduced.
+
+Mirrored regression tests compare destination bytes, atom names and positions
+for nonconsecutive selections, native source ownership, equivalent nm/angstrom
+inputs, retained multiple structures and explicit periodic cells. Scratch tests
+check actual file and parent-directory retirement on return, reader exceptions
+and KeyboardInterrupt, directly and publicly. Duplicate atom indices in native
+chemistry are not newly supported; the tests use the existing unique subset
+contract. Requested structure order and repetition are exercised in MDTraj.
+
+The expanded regression passes **2,284 tests**, no skips/failures, 98.67 seconds
+using 12 workers and Pytest Receptor (23 legacy H5MSM notices and one existing
+cross-chain warning). The final focused profile/repair selection passes 175
+cases in 18.15 seconds plus the separately run partition guard; six adapter
+doctests also pass. The User Guide conversion/Cookbook pages and Common Core
+Module 1 are re-executed successfully; the developer testing page renders with
+zero diagnostics in a focused MyST/Sphinx project. The initial notebook attempt
+was blocked at local socket creation by the sandbox; the authorized rerun passed.
+
+The [receipt](../../devtools/data/conversion_execution_pdb_20261022.json) records
+the commands, versions and bounds. #181 remains partial. No installed-pair,
+whole-graph, full PDB-field or new scientific accuracy certification follows;
+release selection/publication remain governed by #334.

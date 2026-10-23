@@ -17,6 +17,13 @@ Traditional molecular modeling workflows often tie analysis scripts to specific 
 
 ---
 
+PDB serialization requires both atom identity and Cartesian positions. A
+topology-only object therefore needs a compatible coordinate quantity supplied
+by the caller. Selecting atoms must select their positions on that same source
+axis; a representation change cannot establish correspondence between unrelated
+arrays. Native PDB writing converts lengths to angstroms and can retain multiple
+structures. See {ref}`Tutorial_Convert` for the concrete conversion arguments.
+
 ## Architectural Layers
 
 A complete molecular system in MolSysMT is composed of four non-exclusive, complementary architectural layers:

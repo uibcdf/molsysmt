@@ -16,9 +16,10 @@ def to_string_pdb_text(
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     coordinates : object, default=None
-        Argument coordinates.
+        Length quantity with shape (n_structures, n_atoms, 3) on the full source
+        atom axis. Atom selection applies jointly to topology and coordinates.
     box : object, default=None
-        Argument box.
+        Optional length quantity containing row-vector periodic cells.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -28,6 +29,16 @@ def to_string_pdb_text(
         Resulting object in string:pdb_text form.
 
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.systems["T4 lysozyme L99A"]["181l.pdb"]
+    >>> molsys = msm.convert(source, get_missing_bonds=False)
+    >>> text = to_string_pdb_text(molsys.topology,
+    ...                           coordinates=molsys.structures.coordinates)
+    >>> msm.get_form(text)
+    'string:pdb_text'
+
     .. versionadded:: 1.0.0
     """
 
@@ -36,13 +47,11 @@ def to_string_pdb_text(
     )
     from molsysmt.native import MolSys
 
-    from . import extract
-
     tmp_item = MolSys()
-    tmp_item.topology = extract(
-        item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
-    )
+    tmp_item.topology = item.copy()
     tmp_item.structures.append(coordinates=coordinates, box=box, skip_digestion=True)
-    tmp_item = molsysmt_MolSys_to_string_pdb_text(tmp_item, skip_digestion=True)
+    tmp_item = molsysmt_MolSys_to_string_pdb_text(
+        tmp_item, atom_indices=atom_indices, skip_digestion=True
+    )
 
     return tmp_item

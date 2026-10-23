@@ -3134,3 +3134,16 @@ The [receipt](../devtools/data/conversion_execution_h5msm_20261022.json) retains
 commands, versions and limits. No production code or handler capability changes;
 source-test coverage is not a replacement candidate qualification. Publication
 remains paused under #334 and #181 stays partial.
+
+## PDB conversion execution and repairs — 2026-10-22
+
+The next bounded #181 block adds 32 PDB file/text/handler routes: 114 selected
+edges and 482 explicit unexecuted debt edges. Five runtime/resource defects
+are repaired under #422–#425, with matching atom/coordinate selections, explicit
+units, native multi-structure output and scratch ownership guarded. The broad
+regression passes 2,284 tests without skips/failures; the focused profile/repair
+run passes 175 cases plus a partition control, and six doctests pass. Three
+User Guide/course notebooks are re-executed successfully. The
+[receipt](../devtools/data/conversion_execution_pdb_20261022.json) records scope
+and environment. #181 remains partial and publication remains paused under #334;
+these source repairs are not installed-candidate qualification.

@@ -2,7 +2,8 @@
 """Inventory declared direct conversion routes and planned executable smoke coverage.
 
 This command checks the plan and accepted unexecuted debt, not execution. Run
-both ``test_declared_native_edges.py`` and ``test_declared_h5msm_edges.py`` under
+``test_declared_native_edges.py``, ``test_declared_h5msm_edges.py`` and
+``test_declared_pdb_edges.py`` under
 ``tests/conversion_truth`` for execution evidence.
 """
 

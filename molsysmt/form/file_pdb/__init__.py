@@ -63,6 +63,7 @@ _convert_to = {
 }
 
 _conversion_opt_kwargs = {
+    "file:pdb": ["output_filename", "output_name"],
     "molsysmt.MolSys": ["bond_inference_engine"],
     "molsysmt.Topology": ["bond_inference_engine"],
     "pytraj.Topology": ["max_bond_length"],

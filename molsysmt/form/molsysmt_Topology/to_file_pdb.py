@@ -5,7 +5,7 @@ from molsysmt._private.argdigest import arg_digest
 def to_file_pdb(
     item,
     coordinates,
-    box,
+    box=None,
     atom_indices="all",
     output_filename=None,
     skip_digestion=False,
@@ -17,11 +17,12 @@ def to_file_pdb(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Native topology to serialize together with explicit coordinates.
     coordinates : object
-        Argument coordinates.
-    box : object
-        Argument box.
+        Length quantity with shape (n_structures, n_atoms, 3) on the full source
+        atom axis. Values are converted to PDB angstroms by the native writer.
+    box : object, default=None
+        Optional length quantity containing row-vector periodic cells.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     output_filename : str or pathlib.Path, default=None
@@ -35,17 +36,30 @@ def to_file_pdb(
         Resulting object in file:pdb form.
 
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from tempfile import TemporaryDirectory
+    >>> source = msm.systems["T4 lysozyme L99A"]["181l.pdb"]
+    >>> molsys = msm.convert(source, get_missing_bonds=False)
+    >>> with TemporaryDirectory() as directory:
+    ...     output = to_file_pdb(molsys.topology,
+    ...                          coordinates=molsys.structures.coordinates,
+    ...                          output_filename=f"{directory}/export.pdb")
+    ...     assert msm.get_form(output) == 'file:pdb'
+
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.openmm_Topology.to_file_pdb import (
-        to_file_pdb as openmm_Topology_to_file_pdb,
-    )
-    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
+    from molsysmt.form.string_pdb_text.to_file_pdb import to_file_pdb as write_text
 
-    tmp_item = to_openmm_Topology(item, box, atom_indices=atom_indices)
-    tmp_item = openmm_Topology_to_file_pdb(
-        tmp_item, coordinates, output_filename=output_filename
-    )
+    from .to_string_pdb_text import to_string_pdb_text
 
-    return tmp_item
+    text = to_string_pdb_text(
+        item,
+        atom_indices=atom_indices,
+        coordinates=coordinates,
+        box=box,
+        skip_digestion=True,
+    )
+    return write_text(text, output_filename=output_filename, skip_digestion=True)

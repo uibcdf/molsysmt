@@ -1,0 +1,99 @@
+{
+  "issue": "uibcdf/molsysmt#181",
+  "date": "2026-10-22",
+  "baseline_commit": "fe5036c1f4c145ec2eecf1627e80eb70fc995618",
+  "scope": "local source tests; bounded PDB route repairs, not installed-candidate qualification",
+  "profile": "resident-h5msm-pdb-v4",
+  "declared_edges": 596,
+  "selected_edges": 114,
+  "added_pdb_edges": 32,
+  "accepted_unexecuted_edges": 482,
+  "fixed_issues": [
+    "uibcdf/molsysmt#422",
+    "uibcdf/molsysmt#423",
+    "uibcdf/molsysmt#424",
+    "uibcdf/molsysmt#425"
+  ],
+  "initial_pdb_profile": {
+    "passed": 28,
+    "failed": 4,
+    "seconds": 14.53,
+    "failures_exclude_corrected_harness_mistakes": true
+  },
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/file_pdb tests/form/string_pdb_text tests/form/molsysmt_PDBFileHandler tests/form/molsysmt_Topology tests/form/openmm_Modeller devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+    "passed": 2284,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 98.67,
+    "workers": 12,
+    "warnings": {
+      "LegacyH5MSMWarning_04": 23,
+      "CrossChainCovalentBondsWarning": 1
+    }
+  },
+  "focused_profile_and_repairs": {
+    "passed": 175,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 18.15,
+    "warnings": 17,
+    "command": "python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/form/file_pdb/test_identity_conversion.py tests/form/molsysmt_Topology/test_pdb_export.py tests/form/openmm_Modeller/test_to_file_pdb.py tests/form/string_pdb_text/test_to_mdtraj_Topology.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12"
+  },
+  "partition_control": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 4.05,
+    "purpose": "all selected graph edges belong to exactly one executor",
+    "command": "python -m pytest tests/conversion_truth/test_declared_native_edges.py::test_execution_modules_cover_the_selected_graph_once --receptor=llm"
+  },
+  "doctests": {
+    "passed": 6,
+    "failed": 0,
+    "seconds": 11.78,
+    "command": "python -m pytest --doctest-modules molsysmt/form/file_pdb/to_file_pdb.py molsysmt/form/molsysmt_Topology/to_file_pdb.py molsysmt/form/molsysmt_Topology/to_string_pdb_text.py molsysmt/form/openmm_Modeller/to_file_pdb.py molsysmt/form/string_pdb_text/to_mdtraj_Topology.py molsysmt/form/string_pdb_text/to_mdtraj_Trajectory.py --receptor=llm -n 12"
+  },
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "versions": {
+    "mdtraj": "1.11.1",
+    "openmm": "8.6.1",
+    "numpy": "2.4.6",
+    "pytest": "9.1.1",
+    "pytest-xdist": "3.8.0",
+    "pytest-receptor": "1.2.1+22.g00a31c4",
+    "sphinx": "9.1.0",
+    "myst-parser": "5.1.0"
+  },
+  "production_changes": true,
+  "scientific_method_changes": false,
+  "attribution": "No new scientific method or attribution boundary; existing readers and writers are reused.",
+  "documentation": {
+    "focused_developer_page": {
+      "warnings": 0,
+      "exit_code": 0
+    },
+    "notebooks": {
+      "command": "python docs/execute_notebooks.py -q -f -n 12 docs/content/user/tools/basic/convert.ipynb docs/content/user/cookbook/form_teleportation.ipynb docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+      "executed": 3,
+      "failed": 0,
+      "seconds": [
+        64.6,
+        14.9,
+        12.6
+      ],
+      "sandbox_retry": "Initial kernel startup blocked by local socket restrictions; authorized unsandboxed rerun succeeded."
+    },
+    "full_site_warning_inventory": "not repeated"
+  },
+  "style": {
+    "ruff_check": "pass",
+    "ruff_format_check": "pass"
+  },
+  "fast_gates": {
+    "passed": 14,
+    "total": 14,
+    "command": "python devtools/scripts/release_gate.py",
+    "heavy_release_gates": "not invoked; no release or matrix authorization inferred"
+  }
+}

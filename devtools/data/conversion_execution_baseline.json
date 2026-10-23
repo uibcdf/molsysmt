@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-h5msm-v3",
+  "profile": "resident-h5msm-pdb-v4",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -20,7 +20,10 @@
     "openmm.Topology",
     "openmm.Modeller",
     "file:h5msm",
-    "molsysmt.H5MSMFileHandler"
+    "molsysmt.H5MSMFileHandler",
+    "file:pdb",
+    "string:pdb_text",
+    "molsysmt.PDBFileHandler"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -41,7 +44,10 @@
     "openmm.Topology",
     "openmm.Modeller",
     "file:h5msm",
-    "molsysmt.H5MSMFileHandler"
+    "molsysmt.H5MSMFileHandler",
+    "file:pdb",
+    "string:pdb_text",
+    "molsysmt.PDBFileHandler"
   ],
   "accepted_unexecuted_edges": {
     "MDAnalysis.AtomGroup": {
@@ -285,25 +291,15 @@
         "MDAnalysis.Universe",
         "MDAnalysis.topology.PDBParser",
         "file:mol2",
-        "file:pdb",
         "mdtraj.PDBTrajectoryFile",
-        "mdtraj.Topology",
-        "mdtraj.Trajectory",
-        "molsysmt.MolSys",
-        "molsysmt.PDBFileHandler",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
         "nglview.NGLWidget",
-        "openmm.Modeller",
         "openmm.PDBFile",
         "openmm.Simulation",
         "openmm.System",
-        "openmm.Topology",
         "parmed.Structure",
         "pdbfixer.PDBFixer",
         "pytraj.Topology",
-        "pytraj.Trajectory",
-        "string:pdb_text"
+        "pytraj.Trajectory"
       ]
     },
     "file:pdb.gz": {
@@ -494,7 +490,6 @@
       "targets": [
         "biopython.Seq",
         "biopython.SeqRecord",
-        "file:pdb",
         "file:xtc",
         "nglview.NGLWidget",
         "parmed.Structure",
@@ -553,7 +548,6 @@
         "biopython.Seq",
         "biopython.SeqRecord",
         "file:molsys_yaml",
-        "file:pdb",
         "file:pdbqt",
         "file:psf",
         "file:sdf",
@@ -571,7 +565,6 @@
         "rdkit.Mol",
         "string:amino_acids_1",
         "string:amino_acids_3",
-        "string:pdb_text",
         "string:pdbqt_text"
       ]
     },
@@ -584,10 +577,6 @@
     "molsysmt.PDBFileHandler": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "molsysmt.MolSys",
-        "molsysmt.PDBFileHandler",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
         "nglview.NGLWidget"
       ]
     },
@@ -609,7 +598,6 @@
     "molsysmt.Topology": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "file:pdb",
         "file:psf",
         "file:topology_yaml",
         "molsysmt.ViewerJSON",
@@ -618,8 +606,7 @@
         "parmed.Structure",
         "pytraj.Topology",
         "string:amino_acids_1",
-        "string:amino_acids_3",
-        "string:pdb_text"
+        "string:amino_acids_3"
       ]
     },
     "molsysmt.TopologyDict": {
@@ -741,7 +728,6 @@
     "openmm.Modeller": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "file:pdb",
         "nglview.NGLWidget",
         "openmm.Simulation",
         "openmm.System",
@@ -794,7 +780,6 @@
     "openmm.Topology": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "file:pdb",
         "file:psf",
         "networkx.Graph",
         "nglview.NGLWidget",
@@ -805,8 +790,7 @@
         "parmed.Structure",
         "pdbfixer.PDBFixer",
         "string:amino_acids_1",
-        "string:amino_acids_3",
-        "string:pdb_text"
+        "string:amino_acids_3"
       ]
     },
     "parmed.GromacsTopologyFile": {
@@ -957,21 +941,11 @@
     "string:pdb_text": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "file:pdb",
-        "mdtraj.Topology",
-        "mdtraj.Trajectory",
-        "molsysmt.MolSys",
-        "molsysmt.PDBFileHandler",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
         "nglview.NGLWidget",
-        "openmm.Modeller",
         "openmm.PDBFile",
         "openmm.Simulation",
         "openmm.System",
-        "openmm.Topology",
-        "pdbfixer.PDBFixer",
-        "string:pdb_text"
+        "pdbfixer.PDBFixer"
       ]
     },
     "string:pdbqt_text": {

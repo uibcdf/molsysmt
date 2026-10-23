@@ -14,16 +14,16 @@ installed optional providers must not silently change the declared inventory.
 python devtools/scripts/audit_conversion_execution.py --json
 
 # Execute all profiled edges, including direct and public routes
-python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py --receptor=llm -n 12
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py --receptor=llm -n 12
 
 # Exercise the inventory's adversarial controls
 python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=llm
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-h5msm-v3` profile: thirteen native containers/dictionary forms, four
-resident MDTraj/OpenMM forms, and H5MSM disk/handler forms. The original
-native-v1 and engine-v2 subsets remain covered.
+`resident-h5msm-pdb-v4` profile: thirteen native containers/dictionary forms, four
+resident MDTraj/OpenMM forms, H5MSM disk/handler forms, and PDB file/text/handler forms. The original
+native-v1, engine-v2 and H5MSM-v3 subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
 input; domain fixtures include mechanics parameters and a nonempty interaction
@@ -68,6 +68,24 @@ and analysis remapping together. These bounded value assertions supplement the
 weaker per-edge smoke promise; they do not certify every format field. A negative
 control proves that rejecting 0.5 as a legacy handler does not first materialize
 the resident domains.
+
+## PDB execution and serialization
+
+`test_declared_pdb_edges.py` owns every profiled edge involving `file:pdb`,
+`string:pdb_text` or `molsysmt.PDBFileHandler`; the resident module excludes them.
+The literal PDB witness contains two distinguishable water structures, explicit
+CONECT records and angstrom positions, without a network lookup or generated
+expected data. Native output fixtures carry topology and coordinates; topology-only
+sources receive full-source coordinate quantities and optional cells. Files go to
+fresh pytest directories. New handler results are closed separately, while aliased
+results remain owned by the input context; source and result buffers are checked.
+
+The per-edge promise remains completion and output form. Mirrored regressions add
+byte-preserving copies, matched names/positions after nonconsecutive atom selection,
+source owner retention, equivalent nm/angstrom inputs and native multi-structure PDB
+output. Text-to-MDTraj scratch paths must disappear after success, reader exceptions
+and interruptions, without mutating the input text. These controls do not certify all
+PDB fields or make optional OpenMM inference independent of that provider.
 
 ## Coverage debt
 

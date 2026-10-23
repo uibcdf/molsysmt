@@ -100,7 +100,7 @@ sections:
             agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
-            description: Form conversion, explicit topology-plus-coordinate inputs, physical units and declared selection/structure scope.
+            description: Form conversion, explicit topology-plus-coordinate inputs, matched PDB selections, physical units and managed text-to-MDTraj scratch files.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
@@ -429,7 +429,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
-        description: Conversion workflows and public programmatic capability inspection without rendering internals.
+        description: Conversion workflows, topology/coordinate correspondence for PDB, managed MDTraj inputs and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, independent copies, geometry and chemical owner notification, state inventory publication, structure replacement and H5MSM persistence.

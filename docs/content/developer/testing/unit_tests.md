@@ -65,7 +65,7 @@ a development checkout does not qualify a different installed release artifact.
 
 ## 4. Conversion Execution
 
-The resident/native-engine/H5MSM profile discovers declared direct routes between its covered
+The resident/native-engine/H5MSM/PDB profile discovers declared direct routes between its covered
 forms and executes each adapter and its public conversion route on fresh inputs.
 It checks execution and output form; fidelity remains a separate test obligation.
 
@@ -74,7 +74,7 @@ It checks execution and output form; fidelity remains a separate test obligation
 python devtools/scripts/audit_conversion_execution.py --json
 
 # Run the actual direct/public conversion cases
-python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py --receptor=llm -n 12
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py --receptor=llm -n 12
 ```
 
 The [conversion execution guide](https://github.com/uibcdf/molsysmt/blob/main/devguide/conversion_execution.md)
@@ -86,3 +86,8 @@ H5MSM cases state their schema scope explicitly. Raw legacy adapters exercise
 partial domains, named interactions and atom/structure remapping. A legacy
 `H5MSMFileHandler` is not a modular 0.5 reader. The profile's versioned fixtures
 and resource cleanup are described in the conversion execution guide.
+
+PDB cases use a literal local two-structure file/text fixture and fresh handler
+resources. Each selected edge runs directly and publicly. Separate regressions
+check destination bytes, source ownership, selected positions, equivalent length
+units, multiple structures and scratch cleanup after reader errors/interruption.

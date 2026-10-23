@@ -29,26 +29,37 @@ def to_mdtraj_Topology(
         Resulting object in mdtraj.Topology form.
 
 
+    Notes
+    -----
+    MDTraj parses a temporary PDB file written by the existing text adapter.
+    The adapter owns that scratch directory and removes it on return, reader
+    failure or interruption. The input text is not modified.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from pathlib import Path
+    >>> source = msm.systems["T4 lysozyme L99A"]["181l.pdb"]
+    >>> topology = to_mdtraj_Topology(Path(source).read_text(), atom_indices=[0, 2])
+    >>> topology.n_atoms
+    2
+
     .. versionadded:: 1.0.0
     """
 
-    from io import StringIO
+    from tempfile import TemporaryDirectory
 
-    from mdtraj import load_topology as mdtraj_load_topology
-
-    from . import extract
-
-    tmp_item = extract(
-        item,
-        atom_indices=atom_indices,
-        structure_indices=structure_indices,
-        skip_digestion=True,
+    from molsysmt.form.file_pdb.to_mdtraj_Topology import (
+        to_mdtraj_Topology as read_topology,
     )
 
-    tmp_io = StringIO()
-    tmp_io.write(tmp_item)
-    tmp_io.close()
+    from .to_file_pdb import to_file_pdb
 
-    tmp_item = mdtraj_load_topology(tmp_io)
-
-    return tmp_item
+    with TemporaryDirectory() as directory:
+        filename = to_file_pdb(
+            item,
+            output_filename=f"{directory}/input.pdb",
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
+        return read_topology(filename, atom_indices=atom_indices, skip_digestion=True)
