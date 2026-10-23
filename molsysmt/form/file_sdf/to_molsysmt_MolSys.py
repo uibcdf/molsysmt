@@ -45,7 +45,7 @@ def to_molsysmt_MolSys(
     Notes
     -----
     The default needs no RDKit installation and performs no sanitization,
-    hydrogen removal, implicit-hydrogen assignment, CIP assignment or Kekule
+    hydrogen removal, default implicit-hydrogen inference, CIP assignment or Kekule
     aromaticity perception. Explicit stereo_engine='rdkit' invokes the public
     CIP tool before atom extraction, retaining every source hydrogen atom.
     V3000 coordination type 9 becomes a dative relationship. The first source
@@ -53,6 +53,14 @@ def to_molsysmt_MolSys(
     direction convention; electronic donor suitability is not inferred. These
     bonds do not join native covalent components. CTAB drawing styles are not
     retained in native domains and conversion reports identify their loss.
+    A blank legacy version marker selects the V2000 grammar; unknown markers
+    still fail. Declared valence on integer covalent graphs is decoded into
+    virtual n_explicit_hydrogens, zero n_implicit_hydrogens and disabled
+    allows_implicit_hydrogens in ChemicalStates. No atom or coordinate is added.
+    Atoms without a valence declaration keep these fields unknown. Conflicting
+    or aromatic/coordination valence declarations fail. Interpretation follows
+    BIOVIA CTFile Formats 2020; RDKit parser behavior was inspected as a reference,
+    without copying its implementation or importing it on the native route.
 
     Examples
     --------

@@ -25,12 +25,20 @@ remain separate from these frozen observations.
 | 1IEP rigid receptor | — | 2,702 / 0 | — |
 
 The two rejected SDF sources are legitimate comparison inputs outside the
-current bounded profile, not corrupted controls or successful conversion
+initial bounded profile, not corrupted controls or successful conversion
 coverage. 1IEP declares valence 4 on source atom index 31 and formal charge +1
 in `M CHG`. 1S63 has no version marker, and its prepared PDBQT contains one
 additional H. The sources must remain available when those boundaries are
 extended under MolSysMT #215. Admitting them requires deliberate semantics,
 not deleting fields, assuming missing H counts are zero or hiding a fallback.
+
+**Profile extension, 2026-10-22:** native reading/writing now supports 1IEP's
+declared valence with its stored zero virtual-H inventory. Versionless 1S63 now
+uses V2000 grammar and requires the explicit stereo provider because its chiral
+flag is active; both output versions are checked. Source bytes and hashes remain
+unchanged. The table and manifest `sdf_status` fields above record the initial
+profile. Optional stereo writing of 1IEP still rejects a 3D reconstruction
+mismatch; its native dependency-free round trip is covered.
 
 All five PDBQT inputs carry existing preparation decisions. Reading and
 rewriting their labels, charges, coordinates and trees checks format fidelity;

@@ -43,7 +43,7 @@ def to_file_sdf(
     Raises
     ------
     FormatError
-        For missing chemistry, multiple frames/states, or unsupported stereo/bonds.
+        For missing chemistry, multiple structures/states, or unsupported stereo/bonds.
 
     Notes
     -----
@@ -55,6 +55,10 @@ def to_file_sdf(
     V3000 coordination writes donor first and acceptor second, independently of
     sorted native endpoints. Type 9 does not encode a separate numeric order;
     reports identify its loss and loss of component-joining overrides.
+    Virtual explicit-H counts with zero implicit H and disabled implicit-H
+    permission are encoded through CTAB valence on integer covalent graphs.
+    This preserves declarations, without chemical perception or adding H atoms.
+    Other stored hydrogen metadata is identified as a loss by conversion reports.
 
     .. admonition:: Tutorial with more examples
 

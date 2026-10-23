@@ -75,9 +75,9 @@ def test_identity_preserves_unrepresented_chemistry_without_inspection(
     from molsysmt._private import ctfile
 
     lines = V2000.splitlines(keepends=True)
-    lines[4] = lines[4][:48] + "  4" + lines[4][51:]
+    lines[4] = lines[4][:42] + "  4" + lines[4][45:]
     payload = "".join(lines).replace("\n", "\r\n").encode()
-    path = tmp_path / "explicit_valence.sdf"
+    path = tmp_path / "query_hydrogen.sdf"
     path.write_bytes(payload)
 
     def reject_semantic_read(*args, **kwargs):

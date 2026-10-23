@@ -4,7 +4,25 @@ import numpy as np
 import pandas as pd
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.ctfile import AtomRecord, BondRecord, CTRecord, _fail
+from molsysmt._private.ctfile import (
+    AtomRecord,
+    BondRecord,
+    CTRecord,
+    _fail,
+    _integer_bond_valences,
+    _valence_hydrogens,
+)
+
+
+def _stored_valence_hydrogens(row):
+    """Return the CTAB-encodable virtual count, or None for unsupported metadata."""
+    allowed = row.get("allows_implicit_hydrogens", pd.NA)
+    implicit = row.get("n_implicit_hydrogens", pd.NA)
+    explicit = row.get("n_explicit_hydrogens", pd.NA)
+    if pd.notna(allowed) and not bool(allowed) and pd.notna(explicit):
+        if pd.notna(implicit) and int(implicit) == 0:
+            return int(explicit)
+    return None
 
 
 def to_native(record, *, discard_properties=False):
@@ -30,6 +48,16 @@ def to_native(record, *, discard_properties=False):
         topology._set_chemical_state_atom_attribute(
             name, [getattr(atom, name) for atom in record.atoms]
         )
+    virtual_hydrogens = _valence_hydrogens(record)
+    if virtual_hydrogens:
+        for name, values in (
+            ("n_explicit_hydrogens", virtual_hydrogens),
+            ("n_implicit_hydrogens", dict.fromkeys(virtual_hydrogens, 0)),
+            ("allows_implicit_hydrogens", dict.fromkeys(virtual_hydrogens, False)),
+        ):
+            topology._set_chemical_state_atom_attribute(
+                name, [values.get(atom.serial, pd.NA) for atom in record.atoms]
+            )
     mapping = {atom.serial: i for i, atom in enumerate(record.atoms)}
     aromatic_atoms = set()
     for bond in record.bonds:
@@ -221,4 +249,13 @@ def from_native(item, version, *, allow_stereo=False):
             _fail(
                 "Native atom aromaticity cannot be retained by the supplied explicit SDF bond types."
             )
+    virtual_counts = {
+        atom.serial: count
+        for i, atom in enumerate(record.atoms)
+        if (count := _stored_valence_hydrogens(atoms_state.loc[i])) is not None
+    }
+    drawn = _integer_bond_valences(record, virtual_counts)
+    for atom in record.atoms:
+        if atom.serial in virtual_counts:
+            atom.valence = virtual_counts[atom.serial] + drawn[atom.serial]
     return record

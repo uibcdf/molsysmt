@@ -57,6 +57,8 @@ class AtomRecord:
     formal_charge: int = 0
     isotope: int | None = None
     n_unpaired_electrons: int = 0
+    # None means unspecified; zero is an explicit zero-valence declaration.
+    valence: int | None = None
 
 
 @dataclass
@@ -125,6 +127,8 @@ def _validate(record):
             )
         if atom.isotope is not None and not 1 <= atom.isotope <= 65535:
             _fail(f"Invalid isotope on atom {atom.serial}.")
+        if atom.valence is not None and not 0 <= atom.valence <= 14:
+            _fail(f"Unsupported declared valence on atom {atom.serial}.")
     for bond in record.bonds:
         if bond.serial <= 0 or bond.serial in bond_serials:
             _fail("Bond serials must be unique positive integers.")
@@ -147,14 +151,50 @@ def _validate(record):
             _fail(
                 "Only V3000 coordination display styles COORD and DATIVE are supported."
             )
+    _valence_hydrogens(record)
+
+
+def _valence_hydrogens(record):
+    """Decode declared valence on integer covalent graphs, without perception."""
+    drawn = _integer_bond_valences(
+        record, (atom.serial for atom in record.atoms if atom.valence is not None)
+    )
+    missing = {}
+    for atom in record.atoms:
+        if atom.valence is not None:
+            count = atom.valence - drawn[atom.serial]
+            if count < 0:
+                _fail(
+                    f"Declared valence is smaller than drawn valence on atom {atom.serial}."
+                )
+            missing[atom.serial] = count
+    return missing
+
+
+def _integer_bond_valences(record, serials):
+    """Sum drawn orders for selected atoms, rejecting ambiguous bond semantics."""
+    drawn = dict.fromkeys(serials, 0)
+    for bond in record.bonds:
+        for serial in (bond.atom1, bond.atom2):
+            if serial not in drawn:
+                continue
+            if bond.order not in {1, 2, 3}:
+                _fail(
+                    f"Declared valence on atom {serial} requires integer covalent bonds; "
+                    "aromatic and coordination valence interpretation is unsupported."
+                )
+            drawn[serial] += bond.order
+    return drawn
 
 
 def _v2000(lines, *, allow_stereo=False):
     counts = lines[3]
-    if len(counts) < 39 or counts[33:39].strip() != "V2000":
+    marker = counts[33:].strip()
+    if len(counts) < 6 or marker not in {"", "V2000"}:
         _fail("Missing or malformed V2000 counts line.")
     n_atoms = _integer(counts[:3], "atom count", blank=True)
     n_bonds = _integer(counts[3:6], "bond count", blank=True)
+    _integer(counts[30:33], "property count", blank=True)
     if n_atoms < 0 or n_bonds < 0 or len(lines) < 5 + n_atoms + n_bonds:
         _fail("Negative counts or truncated V2000 connection table.")
     # Atom lists, chiral flag, Stext, and obsolete entries need their own model.
@@ -183,6 +223,11 @@ def _v2000(lines, *, allow_stereo=False):
         atom.n_unpaired_electrons = int(charge == 4)
         for start in range(39, max(len(line), 69), 3):
             value = _integer(line[start : start + 3], "atom flags", blank=True)
+            if start == 48:
+                if not 0 <= value <= 15:
+                    _fail(f"Invalid V2000 valence on atom {i}.")
+                atom.valence = None if value == 0 else (0 if value == 15 else value)
+                continue
             if allow_stereo and start == 39 and value in {1, 2}:
                 record.stereo_present = True
                 record.stereo_atom_serials.append(i)
@@ -340,6 +385,12 @@ def _v3000(lines, *, allow_stereo=False):
                         atom.isotope = value or None
                     elif key == "RAD":
                         atom.n_unpaired_electrons = _radical(value)
+                    elif key == "VAL":
+                        if not -1 <= value <= 14:
+                            _fail(f"Invalid V3000 valence on atom {atom.serial}.")
+                        atom.valence = (
+                            None if value == 0 else (0 if value == -1 else value)
+                        )
                     elif key == "CFG" and allow_stereo and value in {1, 2}:
                         record.stereo_present = True
                         record.stereo_atom_serials.append(atom.serial)
@@ -432,12 +483,15 @@ def validate_sdf_envelope(filename):
 def read_sdf(filename, *, allow_stereo=False):
     """Read exactly one record, retaining SD properties separately from chemistry."""
     lines = _single_sdf_lines(filename)
-    if lines[3].rstrip().endswith("V2000"):
+    marker = lines[3][33:].strip()
+    if marker in {"", "V2000"}:
         record, cursor = _v2000(lines, allow_stereo=allow_stereo)
-    elif lines[3].rstrip().endswith("V3000"):
+    elif marker == "V3000":
         record, cursor = _v3000(lines, allow_stereo=allow_stereo)
     else:
-        _fail("Only explicitly versioned V2000 and V3000 CTAB records are supported.")
+        _fail(
+            "Unsupported CTAB version; expected V2000, V3000 or a legacy blank marker."
+        )
     _validate(record)
     while cursor < len(lines):
         if not lines[cursor].strip():
@@ -479,7 +533,12 @@ def write_sdf(record):
             if any(len(value) != 10 for value in coordinates):
                 _fail("Coordinate exceeds V2000 field width; choose V3000.")
             lines.append(
-                "".join(coordinates) + f" {atom.element:<3s}" + " 0" + "  0" * 11
+                "".join(coordinates)
+                + f" {atom.element:<3s}"
+                + " 0"
+                + "  0" * 4
+                + f"{(15 if atom.valence == 0 else atom.valence or 0):3d}"
+                + "  0" * 6
             )
         for bond in record.bonds:
             lines.append(
@@ -513,6 +572,8 @@ def write_sdf(record):
         for atom in record.atoms:
             xyz = " ".join(f"{value:.12g}" for value in atom.coordinates)
             attributes = []
+            if atom.valence is not None:
+                attributes.append(f"VAL={-1 if atom.valence == 0 else atom.valence}")
             if atom.formal_charge:
                 attributes.append(f"CHG={atom.formal_charge}")
             if atom.isotope:

@@ -98,7 +98,7 @@ def molecule_from_sdf(filename):
 
     from rdkit import Chem
 
-    from molsysmt._private.ctfile import _fail, read_sdf
+    from molsysmt._private.ctfile import _fail, _valence_hydrogens, read_sdf
 
     record = read_sdf(filename, allow_stereo=True)
     text = Path(filename).read_text(encoding="utf-8-sig")
@@ -127,6 +127,12 @@ def molecule_from_sdf(filename):
         9: Chem.BondType.DATIVE,
     }
     positions = {atom.serial: i for i, atom in enumerate(record.atoms)}
+    for serial, count in _valence_hydrogens(record).items():
+        atom = molecule.GetAtomWithIdx(positions[serial])
+        if not atom.GetNoImplicit() or atom.GetNumExplicitHs() != count:
+            _fail(
+                "Stereo interpretation changed a declared valence hydrogen inventory."
+            )
     for serial in record.stereo_atom_serials:
         if (
             molecule.GetAtomWithIdx(positions[serial]).GetChiralTag()
@@ -215,6 +221,7 @@ def write_stereo_sdf(item, record):
         kekulize=False,
         forceV3000=record.version == "V3000",
     )
+    text = _retain_declared_valences(text, record)
     restored = Chem.MolFromMolBlock(
         text, sanitize=False, removeHs=False, strictParsing=True
     )
@@ -228,3 +235,54 @@ def write_stereo_sdf(item, record):
             "SDF coordinates or encoding cannot preserve the requested stereochemistry."
         )
     return text + "$$$$\n"
+
+
+def _retain_declared_valences(text, record):
+    """Retain explicit H policy when the stereo writer elides default valence."""
+    if not any(atom.valence is not None for atom in record.atoms):
+        return text
+    import re
+
+    from molsysmt._private.ctfile import _fail, _v2000, _v3000
+
+    lines = text.splitlines()
+    if record.version == "V2000":
+        for index, atom in enumerate(record.atoms):
+            if atom.valence is not None:
+                line = lines[4 + index]
+                code = 15 if atom.valence == 0 else atom.valence
+                lines[4 + index] = line[:48] + f"{code:3d}" + line[51:]
+        parsed, _ = _v2000(lines, allow_stereo=True)
+    else:
+        in_atoms = False
+        for index, line in enumerate(lines):
+            if line == "M  V30 BEGIN ATOM":
+                in_atoms = True
+                continue
+            if line == "M  V30 END ATOM":
+                in_atoms = False
+            if not in_atoms:
+                continue
+            match = re.match(r"M  V30 ([0-9]+) ", line)
+            if match is None:
+                _fail("Unexpected stereo-provider atom continuation in valence output.")
+            atom_index = int(match[1]) - 1
+            if not 0 <= atom_index < len(record.atoms):
+                _fail("Stereo provider changed the output atom numbering.")
+            atom = record.atoms[atom_index]
+            if atom.valence is not None:
+                code = -1 if atom.valence == 0 else atom.valence
+                if line.endswith("-"):
+                    _fail(
+                        "Stereo-provider atom continuations cannot retain declared valence yet."
+                    )
+                lines[index] = re.sub(r" VAL=[+-]?[0-9]+", "", line) + f" VAL={code}"
+        parsed, _ = _v3000(lines, allow_stereo=True)
+    # Extra nondefault valence inserted by the provider is allowed; an
+    # explicitly supplied declaration must survive with the same value.
+    if len(parsed.atoms) != len(record.atoms) or any(
+        wanted.valence is not None and wanted.valence != actual.valence
+        for wanted, actual in zip(record.atoms, parsed.atoms)
+    ):
+        _fail("Stereo output did not retain declared valence on the source atom axis.")
+    return "\n".join(lines) + "\n"

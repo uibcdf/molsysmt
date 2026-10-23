@@ -91,8 +91,9 @@ PDB fields or make optional OpenMM inference independent of that provider.
 ## SDF and PDBQT witnesses
 
 `test_declared_docking_edges.py` owns every selected edge involving `file:sdf`,
-`file:pdbqt` or `string:pdbqt_text`. Its 19 edges each run with two input variants:
-V2000/V3000 or rigid/ligand PDBQT. Each of the 38 cases exercises both direct
+`file:pdbqt` or `string:pdbqt_text`. Its 19 edges use four SDF variants
+(V2000, V3000, a legacy blank version and declared zero valence) or two PDBQT
+variants (rigid/ligand). Each of the 48 cases exercises both direct
 and public conversion with fresh local inputs and destinations. The four test
 modules form a disjoint partition of the selected graph; a guard checks that
 nothing selected is omitted or counted twice.
@@ -105,6 +106,9 @@ partial charges and types. A ligand's tree is retrieved separately and supplied
 to the native writer; `discard_torsion_tree=True` is explicit when projecting the
 complete ligand into MolSys. No typing, preparation or graph completion is inferred.
 Native source preparation is not an independent writer oracle.
+The valence witness checks explicit virtual-H counts and disabled implicit-H
+permission. The expanded format suite separately checks original Vina files,
+positive virtual counts, H5MSM persistence and independent reference readers.
 
 Value checks compare literal atom types, SDF isotope/charge/bond assignments,
 PDBQT serial strings, partial charges and types, explicit nm positions and exact
@@ -117,8 +121,8 @@ A separate fresh-interpreter guard executes every witness while rejecting actual
 module creation for RDKit, MDAnalysis, MDTraj, OpenMM and Vina. Availability-only
 queries remain allowed, and both recorded attempts and loaded modules are checked.
 It exposed uibcdf/molsysmt#426: declared text used to reach unrelated SMILES
-heuristics. Generic registry-confirmed prefix dispatch repairs that path; no native
-parser support or format/serialization scope is expanded.
+heuristics. Generic registry-confirmed prefix dispatch repairs that path. The
+subsequent SDF grammar expansion is tracked separately within uibcdf/molsysmt#215.
 
 ## Coverage debt
 

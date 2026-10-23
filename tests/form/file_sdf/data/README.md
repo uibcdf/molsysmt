@@ -5,8 +5,11 @@ achiral molecular graphs. It covers V2000/V3000, explicit aromatic and Kekule
 encodings, nitrogen heterocycles, fused rings, nitro groups, carboxylate,
 quaternary ammonium, a zwitterion, phosphate, sulfate, isotopic labels, amide,
 sulfoxide, azide, nitrile and a halogenated saturated ring. Hydrogens are explicit.
-Three additional records exercise the unsupported valence-override boundary;
-their rejection is required, not counted as successful ligand conversion.
+Three additional records exercise the valence-override boundary. Since
+2026-10-22, methyl radical and zero-valence atomic oxygen are supported; copper
+coordination valence still requires explicit rejection. The snapshot key
+`unsupported_valence_records` retains its original name and is not a current
+support declaration.
 
 The snapshot records the actual RDKit producer version. Regenerate from the
 repository root with an optional RDKit installation:

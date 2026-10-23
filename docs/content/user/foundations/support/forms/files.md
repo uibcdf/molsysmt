@@ -66,7 +66,11 @@ orders or a protonation state. See {ref}`Tutorial_Form_file_pdb` and
 The native SDF adapter retains all explicitly drawn hydrogens, ordinary and
 explicit aromatic bonds, formal charges, supported radical counts, isotopes
 and coordinates. V3000 also retains coordination relationships and endpoint
-direction through native dative roles. Ordinary conversion rejects active stereo flags,
+direction through native dative roles. Legacy blank version markers use V2000
+syntax. Explicit valence on integer covalent graphs retains virtual H counts in
+ChemicalStates without adding atoms or coordinates; undeclared counts remain
+unknown. Aromatic/coordination valence declarations remain unsupported.
+Ordinary conversion rejects active stereo flags,
 queries and multiple records. No chemical perception occurs on the default
 native route. Explicit `stereo_engine='rdkit'` enables the optional CIP provider
 for supported tetrahedral and double-bond stereo, without removing source

@@ -3162,3 +3162,23 @@ also pass. The [receipt](../devtools/data/conversion_execution_docking_20261022.
 retains versions and warnings, including the existing optional ABI warning
 reserved for environment review. This source evidence does not qualify a new
 candidate; #181 remains partial and publication stays paused under #334.
+
+## Native SDF legacy and valence input extension — 2026-10-22
+
+Under uibcdf/molsysmt#215, original Vina 1IEP now passes native reading/writing;
+versionless 1S63 passes with explicit optional stereo interpretation. Declared
+integer-covalent valence retains virtual H inventory in existing ChemicalStates
+fields, including H5MSM 0.5 persistence, without inventing atoms or coordinates.
+Aromatic/coordination valence interpretation and broader dialects remain pending.
+Optional stereo writing of 1IEP still rejects a reconstruction mismatch rather
+than silently emitting a changed result; its native round trip is covered.
+
+The #181 docking profile now has 48 direct/public witness cases, with loader
+isolation for each. Edge accounting is unchanged: 133 selected, 463 deferred,
+596 declared. Neither #215 nor #181 is closed by this bounded expansion. Source
+validation does not qualify installed packages or authorize publication.
+
+Qualification: **751 passed, zero failures/skips, 50.79 s**, with 12 workers and
+Pytest Receptor; one converter doctest and the updated course notebook pass.
+All 14 fast gates pass. Details, warnings, executable-file hashes and environment
+are in the [bounded source receipt](../devtools/data/sdf_legacy_valence_20261022.json).

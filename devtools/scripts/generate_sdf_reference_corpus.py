@@ -33,7 +33,7 @@ CASES = (
     ("acetonitrile", "CC#N", 6, 5, 0),
     ("fluorocyclohexane", "FC1CCCCC1", 18, 18, 0),
 )
-UNSUPPORTED_CASES = (
+VALENCE_CASES = (
     ("methyl_radical_valence", "[CH3]"),
     ("atomic_oxygen_valence", "[O]"),
     ("copper_ammine_valence", "[NH3]->[Cu+2]<-[NH3]"),
@@ -107,7 +107,7 @@ def main():
                     }
                 )
     unsupported = []
-    for name, smiles in UNSUPPORTED_CASES:
+    for name, smiles in VALENCE_CASES:
         molecule = Chem.AddHs(Chem.MolFromSmiles(smiles))
         rdDepictor.Compute2DCoords(molecule)
         molecule.SetProp("_Name", name)
@@ -122,12 +122,13 @@ def main():
         "producer": {"software": "RDKit", "version": rdBase.rdkitVersion},
         "generation": "generate_sdf_reference_corpus.py; explicit H; 2D; stereo disabled",
         "records": records,
+        # Preserve the historical snapshot key; current support is tested.
         "unsupported_valence_records": unsupported,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(
-        f"Wrote {len(records)} supported and {len(unsupported)} unsupported reference records."
+        f"Wrote {len(records)} ordinary and {len(unsupported)} valence-boundary reference records."
     )
 
 

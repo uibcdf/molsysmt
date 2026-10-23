@@ -24,6 +24,16 @@ from tests.conversion_truth.test_declared_native_edges import (
 from tests.form.file_pdbqt.test_native_contract import LIGAND, RIGID
 from tests.form.file_sdf.test_native_contract import V2000, V3000
 
+PAYLOADS = {
+    "V2000": V2000,
+    "V3000": V3000,
+    "legacy": V2000.replace(" V2000", ""),
+    "valence": V3000.replace("80 Na 4 0 0 0 CHG=1", "80 Na 4 0 0 0 CHG=1 VAL=-1"),
+    "rigid": RIGID,
+    "ligand": LIGAND,
+}
+SDF_VARIANTS = ("V2000", "V3000", "legacy", "valence")
+
 EDGES = sorted(
     (s, t)
     for s, t in planned_edges(declared_edges(), read_plan())
@@ -33,17 +43,15 @@ CASES = [
     (source, target, variant)
     for source, target in EDGES
     for variant in (
-        ("V2000", "V3000") if "file:sdf" in {source, target} else ("rigid", "ligand")
+        SDF_VARIANTS if "file:sdf" in {source, target} else ("rigid", "ligand")
     )
 ]
 
 
 def _source(source, variant, directory):
     directory.mkdir()
-    is_sdf = variant in {"V2000", "V3000"}
-    payload = {"V2000": V2000, "V3000": V3000, "rigid": RIGID, "ligand": LIGAND}[
-        variant
-    ]
+    is_sdf = variant in SDF_VARIANTS
+    payload = PAYLOADS[variant]
     path = directory / ("source.sdf" if is_sdf else "source.pdbqt")
     path.write_text(payload)
     tree = None
@@ -66,7 +74,7 @@ def _source(source, variant, directory):
 
 
 def _assert_literal_values(result, target, variant):
-    is_sdf = variant in {"V2000", "V3000"}
+    is_sdf = variant in SDF_VARIANTS
     if target in DOCKING_FORMS:
         result = msm.convert(
             result,
@@ -91,6 +99,13 @@ def _assert_literal_values(result, target, variant):
             np.testing.assert_array_equal(
                 msm.get(topology, element="bond", bond_order=True), [2, 1, 1]
             )
+            if variant == "valence":
+                assert msm.get(topology, selection=[3], n_explicit_hydrogens=True) == [
+                    0
+                ]
+                assert msm.get(
+                    topology, selection=[3], allows_implicit_hydrogens=True
+                ) == [False]
         else:
             assert topology.atoms.atom_id.tolist() == ["17", "3", "45", "90"]
             assert topology.n_bonds == (1 if variant == "ligand" else 0)
@@ -131,7 +146,9 @@ def test_declared_docking_edge_executes_directly_and_publicly(
             kwargs["output_filename"] = str(tmp_path / f"{route}-result.{extension}")
         if source == "molsysmt.MolSys":
             if target == "file:sdf":
-                kwargs["ctfile_version"] = variant
+                kwargs["ctfile_version"] = (
+                    "V3000" if variant in {"V3000", "valence"} else "V2000"
+                )
             else:
                 kwargs.update(typing_scheme="autodock4", torsion_tree=tree)
         elif target == "molsysmt.MolSys" and variant == "ligand":
@@ -146,12 +163,7 @@ def test_declared_docking_edge_executes_directly_and_publicly(
             assert Path(result).is_file()
             assert Path(result).stat().st_size > 0
             if source != "molsysmt.MolSys":
-                payload = {
-                    "V2000": V2000,
-                    "V3000": V3000,
-                    "rigid": RIGID,
-                    "ligand": LIGAND,
-                }[variant]
+                payload = PAYLOADS[variant]
                 assert Path(result).read_bytes() == payload.encode()
         _assert_literal_values(result, target, variant)
 

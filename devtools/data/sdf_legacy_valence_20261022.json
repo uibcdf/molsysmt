@@ -1,0 +1,81 @@
+{
+  "schema": "molsysmt.sdf_profile_qualification@1",
+  "date": "2026-10-22",
+  "issues": [
+    "uibcdf/molsysmt#215",
+    "uibcdf/molsysmt#181"
+  ],
+  "base_commit": "c306ad50c3a351b8f25e986fdf8b14f8e1948056",
+  "scope": "Source checkout, bounded SDF extension; not installed-candidate or full-suite qualification.",
+  "environment": {
+    "platform": "Linux",
+    "python": "3.14.7",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/_private/ctfile.py": "1eaa733b02186a3344a813b5a60a8f53de4e1c9085d3768253e25a8f2d2eda80",
+    "molsysmt/_private/conversion_sdf.py": "cbaab9141ec97c3dac5e93d7e8ed1fd5d4022ff04289763d67e0d67ea60883fd",
+    "molsysmt/_private/stereochemistry.py": "4b256130b7f8f55306727142aa9bb359dadd5dbe39465c861944e68428bfb020",
+    "molsysmt/form/file_sdf/_native.py": "b22a55fba577b5117e42f65c7e52481a29e0d3d6f78526cf88805856a33d16dc",
+    "molsysmt/form/file_sdf/attributes.py": "a33a799c1c549d146edb906c33089c14c6b00593f2c5385c9f6d336fdf5cab8f",
+    "molsysmt/form/file_sdf/to_molsysmt_MolSys.py": "d508f051930163566a4d56f2053c6590b6627dc05fd8185691790bae9a515045",
+    "molsysmt/form/molsysmt_MolSys/to_file_sdf.py": "cbd01f684fb45200e3fddd67e77ff94341aee5732519654119b99877ae781071",
+    "devtools/scripts/generate_sdf_reference_corpus.py": "8fac02fb1700b2972923d52dc63fc01b6c3ea0e7e97765e2161fb017c16e3dbb",
+    "tests/form/file_sdf/test_valence.py": "105af3b6b661abd6b6a379576e5941b6937982575fbb2f1fc1d4bca1554b2d0b",
+    "tests/form/file_sdf/test_native_contract.py": "69acbad20810ea527c0c6e8061469989cd979232b65526cbf69d92d7c64bbe65",
+    "tests/form/file_sdf/test_real_vina_examples.py": "06d31dd9cb945af065a2d3e0c078f8af236889b858269dd14deb4ceb0edf6cc9",
+    "tests/form/file_sdf/test_reference_corpus.py": "b0bd302b273eb6aef0635dcdc05d7b2d57e17efe975ec62ecb385c5aa2542afc",
+    "tests/conversion_truth/test_declared_docking_edges.py": "aa1d2a233eb2a88c6f361918af578c4e8bf0a9eb22f260ee6bedc892f33f2eb0"
+  },
+  "tests": {
+    "command": "python -m pytest tests/form/file_sdf tests/form/file_pdbqt tests/conversion_truth tests/physchem/get_hydrogen_inventory tests/physchem/test_get_cip_stereochemistry.py tests/basic/test_get_conversion_report.py tests/_private/test_conversion_report_scopes.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 751,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 50.79,
+    "warnings": {
+      "legacy_h5msm_04": 21,
+      "mdanalysis_mass_deprecation": 6,
+      "structural_attribute_drop": 2,
+      "numpy_optional_binary_size_warning": 1
+    }
+  },
+  "other_checks": {
+    "adapter_delivery": "96 forms; zero unreachable declarations",
+    "api_stability": "zero unauthorized signature drifts",
+    "doctest": {
+      "passed": 1,
+      "seconds": 0.54
+    },
+    "course_execution": {
+      "notebook": "docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+      "executed": 1,
+      "seconds": 17.3
+    }
+  },
+  "execution_profile": {
+    "name": "resident-files-v5",
+    "selected_edges": 133,
+    "declared_edges": 596,
+    "coverage_debt_edges": 463,
+    "docking_edges": 19,
+    "docking_witnesses": 48,
+    "direct_and_public": true,
+    "actual_loader_isolation": true
+  },
+  "limits": [
+    "No chemical valence validation or default implicit-H prediction.",
+    "Aromatic/coordination valence declarations still rejected.",
+    "Original 1IEP optional stereo writer still rejects a reconstruction mismatch; native round trip is covered.",
+    "SD properties, enhanced stereo and multi-record semantics remain bounded or pending.",
+    "The optional binary-size warning was already recorded under #237; no dependency compatibility claim is added."
+  ]
+}

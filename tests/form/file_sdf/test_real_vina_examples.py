@@ -11,36 +11,71 @@ LIGANDS = ["1iep", "1s63", "5x72-p59", "5x72-p69"]
 STEREO_CASES = ["5x72-p59", "5x72-p69"]
 
 
-@pytest.mark.parametrize("case_name", LIGANDS)
+@pytest.mark.parametrize("case_name", ["1s63", *STEREO_CASES])
 def test_original_native_profile_rejects_unrepresented_source_semantics(
     vina_reference_corpus, case_name
 ):
     root, records = vina_reference_corpus
     record = records[case_name]
     path = root / record["files"]["sdf"]["filename"]
-    expected = {
-        "unsupported_valence": "atom flag on atom 32",
-        "unsupported_versionless": "explicitly versioned",
-        "requires_explicit_stereo_engine": "counts flag",
-    }[record["sdf_status"]]
+    expected = "counts flag"
     with pytest.raises(FormatError, match=expected):
         msm.convert(path, to_form="molsysmt.MolSys", discard_properties=True)
 
 
 @pytest.mark.parametrize("case_name", ["1iep", "1s63"])
-def test_explicit_stereo_provider_does_not_hide_other_format_limits(
-    vina_reference_corpus, case_name
+def test_original_legacy_and_valence_sources_convert_without_rewriting(
+    vina_reference_corpus, case_name, tmp_path
 ):
     root, records = vina_reference_corpus
     path = root / records[case_name]["files"]["sdf"]["filename"]
-    expected = "atom flag on atom 32" if case_name == "1iep" else "explicitly versioned"
-    with pytest.raises(FormatError, match=expected):
-        msm.convert(
+    record = records[case_name]
+    source_bytes = path.read_bytes()
+    options = {} if case_name == "1iep" else {"stereo_engine": "rdkit"}
+    if options:
+        pytest.importorskip("rdkit.Chem")
+    with msm.pyunitwizard.context(standard_units=["pm", "fs"]):
+        native = msm.convert(
             path,
             to_form="molsysmt.MolSys",
             discard_properties=True,
-            stereo_engine="rdkit",
+            **options,
         )
+        assert native.topology.n_atoms == record["sdf_n_atoms"]
+        assert native.topology.n_bonds == record["sdf_n_bonds"]
+        assert (
+            sum(msm.get(native, formal_charge=True)) == record["sdf_net_formal_charge"]
+        )
+        if case_name == "1iep":
+            assert msm.get(native, selection=[31], allows_implicit_hydrogens=True) == [
+                False
+            ]
+            assert msm.get(native, selection=[31], n_explicit_hydrogens=True) == [0]
+            assert msm.get(native, selection=[31], n_implicit_hydrogens=True) == [0]
+        for version in ["V2000", "V3000"]:
+            output = tmp_path / f"{version}.sdf"
+            msm.convert(native, to_form=output, ctfile_version=version, **options)
+            restored = msm.convert(output, to_form="molsysmt.MolSys", **options)
+            assert restored.topology.n_atoms == native.topology.n_atoms
+            assert restored.topology.n_bonds == native.topology.n_bonds
+            assert msm.get(restored, formal_charge=True) == msm.get(
+                native, formal_charge=True
+            )
+            np.testing.assert_allclose(
+                msm.pyunitwizard.get_value(
+                    restored.structures.coordinates, to_unit="angstrom"
+                ),
+                msm.pyunitwizard.get_value(
+                    native.structures.coordinates, to_unit="angstrom"
+                ),
+                atol=5.1e-5,
+                rtol=0,
+            )
+            if case_name == "1iep":
+                assert msm.get(
+                    restored, selection=[31], allows_implicit_hydrogens=True
+                ) == [False]
+    assert path.read_bytes() == source_bytes
 
 
 @pytest.mark.parametrize("case_name", LIGANDS)

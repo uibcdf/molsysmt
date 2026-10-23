@@ -403,3 +403,16 @@ The public get_form doctest and two affected User Guide/course notebooks pass;
 the developer testing page renders with zero diagnostics in a focused project.
 No full-site warning recount, format-scope expansion or installed-pair
 qualification is claimed. #181 remains partial and #334 still owns release gates.
+
+## SDF input variants extended — 2026-10-22
+
+The same 19 docking-format edges now use four SDF variants (V2000, V3000,
+legacy blank version and declared zero valence), or two PDBQT variants. This
+produces 48 cases, each executed directly and publicly with fresh inputs. The
+actual-loader isolation subprocess executes all 48 cases. Extra assertions check
+retained H inventory and disabled implicit-H permission. The grammar extension
+and independent original-file tests belong to uibcdf/molsysmt#215.
+
+The graph profile remains `resident-files-v5`: 133 selected / 596 declared edges,
+463 explicit coverage-debt edges. More witnesses strengthen covered routes;
+they do not count as additional conversion edges or close #181.

@@ -36,6 +36,13 @@ assert assessment['fields']['n_implicit_hydrogens']['status'] == 'missing'
 
 The native reader retains explicit source chemistry. Its absent implicit-H
 counts remain unknown, even when all ten source H atoms have coordinates.
+An explicit CTAB valence declaration is different: on integer covalent graphs,
+the reader subtracts drawn bond orders and stores the remainder as virtual
+`n_explicit_hydrogens`, with `n_implicit_hydrogens=0` and
+`allows_implicit_hydrogens=False`. Indexed H neighbors are already part of the
+drawn graph and are not counted twice. No H atom or coordinate is created.
+Atoms without that declaration retain unknown counts. These are declared
+counts, not a prediction or validation of a chemically suitable valence.
 The assessment neither adds atoms nor validates valence or chooses protonation.
 For complete supported graphs, optional detached aromatic perception is available
 through {func}`molsysmt.physchem.get_aromaticity`; see
@@ -59,6 +66,16 @@ selected atoms by ascending source index; connectivity and coordinates use the
 same map. Output atom/bond serials are newly assigned sequential integers;
 they are read back as string IDs. V2000 writes four decimal places in coordinate
 fields and supports at most 999 atoms or bonds. Use V3000 for larger tables.
+
+The writer retains the above combination of stored H counts using CTAB valence,
+including explicit zero valence (V2000 code 15; V3000 `VAL=-1`). Other hydrogen
+metadata combinations are reported as losses; `strict=True` rejects those losses.
+Valence declarations touching aromatic or coordination bonds remain unsupported,
+as do declarations smaller than the sum of drawn integer bond orders.
+
+A legacy blank version field selects the V2000 grammar. Unknown or truncated
+nonblank version markers still fail. Such legacy input must satisfy the same
+atom, bond, property and stereo validation as explicitly marked V2000 input.
 
 ## Preserving coordination
 
@@ -159,18 +176,27 @@ inspect values; they do not modify `molsys`.
 The default native subset rejects active stereo flags/labels. The explicitly
 enabled provider interprets supported tetrahedral and double-bond encodings,
 including wedges and supported 3D source configurations. Both routes reject
-query atoms/bonds,
-valence overrides, reaction maps, Sgroups and unsupported radical/bond types.
+query atoms/bonds, aromatic/coordination valence declarations, reaction maps,
+Sgroups and unsupported radical/bond types.
 Explicit V3000 flags with their documented inactive value of zero are accepted;
 an unknown field with value zero is still an error. Coordination type 9 is
 supported only in V3000, not as a nonstandard V2000 extension.
 Writing rejects atom aromaticity that the supplied bond types cannot retain.
-It does not sanitize valence, infer hydrogen counts, perceive aromaticity from
+It does not sanitize valence, infer default hydrogen counts, perceive aromaticity from
 Kekule bonds or derive CIP labels from 3D coordinates by default. The optional provider
 performs the requested CIP analysis; enhanced stereo and parity-only encodings
 without a supported wedge/3D interpretation remain unsupported. Multiple SDF records
 are rejected. Keep the original file when it carries unsupported information.
 :::
+
+The format interpretation follows [BIOVIA CTFile Formats 2020](https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf).
+RDKit's parser was inspected for legacy-header and valence interoperability;
+the native implementation does not execute or copy that parser. Optional CIP
+calculation keeps its separate scientific attribution. The real 1IEP input is
+covered by native reading/writing, and versionless 1S63 by explicit stereo
+reading/writing. This does not establish arbitrary 3D-stereo round trips:
+1IEP through the optional stereo writer still rejects a reconstruction mismatch
+before opening the destination; its dependency-free round trip is covered.
 
 :::{seealso}
 :class: dropdown

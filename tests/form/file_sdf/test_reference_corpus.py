@@ -91,11 +91,20 @@ def test_corpus_selection_preserves_atom_assignments_and_induced_graph(source):
 @pytest.mark.parametrize(
     "record", CORPUS["unsupported_valence_records"], ids=lambda record: record["name"]
 )
-def test_corpus_valence_overrides_fail_instead_of_becoming_defaults(tmp_path, record):
+def test_corpus_valence_overrides_are_retained_or_rejected_explicitly(tmp_path, record):
     path = tmp_path / "unsupported.sdf"
     path.write_text(record["sdf"], encoding="utf-8")
-    with pytest.raises(FormatError, match="atom property.*VAL"):
-        msm.convert(path, to_form="molsysmt.MolSys")
+    if record["name"] == "copper_ammine_valence":
+        with pytest.raises(FormatError, match="coordination valence"):
+            msm.convert(path, to_form="molsysmt.MolSys")
+    else:
+        native = msm.convert(path, to_form="molsysmt.MolSys")
+        assert msm.get(native, selection=[0], n_explicit_hydrogens=True) == [0]
+        assert msm.get(native, selection=[0], n_implicit_hydrogens=True) == [0]
+        assert msm.get(native, selection=[0], allows_implicit_hydrogens=True) == [False]
+        assert msm.get(native, selection=[0], n_unpaired_electrons=True) == [
+            1 if record["name"] == "methyl_radical_valence" else 0
+        ]
 
 
 @pytest.mark.skipif(

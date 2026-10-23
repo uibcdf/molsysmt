@@ -1,5 +1,7 @@
 """Auditing explicit information SDF cannot retain from a selected native system."""
 
+import pandas as pd
+
 from molsysmt.basic.conversion_report import ConversionIssue
 
 
@@ -22,6 +24,26 @@ def audit_sdf_write(item, selection, structure_indices, syntax):
 
     topology = selected.topology
     if topology is not None:
+        from molsysmt.form.file_sdf._native import _stored_valence_hydrogens
+
+        fields = (
+            "n_explicit_hydrogens",
+            "n_implicit_hydrogens",
+            "allows_implicit_hydrogens",
+        )
+        atom_attributes = topology._chemical_states[0].atom_attributes
+        for name in fields:
+            if name not in atom_attributes:
+                continue
+            if any(
+                pd.notna(row[name]) and _stored_valence_hydrogens(row) is None
+                for _, row in atom_attributes.iterrows()
+            ):
+                dropped(
+                    name,
+                    "CTAB valence retains virtual explicit H with zero implicit H and implicit-H permission disabled; other stored hydrogen metadata is not encoded.",
+                    "chemical_state",
+                )
         ids = [str(i) for i in range(1, topology.n_atoms + 1)]
         if topology.atoms["atom_id"].tolist() != ids:
             dropped(

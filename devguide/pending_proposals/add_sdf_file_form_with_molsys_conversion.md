@@ -20,6 +20,11 @@ A native, experimental single-record adapter is implemented. Explicit optional
 RDKit stereo reading/writing and reusable accurate CIP analysis are available;
 broader real-ligand/stereochemical validation remains pending before closure.
 
+**Current extension, 2026-10-22:** blank legacy version markers and declared
+valence on integer covalent graphs are supported. Original 1IEP converts on the
+native route; original versionless 1S63 converts with explicitly selected stereo
+interpretation. See the dated checkpoint below for remaining limits.
+
 ## What
 
 Add a file:sdf form with supported conversions in both directions with
@@ -251,6 +256,61 @@ The focused SDF/PDBQT/fragments/conversion-report regression passed 418 tests in
 104.48 seconds on Linux / Python 3.13.14, with NumPy 2.4.6, RDKit 2025.9.5,
 MDAnalysis 2.10.0 and Vina 1.2.7. The executable command and warnings are recorded
 in #302's local resolution; this is not a full-suite or preparation result.
+
+## Legacy-header and declared-valence extension — 2026-10-22
+
+**Implemented and contract-tested.** The original, hash-verified Vina sources
+are unchanged. A blank version field selects V2000 grammar; an unknown or
+truncated nonblank marker still fails. All ordinary field, terminator, query
+and stereo checks remain in force. 1S63 still needs `stereo_engine='rdkit'`
+because its chiral flag is active, not because its header requires a fallback.
+
+V2000 valence 1–14 and explicit zero (code 15), and V3000 `VAL=1`–`14` / `VAL=-1`,
+are decoded on integer covalent graphs. The sum of drawn bond orders includes
+indexed H bonds. Its remainder is stored as virtual `n_explicit_hydrogens`,
+with `n_implicit_hydrogens=0` and `allows_implicit_hydrogens=False`, in the existing
+ChemicalStates fields. No extra chemistry store, H atom or H coordinate is
+created. Undeclared atoms keep unknown counts. This reads a declaration; it does
+not certify chemically appropriate valence or choose a protonation state.
+
+The native writer re-encodes that combination through valence, including zero.
+Other H metadata combinations remain reported losses and strict conversion
+rejects them. The optional stereo reader verifies the declared H inventory;
+its writer restores explicit valence annotations that RDKit may omit when they
+match an element's default. Methane with four virtual H guards that boundary.
+
+The syntax/assembly split remains unchanged: CTAB decoding is private format
+machinery; ChemicalStates owns assignments, and the existing public
+`physchem.get_hydrogen_inventory` remains the reusable count inspection tool.
+Bond-order summation uses linear passes, without all-pairs storage or a nested
+atom/bond scan. No measured speed claim or compiled kernel is needed here.
+
+**References and attribution.** Interpretation follows
+[BIOVIA CTFile Formats 2020](https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf),
+V2000 atom valence and V3000 VAL. RDKit FileParsers at source commit
+`cbfb37abddcd5b5feeac97d53530ae6be83cac0d` were inspected for legacy-header and
+valence interoperability; code was not copied. The native branch executes no
+RDKit. This is a format codec rather than a new scientific method/result
+attribution boundary, so a new Ackredit hook is not applicable. Explicit CIP
+calculation retains its existing optional Ackredit integration.
+
+**Remaining bounds.** Declared valence on aromatic/coordination bonds and valence
+smaller than drawn integer orders fail explicitly. The copper corpus record
+remains a rejection; methyl radical and zero-valence atomic oxygen now pass.
+Original 1IEP passes the dependency-free round trip, while an exploratory
+optional stereo round trip rejects a reconstruction mismatch before opening the
+destination: RDKit's 3D reconstruction introduces unlabelled chiral tags on
+nonstereogenic H-bearing sites. That path is not newly qualified. Multi-record
+semantics, durable SD properties, enhanced stereo and wider dialect coverage
+remain pending. #215 is still partial; no complete RDKit-equivalence claim is made.
+
+Primary guards: `tests/form/file_sdf/test_valence.py` and
+`tests/form/file_sdf/test_real_vina_examples.py`. The original source hashes,
+coordinates under a non-default unit policy, both output versions, virtual vs
+indexed H, zero/positive valence, malformed/conflicting fields, strict losses,
+H5MSM 0.5 persistence and extraction are checked. #181's existing docking profile
+now exercises 48 direct/public witness cases, including legacy and valence
+variants; its actual-loader isolation guard covers all of them.
 Source bytes are not rewritten to achieve coverage, and no optional toolkit is
 used as a silent parsing fallback. Broader native SDF coverage remains pending;
 the subsequent consumer evidence and stabilization review follow. This issue stays partial.
@@ -273,3 +333,20 @@ that historical evidence is inspected rather than rerun on this source. No sourc
 is rewritten and no new dialect or chemistry is admitted. Current conservative
 profiles are qualified for experimental inclusion; broader acceptance and parser
 coverage remain post-1.0 work and this issue remains partial.
+
+### Qualification of the legacy/valence extension
+
+The [source receipt](../../devtools/data/sdf_legacy_valence_20261022.json) records
+the exact command, environment, executable-file SHA-256 values and scope. The
+final regression selection passed **751 tests**, zero failures/skips, in
+50.79 seconds on Linux / Python 3.14.7 with 12 workers and Pytest Receptor.
+Its 30 warnings comprise 21 legacy H5MSM notices, six MDAnalysis mass
+deprecations, two expected structural-drop notices and one optional binary-size
+warning already recorded under #237. No warning was suppressed to pass.
+
+The converter doctest passed (one example); the updated Module 01 notebook
+executed successfully in 17.3 seconds. Ruff check/format passed for all 13 changed
+Python files, all 96 form adapters passed delivery checks, the API stability
+guard found zero unauthorized signature changes, the docstring validator passed
+247 functions and all 14 fast release gates passed. No full/installed release
+matrix was started, and these results do not authorize a tag or publication.
