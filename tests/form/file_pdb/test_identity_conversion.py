@@ -35,3 +35,33 @@ def test_pdb_copy_rejects_two_destination_arguments(tmp_path):
         )
     assert not (tmp_path / "first.pdb").exists()
     assert not (tmp_path / "second.pdb").exists()
+
+
+def test_pdb_copy_retains_original_positional_destination(tmp_path):
+    source = tmp_path / "source.pdb"
+    target = tmp_path / "copy.pdb"
+    source.write_text(_pdb_text())
+    assert to_file_pdb(str(source), "all", "all", str(target), True, False) == str(
+        target
+    )
+    assert target.read_bytes() == source.read_bytes()
+
+
+def test_pdb_copy_keeps_legacy_slot_and_adds_only_a_destination_keyword():
+    from inspect import Parameter, signature
+
+    parameters = signature(to_file_pdb).parameters
+    positional = [
+        name
+        for name, value in parameters.items()
+        if value.kind == Parameter.POSITIONAL_OR_KEYWORD
+    ]
+    assert positional == [
+        "item",
+        "atom_indices",
+        "structure_indices",
+        "output_name",
+        "copy_if_all",
+        "skip_digestion",
+    ]
+    assert parameters["output_filename"].kind == Parameter.KEYWORD_ONLY

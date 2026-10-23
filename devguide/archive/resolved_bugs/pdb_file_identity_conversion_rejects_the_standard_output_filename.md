@@ -83,3 +83,21 @@ The full commands, environment and limits are in the
 The guard above executes the affected behavior; additional mirrored native and
 Modeller tests compare atom names, selected positions, physical units and source
 ownership. Resource guards check actual paths after return, errors and interruption.
+
+## 2026-10-22 correction — retain the original positional signature
+
+The ordinary CI run [39879357399](https://github.com/uibcdf/molsysmt/actions/runs/39879357399)
+correctly rejected d7b03450f at the parent-signature gate: although both keyword
+spellings and positional calls worked, the legacy positional parameter name had
+been replaced by `output_filename`. The local 14 fast gates did not include this
+parent comparison; their passing result was not a passing CI result.
+
+The follow-up restores `output_name` in its original fourth positional slot and
+adds `output_filename` only as a keyword-only parameter. This supersedes the
+keyword-only-alias design stated above. A function-specific registry waiver
+records the intentional additive keyword/restoration; no validator is weakened.
+The regression module executes the full legacy positional call as well as both
+keyword routes, and checks the preserved positional boundary. Parent comparisons
+are run both against the failed commit and the original pre-change API. The
+broader runtime results above remain applicable to the unchanged conversion body;
+the destination contract and doctest are rerun for this follow-up.

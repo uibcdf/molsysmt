@@ -343,3 +343,14 @@ The [receipt](../../devtools/data/conversion_execution_pdb_20261022.json) record
 the commands, versions and bounds. #181 remains partial. No installed-pair,
 whole-graph, full PDB-field or new scientific accuracy certification follows;
 release selection/publication remain governed by #334.
+
+### PDB CI signature follow-up
+
+Ordinary CI run 39879357399 rejects the first PDB commit at its parent-signature
+comparison: the destination alias had moved out of its original positional slot.
+The follow-up restores the six original positional parameters and adds only
+keyword-only `output_filename`. A function-specific intentional-addition waiver
+names #422 and the executable contract guards; the validator is unchanged.
+The destination regression/doctest selection passes eight cases, and comparisons
+against both the rejected commit and the original pre-change API pass. This
+corrects the initial CI failure without treating local fast gates as CI success.

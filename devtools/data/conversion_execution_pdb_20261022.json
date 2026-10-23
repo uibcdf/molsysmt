@@ -95,5 +95,18 @@
     "total": 14,
     "command": "python devtools/scripts/release_gate.py",
     "heavy_release_gates": "not invoked; no release or matrix authorization inferred"
+  },
+  "ci_followup": {
+    "initial_run": 39879357399,
+    "initial_conclusion": "failure",
+    "failed_step": "Validate public API stability against parent",
+    "reason": "Legacy output_name positional slot renamed even though both destination spellings worked.",
+    "correction": "Restore original output_name positional slot; add output_filename keyword-only; function-scoped intentional-signature registry entry with behavior and boundary guards.",
+    "targeted_command": "python -m pytest tests/form/file_pdb/test_identity_conversion.py --doctest-modules molsysmt/form/file_pdb/to_file_pdb.py --receptor=llm -n 12",
+    "passed": 8,
+    "failed": 0,
+    "seconds": 12.81,
+    "parent_comparison": "pass against d7b03450f and original pre-change 9c3e980f8; one explicit scoped addition/restoration waiver",
+    "style": "changed Python files pass Ruff check and format; concurrent addon/package work is excluded from this follow-up"
   }
 }

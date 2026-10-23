@@ -6,11 +6,11 @@ def to_file_pdb(
     item,
     atom_indices="all",
     structure_indices="all",
-    output_filename=None,
+    output_name=None,
     copy_if_all=True,
     skip_digestion=False,
     *,
-    output_name=None,
+    output_filename=None,
 ):
     """
     Converting from file:pdb to file:pdb.
@@ -24,14 +24,14 @@ def to_file_pdb(
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    output_filename : str or pathlib.Path, default=None
-        Destination PDB path, required when making a copy.
+    output_name : str or pathlib.Path, default=None
+        Legacy destination argument, retaining its original positional slot.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
-    output_name : str or pathlib.Path, default=None
-        Legacy alias for output_filename. Supply only one destination argument.
+    output_filename : str or pathlib.Path, default=None
+        Standard destination keyword. Supply only one destination argument.
 
     Returns
     -------
