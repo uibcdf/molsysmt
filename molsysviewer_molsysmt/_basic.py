@@ -1,4 +1,4 @@
-"""Thin read-tool wrappers; no unknown or mutating exports are proxied."""
+"""Thin explicit scientific wrappers; no unknown mutating exports are proxied."""
 
 import inspect
 import re
@@ -32,7 +32,15 @@ def _native_documentation(name):
 
 
 class _BasicTools:
-    _NAMES = ("get", "select", "info", "get_attributes", "has_attribute", "get_label")
+    _NAMES = (
+        "get",
+        "select",
+        "info",
+        "get_attributes",
+        "has_attribute",
+        "get_label",
+        "extract",
+    )
 
     def __init__(self, owner):
         self._owner = owner
@@ -201,4 +209,30 @@ class _BasicTools:
                 "skip_digestion": skip_digestion,
             },
             kwargs,
+        )
+
+    @_native_documentation("extract")
+    @signal(tags=["addon", "extract"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def extract(
+        self,
+        selection="all",
+        structure_indices="all",
+        to_form=None,
+        output_filename=None,
+        copy_if_all=True,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "extract",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "to_form": to_form,
+                "output_filename": output_filename,
+                "copy_if_all": copy_if_all,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
         )

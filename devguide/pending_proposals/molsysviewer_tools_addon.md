@@ -175,3 +175,19 @@ The Viewer formatting-only follow-up is `7449675aa8407e94136357f11da1256188e4618
 use that head; explicit release-candidate inputs remain authoritative. The
 separate false-positive documentation dependency guard was reported as
 uibcdf/molsysmt#427, without adding a guessed external package.
+
+
+## Independent extraction and retained structure receiving
+
+The facade additionally supplies `basic.extract` and its root alias, preserving
+the native signature/defaults, target forms, output-file argument and
+`copy_if_all` policy. Independent results are not adopted; unrestricted native
+live-reference behavior is not converted into a copy or automatic observation.
+The same source parity suite now exercises repeated/nonconsecutive structures,
+independent coordinates/topology, native errors and unchanged scene state.
+
+Viewer receiving under uibcdf/molsysviewer#264 now admits a retained
+`structure_index_map` for live molecular adoption, shared with independent
+View extraction. That boundary does not yet qualify managed mutation, deferred
+synchronization or failed-rebuild recovery. This phase adds no mutator or task
+panel and does not alter the published compatibility floor.

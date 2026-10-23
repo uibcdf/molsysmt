@@ -9,9 +9,9 @@ supplied as the primary input.
 
 The initial experimental source implementation provides six queries under
 `view.addons.molsysmt.basic`: `get`, `select`, `info`, `get_attributes`,
-`has_attribute` and `get_label`. Their root aliases are also available, such as
-`view.addons.molsysmt.get`. Other scientific modules, editing tools and graphical
-task panels are still being implemented. This is not a complete MolSysMT mirror
+`has_attribute` and `get_label`, plus independent extraction with `extract`.
+Their root aliases are also available, such as `view.addons.molsysmt.get`.
+Other scientific modules, bound-system editing tools and graphical task panels are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
 Install compatible versions of both components. MolSysMT supplies the
@@ -56,6 +56,23 @@ The bound methods omit the primary `molecular_system` argument. You cannot
 override it with another system. Inspect a signature or call `help` on the
 method for the remaining native parameters. `skip_digestion` keeps the native
 trusted-call contract; it does not bypass view lifetime checks.
+
+## Extracting a molecular subset
+
+```python
+subset = view.addons.molsysmt.basic.extract(
+    selection=[0, 2, 4], structure_indices=[2, 0, 2],
+    to_form="molsysmt.MolSys",
+)
+```
+
+This returns the native molecular result and leaves the view unchanged. Structure
+order and repetitions follow {doc}`basic/extract`, as do output formats/files,
+units, attached-analysis projection and the `copy_if_all` ownership policy.
+An unrestricted `copy_if_all=False` call may retain native shared/live-reference
+behavior; the addon does not add a defensive copy or observe later direct writes.
+`view.extract(...)` is a separate operation that returns a new view with migrated
+scene state. Neither method implicitly adopts its result into the source view.
 
 ## Reusing tool references
 

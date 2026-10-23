@@ -37,7 +37,16 @@ def view():
 
 
 @pytest.mark.parametrize(
-    "name", ("get", "select", "info", "get_attributes", "has_attribute", "get_label")
+    "name",
+    (
+        "get",
+        "select",
+        "info",
+        "get_attributes",
+        "has_attribute",
+        "get_label",
+        "extract",
+    ),
 )
 def test_signatures_defaults_digestion_and_help_match_native(view, name):
     native = getattr(msm.basic, name)
@@ -176,3 +185,39 @@ with msv.demo['dialanine'] as view:
     assert result.returncode == 0, result.stdout + result.stderr
     payload = json.loads(result.stdout.splitlines()[-1])
     assert payload["addon"] == "molsysmt" and payload["n_atoms"] > 0
+
+
+@pytest.mark.parametrize("frames", [[2, 0, 2], [2, 0]])
+def test_extract_returns_native_subset_without_adopting_it(view, frames):
+    target = view.molsys
+    before = view.export_state()
+    kwargs = dict(
+        selection=[0, 2, 4], structure_indices=frames, to_form="molsysmt.MolSys"
+    )
+    expected = msm.basic.extract(target, **kwargs)
+    actual = view.addons.molsysmt.basic.extract(**kwargs)
+    assert type(actual) is type(expected)
+    assert actual is not target
+    assert actual.get_n_atoms() == 3
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(actual.structures.coordinates, to_unit="nm"),
+        msm.pyunitwizard.get_value(expected.structures.coordinates, to_unit="nm"),
+    )
+    assert actual.structures.n_structures == len(frames)
+    assert view.molsys is target and view.export_state() == before
+    msm.set(actual, selection=[0], element="atom", atom_name="COPIED")
+    assert msm.get(target, selection=[0], element="atom", atom_name=True) != ["COPIED"]
+
+
+def test_extract_preserves_native_copy_policy_and_rejects_invalid_indices(view):
+    target = view.molsys
+    result = view.addons.molsysmt.basic.extract(copy_if_all=False)
+    assert (result is target) == (
+        msm.basic.extract(target, copy_if_all=False) is target
+    )
+    before = view.export_state()
+    with pytest.raises(Exception) as native_failure:
+        msm.basic.extract(target, structure_indices=[1000000])
+    with pytest.raises(type(native_failure.value)):
+        view.addons.molsysmt.extract(structure_indices=[1000000])
+    assert view.molsys is target and view.export_state() == before
