@@ -1,0 +1,91 @@
+{
+  "schema": "molsysmt.native_domain_composition_qualification@1",
+  "date": "2026-10-22",
+  "issue": "uibcdf/molsysmt#430",
+  "parent_checkpoint": "128a0bbb94e6804f5663e58a45313c77de1cc30d",
+  "scope": "Source checkout; no full/installed release matrix.",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "rdkit": "2025.9.5",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/_private/native_composition.py": "8e66644ee1948380d9d499b2b2e76362a7c22e9657147739e15d90c72e814ab0",
+    "molsysmt/_private/molecular_system_validation.py": "14ac29c3951615b5a24dfb86bc33bc78895409c10ef79d38e951dde34cd068d3",
+    "molsysmt/native/molsys.py": "4ea775a01578b404d0002c3dd8f0c65e5b5e364bdac1b6cd10209b22ce67f5d3",
+    "molsysmt/native/structures.py": "001c06538df0bc3eeffd103b436ea4cbd3d0edc0c78fee5dbaf61610c823a2a9",
+    "molsysmt/basic/convert.py": "6c2e676ce2b178784a610ec37e4b2650c53bf4b7ac3ab93796880609524ebadd",
+    "tests/basic/convert/mult_to_one/test_native_mechanics_composition.py": "5e28b476b36eb8b0701d7b70275598ee638da2959e38c70bf88b20985df72c6e"
+  },
+  "tests": {
+    "command": "python -m pytest tests/basic/convert/mult_to_one tests/basic/convert/test_conversion_preflight.py tests/basic/convert/test_convert_multiple_systems_error.py tests/basic/test_structure_axis.py tests/_private/test_molecular_system_validation.py tests/build/test_merge_nonpolar_hydrogens.py tests/form/file_pdbqt tests/native/test_molsys_copy.py tests/native/test_chemical_states_owner.py tests/native/test_pandas_warning_compatibility.py tests/native/test_structures_extended.py tests/native/test_structure_copy.py tests/native/test_structure_owner.py tests/native/test_structure_observables.py tests/test_argument_contract.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 482,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 92.42,
+    "warnings": {
+      "legacy_h5msm_04": 108,
+      "mdanalysis_mass_deprecation": 6,
+      "off_structure_axis_attribute_drop": 3,
+      "incompatible_box": 1,
+      "preexisting_optional_numpy_binary_size_warning": 1
+    }
+  },
+  "pandas310": {
+    "command": "PYTHONPATH=/tmp/molsysmt-431-pandas310/overlay:$PYTHONPATH python -m pytest tests/basic/convert/mult_to_one/test_native_mechanics_composition.py tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py tests/_private/test_molecular_system_validation.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 76,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 17.37,
+    "legacy_h5msm_warnings": 32,
+    "wheel_receipt": "devtools/data/native_pandas_compatibility_20261022.json"
+  },
+  "documentation": {
+    "course": {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "executed": 1,
+      "seconds": 7.2
+    },
+    "toolbox": {
+      "path": "docs/content/user/tools/basic/convert.ipynb",
+      "executed": 1,
+      "seconds": 73.4
+    },
+    "doctest": {
+      "path": "molsysmt/basic/convert.py",
+      "passed": 1,
+      "seconds": 1.1
+    },
+    "viewer_source": "65e53eb4f90276c3a79c67480b4c37ab93688341",
+    "viewer_worktree_clean": false,
+    "viewer_source_qualification_claimed": false
+  },
+  "checks": [
+    "14/14 fast gates pass",
+    "Ruff passes",
+    "Zero unauthorized public signature drift",
+    "249 public docstrings pass"
+  ],
+  "boundaries": [
+    "Explicit native ChemicalStates owns chemistry; topology compatibility data is fallback.",
+    "Standalone native providers only for this route; existing generic external/dictionary routes retained.",
+    "Partial-MolSys/file composition continues to reject molecular mechanics.",
+    "Full declared axes validate before selection; absent structural atom axes are not zero-length arrays.",
+    "Default independent result; no-copy still respects existing native single-owner rules.",
+    "Named mechanics producer reports are preserved, not recalculated or newly certified.",
+    "H5MSM 0.5 excludes nonempty mechanics.",
+    "No new scientific Ackredit boundary; existing attribution remains in transported reports."
+  ]
+}

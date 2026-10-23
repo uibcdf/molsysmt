@@ -333,6 +333,14 @@ class Structures(NativeQueries):
         _, n_atoms = self._validate_alignment()
         return n_atoms
 
+    def _atom_axis_size(self):
+        """Return the declared atom-axis size, or None for observable-only data."""
+        if any(
+            getattr(self, "_" + name) is not None for name in _ATOM_ALIGNED_ATTRIBUTES
+        ):
+            return self.n_atoms
+        return None
+
     @signal(tags=["native"])
     @arg_digest(structure_series=True)
     def __init__(

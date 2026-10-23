@@ -107,7 +107,7 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
         )
 
     from molsysmt._private.h5msm import modular_h5msm_axes
-    from molsysmt.native import MolSys
+    from molsysmt.native import MolSys, Structures
 
     topology_items = 0
     instance_counts = []
@@ -122,6 +122,9 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
             elif isinstance(item, MolSys):
                 topology_items += item.topology is not None
                 count = item._get_n_atoms()
+                instance_counts.append([] if count is None else [count])
+            elif isinstance(item, Structures):
+                count = item._atom_axis_size()
                 instance_counts.append([] if count is None else [count])
             else:
                 topology_items += _provides_primary_topology(_dict_modules[form])

@@ -169,3 +169,14 @@ contract/evidence lives in the
 [resolved #226 record](../archive/resolved_proposals/read_pdbqt_pose_ensembles_against_a_known_ligand_source.md).
 Earlier generation-map composition and downstream adoption remain separate
 pending #223 work.
+
+
+## Native-provider composition repaired — 2026-10-22
+
+#430 is resolved for explicit standalone native domains. Four-domain input
+`[Topology, ChemicalStates, Structures, MolecularMechanics]` now joins the owning
+native composition seam, preserves complete mechanics reports and validates full
+axes before selection. Explicit ChemicalStates supplies chemistry rather than
+list-order attribute overrides. See the
+[resolved record](../archive/resolved_bugs/native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md).
+This repair does not complete #223's upstream atom-map composition or receiving.

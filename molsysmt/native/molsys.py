@@ -544,12 +544,7 @@ class MolSys(NativeQueries):
         ):
             raise ValueError("Topology and chemical states must share an atom domain.")
         if structures is not None:
-            payload = structures._frame_payload()
-            has_atom_axis = any(
-                payload[name] is not None
-                for name in ("coordinates", "velocities", "b_factor", "occupancy")
-            )
-            if has_atom_axis:
+            if structures._atom_axis_size() is not None:
                 if (
                     chemical_states is not None
                     and structures.n_atoms != chemical_states.n_atoms
@@ -1541,12 +1536,9 @@ class MolSys(NativeQueries):
         if self.chemical_states is not None:
             return self.chemical_states.n_atoms
         if self.structures is not None:
-            payload = self.structures._frame_payload()
-            if any(
-                payload[name] is not None
-                for name in ("coordinates", "velocities", "b_factor", "occupancy")
-            ):
-                return self.structures.n_atoms
+            n_atoms = self.structures._atom_axis_size()
+            if n_atoms is not None:
+                return n_atoms
         analyses = getattr(self, "_interactions", {})
         if analyses:
             return next(iter(analyses.values())).n_atoms

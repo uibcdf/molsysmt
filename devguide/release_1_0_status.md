@@ -3229,3 +3229,27 @@ docstring checks and all 14 fast gates pass. See the
 [resolved #226 record](archive/resolved_proposals/read_pdbqt_pose_ensembles_against_a_known_ligand_source.md).
 This does not qualify a new installed pair, change publication authorization
 under #334, or complete #223's earlier-preparation map composition.
+
+
+## Native pandas and domain-composition repairs — 2026-10-22
+
+#431 is repaired in `128a0bbb94e6804f5663e58a45313c77de1cc30d`; all five
+exact-commit GitHub checks pass. Warning-strict native topology operations retain
+their values, nullable metadata, bond-table identity and independent ownership.
+The same 1,366 focused tests pass on pandas 2.3.3 and published 3.1.0. Consumer
+receiving and documentation reruns remain owned by uibcdf/molsysviewer#264.
+See the [record](archive/resolved_bugs/native_topology_inplace_calls_break_warning_strict_examples.md)
+and [receipt](../devtools/data/native_pandas_compatibility_20261022.json).
+
+#430 now composes explicit standalone native Topology, ChemicalStates, Structures
+and MolecularMechanics providers through the owning native seam. Explicit
+ChemicalStates owns chemistry; known axes validate before selection. Original
+mechanical provenance and native ownership rules are retained. Missing structural
+atom axes are distinguished from actual zero-length arrays. All 482 focused
+source tests and the 76-case pandas 3.1.0 selection pass without failures/skips.
+The executed guide/course, public doctest and 14 fast gates pass. See the
+[record](archive/resolved_bugs/native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md)
+and [receipt](../devtools/data/native_domain_composition_20261022.json).
+Partial-MolSys/file composition still excludes mechanics, as does H5MSM 0.5
+persistence. These fixes do not change #334's publication pause or replace
+exact installed-pair qualification.

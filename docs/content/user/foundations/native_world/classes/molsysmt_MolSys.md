@@ -58,6 +58,23 @@ atom-index correspondence and produces a topology-free system; index selections
 remap both domains together. The reference state is preserved, but several
 states are not automatically assigned to structures. See {ref}`Tutorial_Convert`.
 
+You can also compose standalone native `Topology`, `ChemicalStates`, `Structures`
+and `MolecularMechanics` providers. A supplied `ChemicalStates` owns chemistry;
+the Topology compatibility collection is a fallback when it is absent. Listing
+these domains declares positional correspondence, not common origin. Full atom
+axes must agree before selection; repeated explicit providers fail. Mechanical
+values, settings and original producer reports are retained without recalculating
+charges or legitimizing stale assignments. A list of partial `MolSys` inputs
+retains its separate, bounded contract; it does not transfer mechanics.
+
+The default native composition result is independent. `copy_if_all=False` avoids
+the final snapshot for a full-axis request, but domains with a live molecular
+owner still detach according to their native ownership rules. Unowned structures
+and supplied mechanics can be shared explicitly. Index selections use existing
+extraction: Topology-backed atom subsets are sorted; a chemical/structural-only
+system retains the requested atom order. Several chemical states do not acquire
+an automatic structure association. H5MSM 0.5 still rejects nonempty mechanics.
+
 ---
 
 

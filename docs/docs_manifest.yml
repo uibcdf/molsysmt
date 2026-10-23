@@ -45,7 +45,7 @@ sections:
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
             description: Native hierarchy, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
           - name: molsys
-            description: Native domains, inherited construction, slot and table copy boundaries, bounded metadata, independent geometry and chemical authorities, controlled edits, state inventory publication and analysis invalidation.
+            description: Native domains, explicit standalone-provider composition, chemical ownership, copy boundaries, bounded metadata, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -109,7 +109,7 @@ sections:
             agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
-            description: Form conversion, explicit topology-plus-coordinate inputs, matched PDB selections, physical units and managed text-to-MDTraj scratch files.
+            description: Form conversion, explicit four-domain native composition, chemical ownership, axis conflicts, preserved mechanics provenance and independent selections.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md

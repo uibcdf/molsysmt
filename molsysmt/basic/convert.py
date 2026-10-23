@@ -844,6 +844,18 @@ def convert(
       The reference chemical state is preserved, but multiple states acquire
       no inferred per-structure assignment. The default result is independent;
       ``copy_if_all=False`` shares native domains only for full-axis conversion.
+    - Standalone native Topology, ChemicalStates, Structures and
+      MolecularMechanics providers can compose one system. Explicit
+      ChemicalStates owns the chemistry; Topology's compatibility collection
+      is used only without that provider. Complete atom axes must agree before
+      selection, and repeated explicit domains are rejected. Mechanical values,
+      settings and assignment provenance are transported without recalculation
+      or certification. Existing stale assignments stay stale on projection.
+      Structures receive no inferred assignment when several chemical states
+      exist. The default output is independent. ``copy_if_all=False`` suppresses
+      the final full-axis snapshot, but existing single-owner rules still detach
+      attached Topology, ChemicalStates and Structures domains; unowned structures
+      and the supplied mechanics can be shared. Selections produce a new subset.
     - Complementary partial MolSys objects or H5MSM 0.5 files are composed
       before selections. Supplying their list declares positional atom and
       structure correspondence; matching counts do not establish origin.
