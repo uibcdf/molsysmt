@@ -46,11 +46,11 @@ def test_public_positional_axes_reject_quantity_before_unit_stripping(
             elif family == "rmsd":
                 msm.structure.get_symmetry_corrected_rmsd(source, **{argument: value})
             elif family == "names":
-                msm.form.project_atom_names(
-                    source, to_form="file:pdbqt", **{argument: value}
+                msm.build.project_atom_names(
+                    source, target_form="file:pdbqt", **{argument: value}
                 )
             else:
-                msm.form.read_pdbqt_poses(
+                msm.form.string_pdbqt_text.read_poses(
                     "pdbqt_text:END\n", source, {}, **{argument: value}
                 )
 

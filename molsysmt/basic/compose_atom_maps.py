@@ -5,7 +5,7 @@ from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 
 
-@signal(tags=["api", "form"])
+@signal(tags=["api", "basic"])
 @arg_digest()
 def compose_atom_maps(atom_maps, skip_digestion=False):
     """Composing sequential preparation, projection, export and pose atom maps.
@@ -56,7 +56,7 @@ def compose_atom_maps(atom_maps, skip_digestion=False):
 
     See Also
     --------
-    read_pdbqt_poses : Read mapped docking pose coordinates.
+    molsysmt.form.file_pdbqt.read_poses : Read mapped docking pose coordinates.
     molsysmt.build.merge_nonpolar_hydrogens : Obtain a typed projection report.
     molsysmt.build.add_terminal_atoms : Obtain an explicit atom-creation report.
 
@@ -67,7 +67,7 @@ def compose_atom_maps(atom_maps, skip_digestion=False):
     ...     source_to_output_atom_indices=[0, 1], output_to_source_atom_indices=[0, 1, -1])
     >>> second = dict(schema='molsysmt.atom_map@1', n_source_atoms=3, n_output_atoms=2,
     ...     source_to_output_atom_indices=[1, -1, 0], output_to_source_atom_indices=[2, 0])
-    >>> mapped = msm.form.compose_atom_maps([first, second])
+    >>> mapped = msm.basic.compose_atom_maps([first, second])
     >>> mapped['output_to_source_atom_indices'].tolist()
     [-1, 0]
     >>> mapped['source_to_output_atom_indices'].tolist()

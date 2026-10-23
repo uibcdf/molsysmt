@@ -19,6 +19,11 @@ _dict_modules = DeclaredRegistry(
 def __getattr__(name):
     if name == "_dict_forms_lowercase":
         return {ii.lower(): ii for ii in _dict_modules.keys()}
+    for form_name in _dict_modules:
+        if catalogue.plugin_of(form_name) == name:
+            module = _dict_modules[form_name]
+            globals()[name] = module
+            return module
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
@@ -30,12 +35,10 @@ from .is_item import is_item  # noqa: E402
 from .is_file import is_file  # noqa: E402
 from .load_converter import load_converter  # noqa: E402
 from .is_string import is_string  # noqa: E402
-from .read_pdbqt_poses import read_pdbqt_poses  # noqa: E402
-from .compose_atom_maps import compose_atom_maps  # noqa: E402
-from .project_atom_names import project_atom_names  # noqa: E402
 # isort: on
 
 RESOURCE_FORMS = {
+    "molsysmt.PDBQTFileHandler",
     "mdtraj.HDF5TrajectoryFile",
     "mdtraj.XTCTrajectoryFile",
     "mdtraj.DCDTrajectoryFile",

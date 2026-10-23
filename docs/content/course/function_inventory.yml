@@ -1,20 +1,20 @@
-molsysmt.form.project_atom_names:
-  name: "msm.form.project_atom_names"
+molsysmt.build.project_atom_names:
+  name: "msm.build.project_atom_names"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
   summary: "Projects export atom labels explicitly while retaining original names, IDs and index maps."
-  doc_ref: "{func}`molsysmt.form.project_atom_names`"
+  doc_ref: "{func}`molsysmt.build.project_atom_names`"
 
-molsysmt.form.compose_atom_maps:
-  name: "msm.form.compose_atom_maps"
+molsysmt.basic.compose_atom_maps:
+  name: "msm.basic.compose_atom_maps"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
   summary: "Composes declared direct and representative atom axes across preparation and export."
-  doc_ref: "{func}`molsysmt.form.compose_atom_maps`"
+  doc_ref: "{func}`molsysmt.basic.compose_atom_maps`"
 
-molsysmt.form.read_pdbqt_poses:
-  name: "msm.form.read_pdbqt_poses"
+molsysmt.form.string_pdbqt_text.read_poses:
+  name: "msm.form.string_pdbqt_text.read_poses"
   first_introduced_in: "Common_Core/19_Structures_and_Trajectories.ipynb"
   summary: "Reads pose coordinates against a known source and completed export map. Absent H coordinates are never invented."
-  doc_ref: "{func}`molsysmt.form.read_pdbqt_poses`"
+  doc_ref: "{func}`molsysmt.form.string_pdbqt_text.read_poses`"
 
 molsysmt.build.merge_nonpolar_hydrogens:
   name: "msm.build.merge_nonpolar_hydrogens"

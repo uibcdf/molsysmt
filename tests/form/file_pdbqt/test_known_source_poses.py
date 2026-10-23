@@ -12,6 +12,11 @@ from molsysmt._private.smonitor import ArgumentError, FormatError
 from tests.build.test_merge_nonpolar_hydrogens import declared_methanol, unchanged
 
 
+def read_poses(item, *args, **kwargs):
+    form = msm.get_form(item)
+    return msm.form._dict_modules[form].read_poses(item, *args, **kwargs)
+
+
 def rigid_tree(source, order):
     return {
         "schema_version": "molsysmt.pdbqt-torsion-tree@1",
@@ -73,7 +78,7 @@ def test_public_pose_read_preserves_known_graph_and_true_coordinates(
         msm.pyunitwizard.configure.set_standard_units(
             [unit, "ps", "Da", "K", "mole", "e"]
         )
-        result = msm.form.read_pdbqt_poses(item, source, mapping, return_report=True)
+        result = read_poses(item, source, mapping, return_report=True)
     finally:
         msm.pyunitwizard.configure.set_standard_units(old)
     out, report = result["molecular_system"], result["report"]
@@ -113,7 +118,7 @@ def test_public_pose_read_preserves_known_graph_and_true_coordinates(
 
 def test_nonconsecutive_pose_indices_order_repeats_empty_and_unwrapped(pose_case):
     source, text, mapping = pose_case
-    result = msm.form.read_pdbqt_poses(
+    result = read_poses(
         ensemble(text), source, mapping, structure_indices=[2, 0, 2], return_report=True
     )
     np.testing.assert_array_equal(
@@ -124,11 +129,9 @@ def test_nonconsecutive_pose_indices_order_repeats_empty_and_unwrapped(pose_case
         "9",
         "51",
     ]
-    empty = msm.form.read_pdbqt_poses(
-        ensemble(text), source, mapping, structure_indices=[]
-    )
+    empty = read_poses(ensemble(text), source, mapping, structure_indices=[])
     assert empty.structures.coordinates.shape == (0, 6, 3)
-    single = msm.form.read_pdbqt_poses(text, source, mapping, return_report=True)
+    single = read_poses(text, source, mapping, return_report=True)
     assert single["report"]["model_ids"].tolist() == [None]
     assert single["molecular_system"].structures.n_structures == 1
 
@@ -139,9 +142,7 @@ def test_pose_structure_selection_rejects_labels_and_invalid_indices(
 ):
     source, text, mapping = pose_case
     with pytest.raises(ArgumentError):
-        msm.form.read_pdbqt_poses(
-            ensemble(text), source, mapping, structure_indices=indices
-        )
+        read_poses(ensemble(text), source, mapping, structure_indices=indices)
 
 
 def test_missing_source_hydrogens_require_explicit_subsystem(pose_case):
@@ -157,8 +158,8 @@ def test_missing_source_hydrogens_require_explicit_subsystem(pose_case):
         return_atom_map=True,
     )
     with pytest.raises(FormatError, match="omitted source atoms"):
-        msm.form.read_pdbqt_poses(ensemble(text), source, mapping)
-    result = msm.form.read_pdbqt_poses(
+        read_poses(ensemble(text), source, mapping)
+    result = read_poses(
         ensemble(text), source, mapping, missing_atoms="omit", return_report=True
     )
     output, report = result["molecular_system"], result["report"]
@@ -191,9 +192,7 @@ def test_projected_known_source_and_json_map(pose_case):
         return_atom_map=True,
     )
     mapping = json.loads(json.dumps(mapping, default=lambda value: value.tolist()))
-    result = msm.form.read_pdbqt_poses(
-        ensemble(text), source.topology, mapping, return_report=True
-    )
+    result = read_poses(ensemble(text), source.topology, mapping, return_report=True)
     assert result["molecular_system"].get_n_atoms() == 3
     assert result["report"]["omitted_source_atom_indices"].size == 0
     assert result["molecular_system"].chemical_states._states[
@@ -219,9 +218,7 @@ def test_projected_known_source_and_json_map(pose_case):
 def test_rejects_bad_models_and_unselected_corruption(pose_case, mutation):
     source, text, mapping = pose_case
     with pytest.raises(FormatError):
-        msm.form.read_pdbqt_poses(
-            mutation(ensemble(text)), source, mapping, structure_indices=[]
-        )
+        read_poses(mutation(ensemble(text)), source, mapping, structure_indices=[])
 
 
 @pytest.mark.parametrize(
@@ -243,18 +240,19 @@ def test_rejects_inconsistent_export_map(pose_case, field, value):
     mapping = copy.deepcopy(mapping)
     mapping[field] = value
     with pytest.raises(FormatError):
-        msm.form.read_pdbqt_poses(text, source, mapping)
+        read_poses(text, source, mapping)
 
 
-def test_rejects_stale_source_chemistry_and_keeps_old_parser_profile(pose_case):
+def test_rejects_stale_source_chemistry_and_keeps_generic_chemistry_partial(pose_case):
     source, text, mapping = pose_case
     source.chemical_states._states[0].atom_attributes.loc[0, "formal_charge"] = 1
     with pytest.raises(FormatError, match="chemical-state binding"):
-        msm.form.read_pdbqt_poses(text, source, mapping)
-    with pytest.raises(FormatError, match="MODEL"):
-        msm.convert(
-            ensemble(text), to_form="molsysmt.MolSys", discard_torsion_tree=True
-        )
+        read_poses(text, source, mapping)
+    parsed = msm.convert(
+        ensemble(text), to_form="molsysmt.MolSys", discard_torsion_tree=True
+    )
+    assert parsed.structures.n_structures == 3
+    assert parsed.chemical_states._states[0].connectivity_completeness == "partial"
 
 
 def test_branched_pose_tree_preserves_covalent_graph(pose_case):
@@ -274,16 +272,14 @@ def test_branched_pose_tree_preserves_covalent_graph(pose_case):
         torsion_tree=tree,
         return_atom_map=True,
     )
-    result = msm.form.read_pdbqt_poses(ensemble(text), source, mapping)
+    result = read_poses(ensemble(text), source, mapping)
     np.testing.assert_allclose(
         msm.pyunitwizard.get_value(result.structures.coordinates, to_unit="nm")[2],
         np.arange(18).reshape(6, 3) / 10 - 0.5,
     )
     assert result.topology.n_bonds == 5
     with pytest.raises(FormatError, match="torsion tree"):
-        msm.form.read_pdbqt_poses(
-            ensemble(text).replace("TORSDOF 1", "TORSDOF 0", 1), source, mapping
-        )
+        read_poses(ensemble(text).replace("TORSDOF 1", "TORSDOF 0", 1), source, mapping)
 
 
 def test_does_not_read_native_source_geometry(pose_case, monkeypatch):
@@ -301,7 +297,7 @@ def test_does_not_read_native_source_geometry(pose_case, monkeypatch):
         return original(self)
 
     monkeypatch.setattr(_StructureArray, "_dense", protect_source)
-    result = msm.form.read_pdbqt_poses(ensemble(text), source, mapping)
+    result = read_poses(ensemble(text), source, mapping)
     assert result.structures.coordinates.shape == (3, 6, 3)
 
 
@@ -320,7 +316,7 @@ def test_user_guide_examples_execute():
 
 def test_new_pose_system_roundtrips_h5msm_05(pose_case, tmp_path):
     source, text, mapping = pose_case
-    result = msm.form.read_pdbqt_poses(ensemble(text), source, mapping)
+    result = read_poses(ensemble(text), source, mapping)
     path = tmp_path / "poses.h5msm"
     msm.convert(result, to_form=path)
     loaded = msm.convert(path, to_form="molsysmt.MolSys")
@@ -348,7 +344,7 @@ import importlib.abc
 import importlib.machinery
 import sys
 from tests.build.test_merge_nonpolar_hydrogens import declared_methanol
-from tests.form.file_pdbqt.test_known_source_poses import rigid_tree, ensemble
+from tests.form.file_pdbqt.test_known_source_poses import rigid_tree, ensemble, read_poses
 import molsysmt as msm
 roots = {"rdkit", "meeko", "openmm", "MDAnalysis", "mdtraj", "vina"}
 assert not roots.intersection(name.split(".")[0] for name in sys.modules)
@@ -370,7 +366,7 @@ sys.meta_path.insert(0, DeniedEngines())
 source = declared_methanol()
 text, mapping = msm.convert(source, to_form="string:pdbqt_text", structure_indices=[0],
     typing_scheme="autodock4", torsion_tree=rigid_tree(source, [1,0,5,4,3,2]), return_atom_map=True)
-result = msm.form.read_pdbqt_poses(ensemble(text), source, mapping, return_report=True)
+result = read_poses(ensemble(text), source, mapping, return_report=True)
 assert result["molecular_system"].structures.coordinates.shape == (3,6,3)
 assert not attempted, attempted
 assert not roots.intersection(name.split(".")[0] for name in sys.modules)
@@ -417,9 +413,7 @@ def test_real_vina_output_matches_engine_coordinate_axis(vina_reference_corpus):
     payload = engine.poses(n_poses=2)
     engine_xyz = engine.poses(n_poses=2, coordinates_only=True)
     assert len(engine_xyz) >= 1
-    result = msm.form.read_pdbqt_poses(
-        "pdbqt_text:" + payload, source, mapping, return_report=True
-    )
+    result = read_poses("pdbqt_text:" + payload, source, mapping, return_report=True)
     output = result["molecular_system"]
     actual = msm.pyunitwizard.get_value(
         output.structures.coordinates, to_unit="angstrom"

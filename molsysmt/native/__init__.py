@@ -20,3 +20,5 @@ from .gro_file_handler import GROFileHandler
 from .gro_file_handler import GROAtomicCoordinateEntry
 from .viewer_json import ViewerJSON
 # isort: on
+
+from .pdbqt_file_handler import PDBQTFileHandler

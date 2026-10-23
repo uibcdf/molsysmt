@@ -3,7 +3,7 @@
 
 *Loading pose coordinates without inventing missing chemistry or hydrogens.*
 
-{func}`molsysmt.form.read_pdbqt_poses` is an experimental, resident reader for
+{func}`molsysmt.form.string_pdbqt_text.read_poses` is an experimental, resident reader for
 one ligand or balanced `MODEL`/`ENDMDL` pose ensembles. Supply the known source
 and its completed PDBQT export map. PDBQT alone cannot recover a full ligand
 graph or the coordinates of hydrogens removed during preparation.
@@ -14,7 +14,7 @@ graph or the coordinates of hydrogens removed during preparation.
 :::{admonition} API documentation
 :class: dropdown
 
-{func}`molsysmt.form.read_pdbqt_poses`
+{func}`molsysmt.form.string_pdbqt_text.read_poses`
 :::
 
 Positional structure indices must be plain integers. Physical quantities and
@@ -60,7 +60,7 @@ structure indices.
 body = text.removeprefix('pdbqt_text:')
 pose_text = 'pdbqt_text:' + ''.join(
     f'MODEL {label}\n{body}\nENDMDL\n' for label in [9, 51])
-result = msm.form.read_pdbqt_poses(pose_text, molsys, atom_map,
+result = msm.form.string_pdbqt_text.read_poses(pose_text, molsys, atom_map,
     structure_indices=[1, 0, 1], return_report=True)
 poses, report = result['molecular_system'], result['report']
 assert poses.structures.coordinates.shape == (3, 24, 3)
@@ -71,7 +71,8 @@ assert np.allclose(msm.pyunitwizard.get_value(poses.structures.coordinates,
     molsys.structures.coordinates, to_unit='angstrom')[0], atol=0.00051)
 ```
 
-A path ending in `.pdbqt` is also accepted. Strings need the `pdbqt_text:`
+For a path ending in `.pdbqt`, use `msm.form.file_pdbqt.read_poses`.
+The text-specific function requires the `pdbqt_text:`
 prefix. An unwrapped ligand produces one structure with no declared MODEL ID.
 Selections preserve order and repetitions; an empty list produces coordinates
 of shape `(0, n_retained_atoms, 3)`. **Every pose is validated**, including
@@ -144,8 +145,9 @@ MolecularMechanics is empty; written types/charges remain explicit report data.
 The independent result can be written as H5MSM 0.5 to preserve its known
 chemistry and new structures. The sidecar pose report is not a native H5MSM
 domain; save it separately if needed. Generic `msm.convert()` and `msm.get()`
-on PDBQT keep their bounded single-system profile. They do not implicitly use
-the known-source reader.
+on PDBQT also support homogeneous MODEL ensembles, but retain only declared
+partial chemistry. They do not implicitly use the known-source reader.
+For selected coordinate blocks, see {ref}`Tutorial_Form_PDBQTFileHandler`.
 
 :::{seealso}
 :class: dropdown
@@ -154,3 +156,8 @@ the known-source reader.
 - {ref}`Tutorial_Merge_Nonpolar_Hydrogens`
 - {ref}`Tutorial_Rotatable_Bonds`
 :::
+
+File paths use {func}`molsysmt.form.file_pdbqt.read_poses`; explicit text uses
+{func}`molsysmt.form.string_pdbqt_text.read_poses`. An open
+{class}`molsysmt.native.PDBQTFileHandler` exposes the same operation as
+`handler.read_poses()`. See {ref}`Tutorial_Form_PDBQTFileHandler` for block iteration.

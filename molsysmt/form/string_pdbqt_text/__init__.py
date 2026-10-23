@@ -7,9 +7,12 @@ from .get_atom_ff_type_from_atom import get_atom_ff_type_from_atom
 from .get_n_atoms_from_system import get_n_atoms_from_system
 from .get_n_structures_from_system import get_n_structures_from_system
 from .get_partial_charge_from_atom import get_partial_charge_from_atom
+from .get_structural_attributes import *  # noqa: F403
 from .get_torsion_tree import get_torsion_tree
 from .has_attribute import has_attribute
 from .is_form import is_form
+from .iterators import StructuresIterator, TopologyIterator
+from .read_poses import read_poses
 
 form_name = "string:pdbqt_text"
 form_type = "string"
@@ -23,6 +26,7 @@ bonds_are_explicit = False
 bonds_can_be_computed = False
 
 _convert_to = {
+    "molsysmt.PDBQTFileHandler": "to_molsysmt_PDBQTFileHandler",
     "molsysmt.MolSys": "to_molsysmt_MolSys",
     "molsysmt.Topology": "to_molsysmt_Topology",
     "molsysmt.Structures": "to_molsysmt_Structures",

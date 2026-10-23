@@ -1214,6 +1214,7 @@ def build_conversion_report(
 ):
     """Build a conservative preflight report without mutating either system."""
 
+    from molsysmt._private.conversion_pdbqt import PDBQT_FORMS
     from molsysmt.form import _dict_modules
 
     target_form = _canonical_target_form(to_form)
@@ -1503,8 +1504,8 @@ def build_conversion_report(
     if (
         source_form == "file:sdf"
         or target_form == "file:sdf"
-        or source_form in {"file:pdbqt", "string:pdbqt_text"}
-        or target_form in {"file:pdbqt", "string:pdbqt_text"}
+        or source_form in PDBQT_FORMS
+        or target_form in PDBQT_FORMS
     ):
         audited_scopes = tuple(
             dict.fromkeys((*audited_scopes, *(issue.scope for issue in issues)))
@@ -1534,7 +1535,7 @@ def build_conversion_report(
                 )
             )
             is_exhaustive = False
-        if source_form in {"file:pdbqt", "string:pdbqt_text"} and not pdbqt_identity:
+        if source_form in PDBQT_FORMS and not pdbqt_identity:
             audited_scopes = tuple(
                 dict.fromkeys(("source_metadata", *(issue.scope for issue in issues)))
             )

@@ -1,0 +1,216 @@
+{
+  "schema": "molsysmt.pdbqt_handler_qualification@1",
+  "date": "2026-10-23",
+  "issues": [
+    "uibcdf/molsysmt#214",
+    "uibcdf/molsysmt#223",
+    "uibcdf/molsysmt#434",
+    "uibcdf/molsysmt#181"
+  ],
+  "parent_checkpoint": "c17869f5ae57b87d1302b7a7fa408e1ecfec2ebd",
+  "scope": "Source-level resident PDBQT handler, per-form iteration and reorganized experimental APIs; no release/installed qualification or large-file benchmark.",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "MDAnalysis": "2.10.0",
+      "vina": "1.2.7",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "devtools/data/conversion_execution_baseline.json": "ef6a1778ed4bb752d8afac0635ddcbdd26291faef422d0c123a55760bcdc4a32",
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py": "9b249eefc11cf6066cdfcd286bc46c4f988aa815a4d35a130f3a5631c3596b75",
+    "molsysmt/_private/argdigest/argument/structure_id.py": "f1513346831d684fa90a00748c4e45bafb637251b29473b57eff1b594573d172",
+    "molsysmt/_private/argdigest/domain/converter_arguments.py": "b8ba873cdea80f01d8d03a06f52621ec60a2cae419298131b3073767faf5d10f",
+    "molsysmt/_private/conversion_pdbqt.py": "632edb56d4e2ea6573bafad0a8916f26c4a175a700ea93e24f3921e04bc705dd",
+    "molsysmt/_private/conversion_report.py": "715dd9584b36276dcf81735782050c660fc65791ca12d5b0b20a1a5516b6e7a9",
+    "molsysmt/_private/pdbqt.py": "39f939ed61564207790d59ed9d2d2e8a39e48c60945ca07cb0ca279c644e7a5a",
+    "molsysmt/_private/pdbqt_adapter.py": "5f45c3ef5a1f65e61b74e38b2f6d983ac3b4a90e569c3fb8ec3d6cbb7d5f6e43",
+    "molsysmt/_private/pdbqt_document.py": "586bf5991e0b05ae9cfdd016b5a04479308aa564562b7dd5ec40ea0340f21a81",
+    "molsysmt/_private/pdbqt_iterators.py": "a41609ec69d711cd9adfb5ecf819335bed1c03f840548b9dc7c87bbcbe988e1a",
+    "molsysmt/_private/pdbqt_poses.py": "c04151a06fca10fd6a40d95d708a23d7b73ff44339c485559e0fe950e94b1424",
+    "molsysmt/basic/compose_atom_maps.py": "886fea47cbd64d1cb1a57c9500abfe567994893f62fdf68027a025d582ca5573",
+    "molsysmt/build/project_atom_names.py": "ad41ab62982096f7341ef9c14d87cb15db39d9e8127caef3273ec7ab25d44424",
+    "molsysmt/form/file_pdbqt/__init__.py": "5ff5d2d0bbfe549711bef6715d640a29d56412f723eee9438e3c3b62fb0411e0",
+    "molsysmt/form/file_pdbqt/attributes.py": "4a44fce86cfa9e7bce8e174bbf4d407878283d835b227f6eba0c3b60bfbc17c5",
+    "molsysmt/form/file_pdbqt/copy.py": "90bf9dc809af1e3ec02b9aa4810687573df22972a47d9ab2673c49e5feabccb2",
+    "molsysmt/form/file_pdbqt/extract.py": "089f108853563ee8b7f4aaa5c77d533d3dc91ecda0e511215d65b429c6b6413e",
+    "molsysmt/form/file_pdbqt/form.json": "ed4fa3bd75ab7908b9985acce54b5b30500770797341b319fdba762b1acba41f",
+    "molsysmt/form/file_pdbqt/get_atom_ff_type_from_atom.py": "07bcf8608903d00a756ea6385c4898a0998d1e0334a5a93ab65ec1d42b695bd0",
+    "molsysmt/form/file_pdbqt/get_n_atoms_from_system.py": "a526a3dcbf190e4056b315000710456da4c2bedf24bde02ea31ffe6f64eb6e57",
+    "molsysmt/form/file_pdbqt/get_n_structures_from_system.py": "e9f2b5017d90c54d0f778e7c16e5e51e746451d0d177fb18c15c3ca434f2a81c",
+    "molsysmt/form/file_pdbqt/get_partial_charge_from_atom.py": "a646794adee5ccd03bd5759f9c8e634aa5ca36e830db49ace0ae5f68d7e18429",
+    "molsysmt/form/file_pdbqt/get_structural_attributes.py": "647dedab400f73f6854085c0f125b0fd9a0c17f3883554b841c802167549c683",
+    "molsysmt/form/file_pdbqt/get_torsion_tree.py": "c6fac4c8c0c804bfaf37b61f50a0c3024b79b776c19e8ab1e25f0463528abf74",
+    "molsysmt/form/file_pdbqt/has_attribute.py": "696b12c6d46ddf188de2ee7c24788a1d12d059ac36ab50b04d70eb8a859423af",
+    "molsysmt/form/file_pdbqt/is_form.py": "daac1606624f2bed8872fc4e1d4958cd2ff0f94161f17a0ddd9a1e482d601c16",
+    "molsysmt/form/file_pdbqt/iterators.py": "9d7dca7216321fd75b3470e9631d95abe6e7b274a74e0bed4f6f8dec88f4b909",
+    "molsysmt/form/file_pdbqt/read_poses.py": "967e696dec883b36a0c516eeeda4234f9eb7ea009dd2c7e54b0995cffca87f8b",
+    "molsysmt/form/file_pdbqt/to_file_pdbqt.py": "3d381dd241dabcaba3fdb6fec5563fc853f9c5ff8ea10836fab70cb3b40927f8",
+    "molsysmt/form/file_pdbqt/to_molsysmt_MolSys.py": "a111a521c74929603d8e46933849cc68a26c38a74421bc389652a2e63230228c",
+    "molsysmt/form/file_pdbqt/to_molsysmt_MolecularMechanics.py": "8719cbf60c076739a7cadc4f710a843438553c1441e1fc5dc58da3ce5ccd5fce",
+    "molsysmt/form/file_pdbqt/to_molsysmt_PDBQTFileHandler.py": "f6a7359b64736a1421814a5084e9e42614328bebbc9efbda09043120846420c7",
+    "molsysmt/form/file_pdbqt/to_molsysmt_Structures.py": "3b8f62c5605bc3e1c2d865d2782f124dfa14f491029ff6ec77a38ae606857a03",
+    "molsysmt/form/file_pdbqt/to_molsysmt_Topology.py": "cd4716463bdeca516a05977f6fee88f03a90b10dc04740940b9e6b8a40fd91f9",
+    "molsysmt/form/file_pdbqt/to_string_pdbqt_text.py": "dfc24e356ad7e082c0de45d5e70f420e98e8e5e410fe1e440f99165cc22f54e4",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/__init__.py": "598ca6bebdc0ab531a4091e713bb10b7be85357e0b8817162d3ed8d2b4eb6919",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/attributes.py": "9a1c456e0dbc8701f3297e1c301e053dfb80a80b2a0be4b2ac214031940ab43e",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/copy.py": "98c3788539c7bf6a6a51842df21dfa9d618e3889199183ac06ddc2103741766f",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/extract.py": "825350ff92730e1591822ffbfe0110dba2922594ef93ede6da8c5ed3d08d159f",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/form.json": "c2300227f610158d864ce757e41d85b1cfe984148c3e09fae9ca7a4bf8f36e87",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/get_mechanical_attributes.py": "024a9262a8ec2b90020d2479ce859b9a63f40d961192ade7bac1d49c4afc89fe",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/get_structural_attributes.py": "83f866c9c0d2d4deaf9898265609c94258e49f8f6d834845195b3de5d4f2fa9c",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/has_attribute.py": "7095ce1d9a2bdee7af3f10c62042f29baf46c4a5ca1424ef5c5fc38ecf038f34",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/is_form.py": "526630204c39c44aafca42694b81805a9018beb115f0d72e1771fc09c5cec8bb",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/iterators.py": "4763aced3f62ee1fd65ac9b7c945f7804b2e1655c65698eb3c945a75569736a1",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_file_pdbqt.py": "a98cdb556406b9a450d4ab2f2b142b2478bba99a5bc81309f083e97c2cb7a526",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_molsysmt_MolSys.py": "7e8d03bc5513ca9a065861e7d14d207c89e23377e28e90e1d5fd4308ea770d91",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_molsysmt_MolecularMechanics.py": "17a7672b41d049d9134b2a4dfaad7f100aeb2e68878d7c334daeccaa79cb04cf",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_molsysmt_PDBQTFileHandler.py": "a4d2715075ec15c52fffb71fd7fdc5bc481ac567573cb6c211f2e776a47077e2",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_molsysmt_Structures.py": "8089bca690bada86f2957781af5840fedf61593a53260c3f412495e753ff0598",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_molsysmt_Topology.py": "b7877a3519971b57ffa2e57b3d2e126164a60e3ecbafe4631c8b4346670bf1cb",
+    "molsysmt/form/molsysmt_PDBQTFileHandler/to_string_pdbqt_text.py": "75ca181a8520775949326804a166932a53b5f6c6a218298f5eb04571c7416994",
+    "molsysmt/form/string_pdbqt_text/__init__.py": "4bd010dae24726547b41f29d6c4703602dde080e9c49a62255bf9607ef953fa8",
+    "molsysmt/form/string_pdbqt_text/attributes.py": "4a44fce86cfa9e7bce8e174bbf4d407878283d835b227f6eba0c3b60bfbc17c5",
+    "molsysmt/form/string_pdbqt_text/copy.py": "cf5b6cd48a309aba70df1ab8c553883133f7d790eff6a74c4b05fda50a962d9a",
+    "molsysmt/form/string_pdbqt_text/extract.py": "9b9f1bfbfbb6474f268d7069199a1470d21d2ead181c695a06df300e50a26f5f",
+    "molsysmt/form/string_pdbqt_text/form.json": "953439038810cea948244fcaa8f6434b2b93f8cf93e21f6288df6f33507d62e0",
+    "molsysmt/form/string_pdbqt_text/get_atom_ff_type_from_atom.py": "f9a768d0fb7771a34d004e2eb95ea486f8e424a086c4df1fbb053af13b5e2add",
+    "molsysmt/form/string_pdbqt_text/get_n_atoms_from_system.py": "1eaafe9b73a807d4714fc874fcffc182270dea709780c4210d7e2d662fac06c9",
+    "molsysmt/form/string_pdbqt_text/get_n_structures_from_system.py": "751b49edc7279ccf32b1e0a5f7216d611f2c1b5ec40d902c01cbd07508c252b6",
+    "molsysmt/form/string_pdbqt_text/get_partial_charge_from_atom.py": "30006b3dba1928936a474e3b59d0be21388abc8b0efad9b4a9c8b5ccd571ad30",
+    "molsysmt/form/string_pdbqt_text/get_structural_attributes.py": "004ff8fd5680b9a56332af099b9f21dfc660e3b8c3d0ac49813aaa77635925cb",
+    "molsysmt/form/string_pdbqt_text/get_torsion_tree.py": "a0672a9ed918ed305e7e7125f2d4a16b475e70bc679c83fefc806b935ad6a341",
+    "molsysmt/form/string_pdbqt_text/has_attribute.py": "9b2c4963cccf5086665ab2deb75bb0dc53d9d0f3b5fc9b8d20ee5c4db4060f9d",
+    "molsysmt/form/string_pdbqt_text/is_form.py": "0cb70f4d06ce2ac090b4110c9ee589db7bf1dce193d11c087ab761e983e893ed",
+    "molsysmt/form/string_pdbqt_text/iterators.py": "cd7063a8c646c0ab053dffae57b5471b05b76e22b931fe431905f4da58fe0449",
+    "molsysmt/form/string_pdbqt_text/read_poses.py": "8b6eebac2a29a0219e3c64639a17ca874ca2f9f0665efba6dbb5fc6f18df3856",
+    "molsysmt/form/string_pdbqt_text/to_file_pdbqt.py": "256fb05cf173f4eaedca83b985e2ef8fdfb7eff5acf302595790dd22807694e8",
+    "molsysmt/form/string_pdbqt_text/to_molsysmt_MolSys.py": "5ea71f9af49fcb0b1318b7ed60c95d13512a4972422df3740fcec89e6138b562",
+    "molsysmt/form/string_pdbqt_text/to_molsysmt_MolecularMechanics.py": "9b9655c0bcecbb6016a91b2dafd612ead5285dd7678a9efe002de3310221392e",
+    "molsysmt/form/string_pdbqt_text/to_molsysmt_PDBQTFileHandler.py": "95aa793a77bc1c8bea94f78b4219d807ce8c6a00ebf4e13d61fe1fc1a41d8123",
+    "molsysmt/form/string_pdbqt_text/to_molsysmt_Structures.py": "eaab7d529b83b5b0193c8c821312b2a4f2bb4c56f4826d2e136f3a0ba929c0dd",
+    "molsysmt/form/string_pdbqt_text/to_molsysmt_Topology.py": "86e282e66f96aa55060dee125b38f5ae1a8a5f76471200f3ad1f2d88f649fb4b",
+    "molsysmt/form/string_pdbqt_text/to_string_pdbqt_text.py": "5b41244ad9df62a8b7037909bc79748f631732dbd8baf4153643738235dcea71",
+    "molsysmt/native/pdbqt_file_handler.py": "35ba332d55307364553cee58bbe84e0438f2ccd8949b967fd5d453c9fe50098a",
+    "tests/conversion_truth/test_declared_docking_edges.py": "0a94b92d9f0a73437d37de5693410325fb13767ae66be02984fdfed7c8aa9463",
+    "tests/conversion_truth/test_declared_native_edges.py": "8208d4bc4fe7a3c0b00b7bc75b76b4ddafc24cb151e9e3cd42e1e47da1bc3a09",
+    "tests/form/file_pdbqt/test_known_source_poses.py": "68f1d8af5f176fa75b245ea8270651472619db9495c7f66d07991e15eca3f666",
+    "tests/native/test_pdbqt_file_handler.py": "c79b561970c411db1cbed715b4c8e5494d5354ea70a789cc626cc25a71fe6a4f"
+  },
+  "regression": {
+    "command": "python -m pytest tests/native/test_pdbqt_file_handler.py tests/form/file_pdbqt tests/basic/test_compose_atom_maps.py tests/build/test_project_atom_names.py tests/test_correspondence_axis_units.py tests/conversion_truth devtools/tests/test_audit_conversion_execution.py tests/test_argument_contract.py tests/test_form_plugin_conventions.py tests/test_form_inspection_visibility.py tests/build/test_assign_autodock_atom_types.py tests/build/test_assign_partial_charges.py tests/build/test_merge_nonpolar_hydrogens.py tests/basic/test_get_conversion_report.py tests/_private/test_conversion_report_scopes.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 661,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 39.94,
+    "warnings": {
+      "legacy_h5msm_04": 25,
+      "mdanalysis_mass_deprecation": 6,
+      "previously_tracked_numpy_binary_size": 1
+    },
+    "final_empty_id_follow_up": {
+      "command": "python -m pytest tests/native/test_pdbqt_file_handler.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 5.4,
+      "reason": "A modeled empty-ID selection returns an empty axis rather than absent data. This final shape change is covered by the subsequent handler guard; overlapping counts are not additive."
+    }
+  },
+  "documentation": {
+    "doctests": {
+      "command": "python -m pytest --doctest-modules molsysmt/build/project_atom_names.py molsysmt/basic/compose_atom_maps.py molsysmt/form/file_pdbqt/read_poses.py molsysmt/form/string_pdbqt_text/read_poses.py molsysmt/native/pdbqt_file_handler.py --receptor=llm -n 12",
+      "passed": 4,
+      "seconds": 9.96,
+      "file_namespace_follow_up": {
+        "passed": 1,
+        "seconds": 6.49
+      }
+    },
+    "user_guide": "Handler, composition, naming and known-source reader code examples execute in the regression selection.",
+    "course": [
+      {
+        "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+        "executed": true,
+        "seconds": 23.3
+      },
+      {
+        "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+        "executed": true,
+        "seconds": 12.0
+      }
+    ],
+    "sphinx": {
+      "command": "make -C docs html SPHINXOPTS='-q -j 12'",
+      "exit_code": 0,
+      "errors": 0,
+      "new_pdbqt_naming_composition_reference_warnings": 0,
+      "scope": "Final incremental build after correcting notebook schema metadata; existing site warnings remain."
+    },
+    "docstring_functions_validated": 250
+  },
+  "fast_gates": {
+    "command": "python devtools/scripts/release_gate.py",
+    "passed": 14,
+    "total": 14,
+    "note": "Fast source gates only; no full scientific/installed matrix."
+  },
+  "conversion_profile": {
+    "profile": "resident-files-v7",
+    "declared_edges": 605,
+    "planned_smoke_edges": 149,
+    "accepted_unexecuted_edges": 456,
+    "errors": [],
+    "execution": "not performed by this audit"
+  },
+  "main_iterator": {
+    "path": "molsysmt/basic/iterator.py",
+    "changed": false,
+    "sha256": "83a6bf3509d4ca29bfb8982675010e42f2cb570997d56fd451701539701ea3a6"
+  },
+  "api_locations": {
+    "naming": "molsysmt.build.project_atom_names(..., target_form=...)",
+    "composition": [
+      "molsysmt.basic.compose_atom_maps",
+      "molsysmt.compose_atom_maps"
+    ],
+    "pose_reading": [
+      "molsysmt.form.file_pdbqt.read_poses",
+      "molsysmt.form.string_pdbqt_text.read_poses",
+      "PDBQTFileHandler.read_poses"
+    ],
+    "handler_import": "from molsysmt.native import PDBQTFileHandler",
+    "legacy_top_level_form_aliases": false
+  },
+  "observed_guards": [
+    "Source snapshot survives path replacement; copies close independently.",
+    "First requested block parses only its selected models after opening; multiple structural attributes share that parse.",
+    "Metadata-only native projection uses no full-trajectory coordinates.",
+    "Nonconsecutive/repeated axes, MODEL IDs, empty axes, final short blocks and nm/pm area/length boundaries.",
+    "Owned handlers close on exhaustion/error/context/close; borrowed handlers remain open.",
+    "The unchanged universal facade yields attributes, MolSys and Structures blocks.",
+    "Known-source chemistry/maps remain distinct from partial raw PDBQT chemistry; strict conversion reports tree/remark loss.",
+    "All nine new handler edges run in the disjoint direct/public conversion executor without optional chemical engines."
+  ],
+  "limitations": [
+    "File input is fully resident text; model offsets are character ranges, not seekable disk offsets.",
+    "Opening validates every model up front; time to first block includes full validation.",
+    "No peak RSS, throughput, disk seek, persistent index or compressed/concurrent access qualification.",
+    "Known-source read_poses still returns a resident complete selected ensemble.",
+    "Generic input requires invariant atom identity, charges, types and tree; no full chemistry inference.",
+    "Large-file follow-up remains open/partial in uibcdf/molsysmt#434."
+  ]
+}

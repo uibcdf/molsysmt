@@ -27,3 +27,5 @@ from .compare import compare
 from .view import view
 from .iterator import Iterator
 # isort: on
+
+from .compose_atom_maps import compose_atom_maps

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-files-v6",
+  "profile": "resident-files-v7",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -27,7 +27,8 @@
     "file:sdf",
     "file:pdbqt",
     "string:pdbqt_text",
-    "MDAnalysis.Universe"
+    "MDAnalysis.Universe",
+    "molsysmt.PDBQTFileHandler"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -55,7 +56,8 @@
     "file:sdf",
     "file:pdbqt",
     "string:pdbqt_text",
-    "MDAnalysis.Universe"
+    "MDAnalysis.Universe",
+    "molsysmt.PDBQTFileHandler"
   ],
   "accepted_unexecuted_edges": {
     "MDAnalysis.AtomGroup": {

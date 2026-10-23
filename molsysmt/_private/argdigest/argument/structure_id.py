@@ -25,6 +25,11 @@ def digest_structure_id(structure_id, caller=None):
         If structure_id is not a valid argument.
 
     """
+    if caller is not None and caller.endswith(".iterators.__init__"):
+        if isinstance(structure_id, bool):
+            return structure_id
+        raise ArgumentError("structure_id", value=structure_id, caller=caller)
+
     if structure_id is None:
         return structure_id
     elif isinstance(structure_id, (int, np.int64)):

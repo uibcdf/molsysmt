@@ -447,3 +447,33 @@ The [receipt](../../devtools/data/conversion_execution_mdanalysis_20261023.json)
 records versions, commands and tested source hashes. #181 remains partial: this
 is bounded route execution, not all-attribute fidelity or installed/release
 qualification. #334's release pause and external-package gates remain unchanged.
+
+
+## PDBQT handler execution extension — 2026-10-23
+
+The profile is now `resident-files-v7`: 149 selected out of 605 declared edges,
+with 456 individually listed unexecuted edges unchanged. Nine newly declared
+PDBQT handler routes are executed, not added to accepted debt. The docking
+executor owns file/text-to-handler and all seven handler outputs, while the
+native executor excludes the technical handler to keep the partition disjoint.
+Rigid and ligand witnesses exercise direct/public routes, literal values,
+source text identity, tree-loss authorization and resource closure. The fresh
+optional-engine guard includes every new route. These are bounded execution
+and value controls, not large-file throughput or full conversion-graph coverage.
+The [operational guide](../conversion_execution.md) owns the current commands;
+#181 stays partial for the remaining routes.
+
+### Validation receipt — 2026-10-23
+
+The combined PDBQT/known-source poses/naming/atom-map/conversion execution,
+argument/plugin and preparation-tool selection passed **661 tests** in
+39.94 seconds with `--receptor=llm -n 12` (32 warnings: 25 legacy-H5MSM,
+6 MDAnalysis mass deprecations and the known optional binary-size warning).
+The final shaped-empty-ID follow-up is covered by the handler guard. The
+four public-tool/reader doctests passed; the file-reader example also passed
+again after using its own strict file namespace. Both maintained course modules
+executed successfully. All 14 fast repository gates passed. No full scientific
+or installed release matrix was run, and no large-file benchmark is claimed.
+
+The machine-readable scope, source hashes and limitations are recorded in
+[`pdbqt_handler_20261023.json`](../../devtools/data/pdbqt_handler_20261023.json).

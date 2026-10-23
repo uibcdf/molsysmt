@@ -19,8 +19,20 @@ def fail(reason):
 
 
 def read(item, *, text=False):
-    payload = item[len(PREFIX) :] if text else Path(item).read_bytes().decode("utf-8")
-    return parse(payload)
+    from molsysmt.native import PDBQTFileHandler
+
+    if isinstance(item, PDBQTFileHandler):
+        item._require_open()
+        return dict(item._document.first)
+
+    from molsysmt._private.pdbqt_document import PDBQTDocument
+
+    document = (
+        PDBQTDocument(item, start_offset=len(PREFIX))
+        if text
+        else PDBQTDocument(Path(item).read_bytes().decode("utf-8"))
+    )
+    return dict(document.first)
 
 
 def parse(payload):

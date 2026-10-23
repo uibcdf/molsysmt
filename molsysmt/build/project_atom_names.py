@@ -5,11 +5,11 @@ from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 
 
-@signal(tags=["api", "form"])
+@signal(tags=["api", "build"])
 @arg_digest()
 def project_atom_names(
     molecular_system,
-    to_form,
+    target_form,
     selection="all",
     return_report=False,
     syntax="MolSysMT",
@@ -22,7 +22,7 @@ def project_atom_names(
     molecular_system : molecular system
         Any supported form convertible to a native MolSys with atom names.
         The source is unchanged.
-    to_form : str
+    target_form : str
         Export constraint to satisfy: 'file:pdbqt' or 'string:pdbqt_text'. This
         selects the naming policy, not the returned molecular form. No file is written.
     selection : str, list, tuple or numpy.ndarray, default='all'
@@ -79,7 +79,7 @@ def project_atom_names(
 
     See Also
     --------
-    compose_atom_maps : Compose the rename with preparation and export maps.
+    molsysmt.basic.compose_atom_maps : Compose preparation and export maps.
     molsysmt.basic.set : Apply explicitly chosen atom names.
 
     Examples
@@ -88,7 +88,7 @@ def project_atom_names(
     >>> from molsysmt.native import MolSys
     >>> molsys = MolSys(n_atoms=2)
     >>> msm.set(molsys, atom_name=['H1291', 'H0'])
-    >>> result = msm.form.project_atom_names(molsys, to_form='file:pdbqt',
+    >>> result = msm.build.project_atom_names(molsys, target_form='file:pdbqt',
     ...                                      return_report=True)
     >>> result['report']['output_atom_names'].tolist()
     ['H1', 'H0']
@@ -103,4 +103,4 @@ def project_atom_names(
     """
     from molsysmt._private.atom_name_projection import project
 
-    return project(molecular_system, to_form, selection, return_report, syntax)
+    return project(molecular_system, target_form, selection, return_report, syntax)

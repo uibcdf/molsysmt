@@ -81,7 +81,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (15)
+### Partially resolved (16)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
@@ -89,6 +89,7 @@ Entries carrying front matter under
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
 - [`first_conversion_triggers_full_form_registry_loading.md`](first_conversion_triggers_full_form_registry_loading.md) — [#382](https://github.com/uibcdf/molsysmt/issues/382) — Avoid loading the complete form registry on first conversion. *(measured)*
 - [`fixed_state_hbond_site_directions.md`](fixed_state_hbond_site_directions.md) — [#375](https://github.com/uibcdf/molsysmt/issues/375) — Expose reusable fixed-state hydrogen-bond site directions through public geometry tools. *(measured)*
+- [`indexed_large_pdbqt_structure_iteration.md`](indexed_large_pdbqt_structure_iteration.md) — [#434](https://github.com/uibcdf/molsysmt/issues/434) — Support indexed and bounded-memory iteration over large PDBQT structure ensembles *(reproduced)*
 - [`local_molecule_names_and_external_enrichment.md`](local_molecule_names_and_external_enrichment.md) — [#25](https://github.com/uibcdf/molsysmt/issues/25) — Separate supported local molecule labels from future database enrichment. *(inspected)*
 - [`molsysviewer_tools_addon.md`](molsysviewer_tools_addon.md) — [#421](https://github.com/uibcdf/molsysmt/issues/421) — Implement a bound MolSysMT tools addon with a scientific API mirror. *(inspected)*
 - [`native_pdb_bond_inference_with_explicit_policy.md`](native_pdb_bond_inference_with_explicit_policy.md) — [#304](https://github.com/uibcdf/molsysmt/issues/304) — Add native PDB bond inference with explicit policy while retaining OpenMM *(measured)*

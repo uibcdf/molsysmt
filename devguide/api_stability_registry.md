@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 136 |
+| experimental | 139 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -59,6 +59,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.basic` | stable | active | pre-1.0 |
 | `molsysmt.build` | stable | active | pre-1.0 |
 | `molsysmt.compare` | stable | active | pre-1.0 |
+| `molsysmt.compose_atom_maps` | experimental | active | 1.0.0 |
 | `molsysmt.concatenate_structures` | stable | active | pre-1.0 |
 | `molsysmt.configure` | experimental | active | pre-1.0 |
 | `molsysmt.contains` | stable | active | pre-1.0 |
@@ -110,6 +111,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.basic.append_structures` | stable | active | pre-1.0 |
 | `molsysmt.basic.are_multiple_molecular_systems` | stable | active | pre-1.0 |
 | `molsysmt.basic.compare` | stable | active | pre-1.0 |
+| `molsysmt.basic.compose_atom_maps` | experimental | active | 1.0.0 |
 | `molsysmt.basic.concatenate_structures` | stable | active | pre-1.0 |
 | `molsysmt.basic.contains` | stable | active | pre-1.0 |
 | `molsysmt.basic.convert` | stable | active | pre-1.0 |
@@ -193,6 +195,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.make_water_box` | experimental | active | pre-1.0 |
 | `molsysmt.build.merge_nonpolar_hydrogens` | experimental | active | 1.0.0 |
 | `molsysmt.build.mutate` | experimental | active | pre-1.0 |
+| `molsysmt.build.project_atom_names` | experimental | active | 1.0.0 |
 | `molsysmt.build.reconcile_protonation` | experimental | active | 1.0.0 |
 | `molsysmt.build.remove_overlapping_molecules` | experimental | active | pre-1.0 |
 | `molsysmt.build.solvate` | experimental | active | pre-1.0 |

@@ -5,8 +5,16 @@ import numpy as np
 from molsysmt._private.smonitor import ArgumentError
 
 CALLERS = {
-    "molsysmt.form.project_atom_names.project_atom_names",
-    "molsysmt.form.read_pdbqt_poses.read_pdbqt_poses",
+    "molsysmt.form.file_pdbqt.iterators.__init__",
+    "molsysmt.form.string_pdbqt_text.iterators.__init__",
+    "molsysmt.form.molsysmt_PDBQTFileHandler.iterators.__init__",
+    "molsysmt.build.project_atom_names.project_atom_names",
+    "molsysmt.form.file_pdbqt.read_poses.read_poses",
+    "molsysmt.form.string_pdbqt_text.read_poses.read_poses",
+    "molsysmt.native.pdbqt_file_handler.read_poses",
+    "molsysmt.native.pdbqt_file_handler.PDBQTFileHandler.read_poses",
+    "molsysmt.native.pdbqt_file_handler.get_coordinates",
+    "molsysmt.native.pdbqt_file_handler.PDBQTFileHandler.get_coordinates",
     "molsysmt.topology.get_atom_correspondences.get_atom_correspondences",
     "molsysmt.structure.get_symmetry_corrected_rmsd.get_symmetry_corrected_rmsd",
 }

@@ -10,14 +10,14 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
     item : str
         Explicit pdbqt_text: string containing one supported PDBQT system.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
-        Structure indices (0-based) to count. Only zero exists in this profile.
+        Source structure positions to count, preserving repetitions; MODEL labels are independent IDs.
     skip_digestion : bool, default=False
         Whether to skip argument digestion. Default is False.
 
     Returns
     -------
     int
-        Explicit source count; a supported PDBQT system has one structure.
+        Number of selected source structures, counting repetitions.
 
     .. versionadded:: 1.0.0
     """

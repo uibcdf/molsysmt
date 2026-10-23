@@ -8,14 +8,14 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     Parameters
     ----------
     item : str or pathlib.Path
-        PDBQT path containing one supported rigid receptor or ligand.
+        PDBQT path containing a rigid receptor, ligand or homogeneous MODEL ensemble.
     skip_digestion : bool, default=False
         Whether to skip argument digestion. Default is False.
 
     Returns
     -------
     int
-        Explicit source count; a supported PDBQT system has one structure.
+        Number of atoms on the invariant molecular axis shared by all models.
 
     .. versionadded:: 1.0.0
     """

@@ -91,6 +91,11 @@ sections:
         index_agents_file: docs/content/user/tools/basic/index.AGENTS.md
         status: reviewed
         pages:
+          - name: compose_atom_maps
+            file: docs/content/user/tools/basic/compose_atom_maps.md
+            agents_file: docs/content/user/tools/basic/compose_atom_maps.md.AGENTS.md
+            description: Typed atom-lineage composition, generated origins, separate fusion representatives and declared stage axes.
+            status: reviewed
           - name: capability_reports
             file: docs/content/user/tools/basic/capability_reports.md
             agents_file: docs/content/user/tools/basic/capability_reports.md.AGENTS.md
@@ -121,6 +126,11 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: project_atom_names
+            file: docs/content/user/tools/build/project_atom_names.md
+            agents_file: docs/content/user/tools/build/project_atom_names.md.AGENTS.md
+            description: Explicit export name projection, deterministic collision policy and reversible label maps.
+            status: reviewed
           - name: add_missing_heavy_atoms
             file: docs/content/user/tools/build/add_missing_heavy_atoms.ipynb
             agents_file: docs/content/user/tools/build/add_missing_heavy_atoms.ipynb.AGENTS.md
@@ -348,20 +358,15 @@ sections:
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
         pages:
+          - name: pdbqt_file_handler
+            file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md
+            agents_file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md.AGENTS.md
+            description: Resident PDBQT snapshot, per-form structure iterators and explicit metadata/conversion bounds.
+            status: reviewed
           - name: read_pdbqt_poses
             file: docs/content/user/tools/form/read_pdbqt_poses.md
             agents_file: docs/content/user/tools/form/read_pdbqt_poses.md.AGENTS.md
             description: Known-source pose ensembles, completed export maps, strict identity and explicit missing-atom policy.
-            status: reviewed
-          - name: compose_atom_maps
-            file: docs/content/user/tools/form/compose_atom_maps.md
-            agents_file: docs/content/user/tools/form/compose_atom_maps.md.AGENTS.md
-            description: Typed atom-lineage composition, generated origins, separate fusion representatives and declared stage axes.
-            status: reviewed
-          - name: project_atom_names
-            file: docs/content/user/tools/form/project_atom_names.md
-            agents_file: docs/content/user/tools/form/project_atom_names.md.AGENTS.md
-            description: Explicit export name projection, deterministic collision policy and reversible label maps.
             status: reviewed
           - file: docs/content/user/tools/form/file/file_pdb_gz.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb_gz.ipynb.AGENTS.md

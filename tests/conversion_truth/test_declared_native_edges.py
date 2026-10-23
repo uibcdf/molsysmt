@@ -20,7 +20,12 @@ PLAN = read_plan()
 # Disk/handler routes have explicit resource and schema fixtures in their own module.
 H5MSM_FORMS = {"file:h5msm", "molsysmt.H5MSMFileHandler"}
 PDB_FORMS = {"file:pdb", "string:pdb_text", "molsysmt.PDBFileHandler"}
-DOCKING_FORMS = {"file:sdf", "file:pdbqt", "string:pdbqt_text"}
+DOCKING_FORMS = {
+    "file:sdf",
+    "file:pdbqt",
+    "string:pdbqt_text",
+    "molsysmt.PDBQTFileHandler",
+}
 EDGES = sorted(
     (source, target)
     for source, target in planned_edges(declared_edges(), PLAN)

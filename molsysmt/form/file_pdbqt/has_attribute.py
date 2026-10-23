@@ -25,8 +25,10 @@ def has_attribute(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt._private.pdbqt import read, to_native
-    from molsysmt.form.molsysmt_MolSys.has_attribute import has_attribute as native_has
+    from molsysmt.form.molsysmt_PDBQTFileHandler.has_attribute import (
+        has_attribute as handler_has,
+    )
+    from molsysmt.native import PDBQTFileHandler
 
     from .attributes import attributes
 
@@ -34,5 +36,5 @@ def has_attribute(
         return False
     if include_none:
         return True
-    native = to_native(read(molecular_system, text=False), discard_torsion_tree=True)
-    return native_has(native, attribute, include_none=False)
+    with PDBQTFileHandler(molecular_system) as handler:
+        return handler_has(handler, attribute, skip_digestion=True)

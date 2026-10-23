@@ -15,6 +15,8 @@ API Form
    is_item
    is_string
    load_converter
-   read_pdbqt_poses
-   compose_atom_maps
-   project_atom_names
+   file_pdbqt.read_poses
+   string_pdbqt_text.read_poses
+
+.. autoclass:: molsysmt.native.PDBQTFileHandler
+   :members:

@@ -21,10 +21,11 @@ python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=ll
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-files-v6` profile: thirteen native containers/dictionary forms, four
+`resident-files-v7` profile: thirteen native containers/dictionary forms, four
 resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
-forms, SDF/PDBQT file/text forms and `MDAnalysis.Universe`. The profile selects
-140 of 596 declared edges; 456 remain explicit coverage debt. Earlier native,
+forms, SDF/PDBQT file/text forms, `molsysmt.PDBQTFileHandler` and
+`MDAnalysis.Universe`. The profile selects
+149 of 605 declared edges; 456 remain explicit coverage debt. Earlier native,
 engine, H5MSM, PDB and docking-format subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
@@ -161,3 +162,19 @@ exceptions are never interpreted as optional-provider skips.
 Neither a green inventory nor this bounded profile establishes that every
 conversion in MolSysMT executes. See [form adapter testing](testing_form_adapters.md)
 for value, unit, hierarchy and loss checks.
+
+
+## PDBQT resident handler extension — 2026-10-23
+
+The `resident-files-v7` profile adds nine declared routes: file/text-to-handler
+and the handler's seven direct outputs, including its identity. All nine belong
+to the docking executor, with rigid/ligand witnesses, direct/public calls,
+independently owned resource cleanup and the fresh-interpreter optional-engine
+creation guard. The graph grows by nine executed edges; the 456 unexecuted
+edges are unchanged rather than being regenerated to absorb new debt.
+
+These witnesses qualify bounded conversions and source-value contracts. The
+separate handler/iterator guard covers homogeneous structure ensembles,
+selected blocks and metadata-only reads. The handler retains resident source
+text; execution coverage does not certify disk streaming or large-file memory
+performance. Remaining scalability work is uibcdf/molsysmt#434.

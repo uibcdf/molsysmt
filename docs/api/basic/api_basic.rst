@@ -40,3 +40,5 @@ API Basic
    set
    view
    where_is_attribute
+
+   compose_atom_maps

@@ -35,3 +35,5 @@ API Build
    remove_overlapping_molecules
    solvate
    solve_atoms_with_alternate_location
+
+   project_atom_names

@@ -18,7 +18,7 @@ from tests.form.file_pdbqt.test_known_source_poses import ensemble, rigid_tree
 
 
 def project(source, **kwargs):
-    return msm.form.project_atom_names(source, to_form="file:pdbqt", **kwargs)
+    return msm.build.project_atom_names(source, target_form="file:pdbqt", **kwargs)
 
 
 def test_reserves_later_unselected_names_and_retains_full_axis():
@@ -106,7 +106,7 @@ def test_invalid_selection_does_not_rename_source(selection):
 def test_unsupported_target_rejects_before_changes(target):
     source = declared_methanol()
     with pytest.raises(ArgumentError):
-        msm.form.project_atom_names(source, to_form=target)
+        msm.build.project_atom_names(source, target_form=target)
 
 
 def test_report_boolean_and_empty_selection():
@@ -142,7 +142,7 @@ def test_empty_atom_axis_has_shaped_maps():
     ]:
         assert result["report"][name].shape == (0,)
         assert result["report"][name].dtype == np.int64
-    composed = msm.form.compose_atom_maps([result["report"]])
+    composed = msm.basic.compose_atom_maps([result["report"]])
     assert composed["source_atom_status"].shape == (0,)
 
 
@@ -194,7 +194,8 @@ def test_user_guide_examples_execute():
     from pathlib import Path
 
     page = (
-        Path(__file__).parents[2] / "docs/content/user/tools/form/project_atom_names.md"
+        Path(__file__).parents[2]
+        / "docs/content/user/tools/build/project_atom_names.md"
     )
     scope = {}
     for code in re.findall(r"```python\n(.*?)```", page.read_text(), flags=re.S):
@@ -238,11 +239,11 @@ def test_rename_merge_rooted_export_pose_and_json_composition():
         torsion_tree=rigid_tree(output, [2, 0, 1]),
         return_atom_map=True,
     )
-    read = msm.form.read_pdbqt_poses(
+    read = msm.form.string_pdbqt_text.read_poses(
         ensemble(text), output, exported, return_report=True
     )
     maps = [renamed["report"], reduced["report"], exported, read["report"]]
-    result = msm.form.compose_atom_maps(maps)
+    result = msm.basic.compose_atom_maps(maps)
     assert result["source_atom_names"].tolist() == [
         "C_long",
         "O_long",
@@ -254,7 +255,7 @@ def test_rename_merge_rooted_export_pose_and_json_composition():
     assert result["output_atom_names"].tolist() == ["C0", "O0", "H3"]
     assert result["output_to_source_atom_indices"].tolist() == [0, 1, 5]
     assert result["stages"][0]["renamed_atom_indices"].tolist() == list(range(6))
-    restored = msm.form.compose_atom_maps(
+    restored = msm.basic.compose_atom_maps(
         json.loads(json.dumps(maps, default=lambda value: value.tolist()))
     )
     np.testing.assert_array_equal(
@@ -330,10 +331,10 @@ def test_real_generation_named_assignments_rename_and_export_preserve_provenance
         torsion_tree=rigid_tree(output, [2, 0, 1]),
         return_atom_map=True,
     )
-    read = msm.form.read_pdbqt_poses(
+    read = msm.form.string_pdbqt_text.read_poses(
         ensemble(text), output, exported, return_report=True
     )
-    mapped = msm.form.compose_atom_maps(
+    mapped = msm.basic.compose_atom_maps(
         [
             added["report"],
             renamed["report"],
@@ -389,4 +390,4 @@ def test_composition_rejects_invalid_declared_name_scope(changes):
     report = project(declared_methanol(), return_report=True)["report"]
     report.update(changes)
     with pytest.raises(StructuralInconsistencyError):
-        msm.form.compose_atom_maps([report])
+        msm.basic.compose_atom_maps([report])

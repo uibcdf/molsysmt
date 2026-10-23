@@ -6,8 +6,8 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @signal(tags=["api", "form"])
-@arg_digest()
-def read_pdbqt_poses(
+@arg_digest(form="string:pdbqt_text")
+def read_poses(
     item,
     molecular_system,
     atom_map,
@@ -20,8 +20,8 @@ def read_pdbqt_poses(
 
     Parameters
     ----------
-    item : str or pathlib.Path
-        PDBQT path or explicit 'pdbqt_text:' string. A single ligand or a
+    item : str
+        Explicit 'pdbqt_text:' string. A single ligand or a
         balanced MODEL/ENDMDL ensemble is supported.
     molecular_system : molecular system
         Any supported form supplying the original ordered element inventory
@@ -75,7 +75,8 @@ def read_pdbqt_poses(
     disappear through ordinary extraction; virtual-H counts are not increased.
     Use build.merge_nonpolar_hydrogens before export for a chemically prepared
     reduced representation. A source map is not a map through earlier H creation.
-    Ordinary convert/get on the PDBQT forms retain their single-system profile.
+    Ordinary convert/get also support homogeneous MODEL ensembles, but retain
+    only the chemistry explicitly declared by PDBQT, not the known source graph.
 
     See Also
     --------
@@ -101,7 +102,7 @@ def read_pdbqt_poses(
     ...     root_fragment_index=0, torsdof=0)
     >>> text, atom_map = msm.convert(molsys, to_form='string:pdbqt_text',
     ...     typing_scheme='autodock4', torsion_tree=tree, return_atom_map=True)
-    >>> poses = msm.form.read_pdbqt_poses(text, molsys, atom_map)
+    >>> poses = msm.form.string_pdbqt_text.read_poses(text, molsys, atom_map)
     >>> poses.structures.coordinates.shape
     (1, 24, 3)
 

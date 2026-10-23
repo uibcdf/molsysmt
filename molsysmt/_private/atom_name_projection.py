@@ -7,7 +7,7 @@ import pandas as pd
 
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 
-CALLER = "molsysmt.form.project_atom_names"
+CALLER = "molsysmt.build.project_atom_names"
 ALPHABET = string.digits + string.ascii_uppercase
 
 
@@ -67,16 +67,16 @@ def project_labels(names, groups, selected, width):
     return output, np.asarray(changed, dtype=np.int64)
 
 
-def project(molecular_system, to_form, selection, return_report, syntax):
+def project(molecular_system, target_form, selection, return_report, syntax):
     from molsysmt import __version__
     from molsysmt.basic import convert, select
     from molsysmt.basic import set as set_attributes
     from molsysmt.native import MolSys
 
-    if to_form not in ("file:pdbqt", "string:pdbqt_text"):
+    if target_form not in ("file:pdbqt", "string:pdbqt_text"):
         raise ArgumentError(
-            "to_form",
-            value=to_form,
+            "target_form",
+            value=target_form,
             caller=CALLER,
             message="Name projection currently supports file:pdbqt and string:pdbqt_text.",
         )
@@ -144,7 +144,7 @@ def project(molecular_system, to_form, selection, return_report, syntax):
         operation="atom_name_projection",
         method="preserve_or_base36",
         parameters=dict(
-            to_form=to_form,
+            target_form=target_form,
             name_width=4,
             collision_scope=scope,
             existing_valid_duplicates="preserve",

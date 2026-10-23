@@ -17,7 +17,8 @@ supersedes: []
 **Reported:** 2026-09-22, from the DockingMT Vina integration discussion and inspection of the form registry.
 **Status:** Partial. The maintainer brought the bounded adapter work forward
 on 2026-10-02. Experimental native file/string adapters now read rigid receptors
-and single ligand trees and write explicitly supplied data. Chemical preparation
+and homogeneous MODEL ensembles with invariant ligand trees, and write explicitly
+supplied data. Chemical preparation
 and wider acceptance validation remain pending.
 
 ## What
@@ -33,8 +34,8 @@ downstream use in uibcdf/dockingmt#3.
   mapping. Provide working public conversion routes to and from MolSys; a
   file/string bridge may share one parser and writer internally.
 - Define the first supported layouts: a rigid receptor and a single ligand
-  with a valid torsion tree. Unsupported flexible-receptor and multi-model
-  variants must fail explicitly until their semantics are specified.
+  with a valid torsion tree. Homogeneous MODEL ensembles use the structure axis; flexible-receptor and
+  changing-identity variants must fail explicitly until their semantics are specified.
 - Map only fields PDBQT carries: coordinates, atom identity, partial charge,
   AutoDock atom type, and available torsion information. Convert angstroms to
   MolSysMT nanometers and keep native element IDs as strings. Do not infer
@@ -273,3 +274,50 @@ native graph torsion candidates are now implemented general tools, called
 explicitly outside the adapters. The updated recipe reflects them and H5MSM
 0.5's rejection of nonempty MolecularMechanics. The bounded profile ships
 experimentally; remaining extensions stay post-1.0 and this issue remains partial.
+
+## Resident handler and ensemble iteration — 2026-10-23
+
+Implemented and contract-tested: the technical native form
+`molsysmt.PDBQTFileHandler`, with public class import
+`from molsysmt.native import PDBQTFileHandler`. File/text adapters can create a
+handler, and its seven declared direct routes preserve the existing explicit
+native tree-loss boundary. It retains the original document, opaque remarks,
+MODEL IDs, trees and explicit mechanical labels without inventing chemistry.
+All model bodies are validated up front; only one parsed reference body is
+retained. Copies have independent close ownership and may share the snapshot.
+
+`StructuresIterator` now exists in the handler, file and explicit-text form
+modules. The existing public facade delegates to them without changes to the
+principal Iterator. Selected coordinate buffers are block-sized; metadata-only
+Topology/MolecularMechanics conversions do not allocate the full ensemble.
+The resident source text and up-front full-document validation remain explicit
+limitations. Disk-backed indexing and large-file qualification are owned by
+[the #434 record](indexed_large_pdbqt_structure_iteration.md), which stays partial.
+
+API organization follows operation ownership: `build.project_atom_names` with
+`target_form`, `basic.compose_atom_maps` (also `msm.compose_atom_maps`), and
+`form.file_pdbqt.read_poses` / `form.string_pdbqt_text.read_poses`. A handler also
+has `read_poses` for known-source coordinate import. These experimental API
+moves retain no legacy top-level `form` aliases; no scientific method changed.
+
+Guards are `tests/native/test_pdbqt_file_handler.py`,
+`tests/form/file_pdbqt/test_known_source_poses.py`, and the disjoint conversion
+execution profile in `tests/conversion_truth/`. The handler User Guide examples
+execute in the first guard; the two maintained course modules are re-executed
+as part of the same checkpoint. Wider dialect/preparation policy and consumer
+adoption remain separate; #214 remains partial.
+
+### Validation receipt — 2026-10-23
+
+The combined PDBQT/known-source poses/naming/atom-map/conversion execution,
+argument/plugin and preparation-tool selection passed **661 tests** in
+39.94 seconds with `--receptor=llm -n 12` (32 warnings: 25 legacy-H5MSM,
+6 MDAnalysis mass deprecations and the known optional binary-size warning).
+The final shaped-empty-ID follow-up is covered by the handler guard. The
+four public-tool/reader doctests passed; the file-reader example also passed
+again after using its own strict file namespace. Both maintained course modules
+executed successfully. All 14 fast repository gates passed. No full scientific
+or installed release matrix was run, and no large-file benchmark is claimed.
+
+The machine-readable scope, source hashes and limitations are recorded in
+[`pdbqt_handler_20261023.json`](../../devtools/data/pdbqt_handler_20261023.json).

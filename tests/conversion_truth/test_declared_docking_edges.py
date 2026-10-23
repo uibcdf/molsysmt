@@ -66,6 +66,10 @@ def _source(source, variant, directory):
                 from molsysmt.form.file_pdbqt import get_torsion_tree
 
                 tree = get_torsion_tree(path)
+    elif source == "molsysmt.PDBQTFileHandler":
+        from molsysmt.native import PDBQTFileHandler
+
+        item = PDBQTFileHandler(path)
     elif source == "string:pdbqt_text":
         item = "pdbqt_text:" + payload
     else:
@@ -139,33 +143,46 @@ def test_declared_docking_edge_executes_directly_and_publicly(
 ):
     for route in ("direct", "public"):
         item, tree = _source(source, variant, tmp_path / route)
-        assert msm.get_form(item) == source
-        kwargs = {}
-        if target.startswith("file:"):
-            extension = target.split(":")[1]
-            kwargs["output_filename"] = str(tmp_path / f"{route}-result.{extension}")
-        if source == "molsysmt.MolSys":
-            if target == "file:sdf":
-                kwargs["ctfile_version"] = (
-                    "V3000" if variant in {"V3000", "valence"} else "V2000"
+        result = None
+        try:
+            assert msm.get_form(item) == source
+            kwargs = {}
+            if target.startswith("file:"):
+                extension = target.split(":")[1]
+                kwargs["output_filename"] = str(
+                    tmp_path / f"{route}-result.{extension}"
                 )
-            else:
-                kwargs.update(typing_scheme="autodock4", torsion_tree=tree)
-        elif target == "molsysmt.MolSys" and variant == "ligand":
-            kwargs["discard_torsion_tree"] = True
-        result = (
-            _execute_direct(source, target, item, **kwargs)
-            if route == "direct"
-            else msm.convert(item, to_form=target, **kwargs)
-        )
-        assert msm.get_form(result) == target
-        if target.startswith("file:"):
-            assert Path(result).is_file()
-            assert Path(result).stat().st_size > 0
-            if source != "molsysmt.MolSys":
-                payload = PAYLOADS[variant]
-                assert Path(result).read_bytes() == payload.encode()
-        _assert_literal_values(result, target, variant)
+            if source == "molsysmt.MolSys":
+                if target == "file:sdf":
+                    kwargs["ctfile_version"] = (
+                        "V3000" if variant in {"V3000", "valence"} else "V2000"
+                    )
+                else:
+                    kwargs.update(typing_scheme="autodock4", torsion_tree=tree)
+            elif target == "molsysmt.MolSys" and variant == "ligand":
+                kwargs["discard_torsion_tree"] = True
+            result = (
+                _execute_direct(source, target, item, **kwargs)
+                if route == "direct"
+                else msm.convert(item, to_form=target, **kwargs)
+            )
+            assert msm.get_form(result) == target
+            if target.startswith("file:"):
+                assert Path(result).is_file()
+                assert Path(result).stat().st_size > 0
+                if source != "molsysmt.MolSys":
+                    payload = PAYLOADS[variant]
+                    assert Path(result).read_bytes() == payload.encode()
+            _assert_literal_values(result, target, variant)
+        finally:
+            if (
+                target == "molsysmt.PDBQTFileHandler"
+                and result is not None
+                and result is not item
+            ):
+                result.close()
+            if source == "molsysmt.PDBQTFileHandler":
+                item.close()
 
 
 def test_docking_routes_do_not_attempt_optional_engine_imports():

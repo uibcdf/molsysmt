@@ -719,6 +719,17 @@ CONVERTER_ARGUMENTS = {
         "skip_digestion",
         "structure_indices",
     ),
+    "molsysmt.PDBQTFileHandler": (
+        "atom_indices",
+        "compression",
+        "compression_opts",
+        "copy_if_all",
+        "float_precision",
+        "get_missing_bonds",
+        "int_precision",
+        "skip_digestion",
+        "structure_indices",
+    ),
     "molsysmt.Structures": (
         "atom_indices",
         "compression",

@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Project atom names](project_atom_names.md) | Projecting export names with reversible source lineage |
 | [Assign autodock atom types](assign_autodock_atom_types.md) | Attaching named chemical type provenance to a detached single-state MolSys |
 | [Assign partial charges](assign_partial_charges.md) | Attaching a validated full-atom mechanical assignment to a detached MolSys |
 | [Add fixed-state ligand hydrogens](fixed_state_hydrogens.md) | Materializing a prepared H inventory while retaining the source pose |
@@ -66,4 +67,5 @@
    remove_overlapping_molecules.ipynb
    solvate.ipynb
    solve_atoms_with_alternate_locations.ipynb
+   project_atom_names.md
 ```

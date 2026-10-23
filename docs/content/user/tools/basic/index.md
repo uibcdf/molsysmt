@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Compose atom maps](compose_atom_maps.md) | Composing declared correspondence across preparation and export |
 | [Add](add.ipynb) | Adding elements of a molecular system into another molecular system |    
 | [Append structures](append_structures.ipynb) | Adding structures from a molecular system to another molecular system |     
 | [Are multiple molecular systems](are_multiple_molecular_systems.ipynb) | Verifying the validity of a list of molecular systems |
@@ -62,4 +63,5 @@
    set.ipynb
    view.ipynb
    where_is_attribute.ipynb
+   compose_atom_maps.md
 ```

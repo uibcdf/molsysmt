@@ -19,7 +19,7 @@ def extract(
     atom_indices : int, list, tuple or numpy.ndarray, default='all'
         Source atom indices (0-based) to include. Tree subsets need explicit remapping.
     structure_indices : int, list, tuple or numpy.ndarray, default='all'
-        Structure indices (0-based); only zero exists.
+        Source structure positions; serialized selections must be nonempty and unique.
     output_filename : str or pathlib.Path, default=None
         Destination path for a copied or projected file. Required unless a full
         selection explicitly shares the original item with copy_if_all=False.

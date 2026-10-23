@@ -98,6 +98,7 @@ _TIER_2_FORMS = (
 )
 
 _TIER_3_FORMS = (
+    "molsysmt.PDBQTFileHandler",
     "biopython.PDBStructure",
     "file:crd",
     "file:fasta",

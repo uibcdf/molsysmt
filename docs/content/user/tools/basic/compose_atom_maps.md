@@ -3,14 +3,14 @@
 
 *Keeping declared atom correspondence across preparation and lossy exports.*
 
-{func}`molsysmt.form.compose_atom_maps` joins completed operation reports in
+{func}`molsysmt.basic.compose_atom_maps` joins completed operation reports in
 their actual execution order. It is experimental and performs index arithmetic;
 it does not match molecules, identify atoms by proximity or generate coordinates.
 The typed `molsysmt.atom_map@1` result uses one-dimensional NumPy arrays and a
 small list of normalized stages. It never creates an atom-pair matrix.
 
 For an explicit export rename, use
-{func}`molsysmt.form.project_atom_names` and insert its report at the actual
+{func}`molsysmt.build.project_atom_names` and insert its report at the actual
 renaming step. Original and projected labels remain separate; selected/renamed
 source indices survive typed stage normalization and JSON restoration.
 
@@ -20,7 +20,7 @@ source indices survive typed stage normalization and JSON restoration.
 :::{admonition} API documentation
 :class: dropdown
 
-{func}`molsysmt.form.compose_atom_maps`
+{func}`molsysmt.basic.compose_atom_maps`
 :::
 
 ## Reading direct correspondence
@@ -36,7 +36,7 @@ addition = dict(schema='molsysmt.atom_map@1', n_source_atoms=2, n_output_atoms=3
     source_to_output_atom_indices=[0, 1], output_to_source_atom_indices=[0, 1, -1])
 selection = dict(schema='molsysmt.atom_map@1', n_source_atoms=3, n_output_atoms=2,
     source_to_output_atom_indices=[1, -1, 0], output_to_source_atom_indices=[2, 0])
-mapped = msm.form.compose_atom_maps([addition, selection])
+mapped = msm.basic.compose_atom_maps([addition, selection])
 assert mapped['source_to_output_atom_indices'].tolist() == [1, -1]
 assert mapped['output_to_source_atom_indices'].tolist() == [-1, 0]
 assert mapped['generated_output_atom_indices'].tolist() == [0]
@@ -95,8 +95,8 @@ tree = dict(schema_version='molsysmt.pdbqt-torsion-tree@1',
     branch_fragment_pairs=np.empty((0, 2), dtype=int), root_fragment_index=0, torsdof=0)
 text, exported = msm.convert(molsys, to_form='string:pdbqt_text',
     typing_scheme='autodock4', torsion_tree=tree, return_atom_map=True)
-poses = msm.form.read_pdbqt_poses(text, molsys, exported, return_report=True)
-lineage = msm.form.compose_atom_maps([
+poses = msm.form.string_pdbqt_text.read_poses(text, molsys, exported, return_report=True)
+lineage = msm.basic.compose_atom_maps([
     added['report'], projected['report'], exported, poses['report']])
 assert lineage['n_source_atoms'] == 2
 assert lineage['output_to_source_atom_indices'].tolist() == [0, 1, -1]
@@ -137,7 +137,7 @@ to JSON lists and are restored by this same typed boundary:
 import json
 
 encoded = json.dumps(lineage, default=lambda value: value.tolist())
-restored = msm.form.compose_atom_maps([json.loads(encoded)])
+restored = msm.basic.compose_atom_maps([json.loads(encoded)])
 assert restored['output_to_source_atom_indices'].tolist() == [0, 1, -1]
 ```
 

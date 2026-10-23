@@ -10,7 +10,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
 )
 
-CALLER = "molsysmt.form.compose_atom_maps"
+CALLER = "molsysmt.basic.compose_atom_maps"
 SCHEMA = "molsysmt.atom_map@1"
 _DIRECT = {SCHEMA, "molsysmt.atom_projection@1", "molsysmt.atom_export@1"}
 _CREATION = {"molsysmt.terminal_attachment@1", "molsysmt.hydrogen_addition@1"}

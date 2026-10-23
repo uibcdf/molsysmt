@@ -3,10 +3,10 @@
 
 *Applying explicit format constraints while preserving original atom identity.*
 
-{func}`molsysmt.form.project_atom_names` returns a native MolSys whose selected
+{func}`molsysmt.build.project_atom_names` returns a native MolSys whose selected
 atom names fit the requested export profile. The experimental first profile
 supports `file:pdbqt` and `string:pdbqt_text`, both with four-character names.
-`to_form` selects the constraints; the tool returns a MolSys and writes no file.
+`target_form` selects the constraints; the tool returns a MolSys and writes no file.
 
 :::{versionadded} 1.0.0
 :::
@@ -14,7 +14,7 @@ supports `file:pdbqt` and `string:pdbqt_text`, both with four-character names.
 :::{admonition} API documentation
 :class: dropdown
 
-{func}`molsysmt.form.project_atom_names`
+{func}`molsysmt.build.project_atom_names`
 :::
 
 ## Applying a deterministic policy
@@ -32,8 +32,8 @@ molsys = MolSys(n_atoms=3, n_groups=1)
 molsys.topology.atoms['group_index'] = [0, 0, 0]
 msm.set(molsys, atom_name=['C-long', 'H1291', 'H0'])
 msm.set(molsys, atom_id=['17', '45', '3'])
-projected = msm.form.project_atom_names(
-    molsys, to_form='file:pdbqt', return_report=True)
+projected = msm.build.project_atom_names(
+    molsys, target_form='file:pdbqt', return_report=True)
 prepared = projected['molecular_system']
 report = projected['report']
 assert prepared.topology.atoms.atom_name.tolist() == ['C0', 'H1', 'H0']
@@ -64,7 +64,7 @@ integer indices; lengths and explicit dimensionless quantity wrappers are
 rejected before projection.
 
 ```python
-partial = msm.form.project_atom_names(molsys, to_form='string:pdbqt_text',
+partial = msm.build.project_atom_names(molsys, target_form='string:pdbqt_text',
     selection=[1, 1], return_report=True)
 assert partial['report']['selected_atom_indices'].tolist() == [1]
 assert partial['report']['renamed_atom_indices'].tolist() == [1]
@@ -87,11 +87,11 @@ by source index even when they were duplicated. Name matching is unnecessary.
 ```python
 import json
 
-lineage = msm.form.compose_atom_maps([report])
+lineage = msm.basic.compose_atom_maps([report])
 assert lineage['source_to_output_atom_indices'].tolist() == [0, 1, 2]
 assert lineage['source_atom_names'].tolist() == ['C-long', 'H1291', 'H0']
 encoded = json.dumps(report, default=lambda value: value.tolist())
-restored = msm.form.compose_atom_maps([json.loads(encoded)])
+restored = msm.basic.compose_atom_maps([json.loads(encoded)])
 assert restored['stages'][0]['renamed_atom_indices'].tolist() == [0, 1]
 ```
 

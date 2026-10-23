@@ -9,7 +9,7 @@ from molsysmt._private.pdbqt import PREFIX, fail, parse
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 
-CALLER = "molsysmt.form.read_pdbqt_poses"
+CALLER = "molsysmt.form.file_pdbqt.read_poses"
 _TREE_ARRAYS = (
     "atom_ids",
     "fragment_atom_indices",
@@ -21,47 +21,10 @@ _TREE_ARRAYS = (
 
 def models(payload):
     """Yield balanced model bodies, preserving labels separately from positions."""
-    active, label, seen, wrapped, ended = None, None, set(), False, False
-    preamble = []
-    for number, line in enumerate(payload.splitlines(), 1):
-        tokens = line.split()
-        if not tokens:
-            continue
-        kind = tokens[0]
-        if kind == "MODEL":
-            if (
-                active is not None
-                or ended
-                or len(tokens) != 2
-                or not tokens[1].isdigit()
-                or int(tokens[1]) <= 0
-                or str(int(tokens[1])) in seen
-            ):
-                fail(f"PDBQT line {number}: invalid, nested or repeated MODEL label.")
-            if any(part.split()[0] != "REMARK" for part in preamble):
-                fail("PDBQT cannot mix unwrapped atoms and MODEL structures.")
-            wrapped = True
-            label = str(int(tokens[1]))
-            seen.add(label)
-            active = list(preamble)
-        elif kind == "ENDMDL":
-            if len(tokens) != 1 or active is None:
-                fail(f"PDBQT line {number}: unmatched ENDMDL.")
-            yield label, parse("\n".join(active))
-            active = None
-        elif active is not None:
-            active.append(line)
-        elif wrapped:
-            if kind == "END" and len(tokens) == 1 and not ended:
-                ended = True
-            elif kind != "REMARK":
-                fail(f"PDBQT line {number}: record outside MODEL structures.")
-        else:
-            preamble.append(line)
-    if active is not None:
-        fail("PDBQT MODEL is missing ENDMDL.")
-    if not wrapped:
-        yield None, parse("\n".join(preamble))
+    from molsysmt._private.pdbqt_document import model_spans
+
+    for label, start, stop, prefix in model_spans(payload):
+        yield label, parse(prefix + payload[start:stop])
 
 
 def integer_axis(value, name, size):
@@ -229,10 +192,14 @@ def read_poses(item, molecular_system, atom_map, structures, missing_atoms, repo
     if missing_atoms not in ("error", "omit"):
         raise ArgumentError("missing_atoms", value=missing_atoms, caller=CALLER)
     form = get_form(item)
-    if form not in {"file:pdbqt", "string:pdbqt_text"}:
+    if form not in {"file:pdbqt", "string:pdbqt_text", "molsysmt.PDBQTFileHandler"}:
         raise ArgumentError("item", value=item, caller=CALLER)
+    if form == "molsysmt.PDBQTFileHandler":
+        item._require_open()
     payload = (
-        item[len(PREFIX) :]
+        item._document.payload
+        if form == "molsysmt.PDBQTFileHandler"
+        else item[len(PREFIX) :]
         if form == "string:pdbqt_text"
         else Path(item).read_bytes().decode("utf-8")
     )

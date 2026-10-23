@@ -159,7 +159,7 @@ this is not new scientific admission. No full or installed matrix was started.
 
 ## Known-source pose consumer delivered — 2026-10-22
 
-#226 now implements `molsysmt.form.read_pdbqt_poses` with completed export maps,
+#226 now implements `molsysmt.form.file_pdbqt.read_poses` with completed export maps,
 all-model identity validation and explicit missing-atom policy. New writer maps
 include `output_atom_ff_types` to validate a pose even with a topology-only known
 source. This is an additive typed field, not a payload or mapping-axis change.
@@ -184,7 +184,7 @@ This repair does not complete #223's upstream atom-map composition or receiving.
 
 ## Typed stage composition — 2026-10-23
 
-`form.compose_atom_maps` now joins the existing terminal-attachment, fixed-state
+`basic.compose_atom_maps` now joins the existing terminal-attachment, fixed-state
 hydrogen-addition, typed-H projection, PDBQT writer and known-source pose reports,
 plus explicit `molsysmt.atom_map@1` declarations. It returns detached int64 direct
 maps with -1 for absent origin/correspondence, a separate representative array
@@ -217,7 +217,7 @@ retains its written output axis and reuses the existing PDBQT tree validator.
 Full original readiness/inventory reports and coordinates are not duplicated.
 The result is a typed sidecar, not a molecular form or H5MSM schema extension.
 
-Primary guard: `tests/form/test_compose_atom_maps.py`. It uses independent
+Primary guard: `tests/basic/test_compose_atom_maps.py`. It uses independent
 expected arrays; actual terminal/H generation, charge aggregation, writer order
 and pose pipelines; omission after a merge; incremental/JSON stages; explicit
 rename evidence; malformed maps/creation/charge records; rooted branch direction;
@@ -242,7 +242,7 @@ This provider work does not certify consumer adoption or the consumer's chemistr
 
 ## Explicit atom-name projection — 2026-10-23
 
-`form.project_atom_names` applies the experimental `preserve_or_base36` policy
+`build.project_atom_names` applies the experimental `preserve_or_base36` policy
 for explicitly requested `file:pdbqt`/`string:pdbqt_text` constraints. It returns
 native MolSys, optionally with a detached `molsysmt.atom_map@1` label report.
 No file is written. Selection controls renaming only: atoms, structures and IDs
@@ -292,7 +292,7 @@ mass deprecations, one previously tracked optional NumPy ABI-size warning and
 three expected structural drops. The separate two-function doctest run passes
 in 0.69 seconds. The new User Guide examples execute within the suite; course
 Module 12 executes in 44.2 seconds. All 251 public docstrings and parent signature
-checks pass. Primary guard: `tests/form/test_project_atom_names.py`.
+checks pass. Primary guard: `tests/build/test_project_atom_names.py`.
 
 The actual-loader sentinel also runs ready-native renaming and composition
 without loading RDKit, Meeko, OpenMM, MDAnalysis, MDTraj, Vina or Ackredit.
@@ -320,3 +320,16 @@ records exact commands, versions, executable hashes and the consumer archive
 SHA-256. #223 remains partial for downstream receiving/removal. #181 coverage
 and #334 release coordination retain their existing scope; no package build,
 release, tag or full/installed matrix is initiated here.
+
+## Ownership clarification — 2026-10-23
+
+The maintained public naming tool is `molsysmt.build.project_atom_names`, with
+`target_form` selecting export naming constraints rather than an output object
+form. The maintained composition tool is `molsysmt.basic.compose_atom_maps`,
+also exposed as `molsysmt.compose_atom_maps`. PDBQT-specific pose import belongs
+to `molsysmt.form.file_pdbqt.read_poses`,
+`molsysmt.form.string_pdbqt_text.read_poses`, and the handler's `read_poses`.
+The old top-level `molsysmt.form` functions are removed before release; the
+map schemas, index semantics and explicit validation remain unchanged.
+The experimental tools remain consumer-review work rather than a complete
+solution to every lossy export; #223 remains partial.

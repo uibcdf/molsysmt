@@ -32,7 +32,7 @@ def test_generation_reordering_omission_and_no_negative_index_lookup():
     first = mapping(3, [2, 0, -1, 1])
     second = mapping(4, [2, 1, 0])
     snapshot = pickle.dumps([first, second])
-    result = msm.form.compose_atom_maps([first, second])
+    result = msm.basic.compose_atom_maps([first, second])
     np.testing.assert_array_equal(result["output_to_source_atom_indices"], [-1, 0, 2])
     np.testing.assert_array_equal(result["source_to_output_atom_indices"], [1, -1, 2])
     np.testing.assert_array_equal(result["generated_output_atom_indices"], [0])
@@ -60,7 +60,7 @@ def test_typed_hydrogen_projection_export_and_pose_axes(omit_parent):
         torsion_tree=rigid_tree(chosen, np.arange(len(selection))[::-1]),
         return_atom_map=True,
     )
-    read = msm.form.read_pdbqt_poses(
+    read = msm.form.string_pdbqt_text.read_poses(
         ensemble(text),
         reduced,
         exported,
@@ -68,7 +68,7 @@ def test_typed_hydrogen_projection_export_and_pose_axes(omit_parent):
         return_report=True,
     )
     reports = [projected["report"], exported, read["report"]]
-    result = msm.form.compose_atom_maps(reports)
+    result = msm.basic.compose_atom_maps(reports)
     if omit_parent:
         assert result["output_to_source_atom_indices"].tolist() == [1, 5]
         assert result["source_to_output_atom_indices"].tolist() == [
@@ -144,8 +144,8 @@ def test_typed_hydrogen_projection_export_and_pose_axes(omit_parent):
         ["3", "11"] if omit_parent else ["17", "3", "11"]
     )
     # Incremental composition preserves exactly the same flattened stage lineage.
-    partial = msm.form.compose_atom_maps(reports[:2])
-    restored = msm.form.compose_atom_maps(
+    partial = msm.basic.compose_atom_maps(reports[:2])
+    restored = msm.basic.compose_atom_maps(
         [json.loads(json.dumps(partial, default=lambda v: v.tolist())), reports[2]]
     )
     assert len(restored["stages"]) == 3
@@ -179,11 +179,11 @@ def test_real_fixed_state_hydrogens_keep_absent_original_indices():
         torsion_tree=rigid_tree(reduced, [1, 0, 2]),
         return_atom_map=True,
     )
-    poses = msm.form.read_pdbqt_poses(
+    poses = msm.form.string_pdbqt_text.read_poses(
         ensemble(text), reduced, exported, return_report=True
     )
     reports = [added["report"], projected["report"], exported, poses["report"]]
-    result = msm.form.compose_atom_maps(reports)
+    result = msm.basic.compose_atom_maps(reports)
     assert result["n_source_atoms"] == 2 and result["n_output_atoms"] == 3
     assert result["source_to_output_atom_indices"].tolist() == [0, 1]
     assert result["output_to_source_atom_indices"].tolist() == [0, 1, -1]
@@ -213,20 +213,20 @@ def test_native_terminal_creation_and_empty_addition_reports():
         [{"parent_atom_index": 1, "atom_type": "H", "atom_id": "40"}],
         msm.pyunitwizard.quantity([[[0.14, 0, 0.1]], [[0.14, 0, 1.1]]], "nm"),
     )
-    mapped = msm.form.compose_atom_maps([result["report"]])
+    mapped = msm.basic.compose_atom_maps([result["report"]])
     assert mapped["output_to_source_atom_indices"].tolist() == [0, 1, -1]
     assert mapped["stages"][0]["generated_atom_ids"] == ["40"]
     empty = msm.build.add_terminal_atoms(
         source, [], msm.pyunitwizard.quantity(np.empty((2, 0, 3)), "nm")
     )
-    restored = msm.form.compose_atom_maps([empty["report"]])
+    restored = msm.basic.compose_atom_maps([empty["report"]])
     assert restored["output_to_source_atom_indices"].tolist() == [0, 1]
 
 
 @pytest.mark.parametrize("maps", [[], {}, [None], "maps"])
 def test_reject_invalid_report_sequence(maps):
     with pytest.raises(ArgumentError):
-        msm.form.compose_atom_maps(maps)
+        msm.basic.compose_atom_maps(maps)
 
 
 @pytest.mark.parametrize(
@@ -251,21 +251,21 @@ def test_reject_inconsistent_typed_maps(field, value):
     report = mapping(2, [0, 1])
     report[field] = value
     with pytest.raises(StructuralInconsistencyError):
-        msm.form.compose_atom_maps([report])
+        msm.basic.compose_atom_maps([report])
 
 
 def test_adjacent_counts_labels_and_pose_export_binding_are_checked():
     with pytest.raises(StructuralInconsistencyError, match="counts"):
-        msm.form.compose_atom_maps([mapping(2, [1]), mapping(2, [0, 1])])
+        msm.basic.compose_atom_maps([mapping(2, [1]), mapping(2, [0, 1])])
     with pytest.raises(StructuralInconsistencyError, match="ids"):
-        msm.form.compose_atom_maps(
+        msm.basic.compose_atom_maps(
             [
                 mapping(2, [1, 0], output_atom_ids=["b", "a"]),
                 mapping(2, [0, 1], source_atom_ids=["a", "b"]),
             ]
         )
     with pytest.raises(StructuralInconsistencyError, match="binding"):
-        msm.form.compose_atom_maps(
+        msm.basic.compose_atom_maps(
             [
                 mapping(2, [1, 0], output_payload_sha256="one"),
                 mapping(2, [0, 1], input_export_sha256="two"),
@@ -281,7 +281,7 @@ def test_merge_representatives_do_not_create_direct_coordinates_and_remain_typed
         charge_transfers=[0.25],
         charge_unit="elementary_charge",
     )
-    result = msm.form.compose_atom_maps([merged, mapping(2, [1, 0])])
+    result = msm.basic.compose_atom_maps([merged, mapping(2, [1, 0])])
     assert result["source_to_output_atom_indices"].tolist() == [1, -1, 0]
     assert result["source_to_representative_atom_indices"].tolist() == [1, 1, 0]
     assert result["output_to_source_atom_indices"].tolist() == [2, 0]
@@ -293,25 +293,25 @@ def test_merge_representatives_do_not_create_direct_coordinates_and_remain_typed
         bad = copy.deepcopy(merged)
         bad[field] = value
         with pytest.raises(StructuralInconsistencyError):
-            msm.form.compose_atom_maps([bad])
+            msm.basic.compose_atom_maps([bad])
 
 
 def test_tampered_incremental_history_is_not_silently_accepted():
-    result = msm.form.compose_atom_maps([mapping(3, [1, 0]), mapping(2, [1])])
+    result = msm.basic.compose_atom_maps([mapping(3, [1, 0]), mapping(2, [1])])
     result["source_to_output_atom_indices"][0] = -1
     result["output_to_source_atom_indices"][:] = -1
     result["source_to_representative_atom_indices"][:] = -1
     result["source_atom_status"][:] = "omitted"
     with pytest.raises(StructuralInconsistencyError, match="stored stages"):
-        msm.form.compose_atom_maps([result])
+        msm.basic.compose_atom_maps([result])
 
 
 def test_empty_axes_have_explicit_shapes_and_linear_numpy_storage():
-    result = msm.form.compose_atom_maps([mapping(0, []), mapping(0, [])])
+    result = msm.basic.compose_atom_maps([mapping(0, []), mapping(0, [])])
     assert result["source_to_output_atom_indices"].shape == (0,)
     assert result["output_to_source_atom_indices"].dtype == np.int64
     n = 100_000
-    result = msm.form.compose_atom_maps(
+    result = msm.basic.compose_atom_maps(
         [mapping(n, np.arange(n)[::-1]), mapping(n, np.arange(n)[::2])]
     )
     assert result["n_output_atoms"] == n // 2
@@ -330,7 +330,7 @@ def test_repeated_merges_follow_representatives_without_resurrecting_positions()
     first = mapping(3, [0, 2], source_to_representative_atom_indices=[0, 0, 1])
     second = mapping(2, [1], source_to_representative_atom_indices=[0, 0])
     with msm.pyunitwizard.context(standard_units=["pm", "coulomb"]):
-        result = msm.form.compose_atom_maps([first, second])
+        result = msm.basic.compose_atom_maps([first, second])
     assert result["source_to_output_atom_indices"].tolist() == [-1, -1, 0]
     assert result["source_to_representative_atom_indices"].tolist() == [0, 0, 0]
     assert result["output_to_source_atom_indices"].tolist() == [2]
@@ -343,7 +343,7 @@ def test_an_explicit_rename_requires_its_own_declared_axis_stage():
         2, [1, 0], source_atom_names=["C1", "O1"], output_atom_names=["O1", "C1"]
     )
     with pytest.raises(StructuralInconsistencyError, match="names"):
-        msm.form.compose_atom_maps([before, after])
+        msm.basic.compose_atom_maps([before, after])
     rename = mapping(
         2,
         [0, 1],
@@ -351,7 +351,7 @@ def test_an_explicit_rename_requires_its_own_declared_axis_stage():
         output_atom_names=["C1", "O1"],
         method="caller_declared_rename",
     )
-    result = msm.form.compose_atom_maps([before, rename, after])
+    result = msm.basic.compose_atom_maps([before, rename, after])
     assert result["output_atom_names"].tolist() == ["O1", "C1"]
     assert result["source_to_output_atom_indices"].tolist() == [1, 0]
 
@@ -377,7 +377,7 @@ def test_reject_inconsistent_creation_evidence(changes):
         schema="molsysmt.terminal_attachment@1", source={"n_atoms": 2}, **changes
     )
     with pytest.raises(StructuralInconsistencyError):
-        msm.form.compose_atom_maps([report])
+        msm.basic.compose_atom_maps([report])
 
 
 def test_user_guide_workflow_and_json_example_execute():
@@ -385,7 +385,7 @@ def test_user_guide_workflow_and_json_example_execute():
     from pathlib import Path
 
     page = (
-        Path(__file__).parents[2] / "docs/content/user/tools/form/compose_atom_maps.md"
+        Path(__file__).parents[2] / "docs/content/user/tools/basic/compose_atom_maps.md"
     )
     scope = {}
     for code in re.findall(r"```python\n(.*?)```", page.read_text(), flags=re.S):
@@ -394,7 +394,7 @@ def test_user_guide_workflow_and_json_example_execute():
 
 
 def test_empty_original_source_can_have_declared_generated_outputs():
-    result = msm.form.compose_atom_maps([mapping(0, [-1]), mapping(1, [0])])
+    result = msm.basic.compose_atom_maps([mapping(0, [-1]), mapping(1, [0])])
     assert result["n_source_atoms"] == 0 and result["n_output_atoms"] == 1
     assert result["output_to_source_atom_indices"].tolist() == [-1]
     assert result["generated_output_atom_indices"].tolist() == [0]
@@ -429,13 +429,13 @@ sys.meta_path.insert(0, DeniedEngines())
 from molsysmt.native import MolSys
 source = MolSys(n_atoms=2)
 msm.set(source, atom_name=['H1291', 'H0'])
-renamed = msm.form.project_atom_names(source, to_form='file:pdbqt', return_report=True)
+renamed = msm.build.project_atom_names(source, target_form='file:pdbqt', return_report=True)
 assert renamed['report']['output_atom_names'].tolist() == ['H1', 'H0']
 assert source.topology.atoms.atom_name.tolist() == ['H1291', 'H0']
-assert msm.form.compose_atom_maps([renamed['report']])['source_to_output_atom_indices'].tolist() == [0, 1]
+assert msm.basic.compose_atom_maps([renamed['report']])['source_to_output_atom_indices'].tolist() == [0, 1]
 stage = dict(schema='molsysmt.atom_map@1', n_source_atoms=2, n_output_atoms=1,
     source_to_output_atom_indices=[0,-1], output_to_source_atom_indices=[0])
-result = msm.form.compose_atom_maps([stage])
+result = msm.basic.compose_atom_maps([stage])
 assert result['source_to_output_atom_indices'].tolist() == [0,-1]
 assert not attempted, attempted
 assert not roots.intersection(name.split('.')[0] for name in sys.modules)
@@ -463,7 +463,7 @@ def test_oriented_tree_and_rigid_empty_metadata_survive_json():
         torsion_tree=tree,
         return_atom_map=True,
     )
-    result = msm.form.compose_atom_maps(
+    result = msm.basic.compose_atom_maps(
         [json.loads(json.dumps(exported, default=lambda v: v.tolist()))]
     )
     stage = result["stages"][0]
@@ -474,7 +474,7 @@ def test_oriented_tree_and_rigid_empty_metadata_survive_json():
     bad = copy.deepcopy(exported)
     bad["branch_source_atom_pairs"] = [[1, 0]]
     with pytest.raises(StructuralInconsistencyError, match="Rooted export"):
-        msm.form.compose_atom_maps([bad])
+        msm.basic.compose_atom_maps([bad])
     _, rigid = msm.convert(
         source,
         to_form="string:pdbqt_text",
@@ -482,7 +482,7 @@ def test_oriented_tree_and_rigid_empty_metadata_survive_json():
         typing_scheme="autodock4",
         return_atom_map=True,
     )
-    restored = msm.form.compose_atom_maps(
+    restored = msm.basic.compose_atom_maps(
         [json.loads(json.dumps(rigid, default=lambda v: v.tolist()))]
     )
     assert restored["stages"][0]["torsion_tree"] is None
@@ -493,15 +493,15 @@ def test_quantity_records_do_not_strip_additional_units_or_accept_negative_bound
     record = mapping(2, [0, 1])
     record["source_to_output_atom_indices"] = msm.pyunitwizard.quantity([0, 1], "nm")
     with pytest.raises(StructuralInconsistencyError, match="additional unit"):
-        msm.form.compose_atom_maps([record])
+        msm.basic.compose_atom_maps([record])
     for value in (msm.pyunitwizard.quantity(1.0, "coulomb"), True, float("nan")):
         record = mapping(
             2, [0, 1], selected_total_charge=value, charge_unit="elementary_charge"
         )
         with pytest.raises(StructuralInconsistencyError, match="finite scalar"):
-            msm.form.compose_atom_maps([record])
+            msm.basic.compose_atom_maps([record])
     record = mapping(
         2, [0, 1], charge_rounding_error_bound=-0.1, charge_unit="elementary_charge"
     )
     with pytest.raises(StructuralInconsistencyError, match="nonnegative"):
-        msm.form.compose_atom_maps([record])
+        msm.basic.compose_atom_maps([record])

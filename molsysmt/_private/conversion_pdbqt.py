@@ -2,7 +2,7 @@
 
 from molsysmt.basic.conversion_report import ConversionIssue
 
-PDBQT_FORMS = {"file:pdbqt", "string:pdbqt_text"}
+PDBQT_FORMS = {"file:pdbqt", "string:pdbqt_text", "molsysmt.PDBQTFileHandler"}
 
 
 def audit_pdbqt(item, source_form, target_form, selection, structure_indices, syntax):

@@ -2,27 +2,30 @@
 # Reading and writing prepared PDBQT
 
 The experimental `file:pdbqt` and `string:pdbqt_text` forms read a rigid
-receptor or one ligand with a balanced ROOT/BRANCH tree. They require no RDKit,
+receptor, ligand with a balanced ROOT/BRANCH tree, or homogeneous MODEL ensemble. They require no RDKit,
 Meeko or Vina installation. A string is explicit: prepend `pdbqt_text:` to its
 raw contents. Raw text without that prefix is not promised as PDBQT; its
 PDB-like atom records can otherwise be confused with ordinary PDB.
 
 For a multi-MODEL docking ensemble, use
-{func}`molsysmt.form.read_pdbqt_poses` with the known prepared source and its
+{func}`molsysmt.form.file_pdbqt.read_poses` with the known prepared source and its
 completed export map. It validates every pose and imports only returned
 coordinates onto that known chemical graph. Missing source atoms require an
 explicit retained-subsystem policy; absent H never inherit original positions.
 See {ref}`Tutorial_Read_PDBQT_Poses`. Generic form queries/conversions below
-retain their single-system profile.
+retain only the partial chemistry declared in PDBQT.
+For coordinate blocks without a complete ensemble array, use the
+{ref}`PDBQT handler <Tutorial_Form_PDBQTFileHandler>`. Its source text remains
+resident; disk-backed large-file reads remain pending.
 
 To trace those atoms back through H generation and nonpolar-H merging, use
-{func}`molsysmt.form.compose_atom_maps` with the completed preparation,
+{func}`molsysmt.basic.compose_atom_maps` with the completed preparation,
 projection, writer and pose reports in order. It distinguishes direct coordinate
 correspondence from a merged atom's representative and leaves generated atoms
 without an original source index. See {ref}`Tutorial_Compose_Atom_Maps`.
 
 If preparation creates names such as `H1291`, explicitly call
-{func}`molsysmt.form.project_atom_names` with `to_form='file:pdbqt'` before
+{func}`molsysmt.build.project_atom_names` with `target_form='file:pdbqt'` before
 serialization. Its native output retains the entire atom/structure axes, and
 `return_report=True` supplies a reversible label map for the composition chain.
 Valid names are reserved before invalid selected names are replaced; the writer

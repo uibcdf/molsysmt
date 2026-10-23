@@ -36,4 +36,5 @@ Form adapters for MolSysMT in-memory classes and objects.
    Topology <molsysmt_Topology.ipynb>
    TopologyDict <molsysmt_TopologyDict.ipynb>
    ViewerJSON <molsysmt_ViewerJSON.ipynb>
+   pdbqt_file_handler.md
 ```

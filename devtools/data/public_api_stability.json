@@ -2083,6 +2083,27 @@
       "documentation": "docs/content/user/tools/build/merge_nonpolar_hydrogens.md",
       "contract_tests": "tests/build/test_merge_nonpolar_hydrogens.py",
       "owner": "build"
+    },
+    "molsysmt.compose_atom_maps": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "root",
+      "documentation": "docs/content/user/tools/basic/compose_atom_maps.md",
+      "contract_tests": "tests/basic/test_compose_atom_maps.py"
+    },
+    "molsysmt.basic.compose_atom_maps": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "basic",
+      "documentation": "docs/content/user/tools/basic/compose_atom_maps.md",
+      "contract_tests": "tests/basic/test_compose_atom_maps.py"
+    },
+    "molsysmt.build.project_atom_names": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "build",
+      "documentation": "docs/content/user/tools/build/project_atom_names.md",
+      "contract_tests": "tests/build/test_project_atom_names.py"
     }
   }
 }

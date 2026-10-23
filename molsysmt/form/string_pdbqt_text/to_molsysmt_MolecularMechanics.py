@@ -42,9 +42,9 @@ def to_molsysmt_MolecularMechanics(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt._private.pdbqt_adapter import selected_native
+    from molsysmt.native import PDBQTFileHandler
 
-    output = selected_native(
-        item, atom_indices, structure_indices, discard_torsion_tree, text=True
-    )
-    return output.molecular_mechanics
+    with PDBQTFileHandler(item) as handler:
+        return handler._domain(
+            "molecular_mechanics", atom_indices, structure_indices, discard_torsion_tree
+        )

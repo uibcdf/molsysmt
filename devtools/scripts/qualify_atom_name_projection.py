@@ -44,7 +44,9 @@ for rename in audit["decisions"]["generated_H_name_map"]:
     source.topology.atoms.loc[index, "atom_name"] = rename["original_name"]
 before = source.topology.atoms.copy(deep=True)
 start = time.perf_counter()
-result = msm.form.project_atom_names(source, to_form="file:pdbqt", return_report=True)
+result = msm.build.project_atom_names(
+    source, target_form="file:pdbqt", return_report=True
+)
 elapsed = time.perf_counter() - start
 report = result["report"]
 output = result["molecular_system"]
@@ -72,7 +74,7 @@ for group in range(len(groups)):
             )
             == 1
         )
-mapped = msm.form.compose_atom_maps([report])
+mapped = msm.basic.compose_atom_maps([report])
 assert mapped["source_atom_names"].tolist() == before.atom_name.tolist()
 summary = {
     "archive_sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
