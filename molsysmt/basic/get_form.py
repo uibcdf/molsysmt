@@ -92,6 +92,9 @@ def _detect(molecular_system):
         candidate = catalogue.form_of_extension(molecular_system)
         if candidate is not None and _asks(candidate, molecular_system):
             return candidate
+        candidate = catalogue._form_of_prefix(molecular_system)
+        if candidate is not None and _asks(candidate, molecular_system):
+            return candidate
         # A string is a file path or content. It is never an instance of a class form.
         return _sweep(molecular_system, "string", "file")
 
@@ -148,6 +151,11 @@ def get_form(molecular_system):
     Notes
     -----
     - See :ref:`Introduction_Forms` for a full list of supported forms.
+    - A declared string prefix such as ``pdbqt_text:`` selects its own detector
+      before unrelated text heuristics. The detector still confirms the form;
+      recognition does not parse the payload or validate its chemistry. Existing
+      file-extension matching keeps priority, and unprefixed strings retain the
+      general detector fallback.
 
 
 
@@ -177,6 +185,8 @@ def get_form(molecular_system):
     >>> molsys_C = msm.convert(molsys_B, to_form='openmm.Topology')
     >>> msm.get_form(molsys_C)
     'openmm.Topology'
+    >>> msm.get_form('pdbqt_text:declared payload, not yet parsed')
+    'string:pdbqt_text'
 
 
 

@@ -24,6 +24,12 @@ axis; a representation change cannot establish correspondence between unrelated
 arrays. Native PDB writing converts lengths to angstroms and can retain multiple
 structures. See {ref}`Tutorial_Convert` for the concrete conversion arguments.
 
+An explicitly tagged molecular string can identify its representation before
+its payload is parsed. The corresponding form detector must still confirm the
+candidate. Recognizing a form does not establish valid syntax, complete chemistry
+or suitability for a calculation; those are separate reading and method contracts.
+See {ref}`Tutorial_Get_form` for examples.
+
 ## Architectural Layers
 
 A complete molecular system in MolSysMT is composed of four non-exclusive, complementary architectural layers:

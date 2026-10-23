@@ -14,16 +14,17 @@ installed optional providers must not silently change the declared inventory.
 python devtools/scripts/audit_conversion_execution.py --json
 
 # Execute all profiled edges, including direct and public routes
-python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py --receptor=llm -n 12
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/conversion_truth/test_declared_docking_edges.py --receptor=llm -n 12
 
 # Exercise the inventory's adversarial controls
 python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=llm
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-h5msm-pdb-v4` profile: thirteen native containers/dictionary forms, four
-resident MDTraj/OpenMM forms, H5MSM disk/handler forms, and PDB file/text/handler forms. The original
-native-v1, engine-v2 and H5MSM-v3 subsets remain covered.
+`resident-files-v5` profile: thirteen native containers/dictionary forms, four
+resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
+forms, and SDF/PDBQT file/text forms. Earlier native, engine, H5MSM and PDB
+subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
 input; domain fixtures include mechanics parameters and a nonempty interaction
@@ -86,6 +87,38 @@ source owner retention, equivalent nm/angstrom inputs and native multi-structure
 output. Text-to-MDTraj scratch paths must disappear after success, reader exceptions
 and interruptions, without mutating the input text. These controls do not certify all
 PDB fields or make optional OpenMM inference independent of that provider.
+
+## SDF and PDBQT witnesses
+
+`test_declared_docking_edges.py` owns every selected edge involving `file:sdf`,
+`file:pdbqt` or `string:pdbqt_text`. Its 19 edges each run with two input variants:
+V2000/V3000 or rigid/ligand PDBQT. Each of the 38 cases exercises both direct
+and public conversion with fresh local inputs and destinations. The four test
+modules form a disjoint partition of the selected graph; a guard checks that
+nothing selected is omitted or counted twice.
+
+The literal source records are shared with the existing format-contract suites.
+Native SDF sources are loaded from the labelled-formate witness, which provides
+a complete graph and explicit formal charges, isotopes and radicals. PDBQT native
+sources are loaded from explicit AutoDock4 records with nonconsecutive serial IDs,
+partial charges and types. A ligand's tree is retrieved separately and supplied
+to the native writer; `discard_torsion_tree=True` is explicit when projecting the
+complete ligand into MolSys. No typing, preparation or graph completion is inferred.
+Native source preparation is not an independent writer oracle.
+
+Value checks compare literal atom types, SDF isotope/charge/bond assignments,
+PDBQT serial strings, partial charges and types, explicit nm positions and exact
+identity-file bytes. Wholly unknown PDBQT formal charges remain absent (`get`
+returns `None`), not zero or a populated chemical assignment. Rereading generated
+files is a bounded round-trip control; existing RDKit/MDAnalysis comparisons and
+real-file suites supply their separate reference evidence.
+
+A separate fresh-interpreter guard executes every witness while rejecting actual
+module creation for RDKit, MDAnalysis, MDTraj, OpenMM and Vina. Availability-only
+queries remain allowed, and both recorded attempts and loaded modules are checked.
+It exposed uibcdf/molsysmt#426: declared text used to reach unrelated SMILES
+heuristics. Generic registry-confirmed prefix dispatch repairs that path; no native
+parser support or format/serialization scope is expanded.
 
 ## Coverage debt
 

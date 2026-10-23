@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-h5msm-pdb-v4",
+  "profile": "resident-files-v5",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -23,7 +23,10 @@
     "molsysmt.H5MSMFileHandler",
     "file:pdb",
     "string:pdb_text",
-    "molsysmt.PDBFileHandler"
+    "molsysmt.PDBFileHandler",
+    "file:sdf",
+    "file:pdbqt",
+    "string:pdbqt_text"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -47,7 +50,10 @@
     "molsysmt.H5MSMFileHandler",
     "file:pdb",
     "string:pdb_text",
-    "molsysmt.PDBFileHandler"
+    "molsysmt.PDBFileHandler",
+    "file:sdf",
+    "file:pdbqt",
+    "string:pdbqt_text"
   ],
   "accepted_unexecuted_edges": {
     "MDAnalysis.AtomGroup": {
@@ -312,17 +318,6 @@
         "string:pdb_text"
       ]
     },
-    "file:pdbqt": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "file:pdbqt",
-        "molsysmt.MolSys",
-        "molsysmt.MolecularMechanics",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
-        "string:pdbqt_text"
-      ]
-    },
     "file:pir": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
@@ -355,15 +350,6 @@
         "molsysmt.Topology",
         "openmm.CharmmPsfFile",
         "openmm.Topology"
-      ]
-    },
-    "file:sdf": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "file:sdf",
-        "molsysmt.MolSys",
-        "molsysmt.Structures",
-        "molsysmt.Topology"
       ]
     },
     "file:smi": {
@@ -548,9 +534,7 @@
         "biopython.Seq",
         "biopython.SeqRecord",
         "file:molsys_yaml",
-        "file:pdbqt",
         "file:psf",
-        "file:sdf",
         "molsysmt.ViewerJSON",
         "molsysviewer.MolSysView",
         "networkx.Graph",
@@ -564,8 +548,7 @@
         "pytraj.Trajectory",
         "rdkit.Mol",
         "string:amino_acids_1",
-        "string:amino_acids_3",
-        "string:pdbqt_text"
+        "string:amino_acids_3"
       ]
     },
     "molsysmt.MolSysDict": {
@@ -946,17 +929,6 @@
         "openmm.Simulation",
         "openmm.System",
         "pdbfixer.PDBFixer"
-      ]
-    },
-    "string:pdbqt_text": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "file:pdbqt",
-        "molsysmt.MolSys",
-        "molsysmt.MolecularMechanics",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
-        "string:pdbqt_text"
       ]
     },
     "string:smiles": {

@@ -17,8 +17,8 @@ supersedes: []
 **Reported:** 2026-08-19, from the post-mortem of
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
-**Status:** partial. Resident-native, MDTraj/OpenMM and bounded H5MSM/PDB execution
-profiles are implemented; remaining external/file/network routes remain debt.
+**Status:** partial. Resident-native, MDTraj/OpenMM and bounded H5MSM/PDB/SDF/PDBQT
+execution profiles are implemented; remaining external/file/network routes remain debt.
 
 ## What
 
@@ -354,3 +354,52 @@ names #422 and the executable contract guards; the validator is unchanged.
 The destination regression/doctest selection passes eight cases, and comparisons
 against both the rejected commit and the original pre-change API pass. This
 corrects the initial CI failure without treating local fast gates as CI success.
+
+## SDF/PDBQT execution expansion — 2026-10-22
+
+The `resident-files-v5` profile adds `file:sdf`, `file:pdbqt` and
+`string:pdbqt_text`: **133 selected edges out of 596**, leaving 463 individually
+listed unexecuted edges. Nineteen additional edges have two witnesses each:
+V2000/V3000 SDF or rigid/ligand PDBQT. All 38 cases execute their direct and
+public routes with fresh local inputs and named destinations. The executor
+partition guard includes the fourth module and checks no selected edge is lost
+or counted twice.
+
+Literal witnesses are reused from the existing independent format-contract
+suites. Native writer sources are prepared through the current reader and are
+explicitly not independent writer oracles. They provide complete SDF chemistry,
+or declared AutoDock4 labels/charges and a separately retrieved ligand tree.
+No preparation, typing, graph completion or unrequested tree loss is inferred.
+Identity files retain their exact bytes. Supplementary checks compare literal
+atom types, isotopes, formal charges, bond roles/orders, source serial strings,
+nm positions and mechanics fields. A new-test expectation was corrected to the
+actual `get` contract for wholly unknown formal charges: None, not a list of None.
+This was a harness correction, not a chemical behavior change.
+
+### Dependency-isolation defect found by execution
+
+A fresh-interpreter sentinel retaining find_spec availability queries but
+rejecting actual engine module creation found uibcdf/molsysmt#426: recognizing
+explicit `pdbqt_text:` used the generic string sweep and reached the unrelated
+RDKit SMILES parser. Conversion still succeeded after the caught ImportError;
+a simple successful-output assertion would have missed the unwanted dependency.
+The generic repair indexes declared prefixes in the form catalogue and still
+confirms candidates through their actual registry-backed detectors. Extension
+priority, rejected-candidate fallback, detector errors and dynamic registry
+behavior remain guarded. No parser, public signature or scientific method changes.
+
+The final sentinel executes every direct/public witness without attempts to load
+RDKit, MDAnalysis, MDTraj, OpenMM or Vina. The full regression, including the
+all-forms recognition battery, registry integration, real Vina example files,
+independent RDKit/MDAnalysis readers, Vina parser acceptance, chemistry/unit
+controls and AutoDock typing regressions, passes **1,015 tests**, zero
+failures/skips, in 52.00 seconds with 12 workers and Pytest Receptor.
+
+The [receipt](../../devtools/data/conversion_execution_docking_20261022.json)
+records actual versions, commands and 47 warnings. These include the previously
+unexplained ndarray-size warning retained under uibcdf/molsysmt#237 for the
+installed-environment review; fresh provider imports still do not reproduce it.
+The public get_form doctest and two affected User Guide/course notebooks pass;
+the developer testing page renders with zero diagnostics in a focused project.
+No full-site warning recount, format-scope expansion or installed-pair
+qualification is claimed. #181 remains partial and #334 still owns release gates.

@@ -90,6 +90,10 @@ sections:
             file: docs/content/user/tools/basic/capability_reports.md
             agents_file: docs/content/user/tools/basic/capability_reports.md.AGENTS.md
             description: Styled and programmatic capability reports with raw metadata, axes, explicit empty filters and declared-route limits.
+          - name: get_form
+            file: docs/content/user/tools/basic/get_form.ipynb
+            agents_file: docs/content/user/tools/basic/get_form.ipynb.AGENTS.md
+            description: Registry-confirmed string prefixes, extension priority and recognition separate from parsing.
           - name: get
             description: Attribute queries, incident group bond counts and valid empty connectivity.
             file: docs/content/user/tools/basic/get.ipynb
@@ -394,7 +398,7 @@ sections:
       - name: native_pdbqt
         file: docs/content/user/cookbook/native_pdbqt.md
         agents_file: docs/content/user/cookbook/native_pdbqt.md.AGENTS.md
-        description: Prepared PDBQT exchange, separate supplied torsion/parameter data, explicit assignment tools and H5MSM mechanics exclusions.
+        description: Prepared PDBQT exchange, selective prefix recognition, supplied torsion/parameter data, explicit assignment tools and H5MSM mechanics exclusions.
         status: reviewed
       - name: auditing_residue_chemistry
         file: docs/content/user/cookbook/auditing_residue_chemistry.md
@@ -478,7 +482,7 @@ sections:
       - name: testing
         file: docs/content/developer/testing/index.md
         agents_file: docs/content/developer/testing/AGENTS.md
-        description: Scientific evidence review, executable resident/H5MSM conversion profiles, schema/resource boundaries and source/package/documentation CI.
+        description: Scientific evidence review, executable resident/H5MSM/PDB/SDF/PDBQT profiles, schema/resource/dependency boundaries and source/package/documentation CI.
   api_reference:
     path: docs/api
     status: stable

@@ -12,6 +12,7 @@ from devtools.scripts.audit_conversion_execution import (
     read_plan,
 )
 from tests.conversion_truth.test_declared_native_edges import (
+    DOCKING_FORMS,
     PDB_FORMS,
     _execute_direct,
     _water_coordinates,
@@ -23,7 +24,7 @@ from tests.conversion_truth.test_declared_native_edges import (
 EDGES = sorted(
     (s, t)
     for s, t in planned_edges(declared_edges(), read_plan())
-    if {s, t} & PDB_FORMS
+    if {s, t} & PDB_FORMS and not ({s, t} & DOCKING_FORMS)
 )
 
 

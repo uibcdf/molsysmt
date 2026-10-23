@@ -3147,3 +3147,18 @@ User Guide/course notebooks are re-executed successfully. The
 [receipt](../devtools/data/conversion_execution_pdb_20261022.json) records scope
 and environment. #181 remains partial and publication remains paused under #334;
 these source repairs are not installed-candidate qualification.
+
+## SDF/PDBQT conversion execution — 2026-10-22
+
+The next bounded #181 block adds 19 declared edges with 38 local syntax/layout
+witnesses. The profile now selects 133 of 596 edges and leaves 463 explicit
+coverage-debt edges. Rigid/tree PDBQT, V2000/V3000 SDF and explicit native writer
+prerequisites execute directly and publicly. A loader sentinel finds #426:
+explicit PDBQT detection reached an unrelated RDKit parser. Generic confirmed
+prefix lookup repairs this without changing parsers, scientific methods or
+public signatures. The broad regression passes 1,015 tests with no skips or
+failures; the public doctest, two notebooks and focused developer-page render
+also pass. The [receipt](../devtools/data/conversion_execution_docking_20261022.json)
+retains versions and warnings, including the existing optional ABI warning
+reserved for environment review. This source evidence does not qualify a new
+candidate; #181 remains partial and publication stays paused under #334.

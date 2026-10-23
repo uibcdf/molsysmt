@@ -65,7 +65,7 @@ a development checkout does not qualify a different installed release artifact.
 
 ## 4. Conversion Execution
 
-The resident/native-engine/H5MSM/PDB profile discovers declared direct routes between its covered
+The resident/native-engine/H5MSM/PDB/SDF/PDBQT profile discovers declared direct routes between its covered
 forms and executes each adapter and its public conversion route on fresh inputs.
 It checks execution and output form; fidelity remains a separate test obligation.
 
@@ -74,7 +74,7 @@ It checks execution and output form; fidelity remains a separate test obligation
 python devtools/scripts/audit_conversion_execution.py --json
 
 # Run the actual direct/public conversion cases
-python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py --receptor=llm -n 12
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/conversion_truth/test_declared_docking_edges.py --receptor=llm -n 12
 ```
 
 The [conversion execution guide](https://github.com/uibcdf/molsysmt/blob/main/devguide/conversion_execution.md)
@@ -91,3 +91,10 @@ PDB cases use a literal local two-structure file/text fixture and fresh handler
 resources. Each selected edge runs directly and publicly. Separate regressions
 check destination bytes, source ownership, selected positions, equivalent length
 units, multiple structures and scratch cleanup after reader errors/interruption.
+
+SDF/PDBQT cases reuse literal format-contract witnesses: V2000 and V3000,
+rigid records and ligand torsion trees. Native source preparation supplies each
+writer's required assignments explicitly. Value checks retain known chemistry,
+unknown PDBQT formal charges, source serials, coordinates and mechanical fields;
+identity-file routes also check exact bytes. Parsing, preparation and scientific
+validation remain separate claims.

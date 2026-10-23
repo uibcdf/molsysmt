@@ -20,6 +20,7 @@ from devtools.scripts.audit_conversion_execution import (
 from molsysmt import pyunitwizard as puw
 from molsysmt.native import H5MSMFileHandler
 from tests.conversion_truth.test_declared_native_edges import (
+    DOCKING_FORMS,
     H5MSM_FORMS,
     PDB_FORMS,
     _execute_direct,
@@ -28,7 +29,7 @@ from tests.conversion_truth.test_declared_native_edges import (
 EDGES = sorted(
     (s, t)
     for s, t in planned_edges(declared_edges(), read_plan())
-    if {s, t} & H5MSM_FORMS and not ({s, t} & PDB_FORMS)
+    if {s, t} & H5MSM_FORMS and not ({s, t} & (PDB_FORMS | DOCKING_FORMS))
 )
 
 

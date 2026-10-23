@@ -7,6 +7,11 @@ Meeko or Vina installation. A string is explicit: prepend `pdbqt_text:` to its
 raw contents. Raw text without that prefix is not promised as PDBQT; its
 PDB-like atom records can otherwise be confused with ordinary PDB.
 
+`msm.get_form()` confirms the declared `pdbqt_text:` representation through its
+own detector without trying the unrelated RDKit SMILES parser. This recognition
+does not validate PDBQT syntax or chemistry: reading/conversion still checks the
+payload and its supported profile. See {ref}`Tutorial_Get_form`.
+
 ## Reading explicit data
 
 For a complete chemically declared ligand, classify torsion candidates with

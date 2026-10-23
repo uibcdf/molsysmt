@@ -66,6 +66,13 @@ def _load():
         "class_index": class_index,
         "extension_index": extension_index,
         "extension_suffixes": tuple(sorted(extension_index, key=len, reverse=True)),
+        "string_prefixes": tuple(
+            sorted(
+                (name.removeprefix("string:") + ":", name)
+                for name, declaration in by_form.items()
+                if declaration["form_type"] == "string"
+            )
+        ),
     }
     return _catalogue
 
@@ -168,6 +175,17 @@ def form_of_extension(name):
         suffix = name[-suffix_length:]
         if suffix[0] == "." and suffix[1:].lower() == extension:
             return index[extension]
+    return None
+
+
+def _form_of_prefix(item):
+    """Return a declared string-prefix candidate without parsing or copying payloads.
+
+    The caller must still confirm the candidate with its actual form detector.
+    """
+    for prefix, form in _load()["string_prefixes"]:
+        if item.startswith(prefix):
+            return form
     return None
 
 

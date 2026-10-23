@@ -1,0 +1,114 @@
+{
+  "issue": "uibcdf/molsysmt#181",
+  "date": "2026-10-22",
+  "baseline_commit": "b35a293269884ce6387e60266f3038785603a097",
+  "scope": "local source execution/fidelity regressions; no package/candidate qualification",
+  "profile": "resident-files-v5",
+  "declared_edges": 596,
+  "selected_edges": 133,
+  "added_edges": 19,
+  "accepted_unexecuted_edges": 463,
+  "docking_witnesses": {
+    "cases": 38,
+    "direct_and_public": true,
+    "variants": [
+      "V2000",
+      "V3000",
+      "rigid PDBQT",
+      "ligand PDBQT with tree"
+    ],
+    "native_fixture_preparation": "Existing readers; not an independent writer oracle."
+  },
+  "initial_profile": {
+    "passed": 45,
+    "failed": 0,
+    "seconds": 13.63,
+    "scope": "38 case witnesses, partition guard and six inventory tests"
+  },
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/file_sdf tests/form/file_pdbqt tests/basic/test_get_form.py tests/basic/test_get_form_prefixes.py tests/basic/test_get_form_battery.py tests/form/test_catalogue_extension_detection.py tests/form/test_declared_registry_integration.py tests/test_form_plugin_conventions.py tests/physchem/test_get_autodock_atom_types.py tests/build/test_assign_autodock_atom_types.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+    "passed": 1015,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 52.0,
+    "workers": 12,
+    "warnings": {
+      "LegacyH5MSMWarning_04": 33,
+      "MDAnalysis_PendingDeprecationWarning": 6,
+      "numpy_ndarray_size_RuntimeWarning": 4,
+      "StructuralAttributeDropWarning": 2,
+      "MDAnalysis_placeholder_cell_UserWarning": 2
+    }
+  },
+  "warnings_scope": "The ndarray-size warning was previously retained under uibcdf/molsysmt#237 for environment/installed-ABI review; fresh RDKit, MDAnalysis and Vina import probes do not reproduce it. No ABI qualification is inferred.",
+  "new_defect": "uibcdf/molsysmt#426",
+  "production_changes": "Generic registry-confirmed tagged-string dispatch in get_form and its private catalogue; no parser, chemistry or signature changes.",
+  "engine_isolation": {
+    "command": "python -m pytest tests/conversion_truth/test_declared_docking_edges.py::test_docking_routes_do_not_attempt_optional_engine_imports --receptor=llm",
+    "engines": [
+      "rdkit",
+      "MDAnalysis",
+      "mdtraj",
+      "openmm",
+      "vina"
+    ],
+    "guard": "Fresh interpreter allows metadata-only lookup but rejects actual module creation; checks recorded attempts and sys.modules. Every witness runs directly and publicly.",
+    "final": "pass in complete regression",
+    "original_failure": "Actual RDKit creation attempts through string_smiles.is_form during PDBQT text recognition."
+  },
+  "harness_corrections": [
+    "Unknown formal charges use the public None contract, rather than an expected list of None.",
+    "First engine sentinel rejected harmless find_spec lookup; corrected loader still reproduced actual RDKit attempts."
+  ],
+  "documentation": {
+    "notebooks_executed": 2,
+    "notebook_failures": 0,
+    "seconds": [
+      19.0,
+      16.2
+    ],
+    "command": "python docs/execute_notebooks.py -q -f -n 12 docs/content/user/tools/basic/get_form.ipynb docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+    "focused_developer_render": {
+      "warnings": 0,
+      "exit_code": 0
+    },
+    "full_site_warning_inventory": "not repeated"
+  },
+  "doctest": {
+    "command": "python -m pytest --doctest-modules molsysmt/basic/get_form.py --receptor=llm",
+    "passed": 1,
+    "failed": 0,
+    "seconds": 1.1,
+    "expected_legacy_warning": 1
+  },
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "versions": {
+    "numpy": "2.4.6",
+    "mdtraj": "1.11.1",
+    "openmm": "8.6.1",
+    "rdkit": "2025.9.5",
+    "MDAnalysis": "2.10.0",
+    "vina": "1.2.7",
+    "pytest": "9.1.1",
+    "pytest-xdist": "3.8.0",
+    "pytest-receptor": "1.2.1+22.g00a31c4",
+    "sphinx": "9.1.0",
+    "myst-parser": "5.1.0"
+  },
+  "attribution": "Non-applicable: dispatch and test work introduce no scientific method or attribution boundary.",
+  "concurrent_work": "Viewer addon, packaging and unrelated documentation edits are preserved and excluded from this change.",
+  "fast_gates": {
+    "command": "python devtools/scripts/release_gate.py",
+    "passed": 14,
+    "total": 14,
+    "initial_retry_reason": "Developer-guide index drift during concurrent queue edits; regenerated indexes and reran the required gate.",
+    "heavy_release_gates": "not invoked"
+  },
+  "style": {
+    "ruff_check": "pass for all eight changed Python files",
+    "ruff_format_check": "pass for all eight changed Python files",
+    "parent_signature_check": "pass against b35a29326; no waiver required",
+    "docstring_validator": "247 public functions pass"
+  }
+}
