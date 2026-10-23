@@ -1,7 +1,7 @@
 ---
 summary: Implement a bound MolSysMT tools addon with a scientific API mirror.
 issue: uibcdf/molsysmt#421
-status: active
+status: partial
 opened: 2026-10-22
 closed:
 verification: inspected
@@ -16,8 +16,9 @@ supersedes: []
 
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
-**Status:** active source inventory and contract preparation; no addon runtime
-is restored. The maintainer authorizes the Viewer development effort to
+**Status:** partial implementation: six source-qualified `basic` queries, bound
+lifetime and new discovery/packaging route; editing, panels and broad coverage
+remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
 ## What
@@ -130,3 +131,47 @@ Source-only inspection on 2026-10-22 using the development environment
 `molsyssuite@uibcdf_3.14`. The ledger names exact provider and Viewer checkpoints,
 source hashes and its limits. The provider stability registry remains the
 authority for native API stability; no addon stability is inferred from it.
+
+## First read-tool delivery
+
+The provider-owned `molsysviewer_molsysmt` package now supplies `basic.get`,
+`select`, `info`, `get_attributes`, `has_attribute` and `get_label`, plus their
+root aliases. The explicit allowlist does not proxy unreviewed mutators.
+Signatures/defaults and help use native contracts with the primary input bound;
+scientific arguments are validated by the original public scientific call.
+The facade's ArgDigest configuration validates integration controls and delegates
+scientific domains, without forcing trusted digestion bypasses.
+
+New entry-point metadata uses `molsysviewer_molsysmt.tools`. Root package import
+is independent of Viewer, factories are lazy, cached methods follow replacement,
+panel deactivation preserves Python access, and closed/empty views fail clearly.
+Read wrappers add no trajectory copy or scene commands; native scientific cache
+behavior remains unchanged. `tests/molsysviewer_molsysmt/test_read_tools.py` uses
+real bundled viewers and metadata discovery. Older hosts have an explicit
+compatibility skip for these tests; that is not addon qualification.
+
+One shared packaging contract requires the eight reviewed source files and new
+entry point across sdist/wheel/installed probes. Retired routes/files retain
+negative guards. These are structural checks, supplemented by the installed
+probe's real automatic-discovery/native-read parity; they do not by themselves
+qualify an artifact. Editable development metadata refresh is not a clean solver
+installation or a preserved release. The original source ledger remains fixed
+historical input and does not certify these new wrappers.
+
+The initial bounded checks pass 46 read/packaging cases (including all 16
+real read-tool tests), plus the retained historical packaging selector after
+its guard name was preserved. Viewer receives the host changes in
+`60659082596eb055054da99364715b5cef7f3767`; routine source callers and the full
+workflow default now pin that source instead of the legacy-refusing `66ea54e4`.
+Runtime dependency floors and explicit candidate inputs remain unchanged.
+The consumer's full local core run retains the existing box-fixture failure
+uibcdf/molsysviewer#263; no global green or exact installed qualification is
+claimed. Both documentation builds complete, with unrelated provider warnings
+retained. Native course code cells/outputs are unchanged; the integration note
+links the new provider-owned guide.
+
+The Viewer formatting-only follow-up is `7449675aa8407e94136357f11da1256188e46183`
+(AST identical to the tested host logic). Routine/full-default source pins now
+use that head; explicit release-candidate inputs remain authoritative. The
+separate false-positive documentation dependency guard was reported as
+uibcdf/molsysmt#427, without adding a guessed external package.

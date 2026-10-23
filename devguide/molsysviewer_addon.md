@@ -4,9 +4,13 @@
 **Decision:** uibcdf/molsysmt#354, coordinated with uibcdf/molsysviewer#186
 
 MolSysMT supplies the native molecular-system, scientific calculation and H5MSM
-backend used by MolSysViewer. It does not ship or advertise a separate
-`molsysviewer_molsysmt` package, `molsysviewer.addons` entry point, Studio
-workspace, panel facade or `view.addons.molsysmt` namespace. Domain addons
+backend used by MolSysViewer. The source now ships a redesigned
+`molsysviewer_molsysmt` integration, discovered through the new
+`molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
+Its initial experimental facade provides six `basic` read/query tools and
+their root aliases under `view.addons.molsysmt`. Editing and graphical task
+panels remain pending. Old root entry points and retired adapter files remain
+unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
 
 ## Supported paths
@@ -47,7 +51,9 @@ records the old surface without presenting it as current behavior.
 ## Packaging and evidence
 
 Current-source wheels, source distributions and installed-runtime checks must
-reject legacy addon files and declarations. Native Rust/resource/form metadata
+include the reviewed new tools sources/entry point and reject legacy addon
+files and declarations. The installed runtime probe exercises automatic discovery
+and a bound scientific read against native MolSysMT on a compatible host. Native Rust/resource/form metadata
 and public runtime checks remain required. No new dependency is introduced.
 The installed check inspects MolSysMT's own distribution, so it does not reject
 other components' domain addons.
@@ -61,7 +67,7 @@ Pre-generated documentation HTML contains its original embedded Viewer runtime;
 refresh it through the normal final documentation qualification with the agreed
 Viewer source, rather than rewriting frozen JavaScript snapshots by hand.
 
-## Planned tools addon (not current runtime)
+## Tools addon implementation in progress
 
 The maintainer has accepted a redesigned provider-owned tools addon under
 uibcdf/molsysmt#421, coordinated with uibcdf/molsysviewer#264. The
@@ -72,7 +78,8 @@ synchronize by default, while independent results require explicit adoption.
 Provider documentation will explain capabilities and use; Viewer documentation
 owns general management, creation and catalogue links.
 
-This is planned work, not an available namespace or exemption from the current
-legacy-absence packaging guards. Qualify the new host/protocol and update those
-guards with positive compatibility evidence before shipping the new integration.
+The first source delivery has real read-tool parity/lifecycle and packaging
+guards. See the [user reference](../docs/content/user/tools/molsysviewer_tools.md).
+Broader coverage, edit synchronization, panels and exact installed qualification
+remain pending under the implementation issue.
 The withdrawn observer request uibcdf/molsysmt#413 remains closed.

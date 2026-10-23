@@ -51,6 +51,9 @@ keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory
 "Documentation" = "https://www.uibcdf.org/molsysmt/"
 "Issues" = "https://github.com/uibcdf/MolSysMT/issues"
 
+[project.entry-points."molsysviewer.addons"]
+molsysmt-tools = "molsysviewer_molsysmt.tools"
+
 [project.optional-dependencies]
 soft = [
   "mdtraj",
@@ -110,7 +113,7 @@ zip-safe = false
 # with include-package-data = false and namespaces = false.
 include-package-data = false
 [tool.setuptools.packages.find]
-include = ["molsysmt*"]
+include = ["molsysmt*", "molsysviewer_molsysmt", "molsysviewer_molsysmt._private*"]
 namespaces = true
 where = ["."]
 

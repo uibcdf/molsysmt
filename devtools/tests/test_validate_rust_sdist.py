@@ -4,6 +4,8 @@ import tarfile
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
+from devtools.scripts.viewer_tools_contract import TOOLS_FILES
+
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_rust_sdist.py"
 SPEC = spec_from_file_location("validate_rust_sdist", SCRIPT)
 MODULE = module_from_spec(SPEC)
@@ -13,7 +15,7 @@ SPEC.loader.exec_module(MODULE)
 
 def _write_sdist(path, *, omit=(), extras=()):
     root = "molsysmt-1.0.0"
-    required = MODULE.REQUIRED_SUFFIXES - set(omit)
+    required = (MODULE.REQUIRED_SUFFIXES | TOOLS_FILES) - set(omit)
     with tarfile.open(path, mode="w:gz") as archive:
         for name in sorted(required | {"rust/src/geometry.rs"} | set(extras)):
             source = path.parent / name.replace("/", "_")
@@ -59,5 +61,5 @@ def test_retired_addon_source_fails(tmp_path):
     archive = tmp_path / "molsysmt-1.0.0.tar.gz"
     _write_sdist(archive, extras={"molsysviewer_molsysmt/runtime.py"})
     assert any(
-        "unexpected top-level" in problem for problem in MODULE.validate_sdist(archive)
+        "retired or unreviewed" in problem for problem in MODULE.validate_sdist(archive)
     )

@@ -5,8 +5,13 @@ from __future__ import annotations
 
 import argparse
 import configparser
+import runpy
 from pathlib import Path, PurePosixPath
 from zipfile import ZipFile
+
+_TOOLS_CONTRACT = runpy.run_path(
+    str(Path(__file__).with_name("viewer_tools_contract.py"))
+)
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 
@@ -70,7 +75,8 @@ def validate_wheel(wheel_path: Path) -> list[str]:
                 PurePosixPath(name).parts[0]
                 for name in names
                 if PurePosixPath(name).parts
-                and PurePosixPath(name).parts[0] != "molsysmt"
+                and PurePosixPath(name).parts[0]
+                not in {"molsysmt", "molsysviewer_molsysmt"}
                 and not PurePosixPath(name).parts[0].endswith(".dist-info")
             }
         )
@@ -107,6 +113,8 @@ def validate_wheel(wheel_path: Path) -> list[str]:
             ):
                 problems.append("wheel does not declare a cp311-abi3 tag")
 
+        problems.extend(_TOOLS_CONTRACT["validate_tools_files"](names))
+        tools_entries = {}
         entry_points = [
             name for name in names if name.endswith(".dist-info/entry_points.txt")
         ]
@@ -122,10 +130,9 @@ def validate_wheel(wheel_path: Path) -> list[str]:
             except configparser.Error as error:
                 problems.append(f"invalid wheel entry-point metadata: {error}")
             else:
-                if declarations.has_section(
-                    "molsysviewer.addons"
-                ) and declarations.items("molsysviewer.addons"):
-                    problems.append("retired MolSysViewer addon entry points remain")
+                if declarations.has_section("molsysviewer.addons"):
+                    tools_entries = dict(declarations.items("molsysviewer.addons"))
+        problems.extend(_TOOLS_CONTRACT["validate_tools_entry_points"](tools_entries))
 
     return problems
 

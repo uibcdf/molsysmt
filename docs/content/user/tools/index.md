@@ -89,6 +89,13 @@ Set of functions to work with the form of molecular systems, and to handle speci
 Set of functions to facilitate the use of third-party libraries.
 :::
 
+:::{grid-item-card} **MolSysViewer tools**
+:link: molsysviewer_tools
+:link-type: doc
+
+Set of functions to query the molecular system loaded in a view.
+:::
+
 ::::
 
 ```{eval-rst}
@@ -108,4 +115,5 @@ Set of functions to facilitate the use of third-party libraries.
    element/index.md
    form/index.md
    third_party/index.md
+   molsysviewer_tools.md
 ```

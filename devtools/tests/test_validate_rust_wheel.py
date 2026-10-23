@@ -7,6 +7,8 @@ from zipfile import ZipFile
 
 import pytest
 
+from devtools.scripts.viewer_tools_contract import TOOLS_FILES
+
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_rust_wheel.py"
 SPEC = spec_from_file_location("validate_rust_wheel", SCRIPT)
 MODULE = module_from_spec(SPEC)
@@ -32,6 +34,7 @@ def _write_wheel(
     bytecode=False,
     legacy=False,
     missing_form_declaration=False,
+    tools_entry_point=True,
 ):
     entries = {
         "molsysmt/_rust.abi3.so": b"extension",
@@ -43,6 +46,12 @@ def _write_wheel(
             b"Tag: cp311-abi3-linux_x86_64\n"
         ),
     }
+    entries.update({name: b"" for name in TOOLS_FILES})
+    entries["molsysmt-1.0.0.dist-info/entry_points.txt"] = (
+        b"[molsysviewer.addons]\nmolsysmt-tools = molsysviewer_molsysmt.tools\n"
+    )
+    if not tools_entry_point:
+        entries.pop("molsysmt-1.0.0.dist-info/entry_points.txt")
     for declaration in MODULE.expected_form_declarations():
         entries[declaration] = b"{}"
     if missing_form_declaration:
@@ -70,13 +79,13 @@ def test_retired_addon_package_is_rejected(tmp_path):
     _write_wheel(wheel)
     with ZipFile(wheel, mode="a") as archive:
         archive.writestr("molsysviewer_molsysmt/runtime.py", b"legacy")
-    assert any("unexpected top-level" in item for item in MODULE.validate_wheel(wheel))
+    assert any("retired or unreviewed" in item for item in MODULE.validate_wheel(wheel))
 
 
 @pytest.mark.parametrize("name", ["molsysmt", "renamed-provider"])
 def test_retired_addon_entry_point_is_rejected(tmp_path, name):
     wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
-    _write_wheel(wheel)
+    _write_wheel(wheel, tools_entry_point=False)
     with ZipFile(wheel, mode="a") as archive:
         archive.writestr(
             "molsysmt-1.0.0.dist-info/entry_points.txt",
@@ -87,11 +96,11 @@ def test_retired_addon_entry_point_is_rejected(tmp_path, name):
 
 def test_unrelated_wheel_entry_points_remain_allowed(tmp_path):
     wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
-    _write_wheel(wheel)
+    _write_wheel(wheel, tools_entry_point=False)
     with ZipFile(wheel, mode="a") as archive:
         archive.writestr(
             "molsysmt-1.0.0.dist-info/entry_points.txt",
-            "[console_scripts]\nother-tool = tool:main\n",
+            "[console_scripts]\nother-tool = tool:main\n[molsysviewer.addons]\nmolsysmt-tools = molsysviewer_molsysmt.tools\n",
         )
     assert MODULE.validate_wheel(wheel) == []
 

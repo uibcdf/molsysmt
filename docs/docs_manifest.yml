@@ -78,6 +78,11 @@ sections:
       path: docs/content/user/tools
       agents_file: docs/content/user/tools/AGENTS.md
       status: in_progress
+      pages:
+        - name: molsysviewer_tools
+          file: docs/content/user/tools/molsysviewer_tools.md
+          agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
+          description: Experimental bound basic queries, native contracts, automatic discovery and view lifetime.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

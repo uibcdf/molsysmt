@@ -4,8 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import runpy
 import tarfile
 from pathlib import Path, PurePosixPath
+
+_TOOLS_CONTRACT = runpy.run_path(
+    str(Path(__file__).with_name("viewer_tools_contract.py"))
+)
 
 REQUIRED_SUFFIXES = {
     "LICENSE",
@@ -41,6 +46,7 @@ ALLOWED_ROOT_ENTRIES = {
     "PKG-INFO",
     "README.md",
     "molsysmt",
+    "molsysviewer_molsysmt",
     "molsysmt.egg-info",
     "pyproject.toml",
     "rust",
@@ -100,6 +106,8 @@ def validate_sdist(path: Path) -> list[str]:
             f"source distribution contains unexpected top-level entries: "
             f"{unexpected_roots}"
         )
+
+    problems.extend(_TOOLS_CONTRACT["validate_tools_files"](relative))
 
     forbidden = sorted(
         member.as_posix()

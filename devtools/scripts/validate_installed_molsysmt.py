@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import runpy
 import sys
 from collections import deque
 from importlib import metadata, resources
@@ -11,6 +12,10 @@ from pathlib import Path
 
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
+
+_TOOLS_CONTRACT = runpy.run_path(
+    str(Path(__file__).with_name("viewer_tools_contract.py"))
+)
 
 
 def find_runtime_dependency_violations(names, requires_for=None, version_for=None):
@@ -75,21 +80,23 @@ def _require_installed_path(path: Path) -> None:
 
 
 def validate_native_viewer_metadata(distribution: metadata.Distribution) -> None:
-    """Rejecting retired addon declarations/files in the installed provider.
+    """Qualifying new tools metadata and rejecting retired declarations/files.
 
     Inspect only MolSysMT's own distribution. Domain addons supplied by other
     distributions retain their independent extension contract.
     """
 
-    if any(entry.group == "molsysviewer.addons" for entry in distribution.entry_points):
-        raise RuntimeError("installed MolSysMT advertises a retired Viewer addon")
     if distribution.files is None:
         raise RuntimeError("installed MolSysMT has no distribution file inventory")
-    if any(
-        Path(str(file)).parts[0] == "molsysviewer_molsysmt"
-        for file in distribution.files
-    ):
-        raise RuntimeError("installed MolSysMT contains retired Viewer addon files")
+    entries = {
+        entry.name: entry.value
+        for entry in distribution.entry_points
+        if entry.group == "molsysviewer.addons"
+    }
+    errors = _TOOLS_CONTRACT["validate_tools_entry_points"](entries)
+    errors.extend(_TOOLS_CONTRACT["validate_tools_files"](distribution.files))
+    if errors:
+        raise RuntimeError("; ".join(errors))
 
 
 def validate_public_runtime() -> dict[str, object]:
@@ -183,8 +190,21 @@ def validate_public_runtime() -> dict[str, object]:
     if msm.get(wrapped, n_structures=True) != 2:
         raise RuntimeError("installed PBC operation lost structures")
 
+    import molsysviewer as msv
+
+    import molsysviewer_molsysmt.tools as tools_module
+
+    _require_installed_path(Path(tools_module.__file__))
+    with msv.new_view(pentalanine) as view:
+        tools_count = view.addons.molsysmt.basic.get(n_atoms=True)
+        if tools_count != msm.get(pentalanine, n_atoms=True):
+            raise RuntimeError(
+                "installed tools discovery/bound read differs from native MolSysMT"
+            )
+
     return {
         "version": msm.__version__,
+        "viewer_tools_n_atoms": tools_count,
         "package": str(package_path),
         "extension": str(extension_path),
         "n_atoms": int(n_atoms),

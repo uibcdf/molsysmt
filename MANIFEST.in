@@ -9,6 +9,8 @@ recursive-include molsysmt/data *
 recursive-include rust/src *.rs
 
 graft molsysmt
+include molsysviewer_molsysmt/*.py
+recursive-include molsysviewer_molsysmt/_private *.py
 prune ai_assistant
 prune benchmarks
 prune coding
