@@ -237,3 +237,21 @@ skip_digestion, does not forward it, and leaves the native function undecorated.
 `where_is_attribute` retains its ordinary native signature minus the primary
 input. This explicit exception avoids recursive form digestion and honors the
 addon public-boundary controls without weakening scientific validation.
+
+
+## Stored-topology analysis readers
+
+The first topology namespace receives get_bondgraph, get_covalent_blocks,
+get_covalent_paths and get_dihedral_quartets with current-target binding and
+native outputs. Basic and topology share one private read-delegation owner;
+all reviewed functions still have explicit scientific signatures and names.
+No arbitrary scientific module proxy is exposed. Root aliases stay limited to
+actual provider root aliases, not every topology function.
+
+Graph cuts return hypothetical blocks and never remove source bonds. Quartet
+blocks retain native ragged lists/sets. Selection/state/output contracts and
+derived caches remain native; no extra preparation, trajectory copy, analysis
+attachment or scene projection is added. Source get_bondgraph/get_covalent_blocks
+have declared native skip flags; path/quartet wrappers add a keyword-only addon
+flag without passing it into undeclared scientific **kwargs. Native validation
+of those public operations remains active.

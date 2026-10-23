@@ -82,7 +82,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental bound identity/attribute queries, explicit collection checks, composition/comparison, extraction, conversion and managed editing with native contracts.
+          description: Experimental bound basic/topology tools, explicit collection checks, native contracts and managed editing; source capability inventory and lifecycle.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

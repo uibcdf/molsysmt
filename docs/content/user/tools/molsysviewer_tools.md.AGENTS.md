@@ -17,3 +17,9 @@ utility. Document keyword-only addon digestion controls separately where native
 helpers deliberately lack digestion. Never insert the current MolSys into an
 explicit collection, promise automatic locking for caller-owned utility inputs,
 or present a returned native owner as a copied result.
+
+Preserve the received topology namespace and exact native output/state/selection
+contracts. Graph cuts are analytical and never delete molecular bonds. Keep
+ragged quartet blocks as native lists/sets, no implicit visualization or chemistry
+preparation, and distinguish declared native skip flags from addon-only controls.
+Do not advertise unreceived topology functions or invent root aliases.

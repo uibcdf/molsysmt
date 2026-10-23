@@ -17,6 +17,10 @@ received; the topology-rebuilding comparison mode remains pending. Identificatio
 helpers `get_form`, `is_a_molecular_system`, `where_is_attribute` and the explicit
 collection utility `are_multiple_molecular_systems` are also available in source.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
+
+The first `view.addons.molsysmt.topology` slice provides `get_bondgraph`,
+`get_covalent_blocks`, `get_covalent_paths` and `get_dihedral_quartets`.
+Topology functions keep their module path; they do not gain invented root aliases.
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -326,6 +330,51 @@ use MolSysMT with explicit Viewer reconciliation until their effects are receive
 Native geometry storage replaces affected blocks. The current visual receiver
 still rebuilds the scene when synchronizing, so a small setter request is not a
 promise of incremental or bounded trajectory transfer to the browser.
+
+## Exploring stored topology
+
+```python
+with msv.demo["pentalanine"] as view:
+    topology = view.addons.molsysmt.topology
+    graph = topology.get_bondgraph(structure_indices=[2, 0])
+    blocks = topology.get_covalent_blocks()
+    paths = topology.get_covalent_paths(path=[
+        'atom_name=="C"', 'atom_name=="N"',
+        'atom_name=="CA"', 'atom_name=="C"',
+    ])
+    phi_quartets, phi_blocks = topology.get_dihedral_quartets(
+        phi=True, with_blocks=True,
+    )
+    hypothetical_blocks = topology.get_covalent_blocks(
+        remove_bonds=phi_quartets[0][1:3],
+    )
+```
+
+{doc}`topology/get_bondgraph` returns the native NetworkX graph with source atom
+indices as nodes. The graph is an independent result; changing it does not change
+the system's bonds. {doc}`topology/get_covalent_blocks` returns native sets or
+source-index label arrays. `remove_bonds` cuts the analysis graph only: it neither
+removes molecular bonds nor defines scene regions.
+
+{doc}`topology/get_covalent_paths` takes an explicit ordered selection pattern.
+{doc}`topology/get_dihedral_quartets` takes native dihedral flags such as `phi`
+and `psi`. Request the intended type explicitly. Its `with_blocks=True` result
+keeps the native lists of sets with different sizes; the addon does not coerce
+that ragged data into a rectangular array.
+
+Selection, output, chemical-state and structure options remain those declared by
+each native function. A reference-state graph is one connectivity graph, not an
+automatically calculated graph per displayed structure. Paths/quartets do not
+acquire new state or structure parameters absent from their native interfaces.
+No topology is prepared, connectivity certified complete, analysis attached or
+scene updated by these wrappers. Native derived/cache behavior remains native.
+The remaining topology functions still need receiving.
+
+`get_bondgraph` and `get_covalent_blocks` forward native `skip_digestion`.
+The native path/quartet signatures do not declare it, so their addon-only keyword
+controls the wrapper boundary and is never inserted into scientific **kwargs.
+Their native public validation remains active. The same view-lifetime and
+pending-read rules apply to these calls as to the received `basic` readers.
 
 ## Reusing tool references
 

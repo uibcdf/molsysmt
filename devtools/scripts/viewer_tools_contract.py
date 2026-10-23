@@ -13,6 +13,7 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_argdigest.py",
         "molsysviewer_molsysmt/_api.py",
         "molsysviewer_molsysmt/_basic.py",
+        "molsysviewer_molsysmt/_topology.py",
         "molsysviewer_molsysmt/_geometry.py",
         "molsysviewer_molsysmt/tools.py",
         "molsysviewer_molsysmt/_private/__init__.py",

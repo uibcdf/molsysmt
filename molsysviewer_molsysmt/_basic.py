@@ -7,11 +7,12 @@ from argdigest import arg_digest
 from smonitor import signal
 
 
-def _native_documentation(name):
+def _native_documentation(name, module="basic"):
     def decorate(function):
-        from molsysmt import basic
+        import molsysmt
 
-        doc = inspect.getdoc(getattr(basic, name)) or ""
+        native = getattr(getattr(molsysmt, module), name)
+        doc = inspect.getdoc(native) or ""
         doc = re.sub(
             r"(?m)^molecular_system :[^\n]*\n(?:[ \t]+[^\n]*\n|\n)*",
             "",
@@ -60,6 +61,20 @@ def _native_documentation(name):
                 "the actual current view.molsys; later external edits retain explicit "
                 "reconciliation responsibilities.\n"
             )
+        if module == "topology":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The result is a native scientific value, not a scene object. "
+                "No molecular edit, implicit preparation, adoption or scene update "
+                "is introduced. Native derived/cache behavior is unchanged.\n"
+            )
+            if "skip_digestion" not in inspect.signature(native).parameters:
+                function.__doc__ += (
+                    "skip_digestion : bool, keyword-only, default=False\n"
+                    "    Control addon digestion only; the native callable has no "
+                    "declared skip_digestion parameter and is invoked with its ordinary "
+                    "public validation. The flag is not added to scientific **kwargs.\n"
+                )
         if name in {"copy", "convert", "get_conversion_report"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -141,22 +156,9 @@ class _BasicTools:
         return list(self._NAMES)
 
     def _call(self, name, parameters, extra=None):
-        if extra and "molecular_system" in extra:
-            raise TypeError(
-                "The primary molecular_system is bound to view.molsys and cannot be overridden."
-            )
         from molsysmt import basic
 
-        view = self._owner._view_ref()
-        self._owner._target()
-        coordinator = getattr(view.addons.manager, "system_edits", None)
-
-        def call(target):
-            return getattr(basic, name)(target, **parameters, **(extra or {}))
-
-        if coordinator is not None:
-            return coordinator.read(call)
-        return call(self._owner._target())
+        return self._owner._read(getattr(basic, name), parameters, extra)
 
     @_native_documentation("get")
     @signal(tags=["addon", "get"])

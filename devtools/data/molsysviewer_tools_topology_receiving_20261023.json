@@ -1,0 +1,347 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "base_commits": {
+    "provider": "2d5fbb7d5fcf6076af80c6ea6dde72e41a9b015f",
+    "viewer": "26141464f507045affb943bbabb399eef02ac31f"
+  },
+  "provenance": "Working-source receiving in molsyssuite@uibcdf_3.14. Native namespace/PDBQT changes were concurrent and committed as 2d5fbb7d5; source hashes identify the reviewed surfaces. Not a frozen full-provider or solver-installed artifact pair.",
+  "functions": [
+    {
+      "provider": "molsysmt.topology.get_bondgraph",
+      "bound": "view.addons.molsysmt.topology.get_bondgraph",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native scientific result; no edit, preparation, attachment or scene projection. Native derived/cache behavior preserved.",
+      "digestion": "Native declared keyword forwarded.",
+      "guard": "tests/molsysviewer_molsysmt/test_topology_tools.py"
+    },
+    {
+      "provider": "molsysmt.topology.get_covalent_blocks",
+      "bound": "view.addons.molsysmt.topology.get_covalent_blocks",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native scientific result; no edit, preparation, attachment or scene projection. Native derived/cache behavior preserved.",
+      "digestion": "Native declared keyword forwarded.",
+      "guard": "tests/molsysviewer_molsysmt/test_topology_tools.py"
+    },
+    {
+      "provider": "molsysmt.topology.get_covalent_paths",
+      "bound": "view.addons.molsysmt.topology.get_covalent_paths",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native scientific result; no edit, preparation, attachment or scene projection. Native derived/cache behavior preserved.",
+      "digestion": "Addon-only keyword skip_digestion added; not forwarded into native undeclared parameters/kwargs.",
+      "guard": "tests/molsysviewer_molsysmt/test_topology_tools.py"
+    },
+    {
+      "provider": "molsysmt.topology.get_dihedral_quartets",
+      "bound": "view.addons.molsysmt.topology.get_dihedral_quartets",
+      "primary": "current view.molsys",
+      "root_alias": false,
+      "effects": "Native scientific result; no edit, preparation, attachment or scene projection. Native derived/cache behavior preserved.",
+      "digestion": "Addon-only keyword skip_digestion added; not forwarded into native undeclared parameters/kwargs.",
+      "guard": "tests/molsysviewer_molsysmt/test_topology_tools.py"
+    }
+  ],
+  "shared_reader": "One private owning facade delegate captures reviewed native callables and uses the existing host serialized reader. Basic and topology share it without a public unrestricted module proxy or extra trajectory copy.",
+  "checks": {
+    "topology_file": {
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "junit_sha256": "33a724c2db4d58c8809b7e2999b10b8b74c5c10992f33d78bd38c9e2fa4815df"
+    },
+    "complete_applicable_regression": {
+      "passed": 271,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 61.16,
+      "composition": "176 addon cases + 30 packaging + 11 dependency-route + 54 developer-guide guards.",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/ devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_rust_wheel.py devtools/tests/test_validate_rust_sdist.py devtools/tests/test_audit_dependency_contract.py devtools/tests/test_validate_devguide.py -x",
+      "junit_sha256": "ac4ff7df35d6418e9e3e5e0409c2060f76a23b797d117ec7ae30e8067c5273b2"
+    },
+    "guide_blocks": {
+      "executed": 9,
+      "exit_code": 0
+    },
+    "course_module_13": {
+      "scope": "One narrative extension; executable cells, outputs and other notebook fields unchanged."
+    },
+    "addon_source_inventory": {
+      "python_files": 14,
+      "scope": "Source/wheel/sdist inclusion guards only; not installed artifact qualification."
+    },
+    "prior_identity_smoke": {
+      "run": 40008358623,
+      "state": "success",
+      "scope": "Previous identity delivery only; not the new topology source."
+    }
+  },
+  "export_name_inventory_delta": {
+    "method": "Owning validate_api_stability.inventory/discover_exports over declared tracked scopes; AST only, no scientific import/call for discovery.",
+    "prior_provider": "fe5036c1f4c145ec2eecf1627e80eb70fc995618",
+    "prior_export_paths": 267,
+    "current_provider": "2d5fbb7d5fcf6076af80c6ea6dde72e41a9b015f",
+    "current_tracked_scopes": 21,
+    "current_export_paths": 271,
+    "added": [
+      {
+        "symbol": "molsysmt.basic.compose_atom_maps",
+        "status": "pending-adaptation",
+        "reason": "Explicit map utility, not a single bound molecular-system slot."
+      },
+      {
+        "symbol": "molsysmt.build.merge_nonpolar_hydrogens",
+        "status": "pending-adaptation",
+        "reason": "Preparation/projection input, ownership, optional outputs and atom-lineage effects need receiving."
+      },
+      {
+        "symbol": "molsysmt.build.project_atom_names",
+        "status": "pending-adaptation",
+        "reason": "Preparation/projection input, ownership, optional outputs and atom-lineage effects need receiving."
+      },
+      {
+        "symbol": "molsysmt.compose_atom_maps",
+        "status": "pending-adaptation",
+        "reason": "Explicit map utility, not a single bound molecular-system slot."
+      }
+    ],
+    "removed": [],
+    "limits": "Name-only delta, not a new resolution/signature/scientific qualification of every export. The original AST ledger remains a dated snapshot. Native class methods and form-specific PDBQT readers/iterators outside tracked scopes still need separate coverage."
+  },
+  "namespace_dispositions": {
+    "basic": [
+      {
+        "name": "ConversionIssue",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "ConversionReport",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "Iterator",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "add",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "append_structures",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "are_multiple_molecular_systems",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "compare",
+        "status": "source-received",
+        "condition": "redefine_indices=False only."
+      },
+      {
+        "name": "compose_atom_maps",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "concatenate_structures",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "contains",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "convert",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "copy",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "extract",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "get",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "get_attributes",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "get_conversion_report",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "get_form",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "get_label",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "has_attribute",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "info",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "is_a_molecular_system",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "is_composed_of",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "merge",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "remove",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "select",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      },
+      {
+        "name": "set",
+        "status": "source-received",
+        "condition": "Coordinates/box retained-axis routes only."
+      },
+      {
+        "name": "view",
+        "status": "pending-adaptation",
+        "condition": "Collection axes/ownership, lazy/factory lifetime or support-type identity requires individual contract."
+      },
+      {
+        "name": "where_is_attribute",
+        "status": "source-received",
+        "condition": "See dated basic receiving receipts."
+      }
+    ],
+    "topology": [
+      {
+        "name": "get_atom_correspondences",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_bondgraph",
+        "status": "source-received"
+      },
+      {
+        "name": "get_covalent_blocks",
+        "status": "source-received"
+      },
+      {
+        "name": "get_covalent_paths",
+        "status": "source-received"
+      },
+      {
+        "name": "get_dihedral_quartets",
+        "status": "source-received"
+      },
+      {
+        "name": "get_rigid_fragments",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_rings",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_rotatable_bonds",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_sequence_alignment",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_sequence_identity",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_substructure_matches",
+        "status": "pending-adaptation"
+      }
+    ]
+  },
+  "source_sha256": {
+    "devtools/data/public_api_stability.json": "d169075956a3f8f2d8c75c536f9d4323c22d82bb4dc9ed6cd4b34a54364ef918",
+    "devtools/scripts/viewer_tools_contract.py": "c4793a2160a836433d38bf50b2b2aee3bc3228a3a18706ba7b0090eafe4c0ed6",
+    "molsysmt/__init__.py": "9b7e13bcd3deb6a195d9b2ea29f7178ceec84e57e563a325a288c1778908ef0a",
+    "molsysmt/basic/__init__.py": "0b7345294f3fde517317d5aa9cdc2ac5b5524c3681c4490da43d99710430ce75",
+    "molsysmt/build/__init__.py": "52701b51eb5be2b78acf8e0e506f157be4559d8dea3a200c7bcfdde58744d705",
+    "molsysmt/element/atom/__init__.py": "88765f6b98103cad80130c5a111ce259d80e1ea90b95cd49127eefd75134d1d0",
+    "molsysmt/h5msm.py": "64eaf3cd270955fbc87d10dd47c338c629ca46e14c3844727a810dd301f2291d",
+    "molsysmt/hbonds/__init__.py": "6b3fcf2793fef2980a2ed2e6d9d3554bbd6d9e38a14c7a5e583c0703506978b0",
+    "molsysmt/interactions/__init__.py": "725a46f64dbca14b602ff3e87b6db1509ba093ecb7a409e2c8af0c3b8135a12e",
+    "molsysmt/interactions/cation_pi/__init__.py": "ee93011a999d5fb4f25a45a8069635f4fd070a823745c684888f3fa8b7970c6d",
+    "molsysmt/interactions/disulfides/__init__.py": "e80c49c49c93cea45c8f41c038cdf7468574e785c51455868826ebf0e87dee9d",
+    "molsysmt/interactions/halogen_bonds/__init__.py": "6eae7b8b7c92be575e8b85600dc494a5d0b144cd76e9d6e7374aba281c530f0f",
+    "molsysmt/interactions/hbonds/__init__.py": "a702fe5d35d6a170e2335d5c2ea74ce1d3165074fa88e345ace5be71c931faa0",
+    "molsysmt/interactions/hydrophobic/__init__.py": "2c42f35a2f483b5a17adb94b1db7a1c87316686f6f73bd85ff00323c68c1704c",
+    "molsysmt/interactions/ionic/__init__.py": "3ad4af0d2c6008702d078ddfce94b5ddc705b73e8748e8affe55639a25ec4c0d",
+    "molsysmt/interactions/metal_coordination/__init__.py": "027bfc5864bd3673b367ff617873e16b949670ffdf243c5920ec175472d2113e",
+    "molsysmt/interactions/pi_pi/__init__.py": "72db9cfa3902437f54dd9e1f830014e973e68cf60d6a34f529696490ff58fddf",
+    "molsysmt/interactions/water_bridges/__init__.py": "c30a34324af6d9f20a8eec10667b319990af573e0d4bb5edcfba7249181b4a47",
+    "molsysmt/molecular_mechanics/__init__.py": "c41ddf0ddeb53593f5b1e907ef42dd7c670c0beae20ffc03b9cbe032f306f76d",
+    "molsysmt/pbc/__init__.py": "460afca6d2290fc475b445adaf0c0be829e8036f03c8fe42a473965c9ca466bf",
+    "molsysmt/physchem/__init__.py": "107828eb59ff9668861c62f413aeaf902feed5aa6f4f810ea20a2fa303df6b2b",
+    "molsysmt/structure/__init__.py": "93ceafed474a26a6f93076c65bc0c327bd5724e9e7ed37a0b3db42820cce712f",
+    "molsysmt/topology/__init__.py": "b477e468b70db19d054080b33fca3623acdd5618defcf3ae6c2588fd2c6f5b57",
+    "molsysmt/topology/get_bondgraph.py": "e56817796aa23b30479ef847d5cec6703cdc373208233388fc813db621df07d1",
+    "molsysmt/topology/get_covalent_blocks.py": "3349db86fcc84b1f325751ffd0bcd5b267a2b7cb526c19efba634f568f9e2845",
+    "molsysmt/topology/get_covalent_paths.py": "f231221bea36d142e0c3d355a6aee53080ebc91922394f9d6b315eaa53d44fc4",
+    "molsysmt/topology/get_dihedral_quartets.py": "bfc56e440b1d6c02fda7679c490df9714d8aa6d9795acde6f5dde0e024342cc7",
+    "molsysviewer_molsysmt/_api.py": "e0d0e492a6772ad2187f0b4e3db520e4ef426d364e57b1301d1c6cefc59ddba2",
+    "molsysviewer_molsysmt/_basic.py": "e0948173470703dcd93110d302d84e8fd122869846d02d50c0b6912b82c3e28d",
+    "molsysviewer_molsysmt/_topology.py": "2445f29bb4ee4ce437777555d3126e2b115a2343d20a1e222488362a9ef91cc8",
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": "96f3e90a077c23934b3cc1dca3e71efda07e69a3b4a1cc6fe1ef9adb7732470a"
+  },
+  "limits": [
+    "Native parity/contract checks, not independent scientific-truth validation.",
+    "Graph cuts are hypothetical; ragged quartet blocks stay lists/sets.",
+    "Reference-state graph requests do not imply per-structure graphs; native state/frame semantics remain native.",
+    "Unspecified covalent patterns/dihedral requests retain native outcomes, including current TypeError behavior; no fabricated empty result or guessed scientific request.",
+    "No new host runtime or frontend transport. Broader topology, molecular editing, other modules, GUI panels and installed qualification remain pending."
+  ],
+  "publication_authorized": false
+}

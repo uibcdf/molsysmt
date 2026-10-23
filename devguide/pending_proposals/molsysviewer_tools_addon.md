@@ -340,3 +340,32 @@ addon/packaging/dependency/devguide checks and all eight guide examples. Module 
 only gains availability prose; its executable cells and outputs are unchanged.
 The source checks preserved the concurrent native namespace/documentation work;
 they are not an exact clean full-provider or installed-candidate claim.
+
+
+## First topology namespace receiving — 2026-10-23
+
+The source adds an explicit topology namespace for graph, covalent block/path
+and dihedral-quartet readers. It reuses the same private current-target delegate
+as basic, keeping serialized reads, ownership, cached methods and pending data
+semantics. Graph cuts remain analytical; no molecular edit or graphical result
+is implied. Hypothetical label arrays and ragged lists/sets remain native.
+
+Native skip arguments are forwarded only where declared. Path/quartet controls
+belong to the addon boundary and are not injected into scientific kwargs.
+Native optional request limitations remain visible instead of being converted
+to fabricated success. Other topology functions need their own receiving.
+
+The [dated topology receipt](../../devtools/data/molsysviewer_tools_topology_receiving_20261023.json)
+records 32 focused cases, the complete 271-case applicable regression and nine
+executed guide blocks. Source/wheel/sdist metadata includes the new topology
+module (14 addon Python files); this is not installed-artifact qualification.
+
+Using the owning AST inventory over provider 2d5fbb7d5 updates the export-name
+count from the earlier 267 paths to 271 across the same 21 tracked scopes. Added
+paths are basic/root compose_atom_maps, build.project_atom_names and
+build.merge_nonpolar_hydrogens. They remain pending adaptation with their own
+binding/effect review. The earlier resolved AST/signature ledger is retained as
+its dated snapshot; this name-only delta does not qualify all new functions or
+untracked native class/form-specific iterator APIs. The receipt lists all basic
+and topology exports as received, conditional or pending rather than silently
+omitting them.
