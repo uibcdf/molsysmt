@@ -82,7 +82,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental bound queries, extraction, copies, conversion/preflight, removal and coordinates/box setting with native contracts and managed view synchronization.
+          description: Experimental bound queries, composition/comparison, extraction, copies, conversion/preflight, removal and coordinates/box setting with native contracts and managed view synchronization.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

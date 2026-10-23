@@ -150,4 +150,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_read_tools.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
-            tests/molsysviewer_molsysmt/test_conversion_tools.py
+            tests/molsysviewer_molsysmt/test_conversion_tools.py \
+            tests/molsysviewer_molsysmt/test_predicate_tools.py

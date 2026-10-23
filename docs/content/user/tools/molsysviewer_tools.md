@@ -11,7 +11,9 @@ The experimental source implementation provides six queries under
 `view.addons.molsysmt.basic`: `get`, `select`, `info`, `get_attributes`,
 `has_attribute` and `get_label`, plus independent extraction with `extract`,
 managed native removal with `remove`, the coordinates/box routes of `set`,
-and native `copy`, `convert` and `get_conversion_report`.
+and native `copy`, `convert` and `get_conversion_report`. Presence/composition
+checks `contains`, `is_composed_of` and the read-only `compare` route are also
+received; the topology-rebuilding comparison mode remains pending.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -59,6 +61,46 @@ The bound methods omit the primary `molecular_system` argument. You cannot
 override it with another system. Inspect a signature or call `help` on the
 method for the remaining native parameters. `skip_digestion` keeps the native
 trusted-call contract; it does not bypass view lifetime checks.
+
+## Checking composition and comparing systems
+
+```python
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    count = tools.basic.get(n_atoms=True)
+    contains_minimum = tools.basic.contains(n_atoms=count - 1)
+    matches_exact_count = tools.basic.is_composed_of(n_atoms=count)
+    reference = tools.basic.copy()
+    differences = tools.basic.compare(
+        reference, output_type="dictionary", n_atoms=True, atom_name=True,
+    )
+```
+
+{doc}`basic/contains` and {doc}`basic/is_composed_of` keep their native condition
+semantics. For an integer `n_atoms` condition, the former checks a minimum count,
+while the latter checks an exact count. Empty conditions, selections and attribute
+synonyms retain native behavior; the addon adds no new interpretation of chemistry.
+
+{doc}`basic/compare` binds only the first system. Pass `molecular_system_2`
+explicitly, including when it is another view's molecular system. Keep the two
+systems' selections and structure indices separate through `selection`,
+`structure_indices`, `selection_2` and `structure_indices_2`. Dictionary output
+and `attributes_type`'s native alias for `attribute_type` remain available.
+An alias and its canonical argument are alternatives; supplying both is rejected,
+even when the explicit canonical value equals its default.
+
+The received comparison route uses `redefine_indices=False`. Native
+`redefine_indices=True` forces topology rebuilding in **both** inputs, so it is
+an editing operation that still needs separate receiving. The addon rejects it
+before either system is changed, including with `skip_digestion=True`.
+Use native MolSysMT and explicit reconciliation of affected views when you need
+that mode. Other provider limitations and errors, such as the unimplemented
+`rule="in"`, are preserved rather than replaced with fallback results.
+
+These tools do not request a scene update or attach analyses. They may read a
+pending molecular edit without synchronizing its scene. Native derived caches
+retain their own behavior. Keep an explicitly supplied reference stable while
+the call runs; this interface does not lock or transact across two views.
 
 ## Extracting a molecular subset
 

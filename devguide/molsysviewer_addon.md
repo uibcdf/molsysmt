@@ -186,3 +186,25 @@ retains native audited scopes/exhaustiveness, strict rejection and failures.
 Target lists do not imply atomic multi-file writes. H5MSM receiving uses actual
 round trips with named analyses and nonconsecutive/repeated structures; optional
 engines/formats retain their own qualification, not a blanket addon guarantee.
+
+
+## Composition predicates and comparison
+
+The source facade adds bound `basic.contains`, `basic.is_composed_of` and the
+non-mutating `basic.compare` route. Only the primary MolSys is implicit; the
+second comparison system remains explicit, with independent selections and
+structure scopes. They use the serialized reader, retain native condition and
+result/error semantics, and do not project pending edits or attach analyses.
+Caller-owned auxiliary systems must remain stable during a call; the host does
+not provide a cross-view transaction or automatic reference locking.
+
+The historical compare argument alias is re-scoped from the provider's declared
+ArgDigest tables before wrapper defaults are forwarded. This avoids treating a
+forwarded default as an explicit user choice. A user supplying both alias and
+canonical name, even an explicit canonical None, still gets the native collision
+error. No independent alias vocabulary or value normalizer is introduced.
+
+`compare(redefine_indices=True)` rebuilds topology in both native inputs and is
+not admitted by the reader route. It fails before writes, including trusted
+calls. Receive its primary/auxiliary effects and reconciliation separately;
+experimental status does not excuse silently forwarding that mutation.

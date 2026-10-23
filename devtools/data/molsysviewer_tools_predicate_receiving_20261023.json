@@ -1,0 +1,129 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "base_commits": {
+    "provider": "71d7756c2f9ab24c9841fa943247a1fbc92c8b1e",
+    "viewer": "4b5a0888f6594b7b90dcff1e01f3f20c4f12c415"
+  },
+  "provenance": "Working-source receiving in molsyssuite@uibcdf_3.14. Unrelated autosummary changes preserved. Not frozen producer, solver installation or published compatibility.",
+  "functions": [
+    {
+      "provider": "molsysmt.basic.contains",
+      "bound": "view.addons.molsysmt.basic.contains",
+      "root_alias": "view.addons.molsysmt.contains",
+      "primary": "current view.molsys",
+      "auxiliary_inputs": [],
+      "signature": "Native signature minus primary molecular_system, including skip_digestion. No update_view argument.",
+      "effect": "Serialized native reader; no adoption, scene update or attached result. Native derived/cache behavior remains native.",
+      "received_modes": "Native condition/selectors and no-condition routes",
+      "guard": "tests/molsysviewer_molsysmt/test_predicate_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.is_composed_of",
+      "bound": "view.addons.molsysmt.basic.is_composed_of",
+      "root_alias": "view.addons.molsysmt.is_composed_of",
+      "primary": "current view.molsys",
+      "auxiliary_inputs": [],
+      "signature": "Native signature minus primary molecular_system, including skip_digestion. No update_view argument.",
+      "effect": "Serialized native reader; no adoption, scene update or attached result. Native derived/cache behavior remains native.",
+      "received_modes": "Native condition/selectors and no-condition routes",
+      "guard": "tests/molsysviewer_molsysmt/test_predicate_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.compare",
+      "bound": "view.addons.molsysmt.basic.compare",
+      "root_alias": "view.addons.molsysmt.compare",
+      "primary": "current view.molsys",
+      "auxiliary_inputs": [
+        "molecular_system_2"
+      ],
+      "signature": "Native signature minus primary molecular_system, including skip_digestion. No update_view argument.",
+      "effect": "Serialized native reader; no adoption, scene update or attached result. Native derived/cache behavior remains native.",
+      "received_modes": "redefine_indices=False only",
+      "guard": "tests/molsysviewer_molsysmt/test_predicate_tools.py"
+    }
+  ],
+  "comparison_effect_boundary": {
+    "unreceived": "redefine_indices=True forces native rebuilding of components, molecules and entities in both primary and secondary inputs.",
+    "policy": "Reject before either input is changed, including skip_digestion=True; no implicit preparation or cross-view transaction.",
+    "future_receiving": "Qualify both inputs and their own scene reconciliation before admitting the mutating route.",
+    "aliases": "Reuse native AliasTable declarations, scoped to the bound compare caller. Normalize before forwarding defaults; explicit alias/canonical collisions still fail, including canonical None."
+  },
+  "checks": {
+    "predicate_file": {
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "junit_sha256": "00ebd0d14a3c2b3df2541d44b5e529226df324e91adb1590c8992bc03c768eb3"
+    },
+    "complete_addon_packaging_and_routes": {
+      "passed": 157,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 42.02,
+      "composition": "116 addon cases + 30 packaging guards + 11 dependency-route guards.",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/ devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_rust_wheel.py devtools/tests/test_validate_rust_sdist.py devtools/tests/test_audit_dependency_contract.py -x",
+      "junit_sha256": "341e2378f6b430823de8e00dbe678762e939dcf8ea51715eda57dc28951edda0"
+    },
+    "provider_guide_blocks": {
+      "executed": 7,
+      "exit_code": 0
+    },
+    "course_module_14": {
+      "scope": "Availability/ownership prose only; all code cells and outputs unchanged."
+    },
+    "source_inventory": {
+      "addon_python_files": 13,
+      "scope": "Source/wheel/sdist inclusion guards; not an installed package claim."
+    },
+    "ruff": {
+      "check": "pass",
+      "format_check": "pass"
+    },
+    "prior_hosted": {
+      "provider_conversion_smoke": {
+        "run": 39997113183,
+        "state": "success",
+        "scope": "Previous conversion delivery; not the new predicate source."
+      },
+      "viewer_runtime": {
+        "commit": "4b5a0888f6594b7b90dcff1e01f3f20c4f12c415",
+        "policy_run": 39997487212,
+        "policy": "success",
+        "browser_run": 39997486583,
+        "browser": "success",
+        "source_pair_run": 39997486648,
+        "source_pair": "failure",
+        "diagnosis": "Three strict documentation failures from public MolSysMT/pandas (uibcdf/molsysmt#431); the storage-variant guard no longer fails. No core runtime or payload changes in this predicate delivery."
+      },
+      "qt_experimental": {
+        "run": 39997486452,
+        "state": "failure",
+        "diagnosis": "No exported WebGL canvas / loading-readiness failure, with software-rendering diagnostics; D-Bus alone is not the cause. Existing uibcdf/molsysviewer#35 and uibcdf/gh-run-receptor#62 scope."
+      }
+    }
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_basic.py": "3f73d59958acac2d0bcfcdeeebed712b09c5f9d2b8bceb1326e6fe1c03c6ad59",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "devtools/scripts/viewer_tools_contract.py": "1e3eb9598473a0f266ee62e8263c42896262679a8d64d88c182e0786edfc4e91",
+    "tests/molsysviewer_molsysmt/test_predicate_tools.py": "0f4a36758d1196d92529f9b8dba9f8d71e0842b3583027129259d83eaa74d05c",
+    "molsysmt/basic/contains.py": "9d9abf77c7dcbc5c30b0ac91b18c33012500566e97c6081307d8336c2ee7c3f1",
+    "molsysmt/basic/is_composed_of.py": "b1dff5db73a0448419f7a51fc6fbd7415c82faebdbcde7e248e923c6bee06d4a",
+    "molsysmt/basic/compare.py": "ca15b1072c56962453b46e862eb3c44632fec30def4a81c545d7967556344bd6",
+    "molsysmt/_private/argdigest/normalization/caller_aliases.py": "999653a83cce390511775800c738c64277b1cd1a7b37b7b24f809d74ae215649",
+    "molsysmt/_private/argdigest/argument/redefine_indices.py": "8ad84fed1e4030b25cfd2d4dfeb7c38543f5f0c9ab5a0ce1ebcacf102c17c8de"
+  },
+  "limits": [
+    "Native parity and contract checks, not independent scientific-truth validation.",
+    "Forced two-input topology rebuilding, wider scientific modules, other editing effects and GUI panels remain pending.",
+    "Caller-owned secondary systems must remain stable during the call; no automatic locking across views.",
+    "Native structural comparison currently emits UnitStrippedWarning from compare.py:349; observed parity is preserved and no scientific result error is demonstrated. This is distinct from positional-index units in closed uibcdf/molsysmt#433.",
+    "New hosted predicate CI and exact installed qualification remain pending."
+  ],
+  "publication_authorized": false
+}

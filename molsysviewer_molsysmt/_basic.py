@@ -35,6 +35,21 @@ def _native_documentation(name):
                 "copy_if_all=False may expose shared/live data. Reports describe only their "
                 "declared audited scopes and are not a guarantee of complete format fidelity.\n"
             )
+        if name in {"contains", "is_composed_of", "compare"}:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The current view is the primary system. Native queries return their "
+                "ordinary results without adopting data, attaching analyses or requesting "
+                "a scene update. Native derived/cache behavior is unchanged.\n"
+            )
+        if name == "compare":
+            function.__doc__ += (
+                "The second molecular_system_2 input remains explicit. The initial "
+                "receiver admits redefine_indices=False only. True rebuilds topology "
+                "in both native inputs and raises NotImplementedError before edits, "
+                "also with skip_digestion=True. This mutating route needs separate "
+                "receiving and reconciliation.\n"
+            )
         if name == "remove":
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -70,6 +85,9 @@ class _BasicTools:
         "get_attributes",
         "has_attribute",
         "get_label",
+        "contains",
+        "is_composed_of",
+        "compare",
         "extract",
         "copy",
         "convert",
@@ -250,6 +268,92 @@ class _BasicTools:
                 "selection": selection,
                 "string": string,
                 "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+            kwargs,
+        )
+
+    @_native_documentation("contains")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def contains(
+        self, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+    ):
+        return self._call(
+            "contains",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+            kwargs,
+        )
+
+    @_native_documentation("is_composed_of")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def is_composed_of(
+        self, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+    ):
+        return self._call(
+            "is_composed_of",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+            kwargs,
+        )
+
+    @_native_documentation("compare")
+    @signal(tags=["addon", "compare"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def compare(
+        self,
+        molecular_system_2,
+        selection="all",
+        structure_indices="all",
+        selection_2="all",
+        structure_indices_2="all",
+        syntax="MolSysMT",
+        rule="equal",
+        output_type="boolean",
+        attribute_type=None,
+        include_none=False,
+        redefine_indices=False,
+        skip_digestion=False,
+        **kwargs,
+    ):
+        self._owner._target()
+        from molsysmt._private.argdigest.argument.redefine_indices import (
+            digest_redefine_indices,
+        )
+
+        # The forced native branch rebuilds BOTH inputs. It is an edit family,
+        # not an ordinary reader, including for a trusted skip_digestion call.
+        redefine_indices = digest_redefine_indices(
+            redefine_indices, caller="molsysmt.basic.compare.compare"
+        )
+        if redefine_indices:
+            raise NotImplementedError(
+                "Bound compare does not yet receive redefine_indices=True, which "
+                "rebuilds topology in both systems. Use native MolSysMT with explicit "
+                "reconciliation of affected views for that edit."
+            )
+        return self._call(
+            "compare",
+            {
+                "molecular_system_2": molecular_system_2,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "selection_2": selection_2,
+                "structure_indices_2": structure_indices_2,
+                "syntax": syntax,
+                "rule": rule,
+                "output_type": output_type,
+                "attribute_type": attribute_type,
+                "include_none": include_none,
+                "redefine_indices": redefine_indices,
                 "skip_digestion": skip_digestion,
             },
             kwargs,

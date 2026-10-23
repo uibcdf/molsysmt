@@ -18,7 +18,8 @@ supersedes: []
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
-copy/conversion/preflight and sync controls now have source receiving, while other
+copy/conversion/preflight, composition queries, read-only comparison and sync
+controls now have source receiving, while other
 editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -284,3 +285,28 @@ blocks and 3,278 Viewer core passes with 21 skips. The host token fixture is now
 received against both current provider source and cached public 0.23.0 runtime.
 It observes edited values instead of assuming either native storage implementation.
 New hosted source gates and exact installed qualification remain pending.
+
+
+## Composition and comparison receiving — 2026-10-23
+
+The basic slice receives `contains`, `is_composed_of` and
+`compare(redefine_indices=False)`, with the second system explicit. The native
+forced topology-rebuild branch mutates both inputs and stays unreceived; reject
+it before effects, not as a hidden reader call. Native query cache behavior,
+separate scopes, result types, errors and lifetime remain unchanged.
+
+The compare alias is re-scoped from provider-owned AliasTable declarations
+before local defaults are forwarded. This protects the native historical alias
+without accepting a user-written canonical/alias collision. The bounded guard
+is `tests/molsysviewer_molsysmt/test_predicate_tools.py`, including actual native
+calls, deferred data reads, independent reference scopes, empty/closed views,
+negative inputs and preservation of both input topologies on rejected rebuilding.
+
+The [dated predicate receipt](../../devtools/data/molsysviewer_tools_predicate_receiving_20261023.json)
+records the per-function modes/effects, native source hashes and executed results:
+33 predicate/comparison cases, the complete 157-case addon/packaging/route regression,
+all seven guide Python blocks and unchanged executable course Module 14 cells.
+It also retains the prior source-pair pandas failures and experimental Qt scope.
+Native structural comparison emits UnitStrippedWarning; observed parity remains
+intact and the warning is not silently suppressed by the addon. Forced two-input
+rebuild, broader namespaces and panels remain separate receiving work.
