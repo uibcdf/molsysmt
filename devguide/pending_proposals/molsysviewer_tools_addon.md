@@ -17,8 +17,9 @@ supersedes: []
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
-lifetime and new discovery/packaging route; retained-axis removal and sync controls
-now have source receiving, while other editing families, panels and broad coverage
+lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
+copy/conversion/preflight and sync controls now have source receiving, while other
+editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
@@ -56,12 +57,12 @@ system synchronize by default; a qualified `update_view=False` defers only visua
 synchronization. No collision with `update_view` exists in the ledger's AST
 parameter names; runtime/decorator options still require receiving.
 
-The Viewer receiving draft proposes `get_sync_status` and `sync_view` as facade
-integration controls. These names are proposals, not current APIs. The draft
-defines pending/failed/uncertain state, completed-result access after failed
-synchronization, composed maps, stale-index protection and lifecycle. Review
-the exact public protocol before mutating wrappers; do not call private Viewer
-methods as a substitute for an admitted integration boundary.
+`get_sync_status` and `sync_view` are source-received facade integration
+controls for the admitted removal and geometry-setting routes. The host owns
+pending/failed/uncertain state, completed-result access after failed
+synchronization, composed maps, stale-index protection and lifecycle. Broader
+mutations still need their own effect receiving; private Viewer methods do not
+substitute for an admitted integration boundary.
 
 ## Why
 
@@ -262,3 +263,24 @@ eight coordinator cases and real Chromium coordinate/box receiving. The source
 receipt is owned under uibcdf/molsysviewer#264. Course Module 06 availability
 prose is updated; its executable cells and outputs are unchanged. New hosted
 checks and exact installed-pair qualification remain pending.
+
+
+## Independent conversion receiving — 2026-10-23
+
+The next basic slice adds native copy, conversion and conversion preflight through
+serialized reader calls. Independent molecular results are returned without
+adoption; full native sharing remains available through converter options.
+Explicit filenames identify Python-host files. Reports/strict behavior and
+optional dependencies stay provider-owned; no format-completeness or multi-file
+atomicity promise is added. The bounded guard is
+`tests/molsysviewer_molsysmt/test_conversion_tools.py`, including real H5MSM with
+named sparse analyses, reordered/repeated structures, preserved destination
+bytes on preflight, independent ownership, pending reads and lifetime/errors.
+
+The [dated conversion receipt](../../devtools/data/molsysviewer_tools_conversion_receiving_20261023.json)
+records the per-function binding/effects and bounded results: 122 addon/packaging/route
+checks, three final file-route/option cases (one overlapping), all six guide Python
+blocks and 3,278 Viewer core passes with 21 skips. The host token fixture is now
+received against both current provider source and cached public 0.23.0 runtime.
+It observes edited values instead of assuming either native storage implementation.
+New hosted source gates and exact installed qualification remain pending.

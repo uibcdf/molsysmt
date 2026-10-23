@@ -1,7 +1,7 @@
 # MolSysViewer tools guide content contract
 
 Preserve the distinction between the initial experimental source API and
-published package compatibility. Keep the explicit qualified-tool inventory: six queries, native extraction and managed native removal and geometry-only setting with synchronization controls.
+published package compatibility. Keep the explicit qualified-tool inventory: six queries, native extraction and managed native removal and geometry-only setting with synchronization controls, plus native copy, conversion and preflight.
 Update it only when more tools are implemented and qualified. Explain the bound primary system,
 native parameter/return/validation behavior, automatic entry-point discovery,
 replacement/close semantics, the native independent/in-place distinction, pending

@@ -1,0 +1,119 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-23",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "base_commits": {
+    "provider": "c84642d7d3470fe0d39c2d824f65f3b386b38d44",
+    "viewer": "deaba4cbea43015859544b1b393ecbe02dd2ee19"
+  },
+  "provenance": "Working-source addon and Viewer checks in molsyssuite@uibcdf_3.14, with unrelated concurrent provider work preserved. No frozen clean scientific candidate, solver installation or package qualification.",
+  "functions": [
+    {
+      "provider": "molsysmt.basic.copy",
+      "bound": "view.addons.molsysmt.basic.copy",
+      "primary": "current view.molsys",
+      "alias": "view.addons.molsysmt.copy",
+      "signature": "native minus molecular_system; no integration parameter",
+      "effect": "independent native molecular output; file-copy option retains native input-form restrictions",
+      "update": "serialized reader; no adoption or scene projection",
+      "guard": "tests/molsysviewer_molsysmt/test_conversion_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.convert",
+      "bound": "view.addons.molsysmt.basic.convert",
+      "primary": "current view.molsys",
+      "alias": "view.addons.molsysmt.convert",
+      "signature": "native minus molecular_system; no integration parameter",
+      "effect": "native form/file/list/result-report output; converter sharing and optional dependencies remain native",
+      "update": "serialized reader; no adoption or scene projection",
+      "guard": "tests/molsysviewer_molsysmt/test_conversion_tools.py"
+    },
+    {
+      "provider": "molsysmt.basic.get_conversion_report",
+      "bound": "view.addons.molsysmt.basic.get_conversion_report",
+      "primary": "current view.molsys",
+      "alias": "view.addons.molsysmt.get_conversion_report",
+      "signature": "native minus molecular_system; no integration parameter",
+      "effect": "native immutable report(s), including audited scopes/exhaustiveness; no destination creation/overwrite",
+      "update": "serialized reader; no adoption or scene projection",
+      "guard": "tests/molsysviewer_molsysmt/test_conversion_tools.py"
+    }
+  ],
+  "checks": {
+    "initial_conversion_guard": {
+      "passed": 21,
+      "failed": 0,
+      "junit_sha256": "1a7a86884ccaf539119d871ea1d8a74b23f7ceb4918e9de7dcd3badbc7a14664"
+    },
+    "addon_and_packaging_route_regression": {
+      "passed": 122,
+      "failed": 0,
+      "skipped": 0,
+      "composition": "81 addon cases + 30 packaging guards + 11 dependency-route guards. Executed before adding the second filename route and native compression parity case.",
+      "junit_sha256": "33dfafefe209eefc9fed433abaf5c64b2cd3e23d2c1c9868db3a21f008d2d3b0"
+    },
+    "additional_file_routes_and_native_option_receiving": {
+      "passed": 3,
+      "failed": 0,
+      "composition": "Path route overlaps the prior H5MSM case; format/output_filename and compression-outcome parity are new. Final conversion file has 23 cases, covered by these runs together.",
+      "junit_sha256": "02c762b3b5aaa25bbbf3540a8c81316465be32301d30282bb0b2912aa00648cb"
+    },
+    "guide_python_blocks": {
+      "executed": 6,
+      "exit_code": 0
+    },
+    "course_module_06": {
+      "scope": "Availability prose only; all executable cells and outputs retained unchanged."
+    },
+    "viewer_core": {
+      "passed": 3278,
+      "skipped": 21,
+      "failed": 0,
+      "seconds": 139.6,
+      "junit_sha256": "15fbea820706d1279114b844c2ef0241b8fb8c08c7636a41d53c1d7d8c704da9"
+    },
+    "host_rejection_token_portability": {
+      "current_provider_source_passed": 8,
+      "cached_public_023_build0_passed": 8,
+      "scope": "Corrected host fixture samples one edited atom/structure; public provider mutates in place, current native storage replaces blocks. Same MolSys dictionary is retained in both. Cached runtime check uses the explicit development interpreter and PYTHONPATH; not a clean installed solver environment."
+    },
+    "prior_provider_hosted_smoke": {
+      "run": 39992583473,
+      "source": "c84642d7d3470fe0d39c2d824f65f3b386b38d44",
+      "host": "deaba4cbea43015859544b1b393ecbe02dd2ee19",
+      "state": "success",
+      "receiving_step": "success",
+      "scope": "Earlier read/extract/remove/set delivery only; does not qualify conversion additions."
+    },
+    "prior_host_browser": {
+      "run": 39992310736,
+      "source": "deaba4cbea43015859544b1b393ecbe02dd2ee19",
+      "state": "success"
+    },
+    "prior_host_python": {
+      "core_run": 39992310828,
+      "source_pair_run": 39992310747,
+      "green": false,
+      "observations": "Three strict documentation failures from public MolSysMT pandas deprecations (uibcdf/molsysmt#431); one new token fixture failure due to assuming replacement storage, corrected in this work. Qt experimental readiness/WebGL failure stays separate under uibcdf/molsysviewer#35."
+    }
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_basic.py": "93b8416411e2af9001d6294e9ff346e1a179a88057786ea999cff36ac73de573",
+    "molsysviewer_molsysmt/_argdigest.py": "dd80f2be8c7ff9b9b9c7121f1ef2cec3571d6724a6007490f8190f2dfa58f39b",
+    "molsysviewer_molsysmt/_api.py": "f43fc89cb993c54c6430b8b59c15a6754a1de3dc223d78915b0287be4137c7e2",
+    "molsysmt/basic/copy.py": "9a25c850cceb820ae9aca3ed9d6cd6599ddb15ff12f74704755ed8213cb004fb",
+    "molsysmt/basic/convert.py": "6c2e676ce2b178784a610ec37e4b2650c53bf4b7ac3ab93796880609524ebadd",
+    "molsysmt/basic/get_conversion_report.py": "c3510de7f87f4419c4dace7949cccb58e3eebff6bf17b796b6ccf547d89d7f86",
+    "tests/molsysviewer_molsysmt/test_conversion_tools.py": "73d8125d61fecbc27ed6857a757eb1e1838bb34ca5cc77189f9a6b8610185cd5"
+  },
+  "limits": [
+    "Native forms and H5MSM are received here; optional-format qualification is not inferred.",
+    "Reports preserve actual audited scopes rather than universal fidelity; lists do not imply atomic multi-file writes.",
+    "Explicit compression=gzip currently fails in native convert digestion, before output; addon preserves native outcome and does not bypass validation. Separate provider reporting offered to maintainer.",
+    "Independent outputs/live-reference policies do not imply observation or adoption.",
+    "Broader expert modules, edit effect families, task panels and installed-pair qualification remain pending."
+  ],
+  "publication_authorized": false
+}

@@ -84,8 +84,9 @@ owns general management, creation and catalogue links.
 
 The first source delivery has real read-tool parity/lifecycle and packaging
 guards. See the [user reference](../docs/content/user/tools/molsysviewer_tools.md).
-Broader coverage, edit synchronization, panels and exact installed qualification
-remain pending under the implementation issue.
+Read/extract/copy/conversion/preflight and retained-axis remove/geometry-set
+routes have source receiving. Broader effect coverage, panels and exact installed
+qualification remain pending under the implementation issue.
 The withdrawn observer request uibcdf/molsysmt#413 remains closed.
 
 
@@ -166,3 +167,22 @@ declaring a multi-attribute call atomic; changed/uncertain state instead require
 explicit recovery. Hosts without that keyword reject before executing science.
 Guard: `tests/molsysviewer_molsysmt/test_set_tools.py`; broader attribute/effect
 receiving remains open under uibcdf/molsysmt#421 and uibcdf/molsysviewer#264.
+
+
+## Independent copies, conversion and preflight
+
+The bound facade exposes native `basic.copy`, `basic.convert` and
+`basic.get_conversion_report`, including root aliases and native signatures after
+binding the primary system. They use the coordinator's serialized reader rather
+than managed editing: independent results are not adopted and files are explicit
+Python-host outputs. Pending scientific data can be read without projecting them
+or changing synchronization status. Native converter caches/ownership, including
+full-axis live results for `copy_if_all=False`, remain native and unobserved.
+
+Converter-specific **kwargs are validated by the native converter domain after
+native target-form normalization. The addon does not duplicate the provider's
+format/dependency registry or interpret filenames as browser downloads. A report
+retains native audited scopes/exhaustiveness, strict rejection and failures.
+Target lists do not imply atomic multi-file writes. H5MSM receiving uses actual
+round trips with named analyses and nonconsecutive/repeated structures; optional
+engines/formats retain their own qualification, not a blanket addon guarantee.

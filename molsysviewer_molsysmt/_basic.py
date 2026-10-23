@@ -26,6 +26,15 @@ def _native_documentation(name):
             "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if name in {"copy", "convert", "get_conversion_report"}:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The result is not adopted and no scene update is requested. "
+                "Explicit filenames address the Python host filesystem, not a browser download. "
+                "Conversion ownership and optional converter dependencies remain native; "
+                "copy_if_all=False may expose shared/live data. Reports describe only their "
+                "declared audited scopes and are not a guarantee of complete format fidelity.\n"
+            )
         if name == "remove":
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -62,6 +71,9 @@ class _BasicTools:
         "has_attribute",
         "get_label",
         "extract",
+        "copy",
+        "convert",
+        "get_conversion_report",
         "remove",
         "set",
     )
@@ -264,6 +276,65 @@ class _BasicTools:
                 "to_form": to_form,
                 "output_filename": output_filename,
                 "copy_if_all": copy_if_all,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("copy")
+    @signal(tags=["addon", "copy"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def copy(self, output_filename=None, skip_digestion=False):
+        return self._call(
+            "copy",
+            {"output_filename": output_filename, "skip_digestion": skip_digestion},
+        )
+
+    @_native_documentation("convert")
+    @signal(tags=["addon", "conversion"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def convert(
+        self,
+        to_form="molsysmt.MolSys",
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        strict=False,
+        return_report=False,
+        skip_digestion=False,
+        **kwargs,
+    ):
+        return self._call(
+            "convert",
+            {
+                "to_form": to_form,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "strict": strict,
+                "return_report": return_report,
+                "skip_digestion": skip_digestion,
+            },
+            kwargs,
+        )
+
+    @_native_documentation("get_conversion_report")
+    @signal(tags=["addon", "get"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_conversion_report(
+        self,
+        to_form="molsysmt.MolSys",
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_conversion_report",
+            {
+                "to_form": to_form,
+                "selection": selection,
+                "structure_indices": structure_indices,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },

@@ -10,7 +10,8 @@ supplied as the primary input.
 The experimental source implementation provides six queries under
 `view.addons.molsysmt.basic`: `get`, `select`, `info`, `get_attributes`,
 `has_attribute` and `get_label`, plus independent extraction with `extract`,
-managed native removal with `remove`, and the coordinates/box routes of `set`.
+managed native removal with `remove`, the coordinates/box routes of `set`,
+and native `copy`, `convert` and `get_conversion_report`.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -76,6 +77,70 @@ An unrestricted `copy_if_all=False` call may retain native shared/live-reference
 behavior; the addon does not add a defensive copy or observe later direct writes.
 `view.extract(...)` is a separate operation that returns a new view with migrated
 scene state. Neither method implicitly adopts its result into the source view.
+
+## Copying and converting the current system
+
+```python
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    snapshot = tools.basic.copy()
+    subset = tools.basic.convert(
+        selection=[0, 1, 2, 3], structure_indices=[2, 0],
+    )
+    reports = tools.basic.get_conversion_report(
+        to_form=["molsysmt.MolSys", "molsysmt.Structures"],
+        structure_indices=[2, 0],
+    )
+```
+
+{doc}`basic/copy` returns the native independent copy. {doc}`basic/convert`
+returns the requested molecular form, collection or file result, with native
+selection, structure order and converter options. Neither replaces `view.molsys`
+or copies the visual scene. With `return_report=True`, conversion returns its
+native result/report pair. Target lists retain their requested order.
+`copy_if_all=False` keeps the converter's sharing policy: a full native conversion
+may return the current system itself. Later edits through that live reference
+are outside automatic synchronization.
+
+{doc}`basic/get_conversion_report` inspects potential losses without creating or
+overwriting the destination. An existing destination may be inspected to identify
+its form and can produce a native format error. Check each report's `outcome`,
+`issues`, `audited_scopes` and `is_exhaustive`; a report is not an unconditional
+guarantee that a format preserves every property. `strict=True` on conversion
+rejects losses detected by the provider's preflight. It adds no rollback or atomic
+publication guarantee across multiple files. Optional converters retain their
+own dependencies and scientific limitations.
+
+## Saving molecular data
+
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+with msv.demo["pentalanine"] as view:
+    with TemporaryDirectory() as directory:
+        destination = Path(directory) / "system.h5msm"
+        filename, report = view.addons.molsysmt.basic.convert(
+            to_form=destination, structure_indices=[2, 0],
+            return_report=True,
+        )
+        # Use the saved molecular file with ordinary MolSysMT tools.
+        import molsysmt as msm
+        restored = msm.convert(filename)
+```
+
+H5MSM 0.5 preserves the supported molecular domains and named Interactions.
+Other formats are selected through native `to_form` and may retain fewer
+properties; use a preflight report and the format reference before exporting.
+Only native forms and H5MSM have addon-specific receiving in this delivery;
+optional-format qualification remains with its converter owner.
+
+A filename addresses the filesystem of the Python process. In a remote Jupyter
+session it is a server path, not an automatic browser download. This operation
+saves molecular data; use Viewer session/export tools to preserve the scene or
+produce an interactive HTML view. No output is automatically adopted or displayed.
+`copy(output_filename=...)` keeps native behavior: file-copy destinations are for
+file-based inputs, so use `convert` to serialize the view's native MolSys.
 
 ## Removing atoms or structures
 
