@@ -276,8 +276,12 @@ class Bonds_DataFrame(pd.DataFrame):
         self.loc[mask, ["atom1_index", "atom2_index"]] = self.loc[
             mask, ["atom2_index", "atom1_index"]
         ].values
-        self.sort_values(by=["atom1_index", "atom2_index"], inplace=True)
-        self.reset_index(drop=True, inplace=True)
+        ordered = self.sort_values(by=["atom1_index", "atom2_index"], ignore_index=True)
+        # Keep the authoritative table object and nullable column dtypes. Array
+        # assignment is positional even when the old index has arbitrary labels.
+        self.index = ordered.index
+        for column in self.columns:
+            self[column] = ordered[column].array.copy()
 
     def _remove_empty_columns(self):
         """Drop optional columns when they only contain NaN placeholders."""
@@ -642,7 +646,7 @@ class _ChemicalStateStorage:
                 caller="molsysmt.native.topology._ChemicalStateStorage",
             )
         if name in self.atom_attributes.columns:
-            self.atom_attributes.drop(columns=name, inplace=True)
+            del self.atom_attributes[name]
 
     def copy(self):
         """Copying current private state without construction or normalization."""
@@ -1496,7 +1500,7 @@ class Topology(NativeQueries):
         combined = self._concatenate_bond_tables(current_bonds, new_bonds)
         combined = self._coerce_bond_table(combined, n_atoms=self.n_atoms)
         if not sort:
-            combined.reset_index(drop=True, inplace=True)
+            combined.index = pd.RangeIndex(len(combined))
         self._set_chemical_state_bonds(combined, state_index=state_index)
         if n_new_bonds and state.connectivity_completeness == "unavailable":
             state.connectivity_completeness = "partial"
@@ -1985,27 +1989,27 @@ class Topology(NativeQueries):
 
             tmp_item = Topology(skip_digestion=True)
             tmp_item.atoms = self.atoms.iloc[atom_indices].copy()
-            tmp_item.atoms.reset_index(drop=True, inplace=True)
+            tmp_item.atoms.index = pd.RangeIndex(len(tmp_item.atoms))
 
             old_group_indices = tmp_item.atoms["group_index"].dropna().unique().tolist()
             tmp_item.groups = self.groups.iloc[old_group_indices].copy()
-            tmp_item.groups.reset_index(drop=True, inplace=True)
+            tmp_item.groups.index = pd.RangeIndex(len(tmp_item.groups))
 
             old_molecule_indices = (
                 tmp_item.groups["molecule_index"].dropna().unique().tolist()
             )
             tmp_item.molecules = self.molecules.iloc[old_molecule_indices].copy()
-            tmp_item.molecules.reset_index(drop=True, inplace=True)
+            tmp_item.molecules.index = pd.RangeIndex(len(tmp_item.molecules))
 
             old_entity_indices = (
                 tmp_item.molecules["entity_index"].dropna().unique().tolist()
             )
             tmp_item.entities = self.entities.iloc[old_entity_indices].copy()
-            tmp_item.entities.reset_index(drop=True, inplace=True)
+            tmp_item.entities.index = pd.RangeIndex(len(tmp_item.entities))
 
             old_chain_indices = tmp_item.atoms["chain_index"].dropna().unique().tolist()
             tmp_item.chains = self.chains.iloc[old_chain_indices].copy()
-            tmp_item.chains.reset_index(drop=True, inplace=True)
+            tmp_item.chains.index = pd.RangeIndex(len(tmp_item.chains))
 
             tmp_item.atoms["group_index"] = (
                 tmp_item.atoms["group_index"]

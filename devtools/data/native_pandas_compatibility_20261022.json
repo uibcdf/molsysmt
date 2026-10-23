@@ -1,0 +1,62 @@
+{
+  "schema": "molsysmt.native_pandas_compatibility@1",
+  "date": "2026-10-22",
+  "issue": "uibcdf/molsysmt#431",
+  "parent_checkpoint": "abc8df32977974defe0cd757dd1692852f4436ad",
+  "scope": "Source compatibility; no installed Conda pair or consumer page qualification.",
+  "environment": {
+    "python": "3.14.7",
+    "numpy": "2.4.6",
+    "development_pandas": "2.3.3"
+  },
+  "overlay": {
+    "pandas": "3.1.0",
+    "wheel": "pandas-3.1.0-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "sha256": "e4455cdcc03e42c17233184e8e4ea65c3ed2925d8b1d9d7dd8e6fced3f6e43c1",
+    "installation_changed": false,
+    "separate_environment_created": false,
+    "command_prefix": "PYTHONPATH=/tmp/molsysmt-431-pandas310/overlay:$PYTHONPATH"
+  },
+  "source_sha256": {
+    "molsysmt/native/topology.py": "345ffe5f5993bad71fe83ccdd150522d1e5ef20b9df4dea0a8fc1b306a97a98a",
+    "molsysmt/native/chemical_states.py": "f5673d76ac801c9674a26fd90745c4625726733f3e03b9bb573a4f21f88ead14",
+    "tests/native/test_pandas_warning_compatibility.py": "422087f9b2870d2ff0051218b07bc0d866c7eae22d3c730482a6d34728cb28fd"
+  },
+  "before": {
+    "failed": 7,
+    "cause": "Pandas4Warning from Bonds_DataFrame.sort_values(inplace=True), strict UserWarning/DeprecationWarning filters."
+  },
+  "runs": [
+    {
+      "pandas": "2.3.3",
+      "command": "python -m pytest tests/native/test_pandas_warning_compatibility.py tests/native/test_topology.py tests/native/test_topology_operations.py tests/native/test_topology_owner.py tests/native/test_chemical_states.py tests/native/test_chemical_states_owner.py tests/native/test_molsys_chemical_state_association.py tests/native/test_molsys_copy.py tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py tests/form/molsysmt_Topology --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 1366,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 31.18,
+      "legacy_h5msm_warnings": 15
+    },
+    {
+      "pandas": "3.1.0",
+      "command": "PYTHONPATH=/tmp/molsysmt-431-pandas310/overlay:$PYTHONPATH python -m pytest tests/native/test_pandas_warning_compatibility.py tests/native/test_topology.py tests/native/test_topology_operations.py tests/native/test_topology_owner.py tests/native/test_chemical_states.py tests/native/test_chemical_states_owner.py tests/native/test_molsys_chemical_state_association.py tests/native/test_molsys_copy.py tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py tests/form/molsysmt_Topology --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 1366,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 33.01,
+      "legacy_h5msm_warnings": 15
+    }
+  ],
+  "guard": "tests/native/test_pandas_warning_compatibility.py",
+  "checks": [
+    "Ruff clean",
+    "No unauthorized public signature drift",
+    "14/14 fast gates pass"
+  ],
+  "limits": [
+    "Only Linux/Python 3.14 checked locally.",
+    "Viewer owns exact consumer-page rerun and source/installed-pair receiving.",
+    "No scientific criterion, dependency bound or public signature changed."
+  ]
+}

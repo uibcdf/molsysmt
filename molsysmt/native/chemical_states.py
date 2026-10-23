@@ -447,16 +447,16 @@ class ChemicalStates(NativeQueries):
             old_components = membership.dropna().unique().tolist()
             component_map = {old: new for new, old in enumerate(old_components)}
             components = source_state.components.iloc[old_components].copy()
-            components.reset_index(drop=True, inplace=True)
+            components.index = range(len(components))
             membership = membership.map(component_map).astype("Int64")
-            membership.reset_index(drop=True, inplace=True)
+            membership.index = range(len(membership))
 
             bonds = source_state.bonds
             kept = np.isin(bonds["atom1_index"], atoms) & np.isin(
                 bonds["atom2_index"], atoms
             )
             bonds = bonds[kept].copy()
-            bonds.reset_index(drop=True, inplace=True)
+            bonds.index = range(len(bonds))
             bonds = Topology._remap_bond_atom_indices(bonds, atom_map)
             state = _ChemicalStateStorage(
                 n_atoms=len(atoms),
@@ -471,7 +471,7 @@ class ChemicalStates(NativeQueries):
                 preparation_history=source_state._preparation_history,
             )
             state.atom_attributes = source_state.atom_attributes.iloc[atoms].copy()
-            state.atom_attributes.reset_index(drop=True, inplace=True)
+            state.atom_attributes.index = range(len(state.atom_attributes))
             state._normalize_atom_attribute_columns()
             extracted_states.append(state)
 
