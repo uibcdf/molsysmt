@@ -7,6 +7,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
 | Recipe | Objective |
 | :--- | :--- |
+| **{doc}`copying_disk_systems`** | Keeping byte-preserving file snapshots and editable native copies independent. |
 | **{doc}`weighting_pca`** | Checking weighted covariance, squared-length units and principal-component projections. |
 | **{doc}`comparing_sequence_source_groups`** | Comparing sequence letters with their original molecular group indices. |
 | **{doc}`symmetry_pose_rmsd`** | Comparing ligand poses with declared chemical symmetry and a preserved positional baseline. |
@@ -46,6 +47,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
    comparing_sequence_source_groups.md
    weighting_pca.md
+   copying_disk_systems.md
    symmetry_pose_rmsd.ipynb
 
    saving_mediated_interactions

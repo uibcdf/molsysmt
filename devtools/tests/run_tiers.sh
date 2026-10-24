@@ -11,7 +11,10 @@ run_smoke() {
     tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py \
     tests/structure/test_distance_family_contract.py \
     tests/form/string_amino_acids_3/test_biopython_codec.py \
-    tests/structure/principal_component_analysis/test_weighted_contract.py
+    tests/structure/principal_component_analysis/test_weighted_contract.py \
+    tests/basic/test_file_copy.py \
+    tests/basic/test_file_copy_lifecycle.py \
+    tests/form/test_raw_file_copy.py
 }
 
 run_build_topology() {

@@ -127,6 +127,18 @@ semantics. Use `msm.copy(data)` for an independent registered-form snapshot.
 `Simulation` settings and live file/resource handlers retain their separate
 reference/resource contracts.
 
+File paths have a separate copy boundary: `msm.copy(source_filename)` creates
+an independent temporary in a private system-temporary directory owned by the
+current Python process. It retains the stored format, suffix and bytes, including
+a legacy H5MSM version. Paths remain usable through the session, independently of
+Python string lifetimes. Normal-exit cleanup is best effort; abrupt termination
+or locked files can leave leftovers. An explicit `output_filename` creates a
+persistent caller-owned copy which MolSysMT never automatically removes.
+Composite sources receive separate copies of their file members. Copying does
+not add a format's missing write capabilities; convert to a native MolSys when
+needed for subsequent transformations. See {ref}`Cookbook_Copying_Disk_Systems`.
+
+
 (user-foundations-molsys-copying)=
 ## Independent Copies
 

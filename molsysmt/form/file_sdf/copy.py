@@ -1,5 +1,4 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError
 
 
 @arg_digest(form="file:sdf")
@@ -11,7 +10,8 @@ def copy(item, output_filename=None, skip_digestion=False):
     item : str or pathlib.Path
         Single-record SDF source file.
     output_filename : str or pathlib.Path, default=None
-        Required destination; no implicit temporary file is created.
+        None creates a private session-owned temporary. An explicit destination
+        is caller-owned and must differ from the source.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -20,6 +20,11 @@ def copy(item, output_filename=None, skip_digestion=False):
     str or pathlib.Path
         Destination path, preserving source property blocks and syntax.
 
+    Raises
+    ------
+    ArgumentError
+        If an explicit output_filename aliases the source or names a directory.
+
     Notes
     -----
     Only the single-record envelope is checked. The source chemistry may be
@@ -27,17 +32,11 @@ def copy(item, output_filename=None, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from pathlib import Path
+    from molsysmt._private.files_and_directories import file_copy_destination
 
     from .to_file_sdf import to_file_sdf
 
-    if (
-        output_filename is None
-        or Path(item).resolve() == Path(output_filename).resolve()
-    ):
-        raise ArgumentError(
-            "output_filename",
-            value=output_filename,
-            message="Copying SDF requires a distinct destination path.",
-        )
-    return to_file_sdf(item, output_filename=output_filename, skip_digestion=True)
+    with file_copy_destination(
+        item, output_filename, caller="molsysmt.form.file_sdf.copy"
+    ) as destination:
+        return to_file_sdf(item, output_filename=destination, skip_digestion=True)

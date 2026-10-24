@@ -20,4 +20,6 @@ devtools/tests/run_tiers.sh peptide_extended
 
 The smoke tier includes independent numerical contracts for distances, extrema,
 neighbors and contacts, plus sequence-codec selection and optional-Biopython
-guards and weighted PCA covariance, axis, unit and rejection contracts. Keep its node list aligned with `.github/workflows/ci-smoke.yaml`.
+guards and weighted PCA covariance, axis, unit and rejection contracts. File-copy
+guards check automatic session lifetime, persistent destinations, legacy bytes
+and shared raw adapters. Keep its node list aligned with `.github/workflows/ci-smoke.yaml`.

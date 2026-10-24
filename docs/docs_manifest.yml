@@ -117,6 +117,11 @@ sections:
             description: Styled/programmatic summaries, explicit element masks and bounded native representations without data rendering.
             file: docs/content/user/tools/basic/info.ipynb
             agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
+          - name: copy
+            file: docs/content/user/tools/basic/copy.ipynb
+            agents_file: docs/content/user/tools/basic/copy.ipynb.AGENTS.md
+            description: Independent resident snapshots, automatic process-owned file temporaries and persistent explicit destinations.
+            status: reviewed
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
             description: Form conversion, explicit four-domain native composition, chemical ownership, axis conflicts, preserved mechanics provenance and independent selections.
@@ -417,6 +422,11 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: copying_disk_systems
+        file: docs/content/user/cookbook/copying_disk_systems.md
+        agents_file: docs/content/user/cookbook/copying_disk_systems.md.AGENTS.md
+        description: Automatic session temporaries, caller-owned snapshots, source-alias rejection and independent native coordinate edits.
+        status: reviewed
       - name: weighting_pca
         file: docs/content/user/cookbook/weighting_pca.md
         agents_file: docs/content/user/cookbook/weighting_pca.md.AGENTS.md

@@ -1,5 +1,4 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError
 
 
 @arg_digest(form="file:fasta")
@@ -13,7 +12,8 @@ def copy(item, output_filename=None, skip_digestion=False):
     item : molecular system
         Argument item.
     output_filename : str or pathlib.Path, default=None
-        Output file path for serialization.
+        None creates a private session-owned temporary. An explicit destination
+        must differ from the source; existing distinct files may be overwritten.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,18 +23,14 @@ def copy(item, output_filename=None, skip_digestion=False):
         Resulting object in file:fasta form.
 
 
+    Raises
+    ------
+    ArgumentError
+        If an explicit output_filename aliases the source or names a directory.
+
     .. versionadded:: 1.0.0
     """
 
-    if output_filename is None:
-        raise ArgumentError(
-            argument="output_filename",
-            caller="molsysmt.form.file_fasta.copy",
-            message="output_filename is required to copy a file:fasta item.",
-        )
+    from molsysmt._private.files_and_directories import copy_file
 
-    from shutil import copy as copy_file
-
-    copy_file(item, output_filename)
-
-    return output_filename
+    return copy_file(item, output_filename, caller="molsysmt.form.file_fasta.copy")

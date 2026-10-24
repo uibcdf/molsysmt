@@ -12,7 +12,8 @@ def copy(item, output_filename=None, skip_digestion=False):
     item : molecular system
         Argument item.
     output_filename : str or pathlib.Path, default=None
-        Output file path for serialization.
+        None creates a private session-owned temporary. An explicit destination
+        must differ from the source; existing distinct files may be overwritten.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -22,12 +23,14 @@ def copy(item, output_filename=None, skip_digestion=False):
         Resulting object in file:prmtop form.
 
 
+    Raises
+    ------
+    ArgumentError
+        If an explicit output_filename aliases the source or names a directory.
+
     .. versionadded:: 1.0.0
     """
 
-    from shutil import copy as copy_file
+    from molsysmt._private.files_and_directories import copy_file
 
-    copy_file(item, output_filename)
-    tmp_item = output_filename
-
-    return tmp_item
+    return copy_file(item, output_filename, caller="molsysmt.form.file_prmtop.copy")

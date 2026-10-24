@@ -1,34 +1,14 @@
-from pathlib import PosixPath
+from os import PathLike
+from pathlib import Path
 
 from molsysmt._private.smonitor import ArgumentError
 
 
 def digest_output_filename(output_filename, caller=None):
-    """Checks if `group_type` has the expected type and value.
+    """Normalize output paths on the host platform, retaining strings and None."""
 
-    Parameters
-    ----------
-    group_type : Any
-        The `group_type` argument for digestion.
-    caller: str, optional
-        Name of the function or method that is being digested.
-
-    .. _PEP 484:
-        https://www.python.org/dev/peps/pep-0484/#the-any-type
-
-    Returns
-    -------
-    bool
-        Either True or False when caller is `get`.
-
-    Raises
-    -------
-    ArgumentError
-        If the given `group_type` has not of the correct type or value.
-    """
-
-    if isinstance(output_filename, PosixPath):
-        output_filename = output_filename.absolute().__str__()
+    if isinstance(output_filename, PathLike):
+        output_filename = str(Path(output_filename).absolute())
 
     if output_filename is None:
         return output_filename
