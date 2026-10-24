@@ -2,6 +2,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Permute atoms](permute_atoms.md) | Applying a complete declared atom order across native domains |
 | [Compose atom maps](compose_atom_maps.md) | Composing declared correspondence across preparation and export |
 | [Add](add.ipynb) | Adding elements of a molecular system into another molecular system |    
 | [Append structures](append_structures.ipynb) | Adding structures from a molecular system to another molecular system |     
@@ -63,5 +64,6 @@
    set.ipynb
    view.ipynb
    where_is_attribute.ipynb
+   permute_atoms.md
    compose_atom_maps.md
 ```

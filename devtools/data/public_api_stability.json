@@ -2105,6 +2105,20 @@
       "owner": "build",
       "documentation": "docs/content/user/tools/build/project_atom_names.md",
       "contract_tests": "tests/build/test_project_atom_names.py"
+    },
+    "molsysmt.permute_atoms": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "root",
+      "documentation": "docs/content/user/tools/basic/permute_atoms.md",
+      "contract_tests": "tests/basic/test_permute_atoms.py"
+    },
+    "molsysmt.basic.permute_atoms": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "basic",
+      "documentation": "docs/content/user/tools/basic/permute_atoms.md",
+      "contract_tests": "tests/basic/test_permute_atoms.py"
     }
   }
 }

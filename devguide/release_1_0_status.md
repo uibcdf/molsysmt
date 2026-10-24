@@ -3066,7 +3066,7 @@ Provider source/contract inspection classifies three incoming requests as new
 capabilities under the existing admission rule:
 
 - uibcdf/molsysmt#366: [explicit small-molecule standardization](pending_proposals/explicit_small_molecule_standardization.md).
-- uibcdf/molsysmt#369: [explicit full-domain atom permutation](pending_proposals/explicit_atom_permutation.md).
+- uibcdf/molsysmt#369: [explicit full-domain atom permutation](archive/resolved_proposals/explicit_atom_permutation.md).
 - uibcdf/molsysmt#375: [fixed-state hydrogen-bond site directions](pending_proposals/fixed_state_hbond_site_directions.md).
 
 Their records distinguish reusable existing tools from missing contracts,
@@ -3269,3 +3269,14 @@ commands, 568 passing focused cases, warnings, 18.5 s course execution and the
 14 fast-gate checkpoint. Explicit backend atom-name projection and consumer
 receiving remain pending. There is no new molecular form, H5MSM schema, installed
 pair qualification or publication authorization under #334.
+
+
+## Explicit atom-permutation delivery — 2026-10-24
+
+The maintainer brings uibcdf/molsysmt#369 forward after provider completion of
+uibcdf/molsysmt#223. The experimental public `basic.permute_atoms` applies a
+complete declared atom order, returning detached native domains and optional
+`atom_map@1` evidence. Extraction semantics and non-atom index axes remain fixed.
+See the [delivery, guards and allocation measurements](archive/resolved_proposals/explicit_atom_permutation.md).
+DockingMT migration remains owned by uibcdf/dockingmt#49. These local source
+checks neither qualify a replacement installed pair nor authorize publication.

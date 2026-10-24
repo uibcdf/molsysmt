@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 139 |
+| experimental | 141 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -84,6 +84,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.merge` | stable | active | pre-1.0 |
 | `molsysmt.molecular_mechanics` | outside-contract | active | pre-1.0 |
 | `molsysmt.pbc` | stable | active | pre-1.0 |
+| `molsysmt.permute_atoms` | experimental | active | 1.0.0 |
 | `molsysmt.physchem` | stable | active | pre-1.0 |
 | `molsysmt.pyunitwizard` | stable | active | pre-1.0 |
 | `molsysmt.remove` | stable | active | pre-1.0 |
@@ -127,6 +128,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.basic.is_a_molecular_system` | stable | active | pre-1.0 |
 | `molsysmt.basic.is_composed_of` | stable | active | pre-1.0 |
 | `molsysmt.basic.merge` | stable | active | pre-1.0 |
+| `molsysmt.basic.permute_atoms` | experimental | active | 1.0.0 |
 | `molsysmt.basic.remove` | stable | active | pre-1.0 |
 | `molsysmt.basic.select` | stable | active | pre-1.0 |
 | `molsysmt.basic.set` | stable | active | pre-1.0 |

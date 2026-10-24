@@ -589,3 +589,18 @@ Both use source indices and preserve the full chemical context. Keep the declare
 `search_scope` with the value: an anchored or supplied-map minimum is conditional,
 and `search_complete` refers to that scope. The baseline map only defines raw
 positional RMSD. Cached dictionaries retain their constraints on reuse.
+
+## Atom Axis
+
+Atom indices are positions shared by all attached domains. Selecting a complete
+atom set with `extract` keeps its selection semantics. A declared reordering uses
+{func}`molsysmt.basic.permute_atoms` and returns an independent native system.
+Only the atom axis changes: group, component, molecule, chain, entity, bond,
+chemical-state and structure axes remain fixed. Original IDs stay string labels.
+Stored chemistry, structural series, mechanics and named interactions must all
+follow the new atom axis; permuting coordinates alone is insufficient.
+
+The initial experimental operation supports built-in domains and rejects
+unknown extensions without a remapping contract. Historical preparation axes
+remain historical; the returned atom map describes the new transformation.
+See {ref}`Tutorial_Permute_Atoms` for supported domains and memory limits.

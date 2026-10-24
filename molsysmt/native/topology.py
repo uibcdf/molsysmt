@@ -1248,8 +1248,8 @@ class Topology(NativeQueries):
         return cls._coerce_bond_table(pd.concat(prepared, ignore_index=True))
 
     @staticmethod
-    def _remap_bond_atom_indices(table, index_map):
-        """Return a bond table with every atom reference remapped together."""
+    def _remap_bond_atom_indices(table, index_map, *, canonical_order=False):
+        """Remap atom references, optionally orienting endpoints and stereo neighbors."""
 
         output = table.copy()
         for column in _BOND_ATOM_REFERENCE_COLUMNS:
@@ -1263,6 +1263,16 @@ class Topology(NativeQueries):
                     )
                 output[column] = pd.array(remapped, dtype="Int64")
 
+        if canonical_order:
+            swapped = output["atom1_index"] > output["atom2_index"]
+            for first, second in (
+                ("atom1_index", "atom2_index"),
+                ("stereo_atom1_index", "stereo_atom2_index"),
+            ):
+                if first in output and second in output:
+                    saved = output.loc[swapped, first].copy()
+                    output.loc[swapped, first] = output.loc[swapped, second]
+                    output.loc[swapped, second] = saved
         stereo_columns = {"stereo_atom1_index", "stereo_atom2_index"} & set(
             output.columns
         )

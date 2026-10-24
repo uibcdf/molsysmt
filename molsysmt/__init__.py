@@ -32,6 +32,7 @@ _ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
 # Central lazy-loading registry mapping public attribute/submodule names
 # to their respective internal import submodules.
 _LAZY_ATTRIBUTES = {
+    "permute_atoms": (".basic", "permute_atoms"),
     "compose_atom_maps": (".basic", "compose_atom_maps"),
     # Submodules
     "configure": ".configure",

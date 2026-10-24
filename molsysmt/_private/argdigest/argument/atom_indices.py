@@ -28,6 +28,14 @@ def digest_atom_indices(atom_indices, caller=None):
         If the given indices are not of the correct type.
     """
 
+    if caller == "molsysmt.basic.permute_atoms.permute_atoms":
+        from ._correspondence_axes import flat_axis
+
+        output = flat_axis(atom_indices, "atom_indices", caller)
+        if output is None or isinstance(output, str) or np.ndim(atom_indices) != 1:
+            raise ArgumentError("atom_indices", caller=caller)
+        return output
+
     if atom_indices is None:
         return None
     elif is_all(atom_indices):

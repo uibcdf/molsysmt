@@ -29,3 +29,4 @@ from .iterator import Iterator
 # isort: on
 
 from .compose_atom_maps import compose_atom_maps
+from .permute_atoms import permute_atoms

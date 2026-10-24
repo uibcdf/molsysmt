@@ -1,3 +1,9 @@
+molsysmt.basic.permute_atoms:
+  name: "msm.basic.permute_atoms"
+  first_introduced_in: "Common_Core/18_Extracting_and_Removing_Elements.ipynb"
+  summary: "Applies a complete declared atom permutation across supported native domains."
+  doc_ref: "{func}`molsysmt.basic.permute_atoms`"
+
 molsysmt.build.project_atom_names:
   name: "msm.build.project_atom_names"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

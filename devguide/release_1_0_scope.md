@@ -42,6 +42,16 @@ accepted workflow may be promoted with evidence; an opportunity to be faster
 alone does not expand the release queue. Public experimental APIs remain
 experimental unless a separately justified stability decision changes the registry.
 
+## Explicit atom-permutation admission — 2026-10-24
+
+The maintainer selects completion of #223 followed by #369. Admit the bounded
+experimental full-bijection atom operation, its native-domain remappers,
+provenance/index reports and complete validation/documentation lifecycle.
+Keep all non-atom axes fixed and extraction semantics unchanged. Unsupported
+extensions and oversized resident output reject explicitly. This changes the
+previous post-1.0 scheduling for #369 only; publication and installed-candidate
+qualification retain their separate authorization and exact-source requirements.
+
 ## Included behavior
 
 ### Bounded API composition admission — 2026-10-20

@@ -21,6 +21,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`trajectory_performance_analysis`** | Computing RMSD, per-residue RMSF, and radius of gyration time series across trajectory structures. |
 | **{doc}`structural_surgery_mutagenesis`** | Introducing point mutations in memory, rebuilding side chains, and superimposing against the wild type. |
 | **{doc}`form_teleportation`** | Converting molecular systems across OpenMM, MDAnalysis, NetworkX, MDTraj, and BioPython. |
+| **{doc}`permuting_export_order`** | Restoring a declared molecular atom axis with inverse maps and persistence. |
 | **{doc}`native_sdf`** | Reading and writing a bounded native SDF subset without RDKit. |
 | **{doc}`native_pdbqt`** | Reading prepared AutoDock data and preserving declared torsion trees. |
 | **{doc}`auditing_residue_chemistry`** | Distinguishing supported residue atom gaps from unassessed chemistry before repair. |
@@ -59,6 +60,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    trajectory_performance_analysis.ipynb
    structural_surgery_mutagenesis.ipynb
    form_teleportation.ipynb
+   permuting_export_order.md
    native_sdf.md
    native_pdbqt.md
    auditing_residue_chemistry.md

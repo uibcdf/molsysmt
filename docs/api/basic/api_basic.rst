@@ -41,4 +41,5 @@ API Basic
    view
    where_is_attribute
 
+   permute_atoms
    compose_atom_maps

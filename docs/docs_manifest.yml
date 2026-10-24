@@ -91,6 +91,11 @@ sections:
         index_agents_file: docs/content/user/tools/basic/index.AGENTS.md
         status: reviewed
         pages:
+          - name: permute_atoms
+            file: docs/content/user/tools/basic/permute_atoms.md
+            agents_file: docs/content/user/tools/basic/permute_atoms.md.AGENTS.md
+            description: Complete declared atom permutation with fixed non-atom axes, domain remapping and inverse maps.
+            status: reviewed
           - name: compose_atom_maps
             file: docs/content/user/tools/basic/compose_atom_maps.md
             agents_file: docs/content/user/tools/basic/compose_atom_maps.md.AGENTS.md
@@ -425,6 +430,11 @@ sections:
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
         description: Explicit PDB connectivity policy, template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
+        status: reviewed
+      - name: permuting_export_order
+        file: docs/content/user/cookbook/permuting_export_order.md
+        agents_file: docs/content/user/cookbook/permuting_export_order.md.AGENTS.md
+        description: Restoring a known complete atom traversal and persisting supported native domains.
         status: reviewed
       - name: native_sdf
         file: docs/content/user/cookbook/native_sdf.md
