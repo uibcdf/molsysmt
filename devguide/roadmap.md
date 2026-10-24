@@ -172,7 +172,7 @@ ledger authoritative for release scope.
    fidelity is not proven by agreement with one prepared file; missing values
    must not become zeros. Label decoding is not chemical type assignment.
 5. **Project a prepared state under an agreed docking profile.**
-   [Atom projection #223](pending_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
+   [Atom projection #223](archive/resolved_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
    owns retained/omitted/merged/added atom correspondence and charge accounting;
    [torsions #224](archive/resolved_proposals/classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md)
    now supplies versioned native acyclic-single and conjugation-restricted

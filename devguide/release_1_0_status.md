@@ -3263,7 +3263,7 @@ projection/export/pose stages, incremental JSON round trips and source immutabil
 The PDBQT pose adapter respects written versus known-source axes, and normalized
 writer metadata retains ROOT order/origin, oriented branches and precision
 evidence. Source arrays remain one-dimensional, including the 100,000-atom guard.
-The owning [#223 record](pending_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
+The owning [#223 record](archive/resolved_proposals/preserve_atom_correspondence_through_lossy_molecular_exports.md)
 and [source receipt](../devtools/data/atom_map_composition_20261023.json) retain
 commands, 568 passing focused cases, warnings, 18.5 s course execution and the
 14 fast-gate checkpoint. Explicit backend atom-name projection and consumer

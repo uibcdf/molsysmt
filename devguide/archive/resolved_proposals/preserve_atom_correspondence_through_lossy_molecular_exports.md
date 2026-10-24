@@ -1,12 +1,12 @@
 ---
 summary: Preserve atom correspondence through lossy molecular exports
 issue: uibcdf/molsysmt#223
-status: partial
+status: resolved
 opened: 2026-09-22
-closed:
+closed: 2026-10-24
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/basic/test_compose_atom_maps.py
 normative:
 blocked_by: []
 supersedes: []
@@ -15,9 +15,9 @@ supersedes: []
 # Preserve atom correspondence through lossy molecular exports
 
 **Reported:** 2026-09-22, from the MolSysMT–DockingMT Vina preparation and conversion review.
-**Status:** Partial. Typed-H projection, completed PDBQT maps, known-source pose
-reading, typed stage composition and explicit backend atom-name projection are
-implemented. Consumer adoption remains pending.
+**Status:** Resolved for the provider-owned typed correspondence and PDBQT
+profile. Consumer production migration remains in uibcdf/dockingmt#49.
+Known full molecular permutation is separate under uibcdf/molsysmt#369.
 
 ## What
 
@@ -59,7 +59,7 @@ New functionality requires tests of scientific semantics and documentation appro
 ## Preparation work ordering — 2026-10-03
 
 The maintainer requested chemical preparation alongside real SDF/PDBQT
-validation. Follow [the maintained sequence](../roadmap.md) and the consumer
+validation. Follow [the maintained sequence](../../roadmap.md) and the consumer
 profile review in uibcdf/dockingmt#33. Related template and fixed-state H
 capabilities are owned by uibcdf/molsysmt#298 and uibcdf/molsysmt#300.
 Prioritization does not establish implementation, scientific coverage or a new
@@ -136,14 +136,14 @@ that slice. Explicit four-domain metadata routing remains pending in #430.
 The new builder delegates composition rather than implementing a competing path.
 
 The maintained user contract is
-[the projection tutorial](../../docs/content/user/tools/build/merge_nonpolar_hydrogens.md).
+[the projection tutorial](../../../docs/content/user/tools/build/merge_nonpolar_hydrogens.md).
 User Guide, native PDBQT recipe, API docstrings and course Module 12 are updated.
 This bounded implementation does not close the broader proposal or qualify
 a release/installed artifact.
 
 ### Qualification checkpoint
 
-The [source receipt](../../devtools/data/atom_projection_20261022.json) records
+The [source receipt](../../../devtools/data/atom_projection_20261022.json) records
 command, environment, executable-file hashes and scope. The final regression
 selection passed **799 tests**, zero failures/skips, in 50.51 seconds with
 12 workers and Pytest Receptor. The 39 warnings comprise 30 legacy H5MSM notices,
@@ -164,9 +164,9 @@ all-model identity validation and explicit missing-atom policy. New writer maps
 include `output_atom_ff_types` to validate a pose even with a topology-only known
 source. This is an additive typed field, not a payload or mapping-axis change.
 The bounded reader is documented in the
-[User Guide](../../docs/content/user/tools/form/read_pdbqt_poses.md); its delivered
+[User Guide](../../../docs/content/user/tools/form/read_pdbqt_poses.md); its delivered
 contract/evidence lives in the
-[resolved #226 record](../archive/resolved_proposals/read_pdbqt_pose_ensembles_against_a_known_ligand_source.md).
+[resolved #226 record](read_pdbqt_pose_ensembles_against_a_known_ligand_source.md).
 Earlier generation-map composition and downstream adoption remain separate
 pending #223 work.
 
@@ -178,7 +178,7 @@ pending #223 work.
 native composition seam, preserves complete mechanics reports and validates full
 axes before selection. Explicit ChemicalStates supplies chemistry rather than
 list-order attribute overrides. See the
-[resolved record](../archive/resolved_bugs/native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md).
+[resolved record](../resolved_bugs/native_domain_composition_fails_on_charges_and_explicit_chemical_state_metadata.md).
 This repair does not complete #223's upstream atom-map composition or receiving.
 
 
@@ -229,7 +229,7 @@ six MDAnalysis mass deprecations, one previously recorded optional NumPy ABI-siz
 warning and three expected structural-attribute drops. One meaningful doctest,
 all 250 public docstrings, Ruff, the signature guard and all 14 fast gates pass.
 The final Module 12 executed in 18.5 s. The
-[source receipt](../../devtools/data/atom_map_composition_20261023.json) records
+[source receipt](../../../devtools/data/atom_map_composition_20261023.json) records
 commands, environment and executable hashes. This is source-level contract and
 pipeline evidence, not a new installed artifact or complete chemical validation.
 
@@ -315,7 +315,7 @@ silently stripped physical units. Its general repair rejects quantity wrappers
 before casting, rather than adding a naming-only check. The correspondence and
 symmetry-RMSD User Guide notebooks also execute (16.8 and 13.2 seconds).
 
-The [source receipt](../../devtools/data/atom_name_projection_20261023.json)
+The [source receipt](../../../devtools/data/atom_name_projection_20261023.json)
 records exact commands, versions, executable hashes and the consumer archive
 SHA-256. #223 remains partial for downstream receiving/removal. #181 coverage
 and #334 release coordination retain their existing scope; no package build,
@@ -333,3 +333,32 @@ The old top-level `molsysmt.form` functions are removed before release; the
 map schemas, index semantics and explicit validation remain unchanged.
 The experimental tools remain consumer-review work rather than a complete
 solution to every lossy export; #223 remains partial.
+
+## Provider completion — 2026-10-24
+
+The original provider acceptance is fulfilled by the public typed-H transform,
+completed export maps, typed stage composition, explicit naming transform and
+known-source pose reader. The general correspondence representation supports
+retained/omitted/merged/generated atoms; its concrete qualified export example
+is PDBQT. It is not arbitrary chemical matching or a promise about all file
+formats. Historical partial checkpoints above retain their original dates.
+
+The final scoped provider regression on source bc21428312b6945c9c8926611721713c5ca3fbd2
+passes **138 tests** in 11.29 seconds with `--receptor=llm -n 12`, zero failures,
+skips or warnings. This executes typed-H projection, written-order maps, naming,
+composition and all-model known-source reading. The primary composition guard
+uses literal expected maps and actual public creation/projection/export/pose
+stages, protecting absent origins, merge recipients and input immutability.
+
+DockingMT reports its bounded consumer profile qualified at
+fb6382f6bf617467f4a3fb1dbc4fc28dc2815b71 against the older provider
+128a0bbb94e6804f5663e58a45313c77de1cc30d, with actual Vina output and four
+Python-minor lanes. That independently owned evidence is inspected, not rerun or
+relabelled here. Its production ligand migration is now active under
+uibcdf/dockingmt#49; reader namespaces must follow the provider revision used.
+
+[Current provider handoff](../../atom_correspondence_delivery.md) records the
+public entry points, maps/bytes boundary and remaining consumer ownership.
+Closing this provider issue does not close DockingMT's migration or the separate
+permutation capability. It adds no release/installed qualification or claim of
+chemical preparation accuracy.

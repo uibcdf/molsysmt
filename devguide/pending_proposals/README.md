@@ -82,7 +82,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (15)
+### Partially resolved (14)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
@@ -96,7 +96,6 @@ Entries carrying front matter under
 - [`native_query_shortcuts.md`](native_query_shortcuts.md) — [#128](https://github.com/uibcdf/molsysmt/issues/128) — Native objects query their domains without universal form dispatch *(measured)*
 - [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(measured)*
 - [`pilot_ackredit_in_interaction_calculations.md`](pilot_ackredit_in_interaction_calculations.md) — [#27](https://github.com/uibcdf/molsysmt/issues/27) — Pilot Ackredit in interaction calculations *(measured)*
-- [`preserve_atom_correspondence_through_lossy_molecular_exports.md`](preserve_atom_correspondence_through_lossy_molecular_exports.md) — [#223](https://github.com/uibcdf/molsysmt/issues/223) — Preserve atom correspondence through lossy molecular exports *(reproduced)*
 - [`promote_chemical_states_to_a_native_molsys_domain.md`](promote_chemical_states_to_a_native_molsys_domain.md) — [#254](https://github.com/uibcdf/molsysmt/issues/254) — Promote ChemicalStates to an independent native MolSys domain *(measured)*
 - [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
 
