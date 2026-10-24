@@ -21,6 +21,11 @@ class _StructureTools:
         "get_maximum_distances",
         "get_contacts",
         "get_rmsf",
+        "get_minimum_distances",
+        "get_neighbors",
+        "get_symmetry_corrected_rmsd",
+        "get_secondary_structure",
+        "principal_component_analysis",
     )
 
     def __init__(self, owner):
@@ -494,6 +499,218 @@ class _StructureTools:
                 "syntax": syntax,
                 "engine": engine,
                 "heavy_mode": heavy_mode,
+                "parallel": parallel,
+                "num_threads": num_threads,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_minimum_distances", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_minimum_distances(
+        self,
+        selection="all",
+        center_of_atoms=False,
+        weights=None,
+        as_entity=True,
+        structure_indices="all",
+        molecular_system_2=None,
+        selection_2=None,
+        center_of_atoms_2=False,
+        weights_2=None,
+        as_entity_2=True,
+        structure_indices_2=None,
+        pairs=False,
+        pbc=False,
+        engine="MolSysMT",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_minimum_distances",
+            {
+                "selection": selection,
+                "center_of_atoms": center_of_atoms,
+                "weights": weights,
+                "as_entity": as_entity,
+                "structure_indices": structure_indices,
+                "molecular_system_2": molecular_system_2,
+                "selection_2": selection_2,
+                "center_of_atoms_2": center_of_atoms_2,
+                "weights_2": weights_2,
+                "as_entity_2": as_entity_2,
+                "structure_indices_2": structure_indices_2,
+                "pairs": pairs,
+                "pbc": pbc,
+                "engine": engine,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_neighbors", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_neighbors(
+        self,
+        selection="all",
+        structure_indices="all",
+        center_of_atoms=False,
+        weights=None,
+        molecular_system_2=None,
+        selection_2=None,
+        structure_indices_2=None,
+        center_of_atoms_2=False,
+        weights_2=None,
+        threshold=None,
+        n_neighbors=None,
+        pairs=False,
+        unique_pairs=False,
+        mutual_only=False,
+        pbc=True,
+        output_type="numpy.ndarray",
+        output_indices=None,
+        output_structure_indices=None,
+        sorted=True,
+        engine="MolSysMT",
+        syntax="MolSysMT",
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        parameters = {
+            "selection": selection,
+            "structure_indices": structure_indices,
+            "center_of_atoms": center_of_atoms,
+            "weights": weights,
+            "molecular_system_2": molecular_system_2,
+            "selection_2": selection_2,
+            "structure_indices_2": structure_indices_2,
+            "center_of_atoms_2": center_of_atoms_2,
+            "weights_2": weights_2,
+            "threshold": threshold,
+            "n_neighbors": n_neighbors,
+            "pairs": pairs,
+            "unique_pairs": unique_pairs,
+            "mutual_only": mutual_only,
+            "pbc": pbc,
+            "output_type": output_type,
+            "output_indices": output_indices,
+            "output_structure_indices": output_structure_indices,
+            "sorted": sorted,
+            "engine": engine,
+            "syntax": syntax,
+            "parallel": parallel,
+            "num_threads": num_threads,
+            "skip_digestion": skip_digestion,
+        }
+        # Preserve native criterion admission before forwarding wrapper defaults.
+        # An omitted criterion must remain omitted at the native public boundary.
+        for name in ("threshold", "n_neighbors"):
+            if parameters[name] is None:
+                del parameters[name]
+        return self._call("get_neighbors", parameters)
+
+    @_native_documentation("get_symmetry_corrected_rmsd", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_symmetry_corrected_rmsd(
+        self,
+        selection='atom_type!="H"',
+        structure_indices="all",
+        reference_molecular_system=None,
+        reference_selection=None,
+        reference_structure_index=0,
+        chemical_state="reference",
+        reference_chemical_state="reference",
+        correspondences=None,
+        baseline_atom_correspondence=None,
+        method="declared_graph_isomorphism",
+        max_matches=100000,
+        tie_tolerance="1e-12 nm",
+        syntax="MolSysMT",
+        heavy_mode="auto",
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+        *,
+        fixed_atom_correspondence=None,
+        candidate_atom_correspondences=None,
+    ):
+        return self._call(
+            "get_symmetry_corrected_rmsd",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "reference_molecular_system": reference_molecular_system,
+                "reference_selection": reference_selection,
+                "reference_structure_index": reference_structure_index,
+                "chemical_state": chemical_state,
+                "reference_chemical_state": reference_chemical_state,
+                "correspondences": correspondences,
+                "baseline_atom_correspondence": baseline_atom_correspondence,
+                "method": method,
+                "max_matches": max_matches,
+                "tie_tolerance": tie_tolerance,
+                "syntax": syntax,
+                "heavy_mode": heavy_mode,
+                "parallel": parallel,
+                "num_threads": num_threads,
+                "skip_digestion": skip_digestion,
+                "fixed_atom_correspondence": fixed_atom_correspondence,
+                "candidate_atom_correspondences": candidate_atom_correspondences,
+            },
+        )
+
+    @_native_documentation("get_secondary_structure", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_secondary_structure(
+        self,
+        selection="all",
+        structure_indices="all",
+        simplified=True,
+        syntax="MolSysMT",
+        engine="MDTraj",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_secondary_structure",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "simplified": simplified,
+                "syntax": syntax,
+                "engine": engine,
+            },
+        )
+
+    @_native_documentation("principal_component_analysis", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def principal_component_analysis(
+        self,
+        selection="all",
+        structure_indices="all",
+        weights=None,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        use_gpu=None,
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "principal_component_analysis",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "weights": weights,
+                "syntax": syntax,
+                "engine": engine,
+                "use_gpu": use_gpu,
                 "parallel": parallel,
                 "num_threads": num_threads,
                 "skip_digestion": skip_digestion,

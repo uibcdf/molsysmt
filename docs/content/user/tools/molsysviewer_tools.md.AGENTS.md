@@ -43,6 +43,19 @@ separate from shapes and rich-selection/optional-engine limits explicit. Retain
 the source receipts of #441/#442 and actual package-compatibility limits.
 
 Preserve the received maxima/contacts/RMSF paths and their native index, threshold,
-unit and non-editing contracts. Minimum/neighbor wrappers remain pending #444/#445;
-keep the maintainer's requested native pytest matrix visible and do not repair
-scientific forwarding inside the addon. Historical receipts remain immutable.
+unit and non-editing contracts. Preserve the locally received minimum/neighbor
+wrappers, independent weights/reference systems, local endpoint positions and
+native criterion admission. Distinguish working-tree receiving from the provider
+commit, issue closure and published package compatibility. Keep the native pytest
+family matrix visible; never repair scientific forwarding inside the addon.
+Historical receipts remain immutable.
+
+
+Preserve the received structural-analysis readers and their separate contracts.
+Secondary-structure numeric selections address groups and retain native sorted
+unique output; MDTraj is explicit. Symmetry-corrected RMSD retains declared
+chemical prerequisites, RDKit, search-scope bounds and attribution without any
+alignment or periodic repair. PCA retains row eigenvectors, squared-length units,
+weighted population covariance, dense-memory and degeneracy limits. Preserve
+actual provider input/engine qualification; do not normalize or prepare science
+in the addon to conceal a provider defect.

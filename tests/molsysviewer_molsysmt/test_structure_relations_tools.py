@@ -10,7 +10,13 @@ import molsysmt as msm
 
 pytest.importorskip("molsysviewer.system_edits")
 puw = msm.pyunitwizard
-NEW = ("get_maximum_distances", "get_contacts", "get_rmsf")
+NEW = (
+    "get_maximum_distances",
+    "get_contacts",
+    "get_rmsf",
+    "get_minimum_distances",
+    "get_neighbors",
+)
 OLD = (
     "get_distances",
     "get_vectors",
@@ -91,9 +97,8 @@ def test_native_signatures_explicit_namespace_and_validation(view, name):
     assert method.digestion_plan is not None
     assert "current view.molsys" in inspect.getdoc(method)
     assert "not a scene object" in inspect.getdoc(method)
-    assert set(dir(view.addons.molsysmt.structure)) == set(NEW + OLD)
-    assert not hasattr(view.addons.molsysmt.structure, "get_minimum_distances")
-    assert not hasattr(view.addons.molsysmt.structure, "get_neighbors")
+    # The analyses receiving file guards the complete expanded namespace.
+    assert set(NEW + OLD) <= set(dir(view.addons.molsysmt.structure))
     assert not hasattr(view.addons.molsysmt, name)
 
 
@@ -358,8 +363,10 @@ def test_lifetime_primary_override_and_input_preservation(view, name):
     args = dict(selection=[0, 2, 4], structure_indices=SCOPE)
     if name == "get_contacts":
         args.update(threshold="0 nm", selection_2=[1, 3], pbc=False, use_gpu=False)
-    if name == "get_maximum_distances":
+    if name in {"get_maximum_distances", "get_minimum_distances"}:
         args.update(selection_2=[1, 3], pbc=False)
+    if name == "get_neighbors":
+        args.update(selection_2=[1, 3], n_neighbors=1, pbc=False)
     old = coordinates(view).copy()
     state = view.export_state()
     analysis = view.molsys.interactions["preserve"]
@@ -379,7 +386,8 @@ def test_lifetime_primary_override_and_input_preservation(view, name):
         bound(**args, skip_digestion=True)
     with msv.MolSysView() as empty:
         with pytest.raises(ValueError, match="Load a molecular system"):
-            getattr(empty.addons.molsysmt.structure, name)()
+            empty_args = {"n_neighbors": 1} if name == "get_neighbors" else {}
+            getattr(empty.addons.molsysmt.structure, name)(**empty_args)
 
 
 def test_cached_rmsf_reads_pending_data_then_follows_replacement(view):
@@ -398,3 +406,271 @@ def test_cached_rmsf_reads_pending_data_then_follows_replacement(view):
     with msv.demo["dialanine"] as replacement:
         view.load(replacement.molsys, mode="replace")
     same(bound(), msm.structure.get_rmsf(view.molsys))
+
+
+@pytest.mark.parametrize("entity", [(True, True), (False, True), (True, False)])
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+def test_minimum_indices_and_values_match_independent_geometry(view, entity, unit):
+    first, second = [25, 10, 0], [0, 25]
+    matrix = np.linalg.norm(
+        coordinates(view, first)[:, :, None] - coordinates(view, second)[:, None],
+        axis=-1,
+    )
+    if entity == (True, True):
+        indices = np.array([np.unravel_index(x.argmin(), x.shape) for x in matrix])
+        values = matrix.min(axis=(1, 2))
+    else:
+        axis = 2 if entity == (False, True) else 1
+        indices, values = matrix.argmin(axis=axis), matrix.min(axis=axis)
+    args = dict(
+        selection=first,
+        selection_2=second,
+        structure_indices=SCOPE,
+        as_entity=entity[0],
+        as_entity_2=entity[1],
+        pbc=False,
+    )
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        actual = view.addons.molsysmt.structure.get_minimum_distances(**args)
+        same(actual, msm.structure.get_minimum_distances(view.molsys, **args))
+        assert puw.get_unit(actual[1]) == puw.unit(unit)
+    np.testing.assert_array_equal(actual[0], indices)
+    np.testing.assert_allclose(puw.get_value(actual[1], to_unit="nm"), values)
+
+
+@pytest.mark.parametrize("name", ["get_minimum_distances", "get_neighbors"])
+@pytest.mark.parametrize("two_sources", [False, True])
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+def test_repaired_bound_endpoints_keep_independent_weights(
+    view, name, two_sources, unit
+):
+    reference = msm.copy(view.molsys)
+    msm.set(
+        reference,
+        coordinates=msm.get(reference, element="atom", coordinates=True)
+        + puw.quantity([10.0, 0.0, 0.0], "nm"),
+    )
+    second = reference if two_sources else view.molsys
+    first_atoms, second_atoms, second_structures = [0, 2], [10, 25, 4], [0, 2, 0]
+    weights, weights_2 = np.array([1.0, 1.0]), np.array([1.0, 3.0, 2.0])
+    other_xyz = puw.get_value(
+        msm.get(
+            second,
+            element="atom",
+            selection=second_atoms,
+            structure_indices=second_structures,
+            coordinates=True,
+        ),
+        to_unit="nm",
+    )
+    expected = np.linalg.norm(
+        np.average(coordinates(view, first_atoms), axis=1, weights=weights)
+        - np.average(other_xyz, axis=1, weights=weights_2),
+        axis=-1,
+    )
+    args = dict(
+        selection=first_atoms,
+        selection_2=second_atoms,
+        molecular_system_2=reference if two_sources else None,
+        structure_indices=SCOPE,
+        structure_indices_2=second_structures,
+        center_of_atoms=True,
+        center_of_atoms_2=True,
+        weights=weights,
+        weights_2=weights_2,
+        pbc=False,
+    )
+    if name == "get_neighbors":
+        args["n_neighbors"] = 1
+    state, status = view.export_state(), view.addons.molsysmt.get_sync_status()
+    before, other_before = coordinates(view).copy(), other_xyz.copy()
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        result = getattr(view.addons.molsysmt.structure, name)(
+            **args, skip_digestion=True
+        )
+        same(result, getattr(msm.structure, name)(view.molsys, **args))
+        assert puw.get_unit(result[1]) == puw.unit(unit)
+    np.testing.assert_allclose(
+        puw.get_value(result[1], to_unit="nm").reshape(-1), expected
+    )
+    np.testing.assert_array_equal(weights, [1.0, 1.0])
+    np.testing.assert_array_equal(weights_2, [1.0, 3.0, 2.0])
+    np.testing.assert_array_equal(coordinates(view), before)
+    np.testing.assert_array_equal(
+        puw.get_value(
+            msm.get(
+                second,
+                element="atom",
+                selection=second_atoms,
+                structure_indices=second_structures,
+                coordinates=True,
+            ),
+            to_unit="nm",
+        ),
+        other_before,
+    )
+    assert (
+        view.export_state() == state
+        and view.addons.molsysmt.get_sync_status() == status
+    )
+
+
+@pytest.mark.parametrize("kind", ["count", "threshold"])
+@pytest.mark.parametrize("implicit_selection", [False, True])
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+def test_bound_neighbors_use_translated_reference_and_independent_structures(
+    view, kind, implicit_selection, unit
+):
+    reference = msm.copy(view.molsys)
+    msm.set(
+        reference,
+        coordinates=msm.get(reference, element="atom", coordinates=True)
+        + puw.quantity([10.0, 0.0, 0.0], "nm"),
+    )
+    first = [25, 0, 10]
+    second = first if implicit_selection else [4, 2]
+    ref = puw.get_value(
+        msm.get(
+            reference,
+            element="atom",
+            selection=second,
+            structure_indices=[0, 2, 0],
+            coordinates=True,
+        ),
+        to_unit="nm",
+    )
+    matrix = np.linalg.norm(
+        coordinates(view, first)[:, :, None] - ref[:, None], axis=-1
+    )
+    args = dict(
+        selection=first,
+        selection_2=None if implicit_selection else second,
+        structure_indices=SCOPE,
+        structure_indices_2=[0, 2, 0],
+        molecular_system_2=reference,
+        pbc=False,
+    )
+    args.update(n_neighbors=1) if kind == "count" else args.update(threshold="10 nm")
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        actual = view.addons.molsysmt.structure.get_neighbors(**args)
+        native = msm.structure.get_neighbors(view.molsys, **args)
+        assert puw.get_unit(actual[1]) == puw.unit(unit)
+    for s in range(3):
+        for i in range(3):
+            expected = np.argsort(matrix[s, i], kind="stable")
+            expected = (
+                expected[:1]
+                if kind == "count"
+                else expected[matrix[s, i, expected] <= 10]
+            )
+            np.testing.assert_array_equal(actual[0][s, i], expected)
+            np.testing.assert_array_equal(actual[0][s, i], native[0][s, i])
+            np.testing.assert_allclose(
+                puw.get_value(actual[1][s, i], to_unit="nm"), matrix[s, i, expected]
+            )
+
+
+def test_bound_minimum_pair_indices_are_local_and_native(view):
+    first, second = [0, 2, 4], [1, 3, 5]
+    values = np.linalg.norm(
+        coordinates(view, first) - coordinates(view, second), axis=-1
+    )
+    actual = view.addons.molsysmt.structure.get_minimum_distances(
+        selection=first,
+        selection_2=second,
+        structure_indices=SCOPE,
+        pairs=True,
+        pbc=False,
+    )
+    np.testing.assert_array_equal(actual[0], values.argmin(axis=1))
+    np.testing.assert_allclose(
+        puw.get_value(actual[1], to_unit="nm"), values.min(axis=1)
+    )
+
+
+@pytest.mark.parametrize("kind", ["csr", "pairs"])
+def test_bound_neighbor_sparse_outputs_keep_native_atom_identity(view, kind):
+    first, second = [25, 0, 10], [4, 2]
+    matrix = np.linalg.norm(
+        coordinates(view, first)[:, :, None] - coordinates(view, second)[:, None],
+        axis=-1,
+    )
+    args = dict(
+        selection=first,
+        selection_2=second,
+        structure_indices=SCOPE,
+        threshold="0.6 nm",
+        output_type=kind,
+        pbc=False,
+    )
+    if kind == "pairs":
+        args["output_indices"] = "atom"
+    result = view.addons.molsysmt.structure.get_neighbors(**args)
+    same(result, msm.structure.get_neighbors(view.molsys, **args))
+    for s in range(3):
+        expected_pairs, expected_values = [], []
+        for i in range(3):
+            expected = np.argsort(matrix[s, i], kind="stable")
+            expected = expected[matrix[s, i, expected] <= 0.6]
+            if kind == "csr":
+                lo, hi = result[0][s * 3 + i : s * 3 + i + 2]
+                np.testing.assert_array_equal(result[1][lo:hi], expected)
+                np.testing.assert_allclose(
+                    puw.get_value(result[2][lo:hi], to_unit="nm"),
+                    matrix[s, i, expected],
+                )
+            else:
+                expected_pairs.extend([[first[i], second[j]] for j in expected])
+                expected_values.extend(matrix[s, i, expected])
+        if kind == "pairs":
+            order = sorted(range(len(expected_pairs)), key=lambda i: expected_pairs[i])
+            assert result[0][s] == [expected_pairs[i] for i in order]
+            if order:
+                np.testing.assert_allclose(
+                    puw.get_value(result[1][s], to_unit="nm"),
+                    np.asarray(expected_values)[order],
+                )
+            else:
+                assert len(result[1][s]) == 0
+
+
+@pytest.mark.parametrize(
+    "name,args",
+    [
+        (
+            "get_minimum_distances",
+            dict(selection=[0, 1], as_entity=False, as_entity_2=False),
+        ),
+        ("get_minimum_distances", dict(selection=[], selection_2=[1])),
+        ("get_neighbors", dict(selection=[0, 1])),
+        ("get_neighbors", dict(selection=[0, 1], threshold=None, n_neighbors=1)),
+        ("get_neighbors", dict(selection=[0, 1], threshold="1 nm", n_neighbors=1)),
+        ("get_neighbors", dict(selection=[0, 1], n_neighbors=3)),
+        ("get_neighbors", dict(selection=[0, 1], n_neighbors=1, pairs=True)),
+    ],
+)
+def test_bound_distance_family_errors_preserve_view_and_analysis(view, name, args):
+    args["pbc"] = False
+    test_native_errors_leave_scene_sync_and_named_analysis_untouched(view, name, args)
+
+
+@pytest.mark.parametrize("name", ["get_minimum_distances", "get_neighbors"])
+def test_cached_relation_reader_follows_pending_science_and_view_replacement(
+    view, name
+):
+    method = getattr(view.addons.molsysmt.structure, name)
+    args = dict(selection=[0, 2], selection_2=[1, 3], pbc=False)
+    if name == "get_neighbors":
+        args["n_neighbors"] = 1
+    xyz = msm.get(view.molsys, element="atom", selection=[0, 2], coordinates=True)
+    view.addons.molsysmt.basic.set(
+        selection=[0, 2], coordinates=xyz + puw.quantity(0.2, "nm"), update_view=False
+    )
+    status = view.addons.molsysmt.get_sync_status()
+    assert status["state"] == "pending"
+    same(method(**args), getattr(msm.structure, name)(view.molsys, **args))
+    assert view.addons.molsysmt.get_sync_status() == status
+    view.addons.molsysmt.sync_view()
+    with msv.demo["dialanine"] as replacement:
+        view.load(replacement.molsys, mode="replace")
+    same(method(**args), getattr(msm.structure, name)(view.molsys, **args))

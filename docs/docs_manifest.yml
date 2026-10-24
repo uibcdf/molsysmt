@@ -82,7 +82,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental basic tools, eleven topology readers and thirteen structure calculations; received native repairs, scientific references and pending family qualification.
+          description: Experimental basic tools, eleven topology readers and eighteen structure calculations; secondary structure, symmetry RMSD and PCA contracts with explicit native prerequisites and limits.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

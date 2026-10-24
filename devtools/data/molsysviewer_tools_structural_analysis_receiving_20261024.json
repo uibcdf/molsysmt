@@ -1,0 +1,162 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-24",
+  "status": "local_source_receiving_owner_commit_and_exact_head_CI_pending",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#448"
+  ],
+  "provider_base_commit": "5710cc0cff1f3f468823699104e51e6fe029c3b2",
+  "provider_commit_observed_after_regression": "5710cc0cff1f3f468823699104e51e6fe029c3b2",
+  "host_base_commit": "f9a87cb55f9041cffab415fa3b3ddaded54c647a",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "conda_environment": "molsyssuite@uibcdf_3.14",
+    "mdtraj": "1.11.1",
+    "rdkit": "2025.9.5"
+  },
+  "implemented": [
+    "get_symmetry_corrected_rmsd",
+    "get_secondary_structure",
+    "principal_component_analysis"
+  ],
+  "binding": "view.addons.molsysmt.structure with primary current view.molsys via existing serialized reader",
+  "inventory": {
+    "structure_received": 18,
+    "structure_pending_coordinate_changes": 10,
+    "topology_received_at_reviewed_baseline": 11,
+    "addon_python_files": 16
+  },
+  "validation": {
+    "targeted": {
+      "path": "/tmp/msm-viewer-structural-analysis-tools.xml",
+      "sha256": "a258e2ae427946e959a3ce5d6a6798ecb38915a40b882be5fff0e688343770d5",
+      "cases": 44,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "applicable_regression": {
+      "path": "/tmp/msv-structural-analysis-regression.xml",
+      "sha256": "e1894f21e8dcdb56641215dd1dfee64c9f5cc6392f1d3e673553211435183f72",
+      "cases": 1099,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "tests/molsysviewer_molsysmt/",
+      "tests/structure/test_get_symmetry_corrected_rmsd.py",
+      "tests/structure/get_secondary_structure/",
+      "tests/structure/principal_component_analysis/",
+      "tests/structure/test_distance_family_contract.py",
+      "tests/structure/get_distances/test_heavy_endpoints.py",
+      "tests/heavy/test_length_observable_units.py",
+      "tests/topology/get_sequence_identity/test_sequence_source_groups.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-structural-analysis-regression.xml"
+    ],
+    "started": "2026-10-24T21:07:29.474425+00:00",
+    "finished": "2026-10-24T21:11:25.436764+00:00",
+    "source_changes_during_run": [
+      "molsysmt/_version.py"
+    ],
+    "source_change_classification": "Only generated _version.py changed as the scientific owner committed the tested content; scientific and addon bytes stayed fixed. Scientific result version strings retain initial-import provenance.",
+    "examples": {
+      "guide_blocks": 22,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 62
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "ruff": "check and format --check pass",
+    "host_reporting": {
+      "cases": 276,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "junit_sha256": "316a060950261b8fdff729d7f252e02eddac1dd17f8b90654af0c878671e31c7"
+    },
+    "guide_checks": "provider validation and host generated index pass after receiving reconciliation"
+  },
+  "source_sha256": {
+    "molsysmt/_private/rust_backend.py": "f1af60b6ca4073168ad9d59b9a3ca915b2748faaed57db29e7699b0c950154b2",
+    "molsysmt/_private/scientific_attribution.py": "1b8a63fb5f3622b9d0c9679dfa0f4af37dd9ce14d4293d7ab77dc38c9b6a82be",
+    "molsysmt/_rust.abi3.so": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "molsysmt/structure/_symmetry_rmsd.py": "555d56f7e28b51dd65d0365c133e4856a2639572bf9fa0f600b58a33505e2f19",
+    "molsysmt/structure/get_secondary_structure.py": "b1b52914d6c7d9afec98d8b62bbb00c6f60c8d98bbccecacd0e6a338c6885172",
+    "molsysmt/structure/get_symmetry_corrected_rmsd.py": "c7abc237000db5f2f4572cd3c6cc6f3d7880ea21e62b84b7e32ce543480e13c6",
+    "molsysmt/structure/principal_component_analysis.py": "225368163a619a6424964920966a3e20ce3a8f3e66e8cb4a899862bc2a9138e4",
+    "molsysmt/topology/_atom_correspondences.py": "1aa9139a0bf13f417280f9ddd3359c225d5e15a3fc476ef62f9b4fa1946ad51a",
+    "molsysmt/topology/get_atom_correspondences.py": "5cb3b49ee6afc717017c03221d57c7248dada80497fd8cda6138edba9173ccd4",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "c5e3c4961c34ff0f0317e39af7678fbfb0cc65facf44dbb42fd97d9259d28002",
+    "molsysviewer_molsysmt/_geometry.py": "174188ede5bde7993ef2cb8f6bbd50bb5cc93d692aa36619d2d39e67851fa5f5",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "3ce3ca635b2dc1a4bceb2f0bc5679aef6f28d331dfbd0cce011d2c5fec266eb6",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "rust/src/pca.rs": "6bc1f301245851e7458b420b0d692c41d15d5ae57456d191433a639133b38da6",
+    "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py": "5ac77cd27ae0b9f4f740b198cd404f85797370e4777fe7c26e825c51675827aa",
+    "tests/molsysviewer_molsysmt/test_structure_relations_tools.py": "05c56c4c26a81327cec3cb6a4a02d883a8a9c63df8527c76c1529be6b9dd42c1",
+    "tests/structure/test_get_symmetry_corrected_rmsd.py": "ae7626f1cbc0affd9b681e4c4216e061a0c37c81085834388dff44c435794772"
+  },
+  "source_snapshot": "/tmp/msv-structural-analysis-sources-sbj22lpw",
+  "coverage": [
+    "exact native signatures with primary omitted; native and integration-only skip controls distinguished",
+    "MDTraj DSSP simplified/full codes, nonconsecutive repeated structures, sorted unique numeric group selections",
+    "independent NumPy weighted covariance, eigenvalues, orthonormal eigenvectors and covariance reconstruction in nm/angstrom/pm",
+    "declared caffeine chemistry, explicit symmetry candidate maps, direct positional RMSD/raw baselines, constraints and independent references",
+    "cached maps retain detached outputs, search scope and original native software/scientific attribution",
+    "CPU eager/forced projected symmetry delivery; no alignment, preparation or periodic imaging",
+    "saved analyses, regions, coordinates, pending sync state, cached current-primary binding and replacement/close boundaries",
+    "fresh-process addon discovery leaves RDKit and MDTraj unimported"
+  ],
+  "known_native_limitations": [
+    {
+      "issue": "uibcdf/molsysmt#448",
+      "observed": "documented PCA weight list raises Rust TypeError while equivalent float64 ndarray succeeds",
+      "receiving": "default and float64 ndarray CPU weights; wrapper does not repair or normalize native arguments"
+    }
+  ],
+  "limits": [
+    "local editable source is distinct from clean commits and public package compatibility",
+    "no universal memory bound, optional GPU qualification or complete scientific-input certification",
+    "no core runtime, frontend, GUI task panel, coordinate mutation or automatic result attachment added",
+    "native scientific fixes remain with their owner; no package floor, version freeze, tag or release follows"
+  ],
+  "native_fix_follow_up": {
+    "commit": "5710cc0cff1f3f468823699104e51e6fe029c3b2",
+    "closed_issues": [
+      "uibcdf/molsysmt#444",
+      "uibcdf/molsysmt#445"
+    ],
+    "scope": "Owner commit contains the native fixes; original local phase receipts and hashes are preserved. Final addon-head CI and installed artifacts remain separate."
+  }
+}

@@ -11,7 +11,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
-controls, eleven current `topology` analysis readers and thirteen `structure`
+controls, eleven current `topology` analysis readers and eighteen `structure`
 calculations under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
@@ -329,8 +329,9 @@ These direct calculations and numeric/property selectors retain native
 execution dependencies; rich selectors/optional engines have their own routes.
 The earlier wait for the MolSysMT team on uibcdf/molsysmt#441 is satisfied by its
 native repair and new receiving. RMSF is also received after the native #442
-unit fix. Minimum/neighbor wrappers remain pending new native forwarding defects
-uibcdf/molsysmt#444/#445, with the maintainer's requested pytest family matrix.
+unit fix. Minimum/neighbor wrappers now have authorized local receiving of the
+provider changes under uibcdf/molsysmt#444 and uibcdf/molsysmt#445. Their provider
+commit and issue closure remain separate from this working-tree evidence.
 No addon alternative or hidden routing change substitutes for scientific fixes.
 
 
@@ -349,14 +350,61 @@ All calls return science without edits, scene measurements, color scales or
 analysis attachment. Secondary inputs, when native signatures admit them, remain
 explicit and caller-stable. Native units, errors and resource limits apply.
 No host runtime, protocol, scientific algorithm or published dependency floor
-is changed by this receiving. The current structure mirror contains thirteen
-reviewed functions; the other fifteen exports remain pending.
+is changed by this receiving. This earlier relation receipt covered thirteen functions. The local
+minimum/neighbor receipt brought the mirror to fifteen functions; the later
+analysis receipt brings the current total to eighteen, with ten edits pending.
 
 The scientific team owns #444 (independent second-center weights) and #445
 (neighbor second-system forwarding). The maintainer explicitly requests native
 pytest coverage of the distance/neighbor/minimum/maximum contract family, using
 independent numeric/index oracles and cases spanning sources, structures, weights,
 PBC, units, execution modes, representations and errors. These two new wrappers
-stay absent until provider correction/receiving; no guessed route or argument
+have local receiving of those provider corrections; no guessed route or argument
 substitution is used. Original source-only versus installed-package boundaries
 remain intact.
+
+
+## Local minimum and neighbor receiving — 2026-10-24
+
+The maintainer explicitly accepts receiving the provider working tree before its
+commit. Both wrappers preserve native signatures after binding only the primary
+system, including native skip_digestion. Minimum endpoints keep separate weights
+and local reduction/pair positions. Neighbors preserve the auxiliary system,
+its structure correspondence, count/cutoff choices and supported sparse outputs.
+The addon re-scopes the native argument-admission declaration and omits only
+empty criterion defaults during delegation; caller-supplied incompatible
+criteria still fail at admission. No scientific formula or fallback is added.
+
+Tests exercise actual views, NumPy reference geometry, physical units, unequal
+populations, repeated structures, weighted centers, CSR/atom pairs, errors,
+pending edits, replacement/close and scene/analysis preservation. The source
+inventory now has sixteen addon Python files, including the criterion contract.
+The receipt records its original working-tree hashes. The owning scientific
+fixes are now committed as 5710cc0cff1f3f468823699104e51e6fe029c3b2 and
+uibcdf/molsysmt#444 / uibcdf/molsysmt#445 are closed. Addon exact-head CI remains
+separate; no installed artifact, dependency floor or publication is qualified.
+
+
+## Structural-analysis receiving — 2026-10-24
+
+get_symmetry_corrected_rmsd, get_secondary_structure and
+principal_component_analysis use the existing serialized current-primary reader.
+All native parameters remain explicit after primary binding, including reference
+systems, chemical states, constraints and execution choices. Secondary structure
+has only an addon keyword-only skip flag because its native signature has none;
+the other native skip controls are forwarded. Discovery remains lazy for MDTraj
+and RDKit. Eighteen of the reviewed twenty-eight structure exports are received;
+the ten coordinate-changing operations remain pending.
+
+Receive actual DSSP group/structure correspondence and codes, NumPy weighted
+covariance/eigenvalue properties and direct positional geometry over explicit
+chemical maps. Retain native result ownership, quantities, search scope,
+attribution and cache consistency. No analysis attaches automatically or creates
+scene content. No preparation, alignment, molecular edit, default engine change
+or whole-trajectory copy is added by the addon.
+
+PCA's documented list weights fail natively at the Rust boundary under
+uibcdf/molsysmt#448. The qualified route uses default or float64 ndarray weights;
+the native owner supplies validation/normalization. Optional GPU and other
+unexecuted routes retain their own qualification. Source receiving does not
+freeze versions, change published floors or qualify an installed artifact.

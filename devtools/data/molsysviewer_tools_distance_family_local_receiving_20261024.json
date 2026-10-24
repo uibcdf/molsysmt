@@ -1,0 +1,193 @@
+{
+  "schema": "molsysviewer.tools.local_source_receiving@1",
+  "date": "2026-10-24",
+  "status": "local_source_receiving_owner_commit_and_CI_pending",
+  "authorization": "Principal maintainer explicitly accepts receiving MolSysMT working-tree repairs before their forthcoming owner commit.",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#444",
+    "uibcdf/molsysmt#445"
+  ],
+  "provider_base_commit": "3502232d802ee2927f6b6f5d19f0ae045777ecb5",
+  "host_base_commit": "f9a87cb55f9041cffab415fa3b3ddaded54c647a",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "conda_environment": "molsyssuite@uibcdf_3.14"
+  },
+  "implemented": [
+    "view.addons.molsysmt.structure.get_minimum_distances",
+    "view.addons.molsysmt.structure.get_neighbors"
+  ],
+  "inventory": {
+    "structure_received": 15,
+    "structure_pending": 13,
+    "topology_received_at_reviewed_baseline": 11,
+    "addon_python_files": 16
+  },
+  "delegation": {
+    "primary": "current view.molsys via existing serialized reader",
+    "secondary": "native explicit caller-owned source and index axes",
+    "validation": "native skip_digestion forwarded; neighbor criterion-admission declaration reused with addon caller; absent criterion defaults omitted when delegating",
+    "scientific_override": false,
+    "automatic_scene_update": false,
+    "result_attachment": false
+  },
+  "validation": {
+    "targeted": {
+      "path": "/tmp/msm-bound-distance-family-local.xml",
+      "sha256": "91282ef76ed91c93a8ed7a9946bdac1fa995d27d55a13fde798d1a409dd5feac",
+      "cases": 89,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "applicable_regression": {
+      "path": "/tmp/msv-bound-family-regression.xml",
+      "sha256": "9e09132b412b90addd1ee19836280c488b7a93c1a2e8a136950e924afcf74410",
+      "cases": 1001,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "native_family_cases_in_regression": 424,
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "tests/molsysviewer_molsysmt/",
+      "tests/structure/test_distance_family_contract.py",
+      "tests/structure/get_distances/test_heavy_endpoints.py",
+      "tests/heavy/test_length_observable_units.py",
+      "tests/topology/get_sequence_identity/test_sequence_source_groups.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-bound-family-regression.xml"
+    ],
+    "started": "2026-10-24T20:41:53.894325+00:00",
+    "finished": "2026-10-24T20:45:06.133721+00:00",
+    "examples": {
+      "guide_blocks": 19,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 33
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "ruff": "check and format --check pass; eighteen selected files",
+    "source_changes_during_regression": [],
+    "host_reporting": {
+      "cases": 276,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "junit_sha256": "a294a6627d74ccf5d22a4c79d2ac79689cf18271ec70a533936fd59778f3f8fe"
+    },
+    "provider_devguide": "passed on the local tree",
+    "host_queue_index": "current",
+    "post_regression_documentation_examples": {
+      "result": {
+        "guide_blocks": 19,
+        "doctests": {
+          "molsysviewer_molsysmt._structure": {
+            "failed": 0,
+            "attempted": 49
+          },
+          "molsysviewer_molsysmt._topology": {
+            "failed": 0,
+            "attempted": 41
+          }
+        }
+      },
+      "source_sha256": {
+        "molsysmt/structure/get_contacts.py": "3c95b34287d6ea31690bd914d3c914645916f97c26e913085247a04e35dc9144",
+        "molsysmt/structure/get_distances.py": "a6b0613c20b8995d9a9c92fc27a0d1960b3cf28e5932b35be3411568c8d466bb",
+        "molsysmt/structure/get_maximum_distances.py": "ad7a0f8dcd481ff54af3b92c516a823c310383ad8c351129ecc43cd95b691528",
+        "molsysmt/structure/get_minimum_distances.py": "0ac8e2fc9e64478613f5aa394b15d36a6d7a631b94a3d528c3d03cee32db9633",
+        "molsysmt/structure/get_neighbors.py": "3aa0df74e3e68bc7c7221c601496e0d0960f2f87c61fb5b0e07680399d901be9"
+      },
+      "scope": "Later native docstrings and the addon guide; does not replace the earlier scientific regression on its recorded bytes."
+    }
+  },
+  "source_sha256": {
+    "devtools/scripts/viewer_tools_contract.py": "63b77bb1e346520f8422d4d3fbc43b6b7f7be7d88a87c9204c2eb4616960b3a9",
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py": "da52f3fcbf469d7f053d755ff0b9b90e53c2548671adc9b878326ffd365f7a2b",
+    "molsysmt/_private/argdigest/argument/atom_indices.py": "6d0af7f96f7e9d9749f2ff6fb5261d43a64a22434ff72a0855e795f4fd1211e6",
+    "molsysmt/_private/argdigest/argument/group_indices.py": "7a5bcdf21ca1553b21381c20ff0000feee2716aea03639fe1cf0038284ca5f77",
+    "molsysmt/_private/argdigest/function/structure_get_neighbors.py": "c807ddf6fd5256809e02d7e43f423c42689cb943334f38ccec1365761bb61ba5",
+    "molsysmt/_private/weighted_geometry.py": "026728525c1c137568c4a37007cddc9dec12a13b52e37fbc06e1f24ae0e8ca05",
+    "molsysmt/_rust.abi3.so": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "molsysmt/structure/_distance_extrema.py": "519376f5aa638f55dc2355111b722460b1d6b6f118982f0ce6b5ec7456cfa6ca",
+    "molsysmt/structure/_distance_output.py": "a80495242558ba067add457a6223edf58f58a37f422ee04abd638f8582ee4538",
+    "molsysmt/structure/get_contacts.py": "d94db312c0983c277686476c28dced7a096ad9780c905094ea9fb4ed3d3f805c",
+    "molsysmt/structure/get_distances.py": "72687bd75a10b9727929da701c4ea57a9aa95d0a32e269a8724c0c7a2baa3ba5",
+    "molsysmt/structure/get_maximum_distances.py": "e802a53b72b39c203edf71b7687999093a9cf308a6f073bc79be55be591b5f12",
+    "molsysmt/structure/get_minimum_distances.py": "3dc880cd2f1c6a96c30479fd9fc026abf1e18e2456f2c130b7d23d71878b8d8c",
+    "molsysmt/structure/get_neighbors.py": "82a94358cc8e2ef6a417277df3ff0da5a66fcbe5beafde0fec5e230808cde2b9",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "c5e3c4961c34ff0f0317e39af7678fbfb0cc65facf44dbb42fd97d9259d28002",
+    "molsysviewer_molsysmt/_geometry.py": "174188ede5bde7993ef2cb8f6bbd50bb5cc93d692aa36619d2d39e67851fa5f5",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "71f6f959e429bb68a56ec1e11696f36bc0e26f7bd6edb578b845dc5070242f23",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "rust/src/neighbors.rs": "1f16db92ffab113fba8e7f6f3112efc3ad4afe80bad71ee753ca2f238dd716a7",
+    "tests/molsysviewer_molsysmt/test_structure_relations_tools.py": "1eb52f6dee113b3e58546e6ffd64e6bf5465fcf8ced7c59091eeb5ad41783414",
+    "tests/structure/test_distance_family_contract.py": "5f586272c7970f0f4e9482440f00aee09459052e3c231f8b240bef0840cc906c"
+  },
+  "coverage": [
+    "independent NumPy distances/weighted centroids/extremum indices",
+    "nonconsecutive/repeated primary and secondary structure scopes",
+    "translated independent references and implicit secondary selections",
+    "nm/angstrom/pm physical values and native units",
+    "native count/cutoff admission, including explicitly conflicting None criteria",
+    "local positions, explicit pairs, CSR and global atom-pair output",
+    "input, scene, sync status and saved-analysis conservation",
+    "pending edits, cached reader binding, replacement, empty and closed views"
+  ],
+  "limits": [
+    "working-tree hashes qualify local source scope, not a clean commit or published artifacts",
+    "owner commits, hosted exact-head CI and #444/#445 closure remain separate",
+    "no native scientific code is changed by this addon receiving",
+    "no GUI panel, new host runtime/protocol, package floor or release is introduced",
+    "whole-scientific-suite, optional GPU engines and universal RAM limits are not qualified"
+  ],
+  "post_regression_source_updates": {
+    "current_sha256": {
+      "molsysmt/structure/get_contacts.py": "3c95b34287d6ea31690bd914d3c914645916f97c26e913085247a04e35dc9144",
+      "molsysmt/structure/get_distances.py": "a6b0613c20b8995d9a9c92fc27a0d1960b3cf28e5932b35be3411568c8d466bb",
+      "molsysmt/structure/get_maximum_distances.py": "ad7a0f8dcd481ff54af3b92c516a823c310383ad8c351129ecc43cd95b691528",
+      "molsysmt/structure/get_minimum_distances.py": "0ac8e2fc9e64478613f5aa394b15d36a6d7a631b94a3d528c3d03cee32db9633",
+      "molsysmt/structure/get_neighbors.py": "3aa0df74e3e68bc7c7221c601496e0d0960f2f87c61fb5b0e07680399d901be9"
+    },
+    "qualification": "Files changed after the passing regression; the 1001-case receipt remains tied to source_sha256, not automatically transferred to these later bytes. Owner commit and exact-head CI reconciliation remain pending."
+  },
+  "native_fix_follow_up": {
+    "commit": "5710cc0cff1f3f468823699104e51e6fe029c3b2",
+    "closed_issues": [
+      "uibcdf/molsysmt#444",
+      "uibcdf/molsysmt#445"
+    ],
+    "scope": "Owner commit contains the native fixes; original local phase receipts and hashes are preserved. Final addon-head CI and installed artifacts remain separate."
+  }
+}

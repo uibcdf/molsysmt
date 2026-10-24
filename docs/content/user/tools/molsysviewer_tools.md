@@ -22,13 +22,15 @@ The current `view.addons.molsysmt.topology` namespace wraps all eleven native
 exports at the reviewed baseline: bond graphs, covalent blocks/paths, dihedral
 quartets, rings, rigid fragments, rotatable bonds, SMARTS matches, atom
 correspondences, sequence alignment and sequence identity. Native scientific
-limitations remain applicable, including the sequence/group mapping limitation
-below. This receiving is not a certification of every possible input or engine.
+prerequisites and engine limitations remain applicable. The contributing
+source-group mapping repair is received below. This receiving is not a certification of every possible input or engine.
 Topology functions keep their module path; they do not gain invented root aliases.
 The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_vectors`, `get_center`, `get_radius_of_gyration`, `get_angles`,
 `get_dihedral_angles`, `get_rmsd`, `get_least_rmsd`, `get_principal_axes` and
-`get_least_squares_plane`, `get_maximum_distances`, `get_contacts` and `get_rmsf`.
+`get_least_squares_plane`, `get_maximum_distances`, `get_contacts`, `get_rmsf`,
+`get_minimum_distances`, `get_neighbors`, `get_symmetry_corrected_rmsd`,
+`get_secondary_structure` and `principal_component_analysis`.
 Results retain native quantities, arrays and metadata;
 coordinate-changing operations remain outside this received slice.
 
@@ -685,11 +687,135 @@ analysis. Prepare the intended common coordinate frame explicitly when that is
 the scientific question. Current heavy-mode physical units are received against
 independent variance calculations; no alternate formula is implemented here.
 
-`get_minimum_distances` and `get_neighbors` remain pending new scientific-owner
-repairs: independent second-center weights
-([#444](https://github.com/uibcdf/molsysmt/issues/444)) and explicit second-system
-neighbor inputs ([#445](https://github.com/uibcdf/molsysmt/issues/445)). The
-maintainer requests a native pytest contract matrix across the four distance/
-neighbor/extrema tools before consolidating that family. Existing fixed issues
-are retained as history; these two new defects are not repaired by addon-side
-parameter substitutions. Other unlisted structure operations remain unreceived.
+## Querying minima and neighborhoods
+
+```python
+with msv.demo['pentalanine'] as view:
+    structure = view.addons.molsysmt.structure
+    nearest_positions, minimum_distances = structure.get_minimum_distances(
+        selection=[25, 10, 0], selection_2=[4, 2],
+        structure_indices=[2, 0, 2], pbc=False,
+    )
+    nearest_neighbors, neighbor_distances = structure.get_neighbors(
+        selection=[25, 10, 0], selection_2=[4, 2],
+        structure_indices=[2, 0, 2], n_neighbors=1, pbc=False,
+    )
+    within_cutoff, cutoff_distances = structure.get_neighbors(
+        selection=[25, 10, 0], selection_2=[4, 2],
+        structure_indices=[2, 0, 2], threshold='0.6 nm', pbc=False,
+    )
+```
+
+{doc}`structure/get_minimum_distances` returns positions local to the selected
+populations or explicit pair list, plus length quantities. The entity flags
+choose which population axes are reduced. Independent `weights` and `weights_2`
+retain their native meaning when computing centers. No endpoint indices are
+silently converted into global atom indices.
+
+{doc}`structure/get_neighbors` accepts exactly one search criterion: `threshold`
+or `n_neighbors`. Its ordinary array output gives target positions relative to
+the second selected population, with fixed-size count results or ragged cutoff
+results. Native supported pairs/atom-index and CSR outputs remain available;
+unsupported combinations retain native errors. Self-exclusion applies according
+to the native source/selection identity contract, not simply to every zero
+distance. An explicit `molecular_system_2` remains caller-owned and can use its
+own selection and matching structure-index list. Matching index values do not
+make two different sources the same system.
+
+The wrappers reuse the native criterion-admission contract before forwarding
+defaults, so an omitted search criterion stays omitted. They do not choose a
+cutoff, count, engine or alternative scientific route. Both tools read the
+current primary MolSys, including pending managed edits, without synchronizing
+the scene, adopting data or attaching an analysis.
+
+The fixes tracked by [#444](https://github.com/uibcdf/molsysmt/issues/444) and
+[#445](https://github.com/uibcdf/molsysmt/issues/445) are committed in the native
+owner and have source receiving in the addon. This is not a published-package
+compatibility claim. The original working-tree evidence and follow-up are retained
+in the receiving record. Other unlisted
+structure operations remain unreceived.
+
+
+## Assigning secondary structure
+
+```python
+with msv.demo['pentalanine'] as view:
+    codes = view.addons.molsysmt.structure.get_secondary_structure(
+        selection=[3, 1, 3], structure_indices=[2, 0, 2],
+        simplified=True, engine='MDTraj',
+    )
+```
+
+{doc}`structure/get_secondary_structure` uses MDTraj's DSSP implementation.
+MDTraj must be available for this explicitly selected route. Codes belong to
+groups, with structures on the first output axis. Unlike atom-population metric
+queries, numeric selections here address group indices. The native selected
+groups are unique and ordered by group index; the example returns groups 1 and
+3. Simplified codes are H, E, C and NA; full codes retain DSSP distinctions and
+nonprotein groups retain NA. The wrapper does not color or annotate the scene.
+Its extra keyword-only skip_digestion controls addon digestion only; native
+scientific validation still runs. No second engine is silently selected.
+
+## Comparing chemically equivalent poses
+
+```python
+import molsysmt as msm
+
+# You explicitly provide chemistry suitable for the declared matching method.
+molsys = msm.convert(msm.systems['caffeine']['caffeine.sdf'], to_form='rdkit.Mol')
+with msv.new_view(molsys) as view:
+    matches = view.addons.molsysmt.topology.get_atom_correspondences()
+    pose = view.addons.molsysmt.structure.get_symmetry_corrected_rmsd(
+        selection='all', correspondences=matches, structure_indices=[0], heavy_mode='off',
+    )
+```
+
+{doc}`structure/get_symmetry_corrected_rmsd` returns the native result dictionary:
+length-valued RMSD, selected structures, winning correspondence indices,
+near-optimal counts, search scope, method/software and scientific attribution.
+The correspondence table is shared across observations rather than copied for
+every structure. The dictionary retains detached native result ownership.
+RDKit and sufficient declared chemical context are prerequisites; the addon
+does not infer missing chemistry or add hydrogens.
+
+Keep reference systems, populations and reference structure indices explicit
+when needed. Cached correspondences must still match the current chemistry.
+Anchors and supplied candidate maps restrict the scientific search scope; the
+result need not be the unrestricted chemical minimum. A raw baseline is computed
+only when its correspondence is explicitly provided. No fitting, centering,
+rotation or periodic imaging occurs: compare poses in the intended common
+coordinate frame. Native bounds and experimental method classification remain
+visible; this wrapper does not promote the method's scientific stability.
+
+## Computing principal components
+
+```python
+import numpy as np
+
+with msv.demo['pentalanine'] as view:
+    eigenvectors, eigenvalues = view.addons.molsysmt.structure.principal_component_analysis(
+        selection=[0, 2, 4], structure_indices=[2, 0, 2],
+        weights=np.array([1., 3., 2.]), use_gpu=False,
+    )
+```
+
+{doc}`structure/principal_component_analysis` returns one eigenvector per row,
+ordered by descending eigenvalue. Features contain all selected x coordinates,
+then y, then z. Eigenvalues retain squared-length units, normally nm**2.
+Numeric weights scale the centered covariance as defined by the native method;
+they are not normalized or reinterpreted by the wrapper. Eigenvector signs and
+bases within degenerate subspaces are not unique. Use covariance reconstruction
+or subspace comparisons instead of requiring identical degenerate vectors.
+
+PCA centers features over the requested structures; it does not align molecular
+structures, edit coordinates, project the trajectory or draw modes. Prepare the
+scientifically intended coordinate frame explicitly. The native covariance is
+dense in 3*n_atoms features, so this is not a general bounded-memory trajectory
+API. CPU use_gpu=False is qualified here; optional GPU execution has separate
+requirements.
+
+Use float64 NumPy arrays for explicit numeric weights in the received CPU route.
+Native list/tuple normalization is tracked by
+[#448](https://github.com/uibcdf/molsysmt/issues/448); the reproduced list call
+currently raises a native TypeError. The wrapper forwards these arguments
+unchanged rather than adding a private scientific normalization rule.

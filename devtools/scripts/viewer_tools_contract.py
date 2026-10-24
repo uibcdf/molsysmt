@@ -21,6 +21,7 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_private/normalization.py",
         "molsysviewer_molsysmt/_private/function/__init__.py",
         "molsysviewer_molsysmt/_private/function/basic_set.py",
+        "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py",
         "molsysviewer_molsysmt/_private/argument/__init__.py",
         "molsysviewer_molsysmt/_private/argument/skip_digestion.py",
         "molsysviewer_molsysmt/_private/argument/update_view.py",
