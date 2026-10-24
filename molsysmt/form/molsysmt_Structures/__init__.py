@@ -28,6 +28,7 @@ from .iterators import StructuresIterator  # noqa: E402
 # isort: on
 
 _convert_to = {
+    "molsysmt.MolSys": "to_molsysmt_MolSys",
     "molsysmt.Structures": "to_molsysmt_Structures",
     "file:h5msm": "to_file_h5msm",
     "file:structures_yaml": "to_file_structures_yaml",

@@ -39,7 +39,7 @@ sections:
           - name: structures
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
-            description: Aligned structural series, protected geometry, independent copies, weak owner notification and shape-only representations.
+            description: Aligned structural series, protected geometry, independent copies, shape-only representations and chemistry-free embedding in MolSys.
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md

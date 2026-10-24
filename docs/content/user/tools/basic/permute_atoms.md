@@ -48,6 +48,18 @@ molsys_restored = msm.permute_atoms(molsys_reordered,
 assert molsys_restored.topology.atoms.atom_id.tolist() == molsys.topology.atoms.atom_id.tolist()
 ```
 
+Standalone native `Structures` also has a general conversion to a partial MolSys:
+
+```python
+molsys_structural = msm.convert(molsys.structures, to_form='molsysmt.MolSys')
+assert molsys_structural.topology is None and molsys_structural.chemical_states is None
+molsys_structural_reordered = msm.permute_atoms(molsys.structures, order)
+assert molsys_structural_reordered.get_n_atoms() == 24
+```
+
+The conversion keeps chemistry absent and copies independent domain handles over
+protected geometry. Explicit selections use native structural extraction.
+
 ## Preserving domains
 
 Only the atom axis changes. Group, chain, molecule, entity, component, bond,

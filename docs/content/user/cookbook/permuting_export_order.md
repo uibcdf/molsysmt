@@ -29,6 +29,11 @@ scientific assignment. Keep the original preparation/export reports; their axes
 remain historical. Use {func}`molsysmt.basic.compose_atom_maps` to compose the
 new transform at its actual position in a workflow.
 
+If only structural data is available, the same permutation accepts native
+`Structures` directly. Its reusable conversion to MolSys keeps Topology and
+ChemicalStates absent; see
+{ref}`user-foundations-native-world-classes-molsysmt-structures`.
+
 ## Restoring and saving
 
 ```python

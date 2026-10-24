@@ -238,3 +238,25 @@ no missing hydrogens, chemical bonds or coordinates. Symmetry discovery remains
 uibcdf/molsysmt#310. Out-of-core transforms and extension remapping require a
 separate demonstrated need. No package/tag/Release or installed-candidate
 qualification is included in this delivery.
+
+
+### Standalone structural embedding completion — 2026-10-24
+
+An additional public-form check found that native Structures lacked a direct
+conversion to MolSys, although a structures-only MolSys was already supported.
+The general owning adapter now supplies that conversion rather than putting a
+special case inside permute_atoms. It preserves absent topology/chemistry,
+independent metadata and full-axis protected geometry sharing; selected axes
+reuse native structural extraction. Its separate guard is
+`tests/form/molsysmt_Structures/test_to_molsysmt_MolSys.py`, including use through
+the public permutation. The four independent RDKit stereo comparisons are
+conditional on that optional provider; all execute in the development environment.
+The original twenty-five-atom DockingMT #369 reproduction also passes as a
+read-only consumer-fixture check; this does not qualify its producer migration.
+
+The final embedding/profile selection passes 190 tests and doctests in 9.01 s
+with twelve workers and no skips or warnings. The existing declared-capability
+preflight profile is activated for this edge only after testing all declared
+structural series and sparse metadata with full and selected axes. No accepted
+non-exhaustive-debt baseline is enlarged. Ruff lint and formatting cover the
+whole repository; the updated HTML documentation compiles successfully.

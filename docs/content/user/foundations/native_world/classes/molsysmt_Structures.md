@@ -160,3 +160,14 @@ See {ref}`API Native Queries` for resident-object queries and
 ## Native Queries
 
 Use `structures.get(element="atom", selection=[...], structure_indices=[...], coordinates=True)` for selected quantities. Existing `get_coordinates()`, `get_box()` and `get_time()` remain available. General get/info options and output units follow the basic query contract. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.
+
+## Domain Embedding
+
+`msm.convert(structures, to_form='molsysmt.MolSys')` embeds an independent
+structural domain without inventing Topology or ChemicalStates. Full-axis
+conversion shares protected immutable geometry through separate handles;
+mutable metadata remains independent. Explicit atom/structure selections follow
+native structural extraction. Units, boxes, times and structural series retain
+their native contracts. This route also allows
+{func}`molsysmt.basic.permute_atoms` to operate directly on standalone Structures.
+An undeclared atom axis remains undeclared; embedding does not infer identities.
