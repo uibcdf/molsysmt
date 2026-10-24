@@ -243,8 +243,8 @@ def test_angles_and_named_or_explicit_dihedrals_keep_angle_policy(
 def test_forced_routes_and_length_policy_are_forwarded_without_hidden_corrections(
     view, name
 ):
-    # Parity only: native forced-distance endpoints and forced-Rg alternate
-    # length units have owning defects #441/#440, not scientific qualification.
+    # Native mode forwarding remains covered; repaired endpoint/unit routes
+    # have independent receiving in test_structure_relations_tools.py.
     args = dict(selection=[0, 2, 4], structure_indices=SCOPE, heavy_mode="force")
     if name in {"get_distances", "get_vectors"}:
         args.update(selection_2=[1, 3], pbc=False)

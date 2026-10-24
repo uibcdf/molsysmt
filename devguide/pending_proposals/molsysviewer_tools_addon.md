@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, ten structure calculations and sync controls
+all eleven current topology readers, thirteen structure calculations and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -464,3 +464,37 @@ That evidence is retained under its scope; new exact-head receiving remains
 pending for these four readers. The overall addon and Viewer receiving remain
 partial, with other namespaces, mutations, graphical panels and clean installed
 compatibility unfinished. No freeze, tag or release is authorized by this work.
+
+
+## Native fixes received and three relation readers — 2026-10-24
+
+The native fixes for #439/#440/#441/#442 are closed and now have bound receiving.
+Source bae6d0101 repairs distance endpoints; 1123eeb7d repairs observable units and
+sequence source groups, with the keyword-only native flag qualified at bc2142831.
+The provider already updated the bound identity flag. This delivery adds no
+scientific correction or hidden routing/unit change.
+
+New explicit structure wrappers cover get_maximum_distances, get_contacts and
+get_rmsf with native signatures/results and the current primary system implicit.
+The [source receipt](../../devtools/data/molsysviewer_tools_relations_receiving_20261024.json)
+records 47 focused cases, a single 535-case applicable regression, eighteen guide
+blocks and 74 native-context docstring examples. Independent coordinate/variance,
+threshold and argmax/index references protect physical values and source domains.
+Ruff and developer-guide checks pass. The source/wheel/sdist inventory remains
+fifteen addon Python files; Modules 13/16 gain current receiving prose only,
+preserving executable cells/outputs. Earlier receipts remain historical evidence.
+
+Native minimum second-center weighting and neighbor second-system forwarding
+still fail independent reproductions. With explicit authorization, they are
+reported as uibcdf/molsysmt#444 and #445; those wrappers remain absent pending
+scientific-owner fixes. The maintainer explicitly requested a pytest contract
+matrix for get_distances/get_neighbors/get_minimum_distances/get_maximum_distances
+in both issue comments, including independent numeric/index oracles and critical
+parameter/path combinations. This bounded receiving does not claim to complete
+that native family review. The structure inventory accounts for thirteen received
+and fifteen pending exports; overall #421 and uibcdf/molsysviewer#264 remain partial.
+
+Provider CI smoke 40123084475 passes on bc2142831 for the repaired earlier readers.
+New exact-head CI remains pending for this delivery. Optional engines/GPU,
+universal RAM bounds, general edits, panels and installed artifact qualification
+retain their separate scopes. No freeze, tag, Release or package publication.

@@ -26,18 +26,23 @@ Do not advertise unreceived topology functions or invent root aliases.
 
 Preserve the eleven explicitly received topology exports at the reviewed baseline,
 with optional RDKit/Biopython routes, chemistry prerequisites, search limits and
-native independent reference ownership. Keep the known sequence/group-axis
-limitation linked to its owning issue until a native fix is received; do not
-hide it with an addon-specific formula or implicit filtering/preparation.
+native independent reference ownership. The native sequence/group fix is now
+received: preserve contributing source-group mapping and the declared native
+keyword-only validation flag without an addon-specific identity formula.
 
-Preserve the six received structure readers, native physical quantities,
+Preserve the received structure readers, native physical quantities,
 independent secondary systems, output metadata and explicit periodic/weight/engine
 choices. Never treat centers as coordinate edits or silently correct native
-heavy routes. Keep #440/#441 visible until native fixes are actually received;
-distinguish numerical references on supported routes from mere native parity.
+heavy routes. Preserve the received native endpoint/unit fixes with independent
+numeric checks; distinguish scientific references from mere native parity.
 
 Preserve the four additional independent structure readers: raw/minimum RMSD,
 principal axes and least-squares planes. Minimum RMSD does not fit either input
 in place. Keep references caller-owned, axis/moment arrays native, plane results
 separate from shapes and rich-selection/optional-engine limits explicit. Retain
-#441 ownership/waiting and pending RMSF #442 until actual provider receiving.
+the source receipts of #441/#442 and actual package-compatibility limits.
+
+Preserve the received maxima/contacts/RMSF paths and their native index, threshold,
+unit and non-editing contracts. Minimum/neighbor wrappers remain pending #444/#445;
+keep the maintainer's requested native pytest matrix visible and do not repair
+scientific forwarding inside the addon. Historical receipts remain immutable.

@@ -11,7 +11,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
-controls, eleven current `topology` analysis readers and ten `structure`
+controls, eleven current `topology` analysis readers and thirteen `structure`
 calculations under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
@@ -278,10 +278,11 @@ dependency checks remain at their native runtime boundaries.
 Correspondence and sequence references remain explicit, caller-stable inputs.
 A native None correspondence reference retains its self-reference behavior.
 There is no auxiliary-view lock or implicit coordinate fit/adoption. Sequence
-prettyprint retains native stdout/None behavior. get_sequence_identity lacks a
-declared native skip flag: its addon keyword controls only addon digestion.
-Native sequence/group-axis mismatch uibcdf/molsysmt#439 remains visible; source
-parity is not certification of that scientific result or a wrapper formula fix.
+prettyprint retains native stdout/None behavior. Current get_sequence_identity
+declares a keyword-only native skip flag, forwarded by the bound method without
+changing historical positional slots. Native contributing-group mapping under
+uibcdf/molsysmt#439 is repaired and received. Earlier source limitations remain
+in dated receipts; the addon never implemented a competing identity formula.
 
 
 ## Initial geometric structure readers — 2026-10-23
@@ -300,13 +301,12 @@ not repurposed for addon controls: the added keyword-only skip_digestion is not
 forwarded to the native helper, which lacks a declared flag. Native validation
 still runs. Other native escape hatches remain explicit native parameters.
 
-Known heavy-mode defects uibcdf/molsysmt#440/#441 are preserved and visibly
-reported, not silently corrected by changing routing, units or formulas. Native
-parity for those affected routes does not qualify numerical correctness. Source
-examples explicitly choose eager mode for affected small-system calculations;
-that is not a large-system memory guarantee. Optional GPU/alternate engines,
-remaining structure exports and coordinate-changing operations need separate
-receiving. No new host runtime, public API or frontend transport is needed here.
+Native heavy endpoint/unit fixes under uibcdf/molsysmt#440/#441/#442 are now
+received from their scientific owner, including independent physical references
+and explicit nm/angstrom/pm contexts. Earlier parity-only limits remain in their
+dated receipts. No addon unit/formula or routing correction is introduced.
+Optional GPU/alternate engines, universal memory bounds and coordinate-changing
+operations need separate receiving; no new host runtime/API is needed.
 
 
 ## Independent structural comparison and fitting readers — 2026-10-23
@@ -316,8 +316,8 @@ get_least_squares_plane through the existing serialized reader. They preserve
 native signatures, return quantities/arrays/dictionaries and reference inputs.
 Raw RMSD does not fit coordinates; minimum RMSD optimizes a temporary comparison
 without transforming either input. References stay caller-stable, with native
-selection/reference-index defaults, not an auxiliary-view transaction. Its
-missing native skip parameter is handled by an addon-only keyword, never forwarded.
+selection/reference-index defaults, not an auxiliary-view transaction. The native
+get_rmsd signature lacks a skip parameter; its addon-only keyword is never forwarded.
 
 Axes retain native numeric moments, ascending eigenvalues, row basis and
 sign/degenerate-subspace semantics. Plane results retain sparse memberships,
@@ -325,10 +325,38 @@ source structure order, typed empties and native quantity/normal fields. Fitting
 a plane does not create a shape, certify chemistry or unwrap periodic groups.
 No source/scene edit, automatic attachment or new host runtime follows.
 
-The reviewed direct calculations and numeric/property selectors avoid the
-get_distances path affected by uibcdf/molsysmt#441. General rich selectors and
-optional engines retain their own dependencies. The maintainer requires waiting
-for the MolSysMT scientific team to fix #441; min/max/contact/neighbor wrappers
-remain pending, with no addon alternative or hidden routing correction. RMSF
-also remains unreceived after native forced-unit issue uibcdf/molsysmt#442.
-Other scientific corrections remain with their owning team.
+These direct calculations and numeric/property selectors retain native
+execution dependencies; rich selectors/optional engines have their own routes.
+The earlier wait for the MolSysMT team on uibcdf/molsysmt#441 is satisfied by its
+native repair and new receiving. RMSF is also received after the native #442
+unit fix. Minimum/neighbor wrappers remain pending new native forwarding defects
+uibcdf/molsysmt#444/#445, with the maintainer's requested pytest family matrix.
+No addon alternative or hidden routing change substitutes for scientific fixes.
+
+
+## Repaired observables and relation readers — 2026-10-24
+
+The source receives the native fixes from bae6d0101 and 1123eeb7d through
+bc2142831, including the native keyword-only sequence flag. Existing get_distances,
+radius and identity readers gain independent regression coverage; new explicit
+get_maximum_distances, get_contacts and get_rmsf wrappers use the same serialized
+primary reader. Maxima retain native local endpoint positions/reduction semantics;
+its extra skip_digestion keyword is addon-only. Contacts retain threshold units,
+cell-list/dense choices and boolean/pair outputs. RMSF returns fluctuations in
+the supplied coordinate frame, with no hidden alignment or coordinate wrapping.
+
+All calls return science without edits, scene measurements, color scales or
+analysis attachment. Secondary inputs, when native signatures admit them, remain
+explicit and caller-stable. Native units, errors and resource limits apply.
+No host runtime, protocol, scientific algorithm or published dependency floor
+is changed by this receiving. The current structure mirror contains thirteen
+reviewed functions; the other fifteen exports remain pending.
+
+The scientific team owns #444 (independent second-center weights) and #445
+(neighbor second-system forwarding). The maintainer explicitly requests native
+pytest coverage of the distance/neighbor/minimum/maximum contract family, using
+independent numeric/index oracles and cases spanning sources, structures, weights,
+PBC, units, execution modes, representations and errors. These two new wrappers
+stay absent until provider correction/receiving; no guessed route or argument
+substitution is used. Original source-only versus installed-package boundaries
+remain intact.

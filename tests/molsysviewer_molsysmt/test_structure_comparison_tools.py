@@ -76,10 +76,9 @@ def test_explicit_namespace_native_signature_help_and_digestion(view, name):
     assert bound.digestion_plan is not None
     assert "not a scene object" in inspect.getdoc(bound)
     assert "\nmolecular_system :" not in inspect.getdoc(bound)
-    assert set(dir(view.addons.molsysmt.structure)) == set(NAMES + PREVIOUS)
+    assert set(NAMES + PREVIOUS) <= set(dir(view.addons.molsysmt.structure))
     assert not hasattr(view.addons.molsysmt, name)
     assert not hasattr(view.addons.molsysmt.structure, "least_rmsd_fit")
-    assert not hasattr(view.addons.molsysmt.structure, "get_rmsf")
     if name == "get_rmsd":
         assert "declared skip_digestion parameter" in inspect.getdoc(bound)
 

@@ -28,7 +28,8 @@ Topology functions keep their module path; they do not gain invented root aliase
 The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_vectors`, `get_center`, `get_radius_of_gyration`, `get_angles`,
 `get_dihedral_angles`, `get_rmsd`, `get_least_rmsd`, `get_principal_axes` and
-`get_least_squares_plane`. Results retain native quantities, arrays and metadata;
+`get_least_squares_plane`, `get_maximum_distances`, `get_contacts` and `get_rmsf`.
+Results retain native quantities, arrays and metadata;
 coordinate-changing operations remain outside this received slice.
 
 Other scientific modules, editing families and graphical task panels
@@ -451,13 +452,13 @@ with msv.demo['pentalanine'] as view:
 {doc}`topology/get_sequence_alignment` preserves the native strings, engine,
 alignment index and prettyprint branch, which prints and returns None.
 {doc}`topology/get_sequence_identity` returns the native percentage and matched
-source group lists. It currently needs explicit sequence-contributing group
-selections for capped/mixed systems: default 'all' on bundled capped pentalanine
-counts caps in the denominator and shifts matched source indices
-([MolSysMT #439](https://github.com/uibcdf/molsysmt/issues/439)). The addon
-preserves this native limitation and never silently substitutes another formula.
-The identity helper lacks a declared native skip_digestion parameter; its addon
-flag controls only addon digestion, leaving native public validation active.
+source group lists. Current source resolves groups that actually contribute
+sequence letters, so capped pentalanine self-comparison is 100 percent and
+returns source groups [1, 2, 3, 4, 5]. Native empty/pre-gapped selection errors
+remain explicit. The repaired native helper declares keyword-only skip_digestion;
+the bound method forwards it, preserving all six historical native positional
+slots. This is native receiving of
+[#439](https://github.com/uibcdf/molsysmt/issues/439), not an addon identity formula.
 No sequence result edits topology, fits coordinates or selects scene objects.
 
 ## Reusing tool references
@@ -533,16 +534,15 @@ length quantity per selected structure. Neither aligns, unwraps or prepares
 coordinates. Inspect or explicitly convert physical units with PyUnitWizard;
 the addon does not convert quantities to bare arrays or impose display units.
 
-:::{warning}
-Native forced/automatic chunking has two known source defects awaiting provider
-receiving: radius of gyration can relabel nm values under alternate length units
-([#440](https://github.com/uibcdf/molsysmt/issues/440)), and same-system distances
-can discard the second selection ([#441](https://github.com/uibcdf/molsysmt/issues/441)).
-These affected routes are not scientifically qualified by addon parity tests.
-The examples explicitly use heavy_mode='off' for those operations on this small
-demo. That choice does not guarantee a large calculation fits memory. No hidden
-routing override or unit/formula correction is performed by the addon.
-:::
+The current source repairs native heavy endpoint populations and physical-unit
+attribution for distances, radius of gyration and RMSF
+([#441](https://github.com/uibcdf/molsysmt/issues/441),
+[#440](https://github.com/uibcdf/molsysmt/issues/440),
+[#442](https://github.com/uibcdf/molsysmt/issues/442)). These repairs are checked
+from the addon against independent geometry and fluctuation references across
+nm/angstrom/pm contexts and repeated structure scopes. No hidden mode or unit
+correction is added by the addon. Native output/resource limits still apply;
+source receiving does not qualify older published packages.
 
 ```python
 with msv.demo['pentalanine'] as view:
@@ -570,9 +570,8 @@ Backend, periodic and streaming behavior stays native; optional GPU routes were
 not qualified by these CPU receiving examples. Chunked input processing does
 not guarantee constant memory, and returned outputs can still scale with the
 requested atom pairs and structures. These are calculations, not automatic
-scene measurements or coordinate edits. Remaining structure exports, including
-RMSF, fitting transformations and other unlisted tools still need individual
-addon receiving.
+scene measurements or coordinate edits. Fitting transformations and other
+unlisted structure tools still need individual addon receiving.
 
 
 ## Comparing structures without modifying their coordinates
@@ -642,13 +641,55 @@ retain their native rejection; no hidden unwrapping or fabricated normal follows
 An explicit empty structure scope retains native typed empty outputs. Plane
 normals describe unoriented planes; a deterministic sign is not temporal continuity.
 
-These four metric/fitting routes do not call the affected distance-matrix path
-in the reviewed numeric/property-selection scenarios. Rich selection syntaxes
-and optional engines keep their own native execution dependencies; this is not
-a blanket certification of every selector. Distance-based min/max/contact/neighbor
-wrappers remain pending while the owner addresses
-[#441](https://github.com/uibcdf/molsysmt/issues/441). The addon supplies no
-alternative distance implementation or hidden route change. RMSF also remains
-unreceived after a separate forced-unit discrepancy was reported as
-[#442](https://github.com/uibcdf/molsysmt/issues/442); its scientific team owns
-the correction, alongside the previously documented native issues.
+These metric/fitting queries preserve native selection/backend dependencies;
+their numeric/property-selection receiving is not a blanket certification of
+every selector or optional engine. Additional scientific calculations remain
+separate from coordinate fitting, scene measurements and molecular preparation.
+
+
+## Receiving maxima, contacts and fluctuations
+
+```python
+with msv.demo['pentalanine'] as view:
+    structure = view.addons.molsysmt.structure
+    farthest_positions, farthest_distances = structure.get_maximum_distances(
+        selection=[25, 10, 0], selection_2=[0, 25],
+        structure_indices=[2, 0, 2], as_entity=True, as_entity_2=False, pbc=False,
+    )
+    contact_map = structure.get_contacts(
+        selection=[0, 10, 25], selection_2=[1, 14, 27],
+        structure_indices=[2, 0, 2], threshold='0.6 nm',
+        pbc=False, cell_list=True, use_gpu=False,
+    )
+    fluctuations = structure.get_rmsf(
+        selection='backbone', structure_indices=[2, 0, 2], heavy_mode='force',
+    )
+```
+
+{doc}`structure/get_maximum_distances` returns native endpoint positions and a
+length quantity. Its positions are local to the selected populations or pair
+list, not automatically global atom indices. `as_entity` and `as_entity_2`
+retain native reduction semantics. The extra keyword-only skip_digestion on
+this wrapper controls addon digestion only; the native helper has no declared
+flag and still validates scientific arguments.
+
+{doc}`structure/get_contacts` retains threshold quantities, native dense/cell-list
+choices, pairs/maps and supported source-index mapping. It returns scientific
+booleans or pair lists without drawing contacts. Optional GPU execution has not
+been qualified by these CPU examples. Native errors and memory limits remain
+native; a dense contact map can still scale with both endpoint populations.
+
+{doc}`structure/get_rmsf` returns one length per selected atom. It does not align
+structures, unwrap coordinates, create a color scale or attach a scientific
+analysis. Prepare the intended common coordinate frame explicitly when that is
+the scientific question. Current heavy-mode physical units are received against
+independent variance calculations; no alternate formula is implemented here.
+
+`get_minimum_distances` and `get_neighbors` remain pending new scientific-owner
+repairs: independent second-center weights
+([#444](https://github.com/uibcdf/molsysmt/issues/444)) and explicit second-system
+neighbor inputs ([#445](https://github.com/uibcdf/molsysmt/issues/445)). The
+maintainer requests a native pytest contract matrix across the four distance/
+neighbor/extrema tools before consolidating that family. Existing fixed issues
+are retained as history; these two new defects are not repaired by addon-side
+parameter substitutions. Other unlisted structure operations remain unreceived.

@@ -18,6 +18,9 @@ class _StructureTools:
         "get_least_rmsd",
         "get_principal_axes",
         "get_least_squares_plane",
+        "get_maximum_distances",
+        "get_contacts",
+        "get_rmsf",
     )
 
     def __init__(self, owner):
@@ -369,6 +372,130 @@ class _StructureTools:
                 "pbc": pbc,
                 "syntax": syntax,
                 "heavy_mode": heavy_mode,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_maximum_distances", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_maximum_distances(
+        self,
+        selection="all",
+        center_of_atoms=False,
+        weights=None,
+        as_entity=True,
+        structure_indices="all",
+        molecular_system_2=None,
+        selection_2=None,
+        center_of_atoms_2=False,
+        weights_2=None,
+        as_entity_2=True,
+        structure_indices_2=None,
+        pairs=False,
+        pbc=False,
+        engine="MolSysMT",
+        syntax="MolSysMT",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_maximum_distances",
+            {
+                "selection": selection,
+                "center_of_atoms": center_of_atoms,
+                "weights": weights,
+                "as_entity": as_entity,
+                "structure_indices": structure_indices,
+                "molecular_system_2": molecular_system_2,
+                "selection_2": selection_2,
+                "center_of_atoms_2": center_of_atoms_2,
+                "weights_2": weights_2,
+                "as_entity_2": as_entity_2,
+                "structure_indices_2": structure_indices_2,
+                "pairs": pairs,
+                "pbc": pbc,
+                "engine": engine,
+                "syntax": syntax,
+            },
+        )
+
+    @_native_documentation("get_contacts", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_contacts(
+        self,
+        selection=None,
+        center_of_atoms=False,
+        weights=None,
+        structure_indices="all",
+        selection_2=None,
+        center_of_atoms_2=False,
+        weights_2=None,
+        structure_indices_2=None,
+        threshold="12 angstroms",
+        pairs=False,
+        pbc=True,
+        syntax="MolSysMT",
+        output_type="numpy.ndarray",
+        output_indices=None,
+        use_gpu=None,
+        gpu_backend=None,
+        cell_list=None,
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_contacts",
+            {
+                "selection": selection,
+                "center_of_atoms": center_of_atoms,
+                "weights": weights,
+                "structure_indices": structure_indices,
+                "selection_2": selection_2,
+                "center_of_atoms_2": center_of_atoms_2,
+                "weights_2": weights_2,
+                "structure_indices_2": structure_indices_2,
+                "threshold": threshold,
+                "pairs": pairs,
+                "pbc": pbc,
+                "syntax": syntax,
+                "output_type": output_type,
+                "output_indices": output_indices,
+                "use_gpu": use_gpu,
+                "gpu_backend": gpu_backend,
+                "cell_list": cell_list,
+                "parallel": parallel,
+                "num_threads": num_threads,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_rmsf", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_rmsf(
+        self,
+        selection='atom_type!="H"',
+        structure_indices="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        heavy_mode="auto",
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_rmsf",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "engine": engine,
+                "heavy_mode": heavy_mode,
+                "parallel": parallel,
+                "num_threads": num_threads,
                 "skip_digestion": skip_digestion,
             },
         )

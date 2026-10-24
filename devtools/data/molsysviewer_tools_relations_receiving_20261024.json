@@ -1,0 +1,265 @@
+{
+  "schema": "molsysmt.viewer-addon-receiving@1",
+  "date": "2026-10-24",
+  "status": "partial-source-receiving",
+  "provider_issue": "uibcdf/molsysmt#421",
+  "viewer_issue": "uibcdf/molsysviewer#264",
+  "base_commits": {
+    "provider": "8a43cb2eb1db1f789167d3c49a34b5cf04bd806e",
+    "viewer": "d2397933773e9b679f133fe3ac5f605cff17da62"
+  },
+  "provenance": "Linux; Python 3.14.7; molsyssuite@uibcdf_3.14; working source with unrelated autosummary changes preserved. Source qualification, not a clean installed artifact pair.",
+  "received_repairs": [
+    {
+      "issue": "uibcdf/molsysmt#441",
+      "fix": "bae6d0101c3b6c6be284452db80bb850bd0d2971",
+      "scope": "Both distance populations, separate source structure lists, repeated scopes and physical units from bound forced calculations."
+    },
+    {
+      "issue": "uibcdf/molsysmt#440",
+      "fix": "1123eeb7d",
+      "scope": "Radius heavy units and weighted numeric values across nm/angstrom/pm."
+    },
+    {
+      "issue": "uibcdf/molsysmt#442",
+      "fix": "1123eeb7d",
+      "scope": "RMSF heavy units and independent variance over repeated structures."
+    },
+    {
+      "issue": "uibcdf/molsysmt#439",
+      "fix": "1123eeb7d; additive flag qualified at bc21428312b6945c9c8926611721713c5ca3fbd2",
+      "scope": "Contributing sequence groups; correct default capped identity and source maps; bound/native keyword-only flag forwarded."
+    }
+  ],
+  "new_functions": [
+    {
+      "provider": "molsysmt.structure.get_maximum_distances",
+      "bound": "view.addons.molsysmt.structure.get_maximum_distances",
+      "primary": "current view.molsys",
+      "effects": "Native result only; no preparation, coordinate edit, implicit alignment, attachment, scene selection or rendering.",
+      "skip_digestion": "addon-only keyword; not forwarded",
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_contacts",
+      "bound": "view.addons.molsysmt.structure.get_contacts",
+      "primary": "current view.molsys",
+      "effects": "Native result only; no preparation, coordinate edit, implicit alignment, attachment, scene selection or rendering.",
+      "skip_digestion": "native declared parameter forwarded",
+      "root_alias": false
+    },
+    {
+      "provider": "molsysmt.structure.get_rmsf",
+      "bound": "view.addons.molsysmt.structure.get_rmsf",
+      "primary": "current view.molsys",
+      "effects": "Native result only; no preparation, coordinate edit, implicit alignment, attachment, scene selection or rendering.",
+      "skip_digestion": "native declared parameter forwarded",
+      "root_alias": false
+    }
+  ],
+  "checks": {
+    "focused": {
+      "passed": 47,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "7b5ac84569d74598802bec1ae90ab9948c2895d60d44896bafc14cea079e828e"
+    },
+    "complete_applicable_regression": {
+      "passed": 535,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "f5fe5ddfc1ec06ac24561a420456d13499d42b25cdad4d304b09fdfacfc43fe4"
+    },
+    "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/ tests/structure/get_distances/test_heavy_endpoints.py tests/heavy/test_length_observable_units.py tests/topology/get_sequence_identity/test_sequence_source_groups.py devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_rust_wheel.py devtools/tests/test_validate_rust_sdist.py devtools/tests/test_audit_dependency_contract.py devtools/tests/test_validate_devguide.py -x",
+    "seconds": 117.82,
+    "guide_blocks": 18,
+    "docstrings": {
+      "structure": 33,
+      "topology": 41,
+      "failed": 0,
+      "context": "Copied native examples with their actual public function names/np available, as in owning scientific modules."
+    },
+    "ruff": "check and format pass; 18 files",
+    "addon_python_files": 15
+  },
+  "independent_references": [
+    "Unequal distance endpoint populations and separate repeated structure axes against NumPy norm; nm/angstrom/pm, forced multi-block input.",
+    "Weighted radius and RMSF against coordinate averages/variance across eager/forced modes and units, not merely cross-route parity.",
+    "Default capped identity yields 100 percent and source groups [1,2,3,4,5]; native and bound validation flags/signatures agree.",
+    "Maximum values and local endpoint indices against NumPy argmax for three entity reductions, explicit pairs, weighted centers and an independent second system.",
+    "Contact booleans against geometric thresholds through CPU dense/cell-list/pair routes; native source-index and sorted-pair outputs retained."
+  ],
+  "held_routes": [
+    {
+      "name": "get_minimum_distances",
+      "issue": "uibcdf/molsysmt#444",
+      "reason": "Native forwards first weights as weights_2; unexposed pending scientific-owner repair."
+    },
+    {
+      "name": "get_neighbors",
+      "issue": "uibcdf/molsysmt#445",
+      "reason": "Native omits molecular_system_2 from fallback; unexposed pending scientific-owner repair."
+    }
+  ],
+  "requested_native_matrix": {
+    "functions": [
+      "get_distances",
+      "get_neighbors",
+      "get_minimum_distances",
+      "get_maximum_distances"
+    ],
+    "comments": [
+      "https://github.com/uibcdf/molsysmt/issues/444#issuecomment-6388359165",
+      "https://github.com/uibcdf/molsysmt/issues/445#issuecomment-6388359539"
+    ],
+    "scope": "Explicit maintainer request: test contract paths/combinations, independent values and indices, sources, structures, weights, PBC, units, execution/output modes and errors; not a claim this bounded addon receipt covers the whole family."
+  },
+  "inventory": {
+    "method": "Owning AST discover_exports(package-init); namespace names only.",
+    "exports": 28,
+    "received": 13,
+    "pending": 15,
+    "dispositions": [
+      {
+        "name": "align_principal_axes",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "center",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "flip",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_angles",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_center",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_contacts",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_dihedral_angles",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_distances",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_least_rmsd",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_least_squares_plane",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_maximum_distances",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_minimum_distances",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_neighbors",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_principal_axes",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_radius_of_gyration",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_rmsd",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_rmsf",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "get_secondary_structure",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_symmetry_corrected_rmsd",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "get_vectors",
+        "status": "source-received-with-native-limits"
+      },
+      {
+        "name": "least_rmsd_align",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "least_rmsd_fit",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "move_away",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "principal_component_analysis",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "rotate",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "set_dihedral_angles",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "shift_dihedral_angles",
+        "status": "pending-adaptation"
+      },
+      {
+        "name": "translate",
+        "status": "pending-adaptation"
+      }
+    ]
+  },
+  "limits": [
+    "No installed-package compatibility or new release/dependency floor declared.",
+    "No optional GPU/alternate-engine or universal bounded-memory qualification.",
+    "Older source receipts remain immutable evidence; current warnings are reconciled to actually received native fixes.",
+    "Whole-family native test review under #444/#445 remains pending; no addon scientific substitution."
+  ],
+  "prior_native_ci": {
+    "run": 40123084475,
+    "provider": "bc21428312b6945c9c8926611721713c5ca3fbd2",
+    "conclusion": "success",
+    "scope": "Provider repairs and previously received addon readers, not these three new wrappers."
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_structure.py": "3d7dbf603cab20c5694a78e36692128b1c1eb0d05f55852cf2cb8f1dbee596db",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "tests/molsysviewer_molsysmt/test_structure_relations_tools.py": "bdff6f8797c3c69b86e430d4fc0cff10925ccade056389d9bf19311081e4572c",
+    "molsysmt/structure/get_maximum_distances.py": "98e24742b718669f2bb59f6f91a0103e7bb35fffc9ee6fc796ab8818ca33fbcb",
+    "molsysmt/structure/get_contacts.py": "817f40da98d2d9b3247f6dd13d273725c8ebdc10999e1ba27c417a6e7f4e15e1",
+    "molsysmt/structure/get_rmsf.py": "15d315ceac82cb82d45e4e89ac76b37ad4dc067d2ffeba1ae9d3ad837441c319",
+    "molsysmt/structure/get_distances.py": "35bf96fdd478b255f811d057640e331ae100238bf93b9238de46a0f8eda9327e",
+    "molsysmt/structure/get_radius_of_gyration.py": "13daf6c3d594012e9e89313b672ff019233092bc6f3ae499cae72150764f8b24",
+    "molsysmt/structure/get_minimum_distances.py": "3f35520dc951b29ef3c1be37acd04458c0b1281fc738f2f54507205e14a0a624",
+    "molsysmt/structure/get_neighbors.py": "cc374104f5e65c58b396701b50e5ea8c74bff467bb9fdc3cb93a7b4b95ca445b",
+    "molsysmt/structure/_geometry_endpoints.py": "01a841eff1462b6c0aa47ece33792a11b964cc3cf04daf8cb17eab6ecee42bdd",
+    "molsysmt/topology/get_sequence_identity.py": "512e499ea5adbd15f2c54c74d643bae133d41a4009bab1fc9078c478f0cad442"
+  }
+}
