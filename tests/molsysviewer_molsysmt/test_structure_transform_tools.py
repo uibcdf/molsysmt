@@ -67,7 +67,9 @@ def test_signature_help_namespace_and_explicit_integration_controls(view):
     assert method.digestion_plan is not None
     assert "native in_place=False default" in inspect.getdoc(method)
     assert "No molecular edit" not in inspect.getdoc(method)
-    assert set(dir(view.addons.molsysmt.structure)) == set(READERS + ("translate",))
+    assert set(dir(view.addons.molsysmt.structure)) == set(
+        READERS + ("translate", "rotate", "flip")
+    )
     assert not hasattr(view.addons.molsysmt, "translate")
 
 
@@ -367,3 +369,374 @@ def test_postpublication_scientific_interruption_is_uncertain(view):
     assert view.addons.molsysmt.get_sync_status()["state"] == "uncertain"
     with pytest.raises(SystemEditPendingError):
         view.addons.molsysmt.sync_view()
+
+
+@pytest.mark.parametrize("name", ["rotate", "flip"])
+def test_rotation_signature_documentation_and_integration_controls(view, name):
+    native = getattr(msm.structure, name)
+    method = getattr(view.addons.molsysmt.structure, name)
+    native_parameters = inspect.signature(native).parameters
+    addon_parameters = inspect.signature(method).parameters
+    extra = {"update_view"}
+    if "skip_digestion" not in native_parameters:
+        extra.add("skip_digestion")
+    assert [p for n, p in addon_parameters.items() if n not in extra] == list(
+        native_parameters.values()
+    )[1:]
+    assert addon_parameters["update_view"].kind is inspect.Parameter.KEYWORD_ONLY
+    assert addon_parameters["update_view"].default is True
+    assert addon_parameters["in_place"].default is False
+    assert method.digestion_plan is not None
+    doc = inspect.getdoc(method)
+    assert "native in_place=False default" in doc
+    assert "No molecular edit" not in doc
+    assert not hasattr(view.addons.molsysmt, name)
+    if name == "flip":
+        assert addon_parameters["skip_digestion"].kind is inspect.Parameter.KEYWORD_ONLY
+        assert "no declared escape hatch" in doc
+        assert "chirality" in doc
+
+
+QUARTER_TURNS = np.array(
+    [
+        [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+        [[0, -1, 0], [1, 0, 0], [0, 0, 1]],
+        [[-1, 0, 0], [0, -1, 0], [0, 0, 1]],
+        [[0, 1, 0], [-1, 0, 0], [0, 0, 1]],
+    ],
+    dtype=float,
+)
+
+
+def quarter_turn(point, turn):
+    x, y, z = point
+    return [(x, y, z), (-y, x, z), (-x, -y, z), (y, -x, z)][turn % 4]
+
+
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("kind", ["list", "structures", "atoms", "scipy"])
+@pytest.mark.parametrize("in_place", [False, True])
+def test_rotation_analytical_values_broadcasts_units_and_repeated_axes(
+    view, unit, kind, in_place
+):
+    before = values(view).copy()
+    frames, atoms = [2, 0, 2], [2, 0, 2]
+    turns = np.ones((3, 3), dtype=int)
+    if kind == "list":
+        rotation = QUARTER_TURNS[1].tolist()
+    elif kind == "structures":
+        turns[:] = np.array([1, 2, 3])[:, None]
+        # A strided, read-only matrix stack remains caller-owned.
+        storage = np.repeat(QUARTER_TURNS[[1, 2, 3]], 2, axis=0)
+        rotation = storage[::2]
+        rotation.setflags(write=False)
+    elif kind == "atoms":
+        turns = np.arange(9).reshape(3, 3) % 4
+        rotation = QUARTER_TURNS[turns].copy()
+    else:
+        from scipy.spatial.transform import Rotation
+
+        rotation = Rotation.from_matrix(QUARTER_TURNS[1])
+    rotation_before = np.asarray(rotation).copy() if kind != "scipy" else None
+    center_nm = np.array([0.1, -0.2, 0.3])
+    center = puw.convert(puw.quantity(center_nm, "nm"), to_unit="angstrom")
+    center_before = puw.get_value(center).copy()
+    expected = before.copy()
+    for si, s in enumerate(frames):
+        for ai, a in enumerate(atoms):
+            expected[s, a] = (
+                np.array(quarter_turn(before[s, a] - center_nm, turns[si, ai]))
+                + center_nm
+            )
+    state, target = view.export_state(), view.molsys
+    analysis = target.interactions["science"]
+    box = puw.get_value(msm.get(target, box=True), to_unit="nm").copy()
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        result = view.addons.molsysmt.structure.rotate(
+            rotation=rotation,
+            rotation_center=center,
+            selection=atoms,
+            structure_indices=frames,
+            in_place=in_place,
+        )
+    output = view.molsys if in_place else result
+    assert view.molsys is target
+    assert result is None if in_place else result is not target
+    observed = puw.get_value(msm.get(output, coordinates=True), to_unit="nm")
+    np.testing.assert_allclose(observed, expected, atol=1e-12, rtol=0)
+    np.testing.assert_array_equal(puw.get_value(center), center_before)
+    if rotation_before is not None:
+        np.testing.assert_array_equal(rotation, rotation_before)
+    np.testing.assert_array_equal(
+        puw.get_value(msm.get(output, box=True), to_unit="nm"), box
+    )
+    np.testing.assert_array_equal(analysis.evaluated_structure_indices, [0, 1, 2])
+    np.testing.assert_array_equal(
+        output.interactions["science"].evaluated_structure_indices, [1]
+    )
+    if not in_place:
+        np.testing.assert_array_equal(values(view), before)
+        assert view.export_state() == state
+        assert target.interactions["science"] is analysis
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+
+
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("in_place", [False, True])
+@pytest.mark.parametrize("normal", [[1, 0, 0], [0.6, 0.8, 0]])
+def test_reflection_analytical_plane_units_distance_and_ownership(
+    view, unit, in_place, normal
+):
+    before = values(view).copy()
+    atoms, frames = [4, 0, 4], [2, 0, 2]
+    point_nm = np.array([0.2, -0.3, 0.4])
+    point = puw.convert(puw.quantity(point_nm, "nm"), to_unit=unit)
+    vector = np.array(normal, dtype=float)
+    unchanged = vector.copy(), puw.get_value(point).copy()
+    expected = before.copy()
+    for s in frames:
+        for a in atoms:
+            p = before[s, a]
+            # Explicit Cartesian plane equations, independent of native kernels.
+            if normal == [1, 0, 0]:
+                expected[s, a] = [2 * point_nm[0] - p[0], p[1], p[2]]
+            else:
+                distance = 0.6 * (p[0] - point_nm[0]) + 0.8 * (p[1] - point_nm[1])
+                expected[s, a] = [p[0] - 1.2 * distance, p[1] - 1.6 * distance, p[2]]
+    target, state = view.molsys, view.export_state()
+    original_analysis = target.interactions["science"]
+    box = puw.get_value(msm.get(target, box=True), to_unit="nm").copy()
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        result = view.addons.molsysmt.structure.flip(
+            vector=vector,
+            point=point,
+            selection=atoms,
+            structure_indices=frames,
+            in_place=in_place,
+        )
+    output = target if in_place else result
+    assert view.molsys is target
+    assert result is None if in_place else result is not target
+    observed = puw.get_value(msm.get(output, coordinates=True), to_unit="nm")
+    np.testing.assert_allclose(observed, expected, atol=1e-12, rtol=0)
+    np.testing.assert_allclose(
+        np.linalg.norm(observed[0, 4] - observed[0, 0]),
+        np.linalg.norm(before[0, 4] - before[0, 0]),
+        atol=1e-12,
+        rtol=0,
+    )
+    np.testing.assert_array_equal(vector, unchanged[0])
+    np.testing.assert_array_equal(puw.get_value(point), unchanged[1])
+    np.testing.assert_array_equal(
+        puw.get_value(msm.get(output, box=True), to_unit="nm"), box
+    )
+    np.testing.assert_array_equal(
+        original_analysis.evaluated_structure_indices, [0, 1, 2]
+    )
+    np.testing.assert_array_equal(
+        output.interactions["science"].evaluated_structure_indices, [1]
+    )
+    if not in_place:
+        np.testing.assert_array_equal(values(view), before)
+        assert view.export_state() == state
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+
+
+@pytest.mark.parametrize(
+    "name, arguments",
+    [
+        ("rotate", {"rotation": QUARTER_TURNS[1]}),
+        ("flip", {"vector": [1, 0, 0], "point": "[0.2, 0, 0] nm"}),
+    ],
+)
+def test_rotation_inverse_or_reflection_twice_retains_geometry(view, name, arguments):
+    before = values(view).copy()
+    operation = getattr(view.addons.molsysmt.structure, name)
+    operation(in_place=True, **arguments)
+    first = values(view).copy()
+    np.testing.assert_allclose(
+        np.linalg.norm(first[0, 1:] - first[0, 0], axis=1),
+        np.linalg.norm(before[0, 1:] - before[0, 0], axis=1),
+        rtol=0,
+        atol=1e-12,
+    )
+    if name == "rotate":
+        arguments = {"rotation": QUARTER_TURNS[3]}
+    operation(in_place=True, **arguments)
+    np.testing.assert_allclose(values(view), before, atol=1e-12, rtol=0)
+
+
+@pytest.mark.parametrize(
+    "name, arguments",
+    [
+        ("rotate", {"rotation": np.diag([-1.0, 1.0, 1.0])}),
+        ("rotate", {"rotation": np.eye(2)}),
+        ("rotate", {"rotation": np.full((3, 3), np.nan)}),
+        ("rotate", {"rotation": np.ones((2, 3, 3))}),
+        ("rotate", {"rotation": QUARTER_TURNS[1], "rotation_center": "1 ps"}),
+        ("flip", {"vector": [1, 0]}),
+        ("flip", {"vector": [1, 0, 0], "point": "1 ps"}),
+        ("flip", {"vector": [1, 0, 0], "selection": [99999]}),
+        ("rotate", {"rotation": QUARTER_TURNS[1], "structure_indices": [99999]}),
+    ],
+)
+def test_native_rotation_rejections_preserve_science_scene_and_status(
+    view, name, arguments
+):
+    native = msm.copy(view.molsys)
+    before, state = values(view).copy(), view.export_state()
+    analysis = view.molsys.interactions["science"]
+    with pytest.raises(Exception) as error:
+        getattr(msm.structure, name)(native, in_place=True, **arguments)
+    with pytest.raises(type(error.value)):
+        getattr(view.addons.molsysmt.structure, name)(in_place=True, **arguments)
+    np.testing.assert_array_equal(values(view), before)
+    assert view.export_state() == state
+    assert view.molsys.interactions["science"] is analysis
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+
+
+@pytest.mark.parametrize(
+    "name, arguments",
+    [
+        ("rotate", {"rotation": QUARTER_TURNS[1]}),
+        ("flip", {"vector": [1, 0, 0]}),
+    ],
+)
+@pytest.mark.parametrize("controls", [{"in_place": "yes"}, {"update_view": 1}])
+def test_rotation_integration_guards_survive_addon_skip(
+    view, name, arguments, controls
+):
+    before, state = values(view).copy(), view.export_state()
+    with pytest.raises(Exception):
+        getattr(view.addons.molsysmt.structure, name)(
+            **arguments, **controls, skip_digestion=True
+        )
+    np.testing.assert_array_equal(values(view), before)
+    assert view.export_state() == state
+
+
+def test_deferred_rotation_translation_reflection_and_removal_compose(view):
+    tools = view.addons.molsysmt
+    region = view.regions.add(selection=[2, 4], tag="kept")
+    saved = view.selections.add("saved", atom_indices=[2, 4])
+    sphere = view.shapes.add_sphere(atom_indices=[4], tag="anchor")
+    view.active_selection.set([2, 4])
+    view.player.go_to_structure(2)
+    source = dict(view.load_blocks[0])
+    before = values(view).copy()
+    tools.structure.rotate(
+        rotation=QUARTER_TURNS[1],
+        structure_indices=[2],
+        in_place=True,
+        update_view=False,
+    )
+    assert tools.get_sync_status()["state"] == "pending"
+    with pytest.raises(SystemEditPendingError):
+        region.hide(skip_digestion=True)
+    # Independent reflection sees pending coordinates, but is never adopted.
+    pending_coordinates = values(view).copy()
+    independent = tools.structure.flip(vector=[1, 0, 0], update_view=False)
+    expected_copy = pending_coordinates.copy()
+    expected_copy[:, :, 0] *= -1
+    np.testing.assert_allclose(
+        puw.get_value(msm.get(independent, coordinates=True), to_unit="nm"),
+        expected_copy,
+    )
+    tools.structure.translate(
+        translation="[0, 0, 1] nm", in_place=True, update_view=False
+    )
+    tools.remove(selection=[0], in_place=True, update_view=False)
+    tools.structure.flip(
+        vector=[1, 0, 0], structure_indices=[0], in_place=True, update_view=False
+    )
+    expected = before.copy()
+    for a in range(before.shape[1]):
+        expected[2, a] = quarter_turn(before[2, a], 1)
+    expected[:, :, 2] += 1
+    expected = expected[:, 1:]
+    expected[0, :, 0] *= -1
+    assert tools.get_sync_status()["pending_operations"] == 4
+    storage = view.molsys.structures._coordinates
+    tools.sync_view()
+    np.testing.assert_allclose(values(view), expected, atol=1e-12, rtol=0)
+    assert view.molsys.structures._coordinates is storage
+    assert view.regions["kept"] is region and region.atom_indices == (1, 3)
+    assert view.selections["saved"] is saved and saved.atom_indices == [1, 3]
+    assert view.shapes["anchor"] is sphere
+    assert view.active_selection.atom_indices == [1, 3]
+    assert view.player.index == 2
+    assert view.load_blocks[0]["source_id"] == source["source_id"]
+    assert not view.history.can_undo()
+    assert tools.get_sync_status()["state"] == "synchronized"
+
+
+@pytest.mark.parametrize(
+    "name, arguments",
+    [
+        ("rotate", {"rotation": QUARTER_TURNS[1]}),
+        ("flip", {"vector": [1, 0, 0]}),
+    ],
+)
+def test_cached_rotation_handles_follow_replacement_and_view_lifetime(
+    view, name, arguments
+):
+    method = getattr(view.addons.molsysmt.structure, name)
+    with msv.demo["dialanine"] as other:
+        state = other.export_state()
+        view.load(other.molsys, mode="replace")
+        before = values(view).copy()
+        method(in_place=True, **arguments)
+        expected = before.copy()
+        if name == "rotate":
+            for s in range(before.shape[0]):
+                for a in range(before.shape[1]):
+                    expected[s, a] = quarter_turn(before[s, a], 1)
+        else:
+            expected[:, :, 0] *= -1
+        np.testing.assert_allclose(values(view), expected, atol=1e-12, rtol=0)
+        assert other.export_state() == state
+    with pytest.raises(TypeError):
+        method(molecular_system=object(), **arguments, skip_digestion=True)
+    view.close()
+    with pytest.raises(RuntimeError, match="closed"):
+        method(**arguments, in_place=True)
+    with msv.MolSysView() as empty:
+        with pytest.raises(ValueError, match="Load a molecular system"):
+            getattr(empty.addons.molsysmt.structure, name)(**arguments)
+
+
+@pytest.mark.parametrize(
+    "name, arguments",
+    [
+        ("rotate", {"rotation": QUARTER_TURNS[1]}),
+        ("flip", {"vector": [1, 0, 0]}),
+    ],
+)
+def test_scene_retry_never_repeats_completed_rotation_or_reflection(name, arguments):
+    with msv.demo["pentalanine"] as source:
+        with msv.MolSysView(transport=InterruptedWidget()) as result:
+            result.load(source.molsys, structure_indices=[0, 8, 3])
+            result.shapes.add_sphere(atom_indices=[0], tag="anchor")
+            before = values(result).copy()
+            result._ready = True
+            result.widget.interrupted = True
+            with pytest.raises(SystemEditSyncError) as error:
+                getattr(result.addons.molsysmt.structure, name)(
+                    in_place=True, **arguments
+                )
+            assert error.value.science_completed is True
+            assert error.value.scientific_result is None
+            expected = before.copy()
+            if name == "rotate":
+                for s in range(before.shape[0]):
+                    for a in range(before.shape[1]):
+                        expected[s, a] = quarter_turn(before[s, a], 1)
+            else:
+                expected[:, :, 0] *= -1
+            np.testing.assert_allclose(values(result), expected, atol=1e-12, rtol=0)
+            storage = result.molsys.structures._coordinates
+            result.addons.molsysmt.sync_view()
+            assert result.molsys.structures._coordinates is storage
+            np.testing.assert_allclose(values(result), expected, atol=1e-12, rtol=0)
+            assert result.addons.molsysmt.get_sync_status()["target_revision"] == 1

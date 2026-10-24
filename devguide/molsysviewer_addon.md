@@ -12,7 +12,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation and plane reflection under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -434,3 +434,32 @@ tools: eighteen readers/calculations and one coordinate editor.
 Center remains absent under uibcdf/molsysmt#451 after a standalone partial-scope
 target/return reproduction. Its scientific owner must resolve that contract;
 the addon does not silently repair populations, coordinates or return values.
+
+
+## Proper rotation and plane reflection receiving — 2026-10-24
+
+Explicit structure.rotate and structure.flip reuse the existing retained-axis
+geometry receiver and scientific-edit coordinator. The public native operation
+executes once; the addon provides no geometry, matrix validation, normalization
+or broadcasting. Native independent/in-place returns and update_view semantics
+match translation. Flip adds an addon-only keyword skip_digestion because its
+native callable has no declared flag; ordinary native validation remains active.
+
+Receiving covers proper matrix stacks and an actual SciPy Rotation, explicit
+unit plane normals, physical rotation centers/plane points, repeated axes and
+unit contexts. Cartesian rotation/plane references, inverse/double-reflection
+and distance invariants check scientific values independently. Real views retain
+selection/region/shape/source/navigation identity; mixed deferred edits and actual
+transport interruption protect synchronization without repeated science. Scene
+recovery is distinct from native partial writes and supplies no rollback.
+
+Native flip has two independently reproduced limitations: vector=None rejects
+before its implementation's fallback, and nonunit normals are not normalized,
+so vector [2,0,0] changes distances instead of producing the same reflection as
+[1,0,0]. A zero vector silently produces no change. Only explicit-unit-normal
+reflection is qualified; these routes remain native-owner work, not addon fixes.
+The runtime help and owning user guide disclose these limits. Source now exposes
+twenty-one structure tools: eighteen calculations and three coordinate editors;
+seven reviewed coordinate-changing exports, including center under uibcdf/molsysmt#451, remain
+pending. No new host capability, dependency floor or package qualification is
+implied.

@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -617,3 +617,42 @@ provides eighteen structural readers/calculations plus one native coordinate
 editor; nine coordinate-changing exports and the broader addon remain partial
 under uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. No package, public floor,
 version freeze or release is implied.
+
+
+## Rotation and reflection received — 2026-10-24
+
+Explicit structure.rotate and structure.flip wrappers mirror native scientific
+parameters, independent in_place=False outputs and in-place None returns. The
+existing retained-axis coordinator owns synchronization; no Viewer runtime,
+protocol or scientific normalization is added. Flip's keyword-only
+skip_digestion controls addon validation only, because the native callable has
+no declared flag. Native public validation remains active.
+
+Independent Cartesian quarter-turn/plane references and inverse/involution and
+distance invariants receive proper rotations and explicit-unit-normal reflections.
+Matrix lists, strided/read-only per-structure stacks, per-atom stacks and actual
+SciPy Rotation objects retain native behavior. nm/angstrom/pm contexts, repeated
+and nonconsecutive atom/structure axes, untouched boxes and exact edited-structure
+interaction invalidation are exercised with real bundled views. Deferred mixed
+rotation/translation/removal/reflection retains scene handles, selections, source
+accounting and navigation. A real transport interruption after completed science
+is recovered by synchronization without executing the transformation twice.
+
+The focused transform file passes 93 cases. The single applicable regression
+passes all 733 cases, with zero failures/errors/skips. Scientific/addon source
+hashes remain fixed during the regression; only the generated version module
+changes. Ruff check/format and 24 guide blocks/110 native-context docstring
+examples pass. Original JUnit digests, scope and before/after source snapshots
+are retained in the provider's rotation receiving record. Host reporting/link
+checks pass 280 cases. Exact committed-head CI remains a separate pending gate.
+
+Native flip independently rejects vector=None before its implementation fallback;
+nonunit vectors are not normalized and change distances, while a zero vector is
+accepted as a no-op. This receiving certifies only explicit unit normals and
+retains the defects visibly in runtime help and owning documentation. The addon
+supplies no hidden alternate formula. Center stays absent pending
+uibcdf/molsysmt#451. Twenty-one structure tools are now available in source:
+eighteen calculations and three coordinate editors; seven reviewed edits and
+the broader API/panels remain partial under uibcdf/molsysmt#421 and
+uibcdf/molsysviewer#264. This does not qualify installed artifacts or authorize
+any tag, release or public promotion.

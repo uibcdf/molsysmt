@@ -27,6 +27,8 @@ class _StructureTools:
         "get_secondary_structure",
         "principal_component_analysis",
         "translate",
+        "rotate",
+        "flip",
     )
 
     def __init__(self, owner):
@@ -744,6 +746,69 @@ class _StructureTools:
                 "syntax": syntax,
                 "in_place": in_place,
                 "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_native_documentation("rotate", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def rotate(
+        self,
+        rotation=None,
+        rotation_center=None,
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "rotate",
+            {
+                "rotation": rotation,
+                "rotation_center": rotation_center,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_native_documentation("flip", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def flip(
+        self,
+        vector=None,
+        point="[0,0,0] nm",
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        in_place=False,
+        *,
+        skip_digestion=False,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "flip",
+            {
+                "vector": vector,
+                "point": point,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "in_place": in_place,
             },
             update_view,
         )

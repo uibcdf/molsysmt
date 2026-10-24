@@ -1,0 +1,186 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-24",
+  "status": "source_received_exact_head_CI_pending",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#451"
+  ],
+  "provider_base_commit": "04be76b63fa09cc9713ff20c7c78c46f855df817",
+  "host_base_commit": "3286c7df66abe545ecb858b4177f875ad71ddcd5",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "conda_environment": "molsyssuite@uibcdf_3.14"
+  },
+  "implemented": [
+    "view.addons.molsysmt.structure.rotate",
+    "view.addons.molsysmt.structure.flip"
+  ],
+  "inventory": {
+    "structure_calculations": 18,
+    "structure_coordinate_editors": 3,
+    "structure_pending_edits": 7
+  },
+  "delegation": {
+    "in_place_default": false,
+    "update_view_default": true,
+    "flip_skip_digestion": "addon-only; never forwarded to native callable without declared flag",
+    "independent_outputs": "native result without adoption",
+    "in_place": "one native call under existing coordinator",
+    "native_geometry": "no matrix/normal normalization or alternate formulas",
+    "synchronization": "retained identities, selected-structure invalidation, deferred composition and retry without science replay"
+  },
+  "validation": {
+    "targeted": {
+      "path": "/tmp/msm-viewer-rotation-targeted.xml",
+      "sha256": "ee7b27e924779728b88696d0ef8ec25a5ec3ab47ef0097206caf940f7e14e391",
+      "tests": 93,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "applicable_regression": {
+      "path": "/tmp/msv-rotation-regression.xml",
+      "sha256": "a6e95a4aa8b7269879bc2d5876cbca8279af44c6408b2a26bb9cb227037e09b3",
+      "tests": 733,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "full_regression_repeated": false,
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "tests/molsysviewer_molsysmt/",
+      "tests/structure/translate/",
+      "tests/structure/flip/",
+      "tests/scientific_truth/structure/test_rigid_transformations.py",
+      "tests/scientific_truth/structure/test_structural_transformations.py",
+      "tests/basic/test_file_copy.py",
+      "tests/basic/test_file_copy_lifecycle.py",
+      "tests/form/test_raw_file_copy.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-rotation-regression.xml"
+    ],
+    "exit_code": 0,
+    "source_snapshot": "/tmp/msv-rotation-receiving-sources-b9_viq13",
+    "changed_during_run": [
+      "molsysmt/_version.py"
+    ],
+    "source_snapshot_manifest": {
+      "path": "/tmp/msv-rotation-regression-source.json",
+      "sha256": "e1bac8ff0324f362bd93d50008571ecb5d57392c3392009030a436df4984bb7b"
+    },
+    "examples": {
+      "guide_blocks": 24,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 69
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "ruff": "four changed Python source/test files pass check and format --check"
+  },
+  "scientific_references": [
+    "independent Cartesian quarter-turns and inverse",
+    "explicit Cartesian unit-normal plane equations and double reflection",
+    "distance invariance; no native-parity-only value claim",
+    "native matrix-list, per-structure/per-atom stacks and actual scipy Rotation",
+    "nm/angstrom/pm contexts; repeated/nonconsecutive structures and atoms"
+  ],
+  "known_native_limits": {
+    "flip_default": "vector=None rejected by native digest before implementation fallback",
+    "flip_nonunit_normals": "unnormalized native kernel changes distances; [2,0,0] does not define same transformation as [1,0,0]",
+    "flip_zero_normal": "accepted no-op instead of defining/rejecting an invalid plane",
+    "qualified_flip_scope": "explicit unit normals only; no silent wrapper correction",
+    "center": "absent; #451 remains native-owner work"
+  },
+  "scope_limits": [
+    "local source receiving; not a clean solver-installed package",
+    "no GUI forms, public dependency floor, version freeze, release or promotion",
+    "applicable addon/native/lifecycle regression, not all scientific tests in the repository"
+  ],
+  "source_sha256": {
+    "molsysmt/structure/__init__.py": "93ceafed474a26a6f93076c65bc0c327bd5724e9e7ed37a0b3db42820cce712f",
+    "molsysmt/structure/_centroid.py": "0025d6dcc98d1a3d15305a10872a031b0adfc4ea6f75c32d50170d78187aaad6",
+    "molsysmt/structure/_distance_extrema.py": "519376f5aa638f55dc2355111b722460b1d6b6f118982f0ce6b5ec7456cfa6ca",
+    "molsysmt/structure/_distance_output.py": "a80495242558ba067add457a6223edf58f58a37f422ee04abd638f8582ee4538",
+    "molsysmt/structure/_geometry_endpoints.py": "01a841eff1462b6c0aa47ece33792a11b964cc3cf04daf8cb17eab6ecee42bdd",
+    "molsysmt/structure/_group_minimum_contacts.py": "348b110d0d968012a811e0c50da72f622ada2dffe88080e0adffc4c9d50d99b2",
+    "molsysmt/structure/_plane.py": "ae591063b1cda7b34e95ef27e7ce131558aa5c12b9bff0ee4802526935c5dd5d",
+    "molsysmt/structure/_symmetry_rmsd.py": "555d56f7e28b51dd65d0365c133e4856a2639572bf9fa0f600b58a33505e2f19",
+    "molsysmt/structure/_triplet_geometry.py": "8b83bed3feffd232b4b6adb2ad48290f639889db5f3758e5f5b0d5673899a845",
+    "molsysmt/structure/_vectors.py": "b94eda0aabd8b012e19dcd5a0d18412b2d9048088755768a9d1f621a1b74b8c8",
+    "molsysmt/structure/align_principal_axes.py": "a1c93da1af843bf3e861a7020202f934ba802c761f83f988cbbb89e78ff74929",
+    "molsysmt/structure/center.py": "b6e407d1378475444264bc9ef66bd9fc3d7d8adfd702f97c763db7904347f3ce",
+    "molsysmt/structure/flip.py": "2a4cda23d325248bd009641c0cab0320fea029ad1b693673b818d4b88c21739e",
+    "molsysmt/structure/get_angles.py": "33dc027ff76aa0808112ed3b47e8b8e2f750f343fda7686af28e2fdddbd8bedf",
+    "molsysmt/structure/get_center.py": "db5a81fc8f842069266e0c2d18ebf023935401322678d342f51117e9bae8b5f8",
+    "molsysmt/structure/get_contacts.py": "3c95b34287d6ea31690bd914d3c914645916f97c26e913085247a04e35dc9144",
+    "molsysmt/structure/get_dihedral_angles.py": "d347358cfa0fe89f27d77d231084de50e1a916c9433ef4bfdfc1dc89f4c8f5ee",
+    "molsysmt/structure/get_distances.py": "4d6700453fa67451b3b989ef48166cac368a5d42afd73a60279a4304e89c23f3",
+    "molsysmt/structure/get_least_rmsd.py": "366e1bbad765466831cb1c41b88a16e06f7605f45ba30972a7ea63c52012d02d",
+    "molsysmt/structure/get_least_squares_plane.py": "d6705a9a731e3695438431aabf424081473c9bb422953a1476b105a04db869a6",
+    "molsysmt/structure/get_maximum_distances.py": "ad7a0f8dcd481ff54af3b92c516a823c310383ad8c351129ecc43cd95b691528",
+    "molsysmt/structure/get_minimum_distances.py": "0ac8e2fc9e64478613f5aa394b15d36a6d7a631b94a3d528c3d03cee32db9633",
+    "molsysmt/structure/get_neighbors.py": "a70e8bdb725211fa2a64f48e44fb92cd5f26cb0eab5f9870a91035ec1eb8e1bb",
+    "molsysmt/structure/get_principal_axes.py": "74b6eb1a836ff3626b980fb0907285c60407080b59893f57dbbe606c764af36c",
+    "molsysmt/structure/get_radius_of_gyration.py": "13daf6c3d594012e9e89313b672ff019233092bc6f3ae499cae72150764f8b24",
+    "molsysmt/structure/get_rmsd.py": "b8f6cae8afbefc5ebe19147b208a540f235d630857c30bed85cdf2f66af4beca",
+    "molsysmt/structure/get_rmsf.py": "15d315ceac82cb82d45e4e89ac76b37ad4dc067d2ffeba1ae9d3ad837441c319",
+    "molsysmt/structure/get_secondary_structure.py": "b1b52914d6c7d9afec98d8b62bbb00c6f60c8d98bbccecacd0e6a338c6885172",
+    "molsysmt/structure/get_symmetry_corrected_rmsd.py": "c7abc237000db5f2f4572cd3c6cc6f3d7880ea21e62b84b7e32ce543480e13c6",
+    "molsysmt/structure/get_vectors.py": "82faa2d9bcc4d2280553b9b91818ecc666d97ebb7188bdcf66841b20dc43bbce",
+    "molsysmt/structure/least_rmsd_align.py": "9031d5235ed1cb44e430fbe63e12946c7fbfa04931d9d252a808930cfa87d78d",
+    "molsysmt/structure/least_rmsd_fit.py": "27f3e45230846299404be46748ea8a42020b260e7246dfb917828894157ec4d1",
+    "molsysmt/structure/move_away.py": "22a7c346f0bbb935e2fb4a7ccd36a7397d31775bb23f5c9eaa7c06c0684ed41e",
+    "molsysmt/structure/principal_component_analysis.py": "d3738c9079f4d43a84a11003523b564f525f709784351ddfac929faa1a0dff31",
+    "molsysmt/structure/rotate.py": "09972a41ad8b2e7e47ead41fa306b500f0297f576fde045021b2dd72b90ce4db",
+    "molsysmt/structure/set_dihedral_angles.py": "c5e725cf68a26311401c768fc2dbb9a17eefaee0f7dd38b354af868fb183fd59",
+    "molsysmt/structure/shift_dihedral_angles.py": "6276f33282bc8b2c41dc3c9d279f4c6d06f6ad6c74ee4fad3782d0e62a0144f7",
+    "molsysmt/structure/translate.py": "3e14eeae9b3c7fdfc89932c3ce858cc4e1f6751f17ee9e4223c537f30d3daa82",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "fc1ff98e82e13de4c11894acef70147a19d8e8a5bc3c266a7936f663046b0c88",
+    "molsysviewer_molsysmt/_geometry.py": "25a5e902c9e7211b668e3828ac27511262cafe88d3d1bc397d4772321dd11fc9",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "a672828e937ee0ca2b07c780d85ef486f046fe5873e5b396c04646a0b90ab64e",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "tests/molsysviewer_molsysmt/test_conversion_tools.py": "73d8125d61fecbc27ed6857a757eb1e1838bb34ca5cc77189f9a6b8610185cd5",
+    "tests/molsysviewer_molsysmt/test_identity_tools.py": "02c5e25358c730217e2c918722be00812014b4c34e89444907fb5077509d7543",
+    "tests/molsysviewer_molsysmt/test_predicate_tools.py": "0f4a36758d1196d92529f9b8dba9f8d71e0842b3583027129259d83eaa74d05c",
+    "tests/molsysviewer_molsysmt/test_read_tools.py": "f054b68b2985778f989a60b2a62afa8ab9a61eada51b7dc3e3800f4504f42ecd",
+    "tests/molsysviewer_molsysmt/test_remove_tools.py": "38f199b8d6f8add7bfa2a7e3a636f3b14a5dabf9873fe72477e6f74bd3cfb1e8",
+    "tests/molsysviewer_molsysmt/test_set_tools.py": "3fb841baf394b70a528f38d0d2c07f8af610833a617d116cc34c93453e886e59",
+    "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py": "9d9a2c5f865e59ed2483c3284c1ca98e04ce2d262f831b65780a1cfc97e2673c",
+    "tests/molsysviewer_molsysmt/test_structure_comparison_tools.py": "9600d071b68072b9dfc572efe7e2ffe9714046a0d51d01dec27f3f079300f654",
+    "tests/molsysviewer_molsysmt/test_structure_relations_tools.py": "05c56c4c26a81327cec3cb6a4a02d883a8a9c63df8527c76c1529be6b9dd42c1",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "bf1cc03847dc0a5f83e1a536d94800ea6826d69970fd9c54c3ebc1e1df259fcc",
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": "0af13bcff25b053c61f2635bf13bd4950266fa41ad7be370a94623e5401e4e20",
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": "9779fba47d3a4d3c82d4f4fca98231aa0fbfeab6c56b14c7406bbf982ccb6624",
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": "cd7832ba778be0fa5d95346945355ade2eee4466ff69d894c53bdebd2b78afd9"
+  }
+}

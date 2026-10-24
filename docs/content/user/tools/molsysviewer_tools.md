@@ -32,8 +32,10 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_minimum_distances`, `get_neighbors`, `get_symmetry_corrected_rmsd`,
 `get_secondary_structure` and `principal_component_analysis`.
 Results retain native quantities, arrays and metadata. The separate
-`structure.translate` wrapper receives independent outputs and managed in-place
-coordinate translation. Other transformations remain outside the received slice.
+`structure.translate`, `structure.rotate` and `structure.flip` wrappers receive
+independent outputs and managed in-place coordinate changes. Reflection receiving
+currently covers explicit unit normals only; native default/nonunit-normal defects
+remain visible below. Other transformations remain outside the received slice.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -866,3 +868,52 @@ The skip_digestion flag cannot bypass integration ownership or branch controls.
 Centering remains pending [#451](https://github.com/uibcdf/molsysmt/issues/451):
 the native partial-reference population contract and in-place return require
 resolution. The addon supplies no alternate centering formula or hidden selection.
+
+
+## Rotating and reflecting coordinates
+
+Use a proper rotation to change orientation while preserving distances and
+handedness. Reflection across a plane is a different operation: it preserves
+distances for a unit plane normal but can invert molecular chirality. Neither
+operation rotates the periodic box or updates chemical-state assignments.
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    rotated = tools.structure.rotate(
+        rotation=[[0, -1, 0], [1, 0, 0], [0, 0, 1]],
+        rotation_center='[0.1, 0.2, 0.3] nm',
+    )
+    # An independent reflected system is returned; the current view stays loaded.
+    reflected = tools.structure.flip(vector=[1, 0, 0], point='[0, 0, 0] nm')
+    tools.structure.rotate(
+        rotation=[[0, -1, 0], [1, 0, 0], [0, 0, 1]],
+        selection='backbone', structure_indices=[2, 0],
+        in_place=True, update_view=False,
+    )
+    tools.sync_view()
+```
+
+{doc}`structure/rotate` retains native proper-matrix validation, active row-vector
+conventions, matrix broadcasting and rotation-like objects with apply(). The
+rotation center carries length units. Repeated and nonconsecutive selections keep
+native ordering and last supplied coordinate assignments. No matrix conversion,
+normalization or alternate algorithm is introduced by the addon.
+
+{doc}`structure/flip` retains native arguments and scientific results. At the
+reviewed native source, **supply an explicit unit normal**, such as [1, 0, 0] or
+[0.6, 0.8, 0]. The declared vector=None default is rejected by native validation;
+nonunit vectors are not normalized and can change distances instead of reflecting
+across the declared plane. Zero vectors do not define a plane and are not a
+qualified input. These are native defects, reproduced without Viewer; the addon
+neither hides them nor substitutes its own geometry. Only the explicit-unit-normal
+route has scientific receiving here. The native flip signature has no declared
+skip_digestion: the addon's keyword-only flag controls addon digestion only and
+never disables the native boundary.
+
+Both wrappers preserve in_place=False by default. update_view does not adopt an
+independent result. In-place edits return None; update_view=True synchronizes the
+scene, and False leaves pending work for sync_view(). The same retained identity,
+selective interaction invalidation, deferred composition and failure-recovery
+contract as translation applies. A synchronization-only retry must not repeat a
+rotation or reflection: doing so would execute the science a second time.

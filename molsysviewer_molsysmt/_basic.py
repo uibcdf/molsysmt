@@ -61,7 +61,11 @@ def _native_documentation(name, module="basic"):
                 "the actual current view.molsys; later external edits retain explicit "
                 "reconciliation responsibilities.\n"
             )
-        if module in {"topology", "structure"} and name != "translate":
+        if module in {"topology", "structure"} and name not in {
+            "translate",
+            "rotate",
+            "flip",
+        }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The result is a native scientific value, not a scene object. "
@@ -75,7 +79,7 @@ def _native_documentation(name, module="basic"):
                     "declared skip_digestion parameter and is invoked with its ordinary "
                     "public validation. The flag is not added to scientific **kwargs.\n"
                 )
-        if module == "structure" and name == "translate":
+        if module == "structure" and name in {"translate", "rotate", "flip"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "update_view : bool, keyword-only, default=True\n"
@@ -86,8 +90,20 @@ def _native_documentation(name, module="basic"):
                 "and returns remain unchanged. Source identities and axes are retained; "
                 "named interactions follow native edited-structure invalidation. "
                 "A synchronization failure exposes science_completed=True and the "
-                "native scientific_result; retry synchronization, not translation. "
+                "native scientific_result; retry synchronization, not the scientific operation. "
                 "Potential partial scientific writes require explicit recovery.\n"
+            )
+        if module == "structure" and name == "flip":
+            function.__doc__ += (
+                "skip_digestion : bool, keyword-only, default=False\n"
+                "    Control addon digestion only; the native flip callable has no "
+                "declared escape hatch and always receives ordinary validation.\n"
+                "Reflection can invert chirality; it is not a proper rotation or "
+                "an automatic change to topology or chemical-state assignments.\n"
+                "At the reviewed native source, supply an explicit unit normal: "
+                "the None default rejects, and nonunit normals are not normalized "
+                "and do not implement a geometric reflection. The addon forwards "
+                "these inputs unchanged; those native routes remain unqualified.\n"
             )
         if name in {"copy", "convert", "get_conversion_report"}:
             function.__doc__ += (
