@@ -198,6 +198,15 @@ def test_default_reference_and_trusted_boundary():
     expected = (100.0, [1, 2], [1, 2])
     assert msm.topology.get_sequence_identity(source) == expected
     assert msm.topology.get_sequence_identity(source, skip_digestion=True) == expected
+    # The historical six positional slots remain callable with their meanings.
+    assert (
+        msm.topology.get_sequence_identity(
+            source, [1, 2], source, [1, 2], "MolSysMT", "Biopython"
+        )
+        == expected
+    )
+    with pytest.raises(msm.ArgumentError):
+        msm.topology.get_sequence_identity(source, skip_digestion="true")
 
 
 def test_native_sequence_converter_shares_the_same_letter_projection():

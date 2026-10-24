@@ -147,3 +147,20 @@ selected references, sequence-only forms and empty/undefined input rejection.
 A real Ackredit session verifies software/reference credit and reuse; an
 import-blocked fresh process verifies genuine provider absence and lazy startup.
 Provider failure preserves the completed scientific tuple.
+
+## CI signature qualification follow-up — 2026-10-24
+
+The first hosted smoke run for `1123eeb7d` failed its parent-signature guard:
+adding the standard optional `skip_digestion=False` slot had not been registered
+as an intentional additive change. The scientific correction and the retained
+511-case source receipt are unchanged; that receipt is historical evidence for
+its recorded hashes, not a claim that the first CI run passed.
+
+A function-scoped registry declaration now names exactly this append-only change,
+its owning #439 and its guard. The guard additionally executes the historical six
+positional arguments and rejects a string bypass flag, preserving both ordinary
+calls and explicit validation. Comparing the complete repaired source with
+`bae6d0101` now reports zero unauthorized signature changes. The source-group and
+two API-validator test modules pass **38 tests** in 11.72 seconds; their two
+warnings are expected legacy H5MSM reads. No runtime scientific code or global
+signature-checking rule was modified by this follow-up.
