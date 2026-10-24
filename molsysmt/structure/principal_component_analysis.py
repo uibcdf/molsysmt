@@ -4,7 +4,8 @@ from smonitor import signal
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError
+from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt.configure import with_configure_overrides
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 
@@ -43,8 +44,11 @@ def principal_component_analysis(
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    weights : numpy.ndarray, list, or tuple, default=None
-        Atomic mass weights array for center calculation.
+    weights : numpy.ndarray, list, tuple, or quantity, default=None
+        One finite nonnegative numerical factor per selected atom, in selection
+        order. The sum must be positive; individual zeros are allowed. None uses
+        ones. Dimensionless quantities are converted to numerical factors.
+        Named weight models and dimensional quantities are unsupported.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : str, default='MolSysMT'
@@ -70,6 +74,11 @@ def principal_component_analysis(
 
     Raises
     ------
+    ArgumentError
+        If coordinates are nonfinite, either observation axis is empty, or
+        weights have an invalid dimension, shape or numerical domain.
+    ArgumentLengthError
+        If the weight count differs from the selected atom count.
     NotImplementedMethodError
         If the engine is unsupported.
 
@@ -79,7 +88,15 @@ def principal_component_analysis(
     The covariance uses population normalization by ``n_structures``. Each row
     of the first output is an eigenvector; eigenvector signs are arbitrary. The
     first row captures the largest mean squared dispersion. The output does not
-    contain per-structure projections.
+    contain per-structure projections. Flattening uses all selected x coordinates,
+    then y, then z. Each centered feature is multiplied by the square root of
+    its atom's weight before constructing the covariance. Weights are not
+    normalized by their sum: multiplying all weights by a positive factor scales
+    eigenvalues by that factor. Repeated structures contribute repeated
+    observations. One structure gives a zero covariance. Degenerate eigenvalues
+    admit different orthonormal bases, so compare their subspaces or covariance
+    equations rather than individual vector components. Alignment and periodic
+    reconstruction, when needed, must precede this calculation.
 
 
     See Also
@@ -102,6 +119,11 @@ def principal_component_analysis(
     (3, 3)
     >>> msm.pyunitwizard.get_value(eigenvalues, to_unit='nm**2').tolist()
     [1.0, 0.0, 0.0]
+    >>> _, weighted_values = msm.structure.principal_component_analysis(
+    ...     system, weights=[4.0], use_gpu=False
+    ... )
+    >>> msm.pyunitwizard.get_value(weighted_values, to_unit='nm**2').tolist()
+    [4.0, 0.0, 0.0]
 
 
     .. admonition:: Tutorial with more examples
@@ -125,8 +147,39 @@ def principal_component_analysis(
         )
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-        if weights is None:
-            weights = np.ones((coordinates.shape[1]), dtype=np.float64)
+        caller = "molsysmt.structure.principal_component_analysis"
+        if (
+            coordinates.ndim != 3
+            or coordinates.shape[-1] != 3
+            or coordinates.shape[0] == 0
+            or not np.all(np.isfinite(coordinates))
+        ):
+            raise ArgumentError(
+                "coordinates",
+                caller=caller,
+                message="PCA requires finite Cartesian coordinates and at least one structure.",
+            )
+        if isinstance(weights, str):
+            raise ArgumentError(
+                "weights",
+                caller=caller,
+                message="Provide numerical atom weights in selection order, not a named model.",
+            )
+        if puw.is_quantity(weights):
+            if not puw.check(weights, dimensionality={}):
+                raise ArgumentError(
+                    "weights",
+                    caller=caller,
+                    message="PCA weights must be dimensionless numerical factors.",
+                )
+            weights = puw.get_value(weights, to_unit="dimensionless")
+        if np.iscomplexobj(weights):
+            raise ArgumentError(
+                "weights",
+                caller=caller,
+                message="PCA weights must be real numerical factors.",
+            )
+        weights = prepare_weights(weights, coordinates.shape[1], caller=caller)
 
         from molsysmt._private.gpu import resolve_use_gpu
 

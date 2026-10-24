@@ -139,7 +139,8 @@ jobs:
             tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \
             tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py \
             tests/structure/test_distance_family_contract.py \
-            tests/form/string_amino_acids_3/test_biopython_codec.py
+            tests/form/string_amino_acids_3/test_biopython_codec.py \
+            tests/structure/principal_component_analysis/test_weighted_contract.py
 
 
       - name: Receive the bound MolSysViewer tools

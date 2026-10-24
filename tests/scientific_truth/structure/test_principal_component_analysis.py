@@ -36,3 +36,29 @@ def test_pca_matches_closed_form_diagonal_covariance(float64_kernel_atol):
         rtol=0.0,
         atol=float64_kernel_atol,
     )
+
+
+def test_weighted_pca_matches_closed_form_diagonal_covariance(float64_kernel_atol):
+    """A weight of four multiplies each analytic variance by four."""
+    coordinates = np.array(
+        [
+            [[x, 2.0 * y, 3.0 * z]]
+            for x, y, z in itertools.product((-1.0, 1.0), repeat=3)
+        ]
+    )
+    molsys = Structures(coordinates=coordinates * msm.pyunitwizard.unit("nm"))
+    vectors, values = msm.structure.principal_component_analysis(
+        molsys, weights=[4.0], use_gpu=False
+    )
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(values, to_unit="nm**2"),
+        [36.0, 16.0, 4.0],
+        rtol=0.0,
+        atol=float64_kernel_atol,
+    )
+    np.testing.assert_allclose(
+        np.abs(vectors),
+        np.eye(3)[::-1],
+        rtol=0.0,
+        atol=float64_kernel_atol,
+    )

@@ -359,3 +359,9 @@ molsysmt.structure.get_contacts:
   first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
   summary: "Preserves independent endpoint, index and unit contracts for get_contacts."
   doc_ref: "{func}`molsysmt.structure.get_contacts`"
+
+molsysmt.structure.principal_component_analysis:
+  name: "msm.structure.principal_component_analysis"
+  first_introduced_in: "Path_Alzheimer/35_Principal_Components.ipynb"
+  summary: "Computes weighted population covariance modes with squared-length eigenvalues."
+  doc_ref: "{func}`molsysmt.structure.principal_component_analysis`"

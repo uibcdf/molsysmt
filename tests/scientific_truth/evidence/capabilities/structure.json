@@ -360,6 +360,12 @@
         "test": "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
         "oracle": "Eight independent Cartesian sign combinations whose population covariance is exactly diag(1, 4, 9), returned as eigenvalues (9, 4, 1) nm^2 with matching eigenvectors in descending order.",
         "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+        "oracle": "Eight independent Cartesian sign combinations with atom weight four give population covariance diag(4, 16, 36) and descending eigenvalues (36, 16, 4) nm^2. Weights are not normalized by their sum.",
+        "tolerance": "float64_kernel_atol"
       }
     ],
     "gap": null

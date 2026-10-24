@@ -224,6 +224,11 @@ sections:
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
         pages:
+          - name: principal_component_analysis
+            file: docs/content/user/tools/structure/principal_component_analysis.ipynb
+            agents_file: docs/content/user/tools/structure/principal_component_analysis.ipynb.AGENTS.md
+            description: Weighted population covariance, numerical weight contracts, Cartesian blocks and squared-length eigenvalues.
+            status: reviewed
           - name: distance_family
             file: docs/content/user/tools/structure/distance_family.md
             agents_file: docs/content/user/tools/structure/distance_family.md.AGENTS.md
@@ -412,6 +417,11 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: weighting_pca
+        file: docs/content/user/cookbook/weighting_pca.md
+        agents_file: docs/content/user/cookbook/weighting_pca.md.AGENTS.md
+        description: Checking weighted covariance and projections with explicit atom and structure axes.
+        status: reviewed
       - name: comparing_coordinate_endpoints
         file: docs/content/user/cookbook/comparing_coordinate_endpoints.md
         agents_file: docs/content/user/cookbook/comparing_coordinate_endpoints.md.AGENTS.md

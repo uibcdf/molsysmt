@@ -113,6 +113,15 @@ Incompatible dimensions compare unequal, and a missing unit is not inferred
 from the other operand. See {ref}`Tutorial_Compare` for explicit attribute queries.
 
 
+## Covariance units and numerical weights
+
+{func}`molsysmt.structure.principal_component_analysis` returns dimensionless
+row eigenvectors and eigenvalues in squared-length units. Atom weights are
+dimensionless numerical factors; they scale the covariance and are not
+normalized by their sum. A length presentation policy of angstrom therefore
+returns angstrom² eigenvalues with the same physical variance as nm² output.
+See {ref}`Cookbook_Weighting_PCA` for a numerical covariance and projection check.
+
 ## Endpoint consistency
 
 Distances and geometric neighborhoods carry two coordinate index spaces. Physical
