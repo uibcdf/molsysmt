@@ -84,5 +84,7 @@ def permute_atoms(
         from molsysmt.basic import convert
 
         molecular_system = convert(molecular_system, to_form="molsysmt.MolSys")
-    result, report = permute(molecular_system, atom_indices, return_report=return_report)
+    result, report = permute(
+        molecular_system, atom_indices, return_report=return_report
+    )
     return {"molecular_system": result, "report": report} if return_report else result

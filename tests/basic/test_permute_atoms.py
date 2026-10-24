@@ -452,7 +452,7 @@ def test_permutation_map_composes_with_projection_origins():
     "smiles", ["F/C=C/Cl", "F/C=C\\Cl", "N[C@@H](C)C(=O)O", "C1CCCCC1"]
 )
 def test_rdkit_independently_recovers_absolute_atom_and_double_bond_stereo(smiles):
-    from rdkit import Chem
+    Chem = pytest.importorskip("rdkit.Chem")
 
     reference = Chem.MolFromSmiles(smiles)
     source = msm.convert(reference, to_form="molsysmt.MolSys")
