@@ -3,9 +3,9 @@ from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.lists import sorted_list_of_pairs
 from molsysmt._private.smonitor import (
     ArgumentConflictError,
+    ArgumentError,
     InternalAlgorithmError,
     NotImplementedMethodError,
 )
@@ -34,6 +34,8 @@ def _threshold_neighbors_via_cell_list(
     """
     from molsysmt._private.rust_backend import neighbor_list_csr_multi
     from molsysmt.basic import get
+
+    from .get_distances import _validate_boxes, _validate_coordinate_pair
 
     q = get(
         molecular_system,
@@ -74,14 +76,25 @@ def _threshold_neighbors_via_cell_list(
                 puw.get_value(box_q, to_unit=length_units), dtype=np.float64
             )
 
-    offsets, indices, distances = neighbor_list_csr_multi(
-        q_val,
-        r_val,
-        box=box,
-        cutoff=threshold_val,
-        exclude_self=same_set,
-        sort_by_distance=True,
-    )
+    _validate_coordinate_pair(q_val, r_val)
+    if box is not None:
+        _validate_boxes(box, len(q_val))
+    if (
+        q_val.shape[0] == 0
+        or q_val.shape[1] == 0
+        or (r_val is not None and r_val.shape[1] == 0)
+    ):
+        offsets = np.zeros(q_val.shape[0] * q_val.shape[1] + 1, dtype=np.int64)
+        indices, distances = np.empty(0, dtype=np.int64), np.empty(0, dtype=float)
+    else:
+        offsets, indices, distances = neighbor_list_csr_multi(
+            q_val,
+            r_val,
+            box=box,
+            cutoff=threshold_val,
+            exclude_self=same_set,
+            sort_by_distance=True,
+        )
 
     if output_type == "csr":
         return offsets, indices, distances * length_units
@@ -132,7 +145,7 @@ def get_neighbors(
     skip_digestion=False,
 ):
     """
-    Find the neighbors of each atom (or group center) within a cutoff or by count.
+    Finding the neighbors of each atom (or group center) within a cutoff or by count.
 
     Exactly one of ``threshold`` or ``n_neighbors`` must be provided:
 
@@ -143,9 +156,10 @@ def get_neighbors(
     * **Fixed-count mode** (``n_neighbors`` is set, ``threshold=None``): returns the
       ``n_neighbors`` nearest neighbors for each atom as a fixed-size integer array.
 
-    When ``selection_2`` is ``None`` and ``structure_indices_2`` is ``None`` the
-    same set is used as both query and target (self-neighbor search).  Self-matches
-    (distance ≈ 0) are automatically excluded in this case.
+    With no explicit second endpoint definition, the selected population
+    supplies both endpoints. Self identity is excluded; distinct coincident atoms
+    remain neighbors. An explicit second system is always an independent source.
+    Neighbors sort by distance, breaking ties by local target index.
 
 
     Parameters
@@ -189,7 +203,7 @@ def get_neighbors(
     output_structure_indices : {'selection', 'structure'} or None, default=None
         Structure-index convention included with the returned values.
     sorted : bool, default=True
-        Whether to sort the returned bonded atom pairs.
+        Whether to order pair rows lexicographically, preserving query/target roles. Neighbor rows themselves are distance-sorted.
     engine : str, default='MolSysMT'
         Backend used to perform the calculation.
     syntax : str, default='MolSysMT'
@@ -204,15 +218,15 @@ def get_neighbors(
     Returns
     -------
     neighs : numpy.ndarray or list
-        Neighbor indices per query element per frame.  Shape is
+        Neighbor indices per query element per structure.  Shape is
         ``(n_structures, n_elements_1, n_neighbors)`` (fixed-count mode) or
         ``(n_structures, n_elements_1)`` with dtype ``object`` (threshold mode)
         when ``output_type='numpy.ndarray'``.
-        A list of ``[query_idx, neighbor_idx]`` pairs per frame when
+        A list of ``[query_idx, neighbor_idx]`` pairs per structure when
         ``output_type='pairs'``.
     dists : quantity or list
         Corresponding distances as a PyUnitWizard length quantity (numpy array
-        output) or a list of quantities per frame (pairs output).
+        output) or a list of quantities per structure (pairs output).
 
 
     Raises
@@ -221,10 +235,32 @@ def get_neighbors(
         If both ``threshold`` and ``n_neighbors`` are set, or neither is set.
     NotImplementedMethodError
         For output-type/index combinations not yet implemented.
-    InternalAlgorithmError
-        If a self-neighbor search detects an inconsistency in the distance matrix
-        (i.e., the nearest neighbor of an element is not itself).
+    ArgumentError
+        If a cutoff/count is invalid or the requested count exceeds available targets.
 
+
+    Notes
+    -----
+    Counts can be zero. Thresholds are finite nonnegative scalar lengths and
+    include the boundary. Returned indices refer to local target positions;
+    pair output can request atom or selection labels. Pair filters require
+    compatible node identities in one source; unsupported combinations and
+    pairs=True reject explicitly. CSR is available only on the flat-atom
+    threshold cell-list route. Internal disk distance storage is retired after
+    reduction. The primary system supplies the periodic box.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.systems['particles 4']['traj_particles_4.xyznpy']
+    >>> indices, distances = get_neighbors(source, selection=[0],
+    ...     selection_2=[1, 2], n_neighbors=1, pbc=False)
+    >>> indices.shape
+    (3, 1, 1)
+
+    .. admonition:: User guide
+
+       See :ref:`user-tools-distance-family`.
 
     .. versionadded:: 1.0.0
     """
@@ -232,6 +268,36 @@ def get_neighbors(
     from molsysmt.pbc import has_pbc
 
     from . import get_distances
+
+    caller = "molsysmt.structure.get_neighbors"
+    if (threshold is None) == (n_neighbors is None):
+        raise ArgumentConflictError(
+            arg1="threshold",
+            arg2="n_neighbors",
+            reason="Provide exactly one of threshold or n_neighbors.",
+            caller=caller,
+        )
+    if pairs or (
+        (unique_pairs or mutual_only)
+        and (output_type != "pairs" or molecular_system_2 is not None)
+    ):
+        raise NotImplementedMethodError(caller=caller)
+    if n_neighbors is not None and (
+        isinstance(n_neighbors, (bool, np.bool_)) or n_neighbors < 0
+    ):
+        raise ArgumentError(
+            "n_neighbors",
+            caller=caller,
+            message="Neighbor counts must be nonnegative integers.",
+        )
+    if threshold is not None:
+        cutoff = puw.get_value(threshold, to_unit="nm")
+        if np.ndim(cutoff) != 0 or not np.isfinite(cutoff) or cutoff < 0:
+            raise ArgumentError(
+                "threshold",
+                caller=caller,
+                message="Cutoffs must be finite nonnegative scalar lengths.",
+            )
 
     if pbc:
         pbc = has_pbc(molecular_system)
@@ -247,7 +313,26 @@ def get_neighbors(
     if structure_indices_2 is None:
         same_structures = True
 
-    same_set = same_selections and same_structures
+    same_set = (
+        molecular_system_2 is None
+        and same_selections
+        and same_structures
+        and not center_of_atoms_2
+        and weights_2 is None
+    )
+    if (unique_pairs or mutual_only) and output_indices != "atom" and not same_set:
+        raise NotImplementedMethodError(caller=caller)
+
+    self_labels = None
+    if (
+        same_set
+        and not center_of_atoms
+        and not is_iterable_of_iterables(selection)
+        and not isinstance(selection, str)
+    ):
+        labels = np.atleast_1d(np.asarray(selection))
+        if labels.dtype.kind in "iu" and len(np.unique(labels)) != len(labels):
+            self_labels = labels
 
     # Fast path: threshold-mode atom neighbour search via the shared multi-structure
     # cell list (O(N) vs the full O(N*M) distance matrix). Restricted to the cases
@@ -259,6 +344,7 @@ def get_neighbors(
         and output_type in ("numpy.ndarray", "csr")
         and output_indices is None
         and output_structure_indices is None
+        and self_labels is None
         and not center_of_atoms
         and not center_of_atoms_2
         and molecular_system_2 is None
@@ -266,8 +352,8 @@ def get_neighbors(
         and not pairs
         and weights is None
         and weights_2 is None
-        and not is_iterable_of_iterables(selection)
-        and not is_iterable_of_iterables(selection_2)
+        and not (is_iterable_of_iterables(selection) and len(selection) > 0)
+        and not (is_iterable_of_iterables(selection_2) and len(selection_2) > 0)
     )
     if _cell_list_eligible:
         _cell_list_result = _threshold_neighbors_via_cell_list(
@@ -289,6 +375,7 @@ def get_neighbors(
 
     output_get_distances = get_distances(
         molecular_system=molecular_system,
+        molecular_system_2=molecular_system_2,
         selection=selection,
         structure_indices=structure_indices,
         center_of_atoms=center_of_atoms,
@@ -314,75 +401,60 @@ def get_neighbors(
     length_units = puw.get_unit(all_dists)
     all_dists = puw.get_value(all_dists)
 
-    if n_neighbors is not None and threshold is None:
-        neighs = np.empty((nstructures, nelements_1, n_neighbors), dtype=int)
-        dists = np.empty((nstructures, nelements_1, n_neighbors), dtype=float)
+    from molsysmt._private.execution.persistent_result import PersistentResultHandle
 
-        offset = 0
-        if same_set:
-            offset = 1
+    try:
+        excluded = int(same_set)
+        if self_labels is not None:
+            _, counts = np.unique(self_labels, return_counts=True)
+            excluded = int(counts.max(initial=0))
+        available = max(0, nelements_2 - excluded)
+        if n_neighbors is not None and n_neighbors > available:
+            raise ArgumentError(
+                "n_neighbors",
+                caller=caller,
+                message="The requested count exceeds the available target population.",
+            )
+        if n_neighbors is not None:
+            neighs = np.empty((nstructures, nelements_1, n_neighbors), dtype=int)
+            dists = np.empty((nstructures, nelements_1, n_neighbors), dtype=float)
+        else:
+            threshold = puw.get_value(threshold, to_unit=length_units)
+            neighs = np.empty((nstructures, nelements_1), dtype=object)
+            dists = np.empty((nstructures, nelements_1), dtype=object)
 
-        for indice_structure in range(nstructures):
-            for ii in range(nelements_1):
-                neighs_aux = np.argpartition(
-                    all_dists[indice_structure, ii, :], n_neighbors - 1 + offset
-                )[: n_neighbors + offset]
-                dists_aux = all_dists[indice_structure, ii, neighs_aux]
-                good_order = np.argsort(dists_aux)
-                neighs_aux = neighs_aux[good_order]
-                dists_aux = dists_aux[good_order]
-                neighs[indice_structure, ii, :] = neighs_aux[offset:]
-                dists[indice_structure, ii, :] = dists_aux[offset:]
-                if same_set:
-                    if dists_aux[0] > 0.01:
-                        raise InternalAlgorithmError(
-                            reason="Sets are different in distance calculation for the same molecular system.",
-                            caller="molsysmt.structure.get_neighbors",
-                        )
+        target_indices = np.arange(nelements_2)
+        for structure in range(nstructures):
+            for query in range(nelements_1):
+                row = all_dists[structure, query, :]
+                if self_labels is not None:
+                    candidates = target_indices[self_labels != self_labels[query]]
+                else:
+                    candidates = (
+                        target_indices[target_indices != query]
+                        if same_set
+                        else target_indices
+                    )
+                if n_neighbors is None:
+                    candidates = candidates[row[candidates] <= threshold]
+                elif n_neighbors == 0:
+                    candidates = candidates[:0]
+                elif n_neighbors < len(candidates):
+                    values = row[candidates]
+                    boundary = np.partition(values, n_neighbors - 1)[n_neighbors - 1]
+                    closer = candidates[values < boundary]
+                    ties = candidates[values == boundary][: n_neighbors - len(closer)]
+                    candidates = np.concatenate((closer, ties))
+                order = np.lexsort((candidates, row[candidates]))
+                selected = candidates[order]
+                neighs[structure, query] = selected
+                dists[structure, query] = row[selected]
+        dists = puw.quantity(dists, length_units)
 
-        del all_dists
-
-        dists = dists * length_units
-
-    elif threshold is not None and n_neighbors is None:
-        threshold = puw.get_value(threshold, to_unit=length_units)
-
-        neighs = np.empty((nstructures, nelements_1), dtype=object)
-        dists = np.empty((nstructures, nelements_1), dtype=object)
-
-        offset = 0
-        if same_set:
-            offset = 1
-
-        for indice_structure in range(nstructures):
-            for ii in range(nelements_1):
-                neighs_aux = np.argwhere(
-                    all_dists[indice_structure, ii, :] <= threshold
-                )[:, 0]
-                dists_aux = all_dists[indice_structure, ii, neighs_aux]
-                good_order = np.argsort(dists_aux)
-                neighs_aux = neighs_aux[good_order]
-                dists_aux = dists_aux[good_order]
-                neighs[indice_structure, ii] = neighs_aux[offset:]
-                dists[indice_structure, ii] = dists_aux[offset:]
-                if same_set:
-                    if dists_aux[0] > 0.01:
-                        raise InternalAlgorithmError(
-                            reason="Sets are different in distance calculation for the same molecular system.",
-                            caller="molsysmt.structure.get_neighbors",
-                        )
-
-        del all_dists
-
-        dists = dists * length_units
-
-    else:
-        raise ArgumentConflictError(
-            arg1="threshold",
-            arg2="n_neighbors",
-            reason="Either threshold or n_neighbors must be provided, but not both at the same time.",
-            caller="molsysmt.structure.get_neighbors",
-        )
+    finally:
+        if isinstance(all_dists, PersistentResultHandle):
+            row = None
+            all_dists.cleanup()
 
     if output_type == "numpy.ndarray":
         if output_indices is None and output_structure_indices is None:
@@ -443,8 +515,13 @@ def get_neighbors(
                     aux_dists = puw.utils.sequences.concatenate(
                         aux_dists, value_type="list"
                     )
-                if sorted:
-                    aux_pairs, aux_dists = sorted_list_of_pairs(aux_pairs, aux_dists)
+                if sorted and aux_pairs:
+                    labels = np.asarray(aux_pairs)
+                    order = np.lexsort((labels[:, 1], labels[:, 0]))
+                    aux_pairs = [aux_pairs[index] for index in order]
+                    aux_dists = puw.utils.sequences.slice(
+                        aux_dists, order, value_type="list"
+                    )
                 neighs_pairs.append(aux_pairs)
                 dists_pairs.append(aux_dists)
             return neighs_pairs, dists_pairs

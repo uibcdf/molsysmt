@@ -13,9 +13,9 @@ def to_biopython_SeqRecord(item, group_indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Sequence text in the declared alphabet; an explicit amino_acids prefix is supported.
     group_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Argument group_indices.
+        Original group positions in requested order; repetitions are retained.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -24,6 +24,13 @@ def to_biopython_SeqRecord(item, group_indices="all", skip_digestion=False):
     biopython.SeqRecord
         Resulting object in biopython.SeqRecord form.
 
+
+    Notes
+    -----
+    Biopython is an optional dependency for this explicitly requested output.
+    Native recognition, group selection and one/three-letter translation do not
+    require it. Three-letter terminal caps are omitted after group selection.
+    Empty selections produce empty Biopython sequence objects.
 
     .. versionadded:: 1.0.0
     """

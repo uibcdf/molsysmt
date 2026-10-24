@@ -111,3 +111,13 @@ such as box lengths, angles and volume, to compatible common units before
 numerical comparison. Equal raw magnitudes do not establish physical equality.
 Incompatible dimensions compare unequal, and a missing unit is not inferred
 from the other operand. See {ref}`Tutorial_Compare` for explicit attribute queries.
+
+
+## Endpoint consistency
+
+Distances and geometric neighborhoods carry two coordinate index spaces. Physical
+units must be aligned before comparing endpoints, and index lists retain their
+own source and requested structure order. Changing a presentation unit does not
+change which observation or atom an index addresses. A periodic comparison uses
+the primary source's box; a center uses the supplied participant positions.
+See {ref}`user-tools-distance-family` for the operational contract.

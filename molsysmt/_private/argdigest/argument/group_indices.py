@@ -28,6 +28,11 @@ def digest_group_indices(group_indices, caller):
         If the given indices are not of the correct type.
     """
 
+    from ._correspondence_axes import SEQUENCE_CALLERS, flat_axis
+
+    if caller in SEQUENCE_CALLERS:
+        return flat_axis(group_indices, "group_indices", caller)
+
     if group_indices is None:
         return None
     elif is_all(group_indices):

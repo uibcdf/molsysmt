@@ -3,7 +3,12 @@ from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import warn
+from molsysmt._private.smonitor import (
+    ArgumentError,
+    MemoryBudgetExceededError,
+    NotImplementedMethodError,
+    warn,
+)
 from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt.configure import with_configure_overrides
 
@@ -35,7 +40,7 @@ def get_contacts(
     skip_digestion=False,
 ):
     """
-    Compute a boolean contact map between two sets of atoms (or atom-group centers).
+    Computing a boolean contact map between two sets of atoms (or atom-group centers).
 
     Internally calls ``get_distances`` and applies a distance threshold to produce
     a contact map.  When only one selection is provided the contact map is computed
@@ -92,17 +97,68 @@ def get_contacts(
     -------
     numpy.ndarray or list
         Contact map as a boolean ``numpy.ndarray`` (``output_type='numpy.ndarray'``)
-        or as a list of contacting pairs per frame (``output_type='pairs'`` or
+        or as a list of contacting pairs per structure (``output_type='pairs'`` or
         ``'sorted pairs'``).
 
+
+    Raises
+    ------
+    ArgumentError
+        If a threshold or endpoint population is invalid.
+    MemoryBudgetExceededError
+        If the resident boolean map exceeds the configured numeric-output budget.
+    NotImplementedMethodError
+        If output labels or representation are unsupported.
+
+    Notes
+    -----
+    Contacts include distances equal to the finite nonnegative threshold. An
+    implicit same-structure dense self map includes its diagonal; pair output
+    retains only its strict upper triangle. Explicit endpoint structures retain
+    all directed entries. Atom-index pair output uses resolved selections.
+    The full boolean map remains resident, including when pairs are returned.
+    Coordinate preparation for accelerated dispatch has its own RAM cost;
+    internal disk distance intermediates are consumed by structure and retired.
+    This function has no molecular_system_2 argument. Actual GPU qualification
+    is separate from CPU fallback when a GPU selector is unavailable.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.systems['particles 4']['traj_particles_4.xyznpy']
+    >>> contacts = get_contacts(source, selection=[0], selection_2=[1, 2],
+    ...     threshold='2 nm', pbc=False, cell_list=False, use_gpu=False)
+    >>> contacts.shape, str(contacts.dtype)
+    ((3, 1, 2), 'bool')
+
+    .. admonition:: User guide
+
+       See :ref:`user-tools-distance-family`.
 
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get, select
     from molsysmt.pbc import has_pbc
-    from molsysmt.structure.get_distances import get_distances
+    from molsysmt.structure.get_distances import (
+        _validate_boxes,
+        _validate_coordinate_pair,
+        get_distances,
+    )
 
+    caller = "molsysmt.structure.get_contacts"
+    cutoff_nm = puw.get_value(threshold, to_unit="nm")
+    if np.ndim(cutoff_nm) != 0 or not np.isfinite(cutoff_nm) or cutoff_nm < 0:
+        raise ArgumentError(
+            "threshold",
+            caller=caller,
+            message="Cutoffs must be finite nonnegative scalar lengths.",
+        )
+    if (
+        output_type not in {"numpy.ndarray", "pairs", "sorted pairs"}
+        or output_indices == "group"
+    ):
+        raise NotImplementedMethodError(caller=caller)
     if selection is None:
         selection = "all"
 
@@ -115,6 +171,14 @@ def get_contacts(
                 selection = np.array(selection)
             selection_2 = selection[:, 1]
             selection = selection[:, 0]
+        elif len(selection) == 2:
+            selection, selection_2 = selection[0], selection[1]
+        else:
+            raise ArgumentError(
+                "selection",
+                caller=caller,
+                message="Provide two endpoint selections or explicit atom pairs.",
+            )
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
@@ -125,10 +189,25 @@ def get_contacts(
 
     from molsysmt._private.variables import is_iterable_of_iterables
 
-    if is_iterable_of_iterables(atom_indices):
+    if len(atom_indices) and is_iterable_of_iterables(atom_indices):
         center_of_atoms = True
-    if is_iterable_of_iterables(atom_indices_2):
+    if (
+        atom_indices_2 is not None
+        and len(atom_indices_2)
+        and is_iterable_of_iterables(atom_indices_2)
+    ):
         center_of_atoms_2 = True
+
+    if (weights is not None and not center_of_atoms) or (
+        weights_2 is not None and not center_of_atoms_2
+    ):
+        raise ArgumentError(
+            "weights",
+            caller=caller,
+            message="Weights require the corresponding center endpoint.",
+        )
+    if output_indices == "atom" and (center_of_atoms or center_of_atoms_2):
+        raise NotImplementedMethodError(caller=caller)
 
     # Check if GPU execution is requested and resolved
     import molsysmt.configure as config
@@ -158,22 +237,31 @@ def get_contacts(
             coordinates=True,
         )
 
-    if atom_indices_2 is not None:
+    if (
+        atom_indices_2 is not None
+        or structure_indices_2 is not None
+        or center_of_atoms_2
+    ):
+        second_atoms = atom_indices if atom_indices_2 is None else atom_indices_2
         if center_of_atoms_2:
             from molsysmt.structure.get_center import get_center
 
             coordinates_2 = get_center(
                 molecular_system,
-                selection=atom_indices_2,
-                structure_indices=structure_indices_2 or structure_indices,
+                selection=second_atoms,
+                structure_indices=structure_indices
+                if structure_indices_2 is None
+                else structure_indices_2,
                 weights=weights_2,
             )
         else:
             coordinates_2 = get(
                 molecular_system,
                 element="atom",
-                selection=atom_indices_2,
-                structure_indices=structure_indices_2 or structure_indices,
+                selection=second_atoms,
+                structure_indices=structure_indices
+                if structure_indices_2 is None
+                else structure_indices_2,
                 syntax=syntax,
                 coordinates=True,
             )
@@ -197,6 +285,16 @@ def get_contacts(
         else:
             payload = coords_val.shape[0] * coords_val.shape[1] * coords_2_val.shape[1]
 
+    _validate_coordinate_pair(coords_val, coords_2_val, paired=pairs)
+    output_bytes = payload
+    if output_bytes > config.max_ram_usage:
+        raise MemoryBudgetExceededError(
+            reason="The resident boolean contact map exceeds the configured budget.",
+            predicted_bytes=output_bytes,
+            available_bytes=config.max_ram_usage,
+            caller=caller,
+        )
+
     # Resolve GPU execution
     _use_gpu = resolve_use_gpu(use_gpu, payload)
 
@@ -217,6 +315,7 @@ def get_contacts(
             )
             if box is not None and box[0] is not None:
                 box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                _validate_boxes(box, len(coords_val))
             else:
                 box = None
 
@@ -334,7 +433,14 @@ def get_contacts(
             # Supported Rust kernel.
             _use_cell_list = coords_val.shape[1] > 400
 
-        if _use_cell_list and not pairs:
+        if (
+            _use_cell_list
+            and not pairs
+            and cutoff_nm > 0
+            and coords_val.shape[0] > 0
+            and coords_val.shape[1] > 0
+            and (coords_2_val is None or coords_2_val.shape[1] > 0)
+        ):
             if coords_2_val is None:
                 tmp_coords_2_val = coords_val
                 is_self = True
@@ -354,6 +460,7 @@ def get_contacts(
                 )
                 if box is not None and box[0] is not None:
                     box_val = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                    _validate_boxes(box_val, len(coords_val))
                 else:
                     box_val = None
 
@@ -405,20 +512,18 @@ def get_contacts(
             threshold = puw.get_value(threshold, to_unit=length_units)
             all_dists = puw.get_value(all_dists)
 
-            num_structures = all_dists.shape[0]
+            from molsysmt._private.execution import PersistentResultHandle
+
             contact_map = np.empty(all_dists.shape, dtype=bool)
-
-            for indice_structure in range(num_structures):
-                if pairs:
-                    contact_map[indice_structure, :] = (
-                        all_dists[indice_structure, :] <= threshold
-                    )
-                else:
-                    contact_map[indice_structure, :, :] = (
-                        all_dists[indice_structure, :, :] <= threshold
-                    )
-
-            del (all_dists, num_structures, indice_structure, length_units)
+            slab = None
+            try:
+                for structure in range(all_dists.shape[0]):
+                    slab = all_dists[structure]
+                    contact_map[structure] = slab <= threshold
+            finally:
+                slab = None
+                if isinstance(all_dists, PersistentResultHandle):
+                    all_dists.cleanup()
 
     output = None
 
@@ -438,11 +543,14 @@ def get_contacts(
                 for ii in range(n_contact_maps):
                     aux_pairs = np.nonzero(contact_map[ii, :])[0]
                     output.append(
-                        [[selection[ii], selection_2[ii]] for ii in aux_pairs]
+                        [
+                            [int(atom_indices[index]), int(atom_indices_2[index])]
+                            for index in aux_pairs
+                        ]
                     )
 
         else:
-            if selection_2 is None:
+            if coordinates_2 is None:
                 for ii in range(n_contact_maps):
                     aux_pairs = np.nonzero(np.triu(contact_map[ii], k=1))
                     aux_pairs = np.column_stack(aux_pairs).tolist()
@@ -462,7 +570,9 @@ def get_contacts(
                 else:
                     atom_indices_2 = np.array(atom_indices_2)
                     for ii in range(n_contact_maps):
-                        aux_pairs = np.array(output[ii])
+                        aux_pairs = np.asarray(output[ii], dtype=np.int64).reshape(
+                            -1, 2
+                        )
                         output[ii] = np.column_stack(
                             [
                                 atom_indices[aux_pairs[:, 0]],

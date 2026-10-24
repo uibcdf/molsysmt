@@ -10,6 +10,7 @@
 | [Get center](get_center.ipynb) | Getting the center of a molecular system |
 | [Get contacts](get_contacts.ipynb) | Getting the contact matrix of specific elements of a molecular system or two different molecular systems |
 | [Get dihedral angles](get_dihedral_angles.ipynb) | Getting the dihedral angles of a molecular system |
+| [Distance-family contracts](distance_family.md) | Keeping endpoints, weights, indices and result storage aligned |
 | [Get distances](get_distances.ipynb) | Getting the distance between specific elements of a molecular system or two different molecular systems |
 | [Get vectors](get_vectors.ipynb) | Computing directed vectors between atoms or centers across aligned structure selections |
 | [Get least RMSD](get_least_rmsd.ipynb) | Getting the least RMSD of a molecular system from a reference molecular system |
@@ -46,6 +47,7 @@
    get_center.ipynb
    get_contacts.ipynb
    get_dihedral_angles.ipynb
+   distance_family.md
    get_distances.ipynb
    get_vectors.ipynb
    get_least_rmsd.ipynb

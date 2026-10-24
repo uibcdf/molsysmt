@@ -107,7 +107,12 @@ fn emit_from(
     if sort {
         order.clear();
         order.extend(0..m);
-        order.sort_by(|&a, &b| csq[a].partial_cmp(&csq[b]).unwrap());
+        order.sort_by(|&a, &b| {
+            csq[a]
+                .partial_cmp(&csq[b])
+                .unwrap()
+                .then_with(|| cand[a].cmp(&cand[b]))
+        });
         for &p in order.iter() {
             idx.push(cand[p]);
             dist.push(csq[p].sqrt());
@@ -505,6 +510,14 @@ mod tests {
 
     const ORTHO: Mat3 = [[6.0, 0.0, 0.0], [0.0, 6.0, 0.0], [0.0, 0.0, 6.0]];
     const TRIC: Mat3 = [[6.0, 0.0, 0.0], [1.2, 6.0, 0.0], [0.8, 0.6, 6.0]];
+
+    #[test]
+    fn equal_distances_sort_by_local_target_index() {
+        let mut order = Vec::new();
+        let (indices, distances) = emit_from(&[3, 1, 2], &[1.0, 1.0, 1.0], true, &mut order);
+        assert_eq!(indices, vec![1, 2, 3]);
+        assert_eq!(distances, vec![1.0, 1.0, 1.0]);
+    }
 
     #[test]
     fn orthogonality_detection() {

@@ -1,8 +1,4 @@
-from copy import copy
-
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.variables import is_all
 
 
 @arg_digest(form="string:amino_acids_1")
@@ -12,6 +8,8 @@ def extract(
     structure_indices="all",
     copy_if_all=True,
     skip_digestion=False,
+    *,
+    group_indices="all",
 ):
     """
     Extracting a subset of elements or structures from form string:amino_acids_1.
@@ -22,9 +20,11 @@ def extract(
     item : molecular system
         Argument item.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Sequence-group positions under the generic extraction argument; no atoms are inferred.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
+    group_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Original sequence-group positions in the requested order; repeats are retained.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
@@ -39,12 +39,13 @@ def extract(
     .. versionadded:: 1.0.0
     """
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all:
-            tmp_item = copy(item)
-        else:
-            tmp_item = item
-    else:
-        raise NotImplementedMethodError
+    from molsysmt.form._sequence_selection import extract as select_groups
 
-    return tmp_item
+    return select_groups(
+        item,
+        1,
+        atom_indices,
+        group_indices,
+        structure_indices,
+        caller="molsysmt.form.string_amino_acids_1.extract",
+    )

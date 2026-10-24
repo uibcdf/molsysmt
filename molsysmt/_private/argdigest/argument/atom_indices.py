@@ -36,6 +36,11 @@ def digest_atom_indices(atom_indices, caller=None):
             raise ArgumentError("atom_indices", caller=caller)
         return output
 
+    from ._correspondence_axes import SEQUENCE_CALLERS, flat_axis
+
+    if caller in SEQUENCE_CALLERS:
+        return flat_axis(atom_indices, "atom_indices", caller)
+
     if atom_indices is None:
         return None
     elif is_all(atom_indices):

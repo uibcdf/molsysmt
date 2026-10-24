@@ -224,6 +224,11 @@ sections:
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
         pages:
+          - name: distance_family
+            file: docs/content/user/tools/structure/distance_family.md
+            agents_file: docs/content/user/tools/structure/distance_family.md.AGENTS.md
+            description: Independent endpoint populations, structure axes, reduction indices, thresholds, units, memory and unsupported routes.
+            status: reviewed
           - name: get_symmetry_corrected_rmsd
             file: docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb
             agents_file: docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb.AGENTS.md
@@ -407,10 +412,15 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: comparing_coordinate_endpoints
+        file: docs/content/user/cookbook/comparing_coordinate_endpoints.md
+        agents_file: docs/content/user/cookbook/comparing_coordinate_endpoints.md.AGENTS.md
+        description: Independent source/structure correspondence, local neighbor indices and inclusive contacts.
+        status: reviewed
       - name: comparing_sequence_source_groups
         file: docs/content/user/cookbook/comparing_sequence_source_groups.md
         agents_file: docs/content/user/cookbook/comparing_sequence_source_groups.md.AGENTS.md
-        description: Query-normalized sequence identity and source group correspondence.
+        description: Query-normalized identity, original sequence groups, native string codecs and explicit optional Biopython output.
         status: reviewed
       - name: symmetry_pose_rmsd
         file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb

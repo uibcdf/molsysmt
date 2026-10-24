@@ -1,9 +1,6 @@
-import numpy as np
 from smonitor import signal
 
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentConflictError
 
 
 @signal(tags=["api", "structure"])
@@ -28,7 +25,7 @@ def get_minimum_distances(
     skip_digestion=False,
 ):
     """
-    Find the minimum pairwise distances between two sets of atoms (or atom-group centers).
+    Computing the minimum pairwise distances between two sets of atoms (or atom-group centers).
 
     Internally calls ``get_distances`` and then reduces the full distance matrix by
     selecting the minimum entry according to the ``as_entity`` / ``as_entity_2``
@@ -46,7 +43,7 @@ def get_minimum_distances(
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
     as_entity : bool, default=True
-        Whether each nested selection is treated as a single distance entity.
+        Whether to reduce over the first endpoint population; False retains one result per first endpoint.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     molecular_system_2 : molecular system or None, default=None
@@ -58,7 +55,7 @@ def get_minimum_distances(
     weights_2 : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for selection_2.
     as_entity_2 : bool, default=True
-        Whether each nested selection in the second system is treated as one entity.
+        Whether to reduce over the second endpoint population; False retains one result per second endpoint.
     structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
         Structure indices (0-based) for the second selection.
     pairs : bool, default=False
@@ -75,9 +72,11 @@ def get_minimum_distances(
     Returns
     -------
     pairs_indices : numpy.ndarray
-        Indices of the element pair (within the selection arrays) that achieves
-        the minimum distance.  Shape depends on the ``as_entity`` flags and
-        whether ``pairs`` mode is active.
+        Local positions within the ordered endpoint populations. Both entity
+        flags give shape (n_structures, 2). Reducing one population retains the
+        other axis and returns indices into the reduced population. Paired mode
+        gives one local pair-list index per structure. Ties choose the first
+        local occurrence.
     dists : quantity
         PyUnitWizard length quantity of the corresponding minimum distances in the
         standard length unit (nm).
@@ -91,10 +90,38 @@ def get_minimum_distances(
         ``as_entity=False`` or ``as_entity_2=False``.
 
 
+    Notes
+    -----
+    Selections, weights and structure lists for the two endpoints remain
+    independent. Structure lists are paired positionally and must have equal
+    length; reuse a structure by repeating its index explicitly. Entity flags
+    control reduction axes, while nested selections define weighted centers.
+    Ties choose the first local occurrence in row-major order. Empty endpoint
+    populations reject explicitly. Disk-backed distance intermediates are read
+    one structure at a time and retired before returning the resident extrema.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.systems['particles 4']['traj_particles_4.xyznpy']
+    >>> indices, values = get_minimum_distances(source,
+    ...     selection=[0, 1], selection_2=[2, 3], center_of_atoms=True,
+    ...     center_of_atoms_2=True, weights=[1., 1.], weights_2=[1., 3.], pbc=False)
+    >>> msm.pyunitwizard.get_value(values, to_unit='nm').round(6).tolist()
+    [3.579455, 1.118034, 2.09165]
+
+    .. admonition:: User guide
+
+       See :ref:`user-tools-distance-family`.
+
     .. versionadded:: 1.0.0
     """
 
     from . import get_distances
+    from ._distance_extrema import reduce, validate
+
+    caller = "molsysmt.structure.get_minimum_distances"
+    validate(as_entity, as_entity_2, pairs, caller)
 
     all_dists = get_distances(
         molecular_system=molecular_system,
@@ -105,7 +132,7 @@ def get_minimum_distances(
         molecular_system_2=molecular_system_2,
         selection_2=selection_2,
         center_of_atoms_2=center_of_atoms_2,
-        weights_2=weights,
+        weights_2=weights_2,
         structure_indices_2=structure_indices_2,
         pairs=pairs,
         pbc=pbc,
@@ -114,89 +141,4 @@ def get_minimum_distances(
         skip_digestion=True,
     )
 
-    if pairs is False:
-        nstructures, nelements_1, nelements_2 = all_dists.shape
-        length_units = puw.get_unit(all_dists)
-        all_dists = puw.get_value(all_dists)
-
-        if (as_entity is True) and (as_entity_2 is True):
-            pairs = np.empty((nstructures, 2), dtype=int)
-            dists = np.empty((nstructures), dtype=float)
-            for indice_structure in range(nstructures):
-                ii, jj = np.unravel_index(
-                    all_dists[indice_structure, :, :].argmin(),
-                    all_dists[indice_structure, :, :].shape,
-                )
-                pairs[indice_structure, 0] = ii
-                pairs[indice_structure, 1] = jj
-                dists[indice_structure] = all_dists[indice_structure, ii, jj]
-
-            del all_dists
-
-            dists = dists * length_units
-
-            return pairs, dists
-
-        elif (as_entity is False) and (as_entity_2 is True):
-            pairs = np.empty((nstructures, nelements_1), dtype=int)
-            dists = np.empty((nstructures, nelements_1), dtype=float)
-            for indice_structure in range(nstructures):
-                for ii in range(nelements_1):
-                    jj = all_dists[indice_structure, ii, :].argmin()
-                    pairs[indice_structure, ii] = jj
-                    dists[indice_structure, ii] = all_dists[indice_structure, ii, jj]
-
-            del all_dists
-
-            dists = dists * length_units
-
-            return pairs, dists
-
-        elif (as_entity is True) and (as_entity_2 is False):
-            pairs = np.empty((nstructures, nelements_2), dtype=int)
-            dists = np.empty((nstructures, nelements_2), dtype=float)
-            for indice_structure in range(nstructures):
-                for ii in range(nelements_2):
-                    jj = all_dists[indice_structure, :, ii].argmin()
-                    dists[indice_structure, ii] = all_dists[indice_structure, jj, ii]
-
-            del all_dists
-
-            dists = dists * length_units
-
-            return pairs, dists
-
-        else:
-            raise ArgumentConflictError(
-                arg1="as_entity",
-                arg2="as_entity_2",
-                reason="If both input arguments 'as_entity' and 'as_entity_2' are False, the method you are looking for is molsysmt.distance()",
-                caller="molsysmt.structure.get_minimum_distances",
-            )
-
-    else:
-        nstructures, nelements = all_dists.shape
-        length_units = puw.get_unit(all_dists)
-        all_dists = puw.get_value(all_dists)
-
-        if (as_entity is True) and (as_entity_2 is True):
-            pairs = np.empty((nstructures), dtype=int)
-            dists = np.empty((nstructures), dtype=float)
-            for indice_structure in range(nstructures):
-                ii = all_dists[indice_structure, :].argmin()
-                pairs[indice_structure] = ii
-                dists[indice_structure] = all_dists[indice_structure, ii]
-
-            del all_dists
-
-            dists = dists * length_units
-
-            return pairs, dists
-
-        else:
-            raise ArgumentConflictError(
-                arg1="pairs",
-                arg2="as_entity",
-                reason="If 'pairs=True' both input arguments 'as_entity' and 'as_entity_2' need to be True",
-                caller="molsysmt.structure.get_minimum_distances",
-            )
+    return reduce(all_dists, as_entity, as_entity_2, pairs, False, caller)

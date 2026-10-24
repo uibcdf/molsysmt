@@ -1,7 +1,10 @@
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="string:amino_acids_3")
+@dep_digest("Bio")
 def to_biopython_SeqRecord(item, group_indices="all", skip_digestion=False):
     """
     Converting from string:amino_acids_3 to biopython.SeqRecord.
@@ -10,9 +13,9 @@ def to_biopython_SeqRecord(item, group_indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Sequence text in the declared alphabet; an explicit amino_acids prefix is supported.
     group_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Argument group_indices.
+        Original group positions in requested order; repetitions are retained.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -22,21 +25,21 @@ def to_biopython_SeqRecord(item, group_indices="all", skip_digestion=False):
         Resulting object in biopython.SeqRecord form.
 
 
+    Notes
+    -----
+    Biopython is an optional dependency for this explicitly requested output.
+    Native recognition, group selection and one/three-letter translation do not
+    require it. Three-letter terminal caps are omitted after group selection.
+    Empty selections produce empty Biopython sequence objects.
+
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.string_amino_acids_1.to_biopython_SeqRecord import (
-        to_biopython_SeqRecord as string_amino_acids_1_to_biopython_SeqRecord,
-    )
-    from molsysmt.form.string_amino_acids_1.to_string_amino_acids_1 import (
-        to_string_amino_acids_1,
+    from molsysmt.form.biopython_Seq.to_biopython_SeqRecord import (
+        to_biopython_SeqRecord as to_record,
     )
 
-    tmp_item = to_string_amino_acids_1(
-        item, group_indices=group_indices, skip_digestion=True
-    )
-    tmp_item = string_amino_acids_1_to_biopython_SeqRecord(
-        tmp_item, skip_digestion=True
-    )
+    from .to_biopython_Seq import to_biopython_Seq
 
-    return tmp_item
+    sequence = to_biopython_Seq(item, group_indices=group_indices, skip_digestion=True)
+    return to_record(sequence, skip_digestion=True)

@@ -329,3 +329,33 @@ molsysmt.structure.get_symmetry_corrected_rmsd:
   first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
   summary: "Evaluates chemically admitted pose RMSD without rigid superposition."
   doc_ref: "{func}`molsysmt.structure.get_symmetry_corrected_rmsd`"
+
+molsysmt.structure.get_distances:
+  name: "msm.structure.get_distances"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Preserves independent endpoint, index and unit contracts for get_distances."
+  doc_ref: "{func}`molsysmt.structure.get_distances`"
+
+molsysmt.structure.get_minimum_distances:
+  name: "msm.structure.get_minimum_distances"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Preserves independent endpoint, index and unit contracts for get_minimum_distances."
+  doc_ref: "{func}`molsysmt.structure.get_minimum_distances`"
+
+molsysmt.structure.get_maximum_distances:
+  name: "msm.structure.get_maximum_distances"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Preserves independent endpoint, index and unit contracts for get_maximum_distances."
+  doc_ref: "{func}`molsysmt.structure.get_maximum_distances`"
+
+molsysmt.structure.get_neighbors:
+  name: "msm.structure.get_neighbors"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Preserves independent endpoint, index and unit contracts for get_neighbors."
+  doc_ref: "{func}`molsysmt.structure.get_neighbors`"
+
+molsysmt.structure.get_contacts:
+  name: "msm.structure.get_contacts"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Preserves independent endpoint, index and unit contracts for get_contacts."
+  doc_ref: "{func}`molsysmt.structure.get_contacts`"

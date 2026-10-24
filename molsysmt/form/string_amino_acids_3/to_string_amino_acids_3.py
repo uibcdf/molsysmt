@@ -12,9 +12,9 @@ def to_string_amino_acids_3(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Sequence text in the declared alphabet; an explicit amino_acids prefix is supported.
     group_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Argument group_indices.
+        Original group positions in requested order; repetitions are retained.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False

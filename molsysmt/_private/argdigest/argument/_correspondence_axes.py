@@ -20,6 +20,19 @@ CALLERS = {
 }
 
 
+SEQUENCE_CALLERS = {
+    f"molsysmt.form.string_amino_acids_{width}.{function}.{function}"
+    for width in (1, 3)
+    for function in (
+        "extract",
+        "to_biopython_Seq",
+        "to_biopython_SeqRecord",
+        "to_string_amino_acids_1",
+        "to_string_amino_acids_3",
+    )
+}
+
+
 def _has_units(value):
     return hasattr(value, "unit") or hasattr(value, "units")
 

@@ -29,3 +29,12 @@ an alignment or annotating the systems in a viewer.
 The {ref}`identity tutorial <Tutorial_Get_sequence_identity>` executes this
 complete capped/extracted comparison. The {ref}`Topology foundation <user-foundations-native-world-classes-molsysmt-topology>`
 explains the distinction between molecular groups and sequence positions.
+
+
+For the optional Biopython object conversion, the source
+`amino_acids_3:AceAlaGlyNme` converts to `Seq("AG")`. Selecting original groups
+`[2, 1, 2, 0]` first produces `Seq("GAG")`: the selected cap contributes no
+letter. An empty selection produces an empty Seq/SeqRecord, whereas an empty
+alignment selection still rejects. Explicit prefixes are representation markers,
+not sequence characters. Native one/three-letter translation and extraction do
+not require Biopython; only the requested object output and alignment do.

@@ -11,9 +11,9 @@ def to_string_amino_acids_3(item, group_indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Sequence text in the declared alphabet; an explicit amino_acids prefix is supported.
     group_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Argument group_indices.
+        Original group positions in requested order; repetitions are retained.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -26,8 +26,13 @@ def to_string_amino_acids_3(item, group_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    sequence = item.removeprefix("amino_acids_1:")
-    return "".join(
+    from .extract import extract
+
+    selected = extract(item, group_indices=group_indices, skip_digestion=True)
+    sequence = selected.removeprefix("amino_acids_1:")
+    output = "".join(
         ("TER" if code == "*" else aa1_to_aa3.get(code.upper(), "XAA")).title()
         for code in sequence
     )
+
+    return output if output else "amino_acids_3:"

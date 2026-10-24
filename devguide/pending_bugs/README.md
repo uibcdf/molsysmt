@@ -20,12 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
-
-- [`minimum_distances_reuses_first_population_weights.md`](minimum_distances_reuses_first_population_weights.md) — [#444](https://github.com/uibcdf/molsysmt/issues/444) — Minimum distances reuse first-population weights for the second center. *(medium, reproduced)*
-- [`neighbors_ignores_explicit_second_system.md`](neighbors_ignores_explicit_second_system.md) — [#445](https://github.com/uibcdf/molsysmt/issues/445) — Neighbors ignore the explicit second molecular system in distance fallback. *(medium, reproduced)*
-- [`three_letter_amino_acid_sequence_conversion_to_biopython_raises_on_group_indices.md`](three_letter_amino_acid_sequence_conversion_to_biopython_raises_on_group_indices.md) — [#443](https://github.com/uibcdf/molsysmt/issues/443) — Three-letter amino-acid sequence conversion to Biopython raises on group_indices *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

@@ -9,12 +9,43 @@ from molsysmt._private.smonitor import (
     ArgumentError,
     MemoryBudgetExceededError,
     NotImplementedMethodError,
+    StructuralInconsistencyError,
 )
 from molsysmt._private.variables import (
     is_all,
     is_iterable_of_iterables,
     is_iterable_of_pairs,
 )
+
+
+def _validate_coordinate_pair(first, second=None, *, paired=False):
+    if not np.isfinite(first).all() or (
+        second is not None and not np.isfinite(second).all()
+    ):
+        raise StructuralInconsistencyError(
+            reason="Distance coordinates must be finite.",
+            caller="molsysmt.structure.get_distances",
+        )
+    if second is not None and first.shape[0] != second.shape[0]:
+        raise ArgumentError(
+            "structure_indices_2",
+            caller="molsysmt.structure.get_distances",
+            message="Structure lists must have equal length; repeat indices explicitly to reuse a structure.",
+        )
+    if paired and (second is None or first.shape[1] != second.shape[1]):
+        raise ArgumentError(
+            "selection_2",
+            caller="molsysmt.structure.get_distances",
+            message="Paired distances require equal endpoint counts.",
+        )
+
+
+def _validate_boxes(box, n_structures):
+    from molsysmt.pbc._whole_participants import validate_periodic_boxes
+
+    validate_periodic_boxes(
+        box, n_structures, caller="molsysmt.structure.get_distances"
+    )
 
 
 class _DistancesReducer(Reducer):
@@ -77,8 +108,10 @@ class _DistancesReducer(Reducer):
                 ),
                 None,
             )
+        _validate_coordinate_pair(first, second)
         box = chunk.get("box") if self._pbc else None
         if box is not None:
+            _validate_boxes(box, size)
             result = (
                 _kernels.get_mic_distances_single_system(first, box)
                 if self.symmetric
@@ -203,7 +236,7 @@ def get_distances(
     NotImplementedMethodError
         If a requested path/output is not supported.
     ArgumentError
-        If explicit structure lists differ in length on the heavy route.
+        If structure lists or explicit pair populations differ in length, or weights are supplied for raw atoms.
     MemoryBudgetExceededError
         If one selected scalar slab exceeds the numerical work budget.
 
@@ -211,7 +244,11 @@ def get_distances(
     Notes
     -----
     - Uses minimum image convention when `pbc=True` and box is available.
-    - When `pairs=True`, expects explicit pairs; otherwise Cartesian products of selections are used.
+    - When `pairs=True`, expects equal-length explicit pairs; otherwise use Cartesian products.
+    - Structure lists are paired positionally, with explicit repeated indices for reuse.
+    - Dictionary outputs retain each requested structure pair. Atom keys apply to
+      raw atoms; centers require local selection keys. Disk-backed results require
+      ndarray output and explicit cleanup by the caller.
 
 
     Examples
@@ -222,6 +259,10 @@ def get_distances(
     ...                        structure_indices=[0], pbc=False, heavy_mode="force")
     >>> result.shape
     (1, 3, 2)
+
+    .. admonition:: User guide
+
+       See :ref:`user-tools-distance-family`.
 
     .. versionadded:: 1.0.0
     """
@@ -272,6 +313,17 @@ def get_distances(
         and is_iterable_of_iterables(atom_indices_2)
     ):
         center_of_atoms_2 = True
+
+    if (weights is not None and not center_of_atoms) or (
+        weights_2 is not None and not center_of_atoms_2
+    ):
+        raise ArgumentError(
+            "weights",
+            caller="molsysmt.structure.get_distances",
+            message="Weights require the corresponding center-of-atoms endpoint.",
+        )
+    if output_indices == "atom" and (center_of_atoms or center_of_atoms_2):
+        raise NotImplementedMethodError(caller="molsysmt.structure.get_distances")
 
     if engine == "MolSysMT":
         # Decide eager vs heavy based on footprint
@@ -450,175 +502,19 @@ def get_distances(
             output = tuple(output_list)
 
     elif output_type == "dictionary":
-        output_dictionary = {}
+        from ._distance_output import dictionary
 
-        if pairs:
-            if output_indices is None:
-                output_indices = "atom"
-
-            if output_indices is not None:
-                if output_indices == "selection":  # works also with center of atoms
-                    if output_structure_indices is None:
-                        for ii in range(distances.shape[-1]):
-                            output_dictionary[ii] = distances[:, ii]
-                    else:
-                        if is_all(structure_indices):
-                            structure_indices = list(range(distances.shape[0]))
-                        if structure_indices_2 is None:
-                            for ii in range(distances.shape[-1]):
-                                output_dictionary[ii] = {}
-                                aux_ii = output_dictionary[ii]
-                                for ll, kk in enumerate(structure_indices):
-                                    aux_ii[kk] = distances[ll, ii]
-                        else:
-                            if is_all(structure_indices_2):
-                                structure_indices_2 = list(range(distances.shape[1]))
-                            for ii in range(distances.shape[-1]):
-                                output_dictionary[ii] = {}
-                                aux_ii = output_dictionary[ii]
-                                for ll, kk in enumerate(structure_indices):
-                                    aux_ii[kk] = {}
-                                    aux_ii_kk = aux_ii[kk]
-                                    for mm, nn in enumerate(structure_indices_2):
-                                        aux_ii_kk[nn] = distances[ll, mm, ii]
-
-                elif output_indices == "atom":
-                    if output_structure_indices is None:
-                        for aa, xx in enumerate(zip(atom_indices, atom_indices_2)):
-                            if xx[0] not in output_dictionary:
-                                output_dictionary[xx[0]] = {}
-                            output_dictionary[xx[0]][xx[1]] = distances[:, aa]
-                    else:
-                        if is_all(structure_indices):
-                            structure_indices = list(range(distances.shape[0]))
-                        if structure_indices_2 is None:
-                            for aa, xx in enumerate(zip(atom_indices, atom_indices_2)):
-                                if xx[0] not in output_dictionary:
-                                    output_dictionary[xx[0]] = {}
-                                if xx[1] not in output_dictionary[xx[0]]:
-                                    output_dictionary[xx[0]][xx[1]] = {}
-                                aux_0_1 = output_dictionary[xx[0]][xx[1]]
-                                for ll, kk in enumerate(structure_indices):
-                                    aux_0_1[kk] = distances[ll, aa]
-                        else:
-                            if is_all(structure_indices_2):
-                                structure_indices_2 = list(range(distances.shape[1]))
-                            for aa, xx in enumerate(zip(atom_indices, atom_indices_2)):
-                                if xx[0] not in output_dictionary:
-                                    output_dictionary[xx[0]] = {}
-                                if xx[1] not in output_dictionary[xx[0]]:
-                                    output_dictionary[xx[0]][xx[1]] = {}
-                                aux_0_1 = output_dictionary[xx[0]][xx[1]]
-                                for ll, kk in enumerate(structure_indices):
-                                    aux_0_1[kk] = {}
-                                    aux_0_1_kk = aux_0_1[kk]
-                                    for mm, nn in enumerate(structure_indices_2):
-                                        aux_0_1_kk[nn] = distances[ll, mm, aa]
-
-                elif output_indices == "group":
-                    raise NotImplementedMethodError(
-                        caller="molsysmt.structure.get_distances"
-                    )
-
-        else:
-            if output_indices is None:
-                output_indices = "atom"
-
-            if output_indices is not None:
-                if output_indices == "selection":  # works also with center of atoms
-                    if output_structure_indices is None:
-                        for ii in range(distances.shape[-2]):
-                            output_dictionary[ii] = {
-                                jj: distances[:, ii, jj]
-                                for jj in range(distances.shape[-1])
-                            }
-                    else:
-                        if is_all(structure_indices):
-                            structure_indices = list(range(distances.shape[0]))
-                        if structure_indices_2 is None:
-                            for ii in range(distances.shape[-2]):
-                                output_dictionary[ii] = {}
-                                aux_ii = output_dictionary[ii]
-                                for jj in range(distances.shape[-1]):
-                                    aux_ii[jj] = {}
-                                    aux_ii_jj = aux_ii[jj]
-                                    for ll, kk in enumerate(structure_indices):
-                                        kk = ll
-                                        aux_ii_jj[kk] = distances[ll, ii, jj]
-                        else:
-                            if is_all(structure_indices_2):
-                                structure_indices_2 = list(range(distances.shape[0]))
-                            for ii in range(distances.shape[-2]):
-                                output_dictionary[ii] = {}
-                                aux_ii = output_dictionary[ii]
-                                for jj in range(distances.shape[-1]):
-                                    aux_ii[jj] = {}
-                                    aux_ii_jj = aux_ii[jj]
-                                    for ll, kk in enumerate(structure_indices):
-                                        nn = ll
-                                        kk = ll
-                                        aux_ii_jj[kk] = {}
-                                        aux_ii_jj_kk = aux_ii_jj[kk]
-                                        aux_ii_jj_kk[nn] = distances[ll, ii, jj]
-
-                elif output_indices == "atom":
-                    if output_structure_indices is None:
-                        for aa, ii in enumerate(atom_indices):
-                            output_dictionary[ii] = {}
-                            aux_ii = output_dictionary[ii]
-                            if atom_indices_2 is None:
-                                for bb, jj in enumerate(atom_indices):
-                                    aux_ii[jj] = distances[:, aa, bb]
-                            else:
-                                for bb, jj in enumerate(atom_indices_2):
-                                    aux_ii[jj] = distances[:, aa, bb]
-                    else:
-                        if is_all(structure_indices):
-                            structure_indices = list(range(distances.shape[0]))
-                        if structure_indices_2 is None:
-                            for aa, ii in enumerate(atom_indices):
-                                output_dictionary[ii] = {}
-                                aux_ii = output_dictionary[ii]
-                                if atom_indices_2 is None:
-                                    for bb, jj in enumerate(atom_indices):
-                                        aux_ii[jj] = {}
-                                        aux_ii_jj = aux_ii[jj]
-                                        for ll, kk in enumerate(structure_indices):
-                                            aux_ii_jj[kk] = distances[ll, aa, bb]
-                                else:
-                                    for bb, jj in enumerate(atom_indices_2):
-                                        aux_ii[jj] = {}
-                                        aux_ii_jj = aux_ii[jj]
-                                        for ll, kk in enumerate(structure_indices):
-                                            aux_ii_jj[kk] = distances[ll, aa, bb]
-                        else:
-                            if is_all(structure_indices_2):
-                                structure_indices_2 = list(range(distances.shape[1]))
-                            for aa, ii in enumerate(atom_indices):
-                                output_dictionary[ii] = {}
-                                aux_ii = output_dictionary[ii]
-                                if atom_indices_2 is None:
-                                    for bb, jj in enumerate(atom_indices):
-                                        aux_ii[jj] = {}
-                                        aux_ii_jj = aux_ii[jj]
-                                        for ll, kk in enumerate(structure_indices):
-                                            aux_ii_jj[kk] = distances[ll, aa, bb]
-                                else:
-                                    for bb, jj in enumerate(atom_indices_2):
-                                        aux_ii[jj] = {}
-                                        aux_ii_jj = aux_ii[jj]
-                                        for ll, kk in enumerate(structure_indices):
-                                            nn = structure_indices_2[ll]
-                                            aux_ii_jj[kk] = {}
-                                            aux_ii_jj_kk = aux_ii_jj[kk]
-                                            aux_ii_jj_kk[nn] = distances[ll, aa, bb]
-
-                elif output_indices == "group":
-                    raise NotImplementedMethodError(
-                        caller="molsysmt.structure.get_distances"
-                    )
-
-        output = output_dictionary
+        output = dictionary(
+            distances,
+            atom_indices,
+            atom_indices_2,
+            structure_indices,
+            structure_indices_2,
+            pairs,
+            output_indices,
+            output_structure_indices,
+            center_of_atoms or center_of_atoms_2,
+        )
 
     return output
 
@@ -668,6 +564,8 @@ def _get_distances_in_memory(
         )
 
     if center_of_atoms_2:
+        if selection_2 is None:
+            selection_2 = selection
         if molecular_system_2 is None:
             molecular_system_2 = molecular_system
 
@@ -723,6 +621,7 @@ def _get_distances_in_memory(
     if not pairs:
         if coordinates_2 is None:
             coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
+            _validate_coordinate_pair(coordinates)
             payload = coordinates.shape[0] * coordinates.shape[1] * coordinates.shape[1]
             _use_gpu = resolve_use_gpu(use_gpu, payload)
 
@@ -735,6 +634,7 @@ def _get_distances_in_memory(
                 )
                 if box is not None and box[0] is not None:
                     box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                    _validate_boxes(box, len(coordinates))
                     if _use_gpu:
                         from molsysmt.lib.structure.get_mic_distances_cuda import (
                             get_mic_distances_single_system as _gpu_mic_dist,
@@ -767,6 +667,7 @@ def _get_distances_in_memory(
             coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
                 coordinates, coordinates_2
             )
+            _validate_coordinate_pair(coordinates, coordinates_2)
             payload = (
                 coordinates.shape[0] * coordinates.shape[1] * coordinates_2.shape[1]
             )
@@ -781,6 +682,7 @@ def _get_distances_in_memory(
                 )
                 if box is not None and box[0] is not None:
                     box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                    _validate_boxes(box, len(coordinates))
                     if _use_gpu:
                         from molsysmt.lib.structure.get_mic_distances_cuda import (
                             get_mic_distances as _gpu_mic_dist2,
@@ -813,6 +715,7 @@ def _get_distances_in_memory(
         coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
             coordinates, coordinates_2
         )
+        _validate_coordinate_pair(coordinates, coordinates_2, paired=True)
 
         if pbc:
             box = get(
@@ -823,6 +726,7 @@ def _get_distances_in_memory(
             )
             if box is not None and box[0] is not None:
                 box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                _validate_boxes(box, len(coordinates))
                 distances = _kernels.get_mic_distances_pairs(
                     coordinates, coordinates_2, box
                 )

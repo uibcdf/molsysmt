@@ -1,14 +1,14 @@
 ---
 summary: Neighbors ignore the explicit second molecular system in distance fallback.
 issue: uibcdf/molsysmt#445
-status: open
+status: resolved
 opened: 2026-10-24
-closed:
+closed: 2026-10-24
 severity: medium
 verification: reproduced
 area: [structure, selection]
-guard:
-normative:
+guard: tests/structure/test_distance_family_contract.py
+normative: docs/content/user/tools/structure/distance_family.md
 blocked_by: []
 supersedes: []
 ---
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-24 during addon receiving under uibcdf/molsysmt#421 /
 uibcdf/molsysviewer#264. Filing explicitly authorized by the maintainer.
-**Status:** open. The MolSysMT scientific team owns the correction; Viewer keeps
+**Initial status:** open. The MolSysMT scientific team owns the correction; Viewer keeps
 this new wrapper pending rather than altering native parameters or formulas.
 
 
@@ -44,7 +44,7 @@ neighbors, distances = msm.structure.get_neighbors(
 
 ## How
 
-[get_neighbors.py](../../molsysmt/structure/get_neighbors.py) uses the explicit
+[get_neighbors.py](../../../molsysmt/structure/get_neighbors.py) uses the explicit
 second system to disable the cell-list route but omits it from the fallback
 get_distances call. Second atom indices are consequently interpreted in the
 primary source. Review same_set inference for independent sources as well;
@@ -87,3 +87,20 @@ Existing artifact coordinates and publication pauses remain unchanged.
 Observed on Linux, Python 3.14.7 in molsyssuite@uibcdf_3.14, source
 bc21428312b6945c9c8926611721713c5ca3fbd2. Bundled pentalanine's H5MSM 0.4
 warning is retained. This is source evidence, not installed-artifact qualification.
+
+
+## Resolution — 2026-10-24
+
+Neighbors now forward the explicit second molecular system and infer self identity
+only for an implicit same-source population. Physical self exclusion retains
+distinct coincident atoms; repeated selections do not make an atom its own
+neighbor. Stable local-index ties, zero counts, bounds, directed pair sorting,
+filters, supported CSR/metadata and internal disk-handle retirement are guarded.
+The Rust cell-list sort follows the same tie policy. Unsupported combinations
+raise explicitly.
+
+The [shared family qualification and contract-to-test inventory](minimum_distances_reuses_first_population_weights.md#resolution-and-qualification--2026-10-24)
+is the single source for executed commands/scopes, 686 Python tests, public
+doctests, Rust checks, documentation execution and coverage limits. These
+guards run in the source smoke and matching local tier. Consumer migration and
+installed/release qualification remain separate.

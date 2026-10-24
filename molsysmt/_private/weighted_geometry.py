@@ -47,7 +47,13 @@ def prepare_weights(
             weights = puw.get_value(weights)
         output = np.asarray(weights, dtype=np.float64)
 
-    output = np.ravel(output)
+    if output.ndim != 1:
+        raise ArgumentError(
+            "weights",
+            value=weights,
+            caller=caller,
+            message="Weights must be one-dimensional on the selected atom axis.",
+        )
     if output.size != n_atoms:
         raise ArgumentLengthError(
             argument="weights",
