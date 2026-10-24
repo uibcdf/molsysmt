@@ -207,6 +207,10 @@ def test_default_reference_and_trusted_boundary():
     )
     with pytest.raises(msm.ArgumentError):
         msm.topology.get_sequence_identity(source, skip_digestion="true")
+    with pytest.raises(TypeError):
+        msm.topology.get_sequence_identity(
+            source, "all", source, "all", "MolSysMT", "Biopython", True
+        )
 
 
 def test_native_sequence_converter_shares_the_same_letter_projection():

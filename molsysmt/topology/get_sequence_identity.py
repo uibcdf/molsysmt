@@ -15,6 +15,7 @@ def get_sequence_identity(
     reference_selection="all",
     syntax="MolSysMT",
     engine="Biopython",
+    *,
     skip_digestion=False,
 ):
     """

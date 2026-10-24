@@ -309,5 +309,6 @@ class _TopologyTools:
                 "reference_selection": reference_selection,
                 "syntax": syntax,
                 "engine": engine,
+                "skip_digestion": skip_digestion,
             },
         )

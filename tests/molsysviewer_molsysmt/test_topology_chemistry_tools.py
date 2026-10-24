@@ -76,12 +76,7 @@ def chemistry():
 def test_native_signatures_digestion_help_and_explicit_namespace(peptide, name):
     signature = inspect.signature(getattr(msm.topology, name))
     parameters = list(signature.parameters.values())[1:]
-    if name == "get_sequence_identity":
-        parameters.append(
-            inspect.Parameter(
-                "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
-            )
-        )
+    assert signature.parameters["skip_digestion"].default is False
     bound = getattr(peptide.addons.molsysmt.topology, name)
     assert list(inspect.signature(bound).parameters.values()) == parameters
     assert bound.digestion_plan is not None
@@ -212,7 +207,7 @@ def test_sequences_keep_explicit_reference_scopes_and_native_group_mapping(
         np.testing.assert_array_equal(actual[2], actual[1])
 
 
-def test_prettyprint_and_addon_only_identity_digestion(peptide, capsys):
+def test_prettyprint_and_native_identity_digestion(peptide, capsys):
     pytest.importorskip("Bio")
     args = dict(reference_molecular_system=peptide.molsys, prettyprint=True)
     assert msm.topology.get_sequence_alignment(peptide.molsys, **args) is None
@@ -313,3 +308,21 @@ def test_cached_reader_follows_load_and_reads_pending_data_without_sync(peptide)
         ),
     )
     assert actual != ("AAAAA", "AAAAA")
+
+
+def test_identity_forwards_the_native_validation_flag(peptide, monkeypatch):
+    original = msm.topology.get_sequence_identity
+    expected = original(peptide.molsys, reference_molecular_system=peptide.molsys)
+    observed = []
+
+    def inspect_call(source, **parameters):
+        observed.append(parameters["skip_digestion"])
+        return original(source, **parameters)
+
+    monkeypatch.setattr(msm.topology, "get_sequence_identity", inspect_call)
+    for skip in (False, True):
+        actual = peptide.addons.molsysmt.topology.get_sequence_identity(
+            reference_molecular_system=peptide.molsys, skip_digestion=skip
+        )
+        assert_native(actual, expected)
+    assert observed == [False, True]

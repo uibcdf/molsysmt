@@ -1,0 +1,62 @@
+{
+  "schema": "molsysmt.native_observable_receiver_qualification@1",
+  "date": "2026-10-24",
+  "issue": "uibcdf/molsysmt#439",
+  "parent_checkpoint": "0120b24a4bd20cc2e9241f91275a630d8fd01e28",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "biopython": "1.88",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/structure/get_radius_of_gyration.py": "13daf6c3d594012e9e89313b672ff019233092bc6f3ae499cae72150764f8b24",
+    "molsysmt/structure/get_rmsf.py": "15d315ceac82cb82d45e4e89ac76b37ad4dc067d2ffeba1ae9d3ad837441c319",
+    "molsysmt/topology/get_sequence_identity.py": "512e499ea5adbd15f2c54c74d643bae133d41a4009bab1fc9078c478f0cad442",
+    "molsysmt/topology/_sequence.py": "501c6f7fd32c5c8da9ff4d35cc5c7fc55ef57b05db00f0e6ed2f4e7a72efab99",
+    "molsysmt/form/molsysmt_Topology/to_string_amino_acids_1.py": "004b9dadb9246ddae782156021bfd490477ab1deacaab0395c57c70de1d2b74a",
+    "tests/heavy/test_length_observable_units.py": "8e3a44c870b7246e3ad15180169f2173493105bf2f9041b74a29857a5f163a56",
+    "tests/topology/get_sequence_identity/test_sequence_source_groups.py": "40f3144c029fb2a0a35cda4f0a9dd9224312e3dc528dcf01bcae353650399b79",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": "9779fba47d3a4d3c82d4f4fca98231aa0fbfeab6c56b14c7406bbf982ccb6624",
+    "devtools/data/public_api_stability.json": "88326e40191c52cfe108c76277704c79cdda8550f065a75bfee9d3aece6fe4f9"
+  },
+  "regression": {
+    "command": "python -m pytest tests/heavy tests/structure/get_radius_of_gyration tests/structure/get_rmsf tests/topology/get_sequence_identity tests/topology/get_sequence_alignment tests/form/string_amino_acids_1 tests/form/string_amino_acids_3 tests/form/biopython_Seq tests/form/molsysmt_MolSys/test_to_biopython_SeqRecord.py tests/conversion_truth tests/molsysviewer_molsysmt/test_read_tools.py tests/molsysviewer_molsysmt/test_remove_tools.py tests/molsysviewer_molsysmt/test_set_tools.py tests/molsysviewer_molsysmt/test_conversion_tools.py tests/molsysviewer_molsysmt/test_predicate_tools.py tests/molsysviewer_molsysmt/test_identity_tools.py tests/molsysviewer_molsysmt/test_topology_tools.py tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py tests/molsysviewer_molsysmt/test_structure_tools.py tests/molsysviewer_molsysmt/test_structure_comparison_tools.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_api_stability.py --doctest-modules molsysmt/topology/get_sequence_identity.py molsysmt/structure/get_radius_of_gyration.py molsysmt/structure/get_rmsf.py -m 'not network' --receptor=llm -n 12",
+    "passed": 833,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 42.49,
+    "network_marked_excluded": true,
+    "warnings": {
+      "legacy_h5msm": 344,
+      "intentional_memory_pressure": 3,
+      "expected_unknown_dihedral_arguments": 2
+    }
+  },
+  "original_ci_failures": {
+    "40121593590": "Missing declaration of the additive validation argument.",
+    "40122052215": "Receiver still expected a synthetic extra flag; keyword-only native/bound kinds needed alignment."
+  },
+  "semantics": [
+    "The new flag is keyword-only; all six historical native positional arguments remain valid.",
+    "The bound method keeps its existing keyword-only signature and forwards the flag to native science.",
+    "Receiver compares complete native/bound signatures directly with no synthesized parameter.",
+    "The original 511-case receipt remains historical evidence for its recorded source hashes."
+  ],
+  "signature_check_base": "bae6d0101",
+  "documentation": {
+    "fast_gates_passed": 14,
+    "sphinx_completed_with_existing_warnings": true
+  }
+}

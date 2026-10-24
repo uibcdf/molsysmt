@@ -164,3 +164,26 @@ calls and explicit validation. Comparing the complete repaired source with
 two API-validator test modules pass **38 tests** in 11.72 seconds; their two
 warnings are expected legacy H5MSM reads. No runtime scientific code or global
 signature-checking rule was modified by this follow-up.
+
+## Bound-receiver qualification follow-up — 2026-10-24
+
+The next hosted run passed the signature gate but exposed an obsolete receiver
+expectation: the test synthesized a keyword-only flag because the native function
+previously lacked one. The initial native addition was positional-or-keyword,
+whereas the established bound flag was keyword-only. The final native API keeps
+that new flag keyword-only, preserving all six historical positional slots and
+the established bound signature. The bound reader now forwards it to native
+science. The receiver test removes synthetic parameters and compares signatures
+directly; it additionally requires the native flag's false default. A real view
+guard checks false/true forwarding and identical results.
+
+The complete native/observable/sequence/conversion selection, ten bound-receiver
+modules and both API-validator modules pass **833 tests** in 42.49 seconds, with
+zero failures/skips and three doctests included. Network-marked sequence tests
+remain explicitly excluded. The 349 warnings are 344 legacy reads, three
+intentional tiny-budget memory observations and two expected unknown-dihedral
+argument diagnostics. The signature check against `bae6d0101` passes for the
+complete repaired scope. Updated hashes and commands are in
+[`native_observable_receiver_20261024.json`](../../../devtools/data/native_observable_receiver_20261024.json).
+The original 511-case receipt and failed CI runs are retained without rewriting
+history. No sequence scoring or physical formula changes in this follow-up.
