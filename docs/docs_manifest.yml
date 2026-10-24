@@ -402,6 +402,11 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: comparing_sequence_source_groups
+        file: docs/content/user/cookbook/comparing_sequence_source_groups.md
+        agents_file: docs/content/user/cookbook/comparing_sequence_source_groups.md.AGENTS.md
+        description: Query-normalized sequence identity and source group correspondence.
+        status: reviewed
       - name: symmetry_pose_rmsd
         file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb
         agents_file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb.AGENTS.md

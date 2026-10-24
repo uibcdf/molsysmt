@@ -25,17 +25,11 @@ def to_string_amino_acids_1(item, group_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.string_amino_acids_3.to_string_amino_acids_1 import (
-        to_string_amino_acids_1 as string_amino_acids_3_to_string_amino_acids_1,
-    )
+    from molsysmt.topology._sequence import amino_acid_groups
 
-    from .to_string_amino_acids_3 import to_string_amino_acids_3
+    from . import get_group_name_from_group, get_group_type_from_group
 
-    tmp_item = to_string_amino_acids_3(
-        item, group_indices=group_indices, skip_digestion=True
-    )
-    tmp_item = string_amino_acids_3_to_string_amino_acids_1(
-        tmp_item, skip_digestion=True
-    )
-
-    return tmp_item
+    names = get_group_name_from_group(item, indices=group_indices)
+    types = get_group_type_from_group(item, indices=group_indices)
+    sequence, _ = amino_acid_groups(names, types, range(len(names)))
+    return sequence

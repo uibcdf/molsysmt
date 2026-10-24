@@ -150,3 +150,16 @@ evidence. Raw cell/array edits, other private chemical-state collection changes
 and whole-topology replacement still need explicit owner invalidation. Standalone topology copies
 have no owner link. See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`
 for the shared analysis validity policy.
+
+## Sequence correspondence
+
+Groups are the general molecular inventory, not a list of sequence letters.
+A terminal cap, water or ligand keeps its original group index even though
+amino-acid sequence projection omits it. Native one-letter conversion and
+sequence identity share that projection. Identity reports matched source group
+indices in each input, so extraction or reordering of a source changes the
+indices that belong to that new source. Group IDs remain labels.
+
+Identity is normalized by the number of query letters; empty sequence selections
+raise explicitly. See {ref}`the sequence identity tutorial <Tutorial_Get_sequence_identity>`
+and {ref}`the source-group comparison recipe <Cookbook_Sequence_source_groups>`.

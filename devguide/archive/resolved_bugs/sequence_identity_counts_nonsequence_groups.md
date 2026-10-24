@@ -1,13 +1,13 @@
 ---
 summary: Sequence identity counts non-sequence groups and returns shifted group indices.
 issue: uibcdf/molsysmt#439
-status: open
+status: resolved
 opened: 2026-10-23
-closed:
+closed: 2026-10-24
 severity: medium
 verification: reproduced
 area: [topology, sequence, indexing]
-guard:
+guard: tests/topology/get_sequence_identity/test_sequence_source_groups.py
 normative:
 blocked_by: []
 supersedes: []
@@ -18,7 +18,7 @@ supersedes: []
 **Reported:** 2026-10-23, native-source inspection while receiving the tools
 addon under uibcdf/molsysviewer#264 and uibcdf/molsysmt#421; filing authorized
 by the principal maintainer.
-**Status:** open; no scientific fix is included in the addon wrappers.
+**Status:** resolved in the native scientific owner.
 
 ## What
 
@@ -49,7 +49,7 @@ msm.topology.get_sequence_identity(
 
 ## How
 
-[topology/get_sequence_identity.py](../../molsysmt/topology/get_sequence_identity.py)
+[topology/get_sequence_identity.py](../../../molsysmt/topology/get_sequence_identity.py)
 selects all source groups before requesting a converted amino-acid alignment.
 Its counter indexes that unfiltered group list for each non-gap sequence letter,
 and its final denominator is len(group_indices). Sequence conversion excludes
@@ -97,3 +97,53 @@ concurrent unrelated source work; the reviewed sequence files are unchanged.
 The installed development version reports 0.23.0+160.gb35a29326.dirty and is
 not a clean installed artifact qualification. The demo's H5MSM 0.4 legacy warning
 is retained; it does not explain the sequence/group-axis mismatch.
+
+## Implementation — 2026-10-24
+
+Native one-letter conversion and identity now share a private letter/group
+projection. Only contributing amino-acid groups enter the molecular sequence,
+its denominator and source maps. Sequence-only inputs retain their supplied
+letters and selected source positions without inventing an atom inventory.
+The public identity tool aligns the projected letters with the existing
+Biopython scoring and maps non-gap matches back through the paired source maps.
+Order and repeated selections survive. None as reference uses the query system;
+empty, undefined and pre-gapped sequences raise an explicit argument error.
+The public tool also gains its standard skip_digestion boundary and a lazy
+Biopython dependency guard.
+
+The denominator remains query length, preserving established MolSysMT semantics.
+Inspection of Ensembler's calculate_seq_identity at revision
+264930d28d3d4987c4fc0c03caba6cf0066e12ca verifies that its denominator is the
+shorter sequence instead. Documentation explicitly distinguishes our adaptation;
+optional Ackredit credits that reference and the actually executed Biopython
+version after success. No new alignment score or provider is introduced.
+
+All six original source-map guards failed before correction. The expanded
+initial selection passes 25 tests, including real Ackredit, independent query
+normalization, gaps, mixed groups, native Topology/MolSys/H5MSM and sequence
+objects. Final qualification adds a fresh-process absence guard and executes
+the documentation. A distinct existing three-letter-to-Biopython codec refusal
+is reproduced and tracked under uibcdf/molsysmt#443; it is not silently repaired
+or treated as qualified by the source-map correction.
+
+## Final source qualification — 2026-10-24
+
+The combined length-observable, heavy-execution, sequence-mapping, sequence-form
+and conversion-truth selection passed **511 tests** in 35.73 seconds with
+`--receptor=llm -n 12`. Three public doctests are included. Network-marked
+sequence tests were explicitly excluded; no installed/release matrix was run.
+The 66 warnings are 63 expected legacy H5MSM notices and three intentional
+memory-pressure observations from tiny test budgets. No test failed or skipped.
+
+The two observable tutorials, unit-safety module 09, large-ensemble cookbook,
+sequence-identity tutorial and topology module 13 executed successfully. All
+250 selected public docstrings passed fidelity/content validation. The final
+fast-gate and Sphinx results are retained in the qualification receipt:
+[`native_observable_repairs_20261024.json`](../../../devtools/data/native_observable_repairs_20261024.json).
+
+The primary guard asserts literal source maps and query-normalized percentages
+for capped/mixed inventories, gaps, reordering, repeated selections, independently
+selected references, sequence-only forms and empty/undefined input rejection.
+A real Ackredit session verifies software/reference credit and reuse; an
+import-blocked fresh process verifies genuine provider absence and lazy startup.
+Provider failure preserves the completed scientific tuple.

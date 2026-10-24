@@ -24,7 +24,7 @@ MolSysMT manages execution through the `ChunkedExecutor` engine:
 
 ## Controlling Execution (`heavy_mode`)
 
-The public chunked route is available for `get_center`, `get_rmsd`, and `get_distances`, subject to each function's supported combinations. The experimental ionic detector also accepts a keyword-only `heavy_mode`, supporting native MolSys and H5MSM 0.5 paths with integer atom-index selections or `'all'`.
+The public chunked route is available for `get_center`, `get_rmsd`, `get_distances`, `get_radius_of_gyration` and `get_rmsf`, subject to each function's supported combinations. The experimental ionic detector also accepts a keyword-only `heavy_mode`, supporting native MolSys and H5MSM 0.5 paths with integer atom-index selections or `'all'`.
 
 ### Session Configuration vs. Function Override
 
@@ -57,6 +57,15 @@ files are removed on cleanup and on failed mapping construction. A path supplied
 by you stays under your control and is not deleted by those operations. Cleanup
 errors propagate so that failed disk retirement remains visible. Avoid copying
 the complete result into RAM unless it fits your working budget.
+
+## Keeping length observables consistent
+
+Radius of gyration and RMSF use canonical nm coordinates inside their reducers.
+The returned lengths are converted to the active PyUnitWizard standard, preserving
+physical values across eager, automatic and forced execution. Changing units
+changes numerical magnitudes and labels together. Radius-of-gyration weights
+remain aligned with the selected atoms. Repeated structure indices contribute
+repeated observations to RMSF; the tool does not align structures automatically.
 
 ## Distance endpoints and output storage
 

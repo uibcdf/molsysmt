@@ -79,6 +79,8 @@ def get_radius_of_gyration(
         Backend used to perform the calculation.
     heavy_mode : {'auto', 'force', 'off'}, default='auto'
         Policy controlling the chunked path for memory-intensive calculations.
+        Chunk coordinates use nm internally; the result is converted to the
+        active PyUnitWizard length standard without changing its physical value.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
     parallel : bool or None, default=None
@@ -98,7 +100,7 @@ def get_radius_of_gyration(
     Raises
     ------
     ArgumentError
-        If the atom or frame selection is empty, or weights are non-finite,
+        If the atom or structure selection is empty, or weights are non-finite,
         negative, or have zero total weight.
     ArgumentLengthError
         If the number of weights does not match the selected atoms.
@@ -166,8 +168,7 @@ def get_radius_of_gyration(
                 attributes=["coordinates"],
             )
             rg_val = executor.execute()
-            length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
-            return puw.quantity(rg_val, length_unit)
+            return puw.standardize(puw.quantity(rg_val, "nm"))
 
         coordinates = get(
             molecular_system,

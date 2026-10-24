@@ -20,11 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (1)
 
-- [`radius_of_gyration_heavy_relabels_nm_as_standard_length.md`](radius_of_gyration_heavy_relabels_nm_as_standard_length.md) — [#440](https://github.com/uibcdf/molsysmt/issues/440) — Heavy radius of gyration relabels nm values as the active length unit. *(medium, reproduced)*
-- [`rmsf_heavy_relabels_nm_as_standard_length.md`](rmsf_heavy_relabels_nm_as_standard_length.md) — [#442](https://github.com/uibcdf/molsysmt/issues/442) — Heavy RMSF relabels nm fluctuations as the active length unit. *(medium, reproduced)*
-- [`sequence_identity_counts_nonsequence_groups.md`](sequence_identity_counts_nonsequence_groups.md) — [#439](https://github.com/uibcdf/molsysmt/issues/439) — Sequence identity counts non-sequence groups and returns shifted group indices. *(medium, reproduced)*
+- [`three_letter_amino_acid_sequence_conversion_to_biopython_raises_on_group_indices.md`](three_letter_amino_acid_sequence_conversion_to_biopython_raises_on_group_indices.md) — [#443](https://github.com/uibcdf/molsysmt/issues/443) — Three-letter amino-acid sequence conversion to Biopython raises on group_indices *(medium, reproduced)*
 
 ### Partially resolved (1)
 

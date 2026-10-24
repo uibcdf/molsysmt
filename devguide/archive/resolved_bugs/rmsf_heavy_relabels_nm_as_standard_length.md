@@ -1,13 +1,13 @@
 ---
 summary: Heavy RMSF relabels nm fluctuations as the active length unit.
 issue: uibcdf/molsysmt#442
-status: open
+status: resolved
 opened: 2026-10-23
-closed:
+closed: 2026-10-24
 severity: medium
 verification: reproduced
 area: [structure, heavy, units]
-guard:
+guard: tests/heavy/test_length_observable_units.py
 normative:
 blocked_by: []
 supersedes: []
@@ -18,8 +18,7 @@ supersedes: []
 **Reported:** 2026-10-23 while reviewing independent structure readers for the
 addon under uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. Filing explicitly
 authorized by the principal maintainer.
-**Status:** open; scientific correction belongs to the MolSysMT team. RMSF is
-not added to the addon in this delivery.
+**Status:** resolved in native MolSysMT. No addon calculation is introduced.
 
 ## What
 
@@ -48,7 +47,7 @@ with puw.context(standard_units=['pm', 'ps', 'radians']):
 
 ## How
 
-[get_rmsf.py](../../molsysmt/structure/get_rmsf.py) computes the streaming
+[get_rmsf.py](../../../molsysmt/structure/get_rmsf.py) computes the streaming
 variance with chunk coordinates in canonical nm, then attaches the active
 standard length unit directly to those numeric values. The heavy result needs
 correct nm attribution followed by conversion, rather than unit relabeling.
@@ -86,3 +85,38 @@ Observed 2026-10-23 on Linux, Python 3.14.7, molsyssuite@uibcdf_3.14.
 Provider HEAD 8ebb1b4d5bec058e3be837a35e29ef649f0a5333, with unrelated PDBQT
 work preserved; reviewed RMSF source unchanged. Bundled H5MSM 0.4 warning is
 retained. This is source evidence, not installed-artifact qualification.
+
+## Correction in progress — 2026-10-24
+
+Canonical nm reducer outputs are now wrapped with their actual unit and only
+then standardized through PyUnitWizard. The physical algorithm, selections,
+weights, streaming reduction and session policy are unchanged. A shared physical
+length guard covers native Structures and H5MSM 0.5, nm/angstrom/pm policies,
+one-/two-structure blocks, repeated/nonconsecutive structure indices, independent
+weighted-center/variance references and actual auto-mode chunk consumption.
+Before correction, 26 of its 38 cases failed; the focused corrected selection
+passes all 46 cases, including existing tool regressions. Wider qualification
+and executable documentation are pending.
+
+## Final source qualification — 2026-10-24
+
+The combined length-observable, heavy-execution, sequence-mapping, sequence-form
+and conversion-truth selection passed **511 tests** in 35.73 seconds with
+`--receptor=llm -n 12`. Three public doctests are included. Network-marked
+sequence tests were explicitly excluded; no installed/release matrix was run.
+The 66 warnings are 63 expected legacy H5MSM notices and three intentional
+memory-pressure observations from tiny test budgets. No test failed or skipped.
+
+The two observable tutorials, unit-safety module 09, large-ensemble cookbook,
+sequence-identity tutorial and topology module 13 executed successfully. All
+250 selected public docstrings passed fidelity/content validation. The final
+fast-gate and Sphinx results are retained in the qualification receipt:
+[`native_observable_repairs_20261024.json`](../../../devtools/data/native_observable_repairs_20261024.json).
+
+The primary guard calculates independent weighted-center or variance references
+from the actual selected coordinates. Assertions compare physical nm values
+under nm/angstrom/pm policies, rather than merely checking labels or shape.
+Native and H5MSM 0.5 routes, one-/two-structure chunks, auto activation, repeated
+structure order, unchanged input coordinates and unchanged session policy are
+covered. The geometry/variance kernels are unchanged; no new scientific-method
+attribution boundary is introduced by this unit-conversion repair.

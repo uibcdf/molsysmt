@@ -118,14 +118,15 @@ def get_rmsf(
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    heavy_mode : object, default='auto'
-        Argument heavy_mode.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    engine : str, default='MolSysMT'
+        Backend used to compute positional fluctuations.
+    heavy_mode : {'auto', 'force', 'off'}, default='auto'
+        Policy controlling eager or chunked coordinate processing. Canonical
+        nm fluctuations are converted to the active length standard on return.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or the configured default when None.
+    num_threads : int or None, default=None
+        CPU worker count, or the configured default when None.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -139,7 +140,7 @@ def get_rmsf(
     Raises
     ------
     ArgumentError
-        If the atom or frame selection is empty.
+        If the atom or structure selection is empty.
     NotImplementedMethodError
         If an unsupported engine is requested.
 
@@ -210,8 +211,7 @@ def get_rmsf(
                 attributes=["coordinates"],
             )
             rmsf_val = executor.execute()
-            length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
-            return puw.quantity(rmsf_val, length_unit)
+            return puw.standardize(puw.quantity(rmsf_val, "nm"))
 
         coordinates = get(
             molecular_system,

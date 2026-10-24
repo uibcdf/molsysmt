@@ -1,13 +1,13 @@
 ---
 summary: Heavy radius of gyration relabels nm values as the active length unit.
 issue: uibcdf/molsysmt#440
-status: open
+status: resolved
 opened: 2026-10-23
-closed:
+closed: 2026-10-24
 severity: medium
 verification: reproduced
 area: [structure, heavy, units]
-guard:
+guard: tests/heavy/test_length_observable_units.py
 normative:
 blocked_by: []
 supersedes: []
@@ -18,7 +18,7 @@ supersedes: []
 **Reported:** 2026-10-23 during scientific-owner review for the structure tools
 addon, uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. Filing explicitly authorized
 by the principal maintainer.
-**Status:** open; no scientific algorithm or routing fix is added to the addon.
+**Status:** resolved in native MolSysMT; the addon needs no formula override.
 
 
 ## What
@@ -46,7 +46,7 @@ with puw.context(standard_units=['pm', 'ps', 'degrees']):
 
 ## How
 
-The reducer in [get_radius_of_gyration.py](../../molsysmt/structure/get_radius_of_gyration.py)
+The reducer in [get_radius_of_gyration.py](../../../molsysmt/structure/get_radius_of_gyration.py)
 computes from chunk coordinates in nm. The heavy return attaches the configured
 length unit directly to those numeric values. It needs a correctly attributed
 nm quantity followed by unit conversion, rather than relabeling values.
@@ -88,3 +88,38 @@ HEAD c4b71b2069b3613f0b1e340f7448f645cc80f0b4 with concurrent unrelated PDBQT
 work preserved; reviewed geometry sources are unchanged. Tests use bundled
 pentalanine, retaining its H5MSM 0.4 legacy-read warning. These are source
 observations, not clean installed-artifact qualification.
+
+## Correction in progress — 2026-10-24
+
+Canonical nm reducer outputs are now wrapped with their actual unit and only
+then standardized through PyUnitWizard. The physical algorithm, selections,
+weights, streaming reduction and session policy are unchanged. A shared physical
+length guard covers native Structures and H5MSM 0.5, nm/angstrom/pm policies,
+one-/two-structure blocks, repeated/nonconsecutive structure indices, independent
+weighted-center/variance references and actual auto-mode chunk consumption.
+Before correction, 26 of its 38 cases failed; the focused corrected selection
+passes all 46 cases, including existing tool regressions. Wider qualification
+and executable documentation are pending.
+
+## Final source qualification — 2026-10-24
+
+The combined length-observable, heavy-execution, sequence-mapping, sequence-form
+and conversion-truth selection passed **511 tests** in 35.73 seconds with
+`--receptor=llm -n 12`. Three public doctests are included. Network-marked
+sequence tests were explicitly excluded; no installed/release matrix was run.
+The 66 warnings are 63 expected legacy H5MSM notices and three intentional
+memory-pressure observations from tiny test budgets. No test failed or skipped.
+
+The two observable tutorials, unit-safety module 09, large-ensemble cookbook,
+sequence-identity tutorial and topology module 13 executed successfully. All
+250 selected public docstrings passed fidelity/content validation. The final
+fast-gate and Sphinx results are retained in the qualification receipt:
+[`native_observable_repairs_20261024.json`](../../../devtools/data/native_observable_repairs_20261024.json).
+
+The primary guard calculates independent weighted-center or variance references
+from the actual selected coordinates. Assertions compare physical nm values
+under nm/angstrom/pm policies, rather than merely checking labels or shape.
+Native and H5MSM 0.5 routes, one-/two-structure chunks, auto activation, repeated
+structure order, unchanged input coordinates and unchanged session policy are
+covered. The geometry/variance kernels are unchanged; no new scientific-method
+attribution boundary is introduced by this unit-conversion repair.
