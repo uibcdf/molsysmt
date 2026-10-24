@@ -26,6 +26,7 @@ class _StructureTools:
         "get_symmetry_corrected_rmsd",
         "get_secondary_structure",
         "principal_component_analysis",
+        "translate",
     )
 
     def __init__(self, owner):
@@ -715,4 +716,34 @@ class _StructureTools:
                 "num_threads": num_threads,
                 "skip_digestion": skip_digestion,
             },
+        )
+
+    @_native_documentation("translate", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def translate(
+        self,
+        translation=None,
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "translate",
+            {
+                "translation": translation,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
         )

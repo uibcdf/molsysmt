@@ -1,4 +1,4 @@
-"""Preparing the admitted geometry-only routes of the native basic setter.
+"""Receiving retained-axis native geometry setters and transformations.
 
 Unit/selection validation belongs to MolSysMT. Shape checks here enforce the
 receiver's retained-axis contract, not new scientific criteria or broadcasting.
@@ -129,3 +129,70 @@ def _prepare_geometry_set(target, parameters, attributes):
         "changed": coordinate_write or box_write,
         "interactions_policy": "preserve",
     }
+
+
+def _prepare_geometry_transform(target, name, parameters):
+    """Declare retained identities and let the public native tool own science."""
+    from molsysmt import basic, structure
+    from molsysmt._private.variables import is_all
+    from molsysmt.basic._index_validation import validate_structure_indices
+    from molsysmt.native import MolSys
+
+    if name not in {"translate"}:
+        raise NotImplementedError(
+            f"Managed structure transform {name!r} is not received."
+        )
+    if not isinstance(target, MolSys):
+        raise TypeError("Managed geometry transforms require the bound native MolSys.")
+    if hasattr(target, "_pending_interaction_edits"):
+        raise ValueError(
+            "Managed transforms cannot run inside an active molecular edit."
+        )
+    frames = validate_structure_indices(
+        target, parameters["structure_indices"], f"molsysmt.structure.{name}"
+    )
+    has_frames = (
+        int(target.structures.n_structures) > 0
+        if is_all(frames)
+        else frames is not None and len(frames) > 0
+    )
+    atoms = basic.select(
+        target,
+        selection=parameters["selection"],
+        structure_indices=parameters["structure_indices"],
+        syntax=parameters["syntax"],
+    )
+    operation = getattr(structure, name)
+    return {
+        "run": lambda: operation(target, **parameters),
+        "changed": bool(has_frames and atoms is not None and len(atoms) > 0),
+        # Native setters invalidate the structures they actually publish.
+        "interactions_policy": "preserve",
+    }
+
+
+def _run_geometry_transform(owner, name, parameters, update_view):
+    """Preserve native independent outputs and serialize admitted bound edits."""
+    from molsysmt import structure
+    from molsysmt._private.argdigest.argument.in_place import digest_in_place
+
+    if name not in {"translate"}:
+        raise NotImplementedError(f"Structure transform {name!r} is not received.")
+    in_place = digest_in_place(
+        parameters["in_place"], caller=f"molsysviewer_molsysmt.structure.{name}"
+    )
+    if not isinstance(update_view, bool):
+        raise TypeError("update_view must be a boolean.")
+    owner._target()
+    if not in_place:
+        return owner._read(getattr(structure, name), parameters)
+    view = owner._view_ref()
+    coordinator = getattr(view.addons.manager, "system_edits", None)
+    if coordinator is None:
+        raise RuntimeError("This Viewer host lacks managed molecular-edit receiving.")
+    return coordinator.execute(
+        lambda target: _prepare_geometry_transform(target, name, parameters),
+        name=f"molsysmt.structure.{name}",
+        update_view=update_view,
+        rejection_check=_geometry_token,
+    )

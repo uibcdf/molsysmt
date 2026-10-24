@@ -31,8 +31,9 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_least_squares_plane`, `get_maximum_distances`, `get_contacts`, `get_rmsf`,
 `get_minimum_distances`, `get_neighbors`, `get_symmetry_corrected_rmsd`,
 `get_secondary_structure` and `principal_component_analysis`.
-Results retain native quantities, arrays and metadata;
-coordinate-changing operations remain outside this received slice.
+Results retain native quantities, arrays and metadata. The separate
+`structure.translate` wrapper receives independent outputs and managed in-place
+coordinate translation. Other transformations remain outside the received slice.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -814,8 +815,54 @@ dense in 3*n_atoms features, so this is not a general bounded-memory trajectory
 API. CPU use_gpu=False is qualified here; optional GPU execution has separate
 requirements.
 
-Use float64 NumPy arrays for explicit numeric weights in the received CPU route.
-Native list/tuple normalization is tracked by
-[#448](https://github.com/uibcdf/molsysmt/issues/448); the reproduced list call
-currently raises a native TypeError. The wrapper forwards these arguments
-unchanged rather than adding a private scientific normalization rule.
+The native repair of [#448](https://github.com/uibcdf/molsysmt/issues/448) is
+received. Numerical lists, tuples and supported array dtypes, including strided
+or read-only arrays, are normalized by MolSysMT. Dimensionless quantity weights
+retain their physical numerical factors. Invalid lengths, nonfinite/negative or
+all-zero weights and dimensioned quantities reject before native computation.
+The addon forwards inputs unchanged; it adds no scientific normalization rule.
+This receiving qualifies the CPU route, with squared-unit and covariance checks.
+
+
+
+## Translating coordinates
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    shifted = tools.structure.translate(translation='[1, 0, 0] nm')
+    # The independent result is returned to Python; view.molsys stays in the view.
+    tools.structure.translate(
+        translation='[0, 1, 0] angstrom', selection='backbone',
+        structure_indices=[2, 0], in_place=True, update_view=False,
+    )
+    pending = tools.get_sync_status()
+    tools.sync_view()
+```
+
+{doc}`structure/translate` preserves the native in_place=False default and result
+ownership. Independent results are never adopted by update_view. To edit the
+bound system, request in_place=True; successful translation returns native None.
+The default update_view=True reconciles geometry immediately. False leaves
+completed scientific edits pending until sync_view(), which never repeats the
+translation. Reads use pending coordinates; stale scene/index actions are blocked.
+
+Translation quantities, shape broadcasting, atom selections and structure order
+remain native. Supported shapes describe one vector, one vector per selected
+structure, or one vector per selected atom and structure. Repeated indices use
+the native last supplied value, without added accumulation or deduplication.
+The box and atom/structure identities stay fixed. Regions, selections, anchored
+shapes, navigation and source accounting survive reconciliation. Native coordinate
+setters invalidate named interaction coverage only on edited structures; no
+detector runs automatically. Independent output may copy the system according
+to the native contract; in-place integration adds no full trajectory copy.
+
+A display failure after successful science raises SystemEditSyncError with
+science_completed=True and scientific_result, which is None here. Retry
+tools.sync_view() instead of the translation. A possible partial scientific write
+enters uncertain state and requires explicit recovery, without an implied rollback.
+The skip_digestion flag cannot bypass integration ownership or branch controls.
+
+Centering remains pending [#451](https://github.com/uibcdf/molsysmt/issues/451):
+the native partial-reference population contract and in-place return require
+resolution. The addon supplies no alternate centering formula or hidden selection.

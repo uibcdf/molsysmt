@@ -78,7 +78,8 @@ def test_signatures_native_help_and_digestion(view, name):
     assert "\nmolecular_system :" not in inspect.getdoc(method)
     assert not hasattr(view.addons.molsysmt, name)
     assert set(NAMES) <= set(dir(view.addons.molsysmt.structure))
-    assert not hasattr(view.addons.molsysmt.structure, "translate")
+    assert callable(view.addons.molsysmt.structure.translate)
+    assert not hasattr(view.addons.molsysmt.structure, "center")
     if name == "get_dihedral_angles":
         assert "flag is not added to scientific **kwargs" in inspect.getdoc(method)
 

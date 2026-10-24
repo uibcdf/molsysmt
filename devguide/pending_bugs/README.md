@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`center_partial_reference_misses_target_and_changes_return.md`](center_partial_reference_misses_target_and_changes_return.md) — [#451](https://github.com/uibcdf/molsysmt/issues/451) — Center misses a partially moved reference target and changes its in-place return. *(medium, reproduced)*
+
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

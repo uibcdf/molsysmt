@@ -59,3 +59,10 @@ alignment or periodic repair. PCA retains row eigenvectors, squared-length units
 weighted population covariance, dense-memory and degeneracy limits. Preserve
 actual provider input/engine qualification; do not normalize or prepare science
 in the addon to conceal a provider defect.
+
+
+Preserve the native translation default/return and independent-output ownership.
+Keep in-place synchronization controls separate from native mutation, exact
+selected-scope invalidation and retained scene identities explicit. Document
+pending work, rejection/uncertain states and synchronization retry without
+scientific replay; never substitute system replacement for managed geometry.

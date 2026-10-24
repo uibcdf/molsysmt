@@ -114,7 +114,8 @@ def test_signatures_namespace_digestion_and_native_help(peptide, name):
     assert bound.digestion_plan is not None
     assert "current view.molsys" in inspect.getdoc(bound)
     assert "not a scene object" in inspect.getdoc(bound)
-    assert set(dir(peptide.addons.molsysmt.structure)) == set(NEW + OLD)
+    # The transform receiving file guards the complete expanded namespace.
+    assert set(NEW + OLD) <= set(dir(peptide.addons.molsysmt.structure))
     assert not hasattr(peptide.addons.molsysmt, name)
     if name == "get_secondary_structure":
         assert "native callable has no declared skip_digestion" in inspect.getdoc(bound)
@@ -425,3 +426,89 @@ def test_cached_symmetry_reader_follows_pending_coordinates_and_replacement(chem
     np.testing.assert_allclose(
         puw.get_value(method(**kwargs)["rmsd"], to_unit="nm"), [0.0], atol=1e-12
     )
+
+
+@pytest.mark.parametrize(
+    "kind", ["list", "tuple", "int", "float32", "strided", "readonly", "percent"]
+)
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+def test_repaired_pca_weight_containers_preserve_covariance_and_inputs(
+    peptide, kind, unit
+):
+    base = np.array([1.0, 4.0, 0.0])
+    weights = {
+        "list": lambda: base.tolist(),
+        "tuple": lambda: tuple(base),
+        "int": lambda: base.astype(np.int64),
+        "float32": lambda: base.astype(np.float32),
+        "strided": lambda: np.repeat(base, 2)[::2],
+        "readonly": lambda: base.copy(),
+        "percent": lambda: puw.quantity(base * 100, "percent"),
+    }[kind]()
+    if kind == "readonly":
+        weights.flags.writeable = False
+    before = np.asarray(
+        puw.get_value(weights) if puw.is_quantity(weights) else weights
+    ).copy()
+    coords = xyz(peptide, [4, 0, 4], SCOPE)
+    flat = np.concatenate([coords[:, :, axis] for axis in range(3)], axis=1)
+    weighted = (flat - flat.mean(axis=0)) * np.sqrt(np.tile(base, 3))
+    covariance = weighted.T @ weighted / len(SCOPE)
+    state, status = peptide.export_state(), peptide.addons.molsysmt.get_sync_status()
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        vectors, values = (
+            peptide.addons.molsysmt.structure.principal_component_analysis(
+                selection=[4, 0, 4],
+                structure_indices=SCOPE,
+                weights=weights,
+                use_gpu=False,
+            )
+        )
+        assert puw.get_unit(values) == puw.unit(unit) ** 2
+    raw = puw.get_value(values, to_unit="nm**2")
+    np.testing.assert_allclose(raw, np.linalg.eigvalsh(covariance)[::-1], atol=1e-12)
+    np.testing.assert_allclose(
+        vectors.T @ np.diag(raw) @ vectors, covariance, atol=1e-12
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(weights) if puw.is_quantity(weights) else weights, before
+    )
+    if kind == "readonly":
+        assert weights.flags.writeable is False
+    assert (
+        peptide.export_state() == state
+        and peptide.addons.molsysmt.get_sync_status() == status
+    )
+
+
+@pytest.mark.parametrize(
+    "weights",
+    [
+        [1.0],
+        [1.0, -1.0, 2.0],
+        [0.0, 0.0, 0.0],
+        [1.0, np.nan, 2.0],
+        [1.0, np.inf, 2.0],
+        puw.quantity([1.0, 2.0, 3.0], "nm"),
+        "masses",
+    ],
+)
+@pytest.mark.parametrize("skip", [False, True])
+def test_repaired_pca_invalid_weights_reject_without_scene_effects(
+    peptide, weights, skip
+):
+    args = dict(
+        selection=[4, 0, 4],
+        structure_indices=SCOPE,
+        weights=weights,
+        use_gpu=False,
+        skip_digestion=skip,
+    )
+    before, state = xyz(peptide).copy(), peptide.export_state()
+    with pytest.raises(Exception) as native:
+        msm.structure.principal_component_analysis(peptide.molsys, **args)
+    with pytest.raises(type(native.value)):
+        peptide.addons.molsysmt.structure.principal_component_analysis(**args)
+    np.testing.assert_array_equal(xyz(peptide), before)
+    assert peptide.export_state() == state
+    assert peptide.addons.molsysmt.get_sync_status()["state"] == "synchronized"

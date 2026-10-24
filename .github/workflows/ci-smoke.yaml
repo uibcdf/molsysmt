@@ -161,4 +161,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_structure_tools.py \
             tests/molsysviewer_molsysmt/test_structure_comparison_tools.py \
             tests/molsysviewer_molsysmt/test_structure_relations_tools.py \
-            tests/molsysviewer_molsysmt/test_structure_analysis_tools.py
+            tests/molsysviewer_molsysmt/test_structure_analysis_tools.py \
+            tests/molsysviewer_molsysmt/test_structure_transform_tools.py

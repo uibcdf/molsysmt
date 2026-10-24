@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -579,3 +579,41 @@ uibcdf/molsysmt#444 and uibcdf/molsysmt#445. This reconciles the earlier local
 receiving without rewriting its original hash-scoped evidence. The pending PCA
 weight-container defect stays under uibcdf/molsysmt#448. Addon-head CI remains
 separate from the native commit and the local applicable regression.
+
+
+## Translation and PCA weight repair received — 2026-10-24
+
+The explicit structure.translate wrapper preserves native defaults and returns,
+including independent in_place=False output. In-place calls add only keyword-only
+update_view=True over the existing coordinator. Family preflight resolves retained
+target/selection/structure scope and active-edit exclusion; native science owns
+displacement, broadcasting and publication. Independent results are not adopted.
+No host runtime, protocol, alternate scientific calculation or full scientific
+recovery snapshot is added.
+
+Targeted receiving passes 35 translation cases and 79 structural-analysis cases.
+The one applicable 1274-case regression records 1268 passes and six failures from
+the obsolete assertion that translate must be absent. The expected public
+inventory was updated; all 89 cases in the two affected files pass, including
+all six original failures. The full local suite was not repeated. Original
+JUnit digests and source snapshots distinguish the initial run and focused
+correction; they are not mislabeled as a single green full-suite run. Runtime
+scientific/addon files remain fixed during that initial run; only the generated
+version module changes. Ruff and 23 guide blocks/105 native-context docstring
+examples pass. Exact-head hosted CI remains a separate gate.
+
+Independent displacement and weighted covariance references guard physical
+values/units, source ownership, repeated/nonconsecutive axes and repaired PCA
+containers/dtypes from 306e91dda (uibcdf/molsysmt#448). Native setter invalidation
+preserves unaffected named-analysis coverage. Tests retain scene handles, source
+records and navigation, compose pending geometry/removal, and exercise real
+transport failure after science with synchronization-only retry. Possible partial
+publication becomes uncertain rather than implying rollback or repeat execution.
+
+The authorized native report uibcdf/molsysmt#451 records center's partial-reference
+target and in-place return inconsistency without Viewer. Center remains absent;
+its scientific owner decides the supported population contract. Source now
+provides eighteen structural readers/calculations plus one native coordinate
+editor; nine coordinate-changing exports and the broader addon remain partial
+under uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. No package, public floor,
+version freeze or release is implied.

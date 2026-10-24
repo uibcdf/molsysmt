@@ -61,7 +61,7 @@ def _native_documentation(name, module="basic"):
                 "the actual current view.molsys; later external edits retain explicit "
                 "reconciliation responsibilities.\n"
             )
-        if module in {"topology", "structure"}:
+        if module in {"topology", "structure"} and name != "translate":
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The result is a native scientific value, not a scene object. "
@@ -75,6 +75,20 @@ def _native_documentation(name, module="basic"):
                     "declared skip_digestion parameter and is invoked with its ordinary "
                     "public validation. The flag is not added to scientific **kwargs.\n"
                 )
+        if module == "structure" and name == "translate":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "update_view : bool, keyword-only, default=True\n"
+                "    Synchronize an admitted in-place coordinate edit immediately. "
+                "False defers projection only; sync_view() finishes pending work. "
+                "The native in_place=False default returns an independent MolSys "
+                "without adoption or scene update. Native quantities, broadcasting "
+                "and returns remain unchanged. Source identities and axes are retained; "
+                "named interactions follow native edited-structure invalidation. "
+                "A synchronization failure exposes science_completed=True and the "
+                "native scientific_result; retry synchronization, not translation. "
+                "Potential partial scientific writes require explicit recovery.\n"
+            )
         if name in {"copy", "convert", "get_conversion_report"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"

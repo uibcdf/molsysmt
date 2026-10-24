@@ -1,0 +1,190 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-24",
+  "status": "source_received_initial_regression_stale_inventory_corrected_exact_head_CI_pending",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#448",
+    "uibcdf/molsysmt#451"
+  ],
+  "provider_base_commit": "306e91ddaa7d47f57d1c503c8f1715ba432a8161",
+  "host_base_commit": "3641d5cd1dd75da9c8c920e61b3fdc8267f953dc",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "conda_environment": "molsyssuite@uibcdf_3.14"
+  },
+  "implemented": "view.addons.molsysmt.structure.translate",
+  "native_repair_received": {
+    "issue": "uibcdf/molsysmt#448",
+    "commit": "306e91ddaa7d47f57d1c503c8f1715ba432a8161"
+  },
+  "pending": {
+    "issue": "uibcdf/molsysmt#451",
+    "tool": "center",
+    "reason": "Native partial-reference target and in-place return contract needs owner resolution; wrapper absent."
+  },
+  "inventory": {
+    "structure_readers": 18,
+    "structure_editors": 1,
+    "structure_pending_edits": 9,
+    "addon_python_files": 16
+  },
+  "delegation": {
+    "in_place_default": false,
+    "update_view_default": true,
+    "update_view_kind": "keyword_only",
+    "independent_output": "native result returned without adoption or synchronization",
+    "in_place": "one native translate call under existing managed-edit coordinator; native None preserved",
+    "geometry": "retained axes/source identity; preflight declares scope without computing displacement",
+    "validity": "native edited-structure interaction invalidation preserved",
+    "recovery": "clean-rejection token; pending composition; uncertain partial writes; sync retry without science replay"
+  },
+  "validation": {
+    "translate_targeted": {
+      "path": "/tmp/msm-viewer-transform-tools.xml",
+      "sha256": "d36966adb348ae6ceda1d9f411a305382244a5d17fcb055e7a806aba9448d198",
+      "cases": 35,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "pca_repair_targeted": {
+      "path": "/tmp/msm-viewer-pca-repair-receiving.xml",
+      "sha256": "1d85e6f222c0ca131ea1a9c4f2be326cb9c884daa3bda15359cbf6079c27db1f",
+      "cases": 79,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "initial_applicable_regression": {
+      "path": "/tmp/msv-translation-regression.xml",
+      "sha256": "287074e1e8928ec1cda936bd8b322944965dc78521e4e4ebafafeff6e9f73073",
+      "cases": 1274,
+      "failures": 6,
+      "errors": 0,
+      "skips": 0
+    },
+    "initial_failure_diagnosis": "Six parameter cases retained the obsolete assertion that translate must be absent; no numerical/edit/failure-recovery case failed.",
+    "targeted_correction": {
+      "path": "/tmp/msm-viewer-transform-regression-correction.xml",
+      "sha256": "2639e89a173da42ba731ab73c6b6963bbf376040eff7bbd319a7204ca22fb31b",
+      "cases": 89,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "resolved_original_failure_nodes": [
+      "tests.molsysviewer_molsysmt.test_structure_tools::test_signatures_native_help_and_digestion[get_angles]",
+      "tests.molsysviewer_molsysmt.test_structure_tools::test_signatures_native_help_and_digestion[get_center]",
+      "tests.molsysviewer_molsysmt.test_structure_tools::test_signatures_native_help_and_digestion[get_dihedral_angles]",
+      "tests.molsysviewer_molsysmt.test_structure_tools::test_signatures_native_help_and_digestion[get_distances]",
+      "tests.molsysviewer_molsysmt.test_structure_tools::test_signatures_native_help_and_digestion[get_radius_of_gyration]",
+      "tests.molsysviewer_molsysmt.test_structure_tools::test_signatures_native_help_and_digestion[get_vectors]"
+    ],
+    "full_regression_repeated": false,
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "tests/molsysviewer_molsysmt/",
+      "tests/structure/translate/",
+      "tests/structure/center/",
+      "tests/structure/principal_component_analysis/",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py",
+      "tests/structure/test_get_symmetry_corrected_rmsd.py",
+      "tests/structure/get_secondary_structure/",
+      "tests/structure/test_distance_family_contract.py",
+      "tests/structure/get_distances/test_heavy_endpoints.py",
+      "tests/heavy/test_length_observable_units.py",
+      "tests/topology/get_sequence_identity/test_sequence_source_groups.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-translation-regression.xml"
+    ],
+    "runtime_changes_during_initial_run": [
+      "molsysmt/_version.py"
+    ],
+    "post_run_test_changes": "Only the obsolete namespace assertion and import sorting; the two affected files pass 89 focused cases.",
+    "examples": {
+      "guide_blocks": 23,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 64
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "ruff": "check and format --check pass after import sorting",
+    "host_reporting": {
+      "cases": 276,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "junit_sha256": "ca07f3b818a9398c7e6a7e3f3fd31354547d12679033680de27959c29d1f52fb"
+    },
+    "provider_guide": "passes on current working tree; committed-only index will be validated separately"
+  },
+  "runtime_source_sha256": {
+    "molsysmt/_private/weighted_geometry.py": "026728525c1c137568c4a37007cddc9dec12a13b52e37fbc06e1f24ae0e8ca05",
+    "molsysmt/basic/copy.py": "b720aba6b0b7bbb4a278ccdd6af5710421b56673bb28d76a388016b554f9f6c1",
+    "molsysmt/basic/set.py": "8174c72105b37ccb11dbf235d81432dba4389ca33cf8ff143b8828b9a165c464",
+    "molsysmt/native/structures.py": "001c06538df0bc3eeffd103b436ea4cbd3d0edc0c78fee5dbaf61610c823a2a9",
+    "molsysmt/structure/center.py": "b6e407d1378475444264bc9ef66bd9fc3d7d8adfd702f97c763db7904347f3ce",
+    "molsysmt/structure/principal_component_analysis.py": "d3738c9079f4d43a84a11003523b564f525f709784351ddfac929faa1a0dff31",
+    "molsysmt/structure/translate.py": "3e14eeae9b3c7fdfc89932c3ce858cc4e1f6751f17ee9e4223c537f30d3daa82",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "0689d3df399d830648e78759863feb1e267141d947cf6a6bbe9421e6e516697c",
+    "molsysviewer_molsysmt/_geometry.py": "c7d5b285a80b7f5eb1b0633ae7f768dbde44dbe34d525ce5978e19b17cd65681",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "b6474827674df64f97adecce9fdda46b30f08855485e99161ea5275b476877e7",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258"
+  },
+  "final_test_sha256": {
+    "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py": "9d9a2c5f865e59ed2483c3284c1ca98e04ce2d262f831b65780a1cfc97e2673c",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "bf1cc03847dc0a5f83e1a536d94800ea6826d69970fd9c54c3ebc1e1df259fcc",
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": "ecc4d2bf6bd958afe1512f43a4720c734fe21ad19df423dc083d1a8a9d3b13cb"
+  },
+  "source_snapshot": "/tmp/msv-translation-receiving-sources-bz917jt3",
+  "initial_test_source_sha256": {
+    "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py": "9d9a2c5f865e59ed2483c3284c1ca98e04ce2d262f831b65780a1cfc97e2673c",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "fedd9ffb5f0be4d3f976b040f1f9e4e8d704edd427f148b5a75655c85ac05fb2",
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": "3096a1b87e91ef328522f273ea8946ba6327f0f062ba5aa119ee5abe85f46141"
+  },
+  "scope": [
+    "independent numerical displacements in nm/angstrom/pm; native broadcast shapes and repeated axis last-write semantics",
+    "independent MolSys ownership and unchanged input quantities/boxes",
+    "immediate retained scene handles, selection, navigation and load-source identities",
+    "deferred translation/removal composition, rejected stale scene actions and reading pending science",
+    "real widget connector failure after science; sync retry preserves storage without repeated translation",
+    "partial scientific publication enters uncertain state; native rejection and empty writes preserve state",
+    "PCA list/tuple/dtype/strided/readonly/dimensionless weights, invalid rejection and independent weighted covariance"
+  ],
+  "limits": [
+    "local source scopes and original failure/follow-up evidence are retained separately from hosted exact-head CI",
+    "center remains with the native owner; no scientific algorithm, return or selection workaround is introduced",
+    "no new host runtime, protocol, full-trajectory undo snapshot or generic transaction framework",
+    "no GUI task panel, installed package qualification, dependency-floor change, freeze or publication"
+  ],
+  "concurrent_work": "Uncommitted file-copy work under uibcdf/molsysmt#450 remains separately owned and is excluded from this integration; original source hashes preserve the actual local test scope."
+}

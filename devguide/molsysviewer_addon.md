@@ -11,8 +11,8 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
-controls, eleven current `topology` analysis readers and eighteen `structure`
-calculations under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+controls, eleven current `topology` analysis readers, eighteen `structure`
+calculations and retained-axis translation under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -393,8 +393,9 @@ All native parameters remain explicit after primary binding, including reference
 systems, chemical states, constraints and execution choices. Secondary structure
 has only an addon keyword-only skip flag because its native signature has none;
 the other native skip controls are forwarded. Discovery remains lazy for MDTraj
-and RDKit. Eighteen of the reviewed twenty-eight structure exports are received;
-the ten coordinate-changing operations remain pending.
+and RDKit. This slice receives eighteen calculation exports. Translation below
+brings the current total to nineteen of twenty-eight reviewed structure tools;
+nine other coordinate-changing operations remain pending.
 
 Receive actual DSSP group/structure correspondence and codes, NumPy weighted
 covariance/eigenvalue properties and direct positional geometry over explicit
@@ -403,8 +404,33 @@ attribution and cache consistency. No analysis attaches automatically or creates
 scene content. No preparation, alignment, molecular edit, default engine change
 or whole-trajectory copy is added by the addon.
 
-PCA's documented list weights fail natively at the Rust boundary under
-uibcdf/molsysmt#448. The qualified route uses default or float64 ndarray weights;
-the native owner supplies validation/normalization. Optional GPU and other
+PCA's weight normalization/validation repair under uibcdf/molsysmt#448 is
+received from 306e91dda, with independent covariance, squared-unit and input
+preservation checks across supported containers/dtypes. The native owner supplies
+this normalization; no addon conversion is introduced. Optional GPU and other
 unexecuted routes retain their own qualification. Source receiving does not
 freeze versions, change published floors or qualify an installed artifact.
+
+
+## Native translation receiving — 2026-10-24
+
+The explicit translate wrapper preserves the native scientific signature and
+in_place=False default, adding only keyword-only update_view=True. Independent
+outputs use the serialized reader and are not adopted. In-place calls use the
+existing managed-edit coordinator, retaining axis/source identity and native
+return. No new Viewer runtime, message or generic transaction layer is needed.
+
+The family preflight resolves native selections/structure scope and rejects
+active native edit sessions; it computes no displacement or alternative science.
+One native translate call owns units, broadcasting and publication. The receiver
+uses the protected geometry/interaction identity token already qualified by
+basic.set. Native clean rejection preserves prior state; evidence of publication
+before failure enters uncertain state. Changed scope composes with deferred
+removal/set operations, while native invalidation preserves unaffected analyses.
+Sync retry rebuilds the scene without replaying translation or retaining an
+unrequested full scientific snapshot. Source now exposes nineteen structure
+tools: eighteen readers/calculations and one coordinate editor.
+
+Center remains absent under uibcdf/molsysmt#451 after a standalone partial-scope
+target/return reproduction. Its scientific owner must resolve that contract;
+the addon does not silently repair populations, coordinates or return values.
