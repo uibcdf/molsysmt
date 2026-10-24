@@ -10,8 +10,8 @@ Source of truth for integrating and using **PyUnitWizard** in this library.
 Metadata
 - Source repository: `pyunitwizard`
 - Source document: `standards/PYUNITWIZARD_GUIDE.md`
-- Source version: `pyunitwizard@bc69459`
-- Last synced: 2026-08-15
+- Source version: Git commit containing this canonical document; consumer copies must record the resolved commit and digest in their synchronization evidence.
+- Last revised: 2026-10-22 (dependency baseline correction; client delivery tracked in `uibcdf/molsyssuite#126`).
 
 ## What is PyUnitWizard
 
@@ -27,8 +27,15 @@ PyUnitWizard is a "Quantities and Units Assistant" designed to provide a unified
 
 PyUnitWizard follows a strict separation between Hard and Soft dependencies:
 
-- **Hard Dependencies**: `numpy` and `pint`. These are always available.
-- **Soft Dependencies**: `unyt`, `openmm.unit`, `astropy.units`. These are optional and managed via `depdigest`.
+- **Hard Dependencies**: `numpy`, `pint`, `smonitor>=0.16.0`, `depdigest>=0.11.0` and `argdigest>=0.14.0`, as declared in package metadata. These must be provisioned for normal use.
+- **Soft Dependencies**: optional unit backends, including `unyt`, `openmm.unit` and `astropy.units`, are managed via `depdigest`. Ackredit attribution is also optional; guide delivery alone does not qualify a newer provider profile.
+
+Baseline support is Python `>=3.11,<3.15` on Linux and macOS arm64. Optional
+provider profiles can have narrower limits; use the provider's maintained
+[compatibility matrix](https://github.com/uibcdf/pyunitwizard/blob/main/devguide/compatibility_matrix.md)
+and exact release qualification record. This corrects the dependency inventory;
+it does not change the initialization or validation contracts below. MolSysSuite
+owns synchronization of this canonical guide to registered client copies.
 
 ## Minimum initialization (required pattern)
 
@@ -328,6 +335,41 @@ q = QuantityRecord.from_dict(data).to_quantity(field="...", unit="nm")   # verif
 - For many small values in one document, use `QuantityRecordBundle`.
 - Questions about serializing quantities belong in uibcdf/pyunitwizard#83 (design record),
   not in each consumer. The API is provisional until the 1.0 checklist promotes it.
+
+### Optional record extensions and explicit dialects
+
+The additive 0.29.0 surface remains provisional. `QuantityRecord` supports
+tagged heterogeneous data and homogeneous immutable append; the tagged layout
+uses a distinct format identifier. HDF5, Zarr and Arrow/Parquet bindings retain
+explicit reader handshakes. Partial Zarr verification covers selected chunk
+contents; immutable append still copies values; Arrow nulls are refused and
+Parquet reads complete files. Consumers retain their own field/schema mapping.
+
+Use `pyunitwizard.dialects.ucum` for explicit case-sensitive physical UCUM codes,
+not Pint alias guessing. `validate_unit(unit, code)` verifies the code for
+unchanged values; `parse_quantity(values, code, unit=...)` requires a destination.
+The optional provider is ucumvert 0.3.2 (Pint >=0.25). For example, biomedical
+nanomolar values use `nmol/L`, not the computing alias `nM`. Temperature semantics
+are explicit; arbitrary, annotated and nonlinear units are outside the slice.
+
+`pyunitwizard.storage.asdf` stores native Astropy quantities with an additional
+sealed `qrec-asdf/0.1` binding using asdf 6.0.0/asdf-astropy 0.11.0. It covers
+complete homogeneous multiplicative snapshots; convert affine temperatures
+explicitly to Kelvin. Native unsealed archives require consumer-owned migration.
+
+`pyunitwizard.dialects.vocabulary` validates `qrec-vocabulary/0.1` sidecars for
+explicit QUDT kinds and QUDT/UO unit IRIs. Its offline catalogue admits hertz,
+becquerel and radians/second, with pinned source identities and attribution.
+The record's existing kind and named unit must already agree with the explicit
+identifiers. Equal SI dimensions never select a scientific kind. UO identifies
+units/categories, not quantity kinds; local QUDT/UO correspondences are reviewed
+PyUnitWizard alignments, not upstream exactMatch claims.
+
+See the maintained [record extensions](https://uibcdf.org/pyunitwizard/content/user/record-extensions.html)
+and [unit dialect contracts](https://uibcdf.org/pyunitwizard/content/user/unit-dialects.html)
+for exclusions and provider qualification. These tools do not migrate consumer
+schemas, add automatic dialect selection or implement CF calendar/time-origin
+coordinates. MolSysSuite owns distribution of updated guide copies to clients.
 
 ## Consumer anti-patterns
 

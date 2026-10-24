@@ -10,8 +10,8 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.20.0`
-- Last synced: 2026-10-13
+- Source version: `smonitor@0.22.0`
+- Last synced: 2026-10-22
 
 ## What is SMonitor
 
@@ -80,6 +80,17 @@ fallback policy or warning/logging hooks. The default `True` preserves the
 existing first-use behavior. A consumer relying on this option must require the
 0.20.0 capability floor and qualify the installed provider separately from
 source integration (`uibcdf/smonitor#48`, `uibcdf/smonitor#50`).
+
+**SMonitor >=0.21.0** adds optional audience-specific safe metadata templates
+(`metadata_messages`, `metadata_hints`; section 1.3) and bounded nonemitting
+identity bundles (section 5.3.1). These capabilities have separate capture and
+export limits; neither makes arbitrary application data safe to share.
+
+**SMonitor >=0.22.0** adds opt-in `pytest-check` and `pytest-baseline` commands
+over Pytest Receptor's canonical artifact (section 5.5). The observational
+bridge itself is available from >=0.18.0. Selecting a new QA command requires
+its own capability floor; receiving a guide copy does not activate it or raise
+a consumer's runtime dependency floor.
 
 ## 1. Required Configuration Structure
 
@@ -160,6 +171,54 @@ write it once.
 Before `0.14.0` there was no fallback, and an entry defining `user_message`
 alone rendered an **empty** message under `dev`, `qa`, `agent` and `debug`. If
 your library targets an older SMonitor, keep writing every field you rely on.
+
+### 1.3 Safe metadata wording by audience (optional, >=0.21.0)
+
+Applications can restrict capture with `diagnostic_scope()` or
+`METADATA_ONLY`. A provider can offer useful catalog wording using only the
+bounded primitive facts explicitly approved by the caller:
+
+```python
+# Provider catalog, imported by its _smonitor.py configuration.
+CODES = {
+    "MYLIB-REF": {
+        "user_message": "{count} missing references.",
+        "metadata_messages": {"user": "Restore {count} references."},
+        "metadata_hints": {
+            "user": "Restore retained bytes.",
+            "dev": "Inspect local index binding.",
+        },
+        "metadata_hint": "Review retained references.",
+    }
+}
+```
+
+After the provider's normal registration, the application can resolve it under
+an explicit capture scope:
+
+```python
+import smonitor
+
+with smonitor.diagnostic_scope(safe_extra={"count": 2}):
+    message, hint = smonitor.resolve(code="MYLIB-REF", profile="user")
+```
+
+The maps accept `user`, `dev`, `qa`, and `agent`; `debug` uses `dev`.
+An audience entry takes precedence over the shared `metadata_message` or
+`metadata_hint`. Missing audience entries fall back to the shared metadata
+field; messages can then use the existing ordinary message fallback when its
+fields are available. Ordinary profile hints are never assumed safe. Missing
+approved facts produce a fixed description or no hint.
+
+Provider registration rejects unsupported audiences and unsafe map templates:
+attribute/index traversal, conversions, format specifications, and templates
+longer than 1024 characters. Approved facts remain the caller's responsibility;
+primitive type and size checks do not classify credentials or scientific data.
+`resolve()` neither emits an event nor configures application policy.
+
+See the [scoped capture contract](https://github.com/uibcdf/smonitor/blob/0.22.0/docs/content/user/library-integrators/scoped-capture.md)
+for capture permissions, task/thread propagation, and the distinction between
+restricting SMonitor collection and formatting already performed by caller code.
 
 
 ## 2. Initialization Protocol
@@ -624,11 +683,48 @@ These additions should be treated as the preferred source for automated QA summa
 
 Minimal CI/support flow:
 
-1. run tests or the representative workflow;
-2. export a local bundle;
+1. run the representative workflow;
+2. export a local bundle inside the same diagnostic-producing process;
 3. inspect `triage` first, not raw events;
 4. compare against a previous bundle when asking “what changed?”;
 5. only fall back to raw event streams when the summaries are insufficient.
+
+The in-memory event buffer belongs to its process. Running `smonitor export`
+after a separate pytest process exits cannot recover that process's retained
+events. For pytest evidence, use the canonical artifact in section 5.5.
+
+### 5.3.1 Bounded identity support bundles (optional, >=0.21.0)
+
+When a consumer only needs a narrow snapshot of retained identities, use:
+
+```python
+import smonitor
+
+bundle = smonitor.collect_identity_bundle(max_events=20, allowed_codes={"MYLIB-W010"})
+smonitor.export_identity_bundle(
+    "support-identities.json",
+    max_events=20,
+    allowed_codes={"MYLIB-W010"},
+)
+```
+
+The single-file `smonitor.identity-bundle@1` profile exports fixed provenance,
+coverage/omission metadata, and at most 100 retained events. Each event contains
+only a validated level, a 16-character fingerprint, and an explicitly approved
+code (otherwise `None`). The code allowlist accepts at most 128 uppercase code
+identifiers, each at most 64 characters. The consumer owns their approval.
+
+This operation does not emit, invoke handlers, load project configuration, or
+flush pending duplicate/coalesced summaries. It excludes messages, source,
+context, arbitrary extras, runtime identifiers, paths, argv and catalog/config
+snapshots. It never claims complete history: filtering, buffer retention and
+pending summaries can omit observations. Fingerprints support correlation and
+are not a secrecy guarantee.
+
+`collect_bundle()` and `export_bundle()` remain the separate rich support
+exports with their own redaction settings. Choose the profile deliberately;
+entering a restrictive capture scope does not erase previously retained data
+or sanitize a rich bundle's configuration and provenance sections.
 
 ## 5.4 Human-Readable Output and Coalescing
 
@@ -647,6 +743,90 @@ More general duplicate handling is also available through `duplicate_policy`, ke
 - `emit_every_n`
 
 Use duplicate policies for genuinely repeated incidents where aggregate counts are more useful than verbatim repetition.
+
+## 5.5 Pytest evidence and optional QA policy
+
+Level: **Advanced / CI-support**
+
+Install the optional `smonitor[pytest]` extra to use Pytest Receptor
+`>=1.2,<2`. Conda users install `pytest` and `pytest-receptor>=1.2,<2`
+alongside SMonitor. The bridge loads with pytest; activate the receptor's
+`llm` (local) or `ci` profile and explicitly request its artifact:
+
+```bash
+mkdir -p .pytest-receptor
+python -m pytest --receptor=ci \
+  --receptor-events=.pytest-receptor/events.jsonl
+```
+
+Pytest Receptor owns the canonical JSONL stream and execution result. SMonitor
+contributes bounded `uibcdf.smonitor@1` extensions containing diagnostic
+identity and pytest node/phase/worker/attempt correlation. The bridge omits
+free-form messages, context and arbitrary extras. Receptor pattern redaction
+does not guarantee removal of arbitrary sensitive data; choose identifiers,
+artifact access and retention deliberately. Neither tool uploads artifacts.
+Default observation preserves pytest's outcome.
+
+From **>=0.22.0**, CI can separately evaluate the artifact with explicit rules:
+
+```bash
+smonitor pytest-check .pytest-receptor/events.jsonl \
+  --provider-root ./mylib \
+  --forbid-code MYLIB-DEPRECATED-001
+```
+
+Each trusted provider root contains `_smonitor.py`, which is executable Python
+configuration. Repeat `--provider-root` for every provider whose emitted codes
+the gate should accept. This validates declaration structure and emitted code
+membership; representative diagnostic tests must still verify template fields
+and rendering. The command returns JSON and exits `0` for policy success, `1`
+for violations, or `2` for invalid inputs/dependencies. CI must check both this
+exit status and pytest's original status; `pytest_outcome` in the result is
+informational. A shell step can preserve both decisions even when pytest fails:
+
+```bash
+mkdir -p .pytest-receptor
+pytest_status=0
+python -m pytest --receptor=ci \
+  --receptor-events=.pytest-receptor/events.jsonl || pytest_status=$?
+policy_status=0
+smonitor pytest-check .pytest-receptor/events.jsonl \
+  --forbid-code MYLIB-DEPRECATED-001 || policy_status=$?
+if [ "$pytest_status" -ne 0 ]; then
+  exit "$pytest_status"
+fi
+exit "$policy_status"
+```
+
+After reviewing a representative passing run, explicitly accept its identities:
+
+```bash
+smonitor pytest-baseline .pytest-receptor/events.jsonl \
+  --out tests/accepted_diagnostics.json
+smonitor pytest-check .pytest-receptor/events.jsonl \
+  --baseline tests/accepted_diagnostics.json
+```
+
+The versioned baseline is a set of `(code, source, fingerprint)` for warning,
+error and critical events. New identities fail; disappeared ones are reported
+for review. Counts, worker IDs and credited test nodes do not gate the result,
+because worker-local caches can vary their assignment under xdist. Fingerprints
+also include selected structured fields such as `caller`, `resource` and retry
+metadata: baseline only workflows with stable inputs, and use forbidden-code
+rules when that context legitimately varies.
+
+Partial, integrity-invalid, execution-incomplete, truncated, or
+extension-incomplete evidence cannot pass the gate. Baseline creation also
+requires a passing pytest outcome; an empty baseline requires `--allow-empty`.
+Zero recorded diagnostics cannot prove the producer was active. Use
+`--require-diagnostics` in a smoke gate that should observe at least one event.
+
+Keep test-local assertions in `pytest.warns`, `pytest.raises` and structured
+contract tests. The policy adds no fixture, marker, second reporter or
+`pytest-molsyssuite` package. Standalone support bundles keep their own coverage
+and redaction contract; no automatic link or equal-history guarantee is implied.
+See the [pytest policy contract](https://github.com/uibcdf/smonitor/blob/0.22.0/docs/content/developer/pytest-diagnostic-policy.md)
+for details and limits.
 
 ## 6. Noise Control
 
@@ -756,9 +936,7 @@ PROFILES = ["user", "dev", "qa", "agent", "debug"]
 
 def _catalog_codes(catalog):
     for key, entry in catalog.items():
-        if key in ("exceptions", "warnings", "info", "errors") and isinstance(
-            entry, dict
-        ):
+        if key in ("exceptions", "warnings", "info", "errors") and isinstance(entry, dict):
             entries = entry.values()
         else:
             entries = (entry,)

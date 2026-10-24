@@ -10,8 +10,16 @@ Source of truth for integrating and using **ArgDigest** in this library.
 Metadata
 - Source repository: `argdigest`
 - Source document: `standards/ARGDIGEST_GUIDE.md`
-- Source version: `argdigest@0.15.0`
-- Last synced: 2026-10-06
+- Source version: `argdigest@0.17.0`
+- Last synced: 2026-10-22
+
+Version boundaries: declaration-only diagnostics below are public since ArgDigest
+0.16.0. Explicit contract ownership and the alias/staticmethod repairs described
+below are public since 0.17.0; earlier releases do not provide those changes.
+Release qualification and publication are tracked in `uibcdf/argdigest#40`;
+consumer receiving is coordinated in `uibcdf/molsyssuite#123`.
+MolSysSuite developers own distribution of this canonical revision to all clients
+under `uibcdf/molsyssuite#125`; provider editing does not update client copies.
 
 `0.12.0` changed this guide in two ways that affect an integration: `*args` and
 positional-only parameters are supported and documented (§5), and the `ValidatedPayload`
@@ -258,11 +266,11 @@ Caller-keyed digesters remain the right tool for **value** semantics that depend
 callable. What does *not* belong there is which arguments a function accepts at all: that
 is axis 1, and it has its own place since `0.10.0`. See section 4.5.
 
-For methods, the `caller` passed to a digester remains the contract key
+By default, the `caller` passed to a digester remains the contract key
 `<owner module>.<method>`; changing it would break registered function contracts and
 standardizers. A digester may also declare an optional `qualname` parameter. ArgDigest
-then passes `<runtime class module>.<runtime class>.<method>`, including the class for
-inherited and mixin-assembled methods. Use `caller` for contract decisions and
+then passes `<runtime class module>.<runtime class>.<method>` for bound methods,
+including inherited and mixin-assembled methods. Use `caller` for contract decisions and
 `qualname` for user-facing refusal messages:
 
 ```python
@@ -278,6 +286,67 @@ def digest_policy(policy, caller=None, qualname=None):
 
 Free functions receive their normal qualified function name. Digesters that do not
 declare `qualname` keep their existing call signature and behavior.
+
+### Explicit contract ownership (since 0.17.0)
+
+`DigestConfig.contract_owner` separates lookup from diagnostic display. `None`
+preserves existing caller resolution exactly, including its legacy descriptor
+behavior. Select `"definition"` when inherited implementations should keep their
+defining contract:
+
+```python
+from argdigest import DigestConfig, arg_digest
+
+inherited_contracts = DigestConfig(contract_owner="definition")
+
+
+class Base:
+    @arg_digest(config=inherited_contracts)
+    def process(self, value):
+        return value
+
+
+class Child(Base):
+    pass
+```
+
+Definition mode resolves each decorated function's `module.function` once,
+without a class component. A shared configuration therefore resolves separately
+for each method and separately decorated override. Same-name methods in one
+module share that existing namespace. To distinguish them, or select a logical
+owner different from the implementation, use a dedicated configuration such as
+`DigestConfig(contract_owner="mylib.native.model.__init__")`.
+
+Exact keys contain two or more dotted Python identifiers, without patterns or
+whitespace. Validation checks their spelling; it does not import the named
+owner or require a declaration to exist. Normal matching and fallback still
+apply. Review the resolved contract rather than assuming a valid key matched.
+
+One selected key drives declared aliases, standardizers, function/domain
+contracts and digester `caller`. Bound instance/class methods retain the runtime
+class in `qualname` and explicit-policy contract refusal messages. Static methods
+and free functions have no receiver and keep their defining qualified name.
+Both staticmethod decorator orders preserve access through class and instance
+from 0.17.0. Signature binding and value validation remain active.
+
+Both decorator forms accept this option through `config=DigestConfig(...)`.
+Python configuration uses `CONTRACT_OWNER`; JSON/YAML uses `contract_owner`.
+`arg_digest(contract_owner=...)` alone remains arbitrary digester context and
+does not select the policy. A wrapped-function call cannot override the policy.
+Plans expose `contract_owner` and resolved `contract_caller` (`None` means
+runtime lookup); CLI audit reports both.
+
+Alias normalization from 0.17.0 also preserves which canonical
+arguments were explicitly supplied. Required/co-required/exclusive checks use
+those names, including aliases on closed signatures; `*args` does not make an
+omitted keyword-only default count as supplied. Genuine unknown keywords are
+still refused. The standardizer retains its existing mapping contract.
+
+Consumer migration is opt-in. First qualify the installed provider and then
+exercise the consumer's inherited constructors, overrides and mixins, aliases,
+defaults and invalid inputs. Keep existing consumer context/workarounds until
+their owning receiving tests justify changing them. Source support alone does
+not establish adoption by MolSysMT or any other consumer.
 
 ## 4.5 The function argument contract (axis 1)
 
@@ -427,6 +496,28 @@ as requiring at least one operand — but it means the digester must be written 
 collection.
 
 ## SMonitor Integration
+
+### Registration and application policy (public since 0.16.0)
+
+With SMonitor 0.20.0 or newer, importing ArgDigest registers its diagnostic
+catalog without applying application policy, installing handlers or activating
+warning/exception hooks. `argdigest.register_diagnostics()` exposes that
+idempotent declaration-only operation. Applications own diagnostics setup:
+
+```python
+from argdigest import configure_diagnostics, register_diagnostics
+
+register_diagnostics()  # Requires the SMonitor 0.20.0 capability.
+configure_diagnostics()  # First-use bootstrap; preserves existing application policy.
+```
+
+Only explicit `configure_diagnostics(use_provider_policy=True)` requests ArgDigest
+recommendations over existing policy, and requires provider support. The CLI
+configures its own session. Older supported providers retain legacy import
+initialization and reject an explicit registration-only request with a capability
+error. The core SMonitor dependency floor remains 0.16.0; it does not promise
+the newer registration-only capability. Consumer receiving must test the
+provider version on which its selected diagnostics behavior depends.
 
 ArgDigest is heavily instrumented with `@smonitor.signal`:
 - The core decorator uses `tags=["digestion"]`.
