@@ -712,3 +712,13 @@ uibcdf/molsysmt#451 is resolved in 5814dc534. The new native source/destination
 contract is documented in the [current addon guide](../molsysviewer_addon.md).
 Earlier findings above are historical. Receiving the new center contract in
 the addon remains pending under uibcdf/molsysmt#421; no wrapper is added here.
+
+
+## Native sequence-alignment repairs — 2026-10-24
+
+uibcdf/molsysmt#452 and uibcdf/molsysmt#453 are corrected in working source.
+The [current addon guide](../molsysviewer_addon.md) owns the updated atomic-axis,
+original self-reference and paired-name contracts. Real-view tests receive the
+same native behavior without an addon reference or correspondence workaround.
+Earlier dated restrictions above remain historical; final source publication
+and artifact qualification are distinct evidence.

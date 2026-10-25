@@ -973,14 +973,13 @@ coordinate-only native references and independent output forms retain native
 units and ownership. No periodic reimaging, atom-correspondence heuristic, box
 transformation or chemical preparation is added.
 
-The reviewed native least_rmsd_align currently fails with the declared
-reference_molecular_system=None default. **Supply an explicit reference**, including
-view.molsys when you intend the same system. The owning defect is
-[#452](https://github.com/uibcdf/molsysmt/issues/452); the addon forwards None
-unchanged rather than silently replacing it. least_rmsd_fit's native self-reference
-route is received separately. At this source, use expression selections for
-least_rmsd_align: passing equivalent numeric atom indices incorrectly addresses
-group indices inside native sequence alignment
-([#453](https://github.com/uibcdf/molsysmt/issues/453)). Numeric selections remain fully
-native and are not rewritten by the addon; they are unqualified for this tool.
+Native least_rmsd_align now preserves omitted/None self-reference using the
+original reference_structure_index, including in-place fits. Atomic index lists,
+tuples, arrays and full-axis Boolean masks use the query and reference atom axes;
+they are projected to original sequence groups and paired atom names by MolSysMT.
+The addon forwards these inputs unchanged and does not calculate correspondence
+or replace a reference. Repairs and their native guards are tracked in
+[#452](https://github.com/uibcdf/molsysmt/issues/452) and
+[#453](https://github.com/uibcdf/molsysmt/issues/453). The same semantics are
+received in the bound addon with actual scene and selected-structure checks.
 This qualification covers CPU calls with explicit precision where tested; forwarding GPU/backend choices is not GPU qualification.

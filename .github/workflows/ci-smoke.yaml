@@ -143,6 +143,8 @@ jobs:
             tests/structure/principal_component_analysis/test_weighted_contract.py \
             tests/structure/center/test_center_contract.py \
             tests/documentation/test_center_examples.py \
+            tests/structure/align/test_sequence_alignment_contract.py \
+            tests/documentation/test_sequence_alignment_examples.py \
             tests/basic/test_file_copy.py \
             tests/basic/test_file_copy_lifecycle.py \
             tests/form/test_raw_file_copy.py

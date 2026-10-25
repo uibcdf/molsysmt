@@ -516,3 +516,23 @@ Earlier dated partial-reference/return findings above describe the historical
 blocker. They no longer describe current native behavior. Addon receiving
 remains pending under uibcdf/molsysmt#421: this correction does not introduce a
 center wrapper, host synchronization contract or installed-package evidence.
+
+
+## Native sequence-alignment repairs — 2026-10-24
+
+uibcdf/molsysmt#452 and uibcdf/molsysmt#453 now resolve the original input
+reference before selection, and distinguish atomic populations from original
+sequence-group positions. Numeric/Boolean selections use each source atom
+axis. Identically aligned group pairs retain unique selected atom-name
+correspondences even when atom order differs. Arbitrary ordered atom pairs
+remain the least_rmsd_fit contract. Complete selected query components move.
+
+The native CPU matrix protects original reference structure snapshots, units,
+precision, query/reference ownership, unselected components/structures and
+interaction invalidation. Real-view fitting tests receive omitted/None/self
+references and atomic masks in both independent and managed in-place calls.
+The admission path lets native alignment own its nonempty population contract
+instead of reparsing its mask through generic select; it forwards arguments
+unchanged and computes no scientific correspondence. Earlier dated limitations
+above are historical. No installed package or optional GPU qualification is
+implied by this source receiving.

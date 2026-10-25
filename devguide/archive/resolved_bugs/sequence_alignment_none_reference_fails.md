@@ -1,13 +1,13 @@
 ---
 summary: Sequence-based alignment fails with its documented self-reference default.
 issue: uibcdf/molsysmt#452
-status: open
+status: resolved
 opened: 2026-10-24
-closed:
+closed: 2026-10-24
 severity: medium
 verification: reproduced
 area: [structure, alignment]
-guard:
+guard: tests/structure/align/test_sequence_alignment_contract.py::test_self_reference_uses_original_selected_reference_structure
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-24, native reproduction during bound-addon receiving under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264; filing explicitly authorized.
-**Status:** open; scientific correction belongs to the native owner.
+**Status:** resolved; native correction, guards and maintained documentation are complete.
 
 ## What
 
@@ -88,3 +88,48 @@ closing requires the guard, final evidence and archive/index reconciliation.
 Python 3.14.7 on Linux in molsyssuite@uibcdf_3.14; source
 fd2b28a1d4f299466964fd0bf69f5358973b7af4. Legacy H5MSM and best-effort Biopython
 form warnings were retained. This is source evidence, not artifact qualification.
+
+
+## Correction and working evidence — 2026-10-24
+
+Resolve None to the query before every sequence or selection operation. Keep
+reference_selection's established default, preserve the selected original
+reference structure, and delegate fit/units/precision/publication to the existing
+least_rmsd_fit owner. No full reference snapshot or additional molecular copy is
+introduced by this wrapper. Both engines and query/reference structure scopes
+are validated before coordinate publication. Empty scopes reject explicitly.
+
+The original source from 99cb83107 was executed separately on the new local
+multi-component fixture: implicit reference still raises ArgumentError for
+molecular_system=None. The repaired path is checked against independently
+constructed rigid poses, not only parity with explicit self reference. Tests
+cover omitted/None/self/external inputs, reference structure 1, repeated and
+nonconsecutive query structures, units and both native ownership modes.
+
+Working source checks pass: 184 native/sequence tests in 24.43 seconds, the
+public doctest in 8.28 seconds, and 61 real-view fitting checks in 17.44 seconds.
+The addon continues forwarding defaults unchanged. Its successful in-place
+sequence-fit admission now relies on the native nonempty-anchor guarantee,
+rather than misinterpreting the native Boolean population through generic select.
+The invalid-input rejection token still distinguishes failed validation from a
+partial scientific write. Broader regression and executed documentation are
+being completed before publication. CPU evidence does not qualify GPU execution
+or any installed package.
+
+## Final local verification — 2026-10-24
+
+The broad structural/PBC/sequence/argument matrix passes **1,950 tests in
+51.66 seconds** with pytest-receptor and 12 workers. Network-marked tests are
+excluded explicitly; the existing unmarked RCSB-neighbor case was allowed its
+required network access. No failures or skips occurred. Legacy H5MSM,
+intentional GPU-unavailability and deliberately tiny-memory-budget warnings are
+retained; GPU fallback checks do not establish GPU execution.
+
+The final focused native, argument, recipe/course and real-view fitting matrix
+passes **633 tests in 28.87 seconds**, after adding malformed ragged-selection
+rejection. The one public alignment doctest passes. Six actual notebooks execute
+successfully, and all 14 fast repository gates, signature stability and full Ruff
+lint/format checks pass. Sphinx HTML builds with the accepted existing warning
+population under uibcdf/molsysmt#144. No public signature, dependency floor,
+installed artifact, release or optional GPU qualification is changed or claimed.
+Publication and applicable CI are verified separately after the source commit.

@@ -20,11 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
-
-- [`sequence_alignment_none_reference_fails.md`](sequence_alignment_none_reference_fails.md) — [#452](https://github.com/uibcdf/molsysmt/issues/452) — Sequence-based alignment fails with its documented self-reference default. *(medium, reproduced)*
-- [`sequence_alignment_numeric_atom_selection_uses_group_indices.md`](sequence_alignment_numeric_atom_selection_uses_group_indices.md) — [#453](https://github.com/uibcdf/molsysmt/issues/453) — Sequence-based structural alignment treats atom-index selections as group indices. *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

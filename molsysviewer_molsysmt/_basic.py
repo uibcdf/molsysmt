@@ -115,7 +115,7 @@ def _native_documentation(name, module="basic"):
             )
         if module == "structure" and name in {"least_rmsd_fit", "least_rmsd_align"}:
             function.__doc__ += (
-                "The reference remains explicit and caller-owned; keep it stable for "
+                "An external reference remains caller-owned; keep it stable for "
                 "the call. Only the bound primary view is serialized, with no automatic "
                 "locking or synchronization of another reference view. No periodic "
                 "reimaging, molecular preparation or scientific fitting is added here.\n"
@@ -130,13 +130,13 @@ def _native_documentation(name, module="basic"):
             function.__doc__ += (
                 "selection and reference_selection define sequence-derived anchors; "
                 "the native operation moves complete selected components, not only "
-                "those anchor atoms. At the reviewed source, supply an explicit "
-                "reference_molecular_system: native None self-reference fails before "
-                "writing coordinates and remains unqualified under uibcdf/molsysmt#452. "
-                "The addon does not replace the default or calculate correspondences. "
-                "Use expression selections at this source: numeric atom selections "
-                "are incorrectly interpreted as group indices by native sequence "
-                "alignment and remain unqualified.\n"
+                "those anchor atoms. Native omitted/None self-reference uses the "
+                "original reference_structure_index, including in-place edits. "
+                "Native atom indices and full-axis Boolean masks are resolved before "
+                "sequence-group projection; selected names stay paired within each "
+                "identically aligned group. These repairs are tracked under "
+                "uibcdf/molsysmt#452 and uibcdf/molsysmt#453. The addon forwards "
+                "arguments without replacing references or calculating correspondences.\n"
             )
         if name in {"copy", "convert", "get_conversion_report"}:
             function.__doc__ += (

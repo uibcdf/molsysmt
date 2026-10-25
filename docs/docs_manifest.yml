@@ -233,6 +233,11 @@ sections:
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
         pages:
+          - name: least_rmsd_align
+            file: docs/content/user/tools/structure/least_rmsd_align.ipynb
+            agents_file: docs/content/user/tools/structure/least_rmsd_align.ipynb.AGENTS.md
+            description: Original self-reference structures, atomic masks and indices, paired group/name anchors, component motion and aligned-system returns.
+            status: reviewed
           - name: center
             file: docs/content/user/tools/structure/center.ipynb
             agents_file: docs/content/user/tools/structure/center.ipynb.AGENTS.md
@@ -431,6 +436,11 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: aligning_components_by_sequence
+        file: docs/content/user/cookbook/aligning_components_by_sequence.md
+        agents_file: docs/content/user/cookbook/aligning_components_by_sequence.md.AGENTS.md
+        description: Explicit atom populations projected through sequence groups, complete-component motion and separate RMSD/ownership checks.
+        status: reviewed
       - name: placing_selected_centers
         file: docs/content/user/cookbook/placing_selected_centers.md
         agents_file: docs/content/user/cookbook/placing_selected_centers.md.AGENTS.md

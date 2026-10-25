@@ -162,18 +162,23 @@ def _prepare_geometry_transform(target, name, parameters):
         if is_all(frames)
         else frames is not None and len(frames) > 0
     )
-    # This checks participating-scope presence, not the exact moved population.
-    # Native sequence alignment expands its anchors to complete components.
-    atoms = basic.select(
-        target,
-        selection=parameters["selection"],
-        structure_indices=parameters["structure_indices"],
-        syntax=parameters["syntax"],
-    )
+    # A successful sequence alignment guarantees nonempty anchors and moves
+    # their components. Its atomic-mask contract belongs to the native tool;
+    # generic select must not reinterpret that population during admission.
+    if name == "least_rmsd_align":
+        has_atoms = True
+    else:
+        atoms = basic.select(
+            target,
+            selection=parameters["selection"],
+            structure_indices=parameters["structure_indices"],
+            syntax=parameters["syntax"],
+        )
+        has_atoms = atoms is not None and len(atoms) > 0
     operation = getattr(structure, name)
     return {
         "run": lambda: operation(target, **parameters),
-        "changed": bool(has_frames and atoms is not None and len(atoms) > 0),
+        "changed": bool(has_frames and has_atoms),
         # Native setters invalidate the structures they actually publish.
         "interactions_policy": "preserve",
     }

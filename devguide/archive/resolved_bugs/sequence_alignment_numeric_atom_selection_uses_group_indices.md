@@ -1,13 +1,13 @@
 ---
 summary: Sequence-based structural alignment treats atom-index selections as group indices.
 issue: uibcdf/molsysmt#453
-status: open
+status: resolved
 opened: 2026-10-24
-closed:
+closed: 2026-10-24
 severity: medium
 verification: reproduced
 area: [structure, alignment, selection]
-guard:
+guard: tests/structure/align/test_sequence_alignment_contract.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-24, independent native reproduction after a real multi-component
 addon receiving test exposed the mismatch; filing explicitly authorized.
-**Status:** open; scientific selection semantics remain native-owner work.
+**Status:** resolved; atomic selection and paired-group correspondence are corrected.
 
 ## What
 
@@ -100,3 +100,61 @@ Python 3.14.7, Linux, molsyssuite@uibcdf_3.14. Native scientific source matches
 fd2b28a1d4f299466964fd0bf69f5358973b7af4; unrelated center/get_center work remains
 separate. Legacy H5MSM and best-effort Biopython form warnings are retained.
 This is local source evidence, not installed-package qualification.
+
+
+## Correction and working evidence — 2026-10-24
+
+Resolve both selections once as atom populations on their respective source
+axes, including full-axis Boolean masks through the existing index/mask owner.
+Project per-atom group_index values to unique original groups in topology
+sequence order and call get_sequence_identity with those group positions.
+Its group-domain public API, source-group mapping, scoring, identity criterion
+and optional attribution are unchanged. Only identically aligned amino-acid
+groups supply anchors; caps remain excluded without compacting their positions
+into a misleading molecular index space.
+
+Retain the returned group pairs while constructing the atomic correspondence.
+Selected atom names must be unique and agree within each aligned group pair;
+otherwise reject before writes. Numeric order and repetition describe an atom
+population, not an arbitrary atom-pair ordering. Reference atom permutations
+therefore remain meaningful. Explicit arbitrary correspondences belong to
+least_rmsd_fit. Group membership is indexed in a linear pass before iterating
+matched groups; no full selected-atom scan is repeated for every group.
+
+All atoms of components touched by the original query population move under the
+common fit. Source groups without identity matches can contribute moving
+components but no anchors. Unselected components and structures stay fixed.
+No new public callable, chemical store, sequence provider or compiled formula
+is introduced; generic get/select, group-sequence identity and the existing
+compiled Kabsch fit remain the owning tools.
+
+The original 99cb83107 function was executed on the new fixture and rejects
+valid CA atom positions [8,18,28,38,48] as out-of-range group positions. Working
+checks include all expression/list/tuple/array/Boolean combinations on both
+axes, different cap/water offsets, atom permutations, sequence gaps, ambiguous
+or missing names, insufficient/collinear anchors and source/reference ownership.
+They also protect invalidation and immutable earlier analysis views. A readable
+H5MSM and an MDTraj reference are exercised without writing either. MDTraj's
+float32 input is compared with an independent float64 SVD fit to the actual
+quantized reference, rather than incorrectly expecting its pre-conversion pose.
+The first SVD test draft also averaged the reference in float32; correcting that
+oracle did not change production code. Native/source tests and real-view masks
+pass; final broad and documentation evidence follows before publication.
+
+## Final local verification — 2026-10-24
+
+The broad structural/PBC/sequence/argument matrix passes **1,950 tests in
+51.66 seconds** with pytest-receptor and 12 workers. Network-marked tests are
+excluded explicitly; the existing unmarked RCSB-neighbor case was allowed its
+required network access. No failures or skips occurred. Legacy H5MSM,
+intentional GPU-unavailability and deliberately tiny-memory-budget warnings are
+retained; GPU fallback checks do not establish GPU execution.
+
+The final focused native, argument, recipe/course and real-view fitting matrix
+passes **633 tests in 28.87 seconds**, after adding malformed ragged-selection
+rejection. The one public alignment doctest passes. Six actual notebooks execute
+successfully, and all 14 fast repository gates, signature stability and full Ruff
+lint/format checks pass. Sphinx HTML builds with the accepted existing warning
+population under uibcdf/molsysmt#144. No public signature, dependency floor,
+installed artifact, release or optional GPU qualification is changed or claimed.
+Publication and applicable CI are verified separately after the source commit.

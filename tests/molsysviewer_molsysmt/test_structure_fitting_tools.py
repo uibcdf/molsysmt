@@ -82,7 +82,9 @@ def test_signatures_defaults_native_help_and_explicit_namespace(fitted_scene, na
     assert "caller-owned" in doc
     if name == "least_rmsd_align":
         assert "complete selected components" in doc
-        assert "#452" in doc
+        assert "#452" in doc and "#453" in doc
+        assert "fails before" not in doc
+        assert "incorrectly interpreted" not in doc
 
 
 @pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
@@ -541,3 +543,44 @@ def test_fit_pipeline_interruption_after_publication_enters_uncertain_state(
     assert view.addons.molsysmt.get_sync_status()["state"] == "uncertain"
     with pytest.raises(SystemEditPendingError):
         view.addons.molsysmt.sync_view()
+
+
+@pytest.mark.parametrize("reference_mode", ["omitted", "none", "self"])
+@pytest.mark.parametrize("in_place", [False, True])
+@pytest.mark.parametrize("selection_kind", ["indices", "mask"])
+def test_sequence_alignment_receives_native_self_reference_and_atom_axes(
+    fitted_scene, reference_mode, in_place, selection_kind
+):
+    view, _, _ = fitted_scene
+    target = view.molsys
+    before, state = xyz(target).copy(), view.export_state()
+    atoms = msm.select(target, selection='atom_name=="CA"')
+    selection = atoms[::-1]
+    if selection_kind == "mask":
+        selection = np.zeros(len(before[0]), dtype=bool)
+        selection[atoms] = True
+    extra = (
+        {}
+        if reference_mode == "omitted"
+        else {
+            "reference_molecular_system": None if reference_mode == "none" else target
+        }
+    )
+    result = view.addons.molsysmt.structure.least_rmsd_align(
+        selection=selection,
+        structure_indices=SCOPE,
+        reference_structure_index=1,
+        use_gpu=False,
+        in_place=in_place,
+        **extra,
+    )
+    expected = before.copy()
+    expected[[0, 2]] = before[1]
+    output = target if in_place else result
+    assert (result is None) == in_place
+    np.testing.assert_allclose(xyz(output), expected, rtol=0, atol=1e-11)
+    assert view.molsys is target
+    if not in_place:
+        np.testing.assert_array_equal(xyz(target), before)
+        assert view.export_state() == state
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"

@@ -28,6 +28,18 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
 
     from ._correspondence_axes import CALLERS, flat_axis
 
+    if (
+        caller == "molsysmt.structure.least_rmsd_align.least_rmsd_align"
+        and selection is not None
+        and not isinstance(selection, str)
+    ):
+        try:
+            array = np.asarray(selection)
+        except (TypeError, ValueError, OverflowError) as error:
+            raise ArgumentError("selection", value=selection, caller=caller) from error
+        if array.ndim == 1 and array.dtype.kind == "b":
+            return array
+
     if caller in CALLERS and selection is not None and not isinstance(selection, str):
         return flat_axis(selection, "selection", caller).tolist()
 

@@ -20,11 +20,16 @@ The canonical variables representing the reference and mobile systems MUST be `m
    - Opening sentence introducing T4 lysozyme mutant comparison (181L vs 1L17).
 4. **Cell 4 (Code)**: `import molsysmt as msm`
 5. **Cells 5+**:
-   - `molsys_1 = msm.convert('181l', selection='molecule_type=="protein"')`
-   - `molsys_2 = msm.convert('1l17', selection='molecule_type=="protein"')`
+   - Bundled 181L reference with the protein selection.
+   - Bundled 1L17 query with the protein selection.
    - Sequence length comparison.
    - Header H2 `## Sequence-guided structural superposition`
    - `molsys_2_aligned = msm.structure.least_rmsd_align(molsys_2, reference_molecular_system=molsys_1)`
    - Centers comparison printout.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
+
+Preserve executable atomic-index and independent reference-mask examples, original
+self-reference structure semantics, rigid-translation numerical checks and its
+before/after RMSD plot. Distinguish atom versus group indices, named atom pairing
+within aligned groups, complete-component motion and aligned-system return values.

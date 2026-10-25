@@ -7,6 +7,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
 | Recipe | Objective |
 | :--- | :--- |
+| **{doc}`aligning_components_by_sequence`** | Mapping atomic anchors through sequences and checking rigid component fits. |
 | **{doc}`placing_selected_centers`** | Moving populations between explicit source and destination centers. |
 | **{doc}`copying_disk_systems`** | Keeping byte-preserving file snapshots and editable native copies independent. |
 | **{doc}`weighting_pca`** | Checking weighted covariance, squared-length units and principal-component projections. |
@@ -50,6 +51,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    weighting_pca.md
    copying_disk_systems.md
    placing_selected_centers.md
+   aligning_components_by_sequence.md
    symmetry_pose_rmsd.ipynb
 
    saving_mediated_interactions

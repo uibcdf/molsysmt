@@ -41,6 +41,14 @@ correspondence. Coordinate-only forms support index-based positioning without
 requiring a topology. See the {ref}`centering tutorial <Tutorial_Center>` and
 {ref}`placement recipe <Cookbook_Placing_Selected_Centers>` for concrete choices.
 
+Sequence-guided structural alignment also distinguishes atom populations from
+group correspondence. Its public selections address atoms on each system's own
+axis; the sequence layer projects them to original amino-acid groups. Selected
+atoms in identically aligned group pairs are matched by name, and complete query
+components move. The original reference structure remains a fixed coordinate
+snapshot during in-place self alignment. See
+{ref}`Tutorial_Least_rmsd_align` for ownership and selection examples.
+
 ## Architectural Layers
 
 A complete molecular system in MolSysMT is composed of four non-exclusive, complementary architectural layers:
