@@ -175,3 +175,14 @@ instructions and the tutorial's existing admonition formatting. No warning-free
 build is claimed. The smoke tier now executes the native displacement contract,
 empty-centroid guard and documented placement examples; its hosted result is
 verified separately for the published commit.
+
+
+## Tutorial rendering follow-up — 2026-10-25
+
+The first successful noninteractive tutorial execution retained numerical outputs
+but did not embed its comparison figure under the forced Agg backend. Enabling
+Jupyter's inline plotting in that tutorial and reexecuting it (6.9 seconds) saves
+one PNG figure showing the independently asserted 1/3/2 nm separations. The saved
+image is visually inspected; numerical code and library sources are unchanged.
+This is a documentation rendering correction, not new scientific evidence or a
+replacement of the original regression results.
