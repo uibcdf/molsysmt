@@ -20,11 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
-
-- [`move_away_degenerate_direction_publishes_nan.md`](move_away_degenerate_direction_publishes_nan.md) — [#456](https://github.com/uibcdf/molsysmt/issues/456) — move_away publishes NaNs for degenerate directions. *(high, measured)*
-- [`move_away_multistructure_rejection_after_partial_write.md`](move_away_multistructure_rejection_after_partial_write.md) — [#457](https://github.com/uibcdf/molsysmt/issues/457) — move_away rejects multiple structures after partial publication. *(high, measured)*
-
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*

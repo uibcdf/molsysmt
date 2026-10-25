@@ -602,3 +602,22 @@ external/self references, independent/in-place returns, native clean rejection,
 scene maps and delayed/failed projection without scientific replay. Its original
 focused run passes 38 cases. Broader regression and exact integrated-head CI are
 recorded separately; no installed qualification, new public floor or release.
+
+### Native displacement repair — 2026-10-25
+
+The scientific owner repairs uibcdf/molsysmt#456 and uibcdf/molsysmt#457.
+Finite nonzero directions are normalized with scale-safe arithmetic. Coincident
+automatic centers, nonfinite centers/distance and unsupported structure or
+direction cardinalities reject before coordinate writes. An explicit offset
+is composed into one target point and delegated to `structure.center`; there
+is no intermediate center-only publication. Single-structure scientific
+semantics, source containment, units and native output ownership are preserved.
+
+The native and real-view guards now assert unchanged coordinates, boxes,
+interaction coverage and scene/synchronization state for these rejections.
+The addon contains no scientific workaround. Normal successful coordinate
+setters invalidate only the edited structure. Generic partial backend failures
+and display synchronization failures retain their separate uncertainty/retry
+contracts. The source receipts above remain historical; these repairs do not
+qualify installed packages or a broader multi-structure route. The final
+administrative closure comment for uibcdf/molsysmt#451 is also restored.

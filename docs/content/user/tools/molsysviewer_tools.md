@@ -37,7 +37,7 @@ Results retain native quantities, arrays and metadata. The separate
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving
 currently covers explicit unit normals only; native default/nonunit-normal defects
-remain visible below. Displacement receiving covers single-structure, finite nonzero directions; the native degenerate-input and partial-write defects are documented below. Other transformations remain outside the received slice.
+remain visible below. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. Other transformations remain outside the received slice.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -1069,8 +1069,9 @@ synchronize another view.
 The two direction modes have different meanings. Automatic direction adds the
 requested distance along the existing reference-to-source vector; distance is
 an **additional displacement**, not the final center separation. With an explicit
-finite nonzero direction, native digestion normalizes it, centers the source at
-the **initial** reference center and then displaces it by distance. The explicit
+finite nonzero direction, native digestion normalizes it and places the source
+at the **initial** reference center plus the requested offset. There is no
+intermediate centering publication. The explicit
 mode requires the source-center atoms to be contained in the moving population.
 An overlapping reference is an initial snapshot, not a final constraint. No
 periodic reconstruction, reference preparation or box transformation is added.
@@ -1082,15 +1083,15 @@ and retry after a display failure use the same controls as translation. Retry
 `tools.sync_view()` after a projection failure; do not repeat completed science.
 
 :::{warning}
-At the reviewed source, [#456](https://github.com/uibcdf/molsysmt/issues/456)
-tracks NaN publication when automatic centers coincide (including a call with
-all defaults), or when the explicit direction is zero. Avoid those inputs and
-supply a finite nonzero explicit direction or distinct finite centers. They are
-not qualified addon routes.
-
-Both modes currently reject multiple structures. In explicit in-place mode,
-[#457](https://github.com/uibcdf/molsysmt/issues/457) tracks rejection **after a
-partial centering write**. The receiver reports uncertain state on detected
-partial publication; recover explicitly from a known system rather than replaying
-the failed call. The addon does not repair these native scientific defects.
+Both modes require one structure and one center in each system. Multiple or
+repeated structure requests reject before centering or displacement. Automatic
+centers must be distinct and finite, even when distance is zero; explicit
+vectors must be finite and nonzero. These rejections preserve coordinates,
+boxes and stored interaction coverage and leave the managed scene synchronized.
+The native NaN and partial-write defects tracked by
+[#456](https://github.com/uibcdf/molsysmt/issues/456) and
+[#457](https://github.com/uibcdf/molsysmt/issues/457) are repaired. The addon
+forwards the native validation and supplies no substitute geometry. An unrelated
+backend failure after actual publication still needs explicit recovery; display
+retry must not repeat successful science.
 :::

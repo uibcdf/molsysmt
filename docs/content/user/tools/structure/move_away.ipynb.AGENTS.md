@@ -30,3 +30,10 @@ The canonical variables representing the reference and mobile systems MUST be `m
    - Euclidean distance confirmation printout.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
+
+Preserve the automatic increment versus explicit final-offset comparison from
+an initially separated system, its unit-labelled plot and independent numeric
+assertions. Keep selected/weighted populations, original-input ownership,
+singleton structure selection and executable no-write rejection examples for
+coincident centers, zero vectors and multiple structures. Do not imply general
+multi-structure broadcasting, periodic preparation or trajectory-wide atomicity.

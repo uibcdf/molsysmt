@@ -830,3 +830,15 @@ is preserved as integration parent; its source tests/docs are not bundled as our
 changes. Hosted exact-head qualification remains pending at this checkpoint.
 No installed compatibility or release is asserted; #456/#457 require the
 scientific owner's repair.
+
+### Native direction and preflight repair — 2026-10-25
+
+The subsequent scientific repair of uibcdf/molsysmt#456 / uibcdf/molsysmt#457
+supersedes the failing-input restriction above. Undefined directions and
+unsupported axes now reject before coordinate publication; the explicit route
+delegates its final destination directly to `center`. Native and bound guards
+protect no-write rejection and preserved interaction/scene state. Historical
+receipts are unchanged. The maintained current contract is in
+[the addon guide](../molsysviewer_addon.md#native-displacement-repair--2026-10-25).
+No multi-structure support, installed-package qualification or publication is
+inferred from the repair.

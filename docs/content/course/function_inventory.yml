@@ -31,6 +31,12 @@ molsysmt.build.merge_nonpolar_hydrogens:
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.structure.move_away:
+  name: "msm.structure.move_away"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Adds an automatic separation increment or places a source at an explicit offset from an initial reference center."
+  doc_ref: "{func}`molsysmt.structure.move_away`"
+
 molsysmt.physchem.normalize_aromatic_bond_orders:
   name: "msm.physchem.normalize_aromatic_bond_orders"
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"

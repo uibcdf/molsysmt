@@ -124,9 +124,10 @@ def _native_documentation(name, module="basic"):
                 "explicit direction places the source center at the initial reference "
                 "center plus distance along the normalized direction. The reference "
                 "remains caller-owned and is not locked or synchronized by this call. "
-                "Do not use coincident centers with auto direction or a zero direction: "
-                "the native tool currently publishes NaNs (uibcdf/molsysmt#456). Explicit multi-structure "
-                "rejection can follow a partial centering write (uibcdf/molsysmt#457); recovery is explicit. "
+                "Undefined, zero or nonfinite directions and multiple structures "
+                "are rejected by the native tool before coordinate writes "
+                "(uibcdf/molsysmt#456 and #457). Rejection preserves coordinates "
+                "and interaction coverage. "
                 "The addon supplies no substitute geometry or periodic preparation.\n"
             )
         if module == "structure" and name == "center":

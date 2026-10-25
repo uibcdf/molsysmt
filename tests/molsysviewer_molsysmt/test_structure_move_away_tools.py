@@ -54,7 +54,8 @@ def test_signature_defaults_help_and_expert_path(view):
     doc = inspect.getdoc(method)
     assert "native in_place=False default" in doc
     assert "No molecular edit" not in doc
-    assert "single-structure" in doc and "NaNs" in doc
+    assert "single-structure" in doc and "before coordinate writes" in doc
+    assert "currently publishes NaNs" not in doc
     assert "no substitute geometry" in doc
 
 
@@ -172,6 +173,11 @@ def test_auto_mode_is_incremental_displacement_and_default_scope_is_zero(view, w
         {"direction": [1, 0]},
         {"selection": [0, 2], "center_of_selection": [1, 3], "direction": [1, 0, 0]},
         {"structure_indices": [2, 0]},
+        {"structure_indices": [2, 0], "direction": [1, 0, 0]},
+        {"reference_structure_indices": [2, 0], "direction": [1, 0, 0]},
+        {"direction": [0, 0, 0]},
+        {"direction": [np.nan, 0, 1]},
+        {"center_of_selection": "all", "reference_center_of_selection": "all"},
     ],
 )
 def test_native_rejection_without_writes_keeps_clean_scene(view, arguments):

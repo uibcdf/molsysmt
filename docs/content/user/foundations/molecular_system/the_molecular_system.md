@@ -41,6 +41,13 @@ correspondence. Coordinate-only forms support index-based positioning without
 requiring a topology. See the {ref}`centering tutorial <Tutorial_Center>` and
 {ref}`placement recipe <Cookbook_Placing_Selected_Centers>` for concrete choices.
 
+Displacing away from a center has two meanings. An automatic direction adds an
+offset to an existing separation; an explicit direction places the source at an
+offset from the initial reference center. Both use a fixed snapshot of the
+reference. Undefined directions and unsupported structure populations reject
+before coordinate publication, preserving the system and its stored analyses.
+See {ref}`Tutorial_Move_away` for the supported single-structure scope.
+
 Sequence-guided structural alignment also distinguishes atom populations from
 group correspondence. Its public selections address atoms on each system's own
 axis; the sequence layer projects them to original amino-acid groups. Selected

@@ -11,10 +11,31 @@ import pytest
 
 import molsysmt as msm
 from molsysmt import systems
+from molsysmt.native import MolSys, Structures
 
 # ---------------------------------------------------------------------------
 # Helpers / fixtures
 # ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("native_type", [MolSys, Structures])
+@pytest.mark.parametrize("selection", [[], np.array([], dtype=int), "atom_index<0"])
+def test_empty_atom_population_raises_argument_error_before_group_dispatch(
+    native_type, selection
+):
+    coordinates = msm.pyunitwizard.quantity(np.arange(6).reshape(1, 2, 3), "nm")
+    if native_type is Structures:
+        source = Structures(coordinates=coordinates)
+    else:
+        source = MolSys(n_atoms=2)
+        source.structures = Structures(coordinates=coordinates)
+    before = msm.pyunitwizard.get_value(msm.get(source, coordinates=True)).copy()
+    with pytest.raises(msm.ArgumentError) as refusal:
+        msm.structure.get_center(source, selection=selection)
+    assert refusal.value.extra["argument"] == "selection"
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(msm.get(source, coordinates=True)), before
+    )
 
 
 @pytest.fixture(scope="module")

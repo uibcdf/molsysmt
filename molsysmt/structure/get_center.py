@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.execution import Reducer
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
@@ -144,6 +144,12 @@ def get_center(
 
     if engine == "MolSysMT":
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        if atom_indices is None or len(atom_indices) == 0:
+            raise ArgumentError(
+                "selection",
+                caller="molsysmt.structure.get_center",
+                message="The atom selection must contain at least one atom.",
+            )
 
         if not is_iterable_of_iterables(atom_indices):
             n_atoms = (

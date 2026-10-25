@@ -25,6 +25,9 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 3. Section 2: Spatial Translation (`translate`)
 * Must demonstrate translating coordinates along 3D vectors with unit safety using `msm.structure.translate()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.structure.translate`.
+* Preserve the executable `move_away` comparison of automatic separation
+  increments and explicit final offsets, the initial reference snapshot,
+  single-structure scope and unchanged-system checks on rejection.
 
 ### 4. Section 3: Structural Alignment and RMSD (`get_rmsd` and `least_rmsd_align`)
 * Must demonstrate computing Root-Mean-Square Deviation using `msm.structure.get_rmsd()` and performing rigid superposition with `msm.structure.least_rmsd_align()`.

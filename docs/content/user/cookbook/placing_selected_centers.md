@@ -63,6 +63,39 @@ coordinate edits invalidate interaction coverage for the edited structures.
 This operation uses stored Cartesian coordinates; periodic reconstruction is
 a separate preparation step.
 
+## Choosing an increment or a final offset
+
+Use `move_away` on one structure when you want an offset relative to a reference
+center. Its automatic mode **adds** to the existing center separation. Explicit
+direction instead places the source at the reference center plus the requested
+offset. Using the same original C/D population centered at 11 nm and A/B centered
+at 3 nm makes the distinction visible:
+
+```python
+molsys_incremented = msm.structure.move_away(
+    molsys, selection=[2, 3], center_of_selection=[2, 3],
+    reference_center_of_selection=[0, 1], distance='2 nm')
+molsys_offset = msm.structure.move_away(
+    molsys, selection=[2, 3], center_of_selection=[2, 3],
+    reference_center_of_selection=[0, 1], distance='2 nm', direction=[1, 0, 0])
+incremented = puw.get_value(msm.get(molsys_incremented, coordinates=True), to_unit='nm')
+offset = puw.get_value(msm.get(molsys_offset, coordinates=True), to_unit='nm')
+np.testing.assert_allclose(incremented[0, :, 0], [2, 4, 12, 14], atol=1e-12)
+np.testing.assert_allclose(offset[0, :, 0], [2, 4, 4, 6], atol=1e-12)
+np.testing.assert_array_equal(
+    puw.get_value(msm.get(molsys, coordinates=True), to_unit='nm')[0, :, 0],
+    [2, 4, 10, 12])
+```
+
+For this tool, both the moving and reference structure scopes must contain
+exactly one structure. Lists with repeated or nonconsecutive indices are also
+multiple requests and reject before any edit. Automatic direction requires
+distinct finite centers, even for a zero offset; supply an explicit finite
+nonzero vector when the centers coincide. Empty populations, nonfinite values
+and unsupported axes preserve coordinates, boxes and stored interaction coverage
+on rejection. Use separate single-structure calls when several structures are
+needed; those calls are separate operations, not one atomic trajectory edit.
+
 :::{seealso}
 :class: dropdown
 
@@ -70,4 +103,5 @@ a separate preparation step.
 - {ref}`Get center <Tutorial_Get_center>`
 - {ref}`The molecular system <user-foundations-molecular-system-definition>`
 - {func}`molsysmt.structure.center`
+- {ref}`Move away <Tutorial_Move_away>`
 :::
