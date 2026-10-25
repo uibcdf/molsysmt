@@ -704,3 +704,11 @@ exposes twenty-three structure tools: eighteen calculations and five coordinate
 editors, with five other reviewed edits and broader coverage/panels pending under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. No installed package qualification,
 public floor, tag, release, version freeze or promotion is implied.
+
+
+## Native centering contract resolved — 2026-10-24
+
+uibcdf/molsysmt#451 is resolved in 5814dc534. The new native source/destination
+contract is documented in the [current addon guide](../molsysviewer_addon.md).
+Earlier findings above are historical. Receiving the new center contract in
+the addon remains pending under uibcdf/molsysmt#421; no wrapper is added here.

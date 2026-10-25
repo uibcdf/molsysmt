@@ -867,9 +867,12 @@ tools.sync_view() instead of the translation. A possible partial scientific writ
 enters uncertain state and requires explicit recovery, without an implied rollback.
 The skip_digestion flag cannot bypass integration ownership or branch controls.
 
-Centering remains pending [#451](https://github.com/uibcdf/molsysmt/issues/451):
-the native partial-reference population contract and in-place return require
-resolution. The addon supplies no alternate centering formula or hidden selection.
+Native centering is resolved in [#451](https://github.com/uibcdf/molsysmt/issues/451)
+with explicit source/destination centers and a consistent in-place None return.
+See {ref}`Tutorial_Center` for the new pre-1.0 argument names and containment rules.
+Receiving that contract in the addon remains pending under
+[#421](https://github.com/uibcdf/molsysmt/issues/421); no centering wrapper is
+advertised yet. The addon supplies no alternate formula or hidden selection.
 
 
 ## Rotating and reflecting coordinates

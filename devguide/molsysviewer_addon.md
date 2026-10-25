@@ -500,3 +500,19 @@ Center remains unreceived under uibcdf/molsysmt#451, and earlier
 native reflection limits remain visible. Source now provides twenty-three
 structure tools: eighteen calculations and five coordinate editors; five other
 reviewed coordinate-changing exports and the broader addon remain pending.
+
+
+## Native centering contract resolved — 2026-10-24
+
+The scientific owner resolved uibcdf/molsysmt#451 in 5814dc534 with the
+maintainer-approved explicit source/destination redesign. Native center now
+uses selection as its moving population, source_center_selection as a contained
+source-center population (defaulting to selection), and mutually exclusive
+initial target_center_selection or physical target_coordinates destinations.
+Its in-place return is consistently None; old keyword names are retired before
+1.0. Tests and executed tutorials/course modules protect the new contract.
+
+Earlier dated partial-reference/return findings above describe the historical
+blocker. They no longer describe current native behavior. Addon receiving
+remains pending under uibcdf/molsysmt#421: this correction does not introduce a
+center wrapper, host synchronization contract or installed-package evidence.
