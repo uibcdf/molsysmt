@@ -48,7 +48,9 @@ def move_away(
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     center_of_selection : str, list, tuple, or numpy.ndarray, or None, default='all'
-        Atoms whose center defines the translation reference.
+        Atoms whose center defines the translation reference. With an explicit
+        direction they must be contained in ``selection``; the centering step
+        uses them as ``source_center_selection``.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
     structure_indices : int, list, tuple, or numpy.ndarray, default=0
@@ -171,9 +173,11 @@ def move_away(
             center(
                 molecular_system,
                 selection=selection,
-                center_of_selection=center_of_selection,
+                source_center_selection=center_of_selection,
                 weights=weights,
-                center_coordinates=coordinates_reference_center,
+                target_coordinates=coordinates_reference_center,
+                structure_indices=structure_indices,
+                syntax=syntax,
                 in_place=True,
                 skip_digestion=True,
             )
@@ -216,9 +220,11 @@ def move_away(
             tmp_molecular_system = center(
                 molecular_system,
                 selection=selection,
-                center_of_selection=center_of_selection,
+                source_center_selection=center_of_selection,
                 weights=weights,
-                center_coordinates=coordinates_reference_center,
+                target_coordinates=coordinates_reference_center,
+                structure_indices=structure_indices,
+                syntax=syntax,
                 in_place=False,
                 skip_digestion=True,
             )

@@ -32,7 +32,7 @@ molsys_popc = msm.structure.align_principal_axes(
     molsys_popc, axes=[[0, 1, 0], [0, 0, 1], [1, 0, 0]]
 )
 molsys_popc = msm.structure.center(
-    molsys_popc, selection="all", center_of_selection='atom_name=="P"'
+    molsys_popc, selection="all", source_center_selection='atom_name=="P"'
 )
 v2 = msm.view(molsys_popc)
 v2.export.html(str(views_dir / "tools_structure_flip_1.html"), background="transparent")

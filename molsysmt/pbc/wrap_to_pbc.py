@@ -38,7 +38,8 @@ def wrap_to_pbc(
     box_center : PyUnitWizard quantity or None, default=None
         Periodic box center in units of length; `None` derives it from the box.
     center_of_selection : str, list, tuple, or numpy.ndarray, or None, default=None
-        Atoms whose center defines the translation reference.
+        Atoms whose center defines the translation reference. When supplied,
+        they must belong to ``selection`` so the entire reference moves together.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
     center_coordinates : PyUnitWizard quantity or None, default='[0,0,0] nanometers'
@@ -93,9 +94,10 @@ def wrap_to_pbc(
             molecular_system = center(
                 molecular_system,
                 selection=atom_indices,
-                center_of_selection=center_of_selection,
+                source_center_selection=center_of_selection,
                 weights=weights,
-                center_coordinates=center_coordinates,
+                target_coordinates=center_coordinates,
+                structure_indices=structure_indices,
                 syntax=syntax,
                 in_place=False,
                 skip_digestion=True,

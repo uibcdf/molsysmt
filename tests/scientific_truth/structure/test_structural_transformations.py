@@ -44,7 +44,7 @@ def test_center_moves_a_known_centroid_to_the_target(float64_kernel_atol):
     target = np.array([[[1.0, 2.0, -1.0]]])
     observed = msm.structure.center(
         _structures(coordinates),
-        center_coordinates=target * msm.pyunitwizard.unit("nm"),
+        target_coordinates=target * msm.pyunitwizard.unit("nm"),
     )
     expected = np.array([[[0.0, 2.0, -1.0], [2.0, 2.0, -1.0]]])
 

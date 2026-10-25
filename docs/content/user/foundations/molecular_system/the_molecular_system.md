@@ -30,6 +30,17 @@ candidate. Recognizing a form does not establish valid syntax, complete chemistr
 or suitability for a calculation; those are separate reading and method contracts.
 See {ref}`Tutorial_Get_form` for examples.
 
+## Coordinate transformations
+
+A rigid translation moves every atom in its moving population by the same
+vector within a structure. The population defining the source center can be a
+subset of those atoms. A destination can be an explicit physical point or the
+initial center of another population; that target may overlap the moved atoms.
+These populations have distinct roles and do not establish atom-to-atom
+correspondence. Coordinate-only forms support index-based positioning without
+requiring a topology. See the {ref}`centering tutorial <Tutorial_Center>` and
+{ref}`placement recipe <Cookbook_Placing_Selected_Centers>` for concrete choices.
+
 ## Architectural Layers
 
 A complete molecular system in MolSysMT is composed of four non-exclusive, complementary architectural layers:

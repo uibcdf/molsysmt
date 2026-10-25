@@ -19,7 +19,7 @@ def test_remove_overlapping_molecules_MolSys_1():
     water_box = msm.build.make_water_box(box)
 
     peptide = msm.build.build_peptide("ACEALAALANME")
-    peptide = msm.structure.center(peptide, center_coordinates=0.5 * box.diagonal())
+    peptide = msm.structure.center(peptide, target_coordinates=0.5 * box.diagonal())
 
     molsys = msm.merge([water_box, peptide])
 

@@ -22,7 +22,7 @@ The canonical variable representing the input system is `molsys` and the flipped
 5. **Cells 5+**:
    - `crd = msm.systems['POPC']['popc.crd']`, `psf = msm.systems['POPC']['popc.psf']`, `molsys = msm.convert([crd, psf], to_form='molsysmt.MolSys')`
    - `molsys = msm.structure.align_principal_axes(molsys, axes=[[0, 1, 0], [0, 0, 1], [1, 0, 0]])`
-   - `molsys = msm.structure.center(molsys, selection='all', center_of_selection='atom_name=="P"')`
+   - `molsys = msm.structure.center(molsys, selection='all', source_center_selection='atom_name=="P"')`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - Initial 3D view with `molsysviewer_htmlfile = '_static/views/tools_structure_flip_1.html'` and `msm.view(molsys)`.
    - `molsys_flipped = msm.structure.flip(molsys, vector=[0, 1, 0], point='[0, 0, 0] nm')`.

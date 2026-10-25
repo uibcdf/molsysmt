@@ -7,6 +7,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
 | Recipe | Objective |
 | :--- | :--- |
+| **{doc}`placing_selected_centers`** | Moving populations between explicit source and destination centers. |
 | **{doc}`copying_disk_systems`** | Keeping byte-preserving file snapshots and editable native copies independent. |
 | **{doc}`weighting_pca`** | Checking weighted covariance, squared-length units and principal-component projections. |
 | **{doc}`comparing_sequence_source_groups`** | Comparing sequence letters with their original molecular group indices. |
@@ -48,6 +49,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    comparing_sequence_source_groups.md
    weighting_pca.md
    copying_disk_systems.md
+   placing_selected_centers.md
    symmetry_pose_rmsd.ipynb
 
    saving_mediated_interactions

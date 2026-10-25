@@ -20,8 +20,8 @@ def test_flip_molsysmt_MolSys_1():
     molsys = msm.structure.center(
         molsys,
         selection="all",
-        center_of_selection='atom_name=="P"',
-        center_coordinates=[0.0, 0.0, 2.0] * msm.pyunitwizard.quantity("nm"),
+        source_center_selection='atom_name=="P"',
+        target_coordinates=[0.0, 0.0, 2.0] * msm.pyunitwizard.quantity("nm"),
     )
 
     coors1 = msm.get(molsys, selection='atom_name=="P"', coordinates=True)
@@ -45,8 +45,8 @@ def test_flip_molsysmt_MolSys_2():
     molsys = msm.structure.center(
         molsys,
         selection="all",
-        center_of_selection='atom_name=="P"',
-        center_coordinates=[0.0, 0.0, 2.0] * msm.pyunitwizard.quantity("nm"),
+        source_center_selection='atom_name=="P"',
+        target_coordinates=[0.0, 0.0, 2.0] * msm.pyunitwizard.quantity("nm"),
     )
 
     coors1 = msm.get(molsys, selection='atom_name=="P"', coordinates=True)

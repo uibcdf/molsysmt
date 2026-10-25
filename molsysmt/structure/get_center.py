@@ -107,7 +107,7 @@ def get_center(
     Raises
     ------
     ArgumentError
-        If the atom or frame selection is empty, or weights are non-finite,
+        If the atom or structure selection is empty, or weights are non-finite,
         negative, or have zero total weight.
     ArgumentLengthError
         If the number of weights does not match the selected atoms.
@@ -143,7 +143,7 @@ def get_center(
     )
 
     if engine == "MolSysMT":
-        atom_indices = select(molecular_system, selection=selection)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
         if not is_iterable_of_iterables(atom_indices):
             n_atoms = (

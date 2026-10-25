@@ -35,7 +35,8 @@ def wrap_to_mic(
     mic_origin : PyUnitWizard quantity, default='[0,0,0] nanometers'
         Origin of the minimum-image cell in units of length.
     center_of_selection : str, list, tuple, or numpy.ndarray, or None, default=None
-        Atoms whose center defines the translation reference.
+        Atoms whose center defines the translation reference. When supplied,
+        they must belong to ``selection`` so the entire reference moves together.
     center_coordinates : PyUnitWizard quantity or None, default='[0,0,0] nanometers'
         Coordinates to which the selected center is translated, in units of length.
     weights : numpy.ndarray, list, or tuple, default=None
@@ -91,9 +92,10 @@ def wrap_to_mic(
             molecular_system = center(
                 molecular_system,
                 selection=atom_indices,
-                center_of_selection=center_of_selection,
+                source_center_selection=center_of_selection,
                 weights=weights,
-                center_coordinates=center_coordinates,
+                target_coordinates=center_coordinates,
+                structure_indices=structure_indices,
                 syntax=syntax,
                 in_place=False,
                 skip_digestion=True,

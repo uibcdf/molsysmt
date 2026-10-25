@@ -12,6 +12,8 @@ run_smoke() {
     tests/structure/test_distance_family_contract.py \
     tests/form/string_amino_acids_3/test_biopython_codec.py \
     tests/structure/principal_component_analysis/test_weighted_contract.py \
+    tests/structure/center/test_center_contract.py \
+    tests/documentation/test_center_examples.py \
     tests/basic/test_file_copy.py \
     tests/basic/test_file_copy_lifecycle.py \
     tests/form/test_raw_file_copy.py

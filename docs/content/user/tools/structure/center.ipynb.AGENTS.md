@@ -28,6 +28,6 @@ The canonical variable representing the input molecular system MUST be `molsys` 
    - `center_after = msm.structure.get_center(molsys_centered)`
    - Matplotlib comparison plot of distance to origin before vs after centering.
    - Header H2 `## Centering on a sub-selection or custom point`
-   - `center_of_selection` demonstration and `center_coordinates` demonstration.
+   - `source_center_selection`, `target_coordinates` and `target_center_selection` demonstrations, including rigid geometry, source containment and initial-target semantics.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

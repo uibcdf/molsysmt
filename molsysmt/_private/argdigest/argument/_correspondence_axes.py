@@ -5,6 +5,7 @@ import numpy as np
 from molsysmt._private.smonitor import ArgumentError
 
 CALLERS = {
+    "molsysmt.structure.center.center",
     "molsysmt.form.file_pdbqt.iterators.__init__",
     "molsysmt.form.string_pdbqt_text.iterators.__init__",
     "molsysmt.form.molsysmt_PDBQTFileHandler.iterators.__init__",

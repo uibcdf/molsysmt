@@ -20,6 +20,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 2. Section 1: Geometric Centering (`get_center` and `center`)
 * Must demonstrate calculating spatial centroids using `msm.structure.get_center()` and centering coordinates at the origin using `msm.structure.center()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.structure.get_center`.
+* Must distinguish the moving `selection`, contained `source_center_selection`, and mutually exclusive `target_coordinates` / initial `target_center_selection`, with executable examples for both destinations.
 
 ### 3. Section 2: Spatial Translation (`translate`)
 * Must demonstrate translating coordinates along 3D vectors with unit safety using `msm.structure.translate()`.

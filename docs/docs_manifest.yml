@@ -22,6 +22,10 @@ sections:
         index_file: docs/content/user/foundations/molecular_system/index.md
         index_agents_file: docs/content/user/foundations/molecular_system/index.AGENTS.md
         pages:
+          - name: the_molecular_system
+            file: docs/content/user/foundations/molecular_system/the_molecular_system.md
+            agents_file: docs/content/user/foundations/molecular_system/the_molecular_system.md.AGENTS.md
+            description: Form-independent domains and distinct moving, source-center and initial-target populations.
           - name: attributes
             description: Attribute presence, sparse source versus local atom indices, unit-bearing YAML records, empty data and chemical-completeness limits.
             file: docs/content/user/foundations/molecular_system/attributes.ipynb
@@ -229,6 +233,11 @@ sections:
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
         pages:
+          - name: center
+            file: docs/content/user/tools/structure/center.ipynb
+            agents_file: docs/content/user/tools/structure/center.ipynb.AGENTS.md
+            description: Rigid translations with contained source centers, exclusive coordinate or initial-selection targets, weights, units and structure scopes.
+            status: reviewed
           - name: principal_component_analysis
             file: docs/content/user/tools/structure/principal_component_analysis.ipynb
             agents_file: docs/content/user/tools/structure/principal_component_analysis.ipynb.AGENTS.md
@@ -422,6 +431,11 @@ sections:
       index_file: docs/content/user/cookbook/index.md
       status: reviewed
       pages:
+      - name: placing_selected_centers
+        file: docs/content/user/cookbook/placing_selected_centers.md
+        agents_file: docs/content/user/cookbook/placing_selected_centers.md.AGENTS.md
+        description: Rigid movement with contained source centers, explicit points or initial target centers and physical units.
+        status: reviewed
       - name: copying_disk_systems
         file: docs/content/user/cookbook/copying_disk_systems.md
         agents_file: docs/content/user/cookbook/copying_disk_systems.md.AGENTS.md

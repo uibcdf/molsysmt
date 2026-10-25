@@ -63,7 +63,7 @@ def test_move_away_from_molsysmt_MolSys_3():
 
     molsys1 = msm.structure.center(molsys1, in_place=False)
     molsys2 = msm.structure.center(
-        molsys2, center_coordinates="[1.0,0.0,0.0] nm", in_place=False
+        molsys2, target_coordinates="[1.0,0.0,0.0] nm", in_place=False
     )
 
     molsys2 = msm.structure.move_away(
@@ -86,7 +86,7 @@ def test_move_away_from_molsysmt_MolSys_4():
     molsys2 = msm.convert(systems["valine dipeptide"]["valine_dipeptide.h5msm"])
 
     msm.structure.center(molsys1, in_place=True)
-    msm.structure.center(molsys2, center_coordinates="[1.0,0.0,0.0] nm", in_place=True)
+    msm.structure.center(molsys2, target_coordinates="[1.0,0.0,0.0] nm", in_place=True)
 
     msm.structure.move_away(
         molsys2,

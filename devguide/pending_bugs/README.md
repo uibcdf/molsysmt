@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
-- [`center_partial_reference_misses_target_and_changes_return.md`](center_partial_reference_misses_target_and_changes_return.md) — [#451](https://github.com/uibcdf/molsysmt/issues/451) — Center misses a partially moved reference target and changes its in-place return. *(medium, reproduced)*
 - [`sequence_alignment_none_reference_fails.md`](sequence_alignment_none_reference_fails.md) — [#452](https://github.com/uibcdf/molsysmt/issues/452) — Sequence-based alignment fails with its documented self-reference default. *(medium, reproduced)*
 - [`sequence_alignment_numeric_atom_selection_uses_group_indices.md`](sequence_alignment_numeric_atom_selection_uses_group_indices.md) — [#453](https://github.com/uibcdf/molsysmt/issues/453) — Sequence-based structural alignment treats atom-index selections as group indices. *(medium, reproduced)*
 
