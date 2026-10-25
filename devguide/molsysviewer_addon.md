@@ -12,7 +12,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment and explicit centering under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -566,3 +566,39 @@ editors, other scientific namespaces, graphical task panels and installed
 qualification remain pending. Native alignment repairs under uibcdf/molsysmt#452 / uibcdf/molsysmt#453
 are separately integrated by their owner in a38c00d19; centering receiving does
 not absorb or reimplement those edits.
+
+
+## Single-structure move_away receiving — 2026-10-25
+
+The explicit structure.move_away wrapper mirrors the native signature/defaults
+with only keyword-only update_view=True added. The primary MolSys is implicit;
+reference systems/populations, source/reference weights and structure scopes
+remain explicit native inputs. Eighteen calculations and seven coordinate editors
+are now exposed (25 structure tools); align_principal_axes, set_dihedral_angles
+and shift_dihedral_angles remain pending. Exposure is not qualification of every
+native input or package route.
+
+Positive receiving is limited to single-structure nondegenerate displacement.
+Automatic direction adds distance along the existing center separation. Explicit
+direction uses native normalization and initial-reference centering before
+translation; its source population must be contained in the moving atoms.
+Only the primary view is serialized; external references remain caller-owned.
+No periodic preparation, alternative geometry or automatic detector is added.
+Independent outputs retain native ownership; admitted in-place operations retain
+None, selected-structure invalidation, deferred projection, scene identity/maps
+and synchronization retry without scientific replay.
+
+Native-only reproduction on fc2936bf9 finds two owner defects now reported with
+maintainer authorization: uibcdf/molsysmt#456 publishes NaNs for coincident centers
+or zero directions, including an all-default call; uibcdf/molsysmt#457 can reject
+explicit multi-structure input after partial centering publication. Those routes
+remain unqualified, not silently corrected in the addon. Their native reports
+require scientific guards. Detected partial publication enters uncertain state;
+no automatic rollback or replay is promised.
+
+Guard: tests/molsysviewer_molsysmt/test_structure_move_away_tools.py exercises
+weighted centers, units under non-default policies, both direction modes,
+external/self references, independent/in-place returns, native clean rejection,
+scene maps and delayed/failed projection without scientific replay. Its original
+focused run passes 38 cases. Broader regression and exact integrated-head CI are
+recorded separately; no installed qualification, new public floor or release.

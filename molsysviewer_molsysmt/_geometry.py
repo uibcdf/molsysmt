@@ -145,6 +145,7 @@ def _prepare_geometry_transform(target, name, parameters):
         "least_rmsd_fit",
         "least_rmsd_align",
         "center",
+        "move_away",
     }:
         raise NotImplementedError(
             f"Managed structure transform {name!r} is not received."
@@ -197,6 +198,7 @@ def _run_geometry_transform(owner, name, parameters, update_view):
         "least_rmsd_fit",
         "least_rmsd_align",
         "center",
+        "move_away",
     }:
         raise NotImplementedError(f"Structure transform {name!r} is not received.")
     in_place = digest_in_place(

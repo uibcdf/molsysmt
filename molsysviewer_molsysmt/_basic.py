@@ -68,6 +68,7 @@ def _native_documentation(name, module="basic"):
             "least_rmsd_fit",
             "least_rmsd_align",
             "center",
+            "move_away",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -89,6 +90,7 @@ def _native_documentation(name, module="basic"):
             "least_rmsd_fit",
             "least_rmsd_align",
             "center",
+            "move_away",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -114,6 +116,18 @@ def _native_documentation(name, module="basic"):
                 "the None default rejects, and nonunit normals are not normalized "
                 "and do not implement a geometric reflection. The addon forwards "
                 "these inputs unchanged; those native routes remain unqualified.\n"
+            )
+        if module == "structure" and name == "move_away":
+            function.__doc__ += (
+                "Only single-structure nondegenerate displacement is qualified at the "
+                "reviewed source. Auto direction adds distance to the existing separation; "
+                "explicit direction places the source center at the initial reference "
+                "center plus distance along the normalized direction. The reference "
+                "remains caller-owned and is not locked or synchronized by this call. "
+                "Do not use coincident centers with auto direction or a zero direction: "
+                "the native tool currently publishes NaNs (uibcdf/molsysmt#456). Explicit multi-structure "
+                "rejection can follow a partial centering write (uibcdf/molsysmt#457); recovery is explicit. "
+                "The addon supplies no substitute geometry or periodic preparation.\n"
             )
         if module == "structure" and name == "center":
             function.__doc__ += (

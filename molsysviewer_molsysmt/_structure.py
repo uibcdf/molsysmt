@@ -32,6 +32,7 @@ class _StructureTools:
         "least_rmsd_fit",
         "least_rmsd_align",
         "center",
+        "move_away",
     )
 
     def __init__(self, owner):
@@ -943,6 +944,50 @@ class _StructureTools:
                 "syntax": syntax,
                 "engine": engine,
                 "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_native_documentation("move_away", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def move_away(
+        self,
+        selection="all",
+        center_of_selection="all",
+        weights=None,
+        structure_indices=0,
+        reference_molecular_system=None,
+        reference_center_of_selection="all",
+        reference_weights=None,
+        reference_structure_indices=None,
+        direction=None,
+        distance="3 angstroms",
+        in_place=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "move_away",
+            {
+                "selection": selection,
+                "center_of_selection": center_of_selection,
+                "weights": weights,
+                "structure_indices": structure_indices,
+                "reference_molecular_system": reference_molecular_system,
+                "reference_center_of_selection": reference_center_of_selection,
+                "reference_weights": reference_weights,
+                "reference_structure_indices": reference_structure_indices,
+                "direction": direction,
+                "distance": distance,
+                "in_place": in_place,
+                "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
             update_view,

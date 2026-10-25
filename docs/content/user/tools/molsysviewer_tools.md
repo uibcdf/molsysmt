@@ -33,11 +33,11 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_secondary_structure` and `principal_component_analysis`.
 Results retain native quantities, arrays and metadata. The separate
 `structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`,
-`structure.least_rmsd_align` and `structure.center` wrappers receive independent outputs and managed
+`structure.least_rmsd_align`, `structure.center` and `structure.move_away` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving
 currently covers explicit unit normals only; native default/nonunit-normal defects
-remain visible below. Other transformations remain outside the received slice.
+remain visible below. Displacement receiving covers single-structure, finite nonzero directions; the native degenerate-input and partial-write defects are documented below. Other transformations remain outside the received slice.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -1034,3 +1034,63 @@ No implicit periodic reconstruction or box transformation is added. See the
 population contract outside a view. The technical fix behind
 [#451](https://github.com/uibcdf/molsysmt/issues/451) remains accepted; its requested
 administrative reopening concerns the missing closure comment, not this geometry.
+
+
+## Moving away from a reference center
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    displaced = tools.structure.move_away(
+        selection='all', center_of_selection="atom_name=='CA'",
+        direction=[1, 0, 0], distance='2 angstroms', structure_indices=0,
+    )
+    # The independent result stays in Python; the view is unchanged.
+    tools.structure.move_away(
+        selection='all', center_of_selection="atom_name=='CA'",
+        direction=[1, 0, 0], distance='2 angstroms', structure_indices=0,
+        in_place=True, update_view=False,
+    )
+    tools.sync_view()
+```
+
+The bound `structure.move_away` mirrors {func}`molsysmt.structure.move_away`.
+Its native default is one structure, index 0, and an independent output.
+`selection` determines what moves. `center_of_selection` and its `weights`
+determine the source center. These are this function's current native argument
+names, distinct from the redesigned arguments of `structure.center`.
+`reference_molecular_system=None` uses the current bound system;
+`reference_center_of_selection`, `reference_weights` and
+`reference_structure_indices` remain independent scientific inputs. A None
+reference structure scope uses the moving structure scope. An external reference
+remains caller-owned: keep it stable during the call; this addon does not lock or
+synchronize another view.
+
+The two direction modes have different meanings. Automatic direction adds the
+requested distance along the existing reference-to-source vector; distance is
+an **additional displacement**, not the final center separation. With an explicit
+finite nonzero direction, native digestion normalizes it, centers the source at
+the **initial** reference center and then displaces it by distance. The explicit
+mode requires the source-center atoms to be contained in the moving population.
+An overlapping reference is an initial snapshot, not a final constraint. No
+periodic reconstruction, reference preparation or box transformation is added.
+
+The addon receives single-structure nondegenerate calls with units and weights,
+independent results and native None in-place returns. Native selected-structure
+interaction invalidation is retained. Deferred projection, scene identity/maps
+and retry after a display failure use the same controls as translation. Retry
+`tools.sync_view()` after a projection failure; do not repeat completed science.
+
+:::{warning}
+At the reviewed source, [#456](https://github.com/uibcdf/molsysmt/issues/456)
+tracks NaN publication when automatic centers coincide (including a call with
+all defaults), or when the explicit direction is zero. Avoid those inputs and
+supply a finite nonzero explicit direction or distinct finite centers. They are
+not qualified addon routes.
+
+Both modes currently reject multiple structures. In explicit in-place mode,
+[#457](https://github.com/uibcdf/molsysmt/issues/457) tracks rejection **after a
+partial centering write**. The receiver reports uncertain state on detected
+partial publication; recover explicitly from a known system rather than replaying
+the failed call. The addon does not repair these native scientific defects.
+:::

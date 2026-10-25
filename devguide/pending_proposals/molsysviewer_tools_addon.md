@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -770,3 +770,63 @@ tools: eighteen calculations and six coordinate editors, with four reviewed
 geometry editors and broader namespaces/task panels still pending under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. No public floor, version freeze,
 release, package reconstruction or promotion is implied.
+
+
+## Single-structure move_away receiving — 2026-10-25
+
+The explicit structure.move_away wrapper mirrors the native signature/defaults
+with only keyword-only update_view=True added. The primary MolSys is implicit;
+reference systems/populations, source/reference weights and structure scopes
+remain explicit native inputs. Eighteen calculations and seven coordinate editors
+are now exposed (25 structure tools); align_principal_axes, set_dihedral_angles
+and shift_dihedral_angles remain pending. Exposure is not qualification of every
+native input or package route.
+
+Positive receiving is limited to single-structure nondegenerate displacement.
+Automatic direction adds distance along the existing center separation. Explicit
+direction uses native normalization and initial-reference centering before
+translation; its source population must be contained in the moving atoms.
+Only the primary view is serialized; external references remain caller-owned.
+No periodic preparation, alternative geometry or automatic detector is added.
+Independent outputs retain native ownership; admitted in-place operations retain
+None, selected-structure invalidation, deferred projection, scene identity/maps
+and synchronization retry without scientific replay.
+
+Native-only reproduction on fc2936bf9 finds two owner defects now reported with
+maintainer authorization: uibcdf/molsysmt#456 publishes NaNs for coincident centers
+or zero directions, including an all-default call; uibcdf/molsysmt#457 can reject
+explicit multi-structure input after partial centering publication. Those routes
+remain unqualified, not silently corrected in the addon. Their native reports
+require scientific guards. Detected partial publication enters uncertain state;
+no automatic rollback or replay is promised.
+
+Guard: tests/molsysviewer_molsysmt/test_structure_move_away_tools.py exercises
+weighted centers, units under non-default policies, both direction modes,
+external/self references, independent/in-place returns, native clean rejection,
+scene maps and delayed/failed projection without scientific replay. Its original
+focused run passes 38 cases. Broader regression and exact integrated-head CI are
+recorded separately; no installed qualification, new public floor or release.
+
+
+### Completed local displacement qualification — 2026-10-25
+
+The focused guard passes 38 cases. Local regression covers 1061 distinct cases
+without a full-suite rerun: the first campaign passed 964, then was interrupted
+(exit 2) in a documentary matplotlib Qt plt.show loop inherited from DISPLAY=:0.
+The remaining 97 previously unexecuted cases pass with MPLBACKEND=Agg (exit 0).
+Both original JUnits are preserved; this is composite evidence, not a single green
+run. Scientific/addon source hashes and the compiled backend remain unchanged;
+the developer packaging tests regenerate ignored molsysmt/_version.py metadata.
+All 27 addon-guide blocks and 125 native-context doctests pass; Viewer
+reporting/link guards pass 280 cases. Ruff and provider guide/index validation
+pass. MolSysMT's source receipt is
+`devtools/data/molsysviewer_tools_move_away_receiving_20261025.json`.
+It retains JUnit digests, source/import origins, the native-only reproductions
+and actual uncertain-state receiving of #457; sync_view refuses to bless the
+partial write. These are not live Qt/window rendering observations.
+
+The independently owned ArgDigest receiving commit 9135cee1fd29f8591d29d802562c34cc27c44353
+is preserved as integration parent; its source tests/docs are not bundled as our
+changes. Hosted exact-head qualification remains pending at this checkpoint.
+No installed compatibility or release is asserted; #456/#457 require the
+scientific owner's repair.

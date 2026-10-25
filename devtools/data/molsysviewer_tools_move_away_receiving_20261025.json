@@ -1,0 +1,240 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-25",
+  "status": "bounded_source_received_with_native_limits_exact_head_CI_pending",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#456",
+    "uibcdf/molsysmt#457"
+  ],
+  "implemented": "view.addons.molsysmt.structure.move_away",
+  "regression_base_commit": "fc2936bf9efd198f02f1d195107e5a5e6f62d13b",
+  "integration_parent": "9135cee1fd29f8591d29d802562c34cc27c44353",
+  "host_base_commit": "d60fad324a1c1a077e22cb4491a3b372be08543a",
+  "environment": {
+    "conda_environment": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "imports": {
+      "molsysmt": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+      "addon": "/home/diego/repos@uibcdf/molsysmt/molsysviewer_molsysmt/__init__.py",
+      "molsysviewer": "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/__init__.py"
+    }
+  },
+  "inventory": {
+    "structure_calculations": 18,
+    "structure_coordinate_editors": 7,
+    "structure_pending_edits": [
+      "align_principal_axes",
+      "set_dihedral_angles",
+      "shift_dihedral_angles"
+    ]
+  },
+  "contract": {
+    "primary_system": "current view.molsys implicit",
+    "in_place_default": false,
+    "update_view_default": true,
+    "structure_indices_default": 0,
+    "auxiliary_inputs": "native reference system, source/reference selections/weights and structure indices",
+    "auto_direction": "additional displacement along nonzero center separation",
+    "explicit_direction": "native normalization and initial-reference centering followed by displacement",
+    "positive_scope": "single structure with finite nondegenerate direction",
+    "independent_output": "native result without adoption",
+    "in_place": "native None, selected-structure invalidation and managed synchronization",
+    "periodic": "no reconstruction or box transformation"
+  },
+  "native_defects": {
+    "source": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+    "records": [
+      {
+        "name": "coincident_defaults",
+        "arguments": {},
+        "error": null,
+        "finite": false,
+        "changed_structures": [
+          0
+        ],
+        "warnings": [
+          "invalid value encountered in divide"
+        ]
+      },
+      {
+        "name": "zero_explicit_direction",
+        "arguments": {
+          "direction": [
+            0,
+            0,
+            0
+          ]
+        },
+        "error": null,
+        "finite": false,
+        "changed_structures": [
+          0
+        ],
+        "warnings": [
+          "invalid value encountered in divide"
+        ]
+      },
+      {
+        "name": "partial_before_multi_structure_rejection",
+        "arguments": {
+          "selection": [
+            0,
+            2,
+            4
+          ],
+          "center_of_selection": [
+            0,
+            2
+          ],
+          "reference_center_of_selection": [
+            1,
+            3
+          ],
+          "structure_indices": [
+            2,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ]
+        },
+        "error": {
+          "type": "NotImplementedMethodError",
+          "message": "This method is not implemented yet. Check alternative methods or wait for an update. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        "finite": true,
+        "changed_structures": [
+          0,
+          2
+        ],
+        "warnings": []
+      }
+    ]
+  },
+  "native_partial_write_receiving": {
+    "error": {
+      "type": "NotImplementedMethodError",
+      "message": "This method is not implemented yet. Check alternative methods or wait for an update. Docs: https://www.uibcdf.org/MolSysMT"
+    },
+    "state": {
+      "state": "uncertain",
+      "operation_id": "molsysmt.structure.move_away:ec269bbc-51f2-4b03-9913-03d6ba2212c9",
+      "target_revision": 0,
+      "integration_revision": 0,
+      "pending_operations": 0,
+      "reason": "Science raised after a potentially partial write. Replace the system explicitly to recover."
+    },
+    "sync_refused": true,
+    "changed_structures": [
+      0,
+      2
+    ]
+  },
+  "validation": {
+    "focused": {
+      "path": "/tmp/msv-move-away-targeted.xml",
+      "sha256": "97087551ecef0ebc232b166b5f7e2082eaee4d69c0b0ff460c7655288d481981",
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "initial_regression": {
+      "path": "/tmp/msv-move-away-regression.xml",
+      "sha256": "e3ca4e111fc3d8eb063cc51ac140d6241d6307f08911703ad174279b5075da36",
+      "tests": 964,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "remaining_regression": {
+      "path": "/tmp/msv-move-away-remaining.xml",
+      "sha256": "936f157a54614a2778a0763c81ba880422a0c14654d02008fb4319c63c660aa9",
+      "tests": 97,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "host_guide_guards": {
+      "path": "/tmp/msv-move-away-host-guides.xml",
+      "sha256": "98d14611850b3d2468753d04abf708b0c18dafecc160cb79d7a2462c2690c9eb",
+      "tests": 280,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "examples": {
+      "guide_blocks": 27,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 84
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "composite_scope": {
+      "tests": 1061,
+      "unique_named_cases": 1061,
+      "overlap": 0,
+      "initial_exit_code": 2,
+      "remaining_exit_code": 0,
+      "complete": true,
+      "not_single_green_run": true,
+      "reason": "Initial run passed 964 cases then waited in documentary plt.show on inherited DISPLAY=:0/Qt. Interrupted only that pytest process, retaining original incomplete report. Ran only 97 previously unexecuted cases with MPLBACKEND=Agg. No full-suite rerun.",
+      "metadata_change": "Developer packaging validation regenerated ignored molsysmt/_version.py only; scientific/addon sources and compiled backend remain unchanged."
+    }
+  },
+  "source_watch": {
+    "initial_manifest": "/tmp/msv-move-away-regression-source.json",
+    "initial_sha256": "faf8d00f16a8b754a9b353d9ce0f250c0546fe9f1a75474b38b0e4dab1265043",
+    "remaining_manifest": "/tmp/msv-move-away-remaining-source.json",
+    "remaining_sha256": "b0686e908345394c4a064996bb697f06f4619acac6be74ed4e29e01d04e0de5c",
+    "watched_files": 2982,
+    "changed_during_initial": [],
+    "changed_during_remaining": [
+      "molsysmt/_version.py"
+    ],
+    "tested_hashes": {
+      "molsysmt/_private/argdigest/argument/direction.py": "fd482d5e4e8d216c881557d6666d7a9a880add6f4f5cf127a05253b899299135",
+      "molsysmt/structure/move_away.py": "a6ebe57b8eca3768c17f1989fa1d3322ee809a810fc7c28b04b54f06ec4e10fa",
+      "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+      "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+      "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+      "molsysviewer_molsysmt/_basic.py": "323ce0d661908617ee8ad0b853c8b5e601e054efd1f76f85379e9a261f68b854",
+      "molsysviewer_molsysmt/_geometry.py": "a471a83d6800eabbabe9ec42d516527df6b4e42e13ebfa994f2940180a78925d",
+      "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+      "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+      "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+      "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+      "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+      "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+      "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+      "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+      "molsysviewer_molsysmt/_structure.py": "9e77d3067e08a64cc219f72eee0d6bde37480b03922a7a800ac6d65f9d7296ce",
+      "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+      "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+      "tests/molsysviewer_molsysmt/test_structure_move_away_tools.py": "76049f21bb51251c61bae82c3da2591da3f1a41d6e19659886a141033099a044"
+    }
+  },
+  "CI": {
+    "state": "pending_after_push",
+    "routine_host_pin": "deaba4cbea43015859544b1b393ecbe02dd2ee19"
+  },
+  "limits": [
+    "Native #456 and #457 remain unresolved; no scientific workaround in addon.",
+    "No new host runtime code.",
+    "Local source and existing compiled backend, not clean solver/install or fresh Rust build.",
+    "Composite local qualification preserves the interrupted original campaign.",
+    "No all-platform, GUI, package, public dependency-floor, tag or release qualification."
+  ]
+}
