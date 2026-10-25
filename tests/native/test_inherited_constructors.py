@@ -2,10 +2,12 @@
 
 import copy
 
+import numpy as np
 import pytest
 from argdigest.core.errors import UnknownArgumentError
 
 import molsysmt as msm
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt.native import ChemicalStates, MolSys, Topology
 
@@ -131,3 +133,49 @@ def test_existing_hierarchy_boolean_count_acceptance_is_unchanged(cls, count):
     result = cls(**{count: True})
     domain = result.topology if isinstance(result, MolSys) else result
     assert getattr(domain, count) == 1
+
+
+class _ExternalQueryMixin:
+    def selected_atom_indices(self):
+        return self.get(element="atom", selection=[1, 0], atom_indices=True)
+
+
+class MixedMolSys(_ExternalQueryMixin, MolSys):
+    pass
+
+
+class OverriddenMolSys(MolSys):
+    @arg_digest(native_constructor="molsysmt.native.molsys.__init__")
+    def __init__(self, n_atoms=0, skip_digestion=False):
+        super().__init__(n_atoms=n_atoms, skip_digestion=True)
+
+
+@pytest.mark.parametrize("cls", [MixedMolSys, OverriddenMolSys])
+def test_external_mixin_and_decorated_override_preserve_native_queries(cls):
+    source = cls(n_atoms=2)
+    assert source.topology.n_atoms == 2
+    assert source.get(n_atoms=True) == 2
+    np.testing.assert_array_equal(source.get(element="atom", atom_indices=True), [0, 1])
+    np.testing.assert_array_equal(
+        source.get(element="atom", selection=[1, 0], atom_index=True), [1, 0]
+    )
+    if isinstance(source, MixedMolSys):
+        np.testing.assert_array_equal(source.selected_atom_indices(), [1, 0])
+    with pytest.raises(ArgumentError):
+        source.get(n_atoms=2)
+    with pytest.raises(UnknownArgumentError):
+        source.get(atom_indeces=True)
+
+
+@pytest.mark.parametrize("cls", [MixedMolSys, OverriddenMolSys])
+@pytest.mark.parametrize("value", [None, "2", 2.5, [2]])
+def test_external_mixin_and_decorated_override_validate_before_construction(cls, value):
+    with pytest.raises(ArgumentError) as refusal:
+        cls(n_atoms=value)
+    assert refusal.value.extra["argument"] == "n_atoms"
+
+
+@pytest.mark.parametrize("cls", [MixedMolSys, OverriddenMolSys])
+def test_external_mixin_and_decorated_override_refuse_unknown_keywords(cls):
+    with pytest.raises(UnknownArgumentError):
+        cls(n_atom=2)

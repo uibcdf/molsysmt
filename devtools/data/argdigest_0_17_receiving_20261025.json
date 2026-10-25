@@ -1,0 +1,117 @@
+{
+  "schema": "molsysmt.argdigest_receiving@1",
+  "date": "2026-10-25",
+  "issue": "uibcdf/molsysmt#428",
+  "consumer_source_parent": "fc2936bf9efd198f02f1d195107e5a5e6f62d13b",
+  "mode": "unmodified_public_conda_payloads_on_pythonpath",
+  "conda_transaction": false,
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "artifacts": [
+    {
+      "name": "argdigest",
+      "version": "0.17.0",
+      "build": "py_0",
+      "filename": "argdigest-0.17.0-py_0.tar.bz2",
+      "sha256": "9c35fa297b5a85dc65ac49ccd108f60f08dbeac4f745d6c369a767c0a0b3a3e1",
+      "url": "https://conda.anaconda.org/uibcdf/noarch/argdigest-0.17.0-py_0.tar.bz2",
+      "import_origin": "PUBLIC_PAYLOAD_ROOT/argdigest/site-packages/argdigest/__init__.py"
+    },
+    {
+      "name": "smonitor",
+      "version": "0.21.0",
+      "build": "py_2",
+      "filename": "smonitor-0.21.0-py_2.tar.bz2",
+      "sha256": "62b6cbae37f7fa06374af87923792f00253020955d000294b1a7d37eb9d04e56",
+      "url": "https://conda.anaconda.org/uibcdf/noarch/smonitor-0.21.0-py_2.tar.bz2",
+      "import_origin": "PUBLIC_PAYLOAD_ROOT/smonitor/site-packages/smonitor/__init__.py"
+    },
+    {
+      "name": "depdigest",
+      "version": "0.15.1",
+      "build": "py_0",
+      "filename": "depdigest-0.15.1-py_0.tar.bz2",
+      "sha256": "2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850",
+      "url": "https://conda.anaconda.org/uibcdf/noarch/depdigest-0.15.1-py_0.tar.bz2",
+      "import_origin": "PUBLIC_PAYLOAD_ROOT/depdigest/site-packages/depdigest/__init__.py"
+    }
+  ],
+  "runtime": {
+    "molsysmt": {
+      "version": "0.23.0+167.g78e909fb2.dirty",
+      "import_origin": "SIBLING_CHECKOUT_ROOT/molsysmt/molsysmt/__init__.py"
+    },
+    "numpy": {
+      "version": "2.4.6",
+      "import_origin": "DEVELOPMENT_PREFIX/lib/python3.14/site-packages/numpy/__init__.py"
+    },
+    "pyunitwizard": {
+      "version": "0.28.1+15.g6c62ca6",
+      "import_origin": "SIBLING_CHECKOUT_ROOT/pyunitwizard/pyunitwizard/__init__.py"
+    },
+    "ackredit": {
+      "version": "0.12.1+2.ge233973",
+      "import_origin": "SIBLING_CHECKOUT_ROOT/ackredit/ackredit/__init__.py"
+    },
+    "pytest": {
+      "version": "9.1.1",
+      "import_origin": "DEVELOPMENT_PREFIX/lib/python3.14/site-packages/pytest/__init__.py"
+    },
+    "pytest-receptor": {
+      "version": "1.2.1+22.g00a31c4",
+      "import_origin": "SIBLING_CHECKOUT_ROOT/pytest-receptor/pytest_receptor/__init__.py"
+    },
+    "pytest-xdist": {
+      "version": "3.8.0",
+      "import_origin": "DEVELOPMENT_PREFIX/lib/python3.14/site-packages/xdist/__init__.py"
+    }
+  },
+  "checks": {
+    "public_payload_receiving": {
+      "command": "python -m pytest tests/native tests/_private/argdigest tests/basic/get tests/basic/compare tests/cross_repo/test_smonitor_contracts.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "tests": 1636,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 32.071,
+      "junit_sha256": "b7b6c7c6cbdc212ef4b7d22b6d7139807c566582d3fd133b8e01abc28655edea",
+      "workers": 12
+    },
+    "development_guards": {
+      "command": "python -m pytest tests/native/test_inherited_constructors.py tests/_private/argdigest/test_contract_ownership_receiving.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "tests": 114,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 5.17,
+      "junit_sha256": "16841c82c6911c4e03ccf63301d2d002b09a51d54435a3727e8e4d6f664edf83",
+      "workers": 12
+    },
+    "fast_gates": {
+      "command": "python devtools/scripts/release_gate.py",
+      "public_provider_payloads": true,
+      "passed": 14,
+      "total": 14,
+      "exit_code": 0,
+      "log_sha256": "637d76cc2e9777631b5fdd3fccde288a5db2253600667492b85e76b594fadf4e"
+    }
+  },
+  "decision": {
+    "contract_owner_adopted": false,
+    "native_constructor_retained": true,
+    "argdigest_public_floor": "0.13.0",
+    "runtime_sources_changed": false
+  },
+  "limitations": [
+    "Source consumer with exact public provider payloads; no clean Conda solve or installed MolSysMT/Viewer pair.",
+    "Other support/scientific dependencies retain their recorded development environment origins.",
+    "Linux/Python 3.14 only; no lower-bound or complete OS/interpreter matrix.",
+    "Issue remains partial until its requested clean installed receiving evidence exists."
+  ],
+  "guard_sha256": {
+    "tests/native/test_inherited_constructors.py": "d667a07b11b1aa984a00ffe526df6033e126acd506ba7697ae8c986b61d75486",
+    "tests/_private/argdigest/test_contract_ownership_receiving.py": "85c89297e9c6727085c613af2e08d94c94ea8e98fe7647e65f7185038fabf9ae"
+  }
+}

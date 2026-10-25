@@ -49,9 +49,15 @@ MolSys, Topology and ChemicalStates constructors declare their value context
 through `native_constructor`, so inherited constructors retain their existing
 count rules even in another module. That decorator context is not an admitted
 public argument and does not bypass digestion. It does not change ArgDigest's
-normalization or function-contract lookup. General provider support for a
-declared inherited contract owner is proposed in
+normalization or function-contract lookup. ArgDigest 0.17.0 provides explicit
+contract ownership under
 [uibcdf/argdigest#37](https://github.com/uibcdf/argdigest/issues/37).
+MolSysMT retains its current context and dependency floor: fixing an owner also
+changes alias, standardizer and function/domain lookup, and some assembled
+mixins deliberately need runtime ownership. The
+[consumer receiving study](pending_proposals/argdigest_0_17_receiving.md)
+records the tested alternatives and the remaining installed-package evidence
+under uibcdf/molsysmt#428. No global definition-owner policy is enabled.
 
 Private execution/provider helpers are undecorated. Trusted provider calls
 receive normalized options, selected indices validated against the available
