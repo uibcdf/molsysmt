@@ -67,6 +67,7 @@ def _native_documentation(name, module="basic"):
             "flip",
             "least_rmsd_fit",
             "least_rmsd_align",
+            "center",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -87,6 +88,7 @@ def _native_documentation(name, module="basic"):
             "flip",
             "least_rmsd_fit",
             "least_rmsd_align",
+            "center",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -112,6 +114,13 @@ def _native_documentation(name, module="basic"):
                 "the None default rejects, and nonunit normals are not normalized "
                 "and do not implement a geometric reflection. The addon forwards "
                 "these inputs unchanged; those native routes remain unqualified.\n"
+            )
+        if module == "structure" and name == "center":
+            function.__doc__ += (
+                "All three atom populations address the current view.molsys. "
+                "Native centering owns source containment, destination snapshots, "
+                "weights, units and refinement. The addon introduces no center "
+                "calculation, legacy keyword alias or automatic periodic preparation.\n"
             )
         if module == "structure" and name in {"least_rmsd_fit", "least_rmsd_align"}:
             function.__doc__ += (

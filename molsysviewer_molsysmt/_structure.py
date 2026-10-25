@@ -31,6 +31,7 @@ class _StructureTools:
         "flip",
         "least_rmsd_fit",
         "least_rmsd_align",
+        "center",
     )
 
     def __init__(self, owner):
@@ -904,6 +905,44 @@ class _StructureTools:
                 "use_gpu": use_gpu,
                 "gpu_backend": gpu_backend,
                 "precision": precision,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_native_documentation("center", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def center(
+        self,
+        selection="all",
+        source_center_selection=None,
+        target_center_selection=None,
+        target_coordinates=None,
+        weights=None,
+        structure_indices="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "center",
+            {
+                "selection": selection,
+                "source_center_selection": source_center_selection,
+                "target_center_selection": target_center_selection,
+                "target_coordinates": target_coordinates,
+                "weights": weights,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
                 "skip_digestion": skip_digestion,
             },
             update_view,

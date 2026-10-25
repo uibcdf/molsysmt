@@ -1,0 +1,185 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-24",
+  "status": "isolated_source_received_exact_integrated_head_CI_pending",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#451"
+  ],
+  "native_center_fix": "5814dc534cecf179df8bf8f8009c8e21f1593c6e",
+  "isolated_base_commit": "99cb831076c4725ddac0c6ab23fdcb5c3257fac0",
+  "integration_parent": "a38c00d19801e6fc2b5cd812625910d779b33be2",
+  "host_base_commit": "859aa9e9451ef8a40a1f2192aa6e1e6315a86331",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "conda_environment": "molsyssuite@uibcdf_3.14",
+    "import_origins": {
+      "molsysmt": "/tmp/msm-center-isolated-fx0of4lq/molsysmt/__init__.py",
+      "addon": "/tmp/msm-center-isolated-fx0of4lq/molsysviewer_molsysmt/__init__.py",
+      "compiled_modules": {
+        "molsysmt._rust": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so"
+      },
+      "compiled_sha256": {
+        "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+      }
+    }
+  },
+  "implemented": "view.addons.molsysmt.structure.center",
+  "inventory": {
+    "structure_calculations": 18,
+    "structure_coordinate_editors": 6,
+    "structure_pending_edits": 4
+  },
+  "contract": {
+    "in_place_default": false,
+    "update_view_default": true,
+    "update_view_kind": "keyword_only",
+    "primary_system": "current view.molsys implicit",
+    "moving_population": "selection; uniform native translation per selected structure",
+    "source_center": "source_center_selection or moving population, contained in moving atoms",
+    "destination": "exclusive target_coordinates or initial geometric target_center_selection; neither is origin",
+    "weights": "source only; native mass weights and repeated source occurrences retained",
+    "independent_output": "native independent result without adoption",
+    "in_place": "native None return and native invalidation through existing coordinator",
+    "periodic_geometry": "no implicit wrapping/reconstruction/box transformation",
+    "old_keywords": "no addon aliases for retired center_of_selection/center_coordinates"
+  },
+  "administrative_reopening": {
+    "issue": "uibcdf/molsysmt#451",
+    "authorization": "explicit principal maintainer request",
+    "comment": "https://github.com/uibcdf/molsysmt/issues/451#issuecomment-6391625013",
+    "reason": "Missing final closure comment; scientific fix and archived evidence remain accepted; no issue reclosure performed by this receiving."
+  },
+  "validation": {
+    "focused_shared_tree": {
+      "path": "/tmp/msm-viewer-center-targeted.xml",
+      "sha256": "ff5f5353127480fbc313733f0eb6bab7afe32f528715b93135aec294e81b302c",
+      "tests": 68,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "isolated_applicable_regression": {
+      "path": "/tmp/msv-center-regression.xml",
+      "sha256": "743c185bb63222da9fd82a95dca775a72d66f22950e6631f8cc0318c5ce06097",
+      "tests": 1007,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "full_regression_repeated": false,
+    "isolated_root": "/tmp/msm-center-isolated-fx0of4lq",
+    "pytest_arguments": [
+      "--receptor=llm",
+      "tests/molsysviewer_molsysmt/",
+      "tests/structure/center/",
+      "tests/structure/get_center/test_get_center_molsysmt_MolSys.py",
+      "tests/structure/get_center/test_get_center_extended.py",
+      "tests/structure/get_center/test_get_center_heavy.py",
+      "tests/structure/translate/",
+      "tests/scientific_truth/structure/test_structural_transformations.py",
+      "tests/documentation/test_center_examples.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-center-regression.xml"
+    ],
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-c",
+      "import pathlib, molsysmt, molsysviewer_molsysmt; root=pathlib.Path.cwd(); assert pathlib.Path(molsysmt.__file__).is_relative_to(root); assert pathlib.Path(molsysviewer_molsysmt.__file__).is_relative_to(root); import pytest; raise SystemExit(pytest.main(['--receptor=llm', 'tests/molsysviewer_molsysmt/', 'tests/structure/center/', 'tests/structure/get_center/test_get_center_molsysmt_MolSys.py', 'tests/structure/get_center/test_get_center_extended.py', 'tests/structure/get_center/test_get_center_heavy.py', 'tests/structure/translate/', 'tests/scientific_truth/structure/test_structural_transformations.py', 'tests/documentation/test_center_examples.py', 'devtools/tests/test_native_viewer_integration.py', 'devtools/tests/test_validate_rust_wheel.py', 'devtools/tests/test_validate_rust_sdist.py', 'devtools/tests/test_audit_dependency_contract.py', 'devtools/tests/test_validate_devguide.py', '--junitxml=/tmp/msv-center-regression.xml']))"
+    ],
+    "exit_code": 0,
+    "watched_source_changes": [],
+    "source_snapshot": "/tmp/msv-center-receiving-sources-fz4_xlzr",
+    "source_manifest": {
+      "path": "/tmp/msv-center-regression-source.json",
+      "sha256": "3c383c4dafdb69c415a8343b0f95df74aedcb864dcaed160e0a2b1d4adcaf3b5"
+    },
+    "examples": {
+      "guide_blocks": 26,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 79
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "host_guides": {
+      "path": "/tmp/msv-center-host-guides.xml",
+      "sha256": "c0cef066b48c4ec4b226ef7bde924550ef415b449df2450ef9f5e080a0c36935",
+      "tests": 280,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "ruff": "Six changed Python files pass check and format --check"
+  },
+  "scientific_references": [
+    "Independent NumPy weighted/geometric centers and displacement coordinates",
+    "Disjoint/overlapping/contained initial targets; target is not a final-center constraint",
+    "Repeated source atoms/weights and moving atom deduplication; repeated/nonconsecutive structures",
+    "nm/angstrom/pm contexts, physical targets and native source masses",
+    "Rigid pair-vector preservation and untouched atoms/structures/box",
+    "Native source-subset failure, conflicting destinations, retired names and invalid targets/axes reject without publication"
+  ],
+  "lifecycle_references": [
+    "Independent ownership and no adoption; deferred reads of current science",
+    "Scene handle/source identity and navigation with center/remove/translate composition",
+    "Cached facade and replacement, two views, empty/closed boundaries",
+    "Real transport interruption after science; retry without a new coordinate publication",
+    "Actual native publication followed by pipeline exception enters uncertain state"
+  ],
+  "scope_limits": [
+    "Independent base isolates center from concurrent alignment repair work. Native/adaptor alignment repairs were separately integrated in a38c00d19; exact integrated-head CI is separate.",
+    "Existing in-environment compiled Rust module reused; no fresh installation or artifact qualification.",
+    "No host runtime, GUI panel, dependency floor, tag, package rebuild, release or promotion."
+  ],
+  "isolated_source_sha256": {
+    "molsysmt/structure/center.py": "79265d6ba5553c5cbd846ec2ca1c72f116990aa919a502b48744b0ecaca58c34",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "ae25d8634cddbaef50a1fc108a9ade0ef93280a93400c35655aabca5c542cf17",
+    "molsysviewer_molsysmt/_geometry.py": "4deab84db8f44937340d786704d874de3852d569a25799a6eef21a70c126b724",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "67bb088a16831af54fddab519f7352a59ea4f4a445db602c0738b33b853c5adb",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "tests/molsysviewer_molsysmt/test_structure_center_tools.py": "d54c3b20f5cf12c772a3aff971fa3f516b12459474192c22250840a94ab037d5"
+  },
+  "integration_addon_sha256": {
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "cbee446acbc4d67dfac2aa7e3053704134e08fa19b5fb1f2a4feedfe31b93099",
+    "molsysviewer_molsysmt/_geometry.py": "9db9d62dc6a9cc326d263d71a15e2897d122115f800225a5ca804e3850a8a62e",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "67bb088a16831af54fddab519f7352a59ea4f4a445db602c0738b33b853c5adb",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258"
+  }
+}

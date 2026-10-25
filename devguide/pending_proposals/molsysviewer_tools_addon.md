@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -722,3 +722,51 @@ original self-reference and paired-name contracts. Real-view tests receive the
 same native behavior without an addon reference or correspondence workaround.
 Earlier dated restrictions above remain historical; final source publication
 and artifact qualification are distinct evidence.
+
+
+## Explicit native centering received — 2026-10-24
+
+The bound structure.center mirrors the new native moving/source/initial-target
+contract, with source containment, source-only weights, physical destination
+units, repeated-scope rules and retired-name rejection. Keyword-only update_view
+is the only addition. Native computation, independent default/output ownership,
+in-place None returns and edited-structure interaction invalidation remain in
+MolSysMT. The existing coordinator retains scene identities and composes pending
+edits; no centroid calculation, periodic preparation, molecular snapshot or host
+runtime is introduced.
+
+Sixty-eight focused cases pass on real bundled views. The single applicable
+regression runs in an isolated checkout based on
+99cb83107, applying only the centering reception: **1007 passed**, no failures,
+errors or skips, and no watched source changes during execution. Import-origin
+assertions confirm isolated Python sources; the existing in-environment native
+Rust extension is reused and its path/digest recorded. This is source evidence,
+not a new solver installation or compiled-artifact qualification.
+
+Independent weighted/geometric means, coordinate displacements and rigid pair
+vectors cover units, defaults, mass weights, repeated atoms and structures,
+point/per-structure destinations and overlapping/disjoint/contained initial
+targets. Tests distinguish an initial destination snapshot from a final-center
+constraint, retain untouched coordinates/box and native named-analysis scope,
+exercise real transport interruption, and reject invalid populations/targets
+without publication. Deferred center/removal/translation retains scene/source
+identities and navigation; synchronization never repeats the science. A real
+native publication followed by a pipeline exception becomes uncertain.
+
+Ruff check/format passes six Python files. Twenty-six guide blocks and 120
+native-context docstring examples pass. Host reporting/link checks pass 280
+cases. Original JUnits, import origins and source snapshots are retained in the
+provider's centering receiving record. The native owner separately integrates
+alignment repairs in a38c00d19; their scientific/admission/docs changes are
+preserved when applying this reception. Exact integrated-head CI remains a
+separate gate, and the full local regression is not repeated.
+
+At the maintainer's explicit request uibcdf/molsysmt#451 was reopened with the
+missing closure-traceability appreciation; its scientific fix in 5814dc534 and
+archived evidence remain accepted. Reopening does not block this addon work or
+reopen its numerical diagnosis. Native uibcdf/molsysmt#454 documents the separate
+executed course-preparation correction. The facade now has twenty-four structure
+tools: eighteen calculations and six coordinate editors, with four reviewed
+geometry editors and broader namespaces/task panels still pending under
+uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. No public floor, version freeze,
+release, package reconstruction or promotion is implied.

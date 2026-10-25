@@ -32,10 +32,10 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_minimum_distances`, `get_neighbors`, `get_symmetry_corrected_rmsd`,
 `get_secondary_structure` and `principal_component_analysis`.
 Results retain native quantities, arrays and metadata. The separate
-`structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`
-and `structure.least_rmsd_align` wrappers receive independent outputs and managed
-in-place coordinate changes. Sequence alignment currently requires an explicit
-reference, as documented below. Reflection receiving
+`structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`,
+`structure.least_rmsd_align` and `structure.center` wrappers receive independent outputs and managed
+in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
+repairs documented below. Reflection receiving
 currently covers explicit unit normals only; native default/nonunit-normal defects
 remain visible below. Other transformations remain outside the received slice.
 
@@ -870,9 +870,9 @@ The skip_digestion flag cannot bypass integration ownership or branch controls.
 Native centering is resolved in [#451](https://github.com/uibcdf/molsysmt/issues/451)
 with explicit source/destination centers and a consistent in-place None return.
 See {ref}`Tutorial_Center` for the new pre-1.0 argument names and containment rules.
-Receiving that contract in the addon remains pending under
-[#421](https://github.com/uibcdf/molsysmt/issues/421); no centering wrapper is
-advertised yet. The addon supplies no alternate formula or hidden selection.
+The bound structure.center wrapper now receives that exact native contract,
+with source containment, initial destinations, weights and native return ownership.
+The addon supplies no alternate formula, legacy keyword alias or hidden selection.
 
 
 ## Rotating and reflecting coordinates
@@ -983,3 +983,54 @@ or replace a reference. Repairs and their native guards are tracked in
 [#453](https://github.com/uibcdf/molsysmt/issues/453). The same semantics are
 received in the bound addon with actual scene and selected-structure checks.
 This qualification covers CPU calls with explicit precision where tested; forwarding GPU/backend choices is not GPU qualification.
+
+
+## Centering the current molecular system
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    centered = tools.structure.center(
+        selection='backbone', source_center_selection="atom_name=='CA'",
+    )
+    # The independent centered MolSys stays in Python; the view is unchanged.
+    tools.structure.center(
+        selection='all', source_center_selection="atom_name=='CA'",
+        target_coordinates='[1, 2, 3] angstrom',
+        in_place=True, update_view=False,
+    )
+    tools.sync_view()
+```
+
+The three populations in {doc}`structure/center` all address the current
+view.molsys. selection is the population moved by one rigid translation per
+selected structure. source_center_selection defines the source center; None
+uses the moving population, including repeated source indices and their weights.
+Every source atom must belong to the moving population. Weights apply only to
+that source: None gives its geometric center and 'masses' requests native masses.
+
+Choose either a physical target_coordinates point (possibly one per selected
+structure) or target_center_selection. The latter supplies its **initial geometric
+center**, captured before any movement. A target population can be disjoint from
+or overlap the atoms that move; its final center is not constrained to stay at
+that initial position. To use a weighted destination, compute it explicitly with
+get_center and pass its coordinates. Both destination modes together reject;
+with neither, the destination is the origin.
+
+Defaults and results remain native: in_place=False returns an independent system
+without adoption, even when update_view=False. With in_place=True, science edits
+the current system and returns None. update_view=True reconciles immediately;
+False defers projection until sync_view(). Retained scene handles, sources and
+structure navigation follow the managed geometry contract. Native coordinate
+setters invalidate interaction coverage only for edited structures; no detector
+runs. A failed projection is retried without a second centering calculation.
+Potential scientific publication before an exception requires explicit recovery.
+
+The native pre-1.0 redesign retired center_of_selection and center_coordinates;
+the addon does not recreate those aliases. Source containment, destination/unit
+validation, repeated-structure targets and residual refinement remain native.
+No implicit periodic reconstruction or box transformation is added. See the
+[placement recipe](../cookbook/placing_selected_centers.md) for the same native
+population contract outside a view. The technical fix behind
+[#451](https://github.com/uibcdf/molsysmt/issues/451) remains accepted; its requested
+administrative reopening concerns the missing closure comment, not this geometry.

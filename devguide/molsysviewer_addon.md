@@ -12,7 +12,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation, proper rotation, plane reflection and least-RMSD fitting/alignment under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment and explicit centering under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -536,3 +536,33 @@ instead of reparsing its mask through generic select; it forwards arguments
 unchanged and computes no scientific correspondence. Earlier dated limitations
 above are historical. No installed package or optional GPU qualification is
 implied by this source receiving.
+
+
+## Explicit centering received — 2026-10-24
+
+The bound structure.center mirrors the new native moving/source/destination
+signature and preserves source containment, weights, physical units, initial
+target snapshots, retired-name rejection and independent/in-place returns.
+It delegates to native center through the existing retained-axis geometry
+coordinator, adding keyword-only update_view only. No alternate centering,
+reference correction, periodic preparation, molecular snapshot or host runtime
+capability is introduced.
+
+Receiving includes weighted and default source centers, overlapping/disjoint and
+contained initial targets, point/per-structure destinations, repeated atom and
+structure indices, standard-unit contexts and native mass weights. Independent
+NumPy means, translations and pair vectors protect geometry and ownership; real
+views protect native edited-structure interaction invalidation, retained scene
+identities, deferred mixed edits and synchronization retry without science replay.
+A scientific pipeline interruption after publication becomes uncertain.
+
+The scientific fix in 5814dc534 remains accepted. At the maintainer's explicit
+request uibcdf/molsysmt#451 was reopened only to supply its missing final closure
+comment; the archived scientific evidence is retained. This administrative state
+is separate from the bound center implementation under uibcdf/molsysmt#421 /
+uibcdf/molsysviewer#264. The facade now exposes twenty-four structure tools:
+eighteen calculations and six coordinate editors. Four other reviewed geometry
+editors, other scientific namespaces, graphical task panels and installed
+qualification remain pending. Native alignment repairs under uibcdf/molsysmt#452 / uibcdf/molsysmt#453
+are separately integrated by their owner in a38c00d19; centering receiving does
+not absorb or reimplement those edits.
