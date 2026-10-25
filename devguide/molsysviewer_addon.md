@@ -12,7 +12,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation, proper rotation and plane reflection under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation, plane reflection and least-RMSD fitting/alignment under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -463,3 +463,40 @@ twenty-one structure tools: eighteen calculations and three coordinate editors;
 seven reviewed coordinate-changing exports, including center under uibcdf/molsysmt#451, remain
 pending. No new host capability, dependency floor or package qualification is
 implied.
+
+
+## Native rigid fitting and sequence alignment — 2026-10-24
+
+Explicit structure.least_rmsd_fit and structure.least_rmsd_align preserve native
+parameters/defaults/results, including independent output conversion for fit,
+CPU precision controls and caller-owned references. In-place calls reuse the
+retained-axis geometry coordinator, with update_view controlling projection only.
+There is no new scientific algorithm, correspondence heuristic, reference
+substitution, all-trajectory recovery copy or host runtime capability.
+
+Fit selection_fit/reference_selection_fit define corresponding anchors, whereas
+selection defines the moved population. Sequence alignment derives anchors and
+moves complete selected components; the geometry preflight checks participating
+scope presence rather than claiming the anchors are the full moved population.
+Native setters own exact edited-structure interaction invalidation. Only the
+primary view is serialized; caller-owned references must remain stable and their
+views are never implicitly synchronized.
+
+Receiving uses independent Cartesian poses and distinct/mixed-unit references,
+repeated/nonconsecutive structure scopes, partial moved populations and actual
+multi-component views. Native independent forms, scene identities, pending mixed
+edits, lifetime/replacement and real transport interruption are received. CPU
+scope is explicit; forwarding optional GPU controls is not qualification of them.
+Native scientific interruptions after a partial publication remain uncertain;
+projection retry never repeats fitting.
+
+The native default None reference of least_rmsd_align fails even though self
+reference is documented (uibcdf/molsysmt#452). Explicit references, including an
+explicit self reference, remain the received route; no addon workaround changes
+the default. Native alignment also interprets numeric atom-selection indices as
+group indices (uibcdf/molsysmt#453); only MolSysMT expression selections are qualified here. The addon
+neither converts indices to expressions nor redefines scientific correspondence.
+Center remains unreceived under uibcdf/molsysmt#451, and earlier
+native reflection limits remain visible. Source now provides twenty-three
+structure tools: eighteen calculations and five coordinate editors; five other
+reviewed coordinate-changing exports and the broader addon remain pending.

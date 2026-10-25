@@ -1,4 +1,4 @@
-"""Explicit primary-bound geometric readers; scientific behavior remains native."""
+"""Explicit primary-bound structure tools; scientific behavior remains native."""
 
 from argdigest import arg_digest
 from smonitor import signal
@@ -29,6 +29,8 @@ class _StructureTools:
         "translate",
         "rotate",
         "flip",
+        "least_rmsd_fit",
+        "least_rmsd_align",
     )
 
     def __init__(self, owner):
@@ -809,6 +811,100 @@ class _StructureTools:
                 "structure_indices": structure_indices,
                 "syntax": syntax,
                 "in_place": in_place,
+            },
+            update_view,
+        )
+
+    @_native_documentation("least_rmsd_fit", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def least_rmsd_fit(
+        self,
+        selection="all",
+        selection_fit='atom_type!="H"',
+        structure_indices="all",
+        reference_molecular_system=None,
+        reference_selection_fit=None,
+        reference_structure_index=0,
+        to_form=None,
+        in_place=False,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        parallel=None,
+        num_threads=None,
+        use_gpu=None,
+        gpu_backend=None,
+        precision=None,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "least_rmsd_fit",
+            {
+                "selection": selection,
+                "selection_fit": selection_fit,
+                "structure_indices": structure_indices,
+                "reference_molecular_system": reference_molecular_system,
+                "reference_selection_fit": reference_selection_fit,
+                "reference_structure_index": reference_structure_index,
+                "to_form": to_form,
+                "in_place": in_place,
+                "syntax": syntax,
+                "engine": engine,
+                "parallel": parallel,
+                "num_threads": num_threads,
+                "use_gpu": use_gpu,
+                "gpu_backend": gpu_backend,
+                "precision": precision,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_native_documentation("least_rmsd_align", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def least_rmsd_align(
+        self,
+        selection='atom_name=="CA"',
+        structure_indices="all",
+        reference_molecular_system=None,
+        reference_selection=None,
+        reference_structure_index=0,
+        syntax="MolSysMT",
+        engine_sequence_alignment="Biopython",
+        engine_least_rmsd_fit="MolSysMT",
+        in_place=False,
+        use_gpu=None,
+        gpu_backend=None,
+        precision=None,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "least_rmsd_align",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "reference_molecular_system": reference_molecular_system,
+                "reference_selection": reference_selection,
+                "reference_structure_index": reference_structure_index,
+                "syntax": syntax,
+                "engine_sequence_alignment": engine_sequence_alignment,
+                "engine_least_rmsd_fit": engine_least_rmsd_fit,
+                "in_place": in_place,
+                "use_gpu": use_gpu,
+                "gpu_backend": gpu_backend,
+                "precision": precision,
+                "skip_digestion": skip_digestion,
             },
             update_view,
         )

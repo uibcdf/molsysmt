@@ -32,8 +32,10 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_minimum_distances`, `get_neighbors`, `get_symmetry_corrected_rmsd`,
 `get_secondary_structure` and `principal_component_analysis`.
 Results retain native quantities, arrays and metadata. The separate
-`structure.translate`, `structure.rotate` and `structure.flip` wrappers receive
-independent outputs and managed in-place coordinate changes. Reflection receiving
+`structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`
+and `structure.least_rmsd_align` wrappers receive independent outputs and managed
+in-place coordinate changes. Sequence alignment currently requires an explicit
+reference, as documented below. Reflection receiving
 currently covers explicit unit normals only; native default/nonunit-normal defects
 remain visible below. Other transformations remain outside the received slice.
 
@@ -917,3 +919,65 @@ scene, and False leaves pending work for sync_view(). The same retained identity
 selective interaction invalidation, deferred composition and failure-recovery
 contract as translation applies. A synchronization-only retry must not repeat a
 rotation or reflection: doing so would execute the science a second time.
+
+
+## Fitting and sequence-based alignment
+
+Use {doc}`structure/least_rmsd_fit` when you can specify corresponding atoms.
+selection_fit and reference_selection_fit are the ordered fit anchors; selection
+is the population moved by the resulting rigid transform. Those populations can
+be different. Native rank and correspondence checks remain applicable.
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    reference = tools.basic.extract(structure_indices=[0])
+    fitted = tools.structure.least_rmsd_fit(
+        selection='all', selection_fit='backbone',
+        reference_molecular_system=reference, reference_structure_index=0,
+        use_gpu=False,
+    )
+    # The independent result stays in Python; the current view is not replaced.
+    tools.structure.least_rmsd_align(
+        selection="atom_name=='CA'", reference_molecular_system=reference,
+        reference_structure_index=0, in_place=True, update_view=False,
+        use_gpu=False,
+    )
+    tools.sync_view()
+```
+
+{doc}`structure/least_rmsd_align` derives correspondence through the declared
+sequence-alignment engine. Its selection and reference_selection identify fit
+anchors; **complete selected components move**, including their non-anchor atoms.
+Other components remain unchanged. Biopython is the native sequence-engine
+prerequisite, not an implicit preparation step performed by the addon.
+
+Both tools preserve native in_place=False, native returns, structure ordering,
+reference choices and configuration controls. Only independent least_rmsd_fit
+output uses to_form; requesting conversion never adopts the result into the
+view. An in-place call returns None. update_view=False defers projection only;
+sync_view() reconciles the completed science without fitting again. Other view
+state, retained object identity, native selected-structure interaction invalidation
+and uncertain/synchronization-failure recovery follow the geometry contract above.
+The native fit may publish through more than one coordinate setter; a scientific
+interruption does not imply rollback.
+
+The reference is caller-owned and must remain stable during the call. The addon
+serializes its primary view only: it neither locks nor synchronizes another view
+whose molecular system you pass as reference. An independent fit can read pending
+primary coordinates; it does not project them or adopt its output. Explicit
+coordinate-only native references and independent output forms retain native
+units and ownership. No periodic reimaging, atom-correspondence heuristic, box
+transformation or chemical preparation is added.
+
+The reviewed native least_rmsd_align currently fails with the declared
+reference_molecular_system=None default. **Supply an explicit reference**, including
+view.molsys when you intend the same system. The owning defect is
+[#452](https://github.com/uibcdf/molsysmt/issues/452); the addon forwards None
+unchanged rather than silently replacing it. least_rmsd_fit's native self-reference
+route is received separately. At this source, use expression selections for
+least_rmsd_align: passing equivalent numeric atom indices incorrectly addresses
+group indices inside native sequence alignment
+([#453](https://github.com/uibcdf/molsysmt/issues/453)). Numeric selections remain fully
+native and are not rewritten by the addon; they are unqualified for this tool.
+This qualification covers CPU calls with explicit precision where tested; forwarding GPU/backend choices is not GPU qualification.

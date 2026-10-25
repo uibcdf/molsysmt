@@ -65,6 +65,8 @@ def _native_documentation(name, module="basic"):
             "translate",
             "rotate",
             "flip",
+            "least_rmsd_fit",
+            "least_rmsd_align",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -79,13 +81,19 @@ def _native_documentation(name, module="basic"):
                     "declared skip_digestion parameter and is invoked with its ordinary "
                     "public validation. The flag is not added to scientific **kwargs.\n"
                 )
-        if module == "structure" and name in {"translate", "rotate", "flip"}:
+        if module == "structure" and name in {
+            "translate",
+            "rotate",
+            "flip",
+            "least_rmsd_fit",
+            "least_rmsd_align",
+        }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "update_view : bool, keyword-only, default=True\n"
                 "    Synchronize an admitted in-place coordinate edit immediately. "
                 "False defers projection only; sync_view() finishes pending work. "
-                "The native in_place=False default returns an independent MolSys "
+                "The native in_place=False default returns an independent native result "
                 "without adoption or scene update. Native quantities, broadcasting "
                 "and returns remain unchanged. Source identities and axes are retained; "
                 "named interactions follow native edited-structure invalidation. "
@@ -104,6 +112,31 @@ def _native_documentation(name, module="basic"):
                 "the None default rejects, and nonunit normals are not normalized "
                 "and do not implement a geometric reflection. The addon forwards "
                 "these inputs unchanged; those native routes remain unqualified.\n"
+            )
+        if module == "structure" and name in {"least_rmsd_fit", "least_rmsd_align"}:
+            function.__doc__ += (
+                "The reference remains explicit and caller-owned; keep it stable for "
+                "the call. Only the bound primary view is serialized, with no automatic "
+                "locking or synchronization of another reference view. No periodic "
+                "reimaging, molecular preparation or scientific fitting is added here.\n"
+            )
+        if module == "structure" and name == "least_rmsd_fit":
+            function.__doc__ += (
+                "selection_fit and reference_selection_fit define the ordered native "
+                "fit anchors; selection defines the atoms moved. to_form affects the "
+                "native independent output only, without adopting that result.\n"
+            )
+        if module == "structure" and name == "least_rmsd_align":
+            function.__doc__ += (
+                "selection and reference_selection define sequence-derived anchors; "
+                "the native operation moves complete selected components, not only "
+                "those anchor atoms. At the reviewed source, supply an explicit "
+                "reference_molecular_system: native None self-reference fails before "
+                "writing coordinates and remains unqualified under uibcdf/molsysmt#452. "
+                "The addon does not replace the default or calculate correspondences. "
+                "Use expression selections at this source: numeric atom selections "
+                "are incorrectly interpreted as group indices by native sequence "
+                "alignment and remain unqualified.\n"
             )
         if name in {"copy", "convert", "get_conversion_report"}:
             function.__doc__ += (

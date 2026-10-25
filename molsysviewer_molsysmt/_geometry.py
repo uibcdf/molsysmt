@@ -138,7 +138,13 @@ def _prepare_geometry_transform(target, name, parameters):
     from molsysmt.basic._index_validation import validate_structure_indices
     from molsysmt.native import MolSys
 
-    if name not in {"translate", "rotate", "flip"}:
+    if name not in {
+        "translate",
+        "rotate",
+        "flip",
+        "least_rmsd_fit",
+        "least_rmsd_align",
+    }:
         raise NotImplementedError(
             f"Managed structure transform {name!r} is not received."
         )
@@ -156,6 +162,8 @@ def _prepare_geometry_transform(target, name, parameters):
         if is_all(frames)
         else frames is not None and len(frames) > 0
     )
+    # This checks participating-scope presence, not the exact moved population.
+    # Native sequence alignment expands its anchors to complete components.
     atoms = basic.select(
         target,
         selection=parameters["selection"],
@@ -176,7 +184,13 @@ def _run_geometry_transform(owner, name, parameters, update_view):
     from molsysmt import structure
     from molsysmt._private.argdigest.argument.in_place import digest_in_place
 
-    if name not in {"translate", "rotate", "flip"}:
+    if name not in {
+        "translate",
+        "rotate",
+        "flip",
+        "least_rmsd_fit",
+        "least_rmsd_align",
+    }:
         raise NotImplementedError(f"Structure transform {name!r} is not received.")
     in_place = digest_in_place(
         parameters["in_place"], caller=f"molsysviewer_molsysmt.structure.{name}"

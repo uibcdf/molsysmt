@@ -1,0 +1,214 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-24",
+  "status": "source_received_initial_regression_stale_inventory_corrected_exact_head_CI_pending",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#452",
+    "uibcdf/molsysmt#453"
+  ],
+  "provider_base_commit": "fd2b28a1d4f299466964fd0bf69f5358973b7af4",
+  "host_base_commit": "f66585bd5d1cb6064ed8456fe3d679e7378dc043",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "conda_environment": "molsyssuite@uibcdf_3.14"
+  },
+  "implemented": [
+    "view.addons.molsysmt.structure.least_rmsd_fit",
+    "view.addons.molsysmt.structure.least_rmsd_align"
+  ],
+  "inventory": {
+    "structure_calculations": 18,
+    "structure_coordinate_editors": 5,
+    "structure_pending_edits": 5
+  },
+  "delegation": {
+    "in_place_default": false,
+    "update_view_default": true,
+    "update_view_kind": "keyword_only",
+    "references": "explicit caller-owned stable inputs; only primary view serialized",
+    "fit_population": "native selection_fit/reference_selection_fit anchors distinct from moved selection",
+    "align_population": "native sequence-derived anchors; full selected components move",
+    "independent_output": "native result/conversion without adoption",
+    "in_place": "one native public call under existing coordinator, native None preserved",
+    "geometry": "no scientific calculation, reimaging, normalization or correspondence in addon",
+    "recovery": "pending composition and sync retry without science replay; uncertain scientific interruptions"
+  },
+  "validation": {
+    "targeted_final": {
+      "path": "/tmp/msm-viewer-fitting-targeted.xml",
+      "sha256": "9faac963a99946efdbca2d15141e01f7b71d36915bc546a999f36d694aa3a48e",
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "initial_focused_failures": [
+      {
+        "evidence": {
+          "path": "/tmp/msm-viewer-fitting-targeted-initial.xml",
+          "sha256": "85f7f67e81d5e37e4eacb021be96d5032f94b5c0ca0abaa7d6911bf03bc54838",
+          "tests": 23,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "cause": "Fixture incorrectly assumed MolSys atom extraction permutes rather than retaining established sorted order; explicit native Structures now supplies the intended coordinate order."
+      },
+      {
+        "evidence": {
+          "path": "/tmp/msm-viewer-fitting-targeted-reference-import.xml",
+          "sha256": "4248b71aba9f3621cd9f08d2a9506ac19e46a428d028180ec6e016e9d4372c27",
+          "tests": 23,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "cause": "Fixture referenced Structures at an unexported root path; corrected to molsysmt.native.Structures."
+      },
+      {
+        "evidence": {
+          "path": "/tmp/msm-viewer-fitting-targeted-numeric-selection.xml",
+          "sha256": "021e35e271e1dd3350a627fdd4136181983dad1c5e41f8829aceff1f2396e550",
+          "tests": 28,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "cause": "Independent native atom/group-index mismatch; reported as #453; whole-component geometry guard retains its value checks using the equivalent qualified expression selection."
+      }
+    ],
+    "initial_applicable_regression": {
+      "path": "/tmp/msv-fitting-regression.xml",
+      "sha256": "4c5c7a9b5c40c20a80dd7a96f071583be3c1f385742fc14e504829976e4a822a",
+      "tests": 956,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0
+    },
+    "initial_failure_cause": "Four parameter cases retained obsolete assertion that least_rmsd_fit must be absent. No numerical or lifecycle case failed.",
+    "focused_inventory_correction": {
+      "path": "/tmp/msm-viewer-fitting-regression-correction.xml",
+      "sha256": "44b445fd8fa44e6a37214a571dd110c3bef2bd4dfa0de6d12bed31372e1ba2e7",
+      "tests": 85,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "full_regression_repeated": false,
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "tests/molsysviewer_molsysmt/",
+      "tests/structure/fit/",
+      "tests/structure/align/",
+      "tests/scientific_truth/structure/test_alignment.py",
+      "tests/scientific_truth/structure/test_rigid_transformations.py",
+      "tests/structure/translate/",
+      "tests/structure/flip/",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-fitting-regression.xml"
+    ],
+    "exit_code": 1,
+    "resolved_original_failure_nodes": [
+      "tests.molsysviewer_molsysmt.test_structure_comparison_tools::test_explicit_namespace_native_signature_help_and_digestion[get_rmsd]",
+      "tests.molsysviewer_molsysmt.test_structure_comparison_tools::test_explicit_namespace_native_signature_help_and_digestion[get_least_rmsd]",
+      "tests.molsysviewer_molsysmt.test_structure_comparison_tools::test_explicit_namespace_native_signature_help_and_digestion[get_principal_axes]",
+      "tests.molsysviewer_molsysmt.test_structure_comparison_tools::test_explicit_namespace_native_signature_help_and_digestion[get_least_squares_plane]"
+    ],
+    "source_snapshot": "/tmp/msv-fitting-receiving-sources-050azalh",
+    "watched_source_changes_during_run": [
+      "molsysmt/_version.py",
+      "molsysmt/structure/center.py"
+    ],
+    "source_notes": "Concurrent native center/get_center and related work was present and is excluded from the addon commit. center.py changed during regression; this working-tree run does not claim one clean immutable native source head. Bound addon and fitting test sources remained fixed during that run.",
+    "post_run_own_python_changes": [
+      "tests/molsysviewer_molsysmt/test_structure_comparison_tools.py"
+    ],
+    "source_snapshot_manifest": {
+      "path": "/tmp/msv-fitting-regression-source.json",
+      "sha256": "ffa9b5ad3a12cde60a7b5d2f1fb11cea03bd3130dff41b21910de40167f6a90e"
+    },
+    "examples": {
+      "guide_blocks": 25,
+      "doctests": {
+        "molsysviewer_molsysmt._structure": {
+          "failed": 0,
+          "attempted": 73
+        },
+        "molsysviewer_molsysmt._topology": {
+          "failed": 0,
+          "attempted": 41
+        }
+      }
+    },
+    "host_guides": {
+      "path": "/tmp/msv-fitting-host-guides.xml",
+      "sha256": "31ddc00f78e4f5ab464fdbc9b5c7444f8a4c5107ceac6d4de9400c28b2e1f06a",
+      "tests": 280,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "scientific_references": [
+    "independent Cartesian rotation/translation poses, both fit and sequence alignment",
+    "distinct fit and moved populations; whole-component movement with another component unchanged",
+    "different coordinate index spaces and explicit angstrom reference",
+    "nm/angstrom/pm contexts, repeated/nonconsecutive structures and reference-frame selection",
+    "native independent output forms and CPU single/double precision values",
+    "actual transport interruption with synchronization-only retry; interrupted real scientific pipeline enters uncertain state"
+  ],
+  "known_native_limits": {
+    "align_none_reference": "#452, None default fails; no silent substitution",
+    "align_numeric_atom_selection": "#453, numeric atom indices interpreted as groups; expression selection route qualified",
+    "optional_engines": "CPU receiving only; GPU/backend forwarding is not GPU qualification",
+    "earlier_limits": "center remains absent under #451; explicit-unit-normal-only flip receiving remains unchanged"
+  },
+  "scope_limits": [
+    "source receiving, not clean solver-installed artifacts",
+    "no GUI panels, public floor, release, freeze or promotion",
+    "applicable addon/native/lifecycle regression, not all scientific tests"
+  ],
+  "source_sha256": {
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "bd1a77e2519be040e0651b3556d85a1728dc5a198a3fb8ebaf84bd455bfa0359",
+    "molsysviewer_molsysmt/_geometry.py": "bbea0bb85d8d191fe336f30880a234951262c0a92f770c194549f3de540c0654",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "5a4a4db1754cf9ac41f01c5bdc9c89757d2570a44b8de4778c7478dbb530c897",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "tests/molsysviewer_molsysmt/test_conversion_tools.py": "73d8125d61fecbc27ed6857a757eb1e1838bb34ca5cc77189f9a6b8610185cd5",
+    "tests/molsysviewer_molsysmt/test_identity_tools.py": "02c5e25358c730217e2c918722be00812014b4c34e89444907fb5077509d7543",
+    "tests/molsysviewer_molsysmt/test_predicate_tools.py": "0f4a36758d1196d92529f9b8dba9f8d71e0842b3583027129259d83eaa74d05c",
+    "tests/molsysviewer_molsysmt/test_read_tools.py": "f054b68b2985778f989a60b2a62afa8ab9a61eada51b7dc3e3800f4504f42ecd",
+    "tests/molsysviewer_molsysmt/test_remove_tools.py": "38f199b8d6f8add7bfa2a7e3a636f3b14a5dabf9873fe72477e6f74bd3cfb1e8",
+    "tests/molsysviewer_molsysmt/test_set_tools.py": "3fb841baf394b70a528f38d0d2c07f8af610833a617d116cc34c93453e886e59",
+    "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py": "9d9a2c5f865e59ed2483c3284c1ca98e04ce2d262f831b65780a1cfc97e2673c",
+    "tests/molsysviewer_molsysmt/test_structure_comparison_tools.py": "93600c2f4671458725edde83bde27d118b535dcee6ba844ececa9f8d7b79c2fd",
+    "tests/molsysviewer_molsysmt/test_structure_fitting_tools.py": "d2f14de62c67e8916998653b2b60067937e6cab4883012c41cb71a2893d65cd3",
+    "tests/molsysviewer_molsysmt/test_structure_relations_tools.py": "05c56c4c26a81327cec3cb6a4a02d883a8a9c63df8527c76c1529be6b9dd42c1",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "bf1cc03847dc0a5f83e1a536d94800ea6826d69970fd9c54c3ebc1e1df259fcc",
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": "dbd1fb80f67a34382f210d4ee0b9b69c96553c9f2e7ed228a386ff0919bdb6e5",
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": "9779fba47d3a4d3c82d4f4fca98231aa0fbfeab6c56b14c7406bbf982ccb6624",
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": "cd7832ba778be0fa5d95346945355ade2eee4466ff69d894c53bdebd2b78afd9"
+  }
+}

@@ -68,7 +68,7 @@ def test_signature_help_namespace_and_explicit_integration_controls(view):
     assert "native in_place=False default" in inspect.getdoc(method)
     assert "No molecular edit" not in inspect.getdoc(method)
     assert set(dir(view.addons.molsysmt.structure)) == set(
-        READERS + ("translate", "rotate", "flip")
+        READERS + ("translate", "rotate", "flip", "least_rmsd_fit", "least_rmsd_align")
     )
     assert not hasattr(view.addons.molsysmt, "translate")
 
