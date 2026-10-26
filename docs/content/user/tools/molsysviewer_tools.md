@@ -158,7 +158,8 @@ public validation remains active.
 
 :::{warning}
 At the reviewed source, `get_box_from_lengths_and_angles` rejects its own
-`box_angles=None` default. Supply explicit angular quantities; the addon does
+`box_angles=None` default ([#465](https://github.com/uibcdf/molsysmt/issues/465)).
+Supply explicit angular quantities; the addon does
 not insert missing angles or claim that default route is qualified. Native
 output is a box series `(n_structures, 3, 3)`. Coordinate editors `wrap_to_pbc`,
 `wrap_to_mic` and `unwrap` still need their own managed-effect receiving.

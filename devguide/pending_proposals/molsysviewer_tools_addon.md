@@ -1010,3 +1010,12 @@ The workflow uses its recorded routine host source, and no host runtime or
 installed artifact qualification is introduced. Other PBC editors, native
 repairs, broad namespaces, graphical panels and package compatibility remain
 separate; both 1.0 publications remain paused.
+
+### PBC reports authorized and filed — 2026-10-26
+
+The maintainer authorizes the prepared reports: uibcdf/molsysmt#465 owns the
+rejected default box angles and uibcdf/molsysmt#466 owns the PBC course's
+absent membrane demo. Both reproduce independently of Viewer, have current
+queue records and require native pytest guards. The addon retains explicit
+angle forwarding; no scientific repair or tutorial scenario substitution is
+introduced here. This supersedes earlier pending-authorization notes.

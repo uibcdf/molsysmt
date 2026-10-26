@@ -20,10 +20,12 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (4)
 
 - [`dihedral_editors_publish_nonfinite_angles.md`](dihedral_editors_publish_nonfinite_angles.md) — [#462](https://github.com/uibcdf/molsysmt/issues/462) — Dihedral editors publish nonfinite coordinates from NaN angular edits. *(high, reproduced)*
 - [`shift_dihedral_angles_ignores_explicit_blocks.md`](shift_dihedral_angles_ignores_explicit_blocks.md) — [#461](https://github.com/uibcdf/molsysmt/issues/461) — shift_dihedral_angles ignores explicit moving blocks. *(high, reproduced)*
+- [`box_factory_rejects_default_angles.md`](box_factory_rejects_default_angles.md) — [#465](https://github.com/uibcdf/molsysmt/issues/465) — Box factory rejects its declared default angles. *(medium, reproduced)*
+- [`course_pbc_uses_absent_membrane_demo.md`](course_pbc_uses_absent_membrane_demo.md) — [#466](https://github.com/uibcdf/molsysmt/issues/466) — Biophysics PBC course uses an absent membrane demo. *(medium, reproduced)*
 
 ### Partially resolved (1)
 
