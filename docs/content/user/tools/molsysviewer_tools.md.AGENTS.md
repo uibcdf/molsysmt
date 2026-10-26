@@ -71,8 +71,9 @@ scientific replay; never substitute system replacement for managed geometry.
 Preserve the first seven physchem property readers, native atom/group scopes,
 units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
-Keep OpenMM form/box prerequisites, pending-reader behavior and the native
-selection-syntax limitation visible. Do not present the other 17 physchem
+Keep OpenMM form/box prerequisites and pending-reader behavior visible.
+The native selection/scope repairs are now received: preserve positive syntax
+checks and explicit unsupported-level rejection. Do not present the other 17 physchem
 exports as received or introduce implicit coloring, preparation or assignment.
 
 

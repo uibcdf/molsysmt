@@ -1,0 +1,104 @@
+{
+  "schema": "molsysmt.viewer_tools_physchem_query_repairs_receiving@1",
+  "date": "2026-10-26",
+  "native_parent": "825a66d39efa91d18b8495bf71f861c056fd77a0",
+  "prior_addon_producer": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+  "prior_ci": {
+    "controls": [
+      {
+        "conclusion": "success",
+        "databaseId": 40418549584,
+        "headSha": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+        "name": "Dependency contract",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40418549659,
+        "headSha": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+        "name": "Ruff",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40418550369,
+        "headSha": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+        "name": "MolSysSuite policy",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40418550276,
+        "headSha": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+        "name": "Conda publication governance",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40418549611,
+        "headSha": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+        "name": "Developer guide integrity",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40418549676,
+        "headSha": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+        "name": "CI smoke",
+        "status": "completed"
+      }
+    ],
+    "smoke_run": 40418549676,
+    "job": 121906860117,
+    "native_passed": 1576,
+    "addon_passed": 1230,
+    "log_path": "/tmp/msm-addon-3c2dfcf6-tables-smoke.log",
+    "log_sha256": "f103d16bd6de793eb21fe1a50b5a067bae62b40af54e128da445e9fdc5cd269c",
+    "receptor_watch_path": "/tmp/msv-physchem-tables-ci-watch.log"
+  },
+  "integration": {
+    "path": "/tmp/msv-physchem-repairs-integration.xml",
+    "sha256": "7f6aab35241b475f910c7a857cc975786479a91dfd5d7451fb8f26131d5a9c71",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "627",
+      "time": "183.326",
+      "timestamp": "2026-10-26T17:25:25.666834-06:00",
+      "hostname": "nauta"
+    },
+    "log_sha256": "00a2d93b861bda2743f75aced23411907208eef2a36059047b1b59660d24dd7e",
+    "scope": "Both property addon files and the native property-selection contract on the isolated committed native repair, with the three explicitly updated receiver files."
+  },
+  "docstrings": {
+    "attempted": 40,
+    "failed": 0
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_basic.py": "1c979280e009f4ec1293acae9fda951c03bfb9da0141897b31216ee436f6ca50",
+    "tests/molsysviewer_molsysmt/test_physchem_tools.py": "39ba7f27d274e60a1b3f817c64bea45a86f8ffbe93142e6632e12872a9f333a8",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "b70dc78f7b76a9aecdf382e48316c8f38837241c17f622806eeacef039187477",
+    "tests/physchem/test_property_selection_contract.py": "5f82afd430a362d76d33e35913ce63d40fb86543c3e750ce9a49fd5c40be0ccd",
+    "molsysmt/physchem/get_volume.py": "54307b8de7e0adb28a57e1c0096378826a9370d82834b036a3b8fd6db2869088",
+    "molsysmt/physchem/get_surface_area.py": "371cdaa961a82ba18e113c8abc5d5e2aeeae9ff070e1c67cb6b07d3e8ae74305",
+    "molsysmt/physchem/atoms/protor.py": "e59f5c6a048799c5d5385b02ea15c9f28e969264a8ae61221451f3c611c816de"
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "scope": "Existing native extension copied unchanged; no Rust source changed by these repairs."
+  },
+  "receiving": [
+    "Alternative-syntax tests now require positive success and compare with explicitly resolved intended atom/group indices",
+    "Fixed-scope readers reject unsupported levels before invalid population parsing, with ordinary/trusted flags",
+    "No selector translator, scientific scale, aggregation formula or unit conversion is introduced",
+    "Old source warnings under #470/#471 are removed from current help/guide; named analyses and scene retention remain guarded"
+  ],
+  "limits": [
+    "Collantes physical unit/normalization remains uncertain under uibcdf/molsysmt#473",
+    "Seventeen physchem exports, panels and installed-artifact compatibility remain pending",
+    "No second full local regression is claimed; prior failed attempt and corrected affected run retain their immutable receipt",
+    "Final committed-head CI remains separate and pending at this receipt snapshot"
+  ]
+}

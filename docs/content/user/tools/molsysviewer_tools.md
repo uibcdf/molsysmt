@@ -1413,8 +1413,8 @@ There are no invented root aliases or update_view parameters for these readers.
 
 Choose atom scope for atom tables and group scope for group scales. The addon
 does not invent hierarchy support absent from the native implementation.
-Unsupported-level validation is inconsistent in several native readers
-(uibcdf/molsysmt#471); these broader levels are not qualified here.
+Native fixed-scope readers now reject unsupported levels explicitly under
+uibcdf/molsysmt#471; no sum or mean is inferred for an undefined hierarchy.
 Tabulated group charge is not assigned partial charge or a protonation model.
 Unknown chemical groups are rejected when missing from a table; ACE/NME caps,
 waters, ions and ligands are not automatically excluded or assigned zero.
@@ -1427,14 +1427,12 @@ the addon never chooses one or changes force-field settings for you. OpenMM mass
 on the bound MolSys remains unsupported by the native function. This receiving
 does not certify arbitrary parameter sets, incomplete chemistry or every form.
 
-Native alternative-syntax forwarding is incomplete in charge, radius,
-electronegativity and hydrophobicity (uibcdf/molsysmt#470). Use MolSysMT expressions
-or explicitly resolved indices for those readers until the provider repair is
-received. The addon preserves the native rejection rather than translating the
-selection silently. Mass, polarity and transmembrane MDTraj selectors are also
-included in bounded receiving. Source availability is not installed-artifact
+The repaired native contract under uibcdf/molsysmt#470 forwards the requested
+selection syntax, including MDTraj with its optional provider installed.
+Receiving compares the selected population with independently resolved intended
+atom/group indices. Numeric order and repetitions, empty populations and native
+containers remain explicit. Source availability is not installed-artifact
 qualification.
-
 
 ## Querying ProtOr and reference descriptors
 
@@ -1478,10 +1476,10 @@ validation; native get_volume has no such flag and always receives its ordinary
 public validation. `get_area_buried` has no native syntax parameter, so the addon
 does not invent one. Other signatures preserve the native declared parameters.
 
-The broader syntax and supported-element contracts remain separately tracked
-under uibcdf/molsysmt#470 and uibcdf/molsysmt#471. On the frozen receiving
-baseline, volume, buried fraction and ProtOr selectors have alternative-syntax
-limits; the three area/fraction table functions ignore unsupported element
-levels. Use the actual atom/group scopes and MolSysMT expressions or explicitly
-resolved indices until a corresponding native repair is received. Source
-receiving does not establish installed package compatibility.
+The native selection/scope repairs under uibcdf/molsysmt#470 and
+uibcdf/molsysmt#471 are now received from 825a66d39. ProtOr, volume and buried
+fraction honor the requested syntax; fixed atom/group readers reject unsupported
+levels before population lookup. The addon adds no selector translation or
+aggregation formula. get_area_buried retains its explicit no-syntax signature.
+Unit review uibcdf/molsysmt#473 and installed package compatibility remain
+separate.

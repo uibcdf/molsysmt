@@ -220,15 +220,21 @@ def test_table_rejections_are_not_converted_to_silent_defaults(view, name, args)
 
 
 @pytest.mark.parametrize("name", [n for n in NAMES if n != "get_area_buried"])
-def test_alternative_syntax_result_or_rejection_remains_native(view, name):
-    args = dict(selection="name CA", syntax="MDTraj")
-    try:
-        expected = getattr(msm.physchem, name)(view.molsys, **args)
-    except Exception as error:
-        with pytest.raises(type(error)):
-            getattr(view.addons.molsysmt.physchem, name)(**args)
-    else:
-        same(getattr(view.addons.molsysmt.physchem, name)(**args), expected)
+def test_alternative_syntax_matches_intended_population(view, name):
+    element = "atom" if name.startswith("get_protor") else "group"
+    indices = msm.select(
+        view.molsys, element=element, selection="name CA", syntax="MDTraj"
+    )
+    expected = getattr(msm.physchem, name)(view.molsys, selection=indices)
+    actual = getattr(view.addons.molsysmt.physchem, name)(
+        selection="name CA", syntax="MDTraj"
+    )
+    same(actual, expected)
+    assert (
+        len(actual[0] if name == "get_protor_atom_type" else actual)
+        == len(indices)
+        == 5
+    )
 
 
 @pytest.mark.parametrize("name", NAMES)
@@ -296,3 +302,35 @@ def test_pending_reader_does_not_synchronize_or_replay_science(view):
         )
     assert tools.get_sync_status() == status
     tools.sync_view()
+
+
+@pytest.mark.parametrize(
+    "name,element",
+    [
+        ("get_atomic_radius", "group"),
+        ("get_electronegativity", "group"),
+        ("get_hydrophobicity", "atom"),
+        ("get_polarity", "atom"),
+        ("get_transmembrane_tendency", "atom"),
+        ("get_surface_area", "atom"),
+        ("get_area_buried", "atom"),
+        ("get_buried_fraction", "atom"),
+    ],
+)
+@pytest.mark.parametrize("skip", [False, True])
+def test_unsupported_levels_reject_before_interpreting_invalid_selection(
+    view, name, element, skip
+):
+    from molsysmt._private.smonitor import ArgumentChoiceError
+
+    state, status = view.export_state(), view.addons.molsysmt.get_sync_status()
+    with pytest.raises(ArgumentChoiceError):
+        getattr(view.addons.molsysmt.physchem, name)(
+            element=element,
+            selection="this is not a valid selector",
+            skip_digestion=skip,
+        )
+    assert (
+        view.export_state() == state
+        and view.addons.molsysmt.get_sync_status() == status
+    )

@@ -358,17 +358,18 @@ def test_declared_skip_flag_and_explicit_selection_are_forwarded(view, name, ski
 
 
 @pytest.mark.parametrize("name", NAMES)
-def test_alternative_selection_syntax_keeps_native_result_or_rejection(view, name):
-    args = dict(selection="name CA", syntax="MDTraj")
-    try:
-        expected = getattr(msm.physchem, name)(view.molsys, **args)
-    except Exception as error:
-        # Several native readers currently drop syntax internally. Preserve and
-        # report that owner limitation rather than translating selectors here.
-        with pytest.raises(type(error)):
-            getattr(view.addons.molsysmt.physchem, name)(**args)
-    else:
-        same(getattr(view.addons.molsysmt.physchem, name)(**args), expected)
+def test_alternative_selection_syntax_matches_intended_population(view, name):
+    element = "atom" if name in ATOMIC else "group"
+    indices = msm.select(
+        view.molsys, element=element, selection="name CA", syntax="MDTraj"
+    )
+    args = dict(selection="name CA", syntax="MDTraj", element=element)
+    expected = getattr(msm.physchem, name)(
+        view.molsys, selection=indices, element=element
+    )
+    actual = getattr(view.addons.molsysmt.physchem, name)(**args)
+    same(actual, expected)
+    assert len(actual) == len(indices) == 5
 
 
 @pytest.mark.parametrize("element", ["atom", "group", "system"])

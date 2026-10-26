@@ -112,9 +112,9 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "chemical groups are not silently assigned neutral values. "
                 "OpenMM definitions retain their native form/parameterization limits; "
                 "a table charge is not an assigned partial charge or a protonation model.\n"
-                "Native alternative-syntax forwarding is incomplete for charge, "
-                "radius, electronegativity and hydrophobicity (uibcdf/molsysmt#470); "
-                "use MolSysMT expressions or explicit indices until repaired. "
+                "Selection syntax and element scopes follow the repaired native "
+                "contract under uibcdf/molsysmt#470 and uibcdf/molsysmt#471. "
+                "Unsupported levels reject explicitly; no aggregation is invented. "
                 "OpenMM charge conversion of a multi-frame periodic box is rejected; "
                 "the addon never selects a frame implicitly.\n"
             )
@@ -146,8 +146,8 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "the addon adds no quantity units, conversion or normalization. "
                 "Use get_sasa in native MolSysMT for an explicit conformational "
                 "surface calculation; its addon receipt is still pending. "
-                "get_area_buried has no native syntax argument. Native alternative "
-                "syntax and unsupported element levels require separate qualification.\n"
+                "get_area_buried has no native syntax argument. Other native syntax "
+                "and supported-level choices retain ordinary public validation.\n"
             )
         if module == "physchem" and name == "get_surface_area":
             function.__doc__ += (

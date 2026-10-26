@@ -1190,3 +1190,27 @@ preserves both outcomes, source hashes and the pre-fix diagnostic. Five PBC
 guide blocks, 33 native docstring examples and the new property guide block
 execute. All code cells/outputs in the four property-course paths are preserved.
 The final committed-source addon CI remains the whole-tier post-fix gate.
+
+
+## Descriptor source CI and native query repair receiving — 2026-10-26
+
+Producer 3c2dfcf651e2b6a8505cd7d88b38686811079f4a completes all six original
+source controls. Smoke 40418549676/job 121906860117 passes 1,576 native and 1,230
+addon cases with no failures/errors/skips. Ruff 40418549659, dependency
+40418549584, developer guide 40418549611, suite policy 40418550369 and Conda
+governance 40418550276 pass. GH Run Receptor confirms terminal success.
+Original log `/tmp/msm-addon-3c2dfcf6-tables-smoke.log` has SHA-256
+`f103d16bd6de793eb21fe1a50b5a067bae62b40af54e128da445e9fdc5cd269c`. This is the whole-addon post-fix gate; it does not relabel
+the first failing local regression as a clean run.
+
+The subsequent native query repair 825a66d39 under uibcdf/molsysmt#470 and
+uibcdf/molsysmt#471 is received separately. All 627 targeted addon/native
+contract cases pass in 183.33 seconds, with no failures/errors/skips; 40 inherited
+property docstring examples pass. Receiver tests now require successful alternate
+syntax against intended resolved atom/group populations, rather than accepting
+the former native rejection. Unsupported fixed levels reject before interpreting
+an invalid selector, with both ordinary and trusted flags. Obsolete current
+help/guide warnings are removed. Raw table unit review uibcdf/molsysmt#473,
+other tool families and installed qualification remain separate. The new
+`molsysviewer_tools_physchem_query_repairs_receiving_20261026.json` receipt in
+devtools/data records source hashes and scope. Final committed-head CI follows.
