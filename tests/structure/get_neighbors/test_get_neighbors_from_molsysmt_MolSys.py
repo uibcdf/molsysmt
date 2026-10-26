@@ -159,8 +159,15 @@ def test_get_neighbors_from_molsysmt_MolSys_7():
     assert check_n_contacts
 
 
-def test_get_neighbors_from_molsysmt_MolSys_8():
-    molsys = msm.convert("5XJH")
+def test_get_neighbors_from_molsysmt_MolSys_8(monkeypatch):
+    # Network access is a failure, even if a remote cache could satisfy it.
+    import socket
+
+    def reject_remote_lookup(*args, **kwargs):
+        raise AssertionError("The local 5XJH regression must not resolve a remote host")
+
+    monkeypatch.setattr(socket, "getaddrinfo", reject_remote_lookup)
+    molsys = msm.convert(systems["PETase"]["5xjh.pdb"])
     pairs_mutual, distances_mutual = msm.structure.get_neighbors(
         molsys,
         selection='atom_type=="S"',

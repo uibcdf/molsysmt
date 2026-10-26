@@ -234,7 +234,44 @@ systems["nglview"]["md_1u19.xtc"] = path("molsysmt.data.xtc", "md_1u19.xtc")
 # Rich Metadata Catalog & File Descriptions
 # -----------------------------------------------------------------------------
 
+# Original archive inputs shared by offline course and geometry regressions.
+systems["PETase"] = {
+    "5xjh.pdb": path("molsysmt.data.pdb", "5xjh.pdb"),
+    "6eqe.pdb": path("molsysmt.data.pdb", "6eqe.pdb"),
+}
+systems["SARS-CoV-2 main protease"] = {
+    "6lu7.pdb": path("molsysmt.data.pdb", "6lu7.pdb"),
+}
+systems["Potassium channel KcsA"] = {
+    "1k4c.pdb": path("molsysmt.data.pdb", "1k4c.pdb"),
+}
+
 systems.info = {
+    "PETase": {
+        "title": "PET Hydrolase Structures",
+        "category": "Small & Globular Proteins",
+        "summary": "Original PDB archive inputs 5XJH and 6EQE for reproducible PET hydrolase examples.",
+        "files": {
+            "5xjh.pdb": "Unmodified RCSB PDB 5XJH, including archive metadata and deposited coordinates.",
+            "6eqe.pdb": "Unmodified RCSB PDB 6EQE; no protonation or energy preparation is implied.",
+        },
+    },
+    "SARS-CoV-2 main protease": {
+        "title": "SARS-CoV-2 Main Protease with N3",
+        "category": "Complexes & Large Assemblies",
+        "summary": "Original PDB archive input 6LU7, including the N3 inhibitor in chain C.",
+        "files": {
+            "6lu7.pdb": "Unmodified RCSB PDB 6LU7; CONECT records do not guarantee complete ligand chemistry.",
+        },
+    },
+    "Potassium channel KcsA": {
+        "title": "Potassium Channel KcsA Complex",
+        "category": "Complexes & Large Assemblies",
+        "summary": "Original PDB archive input 1K4C for a potassium-channel complex.",
+        "files": {
+            "1k4c.pdb": "Unmodified RCSB PDB 1K4C; chain and group labels retain their deposited meaning.",
+        },
+    },
     # Dipeptides & Small Peptides
     "alanine dipeptide": {
         "title": "Alanine Dipeptide",

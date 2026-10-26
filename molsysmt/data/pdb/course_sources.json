@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "retrieved": "2026-10-26",
+  "license": "CC0-1.0",
+  "license_url": "https://www.wwpdb.org/about/usage-policies",
+  "files": {
+    "5xjh.pdb": {
+      "code": "5XJH",
+      "url": "https://files.rcsb.org/download/5XJH.pdb",
+      "bytes": 203472,
+      "sha256": "a0410e1407aa9ccf5fa16396a3fe329c46504fc4d6182fb438607ec23c697680",
+      "citation_url": "https://www.rcsb.org/structure/5XJH"
+    },
+    "6eqe.pdb": {
+      "code": "6EQE",
+      "url": "https://files.rcsb.org/download/6EQE.pdb",
+      "bytes": 614952,
+      "sha256": "08f76ad84526d2050c2f91f002374fb82a6a76e6a5fc7c2df1e691b096daf363",
+      "citation_url": "https://www.rcsb.org/structure/6EQE"
+    },
+    "6lu7.pdb": {
+      "code": "6LU7",
+      "url": "https://files.rcsb.org/download/6LU7.pdb",
+      "bytes": 239112,
+      "sha256": "385497151c2c093d764ffbc694589c2c1db35be638e49d715d4d8af38903966e",
+      "citation_url": "https://www.rcsb.org/structure/6LU7"
+    },
+    "1k4c.pdb": {
+      "code": "1K4C",
+      "url": "https://files.rcsb.org/download/1K4C.pdb",
+      "bytes": 430677,
+      "sha256": "8840582b5af3abcada8fb94c810289f788ac8cf829b44ae6cb4e78ca77714e01",
+      "citation_url": "https://www.rcsb.org/structure/1K4C"
+    }
+  }
+}
