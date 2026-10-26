@@ -1076,4 +1076,24 @@ After the owning torsion repair 6f6ed6bf1 is committed, an additional targeted
 nonfinite rejection and honored explicit block pools instead of describing
 those source defects as still present. The PBC scientific hashes remain equal
 to the frozen regression baseline. This integrated receiving is recorded
-separately in the receipt; committed-head CI is still pending.
+separately in the receipt; terminal committed-head CI is recorded below.
+
+## Integrated PBC/dihedral source CI completed — 2026-10-26
+
+Producer 4590545fd2c843f5823a717d33ebe7ba459cce2e passes all six original
+controls. [Smoke 40408393902](https://github.com/uibcdf/molsysmt/actions/runs/40408393902),
+job 121871993740, passes 1,576 native and 1,028 addon cases with no failures,
+errors or skips. Dependency 40408393948, Ruff 40408393648, guide integrity
+40408393764, suite policy 40408394283 and Conda governance 40408394299 pass.
+GH Run Receptor confirms GitHub terminal success. Original log
+`/tmp/msm-addon-4590545f-pbc-edits-smoke.log` has SHA-256
+`1259ef82c610582f174a5ec91cec1dc6f9ec3ad84453025129e4c37a2cd30cb4`. The committed local JSON receipt retains its
+pre-CI snapshot; this terminal source evidence supersedes its pending-CI status.
+
+The composition includes owning torsion repair 6f6ed6bf1 and all thirteen PBC
+wrappers, with the #467 centered-in-place integration limit preserved. Native
+box default #465 and course fixture #466 remain separate. The workflow retains
+its exact routine Viewer source pin; no host runtime, dependency floor,
+installed artifact or release qualification is introduced by this source CI.
+Viewer's historical-public-backend pandas gap and experimental Qt remain
+separately tracked. Both 1.0 publications remain paused.
