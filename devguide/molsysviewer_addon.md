@@ -12,7 +12,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement and principal-axis alignment under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement and principal-axis alignment and both dihedral editors under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -670,3 +670,32 @@ receiving includes default and scaled normals, rejected invalid planes and
 preserved synchronization/interaction state. Earlier explicit-unit-only receipts
 remain dated evidence. The repaired current contract does not imply installed
 package qualification or stability of unrelated scientific profiles.
+
+
+## Native dihedral editors received with scientific limits — 2026-10-25
+
+Explicit set_dihedral_angles and shift_dihedral_angles wrappers preserve native
+scientific arguments/defaults/returns with the current MolSys implicit. Both
+add keyword-only update_view; only the setter needs addon-only skip_digestion,
+because it has no native bypass. The shifter retains its native declared flag.
+The retained-axis receiver uses atom/structure counts for possible publication,
+without inventing a selection or recomputing molecular graph cuts. Native
+quartets, blocks, angular units, periodic kernels and selected-scope invalidation
+remain owned by the scientific tools. No torsion formula or workaround is added.
+
+All 28 function exports of the reviewed structure namespace are now explicitly
+exposed (18 calculations, ten coordinate editors). This does not certify every
+input, backend or published package. The focused guard
+ tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py passes 61 cases:
+independent NumPy quaternion/torsion checks, multi-quartet and repeated structures,
+angular/length policies, native broadcasting, explicit setter blocks, orthogonal
+and triclinic periodic images, missing boxes, clean rejection, native ownership,
+scene maps/lifetime and sync-only transport recovery. Full local and exact-head
+hosted scopes follow separately.
+
+Native-only reproduction at e568a6269 shows that nonfinite angles can publish
+nonfinite coordinates and that shift_dihedral_angles ignores explicit blocks.
+Those routes are unqualified; native science must be repaired by its owner,
+without an addon correction. The maintainer has been offered two owning reports;
+reporting authorization is pending at this checkpoint. Broader namespaces,
+task panels, installed compatibility, floors and releases remain separate.

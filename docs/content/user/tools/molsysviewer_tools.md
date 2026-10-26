@@ -34,10 +34,11 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 Results retain native quantities, arrays and metadata. The separate
 `structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`,
 `structure.least_rmsd_align`, `structure.center`, `structure.move_away` and
-`structure.align_principal_axes` wrappers receive independent outputs and managed
+`structure.align_principal_axes`, `structure.set_dihedral_angles` and
+`structure.shift_dihedral_angles` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
-with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. Other transformations remain outside the received slice.
+with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace now has explicit wrappers for all 28 native function exports; torsion input/block limitations below remain unqualified. This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -1152,3 +1153,73 @@ keyword-only flag controls its own digestion only: native validation always
 runs, including when that flag is True. Invalid target bases, degenerate moments
 and rejected inputs keep their native exceptions; a possible scientific partial
 write and a failed display projection retain their separate recovery contracts.
+
+
+## Editing dihedral angles
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    quartets = tools.topology.get_dihedral_quartets(phi=True)
+    # Keep this one quartet explicit; input angles carry physical angular units.
+    edited = tools.structure.set_dihedral_angles(
+        dihedral_quartets=quartets[0], angles='60 degrees',
+        structure_indices=[0], pbc=False,
+    )
+    # Independent outputs are returned without replacing the view's system.
+    tools.structure.shift_dihedral_angles(
+        dihedral_quartets=quartets[0], shifts='15 degrees',
+        structure_indices=[0], pbc=False, in_place=True, update_view=False,
+    )
+    tools.sync_view()
+```
+
+{func}`molsysmt.structure.set_dihedral_angles` sets absolute targets;
+{func}`molsysmt.structure.shift_dihedral_angles` adds signed angular increments
+to the current torsions. Supply ordered atom-index quartets and unit-bearing
+angles/shifts. Missing required scientific inputs retain native rejection; the
+addon does not infer phi/psi or a preparation workflow. Native `pbc=True` is the
+default; use the same periodic convention when measuring and editing. With no
+box the native editor falls back to nonperiodic geometry. No box is created,
+rotated or changed by the addon.
+
+Automatic blocks come from the native connectivity owner after cutting each
+central bond; atoms on the fourth atom's side are rotated. This is a coordinate
+edit, not bond deletion or force-field minimization. The receiving layer only
+declares retained atom/structure identities and possible coordinate publication;
+it does not recompute graph cuts, rewrite quartets or guess a moving selection.
+Changes to bond lengths across a deliberately limited explicit block are the
+caller's scientific choice, not automatically repaired geometry.
+
+The setter receives its native angle broadcasting, including size-one axes,
+and explicit atom-index block collections as understood by that tool. Other
+structures and boxes stay unchanged. Native structure ordering/repetitions and
+last publication semantics remain intact. Shifts are added by the native tool
+before delegation to the setter; no extra accumulation is introduced for repeated
+structure indices. General block objects from another tool must match the
+editor's actual native input contract; the addon does not reshape ragged data.
+
+Both editors retain native `in_place=False`: return the independent MolSys
+without adoption. `in_place=True` returns None and reconciles admitted geometry
+by default; `update_view=False` defers only projection. Native coordinate setters
+invalidate stored interactions on edited structures. Regions, selections,
+anchored shapes, sources and current-structure navigation use the same managed
+correspondence as other coordinate edits. Retry `sync_view()` after a display
+failure, without repeating the already completed torsion operation. Possible
+partial scientific writes still require explicit recovery.
+
+The setter has no native `skip_digestion` parameter: its addon-only keyword
+controls local digestion while native public validation still runs. The shifter
+retains its native declared flag. Neither flag bypasses integration controls.
+
+:::{warning}
+At this receiving source, native nonfinite angle values can generate nonfinite
+coordinates. Supply finite valid torsions; those invalid-input routes are not
+qualified. Native `shift_dihedral_angles` also ignores explicit `blocks` when
+calling its setter, so that explicit-block shifter route is not qualified.
+`set_dihedral_angles` with explicit blocks is separately tested. The addon
+forwards native behavior and supplies no silent replacement calculation.
+These findings and the provider-reporting handoff are retained in the current
+addon receiving record. They prevent declaring unconditional completion of the
+scientific family despite complete function exposure.
+:::

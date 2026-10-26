@@ -1,0 +1,644 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-25",
+  "status": "bounded_source_received_native_repairs_pending_exact_CI_pending",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "implemented": [
+    "view.addons.molsysmt.structure.set_dihedral_angles",
+    "view.addons.molsysmt.structure.shift_dihedral_angles"
+  ],
+  "tested_base_commit": "bb6283ce7959b1d7f1380efa4c61b50bd58856d2",
+  "preparation_parent": "bb6283ce7959b1d7f1380efa4c61b50bd58856d2",
+  "host_base_commit": "d200cbab9859ee9d2241647a621dcf0e7837ce0b",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "environment_override": {
+      "MPLBACKEND": "Agg"
+    },
+    "compiled_backend": {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so",
+      "before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+    }
+  },
+  "inventory": {
+    "structure_function_exports": 28,
+    "structure_calculations": 18,
+    "structure_coordinate_editors": 10,
+    "pending_reviewed_structure_exports": [],
+    "full_scientific_qualification": false
+  },
+  "contract": {
+    "primary_system": "current view.molsys implicit",
+    "defaults_and_returns": "native scientific defaults, independent outputs without adoption, in-place None",
+    "set_skip_digestion": "keyword-only addon flag; native setter always uses ordinary validation",
+    "shift_skip_digestion": "native declared flag forwarded",
+    "update_view": "keyword-only; immediate by default, false defers projection only",
+    "moving_scope": "native quartets and blocks; receiver declares retained axes without selection/syntax or graph reconstruction",
+    "units": "native unit-bearing angles/shifts; no numerical unit stripping in addon",
+    "periodic": "native PBC, boxes unchanged, no implicit reconstruction",
+    "synchronization": "selected-structure native invalidation; scene identity/maps and sync-only recovery retained"
+  },
+  "validation": {
+    "focused": {
+      "path": "/tmp/msv-dihedrals-targeted.xml",
+      "sha256": "a4d5a33ce96df85054d789e6ffc812ac6d3ef09ca7805bce03b369cadc884060",
+      "tests": 61,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "isolated_regression": {
+      "path": "/tmp/msv-dihedrals-regression.xml",
+      "sha256": "02a81933fba1b73a1a9fae9a71041b2569abf329425231667dd285ae7f4edda7",
+      "tests": 1469,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "host_guides": {
+      "path": "/tmp/msv-dihedrals-host-guides.xml",
+      "sha256": "adf0ac9738f2830022e0f33165c8a5293afe0ae25a56df4fd49fed7f54b4f71e",
+      "tests": 280,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "examples": {
+    "guide_blocks": 29,
+    "doctests": {
+      "molsysviewer_molsysmt._structure": {
+        "failed": 0,
+        "attempted": 105
+      },
+      "molsysviewer_molsysmt._topology": {
+        "failed": 0,
+        "attempted": 41
+      }
+    }
+  },
+  "source_watch": {
+    "checkout": "/tmp/msm-dihedrals-isolated-nwxh8j95",
+    "manifest": "/tmp/msv-dihedrals-regression-source.json",
+    "sha256": "8f4ea492dfd41e9f7155597a24782d91233bceed277e6abf799b04e83c6a55b9",
+    "watched_files": 2986,
+    "changed_during_run": [],
+    "generated_metadata": {
+      "path": "molsysmt/_version.py",
+      "before": null,
+      "reason": "Ignored versioning metadata, recorded separately.",
+      "after": "3ca558d9b035810b731e00ca8d5f7a727859132b7b1d7aca705d3508a51ea343"
+    },
+    "tested_hashes": {
+      "molsysmt/structure/set_dihedral_angles.py": "c5e725cf68a26311401c768fc2dbb9a17eefaee0f7dd38b354af868fb183fd59",
+      "molsysmt/structure/shift_dihedral_angles.py": "6276f33282bc8b2c41dc3c9d279f4c6d06f6ad6c74ee4fad3782d0e62a0144f7",
+      "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+      "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+      "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+      "molsysviewer_molsysmt/_basic.py": "c5080aeb672e648dd9f6f7a7a801e40ab28dc4dbe21248f20d60f52a726a5deb",
+      "molsysviewer_molsysmt/_geometry.py": "8452afa880e851db1e13127f0b12a5302a88ae69e84696bf0c083e4e2a1bc037",
+      "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+      "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+      "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+      "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+      "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+      "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+      "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+      "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+      "molsysviewer_molsysmt/_structure.py": "0c313e4679928cf2461dad72575a82537426c965708a7f54178d0a3904ce70ce",
+      "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+      "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+      "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py": "02337372d6be65bfdf042aa43466a2f65416d135e50d0a067a2a35487448bc46"
+    }
+  },
+  "native_audits": {
+    "general": {
+      "path": "/tmp/msv-dihedral-native-audit.json",
+      "sha256": "2692de64f6d5a99abfc158db8c107516165cf64e5c49e1358187ed69187a455f",
+      "data": {
+        "source": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+        "quartets": [
+          [
+            4,
+            6,
+            8,
+            14
+          ]
+        ],
+        "blocks": [
+          [
+            8,
+            14
+          ]
+        ],
+        "records": [
+          {
+            "case": "set_copy",
+            "error": null,
+            "input_changed": false,
+            "finite": true,
+            "changed_atoms": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61
+            ],
+            "output_phi": [
+              [
+                0.6999999999999998
+              ]
+            ]
+          },
+          {
+            "case": "set_nan",
+            "error": null,
+            "input_changed": false,
+            "finite": false,
+            "changed_atoms": [
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61
+            ],
+            "output_phi": [
+              [
+                null
+              ]
+            ]
+          },
+          {
+            "case": "shift_custom",
+            "error": null,
+            "input_changed": false,
+            "finite": true,
+            "changed_atoms": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61
+            ],
+            "output_phi": [
+              [
+                -2.0135705706634552
+              ]
+            ],
+            "custom_delegate_max_difference_nm": 0.3647040883889531,
+            "custom_expected_changed_atoms": [
+              14
+            ]
+          },
+          {
+            "case": "shift_default",
+            "error": null,
+            "input_changed": false,
+            "finite": true,
+            "changed_atoms": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61
+            ],
+            "output_phi": [
+              [
+                -2.0135705706634552
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "structure_scope": {
+      "path": "/tmp/msv-dihedral-native-scope.json",
+      "sha256": "5579efc145201a686938b49debc4fd51bff955a593c529f450187f87e911664c",
+      "data": {
+        "quartets": [
+          [
+            4,
+            6,
+            8,
+            14
+          ],
+          [
+            14,
+            16,
+            18,
+            24
+          ]
+        ],
+        "records": [
+          {
+            "case": "set_all_broadcast",
+            "error": null,
+            "input_changed": false,
+            "output_angles": [
+              [
+                0.6999999999999998,
+                0.7000000000000003
+              ],
+              [
+                0.7000000000000001,
+                0.6999999999999997
+              ],
+              [
+                0.7000000000000003,
+                0.6999999999999995
+              ]
+            ]
+          },
+          {
+            "case": "set_repeated",
+            "error": null,
+            "input_changed": false,
+            "output_angles": [
+              [
+                0.4999999999999999,
+                0.7000000000000001
+              ],
+              [
+                -1.2093379964194744,
+                -1.2039463965281973
+              ],
+              [
+                0.7999999999999997,
+                0.9999999999999999
+              ]
+            ]
+          },
+          {
+            "case": "shift_repeated",
+            "error": null,
+            "input_changed": false,
+            "output_angles": [
+              [
+                -1.8135705706634555,
+                -0.6328991035983181
+              ],
+              [
+                -1.2093379964194744,
+                -1.2039463965281973
+              ],
+              [
+                -1.7789953127219689,
+                -1.702766902634983
+              ]
+            ]
+          },
+          {
+            "case": "set_default_copy",
+            "error": null,
+            "input_changed": false,
+            "output_angles": [
+              [
+                0.6999999999999998,
+                0.7000000000000003
+              ],
+              [
+                0.7000000000000001,
+                0.6999999999999997
+              ],
+              [
+                0.7000000000000003,
+                0.6999999999999995
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "periodic_oracle": {
+      "path": "/tmp/msv-dihedral-native-pbc.json",
+      "sha256": "db45840c225192c811bd6534bc144eea2f512dd69fc4cb114526dd072511565b",
+      "data": [
+        {
+          "box": [
+            [
+              4.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              4.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              4.0
+            ]
+          ],
+          "max_difference_nm": 8.881784197001252e-16,
+          "angle": 0.6999999999999998,
+          "source_changed": false
+        },
+        {
+          "box": [
+            [
+              4.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.6,
+              4.0,
+              0.0
+            ],
+            [
+              0.4,
+              0.2,
+              4.0
+            ]
+          ],
+          "max_difference_nm": 3.552713678800501e-15,
+          "angle": 0.6999999999999992,
+          "source_changed": false
+        }
+      ]
+    },
+    "nonfinite_modes": {
+      "path": "/tmp/msv-dihedral-native-nonfinite.json",
+      "sha256": "859144b1fb1d3c1ecfa4e41589dd8f59d30f261c2bdc6c0b8e4e58f903a98685",
+      "data": {
+        "source": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+        "quartets": [
+          [
+            4,
+            6,
+            8,
+            14
+          ]
+        ],
+        "records": [
+          {
+            "method": "set_dihedral_angles",
+            "in_place": false,
+            "error": null,
+            "output_is_finite": false,
+            "input_is_finite": true,
+            "input_changed": false,
+            "nonfinite_structures": [
+              0
+            ]
+          },
+          {
+            "method": "set_dihedral_angles",
+            "in_place": true,
+            "error": null,
+            "output_is_finite": false,
+            "input_is_finite": false,
+            "input_changed": true,
+            "nonfinite_structures": [
+              0
+            ]
+          },
+          {
+            "method": "shift_dihedral_angles",
+            "in_place": false,
+            "error": null,
+            "output_is_finite": false,
+            "input_is_finite": true,
+            "input_changed": false,
+            "nonfinite_structures": [
+              0
+            ]
+          },
+          {
+            "method": "shift_dihedral_angles",
+            "in_place": true,
+            "error": null,
+            "output_is_finite": false,
+            "input_is_finite": false,
+            "input_changed": true,
+            "nonfinite_structures": [
+              0
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "findings": [
+    {
+      "provider": "molsysmt",
+      "issue": null,
+      "status": "awaiting_maintainer_authorization_to_open_issue",
+      "finding": "shift_dihedral_angles ignores explicit blocks; native setter with same requested block moves only atom 14 whereas shift moves the automatic connected block."
+    },
+    {
+      "provider": "molsysmt",
+      "issue": null,
+      "status": "awaiting_maintainer_authorization_to_open_issue",
+      "finding": "Both native editors accept NaN angular values and publish nonfinite coordinates, in independent and in-place modes."
+    }
+  ],
+  "limitations": [
+    "Nonfinite-input routes and explicit-block shifting are not qualified; no scientific workaround in addon.",
+    "Audit data replaces nonfinite JSON numbers with null only in the copied structured record; original bytes/digest are preserved.",
+    "Complete exposure of structure does not mean unconditional scientific stability or published package compatibility.",
+    "No fresh Rust build, live GUI/Qt, all-platform or installed-artifact qualification.",
+    "Other namespaces, task panels, public floors, tags and releases remain separate."
+  ]
+}

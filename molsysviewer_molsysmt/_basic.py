@@ -70,6 +70,8 @@ def _native_documentation(name, module="basic"):
             "center",
             "move_away",
             "align_principal_axes",
+            "set_dihedral_angles",
+            "shift_dihedral_angles",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -93,6 +95,8 @@ def _native_documentation(name, module="basic"):
             "center",
             "move_away",
             "align_principal_axes",
+            "set_dihedral_angles",
+            "shift_dihedral_angles",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -120,6 +124,25 @@ def _native_documentation(name, module="basic"):
                 "before coordinate writes (uibcdf/molsysmt#460). The addon forwards "
                 "these inputs unchanged and supplies no reflection algorithm.\n"
             )
+        if module == "structure" and name in {
+            "set_dihedral_angles",
+            "shift_dihedral_angles",
+        }:
+            function.__doc__ += (
+                "Native quartets, angular units, ordered structure axes and "
+                "moving covalent blocks determine the edit. The addon adds no "
+                "torsion formula, graph cut, block correction or periodic preparation. "
+                "Only finite valid torsions are qualified at the reviewed source. "
+                "Native nonfinite angles can publish NaN coordinates; explicit blocks "
+                "are not yet honored by native shift_dihedral_angles. Those routes "
+                "remain unqualified pending the scientific owner's repair.\n"
+            )
+            if name == "set_dihedral_angles":
+                function.__doc__ += (
+                    "skip_digestion : bool, keyword-only, default=False\n"
+                    "    Control addon digestion only. Native set_dihedral_angles "
+                    "has no skip_digestion parameter and retains ordinary validation.\n"
+                )
         if module == "structure" and name == "align_principal_axes":
             function.__doc__ += (
                 "skip_digestion : bool, keyword-only, default=False\n"

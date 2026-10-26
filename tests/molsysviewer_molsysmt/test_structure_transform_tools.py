@@ -78,6 +78,8 @@ def test_signature_help_namespace_and_explicit_integration_controls(view):
             "center",
             "move_away",
             "align_principal_axes",
+            "set_dihedral_angles",
+            "shift_dihedral_angles",
         )
     )
     assert not hasattr(view.addons.molsysmt, "translate")

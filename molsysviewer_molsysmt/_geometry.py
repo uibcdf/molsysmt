@@ -147,6 +147,8 @@ def _prepare_geometry_transform(target, name, parameters):
         "center",
         "move_away",
         "align_principal_axes",
+        "set_dihedral_angles",
+        "shift_dihedral_angles",
     }:
         raise NotImplementedError(
             f"Managed structure transform {name!r} is not received."
@@ -168,7 +170,12 @@ def _prepare_geometry_transform(target, name, parameters):
     # A successful sequence alignment guarantees nonempty anchors and moves
     # their components. Its atomic-mask contract belongs to the native tool;
     # generic select must not reinterpret that population during admission.
-    if name == "least_rmsd_align":
+    if name in {"set_dihedral_angles", "shift_dihedral_angles"}:
+        # The native torsion tool resolves its own quartets and moving blocks.
+        # Admission declares retained axes and possible coordinate publication;
+        # it must not infer a selection or recompute molecular connectivity.
+        has_atoms = int(target.get_n_atoms()) > 0
+    elif name == "least_rmsd_align":
         has_atoms = True
     else:
         atoms = basic.select(
@@ -201,6 +208,8 @@ def _run_geometry_transform(owner, name, parameters, update_view):
         "center",
         "move_away",
         "align_principal_axes",
+        "set_dihedral_angles",
+        "shift_dihedral_angles",
     }:
         raise NotImplementedError(f"Structure transform {name!r} is not received.")
     in_place = digest_in_place(

@@ -34,6 +34,8 @@ class _StructureTools:
         "center",
         "move_away",
         "align_principal_axes",
+        "set_dihedral_angles",
+        "shift_dihedral_angles",
     )
 
     def __init__(self, owner):
@@ -1029,6 +1031,73 @@ class _StructureTools:
                 "syntax": syntax,
                 "engine": engine,
                 "in_place": in_place,
+            },
+            update_view,
+        )
+
+    @_native_documentation("set_dihedral_angles", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def set_dihedral_angles(
+        self,
+        dihedral_quartets=None,
+        angles=None,
+        blocks=None,
+        structure_indices="all",
+        pbc=True,
+        in_place=False,
+        engine="MolSysMT",
+        *,
+        skip_digestion=False,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "set_dihedral_angles",
+            {
+                "dihedral_quartets": dihedral_quartets,
+                "angles": angles,
+                "blocks": blocks,
+                "structure_indices": structure_indices,
+                "pbc": pbc,
+                "in_place": in_place,
+                "engine": engine,
+            },
+            update_view,
+        )
+
+    @_native_documentation("shift_dihedral_angles", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def shift_dihedral_angles(
+        self,
+        dihedral_quartets=None,
+        shifts=None,
+        blocks=None,
+        structure_indices="all",
+        pbc=True,
+        in_place=False,
+        engine="MolSysMT",
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "shift_dihedral_angles",
+            {
+                "dihedral_quartets": dihedral_quartets,
+                "shifts": shifts,
+                "blocks": blocks,
+                "structure_indices": structure_indices,
+                "pbc": pbc,
+                "in_place": in_place,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
             },
             update_view,
         )

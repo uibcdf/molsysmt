@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -904,3 +904,55 @@ no claim of live Qt/window observation. Native #456/#457 guards are received;
 concurrent scientific reflection work under uibcdf/molsysmt#460 is excluded from
 this isolated local campaign and preserved in the shared checkout. Integrated
 source identity and exact-head hosted CI follow separately. No release follows.
+
+
+## Native dihedral editors received with scientific limits — 2026-10-25
+
+Explicit set_dihedral_angles and shift_dihedral_angles wrappers preserve native
+scientific arguments/defaults/returns with the current MolSys implicit. Both
+add keyword-only update_view; only the setter needs addon-only skip_digestion,
+because it has no native bypass. The shifter retains its native declared flag.
+The retained-axis receiver uses atom/structure counts for possible publication,
+without inventing a selection or recomputing molecular graph cuts. Native
+quartets, blocks, angular units, periodic kernels and selected-scope invalidation
+remain owned by the scientific tools. No torsion formula or workaround is added.
+
+All 28 function exports of the reviewed structure namespace are now explicitly
+exposed (18 calculations, ten coordinate editors). This does not certify every
+input, backend or published package. The focused guard
+ tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py passes 61 cases:
+independent NumPy quaternion/torsion checks, multi-quartet and repeated structures,
+angular/length policies, native broadcasting, explicit setter blocks, orthogonal
+and triclinic periodic images, missing boxes, clean rejection, native ownership,
+scene maps/lifetime and sync-only transport recovery. Full local and exact-head
+hosted scopes follow separately.
+
+Native-only reproduction at e568a6269 shows that nonfinite angles can publish
+nonfinite coordinates and that shift_dihedral_angles ignores explicit blocks.
+Those routes are unqualified; native science must be repaired by its owner,
+without an addon correction. The maintainer has been offered two owning reports;
+reporting authorization is pending at this checkpoint. Broader namespaces,
+task panels, installed compatibility, floors and releases remain separate.
+
+
+### Completed local torsion qualification — 2026-10-25
+
+The focused real-view guard passes 61 cases. One executed full applicable
+regression on fixed bb6283ce7 plus the owned torsion patch passes 1469 cases,
+zero failures/errors/skips, in 281.87 seconds. Scientific/addon source hashes and
+the existing compiled backend do not change during execution. Generated version
+metadata is recorded separately. All 29 guide blocks and 146 native-context
+doctests pass; Viewer reporting/link guards pass 280 cases. Ruff and isolated
+guide/index validation pass. Documentary plots use MPLBACKEND=Agg; this is not
+live Qt/window qualification.
+
+MolSysMT's source receipt is
+`devtools/data/molsysviewer_tools_dihedrals_receiving_20261025.json`.
+It retains original JUnit digests, source/backend hashes, native-only reproductions,
+periodic-image quaternion checks and the status of the offered provider reports.
+NaN reproduction is confirmed in both editors and copy/in-place modes. Explicit
+blocks are ignored by native shifting. Those limitations remain unqualified;
+reporting authorization is pending, not assumed. No molecular/scientific
+workaround is introduced. Exact integrated-head source CI follows separately;
+source exposure, scientific qualification and installed/public availability remain
+separate claims. No release, tag or dependency-floor change follows.
