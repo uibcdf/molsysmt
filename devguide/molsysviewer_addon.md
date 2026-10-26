@@ -739,5 +739,21 @@ guide blocks and 158 inherited native docstring examples pass. Ruff, devguide,
 indexes, diff and the single CI pytest-command checks pass. The Biophysics PBC
 notebook itself fails before computation on its absent H5MSM demo key; the other
 three PBC course modules were reviewed, not rerun through remote solvation.
-Owning reports remain offered/pending authorization. Exact committed-head CI is
-still pending; this evidence does not qualify installed package artifacts.
+Owning reports remain offered/pending authorization. The local checkpoint precedes exact committed-head CI, whose terminal evidence
+is recorded below; neither qualifies installed package artifacts.
+
+### Exact-source PBC CI completed — 2026-10-26
+
+Provider 9061e21494a1f50c1b4f5126edc4e938dbb0b2c2 passes all six original
+controls. [Smoke 40386788168](https://github.com/uibcdf/molsysmt/actions/runs/40386788168),
+job 121797066424, passes 1,258 native cases and 924 addon cases (including all
+33 new PBC cases), with no failures/errors/skips. Dependency 40386787152,
+Ruff 40386787130, guide integrity 40386787075, suite policy 40386788769 and
+Conda governance 40386789041 also pass. GH Run Receptor agrees with GitHub's
+terminal success. Original log `/tmp/msm-addon-9061e214-pbc-smoke.log` has
+SHA-256 `e5d076fbd4752f89261148c8a93251d21df8f538d861d73cf67d43b1e42fdd10`. The dated local JSON receipt retains
+its pre-CI checkpoint; this terminal evidence supersedes its pending-CI status.
+The workflow uses its recorded routine host source, and no host runtime or
+installed artifact qualification is introduced. Other PBC editors, native
+repairs, broad namespaces, graphical panels and package compatibility remain
+separate; both 1.0 publications remain paused.
