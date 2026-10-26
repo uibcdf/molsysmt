@@ -888,3 +888,9 @@ sources match the snapshot. The new user-guide example executes. The
 23 pending exports, independent references versus parity and both native audits.
 Post-run additions concern report/index/documentation only; committed-head CI is
 still separate and pending at this snapshot. No host runtime change is needed.
+
+
+The physchem producer 2b777e554 now passes all six original source CI controls,
+including 1,576 native and 1,137 addon cases in smoke 40413404006. This supersedes
+the local receipt's pending-CI state. The [provider record](pending_proposals/molsysviewer_tools_addon.md)
+retains terminal evidence, source hashes and native/installed limits.

@@ -1138,3 +1138,22 @@ sources match the snapshot. The new user-guide example executes. The
 23 pending exports, independent references versus parity and both native audits.
 Post-run additions concern report/index/documentation only; committed-head CI is
 still separate and pending at this snapshot. No host runtime change is needed.
+
+
+## Physchem source CI completed — 2026-10-26
+
+Producer 2b777e554e7b382453ba0e2752fe726406f2dcab passes all six original
+controls. [Smoke 40413404006](https://github.com/uibcdf/molsysmt/actions/runs/40413404006),
+job 121889543344, passes 1,576 native and 1,137 addon cases with no failures,
+errors or skips. Ruff 40413403765, dependency 40413403966, developer guide
+40413403822, suite policy 40413404345 and Conda governance 40413404537 pass.
+GH Run Receptor confirms terminal success. Original log
+`/tmp/msm-addon-2b777e55-physchem-smoke.log` has SHA-256
+`64a00b665449213d4daf86a79122c8b3683310ced10b64cac452c57ebc058983`.
+
+This supersedes the pending-CI status in the immutable local physchem receipt;
+it does not relabel local source evidence as installed qualification. Native
+uibcdf/molsysmt#470 and uibcdf/molsysmt#471 remain open limitations. The 23
+remaining physchem exports, panels, installed artifacts, dependency floors and
+both 1.0 publications retain their separate scope. Concurrent native periodic
+repairs are not part of this exact producer. No host runtime change is needed.
