@@ -1,0 +1,174 @@
+{
+  "schema": "molsysmt.pbc_repairs_qualification@1",
+  "date": "2026-10-26",
+  "issues": [
+    "uibcdf/molsysmt#467",
+    "uibcdf/molsysmt#465",
+    "uibcdf/molsysmt#466",
+    "uibcdf/molsysmt#472"
+  ],
+  "source_base": "54b754d02ce71ef2b8782dd1098c445b86d24786",
+  "scope": "Local development source qualification of centered wrapping ownership, box defaults, dictionary coordinate axes and the real membrane course. No installed-consumer or release qualification.",
+  "environment": {
+    "python": "3.14.7",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "mdtraj": "1.11.1"
+    }
+  },
+  "baseline_observations": [
+    {
+      "scope": "Original ownership guard before adding the copy bound and evaluated-empty refinement",
+      "command": "python -m pytest tests/pbc/test_centered_wrapping_ownership.py --receptor=llm -n 12",
+      "failed": 112,
+      "passed": 152,
+      "seconds": 9.81,
+      "causes": {
+        "independent_dictionary_setter_axis_error": 64,
+        "native_centered_in_place_target_error": 48
+      }
+    },
+    {
+      "command": "python -m pytest tests/form/molsysmt_StructuresDict/test_coordinate_set_axes.py --receptor=llm -n 12",
+      "failed": 6,
+      "passed": 6,
+      "seconds": 5.71
+    },
+    {
+      "command": "python -m pytest tests/pbc/get_box_from_lengths_and_angles/test_get_box_from_lengths_and_angles.py -k 'omitted or none' --receptor=llm -n 12",
+      "failed": 8,
+      "passed": 2,
+      "seconds": 4.28
+    },
+    {
+      "command": "python -m pytest tests/documentation/test_pbc_course.py --receptor=llm -n 12",
+      "failed": 2,
+      "passed": 0,
+      "seconds": 4.78,
+      "cause": "Absent membrane registry key"
+    }
+  ],
+  "final_commands": [
+    {
+      "command": "python -m pytest tests/pbc tests/scientific_truth/pbc tests/structure/center tests/structure/translate tests/form/molsysmt_StructuresDict tests/documentation/test_pbc_course.py tests/documentation/test_notebook_schema.py tests/test_argument_contract.py --receptor=llm -n 12",
+      "passed": 1121,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 45.92,
+      "warnings": 13,
+      "warning_groups": [
+        "Intentional LegacyH5MSMWarning"
+      ]
+    },
+    {
+      "command": "doctest.testmod on molsysmt.pbc.wrap_to_pbc, wrap_to_mic, get_box_from_lengths_and_angles and form.molsysmt_StructuresDict.set",
+      "modules": 4,
+      "examples_passed": 27,
+      "failed": 0
+    },
+    {
+      "command": "MSM_VIEWS_FROM_HTML_FILES=True MPLBACKEND=Agg python docs/execute_notebooks.py -q -n 12 -f docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb docs/content/course/Path_Biophysics/40_PBC_Geometry.ipynb docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb docs/content/user/tools/pbc/wrap_to_mic.ipynb docs/content/user/tools/pbc/wrap_to_pbc.ipynb",
+      "executed": 5,
+      "failed": 0,
+      "scope": "The Cookbook edit is prose-only; its old solvation workflow was not newly executed."
+    },
+    {
+      "command": "python devtools/scripts/release_gate.py",
+      "passed": 14,
+      "failed": 0
+    },
+    {
+      "command": "python devtools/scripts/validate_docstrings.py",
+      "public_functions": 251,
+      "status": "passed"
+    },
+    {
+      "command": "MSM_VIEWS_FROM_HTML_FILES=True MPLBACKEND=Agg make -C docs html SPHINXOPTS='-q -j 12'",
+      "status": "passed",
+      "errors": 0,
+      "warnings": 29,
+      "scope": "incremental HTML; existing heading/toctree warnings"
+    },
+    {
+      "command": "ruff check and ruff format --check on all nine changed executable paths",
+      "status": "passed"
+    }
+  ],
+  "observed_contracts": [
+    "Both wrappers publish into the original in-place target after optional centering.",
+    "Independent centered wrapping uses one whole-system copy.",
+    "Only selected coordinates/structures change; boxes, topology and previous interaction snapshots remain intact.",
+    "Edited evaluated-empty structures become unevaluated; other evaluated coverage remains.",
+    "Shared/row-aligned angles, orthogonal defaults, empty length axes and nm/pm policies retain defined box shapes.",
+    "Public dictionary coordinate writes retain the structure-first Cartesian population, order and repeated indices.",
+    "The membrane lesson uses the actual registered PSF/DCD and validates lengths/angles against direct DCD seek/read plus determinant/product volumes."
+  ],
+  "prior_failed_repair_run": {
+    "failed": 2,
+    "passed": 1119,
+    "seconds": 45.96,
+    "cause": "The independent test reference passed pathlib.Path to an external API requiring str; final full selection above rerun after correction."
+  },
+  "limitations": [
+    "No full-suite, cross-platform, installed package, installed consumer or release matrix was run.",
+    "The independently owned addon admission guard still requires explicit reception of the native repair.",
+    "No new wrapping kernel, precision rule, chemical interpretation or PBC geometry method.",
+    "Copy count is guarded; no peak RSS or throughput benchmark is claimed.",
+    "The source-fixture and explicit-angle-policy test harness corrections are recorded, not treated as passing original runs.",
+    "The three other path-40 notebooks received prose-only provider/addon boundary corrections; their unchanged biological code was inspected, not newly executed."
+  ],
+  "fixtures": {
+    "molsysmt/data/dcd/popc_membrane.dcd": {
+      "bytes": 4739116,
+      "sha256": "f61f0fe4f15ff7a6828ba38f6529bee79b4f238e890374f8d8eff5c26469165f"
+    },
+    "molsysmt/data/psf/popc_membrane.psf": {
+      "bytes": 16523764,
+      "sha256": "4c7f752b3ace6eec0b5cce1cd881a176daf1a42aac805cab00021b7e6a5440f0"
+    }
+  },
+  "file_sha256": {
+    "molsysmt/_private/argdigest/argument/box_angles.py": "f117f2750da1eb1da38ad276422f98e597d6fe08614ceac471b9f7decd3fc3b1",
+    "molsysmt/form/molsysmt_StructuresDict/set.py": "80f2bcb9aa8bfdbc623f235947fe01089f8c657b1b89609c11c79e1fd1d3c432",
+    "molsysmt/pbc/get_box_from_lengths_and_angles.py": "8244092fee37b16283180a1dfba28b5d130e65f271d99348ee22d6ac6d6b54c5",
+    "molsysmt/pbc/wrap_to_mic.py": "c3a50a21e41563c7fb80572549a33530caac7f1eb126649f3426722ade6fa92e",
+    "molsysmt/pbc/wrap_to_pbc.py": "891a1a4e6c3484bfcbd5645b6aefa3f1e10ad71e1d9c2a4d65728b7922fb2cdf",
+    "tests/pbc/test_centered_wrapping_ownership.py": "6f0a496a20b7bb058034b794bf3247e018a8d67f3a3056f452c08aef1e55cc29",
+    "tests/pbc/get_box_from_lengths_and_angles/test_get_box_from_lengths_and_angles.py": "728286a9812fc09863b88058a8368a86b577016c714771b10204eab81f0cf16e",
+    "tests/form/molsysmt_StructuresDict/test_coordinate_set_axes.py": "479781e3178a27d23ab97e95a67ce339c482c1c0a82f39b602ac2eb859697727",
+    "tests/documentation/test_pbc_course.py": "93b282eeae17b2fa5df4f656b52869530ff1d1c8f53e9558104da489c02a2577",
+    "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb": "bd3d601f3e744293813bc637d88e9bc9600967f276bb102879ea581ebc8b420b",
+    "docs/content/course/Path_Biophysics/40_PBC_Geometry.ipynb": "d5e07a818f86949948e29096245bf01bcc7173e1eb8a647ee0674afc8ea74e3b",
+    "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb": "1177a52f3a6141b65eddc78c319991dfbec87b112411fd360adb46ffa1e95dff",
+    "docs/content/user/tools/pbc/wrap_to_mic.ipynb": "d88a89f309ae5b96b1d3451f21fbd16117ea2bd2de5eb7bec698abaefc50f785",
+    "docs/content/user/tools/pbc/wrap_to_pbc.ipynb": "eae0917e8945ee5f37bb6ba7ae679852751314e2100aa7f1eaa58f365c22b815",
+    "devguide/native_structures_contract.md": "531177144bd66179641bcfba3d834a44c3d79ea5f70c3383839329d33246ce16",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "fa78f27462182e1c021f459740b26b19e5c92a6e58b1e2fb28e3b5efb4d05704",
+    "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "d0453c43fa97e6bce066aa49a9eabd9db47f4c63590bf8dae3095a7b03a04dfa",
+    "docs/content/user/foundations/native_world/classes/molsysmt_StructuresDict.md": "065c8e3923831d00f01c1d93d30ff854f579d47347103245b580de03516db425",
+    "docs/docs_manifest.yml": "21d9e253bbcca638eb99c21b40bc6936c1cf42a4ea39b65b0e3a0a65e846e2ec",
+    "devguide/pending_bugs/README.md": "264d8ee4f0498d2822af742fd28fbeff094ffa600ef6541c094a73fd561e2358",
+    "devguide/archive/resolved_bugs/box_factory_rejects_default_angles.md": "e26d489a9f57ea69066ed8b08c971a4fe9a0375113170ecd5992c34d732060c4",
+    "devguide/archive/resolved_bugs/centered_periodic_wrapping_ignores_in_place_target.md": "8fa454781cdcf6165383b11ba027ce43e78b4795b306d52ce571fd3094cf74b5",
+    "devguide/archive/resolved_bugs/course_pbc_uses_absent_membrane_demo.md": "f3aee14599d8fe45c8294efafafef57a5cb213e2f921c0d475e0b0ecdccfc83f",
+    "devguide/archive/resolved_bugs/structuresdict_coordinate_setter_reverses_selected_axes.md": "abf0df7a485ffce8697ca3ef040c401d8b3c02b37f0cd4d3199e1e3e6b74ed93",
+    "docs/content/course/Common_Core/19_Structures_and_Trajectories.nbconvert.last_run": "f7ab76cdcccf066dbe1aa588780e9e46c5c3caa71bbc587c971625ed051b2bc2",
+    "docs/content/course/Path_Biophysics/40_PBC_Geometry.nbconvert.last_run": "8c16ddd12d4d4f827de5d430e379a30a73547ed0375f8958cf24c5aa3a70ff1b",
+    "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run": "4bf56a920224801a1dab6551bbb38b3c6e7e290469a5bdaad1d1dc7dc63f71b6",
+    "docs/content/user/tools/pbc/wrap_to_mic.nbconvert.last_run": "fd67508acbe74320f775c8a38c84b51bc4959a764cc2d84c7251a1f49bdf3ff4",
+    "docs/content/user/tools/pbc/wrap_to_pbc.nbconvert.last_run": "15751dff028288b9f4dac20cc685811efc30cc64c9b681542d6c534c9b350f64",
+    "docs/content/course/Path_Alzheimer/40_PBC_Geometry.ipynb": "ab871a89c0148119ed64f215825e0780e43aff6031614479504f22e6df11c8e4",
+    "docs/content/course/Path_Antiviral/40_PBC_Geometry.ipynb": "61130c47467f8f48c5bbadabf4f4b9c764ffa644d94767c4a68e5013f4ab1dba",
+    "docs/content/course/Path_Enzyme/40_PBC_Geometry.ipynb": "8ade8c70c48973fe5054f0f1beaf285b6252f9d9ff0ae02068d1e765ae7ca7ae"
+  }
+}

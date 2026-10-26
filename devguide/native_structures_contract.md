@@ -152,3 +152,28 @@ Changes to this contract require tests for:
 - `Structures`, `StructuresDict`, `MolSys`, `append_structures()`, and
   `concatenate_structures()` parity;
 - extraction, YAML, and H5MSM round trips after structural growth.
+
+## Periodic edit ownership
+
+`pbc.wrap_to_pbc` and `pbc.wrap_to_mic` retain the original molecular system as
+the publication target with `in_place=True`, including optional centering.
+Centering uses an independent working system. Independent output reuses that
+system; it does not create a second whole-system copy. Geometry kernels are
+unchanged. Selected coordinate publication preserves topology, boxes and
+unselected coordinates; native MolSys setters invalidate interaction coverage
+only on the edited structures. Rejected centering/box validation preserves the
+original target and its analysis snapshots. Guard:
+`tests/pbc/test_centered_wrapping_ownership.py`.
+
+StructuresDict stores coordinates as `(n_structures, n_atoms, 3)`. Its public
+setter uses the structure-first outer product when both index lists are explicit,
+retaining caller ordering and repeated indices. Unit conversion precedes
+assignment; no transposed population is inferred from square dimensions. Guard:
+`tests/form/molsysmt_StructuresDict/test_coordinate_set_axes.py`.
+
+The public box factory uses orthogonal angles when omitted or None. One angle
+triple is shared over length rows; otherwise row counts must match before the
+Rust call. The output always has a structure axis. Angular inputs normalize to
+radians independently of application angle standards; output follows the active
+length standard. The six-decimal-nanometer matrix precision is unchanged.
+Guard: `tests/pbc/get_box_from_lengths_and_angles/test_get_box_from_lengths_and_angles.py`.

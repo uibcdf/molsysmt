@@ -179,3 +179,10 @@ structures, including evaluated-empty analyses. Explicit blocks allow the same
 coordinate operation on a `Structures` input without topology; automatic blocks
 require connectivity. See {ref}`Tutorial_Set_dihedral_angles` and
 {ref}`Tutorial_Shift_dihedral_angles`.
+
+Periodic centering and wrapping honor the same edit ownership. An in-place
+operation writes the final centered/wrapped coordinates into the original
+system; independent mode preserves it. Only selected atoms and structures are
+published, and boxes remain unchanged. On a MolSys, the public coordinate setter
+invalidates interaction coverage for those structures. See
+{ref}`Tutorial_Wrap_to_pbc` and {ref}`Tutorial_Wrap_to_mic`.

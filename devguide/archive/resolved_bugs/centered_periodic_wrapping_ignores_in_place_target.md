@@ -1,13 +1,13 @@
 ---
 summary: Centered periodic wrapping ignores the original in-place target.
 issue: uibcdf/molsysmt#467
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: high
 verification: reproduced
 area: [pbc, structure]
-guard:
+guard: tests/pbc/test_centered_wrapping_ownership.py
 normative:
 blocked_by: []
 supersedes: []
@@ -91,3 +91,45 @@ An assertion only on a returned independent system cannot guard this defect.
 Linux/Python 3.14 in `molsyssuite@uibcdf_3.14`; bundled 62-atom pentalanine,
 three structures selected as [0, 8, 3], cubic 3 nm boxes and explicit shifts.
 Raw audit and exact source hashes are retained with addon receiving evidence.
+
+## Resolution — 2026-10-26
+
+Both wrappers keep the original argument as their final in-place publication
+target and use a separate centered working system for computation. Independent
+centered output reuses that working system, avoiding the former second complete
+system copy. No periodic geometry kernel, centering criterion or public
+signature changes. Native coordinate setters retain exact edited-structure
+analysis invalidation; evaluated-empty structures are covered explicitly.
+
+The guard compares actual original/output coordinates with independent
+orthogonal-cell arithmetic for primary boxes, shifted origins, box centers and
+MIC, with atom-wise and two covalent-component populations. It covers MolSys,
+Structures and StructuresDict, nm/pm standards, nonconsecutive/repeated structure
+lists, selected/unselected atoms, original topology identity and boxes, previous
+analysis snapshots, rejected centering/box validation and the one-copy bound.
+The original pre-fix guard run had 48 native numerical failures from the wrong
+in-place target; its separate 64 dictionary failures are resolved under
+uibcdf/molsysmt#472. Four invalid-box test expectations were corrected before
+that final baseline because assigning the invalid box itself legitimately
+invalidated analyses before the wrapping call. The recorded baseline is
+112 failures and 152 passes, not a successful qualification.
+
+Public docstrings, PBC tutorials, Foundations, Cookbook, course Module 19 and
+[native structural rules](../../native_structures_contract.md) describe ownership.
+The addon intentionally rejects this combination until its separate reception
+adopts the native repair; provider success alone does not qualify Viewer.
+
+## Qualification receipt — 2026-10-26
+
+The integrated PBC/centering/translation/dictionary/argument/documentation
+selection passes **1,121 tests** in 45.92 seconds with `--receptor=llm -n 12`,
+without skips (13 intentional legacy-H5MSM warnings). Four source modules pass
+all 27 doctest examples. All five modified executable notebooks run successfully.
+The Cookbook change is explanatory prose; its pre-existing solvation workflow
+was not newly executed. Ruff and format checks, 251-function docstring validation
+and all fourteen fast repository gates pass. Incremental Sphinx HTML completes
+without errors and with 29 existing heading/toctree warnings; no warning-free
+full build or installed release qualification is claimed.
+
+Commands, environment, tested source hashes, fixture bindings and limitations
+are retained in the [PBC repair receipt](../../../devtools/data/pbc_repairs_20261026.json).

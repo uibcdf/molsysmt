@@ -3,6 +3,10 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
 
+_BOX_FACTORY = (
+    "molsysmt.pbc.get_box_from_lengths_and_angles.get_box_from_lengths_and_angles"
+)
+
 
 def digest_box_angles(box_angles, caller=None):
     """Checks if box_angles has the correct type, shape and units.
@@ -25,6 +29,9 @@ def digest_box_angles(box_angles, caller=None):
     IncorrectShapeError
         If box_vectors doesn't have the correct shape.
     """
+
+    if box_angles is None and caller == _BOX_FACTORY:
+        return None
 
     if caller in {"molsysmt.basic.get.get", "molsysmt.basic.compare.compare"}:
         if isinstance(box_angles, bool):
@@ -63,4 +70,6 @@ def digest_box_angles(box_angles, caller=None):
 
         box_angles = puw.quantity(value, unit)
 
+        if caller == _BOX_FACTORY:
+            return puw.convert(box_angles, to_unit="radians")
         return puw.standardize(box_angles)

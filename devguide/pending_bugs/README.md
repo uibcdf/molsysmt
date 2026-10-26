@@ -20,11 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (2)
 
-- [`centered_periodic_wrapping_ignores_in_place_target.md`](centered_periodic_wrapping_ignores_in_place_target.md) — [#467](https://github.com/uibcdf/molsysmt/issues/467) — Centered periodic wrapping ignores the original in-place target. *(high, reproduced)*
-- [`box_factory_rejects_default_angles.md`](box_factory_rejects_default_angles.md) — [#465](https://github.com/uibcdf/molsysmt/issues/465) — Box factory rejects its declared default angles. *(medium, reproduced)*
-- [`course_pbc_uses_absent_membrane_demo.md`](course_pbc_uses_absent_membrane_demo.md) — [#466](https://github.com/uibcdf/molsysmt/issues/466) — Biophysics PBC course uses an absent membrane demo. *(medium, reproduced)*
 - [`physchem_property_element_scope_contract.md`](physchem_property_element_scope_contract.md) — [#471](https://github.com/uibcdf/molsysmt/issues/471) — Physchem property readers have inconsistent element scope contracts. *(medium, reproduced)*
 - [`physchem_readers_drop_selection_syntax.md`](physchem_readers_drop_selection_syntax.md) — [#470](https://github.com/uibcdf/molsysmt/issues/470) — Physchem property readers drop the declared selection syntax. *(medium, reproduced)*
 

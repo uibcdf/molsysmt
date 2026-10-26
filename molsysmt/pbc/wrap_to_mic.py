@@ -21,7 +21,7 @@ def wrap_to_mic(
     skip_digestion=False,
 ):
     """
-    Wrap coordinates into the minimum image convention (MIC) box.
+    Wrapping coordinates into the minimum image convention (MIC) box.
 
 
     Parameters
@@ -51,7 +51,9 @@ def wrap_to_mic(
     engine : str, default='MolSysMT'
         Backend used to perform the calculation.
     in_place : bool, default=False
-        Whether to modify the input molecular system in place.
+        If True, publish the final coordinates into the original input and
+        return None, including when centering is requested. Otherwise return
+        an independent system in the input form.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -76,6 +78,32 @@ def wrap_to_mic(
     ``compact='component'``, bonded blocks are reconstructed with
     minimum-image bond displacements and translated as complete units.
 
+    Centering is evaluated on an independent working system before wrapping.
+    Only the requested atoms and structures are published to the original
+    input when ``in_place=True``. Other coordinates, topology and boxes are
+    preserved. Native setters invalidate stored interaction coverage only for
+    edited structures. Validation failure before publication preserves the
+    input, and an independent centered result reuses the working copy.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> import numpy as np
+    >>> molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+    ...     structure_indices=[0, 8, 3])
+    >>> before = msm.pyunitwizard.get_value(msm.get(molsys, coordinates=True), to_unit='nm').copy()
+    >>> result = msm.pbc.wrap_to_mic(molsys, center_of_selection=[0, 1],
+    ...     compact=False, structure_indices=[2, 0], in_place=True)
+    >>> result is None
+    True
+    >>> after = msm.pyunitwizard.get_value(msm.get(molsys, coordinates=True), to_unit='nm')
+    >>> np.array_equal(after[1], before[1]) and not np.array_equal(after[[2, 0]], before[[2, 0]])
+    True
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Wrap_to_mic` for compact wrapping and edit ownership.
+
 
     .. versionadded:: 1.0.0
     """
@@ -88,8 +116,9 @@ def wrap_to_mic(
             molecular_system, selection=selection, syntax=syntax, skip_digestion=True
         )
 
+        working_system = molecular_system
         if center_of_selection is not None:
-            molecular_system = center(
+            working_system = center(
                 molecular_system,
                 selection=atom_indices,
                 source_center_selection=center_of_selection,
@@ -102,7 +131,7 @@ def wrap_to_mic(
             )
 
         coordinates = get(
-            molecular_system,
+            working_system,
             element="atom",
             selection=atom_indices,
             structure_indices=structure_indices,
@@ -110,7 +139,7 @@ def wrap_to_mic(
             skip_digestion=True,
         )
         box = get(
-            molecular_system,
+            working_system,
             element="system",
             structure_indices=structure_indices,
             box=True,
@@ -159,7 +188,7 @@ def wrap_to_mic(
 
             try:
                 bonded_pairs = get(
-                    molecular_system,
+                    working_system,
                     element="atom",
                     selection=atom_indices,
                     inner_bonded_atom_pairs=True,
@@ -217,7 +246,11 @@ def wrap_to_mic(
         pass
 
     else:
-        tmp_molecular_system = copy(molecular_system, skip_digestion=True)
+        tmp_molecular_system = (
+            working_system
+            if center_of_selection is not None
+            else copy(molecular_system, skip_digestion=True)
+        )
         set(
             tmp_molecular_system,
             selection=atom_indices,

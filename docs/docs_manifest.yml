@@ -43,7 +43,11 @@ sections:
           - name: structures
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
-            description: Aligned structural series, protected geometry, independent copies, shape-only representations and chemistry-free embedding in MolSys.
+            description: Aligned structural series, protected geometry, independent copies, selected periodic edit ownership and chemistry-free embedding in MolSys.
+          - name: structuresdict
+            file: docs/content/user/foundations/native_world/classes/molsysmt_StructuresDict.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_StructuresDict.md.AGENTS.md
+            description: Declarative structural quantities, structure-first selected writes, retained axis order and persistence limits.
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
@@ -133,6 +137,22 @@ sections:
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
+      - name: pbc
+        path: docs/content/user/tools/pbc
+        agents_file: docs/content/user/tools/pbc/AGENTS.md
+        index_file: docs/content/user/tools/pbc/index.md
+        index_agents_file: docs/content/user/tools/pbc/index.AGENTS.md
+        description: Periodic geometry, orthogonal box defaults, shared angles and original-target centered wrapping.
+        pages:
+          - name: wrap_to_pbc
+            file: docs/content/user/tools/pbc/wrap_to_pbc.ipynb
+            agents_file: docs/content/user/tools/pbc/wrap_to_pbc.ipynb.AGENTS.md
+          - name: wrap_to_mic
+            file: docs/content/user/tools/pbc/wrap_to_mic.ipynb
+            agents_file: docs/content/user/tools/pbc/wrap_to_mic.ipynb.AGENTS.md
+          - name: get_box_from_lengths_and_angles
+            file: docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb
+            agents_file: docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb.AGENTS.md
       - name: build
         path: docs/content/user/tools/build
         agents_file: docs/content/user/tools/build/AGENTS.md
@@ -518,6 +538,7 @@ sections:
         agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
         status: reviewed
       - name: from_pdb_to_solvated_box
+        description: Solvating a system, inspecting actual periodic geometry and choosing selected coordinate edit ownership.
         file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb
         agents_file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb.AGENTS.md
       - name: binding_pocket_isolation

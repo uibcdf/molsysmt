@@ -76,3 +76,10 @@ turn a complete trajectory into a small JSON object.
 See {func}`molsysmt.basic.convert`, {func}`molsysmt.basic.get` and
 {ref}`the conversion tutorial <Tutorial_Convert>`. The resident owner is
 {ref}`Structures <user-foundations-native-world-classes-molsysmt-structures>`.
+
+Public `msm.set(structures_dict, selection=[...], structure_indices=[...],
+coordinates=...)` applies the Cartesian product of those axes in the stored
+**structure, atom, spatial-component** order. The incoming block follows the
+explicit structure and atom list orders. Unselected positions and the box
+remain unchanged; supplied coordinate quantities are converted to the stored
+length unit. Square selected shapes do not exchange the meanings of the axes.
