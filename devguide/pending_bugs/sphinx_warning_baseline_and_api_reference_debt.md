@@ -414,3 +414,43 @@ Extend the existing schema guard and apply the same metadata-only 4.5 repair,
 preserving every source cell and executed output, before clearing this debt.
 The [ParmEd receipt](../../devtools/data/conversion_execution_parmed_20261026.json)
 retains the observed exit, diagnostic count and scope. #144 remains partial.
+
+
+## Source-wide notebook-schema guard and repair — 2026-10-26
+
+The follow-up inventory reads every documentation source notebook as raw JSON,
+not through a reader that can normalize metadata. It finds ten invalid sources:
+six declare schema 4.4 while containing IDs, and four declare 4.5 while lacking
+a cell ID. The first inventory also includes 21 local editor checkpoints; these
+are excluded from the source guard. The actual guarded inventory is 491 notebooks:
+490 under `docs/content/` and the homepage, with generated builds outside its scope.
+The expanded guard initially fails ten cases and passes 481 in 7.26 seconds.
+
+The six 4.4 notebooks now declare 4.5. All 84 existing cell IDs are retained, and
+37 missing IDs are assigned using the same deterministic path/position/type hash
+as the earlier repair. The [receipt](../../devtools/data/notebook_schema_repair_20261026.json)
+lists the ten paths, pre/post hashes and unchanged payload hashes. Direct comparison
+against HEAD verifies that every other JSON value is identical, including source
+text and its list/string representation, saved outputs, execution counts, all
+metadata and attachments. There is no execution or scientific requalification
+of the examples in this metadata-only repair.
+
+`tests/documentation/test_notebook_schema.py` brings the shared raw-JSON guard
+into ordinary pytest discovery; the developer-tool entry point remains valid.
+The guard discovers source paths instead of maintaining a whitelist of previously
+repaired notebooks, so future sources are included automatically. It also checks
+that validation has not repaired its input and that 4.5 cell IDs are unique.
+The schema and executor controls pass **496/496**, with no failures or skips, in
+7.21 seconds using twelve workers and Pytest Receptor. The maintained
+[compilation guide](../notebook_compilation_and_visualization.md) records the
+normal test command and source scope.
+
+A forced full-site HTML rebuild exits zero, renders all ten repaired pages, and
+emits **zero errors and zero notebook-schema diagnostics**. It retains 731 warnings:
+428 `myst.header`, 271 `myst.directive_parse`, two `myst.directive_unknown`,
+17 `toc.not_included`, five `myst.xref_missing`, four `misc.highlighting_failure`,
+one `ref.ref`, one `ref.footnote` and two untagged warnings. This is a new source
+checkpoint, not a controlled warning-count reduction against the October 22
+checkpoint. Ruff lint/format and the fourteen fast gates pass. #144 remains partial
+for its broader markup/navigation/reference debt; no clean-warning site, installed
+package pair or release qualification is claimed.

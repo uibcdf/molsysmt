@@ -86,6 +86,21 @@ For any notebook `example.ipynb`:
 ### **D. JSON Schema Integrity (`outputs: []`)**
 `myst_nb` requires every code cell in `.ipynb` v4 format to contain an `outputs` array. `execute_notebooks.py` automatically sanitizes all code cells, guaranteeing `"outputs": []` is present and preventing Sphinx `AttributeError: outputs` build failures.
 
+Stored sources also have an independent raw-JSON schema guard:
+
+```bash
+python -m pytest tests/documentation/test_notebook_schema.py --receptor=llm -n 12
+```
+
+The normal pytest suite discovers this module. It delegates to the shared guard
+in `devtools/tests/test_documentation_notebook_schema.py`, which discovers source
+notebooks under `docs/content/` plus `docs/index.ipynb`. Editor checkpoints and
+generated build directories are outside that source inventory. Validation reads
+JSON directly and checks that validation leaves it unchanged; it cannot rely on
+a notebook reader repairing metadata. Cell IDs belong to schema 4.5, whose cells
+require unique IDs. The bounded metadata repairs and their payload-preservation
+evidence are tracked by uibcdf/molsysmt#144.
+
 ### **E. Git Logging Policy**
 - **Tracked in Git**: `*.nbconvert.last_run` timestamp files must be committed so execution timestamps are preserved across machines.
 - **Ignored in `.gitignore`**: Transient execution logs `*.nbconvert.log` and `notebook_errors.log` are ignored in `.gitignore`.

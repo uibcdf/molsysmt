@@ -1,4 +1,4 @@
-"""Validate notebooks affected by the schema mismatch recorded in #144."""
+"""Validate stored documentation notebooks without reader-side schema repairs."""
 
 import copy
 import json
@@ -7,14 +7,15 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
-NOTEBOOKS = (
-    "content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
-    "content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
-    "content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
-    "content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb",
-    "content/user/tools/basic/get.ipynb",
-    "content/user/tools/basic/set.ipynb",
-)
+DOCS = ROOT / "docs"
+# Discover source notebooks; generated builds and editor checkpoints are excluded.
+NOTEBOOKS = tuple(
+    sorted(
+        path.relative_to(DOCS).as_posix()
+        for path in (DOCS / "content").rglob("*.ipynb")
+        if ".ipynb_checkpoints" not in path.parts
+    )
+) + ("index.ipynb",)
 
 
 @pytest.mark.parametrize("relative_path", NOTEBOOKS)

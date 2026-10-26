@@ -1,0 +1,185 @@
+{
+  "schema": "molsysmt.notebook_schema_repair@1",
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#144",
+  "baseline_commit": "6683a9864e000087751bd93c7604da462474e413",
+  "scope": "Ten invalid source notebooks; metadata only. Guard discovers all 491 documentation source notebooks; editor checkpoints and generated builds are excluded.",
+  "guard": "tests/documentation/test_notebook_schema.py",
+  "shared_guard": "devtools/tests/test_documentation_notebook_schema.py",
+  "method": "Promote nbformat 4.4 to 4.5 when cell IDs are present; retain existing IDs; assign missing IDs once using first sixteen SHA-256 hex digits of relative documentation path:cell position:cell type. IDs persist on future edits.",
+  "payload_definition": "Complete raw JSON excluding only top-level nbformat_minor and per-cell id; sources, list/string representation, outputs, execution counts, cell/notebook metadata and attachments are identical.",
+  "before_guard": {
+    "command": "python -m pytest devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12",
+    "failed": 10,
+    "passed": 481,
+    "seconds": 7.26,
+    "exit_code": 1
+  },
+  "records": [
+    {
+      "path": "docs/content/course/Common_Core/09_Unit_Safety.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 16,
+      "existing_ids_preserved": 2,
+      "new_ids": 14,
+      "payload_sha256": "8744f416a77eb8ee0f4b1b1ca2c84949151a31fb18bc1874026c5b11a2de8a5b",
+      "before_file_sha256": "a3f865e748efec1c1ddf9ee24a7ab9919a9b1059454ea5072035a939545c3ef6",
+      "after_file_sha256": "ae9d1de338582d0d5a536e589fff78dfa3db2674b80765255c8e0bf1b36b9712"
+    },
+    {
+      "path": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 25,
+      "existing_ids_preserved": 6,
+      "new_ids": 19,
+      "payload_sha256": "22b6886a18952ccb4354a58a3e17d1367d182a4003cc815484cf49c6467a5800",
+      "before_file_sha256": "a14c72a6c04cd16c979e3a41e4a158f89cd3d3e07ede9a43c6d5bd0dbc8f87da",
+      "after_file_sha256": "1d6d7de2f84cc83b11f4cea8fb99afa52d55a303c582cba341331ee3ce083275"
+    },
+    {
+      "path": "docs/content/course/Path_Alzheimer/34_Comparison_Superposition.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 9,
+      "existing_ids_preserved": 9,
+      "new_ids": 0,
+      "payload_sha256": "85d1eb9df8849bb07b3e49fba3450c5c4bce1e59742f9e3e426b531b19b776e3",
+      "before_file_sha256": "32a3c9e06eadab4e815d2d776f9701c4d062f63ea58d7f2bbbdb59a3d0dc5774",
+      "after_file_sha256": "e0ee22257af55993978dd6c2614e49ab6c8dbb58830a3ac06cdabba8e978dbbe"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/34_Comparison_Superposition.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 9,
+      "existing_ids_preserved": 9,
+      "new_ids": 0,
+      "payload_sha256": "d01b6bc096efc7b1b22903395fc69b815d05de297583dfdbf76d170e9062a2f0",
+      "before_file_sha256": "0aafe921cd1c25b5031d82c2e182391dd59fd519c5a1d7ce4d32e054d4088dbf",
+      "after_file_sha256": "c18d4f06ed874feec861f45493b3ff915f56bf5cbde24b5f4177803135d7c0e6"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/34_Comparison_Superposition.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 9,
+      "existing_ids_preserved": 9,
+      "new_ids": 0,
+      "payload_sha256": "8a30a48f911afccd130f0776d270a6593ea8d944a63d2c91f6a4d4c106491909",
+      "before_file_sha256": "1537c5f7ee8a6ccdc7d2d93ed0adab682225088c87412162336a9f7e2f99453a",
+      "after_file_sha256": "d35eac8ce275ff9e7f02f7ecf5696a3f8a4f8d5544fd8c4c67b5e7cbceefdc12"
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/34_Comparison_Superposition.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "cell_count": 9,
+      "existing_ids_preserved": 9,
+      "new_ids": 0,
+      "payload_sha256": "0c0485997230abceb663c50916b0ae5b3ee62aca7b4c54b593464dde63977d59",
+      "before_file_sha256": "bc92c3eb439013ac4760f713b8bec682a9ea60e17a47c7f39346e31e22e125b6",
+      "after_file_sha256": "54f9381473d21156ece19c837827f0b265ccfc9c1963de6e1a78042b274ee2ee"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/attributes.ipynb",
+      "before_minor": 5,
+      "after_minor": 5,
+      "cell_count": 7,
+      "existing_ids_preserved": 6,
+      "new_ids": 1,
+      "payload_sha256": "027ab4bbf5e26749e6fd9b5319818ad6a2fe5bc84c254f028bce7daa03c7060e",
+      "before_file_sha256": "cd73033064d30f4beedb3f933171c8b3f00667befa1613e7f8014f3c5d2baf04",
+      "after_file_sha256": "835c840cf5dff1a2cd590638a615203fecfcfdf15e62d0e349d56e47b77b5e01"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/elements.ipynb",
+      "before_minor": 5,
+      "after_minor": 5,
+      "cell_count": 4,
+      "existing_ids_preserved": 3,
+      "new_ids": 1,
+      "payload_sha256": "cb851fed0b084a907983ea5e85f29cdf68cfaffa49117763a035d84802028731",
+      "before_file_sha256": "893d73c9987e06f88be5b81035c1c7d28d483b98164e90b83b163dde72e41ebc",
+      "after_file_sha256": "57412eab0be1ebd485f0d780831f4bfdaa551922ab97dff612c09ada72b87c88"
+    },
+    {
+      "path": "docs/content/user/tools/build/add_missing_terminal_cappings.ipynb",
+      "before_minor": 5,
+      "after_minor": 5,
+      "cell_count": 18,
+      "existing_ids_preserved": 17,
+      "new_ids": 1,
+      "payload_sha256": "bd1161daeafa84d77a2865d6f8117b52e92d13ea3f2ac197df907dcca265155f",
+      "before_file_sha256": "cddf871a484ee5ab53c6484da94396d56d9c971dbd8d1d41868c5db36e972159",
+      "after_file_sha256": "b97c221cbc7ba18df588fbe83f280d195118ddfb66dafdbf5667dd48a8a6fc9b"
+    },
+    {
+      "path": "docs/content/user/tools/build/mutate.ipynb",
+      "before_minor": 5,
+      "after_minor": 5,
+      "cell_count": 15,
+      "existing_ids_preserved": 14,
+      "new_ids": 1,
+      "payload_sha256": "595b5ff9843000a644e3bb3a5a05702e2bb1bf441521ca382422acc117aac5e3",
+      "before_file_sha256": "3f25a75013ec3099645d9c0bb4ae0e5f28311f259901584637b8e920c80ed92c",
+      "after_file_sha256": "a5d23e827a7a8f479d43b80df60207d260385fbf8bc5218482e77e215cedaeb1"
+    }
+  ],
+  "after_guard": {
+    "command": "python -m pytest tests/documentation/test_notebook_schema.py devtools/tests/test_execute_notebooks_cli.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 496,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 7.21,
+    "schema_cases": 491,
+    "executor_cases": 5
+  },
+  "sphinx": {
+    "command": "python -m sphinx -E -q -j 12 -b html -w /tmp/molsysmt-144-schema-warnings-20261026.log docs /tmp/molsysmt-144-schema-html-20261026",
+    "exit_code": 0,
+    "execution": "off; render saved outputs without rerunning scientific examples",
+    "schema_error_lines": 0,
+    "error_lines_console": 0,
+    "error_lines_warning_log": 0,
+    "warning_lines": 731,
+    "warning_families": {
+      "misc.highlighting_failure": 4,
+      "myst.directive_parse": 271,
+      "myst.directive_unknown": 2,
+      "myst.header": 428,
+      "myst.xref_missing": 5,
+      "ref.footnote": 1,
+      "ref.ref": 1,
+      "toc.not_included": 17
+    },
+    "warning_log_sha256": "a70b041af83cae0658f4a4eb1751270b3699814992133ee3a2f6b29e69b146cf",
+    "scope": "Full forced site rebuild at this local source checkpoint. Remaining warning population is not waived or described as a reduction against a different source checkpoint.",
+    "repaired_pages_rendered": 10
+  },
+  "software": {
+    "nbformat": "5.11.1",
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0",
+    "pytest": "9.1.1",
+    "pytest-receptor": "1.2.1+22.g00a31c4",
+    "pytest-xdist": "3.8.0"
+  },
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "bounds": [
+    "No example code, narrative or saved result changes.",
+    "No scientific examples are requalified by this metadata repair.",
+    "The normal pytest discovery route delegates to the same raw-JSON guard; no reader-side normalization is allowed.",
+    "Broader Sphinx warnings and API-reference debt remain open in #144.",
+    "Local source validation does not qualify a release or installed package pair."
+  ],
+  "checks": {
+    "fast_gates": "14/14 pass",
+    "ruff_check": "pass",
+    "ruff_format_check": "pass",
+    "payload_comparison_against_head": "All ten raw JSON payloads match HEAD after excluding only schema minor and per-cell ID."
+  }
+}
