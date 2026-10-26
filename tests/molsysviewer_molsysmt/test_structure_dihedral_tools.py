@@ -219,15 +219,17 @@ def test_set_native_size_one_broadcast_and_unchanged_box(view, pbc, shape):
 
 
 @pytest.mark.parametrize("in_place", [False, True])
-def test_explicit_set_blocks_move_only_the_requested_atoms(view, in_place):
+@pytest.mark.parametrize("name", TOOLS)
+def test_explicit_blocks_move_only_the_requested_atoms(view, in_place, name):
     q = quartets(view.molsys)[0]
     before = xyz(view.molsys).copy()
     moving = {int(q[2]), int(q[3])}
     expected = before.copy()
-    expected[2] = rotated(before[2], q, moving, 0.8)
-    result = view.addons.molsysmt.structure.set_dihedral_angles(
+    target = 0.8 + (torsion(before[2, q]) if name == "shift_dihedral_angles" else 0)
+    expected[2] = rotated(before[2], q, moving, target)
+    result = getattr(view.addons.molsysmt.structure, name)(
         dihedral_quartets=q,
-        angles=".8 radians",
+        **command(name, ".8 radians"),
         blocks=[sorted(moving)],
         structure_indices=[2],
         pbc=False,
@@ -307,6 +309,10 @@ def test_native_pbc_true_without_box_falls_back_without_added_preparation(view, 
         {"dihedral_quartets": [0, 1, 2]},
         {"invalid_unit": True},
         {"blocks": 1},
+        {"blocks": []},
+        {"invalid_angle": np.nan},
+        {"invalid_angle": np.inf},
+        {"invalid_angle": -np.inf},
         {"structure_indices": [-1]},
         {"engine": "unknown"},
     ],
@@ -320,10 +326,21 @@ def test_native_clean_rejections_keep_geometry_analysis_and_scene(
         pbc=False,
         in_place=True,
     )
-    params.update(
-        command(name, "1 nm" if arguments.get("invalid_unit") else ".5 radians")
+    value = (
+        puw.quantity(arguments["invalid_angle"], "radians")
+        if "invalid_angle" in arguments
+        else "1 nm"
+        if arguments.get("invalid_unit")
+        else ".5 radians"
     )
-    params.update({n: v for n, v in arguments.items() if n != "invalid_unit"})
+    params.update(command(name, value))
+    params.update(
+        {
+            n: v
+            for n, v in arguments.items()
+            if n not in {"invalid_unit", "invalid_angle"}
+        }
+    )
     before, state, analysis = (
         xyz(view.molsys).copy(),
         view.export_state(),

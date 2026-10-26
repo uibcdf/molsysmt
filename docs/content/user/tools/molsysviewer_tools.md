@@ -38,7 +38,7 @@ Results retain native quantities, arrays and metadata. The separate
 `structure.shift_dihedral_angles` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
-with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace now has explicit wrappers for all 28 native function exports; torsion input/block limitations below remain unqualified. This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
+with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace now has explicit wrappers for all 28 native function exports; finite torsion requests and explicit block pools have bounded native and addon guards. This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
 
 The explicit `view.addons.molsysmt.pbc` namespace also provides ten box queries
 and factories. Only `has_pbc` binds the current system; box/length/angle inputs
@@ -1294,15 +1294,12 @@ The setter has no native `skip_digestion` parameter: its addon-only keyword
 controls local digestion while native public validation still runs. The shifter
 retains its native declared flag. Neither flag bypasses integration controls.
 
-:::{warning}
-At this receiving source, native nonfinite angle values can generate nonfinite
-coordinates. Supply finite valid torsions; those invalid-input routes are not
-qualified. Native `shift_dihedral_angles` also ignores explicit `blocks` when
-calling its setter, so that explicit-block shifter route is not qualified.
-`set_dihedral_angles` with explicit blocks is separately tested. The addon
-forwards native behavior and supplies no silent replacement calculation.
-These findings are tracked in
+Native editors now reject nonfinite angular requests before coordinate publication
+and preserve explicit blocks in both set and shift routes. A block pool is a
+collection of nonempty atom-index lists: each quartet rotates the union of blocks
+containing its fourth atom. Invalid indices, empty pools and incompatible angular
+shapes reject without changing geometry, topology or named interaction coverage.
+The native and addon guards cover these contracts under
 [#461](https://github.com/uibcdf/molsysmt/issues/461) and
-[#462](https://github.com/uibcdf/molsysmt/issues/462). They prevent declaring unconditional completion of the
-scientific family despite complete function exposure.
-:::
+[#462](https://github.com/uibcdf/molsysmt/issues/462); they do not qualify every
+possible geometric input or an installed release pair.

@@ -334,3 +334,48 @@ benchmark is maintained in [PDBQT storage](../benchmarking/pdbqt.md).
 Full validation remains an opening cost; text/full requested outputs and the
 known-source mapped metadata retain their documented eager scope. This does
 not broaden chemical interpretation or close the remaining #214 scope.
+
+
+## Consumer presentation and final-byte review — 2026-10-26
+
+The latest DockingMT comments clarify that native chemical reduction, prepared
+charge/type transfer and ordinary PDBQT writing are already usable. Consumer
+ligand/receptor controls include Vina admission and report successful installed
+source reception. Those consumer results are reported evidence, not rerun in
+this review. The remaining request is output presentation and caller remarks,
+not a replacement parser, preparation engine or implementation of delivered
+uibcdf/molsysmt#223.
+
+**Inspected:** the native text adapter currently exposes only `typing_scheme`,
+`torsion_tree` and `return_atom_map`. The private writer preserves source atom IDs
+as PDBQT serials and preserves absent group/chain fields. It writes its own
+truthful original/derived assignment remarks before completing the export map,
+but has no caller-remark or output-only label/serial policy. This explains the
+consumer's remaining boundary; preservation of the native source is not itself
+a writer defect. Changing source IDs by copy/set changes the intermediate map
+axis and cannot be treated as output formatting on the original preparation.
+
+The next bounded design should expose explicit optional output presentation on
+the native string/file routes: serial policy, names, per-atom group/chain labels
+and optional occupancy/B-factor values. These belong to the serialized view and
+must not invent group membership, modify native molecular IDs or replace
+chemical/mechanical stores. An independent validated caller-remark input should
+exclude record/newline injection and coexist with provider provenance. No API
+names are fixed by this review.
+
+Validate every override before producing output, preserve the declared rooted
+tree and source-axis bindings, and form the completed map/hash from the final
+actual bytes after all remarks and presentation. Test reordered tree output,
+nonconsecutive source IDs, composed preparation/export maps, zero-group sources,
+field-width failures and unchanged destinations/sources, both native file/text
+routes, and nondefault length/charge policies. Coordinate and chemical preparation
+remain unchanged. This is a proposed implementation block under the existing
+#214 theme; no writer code or contract is changed by this review.
+
+The existing `molsysmt.atom_export@1` payload already distinguishes
+`source_atom_ids` and `output_atom_ids`. Its current writer derives output-to-source
+indices by looking up written serials among source IDs. Once presentation can
+choose different serials, that implementation must derive correspondence from
+the actual serialization traversal/explicit index mapping instead. Keeping source
+IDs untouched and using this existing mapping contract is preferable to a
+consumer-side relabel/copy/rebind workaround. No schema change is assumed here.

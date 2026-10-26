@@ -171,3 +171,11 @@ native structural extraction. Units, boxes, times and structural series retain
 their native contracts. This route also allows
 {func}`molsysmt.basic.permute_atoms` to operate directly on standalone Structures.
 An undeclared atom axis remains undeclared; embedding does not infer identities.
+
+Torsion editors publish a validated coordinate update after checking the requested
+finite angles and moving blocks. Rejected requests preserve the original system
+and named interaction coverage. A successful edit invalidates coverage on edited
+structures, including evaluated-empty analyses. Explicit blocks allow the same
+coordinate operation on a `Structures` input without topology; automatic blocks
+require connectivity. See {ref}`Tutorial_Set_dihedral_angles` and
+{ref}`Tutorial_Shift_dihedral_angles`.

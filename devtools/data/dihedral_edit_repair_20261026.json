@@ -1,0 +1,170 @@
+{
+  "schema": "molsysmt.dihedral_edit_repair@1",
+  "date": "2026-10-26",
+  "issues": [
+    "uibcdf/molsysmt#461",
+    "uibcdf/molsysmt#462"
+  ],
+  "baseline_commit": "63a70b2e7c87a31e9b738bdaf8d5badb1233e9eb",
+  "scope": "Native and addon source qualification; not an installed pair, release, remote-input or complete conformational workflow qualification.",
+  "initial_guard": {
+    "command": "python -m pytest tests/structure/test_dihedral_edit_contract.py --receptor=llm -n 12",
+    "failed": 168,
+    "passed": 72,
+    "seconds": 8.27,
+    "exit_code": 1,
+    "root_causes": {
+      "nonfinite_edit_accepted": 144,
+      "explicit_shift_blocks_ignored": 24
+    },
+    "scope": "Initial 240 synthetic finite/motion cases, before expanding malformed-input, coordinate-only and receiver coverage."
+  },
+  "focused_expansion": {
+    "passed": 386,
+    "failed": 0,
+    "seconds": 14.46,
+    "scope": "Before adding eight receiver nonfinite/empty-block cases and parametrizing explicit receiver shifts."
+  },
+  "regression_initial": {
+    "passed": 3092,
+    "failed": 1,
+    "seconds": 156.85,
+    "exit_code": 1,
+    "unavailable_case": "tests/structure/get_neighbors/test_get_neighbors_from_molsysmt_MolSys.py::test_get_neighbors_from_molsysmt_MolSys_8",
+    "cause": "Undeclared remote 5XJH download; DNS unavailable. Tracked by uibcdf/molsysmt#469."
+  },
+  "regression": {
+    "command": "python -m pytest tests/structure tests/pbc tests/_private/argdigest tests/scientific_truth/structure tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py tests/documentation/test_notebook_schema.py -m 'not network' --deselect tests/structure/get_neighbors/test_get_neighbors_from_molsysmt_MolSys.py::test_get_neighbors_from_molsysmt_MolSys_8 --receptor=llm -n 12",
+    "passed": 3092,
+    "failed": 0,
+    "skipped": 0,
+    "explicitly_deselected_remote_cases": 1,
+    "seconds": 63.06,
+    "exit_code": 0,
+    "warnings": {
+      "legacy_h5msm": 542,
+      "gpu_unavailable": 8,
+      "deliberate_tiny_memory_budget": 8
+    }
+  },
+  "doctests": {
+    "passed": 2,
+    "failed": 0,
+    "seconds": 5.16,
+    "exit_code": 0
+  },
+  "notebooks": {
+    "command": "MSM_VIEWS_FROM_HTML_FILES=True MPLBACKEND=Agg python docs/execute_notebooks.py -q -n 12 -f docs/content/user/tools/structure/set_dihedral_angles.ipynb docs/content/user/tools/structure/shift_dihedral_angles.ipynb docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+    "passed": 3,
+    "exit_code": 0,
+    "seconds": [
+      8.9,
+      7.3,
+      13.0
+    ],
+    "schema_guard_after_execution": {
+      "passed": 491,
+      "exit_code": 0,
+      "seconds": 7.25
+    }
+  },
+  "checks": {
+    "ruff": "whole checkout lint/format pass",
+    "docstrings": "251 public functions pass",
+    "signatures": "zero unauthorized drifts against baseline",
+    "fast_gates": "14/14 pass",
+    "sphinx": {
+      "command": "make -C docs html SPHINXOPTS=\"-q -j 12\"",
+      "exit_code": 0,
+      "error_lines": 0,
+      "warning_lines": 63,
+      "scope": "Incremental build; retained documentation-warning debt remains in #144. No zero-warning site claim."
+    }
+  },
+  "guards": [
+    "tests/structure/test_dihedral_edit_contract.py",
+    "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py"
+  ],
+  "reference": "Independent Rodrigues matrices, projected signed circular angles and fractional-coordinate MIC on a literal two-component/three-structure system. Restricted explicit blocks differ from automatic covalent populations.",
+  "bounds": [
+    "Rust rotation implementation unchanged; no new scientific algorithm or Ackredit calculation boundary.",
+    "Nonfinite and complex edits reject before rotation/publication; computed nonfinite moving coordinates reject before publication.",
+    "Read-only undefined dihedral measurements may still return NaN.",
+    "A private selected-coordinate work buffer protects form-agnostic source ownership; coordinate-only forms work with explicit blocks.",
+    "Explicit blocks remain a shared pool: each quartet uses the union of blocks containing its fourth atom.",
+    "Positive publication preserves topology and boxes and invalidates named analyses only on edited structures, including evaluated-empty coverage.",
+    "No claim that arbitrary degenerate/contradictory torsions or cyclic connectivity have been solved.",
+    "Broader legacy Path 27 examples remain under uibcdf/molsysmt#468.",
+    "The interrupted exclusion-by-marker retry is not successful evidence.",
+    "Unrelated concurrent PBC implementation/receiving work and generated stubs are excluded."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/structure/set_dihedral_angles.py": "8cb672e3517c38af6ecfa42b30dcc484ff87c60a166d19ff8cf9ae74e1eadb54",
+    "molsysmt/structure/shift_dihedral_angles.py": "3bc4805a1039613e44ec49b045626985698d3e5af7af07310848c0ae166f05fd",
+    "molsysmt/structure/_dihedral_edits.py": "3713bd833de9cd6c6f967283ba5a750d6843ed5af4b3bf6d39d1b1deaddb6586",
+    "molsysmt/_private/argdigest/argument/angles.py": "5a8cd70a1e11c2710ed17c54433a233169bfa9a9123eb161bad9ce934ae3b6bc",
+    "tests/structure/test_dihedral_edit_contract.py": "80c06ead3df3f140db44cec1db43ede346523582b7cf963efa8cb2d3ceefa6cb",
+    "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py": "8967190e49a449e19ef4ac4005d5df44cd0e2b1032b0962d9f22c50744c88bc3"
+  },
+  "staged_addon_receiving": {
+    "passed": 71,
+    "failed": 0,
+    "skipped": 0,
+    "pytest_seconds": 30.24,
+    "exit_code": 0,
+    "workers": 0,
+    "receptor": "llm",
+    "source_sha256": {
+      "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+      "molsysviewer_molsysmt/_api.py": "7b2e533de9b6cbcf97f00f9233906c4cc030da6bcb33808436db52f4d899d8ac",
+      "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+      "molsysviewer_molsysmt/_basic.py": "051b1a793ea6ce702023109630db83fc72014fb943df13be1e1f18db442ae40d",
+      "molsysviewer_molsysmt/_geometry.py": "8452afa880e851db1e13127f0b12a5302a88ae69e84696bf0c083e4e2a1bc037",
+      "molsysviewer_molsysmt/_pbc.py": "3da777ed0221f352d2ef4257eef52f86e39c71ea33ee1bfaed877402ecf1c637",
+      "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+      "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+      "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+      "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+      "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+      "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+      "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+      "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+      "molsysviewer_molsysmt/_structure.py": "0c313e4679928cf2461dad72575a82537426c965708a7f54178d0a3904ce70ce",
+      "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+      "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258"
+    },
+    "loaded_module_paths": {
+      "molsysviewer_molsysmt": "molsysviewer_molsysmt/__init__.py",
+      "molsysviewer_molsysmt._argdigest": "molsysviewer_molsysmt/_argdigest.py",
+      "molsysviewer_molsysmt._private": "molsysviewer_molsysmt/_private/__init__.py",
+      "molsysviewer_molsysmt._private.argument": "molsysviewer_molsysmt/_private/argument/__init__.py",
+      "molsysviewer_molsysmt._private.argument.skip_digestion": "molsysviewer_molsysmt/_private/argument/skip_digestion.py",
+      "molsysviewer_molsysmt._private.argument.update_view": "molsysviewer_molsysmt/_private/argument/update_view.py",
+      "molsysviewer_molsysmt._private.function": "molsysviewer_molsysmt/_private/function/__init__.py",
+      "molsysviewer_molsysmt._private.function.basic_set": "molsysviewer_molsysmt/_private/function/basic_set.py",
+      "molsysviewer_molsysmt._private.function.structure_get_neighbors": "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py",
+      "molsysviewer_molsysmt._private.normalization": "molsysviewer_molsysmt/_private/normalization.py",
+      "molsysviewer_molsysmt.tools": "molsysviewer_molsysmt/tools.py",
+      "molsysviewer_molsysmt._basic": "molsysviewer_molsysmt/_basic.py",
+      "molsysviewer_molsysmt._pbc": "molsysviewer_molsysmt/_pbc.py",
+      "molsysviewer_molsysmt._structure": "molsysviewer_molsysmt/_structure.py",
+      "molsysviewer_molsysmt._topology": "molsysviewer_molsysmt/_topology.py",
+      "molsysviewer_molsysmt._api": "molsysviewer_molsysmt/_api.py",
+      "molsysviewer_molsysmt._geometry": "molsysviewer_molsysmt/_geometry.py"
+    },
+    "scope": "Staged addon files overlaid in the same development interpreter; no auxiliary environment, installation, provider edit or private extension rebuild."
+  }
+}

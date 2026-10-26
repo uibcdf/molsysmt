@@ -1,13 +1,13 @@
 ---
 summary: Dihedral editors publish nonfinite coordinates from NaN angular edits.
 issue: uibcdf/molsysmt#462
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: high
 verification: reproduced
 area: [structure]
-guard:
+guard: tests/structure/test_dihedral_edit_contract.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-26 after maintainer-directed continuation of the prepared
 reports from the torsion receiving under uibcdf/molsysmt#421 /
-uibcdf/molsysviewer#264. **Status:** reproduced natively; scientific repair pending.
+uibcdf/molsysviewer#264. **Status:** resolved; native mutation and receiver guards pass.
 
 ## What
 
@@ -79,3 +79,51 @@ pentalanine/traj_pentalanine.h5msm, structures [0, 8, 3]. The original audit was
 performed during the source receiving recorded on 2026-10-25; filing is on
 2026-10-26. Source hashes and original evidence remain in the linked receipt.
 No installed package, fresh Rust build or all-platform qualification is claimed.
+
+
+## Resolution — 2026-10-26
+
+The public functions retain their signatures and existing Rust rotation kernel.
+A private editing boundary validates real finite angular values and broadcast
+shapes, distinct in-range quartets and nonempty in-range block pools. It does
+not impose finite-only semantics on read-only measurements. An undefined input
+geometric angle can still be measured as NaN; an edit that would produce
+nonfinite moving coordinates is rejected before publication. The setter works
+on an independent selected-coordinate buffer, and the shifter forwards explicit
+blocks unchanged. Each quartet uses the union of supplied blocks containing its
+fourth atom. Automatic covalent blocks remain owned by the existing topology tool.
+
+The native guard initially fails 168 cases and passes 72: 144 nonfinite-request
+cases and 24 explicit-block shift cases expose the two reported defects. The
+expanded guard adds malformed inputs, coordinate-only forms, undefined geometry,
+block-pool union semantics and input/analysis preservation. The receiver now
+checks both explicit editors and nonfinite rejections without scene damage.
+
+The final local regression passes **3,092 tests**, zero failures or skips, in
+63.06 seconds using twelve workers and Pytest Receptor. One unrelated neighbor
+test performs an undeclared remote 5XJH download; the initial broad run fails
+that case with unavailable DNS, and it is explicitly deselected from the local
+qualification, not counted as passed. That test limitation is tracked by
+uibcdf/molsysmt#469. Two doctests and all three updated tutorial/course notebooks
+pass. A post-execution schema run validates all 491 documentation notebooks.
+The four legacy Path 27 conformational examples have a separate API-mismatch
+report, uibcdf/molsysmt#468; this repair does not qualify those workflows.
+
+The [receipt](../../../devtools/data/dihedral_edit_repair_20261026.json) records
+commands, versions, source hashes, failures and bounded outcomes. The standalone
+native guard is included in the hosted and local smoke selections. Foundations,
+Toolbox, Cookbook and Common Core Module 16 describe finite requests, block-pool
+semantics and scoped interaction invalidation. No tag, package promotion or
+release qualification is performed.
+
+Ruff lint/format, all 251 public docstring contracts, zero unauthorized signature
+drifts and the fourteen fast gates pass. Incremental Sphinx HTML exits zero with
+zero errors and 63 retained warnings; broad warning cleanup remains under
+uibcdf/molsysmt#144. This does not qualify the skipped remote fixture or a new
+installed/public package.
+
+The final receiver check overlays the exact staged addon files in the same
+development interpreter, excluding concurrent PBC receiving changes. All 71
+receiver cases pass in 30.24 seconds with no skips; loaded-module paths and
+source hashes are recorded. This is source isolation, not an auxiliary environment
+or installed distribution qualification.

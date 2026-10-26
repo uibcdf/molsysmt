@@ -13,7 +13,7 @@ def digest_angles(angles, caller=None):
         angles = parse_quantity_string("angles", angles, caller=caller)
 
     if is_iterable(angles):
-        if puw.is_quantity(angles[0]):
+        if len(angles) and puw.is_quantity(angles[0]):
             angles = puw.utils.sequences.concatenate(angles)
 
     if puw.is_quantity(angles):

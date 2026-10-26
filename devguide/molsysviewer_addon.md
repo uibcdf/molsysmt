@@ -766,3 +766,26 @@ absent membrane demo. Both reproduce independently of Viewer, have current
 queue records and require native pytest guards. The addon retains explicit
 angle forwarding; no scientific repair or tutorial scenario substitution is
 introduced here. This supersedes earlier pending-authorization notes.
+
+
+## Native torsion mutation boundaries repaired — 2026-10-26
+
+The native provider repairs under uibcdf/molsysmt#461 and uibcdf/molsysmt#462
+supersede the two reported torsion limitations at the earlier source checkpoint.
+Set/shift reject nonfinite edit requests before coordinate publication, retain
+the existing read-only undefined-angle semantics, and validate angular broadcast
+axes and explicit block/index requests before Rust. The shifter now forwards
+its explicit block pool. A private selected-coordinate buffer and a finite
+result check protect input ownership before the common coordinate setter.
+No replacement torsion algorithm or preparation step is added to the addon.
+
+The native guard tests a two-component synthetic system, independent Rodrigues
+rotations and circular angles, selected/repeated structures, explicit/automatic
+block populations, pm/nm and degree/radian policies, periodic lattice images,
+invalid requests, degenerate geometry, topology retention and named interaction
+coverage. The receiver guard now exercises explicit blocks in both editors and
+nonfinite rejections while preserving the scene and synchronization state.
+The final scope and source hashes are retained in
+[the repair receipt](../devtools/data/dihedral_edit_repair_20261026.json).
+The native limitations are repaired; this is bounded source qualification, not
+unconditional scientific coverage or an installed release-pair qualification.

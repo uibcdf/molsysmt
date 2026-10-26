@@ -86,7 +86,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental basic tools, eleven topology readers, eighteen structure calculations and managed geometry including centering, single-structure displacement and principal-axis alignment and both dihedral editors; native torsion input/block limits, ten explicit PBC queries/factories with native units and default-angle limitation, population ownership and synchronization recovery.
+          description: Experimental basic tools, eleven topology readers, eighteen structure calculations and managed geometry including centering, single-structure displacement and principal-axis alignment and both dihedral editors; native finite-torsion rejection and explicit block pools, ten explicit PBC queries/factories with native units and default-angle limitation, population ownership and synchronization recovery.
       groups:
       - name: basic
         path: docs/content/user/tools/basic
@@ -535,7 +535,7 @@ sections:
         description: Conversion workflows, MDTraj/ParmEd/OpenMM geometry and cell correspondence, managed MDTraj inputs and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, independent copies, geometry and chemical owner notification, state inventory publication, structure replacement and H5MSM persistence.
+        description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

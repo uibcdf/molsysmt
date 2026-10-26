@@ -4,7 +4,10 @@ from smonitor import signal
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import (
+    NotImplementedMethodError,
+    StructuralInconsistencyError,
+)
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 
 
@@ -21,7 +24,7 @@ def set_dihedral_angles(
     engine="MolSysMT",
 ):
     """
-    Set dihedral angles to specified target values by rotating covalent blocks.
+    Setting finite target torsions by rotating selected atom blocks.
 
     For each dihedral quartet ``(i, j, k, l)``, the function determines which
     atoms form a covalently connected block on the side of atom ``l`` after the
@@ -38,11 +41,19 @@ def set_dihedral_angles(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     dihedral_quartets : list, tuple, numpy.ndarray, or None, default=None
-        Zero-based atom-index quartets defining the dihedral angles.
+        Nonempty zero-based atom-index quartets with shape ``(n_quartets, 4)``.
+        A single quartet can be given as a vector. Each quartet contains four
+        distinct, in-range integer atom indices.
     angles : PyUnitWizard quantity or None, default=None
-        Target dihedral angles in angular units.
+        Finite real target angles, as an angular quantity or unit-bearing string.
+        A scalar broadcasts over structures and quartets. A vector is interpreted
+        per quartet; a matrix has shape ``(n_structures, n_quartets)``. Either
+        matrix axis may have size one for broadcasting.
     blocks : list, tuple, numpy.ndarray, or None, default=None
-        Atom-index blocks that move together when changing each dihedral.
+        Pool of nonempty one-dimensional integer atom-index lists. For each
+        quartet, the union of all blocks containing its fourth atom is rotated.
+        Every fourth atom must belong to a block. Indices must be in range.
+        None computes covalent blocks after cutting each central bond.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     pbc : bool, default=True
@@ -61,16 +72,57 @@ def set_dihedral_angles(
 
     Raises
     ------
+    ArgumentError
+        If edit values are nonfinite, complex or empty, or quartets/blocks are invalid.
+    ArgumentLengthError
+        If angular dimensions cannot broadcast to the selected structures/quartets.
+    StructuralInconsistencyError
+        If the rotation produces nonfinite moving coordinates.
     NotImplementedMethodError
         If an unsupported engine is requested.
 
+
+    Notes
+    -----
+    All validation and rotation finish before coordinates are published. Rejection
+    preserves the input coordinates, box, topology and named interaction coverage.
+    A successful edit invalidates interactions on edited structures, including
+    previously evaluated empty structures; no interaction detector is rerun.
+    Explicit blocks define the moving population and are used as supplied. They
+    are a shared pool, not one row assigned to each quartet. Box matrices and
+    chemical assignments are unchanged. Read-only undefined-angle measurements
+    retain their existing semantics; editing requests must be finite.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['Met-enkephalin']['met_enkephalin.h5msm'])
+    >>> quartet = msm.topology.get_dihedral_quartets(molsys, phi=True)[2]
+    >>> changed = set_dihedral_angles(molsys, dihedral_quartets=quartet,
+    ...                              angles='0 degrees', pbc=False)
+    >>> angle = msm.structure.get_dihedral_angles(changed, dihedral_quartets=quartet)
+    >>> bool(abs(msm.pyunitwizard.get_value(angle, to_unit='radians')[0, 0]) < 1e-10)
+    True
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Set_dihedral_angles`.
 
     .. versionadded:: 1.0.0
     """
 
     if engine == "MolSysMT":
         from molsysmt.basic import copy, get, set
-        from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
+
+        from ._dihedral_edits import (
+            angular_values,
+            block_mask,
+            check_angle_shape,
+            quartet_indices,
+        )
+
+        caller = "molsysmt.structure.set_dihedral_angles"
+        angles = angular_values(angles, "angles", caller)
 
         coordinates = get(
             molecular_system,
@@ -80,25 +132,22 @@ def set_dihedral_angles(
         )
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-        angles = np.asarray(puw.get_value(angles, to_unit="radians"), dtype=np.float64)
-
-        n_quartets = dihedral_quartets.shape[0]
-        on_in_blocks = np.zeros((n_quartets, coordinates.shape[1]), dtype=np.bool_)
-
-        if blocks is None:
-            for ii in range(n_quartets):
-                blocks = get_covalent_blocks(
-                    molecular_system,
-                    remove_bonds=[dihedral_quartets[ii, 1], dihedral_quartets[ii, 2]],
-                )
-                for block in blocks:
-                    if dihedral_quartets[ii, 3] in block:
-                        on_in_blocks[ii, list(block)] = True
-        else:
-            for ii in range(n_quartets):
-                for block in blocks:
-                    if dihedral_quartets[ii, 3] in block:
-                        on_in_blocks[ii, list(block)] = True
+        dihedral_quartets = quartet_indices(
+            dihedral_quartets, coordinates.shape[1], caller
+        )
+        check_angle_shape(
+            angles, coordinates.shape[0], len(dihedral_quartets), "angles", caller
+        )
+        on_in_blocks = block_mask(
+            molecular_system,
+            dihedral_quartets,
+            blocks,
+            coordinates.shape[1],
+            structure_indices,
+            caller,
+        )
+        # A private selected-coordinate buffer protects every input form until publication.
+        coordinates = np.array(coordinates, dtype=np.float64, order="C", copy=True)
 
         if pbc:
             box = get(
@@ -116,7 +165,7 @@ def set_dihedral_angles(
                     _kernels.set_mic_dihedral_angles(
                         coordinates, box, angles, dihedral_quartets, on_in_blocks
                     )
-                    del (box, dihedral_quartets, angles, blocks, on_in_blocks)
+                    del box
                 else:
                     pbc = False
             else:
@@ -127,7 +176,11 @@ def set_dihedral_angles(
                 coordinates, angles, dihedral_quartets, on_in_blocks
             )
 
-            del (dihedral_quartets, angles, blocks, on_in_blocks)
+        if not np.isfinite(coordinates[:, np.any(on_in_blocks, axis=0), :]).all():
+            raise StructuralInconsistencyError(
+                reason="The requested torsion edit produces nonfinite moving coordinates.",
+                caller=caller,
+            )
 
         coordinates = puw.quantity(coordinates, length_unit)
 

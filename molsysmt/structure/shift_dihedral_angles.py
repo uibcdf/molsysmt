@@ -1,9 +1,8 @@
-import numpy as np
 from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 
 @signal(tags=["api", "structure"])
@@ -20,7 +19,7 @@ def shift_dihedral_angles(
     skip_digestion=False,
 ):
     """
-    Shift (increment/decrement) dihedral angles by specified amounts.
+    Shifting torsions by finite increments within selected atom blocks.
 
     Reads the current dihedral angles with ``get_dihedral_angles``, adds the
     requested shifts, and writes the result back with ``set_dihedral_angles``.
@@ -33,11 +32,19 @@ def shift_dihedral_angles(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     dihedral_quartets : list, tuple, numpy.ndarray, or None, default=None
-        Zero-based atom-index quartets defining the dihedral angles.
+        Nonempty zero-based atom-index quartets with shape ``(n_quartets, 4)``.
+        A single quartet can be given as a vector. Each quartet contains four
+        distinct, in-range integer atom indices.
     shifts : PyUnitWizard quantity or None, default=None
-        Angular increments applied to the current dihedral angles.
+        Finite real angular increments, as a quantity or unit-bearing string.
+        Scalars broadcast over structures and quartets; vectors specify one
+        increment per quartet. A matrix has shape ``(n_structures, n_quartets)``;
+        either axis may have size one for broadcasting.
     blocks : list, tuple, numpy.ndarray, or None, default=None
-        Atom-index blocks that move together when changing each dihedral.
+        Pool of nonempty one-dimensional integer atom-index lists. For each
+        quartet, the union of all blocks containing its fourth atom is rotated.
+        Every fourth atom must belong to a block. Indices must be in range.
+        None computes covalent blocks after cutting each central bond.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     pbc : bool, default=True
@@ -59,13 +66,43 @@ def shift_dihedral_angles(
     Raises
     ------
     ArgumentError
-        If ``dihedral_quartets`` is not an array-like object, does not have 4
-        elements in a 1-D case, or does not have shape ``(n, 4)`` in the 2-D
-        case.
+        If increments are nonfinite, complex or empty, or quartets/blocks are invalid.
     ArgumentLengthError
-        If a scalar ``shifts`` value is provided but there is more than one
-        frame or quartet.
+        If angular dimensions cannot broadcast to the selected structures/quartets.
+    StructuralInconsistencyError
+        If the resulting rotation produces nonfinite moving coordinates.
+    NotImplementedMethodError
+        If an unsupported engine is requested.
 
+
+    Notes
+    -----
+    All validation and rotation finish before coordinates are published. Rejection
+    preserves the input coordinates, box, topology and named interaction coverage.
+    A successful edit invalidates interactions on edited structures, including
+    previously evaluated empty structures; no interaction detector is rerun.
+    Explicit blocks define the moving population and are used as supplied. They
+    are a shared pool, not one row assigned to each quartet. Box matrices and
+    chemical assignments are unchanged. Read-only undefined-angle measurements
+    retain their existing semantics; editing requests must be finite.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['Met-enkephalin']['met_enkephalin.h5msm'])
+    >>> quartet = msm.topology.get_dihedral_quartets(molsys, phi=True)[2]
+    >>> before = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=quartet)
+    >>> changed = shift_dihedral_angles(molsys, dihedral_quartets=quartet,
+    ...                                shifts='.2 radians', pbc=False)
+    >>> after = msm.structure.get_dihedral_angles(changed, dihedral_quartets=quartet)
+    >>> delta = msm.pyunitwizard.get_value(after - before, to_unit='radians')
+    >>> bool(np.allclose(np.arctan2(np.sin(delta), np.cos(delta)), .2))
+    True
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Shift_dihedral_angles`.
 
     .. versionadded:: 1.0.0
     """
@@ -73,86 +110,23 @@ def shift_dihedral_angles(
     from molsysmt.basic import get
 
     from . import get_dihedral_angles, set_dihedral_angles
+    from ._dihedral_edits import angular_values, check_angle_shape, quartet_indices
 
-    if type(dihedral_quartets) in [list, tuple]:
-        dihedral_quartets = np.array(dihedral_quartets, dtype=int)
-    elif type(dihedral_quartets) is np.ndarray:
-        pass
-    else:
-        raise ArgumentError(
-            argument="dihedral_quartets",
-            value=dihedral_quartets,
-            caller="molsysmt.structure.shift_dihedral_angles",
-            message="The argument dihedral_quartets needs to be an array-like object.",
-        )
-
-    shape = dihedral_quartets.shape
-
-    if len(shape) == 1:
-        if shape[0] == 4:
-            dihedral_quartets = dihedral_quartets.reshape([1, 4])
-        else:
-            raise ArgumentError(
-                argument="dihedral_quartets",
-                value=dihedral_quartets,
-                caller="molsysmt.structure.shift_dihedral_angles",
-                message="The argument dihedral_quartets needs to have 4 elements if it is a 1D array.",
-            )
-    elif len(shape) == 2:
-        if shape[1] != 4:
-            raise ArgumentError(
-                argument="dihedral_quartets",
-                value=dihedral_quartets,
-                caller="molsysmt.structure.shift_dihedral_angles",
-                message="The argument dihedral_quartets needs to have 4 elements in the second dimension.",
-            )
-    else:
-        raise ArgumentError(
-            argument="dihedral_quartets",
-            value=dihedral_quartets,
-            caller="molsysmt.structure.shift_dihedral_angles",
-            message="The argument dihedral_quartets needs to be a 1D or 2D array.",
-        )
-
-    n_quartets = dihedral_quartets.shape[0]
-    n_structures = get(
+    if engine != "MolSysMT":
+        raise NotImplementedMethodError()
+    caller = "molsysmt.structure.shift_dihedral_angles"
+    shifts_value = angular_values(shifts, "shifts", caller)
+    n_atoms, n_structures = get(
         molecular_system,
-        element="system",
         structure_indices=structure_indices,
+        n_atoms=True,
         n_structures=True,
     )
-
-    shifts_units = puw.get_unit(shifts)
-    shifts_value = puw.get_value(shifts)
-
-    if type(shifts_value) in [float]:
-        if n_quartets == 1 and n_structures == 1:
-            shifts_value = np.array([[shifts_value]], dtype=float)
-        else:
-            raise ArgumentLengthError(
-                argument="shifts",
-                expected=(n_structures, n_quartets),
-                actual=1,
-                caller="molsysmt.structure.shift_dihedral_angles",
-                message="shifts do not match the number of frames and quartets",
-            )
-    elif type(shifts_value) in [list, tuple]:
-        shifts_value = np.array(shifts_value, dtype=float)
-    elif type(shifts_value) is np.ndarray:
-        pass
-    else:
-        raise ArgumentError(
-            argument="shifts",
-            value=shifts,
-            caller="molsysmt.structure.shift_dihedral_angles",
-        )
-
-    shape = shifts_value.shape
-
-    if len(shape) == 1:
-        shifts_value = shifts_value.reshape([n_structures, n_quartets])
-
-    shifts = shifts_value * shifts_units
+    dihedral_quartets = quartet_indices(dihedral_quartets, n_atoms, caller)
+    check_angle_shape(
+        shifts_value, n_structures, len(dihedral_quartets), "shifts", caller
+    )
+    shifts = puw.quantity(shifts_value, "radians")
 
     angles = get_dihedral_angles(
         molecular_system,
@@ -166,7 +140,7 @@ def shift_dihedral_angles(
         molecular_system,
         dihedral_quartets=dihedral_quartets,
         angles=angles,
-        blocks=None,
+        blocks=blocks,
         structure_indices=structure_indices,
         pbc=pbc,
         in_place=in_place,

@@ -444,3 +444,11 @@ analysis associated with the correct molecular system and its declared index
 maps before displaying it. For persistence, use the documented public H5MSM 0.5
 conversion paths. MolSysViewer owns canvas rendering and saved scene/session
 state; these are separate from the scientific analysis stored by MolSysMT.
+
+Torsion edits follow the same publication rule: finite requests with valid
+quartets and explicit block pools publish through the coordinate setter.
+Nonfinite or invalid requests leave both geometry and interaction coverage
+unchanged. Successful edits invalidate analyses only on the edited structures,
+including evaluated-empty coverage. The executable examples in
+{ref}`Tutorial_Set_dihedral_angles` and {ref}`Tutorial_Shift_dihedral_angles`
+show an explicit block and rejection before publication.

@@ -22,7 +22,8 @@ run_smoke() {
     tests/documentation/test_sequence_alignment_examples.py \
     tests/basic/test_file_copy.py \
     tests/basic/test_file_copy_lifecycle.py \
-    tests/form/test_raw_file_copy.py
+    tests/form/test_raw_file_copy.py \
+    tests/structure/test_dihedral_edit_contract.py
 }
 
 run_build_topology() {
