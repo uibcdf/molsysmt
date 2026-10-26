@@ -29,3 +29,9 @@ The canonical variable representing the input system is `molsys` and the flipped
    - Flipped 3D view with `molsysviewer_htmlfile = '_static/views/tools_structure_flip_2.html'` and `msm.view(molsys_flipped)`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
+
+Preserve the executable default z-normal, arbitrary finite normal scaling/sign,
+double-reflection and selected atom/structure examples with explicit physical
+units. Keep no-write invalid-plane rejection, preserved boxes and interaction
+coverage, independent output ownership and the handedness/chemical-state
+distinction. The two existing POPC static views remain valid unit-normal examples.

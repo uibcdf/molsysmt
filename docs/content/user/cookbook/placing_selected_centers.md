@@ -96,6 +96,29 @@ and unsupported axes preserve coordinates, boxes and stored interaction coverage
 on rejection. Use separate single-structure calls when several structures are
 needed; those calls are separate operations, not one atomic trajectory edit.
 
+## Reflecting through a plane
+
+You can also mirror C and D across the plane x=3 nm. Any finite nonzero scaling
+or sign of its normal describes the same plane. The reference atoms A/B stay
+fixed and C/D retain their 2 nm distance:
+
+```python
+molsys_reflected = msm.structure.flip(
+    molsys, selection=[2, 3], vector=[2, 0, 0], point='[30, 0, 0] angstrom')
+reflected = puw.get_value(msm.get(molsys_reflected, coordinates=True), to_unit='nm')
+np.testing.assert_allclose(reflected[0, :, 0], [2, 4, -4, -6], atol=1e-12)
+molsys_restored = msm.structure.flip(
+    molsys_reflected, selection=[2, 3], vector=[-4, 0, 0], point='[3, 0, 0] nm')
+np.testing.assert_allclose(
+    puw.get_value(msm.get(molsys_restored, coordinates=True), to_unit='nm'),
+    puw.get_value(msm.get(molsys, coordinates=True), to_unit='nm'), atol=1e-12)
+```
+
+Omitting the normal uses [0, 0, 1]. Zero/nonfinite normals and invalid plane
+points reject before writes. Reflection reverses handedness; chemical-state
+assignments are unchanged. Native setters invalidate interaction coverage for
+the edited structures, and preserve it on rejected plane inputs.
+
 :::{seealso}
 :class: dropdown
 
@@ -104,4 +127,5 @@ needed; those calls are separate operations, not one atomic trajectory edit.
 - {ref}`The molecular system <user-foundations-molecular-system-definition>`
 - {func}`molsysmt.structure.center`
 - {ref}`Move away <Tutorial_Move_away>`
+- {ref}`Flip <Tutorial_Flip>`
 :::

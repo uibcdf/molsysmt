@@ -31,6 +31,12 @@ molsysmt.build.merge_nonpolar_hydrogens:
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 
+molsysmt.structure.flip:
+  name: "msm.structure.flip"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Reflects selected coordinates across a plane while preserving distances and reversing handedness."
+  doc_ref: "{func}`molsysmt.structure.flip`"
+
 molsysmt.structure.move_away:
   name: "msm.structure.move_away"
   first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"

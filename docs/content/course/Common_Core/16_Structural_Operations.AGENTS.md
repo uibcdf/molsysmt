@@ -28,6 +28,8 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Preserve the executable `move_away` comparison of automatic separation
   increments and explicit final offsets, the initial reference snapshot,
   single-structure scope and unchanged-system checks on rejection.
+* Preserve reflection's default z plane, normal-scale invariance, inverse check,
+  handedness distinction and unchanged chemical assignments.
 
 ### 4. Section 3: Structural Alignment and RMSD (`get_rmsd` and `least_rmsd_align`)
 * Must demonstrate computing Root-Mean-Square Deviation using `msm.structure.get_rmsd()` and performing rigid superposition with `msm.structure.least_rmsd_align()`.

@@ -17,6 +17,18 @@ from molsysmt._private.argdigest.argument.vectors import digest_vectors
 from molsysmt._private.smonitor import ArgumentError
 
 
+def test_plane_normal_policy_is_scoped_to_flip():
+    np.testing.assert_array_equal(
+        digest_vector(None, caller="molsysmt.structure.flip.flip"), [0, 0, 1]
+    )
+    np.testing.assert_array_equal(
+        digest_vector([2, 0, 0], caller="molsysmt.structure.flip.flip"), [1, 0, 0]
+    )
+    np.testing.assert_array_equal(digest_vector([2, 0, 0]), [2, 0, 0])
+    with pytest.raises(ArgumentError):
+        digest_vector(None)
+
+
 def test_geometry_and_transform_digesters():
     assert np.array_equal(
         digest_center([0, 1], caller="molsysmt.basic.convert.convert"),

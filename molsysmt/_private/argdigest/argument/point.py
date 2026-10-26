@@ -3,11 +3,16 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
 
+from ._quantity_parsing import parse_quantity_string
+
 
 def digest_point(point, caller=None):
 
     if point is None:
         return None
+
+    if isinstance(point, str):
+        point = parse_quantity_string("point", point, caller=caller)
 
     value, unit = puw.get_value_and_unit(point)
 
@@ -16,6 +21,9 @@ def digest_point(point, caller=None):
 
     if not isinstance(value, np.ndarray):
         value = np.array(value)
+
+    if np.iscomplexobj(value):
+        raise ArgumentError("point", value=point, caller=caller)
 
     value = value.astype(np.float64)
     shape = value.shape

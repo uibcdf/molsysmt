@@ -621,3 +621,21 @@ and display synchronization failures retain their separate uncertainty/retry
 contracts. The source receipts above remain historical; these repairs do not
 qualify installed packages or a broader multi-structure route. The final
 administrative closure comment for uibcdf/molsysmt#451 is also restored.
+
+
+### Native reflection repair — 2026-10-25
+
+The scientific owner repairs the default/normal defects under
+uibcdf/molsysmt#460. None selects the existing z-normal convention. The native
+argument boundary normalizes finite nonzero plane normals using the shared
+scale-safe helper; generic vector digestion remains unchanged for other callers.
+One finite physical point applies to all selected structures. Unsupported point
+stacks and undefined normals reject before writes. The existing Rust kernel
+still owns reflection; no addon formula or provider dependency is added.
+
+Independent plane matrices, distance invariance, inverse reflection and signed
+volume guard native MolSys/Structures across physical unit policies. Real-view
+receiving includes default and scaled normals, rejected invalid planes and
+preserved synchronization/interaction state. Earlier explicit-unit-only receipts
+remain dated evidence. The repaired current contract does not imply installed
+package qualification or stability of unrelated scientific profiles.

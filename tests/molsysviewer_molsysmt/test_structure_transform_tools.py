@@ -404,6 +404,8 @@ def test_rotation_signature_documentation_and_integration_controls(view, name):
         assert addon_parameters["skip_digestion"].kind is inspect.Parameter.KEYWORD_ONLY
         assert "no declared escape hatch" in doc
         assert "chirality" in doc
+        assert "None default uses the z normal" in doc
+        assert "None default rejects" not in doc
 
 
 QUARTER_TURNS = np.array(
@@ -415,6 +417,19 @@ QUARTER_TURNS = np.array(
     ],
     dtype=float,
 )
+
+
+def test_default_reflection_uses_native_z_plane_and_synchronizes(view):
+    before = values(view).copy()
+    expected = before.copy()
+    for index in [2, 0]:
+        expected[index, [0, 4], 2] *= -1
+    result = view.addons.molsysmt.structure.flip(
+        selection=[0, 4], structure_indices=[2, 0], in_place=True
+    )
+    assert result is None
+    np.testing.assert_allclose(values(view), expected, atol=1e-12, rtol=0)
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
 
 
 def quarter_turn(point, turn):
@@ -492,7 +507,7 @@ def test_rotation_analytical_values_broadcasts_units_and_repeated_axes(
 
 @pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
 @pytest.mark.parametrize("in_place", [False, True])
-@pytest.mark.parametrize("normal", [[1, 0, 0], [0.6, 0.8, 0]])
+@pytest.mark.parametrize("normal", [[1, 0, 0], [2, 0, 0], [0.6, 0.8, 0], [3, 4, 0]])
 def test_reflection_analytical_plane_units_distance_and_ownership(
     view, unit, in_place, normal
 ):
@@ -507,7 +522,7 @@ def test_reflection_analytical_plane_units_distance_and_ownership(
         for a in atoms:
             p = before[s, a]
             # Explicit Cartesian plane equations, independent of native kernels.
-            if normal == [1, 0, 0]:
+            if normal in ([1, 0, 0], [2, 0, 0]):
                 expected[s, a] = [2 * point_nm[0] - p[0], p[1], p[2]]
             else:
                 distance = 0.6 * (p[0] - point_nm[0]) + 0.8 * (p[1] - point_nm[1])
@@ -584,6 +599,9 @@ def test_rotation_inverse_or_reflection_twice_retains_geometry(view, name, argum
         ("rotate", {"rotation": np.ones((2, 3, 3))}),
         ("rotate", {"rotation": QUARTER_TURNS[1], "rotation_center": "1 ps"}),
         ("flip", {"vector": [1, 0]}),
+        ("flip", {"vector": [0, 0, 0]}),
+        ("flip", {"vector": [np.nan, 0, 1]}),
+        ("flip", {"point": "[[0, 0, 0], [1, 0, 0]] nm"}),
         ("flip", {"vector": [1, 0, 0], "point": "1 ps"}),
         ("flip", {"vector": [1, 0, 0], "selection": [99999]}),
         ("rotate", {"rotation": QUARTER_TURNS[1], "structure_indices": [99999]}),

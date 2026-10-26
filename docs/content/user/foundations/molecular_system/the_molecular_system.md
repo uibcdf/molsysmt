@@ -48,6 +48,11 @@ reference. Undefined directions and unsupported structure populations reject
 before coordinate publication, preserving the system and its stored analyses.
 See {ref}`Tutorial_Move_away` for the supported single-structure scope.
 
+A plane reflection preserves distances within the reflected population and
+reverses handedness. The scale or sign of a finite nonzero plane normal does
+not change that plane. It edits coordinates while preserving stored chemical
+assignments; see {ref}`Tutorial_Flip` for plane points and selected scopes.
+
 Sequence-guided structural alignment also distinguishes atom populations from
 group correspondence. Its public selections address atoms on each system's own
 axis; the sequence layer projects them to original amino-acid groups. Selected

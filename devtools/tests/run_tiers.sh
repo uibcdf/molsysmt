@@ -15,6 +15,7 @@ run_smoke() {
     tests/structure/center/test_center_contract.py \
     tests/documentation/test_center_examples.py \
     tests/structure/move_away/test_move_away_contract.py \
+    tests/structure/flip/test_reflection_contract.py \
     tests/structure/get_center/test_get_center_extended.py::test_empty_atom_population_raises_argument_error_before_group_dispatch \
     tests/documentation/test_move_away_examples.py \
     tests/structure/align/test_sequence_alignment_contract.py \

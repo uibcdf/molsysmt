@@ -9,3 +9,6 @@ relative geometry. Keep the explicit 3 nm midpoint and one-atom anchor checks.
 Preserve the automatic-increment versus explicit-offset example from the same
 original C/D coordinates, unchanged A/B atoms, single-structure admission and
 pre-publication rejection/interaction-coverage guarantees.
+
+Preserve the nonunit-normal x=3 nm reflection of C/D and its inverse, unchanged
+A/B atoms, handedness distinction and invalid-plane rejection contract.

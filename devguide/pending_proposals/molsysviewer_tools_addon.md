@@ -842,3 +842,13 @@ receipts are unchanged. The maintained current contract is in
 [the addon guide](../molsysviewer_addon.md#native-displacement-repair--2026-10-25).
 No multi-structure support, installed-package qualification or publication is
 inferred from the repair.
+
+
+### Native reflection correction — 2026-10-25
+
+The scientific owner corrects uibcdf/molsysmt#460: the default z plane and finite
+nonzero scaled normals now share the native reflection contract. Undefined
+normals and invalid plane points reject before writes. The facade forwards these
+inputs without its own geometry. Earlier unit-normal receiving receipts remain
+historical; the [current addon guide](../molsysviewer_addon.md) records the repair.
+No installed qualification or public floor changes.

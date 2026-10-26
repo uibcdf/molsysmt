@@ -35,9 +35,8 @@ Results retain native quantities, arrays and metadata. The separate
 `structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`,
 `structure.least_rmsd_align`, `structure.center` and `structure.move_away` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
-repairs documented below. Reflection receiving
-currently covers explicit unit normals only; native default/nonunit-normal defects
-remain visible below. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. Other transformations remain outside the received slice.
+repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
+with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. Other transformations remain outside the received slice.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -905,16 +904,17 @@ rotation center carries length units. Repeated and nonconsecutive selections kee
 native ordering and last supplied coordinate assignments. No matrix conversion,
 normalization or alternate algorithm is introduced by the addon.
 
-{doc}`structure/flip` retains native arguments and scientific results. At the
-reviewed native source, **supply an explicit unit normal**, such as [1, 0, 0] or
-[0.6, 0.8, 0]. The declared vector=None default is rejected by native validation;
-nonunit vectors are not normalized and can change distances instead of reflecting
-across the declared plane. Zero vectors do not define a plane and are not a
-qualified input. These are native defects, reproduced without Viewer; the addon
-neither hides them nor substitutes its own geometry. Only the explicit-unit-normal
-route has scientific receiving here. The native flip signature has no declared
-skip_digestion: the addon's keyword-only flag controls addon digestion only and
-never disables the native boundary.
+{doc}`structure/flip` retains native arguments and scientific results. The None
+default uses [0, 0, 1]. Native validation normalizes finite nonzero normals, so
+[2, 0, 0] and [-1, 0, 0] describe the same plane as [1, 0, 0]. Zero/nonfinite
+normals and invalid plane points reject before coordinate publication, preserving
+coordinates, boxes and interaction coverage. The native repair is tracked in
+[#460](https://github.com/uibcdf/molsysmt/issues/460); the addon forwards its
+inputs and does not implement a reflection formula. One finite length-bearing
+point defines the plane for all requested structures. Reflection reverses
+handedness and leaves stored chemical assignments unchanged. The native flip
+signature has no declared skip_digestion: the addon's keyword-only flag controls
+addon digestion only and never disables the native boundary.
 
 Both wrappers preserve in_place=False by default. update_view does not adopt an
 independent result. In-place edits return None; update_view=True synchronizes the

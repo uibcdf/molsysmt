@@ -112,10 +112,11 @@ def _native_documentation(name, module="basic"):
                 "declared escape hatch and always receives ordinary validation.\n"
                 "Reflection can invert chirality; it is not a proper rotation or "
                 "an automatic change to topology or chemical-state assignments.\n"
-                "At the reviewed native source, supply an explicit unit normal: "
-                "the None default rejects, and nonunit normals are not normalized "
-                "and do not implement a geometric reflection. The addon forwards "
-                "these inputs unchanged; those native routes remain unqualified.\n"
+                "The native None default uses the z normal. Finite nonzero normals "
+                "are normalized by native validation; their scale or sign does not "
+                "change the plane. Undefined normals and invalid plane points reject "
+                "before coordinate writes (uibcdf/molsysmt#460). The addon forwards "
+                "these inputs unchanged and supplies no reflection algorithm.\n"
             )
         if module == "structure" and name == "move_away":
             function.__doc__ += (
