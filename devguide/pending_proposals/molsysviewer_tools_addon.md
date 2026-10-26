@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -844,6 +844,37 @@ No multi-structure support, installed-package qualification or publication is
 inferred from the repair.
 
 
+## Bound principal-axis alignment — 2026-10-25
+
+structure.align_principal_axes receives the native scientific parameters and
+native independent/in-place defaults and returns. Only keyword-only
+skip_digestion and update_view are added. The former is addon-only because the
+native function declares no digestion bypass; the latter controls projection,
+not science or adoption. Both ordinary validation/diagnostics and the existing
+retained-axis coordinator are reused; no host runtime extension is needed.
+
+The native fitting population is independent of the atoms moved. Target axes
+are right-handed orthonormal rows; geometric/inertial definitions, weights,
+arbitrary eigenvector signs, degeneracy rejection and optional centering remain
+scientific-owner behavior. No periodic reconstruction or box rotation is added.
+The structure namespace exposes 26 tools: eighteen calculations and eight
+coordinate editors. Only set_dihedral_angles and shift_dihedral_angles remain
+pending among the reviewed structure exports; other namespaces and GUI panels
+are separate work.
+
+Guard: tests/molsysviewer_molsysmt/test_structure_axes_tools.py. Independent
+weighted covariance/eigenvalue checks exercise both definitions, target bases,
+centering, non-default units, repeated/nonconsecutive structures, rigid distances
+and signed volumes. Native-parity checks cover disjoint fitting atoms; real
+view tests cover interaction invalidation, defaults/returns, clean rejections,
+managed scene maps, lifetime and synchronization retry without scientific replay.
+This source receiving also includes owner repair e6677e4c6 of
+uibcdf/molsysmt#456 / uibcdf/molsysmt#457 and its native/real-view guards. It
+introduces no new detector or scientific workaround, installed qualification,
+public floor, tag or release. Full applicable local and exact-head hosted
+results are recorded separately.
+
+
 ### Native reflection correction — 2026-10-25
 
 The scientific owner corrects uibcdf/molsysmt#460: the default z plane and finite
@@ -852,3 +883,24 @@ normals and invalid plane points reject before writes. The facade forwards these
 inputs without its own geometry. Earlier unit-normal receiving receipts remain
 historical; the [current addon guide](../molsysviewer_addon.md) records the repair.
 No installed qualification or public floor changes.
+
+
+### Completed local principal-axis qualification — 2026-10-25
+
+The focused guard passes 73 cases plus two separately selected disjoint-fitting
+cases. A single executed regression on fixed source 7b1604ec3 plus the owned
+alignment patch passes 1299 cases, zero failures/errors/skips, in 272.85 seconds.
+Scientific/addon source hashes do not change during execution. Generated ignored
+version metadata is recorded separately; the existing Rust binary matches the
+initial shared-checkout observation. No fresh backend build is claimed.
+All 28 guide blocks and 138 native-context doctests pass; Viewer reporting/link
+guards pass 280 cases. Ruff and isolated guide/index validation pass.
+
+Source receipt: `devtools/data/molsysviewer_tools_axes_receiving_20261025.json`
+in MolSysMT. It retains original JUnit digests, source/import origins, unit audits,
+and the two failed runner preflights (no tests executed), rather than presenting
+those attempts as passing campaigns. Documentary tests use MPLBACKEND=Agg, with
+no claim of live Qt/window observation. Native #456/#457 guards are received;
+concurrent scientific reflection work under uibcdf/molsysmt#460 is excluded from
+this isolated local campaign and preserved in the shared checkout. Integrated
+source identity and exact-head hosted CI follow separately. No release follows.

@@ -69,6 +69,7 @@ def _native_documentation(name, module="basic"):
             "least_rmsd_align",
             "center",
             "move_away",
+            "align_principal_axes",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -91,6 +92,7 @@ def _native_documentation(name, module="basic"):
             "least_rmsd_align",
             "center",
             "move_away",
+            "align_principal_axes",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -117,6 +119,18 @@ def _native_documentation(name, module="basic"):
                 "change the plane. Undefined normals and invalid plane points reject "
                 "before coordinate writes (uibcdf/molsysmt#460). The addon forwards "
                 "these inputs unchanged and supplies no reflection algorithm.\n"
+            )
+        if module == "structure" and name == "align_principal_axes":
+            function.__doc__ += (
+                "skip_digestion : bool, keyword-only, default=False\n"
+                "    Control addon digestion only. The native callable has no "
+                "skip_digestion argument and always receives ordinary validation. "
+                "Native principal_axes_of_selection defines the fitting population "
+                "independently of the atoms moved by selection. Target axes are rows "
+                "of a right-handed orthonormal basis; degenerate moments reject. "
+                "The center flag controls translation relative to the initial "
+                "weighted fitting center. The addon adds no eigensolver, sign choice, "
+                "periodic reconstruction, box rotation or scientific preparation.\n"
             )
         if module == "structure" and name == "move_away":
             function.__doc__ += (

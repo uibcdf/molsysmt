@@ -12,7 +12,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement and principal-axis alignment under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -621,6 +621,37 @@ and display synchronization failures retain their separate uncertainty/retry
 contracts. The source receipts above remain historical; these repairs do not
 qualify installed packages or a broader multi-structure route. The final
 administrative closure comment for uibcdf/molsysmt#451 is also restored.
+
+
+## Bound principal-axis alignment — 2026-10-25
+
+structure.align_principal_axes receives the native scientific parameters and
+native independent/in-place defaults and returns. Only keyword-only
+skip_digestion and update_view are added. The former is addon-only because the
+native function declares no digestion bypass; the latter controls projection,
+not science or adoption. Both ordinary validation/diagnostics and the existing
+retained-axis coordinator are reused; no host runtime extension is needed.
+
+The native fitting population is independent of the atoms moved. Target axes
+are right-handed orthonormal rows; geometric/inertial definitions, weights,
+arbitrary eigenvector signs, degeneracy rejection and optional centering remain
+scientific-owner behavior. No periodic reconstruction or box rotation is added.
+The structure namespace exposes 26 tools: eighteen calculations and eight
+coordinate editors. Only set_dihedral_angles and shift_dihedral_angles remain
+pending among the reviewed structure exports; other namespaces and GUI panels
+are separate work.
+
+Guard: tests/molsysviewer_molsysmt/test_structure_axes_tools.py. Independent
+weighted covariance/eigenvalue checks exercise both definitions, target bases,
+centering, non-default units, repeated/nonconsecutive structures, rigid distances
+and signed volumes. Native-parity checks cover disjoint fitting atoms; real
+view tests cover interaction invalidation, defaults/returns, clean rejections,
+managed scene maps, lifetime and synchronization retry without scientific replay.
+This source receiving also includes owner repair e6677e4c6 of
+uibcdf/molsysmt#456 / uibcdf/molsysmt#457 and its native/real-view guards. It
+introduces no new detector or scientific workaround, installed qualification,
+public floor, tag or release. Full applicable local and exact-head hosted
+results are recorded separately.
 
 
 ### Native reflection repair — 2026-10-25

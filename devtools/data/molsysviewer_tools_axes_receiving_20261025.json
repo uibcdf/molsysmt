@@ -1,0 +1,291 @@
+{
+  "schema": "molsysviewer.tools.source_receiving@1",
+  "date": "2026-10-25",
+  "status": "isolated_source_received_exact_integrated_CI_pending",
+  "implemented": "view.addons.molsysmt.structure.align_principal_axes",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "native_repairs_received": [
+    "uibcdf/molsysmt#456",
+    "uibcdf/molsysmt#457"
+  ],
+  "native_displacement_fix": "e6677e4c68f170080bba135856fb02c62ca18851",
+  "tested_base_commit": "7b1604ec36f67efc80fa5f159f2469f9b58325c4",
+  "preparation_parent": "7b1604ec36f67efc80fa5f159f2469f9b58325c4",
+  "host_base_commit": "eaadba46ecbc34329edf5127305bbb1cae61b186",
+  "environment": {
+    "conda_environment": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "imports": {
+      "molsysmt": "/tmp/msm-axes-isolated-mrwxwz1k/molsysmt/__init__.py",
+      "addon": "/tmp/msm-axes-isolated-mrwxwz1k/molsysviewer_molsysmt/__init__.py",
+      "molsysviewer": "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/__init__.py"
+    },
+    "existing_compiled_backend": {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so",
+      "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "matched_initial_shared_checkout_observation": true
+    },
+    "documentary_backend": "MPLBACKEND=Agg; not a Qt or live-window qualification"
+  },
+  "inventory": {
+    "structure_calculations": 18,
+    "structure_coordinate_editors": 8,
+    "structure_pending_edits": [
+      "set_dihedral_angles",
+      "shift_dihedral_angles"
+    ]
+  },
+  "contract": {
+    "primary_system": "current view.molsys implicit",
+    "native_parameters": "unchanged scientific parameters/defaults/returns",
+    "in_place_default": false,
+    "update_view_default": true,
+    "skip_digestion": "addon-only keyword; native declares none and retains ordinary validation",
+    "fit_population": "principal_axes_of_selection or moving population; can be disjoint",
+    "target_axes": "right-handed orthonormal row basis; None means Cartesian",
+    "moments": "native inertia/geometric ordering, signs and degeneracy rejection",
+    "center": "native weighted initial fitting center; retain or subtract without moving excluded fitting atoms",
+    "publication": "native selected-structure invalidation and None return; managed retained scene identities",
+    "periodic": "no implicit reconstruction or box rotation"
+  },
+  "validation": {
+    "focused": {
+      "path": "/tmp/msv-axes-targeted.xml",
+      "sha256": "d5464f5d06bca0a6f6bb64374db87374fb4c50ed2a6302aed095a3f1e658c210",
+      "tests": 73,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "focused_disjoint": {
+      "path": "/tmp/msv-axes-disjoint.xml",
+      "sha256": "0f33640643d51d86cb2f15067d0eb47850cb8ec26e1d9feecfac373580cf36fc",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "isolated_regression": {
+      "path": "/tmp/msv-axes-regression.xml",
+      "sha256": "38ceea59f2cfa9b3e3bf49561e782db0bebbc7eeab15988798f92ce3462cbf11",
+      "tests": 1299,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "host_guides": {
+      "path": "/tmp/msv-axes-host-guides.xml",
+      "sha256": "157793b3394dfce78b64d43db81bc445b1b463104bd0f367bfd9da856d31589e",
+      "tests": 280,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "examples": {
+    "guide_blocks": 28,
+    "doctests": {
+      "molsysviewer_molsysmt._structure": {
+        "failed": 0,
+        "attempted": 97
+      },
+      "molsysviewer_molsysmt._topology": {
+        "failed": 0,
+        "attempted": 41
+      }
+    }
+  },
+  "unit_audit": {
+    "source": "/home/diego/repos@uibcdf/molsysmt/molsysmt/__init__.py",
+    "stored_unit": "nanometer",
+    "records": [
+      {
+        "unit": "nm",
+        "center": false,
+        "observed_center": [
+          1.6647537350654602,
+          0.8205923736095427,
+          0.3217688873410225
+        ],
+        "expected_center": [
+          1.6647537350654602,
+          0.8205923736095428,
+          0.3217688873410225
+        ],
+        "offdiagonal": 9.445562894047752e-19,
+        "error": null
+      },
+      {
+        "unit": "nm",
+        "center": true,
+        "observed_center": [
+          2.90927582950277e-18,
+          -5.782411586589357e-19,
+          0.0
+        ],
+        "expected_center": [
+          0,
+          0,
+          0
+        ],
+        "offdiagonal": 1.698385524763616e-18,
+        "error": null
+      },
+      {
+        "unit": "angstrom",
+        "center": false,
+        "observed_center": [
+          1.6647537350654602,
+          0.8205923736095427,
+          0.32176888734102244
+        ],
+        "expected_center": [
+          1.6647537350654602,
+          0.8205923736095428,
+          0.3217688873410225
+        ],
+        "offdiagonal": 4.06974467686762e-18,
+        "error": null
+      },
+      {
+        "unit": "angstrom",
+        "center": true,
+        "observed_center": [
+          -1.0842021724855044e-19,
+          1.734723475976807e-18,
+          4.625929269271485e-18
+        ],
+        "expected_center": [
+          0,
+          0,
+          0
+        ],
+        "offdiagonal": 1.5310930262055549e-18,
+        "error": null
+      },
+      {
+        "unit": "pm",
+        "center": false,
+        "observed_center": [
+          1.6647537350654602,
+          0.8205923736095427,
+          0.32176888734102244
+        ],
+        "expected_center": [
+          1.6647537350654602,
+          0.8205923736095428,
+          0.3217688873410225
+        ],
+        "offdiagonal": 9.455305421696023e-18,
+        "error": null
+      },
+      {
+        "unit": "pm",
+        "center": true,
+        "observed_center": [
+          -1.2039161623641122e-18,
+          -5.782411586589357e-18,
+          -4.625929269271485e-18
+        ],
+        "expected_center": [
+          0,
+          0,
+          0
+        ],
+        "offdiagonal": 1.8021710886814976e-18,
+        "error": null
+      }
+    ]
+  },
+  "source_watch": {
+    "checkout": "/tmp/msm-axes-isolated-mrwxwz1k",
+    "manifest": "/tmp/msv-axes-regression-source.json",
+    "sha256": "3f73fd3b6039a8d3490bdd10d3ee91cec5696fb077019457bafa2fc22cb4ad8e",
+    "watched_files": 2984,
+    "changed_during_run": [],
+    "generated_metadata": {
+      "path": "molsysmt/_version.py",
+      "reason": "Versioning metadata may be regenerated by developer packaging guards; retained separately from scientific/addon source hashes.",
+      "before": null,
+      "after": "3e2a65d29311aa8d279e92fb9a3c58188d40abce6914d4e4d54573777bb16089"
+    },
+    "tested_hashes": {
+      "molsysmt/structure/align_principal_axes.py": "a1c93da1af843bf3e861a7020202f934ba802c761f83f988cbbb89e78ff74929",
+      "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+      "molsysviewer_molsysmt/_api.py": "f8aa5d0503ff9d44c512f9200a452293151225def97855e5ad013295f9249bd4",
+      "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+      "molsysviewer_molsysmt/_basic.py": "c763db985045a59632ae6b51e97e1cd5354d5f51676bb38651fe7bea9d2cc7ad",
+      "molsysviewer_molsysmt/_geometry.py": "81cee8776be157888a133f49428a19943b07707c189306c4f0726b85c988801f",
+      "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+      "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+      "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+      "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+      "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+      "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+      "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+      "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+      "molsysviewer_molsysmt/_structure.py": "5e5aa2f0a2ced9ac597108254d02af7f18df3096e3bfd2adc811cc691f4a2fa0",
+      "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+      "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+      "tests/molsysviewer_molsysmt/test_structure_axes_tools.py": "fae9b88c09a0fb170d8f8d5b705dec635be59861d7a43b2582f1c2d997cb2136"
+    }
+  },
+  "preflight_attempts": [
+    {
+      "exit": 4,
+      "tests_executed": 0,
+      "reason": "Nonexistent get_principal_axes test-directory selector; corrected after inspecting existing test layout.",
+      "manifest": "/tmp/msv-axes-regression-usage.source.json",
+      "sha256": "4823f4260fe220e0e9248229e7259d5c6da26f60a1efbd2a8e6daa83ab5cbe96"
+    },
+    {
+      "exit": 1,
+      "tests_executed": 0,
+      "reason": "Runner required ignored generated _version.py in a clean worktree; made its recording optional before the actual regression.",
+      "log": "/tmp/msv-axes-regression-preflight.log",
+      "sha256": "ee5fbaa3594b80076279ff1f9ac6b7dd0271657fc260809e73f534d02e318861"
+    }
+  ],
+  "limits": [
+    "No new eigensolver, scientific formula, sign policy or preparation in addon.",
+    "Uncommitted native reflection work under uibcdf/molsysmt#460 excluded from the isolated receiving; preserve owner changes.",
+    "No new host runtime, installed-artifact or all-platform qualification.",
+    "No fresh Rust build, public floor, tag or package publication."
+  ],
+  "integration_parent_reviewed": "98b10ad2d46a954d38868be11064044386a6e392",
+  "independent_owner_changes_preserved": {
+    "issue": "uibcdf/molsysmt#460",
+    "commit": "98b10ad2d46a954d38868be11064044386a6e392",
+    "qualification": "Excluded from the isolated local regression; exact integrated-head CI receives the combined source.",
+    "changed_paths": [
+      ".github/workflows/ci-smoke.yaml",
+      "devguide/archive/resolved_bugs/flip_default_and_normal_scaling.md",
+      "devguide/molsysviewer_addon.md",
+      "devguide/pending_proposals/molsysviewer_tools_addon.md",
+      "devtools/tests/run_tiers.sh",
+      "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md",
+      "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+      "docs/content/course/function_inventory.yml",
+      "docs/content/user/cookbook/placing_selected_centers.md",
+      "docs/content/user/cookbook/placing_selected_centers.md.AGENTS.md",
+      "docs/content/user/foundations/molecular_system/the_molecular_system.md",
+      "docs/content/user/tools/molsysviewer_tools.md",
+      "docs/content/user/tools/structure/flip.ipynb",
+      "docs/content/user/tools/structure/flip.ipynb.AGENTS.md",
+      "docs/content/user/tools/structure/flip.nbconvert.last_run",
+      "molsysmt/_private/argdigest/argument/point.py",
+      "molsysmt/_private/argdigest/argument/vector.py",
+      "molsysmt/structure/flip.py",
+      "molsysviewer_molsysmt/_basic.py",
+      "tests/_private/argdigest/test_geometry_transform_digesters.py",
+      "tests/documentation/test_move_away_examples.py",
+      "tests/molsysviewer_molsysmt/test_structure_transform_tools.py",
+      "tests/structure/flip/test_reflection_contract.py"
+    ]
+  }
+}

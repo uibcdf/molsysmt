@@ -77,6 +77,7 @@ def test_signature_help_namespace_and_explicit_integration_controls(view):
             "least_rmsd_align",
             "center",
             "move_away",
+            "align_principal_axes",
         )
     )
     assert not hasattr(view.addons.molsysmt, "translate")

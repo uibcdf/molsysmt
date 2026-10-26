@@ -33,6 +33,7 @@ class _StructureTools:
         "least_rmsd_align",
         "center",
         "move_away",
+        "align_principal_axes",
     )
 
     def __init__(self, owner):
@@ -989,6 +990,45 @@ class _StructureTools:
                 "in_place": in_place,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_native_documentation("align_principal_axes", module="structure")
+    @signal(tags=["addon", "structure", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def align_principal_axes(
+        self,
+        selection="all",
+        principal_axes_of_selection=None,
+        principal_axes_type="inertia",
+        structure_indices="all",
+        weights=None,
+        axes=None,
+        center=False,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=False,
+        *,
+        skip_digestion=False,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "align_principal_axes",
+            {
+                "selection": selection,
+                "principal_axes_of_selection": principal_axes_of_selection,
+                "principal_axes_type": principal_axes_type,
+                "structure_indices": structure_indices,
+                "weights": weights,
+                "axes": axes,
+                "center": center,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
             },
             update_view,
         )

@@ -33,7 +33,8 @@ The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_secondary_structure` and `principal_component_analysis`.
 Results retain native quantities, arrays and metadata. The separate
 `structure.translate`, `structure.rotate`, `structure.flip`, `structure.least_rmsd_fit`,
-`structure.least_rmsd_align`, `structure.center` and `structure.move_away` wrappers receive independent outputs and managed
+`structure.least_rmsd_align`, `structure.center`, `structure.move_away` and
+`structure.align_principal_axes` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
 with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. Other transformations remain outside the received slice.
@@ -1032,8 +1033,8 @@ validation, repeated-structure targets and residual refinement remain native.
 No implicit periodic reconstruction or box transformation is added. See the
 [placement recipe](../cookbook/placing_selected_centers.md) for the same native
 population contract outside a view. The technical fix behind
-[#451](https://github.com/uibcdf/molsysmt/issues/451) remains accepted; its requested
-administrative reopening concerns the missing closure comment, not this geometry.
+[#451](https://github.com/uibcdf/molsysmt/issues/451) remains accepted; the requested
+administrative closure comment is now restored.
 
 
 ## Moving away from a reference center
@@ -1095,3 +1096,59 @@ forwards the native validation and supplies no substitute geometry. An unrelated
 backend failure after actual publication still needs explicit recovery; display
 retry must not repeat successful science.
 :::
+
+
+## Aligning principal axes
+
+```python
+with msv.demo['pentalanine'] as view:
+    tools = view.addons.molsysmt
+    aligned = tools.structure.align_principal_axes(
+        selection='all', principal_axes_of_selection="atom_name=='CA'",
+        principal_axes_type='inertia', weights='masses', center=False,
+    )
+    # The independent native result does not replace view.molsys.
+    tools.structure.align_principal_axes(
+        selection='all', principal_axes_of_selection="atom_name=='CA'",
+        principal_axes_type='geometric', structure_indices=[2, 0],
+        axes=[[0, 1, 0], [0, 0, 1], [1, 0, 0]],
+        center=True, in_place=True, update_view=False,
+    )
+    tools.sync_view()
+```
+
+{func}`molsysmt.structure.align_principal_axes` rotates the atoms in `selection`
+using the axes of `principal_axes_of_selection`. None uses the moving population;
+an explicit fitting population may overlap or be disjoint from the atoms moved.
+All populations address the current bound system. A disjoint fitting population
+stays unchanged: its **initial** geometry determines the transformation, rather
+than defining a final constraint on atoms that do not move.
+
+The native `principal_axes_type` selects inertia or geometric axes. Eigenvalues
+are ordered increasingly within that definition. Individual eigenvector signs
+are mathematically arbitrary; repeated principal moments do not define unique
+individual axes and reject. The target `axes` are three **row vectors** forming
+a right-handed orthonormal basis; None requests the Cartesian basis. The native
+operation owns weights, axis signs, degeneracy tolerance and basis validation.
+`weights` apply to the fitting population, including native mass weighting.
+No eigenvalue correction or eigensolver is supplied by this addon.
+
+By default `center=False`, the rotation uses and restores the initial weighted
+fitting center. With `center=True`, that center is subtracted without restoration.
+When fitting atoms move along with the selection this places their weighted
+center at the origin; it does not promise to center a fitting population that
+was deliberately excluded from movement. Both modes preserve relative distances
+and handedness within the moved population. They do not rotate the periodic
+box, wrap components or prepare periodic coordinates.
+
+Native `in_place=False` returns an independent result; `in_place=True` edits the
+bound system and returns None. Nonconsecutive/repeated structures retain native
+ordering and selected-structure interaction invalidation. `update_view` controls
+only projection. A deferred sequence preserves scene correspondence and is
+finished with `sync_view()`; synchronization retry does not repeat the alignment.
+
+The native function currently has no `skip_digestion` argument. The addon's
+keyword-only flag controls its own digestion only: native validation always
+runs, including when that flag is True. Invalid target bases, degenerate moments
+and rejected inputs keep their native exceptions; a possible scientific partial
+write and a failed display projection retain their separate recovery contracts.
