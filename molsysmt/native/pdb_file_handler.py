@@ -638,7 +638,7 @@ def parse_format33(file):
                     record="DBREF2",
                 )
 
-            if db_ref.chain_id != line[12]:
+            if db_ref.chainId != line[12]:
                 raise FileContentError(
                     reason="DBREF2 with different chain id",
                     caller="molsysmt.native.PDBFileHandler",
