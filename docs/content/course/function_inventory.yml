@@ -377,3 +377,39 @@ molsysmt.structure.principal_component_analysis:
   first_introduced_in: "Path_Alzheimer/35_Principal_Components.ipynb"
   summary: "Computes weighted population covariance modes with squared-length eigenvalues."
   doc_ref: "{func}`molsysmt.structure.principal_component_analysis`"
+
+molsysmt.topology.get_dihedral_quartets:
+  name: "msm.topology.get_dihedral_quartets"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Finds atom-index quartets for named standard torsions."
+  doc_ref: "{func}`molsysmt.topology.get_dihedral_quartets`"
+
+molsysmt.topology.get_covalent_blocks:
+  name: "msm.topology.get_covalent_blocks"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Finds connected atom sets after declared covalent bond cuts."
+  doc_ref: "{func}`molsysmt.topology.get_covalent_blocks`"
+
+molsysmt.topology.get_covalent_paths:
+  name: "msm.topology.get_covalent_paths"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Finds covalent walks matching ordered atom selections."
+  doc_ref: "{func}`molsysmt.topology.get_covalent_paths`"
+
+molsysmt.structure.get_dihedral_angles:
+  name: "msm.structure.get_dihedral_angles"
+  first_introduced_in: "Common_Core/09_Unit_Safety.ipynb"
+  summary: "Measures angular quantities for explicit atom-index quartets."
+  doc_ref: "{func}`molsysmt.structure.get_dihedral_angles`"
+
+molsysmt.structure.set_dihedral_angles:
+  name: "msm.structure.set_dihedral_angles"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Sets finite target torsions by rotating selected covalent blocks."
+  doc_ref: "{func}`molsysmt.structure.set_dihedral_angles`"
+
+molsysmt.structure.shift_dihedral_angles:
+  name: "msm.structure.shift_dihedral_angles"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Applies finite angular increments to selected torsions."
+  doc_ref: "{func}`molsysmt.structure.shift_dihedral_angles`"
