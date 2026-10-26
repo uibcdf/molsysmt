@@ -1,0 +1,211 @@
+{
+  "schema": "molsysmt.viewer_tools_pbc_edits_receiving@1",
+  "date": "2026-10-26",
+  "status": "bounded_source_receiving_passed_committed_head_ci_pending",
+  "provider_tested_base_commit": "63a70b2e7c87a31e9b738bdaf8d5badb1233e9eb",
+  "viewer_commit": "89485e0ee7a440ca036fa61ecebf90eefc0f6c33",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+  "checkout": "/tmp/msm-pbc-edits-isolated-n8a0k4yd",
+  "source_scope": "Frozen provider baseline plus only the tested addon/receiver changes. Concurrent native torsion repair is excluded from this local result; integrated-parent and exact-head CI must be recorded separately.",
+  "inventory": {
+    "new_received": [
+      "pbc.wrap_to_pbc",
+      "pbc.wrap_to_mic",
+      "pbc.unwrap"
+    ],
+    "pbc_names_exposed": 13,
+    "native_limit": "center_of_selection plus in_place=True on either wrapping tool is rejected before scientific effects; uibcdf/molsysmt#467",
+    "other_limits": [
+      "Default box angles remain unqualified under uibcdf/molsysmt#465",
+      "PBC course example remains under uibcdf/molsysmt#466",
+      "Source exposure and bounded geometry receiving do not qualify installed artifacts or every scientific input."
+    ]
+  },
+  "scientific_references": [
+    "Primitive-cell fractional coordinates with explicit origins/centers",
+    "Exhaustive bounded lattice image enumeration for the mildly skew test cells",
+    "Per-atom temporal continuity in explicitly supplied structure order",
+    "Whole-component relative coordinates and centers from an actual peptide",
+    "Native result/exception parity with independent input/result ownership",
+    "pm/angstrom/nm, nonconsecutive and repeated axes, unchanged boxes/topology",
+    "Selected-structure interaction invalidation, scene identities, deferred composition and retry without scientific replay"
+  ],
+  "specific": {
+    "junit": "/tmp/msv-pbc-edits-specific.xml",
+    "sha256": "f988ebf779d4f71e5520f4d69786ce69e03d8b38f58ae11a1e224199992df470",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "94",
+      "time": "25.271",
+      "timestamp": "2026-10-26T15:36:00.091110-06:00",
+      "hostname": "nauta"
+    }
+  },
+  "regression": {
+    "junit": "/tmp/msv-pbc-edits-regression.xml",
+    "sha256": "d3ace1b17bc05065bd21aa594f3dd41de499e9f95c94a6be3aec013c4bddaf83",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1171",
+      "time": "371.284",
+      "timestamp": "2026-10-26T15:38:15.206523-06:00",
+      "hostname": "nauta"
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/pbc/",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-pbc-edits-regression.xml"
+    ],
+    "log_sha256": "ed00fa55d6d45e6ce6ed937801495d621eaf9b59f71d7b2c330eb629ba9cd5da",
+    "source_audit_path": "/tmp/msv-pbc-edits-regression-source.json",
+    "source_audit_sha256": "31bc67fc9629cb4df80cc077fb43748823a19f8291d4ccf1b03bb03b670a8f51",
+    "changed_during_run": [],
+    "compiled_backend": {
+      "path": "/tmp/msm-pbc-edits-isolated-n8a0k4yd/molsysmt/_rust.abi3.so",
+      "copied_from": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so",
+      "before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "reason": "Freeze existing native extension bytes against unrelated concurrent owner work; not a newly built artifact.",
+      "after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+    }
+  },
+  "examples": {
+    "pbc_guide_blocks": 4,
+    "pbc_docstrings": {
+      "failed": 0,
+      "attempted": 12
+    }
+  },
+  "course": {
+    "all_four_pbc_code_sequences_preserved": true,
+    "scope": "Only addon prose updated. No new course execution or repair of the known absent dataset is claimed."
+  },
+  "native_only_audit": {
+    "path": "/tmp/msv-pbc-edits-native-audit.json",
+    "sha256": "fc7dc0a3ac1e9508579bb7c68b5785c4b84d6ad0d7c62d3942986a09a6022072",
+    "data": {
+      "cases": [
+        {
+          "method": "wrap_to_pbc",
+          "center": null,
+          "in_place_return_none": true,
+          "independent_changed": true,
+          "in_place_changed": true,
+          "max_in_place_vs_independent_nm": 0.0,
+          "independent_input_unchanged": true
+        },
+        {
+          "method": "wrap_to_pbc",
+          "center": [
+            0,
+            1
+          ],
+          "in_place_return_none": true,
+          "independent_changed": true,
+          "in_place_changed": false,
+          "max_in_place_vs_independent_nm": 9.686439514160156,
+          "independent_input_unchanged": true
+        },
+        {
+          "method": "wrap_to_mic",
+          "center": null,
+          "in_place_return_none": true,
+          "independent_changed": true,
+          "in_place_changed": true,
+          "max_in_place_vs_independent_nm": 0.0,
+          "independent_input_unchanged": true
+        },
+        {
+          "method": "wrap_to_mic",
+          "center": [
+            0,
+            1
+          ],
+          "in_place_return_none": true,
+          "independent_changed": true,
+          "in_place_changed": false,
+          "max_in_place_vs_independent_nm": 9.686439514160156,
+          "independent_input_unchanged": true
+        }
+      ],
+      "native_sources": {
+        "molsysmt/pbc/wrap_to_pbc.py": "3d405b15aba480c8fdd1214fff6f01d2d433133cf36d971cf7854e4d6d65c1e7",
+        "molsysmt/pbc/wrap_to_mic.py": "d8bbf8abc01d67739b20a7fb9e2992d59a2ec5b42f08800e4fded2e523e68ad4",
+        "molsysmt/pbc/unwrap.py": "e29f1cb298d314184b4aae73e6f7d7632ba97bdaf736ec1c0b719da75bf5fa35"
+      }
+    }
+  },
+  "tested_changed_sources": {
+    "molsysviewer_molsysmt/_geometry.py": "4643205df59711a998fb11277da2abbf073032be22db34029631f05ee331b031",
+    "molsysviewer_molsysmt/_pbc.py": "c1ad7049c751745dfde304d74e516423b6a54ebbf6eae9e245b6e6fd2b3305ee",
+    "molsysviewer_molsysmt/_basic.py": "6be4d27af34fd84d5ed1607de2d76e24c2858c6649b527eb38f2170427b4ea98",
+    "tests/molsysviewer_molsysmt/test_pbc_edit_tools.py": "c91ed26a685d59367d928ff507fe04f5e0b1089ba1487f87976a0ad7ab60384d",
+    "tests/molsysviewer_molsysmt/test_pbc_tools.py": "4e753d1ab4795f729c9676faed10d5ec23fb738a60f18e1c02a3dc579e83e107",
+    ".github/workflows/ci-smoke.yaml": "75c65ce43c62a05c5e75cc188887f99c62a1819de341d196d13aa01e66756de9"
+  },
+  "ci": {
+    "status": "pending exact committed producer",
+    "host_runtime_change": false,
+    "consumer_known_limits": "Viewer public-baseline Python lanes retain uibcdf/molsysmt#431; #266 is closed after exact-head live audit and all 44 core suites."
+  },
+  "tested_native_sources": {
+    "molsysmt/pbc/wrap_to_pbc.py": "3d405b15aba480c8fdd1214fff6f01d2d433133cf36d971cf7854e4d6d65c1e7",
+    "molsysmt/pbc/wrap_to_mic.py": "d8bbf8abc01d67739b20a7fb9e2992d59a2ec5b42f08800e4fded2e523e68ad4",
+    "molsysmt/pbc/unwrap.py": "e29f1cb298d314184b4aae73e6f7d7632ba97bdaf736ec1c0b719da75bf5fa35",
+    "molsysmt/_private/pbc_reconstruction.py": "855820acbad2f646be43bcdef602df88602994e630accfb8877bd5271e7faa73",
+    "molsysmt/_private/pbc_validation.py": "a35b71e88d105d249c65e214190ade4455d1937773baeb61cf53693559fbdcc1",
+    "rust/src/pbc.rs": "fc82b508b05698bd6ae1c9cd692a2e97f1b391b13b1424ae409e1dcd300013fa"
+  },
+  "workflow_scope": "Only appends the PBC edit test file to the pre-existing addon command; concurrent native torsion workflow edits are preserved outside this delivery.",
+  "integrated_parent_commit": "6f6ed6bf1ad0afb339f1402a335fa1b739965b58",
+  "integrated_targeted": {
+    "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_pbc_edit_tools.py tests/molsysviewer_molsysmt/test_pbc_tools.py tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py -x",
+    "junit": "/tmp/msv-pbc-edits-integrated-specific.xml",
+    "sha256": "30c16c00e041c49386d768b91c388ca359eaa95b6da66adab5158cfa91ddb620",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "198",
+      "time": "54.611",
+      "timestamp": "2026-10-26T15:52:37.034096-06:00",
+      "hostname": "nauta"
+    },
+    "scope": "198 focused cases on the committed torsion repair parent plus this delivery; distinct from the old frozen 1171-case regression."
+  },
+  "tested_native_pbc_unchanged_in_integrated_parent": true,
+  "delivered_sources": {
+    ".github/workflows/ci-smoke.yaml": "6ff3030fe6da464bf1aa171453e4c5f6b82bcf01f381bb26d9d6fe602271b983",
+    "molsysviewer_molsysmt/_basic.py": "e6b01e1da66b3b26265898cdd0d73ee466ed8cdd540f929f3e71e7a2a581bf53",
+    "molsysviewer_molsysmt/_geometry.py": "4643205df59711a998fb11277da2abbf073032be22db34029631f05ee331b031",
+    "molsysviewer_molsysmt/_pbc.py": "c1ad7049c751745dfde304d74e516423b6a54ebbf6eae9e245b6e6fd2b3305ee",
+    "tests/molsysviewer_molsysmt/test_pbc_tools.py": "4e753d1ab4795f729c9676faed10d5ec23fb738a60f18e1c02a3dc579e83e107",
+    "tests/molsysviewer_molsysmt/test_pbc_edit_tools.py": "c91ed26a685d59367d928ff507fe04f5e0b1089ba1487f87976a0ad7ab60384d",
+    "devguide/pending_bugs/centered_periodic_wrapping_ignores_in_place_target.md": "c8bdeddb70f3f9d4b0bf272d09dbaee45b0d982bc12cb8d39623b796b074c899",
+    "devguide/pending_bugs/README.md": "bc3274d6117f5ce9da9106ea3a4254b42c9cd7e75dff8a2f18baadaf8e655c8c",
+    "devguide/molsysviewer_addon.md": "a38873230e83e896ea7692933cde8d9fd6c1ad4dff312f94210494d120311522",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "cf389a0edd3bf30b33aa524d5047c81f695f0ccac15e90d3dfba075cdf94506d",
+    "docs/docs_manifest.yml": "22e533cc81775c16f6145038f8640a97559e390523778c60a84cddf6ce6bf54a",
+    "docs/content/user/tools/molsysviewer_tools.md": "d1b3421349fb896e69ab77fdc2ff692d100ba5c9e68032baca79d4af0f2b83ff",
+    "docs/content/course/Path_Enzyme/40_PBC_Geometry.ipynb": "4ea8078151bea49394c89f259f07c9101c2fbd3fd652f0ffd7c55f1e5fbf9086",
+    "docs/content/course/Path_Biophysics/40_PBC_Geometry.ipynb": "97ad8f260b77d958148c9b43d94afc6d3994b202033c8a09e065b4363412c243",
+    "docs/content/course/Path_Antiviral/40_PBC_Geometry.ipynb": "6d7693f4b6df0535c8a8ab3fc658f90ae1a04bd5b8143202040f8e09d154d717",
+    "docs/content/course/Path_Alzheimer/40_PBC_Geometry.ipynb": "88671189d81645aa376bb879890e053176ae96e9c253f931cd849ffc2ac033a0",
+    "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py": "9aba9b452e15f2bcc6e1a1d79abb865a8619bcac594f4bfdd043f0667abbd4c2"
+  }
+}

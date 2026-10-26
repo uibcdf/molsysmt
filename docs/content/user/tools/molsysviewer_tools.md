@@ -42,8 +42,10 @@ with native pre-write rejection of invalid planes. Displacement receiving covers
 
 The explicit `view.addons.molsysmt.pbc` namespace also provides ten box queries
 and factories. Only `has_pbc` binds the current system; box/length/angle inputs
-remain explicit for the other nine. Coordinate wrapping and unwrapping are not
-yet received. See the periodic-box section below for units and native limits.
+remain explicit for the other nine. The same namespace adds three coordinate
+editors: `wrap_to_pbc`, `wrap_to_mic` and `unwrap`, with native independent
+outputs or managed in-place updates. Centered in-place wrapping remains
+unreceived under #467; see the periodic sections for units and precise limits.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -161,13 +163,80 @@ At the reviewed source, `get_box_from_lengths_and_angles` rejects its own
 `box_angles=None` default ([#465](https://github.com/uibcdf/molsysmt/issues/465)).
 Supply explicit angular quantities; the addon does
 not insert missing angles or claim that default route is qualified. Native
-output is a box series `(n_structures, 3, 3)`. Coordinate editors `wrap_to_pbc`,
-`wrap_to_mic` and `unwrap` still need their own managed-effect receiving.
+output is a box series `(n_structures, 3, 3)`. The coordinate editors described
+below use the separately received managed-effect route.
 :::
 
 See {doc}`pbc/index` for native scientific usage. To assign a newly constructed
 box, use the separately received `tools.basic.set(box=...)` route with the
 actual current structure axis; construction alone does not change the system.
+
+## Editing periodic coordinate images
+
+The three scientific editors keep MolSysMT's `in_place=False` default. They
+return an independent native system without replacing the view. Choose
+`in_place=True` to edit the current primary; `update_view=True` synchronizes it
+immediately. `update_view=False` defers scene projection only. These operations
+share the receiver used by the structure editors, including pending-state
+protection and retry without scientific replay.
+
+- `wrap_to_pbc` places coordinates in the primary periodic cell using explicit
+  `box_origin` or `box_center` parameters.
+- `wrap_to_mic` chooses the nearest periodic image around `mic_origin`.
+- `unwrap` restores per-atom temporal continuity in the supplied structure order.
+  It does not reconstruct covalent components inside one structure. Nonconsecutive
+  structures are still an ordered scientific input; no missing history is inferred.
+
+For the two wrapping tools, native `compact="component"` reconstructs covalent
+components and keeps each whole; `compact=False` wraps atoms independently.
+Choosing that mode, a box, origins, centers, weights and the ordered observation
+scope remains the caller's scientific decision. The addon implements no PBC
+kernel, box transformation, molecular preparation or additional graph algorithm.
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0, 8, 3]) as view:
+        tools = view.addons.molsysmt
+        # Explicit demonstration cell; this is not solvation or automatic preparation.
+        boxes = tools.pbc.get_box_with_shape(length="3 nm", n_structures=3)
+        tools.basic.set(box=boxes)
+        independent = tools.pbc.wrap_to_pbc(compact="component")
+        assert independent is not view.molsys
+        tools.pbc.wrap_to_mic(in_place=True, update_view=False)
+        tools.pbc.unwrap(in_place=True, update_view=False)
+        tools.sync_view()
+        assert tools.get_sync_status()["state"] == "synchronized"
+```
+
+The current atom/structure axes, topology, source identities and scene-object
+identities are retained by received in-place edits. Native coordinate setters
+invalidate interaction coverage for the written structures; this does not
+recalculate analyses or hide scientific preparation. If scene synchronization
+fails after science completes, inspect `science_completed` and
+`scientific_result`, then call `sync_view()` rather than repeating the editor.
+
+:::{warning}
+The reviewed native centered in-place route edits a detached copy instead of
+the original system ([#467](https://github.com/uibcdf/molsysmt/issues/467)).
+The addon rejects `center_of_selection` combined with `in_place=True` before
+scientific writes. Independent centered output remains supported; the addon
+adds no copyback workaround or replacement centering algorithm.
+:::
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0, 8, 3]) as view:
+        tools = view.addons.molsysmt
+        tools.basic.set(box=tools.pbc.get_box_with_shape(length="3 nm", n_structures=3))
+        centered = tools.pbc.wrap_to_pbc(
+            center_of_selection="atom_name=='CA'", in_place=False,
+        )
+        assert centered is not view.molsys
+```
+
+See {doc}`pbc/wrap_to_pbc`, {doc}`pbc/wrap_to_mic` and {doc}`pbc/unwrap` for
+native parameter semantics. Source receiving does not qualify every box shape,
+scientific sampling choice, engine or installed package composition.
 
 ## Identifying systems and locating attributes
 

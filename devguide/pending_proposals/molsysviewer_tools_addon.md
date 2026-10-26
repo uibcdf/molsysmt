@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1020,6 +1020,26 @@ queue records and require native pytest guards. The addon retains explicit
 angle forwarding; no scientific repair or tutorial scenario substitution is
 introduced here. This supersedes earlier pending-authorization notes.
 
+## Managed periodic coordinate editors — 2026-10-26
+
+The explicit pbc namespace now also exposes wrap_to_pbc, wrap_to_mic and unwrap,
+completing all thirteen reviewed function names. This is exposure plus bounded
+receiving, not unconditional scientific or package qualification. A reusable
+private receiver resolves only admitted module/name pairs and defaults existing
+structure calls to their original module. It retains axes and native returns,
+serializes in-place writes, defers projection when requested and retries failed
+scene reconciliation without replaying science. Native setters own exact
+interaction coverage invalidation. No alternative geometry algorithm is added.
+
+Native centered wrapping with in_place=True writes a detached copy under
+uibcdf/molsysmt#467; that combination is explicitly rejected before effects.
+Independent centered outputs and uncentered in-place wrapping are received.
+The 94 focused cases compare direct lattice/temporal references, units,
+nonconsecutive/repeated axes, native parity and input/result ownership, covalent
+reconstruction, rejection, scene identity, batching and synchronization retry.
+Broader isolated regression, examples and exact-head CI remain separate gates.
+The native-only audit and hashes are retained in the dated PBC-edit receipt.
+
 
 ## Native torsion mutation boundaries repaired — 2026-10-26
 
@@ -1042,3 +1062,18 @@ The final scope and source hashes are retained in
 [the repair receipt](../../devtools/data/dihedral_edit_repair_20261026.json).
 The native limitations are repaired; this is bounded source qualification, not
 unconditional scientific coverage or an installed release-pair qualification.
+
+Local receiving completes 1,171 scoped addon/native-PBC/packaging cases in
+371.30 seconds with no failures/errors/skips. All 94 focused cases, four PBC
+guide blocks and twelve inherited PBC docstring examples pass. Scientific/addon
+sources and the frozen existing backend remain unchanged during that run.
+The dated [PBC-edit receipt](../../devtools/data/molsysviewer_tools_pbc_edits_receiving_20261026.json) records exact tested baseline, source hashes,
+raw native #467 controls and evidence limits. This local snapshot excludes
+concurrent native torsion repairs; integrated exact-head CI remains separate.
+
+After the owning torsion repair 6f6ed6bf1 is committed, an additional targeted
+198-case PBC/dihedral receiver run passes. The help text now reflects native
+nonfinite rejection and honored explicit block pools instead of describing
+those source defects as still present. The PBC scientific hashes remain equal
+to the frozen regression baseline. This integrated receiving is recorded
+separately in the receipt; committed-head CI is still pending.

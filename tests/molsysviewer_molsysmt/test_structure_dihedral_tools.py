@@ -112,7 +112,9 @@ def test_scientific_signature_controls_help_and_module_path(view, name):
     assert not hasattr(view.addons.molsysmt, name)
     doc = inspect.getdoc(method)
     assert "native in_place=False default" in doc and "No molecular edit" not in doc
-    assert "no torsion formula" in doc and "unqualified" in doc
+    assert "no torsion formula" in doc
+    assert "reject nonfinite edit requests" in doc and "explicit block pools" in doc
+    assert "Native nonfinite angles can publish NaN" not in doc
     if name == "set_dihedral_angles":
         assert "skip_digestion" not in native
         assert bound["skip_digestion"].kind is inspect.Parameter.KEYWORD_ONLY

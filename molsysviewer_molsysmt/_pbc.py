@@ -1,4 +1,4 @@
-"""Native periodic-box readers and factories with explicit scientific inputs."""
+"""Native box utilities and explicitly received periodic coordinate editors."""
 
 from argdigest import arg_digest
 from smonitor import signal
@@ -18,6 +18,9 @@ class _PbcTools:
         "get_volume_from_lengths_and_angles",
         "get_box_from_lengths_and_angles",
         "get_box_with_shape",
+        "wrap_to_pbc",
+        "wrap_to_mic",
+        "unwrap",
     )
 
     def __init__(self, owner):
@@ -134,4 +137,119 @@ class _PbcTools:
                 "n_structures": n_structures,
                 "skip_digestion": skip_digestion,
             },
+        )
+
+    @_native_documentation("wrap_to_pbc", module="pbc")
+    @signal(tags=["addon", "pbc", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def wrap_to_pbc(
+        self,
+        selection="all",
+        structure_indices="all",
+        box_origin="[0,0,0] nanometers",
+        box_center=None,
+        center_of_selection=None,
+        weights=None,
+        center_coordinates="[0,0,0] nanometers",
+        compact="component",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "wrap_to_pbc",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "box_origin": box_origin,
+                "box_center": box_center,
+                "center_of_selection": center_of_selection,
+                "weights": weights,
+                "center_coordinates": center_coordinates,
+                "compact": compact,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+            module="pbc",
+        )
+
+    @_native_documentation("wrap_to_mic", module="pbc")
+    @signal(tags=["addon", "pbc", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def wrap_to_mic(
+        self,
+        selection="all",
+        structure_indices="all",
+        mic_origin="[0,0,0] nanometers",
+        center_of_selection=None,
+        center_coordinates="[0,0,0] nanometers",
+        weights=None,
+        compact="component",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "wrap_to_mic",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "mic_origin": mic_origin,
+                "center_of_selection": center_of_selection,
+                "center_coordinates": center_coordinates,
+                "weights": weights,
+                "compact": compact,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+            module="pbc",
+        )
+
+    @_native_documentation("unwrap", module="pbc")
+    @signal(tags=["addon", "pbc", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def unwrap(
+        self,
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._geometry import _run_geometry_transform
+
+        return _run_geometry_transform(
+            self._owner,
+            "unwrap",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+            module="pbc",
         )

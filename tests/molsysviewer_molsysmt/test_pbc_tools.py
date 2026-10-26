@@ -96,17 +96,16 @@ def test_public_signature_validation_and_binding_help(view, name):
         assert "retains ordinary validation" in doc
 
 
-def test_namespace_has_explicit_queries_and_factories_only(view):
-    assert set(dir(view.addons.molsysmt.pbc)) == set(NAMES)
-    assert "pbc" in dir(view.addons.molsysmt)
+def test_namespace_matches_reviewed_public_native_exports(view):
+    editors = {"wrap_to_pbc", "wrap_to_mic", "unwrap"}
     native = {
         n
         for n, f in vars(msm.pbc).items()
         if not n.startswith("_") and inspect.isfunction(f)
     }
-    assert native - set(NAMES) == {"wrap_to_pbc", "wrap_to_mic", "unwrap"}
-    for name in native - set(NAMES):
-        assert not hasattr(view.addons.molsysmt.pbc, name)
+    assert set(dir(view.addons.molsysmt.pbc)) == native == set(NAMES) | editors
+    assert len(native) == 13
+    assert "pbc" in dir(view.addons.molsysmt)
 
 
 @pytest.mark.parametrize(

@@ -40,7 +40,7 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
-        if module == "pbc":
+        if module == "pbc" and name not in {"wrap_to_pbc", "wrap_to_mic", "unwrap"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The native scientific value is returned without a scene object, "
@@ -152,6 +152,36 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "native scientific_result; retry synchronization, not the scientific operation. "
                 "Potential partial scientific writes require explicit recovery.\n"
             )
+        if module == "pbc" and name in {"wrap_to_pbc", "wrap_to_mic", "unwrap"}:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "update_view : bool, keyword-only, default=True\n"
+                "    Synchronize an admitted in-place coordinate edit immediately. "
+                "False defers projection only; sync_view() finishes pending work. "
+                "The native in_place=False default returns an independent native result "
+                "without adoption or scene update. Native row-vector boxes, units, "
+                "ordered structure indices and results remain scientific-owner behavior. "
+                "Named interactions follow native edited-structure invalidation. "
+                "A synchronization failure exposes science_completed=True and the "
+                "scientific_result; retry synchronization, not scientific work. "
+                "The addon adds no minimum-image algorithm, reconstruction or "
+                "implicit periodic preparation.\n"
+            )
+            if name == "unwrap":
+                function.__doc__ += (
+                    "Unwrapping follows the supplied structure order and restores "
+                    "per-atom temporal continuity; it is not covalent reconstruction "
+                    "inside one structure. No unsupplied trajectory history is inferred.\n"
+                )
+            else:
+                function.__doc__ += (
+                    "compact='component' keeps covalent blocks whole; False wraps "
+                    "atoms independently. Origins and centers remain explicit native "
+                    "parameters. The reviewed native in-place centered route edits a "
+                    "detached copy; center_of_selection with in_place=True is rejected "
+                    "before scientific writes until provider repair (uibcdf/molsysmt#467). Independent "
+                    "centered outputs remain supported.\n"
+                )
         if module == "structure" and name == "flip":
             function.__doc__ += (
                 "skip_digestion : bool, keyword-only, default=False\n"
@@ -173,10 +203,11 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "Native quartets, angular units, ordered structure axes and "
                 "moving covalent blocks determine the edit. The addon adds no "
                 "torsion formula, graph cut, block correction or periodic preparation. "
-                "Only finite valid torsions are qualified at the reviewed source. "
-                "Native nonfinite angles can publish NaN coordinates; explicit blocks "
-                "are not yet honored by native shift_dihedral_angles. Those routes "
-                "remain unqualified pending the scientific owner's repair.\n"
+                "Native editors reject nonfinite edit requests before coordinate "
+                "publication and preserve explicit block pools, including shifting "
+                "(uibcdf/molsysmt#461 and #462, source repair 6f6ed6bf1). "
+                "Only bounded finite scientific routes are received; this is not "
+                "unconditional scientific or installed-package qualification.\n"
             )
             if name == "set_dihedral_angles":
                 function.__doc__ += (

@@ -131,36 +131,58 @@ def _prepare_geometry_set(target, parameters, attributes):
     }
 
 
-def _prepare_geometry_transform(target, name, parameters):
+def _coordinate_operation(module, name):
+    """Resolve only explicitly received native coordinate operations."""
+    import molsysmt
+
+    allowed = {
+        "structure": {
+            "translate",
+            "rotate",
+            "flip",
+            "least_rmsd_fit",
+            "least_rmsd_align",
+            "center",
+            "move_away",
+            "align_principal_axes",
+            "set_dihedral_angles",
+            "shift_dihedral_angles",
+        },
+        "pbc": {"wrap_to_pbc", "wrap_to_mic", "unwrap"},
+    }
+    if name not in allowed.get(module, ()):
+        raise NotImplementedError(
+            f"Managed {module} transform {name!r} is not received."
+        )
+    return getattr(getattr(molsysmt, module), name)
+
+
+def _prepare_geometry_transform(target, name, parameters, *, module="structure"):
     """Declare retained identities and let the public native tool own science."""
-    from molsysmt import basic, structure
+    from molsysmt import basic
     from molsysmt._private.variables import is_all
     from molsysmt.basic._index_validation import validate_structure_indices
     from molsysmt.native import MolSys
 
-    if name not in {
-        "translate",
-        "rotate",
-        "flip",
-        "least_rmsd_fit",
-        "least_rmsd_align",
-        "center",
-        "move_away",
-        "align_principal_axes",
-        "set_dihedral_angles",
-        "shift_dihedral_angles",
-    }:
-        raise NotImplementedError(
-            f"Managed structure transform {name!r} is not received."
-        )
+    operation = _coordinate_operation(module, name)
     if not isinstance(target, MolSys):
         raise TypeError("Managed geometry transforms require the bound native MolSys.")
     if hasattr(target, "_pending_interaction_edits"):
         raise ValueError(
             "Managed transforms cannot run inside an active molecular edit."
         )
+    if (
+        module == "pbc"
+        and name != "unwrap"
+        and parameters["center_of_selection"] is not None
+    ):
+        raise NotImplementedError(
+            "Native in-place wrapping with center_of_selection is not received: "
+            "the native operation currently edits a detached copy. Use the independent "
+            "result (in_place=False) until the provider repairs uibcdf/molsysmt#467."
+        )
     frames = validate_structure_indices(
-        target, parameters["structure_indices"], f"molsysmt.structure.{name}"
+        target, parameters["structure_indices"], f"molsysmt.{module}.{name}"
     )
     has_frames = (
         int(target.structures.n_structures) > 0
@@ -185,7 +207,6 @@ def _prepare_geometry_transform(target, name, parameters):
             syntax=parameters["syntax"],
         )
         has_atoms = atoms is not None and len(atoms) > 0
-    operation = getattr(structure, name)
     return {
         "run": lambda: operation(target, **parameters),
         "changed": bool(has_frames and has_atoms),
@@ -194,39 +215,30 @@ def _prepare_geometry_transform(target, name, parameters):
     }
 
 
-def _run_geometry_transform(owner, name, parameters, update_view):
+def _run_geometry_transform(
+    owner, name, parameters, update_view, *, module="structure"
+):
     """Preserve native independent outputs and serialize admitted bound edits."""
-    from molsysmt import structure
     from molsysmt._private.argdigest.argument.in_place import digest_in_place
 
-    if name not in {
-        "translate",
-        "rotate",
-        "flip",
-        "least_rmsd_fit",
-        "least_rmsd_align",
-        "center",
-        "move_away",
-        "align_principal_axes",
-        "set_dihedral_angles",
-        "shift_dihedral_angles",
-    }:
-        raise NotImplementedError(f"Structure transform {name!r} is not received.")
+    operation = _coordinate_operation(module, name)
     in_place = digest_in_place(
-        parameters["in_place"], caller=f"molsysviewer_molsysmt.structure.{name}"
+        parameters["in_place"], caller=f"molsysviewer_molsysmt.{module}.{name}"
     )
     if not isinstance(update_view, bool):
         raise TypeError("update_view must be a boolean.")
     owner._target()
     if not in_place:
-        return owner._read(getattr(structure, name), parameters)
+        return owner._read(operation, parameters)
     view = owner._view_ref()
     coordinator = getattr(view.addons.manager, "system_edits", None)
     if coordinator is None:
         raise RuntimeError("This Viewer host lacks managed molecular-edit receiving.")
     return coordinator.execute(
-        lambda target: _prepare_geometry_transform(target, name, parameters),
-        name=f"molsysmt.structure.{name}",
+        lambda target: _prepare_geometry_transform(
+            target, name, parameters, module=module
+        ),
+        name=f"molsysmt.{module}.{name}",
         update_view=update_view,
         rejection_check=_geometry_token,
     )

@@ -86,7 +86,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental basic tools, eleven topology readers, eighteen structure calculations and managed geometry including centering, single-structure displacement and principal-axis alignment and both dihedral editors; native finite-torsion rejection and explicit block pools, ten explicit PBC queries/factories with native units and default-angle limitation, population ownership and synchronization recovery.
+          description: Experimental basic tools, eleven topology readers, eighteen structure calculations and managed geometry including centering, single-structure displacement and principal-axis alignment and both dihedral editors; native finite-torsion rejection and explicit block pools, ten explicit PBC queries/factories and three managed coordinate editors with default-angle and centered-in-place limits, population ownership and synchronization recovery.
       groups:
       - name: basic
         path: docs/content/user/tools/basic
