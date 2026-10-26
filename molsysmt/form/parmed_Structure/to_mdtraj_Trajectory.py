@@ -7,6 +7,7 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form="parmed.Structure")
 @dep_digest("mdtraj")
+@dep_digest("openmm")
 def to_mdtraj_Trajectory(
     item, atom_indices="all", structure_indices="all", skip_digestion=False
 ):
@@ -17,46 +18,60 @@ def to_mdtraj_Trajectory(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        ParmEd structure supplying topology, coordinates and optional unit cells.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Atom indices (0-based) to include. Selected atoms retain source order;
+        repeated indices are included once.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Structure indices (0-based) to include. Coordinates and cells both follow
+        the supplied order.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.Trajectory
-        Resulting object in mdtraj.Trajectory form.
+        Selected topology and coordinates in nanometers, with corresponding unit
+        cells when available. The source object is not modified.
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.convert(msm.systems['caffeine']['caffeine.mol2'],
+    ...                      to_form='parmed.Structure')
+    >>> converted = to_mdtraj_Trajectory(source)
+    >>> np.allclose(converted.xyz[0], source.coordinates / 10)
+    True
 
     .. versionadded:: 1.0.0
     """
 
     from mdtraj import Trajectory
 
+    from molsysmt import pyunitwizard as puw
+
+    from . import get_box_from_system, get_coordinates_from_atom
     from .to_mdtraj_Topology import to_mdtraj_Topology
+
+    if not is_all(atom_indices):
+        atom_indices = np.unique(np.asarray(atom_indices, dtype=np.int64))
 
     topology = to_mdtraj_Topology(
         item,
         atom_indices=atom_indices,
         skip_digestion=True,
     )
-    coordinates = item.get_coordinates("all")
-    if not is_all(structure_indices):
-        coordinates = coordinates[structure_indices]
-    if not is_all(atom_indices):
-        coordinates = coordinates[:, atom_indices, :]
-    tmp_item = Trajectory(np.asarray(coordinates, dtype=float) / 10.0, topology)
-
-    if item.box is not None:
-        box = np.asarray(item.box, dtype=float).reshape((-1, 6))
-        if len(box) == 1 and tmp_item.n_frames > 1:
-            box = np.repeat(box, tmp_item.n_frames, axis=0)
-        elif not is_all(structure_indices):
-            box = box[structure_indices]
-        tmp_item.unitcell_lengths = box[:, :3] / 10.0
-        tmp_item.unitcell_angles = box[:, 3:]
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    tmp_item = Trajectory(puw.get_value(coordinates, to_unit="nm"), topology)
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    if box is not None:
+        tmp_item.unitcell_vectors = puw.get_value(box, to_unit="nm")
 
     return tmp_item

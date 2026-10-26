@@ -34,6 +34,34 @@ EDGES = sorted(
 
 
 def _source(form):
+    if form == "parmed.Structure":
+        pmd = pytest.importorskip("parmed")
+        structure = pmd.Structure()
+        for name, number, element, mass, charge in (
+            ("O", 17, 8, 15.999, -0.834),
+            ("H1", 3, 1, 1.008, 0.417),
+            ("H2", 45, 1, 1.008, 0.417),
+        ):
+            structure.add_atom(
+                pmd.Atom(
+                    name=name,
+                    number=number,
+                    type="O" if element == 8 else "H",
+                    atomic_number=element,
+                    mass=mass,
+                    charge=charge,
+                ),
+                "HOH",
+                7,
+                chain="A",
+            )
+        for index in (1, 2):
+            structure.bonds.append(pmd.Bond(structure.atoms[0], structure.atoms[index]))
+        structure.coordinates = _water_coordinates() * 10
+        structure.box = np.array(
+            [[20, 21, 22, 90, 90, 90], [30, 31, 32, 90, 90, 90]], dtype=float
+        )
+        return structure
     if form in {
         "MDAnalysis.Universe",
         "MDAnalysis.AtomGroup",
@@ -172,6 +200,15 @@ def test_declared_resident_edge_executes_directly_and_publicly(source, target):
             pytest.importorskip("openmm")
         elif form.startswith("MDAnalysis."):
             pytest.importorskip("MDAnalysis")
+        elif form == "parmed.Structure":
+            pytest.importorskip("parmed")
+    if "parmed.Structure" in {source, target} and (
+        source.startswith("mdtraj.")
+        or target.startswith("mdtraj.")
+        or source in {"molsysmt.Topology", "molsysmt.MolSys"}
+    ):
+        # These routes delegate topology conversion through OpenMM.
+        pytest.importorskip("openmm")
     arguments = _edge_arguments(source, target)
     assert msm.get_form(_source(source)) == source
     _execute_direct(source, target, _source(source), **arguments)

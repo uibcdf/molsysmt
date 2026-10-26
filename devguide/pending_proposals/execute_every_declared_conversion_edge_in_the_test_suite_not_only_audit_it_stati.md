@@ -18,7 +18,7 @@ supersedes: []
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
 **Status:** partial. Resident-native, MDTraj/OpenMM, MDAnalysis Universe/AtomGroup/
-Topology and bounded H5MSM/PDB/SDF/PDBQT execution profiles are implemented;
+Topology, ParmEd and bounded H5MSM/PDB/SDF/PDBQT execution profiles are implemented;
 remaining external/file/network routes remain debt.
 
 ## What
@@ -512,3 +512,43 @@ PDB default-field/cell notices. Whole-checkout Ruff lint and formatting and all
 tests provide the separate execution evidence. #181 remains partial. This is
 bounded local source qualification, not an installed-pair, full-graph or release
 qualification; #334's publication pause is unchanged.
+
+
+## ParmEd execution and selection extension — 2026-10-26
+
+`resident-files-v9` selects **172 of 606 edges**, with 434 explicitly deferred.
+Adding `parmed.Structure` executes fifteen additional routes; none is accepted
+as new debt, and the declared graph is unchanged. A fresh provider-native water
+structure supplies explicit atoms, bonds, partial charges, two coordinate sets
+and two distinct cells. The PDB executor owns the incoming/outgoing file routes;
+the resident executor owns the other thirteen. Required optional providers skip
+only at setup, including OpenMM where it is an intermediate topology dependency.
+
+The initial fifteen-route execution failed three cases and passed twelve in
+14.17 seconds. It exposed foreign identity-adapter dispatch, an invalid converter
+import and an incorrect getter keyword, now guarded by uibcdf/molsysmt#463.
+Independent selected-value tests also exposed topology/coordinate atom-order
+mismatch and cells left unselected or reduced to the first structure. Those
+repairs and shared-cell handling are tracked separately by uibcdf/molsysmt#464.
+No extra converter is declared and no new scientific method is introduced.
+
+The final regression passes **2,514 tests**, zero failures or skips, in 142.33
+seconds with twelve workers and Pytest Receptor. It covers the entire conversion
+truth suite, ParmEd/MDTraj/OpenMM/MDAnalysis adapters, execution-plan controls and
+argument contracts. The 43 warnings comprise 25 legacy-H5MSM notices and eighteen
+provider PDB cell/default-field notices. Four converter doctests pass in 10.38
+seconds; the Cookbook and Common Core module execute in 21.7 and 19.7 seconds.
+Foundations and form-adapter pages state the preserved fields, source atom order,
+structure-list ordering, units and first-selected-structure Modeller behavior.
+
+The [receipt](../../devtools/data/conversion_execution_parmed_20261026.json)
+records commands, provider versions, tested hashes and exclusions. #181 remains
+partial, and uibcdf/molsysmt#120 retains directional fidelity debt, including the
+native MolSys-to-ParmEd topology projection. This does not qualify an installed
+package pair or authorize a release; #334's publication pause is unchanged.
+
+Whole-checkout Ruff lint/format and all fourteen fast gates pass. The full HTML
+build exits zero but emits ten schema ERROR diagnostics from five pre-existing
+course notebooks outside the edited pages, now recorded under uibcdf/molsysmt#144.
+This is not a clean-site build claim. The two updated executable notebooks and
+four converter doctests remain separately successful.

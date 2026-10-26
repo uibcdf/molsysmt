@@ -1,0 +1,189 @@
+{
+  "schema": "molsysmt.conversion_execution_qualification@1",
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#181",
+  "related_defects": [
+    "uibcdf/molsysmt#463",
+    "uibcdf/molsysmt#464"
+  ],
+  "baseline_commit": "c7fb92a6227777810e85e95980701ab0a143a6c8",
+  "scope": "Bounded local source qualification; not installed-pair, exhaustive field fidelity or release qualification.",
+  "profile": "resident-files-v9",
+  "inventory": {
+    "profile": "resident-files-v9",
+    "declared_edges": 606,
+    "planned_smoke_edges": 172,
+    "accepted_unexecuted_edges": 434,
+    "errors": [],
+    "execution": "not performed by this audit"
+  },
+  "added_routes": [
+    [
+      "file:pdb",
+      "parmed.Structure"
+    ],
+    [
+      "mdtraj.Topology",
+      "parmed.Structure"
+    ],
+    [
+      "mdtraj.Trajectory",
+      "parmed.Structure"
+    ],
+    [
+      "molsysmt.MolSys",
+      "parmed.Structure"
+    ],
+    [
+      "molsysmt.Topology",
+      "parmed.Structure"
+    ],
+    [
+      "openmm.Topology",
+      "parmed.Structure"
+    ],
+    [
+      "parmed.Structure",
+      "file:pdb"
+    ],
+    [
+      "parmed.Structure",
+      "mdtraj.Topology"
+    ],
+    [
+      "parmed.Structure",
+      "mdtraj.Trajectory"
+    ],
+    [
+      "parmed.Structure",
+      "molsysmt.MolSys"
+    ],
+    [
+      "parmed.Structure",
+      "molsysmt.Structures"
+    ],
+    [
+      "parmed.Structure",
+      "molsysmt.Topology"
+    ],
+    [
+      "parmed.Structure",
+      "openmm.Modeller"
+    ],
+    [
+      "parmed.Structure",
+      "openmm.Topology"
+    ],
+    [
+      "parmed.Structure",
+      "parmed.Structure"
+    ]
+  ],
+  "original_runtime_execution": {
+    "command": "python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_pdb_edges.py -k parmed --receptor=llm -n 12",
+    "passed": 12,
+    "failed": 3,
+    "seconds": 14.17,
+    "exit_code": 1
+  },
+  "original_dispatch_guard": {
+    "command": "python -m pytest tests/form/parmed_Structure/test_bridge_contract.py --receptor=llm -n 12",
+    "scope": "Initial twelve cases before expanding unit policies and cell variants.",
+    "passed": 0,
+    "failed": 12,
+    "seconds": 6.02,
+    "exit_code": 1
+  },
+  "original_selection_guard": {
+    "command": "python -m pytest tests/form/parmed_Structure/test_bridge_contract.py -k selected_geometry --receptor=llm -n 12",
+    "scope": "Includes sixteen repaired MDTraj-to-ParmEd controls; no remaining nullable-charge dtype oracle error.",
+    "passed": 36,
+    "failed": 28,
+    "seconds": 6.86,
+    "exit_code": 1
+  },
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/parmed_Structure tests/form/mdtraj_Topology tests/form/mdtraj_Trajectory tests/form/openmm_Topology tests/form/openmm_Modeller tests/form/MDAnalysis_AtomGroup tests/form/MDAnalysis_Topology tests/form/MDAnalysis_Universe devtools/tests/test_audit_conversion_execution.py tests/test_argument_contract.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 2514,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 142.33,
+    "warnings": {
+      "legacy_h5msm_04": 25,
+      "provider_pdb_cell_and_default_field_notices": 18
+    }
+  },
+  "doctests": {
+    "command": "python -m pytest --doctest-modules molsysmt/form/mdtraj_Topology/to_parmed_Structure.py molsysmt/form/mdtraj_Trajectory/to_parmed_Structure.py molsysmt/form/parmed_Structure/to_openmm_Modeller.py molsysmt/form/parmed_Structure/to_mdtraj_Trajectory.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 4,
+    "seconds": 10.38,
+    "provider_pdb_warnings": 2
+  },
+  "notebooks": {
+    "command": "MPLBACKEND=Agg python docs/execute_notebooks.py -q -n 12 -f docs/content/user/cookbook/form_teleportation.ipynb docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+    "exit_code": 0,
+    "executed": 2,
+    "seconds_by_notebook": {
+      "form_teleportation.ipynb": 21.7,
+      "01_The_Form_Agnostic_Philosophy.ipynb": 19.7
+    }
+  },
+  "checks": {
+    "ruff_check": "whole checkout pass",
+    "ruff_format_check": "whole checkout pass",
+    "docstring_validation": "251 public functions pass",
+    "fast_gates": "14/14 pass",
+    "sphinx": {
+      "command": "make -C docs html SPHINXOPTS=\"-q -j 12\"",
+      "exit_code": 0,
+      "notebook_schema_error_diagnostics": 10,
+      "owning_issue": "uibcdf/molsysmt#144",
+      "scope": "Five pre-existing course notebooks declare 4.4 with cell IDs; no clean-site claim."
+    }
+  },
+  "guard": "tests/form/parmed_Structure/test_bridge_contract.py",
+  "guard_cases": 76,
+  "fixture": "Independent four-atom/two-group/three-structure MDTraj and ParmEd objects with literal nm/angstrom coordinates, distinguishable cells, nonconsecutive serial labels and mechanical charges; shared/absent-cell variants.",
+  "bounds": [
+    "Declared graph unchanged; fifteen newly executed routes removed from accepted debt.",
+    "Normal validation and lazy dependency guards remain enabled.",
+    "Native MolSys-to-ParmEd remains a topology projection under #120 fidelity debt.",
+    "Native mechanical charges are checked on ParmEd-to-MolSys input; no force-field parameterization or full mechanical export is certified.",
+    "OpenMM Modeller keeps the first selected structure and its corresponding cell.",
+    "No new scientific algorithm or Ackredit calculation boundary.",
+    "Existing general PBC angle rounding to six decimal radians is respected with a 3e-5 degree tolerance.",
+    "No installed package, tag, release or staging promotion is qualified.",
+    "Unrelated concurrent addon and generated API-document edits are excluded."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "parmed": "4.3.1",
+      "MDAnalysis": "2.10.0",
+      "mdtraj": "1.11.1",
+      "openmm": "8.6.1",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1+15.g6c62ca6"
+    }
+  },
+  "source_sha256": {
+    "devtools/data/conversion_execution_baseline.json": "c1a2135d6604411586871fc740cdb51f2d66c3002539b12b90e9bfb9fcb7c44b",
+    "tests/conversion_truth/test_declared_native_edges.py": "bad9a8ce89f9ce31f5dafd9b0db1ce55961ff1f82cc3c1e4e1ce8d0ad7650a43",
+    "tests/conversion_truth/test_declared_pdb_edges.py": "e18ac5700a93f6fc1795540c8ff46743228846ed69735d8b0721da7ea34e191f",
+    "tests/form/parmed_Structure/test_bridge_contract.py": "65a3921eece9ae86bd3be5035cb3a4f7b08553128e1c07ebd0932d1ffcef7f35",
+    "molsysmt/form/mdtraj_Topology/to_parmed_Structure.py": "de8e497ce25604397bf56d1546c96f9eb8a07c2539e33090c0da437383ec3fdc",
+    "molsysmt/form/mdtraj_Trajectory/to_parmed_Structure.py": "2011729bab8226cdf38bb4fb4be4b36cba6f3a660bf714a07bbe4a2e0652e886",
+    "molsysmt/form/parmed_Structure/to_openmm_Modeller.py": "fc705dc7ef8a9717bf4753dc2b9839d3f87e96407d1183736f9808e49cd35b07",
+    "molsysmt/form/parmed_Structure/to_mdtraj_Trajectory.py": "e4da94c5abf137d2995a9ce84b0b611ba190dd9d2f36ecdf94068ed334c14de7",
+    "molsysmt/form/parmed_Structure/extract.py": "d331b36eac3a9c22856b742d40216e07c6de76b9de064a2d70e41a45192f1b22",
+    "molsysmt/form/parmed_Structure/get_structural_attributes.py": "11660c174d76d9e58d3ebd6ad010f7d3b1d162d34d1e4bcebdfe6702a0951a7d"
+  }
+}

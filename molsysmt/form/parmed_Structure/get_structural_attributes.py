@@ -174,16 +174,18 @@ def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        ParmEd structure with optional per-structure or shared crystallographic cell.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Structure indices (0-based) to include, in the supplied order.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    quantity or none
+        Cell matrices with shape ``(n_selected_structures, 3, 3)`` in the active
+        standard-length unit, or None when absent. A single stored cell is shared
+        by all coordinate structures.
 
 
     .. versionadded:: 1.0.0
@@ -192,9 +194,17 @@ def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     boxes = item.get_box("all")
     if boxes is None:
         return None
-    if is_all(structure_indices):
-        structure_indices = np.arange(len(boxes), dtype=np.int64)
-    boxes = np.asarray(boxes, dtype=np.float64)[structure_indices]
+    boxes = np.asarray(boxes, dtype=np.float64)
+    coordinates = item.get_coordinates("all")
+    n_structures = len(boxes) if coordinates is None else len(coordinates)
+    frame_indices = (
+        np.arange(n_structures, dtype=np.int64)
+        if is_all(structure_indices)
+        else np.asarray(structure_indices, dtype=np.int64)
+    )
+    if len(boxes) == 1:
+        boxes = np.broadcast_to(boxes, (n_structures, 6))
+    boxes = boxes[frame_indices]
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
     return get_box_from_lengths_and_angles(

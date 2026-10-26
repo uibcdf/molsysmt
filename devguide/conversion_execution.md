@@ -21,12 +21,13 @@ python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=ll
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-files-v8` profile: thirteen native containers/dictionary forms, four
+`resident-files-v9` profile: thirteen native containers/dictionary forms, four
 resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
 forms, SDF/PDBQT file/text forms, `molsysmt.PDBQTFileHandler` and
-`MDAnalysis.Universe`, `MDAnalysis.AtomGroup` and `MDAnalysis.Topology`.
-The measured 2026-10-25 profile selects
-157 of 606 declared edges; 449 remain explicit coverage debt. Earlier native,
+`MDAnalysis.Universe`, `MDAnalysis.AtomGroup`, `MDAnalysis.Topology` and
+`parmed.Structure`.
+The measured 2026-10-26 profile selects
+172 of 606 declared edges; 434 remain explicit coverage debt. Earlier native,
 engine, H5MSM, PDB and docking-format subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
@@ -194,3 +195,31 @@ separate handler/iterator guard covers homogeneous structure ensembles,
 selected blocks and metadata-only reads. The handler retains resident source
 text; execution coverage does not certify disk streaming or large-file memory
 performance. Remaining scalability work is uibcdf/molsysmt#434.
+
+
+## ParmEd execution extension — 2026-10-26
+
+The `resident-files-v9` profile adds fifteen routes involving `parmed.Structure`.
+Fresh provider-native water structures contain explicit bonds, charges, two
+distinguishable coordinate structures and distinct orthorhombic cells in angstroms.
+The resident executor owns thirteen routes and the PDB executor owns the two
+file routes. The graph is unchanged; only the fifteen newly executed routes
+leave the debt inventory. Missing required providers produce setup skips;
+conversion exceptions remain failures.
+
+Execution found three broken bridges under uibcdf/molsysmt#463 and incorrect
+atom/cell selection correspondence under uibcdf/molsysmt#464. The independent
+four-atom, three-structure bridge guard checks both direct and public calls, nm
+and angstrom standard-unit policies, source atom ordering, explicit structure
+ordering, native string IDs and mechanical charges. It covers distinct cells,
+a shared cell, nonperiodic data and cell-only queries without coordinates.
+MDTraj topology input remains coordinate-free; its trajectory output to ParmEd
+retains selected coordinates and available cells. OpenMM Modeller represents
+only the first selected structure and its corresponding cell.
+
+These are route-execution and bounded value contracts. In particular, the
+existing native MolSys-to-ParmEd adapter still projects through topology; this
+profile does not certify its coordinate or mechanical-parameter transfer.
+Full directional field auditing remains under uibcdf/molsysmt#120. No arbitrary
+force-field transfer, trajectory-time transfer to ParmEd or release qualification
+is established by the executable profile.

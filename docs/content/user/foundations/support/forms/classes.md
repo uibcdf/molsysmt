@@ -88,3 +88,11 @@ reuse the source with `copy_if_all=False`. Converting a `Seq` to its own form
 with a group-position selection preserves selection order and repetitions.
 Selecting `SeqRecord` positions is unsupported because its annotations and
 features would require an explicit remapping policy.
+
+MDTraj–ParmEd trajectory conversion preserves the selected coordinate structures
+and available periodic cells. Atom subsets retain source order; explicit structure
+lists also reorder the cells. A topology-only MDTraj input has no coordinates to
+transfer. OpenMM Modeller represents only the first selected structure and its cell.
+These bridges do not parameterize the system. See {ref}`Cookbook_Form_Teleportation`
+for an executable example and {ref}`Tutorial_Form_parmed_Structure` for the
+ParmEd adapter scope.

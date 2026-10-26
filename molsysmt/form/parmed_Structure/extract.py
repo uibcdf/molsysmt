@@ -1,3 +1,4 @@
+import numpy as np
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
@@ -20,11 +21,12 @@ def extract(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        ParmEd structure to copy or subset without modifying the source.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Atom indices (0-based) to include. Retained atoms keep source order.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Structure indices (0-based) to include. Coordinates and available cells
+        follow the supplied order; a shared cell applies to every selected structure.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
@@ -33,7 +35,7 @@ def extract(
     Returns
     -------
     parmed.Structure
-        Resulting object in parmed.Structure form.
+        Selected ParmEd structure with aligned topology, coordinates and cells.
 
 
     .. versionadded:: 1.0.0
@@ -60,6 +62,12 @@ def extract(
             mask = atom_indices_to_AmberMask(item, removed_atom_indices)
             tmp_item.strip(mask)
         if not is_all(structure_indices) and tmp_item.coordinates is not None:
-            tmp_item.coordinates = tmp_item.get_coordinates("all")[structure_indices]
+            coordinates = tmp_item.get_coordinates("all")
+            boxes = tmp_item.get_box("all")
+            if boxes is not None and len(boxes) == 1:
+                boxes = np.broadcast_to(boxes, (len(coordinates), 6))
+            tmp_item.coordinates = coordinates[structure_indices]
+            if boxes is not None:
+                tmp_item.box = boxes[structure_indices]
 
     return tmp_item

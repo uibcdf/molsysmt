@@ -532,7 +532,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
-        description: Conversion workflows, topology/coordinate correspondence for PDB, managed MDTraj inputs and public capability inspection.
+        description: Conversion workflows, MDTraj/ParmEd/OpenMM geometry and cell correspondence, managed MDTraj inputs and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, independent copies, geometry and chemical owner notification, state inventory publication, structure replacement and H5MSM persistence.

@@ -395,3 +395,22 @@ Linux x86_64, Python 3.14.7, Sphinx 9.1.0, MyST-NB 1.4.0 and the current develop
 Viewer source; local source evidence, not installed release qualification.
 The [receipt](../../devtools/data/documentation_warning_repair_20261022.json)
 records sanitized counts, warning-log digests, versions and the rendering guard.
+
+
+## Additional notebook-schema checkpoint — 2026-10-26
+
+The full HTML build for the ParmEd bridge repairs (uibcdf/molsysmt#463 and
+uibcdf/molsysmt#464) exits 0 but emits ten repeated notebook-schema ERROR
+diagnostics from five other course notebooks: the four paths'
+`34_Comparison_Superposition.ipynb` and Common Core
+`16_Structural_Operations.ipynb`. Their stored cells contain IDs while the
+notebooks still declare schema 4.4. They are outside the six-file raw-JSON guard
+added on 2026-10-13; that bounded repair did not cover these five.
+
+The newly edited ParmEd/MDTraj/Modeller pages, conversion Cookbook and Common
+Core Module 01 are not the source of these schema errors. Their public examples
+execute successfully, but the full-site command must not be described as clean.
+Extend the existing schema guard and apply the same metadata-only 4.5 repair,
+preserving every source cell and executed output, before clearing this debt.
+The [ParmEd receipt](../../devtools/data/conversion_execution_parmed_20261026.json)
+retains the observed exit, diagnostic count and scope. #144 remains partial.

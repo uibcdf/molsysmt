@@ -206,3 +206,17 @@ extend version 0.1 in place.
 - Changing H5MSM's default float precision without storage and performance data.
 - Adding a new dependency or a new trajectory backend as part of fidelity work.
 - Combining the schema migration with Arrow, Polars, DuckDB, or Rust exploration.
+
+
+## ParmEd outgoing scope observation — 2026-10-26
+
+The bounded execution expansion under uibcdf/molsysmt#181 restores broken MDTraj/
+ParmEd/OpenMM bridges (uibcdf/molsysmt#463) and selected atom/cell correspondence
+(uibcdf/molsysmt#464). It does not turn all outgoing native routes into complete
+field transfer. **Inspected:** `molsysmt_MolSys.to_parmed_Structure` currently
+projects through `molsysmt.Topology`, without attaching the native structures or
+mechanical assignments. Its preflight scope is `chemical_state`, not exhaustive
+geometry/mechanics auditing. That route remains directional fidelity debt here;
+output-form execution must not be interpreted as coordinate/parameter retention.
+The documented MDTraj trajectory bridge is the tested coordinate-bearing route
+for this bounded extension.
