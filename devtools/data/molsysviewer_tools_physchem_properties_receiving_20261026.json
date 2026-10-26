@@ -1,0 +1,361 @@
+{
+  "schema": "molsysmt.viewer_tools_physchem_properties_receiving@1",
+  "date": "2026-10-26",
+  "status": "bounded_source_receiving_passed_committed_head_ci_pending",
+  "provider_tested_base_commit": "e395e52646dab2ecb480d3d67aa7254be99b8524",
+  "viewer_commit": "84b08909ad66593415f5c58716099375c191ac79",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+  "checkout": "/tmp/msm-physchem-isolated-2r24pzqf",
+  "scope": "All addon tests, selected seven native property families, dummy/unknown-group controls, independent native physical-property references and package/devguide guards. Not the entire MolSysMT suite or installed artifact qualification.",
+  "inventory": {
+    "guide_blocks": 1,
+    "native_exports": [
+      "apply_chemical_template",
+      "assess_chemical_template",
+      "get_area_buried",
+      "get_aromatic_rings",
+      "get_aromaticity",
+      "get_atomic_radius",
+      "get_autodock_atom_types",
+      "get_buried_fraction",
+      "get_charge",
+      "get_charge_centers",
+      "get_chemical_readiness",
+      "get_cip_stereochemistry",
+      "get_electronegativity",
+      "get_halogen_bond_sites",
+      "get_hydrogen_inventory",
+      "get_hydrophobic_sites",
+      "get_hydrophobicity",
+      "get_mass",
+      "get_metal_coordination_sites",
+      "get_partial_charges",
+      "get_peptide_chemical_template",
+      "get_polarity",
+      "get_protor_atom_type",
+      "get_protor_vdw_radius",
+      "get_sasa",
+      "get_surface_area",
+      "get_transmembrane_tendency",
+      "get_volume",
+      "get_water_sites",
+      "normalize_aromatic_bond_orders"
+    ],
+    "received": [
+      "get_atomic_radius",
+      "get_charge",
+      "get_electronegativity",
+      "get_hydrophobicity",
+      "get_mass",
+      "get_polarity",
+      "get_transmembrane_tendency"
+    ],
+    "pending": [
+      "apply_chemical_template",
+      "assess_chemical_template",
+      "get_area_buried",
+      "get_aromatic_rings",
+      "get_aromaticity",
+      "get_autodock_atom_types",
+      "get_buried_fraction",
+      "get_charge_centers",
+      "get_chemical_readiness",
+      "get_cip_stereochemistry",
+      "get_halogen_bond_sites",
+      "get_hydrogen_inventory",
+      "get_hydrophobic_sites",
+      "get_metal_coordination_sites",
+      "get_partial_charges",
+      "get_peptide_chemical_template",
+      "get_protor_atom_type",
+      "get_protor_vdw_radius",
+      "get_sasa",
+      "get_surface_area",
+      "get_volume",
+      "get_water_sites",
+      "normalize_aromatic_bond_orders"
+    ],
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]"
+  },
+  "specific": {
+    "path": "/tmp/msv-physchem-specific.xml",
+    "sha256": "721fae34f748d5661438b90b8e1129e389351952ede7bfec12a3b4de05e2ffeb",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "109",
+      "time": "28.961",
+      "timestamp": "2026-10-26T16:24:16.566404-06:00",
+      "hostname": "nauta"
+    }
+  },
+  "regression": {
+    "path": "/tmp/msv-physchem-regression.xml",
+    "sha256": "89373b5b437462b28547244f57995386bd285a0c2b46f6bab07c8afa3d9dc240",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1272",
+      "time": "356.961",
+      "timestamp": "2026-10-26T16:26:18.221076-06:00",
+      "hostname": "nauta"
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_mass",
+      "tests/physchem/get_charge",
+      "tests/physchem/get_atomic_radius",
+      "tests/physchem/get_electronegativity",
+      "tests/physchem/get_hydrophobicity",
+      "tests/physchem/get_polarity",
+      "tests/physchem/get_transmembrane_tendency",
+      "tests/physchem/dummy_residues",
+      "tests/physchem/test_unknown_group_in_table.py",
+      "tests/scientific_truth/physchem/test_reference_properties.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-physchem-regression.xml"
+    ],
+    "log_sha256": "47f6704eb411ddb3503d4cbd42b9d922e5b7afde63153420389f6a98d225e0e8",
+    "source_audit_path": "/tmp/msv-physchem-regression-source.json",
+    "source_audit_sha256": "006692f000809b10729be088a1799fcdc515e1c1adbee02547306c03e77dbeb7",
+    "changed_during_run": [],
+    "compiled_backend": {
+      "path": "/tmp/msm-physchem-isolated-2r24pzqf/molsysmt/_rust.abi3.so",
+      "copied_from": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so",
+      "before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "reason": "Freeze existing native extension bytes against concurrent owner work; not a newly built artifact.",
+      "after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+    },
+    "current_live_python_sources_match_tested_snapshot": true
+  },
+  "scientific_references": [
+    "Transcribed H/C/N/O atomic masses, vdw radii and Pauling values",
+    "Actual molecular atom composition and hierarchy mass sums",
+    "Diverse protein amino-acid values: Kyte, Grantham/Zimmerman, Zhao/Senes and physical_pH7",
+    "Native parity across all fifteen hydrophobicity definitions, hierarchy charges and ProtOr",
+    "Explicit single-frame OpenMM partial charges and zero total charge of a real capped peptide"
+  ],
+  "integration": [
+    "Exact signatures/defaults and native skip controls",
+    "Atom/group selections, order/repetition, empty atomic populations and units/containers",
+    "Current-primary lookup, empty/closed/replaced views and reserved controls",
+    "Pending scientific reads without synchronization, scene and named-analysis retention"
+  ],
+  "native_audits": {
+    "native-only": {
+      "path": "/tmp/msv-physchem-native-only-audit.json",
+      "sha256": "e6aa29b29c8b21150602c0c926bf858252c8b2e50b1b85f36e08da9baac94e53",
+      "observations": [
+        {
+          "name": "get_mass",
+          "ok": true,
+          "shape": [
+            5
+          ]
+        },
+        {
+          "name": "get_charge",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_atomic_radius",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_electronegativity",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_hydrophobicity",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_polarity",
+          "ok": true,
+          "shape": [
+            5
+          ]
+        },
+        {
+          "name": "get_transmembrane_tendency",
+          "ok": true,
+          "shape": [
+            5
+          ]
+        }
+      ]
+    },
+    "element": {
+      "path": "/tmp/msv-physchem-element-audit.json",
+      "sha256": "6b1e73875f86629e2bee4b8bba377c46ed36000088bd8a67ad18cd859583a0cb",
+      "observations": [
+        {
+          "name": "get_atomic_radius",
+          "element": "atom",
+          "result": [
+            0.17
+          ]
+        },
+        {
+          "name": "get_atomic_radius",
+          "element": "group",
+          "result": [
+            0.17
+          ]
+        },
+        {
+          "name": "get_atomic_radius",
+          "element": "system",
+          "result": [
+            0.17
+          ]
+        },
+        {
+          "name": "get_electronegativity",
+          "element": "atom",
+          "result": [
+            2.55
+          ]
+        },
+        {
+          "name": "get_electronegativity",
+          "element": "group",
+          "result": [
+            2.55
+          ]
+        },
+        {
+          "name": "get_electronegativity",
+          "element": "system",
+          "result": [
+            2.55
+          ]
+        },
+        {
+          "name": "get_polarity",
+          "element": "atom",
+          "result": [
+            8.1
+          ]
+        },
+        {
+          "name": "get_polarity",
+          "element": "group",
+          "result": [
+            8.1
+          ]
+        },
+        {
+          "name": "get_polarity",
+          "element": "system",
+          "result": [
+            8.1
+          ]
+        },
+        {
+          "name": "get_transmembrane_tendency",
+          "element": "atom",
+          "result": [
+            0.38
+          ]
+        },
+        {
+          "name": "get_transmembrane_tendency",
+          "element": "group",
+          "result": [
+            0.38
+          ]
+        },
+        {
+          "name": "get_transmembrane_tendency",
+          "element": "system",
+          "result": [
+            0.38
+          ]
+        },
+        {
+          "name": "get_hydrophobicity",
+          "element": "atom",
+          "error": "InternalAlgorithmError",
+          "message": "An internal error occurred in the algorithm. This indicates a bug or an unexpected state. Please report it. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_hydrophobicity",
+          "element": "group",
+          "result": [
+            0.62
+          ]
+        },
+        {
+          "name": "get_hydrophobicity",
+          "element": "system",
+          "error": "InternalAlgorithmError",
+          "message": "An internal error occurred in the algorithm. This indicates a bug or an unexpected state. Please report it. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    ".github/workflows/ci-smoke.yaml": "ef6c952c53e82475d0e33106388a11278792f2ae0ecc41f7b4429c6995e60261",
+    "devtools/scripts/viewer_tools_contract.py": "9c7f80be39680b224ec583d7300df6ffbc56911f8994658ba5100032a9b7c4ec",
+    "molsysmt/physchem/__init__.py": "107828eb59ff9668861c62f413aeaf902feed5aa6f4f810ea20a2fa303df6b2b",
+    "molsysmt/physchem/atoms/protor.py": "892af4a0b85381126905e3f3c17ff18de60f493898b58a207ccc54a969223c69",
+    "molsysmt/physchem/get_atomic_radius.py": "9d20b20befe37410f79e420188a4f29f371814c46470f2bbd20451b2a7929d64",
+    "molsysmt/physchem/get_charge.py": "f8bd564d212e051ded1ff1183766efbe06d5aaf54c29d583cf857104bfefb9a7",
+    "molsysmt/physchem/get_electronegativity.py": "74da662b17797d1f06a5c6cf5dde23da49baf44930bfe181d317fd0523d46f54",
+    "molsysmt/physchem/get_hydrophobicity.py": "7e1a7b1e8dd22660423c4e7aa5a2a5760c8c8d438cfd3d95cefb569ada6206d6",
+    "molsysmt/physchem/get_mass.py": "b22b50a788c245aa86ad6e34eb644a8ef32dc3ea065e77968a26ec0c4860c257",
+    "molsysmt/physchem/get_polarity.py": "14c6d5f483920c8f9266741a00a7745ae11db0c47b617af91f32c5bbaf2c9472",
+    "molsysmt/physchem/get_transmembrane_tendency.py": "229643170da52ccdd1d9a11f0be8f8f7c425531d5c697878996577ca23bd50cb",
+    "molsysmt/physchem/groups/_lookup.py": "a23d0a97c4570af9544d022de496c47c10e4613550cbdd7b29245293a666c3e6",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "5cee3dd9c17f22dae70ca5ff3b0997713cf9c3d7ea235fda4e1353365aced82a",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "9b140b639ced7715e83946ace60c0e66609e4306abbec44d0f19ffb6c73bdc23",
+    "molsysviewer_molsysmt/_geometry.py": "4643205df59711a998fb11277da2abbf073032be22db34029631f05ee331b031",
+    "molsysviewer_molsysmt/_pbc.py": "c1ad7049c751745dfde304d74e516423b6a54ebbf6eae9e245b6e6fd2b3305ee",
+    "molsysviewer_molsysmt/_physchem.py": "b13a218df6994d0592445a63a97861b22158e656d93ae8f87adddb05ed919943",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "0c313e4679928cf2461dad72575a82537426c965708a7f54178d0a3904ce70ce",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "tests/molsysviewer_molsysmt/test_physchem_tools.py": "8bbb1e94da1157a6c87f40d8df25228d771a65ab3604ef03cf3e6b0a9ef85b1f"
+  },
+  "limits": [
+    "Only 7 of 30 reviewed native physchem exports received; GUI and other namespaces remain pending",
+    "Alternative syntax lost in four native readers: uibcdf/molsysmt#470",
+    "Unsupported element scopes ignored or rejected inconsistently: uibcdf/molsysmt#471; only native meaningful atom/group scopes and explicit mass/charge hierarchy are received",
+    "OpenMM charge tested on explicit single-frame capped peptide, not arbitrary force fields or incomplete chemistry; native multi-frame periodic conversion rejects",
+    "Native OpenMM mass on the bound MolSys remains unsupported",
+    "Table charge does not assign partial charges/protonation; unknown real groups retain native errors",
+    "Post-run changes are documentation/report/index updates; all audited Python sources and workflow/package contracts match the tested snapshot",
+    "No source results relabeled as package compatibility, dependency-floor change or public release; both 1.0 publications remain paused"
+  ]
+}

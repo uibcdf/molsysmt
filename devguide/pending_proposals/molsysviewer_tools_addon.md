@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, seven physchem property readers and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1097,3 +1097,44 @@ its exact routine Viewer source pin; no host runtime, dependency floor,
 installed artifact or release qualification is introduced by this source CI.
 Viewer's historical-public-backend pandas gap and experimental Qt remain
 separately tracked. Both 1.0 publications remain paused.
+
+
+## First physchem property slice — 2026-10-26
+
+Seven of the 30 reviewed physchem exports now have explicit bound source wrappers:
+get_mass, get_charge, get_atomic_radius, get_electronegativity,
+get_hydrophobicity, get_polarity and get_transmembrane_tendency. They use the
+existing serialized primary reader and add no host runtime or scene operation.
+Signatures/defaults, skip_digestion, native units/containers and explicit
+scientific definitions remain native. Additional physchem families and the GUI
+remain pending; this slice does not complete the module or installed receiving.
+
+The tests distinguish independently checked elemental constants, hierarchy sums
+and diverse amino-acid reference values from native parity across the 15
+hydrophobicity tables, both polarity scales and both transmembrane definitions.
+They also cover selection ordering, repetition, empty populations, source/scene
+and interaction retention, replacement/lifetime, pending reads and explicit
+OpenMM charge on a single-structure capped peptide. Native mass on bound MolSys
+with OpenMM remains unsupported; multi-frame periodic conversion is not silently
+reduced to one structure. Neither table charge nor ProtOr radius prepares
+molecular chemistry or assigns a model to the source.
+
+Native selector propagation is separately reported in uibcdf/molsysmt#470:
+charge, radius, electronegativity and hydrophobicity drop the declared alternative
+syntax. The addon forwards and preserves the native result/error without a
+translator. MolSysMT expressions and explicit numeric selections are received.
+Validation counts and exact source provenance are recorded after the scoped run;
+no package, publication or dependency-floor qualification is implied.
+
+Element-level clarification is separately owned by uibcdf/molsysmt#471. Current
+receiving uses atom scope for atomic tables and group scope for group scales;
+it does not certify ignored unsupported levels as deliberate aggregation.
+
+Local qualification passes 109 focused cases and one frozen 1,272-case scoped
+regression in 356.98 seconds, with no failures/errors/skips. All audited Python
+sources and the existing backend remain unchanged, and live scientific/addon
+sources match the snapshot. The new user-guide example executes. The
+[physchem receipt](../../devtools/data/molsysviewer_tools_physchem_properties_receiving_20261026.json) records source hashes, the exact 7/30 inventory,
+23 pending exports, independent references versus parity and both native audits.
+Post-run additions concern report/index/documentation only; committed-head CI is
+still separate and pending at this snapshot. No host runtime change is needed.

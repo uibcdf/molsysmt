@@ -102,6 +102,23 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "the actual current view.molsys; later external edits retain explicit "
                 "reconciliation responsibilities.\n"
             )
+        if module == "physchem":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The native scientific value is returned, not a scene object. "
+                "No assignment, implicit preparation, result adoption or scene update "
+                "is introduced. Native derived/cache behavior, definitions, units, "
+                "container types and supported element scopes remain unchanged. "
+                "Group scales require names present in their native table; missing "
+                "chemical groups are not silently assigned neutral values. "
+                "OpenMM definitions retain their native form/parameterization limits; "
+                "a table charge is not an assigned partial charge or a protonation model.\n"
+                "Native alternative-syntax forwarding is incomplete for charge, "
+                "radius, electronegativity and hydrophobicity (uibcdf/molsysmt#470); "
+                "use MolSysMT expressions or explicit indices until repaired. "
+                "OpenMM charge conversion of a multi-frame periodic box is rejected; "
+                "the addon never selects a frame implicitly.\n"
+            )
         if module in {"topology", "structure"} and name not in {
             "translate",
             "rotate",

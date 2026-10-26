@@ -66,3 +66,11 @@ Keep in-place synchronization controls separate from native mutation, exact
 selected-scope invalidation and retained scene identities explicit. Document
 pending work, rejection/uncertain states and synchronization retry without
 scientific replay; never substitute system replacement for managed geometry.
+
+
+Preserve the first seven physchem property readers, native atom/group scopes,
+units and containers, explicit definitions, missing-table errors and the
+separation between tabulated group charge and parameterized partial charge.
+Keep OpenMM form/box prerequisites, pending-reader behavior and the native
+selection-syntax limitation visible. Do not present the other 23 physchem
+exports as received or introduce implicit coloring, preparation or assignment.

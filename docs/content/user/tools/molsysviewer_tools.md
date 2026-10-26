@@ -1372,3 +1372,68 @@ The native and addon guards cover these contracts under
 [#461](https://github.com/uibcdf/molsysmt/issues/461) and
 [#462](https://github.com/uibcdf/molsysmt/issues/462); they do not qualify every
 possible geometric input or an installed release pair.
+
+
+## Reading physical and chemical properties
+
+The source addon now exposes seven property readers under
+`view.addons.molsysmt.physchem`. This is the first slice of the 30 reviewed native
+physchem exports; surface/volume calculations, feature perception, chemical
+preparation and the other property tools remain pending in the addon.
+
+| Tool | Native result and received scope |
+| --- | --- |
+| `get_mass` | Physical atomic masses and hierarchy sums, with native quantity units (normally dalton). The system-level value covers the whole system. |
+| `get_charge` | Group table charges and hierarchy sums in elementary charge units; explicit OpenMM parameterization retains its separate prerequisites. |
+| `get_atomic_radius` | Atom radii in native nm table units; vdw and explicit ProtOr definitions. |
+| `get_electronegativity` | Atom Pauling values as a dimensionless quantity. Missing tabulated values retain native NaN. |
+| `get_hydrophobicity` | Group values as a NumPy array, with the native choice of 15 reference scales. |
+| `get_polarity` | Group values as a list, using grantham or zimmerman. |
+| `get_transmembrane_tendency` | Group values as a list: zhao scores or senes three-parameter rows. |
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+with msv.demo["pentalanine"] as view:
+    properties = view.addons.molsysmt.physchem
+    atom_masses = properties.get_mass(element="atom")
+    group_charges = properties.get_charge(selection="group_name=='ALA'")
+    hydrophobicity = properties.get_hydrophobicity(
+        selection="group_name=='ALA'", definition="kyte"
+    )
+    assert msm.pyunitwizard.get_value(atom_masses, to_unit="dalton").shape == (62,)
+    assert list(hydrophobicity) == [1.8] * 5
+    assert list(msm.pyunitwizard.get_value(group_charges, to_unit="e")) == [0.] * 5
+```
+
+These are scientific values. The call does not assign a property to the MolSys,
+color a representation, adopt a result, prepare chemistry or update the scene.
+The reader resolves the actual current primary at call time, including pending
+managed scientific edits; it does not synchronize those edits. Scientific
+parameters, skip_digestion and native derived/cache behavior are preserved.
+There are no invented root aliases or update_view parameters for these readers.
+
+Choose atom scope for atom tables and group scope for group scales. The addon
+does not invent hierarchy support absent from the native implementation.
+Unsupported-level validation is inconsistent in several native readers
+(uibcdf/molsysmt#471); these broader levels are not qualified here.
+Tabulated group charge is not assigned partial charge or a protonation model.
+Unknown chemical groups are rejected when missing from a table; ACE/NME caps,
+waters, ions and ligands are not automatically excluded or assigned zero.
+Native dummy-group conventions remain unchanged.
+
+For OpenMM charge, select the definition and forcefield explicitly. A
+single-structure capped peptide is received; the native conversion currently
+rejects a multi-frame periodic box. Extract a structure explicitly when needed;
+the addon never chooses one or changes force-field settings for you. OpenMM mass
+on the bound MolSys remains unsupported by the native function. This receiving
+does not certify arbitrary parameter sets, incomplete chemistry or every form.
+
+Native alternative-syntax forwarding is incomplete in charge, radius,
+electronegativity and hydrophobicity (uibcdf/molsysmt#470). Use MolSysMT expressions
+or explicitly resolved indices for those readers until the provider repair is
+received. The addon preserves the native rejection rather than translating the
+selection silently. Mass, polarity and transmembrane MDTraj selectors are also
+included in bounded receiving. Source availability is not installed-artifact
+qualification.

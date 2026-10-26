@@ -7,6 +7,7 @@ from smonitor import signal
 
 from ._basic import _BasicTools
 from ._pbc import _PbcTools
+from ._physchem import _PhyschemTools
 from ._structure import _StructureTools
 from ._topology import _TopologyTools
 
@@ -18,6 +19,7 @@ class _MolSysMTTools:
         self.topology = _TopologyTools(self)
         self.structure = _StructureTools(self)
         self.pbc = _PbcTools(self)
+        self.physchem = _PhyschemTools(self)
 
     def _view(self):
         view = self._view_ref()
@@ -82,6 +84,7 @@ class _MolSysMTTools:
             "topology",
             "structure",
             "pbc",
+            "physchem",
             "get_sync_status",
             "sync_view",
             *_BasicTools._NAMES,
