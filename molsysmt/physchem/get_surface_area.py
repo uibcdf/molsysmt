@@ -13,7 +13,7 @@ def get_surface_area(
     skip_digestion=False,
 ):
     """
-    Getting standard surface area values for elements in a molecular system.
+    Getting tabulated Collantes isotropic surface-area descriptors.
 
 
     Parameters
@@ -59,7 +59,20 @@ def get_surface_area(
     Unsupported element levels fail before selection is interpreted.
     The Collantes descriptor's physical unit/normalization remains under
     review in uibcdf/molsysmt#473. Raw values are retained without guessed
-    conversion or a new physical-unit guarantee.
+    conversion or a new physical-unit guarantee. A bare float is not a claim
+    that the original descriptor is dimensionless. The original work describes
+    amino-acid side-chain descriptors derived from optimized structures for
+    QSAR; this function only looks up the historical table. It does not run
+    the original descriptor-generation procedure on the input coordinates.
+
+    References
+    ----------
+    Collantes, E. R. and Dunn, W. J., III (1995). Amino Acid Side Chain
+    Descriptors for Quantitative Structure-Activity Relationship Studies of
+    Peptide Analogs. Journal of Medicinal Chemistry, 38(14), 2705-2713.
+    https://doi.org/10.1021/jm00014a022 (PMID: 7629809).
+    The accessible abstract establishes descriptor identity, not the unit or
+    normalization of the table reproduced here.
 
     Examples
     --------

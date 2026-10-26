@@ -138,3 +138,9 @@ the resulting PDBQT does not recover the full chemical state or assignment repor
 - {ref}`Tutorial_Chemical_Readiness`
 - {ref}`cookbook-native-pdbqt`
 :::
+
+Do not replace the named assignment with
+`get_charge(..., definition='collantes')`: that legacy route returns electronic
+charge index (ECI) scores. Its elementary-charge wrapper and aggregation require
+[primary-definition review #475](https://github.com/uibcdf/molsysmt/issues/475).
+The wrapper alone does not establish physical net charges or force-field parameters.

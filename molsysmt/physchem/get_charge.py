@@ -74,6 +74,12 @@ def get_charge(
     supported element. Tabulated amino-acid group charges are fixed reference
     scores, distinct from stored formal charges or a calculated partial-charge
     assignment. This function does not validate chemistry or change a state.
+    The original Collantes work names its descriptor electronic charge index
+    (ECI). Its physical dimension and additive electric-charge interpretation
+    require primary-reference verification in uibcdf/molsysmt#475. The legacy
+    quantity wrapper and sums are retained; they do not certify ECI as a net
+    charge or force-field parameter. This qualification does not affect the
+    physical_pH7 or OpenMM definitions.
 
     Values are rounded to 4 decimal places for the ``'OpenMM'`` definition
     to avoid floating-point noise from unit conversions.

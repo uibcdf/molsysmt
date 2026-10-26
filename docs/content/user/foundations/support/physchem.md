@@ -27,7 +27,7 @@ Properties defining electronic states, formal/partial charges, and protonation:
 
 | Attribute / Property | Target Scope | Description | Canonical Unit |
 | :--- | :--- | :--- | :--- |
-| **`charge`** | Atom / Group / System | Tabulated group scores or OpenMM mechanical charge; distinct from stored formal charge. | `elementary_charge` (`e`) |
+| **`charge`** | Atom / Group / System | Tabulated group scores or OpenMM mechanical charge; distinct from stored formal charge. | `elementary_charge` (`e`); Collantes ECI interpretation under review in #475 |
 | **`partial_charge`** | Atom | Forcefield-assigned fractional point charge. | `elementary_charge` (`e`) |
 | **`formal_charge`** | Atom / Group | Integer electronic formal charge state. | `elementary_charge` (`e`) |
 | **`electronegativity`** | Atom | Pauling atomic electronegativity; unavailable tabulated elements return NaN. | N/A |
@@ -89,3 +89,12 @@ Observables describing spatial extent, solvent exposure, and molecular volume:
 | **`volume`** | Group / System | Molecular or atomic volume via Voronoi tessellation or solvent envelope. | `nanometer ** 3` (`nm³`) |
 | **`area_buried`** | Group / Interface | Surface area buried upon interface formation or folding. | `nanometer ** 2` (`nm²`) |
 | **`buried_fraction`** | Atom / Group | Fractional extent of surface burial ($0.0 \dots 1.0$). | N/A |
+
+The historical Collantes ISA table is a lookup of QSAR descriptors, not a new
+surface measurement on the selected coordinates. Its raw floats do not imply
+dimensionlessness or authorize assigning nm² or Å². The original table unit
+and normalization remain under [review #473](https://github.com/uibcdf/molsysmt/issues/473).
+The companion electronic charge index (ECI), exposed by the legacy Collantes
+charge definition, has a separate [unit and aggregation review #475](https://github.com/uibcdf/molsysmt/issues/475).
+See the [ISA tutorial](../../tools/physchem/get_surface_area.ipynb) for the
+original reference and the distinct coordinate-based SASA route.

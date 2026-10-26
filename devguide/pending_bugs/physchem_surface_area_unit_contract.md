@@ -1,7 +1,7 @@
 ---
 summary: Verify the unit contract of Collantes surface-area descriptors.
 issue: uibcdf/molsysmt#473
-status: open
+status: partial
 opened: 2026-10-26
 closed:
 severity: medium
@@ -17,8 +17,9 @@ supersedes: []
 
 **Reported:** 2026-10-26 during addon receiving under uibcdf/molsysmt#421,
 consumer uibcdf/molsysviewer#264. Filing explicitly authorized by the maintainer.
-**Status:** open; suspected unit/documentation inconsistency, not an established
-incorrect numerical result.
+**Status:** partial; public interpretation and provenance are qualified. Original
+table units and normalization remain unverified; no incorrect numerical result
+is established.
 
 ## What
 
@@ -95,3 +96,73 @@ side-chain descriptors derived from optimized amino-acid structures. Neither
 accessible record establishes the table unit used by the current API. Thus
 this lookup strengthens descriptor provenance, without resolving nm-squared
 versus another unit/normalization or certifying the table numerically.
+
+## Extended primary/source review — 2026-10-26
+
+**Inspected:** publisher/PubMed confirm the original work and its ISA/ECI
+side-chain QSAR scope. The complete original paper was not obtained: the ACS
+record offers purchase access; its abstract does not give the descriptor
+formula, table unit or normalization. No authentication bypass or access claim
+is made. A search of the publicly accessible AAindex1 text found no Collantes
+entry; no AAindex identifier is asserted for this table. This bounded lookup
+does not establish that no other archive or author copy exists.
+
+The official [modlAMP core implementation](https://modlamp.org/_modules/modlamp/core.html)
+lists its `isaeci` table. Its 20 ISA entries agree with the current MolSysMT
+table, including ASN 19.53 and GLN 17.87. That is implementation agreement,
+not original-table or physical-unit certification. A later independently
+authored [descriptor application table](https://nru.uncst.go.ug/server/api/core/bitstreams/259a5ab2-84d5-4741-9759-949926a3e99c/content)
+reverses these two ISA labels (ASN 17.87, GLN 19.53). Conflicting reproductions
+make the original table important; they are not a sufficient basis to correct
+either number here. No numerical change has been made.
+
+## Implemented clarification
+
+The public docstring and table comments identify the original DOI/PMID,
+separate historical lookup from recomputing a descriptor, and state that a
+raw float is not evidence of dimensionlessness. The tutorial, Foundations,
+Cookbook and Common Core distinguish unqualified ISA reference values from
+coordinate-dependent SASA and warn against assigning guessed nm²/Å² units.
+No signature, value, scale, type, unit conversion or dependency changed.
+No new attribution engine boundary was added: the original scientific
+reference is explicitly documented rather than claiming execution of the
+original descriptor-generation algorithm.
+
+The related ECI reader wraps scores in elementary charge and sums them as
+charges. Its physical dimension and aggregation are independently unverified;
+that separate suspected mismatch is tracked by uibcdf/molsysmt#475. Neither
+issue is closed by documenting uncertainty.
+
+## Remaining evidence and recovery
+
+Obtain an authorized copy of the original Collantes/Dunn paper and inspect the
+ISA definition, numerical table, units and normalization, including the ASN/GLN
+assignments. Request for maintainer access was sent during this review. Once
+verified, choose the scientific public contract, document any compatibility
+change and protect it with a primary-reference guard. Do not infer units from
+value magnitude, the variable name, another library or a successful unit test.
+
+## Local qualification of the clarification
+
+On Linux/Python 3.14.7, the existing property-selection module and both changed
+public-function doctest modules pass **437 tests** in 19.77 seconds using
+`python -m pytest tests/physchem/test_property_selection_contract.py
+ --doctest-modules molsysmt/physchem/get_surface_area.py
+ molsysmt/physchem/get_charge.py --receptor=llm -n 12`. Four expected legacy
+H5MSM warnings remain. These checks protect existing selection, containers
+and numerical behavior; they are not a primary-reference certification.
+
+AST comparison against source 9d7d81d31, excluding only docstrings, confirms
+identical executable code in get_surface_area.py, get_charge.py and the ISA
+table module. The changed surface-area tutorial is force-executed (6.9 seconds);
+its label now says raw ISA descriptors. The other notebook changes affect
+only prose. All 491 raw notebook-schema cases pass (7.49 seconds), all 251
+public docstrings pass the existing validator, and selected Ruff check/format
+pass. Incremental HTML compilation exits 0 with zero errors and 29 warnings
+under the existing uibcdf/molsysmt#144 debt. No new unit/scientific tests are
+added solely to repeat the table implementation.
+
+The preceding source checkpoint 9d7d81d316f7e4f8d84f6d115343ed71dd1fe3d2
+completed all five applicable CI workflows successfully, including smoke
+run 40421796702. That is prior-source evidence, not an assertion about a later
+commit, installed package, another platform or publication readiness.

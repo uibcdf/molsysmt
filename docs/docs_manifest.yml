@@ -290,7 +290,7 @@ sections:
         index_file: docs/content/user/tools/physchem/index.md
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
-        description: Tabulated properties with explicit atom/group populations, preserved selection syntax, units, containers and unknown-group diagnostics.
+        description: Tabulated properties with explicit atom/group populations, preserved selection syntax, units, containers and unknown-group diagnostics; Collantes ISA provenance and unresolved units, and ECI charge-interpretation limits.
         pages:
           - name: get_atomic_radius
             file: docs/content/user/tools/physchem/get_atomic_radius.ipynb

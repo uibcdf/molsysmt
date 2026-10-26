@@ -1,5 +1,8 @@
 # E. R. Collantes, W. J. Dunn, J. Med. Chem. 1995, 38, 2705–2713
-# Isotropic Surface Area
+# DOI: 10.1021/jm00014a022; PMID: 7629809.
+# Isotropic surface-area (ISA) reference descriptors, not coordinate-based SASA.
+# Original table unit/normalization has not been verified: uibcdf/molsysmt#473.
+# Preserve historical numbers; do not infer nm^2, angstrom^2 or dimensionlessness.
 
 collantes = {
     "ALA": 62.900,
