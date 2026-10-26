@@ -89,6 +89,12 @@ source IDs/names/elements, state identity and chemical digest must agree with
 the known source. The source and map must describe the same preparation stage.
 JSON-decoded array lists are accepted without an external array codec.
 
+When export uses `output_presentation`, written IDs/names can intentionally
+be different from the source labels. The reader validates the bound original
+source axis separately from the declared written axis, and checks each pose
+against the latter. Returned atoms retain the known source labels. See
+{ref}`cookbook-native-pdbqt` for serial policies and caller remarks.
+
 Each pose must retain the mapped written atom order, string serial IDs, names,
 elements, written charges and declared tree. Available mapped/source AutoDock
 types must agree, and atom identity fields/types cannot change between poses.

@@ -66,8 +66,11 @@ def read_poses(
 
     This experimental resident reader reuses the bounded AutoDock4 parser.
     It validates serials, names, elements, written charges, available AutoDock
-    labels and the exported tree in every pose. It does not infer graph edges,
-    spatial correspondence, scores, rankings or missing hydrogen coordinates.
+    labels and the exported tree in every pose. Written IDs/names may differ
+    from source labels through explicit output_presentation at export; the
+    bound source axis is checked separately and retained in the result. It does
+    not infer graph edges, spatial correspondence, scores, rankings or missing
+    hydrogen coordinates.
     Source coordinates, boxes, times, observables and interaction analyses are
     not copied. MolecularMechanics is not transferred; written charges and
     labels are recorded in the optional report, without claiming a new charge

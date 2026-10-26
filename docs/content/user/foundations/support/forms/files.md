@@ -149,3 +149,9 @@ decoded buffers and no decompressed disk file. Source archives and neighbors rem
 unchanged. The experimental input adapter supplies native conversions and attribute
 queries; it does not advertise compressed writing or streaming. See
 {ref}`Tutorial_Form_file_pdb_gz`.
+
+Native PDBQT output can declare a separate presentation (serials, names,
+per-atom group/chain labels and optional occupancy/B factors) without modifying
+the source inventory or chemistry. Export maps distinguish those written labels
+from original source indices and IDs. Caller REMARKs are incorporated before the
+final payload hash is calculated; see {ref}`cookbook-native-pdbqt`.

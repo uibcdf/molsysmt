@@ -497,7 +497,7 @@ sections:
       - name: native_pdbqt
         file: docs/content/user/cookbook/native_pdbqt.md
         agents_file: docs/content/user/cookbook/native_pdbqt.md.AGENTS.md
-        description: Prepared PDBQT exchange, selective prefix recognition, supplied torsion/parameter data, explicit assignment tools and H5MSM mechanics exclusions.
+        description: Prepared PDBQT exchange, output-only presentation and caller remarks with final-byte maps, supplied torsion/parameter data and H5MSM mechanics exclusions.
         status: reviewed
       - name: auditing_residue_chemistry
         file: docs/content/user/cookbook/auditing_residue_chemistry.md

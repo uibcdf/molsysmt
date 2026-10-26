@@ -6,6 +6,34 @@ import pandas as pd
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.autodock_types import decode_atom_ff_type
 from molsysmt._private.pdbqt import fail, parse
+from molsysmt._private.pdbqt_presentation import caller_remarks, prepare
+from molsysmt._private.pdbqt_presentation import field as _field
+
+
+def tree_records(tree_data):
+    """Yield the actual rooted write traversal without per-atom object storage."""
+    packed, offsets, pairs, children, torsdof = tree_data
+    yield "ROOT", None
+    for atom in packed[offsets[0] : offsets[1]]:
+        yield "ATOM", int(atom)
+    yield "ENDROOT", None
+    pending = [("open", child, branch) for child, branch in reversed(children[0])]
+    while pending:
+        action, fragment, branch = pending.pop()
+        if action == "close":
+            yield "ENDBRANCH", pairs[branch]
+            continue
+        yield "BRANCH", pairs[branch]
+        child_atom = int(pairs[branch, 1])
+        yield "ATOM", child_atom
+        for atom in packed[offsets[fragment] : offsets[fragment + 1]]:
+            if atom != child_atom:
+                yield "ATOM", int(atom)
+        pending.append(("close", fragment, branch))
+        pending.extend(
+            ("open", child, edge) for child, edge in reversed(children[fragment])
+        )
+    yield "TORSDOF", torsdof
 
 
 def validate_tree(tree, atom_ids):
@@ -94,24 +122,17 @@ def validate_tree(tree, atom_ids):
     return packed, offsets, atom_pairs, children, int(torsdof)
 
 
-def _field(value, width, name, *, integer=False):
-    if pd.isna(value):
-        return " " * width
-    text = str(value)
-    if integer:
-        try:
-            number = int(text)
-        except ValueError:
-            fail(f"PDBQT {name} must be an integer string.")
-        if str(number) != text:
-            fail(f"PDBQT {name} must have a canonical integer representation.")
-    if len(text) > width or any(char.isspace() for char in text) or not text.isascii():
-        fail(f"PDBQT {name} cannot fit its {width}-column field.")
-    return text.rjust(width)
-
-
-def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
+def serialize(
+    item,
+    *,
+    typing_scheme,
+    torsion_tree=None,
+    return_atom_map=False,
+    output_presentation=None,
+    remarks=None,
+):
     """Validate all inputs before producing text; preserve every present hydrogen."""
+    additional_remarks = caller_remarks(remarks)
     if typing_scheme != "autodock4":
         fail(
             "PDBQT writing requires explicit typing_scheme='autodock4'. No atom types are assigned."
@@ -166,20 +187,52 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
             "PDBQT types and partial charges must be finite and aligned with the atom axis."
         )
     atom_ids = topology.atoms["atom_id"].astype(str).to_numpy()
-    try:
-        serials = np.asarray([int(value) for value in atom_ids], dtype=np.int64)
-    except (ValueError, OverflowError):
-        fail("PDBQT writing requires unique canonical integer atom IDs in [1, 99999].")
-    if (
-        np.any(serials < 1)
-        or np.any(serials > 99999)
-        or len(np.unique(serials)) != n_atoms
-        or any(str(serial) != atom_id for serial, atom_id in zip(serials, atom_ids))
-    ):
-        fail("PDBQT writing requires unique canonical integer atom IDs in [1, 99999].")
     isotope = topology.atoms["isotope"]
     if isotope.notna().any():
         fail("PDBQT cannot encode explicit isotope assignments.")
+    tree_data = None if torsion_tree is None else validate_tree(torsion_tree, atom_ids)
+    written_order = (
+        np.arange(n_atoms, dtype=np.int64)
+        if tree_data is None
+        else np.fromiter(
+            (value for kind, value in tree_records(tree_data) if kind == "ATOM"),
+            dtype=np.int64,
+            count=n_atoms,
+        )
+    )
+    presented = prepare(output_presentation, n_atoms, written_order)
+    if "atom_serials" in presented:
+        serials = presented["atom_serials"]
+    else:
+        try:
+            serials = np.asarray([int(value) for value in atom_ids], dtype=np.int64)
+        except (ValueError, OverflowError):
+            fail(
+                "PDBQT writing requires unique canonical integer atom IDs in [1, 99999]."
+            )
+        if (
+            np.any(serials < 1)
+            or np.any(serials > 99999)
+            or len(np.unique(serials)) != n_atoms
+            or any(str(serial) != atom_id for serial, atom_id in zip(serials, atom_ids))
+        ):
+            fail(
+                "PDBQT writing requires unique canonical integer atom IDs in [1, 99999]."
+            )
+
+    optional = {}
+    for attribute, unit in (("occupancy", None), ("b_factor", "angstrom**2")):
+        if attribute in presented:
+            optional[attribute] = presented[attribute]
+        else:
+            value = getattr(structures, attribute, None)
+            if value is None:
+                optional[attribute] = np.full(n_atoms, np.nan)
+                continue
+            values = puw.get_value(value, to_unit=unit) if unit else value
+            if np.shape(values) != (1, n_atoms):
+                fail(f"PDBQT {attribute} must align with the selected atom axis.")
+            optional[attribute] = values[0]
     lines = []
     for index, atom in topology.atoms.iterrows():
         try:
@@ -188,7 +241,11 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
             fail(str(error))
         if element != atom["atom_type"]:
             fail(f"AutoDock4 type and chemical element disagree at atom index {index}.")
-        name = _field(atom["atom_name"], 4, "atom_name")
+        name = (
+            presented["atom_names"][index]
+            if "atom_names" in presented
+            else _field(atom["atom_name"], 4, "atom_name")
+        )
         if not name.strip():
             fail("PDBQT writing requires atom names.")
         group = (
@@ -201,23 +258,28 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
             if pd.notna(atom["chain_index"])
             else {}
         )
-        group_name = _field(group.get("group_name", pd.NA), 3, "group_name")
-        group_id = _field(group.get("group_id", pd.NA), 4, "group_id", integer=True)
-        chain_id = _field(chain.get("chain_id", pd.NA), 1, "chain_id")
+        group_name = (
+            presented["group_names"][index]
+            if "group_names" in presented
+            else _field(group.get("group_name", pd.NA), 3, "group_name")
+        )
+        group_id = (
+            presented["group_ids"][index]
+            if "group_ids" in presented
+            else _field(group.get("group_id", pd.NA), 4, "group_id", integer=True)
+        )
+        chain_id = (
+            presented["chain_ids"][index]
+            if "chain_ids" in presented
+            else _field(chain.get("chain_id", pd.NA), 1, "chain_id")
+        )
         geometry = "".join(f"{value:8.3f}" for value in coordinates[0, index])
         charge = f"{charges[index]:8.3f}"
         if len(geometry) != 24 or len(charge) != 8:
             fail("PDBQT coordinates or charges exceed their fixed-column fields.")
         fields = []
-        for attribute, unit in (("occupancy", None), ("b_factor", "angstrom**2")):
-            value = getattr(structures, attribute, None)
-            if value is None:
-                fields.append(" " * 6)
-                continue
-            values = puw.get_value(value, to_unit=unit) if unit else value
-            if np.shape(values) != (1, n_atoms):
-                fail(f"PDBQT {attribute} must align with the selected atom axis.")
-            number = values[0, index]
+        for attribute in ("occupancy", "b_factor"):
+            number = optional[attribute][index]
             field = " " * 6 if np.isnan(number) else f"{number:6.2f}"
             if len(field) != 6 or np.isinf(number):
                 fail(f"PDBQT {attribute} exceeds its fixed-column field.")
@@ -228,9 +290,7 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
     if torsion_tree is None:
         payload = "\n".join([*lines, "END", ""])
     else:
-        packed, offsets, pairs, children, torsdof = validate_tree(
-            torsion_tree, atom_ids
-        )
+        packed, offsets, pairs, children, torsdof = tree_data
         states = item.chemical_states
         state = (
             states._states[states._reference_index]
@@ -262,28 +322,16 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
                 fail(
                     "torsion_tree fragments must agree with the complete native graph after cutting its branch bonds."
                 )
-        # An explicit stack also handles deeply nested trees without Python's
-        # recursion limit; child atoms lead each branch body as Vina requires.
-        output = ["ROOT"]
-        output.extend(lines[atom] for atom in packed[offsets[0] : offsets[1]])
-        output.append("ENDROOT")
-        pending = [("open", child, branch) for child, branch in reversed(children[0])]
-        while pending:
-            action, fragment, branch = pending.pop()
-            parent_atom, child_atom = pairs[branch]
-            endpoints = f"{serials[parent_atom]} {serials[child_atom]}"
-            if action == "close":
-                output.append(f"ENDBRANCH {endpoints}")
-                continue
-            output.append(f"BRANCH {endpoints}")
-            members = packed[offsets[fragment] : offsets[fragment + 1]]
-            output.append(lines[child_atom])
-            output.extend(lines[atom] for atom in members if atom != child_atom)
-            pending.append(("close", fragment, branch))
-            pending.extend(
-                ("open", child, edge) for child, edge in reversed(children[fragment])
-            )
-        output.append(f"TORSDOF {torsdof}")
+        output = []
+        for kind, value in tree_records(tree_data):
+            if kind == "ATOM":
+                output.append(lines[value])
+            elif kind in {"BRANCH", "ENDBRANCH"}:
+                output.append(f"{kind} {serials[value[0]]} {serials[value[1]]}")
+            elif kind == "TORSDOF":
+                output.append(f"TORSDOF {value}")
+            else:
+                output.append(kind)
         payload = "\n".join([*output, ""])
     record = parse(payload)
     import json
@@ -338,7 +386,11 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
             "REMARK MOLSYSMT_ATOM_TYPES "
             + json.dumps(provenance, sort_keys=True, separators=(",", ":"))
         )
-    payload = "\n".join([*remarks, payload]) if remarks else payload
+    payload = (
+        "\n".join([*remarks, *additional_remarks, payload])
+        if remarks or additional_remarks
+        else payload
+    )
     if not return_atom_map:
         return payload
     import hashlib
@@ -346,9 +398,8 @@ def serialize(item, *, typing_scheme, torsion_tree=None, return_atom_map=False):
 
     from molsysmt import __version__
 
-    by_id = {value: index for index, value in enumerate(atom_ids)}
     written_ids = np.asarray([str(atom["serial"]) for atom in record["atoms"]])
-    inverse = np.asarray([by_id[value] for value in written_ids], dtype=np.int64)
+    inverse = written_order.copy()
     forward = np.empty(n_atoms, dtype=np.int64)
     forward[inverse] = np.arange(n_atoms, dtype=np.int64)
     written_charge = np.asarray([atom["partial_charge"] for atom in record["atoms"]])

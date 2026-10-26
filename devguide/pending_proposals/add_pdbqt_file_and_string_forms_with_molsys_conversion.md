@@ -18,8 +18,9 @@ supersedes: []
 **Status:** Partial. The maintainer brought the bounded adapter work forward
 on 2026-10-02. Experimental native file/string adapters now read rigid receptors
 and homogeneous MODEL ensembles with invariant ligand trees, and write explicitly
-supplied data. Chemical preparation
-and wider acceptance validation remain pending.
+supplied data. Output-only presentation and final-byte caller remarks are now
+implemented; consumer reception of that contract and wider supported-profile
+acceptance remain pending. General preparation tools have separate owners.
 
 ## What
 
@@ -379,3 +380,82 @@ choose different serials, that implementation must derive correspondence from
 the actual serialization traversal/explicit index mapping instead. Keeping source
 IDs untouched and using this existing mapping contract is preferable to a
 consumer-side relabel/copy/rebind workaround. No schema change is assumed here.
+
+## Output-presentation implementation — 2026-10-26
+
+**Implemented / Contract-tested:** native `to_file_pdbqt` and
+`to_string_pdbqt_text`, also through public `convert`, accept keyword-only
+`output_presentation` and `remarks`. Presentation owns output serials/names,
+per-atom group/chain labels and optional occupancy/B factors. Scalars broadcast;
+vectors use the original input atom axis before native sorted extraction.
+Consecutive serials follow actual rooted write traversal, including a child
+endpoint written before the other members of its fragment. An explicit serial
+policy supports arbitrary original source labels. Source hierarchy, IDs,
+chemical state and charge/type assignments are unchanged.
+
+The writer validates field widths, serial uniqueness/bounds, finite real optional
+values and squared-length B-factor quantities before destination mutation.
+Caller lines must be printable ASCII complete REMARKs, at most 4096 characters
+each and 64 KiB total. Newline/control injection and the reserved MOLSYSMT_
+namespace fail. Original/derived provider provenance remains intact. UTF-8 file
+writing disables newline translation, and completed export maps/hash describe
+final actual bytes after all remarks/presentation. The existing atom-export
+schema suffices; no competing chemistry store or map-rebinding workaround exists.
+
+The inverse map now comes from actual traversal indices, independent of output
+serials. The known-source reader formerly assumed output names/IDs equalled
+source labels. It now validates the chemically bound original source separately
+from the declared written labels, while continuing to require every pose's
+exact written order, names, elements, charges, types and tree. Returned atoms
+retain original source labels. Projection/export/pose composition is tested
+with both declared data and real named charge/type assignments. No matching,
+chemical perception, implicit hydrogen merging or source authentication is added.
+
+The format-specific validation helper remains private. Public preparation,
+naming and map-composition tools retain their independent contracts. Optional
+structural columns are converted once per export, rather than once per atom;
+this checkpoint claims no measured speedup or peak-memory result.
+
+**Guard:** `tests/form/file_pdbqt/test_output_presentation.py` exercises both
+direct/public and file/text routes, source-axis selections, reordered tree
+serials, zero-group/chain sources, arbitrary/duplicate source IDs, valid default
+preservation and explicit optional clearing, bad fields/units/remarks with an
+unchanged existing destination, known-source pose restoration, composed H
+projection, intact provider provenance and final-byte hashes. All five pinned
+Vina records cover chemistry/geometry preservation and actual Vina parser
+admission. These are format checks, not docking or preparation certification.
+
+The User Guide Foundations, MolSys conversion tutorial, pose-reader tutorial,
+prepared-PDBQT Cookbook, converter/reader docstrings and course Module 12 reflect
+the boundary. [Forms and conversions](../forms_and_conversions.md) owns its
+durable developer rules.
+
+**State:** the bounded provider implementation for the latest consumer request
+is delivered in this checkpoint. #214 remains partial pending DockingMT review
+of that new public presentation contract and the wider supported-profile
+acceptance already tracked here. Prior consumer reports describe the older
+provider and cannot qualify these new options. No installed consumer reception,
+release artifact, docking accuracy or broadened dialect is claimed.
+
+### Presentation validation receipt — 2026-10-26
+
+The relevant PDBQT/handler/pose/preparation/naming/map/argument/conversion and
+raw notebook-schema selection passed **905 tests** in 41.17 seconds with
+`--receptor=llm -n 12`, without skips. Ten warnings are the known six MDAnalysis
+mass deprecations, three intentional legacy-H5MSM warnings and one optional
+binary-size warning. The final quantity-vector selection follow-up passed its
+two overlapping cases in 4.93 seconds. The current new presentation guard has
+50 cases, including five actual Vina parser receptions.
+
+Four converter/pose-reader docstrings passed all **41 doctest examples**.
+The two maintained notebooks executed successfully. The five pinned Vina
+records retain byte-identical default output against the pre-change writer,
+including the 2,702-atom receptor; their payload hashes are recorded in the
+receipt. Ruff, 251-function docstring validation and all **14 fast gates** pass.
+The incremental Sphinx HTML build completes without errors, with 26 warnings
+from existing course heading conventions and excluded documentation pages;
+this is not a warning-free full documentation qualification.
+
+Machine-readable commands, environment, source hashes, default-byte parity and
+limits: [PDBQT presentation receipt](../../devtools/data/pdbqt_presentation_20261026.json).
+No full-suite, installed-consumer or release-matrix pass is implied.

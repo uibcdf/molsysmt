@@ -95,14 +95,22 @@ def validate_map(source, state_index, mapping):
         current = values.astype(object).where(values.notna(), None).to_numpy()
         if stored.shape != (n_source,) or not np.array_equal(stored, current):
             fail(f"atom_map {field} does not match the known source axis.")
-    for field, column in (
-        ("output_atom_ids", "atom_id"),
-        ("output_atom_names", "atom_name"),
-    ):
+    # The completed writer map declares a presentation axis separately from
+    # the chemically bound source axis. Poses must match that written axis.
+    from molsysmt._private.pdbqt_presentation import prepare
+
+    for field in ("output_atom_ids", "output_atom_names"):
         values = np.asarray(mapping.get(field), dtype=object)
-        current = source.topology.atoms[column].to_numpy()[inverse]
-        if values.shape != (n_written,) or not np.array_equal(values, current):
-            fail(f"atom_map {field} disagrees with its declared source mapping.")
+        if values.shape != (n_written,) or any(not isinstance(v, str) for v in values):
+            fail(f"atom_map {field} requires a string written axis.")
+    prepare(
+        {
+            "atom_serials": mapping["output_atom_ids"],
+            "atom_names": mapping["output_atom_names"],
+        },
+        n_written,
+        np.arange(n_written),
+    )
     charges = np.asarray(mapping.get("written_partial_charge"))
     if (
         mapping.get("charge_unit") != "elementary_charge"

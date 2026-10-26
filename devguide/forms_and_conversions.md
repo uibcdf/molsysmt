@@ -653,12 +653,29 @@ Reduced domains project their own supported fields and omit format metadata.
 General attribute queries use reduced-domain routes and direct mechanics getters.
 
 Native writing requires one selected structure, supported explicit charges and
-labels, canonical positive integer string IDs within field width, and explicit
+labels, by default canonical positive integer string IDs within field width, and explicit
 `typing_scheme='autodock4'`. A tree writes ligand layout; None requests rigid
 layout. Validate exact selected atom-ID correspondence, a rooted partition and
 branch roles before writing. Complete native graphs additionally validate cuts
 and fragments through the public `topology.get_rigid_fragments` tool. Tree
-traversal may reorder atom lines while serial IDs preserve correspondence.
+traversal may reorder atom lines; export maps preserve source correspondence.
+`output_presentation` optionally changes output serials/names, per-atom group
+and chain labels, and occupancy/B factors without changing the native inventory,
+chemical assignments or hierarchy. Scalar values broadcast; vectors follow the
+original input atom axis before extraction. Consecutive serials follow actual
+written traversal. Explicit serial presentation permits arbitrary source IDs.
+B-factor overrides require squared-length quantities. Only presentation fields
+are accepted; charge/type overrides and field truncation are not supported.
+
+Caller `remarks` are printable ASCII complete REMARK lines, limited to 4096
+characters each and 64 KiB total; control/newline injection and the reserved
+MOLSYSMT_ namespace are rejected. Provider provenance remains intact. Final
+UTF-8 bytes, after both remark sets and presentation, determine the completed
+`molsysmt.atom_export@1` hash and written labels. The inverse atom map comes from
+actual serialization indices, never a lookup of output serials in source IDs.
+Known-source pose reading validates original-source bindings separately from
+the declared written axis; renamed/renumbered poses restore source labels.
+Guard: `tests/form/file_pdbqt/test_output_presentation.py`.
 Serialization uses the format's fixed precision; preparation and hydrogen
 merging never occur implicitly. All validation precedes destination mutation.
 

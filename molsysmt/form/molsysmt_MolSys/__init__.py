@@ -80,8 +80,20 @@ _convert_to = {
 
 _conversion_opt_kwargs = {
     "file:sdf": ["ctfile_version", "stereo_engine"],
-    "file:pdbqt": ["typing_scheme", "torsion_tree", "return_atom_map"],
-    "string:pdbqt_text": ["typing_scheme", "torsion_tree", "return_atom_map"],
+    "file:pdbqt": [
+        "typing_scheme",
+        "torsion_tree",
+        "return_atom_map",
+        "output_presentation",
+        "remarks",
+    ],
+    "string:pdbqt_text": [
+        "typing_scheme",
+        "torsion_tree",
+        "return_atom_map",
+        "output_presentation",
+        "remarks",
+    ],
     "string:pdb_text": ["pdb_chain_id"],
     "pdbfixer.PDBFixer": ["pdb_chain_id"],
     "openmm.Simulation": ["collisions_rate", "integration_timestep"],

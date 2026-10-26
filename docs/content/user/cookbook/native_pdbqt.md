@@ -27,14 +27,15 @@ projection, writer and pose reports in order. It distinguishes direct coordinate
 correspondence from a merged atom's representative and leaves generated atoms
 without an original source index. See {ref}`Tutorial_Compose_Atom_Maps`.
 
-If preparation creates names such as `H1291`, explicitly call
+To change native names before preparation, for example `H1291`, explicitly call
 {func}`molsysmt.build.project_atom_names` with `target_form='file:pdbqt'` before
 serialization. Its native output retains the entire atom/structure axes, and
 `return_report=True` supplies a reversible label map for the composition chain.
 Valid names are reserved before invalid selected names are replaced; the writer
 still rejects invalid unselected names and other unsupported fields. Apply this
 before template-sensitive charge assignment, whose binding may otherwise become
-invalid. No implicit truncation, charge rebinding or new calculation occurs.
+invalid. If you only need different labels in the exported file, use
+`output_presentation` below; it leaves the bound native chemistry unchanged. No implicit truncation, charge rebinding or new calculation occurs.
 See {ref}`Tutorial_Project_Atom_Names`.
 
 `msm.get_form()` confirms the declared `pdbqt_text:` representation through its
@@ -116,7 +117,7 @@ payload = msm.convert(molsys, to_form='string:pdbqt_text',
 ```
 
 The writer requires exactly one selected structure, topology, atom names,
-unique canonical integer string atom IDs in `[1, 99999]`, explicit partial
+by default unique canonical integer string atom IDs in `[1, 99999]`, explicit partial
 charges and supported AutoDock4 labels matching the chemical elements. Supply
 `typing_scheme='autodock4'` explicitly. `torsion_tree=None` requests rigid
 receptor layout; a supplied tree requests ligand layout. Do not omit a saved
@@ -134,6 +135,62 @@ occupancy and B factors use two. Rooted tree traversal may reorder atoms;
 retained serial IDs provide correspondence. Output atom records use ATOM.
 Validation finishes before opening the destination. Unsupported assignments,
 field overflows, missing data and stale trees raise clear errors.
+
+## Presenting output without changing the source
+
+Pass `output_presentation` to either native PDBQT writer, including through
+`msm.convert()`. It changes serialized fields, retaining native IDs, names,
+chemistry, hierarchy and assignment bindings. This also works when the native
+small molecule has no groups or chains. Serialized group labels do not create
+native membership.
+
+```python
+presentation = {
+    'atom_serials': 'consecutive',
+    'group_names': 'LIG', 'group_ids': '1', 'chain_ids': 'A',
+    'occupancy': 1.0,
+    'b_factor': msm.pyunitwizard.quantity(0.0, 'angstrom**2'),
+}
+payload, atom_map = msm.convert(molsys, to_form='string:pdbqt_text',
+    typing_scheme='autodock4', torsion_tree=tree,
+    output_presentation=presentation,
+    remarks=['REMARK DOCKINGMT_ATOM_TYPES {"profile":"autodock4"}'],
+    return_atom_map=True)
+```
+
+`atom_serials='preserve'` is the default. `'consecutive'` numbers atoms in the
+actual written traversal order, including reordered tree fragments. Explicit
+serial vectors must contain unique canonical integer labels in `[1, 99999]`.
+An explicit serial policy allows arbitrary original source IDs, without
+replacing them. Optional `atom_names`, `group_names`, `group_ids`, `chain_ids`,
+`occupancy` and `b_factor` accept a scalar or an original-input-atom vector.
+Vectors follow the source axis **before selection**; native extraction selects
+and sorts that axis before tree traversal. A vector with only the selected
+length is invalid unless that is the complete input axis. Atom names are at
+most four printable characters, group names three, group IDs four canonical
+integer characters, and chain IDs one. Values must fit their fixed columns;
+there is no implicit truncation. Use the naming builder for automatic naming
+policy, or provide your own explicit output labels.
+
+B factors require a squared-length quantity and are converted to angstrom
+squared. Occupancy is dimensionless. Overrides must be finite real values;
+`None` explicitly clears either optional field. Omitted keys preserve native
+data. Charges, types and geometry cannot be overridden through presentation.
+
+`remarks` accepts complete printable ASCII `REMARK ...` lines, up to 4096
+characters per line and 64 KiB in total, counting line endings. Newlines,
+control characters and the provider's reserved `MOLSYSMT_` namespace are
+rejected. Caller lines follow any original/derived assignment provenance and
+precede the atom/tree records. They do not replace scientific attribution.
+
+The completed `molsysmt.atom_export@1` map separates original source IDs/names
+from written serials/names and preserves actual traversal correspondence.
+Its SHA-256 covers **final UTF-8 bytes**, including all remarks; file output
+writes those bytes without platform newline translation. Do not append lines
+or relabel the file after completing its map. Compose this map with preparation
+reports and use it with the known-source pose reader; that reader checks the
+written labels and restores the original retained source axis. Invalid input
+is rejected before opening a destination, including an existing file.
 
 ## Hydrogen and loss policy
 
