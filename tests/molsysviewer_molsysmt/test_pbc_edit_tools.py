@@ -102,7 +102,7 @@ def test_native_scientific_signature_defaults_and_effect_help(view, name):
         assert "supplied structure order" in doc
     else:
         assert inspect.signature(bound).parameters["compact"].default == "component"
-        assert "rejected before scientific writes" in doc
+        assert "publishes to the original" in doc
 
 
 @pytest.mark.parametrize("name", EDITORS[:2])
@@ -284,22 +284,62 @@ def test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction(
 
 @pytest.mark.parametrize("name", EDITORS[:2])
 @pytest.mark.parametrize("skip", [False, True])
-def test_unreceived_centered_in_place_rejects_before_any_scientific_or_scene_write(
-    view, name, skip
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("update_view", [False, True])
+def test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync(
+    view, name, skip, unit, update_view
 ):
-    before, state = xyz(view.molsys), view.export_state()
-    status = view.addons.molsysmt.get_sync_status()
-    analysis = view.molsys.interactions["science"]
-    with pytest.raises(NotImplementedError, match="detached copy"):
-        getattr(view.addons.molsysmt.pbc, name)(
-            center_of_selection=[0, 1], in_place=True, skip_digestion=skip
-        )
-    np.testing.assert_array_equal(xyz(view.molsys), before)
-    assert (
-        view.export_state() == state
-        and view.addons.molsysmt.get_sync_status() == status
+    primary = view.molsys
+    structures, topology = primary.structures, primary.topology
+    before = xyz(primary)
+    moving, fitting, scope = [0, 1, 2, 3], [0, 1], [2, 0, 2]
+    weights, destination = np.array([1.0, 3.0]), np.array([0.2, 0.3, 0.4])
+    origin = np.array([0.1, -0.2, 0.3])
+    native = msm.copy(primary)
+    kwargs = dict(
+        selection=moving,
+        center_of_selection=fitting,
+        weights=weights,
+        center_coordinates=puw.quantity(destination[None, None, :], "nm"),
+        structure_indices=scope,
+        compact=False,
+        in_place=True,
+        skip_digestion=skip,
+        **{
+            "box_origin" if name == "wrap_to_pbc" else "mic_origin": puw.quantity(
+                origin, "nm"
+            )
+        },
     )
-    assert view.molsys.interactions["science"] is analysis
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        native_result = getattr(msm.pbc, name)(native, **kwargs)
+        result = getattr(view.addons.molsysmt.pbc, name)(
+            **kwargs, update_view=update_view
+        )
+    expected = before.copy()
+    for structure in set(scope):
+        center = np.average(before[structure, fitting], axis=0, weights=weights)
+        expected[structure, moving] = wrapped(
+            before[structure, moving] + destination - center, cell(), name, origin
+        )
+    assert result is None and native_result is None
+    np.testing.assert_allclose(xyz(primary), expected, atol=4e-12, rtol=0)
+    np.testing.assert_allclose(xyz(primary), xyz(native), atol=4e-12, rtol=0)
+    assert (
+        view.molsys is primary
+        and primary.topology is topology
+        and primary.structures is structures
+    )
+    np.testing.assert_array_equal(
+        primary.interactions["science"].evaluated_structure_indices, [1]
+    )
+    status = view.addons.molsysmt.get_sync_status()
+    assert status["target_revision"] == 1
+    assert status["state"] == ("synchronized" if update_view else "pending")
+    if not update_view:
+        view.addons.molsysmt.sync_view()
+        np.testing.assert_allclose(xyz(primary), expected, atol=4e-12, rtol=0)
+        assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
 
 
 @pytest.mark.parametrize("name", EDITORS)

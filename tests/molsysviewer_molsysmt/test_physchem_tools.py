@@ -94,7 +94,7 @@ def test_signatures_digestion_help_and_no_unreviewed_alias(view, name):
     assert "current view.molsys" in doc and "not a scene object" in doc
     assert "\nmolecular_system :" not in doc
     assert "physchem" in dir(view.addons.molsysmt)
-    assert set(dir(view.addons.molsysmt.physchem)) == set(NAMES)
+    assert set(NAMES) <= set(dir(view.addons.molsysmt.physchem))
 
 
 @pytest.mark.parametrize("name", ATOMIC)

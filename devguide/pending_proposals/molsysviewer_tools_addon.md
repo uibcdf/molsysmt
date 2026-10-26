@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, seven physchem property readers and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, thirteen physchem tools and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1157,3 +1157,36 @@ uibcdf/molsysmt#470 and uibcdf/molsysmt#471 remain open limitations. The 23
 remaining physchem exports, panels, installed artifacts, dependency floors and
 both 1.0 publications retain their separate scope. Concurrent native periodic
 repairs are not part of this exact producer. No host runtime change is needed.
+
+
+## Additional reference descriptors and native PBC receiving — 2026-10-26
+
+Six explicit physchem wrappers add both ProtOr helpers, get_surface_area,
+get_volume, get_area_buried and get_buried_fraction. Thirteen of the 30 reviewed
+exports are now exposed; 17 remain pending. Native containers, definitions,
+atom/group axes and no-assignment behavior remain unchanged. get_volume has
+only an addon-owned keyword skip_digestion because the native helper lacks it;
+get_area_buried gains no invented syntax argument. Native tables are not a
+conformational SASA/volume calculation. Collantes unit qualification remains
+explicitly uncertain under uibcdf/molsysmt#473; no guessed conversion is added.
+
+The native repair d7c82e92f also restores orthogonal omitted/None box angles
+and centered in-place wrapping ownership under uibcdf/molsysmt#465 and
+uibcdf/molsysmt#467. The addon removes its temporary prewrite rejection; native
+science still owns all coordinate calculations/publication. The 24 centered
+receiver cases use independent weighted-center/lattice references, native
+parity, nm/angstrom/pm, repeated/nonconsecutive structures, skip controls,
+retained owners, exact interaction coverage and deferred synchronization.
+The 67 new property cases pass on the isolated committed baseline. Full scoped
+regression and committed-head CI remain separate pending gates at this point.
+
+
+The single scoped local regression records 1,726 passes and ten failures from
+one temporary get_transmembrane_tendency forwarding error introduced while
+expanding the namespace. That call is corrected; all 329 cases in the four
+affected files then pass. No second clean full local run is claimed. The
+[dated receipt](../../devtools/data/molsysviewer_tools_physchem_tables_receiving_20261026.json)
+preserves both outcomes, source hashes and the pre-fix diagnostic. Five PBC
+guide blocks, 33 native docstring examples and the new property guide block
+execute. All code cells/outputs in the four property-course paths are preserved.
+The final committed-source addon CI remains the whole-tier post-fix gate.

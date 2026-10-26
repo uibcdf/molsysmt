@@ -1,0 +1,368 @@
+{
+  "schema": "molsysmt.viewer_tools_physchem_tables_receiving@1",
+  "date": "2026-10-26",
+  "status": "forwarding_regression_corrected_affected_files_passed_committed_ci_pending",
+  "provider_tested_base_commit": "d7c82e92fc1e7069306be3571a320d941a220b5a",
+  "viewer_commit": "34dab166d3fb6f24f9a58132b00f7195ac08801f",
+  "checkout": "/tmp/msm-physchem-tables-isolated-kgrht2yy",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+  "inventory": {
+    "guide_blocks": 1,
+    "received": [
+      "get_area_buried",
+      "get_atomic_radius",
+      "get_buried_fraction",
+      "get_charge",
+      "get_electronegativity",
+      "get_hydrophobicity",
+      "get_mass",
+      "get_polarity",
+      "get_protor_atom_type",
+      "get_protor_vdw_radius",
+      "get_surface_area",
+      "get_transmembrane_tendency",
+      "get_volume"
+    ],
+    "native_exports": [
+      "apply_chemical_template",
+      "assess_chemical_template",
+      "get_area_buried",
+      "get_aromatic_rings",
+      "get_aromaticity",
+      "get_atomic_radius",
+      "get_autodock_atom_types",
+      "get_buried_fraction",
+      "get_charge",
+      "get_charge_centers",
+      "get_chemical_readiness",
+      "get_cip_stereochemistry",
+      "get_electronegativity",
+      "get_halogen_bond_sites",
+      "get_hydrogen_inventory",
+      "get_hydrophobic_sites",
+      "get_hydrophobicity",
+      "get_mass",
+      "get_metal_coordination_sites",
+      "get_partial_charges",
+      "get_peptide_chemical_template",
+      "get_polarity",
+      "get_protor_atom_type",
+      "get_protor_vdw_radius",
+      "get_sasa",
+      "get_surface_area",
+      "get_transmembrane_tendency",
+      "get_volume",
+      "get_water_sites",
+      "normalize_aromatic_bond_orders"
+    ],
+    "pending": [
+      "apply_chemical_template",
+      "assess_chemical_template",
+      "get_aromatic_rings",
+      "get_aromaticity",
+      "get_autodock_atom_types",
+      "get_charge_centers",
+      "get_chemical_readiness",
+      "get_cip_stereochemistry",
+      "get_halogen_bond_sites",
+      "get_hydrogen_inventory",
+      "get_hydrophobic_sites",
+      "get_metal_coordination_sites",
+      "get_partial_charges",
+      "get_peptide_chemical_template",
+      "get_sasa",
+      "get_water_sites",
+      "normalize_aromatic_bond_orders"
+    ]
+  },
+  "specific": {
+    "path": "/tmp/msv-physchem-tables-specific.xml",
+    "sha256": "20dbe2db539e7dc13304f69d2809603ec20460900cb0abf07a942cb7191eecd1",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "67",
+      "time": "21.787",
+      "timestamp": "2026-10-26T16:53:02.450620-06:00",
+      "hostname": "nauta"
+    }
+  },
+  "centered": {
+    "path": "/tmp/msv-physchem-tables-pbc-centered.xml",
+    "sha256": "66ba77b20ba254d3d42b64e437db972e34e4db7c3ab32fbaa521d1016048c210",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "24",
+      "time": "12.990",
+      "timestamp": "2026-10-26T16:58:05.642275-06:00",
+      "hostname": "nauta"
+    }
+  },
+  "full_regression_attempt": {
+    "path": "/tmp/msv-physchem-tables-regression.xml",
+    "sha256": "45a4febcf3e6d50f28414a95bb485a23f9ff0f74e5827292195fcdcb4871646f",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "10",
+      "skipped": "0",
+      "tests": "1736",
+      "time": "488.099",
+      "timestamp": "2026-10-26T17:00:38.155947-06:00",
+      "hostname": "nauta"
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/pbc/",
+      "tests/form/molsysmt_StructuresDict/test_coordinate_set_axes.py",
+      "tests/documentation/test_pbc_course.py",
+      "tests/physchem/get_mass",
+      "tests/physchem/get_charge",
+      "tests/physchem/get_atomic_radius",
+      "tests/physchem/get_electronegativity",
+      "tests/physchem/get_hydrophobicity",
+      "tests/physchem/get_polarity",
+      "tests/physchem/get_transmembrane_tendency",
+      "tests/physchem/get_surface_area",
+      "tests/physchem/get_volume",
+      "tests/physchem/get_area_buried",
+      "tests/physchem/get_buried_fraction",
+      "tests/physchem/dummy_residues",
+      "tests/physchem/test_unknown_group_in_table.py",
+      "tests/scientific_truth/physchem/test_reference_properties.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-physchem-tables-regression.xml"
+    ],
+    "result": "1726 passed / 10 failures from one temporary addon forwarding regression",
+    "source_audit_path": "/tmp/msv-physchem-tables-regression-source.json",
+    "source_audit_sha256": "b2804903c63f3de3b4037ccb2f85913bb64995d41d8139c008e910c4e9ad78b4",
+    "log_sha256": "2068efc6375cc4f7ddefa38c72125afe7414a7cb98dc47474ad4834954e89a44",
+    "changed_during_run": [],
+    "compiled_backend": {
+      "path": "/tmp/msm-physchem-tables-isolated-kgrht2yy/molsysmt/_rust.abi3.so",
+      "before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "copied_from": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so",
+      "scope": "Existing backend bytes frozen at snapshot creation; not a new build.",
+      "after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+    }
+  },
+  "correction": {
+    "scope": "Restore the existing get_transmembrane_tendency call to one native function name plus its parameter dictionary; extending the namespace list had accidentally altered this call.",
+    "before_file": "/tmp/msv-physchem-tables-before-forwarding-fix.py",
+    "before_sha256": "c16dbad023c738a06c09ea522dc34e2c0938a4e173cf3cdaf7e5efc6d0fa7570",
+    "after_sha256": "d162855410feb8ee0b745139685cfeac207374bd2e4271990bfb70186db8a4ab",
+    "final_affected": {
+      "path": "/tmp/msv-physchem-tables-final-affected.xml",
+      "sha256": "717bf1a065ed918d56a21021475459e81286db54aea7e39e51de7161d0a2f481",
+      "summary": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "329",
+        "time": "80.401",
+        "timestamp": "2026-10-26T17:09:37.569062-06:00",
+        "hostname": "nauta"
+      }
+    },
+    "no_second_full_local_run": true,
+    "other_audited_snapshot_python_files_unchanged": true,
+    "ci": "The committed-source whole addon tier remains the definitive post-fix integration gate."
+  },
+  "source_sha256": {
+    "molsysmt/pbc/get_box_from_lengths_and_angles.py": "8244092fee37b16283180a1dfba28b5d130e65f271d99348ee22d6ac6d6b54c5",
+    "molsysmt/pbc/wrap_to_mic.py": "c3a50a21e41563c7fb80572549a33530caac7f1eb126649f3426722ade6fa92e",
+    "molsysmt/pbc/wrap_to_pbc.py": "891a1a4e6c3484bfcbd5645b6aefa3f1e10ad71e1d9c2a4d65728b7922fb2cdf",
+    "molsysmt/physchem/atoms/protor.py": "892af4a0b85381126905e3f3c17ff18de60f493898b58a207ccc54a969223c69",
+    "molsysmt/physchem/get_area_buried.py": "0f80c2784671e4b3b493b83ff68a36cb3d6cf0af13670c704ff0444877b6cedb",
+    "molsysmt/physchem/get_buried_fraction.py": "a000c5eba9eb8dcdc27ee63a663dde4c8f8ca149dea98dec6a822ef248807ab7",
+    "molsysmt/physchem/get_surface_area.py": "97d0abde75d138e10179ed6a2e6802600748347a630616d38451b5d1a9b6072c",
+    "molsysmt/physchem/get_volume.py": "79f7d30fefb299d0908b2e5a2ad1cbfb2e0777f17a68a1c360ed31ca8e3da93d",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "molsysviewer_molsysmt/_api.py": "5cee3dd9c17f22dae70ca5ff3b0997713cf9c3d7ea235fda4e1353365aced82a",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/_basic.py": "3ed50ab62728f41c04bdde93ea55743a90798df3f5194776c3ec46d973263a25",
+    "molsysviewer_molsysmt/_geometry.py": "715f8dc38b51b9ca091668b9b8a8a0f72516843d7e8fa41088fd9a98caaa5d12",
+    "molsysviewer_molsysmt/_pbc.py": "c1ad7049c751745dfde304d74e516423b6a54ebbf6eae9e245b6e6fd2b3305ee",
+    "molsysviewer_molsysmt/_physchem.py": "d162855410feb8ee0b745139685cfeac207374bd2e4271990bfb70186db8a4ab",
+    "molsysviewer_molsysmt/_private/__init__.py": "74c4489d15e696378a0ba3282b53f9633369c174f4253f036da8cfa3b252061c",
+    "molsysviewer_molsysmt/_private/argument/__init__.py": "feab1b9cf10b3a2aa04c03203de7974228513342dcc2fcd378a5e2167a083432",
+    "molsysviewer_molsysmt/_private/argument/skip_digestion.py": "e62970731ce0fef0dde074f9983bb10e4cc40a61afe30649b86a9b0c85575d85",
+    "molsysviewer_molsysmt/_private/argument/update_view.py": "cd3adeb8b4a7611232bf3bcd2833318980e156715f2a0a554833ab6b84388cf5",
+    "molsysviewer_molsysmt/_private/function/__init__.py": "6e27e14f2c119c17b55f9b82814014d46ba92004ca07965eaf955509e02f05d9",
+    "molsysviewer_molsysmt/_private/function/basic_set.py": "49f736297f314dbf261148673ac9017303253a3629f6766293bd90de70921926",
+    "molsysviewer_molsysmt/_private/function/structure_get_neighbors.py": "77ec6ebacc0b20c6bdb56998ec40cefda0dbb7348b4c59c0fedbe85df6246fa2",
+    "molsysviewer_molsysmt/_private/normalization.py": "71863d4f1559dd1913cb6e7eb9c5ea567b1caa78f482b379ebfd3e430d3edcbf",
+    "molsysviewer_molsysmt/_structure.py": "0c313e4679928cf2461dad72575a82537426c965708a7f54178d0a3904ce70ce",
+    "molsysviewer_molsysmt/_topology.py": "02f0053af77a7773e2b46fd8a115a69874cfd8bb37a2227182b5c4e8443cdfe0",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "tests/molsysviewer_molsysmt/test_pbc_edit_tools.py": "8ce50631d7578025e85f99aaa9557d0836f8f9e2d7a3f8b6dcf72840d5784cf7",
+    "tests/molsysviewer_molsysmt/test_pbc_tools.py": "88f1ab44f4c35e5821f6888d0bf7c91585d6adfcad4ecc6bc3b26c2ccf2d583c",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "b454cca1d60b94793eff4593f1f06391569803e0a2800277a347377bebdf0882",
+    "tests/molsysviewer_molsysmt/test_physchem_tools.py": "f34c193dbf465805febf4b3327777ecfb3cea8c3f6e271e95b61e281168713fd"
+  },
+  "native_audit": {
+    "path": "/tmp/msv-physchem-tables-native-audit.json",
+    "sha256": "703363b958e0433c566d094b8776db1a015b7d1cd2702aca429fb932cf30cfe0",
+    "data": {
+      "observations": [
+        {
+          "name": "get_protor_atom_type",
+          "syntax": "MDTraj",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_protor_vdw_radius",
+          "syntax": "MDTraj",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_surface_area",
+          "syntax": "MDTraj",
+          "ok": true
+        },
+        {
+          "name": "get_volume",
+          "syntax": "MDTraj",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_buried_fraction",
+          "syntax": "MDTraj",
+          "ok": false,
+          "error": "ArgumentError",
+          "message": "The selection could not be parsed with the 'MolSysMT' syntax: invalid syntax (<unknown>, line 1) Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "name": "get_surface_area",
+          "element": "atom",
+          "values": [
+            62.9
+          ]
+        },
+        {
+          "name": "get_surface_area",
+          "element": "group",
+          "values": [
+            62.9
+          ]
+        },
+        {
+          "name": "get_surface_area",
+          "element": "system",
+          "values": [
+            62.9
+          ]
+        },
+        {
+          "name": "get_area_buried",
+          "element": "atom",
+          "values": [
+            86.6
+          ]
+        },
+        {
+          "name": "get_area_buried",
+          "element": "group",
+          "values": [
+            86.6
+          ]
+        },
+        {
+          "name": "get_area_buried",
+          "element": "system",
+          "values": [
+            86.6
+          ]
+        },
+        {
+          "name": "get_buried_fraction",
+          "element": "atom",
+          "values": [
+            11.2
+          ]
+        },
+        {
+          "name": "get_buried_fraction",
+          "element": "group",
+          "values": [
+            11.2
+          ]
+        },
+        {
+          "name": "get_buried_fraction",
+          "element": "system",
+          "values": [
+            11.2
+          ]
+        }
+      ],
+      "surface_area": {
+        "container": "list",
+        "is_quantity": false,
+        "values": [
+          62.9,
+          62.9,
+          62.9,
+          62.9,
+          62.9
+        ],
+        "primary_reference_independently_verified": false
+      }
+    }
+  },
+  "course": {
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": {
+      "code_cells": 2,
+      "before": "b0ab1150d691779f6079463eb00bbc012943c0c53326f306e418598a745075b3",
+      "after": "b0ab1150d691779f6079463eb00bbc012943c0c53326f306e418598a745075b3"
+    },
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": {
+      "code_cells": 1,
+      "before": "f207e6cd8b9bb92ad108abd6f1c260ba0b55aa921343ff9f9bedb2cd1b120028",
+      "after": "f207e6cd8b9bb92ad108abd6f1c260ba0b55aa921343ff9f9bedb2cd1b120028"
+    },
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": {
+      "code_cells": 3,
+      "before": "76f5d032cdd3afe1b30ac2cad50b10f727e807507296ba26e0be4ff70b65f189",
+      "after": "76f5d032cdd3afe1b30ac2cad50b10f727e807507296ba26e0be4ff70b65f189"
+    },
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": {
+      "code_cells": 4,
+      "before": "d15092cbdd2368f1ecdb6b142eb260556200841b2fac002183b949f9ded51f1f",
+      "after": "d15092cbdd2368f1ecdb6b142eb260556200841b2fac002183b949f9ded51f1f"
+    }
+  },
+  "pbc_examples": {
+    "pbc_guide_blocks": 5,
+    "native_docstring_examples": 33,
+    "failed": 0
+  },
+  "limits": [
+    "No clean full local regression is claimed; the one full run found a corrected addon bug, and all 329 affected-file cases then pass.",
+    "Numeric raw-table references/parity do not certify physical units or every original publication.",
+    "Collantes physical units remain explicitly uncertain under uibcdf/molsysmt#473; no guessed conversion.",
+    "Native selection/scope repairs under #470/#471 in the concurrent working tree are not part of this frozen d7c82e92f observation.",
+    "Native PBC repairs in d7c82e92f are received without an addon geometry algorithm or copyback.",
+    "Seventeen reviewed physchem exports and panels remain pending; no installed qualification, dependency-floor change or public release."
+  ]
+}

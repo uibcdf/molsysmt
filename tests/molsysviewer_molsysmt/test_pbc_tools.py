@@ -321,3 +321,32 @@ def test_primary_cannot_be_overridden_and_query_has_no_implicit_structure_filter
         )
     with pytest.raises((TypeError, UnknownArgumentError)):
         view.addons.molsysmt.pbc.has_pbc(structure_indices=[2, 0], skip_digestion=skip)
+
+
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("shape", ["single", "multiple"])
+def test_default_orthogonal_angles_delegate_before_loading_a_system(unit, shape):
+    raw = (
+        np.array([2.0, 3.0, 4.0])
+        if shape == "single"
+        else np.array([[2.0, 3.0, 4.0], [3.0, 4.0, 5.0]])
+    )
+    expected = np.array([np.diag(row) for row in np.atleast_2d(raw)])
+    with msv.new_view() as view:
+        with puw.context(standard_units=[unit, "ps", "radians"]):
+            lengths = puw.convert(puw.quantity(raw, "nm"), to_unit=unit)
+            for kwargs in [{}, {"box_angles": None}]:
+                actual = view.addons.molsysmt.pbc.get_box_from_lengths_and_angles(
+                    lengths, **kwargs
+                )
+                np.testing.assert_allclose(
+                    values(actual, "nm"), expected, atol=1e-6, rtol=0
+                )
+                assert puw.get_unit(actual) == puw.unit(unit)
+                np.testing.assert_array_equal(
+                    values(actual, "nm"),
+                    values(
+                        msm.pbc.get_box_from_lengths_and_angles(lengths, **kwargs), "nm"
+                    ),
+                )
+        assert view.molsys is None

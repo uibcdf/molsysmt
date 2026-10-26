@@ -15,6 +15,12 @@ class _PhyschemTools:
         "get_hydrophobicity",
         "get_polarity",
         "get_transmembrane_tendency",
+        "get_protor_atom_type",
+        "get_protor_vdw_radius",
+        "get_surface_area",
+        "get_volume",
+        "get_area_buried",
+        "get_buried_fraction",
     )
 
     def __init__(self, owner):
@@ -182,6 +188,116 @@ class _PhyschemTools:
                 "selection": selection,
                 "syntax": syntax,
                 "definition": definition,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_protor_atom_type", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_protor_atom_type(
+        self, selection="all", syntax="MolSysMT", skip_digestion=False
+    ):
+        return self._call(
+            "get_protor_atom_type",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_protor_vdw_radius", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_protor_vdw_radius(
+        self, selection="all", syntax="MolSysMT", skip_digestion=False
+    ):
+        return self._call(
+            "get_protor_vdw_radius",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_surface_area", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_surface_area(
+        self,
+        element="group",
+        selection="all",
+        syntax="MolSysMT",
+        definition="collantes",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_surface_area",
+            {
+                "element": element,
+                "selection": selection,
+                "syntax": syntax,
+                "definition": definition,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_volume", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_volume(
+        self,
+        selection="all",
+        syntax="MolSysMT",
+        definition="grantham",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_volume",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "definition": definition,
+            },
+        )
+
+    @_native_documentation("get_area_buried", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_area_buried(
+        self, element="group", selection="all", definition="rose", skip_digestion=False
+    ):
+        return self._call(
+            "get_area_buried",
+            {
+                "element": element,
+                "selection": selection,
+                "definition": definition,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_buried_fraction", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_buried_fraction(
+        self,
+        element="group",
+        selection="all",
+        definition="janin",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_buried_fraction",
+            {
+                "element": element,
+                "selection": selection,
+                "definition": definition,
+                "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
         )

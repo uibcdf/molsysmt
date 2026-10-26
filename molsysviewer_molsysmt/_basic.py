@@ -71,9 +71,8 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 )
             if name == "get_box_from_lengths_and_angles":
                 function.__doc__ += (
-                    "The reviewed native public boundary rejects its box_angles=None "
-                    "default. That route remains unqualified; provide explicit angles. "
-                    "The addon does not synthesize missing angles. Native output "
+                    "Omitted or None angles delegate to the native orthogonal "
+                    "box default. The addon does not synthesize angles. Native output "
                     "has shape (n_structures, 3, 3).\n"
                 )
         if name in {
@@ -118,6 +117,43 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "use MolSysMT expressions or explicit indices until repaired. "
                 "OpenMM charge conversion of a multi-frame periodic box is rejected; "
                 "the addon never selects a frame implicitly.\n"
+            )
+        if (
+            module == "physchem"
+            and "skip_digestion" not in inspect.signature(native).parameters
+        ):
+            function.__doc__ += (
+                "skip_digestion : bool, keyword-only, default=False\n"
+                "    Control addon digestion only; this native callable has no "
+                "declared skip_digestion parameter and retains ordinary validation.\n"
+            )
+        if module == "physchem" and name.startswith("get_protor"):
+            function.__doc__ += (
+                "ProtOr returns native atom types/provenance or radii in nm. "
+                "It does not add hydrogens, store chemical assignments or prepare "
+                "the primary. Native heavy-atom rules, ignored hydrogen typing "
+                "and radius fallbacks remain distinct.\n"
+            )
+        if module == "physchem" and name in {
+            "get_surface_area",
+            "get_volume",
+            "get_area_buried",
+            "get_buried_fraction",
+        }:
+            function.__doc__ += (
+                "These are reference-table values per group, not geometry calculated "
+                "from the visible structure. Native raw list/array values are preserved; "
+                "the addon adds no quantity units, conversion or normalization. "
+                "Use get_sasa in native MolSysMT for an explicit conformational "
+                "surface calculation; its addon receipt is still pending. "
+                "get_area_buried has no native syntax argument. Native alternative "
+                "syntax and unsupported element levels require separate qualification.\n"
+            )
+        if module == "physchem" and name == "get_surface_area":
+            function.__doc__ += (
+                "The Collantes unit label requires verification under "
+                "uibcdf/molsysmt#473. Raw output is not received as a verified "
+                "nm-squared quantity or calculated conformational SASA.\n"
             )
         if module in {"topology", "structure"} and name not in {
             "translate",
@@ -194,10 +230,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 function.__doc__ += (
                     "compact='component' keeps covalent blocks whole; False wraps "
                     "atoms independently. Origins and centers remain explicit native "
-                    "parameters. The reviewed native in-place centered route edits a "
-                    "detached copy; center_of_selection with in_place=True is rejected "
-                    "before scientific writes until provider repair (uibcdf/molsysmt#467). Independent "
-                    "centered outputs remain supported.\n"
+                    "parameters. Centered in-place wrapping publishes to the original "
+                    "primary through the native repair under uibcdf/molsysmt#467. "
+                    "The centering reference must be contained in the moved selection. "
+                    "Independent centered outputs remain separate.\n"
                 )
         if module == "structure" and name == "flip":
             function.__doc__ += (

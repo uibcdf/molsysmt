@@ -158,14 +158,11 @@ call; they do not lock another system or observe arbitrary raw edits. Only
 keyword `skip_digestion`: it is not passed to native functions, whose ordinary
 public validation remains active.
 
-:::{warning}
-At the reviewed source, `get_box_from_lengths_and_angles` rejects its own
-`box_angles=None` default ([#465](https://github.com/uibcdf/molsysmt/issues/465)).
-Supply explicit angular quantities; the addon does
-not insert missing angles or claim that default route is qualified. Native
-output is a box series `(n_structures, 3, 3)`. The coordinate editors described
-below use the separately received managed-effect route.
-:::
+At the reviewed repaired source, omitted or None angles delegate to native
+orthogonal box construction under [#465](https://github.com/uibcdf/molsysmt/issues/465).
+The addon synthesizes no angles and assigns no box to the view. Native output
+is a box series `(n_structures, 3, 3)`. The coordinate editors below use the
+separately received managed-effect route.
 
 See {doc}`pbc/index` for native scientific usage. To assign a newly constructed
 box, use the separately received `tools.basic.set(box=...)` route with the
@@ -215,13 +212,12 @@ recalculate analyses or hide scientific preparation. If scene synchronization
 fails after science completes, inspect `science_completed` and
 `scientific_result`, then call `sync_view()` rather than repeating the editor.
 
-:::{warning}
-The reviewed native centered in-place route edits a detached copy instead of
-the original system ([#467](https://github.com/uibcdf/molsysmt/issues/467)).
-The addon rejects `center_of_selection` combined with `in_place=True` before
-scientific writes. Independent centered output remains supported; the addon
-adds no copyback workaround or replacement centering algorithm.
-:::
+Centered wrapping now retains the original in-place target through the native
+repair under [#467](https://github.com/uibcdf/molsysmt/issues/467). The centering
+reference must be contained in the moved selection. Independent output stays
+separate; in-place publication retains the primary and participates in the same
+managed synchronization/recovery contract. The addon adds no copyback or
+replacement centering algorithm.
 
 ```python
 with msv.demo["pentalanine"] as source:
@@ -1376,10 +1372,11 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes seven property readers under
-`view.addons.molsysmt.physchem`. This is the first slice of the 30 reviewed native
-physchem exports; surface/volume calculations, feature perception, chemical
-preparation and the other property tools remain pending in the addon.
+The source addon now exposes thirteen tools under
+`view.addons.molsysmt.physchem`: the seven readers below, followed by the two
+ProtOr tools and four reference-descriptor tables in the next section. The other
+17 reviewed native exports, including conformational SASA, feature perception
+and chemical preparation, remain pending in the addon.
 
 | Tool | Native result and received scope |
 | --- | --- |
@@ -1437,3 +1434,54 @@ received. The addon preserves the native rejection rather than translating the
 selection silently. Mass, polarity and transmembrane MDTraj selectors are also
 included in bounded receiving. Source availability is not installed-artifact
 qualification.
+
+
+## Querying ProtOr and reference descriptors
+
+The two ProtOr helpers keep their native public paths:
+`tools.physchem.get_protor_atom_type` returns a tuple of atom-type and rule
+provenance arrays; `tools.physchem.get_protor_vdw_radius` returns native nm radii.
+Hydrogen typing is ignored while its radius follows the native fallback. Heavy
+atom rules and fallback categories remain separate. These calls add no hydrogens,
+store no chemical assignments and prepare no molecular system.
+
+The four additional group tables preserve native definitions and containers:
+
+| Tool | Reference and actual result |
+| --- | --- |
+| `get_surface_area` | Raw Collantes list; physical unit verification is pending under uibcdf/molsysmt#473. Do not label it as verified nm². |
+| `get_volume` | Grantham relative side-chain descriptors as a NumPy array; no dimensional molecular volume is calculated. |
+| `get_area_buried` | Rose average buried-area table, documented in Å², as a raw NumPy array; no quantity conversion. |
+| `get_buried_fraction` | Janin reference percentages as a raw list; neither values between zero and one nor conformational burial is inferred. |
+
+These descriptors depend on selected group identities, not the visible structure
+coordinates. They are not calculated SASA, solvent exclusion, molecular volume
+or measured exposure of this particular conformation. Missing real-group entries
+still raise the native error. The addon does not filter chemistry, normalize
+numbers or append units to bare reference values.
+
+```python
+with msv.demo["pentalanine"] as view:
+    properties = view.addons.molsysmt.physchem
+    types, rules = properties.get_protor_atom_type(selection="group_name=='ALA'")
+    radii = properties.get_protor_vdw_radius(selection="group_name=='ALA'")
+    volume_descriptors = properties.get_volume(selection="group_name=='ALA'")
+    assert types.shape == rules.shape
+    assert msm.pyunitwizard.get_value(radii, to_unit="nm").shape == types.shape
+    assert list(volume_descriptors) == [31.] * 5
+```
+
+The primary, selection and result ownership follow the same serialized-reader
+contract, including pending scientific edits without automatic synchronization.
+`get_volume` adds a keyword-only skip_digestion control solely for addon
+validation; native get_volume has no such flag and always receives its ordinary
+public validation. `get_area_buried` has no native syntax parameter, so the addon
+does not invent one. Other signatures preserve the native declared parameters.
+
+The broader syntax and supported-element contracts remain separately tracked
+under uibcdf/molsysmt#470 and uibcdf/molsysmt#471. On the frozen receiving
+baseline, volume, buried fraction and ProtOr selectors have alternative-syntax
+limits; the three area/fraction table functions ignore unsupported element
+levels. Use the actual atom/group scopes and MolSysMT expressions or explicitly
+resolved indices until a corresponding native repair is received. Source
+receiving does not establish installed package compatibility.

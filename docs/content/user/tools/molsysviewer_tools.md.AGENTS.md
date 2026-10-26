@@ -72,5 +72,14 @@ Preserve the first seven physchem property readers, native atom/group scopes,
 units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
 Keep OpenMM form/box prerequisites, pending-reader behavior and the native
-selection-syntax limitation visible. Do not present the other 23 physchem
+selection-syntax limitation visible. Do not present the other 17 physchem
 exports as received or introduce implicit coloring, preparation or assignment.
+
+
+Preserve all thirteen received physchem paths, including ProtOr type/rule arrays,
+native radii and four raw descriptor tables. Keep raw-table units, Janin reference
+percentages, Grantham relative values and the unverified Collantes unit label
+separate from geometry/SASA. Preserve addon-only digestion for get_volume and
+no invented syntax parameter for get_area_buried. Native PBC repairs now receive
+orthogonal factory defaults and centered in-place publication; remove the old
+temporary-rejection claims without introducing a downstream scientific repair.

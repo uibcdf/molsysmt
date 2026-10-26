@@ -171,16 +171,6 @@ def _prepare_geometry_transform(target, name, parameters, *, module="structure")
         raise ValueError(
             "Managed transforms cannot run inside an active molecular edit."
         )
-    if (
-        module == "pbc"
-        and name != "unwrap"
-        and parameters["center_of_selection"] is not None
-    ):
-        raise NotImplementedError(
-            "Native in-place wrapping with center_of_selection is not received: "
-            "the native operation currently edits a detached copy. Use the independent "
-            "result (in_place=False) until the provider repairs uibcdf/molsysmt#467."
-        )
     frames = validate_structure_indices(
         target, parameters["structure_indices"], f"molsysmt.{module}.{name}"
     )
