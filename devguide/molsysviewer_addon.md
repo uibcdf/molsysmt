@@ -12,7 +12,9 @@ backend used by MolSysViewer. The source now ships a redesigned
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
 controls, eleven current `topology` analysis readers, eighteen `structure`
-calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement and principal-axis alignment and both dihedral editors under `view.addons.molsysmt`. Other scientific namespaces, edit families and graphical
+calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement and principal-axis alignment and both dihedral editors under `view.addons.molsysmt`. Ten `pbc` box queries/factories are also explicit: only has_pbc binds the primary;
+other inputs remain caller-owned. Native default angles remain unqualified.
+PBC coordinate editors, other scientific namespaces, edit families and graphical
 task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -712,3 +714,30 @@ still match the original receiving audit. Their reports require owning pytest
 guards; no scientific correction is added to the addon. The previous dated
 pending-authorization notes retain their historical scope. Full scientific
 receiving of those routes waits for provider repair and new evidence.
+
+## Periodic-box utilities received in source — 2026-10-26
+
+The explicit `pbc` namespace exposes ten queries/factories. Only `has_pbc`
+consumes the current primary through the managed reader. Nine utilities retain
+explicit quantities, work before system loading, require an open owning view
+and acquire no molecular edit locks for their caller-owned inputs. They return
+native scientific values without box assignment, adoption or scene updates.
+The two volume utilities lack native skip parameters; their addon-only flags
+never bypass native public validation. Native row-vector geometry, units,
+rounding and mean-angle shape labels remain unchanged. The declared
+`get_box_from_lengths_and_angles(..., box_angles=None)` default rejects in the
+native public boundary and remains unqualified; explicit angles are received.
+Coordinate editors wrap_to_pbc/wrap_to_mic/unwrap remain pending. The dated
+[source receipt](../devtools/data/molsysviewer_tools_pbc_receiving_20261026.json)
+records independent metric references, rejection/lifecycle receiving and the
+separate source/package qualification scope. No host runtime change is needed.
+
+Local PBC receiving passes 33 focused tests and one 1,077-case scoped addon,
+native PBC and packaging regression, with no failures/errors/skips and no
+scientific/addon source or compiled-backend change during that run. All 31 user
+guide blocks and 158 inherited native docstring examples pass. Ruff, devguide,
+indexes, diff and the single CI pytest-command checks pass. The Biophysics PBC
+notebook itself fails before computation on its absent H5MSM demo key; the other
+three PBC course modules were reviewed, not rerun through remote solvation.
+Owning reports remain offered/pending authorization. Exact committed-head CI is
+still pending; this evidence does not qualify installed package artifacts.

@@ -7,7 +7,7 @@ from argdigest import arg_digest
 from smonitor import signal
 
 
-def _native_documentation(name, module="basic"):
+def _native_documentation(name, module="basic", *, bind_primary=True):
     def decorate(function):
         import molsysmt
 
@@ -26,7 +26,12 @@ def _native_documentation(name, module="basic"):
             "This utility keeps its explicit molecular_systems collection; "
             "no current view.molsys is inserted. "
             if name == "are_multiple_molecular_systems"
-            else "The primary molecular system is the current view.molsys. "
+            else (
+                "The primary molecular system is the current view.molsys. "
+                if bind_primary
+                else "This utility keeps its explicit scientific inputs; "
+                "no current view.molsys or implicit box is inserted. "
+            )
         )
         function.__doc__ = (
             first
@@ -35,6 +40,42 @@ def _native_documentation(name, module="basic"):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module == "pbc":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The native scientific value is returned without a scene object, "
+                "molecular edit, box assignment, result adoption or scene update. "
+                "Box vectors are rows. Native unit policy, numerical rounding and "
+                "angle-based shape classification are preserved. Shape labels "
+                "summarize the native mean-angle criterion, not edge equality.\n"
+            )
+            if bind_primary:
+                function.__doc__ += (
+                    "has_pbc reads the current primary through the managed reader, "
+                    "including pending scientific edits. Its native criterion uses "
+                    "the first structure, not an all-structures aggregation.\n"
+                )
+            else:
+                function.__doc__ += (
+                    "This explicit-input utility works before a system is loaded, "
+                    "while its owning view remains open. Inputs stay caller-owned "
+                    "and must remain stable during the call; no managed molecular "
+                    "edit lock is acquired for them. Obtain selected boxes explicitly "
+                    "with basic.get(box=True, structure_indices=...).\n"
+                )
+            if "skip_digestion" not in inspect.signature(native).parameters:
+                function.__doc__ += (
+                    "skip_digestion : bool, keyword-only, default=False\n"
+                    "    Control addon digestion only. The native callable has no "
+                    "declared skip_digestion parameter and retains ordinary validation.\n"
+                )
+            if name == "get_box_from_lengths_and_angles":
+                function.__doc__ += (
+                    "The reviewed native public boundary rejects its box_angles=None "
+                    "default. That route remains unqualified; provide explicit angles. "
+                    "The addon does not synthesize missing angles. Native output "
+                    "has shape (n_structures, 3, 3).\n"
+                )
         if name in {
             "get_form",
             "is_a_molecular_system",

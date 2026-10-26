@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -969,3 +969,28 @@ still match the original receiving audit. Their reports require owning pytest
 guards; no scientific correction is added to the addon. The previous dated
 pending-authorization notes retain their historical scope. Full scientific
 receiving of those routes waits for provider repair and new evidence.
+
+## Periodic-box utilities receiving — 2026-10-26
+
+Ten explicit `pbc` wrappers extend the expert hierarchy without root aliases or
+scientific substitutions. has_pbc reads the current primary, including pending
+scientific box changes; the nine matrix/length/angle utilities preserve explicit
+caller-owned inputs and can run before molecular loading. Factories do not
+assign boxes or adopt outputs. Native first-structure/mean-angle semantics,
+unit policy and rounding are visible in help and the owning user guide. The
+native default-angle boundary rejects None and remains unqualified; its report
+was offered to the maintainer and is pending authorization. Coordinate editors
+remain a separate effect-receiving block. See the dated
+[receipt](../../devtools/data/molsysviewer_tools_pbc_receiving_20261026.json)
+for executed evidence and exact scientific source hashes. No dependency floor,
+package candidate, scientific implementation or host runtime changes.
+
+Local PBC receiving passes 33 focused tests and one 1,077-case scoped addon,
+native PBC and packaging regression, with no failures/errors/skips and no
+scientific/addon source or compiled-backend change during that run. All 31 user
+guide blocks and 158 inherited native docstring examples pass. Ruff, devguide,
+indexes, diff and the single CI pytest-command checks pass. The Biophysics PBC
+notebook itself fails before computation on its absent H5MSM demo key; the other
+three PBC course modules were reviewed, not rerun through remote solvation.
+Owning reports remain offered/pending authorization. Exact committed-head CI is
+still pending; this evidence does not qualify installed package artifacts.

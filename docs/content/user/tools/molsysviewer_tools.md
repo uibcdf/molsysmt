@@ -40,6 +40,11 @@ in-place coordinate changes. Sequence alignment receives the native self-referen
 repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
 with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace now has explicit wrappers for all 28 native function exports; torsion input/block limitations below remain unqualified. This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
 
+The explicit `view.addons.molsysmt.pbc` namespace also provides ten box queries
+and factories. Only `has_pbc` binds the current system; box/length/angle inputs
+remain explicit for the other nine. Coordinate wrapping and unwrapping are not
+yet received. See the periodic-box section below for units and native limits.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -86,6 +91,82 @@ The bound methods omit the primary `molecular_system` argument. You cannot
 override it with another system. Inspect a signature or call `help` on the
 method for the remaining native parameters. `skip_digestion` keeps the native
 trusted-call contract; it does not bypass view lifetime checks.
+
+## Inspecting and constructing periodic boxes
+
+Use `tools.pbc.has_pbc()` to query the current primary system. This retains
+MolSysMT's first-structure criterion, including scientific edits pending scene
+synchronization. It does not aggregate every structure or add a structure filter.
+The other nine utilities keep their explicit scientific inputs. A box or a
+factory result never assigns itself to `view.molsys`.
+
+```python
+import numpy as np
+import molsysmt as msm
+
+puw = msm.pyunitwizard
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    has_box = tools.pbc.has_pbc()
+    boxes = tools.pbc.get_box_with_shape(
+        shape="cubic", length="4 nm", n_structures=3,
+    )
+    lengths = tools.pbc.get_lengths_from_box(boxes)
+    angles = tools.pbc.get_angles_from_box(boxes)
+    both = tools.pbc.get_lengths_and_angles_from_box(boxes)
+    volume = tools.pbc.get_volume_from_box(boxes)
+    shape = tools.pbc.get_shape_from_box(boxes)
+    shape_from_angles = tools.pbc.get_shape_from_angles(angles)
+    rebuilt = tools.pbc.get_box_from_lengths_and_angles(lengths, angles)
+    direct_volume = tools.pbc.get_volume_from_lengths_and_angles(lengths, angles)
+    np.testing.assert_allclose(puw.get_value(volume, to_unit="nm**3"), [64, 64, 64])
+    np.testing.assert_allclose(puw.get_value(rebuilt, to_unit="nm"),
+                               puw.get_value(boxes, to_unit="nm"), atol=2e-6)
+```
+
+Box vectors are rows, with shape `(n_structures, 3, 3)`. Native physical
+quantities, active unit policy and six-decimal numerical rounding remain
+unchanged. In particular, `get_volume_from_box` returns cubic nanometers;
+`get_volume_from_lengths_and_angles` uses the native standard-unit policy and
+direct analytical geometry rather than the rounded reconstructed matrix.
+The native shape classifier uses mean angles across supplied boxes: its
+`"cubic"` label does not guarantee equal edge lengths or classify each structure
+independently. Keep that distinction when interpreting heterogeneous boxes.
+
+For selected structures, obtain boxes explicitly with
+`tools.basic.get(box=True, structure_indices=[2, 0, 2])`, then pass that quantity
+to a utility. Order and repetitions are preserved. These tools do not copy an
+entire trajectory or fetch an implicit box for a factory.
+
+```python
+with msv.new_view() as empty:
+    pbc = empty.addons.molsysmt.pbc
+    independent_box = pbc.get_box_with_shape(
+        shape="rhombic dodecahedral", length="3 nm",
+    )
+    independent_volume = pbc.get_volume_from_box(independent_box)
+    assert empty.molsys is None
+```
+
+Explicit-input utilities work before loading a system while the owning view
+remains open. Their inputs stay caller-owned and must remain stable during the
+call; they do not lock another system or observe arbitrary raw edits. Only
+`has_pbc` requires a loaded system and uses the host's managed reader.
+`get_volume_from_box` and `get_volume_from_lengths_and_angles` have an addon-only
+keyword `skip_digestion`: it is not passed to native functions, whose ordinary
+public validation remains active.
+
+:::{warning}
+At the reviewed source, `get_box_from_lengths_and_angles` rejects its own
+`box_angles=None` default. Supply explicit angular quantities; the addon does
+not insert missing angles or claim that default route is qualified. Native
+output is a box series `(n_structures, 3, 3)`. Coordinate editors `wrap_to_pbc`,
+`wrap_to_mic` and `unwrap` still need their own managed-effect receiving.
+:::
+
+See {doc}`pbc/index` for native scientific usage. To assign a newly constructed
+box, use the separately received `tools.basic.set(box=...)` route with the
+actual current structure axis; construction alone does not change the system.
 
 ## Identifying systems and locating attributes
 

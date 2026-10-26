@@ -1,0 +1,259 @@
+{
+  "schema": "molsysmt.viewer_tools_pbc_receiving@1",
+  "date": "2026-10-26",
+  "status": "source_received_local_checks_pass_ci_pending",
+  "source_only": true,
+  "provider_base_commit": "c7fb92a6227777810e85e95980701ab0a143a6c8",
+  "viewer_commit": "23112785fe925dcabffa20b7957afda7da1f250c",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+  "checkout": "/tmp/msm-pbc-isolated-mudtdos1",
+  "inventory": {
+    "received": [
+      "has_pbc",
+      "get_lengths_from_box",
+      "get_angles_from_box",
+      "get_lengths_and_angles_from_box",
+      "get_volume_from_box",
+      "get_shape_from_box",
+      "get_shape_from_angles",
+      "get_volume_from_lengths_and_angles",
+      "get_box_from_lengths_and_angles",
+      "get_box_with_shape"
+    ],
+    "unreceived": [
+      "wrap_to_pbc",
+      "wrap_to_mic",
+      "unwrap"
+    ]
+  },
+  "scope": [
+    "explicit quantities; only has_pbc binds current primary",
+    "row-vector norms, dot-product angles, determinant and analytical volume",
+    "nm/angstrom/pm and radians/degrees; nonconsecutive repeated boxes",
+    "factories before loading, unchanged scene, native validation, lifecycle",
+    "pending box edits consumed by managed reader"
+  ],
+  "limits": [
+    "Native box_angles=None default rejects and remains unqualified; report pending maintainer authorization.",
+    "Mean-angle shape labels are preserved, not a per-structure symmetry classification.",
+    "No wrapping/unwrapping receiving, package qualification, dependency floor or release."
+  ],
+  "specific": {
+    "junit": "/tmp/msv-pbc-specific.xml",
+    "sha256": "433f6fb0eeebf8a89dedfab4dfbcd59a49a62048a3edbe50b1ea3d8dbd828645",
+    "summary": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "33",
+        "time": "8.881",
+        "timestamp": "2026-10-26T13:17:05.073541-06:00",
+        "hostname": "nauta"
+      }
+    ]
+  },
+  "native_default_audit": {
+    "path": "/tmp/msv-pbc-native-audit.json",
+    "sha256": "18fd7206284d84cecde7521149bae58d4287b287798bafc3859b7f2d21f8908c",
+    "cases": [
+      {
+        "case": "box_default_angles",
+        "error": {
+          "type": "ArgumentError",
+          "message": "Error in argument 'box_angles' with value 'None'. Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        }
+      },
+      {
+        "case": "box_explicit_angles",
+        "error": null,
+        "shape": "(1, 3, 3)",
+        "value": [
+          [
+            [
+              2.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              3.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              4.0
+            ]
+          ]
+        ]
+      },
+      {
+        "case": "box_shape_default",
+        "error": null,
+        "shape": "(1, 3, 3)",
+        "value": [
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        ]
+      },
+      {
+        "case": "shape_nonorthogonal",
+        "error": null,
+        "shape": "None",
+        "value": "triclinic"
+      }
+    ]
+  },
+  "changed_sources": {
+    "molsysviewer_molsysmt/_pbc.py": "3da777ed0221f352d2ef4257eef52f86e39c71ea33ee1bfaed877402ecf1c637",
+    "molsysviewer_molsysmt/_api.py": "7b2e533de9b6cbcf97f00f9233906c4cc030da6bcb33808436db52f4d899d8ac",
+    "molsysviewer_molsysmt/_basic.py": "051b1a793ea6ce702023109630db83fc72014fb943df13be1e1f18db442ae40d",
+    "devtools/scripts/viewer_tools_contract.py": "ab8e6a64299f58adde5029932b9472f97170c61debe98574e01b357b6aad5baa",
+    ".github/workflows/ci-smoke.yaml": "a1064d626945157fefd42b01e9f12e37a95ed51cddcf9e9aff4066c3f7d94b49",
+    "tests/molsysviewer_molsysmt/test_pbc_tools.py": "a07aa7f81001cff0e463c652c74af9965ea346a37c0d15da92951d1d759c3000",
+    "docs/content/user/tools/molsysviewer_tools.md": "4b2bb81bae481c9de5ce71bb58914315ac85804611311779505eca52116fa46d",
+    "docs/docs_manifest.yml": "cad2692b08b7387aa0aebac542c6d80d59cadfc5456ded6f09035ce2ef2c89f0",
+    "devguide/molsysviewer_addon.md": "54b8a2a5b925d55d0f5a35b9829e8d45acc5fe588efb2e64cb20dee38434d225",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "6434e2818a534acbcb332851d46fde706d64f0c96cd864042576f1661e6f792a",
+    "docs/content/course/Path_Enzyme/40_PBC_Geometry.ipynb": "eb88953a5c63e8a800fd6297d87afbc1ada09aa8e1534bc2b3d6e7bfaed389a1",
+    "docs/content/course/Path_Alzheimer/40_PBC_Geometry.ipynb": "c7c7baf09b8017d10ac4d0e5e0cdac09f6ed4e1a6ad9105ea7b739e43fd51c0e",
+    "docs/content/course/Path_Antiviral/40_PBC_Geometry.ipynb": "5c92f2b5e0d8468520ce6bb6953d82d5014d2a0471fe9956f7122b320f43df82",
+    "docs/content/course/Path_Biophysics/40_PBC_Geometry.ipynb": "c154ac04eb1b58687ca63c60a25eeabfe475ff4a04305557eeeba8fe646bea87"
+  },
+  "integrated_parent_commit": "37ca03de94875e7f73cfaf5d2e7154a3e2c51a4e",
+  "examples": {
+    "guide_blocks": 31,
+    "doctests": {
+      "molsysviewer_molsysmt._structure": {
+        "failed": 0,
+        "attempted": 105
+      },
+      "molsysviewer_molsysmt._topology": {
+        "failed": 0,
+        "attempted": 41
+      },
+      "molsysviewer_molsysmt._pbc": {
+        "failed": 0,
+        "attempted": 12
+      }
+    }
+  },
+  "course_verification": {
+    "path": "docs/content/course/Path_Biophysics/40_PBC_Geometry.ipynb",
+    "sha256": "c154ac04eb1b58687ca63c60a25eeabfe475ff4a04305557eeeba8fe646bea87",
+    "status": "failed_before_pbc_computation",
+    "error": "KeyError: popc_membrane.h5msm",
+    "location": "actual notebook first code cell, registry lookup",
+    "related_prior_issue": "uibcdf/molsysmt#449 covers PCA module 35, not PBC module 40",
+    "other_modules": "Three PBC modules reviewed and given ownership links; their remote download/solvation workflows not rerun.",
+    "report": "offered; maintainer authorization pending"
+  },
+  "regression": {
+    "junit": "/tmp/msv-pbc-regression.xml",
+    "sha256": "e95301649dc03e8a1e8aed2ccbd77a1fb470d9c6e08b0965220cc001ece72567",
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1077",
+      "time": "298.179",
+      "timestamp": "2026-10-26T13:19:50.978762-06:00",
+      "hostname": "nauta"
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/pbc/",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-pbc-regression.xml"
+    ],
+    "source_audit": {
+      "path": "/tmp/msv-pbc-regression-source.json",
+      "sha256": "bf61942fbf73ce9c1f006f3108a107f8547fc722efeee0967a66c119d13dff2b",
+      "changed_during_run": [],
+      "compiled_backend": {
+        "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_rust.abi3.so",
+        "before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+        "after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+      }
+    },
+    "log": {
+      "path": "/tmp/msv-pbc-regression.log",
+      "sha256": "2f07c91848caf14a54fd656e1a4fae988ee340a569f25483da2cfb1c2e515bed"
+    }
+  },
+  "host_documentation": {
+    "summary": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "280",
+      "time": "1.952",
+      "timestamp": "2026-10-26T13:22:07.337288-06:00",
+      "hostname": "nauta"
+    },
+    "sha256": "6d9cce8765e6befb0777e599496015e536f3ab579700a4cc2ec6346ff89f7318"
+  },
+  "quality": [
+    "Ruff check passed on changed Python files",
+    "git diff --check passed",
+    "native devguide validation and generated indexes passed in isolated checkout",
+    "CI addon step parsed as one pytest invocation with all 19 modules"
+  ],
+  "ci": {
+    "status": "pending exact committed head",
+    "host_source": "Routine workflow pins deaba4cbea43015859544b1b393ecbe02dd2ee19; no host runtime change in this delivery."
+  },
+  "native_source_hashes": {
+    "molsysmt/pbc/__init__.py": "460afca6d2290fc475b445adaf0c0be829e8036f03c8fe42a473965c9ca466bf",
+    "molsysmt/pbc/_shared_images.py": "01ffb2a89e371b4dcfa681f288cafd70759e5685f98161f931f8b583baa7e0d8",
+    "molsysmt/pbc/_triplet_images.py": "a67e794f5637c3737d8e890052efb5b05c451f430e6bb9c5436d50c31a02ff47",
+    "molsysmt/pbc/_whole_participants.py": "9d5b4de2d40adc08f796df4b2d358e496c386707cb8737c8e5c6bdd4361ee533",
+    "molsysmt/pbc/get_angles_from_box.py": "db03eea5866d5364fa78aecf63d13813683c520546e926093860c5b270d2297a",
+    "molsysmt/pbc/get_box_from_lengths_and_angles.py": "85d47353dd6509a7f34e7acfcca0e7332a57740b56a0dd6250ef63b1eb418153",
+    "molsysmt/pbc/get_box_with_shape.py": "63f30a91c6c32e785facb2fa9cc1810e33b091d76b7285abd1dec288ab7f4bdd",
+    "molsysmt/pbc/get_lengths_and_angles_from_box.py": "a8cb1483da4b8b3bf1e1adadfd1b3b9495abca4dd34e64ad4a162cd426fc4507",
+    "molsysmt/pbc/get_lengths_from_box.py": "f8eae80d091612a7dd48390a6bc52732015ba3195972d1e819399feb14087c02",
+    "molsysmt/pbc/get_shape_from_angles.py": "f882f952dfdeacd4d0a24d82eabcf55b796d89d4c22c218c71582d2d8552050b",
+    "molsysmt/pbc/get_shape_from_box.py": "eafe29531e769a7db653c2dcec46a62d80d007ea04cccf4056b5130315953e6a",
+    "molsysmt/pbc/get_volume_from_box.py": "ae1baa26ac8abdcd7300c7804159c0db0964b9f35ecbef13d982cc2d45953798",
+    "molsysmt/pbc/get_volume_from_lengths_and_angles.py": "02e06a6d3769df5d04a28d1a2b9c98f3307108ef57abc2af57f3f53350aa6d67",
+    "molsysmt/pbc/has_pbc.py": "bb1e2a528b51781f3a8cd0ed4e84cce602b7485256bff17ac42d321bceb4aa51",
+    "molsysmt/pbc/unwrap.py": "e29f1cb298d314184b4aae73e6f7d7632ba97bdaf736ec1c0b719da75bf5fa35",
+    "molsysmt/pbc/wrap_to_mic.py": "d8bbf8abc01d67739b20a7fb9e2992d59a2ec5b42f08800e4fded2e523e68ad4",
+    "molsysmt/pbc/wrap_to_pbc.py": "3d405b15aba480c8fdd1214fff6f01d2d433133cf36d971cf7854e4d6d65c1e7",
+    "molsysmt/_private/argdigest/argument/box.py": "23bdb1b9d355a13c477d2d8c9bcf40a37fda3007dccbd453f085ba453997f69c",
+    "molsysmt/_private/argdigest/argument/box_lengths.py": "8eafaca494a8889a3303ea22692fe6c361954009455e7906f689895c687221b7",
+    "molsysmt/_private/argdigest/argument/box_angles.py": "49d71e94499d9bda7d9a5f05514734704548bd9d4fdce1fe3c19327ee9573c56",
+    "molsysmt/_private/argdigest/argument/shape.py": "bbb0b39a47545c8ddad202f25c0acdb440e045668ce2237ebb05d4057ec8b31b",
+    "molsysmt/_private/argdigest/argument/length.py": "29132f987a86ab7f3daff1f589000b7a3edfe8c96de5076876f76b71a91db89d",
+    "molsysmt/_private/argdigest/argument/n_structures.py": "7391513d3c5a0eb711a268edba57f274ce072870211f58a546481d2c899ddba0"
+  },
+  "native_pbc_unchanged_in_integrated_parent": true
+}
