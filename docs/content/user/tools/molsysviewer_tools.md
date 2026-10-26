@@ -1219,7 +1219,8 @@ qualified. Native `shift_dihedral_angles` also ignores explicit `blocks` when
 calling its setter, so that explicit-block shifter route is not qualified.
 `set_dihedral_angles` with explicit blocks is separately tested. The addon
 forwards native behavior and supplies no silent replacement calculation.
-These findings and the provider-reporting handoff are retained in the current
-addon receiving record. They prevent declaring unconditional completion of the
+These findings are tracked in
+[#461](https://github.com/uibcdf/molsysmt/issues/461) and
+[#462](https://github.com/uibcdf/molsysmt/issues/462). They prevent declaring unconditional completion of the
 scientific family despite complete function exposure.
 :::

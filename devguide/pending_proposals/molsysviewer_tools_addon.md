@@ -956,3 +956,16 @@ reporting authorization is pending, not assumed. No molecular/scientific
 workaround is introduced. Exact integrated-head source CI follows separately;
 source exposure, scientific qualification and installed/public availability remain
 separate claims. No release, tag or dependency-floor change follows.
+
+
+### Native torsion reports filed — 2026-10-26
+
+The maintainer-directed continuation authorizes the two prepared reports.
+Duplicate checks find no equivalent open or closed issue. uibcdf/molsysmt#461
+tracks explicit blocks ignored by native shift_dihedral_angles;
+uibcdf/molsysmt#462 tracks NaN angular edits publishing nonfinite coordinates in
+both native editors and both output modes. The native scientific source hashes
+still match the original receiving audit. Their reports require owning pytest
+guards; no scientific correction is added to the addon. The previous dated
+pending-authorization notes retain their historical scope. Full scientific
+receiving of those routes waits for provider repair and new evidence.

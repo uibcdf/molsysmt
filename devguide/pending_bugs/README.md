@@ -20,6 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (2)
+
+- [`dihedral_editors_publish_nonfinite_angles.md`](dihedral_editors_publish_nonfinite_angles.md) — [#462](https://github.com/uibcdf/molsysmt/issues/462) — Dihedral editors publish nonfinite coordinates from NaN angular edits. *(high, reproduced)*
+- [`shift_dihedral_angles_ignores_explicit_blocks.md`](shift_dihedral_angles_ignores_explicit_blocks.md) — [#461](https://github.com/uibcdf/molsysmt/issues/461) — shift_dihedral_angles ignores explicit moving blocks. *(high, reproduced)*
+
 ### Partially resolved (1)
 
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
