@@ -1,7 +1,7 @@
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import InternalAlgorithmError, NotImplementedMethodError
+from molsysmt._private.smonitor import ArgumentChoiceError, NotImplementedMethodError
 from molsysmt.physchem.groups._lookup import group_table_value
 
 
@@ -15,7 +15,7 @@ def get_hydrophobicity(
     skip_digestion=False,
 ):
     """
-    Hydrophobicity index per residue group from a reference scale.
+    Getting hydrophobicity scores for selected amino-acid groups.
 
     Returns a dimensionless hydrophobicity value for each selected residue
     group, looked up from one of several published hydrophobicity scales.
@@ -27,11 +27,12 @@ def get_hydrophobicity(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     element : str, default='group'
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+        Only 'group' is supported. Other levels raise ArgumentChoiceError
+        before resolving selection; no aggregate is inferred.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     definition : object, default='eisenberg'
-        Argument definition.
+        Published scale used for the selected population.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -46,12 +47,21 @@ def get_hydrophobicity(
 
     Raises
     ------
+    ArgumentChoiceError
+        If element requests an unsupported population level.
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
 
 
     Notes
     -----
+    Selection strings are resolved with the requested syntax on the supported
+    atom/group axis. Explicit numeric indices retain order and repetitions;
+    an empty supported population returns an empty result of the same type.
+    A table lookup does not assign a chemical state or validate a molecule's
+    chemistry. Unknown non-placeholder amino-acid groups retain their table
+    diagnostics; no missing property is silently invented.
+
     Supported scales and their primary references:
 
     * ``'eisenberg'``: Eisenberg D. et al. *J. Mol. Biol.* 179:125–142 (1984).
@@ -63,15 +73,32 @@ def get_hydrophobicity(
     * Other scales follow their respective original publications as indexed in ExPASy ProtScale.
 
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+    ...     structure_indices=[0])
+    >>> result = msm.physchem.get_hydrophobicity(molsys, element='group', selection=[3, 1, 3])
+    >>> len(result)
+    3
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_hydrophobicity` for selection, supported scope and reference definitions.
+
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get
 
     if element != "group":
-        raise InternalAlgorithmError(
-            "Unexpected empty state", caller="molsysmt.physchem.get_hydrophobicity"
+        raise ArgumentChoiceError(
+            argument="element",
+            value=element,
+            choices=["group"],
+            caller="molsysmt.physchem.get_hydrophobicity",
         )
+
     if definition == "eisenberg":
         from .groups.hydrophobicity import eisenberg as values
     elif definition == "rao":
@@ -106,7 +133,9 @@ def get_hydrophobicity(
         print(definition)
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element="group", selection=selection, name=True)
+    group_types = get(
+        molecular_system, element="group", selection=selection, name=True, syntax=syntax
+    )
 
     output = []
 

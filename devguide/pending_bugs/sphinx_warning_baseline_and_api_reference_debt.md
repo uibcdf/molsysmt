@@ -454,3 +454,20 @@ checkpoint, not a controlled warning-count reduction against the October 22
 checkpoint. Ruff lint/format and the fourteen fast gates pass. #144 remains partial
 for its broader markup/navigation/reference debt; no clean-warning site, installed
 package pair or release qualification is claimed.
+
+## Additional source-schema repair — 2026-10-26
+
+The property-query documentation build encountered three path-39 notebooks
+with newly introduced cell IDs under schema 4.4. The raw source guard failed
+three cases with 488 controls passing; Sphinx also emitted invalid-notebook
+ERROR messages despite a successful process status. That run is not a clean
+HTML qualification.
+
+The Alzheimer's, antiviral and enzyme path notebooks now declare schema 4.5
+and have 31 deterministic missing IDs assigned. Existing IDs, cell payloads,
+outputs and execution metadata are preserved exactly. The paired payload
+comparison and before/after hashes are retained in
+[the query receipt](../../devtools/data/physchem_queries_20261026.json).
+The raw schema guard then passes all 491 source notebooks. The broader warning
+and reference debt remains open; no complete course or warning-free build is
+claimed by these metadata-only repairs.

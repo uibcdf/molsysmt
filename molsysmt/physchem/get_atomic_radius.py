@@ -2,6 +2,7 @@ import numpy as np
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentChoiceError
 
 
 @arg_digest()
@@ -14,7 +15,7 @@ def get_atomic_radius(
     skip_digestion=False,
 ):
     """
-    Atomic radius for each selected atom.
+    Getting tabulated radii for a selected atom population.
 
     Returns a tabulated radius value for each atom based on its element type
     and the requested radius definition (e.g. van der Waals radius).  Values
@@ -26,7 +27,8 @@ def get_atomic_radius(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     element : str, default='atom'
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+        Only 'atom' is supported. Other levels raise ArgumentChoiceError
+        before resolving selection; no aggregate is inferred.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     definition : str, default='vdw'
@@ -45,22 +47,51 @@ def get_atomic_radius(
 
     Raises
     ------
+    ArgumentChoiceError
+        If element requests an unsupported population level.
     NotImplementedError
         If an unsupported ``definition`` is requested.
 
 
     Notes
     -----
+    Selection strings are resolved with the requested syntax on the atom
+    axis. Explicit atom indices retain order and repetitions; an empty atom
+    selection returns a length-zero quantity. Other element levels are rejected,
+    rather than silently interpreted as atom indices. No aggregate is inferred.
+
     Van der Waals radii are sourced from standard reference tables covering
     all elements of the periodic table. When using ``definition='protor'``, standard
     ProtOr radii are assigned to protein heavy atoms, falling back to element
     defaults where applicable.
 
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+    ...     structure_indices=[0])
+    >>> result = msm.physchem.get_atomic_radius(molsys, element='atom', selection=[2, 0, 2])
+    >>> len(result)
+    3
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_atomic_radius` for selection, supported scope and reference definitions.
+
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get
+
+    if element != "atom":
+        raise ArgumentChoiceError(
+            argument="element",
+            value=element,
+            choices=["atom"],
+            caller="molsysmt.physchem.get_atomic_radius",
+        )
+
     from molsysmt.physchem.atoms.radius import units
 
     if definition == "protor":
@@ -79,7 +110,11 @@ def get_atomic_radius(
         raise NotImplementedError()
 
     atom_types = get(
-        molecular_system, element="atom", selection=selection, atom_type=True
+        molecular_system,
+        element="atom",
+        selection=selection,
+        atom_type=True,
+        syntax=syntax,
     )
 
     output = []

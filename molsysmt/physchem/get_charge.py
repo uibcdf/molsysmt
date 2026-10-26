@@ -18,7 +18,7 @@ def get_charge(
     skip_digestion=False,
 ):
     """
-    Electric charge for the selected elements.
+    Getting tabulated or mechanical electric charges for a selected population.
 
     Returns the electric charge aggregated at the requested hierarchical level.
     Two families of definitions are supported:
@@ -70,14 +70,56 @@ def get_charge(
 
     Notes
     -----
+    Selection strings are resolved with the supplied syntax for the requested
+    supported element. Tabulated amino-acid group charges are fixed reference
+    scores, distinct from stored formal charges or a calculated partial-charge
+    assignment. This function does not validate chemistry or change a state.
+
     Values are rounded to 4 decimal places for the ``'OpenMM'`` definition
     to avoid floating-point noise from unit conversions.
 
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+    ...     structure_indices=[0])
+    >>> result = msm.physchem.get_charge(molsys, element='group', selection=[3, 1, 3])
+    >>> len(result)
+    3
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_charge` for selection, supported scope and reference definitions.
 
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get
+
+    if element not in {
+        "atom",
+        "group",
+        "component",
+        "molecule",
+        "chain",
+        "entity",
+        "system",
+    }:
+        raise ArgumentChoiceError(
+            argument="element",
+            value=element,
+            choices=[
+                "atom",
+                "group",
+                "component",
+                "molecule",
+                "chain",
+                "entity",
+                "system",
+            ],
+            caller="molsysmt.physchem.get_charge",
+        )
 
     if definition in ["physical_pH7", "collantes"]:
         if definition == "physical_pH7":
@@ -102,7 +144,11 @@ def get_charge(
 
         elif element == "group":
             group_names = get(
-                molecular_system, element=element, selection=selection, group_name=True
+                molecular_system,
+                element=element,
+                selection=selection,
+                group_name=True,
+                syntax=syntax,
             )
             for ii in group_names:
                 output.append(
@@ -117,7 +163,11 @@ def get_charge(
 
         elif element in ["component", "molecule", "chain", "entity"]:
             group_names = get(
-                molecular_system, element=element, selection=selection, group_name=True
+                molecular_system,
+                element=element,
+                selection=selection,
+                group_name=True,
+                syntax=syntax,
             )
             for aux in group_names:
                 output.append(
@@ -137,7 +187,11 @@ def get_charge(
 
         elif element == "system":
             group_names = get(
-                molecular_system, element="group", selection="all", group_names=True
+                molecular_system,
+                element="group",
+                selection="all",
+                group_names=True,
+                syntax=syntax,
             )
             output = puw.quantity(
                 np.sum(
@@ -168,6 +222,7 @@ def get_charge(
                     element=element,
                     selection=selection,
                     atom_index=True,
+                    syntax=syntax,
                 )
 
                 output = []
@@ -208,6 +263,7 @@ def get_charge(
                     element=element,
                     selection=selection,
                     atom_index=True,
+                    syntax=syntax,
                 )
 
                 output = []
@@ -228,6 +284,7 @@ def get_charge(
                     element=element,
                     selection=selection,
                     atom_index=True,
+                    syntax=syntax,
                 )
 
                 output = []
@@ -247,7 +304,11 @@ def get_charge(
 
             elif element == "system":
                 atom_indices = get(
-                    molecular_system, element="atom", selection="all", index=True
+                    molecular_system,
+                    element="atom",
+                    selection="all",
+                    index=True,
+                    syntax=syntax,
                 )
 
                 var_aux = 0.0
@@ -270,6 +331,7 @@ def get_charge(
                     element=element,
                     selection=selection,
                     atom_index=True,
+                    syntax=syntax,
                 )
 
                 output = []
@@ -290,6 +352,7 @@ def get_charge(
                     element=element,
                     selection=selection,
                     atom_index=True,
+                    syntax=syntax,
                 )
 
                 output = []

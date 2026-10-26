@@ -81,6 +81,7 @@ Read these documents in order when first working on MolSysMT:
 
 ### Scientific construction and analysis
 
+- [physchem_query_contract.md](physchem_query_contract.md) — tabulated property axes, selection syntax and output contracts.
 - [scientific_validation.md](scientific_validation.md)
 - [scientific_evidence_matrix.md](scientific_evidence_matrix.md) — generated
   status view backed by the executable Scientific Truth evidence registry.

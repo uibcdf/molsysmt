@@ -1,0 +1,254 @@
+{
+  "schema": "molsysmt.physchem_queries_qualification@1",
+  "date": "2026-10-26",
+  "issues": [
+    "uibcdf/molsysmt#470",
+    "uibcdf/molsysmt#471",
+    "uibcdf/molsysmt#144"
+  ],
+  "open_followup": "uibcdf/molsysmt#473",
+  "source_base": "3c2dfcf651e2b6a8505cd7d88b38686811079f4a",
+  "scope": "Local source repair of property selection syntax/population contracts, including added descriptor cases and metadata-only documentation corrections. No new scientific scale or physical rescaling.",
+  "environment": {
+    "python": "3.14.7",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "mdtraj": "1.11.1",
+      "openmm": "8.6.1",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "baseline_runs": [
+    {
+      "command": "python -m pytest tests/physchem/test_property_selection_contract.py --receptor=llm -n 12",
+      "scope": "Original eight table configurations before the added descriptor scope; no no-op supported-level cases.",
+      "failed": 112,
+      "passed": 175,
+      "seconds": 20.16
+    },
+    {
+      "command": "python -m pytest tests/physchem/test_property_selection_contract.py -k 'get_volume or get_surface_area or get_area_buried or get_buried_fraction' --receptor=llm -n 12",
+      "scope": "Added receiving cases after first repair; overlaps later full guard.",
+      "failed": 52,
+      "passed": 88,
+      "seconds": 11.86
+    },
+    {
+      "command": "python -m pytest tests/documentation/test_notebook_schema.py --receptor=llm -n 12",
+      "failed": 3,
+      "passed": 488,
+      "seconds": 7.54,
+      "cause": "New cell IDs under schema 4.4 in three independently updated path-39 notebooks."
+    }
+  ],
+  "final_commands": [
+    {
+      "command": "python -m pytest tests/physchem tests/test_argument_contract.py --receptor=llm -n 12",
+      "passed": 976,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 81.59,
+      "warnings": 87,
+      "warning_groups": [
+        "Intentional LegacyH5MSMWarning",
+        "Existing pandas FutureWarning",
+        "Explicit GpuNotAvailableWarning"
+      ]
+    },
+    {
+      "command": "python -m pytest tests/physchem/test_property_selection_contract.py --receptor=llm -n 12",
+      "passed": 435,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 21.57,
+      "overlaps_previous": true
+    },
+    {
+      "command": "python -m pytest tests/documentation/test_notebook_schema.py --receptor=llm -n 12",
+      "passed": 491,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 7.65
+    },
+    {
+      "command": "doctest.testmod over the ten changed public query modules and atoms.protor",
+      "modules": 11,
+      "examples_passed": 40,
+      "failed": 0,
+      "note": "An initial group example selected ACE and correctly raised the existing unknown-group error; corrected to supported amino-acid positions."
+    },
+    {
+      "command": "MSM_VIEWS_FROM_HTML_FILES=True MPLBACKEND=Agg python docs/execute_notebooks.py -q -n 12 -f docs/content/user/tools/physchem/get_charge.ipynb docs/content/user/tools/physchem/get_atomic_radius.ipynb docs/content/user/tools/physchem/get_electronegativity.ipynb docs/content/user/tools/physchem/get_hydrophobicity.ipynb docs/content/user/tools/physchem/get_polarity.ipynb docs/content/user/tools/physchem/get_transmembrane_tendency.ipynb docs/content/user/tools/physchem/get_volume.ipynb docs/content/user/tools/physchem/get_surface_area.ipynb docs/content/user/tools/physchem/get_area_buried.ipynb docs/content/user/tools/physchem/get_buried_fraction.ipynb docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "executed": 11,
+      "failed": 0
+    },
+    {
+      "command": "python devtools/scripts/release_gate.py",
+      "passed": 14,
+      "failed": 0
+    },
+    {
+      "command": "python devtools/scripts/validate_docstrings.py",
+      "public_functions": 251,
+      "status": "passed"
+    },
+    {
+      "command": "MSM_VIEWS_FROM_HTML_FILES=True MPLBACKEND=Agg make -C docs html SPHINXOPTS='-q -j 12'",
+      "errors": 0,
+      "warnings": 31,
+      "status": "passed",
+      "scope": "Final incremental HTML build; existing heading/toctree warnings. Earlier invalid-notebook ERROR output was rejected despite exit 0."
+    },
+    {
+      "command": "ruff check and ruff format --check on the twelve changed executable paths",
+      "status": "passed"
+    }
+  ],
+  "metadata_repairs": [
+    {
+      "path": "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "before_sha256": "6b3c0b2a0b9b5623314e10c175dd3f0c2a524075ffc277a14978f123637adf0e",
+      "after_sha256": "c232a978b7cf75a67419fe5085dcb75b649deb4c80d16a6de762c81bd2db32cd",
+      "added_cell_ids": [
+        "msm-5f2d9ea82fc2",
+        "msm-58d8353a6ef0",
+        "msm-8a63b6ef39d6",
+        "msm-87e122b81ed4",
+        "msm-64d8a61d4c99",
+        "msm-b7f6ea8192da",
+        "msm-c5e68e5c260f",
+        "msm-3aa672c85d39",
+        "msm-bc87c503afef",
+        "msm-1a7556ccfbb7",
+        "msm-5c6c0a050820",
+        "msm-e0eab960fa45",
+        "msm-201ddef1efb2"
+      ],
+      "payload_unchanged": true,
+      "existing_ids_preserved": true
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "before_sha256": "7689bddc21571f9db738d997b4c947977eecf4c9e4d5e54c3a6460d4a878f2fc",
+      "after_sha256": "5b210e94651136296e41e561a891bcc770eaabf6dc6e37df882743dd4ba1db30",
+      "added_cell_ids": [
+        "msm-073b9437e9b5",
+        "msm-a9541667ce84",
+        "msm-89ccbb1d2e11",
+        "msm-258ff5bd3d2e",
+        "msm-25aff27ca527",
+        "msm-89ef93432798"
+      ],
+      "payload_unchanged": true,
+      "existing_ids_preserved": true
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb",
+      "before_minor": 4,
+      "after_minor": 5,
+      "before_sha256": "6414240fd8f1eafbe5c8577a76973175bacf97e8e4f35f75134735a604e5d7b8",
+      "after_sha256": "d289b3082391d3b63204df675e68098ff0791fb24e5bd7f3dc71d347b9c78988",
+      "added_cell_ids": [
+        "msm-7dddf587eee5",
+        "msm-479fdde379fa",
+        "msm-f272b1c3c3cd",
+        "msm-aef57089ce37",
+        "msm-6908ce3d5119",
+        "msm-d5ca82800c82",
+        "msm-0015fb371e52",
+        "msm-e76ba156f1f2",
+        "msm-8f318c220d72",
+        "msm-66901a9398fd",
+        "msm-7557e83af833",
+        "msm-969a95e56999"
+      ],
+      "payload_unchanged": true,
+      "existing_ids_preserved": true
+    }
+  ],
+  "observed_contracts": [
+    "Syntax reaches the charge, atomic-radius, electronegativity, hydrophobicity, ProtOr, volume and buried-fraction requests.",
+    "Eight fixed-element readers reject unsupported axes before interpreting selection. Volume and area-buried keep their actual signatures.",
+    "Lists retain order/repetitions, and empty populations retain their output shape and container.",
+    "Distinct literal atom/group values and independent selected populations guard against matching wrong-axis parity.",
+    "Native MolSys/Topology paths preserve stored scientific data under nm/pm and charge policies.",
+    "Unknown groups retain table diagnostics; charge preserves supported aggregate semantics and rejects an unsupported bond population.",
+    "Collantes surface descriptors remain raw values pending #473, without guessed units or conversion.",
+    "Three notebook metadata repairs preserve all code, prose, outputs and execution metadata exactly while retaining existing IDs."
+  ],
+  "limits": [
+    "No full-suite, installed consumer, cross-platform or release matrix was run.",
+    "Addon code and its separately committed reception were excluded from the native repair.",
+    "The already reported Collantes unit issue #473 remains open for primary-reference verification.",
+    "No new table values, chemical-state assignments, physical scaling or scientific-profile certification.",
+    "Three pre-existing autogenerated API stub edits were preserved.",
+    "The previously duplicated PBC manifest owner entry was consolidated without runtime changes.",
+    "The Cookbook and Foundations changes are explanatory prose; unrelated preparation examples were not newly executed.",
+    "The four path-40 updates remove transient consumer-limit phrasing; their code is unchanged and was not newly executed by this property checkpoint."
+  ],
+  "file_sha256": {
+    "molsysmt/physchem/get_charge.py": "68780b09e8f4e370aaae6661e50a181cd2e51412346a9581a70f5c0554d54866",
+    "molsysmt/physchem/get_atomic_radius.py": "5b74e77f94ec7c8d9ecbe8dc6a2849d9b869c6f5744ed307181a4d254e8ccb08",
+    "molsysmt/physchem/get_electronegativity.py": "6a4681fa341ea084fab384f43a02668d63aac7a5dc9cceb9aa5a680b9cd15abd",
+    "molsysmt/physchem/get_hydrophobicity.py": "6a7fdd7a7b157c1f0893cc905a13bd5578a2ced3b27a8de88f59a5524fd371d3",
+    "molsysmt/physchem/get_polarity.py": "e93a4f9d1b82334c656418509ec43c0822e319c47e477106a978e5a565915500",
+    "molsysmt/physchem/get_transmembrane_tendency.py": "8b835e3efdd106edb1a5305cbc216c00abf16feddb6d58924cb7635f25b94555",
+    "molsysmt/physchem/get_volume.py": "54307b8de7e0adb28a57e1c0096378826a9370d82834b036a3b8fd6db2869088",
+    "molsysmt/physchem/get_surface_area.py": "371cdaa961a82ba18e113c8abc5d5e2aeeae9ff070e1c67cb6b07d3e8ae74305",
+    "molsysmt/physchem/get_area_buried.py": "5f5a47bf799a69460a58dd3779d47db0eb5a333edebcd3bb51b9f795e37453c8",
+    "molsysmt/physchem/get_buried_fraction.py": "5a48245061137e80b25d4f6ed7ee5dc71d0ba8dd4ee748c8efde828a8a769a26",
+    "molsysmt/physchem/atoms/protor.py": "e59f5c6a048799c5d5385b02ea15c9f28e969264a8ae61221451f3c611c816de",
+    "tests/physchem/test_property_selection_contract.py": "5f82afd430a362d76d33e35913ce63d40fb86543c3e750ce9a49fd5c40be0ccd",
+    "docs/content/user/tools/physchem/get_charge.ipynb": "8703a53a51517de0062f055bbcc06c83d9ceff3bf4f5686bad2cf7c4f60fbd30",
+    "docs/content/user/tools/physchem/get_atomic_radius.ipynb": "a07264911ba3c2d7c50ebfea207104b223ab986306b98bce59bc331b2fa23ef4",
+    "docs/content/user/tools/physchem/get_electronegativity.ipynb": "df590fffc719d283c8961f223a7b6f09cc7bb375bffbc4bc1ad818269b3b62a7",
+    "docs/content/user/tools/physchem/get_hydrophobicity.ipynb": "24a4ead95d1b880a6c1260b492977de9029263da91b87efc37570055cb6b4d6b",
+    "docs/content/user/tools/physchem/get_polarity.ipynb": "3b2b6a5ee55f6bea53b36ef43d22b46f6d0bc8463f2856fcc3a27f998025fc1c",
+    "docs/content/user/tools/physchem/get_transmembrane_tendency.ipynb": "5438aff13ed544c017c14411feafed0ae08a0096ab6b014bd4e610fc10338c11",
+    "docs/content/user/tools/physchem/get_volume.ipynb": "b94f8efa32fbc7e2160178df2864d549a5dd50abe215d702c10729162a231797",
+    "docs/content/user/tools/physchem/get_surface_area.ipynb": "0571f25521753febb7bd85c1cd68293e63e78134f778c5bac7938920c81a8cb6",
+    "docs/content/user/tools/physchem/get_area_buried.ipynb": "6c155223d5688f83efc7e788bac6f7af43a742dc0c39830b99b2d768279b4de2",
+    "docs/content/user/tools/physchem/get_buried_fraction.ipynb": "7fb8955b8231ff6869e1351dab605d6ad130c1aa2e983768adac7ffb0754300d",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "73b089d909e75499def4bfff8a9e55b030cf4e562f098c39117446bf814f169c",
+    "docs/content/user/tools/physchem/get_charge.nbconvert.last_run": "e7e9f1cbd724bb91fcc6c10b780a7fa2515bce4ec1ce5a1c122499652953ee10",
+    "docs/content/user/tools/physchem/get_atomic_radius.nbconvert.last_run": "0484e802f4da9a02645d12ebbde064e956c8a4fe85a798986cd4a5df4d0438ff",
+    "docs/content/user/tools/physchem/get_electronegativity.nbconvert.last_run": "dd55fd57fccd3ab54a87509fa1238dea9b7e3dc1de47c6136d0324c6d3ed9e9e",
+    "docs/content/user/tools/physchem/get_hydrophobicity.nbconvert.last_run": "f06d84f667e767a03735a27c3f0905e2bbcb323a8ae08f1d0cb6e4e640f374bc",
+    "docs/content/user/tools/physchem/get_polarity.nbconvert.last_run": "8b7365b0b2baef19fd65554fd1a59780825923dbd24ffaa218c7b4b1228a5c6a",
+    "docs/content/user/tools/physchem/get_transmembrane_tendency.nbconvert.last_run": "40aba8bb1dafc1d3356a4f3167a61a93297925e5fd37f7ffef1de89d9371595f",
+    "docs/content/user/tools/physchem/get_volume.nbconvert.last_run": "38dc44fb2fc08fedd53e65fdec15cc0c4dc2208a4ef37e15b90227d52d043208",
+    "docs/content/user/tools/physchem/get_surface_area.nbconvert.last_run": "6e7d14472fcf04cba1cb3048617b0f239df474d7365a24837b08c5ee9f5107b1",
+    "docs/content/user/tools/physchem/get_area_buried.nbconvert.last_run": "2c15b061854ea932747f6285de55698f3cab710635408933d7732c5a05557f8b",
+    "docs/content/user/tools/physchem/get_buried_fraction.nbconvert.last_run": "754373adbe0a2c7a6dd2067a127aae33a538fbc02f1e2ade87a44597744b3070",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.nbconvert.last_run": "312ef649a1eb144a5931d1bf8f979df04547148ba5b88c6d0132e06ba42b3bf6",
+    "devguide/physchem_query_contract.md": "08dd69d15e88f516b911acf86c6feb01ecbbc2d70969d74022bb2283b8e287aa",
+    "devguide/README.md": "e95ad614609dc869fd4a04b41ef5ae62fec0573e473ae5deb71c2dea3371b517",
+    "docs/content/user/foundations/support/physchem.md": "840b5e4fa887bcaea6ddd87849fec2cfe0543d8214bd9939216623b0e25b59d0",
+    "docs/content/user/cookbook/assigning_partial_charges.md": "ca15ae4d881e2b101a15e89e81b3a354ecb2622f4338d7fe44df48254f0c9c13",
+    "docs/docs_manifest.yml": "5d71972a20d3aee17f299c808323c694b917f275fd7d87e40e4fb6802b97f3ac",
+    "devguide/pending_bugs/README.md": "fc5d3eec8acb66efba097fc4b7ebe1be268c5a9eb676403aba3aaeeda716ab53",
+    "devguide/archive/resolved_bugs/physchem_readers_drop_selection_syntax.md": "64494127dc63d21bf3767c8319158095c4d8bf44214eaaeb2e0c427b50754427",
+    "devguide/archive/resolved_bugs/physchem_property_element_scope_contract.md": "4d5961f2919d527c064f112c5ba9094792bbd86b2c0478b1de0b3e7927302dda",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "c232a978b7cf75a67419fe5085dcb75b649deb4c80d16a6de762c81bd2db32cd",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "5b210e94651136296e41e561a891bcc770eaabf6dc6e37df882743dd4ba1db30",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "d289b3082391d3b63204df675e68098ff0791fb24e5bd7f3dc71d347b9c78988",
+    "devguide/pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md": "4de815d25e5002ba32fc6f75a3b2c8e229160e2009dab832bcf85f19adf79212",
+    "docs/content/course/Path_Alzheimer/40_PBC_Geometry.ipynb": "e9da6895860070dac52ab84aab8118c9d0ff92b068dada794b12478a492ddf25",
+    "docs/content/course/Path_Antiviral/40_PBC_Geometry.ipynb": "743e3b94bbb94d76805437b2255a09d8d93936f3c2c8551e0077108227d2ee18",
+    "docs/content/course/Path_Biophysics/40_PBC_Geometry.ipynb": "b66ef9aec72a7a1a629ef810bba78ca5681199ad8892db4283cba828ad1c21c2",
+    "docs/content/course/Path_Enzyme/40_PBC_Geometry.ipynb": "46d1d71efb13052b8ffb355c62d9a88ec86d5ec75277e39df1549db480088efe"
+  }
+}

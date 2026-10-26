@@ -20,10 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (1)
 
-- [`physchem_property_element_scope_contract.md`](physchem_property_element_scope_contract.md) — [#471](https://github.com/uibcdf/molsysmt/issues/471) — Physchem property readers have inconsistent element scope contracts. *(medium, reproduced)*
-- [`physchem_readers_drop_selection_syntax.md`](physchem_readers_drop_selection_syntax.md) — [#470](https://github.com/uibcdf/molsysmt/issues/470) — Physchem property readers drop the declared selection syntax. *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 ### Partially resolved (1)

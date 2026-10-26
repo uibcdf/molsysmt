@@ -70,6 +70,22 @@ The full graph is calculated before filtering. Extraction instead retains
 the previous numerical charges as a projection, with original source indices.
 Neither operation treats a fragment as a newly parameterized isolated molecule.
 
+For a tabulated descriptor, choose its population explicitly. Atomic radius
+and electronegativity use atom indices; hydrophobicity, polarity and
+transmembrane scores use group indices. Unsupported element levels fail before
+a selection is interpreted. With `syntax='MDTraj'`, for example, `name CA`
+selects atoms and `resname GLY` can select groups. The optional selector provider
+must be installed; the default remains MolSysMT syntax. Reuse the returned
+indices to keep descriptors aligned, including nonconsecutive and repeated lists.
+
+`get_charge(..., definition='physical_pH7')` reads an amino-acid group reference
+table. It does not retrieve stored formal charges or replace the named
+partial-charge calculation above. These are different scientific definitions;
+choosing a syntax or scope never switches between them implicitly. See
+{func}`molsysmt.physchem.get_atomic_radius`,
+{func}`molsysmt.physchem.get_hydrophobicity` and
+{func}`molsysmt.physchem.get_charge`.
+
 ## Editing manual labels
 
 Mechanical types are independent of the calculated charges. If you have a

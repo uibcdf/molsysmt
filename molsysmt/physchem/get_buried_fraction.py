@@ -1,5 +1,5 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import ArgumentChoiceError, NotImplementedMethodError
 from molsysmt.physchem.groups._lookup import group_table_value
 
 
@@ -13,7 +13,7 @@ def get_buried_fraction(
     skip_digestion=False,
 ):
     """
-    Fraction of residues observed in a buried environment.
+    Getting Janin reference buried-fraction descriptors for selected groups.
 
     Returns a tabulated molar fraction value representing how frequently each
     residue type is found in a buried (solvent-inaccessible) environment in a
@@ -26,11 +26,12 @@ def get_buried_fraction(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     element : str, default='group'
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+        Only 'group' is supported. Other levels raise ArgumentChoiceError
+        before resolving selection; no aggregate is inferred.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    definition : object, default='janin'
-        Argument definition.
+    definition : str, default='janin'
+        Identifier of the published reference table to query.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -45,22 +46,54 @@ def get_buried_fraction(
 
     Raises
     ------
+    ArgumentChoiceError
+        If element requests an unsupported population level.
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
 
 
     Notes
     -----
+    Numeric group indices retain order and repetitions. Empty selections
+    return the same container with length zero. The existing reference table
+    and numerical values are unchanged; this query does not calculate a
+    conformational geometric surface or volume, prepare chemistry or assign
+    a chemical state. Unknown non-placeholder groups retain explicit errors.
+    String selections use the requested syntax. Optional selection languages
+    require their provider; the ordinary default remains MolSysMT.
+    Unsupported element levels fail before selection is interpreted.
+
     The ``'janin'`` scale reports the molar fraction (%) of each amino acid
     among 2001 buried residues from a structural database, as described in:
 
         Janin J. *Nature* 277:491–492 (1979).
 
 
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+    ...     structure_indices=[0])
+    >>> result = msm.physchem.get_buried_fraction(molsys, element='group', selection=[3, 1, 3])
+    >>> len(result)
+    3
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_buried_fraction` for reference values and selections.
+
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get
+
+    if element != "group":
+        raise ArgumentChoiceError(
+            argument="element",
+            value=element,
+            choices=["group"],
+            caller="molsysmt.physchem.get_buried_fraction",
+        )
 
     if definition == "janin":
         from .groups.buried_fraction import janin as values
@@ -68,7 +101,11 @@ def get_buried_fraction(
         raise NotImplementedMethodError()
 
     group_types = get(
-        molecular_system, element="group", selection=selection, group_name=True
+        molecular_system,
+        element="group",
+        selection=selection,
+        syntax=syntax,
+        group_name=True,
     )
 
     output = []

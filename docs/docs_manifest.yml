@@ -137,22 +137,6 @@ sections:
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
-      - name: pbc
-        path: docs/content/user/tools/pbc
-        agents_file: docs/content/user/tools/pbc/AGENTS.md
-        index_file: docs/content/user/tools/pbc/index.md
-        index_agents_file: docs/content/user/tools/pbc/index.AGENTS.md
-        description: Periodic geometry, orthogonal box defaults, shared angles and original-target centered wrapping.
-        pages:
-          - name: wrap_to_pbc
-            file: docs/content/user/tools/pbc/wrap_to_pbc.ipynb
-            agents_file: docs/content/user/tools/pbc/wrap_to_pbc.ipynb.AGENTS.md
-          - name: wrap_to_mic
-            file: docs/content/user/tools/pbc/wrap_to_mic.ipynb
-            agents_file: docs/content/user/tools/pbc/wrap_to_mic.ipynb.AGENTS.md
-          - name: get_box_from_lengths_and_angles
-            file: docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb
-            agents_file: docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb.AGENTS.md
       - name: build
         path: docs/content/user/tools/build
         agents_file: docs/content/user/tools/build/AGENTS.md
@@ -289,13 +273,55 @@ sections:
         index_file: docs/content/user/tools/pbc/index.md
         index_agents_file: docs/content/user/tools/pbc/index.AGENTS.md
         status: pending_review
+        description: Periodic geometry, orthogonal box defaults, shared angles and original-target centered wrapping.
+        pages:
+          - name: wrap_to_pbc
+            file: docs/content/user/tools/pbc/wrap_to_pbc.ipynb
+            agents_file: docs/content/user/tools/pbc/wrap_to_pbc.ipynb.AGENTS.md
+          - name: wrap_to_mic
+            file: docs/content/user/tools/pbc/wrap_to_mic.ipynb
+            agents_file: docs/content/user/tools/pbc/wrap_to_mic.ipynb.AGENTS.md
+          - name: get_box_from_lengths_and_angles
+            file: docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb
+            agents_file: docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb.AGENTS.md
       - name: physchem
         path: docs/content/user/tools/physchem
         agents_file: docs/content/user/tools/physchem/AGENTS.md
         index_file: docs/content/user/tools/physchem/index.md
         index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
         status: in_progress
+        description: Tabulated properties with explicit atom/group populations, preserved selection syntax, units, containers and unknown-group diagnostics.
         pages:
+          - name: get_atomic_radius
+            file: docs/content/user/tools/physchem/get_atomic_radius.ipynb
+            agents_file: docs/content/user/tools/physchem/get_atomic_radius.ipynb.AGENTS.md
+          - name: get_electronegativity
+            file: docs/content/user/tools/physchem/get_electronegativity.ipynb
+            agents_file: docs/content/user/tools/physchem/get_electronegativity.ipynb.AGENTS.md
+          - name: get_hydrophobicity
+            file: docs/content/user/tools/physchem/get_hydrophobicity.ipynb
+            agents_file: docs/content/user/tools/physchem/get_hydrophobicity.ipynb.AGENTS.md
+          - name: get_polarity
+            file: docs/content/user/tools/physchem/get_polarity.ipynb
+            agents_file: docs/content/user/tools/physchem/get_polarity.ipynb.AGENTS.md
+          - name: get_transmembrane_tendency
+            file: docs/content/user/tools/physchem/get_transmembrane_tendency.ipynb
+            agents_file: docs/content/user/tools/physchem/get_transmembrane_tendency.ipynb.AGENTS.md
+          - name: get_charge
+            file: docs/content/user/tools/physchem/get_charge.ipynb
+            agents_file: docs/content/user/tools/physchem/get_charge.ipynb.AGENTS.md
+          - name: get_volume
+            file: docs/content/user/tools/physchem/get_volume.ipynb
+            agents_file: docs/content/user/tools/physchem/get_volume.ipynb.AGENTS.md
+          - name: get_surface_area
+            file: docs/content/user/tools/physchem/get_surface_area.ipynb
+            agents_file: docs/content/user/tools/physchem/get_surface_area.ipynb.AGENTS.md
+          - name: get_area_buried
+            file: docs/content/user/tools/physchem/get_area_buried.ipynb
+            agents_file: docs/content/user/tools/physchem/get_area_buried.ipynb.AGENTS.md
+          - name: get_buried_fraction
+            file: docs/content/user/tools/physchem/get_buried_fraction.ipynb
+            agents_file: docs/content/user/tools/physchem/get_buried_fraction.ipynb.AGENTS.md
           - name: get_autodock_atom_types
             file: docs/content/user/tools/physchem/get_autodock_atom_types.md
             agents_file: docs/content/user/tools/physchem/get_autodock_atom_types.md.AGENTS.md

@@ -402,6 +402,9 @@ def get_protor_atom_type(
 
     Notes
     -----
+    Requested selection syntax is retained through typing and radius lookup.
+    Explicit atom indices keep their order and repetitions.
+
     Types are assigned to standard amino acids and their common variants, and
     backbone defaults are applied. Elements that do not match are labeled as
     ``'element_fallback'`` or ``'ignored'`` (e.g. for hydrogen).
@@ -420,6 +423,7 @@ def get_protor_atom_type(
         atom_name=True,
         atom_type=True,
         bonded_atoms=True,
+        syntax=syntax,
     )
 
     # Convert results to arrays to facilitate vectorized or indexed access
@@ -429,7 +433,13 @@ def get_protor_atom_type(
 
     # Get atom types for ALL atoms in the system to check neighbor elements
     all_atom_types = np.asarray(
-        get(molecular_system, element="atom", selection="all", atom_type=True),
+        get(
+            molecular_system,
+            element="atom",
+            selection="all",
+            atom_type=True,
+            syntax=syntax,
+        ),
         dtype=object,
     )
 
@@ -515,7 +525,11 @@ def get_protor_vdw_radius(
     from molsysmt.basic import get
 
     atom_types = get(
-        molecular_system, element="atom", selection=selection, atom_type=True
+        molecular_system,
+        element="atom",
+        selection=selection,
+        atom_type=True,
+        syntax=syntax,
     )
     atom_types = np.asarray(atom_types, dtype=object)
 
