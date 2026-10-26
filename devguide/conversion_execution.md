@@ -21,11 +21,12 @@ python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=ll
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-files-v7` profile: thirteen native containers/dictionary forms, four
+`resident-files-v8` profile: thirteen native containers/dictionary forms, four
 resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
 forms, SDF/PDBQT file/text forms, `molsysmt.PDBQTFileHandler` and
-`MDAnalysis.Universe`. The profile selects
-149 of 605 declared edges; 456 remain explicit coverage debt. Earlier native,
+`MDAnalysis.Universe`, `MDAnalysis.AtomGroup` and `MDAnalysis.Topology`.
+The measured 2026-10-25 profile selects
+157 of 606 declared edges; 449 remain explicit coverage debt. Earlier native,
 engine, H5MSM, PDB and docking-format subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
@@ -144,6 +145,21 @@ both direct/public rejection, unchanged existing destinations, PDB MODEL/atom
 record counts and the literal coordinates of the selected structure.
 
 ## Coverage debt
+
+The `resident-files-v8` extension covers the four AtomGroup outputs (identity,
+Universe, MolSys and Topology), the two MDAnalysis.Topology outputs (identity and
+native Topology), and PDB-to-MDAnalysis.Topology. Fresh AtomGroup inputs contain
+only two reordered atoms of a three-atom Universe, so even default conversions
+cannot accidentally rely on group positions equalling parent indices.
+
+Separate mirrored contracts exercise local selections in both orders through
+direct and public calls. They check source labels, retained bonds, native string
+IDs, nm coordinates, explicit structure ordering and unchanged source coordinates
+and trajectory cursor. MDAnalysis outputs preserve requested atom order; native
+extraction uses ascending source atom order. A topology-only conversion has no
+structure axis. The PDB executor additionally checks literal atom/group labels
+and CONECT bonds in the resulting MDAnalysis topology. These controls qualify
+these witnesses, not arbitrary chemical metadata or all MDAnalysis readers.
 
 Edges outside the profile are explicitly listed by source and target, with a
 reason, in `accepted_unexecuted_edges`. They are coverage debt, not demonstrated

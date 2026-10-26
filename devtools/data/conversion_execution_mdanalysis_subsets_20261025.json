@@ -1,0 +1,105 @@
+{
+  "schema": "molsysmt.conversion_execution_qualification@1",
+  "date": "2026-10-25",
+  "issue": "uibcdf/molsysmt#181",
+  "baseline_commit": "e568a62693619414fed6b237357e7c34f60e5736",
+  "scope": "Bounded local source execution; not installed-pair, full-graph or release qualification.",
+  "profile": "resident-files-v8",
+  "inventory": {
+    "profile": "resident-files-v8",
+    "declared_edges": 606,
+    "planned_smoke_edges": 157,
+    "accepted_unexecuted_edges": 449,
+    "errors": [],
+    "execution": "not performed by this audit"
+  },
+  "added_routes": [
+    [
+      "MDAnalysis.AtomGroup",
+      "MDAnalysis.AtomGroup"
+    ],
+    [
+      "MDAnalysis.AtomGroup",
+      "MDAnalysis.Universe"
+    ],
+    [
+      "MDAnalysis.AtomGroup",
+      "molsysmt.MolSys"
+    ],
+    [
+      "MDAnalysis.AtomGroup",
+      "molsysmt.Topology"
+    ],
+    [
+      "MDAnalysis.Topology",
+      "MDAnalysis.Topology"
+    ],
+    [
+      "MDAnalysis.Topology",
+      "molsysmt.Topology"
+    ],
+    [
+      "file:pdb",
+      "MDAnalysis.Topology"
+    ]
+  ],
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/MDAnalysis_AtomGroup tests/form/MDAnalysis_Topology tests/form/MDAnalysis_Universe devtools/tests/test_audit_conversion_execution.py tests/test_argument_contract.py --receptor=llm -n 12",
+    "exit_code": 0,
+    "passed": 416,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 35.27,
+    "warnings": {
+      "legacy_h5msm_04": 28,
+      "mdanalysis_pdb_default_fields_and_cell": 9
+    }
+  },
+  "checks": {
+    "ruff_check": "whole checkout pass",
+    "ruff_format_check": "whole checkout pass",
+    "fast_gates": "14/14 pass"
+  },
+  "guards": [
+    "tests/conversion_truth/test_declared_native_edges.py",
+    "tests/conversion_truth/test_declared_pdb_edges.py",
+    "tests/form/MDAnalysis_AtomGroup/test_subset_contract.py",
+    "tests/form/MDAnalysis_Topology/test_contract.py"
+  ],
+  "bounds": [
+    "No runtime converters, public APIs or declared edges changed.",
+    "Native extraction retains ascending source order; MDAnalysis outputs preserve the requested order.",
+    "No converter defect confirmed in this extension.",
+    "Optional-provider skips remain setup-only; none occurred in this run.",
+    "Output-form execution and bounded literal value checks do not certify all field fidelity.",
+    "No new scientific method or Ackredit calculation boundary.",
+    "Unrelated concurrent addon and generated-document changes are excluded from this delivery."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "MDAnalysis": "2.10.0",
+      "mdtraj": "1.11.1",
+      "openmm": "8.6.1",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394"
+    }
+  },
+  "source_sha256": {
+    "devtools/data/conversion_execution_baseline.json": "98ef0d0314005472b41cc55e18c6b83fdf6d88b673c102f8c9fdcf8f47a77313",
+    "tests/conversion_truth/test_declared_native_edges.py": "fd5fe9713116ad29ef9179d706c1d8fcb4349ffd29c4e78c0ac4989d666bca6b",
+    "tests/conversion_truth/test_declared_pdb_edges.py": "32abb1f4844fbbfe43e47b1eeb1b6dacebf15e2e90bc441a58680cb4b40874f6",
+    "tests/form/MDAnalysis_AtomGroup/test_subset_contract.py": "a5704f32d0b0f771607d7beb113d144997e7709ca06a441669adc0623a92800d",
+    "tests/form/MDAnalysis_Topology/test_contract.py": "bb08a489e6bde7ac3e7fd5a3edd08c211b500611cec75391d51ebabd1ab82abc",
+    "molsysmt/form/MDAnalysis_Topology/to_molsysmt_Topology.py": "c12ef2c2bde131f25603fddb4d32526829451ea8449cb8c6872b4efdde52d563",
+    "molsysmt/form/MDAnalysis_Topology/extract.py": "7f629e6e8adb8a2c4867ed068f289cc0b3db035df76fcb99923413d90946f0db",
+    "molsysmt/form/MDAnalysis_Universe/_subset.py": "f37887c78c28fcc0ecdc246591bb17fbe52f1d90d5e6b748afa6b6241261f489",
+    "molsysmt/form/MDAnalysis_Universe/to_molsysmt_MolSys.py": "f4295762c0458767fd6fef8023977a1360b699569821634247b5808e7416c6fd",
+    "molsysmt/native/topology.py": "612686c1c1b37d26129660a7c84d7dc7fb3a3e7b051c71f34d205f1ceb226700"
+  }
+}

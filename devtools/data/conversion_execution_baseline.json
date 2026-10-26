@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-files-v7",
+  "profile": "resident-files-v8",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -28,7 +28,9 @@
     "file:pdbqt",
     "string:pdbqt_text",
     "MDAnalysis.Universe",
-    "molsysmt.PDBQTFileHandler"
+    "molsysmt.PDBQTFileHandler",
+    "MDAnalysis.AtomGroup",
+    "MDAnalysis.Topology"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -57,25 +59,11 @@
     "file:pdbqt",
     "string:pdbqt_text",
     "MDAnalysis.Universe",
-    "molsysmt.PDBQTFileHandler"
+    "molsysmt.PDBQTFileHandler",
+    "MDAnalysis.AtomGroup",
+    "MDAnalysis.Topology"
   ],
   "accepted_unexecuted_edges": {
-    "MDAnalysis.AtomGroup": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "MDAnalysis.AtomGroup",
-        "MDAnalysis.Universe",
-        "molsysmt.MolSys",
-        "molsysmt.Topology"
-      ]
-    },
-    "MDAnalysis.Topology": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "MDAnalysis.Topology",
-        "molsysmt.Topology"
-      ]
-    },
     "MDAnalysis.Universe": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
@@ -291,7 +279,6 @@
     "file:pdb": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "MDAnalysis.Topology",
         "MDAnalysis.topology.PDBParser",
         "file:mol2",
         "mdtraj.PDBTrajectoryFile",

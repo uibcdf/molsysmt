@@ -3,6 +3,7 @@
 from contextlib import contextmanager
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 import molsysmt as msm
@@ -126,3 +127,25 @@ def test_declared_pdb_edge_executes_directly_and_publicly(
                     assert result.file.closed
             if source == "molsysmt.PDBFileHandler":
                 assert not item.file.closed
+
+
+@pytest.mark.parametrize("route", ["direct", "public"])
+def test_pdb_to_mdanalysis_topology_preserves_literal_records(route, tmp_path):
+    pytest.importorskip("MDAnalysis")
+    source = tmp_path / "water.pdb"
+    text = _pdb_text()
+    source.write_text(text)
+
+    if route == "direct":
+        output = _execute_direct("file:pdb", "MDAnalysis.Topology", str(source))
+    else:
+        output = msm.convert(str(source), to_form="MDAnalysis.Topology")
+
+    assert output.n_atoms == 3
+    assert output.n_residues == 1
+    assert output.n_segments == 1
+    assert output.ids.values.tolist() == [1, 2, 3]
+    assert output.names.values.tolist() == ["O", "H1", "H2"]
+    assert output.resnames.values.tolist() == ["HOH"]
+    np.testing.assert_array_equal(output.bonds.values, [(0, 1), (0, 2)])
+    assert source.read_text() == text

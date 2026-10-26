@@ -34,7 +34,11 @@ EDGES = sorted(
 
 
 def _source(form):
-    if form == "MDAnalysis.Universe":
+    if form in {
+        "MDAnalysis.Universe",
+        "MDAnalysis.AtomGroup",
+        "MDAnalysis.Topology",
+    }:
         mda = pytest.importorskip("MDAnalysis")
         universe = mda.Universe.empty(
             3, n_residues=1, atom_resindex=[0, 0, 0], trajectory=True
@@ -65,6 +69,11 @@ def _source(form):
             order="fac",
             dimensions=np.array([[20, 20, 20, 90, 90, 90]] * 2),
         )
+        if form == "MDAnalysis.AtomGroup":
+            # Parent indices differ from local positions; omit one parent atom.
+            return universe.atoms[[2, 0]]
+        if form == "MDAnalysis.Topology":
+            return universe._topology.copy()
         return universe
     if form.startswith("mdtraj."):
         md = pytest.importorskip("mdtraj")

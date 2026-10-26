@@ -16,6 +16,7 @@ group count, chain count, atom names, and group names.
 
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 import molsysmt as msm
@@ -104,3 +105,38 @@ def test_topology_self_conversion_applies_atom_subset(mda_topology):
 
     assert output.n_atoms == 2
     assert output.ids.values.tolist() == [3, 1]
+
+
+@pytest.mark.parametrize("route", ["direct", "public"])
+@pytest.mark.parametrize("target", ["MDAnalysis.Topology", "molsysmt.Topology"])
+def test_topology_reordering_preserves_labels_and_connectivity(
+    rich_universe, route, target
+):
+    from molsysmt.form import _dict_modules, load_converter
+
+    source = rich_universe._topology.copy()
+    if route == "direct":
+        module = _dict_modules["MDAnalysis.Topology"]
+        converter = load_converter(module, module._convert_to[target])
+        output = converter(source, atom_indices=[3, 2])
+    else:
+        output = msm.convert(source, to_form=target, selection=[3, 2])
+
+    assert msm.get_form(output) == target
+    if target == "MDAnalysis.Topology":
+        assert output.ids.values.tolist() == [13, 12]
+        assert output.names.values.tolist() == ["A3", "A2"]
+        assert output.resids.values.tolist() == [7]
+        np.testing.assert_array_equal(output.bonds.values, [[0, 1]])
+    else:
+        # Native extraction retains ascending source order; permutation is explicit.
+        assert output.atoms["atom_id"].tolist() == ["12", "13"]
+        assert output.atoms["atom_name"].tolist() == ["A2", "A3"]
+        assert output.groups["group_id"].tolist() == ["7"]
+        np.testing.assert_array_equal(
+            output.bonds[["atom1_index", "atom2_index"]].to_numpy(), [[0, 1]]
+        )
+    assert output.n_atoms == 2
+    assert source.n_atoms == 4
+    assert source.ids.values.tolist() == [10, 11, 12, 13]
+    np.testing.assert_array_equal(source.bonds.values, [(0, 1), (1, 2), (2, 3)])

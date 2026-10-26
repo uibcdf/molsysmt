@@ -17,8 +17,9 @@ supersedes: []
 **Reported:** 2026-08-19, from the post-mortem of
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
-**Status:** partial. Resident-native, MDTraj/OpenMM and bounded H5MSM/PDB/SDF/PDBQT
-execution profiles are implemented; remaining external/file/network routes remain debt.
+**Status:** partial. Resident-native, MDTraj/OpenMM, MDAnalysis Universe/AtomGroup/
+Topology and bounded H5MSM/PDB/SDF/PDBQT execution profiles are implemented;
+remaining external/file/network routes remain debt.
 
 ## What
 
@@ -477,3 +478,37 @@ or installed release matrix was run, and no large-file benchmark is claimed.
 
 The machine-readable scope, source hashes and limitations are recorded in
 [`pdbqt_handler_20261023.json`](../../devtools/data/pdbqt_handler_20261023.json).
+
+## MDAnalysis AtomGroup and Topology extension — 2026-10-25
+
+The `resident-files-v8` profile selects **157 of 606 declared edges**, leaving
+449 explicitly listed unexecuted edges. The inventory immediately before this
+extension was 150/606 with 456 deferred edges; the earlier 149/605 receipt records
+its own dated graph. Only the seven newly selected routes are removed from debt:
+the four AtomGroup outputs, the two MDAnalysis.Topology outputs and
+PDB-to-MDAnalysis.Topology. No converter or declared route is changed.
+
+The resident fixture returns a partial reordered AtomGroup with parent indices
+`[2, 0]`, or a copied provider topology. The existing PDB executor supplies its
+literal water record. Separate direct/public contracts test two local selection
+orders against a four-atom, two-group Universe, selected structures `[2, 0]`,
+retained bonds, source labels, native string IDs and nm geometry. They also check
+that source coordinates and the source trajectory cursor are unchanged.
+
+An initial test incorrectly expected native extraction to preserve the requested
+atom order. Inspection confirmed that `Topology.extract()` sorts source atom
+indices and the Universe-to-MolSys converter applies the same ordering to both
+topology and coordinates. The corrected oracle explicitly checks this established
+native contract as well as MDAnalysis's requested-order output. No ordering
+semantics were changed, and no converter defect was confirmed in this extension.
+PDB-to-provider topology additionally checks literal names, labels, group count
+and CONECT bonds without comparing against another MolSysMT conversion.
+
+The regression command in the [receipt](../../devtools/data/conversion_execution_mdanalysis_subsets_20261025.json)
+passes **416 tests**, zero failures or skips, in 35.27 seconds with twelve workers
+and Pytest Receptor. The 37 warnings are 28 legacy-H5MSM notices and nine provider
+PDB default-field/cell notices. Whole-checkout Ruff lint and formatting and all
+14 fast gates pass. The audit reports 157 planned routes; the parametrized runtime
+tests provide the separate execution evidence. #181 remains partial. This is
+bounded local source qualification, not an installed-pair, full-graph or release
+qualification; #334's publication pause is unchanged.
