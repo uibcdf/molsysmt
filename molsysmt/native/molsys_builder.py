@@ -52,6 +52,7 @@ class MolSysBuilder(NativeQueries):
             self._preserve_absent_groups = (
                 self.topology.n_groups == 0 and self.topology.n_molecules > 0
             )
+            self._capture_group_free_molecule_membership()
         else:
             raise ArgumentChoiceError(
                 argument="molecular_system",
@@ -238,6 +239,34 @@ class MolSysBuilder(NativeQueries):
 
         return atom_index
 
+    def _capture_group_free_molecule_membership(self):
+        """Retain source ownership during the transition to group-based membership."""
+        if (
+            not hasattr(self, "_inherited_atom_molecules")
+            and self.topology.n_groups == 0
+            and self.topology.n_molecules > 0
+        ):
+            from ._topology_infer import molecule_indices_from_atoms
+
+            self._inherited_atom_molecules = molecule_indices_from_atoms(
+                self.topology
+            ).copy()
+
+    def _inherited_group_molecule(self, atom_indices):
+        """Resolve one inherited owner without merging declared source molecules."""
+        owners = getattr(self, "_inherited_atom_molecules", None)
+        if owners is None:
+            return pd.NA
+        existing = atom_indices[atom_indices < len(owners)]
+        candidates = np.unique(owners[existing])
+        candidates = candidates[candidates >= 0]
+        if len(candidates) > 1:
+            raise StructuralInconsistencyError(
+                caller="molsysmt.native.MolSysBuilder.add_group",
+                reason="A group cannot span multiple inherited source molecules.",
+            )
+        return int(candidates[0]) if len(candidates) else pd.NA
+
     @signal(tags=["native", "builder"])
     @arg_digest()
     def add_group(
@@ -248,7 +277,54 @@ class MolSysBuilder(NativeQueries):
         group_type=None,
         skip_digestion=False,
     ):
+        """Adding a group while preserving inherited source molecule ownership.
 
+        Parameters
+        ----------
+        atom_indices : list, tuple, or numpy.ndarray
+            Existing atom indices to assign to this group. Atoms must be ungrouped.
+        group_id : str or int, optional
+            Group label, normalized to a string. None uses its new index.
+        group_name : str, optional
+            Group name. None uses UNK.
+        group_type : str, optional
+            Group type. None leaves it available for inference at build time.
+        skip_digestion : bool, default=False
+            Whether to skip argument digestion for already validated arguments.
+
+        Returns
+        -------
+        int
+            Index of the appended group.
+
+        Raises
+        ------
+        StructuralInconsistencyError
+            If atoms are undefined, already grouped, or span distinct inherited
+            source molecules. A rejected group is not partially inserted.
+
+        Notes
+        -----
+        When staging a group-free source, added groups inherit its molecule
+        indices and metadata. Building fills remaining ungrouped source atoms
+        with fallback groups retaining the same ownership. New builders without
+        an inherited molecule axis retain their ordinary inference behavior.
+        Membership staging uses a compact source-atom map; no new chemical store
+        or implicit molecular merge is introduced.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> atom_index = builder.add_atom(atom_name='C', atom_type='C')
+        >>> builder.add_group([atom_index], group_name='LIG')
+        0
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Editable` for staging and compiling native edits.
+
+        .. versionadded:: 1.0.0
+        """
         atom_indices = self._indices_array(atom_indices)
         self._validate_existing_indices(
             atom_indices, upper_bound=self.topology.n_atoms, element_name="Group"
@@ -262,6 +338,9 @@ class MolSysBuilder(NativeQueries):
                 "Atoms already assigned to a group cannot be reassigned."
             )
 
+        self._capture_group_free_molecule_membership()
+        molecule_index = self._inherited_group_molecule(atom_indices)
+
         group_index = self.topology.n_groups
         self.topology.groups.loc[group_index, "group_id"] = (
             self._normalize_optional_string(group_id, default=str(group_index))
@@ -273,7 +352,7 @@ class MolSysBuilder(NativeQueries):
             self.topology.groups.loc[group_index, "group_type"] = pd.NA
         else:
             self.topology.groups.loc[group_index, "group_type"] = str(group_type)
-        self.topology.groups.loc[group_index, "molecule_index"] = pd.NA
+        self.topology.groups.loc[group_index, "molecule_index"] = molecule_index
         self.topology.atoms.loc[atom_indices, "group_index"] = int(group_index)
 
         return group_index
@@ -606,7 +685,9 @@ class MolSysBuilder(NativeQueries):
             topology.groups.loc[group_index, "group_id"] = str(group_index)
             topology.groups.loc[group_index, "group_name"] = "UNK"
             topology.groups.loc[group_index, "group_type"] = pd.NA
-            topology.groups.loc[group_index, "molecule_index"] = pd.NA
+            topology.groups.loc[group_index, "molecule_index"] = (
+                self._inherited_group_molecule(np.asarray([atom_index], dtype=np.int64))
+            )
             topology.atoms.loc[atom_index, "group_index"] = int(group_index)
 
     def _fill_chain_fallbacks(self, topology):

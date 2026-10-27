@@ -54,3 +54,20 @@ their cause in the public `ArgumentError`.
 See [MDTraj #2190](https://github.com/mdtraj/mdtraj/issues/2190),
 [PyParsing #672](https://github.com/pyparsing/pyparsing/issues/672) and
 [MolSysMT #484](https://github.com/uibcdf/molsysmt/issues/484).
+
+## Missing hierarchy
+
+MDTraj requires a target residue and chain for each atom. When native groups or
+chains are absent, conversion supplies external-only UNL groups and a fallback
+chain, preserving source atom correspondence and available charges/bonds. Known
+molecules share a placeholder within each chain; atoms with no known molecule
+get separate placeholders. Existing group rows retain their target order. A
+partially assigned group uses its one known chain; multiple known chains in one
+group fail explicitly. No groups, chains or chemical assignments are added to
+the native source.
+
+MDTraj `resid`, `chainid`, `protein` and related predicates use the external
+target metadata, including placeholders. Missing biological identity is not
+inferred; UNL placeholders do not count as proteins or water. Returned atom
+indices remain aligned with the source used for selection. See
+{ref}`Cookbook_Group_Free_Hierarchy` for executable source-preservation examples.

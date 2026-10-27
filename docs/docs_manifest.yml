@@ -543,6 +543,10 @@ sections:
         file: docs/content/user/cookbook/exporting_secondary_structure_propensities.md
         agents_file: docs/content/user/cookbook/exporting_secondary_structure_propensities.md.AGENTS.md
         description: Exporting named reference ratios with source group indices
+      - name: group_free_hierarchy
+        file: docs/content/user/cookbook/group_free_hierarchy.ipynb
+        agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
+        description: Adding groups and using MDTraj selectors without changing source molecules
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

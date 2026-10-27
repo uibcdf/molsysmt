@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "resolved_issues": [
+    "uibcdf/molsysmt#494",
+    "uibcdf/molsysmt#495"
+  ],
+  "independent_open_issue": "uibcdf/molsysmt#499",
+  "source_basis": "ea9fff3395157389b3a245cf70f58517973e76b8",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "rdkit_executed": "2025.09.5",
+    "mdtraj": "1.11.1",
+    "pyparsing": "3.3.2",
+    "profile": "Shared local development environment, not a clean installed pair."
+  },
+  "checks": {
+    "focused": {
+      "command": "python -m pytest tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py tests/native/test_builder_inherited_molecules.py --receptor=llm -n 12",
+      "result": "40 passed, 1 strict xfailed (#499) in 9.37s."
+    },
+    "broad": {
+      "command": "python -m pytest tests/native/test_molsys_builder.py tests/native/test_group_free_molecules.py tests/native/test_builder_inherited_molecules.py tests/form/molsysmt_Topology tests/form/mdtraj_Topology tests/basic/select tests/physchem/test_get_tpsa.py tests/physchem/test_get_lipophilicity.py tests/molsysviewer_molsysmt/test_tpsa_tools.py --receptor=llm -n 12",
+      "result": "2404 passed, 1 strict xfailed (#499) in 134.83s; 32 existing legacy-H5MSM/PDB-box/unknown-atom-name warnings."
+    },
+    "receiving": {
+      "command": "python -m pytest tests/molsysviewer_molsysmt/test_tpsa_tools.py --receptor=llm -n 12",
+      "result": "59 passed in 25.82s after replacing former selector-error acceptance with mandatory positive native/consumer success and scene/source preservation."
+    },
+    "doctest": {
+      "command": "python -m pytest molsysmt/native/molsys_builder.py --doctest-modules --receptor=llm -n 12",
+      "result": "3 passed in 4.37s."
+    },
+    "docs_schema": {
+      "command": "python -m pytest devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12",
+      "result": "496 passed in 8.34s."
+    },
+    "fast_gates": "14/14 passed. This is the fast portion, not release qualification.",
+    "static": "Scoped Ruff, 255 public docstrings, devguide/index and public signature checks pass.",
+    "documentation": "New group-free hierarchy recipe executed in 12.3s. Existing code/output cells in five edited Tools/Form/course notebooks are unchanged; legacy scenarios are not requalified by the prose-only edits. HTML qualification is recorded in the reports. HTML exits zero with 32 existing header/directive/orphan warnings, none in the new recipe; no warning-debt reduction claimed."
+  },
+  "implementation": [
+    "A compact inherited source-atom molecule map supports full/partial group insertion without duplicate molecules or source metadata loss. Cross-molecule groups reject before writes; builder copies preserve the map.",
+    "MDTraj target-only UNL parents preserve declared source hierarchy, available charge/bond data and atom correspondence. Unknown hierarchy is not a protein/water inference. Incompatible known chains fail clearly.",
+    "Existing native subset extraction order policy is preserved; explicit atom permutation uses the separate general public tool.",
+    "No dependency floors, chemical assignments, format version, publication artifacts or release authorization changed."
+  ],
+  "open_limitation": "Appending atoms to populated builder chemical states still fails after mutating the atom inventory (#499). The desired-path exploratory guard is retained as strict xfail for StructuralInconsistencyError only; unexpected passes and unrelated exception classes fail. This is not a hidden skip or claimed fix.",
+  "exclusions": "No whole-suite, clean-installed, cross-platform, performance benchmark or publication qualification.",
+  "sha256": {
+    "molsysmt/native/molsys_builder.py": "27ed1ee5f0f0d5e608e6434711f324b7dfa5a1495944b7227d8aba95ba42c233",
+    "molsysmt/form/molsysmt_Topology/to_mdtraj_Topology.py": "aece847fba7ef80fc8d339244f1e4752c791fa02c37a3cc5525fc4b80d93a26d",
+    "molsysmt/form/molsysmt_Topology/_mdtraj_hierarchy.py": "d8a4919a51477ce0dbf3a02c1d6cb35c0acd8f95390fb95181c288c24cd8d135",
+    "tests/native/test_builder_inherited_molecules.py": "5eb812d7cf07916cad7de8a7938e6c3caf9f91a0733e521b43a7e489e7b77cc5",
+    "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py": "dd3ba8c6f38afc6cd5ae82e723373b1ece885b7896a37625a626b2628a2a16d7",
+    "tests/molsysviewer_molsysmt/test_tpsa_tools.py": "2f374371c1b7624c4847101a944f8911ab531ab8564fbb4e8dc59863079ceb7f",
+    "docs/content/user/cookbook/group_free_hierarchy.ipynb": "ae5b082d3e48a3146fc859511b03efdc71798874a3263789fc02b94953c359fd"
+  }
+}

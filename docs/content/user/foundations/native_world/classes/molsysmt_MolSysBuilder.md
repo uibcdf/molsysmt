@@ -104,3 +104,16 @@ See {ref}`API Native Queries` for resident-object queries and
 ## Native Queries
 
 Inspect the current staging data with `builder.get(...)` and `builder.info(...)` without finalizing a system. Both methods validate options by default, including attribute flags and skip_digestion; new atoms are visible to later queries. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.
+
+## Inherited Molecules
+
+Adding groups to a group-free source preserves its molecule indices, string IDs,
+names and types. Partially grouped sources receive fallback groups for remaining
+atoms during build, with the same inherited ownership. Groups spanning different
+inherited molecules are rejected before insertion. New builders without an
+inherited axis retain ordinary inference. Staging keeps a compact source-atom
+ownership map; it does not create a second chemical store. The source system
+remains unchanged. See {ref}`Cookbook_Group_Free_Hierarchy` for executed examples.
+
+Changing the atom axis is separate: appending to populated chemical-state tables
+remains an open defect under [#499](https://github.com/uibcdf/molsysmt/issues/499).

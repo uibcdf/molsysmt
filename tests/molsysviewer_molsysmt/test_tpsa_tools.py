@@ -142,16 +142,12 @@ def test_quantity_default_and_explicit_sulfur_phosphorus_variant(view):
 
 
 @pytest.mark.parametrize("selection", ["index >= 0", "index 0", "name ZZZX"])
-def test_external_selectors_retain_native_group_free_limit(view, selection):
-    # Native #495 owns the missing-group adapter failure. Preserve scientific
-    # success or rejection; this consumer neither creates groups nor rewrites it.
+def test_external_selectors_receive_group_free_native_support(view, selection):
+    # Native #495 supplies target-only MDTraj hierarchy. The consumer must
+    # receive a real successful result, without translating the selection.
     args = dict(selection=selection, syntax="MDTraj", return_report=True)
-    try:
-        expected = msm.physchem.get_tpsa(view.molsys, **args)
-    except msm.ArgumentError as error:
-        with pytest.raises(type(error)):
-            view.addons.molsysmt.physchem.get_tpsa(**args)
-        return
+    state, status = view.export_state(), view.addons.molsysmt.get_sync_status()
+    expected = msm.physchem.get_tpsa(view.molsys, **args)
     result = view.addons.molsysmt.physchem.get_tpsa(**args)
     same(result, expected)
     indices = (
@@ -160,6 +156,10 @@ def test_external_selectors_retain_native_group_free_limit(view, selection):
     assert result["report"]["molecule_indices"].tolist() == indices
     if selection == "index 0":
         assert result["report"]["atom_indices"].tolist() == [0, 1, 2]
+
+    assert view.export_state() == state
+    assert view.addons.molsysmt.get_sync_status() == status
+    assert view.molsys.topology.n_groups == 0
 
 
 def test_real_bundled_caffeine_reference_area():

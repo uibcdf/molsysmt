@@ -1414,3 +1414,13 @@ separate owner receiving; the addon adds no selector/hierarchy workaround.
 Exact-source hosted CI still requires integration. GUI tasks, optional-provider
 absence, performance, other platforms, artifacts and both paused 1.0 publications
 retain separate scope. Source support is not installed-package qualification.
+
+### Native group-free hierarchy repairs — 2026-10-27
+
+Owner repairs uibcdf/molsysmt#494/#495 preserve inherited source molecules during
+group insertion and allow MDTraj selections through external-only placeholders.
+The bound TPSA reader retains exact native delegation and requires actual selector
+success in its receiving guard, with source hierarchy and scene state unchanged.
+Metadata selector limits follow the native adapter; no consumer translation or
+source repair is added. Populated-state atom insertion remains independently open
+under uibcdf/molsysmt#499 with a strict expected-failure native guard.

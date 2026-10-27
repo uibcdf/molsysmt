@@ -22,7 +22,29 @@ def to_mdtraj_Topology(item, atom_indices="all", skip_digestion=False):
     Returns
     -------
     mdtraj.Topology
-        Resulting object in mdtraj.Topology form.
+        Independent target preserving selected atom order, declared hierarchy,
+        available formal charges and bonds. Missing source groups/chains use
+        temporary target-only parents, never new native assignments.
+
+    Raises
+    ------
+    StructuralInconsistencyError
+        If a group spans several declared chains or parent indices are invalid.
+
+    Notes
+    -----
+    MDTraj requires every atom to belong to a residue and chain. Existing native
+    groups retain their target order. Ungrouped atoms use UNL placeholders per
+    known source molecule and chain; when molecule ownership is absent, each
+    ungrouped atom receives its own placeholder. Missing chains share one target
+    fallback chain. A partially assigned group's one known chain is used for
+    that whole target group; conflicting known chains fail explicitly.
+
+    These external residue/chain indices are not missing native group/chain
+    indices. MDTraj selectors such as resid or protein operate on the target's
+    available metadata, including placeholders. Atom-index selections remain
+    aligned with the selected source atom order. No source hierarchy, chemistry
+    or coordinates are changed, and no physical group identity is inferred.
 
 
     .. versionadded:: 1.0.0
@@ -44,24 +66,9 @@ def to_mdtraj_Topology(item, atom_indices="all", skip_digestion=False):
     tmp_item = Topology()
 
     list_new_atoms = []
-    list_new_residues = []
-    list_new_chains = []
+    from ._mdtraj_hierarchy import target_residues_for_atoms
 
-    for chain in item.chains.itertuples(index=True):
-        tmp_chain = tmp_item.add_chain(chain_id=str(chain.chain_id))
-        list_new_chains.append(tmp_chain)
-
-    group_chain_mapping = (
-        item.atoms.groupby("group_index")["chain_index"].agg("first").to_dict()
-    )
-
-    for group in item.groups.itertuples(index=True):
-        tmp_residue = tmp_item.add_residue(
-            group.group_name,
-            list_new_chains[group_chain_mapping[group.Index]],
-            resSeq=str(group.group_id),
-        )
-        list_new_residues.append(tmp_residue)
+    residues_for_atoms = target_residues_for_atoms(item, tmp_item)
 
     formal_charges = item._get_chemical_state_atom_attribute("formal_charge")
     for atom in item.atoms.itertuples(index=True):
@@ -72,7 +79,7 @@ def to_mdtraj_Topology(item, atom_indices="all", skip_digestion=False):
         tmp_atom = tmp_item.add_atom(
             atom.atom_name,
             elem,
-            list_new_residues[atom.group_index],
+            residues_for_atoms[atom.Index],
             atom.atom_id,
             formal_charge=formal_charge,
         )
@@ -100,6 +107,6 @@ def to_mdtraj_Topology(item, atom_indices="all", skip_digestion=False):
             order=order,
         )
 
-    del list_new_atoms, list_new_residues, list_new_chains
+    del list_new_atoms, residues_for_atoms
 
     return tmp_item

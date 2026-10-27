@@ -20,11 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
-- [`builder_group_insertion_duplicates_molecule_inventory.md`](builder_group_insertion_duplicates_molecule_inventory.md) — [#494](https://github.com/uibcdf/molsysmt/issues/494) — MolSysBuilder group insertion duplicates an existing molecule inventory. *(medium, reproduced)*
+- [`builder_atom_insertion_leaves_populated_chemical_states_misaligned_after_mutatio.md`](builder_atom_insertion_leaves_populated_chemical_states_misaligned_after_mutatio.md) — [#499](https://github.com/uibcdf/molsysmt/issues/499) — Builder atom insertion leaves populated chemical states misaligned after mutation *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`mdtraj_selection_rejects_group_free_topologies_with_natype.md`](mdtraj_selection_rejects_group_free_topologies_with_natype.md) — [#495](https://github.com/uibcdf/molsysmt/issues/495) — MDTraj selection rejects valid group-free topologies with NAType. *(medium, reproduced)*
 
 ### Partially resolved (2)
 

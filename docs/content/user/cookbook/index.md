@@ -11,6 +11,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`placing_selected_centers`** | Moving populations between explicit source and destination centers. |
 | **{doc}`copying_disk_systems`** | Keeping byte-preserving file snapshots and editable native copies independent. |
 | **{doc}`exporting_secondary_structure_propensities`** | Exporting named dimensionless reference categories with source group indices. |
+| **{doc}`group_free_hierarchy`** | Adding groups and using external selections while preserving source molecules. |
 | **{doc}`molecular_descriptors`** | Joining state-preserving TPSA and lipophilicity descriptors with source maps. |
 | **{doc}`tpsa_descriptors`** | Exporting unit-aware molecular TPSA with source indices and provenance. |
 | **{doc}`exporting_bulkiness`** | Exporting selected reference bulkiness with explicit area units. |
@@ -56,6 +57,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    exporting_bulkiness.md
    tpsa_descriptors.md
    molecular_descriptors.md
+   group_free_hierarchy.ipynb
    exporting_secondary_structure_propensities.md
    copying_disk_systems.md
    placing_selected_centers.md

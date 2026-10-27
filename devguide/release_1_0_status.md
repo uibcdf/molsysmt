@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-26
+**Last updated:** 2026-10-27
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,19 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Current source follow-up — 2026-10-27
+
+TPSA/lipophilicity contribution outputs are source-resolved under #497 and native
+atom-membership order/missing-parent behavior under #498. The subsequent #494/#495
+owner repairs preserve inherited molecules when adding groups and support MDTraj
+selection of group-free sources through target-only hierarchy. Local tests and
+executed documentation do not replace candidate/platform/installed-pair gates.
+
+An independent populated-state builder atom-insertion defect remains open under
+#499, with a retained strict expected-failure control. It is not fixed by the
+group-insertion repair or waived for release. Existing source-versus-artifact
+identities and the publication pause below remain unchanged.
 
 ## Current source stabilization — 2026-10-26
 
