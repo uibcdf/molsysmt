@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "source_parent": "39bb09715cfcc2bc44269d4309b16303c0cca594",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    },
+    "scope": "Shared editable development environment; not a clean installed pair."
+  },
+  "source_sha256": {
+    "molsysmt/native/topology.py": "cb518364fe4461d21e5d9334d297e177f86912f033bfd1c0fafcba0f7eec22a3",
+    "molsysmt/native/_topology_infer.py": "3376e2dd0938e19cdf3bfc8f89eca98af72bccead0248c29358d5d79dcd372eb",
+    "molsysmt/native/molsys_builder.py": "f593c374adf404eeee03c8cffd24f4a7ad1df9aad9f33ccf78c43fe04965b139",
+    "molsysmt/form/molsysmt_Topology/get_topological_attributes.py": "dd8fb959a9bbdbf65c1e7dca48df5d5d4cbc31ec9ee7cbc02a45e626f9cc4be4",
+    "molsysmt/form/molsysmt_MolSysDict/_builder.py": "887608573788061c00be2090b5d58c801d89dada65a3c5f71cac4063ea176061",
+    "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSys.py": "2fe878b10f0143f5c5dfb026aef262fc6b1997ab97e05c7aed1a1933d37e48c1",
+    "tests/native/test_group_free_molecules.py": "0f56000b9d61599192288f8072dea3adbed28021f80adc85c8d7d67e51e8f94d",
+    "molsysmt/physchem/get_tpsa.py": "4a7f196bf3acb9ebadecaeaa0a4357ed52ca0c1b40dabc1e3e98793942fc2697",
+    "molsysmt/_private/argdigest/argument/include_sulfur_phosphorus.py": "d20fcd525070b0d33c6490f7275a03277f4f01bcff9a5b7056bdbf863449da59",
+    "molsysmt/_private/argdigest/argument/method.py": "c7f49fcae2f83bd32165a33856bde84ba953d5c5a3e30d08e8da905bc38ed00e",
+    "molsysmt/_private/scientific_citations.py": "219ae75ddfd86bf9a788d9adac8a539494726742463e818f56b925c65f632a62",
+    "tests/physchem/test_get_tpsa.py": "a4ffba61b57aa5e8b75053fcaca857dbe9d607d3065a978e8e5e70615990a3f1",
+    "tests/scientific_truth/physchem/test_tpsa.py": "edc481525ec75e122912296c69018c5f6a48dd4d19908f2d3dcf283b63e021ba"
+  },
+  "validation": {
+    "hierarchy": "1354 passed in 26.68 seconds; affected native/query/form/hierarchy scope.",
+    "expanded": {
+      "command": "python -m pytest tests/native tests/physchem tests/interactions tests/topology tests/element/molecule tests/form/rdkit_Mol tests/form/molsysmt_MolSysDict tests/form/molsysmt_Topology tests/scientific_truth/physchem/test_tpsa.py --receptor=llm -n 12",
+      "result": "5129 passed, 1 failed in 252.56 seconds. The only failure was downloading 2NZT with sandbox DNS unavailable.",
+      "network_recovery": "The unchanged failing test_get_sequence_alignment_molsysmt_MolSys_3 passed alone with network access: 1 passed in 14.77 seconds. No assertion was weakened or skipped."
+    },
+    "final_focused": "121 passed in 17.33 seconds; final native builder/form roundtrips, TPSA/primary controls and #493 diagnostic, after the one-pass selected-boundary check.",
+    "docs_schema_doctest": "502 passed in 14.40 seconds.",
+    "fast_gates": "14/14 passed.",
+    "static": "Scoped Ruff, dependency audit, 254 public docstrings, 276 API classifications, zero unauthorized signature drift, scientific registry and devguide/index validation pass.",
+    "docs": "TPSA tutorial executed in 8.3 seconds; cookbook Python executes with source-order/value assertions. Five course notebooks retain code, execution metadata and outputs. Final HTML exits zero with 25 existing header/orphan warnings under #144 and no TPSA diagnostic.",
+    "addon_regression": "83 existing physicochemical addon tests passed in 13.28 seconds; no new TPSA addon wrapper is claimed."
+  },
+  "exclusions": "No whole-suite, installed/cross-platform, benchmark, exact release or publication qualification.",
+  "issue": "uibcdf/molsysmt#492",
+  "implementation": [
+    "Experimental form-agnostic get_tpsa, only complete connected molecules; one area per selected molecule.",
+    "Reuse chemical-graph, conversion, aromaticity and topology membership tools. No copied trajectory series; the compiled RDKit CalcTPSA primitive is reused.",
+    "Explicit N/O versus N/O/S/P; PyUnitWizard standardization; declared hydrogen inventory and chemical-state validation.",
+    "Optional report retains detached source maps, state/digest, charge values with explicit elementary_charge unit, method/options, original software versions and attribution.",
+    "Optional Ackredit captures parent/actual aromaticity child use; empty results credit the selected TPSA model without claiming an aromaticity calculation.",
+    "Native SDF requires explicit fixed-state H/valence evidence; absent inventory fails clearly. No implicit preparation or automatic H5MSM report storage."
+  ],
+  "scientific_sources": "devtools/data/tpsa_logp_contract_review_20261026.json",
+  "scientific_evidence": "Partial: independent simple original-fragment sums, distinct from wider provider/form parity or transport accuracy."
+}

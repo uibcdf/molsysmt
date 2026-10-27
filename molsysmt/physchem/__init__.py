@@ -16,6 +16,7 @@ from .get_area_buried import get_area_buried
 from .get_buried_fraction import get_buried_fraction
 from .get_hydrophobicity import get_hydrophobicity
 from .get_sasa import get_sasa
+from .get_tpsa import get_tpsa
 from .get_surface_area import get_surface_area
 from .get_volume import get_volume
 

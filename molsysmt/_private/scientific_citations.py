@@ -6,6 +6,15 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "ertl_2000": dict(
+        doi="10.1021/jm000942e",
+        title="Fast Calculation of Molecular Polar Surface Area as a Sum of Fragment-Based Contributions and Its Application to the Prediction of Drug Transport Properties",
+        authors=["Ertl, Peter", "Rohde, Bernhard", "Selzer, Paul"],
+        year=2000,
+        journal="Journal of Medicinal Chemistry",
+        volume="43",
+        pages="3714-3717",
+    ),
     "levitt_1978": dict(
         doi="10.1021/bi00613a026",
         title="Conformational preferences of amino acids in globular proteins",

@@ -2136,6 +2136,13 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_secondary_structure_propensity.ipynb",
       "contract_tests": "tests/physchem/test_get_secondary_structure_propensity.py"
+    },
+    "molsysmt.physchem.get_tpsa": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_tpsa.ipynb",
+      "contract_tests": "tests/physchem/test_get_tpsa.py"
     }
   }
 }

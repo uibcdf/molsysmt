@@ -645,7 +645,8 @@ for each adopted capability. No extra implementation is included in #490.
 
 ## TPSA/logP public-contract study — 2026-10-26
 
-**Proposed, not implemented.** The maintainer accepted studying the first
+**Reviewed proposal:** TPSA was subsequently implemented under #492; logP remains
+a proposal. The maintainer accepted studying the first
 molecular-descriptor contract. The [review receipt](../../devtools/data/tpsa_logp_contract_review_20261026.json)
 records thirteen RDKit characterization cases, five bounded original-table TPSA
 sums, unchanged provider inputs and explicit/implicit hydrogen parity. These
@@ -685,7 +686,7 @@ Use short established descriptor names, consistent with `get_sasa`, without
 reusing `get_surface_area` or changing its historical reference-table contract:
 
 ```python
-# Proposed interfaces; these functions are not yet available.
+# Reviewed interfaces: get_tpsa is implemented under #492; get_logp remains proposed.
 msm.physchem.get_tpsa(
     molecular_system,
     element='molecule',
@@ -806,3 +807,17 @@ This study establishes a concrete proposal, not new functions or an expanded
 1.0 release gate. #485 remains partial; #491 owns the independently reusable
 prerequisite fix. Whether to adopt the two new functions before 1.0 is a separate
 maintainer decision after this contract review.
+
+
+## Molecular TPSA implementation received
+
+Experimental `physchem.get_tpsa` is implemented under uibcdf/molsysmt#492,
+following the reviewed molecule/chemical-state/unit boundary. General group-free
+molecule membership is repaired under uibcdf/molsysmt#491 without inventing groups.
+The implementation reuses general graph/aromaticity/conversion tools and the
+compiled RDKit descriptor, preserving actual scientific references and producer
+versions through optional Ackredit. Initial native SDF scope requires explicit
+valence/H evidence; absent hydrogen inventory fails rather than being guessed.
+LogP is not implemented: its charged-state scope remains a separate decision.
+See [qualification](../../devtools/data/molecular_tpsa_implementation_20261026.json).
+The wider capability review remains partial and open.

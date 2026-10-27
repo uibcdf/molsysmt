@@ -419,3 +419,9 @@ molsysmt.physchem.get_secondary_structure_propensity:
   first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
   summary: "Reads dimensionless weighted Levitt reference ratios for explicit conformation categories."
   doc_ref: "{func}`molsysmt.physchem.get_secondary_structure_propensity`"
+
+molsysmt.physchem.get_tpsa:
+  name: "msm.physchem.get_tpsa"
+  first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
+  summary: "Calculates unit-aware molecular TPSA with explicit chemical-state and polar-element scope."
+  doc_ref: "{func}`molsysmt.physchem.get_tpsa`"

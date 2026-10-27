@@ -11,6 +11,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`placing_selected_centers`** | Moving populations between explicit source and destination centers. |
 | **{doc}`copying_disk_systems`** | Keeping byte-preserving file snapshots and editable native copies independent. |
 | **{doc}`exporting_secondary_structure_propensities`** | Exporting named dimensionless reference categories with source group indices. |
+| **{doc}`tpsa_descriptors`** | Exporting unit-aware molecular TPSA with source indices and provenance. |
 | **{doc}`exporting_bulkiness`** | Exporting selected reference bulkiness with explicit area units. |
 | **{doc}`weighting_pca`** | Checking weighted covariance, squared-length units and principal-component projections. |
 | **{doc}`comparing_sequence_source_groups`** | Comparing sequence letters with their original molecular group indices. |
@@ -52,6 +53,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    comparing_sequence_source_groups.md
    weighting_pca.md
    exporting_bulkiness.md
+   tpsa_descriptors.md
    exporting_secondary_structure_propensities.md
    copying_disk_systems.md
    placing_selected_centers.md

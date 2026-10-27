@@ -148,5 +148,24 @@
       }
     ],
     "gap": "Evidence certifies the bounded reference lookup, not the original population-analysis implementation, prediction accuracy, observed secondary structure, modified-group substitutions or aggregate molecular observables. Additional scale families remain unaudited."
+  },
+  "molsysmt.physchem.get_tpsa": {
+    "domain": "physchem",
+    "status": "partial",
+    "claim": "Bounded N/O Ertl fragment sums for ethanol, dimethyl ether and acetic acid, with area-unit conversion. Broader form/element-scope checks are contract/provider parity, not permeability validation.",
+    "units": [
+      "nm**2"
+    ],
+    "periodic_behavior": "No coordinates/PBC in graph descriptor; structures are only selection/state context.",
+    "contract_test_area": "tests/physchem/test_get_tpsa.py",
+    "scientific_evidence": [
+      {
+        "class": "versioned-reference",
+        "test": "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+        "oracle": "Ertl, Rohde, Selzer (2000), doi:10.1021/jm000942e, Table 1, OH=20.23, ether O=9.23, carbonyl O=17.07 angstrom squared. Source review: devtools/data/tpsa_logp_contract_review_20261026.json.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": "Only bounded original-fragment sums independently checked; no general transport/permeability, solvent exposure, metal/radical, arbitrary unsupported chemistry or all-fragment scientific validation. N/O and N/O/S/P remain explicit provider variants."
   }
 }

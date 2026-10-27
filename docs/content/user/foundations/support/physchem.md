@@ -167,3 +167,16 @@ references in earlier or later calculations. This small metadata boundary does
 not copy coordinates or interaction arrays. The detached `attribution` bibliography
 records the completed calculation separately; manually editing a reference field
 does not revise the bibliography or establish new scientific provenance.
+
+
+## Molecular TPSA
+
+{func}`molsysmt.physchem.get_tpsa` exposes the Ertl molecular graph descriptor
+through RDKit. It complements geometric SASA and amino-acid reference scales.
+Complete molecular identity, a declared chemical state and hydrogen inventory
+are needed, with no coordinates for ordinary selections. N/O-only and N/O/S/P
+are explicit variants. The area quantity follows PyUnitWizard policy; empty
+outputs retain the molecular axis. Reports preserve source membership and
+original scientific provenance. See {ref}`Tutorial_Get_tpsa` for scope and
+{ref}`Cookbook_TPSA_Descriptors` for exports. Neither variant directly measures
+solvent exposure or predicts permeability.

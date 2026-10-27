@@ -26,6 +26,11 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    if caller == "molsysmt.physchem.get_tpsa.get_tpsa":
+        if isinstance(method, str) and method == "ertl_rohde_selzer":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if caller in {
         "molsysmt.topology.get_atom_correspondences.get_atom_correspondences",
         "molsysmt.structure.get_symmetry_corrected_rmsd.get_symmetry_corrected_rmsd",

@@ -36,6 +36,7 @@ API Physical and Chemical Properties
    get_protor_atom_type
    get_protor_vdw_radius
    get_sasa
+   get_tpsa
    get_surface_area
    get_transmembrane_tendency
    get_volume
