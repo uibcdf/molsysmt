@@ -1125,3 +1125,17 @@ The [source receipt](../devtools/data/molsysviewer_tools_aromatic_receiving_2026
 and evidence limits. Final exact-source CI is pending at receipt creation.
 Source exposure does not qualify every model, missing optional provider,
 installed artifact, GUI or release. Both 1.0 publications remain paused.
+
+
+### Aromatic readers: exact-source CI received — 2026-10-26
+
+Producer `eeaf1cab8e9a1ea24113cc131da39a5f834a8217` completes all six source controls.
+[Smoke 40438923814](https://github.com/uibcdf/molsysmt/actions/runs/40438923814)
+passes 2,117 native and 1,467 addon cases with zero failures,
+errors or skips. Dependency 40438923826, Ruff 40438923843, guide integrity
+40438923895, suite policy 40438924145 and Conda governance 40438924176 also pass.
+The [terminal source receipt](../devtools/data/molsysviewer_tools_aromatic_source_ci_20261026.json) retains source/job/step identity and the
+original log SHA-256 `7d2855acf0d26894597ee420c46aade0df316bc25c5cc772d49d49fdeb9e9094`. It supersedes the pending hosted state in the
+immutable local receiving receipt; its sequential local phases stay unchanged.
+The named native/third-party limits, remaining twelve reviewed physchem paths,
+GUI and installed qualification retain their own scope. No publication changes.

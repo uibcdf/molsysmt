@@ -1,0 +1,233 @@
+{
+  "schema": "molsysmt.viewer_tools_aromatic_source_ci@1",
+  "date": "2026-10-26",
+  "source": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+  "run": {
+    "conclusion": "success",
+    "databaseId": 40438923814,
+    "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+    "jobs": [
+      {
+        "completedAt": "2026-10-27T02:39:24Z",
+        "conclusion": "success",
+        "databaseId": 121974262151,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-27T02:32:19Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T02:32:22Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T02:32:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:32:36Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-27T02:32:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:32:36Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-27T02:32:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:32:36Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-27T02:32:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:33:34Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-27T02:32:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:33:42Z",
+            "conclusion": "success",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-27T02:33:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:42Z",
+            "conclusion": "success",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-27T02:33:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:42Z",
+            "conclusion": "success",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-27T02:34:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:43Z",
+            "conclusion": "success",
+            "name": "Test import",
+            "number": 9,
+            "startedAt": "2026-10-27T02:34:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:43Z",
+            "conclusion": "success",
+            "name": "Validate public API stability against parent",
+            "number": 10,
+            "startedAt": "2026-10-27T02:34:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:45Z",
+            "conclusion": "success",
+            "name": "Validate docstrings bidirectionally",
+            "number": 11,
+            "startedAt": "2026-10-27T02:34:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:48Z",
+            "conclusion": "success",
+            "name": "Validate form contracts",
+            "number": 12,
+            "startedAt": "2026-10-27T02:34:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:34:51Z",
+            "conclusion": "success",
+            "name": "Enforce the Rust-only runtime",
+            "number": 13,
+            "startedAt": "2026-10-27T02:34:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:36:40Z",
+            "conclusion": "success",
+            "name": "Run test suite",
+            "number": 14,
+            "startedAt": "2026-10-27T02:34:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:39:21Z",
+            "conclusion": "success",
+            "name": "Receive the bound MolSysViewer tools",
+            "number": 15,
+            "startedAt": "2026-10-27T02:36:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:39:21Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 28,
+            "startedAt": "2026-10-27T02:39:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:39:21Z",
+            "conclusion": "success",
+            "name": "Post Set up Python",
+            "number": 29,
+            "startedAt": "2026-10-27T02:39:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:39:21Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 30,
+            "startedAt": "2026-10-27T02:39:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T02:39:21Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 31,
+            "startedAt": "2026-10-27T02:39:21Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/40438923814/job/121974262151"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/40438923814"
+  },
+  "controls": [
+    {
+      "conclusion": "success",
+      "databaseId": 40438924145,
+      "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+      "status": "completed",
+      "workflowName": "MolSysSuite policy"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40438924176,
+      "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+      "status": "completed",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40438923843,
+      "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+      "status": "completed",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40438923895,
+      "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+      "status": "completed",
+      "workflowName": "Developer guide integrity"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40438923826,
+      "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+      "status": "completed",
+      "workflowName": "Dependency contract"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40438923814,
+      "headSha": "eeaf1cab8e9a1ea24113cc131da39a5f834a8217",
+      "status": "completed",
+      "workflowName": "CI smoke"
+    }
+  ],
+  "native_cases": 2117,
+  "addon_cases": 1467,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "log_sha256": "7d2855acf0d26894597ee420c46aade0df316bc25c5cc772d49d49fdeb9e9094",
+  "log_pass_summaries": [
+    "| 2117 passed | 106.32s | 397 warnings",
+    "| 1467 passed | 155.54s | 1304 warnings"
+  ],
+  "scope": "Exact-source hosted CI on Linux/Python 3.14, including aromatic reader wrappers and received native selector/scope/Collantes changes. No installed artifact, optional-provider absence, GUI, GPU, universal scientific validity or release qualification.",
+  "local_receipt": "molsysviewer_tools_aromatic_receiving_20261026.json"
+}
