@@ -80,6 +80,10 @@ def get_hydrophobic_sites(
     in RDKit valence interpretation; no hydrogens or coordinates are invented.
     Missing formal-charge/aromatic assignments are not inferred silently.
 
+    Default/None chemical-state requests retain the declared reference when
+    evaluating external selection syntax. Explicit or structure-associated
+    states retain basic.select's restrictions; their syntax is not rewritten.
+
     Sites are not residue hydrophobicity scale values, interaction energies or
     evidence that an atom universally behaves hydrophobically. ProLIF is a
     reference, not an executed dependency. Optional Ackredit credits completed

@@ -44,6 +44,9 @@ def get_substructure_matches(
         No coordinates are required for index selections or 'all'.
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         State supplying chemistry. Structure assignments must resolve one state.
+        None also requests the declared reference. External selection syntax
+        retains that reference request; explicit and structure-associated state
+        restrictions remain those of basic.select.
     assume_complete_connectivity : bool, default=False
         Record an explicit assumption of completeness without filling bonds.
     syntax : str, default='MolSysMT'
@@ -116,10 +119,10 @@ def get_substructure_matches(
 
     from molsysmt import __version__, configure
     from molsysmt._private.smonitor import UnsupportedHeavyOperationError
-    from molsysmt._private.variables import is_all
-    from molsysmt.basic import convert, get_form, select
+    from molsysmt.basic import convert, get_form
     from molsysmt.native import MolSys, Topology
     from molsysmt.physchem.atoms.mass import physical as elements
+    from molsysmt.topology._chemical_graph import select_chemical_atoms
     from molsysmt.topology._rings import ring_context
 
     caller = "molsysmt.topology.get_substructure_matches"
@@ -156,7 +159,6 @@ def get_substructure_matches(
             )
     if get_form(source) == "rdkit.Mol":
         molecule = Chem.Mol(source)
-        selection_source = source
     else:
         topology = (
             source.topology
@@ -186,7 +188,6 @@ def get_substructure_matches(
             topology=view, chemical_states=state_view
         )
         molecule = convert(chemical_source, to_form="rdkit.Mol")
-        selection_source = source
     if (
         molecule.GetNumAtoms() != states.n_atoms
         or [atom.GetFormalCharge() for atom in molecule.GetAtoms()]
@@ -211,26 +212,15 @@ def get_substructure_matches(
                 raise StructuralInconsistencyError(
                     reason="RDKit changed declared bond aromaticity.", caller=caller
                 )
-    if not isinstance(selection, str) or is_all(selection):
-        selection_source = states.copy()
-        selection_source._reference_index = state_index
-        selection_state = "reference"
-    else:
-        selection_source = (
-            source
-            if isinstance(source, (MolSys, Topology))
-            else convert(source, to_form="molsysmt.MolSys")
-        )
-        selection_state = state_index
-    selected = np.unique(
-        select(
-            selection_source,
-            selection=selection,
-            structure_indices=frames,
-            chemical_state=selection_state,
-            syntax=syntax,
-        )
-    ).astype(np.int64)
+    selected = select_chemical_atoms(
+        source,
+        states,
+        state_index,
+        selection,
+        frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
+    )
     selected_mask = np.zeros(states.n_atoms, dtype=bool)
     selected_mask[selected] = True
     output, used = [], selected_mask.nbytes

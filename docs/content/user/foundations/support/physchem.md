@@ -137,3 +137,11 @@ area nor assigns missing chemistry. Unsupported modified/cap/dummy names raise
 instead of receiving zero or an inferred parent value. The original full-text
 derivation remains unaudited and evidence is partial. See
 {ref}`Tutorial_Get_bulkiness` and {ref}`Cookbook_Export_Bulkiness`.
+
+SMARTS-based chemical feature readers preserve default/None reference requests
+when evaluating supported external selections, including a declared reference
+whose index is nonzero. Structure selection does not implicitly change that
+reference. Explicit indices and structure-associated chemistry retain the
+restrictions of {func}`molsysmt.basic.select`. Recognition remains a full-source
+operation followed by complete-participant filtering; it does not truncate the
+chemical graph. See {ref}`Tutorial_Get_substructure_matches`.

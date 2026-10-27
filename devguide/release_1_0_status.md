@@ -57,6 +57,11 @@ and optional attribution. Evidence remains partial for the original derivation;
 this source addition requires applicable new candidate qualification and does
 not change the publication pause.
 
+The #488 follow-up extends the shared reference-preserving selection boundary
+to SMARTS and its site-reader clients. Default/None external selectors now work
+without changing explicit/associated-state restrictions or scientific matching.
+Local regression evidence does not replace new exact-candidate qualification.
+
 ## Release coordination paused — 2026-10-08
 
 On 2026-10-20 the maintainer extends the publication postponement by a couple

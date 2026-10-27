@@ -85,6 +85,10 @@ def get_halogen_bond_sites(
     Water without indexed bonded atoms has no acceptor-reference match.
     These are candidate sites, not a universal chemical or energy model.
 
+    Default/None chemical-state requests retain the declared reference when
+    evaluating external selection syntax. Explicit or structure-associated
+    states retain basic.select's restrictions; their syntax is not rewritten.
+
     ProLIF's Apache-2.0 rules are attributed; the ProLIF package is not needed.
     Optional Ackredit credits this recognition, while original geometric-paper
     attribution belongs to the detector that actually evaluates its criterion.
