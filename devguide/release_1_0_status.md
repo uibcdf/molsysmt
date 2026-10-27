@@ -52,7 +52,9 @@ It does not qualify the subsequent conversion-source changes above.
 The bounded #144 documentation follow-up removes ten topology directive-parse
 warnings and both unknown directives. Forced full-site builds on the recorded
 source move from 737 to 725 warnings, with zero errors; remaining debt stays
-explicit and nonblocking. Real-source rendering/negative controls and raw notebook
+explicit and nonblocking. A later joint-head build with the addon prose update records 726 warnings
+(one additional accepted course-header warning), still with zero errors.
+Real-source rendering/negative controls and raw notebook
 schema checks pass. Scientific code and saved notebook outputs are unchanged;
 one new course-cell ID is repaired separately. See the
 [documentation record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-directive-rendering-and-cell-id-repair--2026-10-27).

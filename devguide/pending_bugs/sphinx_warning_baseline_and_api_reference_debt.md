@@ -537,3 +537,25 @@ The [receipt](../../devtools/data/documentation_directive_repair_20261027.json)
 records source hashes, preserved payloads, exact counts, environment, failed
 attempts and guard intent. #144 remains partial for its remaining 725 warnings;
 this is not a warning-free site, new scientific result or release qualification.
+
+
+### Joint-head integration checkpoint — 2026-10-27
+
+A concurrent addon integration, 11e7ab7f0, extends the prose of Common Core 12
+and the bound-tools guide after the controlled comparison above. On the combined
+source b7b88d94e327afea14f0372a0303755876550ab6, all 504 normal-discovery,
+rendering and schema cases pass again in 8.65 s. Exact raw-JSON comparison with
+its immediate parent confirms the Common Core 12 change in our commit is only
+the missing cell ID; the concurrently integrated source text is preserved.
+
+Another forced full-site build succeeds with zero errors and **726 warnings**.
+A normalized warning multiset comparison finds one additional existing-family
+H1-to-H3 warning in Common Core 12; headers are now 435, while parse warnings
+remain 261 and unknown directives remain zero. Every other family count is
+unchanged. Course heading policy and its broader accepted debt are not silently
+rewritten to eliminate this later section's warning. The earlier 737-to-725
+comparison and receipt retain their original source identity and numbers;
+726 is the combined-head checkpoint, not a correction of those measurements.
+Integrated warning-log SHA-256: c68e593804b84cbe49ffadd31c1432dfd79301f6260aa10aef717f5f99abf523.
+No scientific notebook execution, warning suppression or release qualification
+is inferred from this rendering/schema checkpoint.
