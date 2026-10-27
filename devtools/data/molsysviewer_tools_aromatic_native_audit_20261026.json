@@ -1,0 +1,280 @@
+{
+  "schema": "molsysmt.viewer_tools_aromatic_native_audit@1",
+  "date": "2026-10-26",
+  "source_base": "312a73200f5c578ba758618ec42179edb0228221",
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "scope": "Native-only on an asserted isolated source checkout; corrected source explicitly supplies MDTraj hierarchy and declared aromatic flags. No backend rebuild or installed qualification.",
+  "issues": [
+    "uibcdf/molsysmt#482",
+    "uibcdf/molsysmt#483"
+  ],
+  "observations": {
+    "n_structures": 1,
+    "direct_external_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "results": [
+      {
+        "method": "molsysmt.topology.get_rings.get_rings",
+        "parameters": {},
+        "status": "ok",
+        "atom_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "atom_offsets": [
+          0,
+          5,
+          11
+        ]
+      },
+      {
+        "method": "molsysmt.topology.get_rings.get_rings",
+        "parameters": {
+          "selection": "all and all",
+          "syntax": "MDTraj"
+        },
+        "status": "error",
+        "error": "ArgumentError",
+        "message": "Error in argument 'syntax' with value 'MDTraj'. Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+      },
+      {
+        "method": "molsysmt.topology.get_rings.get_rings",
+        "parameters": {
+          "structure_indices": [
+            999
+          ]
+        },
+        "status": "ok",
+        "atom_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "atom_offsets": [
+          0,
+          5,
+          11
+        ]
+      },
+      {
+        "method": "molsysmt.topology.get_rings.get_rings",
+        "parameters": {
+          "structure_indices": [
+            -1
+          ]
+        },
+        "status": "ok",
+        "atom_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "atom_offsets": [
+          0,
+          5,
+          11
+        ]
+      },
+      {
+        "method": "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
+        "parameters": {},
+        "status": "ok",
+        "atom_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "atom_offsets": [
+          0,
+          5,
+          11
+        ]
+      },
+      {
+        "method": "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
+        "parameters": {
+          "selection": "all and all",
+          "syntax": "MDTraj"
+        },
+        "status": "error",
+        "error": "ArgumentError",
+        "message": "Error in argument 'syntax' with value 'MDTraj'. Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+      },
+      {
+        "method": "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
+        "parameters": {
+          "structure_indices": [
+            999
+          ]
+        },
+        "status": "ok",
+        "atom_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "atom_offsets": [
+          0,
+          5,
+          11
+        ]
+      },
+      {
+        "method": "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
+        "parameters": {
+          "structure_indices": [
+            -1
+          ]
+        },
+        "status": "ok",
+        "atom_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "atom_offsets": [
+          0,
+          5,
+          11
+        ]
+      },
+      {
+        "method": "molsysmt.physchem.get_aromaticity.get_aromaticity",
+        "parameters": {},
+        "status": "ok",
+        "atom_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "method": "molsysmt.physchem.get_aromaticity.get_aromaticity",
+        "parameters": {
+          "selection": "all and all",
+          "syntax": "MDTraj"
+        },
+        "status": "error",
+        "error": "ArgumentError",
+        "message": "Error in argument 'syntax' with value 'MDTraj'. Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+      },
+      {
+        "method": "molsysmt.physchem.get_aromaticity.get_aromaticity",
+        "parameters": {
+          "structure_indices": [
+            999
+          ]
+        },
+        "status": "error",
+        "error": "ArgumentError",
+        "message": "'structure_indices' contains out-of-range structure indices [999]; valid indices are in [0, 1). Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+      },
+      {
+        "method": "molsysmt.physchem.get_aromaticity.get_aromaticity",
+        "parameters": {
+          "structure_indices": [
+            -1
+          ]
+        },
+        "status": "error",
+        "error": "ArgumentError",
+        "message": "'structure_indices' contains out-of-range structure indices [-1]; valid indices are in [0, 1). Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+      }
+    ]
+  },
+  "initial_draft_correction": "Initial ligand hierarchy and comparison expression did not isolate the selector. Corrected opening of #482 and this audit supersede that draft; its fixture failures are not evidence for the reported reader boundary."
+}
