@@ -1,0 +1,152 @@
+{
+  "schema": "molsysmt.viewer_tools_molecular_descriptors_receiving@1",
+  "date": "2026-10-27",
+  "base_source": "010c489aa5bb8a6e5f79ae9fdbe331312b7412d7",
+  "host_source": "73a6f388e09146650349dfe83564ae318ba20298",
+  "new_method": "physchem.get_lipophilicity",
+  "expanded_received_contract": "physchem.get_tpsa contribution levels and native complete-context molecular descriptor contracts from 010c489aa",
+  "inventory": {
+    "native_exports": 34,
+    "addon_physchem_wrappers": 25,
+    "pending": 9
+  },
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "rdkit": "2025.9.5",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "effective_pyparsing": "3.3.2",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "environment_limit": "Existing shared development environment. Effective PyParsing is 3.3.2 with stale 3.3.3 distribution metadata; no clean solver/pip-check or installed artifact qualification. Suite inspection preserves other component ahead/behind/dirty state and the absent PeptideMT checkout.",
+  "focused": {
+    "counts": {
+      "tests": 122,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "160b276e90811ec0950d440798e1894ba16753c266563cb3d11fa056c998c4de"
+  },
+  "one_applicable_regression": {
+    "counts": {
+      "tests": 3589,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-n",
+      "4",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_sasa/",
+      "tests/physchem/get_hydrogen_inventory/",
+      "tests/physchem/test_get_chemical_readiness.py",
+      "tests/physchem/test_get_aromatic_rings.py",
+      "tests/physchem/test_get_aromaticity.py",
+      "tests/physchem/test_get_charge_centers.py",
+      "tests/physchem/test_get_hydrophobic_sites.py",
+      "tests/physchem/test_get_halogen_bond_sites.py",
+      "tests/physchem/test_get_secondary_structure_propensity.py",
+      "tests/physchem/test_reference_metadata_ownership.py",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py",
+      "tests/physchem/test_collantes_legacy_contract.py",
+      "tests/physchem/test_property_selection_contract.py",
+      "tests/physchem/test_get_bulkiness.py",
+      "tests/physchem/test_get_tpsa.py",
+      "tests/physchem/test_get_lipophilicity.py",
+      "tests/physchem/test_descriptor_contributions.py",
+      "tests/form/molsysmt_Topology/test_atom_membership_order.py",
+      "tests/scientific_truth/physchem/test_tpsa.py",
+      "tests/scientific_truth/physchem/test_lipophilicity.py",
+      "tests/native/test_group_free_molecules.py",
+      "tests/basic/select/test_mdtraj_comparisons.py",
+      "tests/topology/test_chemical_reference_selection.py",
+      "tests/topology/test_ring_structure_scope.py",
+      "tests/form/file_h5msm/test_associations_v05_probe.py",
+      "tests/scientific_truth/physchem/test_sasa.py",
+      "tests/scientific_truth/physchem/test_bulkiness.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "devtools/tests/test_mdtraj_parser_constraint.py",
+      "--junitxml=/tmp/msv-molecular-descriptors-regression.xml"
+    ],
+    "started": "2026-10-27T19:25:21.682298+00:00",
+    "finished": "2026-10-27T19:31:37.116371+00:00",
+    "source_changed": [],
+    "source_record_sha256": "f6585217351b2bd96b2aeb6685499662bb5d833785fffd5808e83ba5e5cb94e4",
+    "source_tree_digest_before": "bc43342fa0515bb3269e0d52057a8c741a86a095b2318450538b31312702dd43",
+    "source_tree_digest_after": "bc43342fa0515bb3269e0d52057a8c741a86a095b2318450538b31312702dd43",
+    "junit_sha256": "671140bc84db7b6dd973fbf3a25d3c42a44b67f1aa24a312fb4a4a503aad965c",
+    "backend_before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "backend_after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "warnings": {
+      "LegacyH5MSMWarning": 1488,
+      "GpuNotAvailableWarning": 6,
+      "DeprecationWarning": 1,
+      "DigestNotDigestedWarning": 2,
+      "PytestAssertRewriteWarning": 1,
+      "RuntimeWarning": 1
+    }
+  },
+  "examples": {
+    "guide_blocks": 43,
+    "inherited_native_context_doctests": 98,
+    "failures": 0,
+    "log_sha256": "35f7d288072091082af200d779b64d3db363103286d5f6936582dbb9ff61880c"
+  },
+  "fixtures": [
+    "Declared ethanol chemistry with deterministic 2D coordinates and three source structures, reversed source group/chain membership, preserved region and named evaluated-empty interactions.",
+    "Explicit canonical hierarchy for positive MDTraj selectors, actual acid/acetate states with nonconsecutive associations, explicit and nonindexed H, charged and net-neutral charged-site mixtures, real bundled caffeine explicitly read through RDKit."
+  ],
+  "checked_contracts": [
+    "Exact native signatures/defaults/validation minus current primary, unknown-control rejection and declared digestion bypass.",
+    "Seven element levels: source order/repetitions, scalar element axes, scalar system sums, typed empty shapes and separate output versus parent-context maps.",
+    "Independent reference atomic rows, squared TPSA units and dimensionless negative lipophilicity values, indexed/nonindexed H conservation, complete chemistry after partial selection.",
+    "Detached values/maps/nested references, unmodified source domains/coordinates/coverage/scene, pending reads and current-primary replacement/lifetime, real optional native Ackredit credits."
+  ],
+  "scope": "Bounded source contract/parity/reference receiving, not universal model accuracy. Lipophilicity remains a state-preserving Wildman-Crippen model score, not a pH/logD prediction or a physical partition-coefficient certificate for charged graphs. No scientific algorithm, neutralization, missing-H guessing, counterion stripping, fragment recalculation, implicit aggregation or scene synchronization is added.",
+  "guard": "tests/molsysviewer_molsysmt/test_molecular_descriptors_tools.py",
+  "known_native_limits": [
+    "uibcdf/molsysmt#494",
+    "uibcdf/molsysmt#495"
+  ],
+  "hosted_ci": "Pending exact-source integration. Earlier gates keep their source identities and scope.",
+  "exclusions": [
+    "No optional-provider-absence, GUI, installed package, benchmark, universal RAM bound, cross-platform or publication qualification.",
+    "No claim for uncommitted native builder/MDTraj repairs. Both 1.0 publications remain paused."
+  ],
+  "authored_file_sha256": {
+    ".github/workflows/ci-smoke.yaml": "a7f099936e58761da7fd0aa81755e2f089e8eeaaeefbe27549622d0bd993e78d",
+    "devguide/molsysviewer_addon.md": "a0319daf66d96faf53a571b6893298977654c291e5c031902d14dccfd1f302d8",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "e1dac35bf7c96849ba1c81a6b0b643be8dcf95fa69c54947a92872cc80678c8f",
+    "devtools/tests/run_tiers.sh": "5772a5fbb04fcd3b63001db54317e6264d56b3c79d0a263cbcf325f3b76646c5",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "95688d6d470e169f81bb06841d95671bd7b526ef89be0fc70debac7b1454b572",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "882b618256576de943a2e3151ce681a6c2bef8a95defc12754cadd212f9726d7",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "d2e1e2699aaecdd34a9cfa08c2e0db08cceab1d859c84c8920514165663a0db7",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "4e595ebfdd08d4a4a815081b3f1e6179882cd2e64806d002a1c975bf55ac4a06",
+    "docs/content/user/tools/molsysviewer_tools.md": "15a378436d463211d6e5026ed66fc35a86efd80987fba8ee68c2fca2afbb1ed6",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "3f63abd2e19dd678a071d5ba43ecba8e54d95c06eee853e2c35668df38a304bc",
+    "docs/docs_manifest.yml": "bb49abafe1c4b33ef59ab5d53b3c279397c1d0474b4b7d920e40ae0839e650a5",
+    "molsysviewer_molsysmt/_basic.py": "fa43cc889b3d3a8a73fd7679bcdfdce5114fac522c8305dd0700c0d1ad50b801",
+    "molsysviewer_molsysmt/_physchem.py": "c624d90b388413bc304c475872bd83058b21b1ef69127b560d8c8fbe91b62dab",
+    "tests/molsysviewer_molsysmt/test_molecular_descriptors_tools.py": "b166c5255a3b75fdffda5ac45c1634cf25b5264a9ad7a61304efb3257cc7ac18",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "3d31084af1a7f08d86930644147303138da3223eb742de0f2d82fa243c939142"
+  }
+}

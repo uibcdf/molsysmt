@@ -73,7 +73,7 @@ units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
 Keep OpenMM form/box prerequisites and pending-reader behavior visible.
 The native selection/scope repairs are now received: preserve positive syntax
-checks and explicit unsupported-level rejection. Do not present the other 10 physchem
+checks and explicit unsupported-level rejection. Do not present pending physchem
 exports as received or introduce implicit coloring, preparation or assignment.
 
 
@@ -120,8 +120,8 @@ attribution separate from interactions and rendering. Default/None-reference MDT
 works for all three readers after native #488; explicit/associated SMARTS states
 retain their selector restrictions. No selector
 rewrite, implicit preparation or scene synchronization. The current reviewed
-inventory has 34 native physchem exports after lipophilicity was added; 24 have
-wrappers and ten remain pending, including lipophilicity. The earlier 02671792f gate retains its 31-export baseline; the new reference-
+inventory has 34 native physchem exports after lipophilicity was added; 25 have
+wrappers and nine remain pending; lipophilicity is now explicitly received. The earlier 02671792f gate retains its 31-export baseline; the new reference-
 scale receiving uses its own 32-export source. This is source exposure,
 not installed or universal scientific qualification.
 
@@ -142,11 +142,11 @@ color the scene. Keep lookup coordinate independence distinct from rich-selector
 coordinate needs. Retain native optional attribution without duplicating credits.
 
 
-Preserve the explicit molecule-level TPSA mirror: native squared units,
+Preserve the native TPSA mirror and all received contribution levels: native squared units,
 N/O versus N/O/S/P choice, complete molecule order/repetitions/scalar/empty maps,
 state/structure scope and optional detached report/provenance. It is a graph
 descriptor, not geometric SASA or a permeability prediction. No fragment capping,
-aggregation, chemistry/hydrogen preparation, engine fallback, adoption, color or
+implicit aggregation, chemistry/hydrogen preparation, engine fallback, adoption, color or
 synchronization is added. Retain strict native chemistry/boundary validation and
 actual optional-provider limits. Keep source receiving distinct from scientific
 accuracy and published package compatibility.
@@ -155,3 +155,14 @@ Keep the explicitly RDKit-read caffeine example and declared hydrogen inventory.
 Native SDF sources with unspecified CTAB evidence retain rejection; do not infer
 missing hydrogen counts. Track #494's builder molecule duplication and #495's
 group-free MDTraj adapter limit without adding consumer workarounds.
+
+
+Preserve the explicit get_lipophilicity mirror and both descriptor output/context
+contracts: seven element levels, source order/repetitions, scalar system sums,
+empty shapes, complete parent chemistry and separate element_* versus molecule
+maps. TPSA retains squared area units and N/O versus N/O/S/P; lipophilicity
+retains dimensionless float64 values, negative contributions, formally charged
+sites and the limits of logP/logD applicability. Document indexed/nonindexed H
+attribution without changing source H or atom indices. Keep exact native
+state/structure, selector, provider, provenance and optional attribution semantics;
+no preparation, neutralization, counterion removal, fallback or scene sync.

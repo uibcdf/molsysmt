@@ -33,6 +33,9 @@ run_smoke() {
     tests/physchem/test_get_halogen_bond_sites.py \
     tests/physchem/test_get_bulkiness.py \
     tests/physchem/test_get_tpsa.py \
+    tests/physchem/test_get_lipophilicity.py \
+    tests/physchem/test_descriptor_contributions.py \
+    tests/form/molsysmt_Topology/test_atom_membership_order.py \
     tests/physchem/test_get_secondary_structure_propensity.py \
     tests/physchem/test_reference_metadata_ownership.py \
     tests/native/test_group_free_molecules.py \

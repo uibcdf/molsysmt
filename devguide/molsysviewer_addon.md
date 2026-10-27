@@ -31,8 +31,8 @@ readers brought physchem exposure to eighteen of thirty reviewed exports.
 Three feature readers bring exposure to 21 tools on the qualified 31-export
 baseline. Native 5681f5e78 adds secondary-structure propensities: the inspected
 inventory at that source is 32. The two reference readers now bring the facade
-to 23 tools. The newly bound TPSA reader brings the facade to 24 of the reviewed
-34 inspected exports, with ten pending after native lipophilicity is added. Their separate receiving does not relabel older
+to 23 tools. The bound molecular-descriptor readers bring the facade to 25 of the reviewed
+34 inspected exports, with nine pending. Their separate receiving does not relabel older
 source gates. The SMARTS repair is received under
 #488; native reference-metadata ownership is repaired under #490 and its guard is
 included in the new receiving tier. Native graph selector/scope repairs are received
@@ -1375,3 +1375,42 @@ rejection. Reports distinguish output `element_*` maps from evaluated molecular
 contexts; H attribution and scalar system selections follow native semantics.
 This does not receive the separate lipophilicity reader or claim installed-pair
 qualification. The general native membership prerequisite is uibcdf/molsysmt#498.
+
+
+## Bound lipophilicity and complete-context contributions — 2026-10-27
+
+The explicit get_lipophilicity wrapper extends the physchem facade to 25 of the
+34 reviewed native exports; nine remain unreceived. Both molecular descriptor
+readers receive the contribution contract of native 010c489aa. Science remains
+in the native owner: exact parameters, digestion, element/structure/state scope,
+source indices and result containers are forwarded with current view.molsys
+implicit. No scientific algorithm or source preparation is added to the addon.
+
+TPSA preserves squared area units and N/O versus N/O/S/P. Lipophilicity preserves
+dimensionless float64 arrays or system scalars, negative contributions, declared
+charged sites and the limits of physical logP/logD interpretation. Atom, group,
+component, molecule, chain, entity and system outputs retain source order,
+repetitions, empty axes and explicit aggregation. Element output maps remain
+separate from complete evaluated parent contexts. Indexed H retains its own row;
+nonindexed H is attributed to its retained attachment atom. Partial output never
+recalculates a cut molecular fragment or changes the source atom/H inventory.
+
+All 122 directed consumer cases pass, including independently fixed reference
+rows, reversed declared group/chain membership, repeated/empty/scalar outputs,
+positive external syntax with explicit hierarchy, state/frame ambiguity,
+H-presentation conservation, actual charged and bundled caffeine graphs,
+independent nested provenance, pending reads/replacement/lifetime and real
+optional Ackredit. All 43 bound-guide blocks and 98 inherited native-context
+examples pass. These are bounded contract/parity/reference checks, not universal
+predictive accuracy or installed-package qualification.
+
+The one frozen 3,589-case applicable regression passes with zero failures,
+errors or skips. Runtime source and the retained ABI3 backend remain unchanged
+during that run. The recorded 1,499 warnings retain their original categories,
+including legacy H5MSM and controlled GPU/invalid-input observations.
+No new native defect is reported by this slice. Native #494/#495 keep their
+separate owner receiving; the addon adds no selector/hierarchy workaround.
+
+Exact-source hosted CI still requires integration. GUI tasks, optional-provider
+absence, performance, other platforms, artifacts and both paused 1.0 publications
+retain separate scope. Source support is not installed-package qualification.

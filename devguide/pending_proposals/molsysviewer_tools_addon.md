@@ -1609,3 +1609,42 @@ hierarchy/selector workaround. Actual optional-provider absence, GUI, installed
 artifacts, universal model accuracy, performance and other platforms remain
 separate. Both 1.0 publications stay paused. This evidence-only closeout changes
 no runtime and reuses the exact completed source gates.
+
+
+## Bound lipophilicity and complete-context contributions — 2026-10-27
+
+The explicit get_lipophilicity wrapper extends the physchem facade to 25 of the
+34 reviewed native exports; nine remain unreceived. Both molecular descriptor
+readers receive the contribution contract of native 010c489aa. Science remains
+in the native owner: exact parameters, digestion, element/structure/state scope,
+source indices and result containers are forwarded with current view.molsys
+implicit. No scientific algorithm or source preparation is added to the addon.
+
+TPSA preserves squared area units and N/O versus N/O/S/P. Lipophilicity preserves
+dimensionless float64 arrays or system scalars, negative contributions, declared
+charged sites and the limits of physical logP/logD interpretation. Atom, group,
+component, molecule, chain, entity and system outputs retain source order,
+repetitions, empty axes and explicit aggregation. Element output maps remain
+separate from complete evaluated parent contexts. Indexed H retains its own row;
+nonindexed H is attributed to its retained attachment atom. Partial output never
+recalculates a cut molecular fragment or changes the source atom/H inventory.
+
+All 122 directed consumer cases pass, including independently fixed reference
+rows, reversed declared group/chain membership, repeated/empty/scalar outputs,
+positive external syntax with explicit hierarchy, state/frame ambiguity,
+H-presentation conservation, actual charged and bundled caffeine graphs,
+independent nested provenance, pending reads/replacement/lifetime and real
+optional Ackredit. All 43 bound-guide blocks and 98 inherited native-context
+examples pass. These are bounded contract/parity/reference checks, not universal
+predictive accuracy or installed-package qualification.
+
+The one frozen 3,589-case applicable regression passes with zero failures,
+errors or skips. Runtime source and the retained ABI3 backend remain unchanged
+during that run. The recorded 1,499 warnings retain their original categories,
+including legacy H5MSM and controlled GPU/invalid-input observations.
+No new native defect is reported by this slice. Native #494/#495 keep their
+separate owner receiving; the addon adds no selector/hierarchy workaround.
+
+Exact-source hosted CI still requires integration. GUI tasks, optional-provider
+absence, performance, other platforms, artifacts and both paused 1.0 publications
+retain separate scope. Source support is not installed-package qualification.

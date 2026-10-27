@@ -1372,18 +1372,18 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes twenty-four tools under
+The source addon now exposes twenty-five tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
 aromaticity perception and three chemical-feature readers (formal-charge
 centers, hydrophobic atoms and ordered halogen sites), plus the Zimmerman
 bulkiness and Levitt secondary-structure propensity reference lookups, and
-state-aware molecular TPSA. SASA and
+state-aware TPSA and Wildman–Crippen lipophilicity with native contribution
+outputs. SASA and
 the chemical readers have bounded receiving, not universal scientific qualification. The
-inspected native inventory now has 34 exports after native lipophilicity was
-added; ten functions, including that new reader, further feature perception and
-chemical preparation, remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
+inspected native inventory has 34 exports; nine further feature-perception,
+charge/typing and chemical-preparation functions remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
 gates retain their original source identities and scopes.
 
 | Tool | Native result and received scope |
@@ -1879,9 +1879,10 @@ scientific dependency or consumer attribution record is introduced.
 ## Calculating molecular topological polar surface areas
 
 Use `view.addons.molsysmt.physchem.get_tpsa()` for the experimental native Ertl,
-Rohde and Selzer descriptor executed through RDKit. It returns one area per
-selected complete molecule, in the configured standard area unit (nm² by
-default). It does not measure the conformation's exposed polar surface or
+Rohde and Selzer descriptor executed through RDKit. Its default molecule level
+returns one area per selected complete molecule, in the configured standard
+area unit (nm² by default). Other native levels return atomic contributions or
+explicit sums evaluated in complete molecular context. It does not measure the conformation's exposed polar surface or
 predict permeability; use conformational SASA for that separate geometric task.
 
 ```python
@@ -1913,19 +1914,25 @@ populated molecule inventory through the builder also has a native correspondenc
 defect under [#494](https://github.com/uibcdf/molsysmt/issues/494). These limits
 remain visible; the addon neither invents hierarchy nor rewrites selectors.
 
-Numeric `selection` indices address molecules, not atoms, groups or saved scene
-regions. Their order and repetitions are preserved; a scalar keeps a one-value
-axis and an empty selection keeps a typed `(0,)` area array. String expressions
-select whole molecules using native syntax: selecting one atom returns its full
-source molecule, without fragment capping. `element='molecule'` is the only
-supported level; no whole-system sum is inferred. Source molecule membership
-must be consistent with covalent connectivity. Disconnected salt labels and
-bonds crossing a selected molecule boundary are rejected.
+At the default `element='molecule'`, numeric selections address source molecules;
+selecting one atom with a string expression selects its complete parent molecule.
+Other supported levels are `atom`, `group`, `component`, `chain`, `entity` and
+`system`. Indices address the requested level; `system` selects atoms for a
+scalar sum. Ordered/repeated indices keep their multiplicity. A scalar element
+index keeps a one-element axis; an empty selection keeps shape `(0,)` except
+for `system`, which returns a scalar zero in the descriptor's units. Saved scene
+regions do not redefine these scientific indices or contexts.
+
+All calculations retain complete parent molecular chemistry. A selected atom or
+group never becomes a capped fragment for recalculation. Source molecule
+membership must match covalent connectivity; disconnected salt labels and
+covalent bonds crossing a context molecule boundary retain native rejection.
 
 The native default `include_sulfur_phosphorus=False` calculates N/O contributions.
 Set it explicitly to `True` to include the model's S/P contributions. These are
 different descriptor variants. Native quantities preserve the squared unit
-conversion; the wrapper does not rescale values or combine molecules.
+conversion. The wrapper does not rescale values; sums occur only at explicitly
+requested native output levels.
 
 `chemical_state='reference'` is explicit. `structure_indices` supplies context for
 chemical-state resolution and spatial selection; it adds no structure axis to
@@ -1959,12 +1966,107 @@ published-package compatibility.
 - {ref}`Tutorial_Get_tpsa` — complete chemistry, descriptor variants and evidence.
 :::
 
-### Native TPSA contribution outputs
+### Reading contributions in complete molecular context
 
-The bound `physchem.get_tpsa()` also forwards the native atom, group, component,
-chain, entity and system levels. Numeric selections address the selected element;
-`system` returns a scalar sum over selected atoms. Contributions retain complete
-molecular context. Indexed H keeps its row; nonindexed H is attributed to its
-attachment atom. In reports, `element_*` maps identify output rows, while the
-molecular maps identify evaluated contexts. This reader does not change or
-synchronize the scene. See {ref}`Tutorial_Get_tpsa` for executed examples.
+Both bound descriptors preserve native output levels and complete parent
+calculation contexts. These outputs are model contributions or explicit sums;
+they do not assign a measured exposed area or a new physical property to a group.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+
+# Explicit caller-owned graph and coordinates; the addon does not prepare them.
+molsys = Chem.MolFromSmiles("CCO")
+rdDepictor.Compute2DCoords(molsys)
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.physchem
+    areas = tools.get_tpsa(element="atom", selection=[2, 0, 2], return_report=True)
+    scores = tools.get_lipophilicity(element="atom")
+    np.testing.assert_allclose(msm.pyunitwizard.get_value(areas["tpsa"], to_unit="angstrom**2"), [20.23, 0.0, 20.23], atol=1e-12)
+    np.testing.assert_allclose(scores, [0.5131, 0.0425, -0.5570], atol=1e-12)
+    assert areas["report"]["element_indices"].tolist() == [2, 0, 2]
+    assert areas["report"]["element_atom_indices"].tolist() == [2, 0, 2]
+    assert areas["report"]["atom_indices"].tolist() == [0, 1, 2]
+    assert areas["report"]["molecule_indices"].tolist() == [0]
+    assert tools.get_lipophilicity(element="system", selection=[]) == 0.0
+```
+
+The report separates `element_indices`, `element_atom_indices` and
+`element_atom_offsets` (output rows and their source atoms) from
+`molecule_indices`, `atom_indices` and `atom_offsets` (evaluated complete
+contexts). Their row counts can differ. Nonmolecular repeated outputs retain
+repeated rows while each needed parent molecule is evaluated once. These maps
+refer to the supplied source, not new atoms or scene selections.
+
+Indexed hydrogens retain their own contribution rows. Contributions from
+nonindexed hydrogens are attributed to their retained attachment atom. The
+provider may materialize declared H on a temporary calculation graph; it never
+adds guessed H or new source indices. Individual heavy-atom contributions
+therefore depend on H presentation. Sums over equivalent atoms and their attached
+H agree. Preserve this attribution convention when comparing atom-level results.
+
+`structure_indices` resolves chemistry and spatial selectors; the graph output
+has no structure axis. Explicit nonconsecutive indices remain available.
+`chemical_state='structure'` must select one state. Changing the visible canvas
+structure does not replace the declared scope. Returned reports, values and
+nested references remain detached from the primary and later calls. The
+functions neither color the scene nor synchronize pending edits.
+
+## Calculating state-preserving lipophilicity scores
+
+`view.addons.molsysmt.physchem.get_lipophilicity()` mirrors native
+`method='wildman_crippen'` through RDKit. It returns a float64 array at ordinary
+element levels and a float64 scalar at `element='system'`. Values are
+**dimensionless**, may be negative and do not change with length-unit policy.
+This is separate from tabulated group hydrophobicity scales. It has no implicit
+force field, normalization, method fallback, neutralization, counterion stripping
+or pH-dependent chemical preparation.
+
+```python
+import molsysviewer as msv
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+
+molsys = Chem.MolFromSmiles("c1ccccc1")
+rdDepictor.Compute2DCoords(molsys)
+with msv.new_view(molsys) as view:
+    result = view.addons.molsysmt.physchem.get_lipophilicity(return_report=True)
+    assert result["lipophilicity"].round(4).tolist() == [1.6866]
+    assert result["report"]["method"] == "wildman_crippen"
+    assert result["report"]["value_kind"] == "wildman_crippen_model_score"
+    assert result["report"]["value_unit"] == "dimensionless"
+```
+
+For an appropriate uncharged species this model is conventionally used as a
+calculated logP estimate. A score for an ion or zwitterion does not certify a
+physical partition coefficient. Net charge zero alone does not establish
+applicability; report `charged_atom_indices` and `charged_atom_offsets` retain
+formally charged sites, including within net-neutral molecules. No logD, pKa,
+pH-dependent species population or ensemble is inferred. A contribution sum
+spanning molecules is not a mixture logP.
+
+`return_report=True` returns the detached `lipophilicity`/`report` dictionary with
+source output/context maps, chemical state, formal charges, method, parameters,
+producer versions and native scientific attribution. The default array carries
+no report; request it explicitly for exported scientific results. Neither output
+is automatically attached to MolSys or stored as a new analysis. Optional
+Ackredit records the native executed model and software once; the addon adds no
+duplicate scientific credit.
+
+The explicit chemical-state, completeness, H inventory, provider and selection
+requirements above apply to both descriptors. Native #494/#495 limits retain
+their own receiving. Group/chain contribution rows require actual source
+membership; absent groups are not invented. Both functions are headless and
+resolve current `view.molsys` after replacement and during pending managed edits.
+Expert parameters and `skip_digestion` remain native; there is no addon-specific
+preparation or scene parameter.
+
+:::{seealso}
+
+- {ref}`Tutorial_Get_tpsa` — area descriptors and complete-context contributions.
+- {ref}`Tutorial_Get_lipophilicity` — model scores, charged states and evidence.
+:::

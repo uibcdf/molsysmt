@@ -281,23 +281,38 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
             )
-        if module == "physchem" and name == "get_tpsa":
+        if module == "physchem" and name in {"get_tpsa", "get_lipophilicity"}:
             function.__doc__ += (
                 "Molecule indices address the source molecule axis, not atoms or "
-                "scene regions. Native order, repetitions and whole-molecule "
-                "selection are retained at the default molecule level. Other "
-                "native element levels return atomic contributions or their sums "
-                "in complete molecular context; system selects atoms for a scalar "
-                "sum. Output element maps are distinct from evaluated molecule "
-                "context maps. Indexed H retains its row; nonindexed H is "
-                "attributed to its attachment atom. This graph descriptor has no structure "
-                "axis; explicit structures resolve chemistry and spatial selectors, "
-                "never implicitly the visible frame. It retains native area units, "
-                "the N/O versus N/O/S/P choice and optional detached provenance. "
-                "No fragment capping, hydrogen guessing, molecular preparation, "
-                "implicit aggregation, scene coloring, adoption or synchronization is added. "
-                "TPSA is not geometric SASA or a permeability prediction. Native "
-                "RDKit requirements and chemistry errors remain explicit.\n"
+                "scene regions, at the default molecule level. Other native "
+                "element levels retain their own indices and return atomic "
+                "contributions or explicit sums in complete molecular context. "
+                "Native order, repetitions, scalar and empty outputs are preserved; "
+                "system selects atoms for a scalar sum. Output element maps are "
+                "distinct from evaluated molecule context maps. Indexed H retains "
+                "its row; nonindexed H is attributed to its attachment atom. "
+                "These graph descriptors have no structure axis; explicit "
+                "structures resolve chemistry and spatial selectors, never "
+                "implicitly the visible frame. No fragment capping, hydrogen "
+                "guessing, molecular preparation, implicit aggregation, coloring, "
+                "adoption or scene synchronization is added. Native RDKit "
+                "requirements and chemistry errors remain explicit.\n"
+            )
+        if module == "physchem" and name == "get_tpsa":
+            function.__doc__ += (
+                "Native squared area units and the explicit N/O versus N/O/S/P "
+                "choice are retained. Grouped values are model contribution sums, "
+                "not measured exposed areas or permeability predictions.\n"
+            )
+        if module == "physchem" and name == "get_lipophilicity":
+            function.__doc__ += (
+                "The native float64 scores and scalar sums are dimensionless, "
+                "not area quantities. Charged sites remain explicit, including "
+                "net-neutral zwitterions. No neutralization or counterion removal "
+                "is performed; a charged graph score does not establish logP or "
+                "logD applicability and a cross-molecule sum is not mixture logP. "
+                "Optional reports retain method, source maps and provenance; "
+                "the addon adds no duplicate scientific attribution.\n"
             )
         if module == "physchem" and name == "get_sasa":
             function.__doc__ += (
