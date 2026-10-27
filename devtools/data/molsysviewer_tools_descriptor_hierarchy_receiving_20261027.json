@@ -1,0 +1,182 @@
+{
+  "schema": "molsysviewer.tools.descriptor-receiving@1",
+  "date": "2026-10-27",
+  "source": "3781031d0c1d08f34b2aa966ad0b82bf3b64a31d",
+  "scope": "Source receiving and corrected fixtures/CI; not installed or release qualification.",
+  "environment": "molsyssuite@uibcdf_3.14",
+  "retained_backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "hierarchy_receiving": {
+    "junit": {
+      "tests": 325,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "junit_sha256": "2c17d8c6a72f24d6a8d93b646a846a98194873fa0683adb35b5d0b2abf073efb",
+    "expected_failure": "One strict known #499 atom-insertion xfail on frozen 3781031d0; no claim about later owner work.",
+    "bound_checks": {
+      "source": "3781031d0c1d08f34b2aa966ad0b82bf3b64a31d",
+      "bound_positive_checks": [
+        {
+          "descriptor": "tpsa",
+          "element": "atom",
+          "values": [
+            20.230000000000004
+          ],
+          "context_atoms": [
+            0,
+            1,
+            2
+          ],
+          "source_groups": 0,
+          "source_chains": 0
+        },
+        {
+          "descriptor": "tpsa",
+          "element": "molecule",
+          "values": [
+            20.230000000000004
+          ],
+          "context_atoms": [
+            0,
+            1,
+            2
+          ],
+          "source_groups": 0,
+          "source_chains": 0
+        },
+        {
+          "descriptor": "tpsa",
+          "element": "system",
+          "values": 20.230000000000004,
+          "context_atoms": [
+            0,
+            1,
+            2
+          ],
+          "source_groups": 0,
+          "source_chains": 0
+        },
+        {
+          "descriptor": "lipophilicity",
+          "element": "atom",
+          "values": [
+            -0.5569999999999999
+          ],
+          "context_atoms": [
+            0,
+            1,
+            2
+          ],
+          "source_groups": 0,
+          "source_chains": 0
+        },
+        {
+          "descriptor": "lipophilicity",
+          "element": "molecule",
+          "values": [
+            -0.0014000000000000123
+          ],
+          "context_atoms": [
+            0,
+            1,
+            2
+          ],
+          "source_groups": 0,
+          "source_chains": 0
+        },
+        {
+          "descriptor": "lipophilicity",
+          "element": "system",
+          "values": -0.5569999999999999,
+          "context_atoms": [
+            0,
+            1,
+            2
+          ],
+          "source_groups": 0,
+          "source_chains": 0
+        }
+      ],
+      "builder_molecules": 2,
+      "builder_members": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          3,
+          4,
+          5
+        ]
+      ],
+      "script_sha256": "6326ebab920ef43a3b79eecbc1b9e6ba1bb8ed58df02cc6b8ae77dadbe05ce8c"
+    },
+    "guide_examples": {
+      "blocks": 43,
+      "inherited_native_doctests": 98,
+      "exit": 0
+    }
+  },
+  "fixture_correction": {
+    "issue": "uibcdf/molsysmt#500",
+    "junit": {
+      "tests": 210,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "db51a8c43de87e085c8d1889be5bac0caafa9553f7a495ccbbe9b804333ad608",
+    "policy": "One group per public inherited molecule membership; scientific assertions unchanged."
+  },
+  "ci_contract_checks": {
+    "junit": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "ddf5b72e000c442b3bc81109b64b8d649faea5734d230f04109cc2acf57ff455"
+  },
+  "prior_ci": [
+    {
+      "run": 40570840482,
+      "sha": "ea9fff3395157389b3a245cf70f58517973e76b8",
+      "official_conclusion": "cancelled",
+      "native_passed": 2807,
+      "native_optional_skips": 4,
+      "bound_passed": 1845,
+      "bound_optional_skips": 3,
+      "reason": "GitHub check-run 122424282078 confirms maximum execution time 15m0s exceeded. Pytest success does not override workflow cancellation.",
+      "annotations_sha256": "b173bb375ad7d49691a18522e6b4c81db7e36a2ca62d279094f5a27d0e7b31cf"
+    },
+    {
+      "run": 40571118517,
+      "sha": "3781031d0c1d08f34b2aa966ad0b82bf3b64a31d",
+      "official_conclusion": "failure",
+      "native_passed": 2678,
+      "native_failed": 6,
+      "native_errors": 123,
+      "native_optional_skips": 4,
+      "bound_tier": "not reached",
+      "reason": "Invalid fixtures put disconnected inherited molecules in one group; #500."
+    }
+  ],
+  "ci_budget": {
+    "issue": "uibcdf/molsysmt#501",
+    "previous_minutes": 15,
+    "corrected_minutes": 25,
+    "tests_removed": 0,
+    "new_hierarchy_guards": 2,
+    "hosted_corrected_source": "pending"
+  },
+  "prior_broad_regression": {
+    "passed": 3589,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt": "devtools/data/molsysviewer_tools_molecular_descriptors_receiving_20261027.json",
+    "repeated": false
+  }
+}

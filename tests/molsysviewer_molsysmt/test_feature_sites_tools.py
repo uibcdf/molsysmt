@@ -28,10 +28,16 @@ def feature_system(smiles):
     # Neither the adapter nor the scientific readers perform this preparation.
     molecule = Chem.MolFromSmiles(smiles)
     rdDepictor.Compute2DCoords(molecule)
-    builder = msm.MolSysBuilder(msm.convert(molecule))
-    group = builder.add_group(list(range(builder.n_atoms)), group_name="LIG")
-    builder.add_chain([group], chain_id="A")
+    source = msm.convert(molecule)
+    memberships = msm.get(source, element="molecule", atom_index=True)
+    builder = msm.MolSysBuilder(source)
+    groups = [builder.add_group(atoms, group_name="LIG") for atoms in memberships]
+    builder.add_chain(groups, chain_id="A")
     result = builder.build()
+    assert msm.get(result, n_molecules=True) == len(memberships)
+    np.testing.assert_equal(
+        msm.get(result, element="molecule", atom_index=True), memberships
+    )
     xyz = puw.get_value(result.structures.coordinates, to_unit="nm").copy()
     result.structures.append(
         coordinates=puw.quantity(

@@ -153,8 +153,10 @@ accuracy and published package compatibility.
 
 Keep the explicitly RDKit-read caffeine example and declared hydrogen inventory.
 Native SDF sources with unspecified CTAB evidence retain rejection; do not infer
-missing hydrogen counts. Track #494's builder molecule duplication and #495's
-group-free MDTraj adapter limit without adding consumer workarounds.
+missing hydrogen counts. Preserve source-qualified #494/#495 repairs: inherited molecule identity,
+MDTraj target-only placeholders, stable source order and absent native hierarchy.
+No consumer workaround or biological identity inference is added. Keep #499's
+populated-chemistry atom-insertion defect separate from read-only calculations.
 
 
 Preserve the explicit get_lipophilicity mirror and both descriptor output/context

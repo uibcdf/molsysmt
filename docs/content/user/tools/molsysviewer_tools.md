@@ -1907,12 +1907,16 @@ rather than guessed; loading the same file through a different declared form
 can therefore have different chemistry completeness. The addon never changes
 the input form or supplements missing counts to make a calculation pass.
 
-Group-free native molecule selection works with numeric indices and MolSysMT
-expressions. The current native MDTraj adapter fails on missing groups under
-[#495](https://github.com/uibcdf/molsysmt/issues/495). Adding groups to an already
-populated molecule inventory through the builder also has a native correspondence
-defect under [#494](https://github.com/uibcdf/molsysmt/issues/494). These limits
-remain visible; the addon neither invents hierarchy nor rewrites selectors.
+Group-free numeric/native-expression selection is supported. With the received
+native repairs [#494](https://github.com/uibcdf/molsysmt/issues/494) and
+[#495](https://github.com/uibcdf/molsysmt/issues/495), MDTraj selection also works
+without source groups: only the external target receives required placeholders,
+and source atom order, charges and absent hierarchy remain intact. A selector
+using target group metadata describes those external placeholders, not inferred
+biological identity. Native group insertion preserves inherited molecule identity.
+The separate populated-chemistry atom-insertion defect remains
+[#499](https://github.com/uibcdf/molsysmt/issues/499); these read-only calculations
+do not use that editing route. The addon adds no hierarchy or selector workaround.
 
 At the default `element='molecule'`, numeric selections address source molecules;
 selecting one atom with a string expression selects its complete parent molecule.
@@ -1993,6 +1997,9 @@ with msv.new_view(molsys) as view:
     assert areas["report"]["atom_indices"].tolist() == [0, 1, 2]
     assert areas["report"]["molecule_indices"].tolist() == [0]
     assert tools.get_lipophilicity(element="system", selection=[]) == 0.0
+    selected = tools.get_lipophilicity(element="atom", selection="index 2", syntax="MDTraj")
+    np.testing.assert_allclose(selected, [-0.5570], atol=1e-12)
+    assert view.molsys.topology.n_groups == 0
 ```
 
 The report separates `element_indices`, `element_atom_indices` and
@@ -2058,8 +2065,8 @@ Ackredit records the native executed model and software once; the addon adds no
 duplicate scientific credit.
 
 The explicit chemical-state, completeness, H inventory, provider and selection
-requirements above apply to both descriptors. Native #494/#495 limits retain
-their own receiving. Group/chain contribution rows require actual source
+requirements above apply to both descriptors. Native #494/#495 repairs retain
+their exact-source receiving. Group/chain contribution rows require actual source
 membership; absent groups are not invented. Both functions are headless and
 resolve current `view.molsys` after replacement and during pending managed edits.
 Expert parameters and `skip_digestion` remain native; there is no addon-specific

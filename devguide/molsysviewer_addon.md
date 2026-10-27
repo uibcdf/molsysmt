@@ -1424,3 +1424,17 @@ success in its receiving guard, with source hierarchy and scene state unchanged.
 Metadata selector limits follow the native adapter; no consumer translation or
 source repair is added. Populated-state atom insertion remains independently open
 under uibcdf/molsysmt#499 with a strict expected-failure native guard.
+
+
+### Bounded native-plus-addon scientific smoke budget
+
+The development `ci-smoke.yaml` job has a finite 25-minute maximum. Its scope
+includes environment/toolchain setup, native build, native scientific guards,
+the bound MolSysViewer scientific tier and cleanup. Keep those selected tiers
+when adjusting operational budget; do not remove tests to manufacture green CI.
+This ceiling is a bounded operational choice, not a guaranteed runtime across
+all runners. GitHub timeout/cancellation remains a non-success conclusion even
+when completed pytest output is positive. Preserve the official run, annotations
+and original outputs, then qualify a corrected source through an actual complete
+run. The measured 15-minute exhaustion and accepted adjustment are tracked by
+uibcdf/molsysmt#501; fixture migration is the separate uibcdf/molsysmt#500.

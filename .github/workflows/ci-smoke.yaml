@@ -1,8 +1,8 @@
 name: CI smoke
 
-# Runs on every push and pull request to main (unless [skip ci] is set).
-# Only executes the smoke test suite (~4 tests, <5 min).
-# Purpose: fast signal that nothing is catastrophically broken.
+# Bounded native scientific and bound-viewer contract tiers for main development.
+# The job budget includes environment/toolchain setup, native build, both pytest
+# tiers and cleanup. Keep the selected scientific guards when adjusting budget.
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
         (github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'skip-ci'))
       )
     runs-on: ${{ matrix.cfg.os }}
-    timeout-minutes: 15
+    timeout-minutes: 25
     concurrency:
       group: ci-smoke-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
@@ -165,6 +165,8 @@ jobs:
             tests/physchem/test_get_lipophilicity.py \
             tests/physchem/test_descriptor_contributions.py \
             tests/form/molsysmt_Topology/test_atom_membership_order.py \
+            tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py \
+            tests/native/test_builder_inherited_molecules.py \
             tests/physchem/test_get_secondary_structure_propensity.py \
             tests/physchem/test_reference_metadata_ownership.py \
             tests/native/test_group_free_molecules.py \

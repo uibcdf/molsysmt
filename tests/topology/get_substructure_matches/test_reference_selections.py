@@ -17,12 +17,18 @@ READERS = ["smarts", "hydrophobic", "halogen"]
 
 def declared_system(smiles="CCC.CCl.C=O"):
     source = msm.convert(Chem.MolFromSmiles(smiles), to_form="molsysmt.MolSys")
+    memberships = msm.get(source, element="molecule", atom_index=True)
     builder = msm.MolSysBuilder(source)
-    group = builder.add_group(
-        list(range(builder.n_atoms)), group_name="LIG", group_id="10"
-    )
-    builder.add_chain([group], chain_id="A")
+    groups = [
+        builder.add_group(atoms, group_name="LIG", group_id=str(10 + index))
+        for index, atoms in enumerate(memberships)
+    ]
+    builder.add_chain(groups, chain_id="A")
     source = builder.build()
+    assert msm.get(source, n_molecules=True) == len(memberships)
+    np.testing.assert_equal(
+        msm.get(source, element="molecule", atom_index=True), memberships
+    )
     count = source.topology.n_atoms
     source.topology.atoms["atom_name"] = [f"A{i}" for i in range(count)]
     source.structures = Structures(
