@@ -1,7 +1,7 @@
 ---
 summary: Evaluate AAindex, modlAMP and Peptides for additional physicochemical observables
 issue: uibcdf/molsysmt#485
-status: open
+status: partial
 opened: 2026-10-26
 closed:
 verification: inspected
@@ -15,7 +15,9 @@ supersedes: []
 # Evaluating external sources for physicochemical observables
 
 **Requested:** 2026-10-26 by the maintainer during the Collantes review.
-**Status:** Open exploration proposal; no new observable or implementation adopted.
+**Status:** Preliminary inventory and ranking completed; no new observable or
+implementation adopted. Original-source, licensing and client-priority reviews
+remain pending.
 
 ## What
 
@@ -115,3 +117,138 @@ APIs require the normal User Guide, Cookbook, course, docstring and test lifecyc
 The proposal can be studied during the current research window. Adding new
 observables is a separate maintainer decision and does not automatically extend
 the MolSysMT 1.0 gate or authorize a new dependency, release or publication.
+
+## Preliminary inventory — 2026-10-26
+
+Static inspection at source 8cf8b0107b4772c48d220416dc9a4e1f36b38679 identifies
+30 direct exports in `physchem/__init__.py` and 49 literal group dictionaries
+containing all twenty standard amino-acid keys. Forty-seven have numeric values
+for those keys; the count includes historical tables and placeholders and is
+not a count of supported observables. Twenty-three dictionaries match at least
+one AAindex1 record over all twenty values, without rescaling, at absolute
+tolerance 1e-9. The snapshot contains 566 records; its hash is in the receipt.
+
+The public toolbox already exposes hydrophobicity (fifteen named scales),
+polarity (two), transmembrane tendency, tabulated surface/volume/burial values,
+mass/charge and coordinate-based SASA. Additional chemical-site and chemical-state
+tools must not be confused with sequence reference scales. A public export does
+not itself establish a complete scientific or unit contract.
+
+The existing bulkiness, flexibility, refractivity, mutability, composition,
+accessible-fraction and secondary-structure-propensity tables have no identified
+direct public reader in the inspected exports or explicit group-module imports.
+This is a bounded source search, not proof that dynamic access is impossible.
+In particular:
+
+- Zimmerman bulkiness agrees with AAindex1 ZIMJ680102 at all twenty entries.
+- Nine of thirteen secondary-structure-propensity tables match AAindex1 records
+  exactly. These are population reference propensities, not predictions or
+  assignments of the input's observed secondary structure.
+- The Bhaskaran flexibility table differs at nineteen entries from BHAR880101;
+  the differences are consistent in magnitude with rounding to two decimals.
+  The intended precision/source needs review before exposing it. No values are
+  corrected based solely on this comparison.
+- The table named `refractivity.jones` matches MCMT640101, whose curated citation
+  identifies McMeekin data cited by Jones. Preserve the distinction between the
+  original data source and the secondary table source during attribution.
+- `aminoacid_composition` stores published reference-population frequencies;
+  it does not calculate the composition of the user's selected system.
+- `groups/template.py` is a placeholder, not a second bulkiness implementation.
+
+The [inventory receipt](../../devtools/data/physchem_observable_inventory_20261026.json)
+records every literal-table/accession match and hashes of inspected local files.
+The standard-library-only
+[research runner](../../devtools/scripts/audit_physchem_reference_inventory.py)
+can reproduce the inventory from an explicitly supplied AAindex1 snapshot:
+
+```bash
+python devtools/scripts/audit_physchem_reference_inventory.py \
+  --aaindex1 /tmp/aaindex1 \
+  --output /tmp/physchem_observable_inventory.json
+```
+
+Download the official snapshot separately and compare its SHA-256 with the
+receipt when reproducing this checkpoint. The runner does not download data,
+import scientific providers or act as a release/scientific-validation gate.
+Its controls distinguish the two halves of the AAindex paired header, reject
+ambiguous axes and prevent missing values or partial matches being certified.
+Numeric matches do not establish units, additivity or redistribution rights.
+
+## Provisional candidate ranking
+
+This ranking weighs reuse, clarity of the scientific contract and likely general
+utility. Client demand is still a hypothesis, not an endorsement by another
+component. Costs are algorithmic estimates, not measured performance.
+
+| Rank | Candidate | Existing pieces / source | Proposed contract and adoption condition |
+| --- | --- | --- | --- |
+| 1 | A small set of validated reference readers | Existing Zimmerman bulkiness, Bhaskaran flexibility and secondary-structure propensity tables; AAindex1 | Group-aligned scalar or labelled multi-component outputs; explicit definition, original data source and precision. Start with one or two well-supported scales after units/normalization and licensing review; do not expose all stored tables merely because they exist. |
+| 2 | Sequence hydrophobic moment | Existing hydrophobicity readers; Eisenberg method; modlAMP `calculate_moment` and Peptides `hmoment` | Explicit ordered peptide groups, scalar scale, angular increment, window and reduction. Profile versus global/max/mean must be explicit; no window across chain breaks or an unordered/repeated selection. Validate analytic constant/alternating controls and separately compare equivalent provider parameters. |
+| 3 | Actual selected-sequence composition | Existing group/sequence information; Peptides `aacomp` | Counts and fractions with explicit denominator, sequence/chain boundaries and unknown/modified-group handling. Keep observed composition separate from stored population frequencies. Counts are integers; fraction and percentage representations must be declared. |
+| 4 | Sequence-model charge and isoelectric point | Existing charge stores and fixed-pH reference lookup; modlAMP and Peptides pH/pKa models | Explicit pH, pKa parameter set, ionizable groups and free/capped termini. Predicted mean charge is in elementary charge; pI is a pH coordinate. No implicit replacement of stored formal/force-field charges or enumeration of ChemicalStates. Environment-dependent pKa remains the separate provider work in uibcdf/molsysmt#177. |
+| 5 | Selected QSAR descriptor vectors | Peptides Kidera, Z, VHSE and MS-WHIM families | Labelled group-by-component arrays with exact ordering, scaling, version and allowed domain. Standardized coordinates are not independent physical quantities; sum/mean is not a scientific default. Require a concrete modeling client before adding a family. |
+| Deferred | Broad scale catalogue, autocorrelation/covariance families and generic downloading | AAindex1 catalogue; modlAMP/Peptides sequence descriptors | Too broad for a first tranche. Establish supported sequence ordering, finite-window semantics, normalization, missing-data policy and real client demand first. AAindex2 substitution matrices and AAindex3 contact potentials are distinct domains, not additional scalar observables. |
+
+### Shared public-contract requirements
+
+All proposed readers remain form agnostic: query the needed group/connectivity
+information through existing tools or convert once to a native domain. A
+sequence-derived operation must establish chemical sequence order from topology
+or a genuine sequence form; sorting group indices is not a substitute. A broken
+or disconnected selection cannot silently become a new peptide with artificial
+termini. An atom selection cannot silently redefine a complete group descriptor.
+
+Reference lookups need no coordinates or structures. Scalar group readers should
+retain established selection order and repetitions, while sequence-window tools
+must explicitly define or reject noncontiguous/repeated selections. Unknown,
+modified, terminal and dummy groups require a declared policy for each method;
+generic zero filling is not a universal scientific rule. Quantity outputs use
+PyUnitWizard when physical dimensions are established, with typed empty axes.
+Index/vector outputs retain metadata instead of inventing a physical unit.
+
+Bounded lookup and fixed-window sequence calculations need O(n_groups) storage;
+a sliding hydrophobic moment admits rolling sine/cosine sums rather than a dense
+all-window matrix. These estimates justify starting with existing NumPy tools;
+Rust is a later measured-workload decision. No runtime dependency on AAindex,
+modlAMP or R is required merely to provide a curated, permitted fixed table.
+
+Scientific criteria stay in `physchem`; reusable connectivity and geometric
+operations retain their owning modules. An assumed periodic sequence angle is
+not an observed 3-D angle and must not acquire box/PBC semantics. ChemicalStates
+continues to own actual chemical assignments. Ackredit should identify the
+original method/data and any faithful provider implementation separately; it
+must not imply that a table lookup executed the original generation method.
+
+### Source comparison boundaries and remaining decisions
+
+modlAMP defaults to a 100-degree increment and a large/global window; its docstring
+suggests 180 degrees for beta strands. Peptides defaults to 100 degrees, an
+eleven-group window and maximum reduction, suggesting 160 degrees in its example.
+These are different parameter choices, so default-output disagreement would not
+demonstrate a faulty implementation. A MolSysMT method must expose these choices
+rather than hide them behind a software-name alias. The cited method is
+Eisenberg, Weiss and Terwilliger (1984), DOI 10.1073/pnas.81.1.140; the complete
+primary method and adopted scale still require bounded verification before coding.
+
+The reviewed Peptides charge/pI functions offer named pKa sets and sequence-level
+models. Their values are useful comparison cases, not independent measurements
+of charge in an explicit molecular environment. In particular, neither source
+settles the physical ECI question under uibcdf/molsysmt#475.
+
+Licensing is not cleared by public access or by matching an existing table.
+Review each source's license and the underlying data redistribution terms,
+retaining attribution and source pins before copying data/code. No new external
+code or table is incorporated by this study. No new observable is implemented.
+The next maintainer decision is the first bounded candidate set and whether its
+implementation belongs before or after 1.0. Original-source/units review,
+license clearance and client priorities keep this proposal partial and open.
+
+## Local qualification of the research tooling
+
+On Linux/Python 3.14.7, the six synthetic inventory controls pass in 4.00 seconds
+with `python -m pytest devtools/tests/test_physchem_reference_inventory.py
+--receptor=llm -n 12`. The runner also reads the pinned 566-record snapshot and
+reproduces the 30/49/47/23 inventory counts above. Selected Ruff check/format,
+developer-guide validation and generated-index checks pass. No molecular
+runtime implementation, table entry, dependency or public signature changes.
+These are research-tool controls, not validation of any proposed observable.

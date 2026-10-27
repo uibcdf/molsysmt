@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "issue": "uibcdf/molsysmt#485",
+  "source_commit": "8cf8b0107b4772c48d220416dc9a4e1f36b38679",
+  "method": "Static literal-table inventory; twenty-value comparison, atol=1e-9, no rescaling.",
+  "aaindex1": {
+    "url": "https://www.genome.jp/ftp/db/community/aaindex/aaindex1",
+    "sha256": "560f102dbee8ca9837186c4b2b93e253ea6efc58c88617234cef4e54bd61f676",
+    "records": 566
+  },
+  "source_sha256": {
+    "molsysmt/physchem/__init__.py": "107828eb59ff9668861c62f413aeaf902feed5aa6f4f810ea20a2fa303df6b2b",
+    "molsysmt/physchem/groups/_lookup.py": "a23d0a97c4570af9544d022de496c47c10e4613550cbdd7b29245293a666c3e6",
+    "molsysmt/physchem/groups/accessible_fraction.py": "d502313568ebcca568b3a9285f4e57c3e73cc06ff1662902c04633aa4e8b5472",
+    "molsysmt/physchem/groups/aminoacid_composition.py": "adfe31ca60e40443d9fdd37dfa13bd9955d9e75ef9f9cd5bfed18e8dc7183c42",
+    "molsysmt/physchem/groups/area_buried.py": "46bbe27645a521e55ebfe0c3dbe7fa8944eea000a80b846e2d3843a98ec4a0e4",
+    "molsysmt/physchem/groups/bulkiness.py": "2c45b30ffc6609edeb4f8a2874979559d337c26b9357e7ecb5d205dea1f15840",
+    "molsysmt/physchem/groups/buried_fraction.py": "2df2c1f633f106540af14ce0622ede305283c5f00920e27bb812fad9f654e72f",
+    "molsysmt/physchem/groups/charge.py": "4ca1febf20f4dba719dfc47db3c13d47a58976f4da80ca2d4c1104a995600a7c",
+    "molsysmt/physchem/groups/flexibility.py": "365f28584c4076ac6a08565f78c21a69be64d7661b45a37e7f29c92f9630b622",
+    "molsysmt/physchem/groups/hydrophobicity.py": "76b15ec68440946373af8ab6db730232cd424b1f2655ba9a8eab64422fe0426b",
+    "molsysmt/physchem/groups/molecular_weight.py": "3803919fccb4beaf94eb82494d1942c3dd4b8c10a1572f239d1c8ec59fc49a9f",
+    "molsysmt/physchem/groups/mutability.py": "51ee25c4d34ce15b0dccee16e9946fe59fdd484b24274e463b4ad09d9774bd51",
+    "molsysmt/physchem/groups/polarity.py": "df2e1f9871407b5562ac42f3a4aafa0356ef5a9671d8304ce833bf9a7ff1fa1f",
+    "molsysmt/physchem/groups/refractivity.py": "6a6c3e2665898892cb70ac96fcaf723292fc3f6e1fc8487b6ecf9d74ee12ea40",
+    "molsysmt/physchem/groups/secondary_structure_propensity.py": "94263c75c503332772b75ea567d00b08adcf6078de6bc2b5bfef17fa87bc38e6",
+    "molsysmt/physchem/groups/side_chain_composition.py": "d2fb567db4520d66535ec8e7c0230ec5094877bcddc84f30b28c51c79de01f1b",
+    "molsysmt/physchem/groups/surface_area.py": "9a4a7ed135b2b38b5e90a7213a14af9b38c897a6f7d9e0f9f6a2db72c74f7e12",
+    "molsysmt/physchem/groups/template.py": "1e98beb0bbc078682e08e74196afa8006ab81a151b17738ba54ae88068849341",
+    "molsysmt/physchem/groups/transmembrane_tendency.py": "6f9dcd9171203f4603361733b92d8205c8f2582c7411da10fafcdb56d240c3ae",
+    "molsysmt/physchem/groups/volume.py": "0b04b668f86d25c8d31f41e4edb0619c2253928ad12665a03563327eef80f9f4"
+  },
+  "direct_public_physchem_exports": [
+    "get_mass",
+    "get_charge",
+    "get_charge_centers",
+    "get_aromatic_rings",
+    "get_halogen_bond_sites",
+    "get_hydrophobic_sites",
+    "get_atomic_radius",
+    "get_electronegativity",
+    "get_polarity",
+    "get_transmembrane_tendency",
+    "get_area_buried",
+    "get_buried_fraction",
+    "get_hydrophobicity",
+    "get_sasa",
+    "get_surface_area",
+    "get_volume",
+    "get_protor_atom_type",
+    "get_protor_vdw_radius",
+    "apply_chemical_template",
+    "assess_chemical_template",
+    "get_aromaticity",
+    "get_autodock_atom_types",
+    "get_chemical_readiness",
+    "get_cip_stereochemistry",
+    "get_hydrogen_inventory",
+    "get_metal_coordination_sites",
+    "get_partial_charges",
+    "get_peptide_chemical_template",
+    "get_water_sites",
+    "normalize_aromatic_bond_orders"
+  ],
+  "group_tables": [
+    {
+      "path": "molsysmt/physchem/groups/accessible_fraction.py",
+      "table": "janin",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/aminoacid_composition.py",
+      "table": "mccaldon",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/aminoacid_composition.py",
+      "table": "swissprot2013",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/area_buried.py",
+      "table": "rose",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "ROSG850101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/bulkiness.py",
+      "table": "zimmerman",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "ZIMJ680102"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/buried_fraction.py",
+      "table": "janin",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/charge.py",
+      "table": "physical_pH7",
+      "keys": 22,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/charge.py",
+      "table": "collantes",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/flexibility.py",
+      "table": "bhaskaran",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "rao",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "eisenberg",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "sweet",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "SWER830101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "kyte",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "KYTJ820101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "abraham",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "bull",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "guy",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "GUYH850101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "miyazawa",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "roseman",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "wolfenden",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "chothia",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "hopp",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "HOPT810101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "manavalan",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "MANP780101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "black",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "BLAS910101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/hydrophobicity.py",
+      "table": "fauchere",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "FAUJ830101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/molecular_weight.py",
+      "table": "molecular_weight",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/mutability.py",
+      "table": "dayhoff",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "DAYM780201"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/polarity.py",
+      "table": "grantham",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "GRAR740102"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/polarity.py",
+      "table": "zimmerman",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "ZIMJ680103"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/refractivity.py",
+      "table": "jones",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "MCMT640101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/refractivity.py",
+      "table": "mcmeekin",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "alpha_helix_levitt",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "LEVM780101",
+        "PRAM900102"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "beta_sheet_levitt",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "LEVM780102",
+        "PRAM900103"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "beta_turn_levitt",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "LEVM780103"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "alpha_helix_chou",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "CHOP780201"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "beta_sheet_chou",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "CHOP780202"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "beta_turn_chou",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "CHOP780101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "alpha_helix_deleage",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "beta_sheet_deleage",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "beta_turn_deleage",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "coil_deleage",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "total_beta_strand_lifson",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "LIFS790101"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "antiparallel_beta_strand_lifson",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "LIFS790103"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+      "table": "parallel_beta_strand_lifson",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "LIFS790102"
+      ]
+    },
+    {
+      "path": "molsysmt/physchem/groups/side_chain_composition.py",
+      "table": "grantham",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/surface_area.py",
+      "table": "collantes",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/template.py",
+      "table": "bulkiness",
+      "keys": 20,
+      "twenty_standard_values_numeric": false,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/transmembrane_tendency.py",
+      "table": "zhao",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/transmembrane_tendency.py",
+      "table": "senes",
+      "keys": 20,
+      "twenty_standard_values_numeric": false,
+      "aaindex1_twenty_value_matches": []
+    },
+    {
+      "path": "molsysmt/physchem/groups/volume.py",
+      "table": "grantham",
+      "keys": 20,
+      "twenty_standard_values_numeric": true,
+      "aaindex1_twenty_value_matches": [
+        "GRAR740103"
+      ]
+    }
+  ],
+  "limits": [
+    "Numeric agreement does not verify units, source identity, licenses or additivity.",
+    "No match can reflect normalization, rounding, updates or coverage; it is not a defect diagnosis.",
+    "A literal table is not proof of a public delivery route or scientific validation.",
+    "No benchmarks, client acceptance, original-paper review or new API are claimed."
+  ]
+}
