@@ -79,7 +79,9 @@ def get_charge(
     require primary-reference verification in uibcdf/molsysmt#475. The legacy
     quantity wrapper and sums are retained; they do not certify ECI as a net
     charge or force-field parameter. This qualification does not affect the
-    physical_pH7 or OpenMM definitions.
+    physical_pH7 or OpenMM definitions. Scientific evidence for those bounded
+    reference/parameter-preservation cases does not validate Collantes ECI;
+    the combined API is classified as partial in the scientific evidence matrix.
 
     Values are rounded to 4 decimal places for the ``'OpenMM'`` definition
     to avoid floating-point noise from unit conversions.

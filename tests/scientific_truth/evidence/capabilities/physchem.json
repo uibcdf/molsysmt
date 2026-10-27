@@ -26,8 +26,8 @@
   },
   "molsysmt.physchem.get_charge": {
     "domain": "physchem",
-    "status": "validated",
-    "claim": "Retrieving residue-scale formalized charges or force-field partial charges in elementary-charge units according to the selected definition.",
+    "status": "partial",
+    "claim": "Reference physical_pH7 group values and sums for Arg/Asp/Ala, and preservation of independently declared OpenMM NonbondedForce particle charges. The Collantes ECI definition remains scientifically unqualified.",
     "units": [
       "elementary charge"
     ],
@@ -41,19 +41,13 @@
         "tolerance": "float64_kernel_atol"
       },
       {
-        "class": "versioned-reference",
-        "test": "tests/scientific_truth/physchem/test_reference_properties.py::test_collantes_indices_match_published_residue_values",
-        "oracle": "Independently transcribed Arg, Asp, and Ala electronic charge indices from Collantes and Dunn, J. Med. Chem. 38 (1995), 2705-2713.",
-        "tolerance": "float64_kernel_atol"
-      },
-      {
         "class": "external",
         "test": "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
         "oracle": "Arbitrary signed particle charges declared directly in an independent OpenMM NonbondedForce.",
         "tolerance": "float64_kernel_atol"
       }
     ],
-    "gap": null
+    "gap": "Under uibcdf/molsysmt#475, primary Collantes/Dunn table values, physical dimension and justified aggregation have not been verified. Legacy values, elementary-charge wrapping and sums are compatibility regression behavior only, covered in tests/physchem/test_collantes_legacy_contract.py; they are not independent scientific evidence."
   },
   "molsysmt.physchem.get_mass": {
     "domain": "physchem",

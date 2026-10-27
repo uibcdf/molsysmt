@@ -64,3 +64,27 @@ physical_pH7 or OpenMM behavior, infer atom charges or guess a replacement unit
 from the descriptor's name. Until that review, existing numerical behavior is
 preserved and its semantic uncertainty is explicit. No new algorithm, optional
 provider, scientific certification or dimensional correction is implemented.
+
+## Scientific-evidence scope correction — 2026-10-26
+
+The prior machine-readable registry classified the whole get_charge API as
+validated, including a test described as independently transcribed original
+Collantes values. That provenance is unsupported by the current primary-reference
+review: the original table, dimension and aggregation have not been read and
+verified. Matching the retained legacy numbers is not an independent oracle.
+
+The registry now classifies get_charge as partial. Physical_pH7 Arg/Asp/Ala
+reference checks and independently declared OpenMM parameters retain their
+bounded evidence; the Collantes node is removed from the scientific inventory.
+Its unchanged numeric/wrapper/sum assertions move to
+`tests/physchem/test_collantes_legacy_contract.py`, explicitly as compatibility
+regression. No values, units, sums, signatures or runtime dependency change.
+The maintained scientific-validation contract and generated matrix carry this
+boundary. This corrects the evidence claim, not the unresolved physical contract;
+#475 remains open, and #473 still needs original ISA units and normalization.
+
+The scoped registry/reference/legacy regression and changed get_charge doctest
+selection passes 26 cases on Linux/Python 3.14.7 (two expected legacy-H5MSM
+warnings). The numerical assertions were moved intact; no original paper access
+is claimed. Commands, hashes and the remaining primary-reference requirement are
+recorded in [the evidence-scope receipt](../../devtools/data/collantes_evidence_scope_20261026.json).

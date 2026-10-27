@@ -156,37 +156,6 @@ def test_ph7_group_charges_match_reference_ionization_states(float64_kernel_atol
     )
 
 
-def test_collantes_indices_match_published_residue_values(float64_kernel_atol):
-    """Match independently transcribed Collantes electronic charge indices."""
-
-    builder = msm.MolSysBuilder()
-    for group_name in ("ARG", "ASP", "ALA"):
-        atom = builder.add_atom(atom_name="CA", atom_type="C")
-        builder.add_group([atom], group_name=group_name)
-    system = builder.build()
-
-    observed_groups = msm.physchem.get_charge(
-        system, element="group", definition="collantes"
-    )
-    observed_system = msm.physchem.get_charge(
-        system, element="system", definition="collantes"
-    )
-    expected = np.array([1.69, 1.25, 0.05])
-
-    np.testing.assert_allclose(
-        _values(observed_groups, "elementary_charge"),
-        expected,
-        rtol=0.0,
-        atol=float64_kernel_atol,
-    )
-    np.testing.assert_allclose(
-        _values(observed_system, "elementary_charge"),
-        expected.sum(),
-        rtol=0.0,
-        atol=float64_kernel_atol,
-    )
-
-
 def test_openmm_charges_preserve_explicit_nonbonded_parameters(float64_kernel_atol):
     """Read arbitrary charges from an independently constructed NonbondedForce."""
 

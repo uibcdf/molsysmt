@@ -364,3 +364,40 @@ The [resolution](../archive/resolved_bugs/native_sdf_stereo_verification_rejects
 and [receipt](../../devtools/data/sdf_stereo_verification_20261023.json) own the
 827-case source evidence. The receiving RDKit 2026.03.1 environment, wider SDF
 profile and consumer adoption remain separate; #215 stays partial.
+
+## PharmacophoreMT CID 6842999 classification — 2026-10-26
+
+**Executed / inspected:** the public import requested by PharmacophoreMT is
+reproduced with current MolSysMT source 312a73200f5c578ba758618ec42179edb0228221,
+Linux/Python 3.14.7 and RDKit 2025.9.5. A fresh single PubChem 3D SDF for CID
+6842999 contains 32 atoms and 33 bonds. Its 6036-byte SHA-256 is
+`6b3d53cbe6320fc1eda589001512d8fa118c06b5228157fdf2e704527c2ef60c`.
+This differs from the consumer's retained original
+`ab1522d3c2f63d38c939be63d9c00bc4288760347aaefcb0d28381312bace6a4`;
+these are independent acquisitions of the same CID, not identical input evidence.
+The current response is retained only in /tmp, without source-data redistribution.
+
+With explicit `discard_properties=True, stereo_engine='rdkit'`, the same
+parity-only guard rejects this acquisition. Source atom indices 6 (N) and 9 (C)
+carry parity flags 2 and 1 respectively. Direct RDKit strict, unsanitized parsing
+returns CHI_UNSPECIFIED for N and CHI_TETRAHEDRAL_CW for C. Sanitization and stereo
+assignment retain unspecified N and assign R to C. There are no wedge bond flags.
+The generic rejection text is therefore not evidence that all source coordinates
+are 2D or absent; one declared atom flag lacks an interpretation in this provider.
+
+**Classification:** bounded unsupported interpretation in the current profile,
+not an established incorrect chemical declaration or a proven new regression.
+The parser intentionally refuses to discard an uninterpreted source stereo flag.
+No supported current native import route preserving every source declaration is
+established by this study. Erasing parity flags, interpreting bare coordinates as
+permission to drop a declaration, or retrying silently without the provider is not
+a supported recovery. A future admission needs an explicit preserved declaration
+contract and independent stereo evidence, including potentially stereogenic N;
+this review does not declare the nitrogen intrinsically achiral.
+
+The existing guard
+`tests/form/file_sdf/test_stereochemistry.py::test_parity_only_without_interpretable_geometry_is_rejected`
+protects conservative refusal. #215 remains partial; this report does not expand
+the accepted SDF dialect, claim universal stereo perception or qualify a new
+installed package. The acquisition/import/provider observations are recorded in
+[the current-source receipt](../../devtools/data/sdf_cid6842999_review_20261026.json).

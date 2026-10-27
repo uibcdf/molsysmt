@@ -252,3 +252,14 @@ ran; it does not fill a Gap, extend a fixture's declared claim or certify every
 experimental profile. Required oracles already belong to the full test environment
 (AmberTools, ParMed and MDTraj). A minimal environment may skip optional external
 tests, but cannot receive a passing zero-skip certificate for the expanded registry.
+
+## Definition-specific scope
+
+A function exposing multiple scientific definitions must not inherit a broad
+validated claim from evidence for only some of them. For `get_charge`, governed
+reference checks cover selected physical_pH7 groups and independently declared
+OpenMM parameters. Collantes ECI's original values, dimension and additive
+interpretation remain under uibcdf/molsysmt#475; the API is therefore partial.
+Its legacy wrapper regression is retained outside the scientific-truth inventory.
+Passing that regression preserves compatibility; it does not establish the
+original descriptor's physical meaning or original-table accuracy.
