@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-22
+**Last updated:** 2026-10-26
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,24 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Current source stabilization — 2026-10-26
+
+Default-reference readiness selection is source-resolved under
+[uibcdf/molsysmt#480](https://github.com/uibcdf/molsysmt/issues/480). Its additional
+state controls exposed an independent H5MSM association defect, now source-resolved
+under [uibcdf/molsysmt#481](https://github.com/uibcdf/molsysmt/issues/481). The
+[association resolution](archive/resolved_bugs/h5msm_writes_an_unreadable_identity_association_when_structure_and_chemical_stat.md)
+records guarded unequal structure/state populations and unchanged strict reading.
+This changes neither the H5MSM version nor the paused artifact identities.
+
+Collantes physical interpretation remains open under #473/#475; the scientific
+registry now explicitly classifies get_charge as partial instead of extending
+its bounded physical_pH7/OpenMM evidence to unverified ECI dimensions and sums.
+The current-source SDF declaration refusal remains a bounded profile limitation
+under #215. Local source regression and documentation checks do not replace the
+new exact-candidate platform, scientific-evidence and installed-pair gates under
+#334. Publication remains paused as recorded below.
 
 ## Release coordination paused — 2026-10-08
 

@@ -460,7 +460,7 @@ sections:
             description: Header axis counts, eager structural queries and ordered subset export through StructuresDict.
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, typed construction, normalization and geometry history, complementary file composition, shared axes and legacy migration.
+            description: Modular persistence, typed construction, normalization and geometry history, complementary file composition, shared axes, unequal structure/state populations with explicit maps, and legacy migration.
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.

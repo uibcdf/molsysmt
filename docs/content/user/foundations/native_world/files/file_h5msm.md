@@ -58,6 +58,13 @@ with TemporaryDirectory() as tmpdir:
 
 Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.
 
+The modular 0.5 format preserves structure and chemical-state populations
+independently. Structure-to-state indices are stored explicitly when the two
+populations differ, including a prefix map into a larger state inventory.
+An identity link requires equal populations and the same index at every position.
+Reference-state choice and unknown associations remain separate. See
+{ref}`user-tools-form-h5msm-05` for the versioned association contract.
+
 ## Performance and Storage Invariants
 
 - **Gzip & LZF Chunk Compression**: Trajectory coordinate datasets are chunked along the structure axis and compressed using Gzip (level 4) or LZF.

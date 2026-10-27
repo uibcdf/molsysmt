@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#481",
+  "parent_source": "125f485abe290aab588233e2b3ebe6ee889d13ba",
+  "scope": "Local source contracts and public persistence; no full-suite, installed-pair, cross-platform or release qualification.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "distribution_versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/form/_h5msm05_associations.py": "8e8fb5bbc622ddd7a11f9a506823bc902cb5cb7faaabf65ea92c2fbc85825b01",
+    "molsysmt/h5msm.py": "8235b26d8a7de5ee6f0e9850a6d661057f495b0a93b5c795f9e27b8374a34834",
+    "tests/form/file_h5msm/test_associations_v05_probe.py": "5f407ec7689e26c69c1a9ac096d3453c48bdd7d8e1a44e38b4f9e35c17a9102e"
+  },
+  "before": {
+    "command": "python -m pytest tests/form/file_h5msm/test_associations_v05_probe.py --receptor=llm -n 12",
+    "result": "11 failed, 25 passed",
+    "seconds": 7.12,
+    "log": "/tmp/molsysmt-481-before.log",
+    "mechanisms": [
+      "Two public persistence cases detect an incorrect on-disk identity marker.",
+      "Nine shared-codec cases fail repeated normalization for an identity marker invented from an explicit prefix."
+    ]
+  },
+  "after": [
+    {
+      "command": "python -m pytest tests/form/file_h5msm/test_associations_v05_probe.py --receptor=llm -n 12",
+      "result": "36 passed before adding two final independent-layer/reader-tampering controls",
+      "seconds": 7.02,
+      "log": "/tmp/molsysmt-481-after.log"
+    },
+    {
+      "command": "python -m pytest tests/form/file_h5msm tests/interactions/test_h5msm05.py tests/interactions/test_public_molsys_h5msm_workflow.py tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py tests/physchem/test_get_chemical_readiness.py tests/native/test_chemical_states.py --receptor=llm -n 12",
+      "result": "871 passed; zero failures/skips; 696 expected legacy-H5MSM warnings",
+      "seconds": 19.77,
+      "log": "/tmp/molsysmt-481-regression.log"
+    },
+    {
+      "command": "python -m pytest --doctest-modules molsysmt/h5msm.py --receptor=llm -n 12",
+      "result": "1 passed",
+      "seconds": 4.94,
+      "log": "/tmp/molsysmt-481-doctest.log"
+    },
+    {
+      "command": "python -m pytest tests/documentation/test_notebook_schema.py --receptor=llm -n 12",
+      "result": "491 passed",
+      "seconds": 7.88,
+      "log": "/tmp/molsysmt-481-notebook-schema.log"
+    },
+    {
+      "command": "Execute the introductory and new unequal-population Python blocks from h5msm_05.md in an isolated temporary working directory",
+      "result": "2 blocks passed"
+    },
+    {
+      "command": "Original bundled pentalanine reproduction: select one structure, append a state, associate [0], then public H5MSM write/read",
+      "result": "62 atoms, 1 structure, 2 states; coordinates identical; state map [0] preserved"
+    },
+    {
+      "command": "make -C docs html SPHINXOPTS='-q -j 12'",
+      "result": "Exit 0; 0 errors, 23 warnings",
+      "log": "/tmp/molsysmt-481-html.log",
+      "limit": "Incremental local build; existing #144 warning debt remains."
+    }
+  ],
+  "contract": {
+    "identity": "Equal source/target cardinalities and index-for-index correspondence over the full domains.",
+    "prefix": "Existing signed integer explicit mapping; preserve values and unknown -1 entries.",
+    "empty": "An empty source into a nonempty target remains an explicit empty map.",
+    "normalization": "Idempotent for all three shared link axes.",
+    "reader": "Unchanged; still rejects invalid unequal-cardinality identity markers.",
+    "write_rejection": "Invalid identities/bounds/lengths/duplicate atom targets reject before destination mutation."
+  },
+  "unchanged": [
+    "H5MSM root version 0.5 and association schema version 1",
+    "Public signatures and dependency floors",
+    "Native chemical reference and structure association semantics",
+    "Compiled backend and molecular algorithms"
+  ],
+  "documentation": "Common Core Module 04 code cells, outputs, counts and metadata preserved exactly; prose updated. Writer help, tool, Foundations, Cookbook, normative format and release-status ledger updated.",
+  "local_quality_checks": [
+    {
+      "command": "python devtools/scripts/release_gate.py",
+      "result": "14/14 passed",
+      "log": "/tmp/molsysmt-481-fast-gates.log"
+    },
+    {
+      "command": "python devtools/scripts/validate_docstrings.py",
+      "result": "251 public functions passed"
+    },
+    {
+      "command": "python devtools/scripts/validate_public_api_stability.py",
+      "result": "No unauthorized signature drift"
+    },
+    {
+      "command": "Ruff check and format --check on three changed Python files",
+      "result": "Passed"
+    }
+  ]
+}

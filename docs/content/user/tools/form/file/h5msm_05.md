@@ -99,6 +99,33 @@ reject files containing it. Current readers accept older files lacking it. Named
 cation–π analyses preserve the original method reference as well as producer versions;
 ProLIF's SMARTS membership order remains available to reconstruct its ring normal.
 
+### Preserving independent structure and state populations
+
+A structure-to-state association does not require one state per structure.
+Both state inventory and reference are preserved independently of the map:
+
+```python
+molsys = MolSys(n_atoms=2)
+molsys.structures = Structures(
+    coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
+)
+molsys.chemical_states.append_state()
+msm.set(molsys, structure_chemical_state_index=[0])
+msm.convert(molsys, to_form="two_states.h5msm")
+restored = msm.convert("two_states.h5msm")
+assert restored.structures.n_structures == 1
+assert restored.chemical_states.n_chemical_states == 2
+assert msm.get(restored, structure_chemical_state_index=True) == [0]
+```
+
+The writer stores `[0]` explicitly because the target contains two states.
+An `identity` marker requires equal populations and an index-for-index map;
+a prefix such as `[0, 1]` into three states remains explicit. Unknown
+structure-state associations retain `-1`. The declared reference state is not
+substituted for an unknown or differently associated state. These rules also
+apply to independent atom/structure links supplied through `write_layers`.
+Readers reject malformed identity markers rather than infer an intended map.
+
 ## Reading optional layers
 
 ### Preparation history

@@ -170,11 +170,14 @@ def write_layers(
     chemical_states : molsysmt.ChemicalStates, default=None
         State-dependent chemical information.
     structures : molsysmt.Structures, default=None
-        Frame-aligned structural series, with coordinates in nanometers.
+        Structure-aligned series, with coordinates in nanometers.
     interactions : dict, default=None
         Named sparse interaction analyses.
     associations : list of dict, default=None
-        Explicit index-space links between the provided layers.
+        Explicit index-space links between the provided layers. Identity maps
+        require equal source and target cardinalities and index-for-index
+        correspondence. A prefix into a larger target remains an explicit map;
+        structure and chemical-state populations need not have equal lengths.
     skip_digestion : bool, default=False
         Whether to skip argument validation for a trusted internal call.
 

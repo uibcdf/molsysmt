@@ -173,3 +173,177 @@ def test_every_nonempty_primary_domain_combination_roundtrips(
     assert (restored["structures"] is not None) == has_structures
     assert restored["interactions"] is None
     assert restored["associations"] is None
+
+
+@pytest.mark.parametrize(
+    "n_structures,n_states,indices",
+    [(1, 2, [0]), (2, 3, [0, 1]), (2, 2, [0, 1]), (2, 3, [2, 0]), (3, 2, [1, 0, None])],
+)
+def test_public_unequal_structure_state_populations_roundtrip(
+    tmp_path, n_structures, n_states, indices
+):
+    """Preserve actual state maps, reference and geometry through the public file path."""
+    from molsysmt.native import MolSys
+
+    molsys = MolSys(n_atoms=3)
+    molsys.topology.atoms["atom_type"] = ["C", "N", "O"]
+    molsys.topology.atoms["atom_id"] = ["a", "b", "c"]
+    for _ in range(n_states - 1):
+        molsys.chemical_states.append_state()
+    for state_index in range(n_states):
+        molsys.chemical_states._states[state_index].set_atom_attribute(
+            "formal_charge", [state_index, -state_index, 0]
+        )
+    molsys.chemical_states._set_reference_index(n_states - 1)
+    xyz = np.arange(n_structures * 9, dtype=float).reshape(n_structures, 3, 3) / 100
+    molsys.structures = Structures(coordinates=msm.pyunitwizard.quantity(xyz, "nm"))
+    msm.set(molsys, structure_chemical_state_index=indices)
+    source_mapping = msm.get(molsys, structure_chemical_state_index=True)
+    filename = tmp_path / "states.h5msm"
+    msm.convert(molsys, to_form=filename)
+    with h5py.File(filename, "r") as file:
+        link = next(
+            child
+            for child in file["associations"].values()
+            if child.attrs["axis"] == "structure_state"
+        )
+        if n_structures == n_states and indices == list(range(n_structures)):
+            assert link.attrs["mapping"] == "identity"
+            assert "indices" not in link
+        else:
+            assert link.attrs["mapping"] == "explicit"
+            np.testing.assert_array_equal(
+                link["indices"][:], [-1 if i is None else i for i in indices]
+            )
+    restored = msm.convert(filename, to_form="molsysmt.MolSys")
+    assert restored.chemical_states.n_chemical_states == n_states
+    assert restored.chemical_states.reference_chemical_state_index == n_states - 1
+    assert msm.get(restored, structure_chemical_state_index=True) == source_mapping
+    assert msm.get(molsys, structure_chemical_state_index=True) == source_mapping
+    assert restored.topology.atoms.atom_id.tolist() == ["a", "b", "c"]
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(restored.structures.coordinates, to_unit="nm"), xyz
+    )
+    layers = msm.h5msm.read_layers(filename)
+    assert layers["chemical_states"].n_chemical_states == n_states
+    for structure_index, state_index in enumerate(indices):
+        report = msm.physchem.get_chemical_readiness(
+            filename,
+            selection=[0],
+            structure_indices=[structure_index],
+            chemical_state="structure",
+        )
+        if state_index is None:
+            assert report["chemical_state_status"] == "unassociated"
+        else:
+            assert report["chemical_state_index"] == state_index
+            assert report["fields"]["formal_charge"]["values"].tolist() == [state_index]
+    reference = msm.physchem.get_chemical_readiness(
+        filename, selection=[0], structure_indices=[0]
+    )
+    assert reference["chemical_state_index"] == n_states - 1
+    assert reference["fields"]["formal_charge"]["values"].tolist() == [n_states - 1]
+
+
+@pytest.mark.parametrize(
+    "axis,source,target,source_axis,target_axis",
+    [
+        ("atom", "structures", "topology", "atom", "atom"),
+        ("structure", "interactions", "structures", "structure", "structure"),
+        ("structure_state", "structures", "chemical_states", "structure", "state"),
+    ],
+)
+@pytest.mark.parametrize(
+    "source_size,target_size", [(0, 0), (0, 2), (1, 2), (2, 3), (2, 2)]
+)
+def test_prefix_maps_are_idempotent_without_inventing_identity(
+    axis, source, target, source_axis, target_axis, source_size, target_size
+):
+    """The shared codec must not turn an explicit prefix into a full-domain identity."""
+    from molsysmt.form._h5msm05_associations import normalize_associations
+
+    name = "analysis" if source == "interactions" else None
+    sizes = {
+        (source, name, source_axis): source_size,
+        (target, None, target_axis): target_size,
+    }
+    values = np.arange(source_size, dtype=np.int32)
+    links = [_link(axis, source, target, values, source_name=name)]
+    normalized = normalize_associations(links, sizes)
+    repeated = normalize_associations(normalized, sizes)
+    if source_size == target_size:
+        assert normalized[0]["indices"] == repeated[0]["indices"] == "identity"
+    else:
+        np.testing.assert_array_equal(normalized[0]["indices"], values)
+        np.testing.assert_array_equal(repeated[0]["indices"], values)
+        assert normalized[0]["indices"].dtype == np.int64
+    np.testing.assert_array_equal(values, np.arange(source_size, dtype=np.int32))
+
+
+@pytest.mark.parametrize(
+    "indices,message",
+    [
+        ("identity", "equal cardinalities"),
+        ([0], "source axis length"),
+        ([0, 3], "outside the target axis"),
+        ([-2, 0], "outside the target axis"),
+        ([0, 0], "cannot map distinct atoms"),
+    ],
+)
+def test_prefix_fix_keeps_invalid_associations_atomic(tmp_path, indices, message):
+    filename = tmp_path / "existing.h5msm"
+    filename.write_bytes(b"unchanged destination")
+    with pytest.raises(ValueError, match=message):
+        msm.h5msm.write_layers(
+            filename,
+            topology=Topology(n_atoms=3),
+            structures=Structures(
+                coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
+            ),
+            associations=[_link("atom", "structures", "topology", indices)],
+        )
+    assert filename.read_bytes() == b"unchanged destination"
+
+
+@pytest.mark.parametrize("axis", ["atom", "structure"])
+def test_independent_prefix_layer_roundtrip_keeps_reader_strict(tmp_path, axis):
+    """Write actual partial layers, then reject a forged full-domain identity."""
+    filename = tmp_path / "prefix.h5msm"
+    if axis == "atom":
+        associations = [_link("atom", "structures", "topology", [0])]
+        domains = dict(
+            topology=Topology(n_atoms=2),
+            structures=Structures(
+                coordinates=msm.pyunitwizard.quantity(np.zeros((1, 1, 3)), "nm")
+            ),
+        )
+    else:
+        associations = [
+            _link(
+                "structure", "interactions", "structures", [0], source_name="analysis"
+            )
+        ]
+        domains = dict(
+            structures=Structures(
+                coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm")
+            ),
+            interactions={
+                "analysis": msm.Interactions.from_records(
+                    [],
+                    n_atoms=2,
+                    n_structures=1,
+                    evaluated_structure_indices=[0],
+                    method="test.prefix",
+                )
+            },
+        )
+    msm.h5msm.write_layers(filename, associations=associations, **domains)
+    restored = msm.h5msm.read_layers(filename)
+    np.testing.assert_array_equal(restored["associations"][0]["indices"], [0])
+    with h5py.File(filename, "r+") as file:
+        link = file["associations/0"]
+        assert link.attrs["mapping"] == "explicit"
+        del link["indices"]
+        link.attrs["mapping"] = "identity"
+    with pytest.raises(ValueError, match="equal cardinalities"):
+        msm.h5msm.read_layers(filename)

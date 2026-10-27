@@ -115,8 +115,13 @@ def _normalize_link(link, sizes):
         known = values[values >= 0]
         if axis == "atom" and np.unique(known).size != known.size:
             raise ValueError("Atom axis links cannot map distinct atoms to one atom.")
+        # A prefix can be valid without spanning the target axis. Only a
+        # full-domain bijection can use the identity encoding checked on read.
         normalized = (
-            "identity" if np.array_equal(values, np.arange(source_size)) else values
+            "identity"
+            if source_size == target_size
+            and np.array_equal(values, np.arange(source_size))
+            else values
         )
     return {
         "axis": axis,

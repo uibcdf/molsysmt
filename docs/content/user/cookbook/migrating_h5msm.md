@@ -36,6 +36,19 @@ If migration rejects a file, recover the correct declarations from the original
 writer or its documented unit contract. Recreate the file with those units;
 MolSysMT cannot infer a missing unit from the numerical values.
 
+## Preserving state associations
+
+Chemical states and structures are independent populations. One structure may
+refer to one of several stored states; writing and reloading the system retains
+the whole state inventory, its reference and the declared association. A map
+`[0]` into two states remains explicit, while a full index-for-index map between
+equal populations can use compact identity storage. Unknown associations remain
+unknown. See {ref}`user-tools-form-h5msm-05` for an executable round trip.
+
+An invalid identity marker across unequal populations is rejected. If an older
+writer produced such a file, regenerate it from the original native source with
+the corrected writer; the reader does not guess missing correspondence.
+
 ## Inspecting independent layers
 
 Read only the domains needed for the next step:

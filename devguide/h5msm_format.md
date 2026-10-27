@@ -25,6 +25,22 @@ with explicit associations; MolecularMechanics is outside 0.5. Absence of an opt
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
 
+## Modular axis-link encoding
+
+An `identity` association maps every source index to the same target index and
+requires equal source and target cardinalities. Matching index values for only
+a prefix of a larger target axis are an explicit map, not an identity. Writers
+preserve those indices as a signed integer dataset, including empty source
+maps into a nonempty target population. Applying normalization repeatedly must
+retain the same association meaning and a reader-valid encoding.
+
+The number of structures need not equal the number of chemical states. A system
+with one structure, two states and a structure-to-state map `[0]` retains both
+states, its independent reference index, and the explicit map. Unknown state
+associations remain `-1`. Existing field, bound, injectivity and redundant-path
+checks apply; readers still reject an identity marker across unequal populations.
+This requires no H5MSM root or association-schema version change.
+
 ## Resident geometry I/O
 
 The 0.5 coordinate writer transfers protected native blocks without assembling
