@@ -1372,11 +1372,13 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes thirteen tools under
+The source addon now exposes fourteen tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
-ProtOr tools and four reference-descriptor tables in the next section. The other
-17 reviewed native exports, including conformational SASA, feature perception
-and chemical preparation, remain pending in the addon.
+ProtOr tools, four reference-descriptor tables and conformational SASA.
+SASA has bounded CPU receiving and unresolved native unit/periodic limitations
+explained below; it is not universally qualified. The other 16 reviewed native
+exports, including feature perception and chemical preparation, remain pending
+in the addon.
 
 | Tool | Native result and received scope |
 | --- | --- |
@@ -1483,3 +1485,59 @@ levels before population lookup. The addon adds no selector translation or
 aggregation formula. get_area_buried retains its explicit no-syntax signature.
 Unit review uibcdf/molsysmt#473 and installed package compatibility remain
 separate.
+
+
+## Calculating conformational solvent-accessible area
+
+`view.addons.molsysmt.physchem.get_sasa(...)` binds the current primary to native
+{func}`molsysmt.physchem.get_sasa`. It returns an area quantity with structure and
+selected-element axes. Every atom of the primary participates in occlusion,
+including atoms outside the output selection. Extract a separate system explicitly
+if you need a different set of occluding atoms. No hydrogens are added, no molecular
+preparation is inferred, and no colors or representations are created.
+
+:::{warning} Experimental native limitations
+Native-engine area values under a non-nm standard length context are incorrect
+under [#478](https://github.com/uibcdf/molsysmt/issues/478). The addon forwards
+native results without correction; those combinations are not qualified.
+MDTraj has bounded nm/angstrom/pm context receiving.
+
+With a box present, the native engine uses minimum-image periodic occlusion;
+MDTraj evaluates the Cartesian geometry without periodic occlusion. These are
+different scientific choices, tracked by
+[#479](https://github.com/uibcdf/molsysmt/issues/479). There is currently no public
+`pbc` argument on this tool. Do not treat changing engines as preserving boundary
+conditions. This receiving covers explicit CPU execution, not a GPU or a new
+installed package.
+:::
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    # Keep the CPU and standard length context explicit for this receiving.
+    with msm.pyunitwizard.context(
+        standard_units=["nm", "ps", "radians", "dalton", "e", "dimensionless"]
+    ):
+        area = view.addons.molsysmt.physchem.get_sasa(
+            selection="atom_name=='CA'",
+            structure_indices=[2, 0],
+            probe_radius="1.4 angstroms",
+            n_sphere_points=960,
+            use_cell_list=False,
+            use_gpu=False,
+        )
+        assert area.shape == (2, 5)
+        assert msm.pyunitwizard.get_unit(area).is_compatible_with(
+            msm.pyunitwizard.unit("nm**2")
+        )
+```
+
+Keep sampling, probe radius, engine and execution options explicit when they
+matter to your workflow. Native hierarchy sums and requested structure ordering
+are preserved. Like other readers, SASA can inspect a pending edited primary
+without calling `sync_view()`, adopting a result or publishing scene changes.
+`skip_digestion` preserves the native public flag; there is no `update_view`
+argument on this nonmutating calculation. Runtime results, visual interpretation
+and scientific attribution retain their respective owners.

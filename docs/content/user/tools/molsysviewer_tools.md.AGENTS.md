@@ -73,7 +73,7 @@ units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
 Keep OpenMM form/box prerequisites and pending-reader behavior visible.
 The native selection/scope repairs are now received: preserve positive syntax
-checks and explicit unsupported-level rejection. Do not present the other 17 physchem
+checks and explicit unsupported-level rejection. Do not present the other 16 physchem
 exports as received or introduce implicit coloring, preparation or assignment.
 
 
@@ -84,3 +84,9 @@ separate from geometry/SASA. Preserve addon-only digestion for get_volume and
 no invented syntax parameter for get_area_buried. Native PBC repairs now receive
 orthogonal factory defaults and centered in-place publication; remove the old
 temporary-rejection claims without introducing a downstream scientific repair.
+
+
+Preserve the separate conformational SASA reader and all-atom occlusion contract.
+Keep native #478 unit-context and #479 periodic-engine limitations explicit;
+source exposure and bounded CPU receiving do not qualify non-nm native results,
+GPU execution or installed artifacts. Do not add scene effects or hidden preparation.

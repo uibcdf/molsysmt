@@ -144,10 +144,24 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "These are reference-table values per group, not geometry calculated "
                 "from the visible structure. Native raw list/array values are preserved; "
                 "the addon adds no quantity units, conversion or normalization. "
-                "Use get_sasa in native MolSysMT for an explicit conformational "
-                "surface calculation; its addon receipt is still pending. "
+                "Use get_sasa for an explicit conformational "
+                "surface calculation, with its separate native engine limitations. "
                 "get_area_buried has no native syntax argument. Other native syntax "
                 "and supported-level choices retain ordinary public validation.\n"
+            )
+        if module == "physchem" and name == "get_sasa":
+            function.__doc__ += (
+                "This is a conformational surface calculation. All primary atoms "
+                "remain occluders; selection filters the reported elements. Native "
+                "structure ordering, probe units, sampling and execution options "
+                "are forwarded without hidden preparation or engine overrides. "
+                "The native engine applies periodic images when a box is present; "
+                "MDTraj uses Cartesian geometry without periodic occlusion. "
+                "Their periodic contract is tracked by uibcdf/molsysmt#479. "
+                "Native unit-context correctness outside nm is unresolved under "
+                "uibcdf/molsysmt#478; forwarding does not qualify those results. "
+                "CPU receiving uses explicit use_gpu=False; GPU support requires "
+                "its own native qualification. No color or representation is added.\n"
             )
         if module == "physchem" and name == "get_surface_area":
             function.__doc__ += (

@@ -92,7 +92,7 @@ def test_signatures_help_digestion_and_no_invented_scientific_inputs(view, name)
         assert "retains ordinary validation" in doc
     if name == "get_area_buried":
         assert "syntax" not in inspect.signature(method).parameters
-    assert set(dir(view.addons.molsysmt.physchem)) == FIRST | set(NAMES)
+    assert set(dir(view.addons.molsysmt.physchem)) == FIRST | set(NAMES) | {"get_sasa"}
 
 
 @pytest.mark.parametrize("name", TABLES)

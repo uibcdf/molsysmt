@@ -184,4 +184,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_pbc_tools.py \
             tests/molsysviewer_molsysmt/test_pbc_edit_tools.py \
             tests/molsysviewer_molsysmt/test_physchem_tools.py \
-            tests/molsysviewer_molsysmt/test_physchem_tables_tools.py
+            tests/molsysviewer_molsysmt/test_physchem_tables_tools.py \
+            tests/molsysviewer_molsysmt/test_sasa_tools.py

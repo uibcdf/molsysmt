@@ -18,8 +18,10 @@ Three `pbc` coordinate editors also have source receiving, with repaired native
 centered in-place ownership under uibcdf/molsysmt#467. Thirteen physchem tools
 are source-received, including the repaired native syntax/element contracts
 under uibcdf/molsysmt#470 and uibcdf/molsysmt#471. Collantes unit review remains
-uibcdf/molsysmt#473. Other scientific
-namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
+uibcdf/molsysmt#473. The additional conformational SASA wrapper brings source
+exposure to fourteen tools, with bounded CPU receiving and unresolved native
+unit-context / periodic-engine issues uibcdf/molsysmt#478 / #479.
+Other scientific namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
 
@@ -979,3 +981,29 @@ gate. Native unit review uibcdf/molsysmt#473, the other seventeen physchem
 exports, panels and installed compatibility remain separate. Later owner
 I/O, fixture and course commits retain their own qualification; this record
 does not label every later main revision green. Both 1.0 publications stay paused.
+
+
+## Conformational SASA source receiving — 2026-10-26
+
+An explicit `physchem.get_sasa` wrapper adds the fourteenth of 30 reviewed
+physchem exports, leaving sixteen pending. It forwards every native scientific
+parameter/default and the declared digestion flag through the serialized reader,
+without scene effects, preparation or result adoption. All primary atoms remain
+occluders; requested elements filter outputs. No Viewer runtime change is needed.
+
+Scientific qualification remains bounded: native CPU in the nm length context,
+MDTraj CPU with nm/angstrom/pm contexts, native hierarchy sums and selection axes,
+analytical sphere truth, and the actual different engine boundary conditions.
+Native-engine non-nm area correctness is unresolved under uibcdf/molsysmt#478;
+implicit engine-periodic semantics are tracked under uibcdf/molsysmt#479.
+The addon does not compensate for either. GPU and installed-artifact receiving
+remain separate, and both 1.0 publications stay paused.
+
+Local receiving passes 56 SASA cases, then one applicable regression of 1,414
+cases with zero failures/errors/skips and stable native/addon source/backend
+hashes. The 1,250 warnings remain in the receipt/log, including legacy H5MSM
+fixtures and existing diagnostic/third-party cases. All 36 guide blocks and
+40 inherited native-context doctests pass. The [source receipt](../devtools/data/molsysviewer_tools_sasa_receiving_20261026.json)
+retains the corrected pending-export test mistake and initial wrong-import-route
+example attempt; neither is hidden or counted as a product defect.
+Exact-producer CI is pending; earlier thirteen-tool receipts are unchanged.

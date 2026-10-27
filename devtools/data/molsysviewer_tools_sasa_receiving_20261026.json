@@ -1,0 +1,143 @@
+{
+  "schema": "molsysmt.viewer_tools_sasa_receiving@1",
+  "date": "2026-10-26",
+  "source_base": "a77d41fa5fe4f460a59e9ed4ed3c67f330570031",
+  "host_source": "f173739d1264f2880b9a2979e8db068e27539992",
+  "host_ci_pin": "deaba4cbea43015859544b1b393ecbe02dd2ee19",
+  "host_difference": "Only JS dependency lock metadata differs in the runtime package; no Python host runtime edits in this receiving.",
+  "scope": "Experimental source wrapper; native CPU/nm and MDTraj CPU/nm-angstrom-pm receiving; not universal scientific, GPU or installed-package qualification.",
+  "open_native_issues": [
+    "uibcdf/molsysmt#478",
+    "uibcdf/molsysmt#479"
+  ],
+  "method": "physchem.get_sasa",
+  "inventory": {
+    "exposed": 14,
+    "reviewed": 30,
+    "pending": 16
+  },
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "mdtraj": "1.11.1",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    }
+  },
+  "initial_focused_attempt": {
+    "passed": 43,
+    "failed": 1,
+    "not_executed": 9,
+    "diagnosis": "Test incorrectly called export_state during pending edit; host correctly raised SystemEditPendingError. Test corrected to require pending-state guard before and after scientific read. No product code fix."
+  },
+  "focused_final": {
+    "core_sasa_cases": 53,
+    "additional_mdtraj_unit_context_cases": 3,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "full_applicable_regression": {
+    "arguments": [
+      "--receptor=llm",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_sasa/test_get_sasa_cell_list.py",
+      "tests/physchem/get_sasa/test_get_sasa_from_molsysmt_MolSys_with_mdtraj.py",
+      "tests/physchem/get_sasa/test_get_sasa_n_sphere_points.py",
+      "tests/physchem/get_sasa/test_get_sasa_probe_radius.py",
+      "tests/scientific_truth/physchem/test_sasa.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-sasa-regression.xml"
+    ],
+    "started": "2026-10-27T00:23:21.121261+00:00",
+    "finished": "2026-10-27T00:30:51.113980+00:00",
+    "exit_code": 0,
+    "junit": {
+      "tests": 1414,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "b7dade9833524cef188039652be3dce64340b4734f18833c30dee08b6dd8e90f",
+    "warnings": 1250,
+    "source_changed": [],
+    "source_tree_digest_before": "61aaabb032a1472ffb3c6e2596707cbc09dafe676c73ee34cfb75077e703e08e",
+    "source_tree_digest_after": "61aaabb032a1472ffb3c6e2596707cbc09dafe676c73ee34cfb75077e703e08e"
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "provenance": "Existing frozen backend, hardlinked from a retained snapshot; no native rebuild or installed qualification."
+  },
+  "examples": {
+    "guide_blocks": 36,
+    "inherited_native_context_doctests": 40,
+    "failures": 0,
+    "qualified_log_sha256": "65b8b2e1d6aa17db868a3d33a50c53b875b405af44844d29af075fd704e4d863",
+    "nonqualifying_first_attempt": "Script in /tmp selected editable live addon without new method; failed AttributeError. Repeated with snapshot PYTHONPATH; no product correction."
+  },
+  "native_audit": {
+    "receipt": "molsysviewer_tools_sasa_native_audit_20261026.json",
+    "isolated_recheck": "Exact same observations repeated with asserted native and backend snapshot import paths."
+  },
+  "files": {
+    ".github/workflows/ci-smoke.yaml": "cc7bb58a03951585ef3df3d6ade1d3394f4d91641254d9ba2254c11620a7ab96",
+    "devguide/molsysviewer_addon.md": "0e9b05f8964d294e9f8b414c4f226d11934ac2bb39455b0c2ad1ef46dfddc907",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "46948721f9efba3727d7a008734a84886005956f6d27ee6b1c0c9522fbd45d48",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "b7d1d92f68a9c35bbfbe3de6873d5a90c0d95104304ccdf467f912d445838a75",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "2259bd45024f7449bdff809a88a9384598298335352e4c8bfe065d2dd0f9423e",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "08910ca5d1f4e45f1a60211cf587fcd9fce100f34231ca347de2dce83fc93e73",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "414f8eb7aecbbdb632e212029ad896a3fd3dcafd9fd6b92b6efdc0320f949a1d",
+    "docs/content/user/tools/molsysviewer_tools.md": "074cb0f635be19949939a0deb9c693b41970db3eab04224dcce8cb8369b7f5e8",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "7c38b6e1aa6f963c3535cde8a72ff04e1817ed059bec67f60390a11a5c018fb1",
+    "docs/docs_manifest.yml": "9c9e3c7842cf38479919f46c573b9d3f44279905432829ac3a9b5a7affa37813",
+    "molsysviewer_molsysmt/_basic.py": "08c7ac97c4b2a426845e6b211174d9a9dd9be4bca6372cd80dd20b2b0645f93a",
+    "molsysviewer_molsysmt/_physchem.py": "506e918523bb6afb1eb738025fc00d8e6259cb88809c32748b7da36e288dce37",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "738389067b13defc47ef79226680a1e4ffe81bfafdaa32cccd45b0a57dad70a8",
+    "tests/molsysviewer_molsysmt/test_sasa_tools.py": "faa1b64d45c3429c1da3098537340cafdb291227bd2733475926a4d1fce28e67"
+  },
+  "ci": {
+    "state": "pending",
+    "note": "No exact-producer hosted result exists yet. Earlier thirteen-tool qualification does not cover this wrapper."
+  },
+  "excluded": [
+    "GPU execution",
+    "native-engine non-nm area correctness (#478)",
+    "unconditional periodic parity between engines (#479)",
+    "installed artifacts and package floors",
+    "GUI panels and scene coloring",
+    "tags, Releases, promotion and both paused 1.0 publications"
+  ],
+  "files_scope": "Hashes of the frozen receiving snapshot, before integration with concurrent GRO corrections.",
+  "integrated_parent": "04b1b41a752dd8e8c389aacc9f5f0657fa31e0e4",
+  "integrated_files": {
+    ".github/workflows/ci-smoke.yaml": "cc7bb58a03951585ef3df3d6ade1d3394f4d91641254d9ba2254c11620a7ab96",
+    "devguide/molsysviewer_addon.md": "0e9b05f8964d294e9f8b414c4f226d11934ac2bb39455b0c2ad1ef46dfddc907",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "46948721f9efba3727d7a008734a84886005956f6d27ee6b1c0c9522fbd45d48",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "b7d1d92f68a9c35bbfbe3de6873d5a90c0d95104304ccdf467f912d445838a75",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "2259bd45024f7449bdff809a88a9384598298335352e4c8bfe065d2dd0f9423e",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "08910ca5d1f4e45f1a60211cf587fcd9fce100f34231ca347de2dce83fc93e73",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "414f8eb7aecbbdb632e212029ad896a3fd3dcafd9fd6b92b6efdc0320f949a1d",
+    "docs/content/user/tools/molsysviewer_tools.md": "074cb0f635be19949939a0deb9c693b41970db3eab04224dcce8cb8369b7f5e8",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "7c38b6e1aa6f963c3535cde8a72ff04e1817ed059bec67f60390a11a5c018fb1",
+    "docs/docs_manifest.yml": "6f4d4c4ff09f3259da2be37b13baacea90fc1c783e07558a832e2859be6b5159",
+    "molsysviewer_molsysmt/_basic.py": "08c7ac97c4b2a426845e6b211174d9a9dd9be4bca6372cd80dd20b2b0645f93a",
+    "molsysviewer_molsysmt/_physchem.py": "506e918523bb6afb1eb738025fc00d8e6259cb88809c32748b7da36e288dce37",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "738389067b13defc47ef79226680a1e4ffe81bfafdaa32cccd45b0a57dad70a8",
+    "tests/molsysviewer_molsysmt/test_sasa_tools.py": "faa1b64d45c3429c1da3098537340cafdb291227bd2733475926a4d1fce28e67"
+  },
+  "integration_differences": [
+    "docs/docs_manifest.yml"
+  ],
+  "integration_note": "Preserved the owner GRO manifest additions on 04b1b41a; native/addon Python sources tested in the receiving snapshot are unchanged by integration. Exact-producer CI remains required."
+}

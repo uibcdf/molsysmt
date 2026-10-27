@@ -21,6 +21,7 @@ class _PhyschemTools:
         "get_volume",
         "get_area_buried",
         "get_buried_fraction",
+        "get_sasa",
     )
 
     def __init__(self, owner):
@@ -298,6 +299,44 @@ class _PhyschemTools:
                 "selection": selection,
                 "definition": definition,
                 "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_sasa", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_sasa(
+        self,
+        element="atom",
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        probe_radius="1.4 angstroms",
+        n_sphere_points=240,
+        use_cell_list="auto",
+        use_gpu=None,
+        gpu_backend=None,
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_sasa",
+            {
+                "element": element,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "syntax": syntax,
+                "engine": engine,
+                "probe_radius": probe_radius,
+                "n_sphere_points": n_sphere_points,
+                "use_cell_list": use_cell_list,
+                "use_gpu": use_gpu,
+                "gpu_backend": gpu_backend,
+                "parallel": parallel,
+                "num_threads": num_threads,
                 "skip_digestion": skip_digestion,
             },
         )
