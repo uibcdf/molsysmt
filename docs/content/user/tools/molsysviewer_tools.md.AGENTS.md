@@ -120,9 +120,9 @@ attribution separate from interactions and rendering. Default/None-reference MDT
 works for all three readers after native #488; explicit/associated SMARTS states
 retain their selector restrictions. No selector
 rewrite, implicit preparation or scene synchronization. The current reviewed
-inventory has 32 native physchem exports after bulkiness and secondary-structure
-propensities were added; 21 have wrappers and eleven, including both new readers,
-remain pending. The qualified source baseline still has 31 native exports. This is source exposure,
+inventory has 33 native physchem exports after TPSA was added; 23 have wrappers and ten
+remain pending, including TPSA. The earlier 02671792f gate retains its 31-export baseline; the new reference-
+scale receiving uses its own 32-export source. This is source exposure,
 not installed or universal scientific qualification.
 
 
@@ -131,3 +131,12 @@ qualification baseline: independent numeric arrays and primary/scene preservatio
 do not establish independence of every metadata dictionary. A native repair
 needs its own receiving; never silently deepcopy results in this consumer or
 claim the older green source gate qualifies later metadata changes.
+
+
+Preserve native group-only bulkiness and secondary-structure propensity lookups:
+area quantities versus raw dimensionless frequency-ratio arrays, required
+conformation, explicit scale definitions, ordered/repeated/scalar/empty group
+axes and strict unsupported-name handling. Do not silently remove caps, invent
+parent mappings or aggregation, normalize ratios, predict/assign structure or
+color the scene. Keep lookup coordinate independence distinct from rich-selector
+coordinate needs. Retain native optional attribution without duplicating credits.

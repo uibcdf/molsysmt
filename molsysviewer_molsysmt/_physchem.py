@@ -29,6 +29,8 @@ class _PhyschemTools:
         "get_charge_centers",
         "get_hydrophobic_sites",
         "get_halogen_bond_sites",
+        "get_bulkiness",
+        "get_secondary_structure_propensity",
     )
 
     def __init__(self, owner):
@@ -531,5 +533,51 @@ class _PhyschemTools:
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
                 "max_matches": max_matches,
+            },
+        )
+
+    @_native_documentation("get_bulkiness", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_bulkiness(
+        self,
+        element="group",
+        selection="all",
+        definition="zimmerman",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_bulkiness",
+            {
+                "element": element,
+                "selection": selection,
+                "definition": definition,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_secondary_structure_propensity", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_secondary_structure_propensity(
+        self,
+        conformation,
+        element="group",
+        selection="all",
+        definition="levitt_1978_weighted",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_secondary_structure_propensity",
+            {
+                "conformation": conformation,
+                "element": element,
+                "selection": selection,
+                "definition": definition,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
             },
         )

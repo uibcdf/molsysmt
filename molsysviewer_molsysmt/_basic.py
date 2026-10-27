@@ -251,6 +251,36 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "atoms need not have an aromatic joining bond. Returned flags are "
                 "not stored automatically or passed to ring recognition implicitly.\n"
             )
+        if module == "physchem" and name in {
+            "get_bulkiness",
+            "get_secondary_structure_propensity",
+        }:
+            function.__doc__ += (
+                "This is a strict reference lookup per group, not a measurement "
+                "of the visible conformation. Native group order, repetitions, "
+                "scalar/empty axes and selection syntax are preserved. Missing, "
+                "modified, terminal and placeholder group names retain native "
+                "rejection; no parent substitution, zero or sum is inferred. "
+                "The lookup does not require coordinates, but rich selections "
+                "retain their native coordinate requirements. No visible-frame "
+                "selection, scene color, assignment or synchronization is added.\n"
+            )
+        if module == "physchem" and name == "get_bulkiness":
+            function.__doc__ += (
+                "The native area quantity retains the Zimmerman table scale and "
+                "published later angstrom-squared interpretation before unit "
+                "standardization. The addon adds no scaling. This is not a "
+                "molecule's measured cross-section or SASA; original 1968 "
+                "derivation/normalization remains outside the audited claim.\n"
+            )
+        if module == "physchem" and name == "get_secondary_structure_propensity":
+            function.__doc__ += (
+                "Conformation is required. Native Levitt weighted frequency ratios "
+                "are dimensionless float64 arrays, not probabilities, prediction "
+                "or coordinate-based secondary-structure assignment. Values can "
+                "exceed one; categories need not sum to one. No clipping, "
+                "renormalization or implicit coil remainder is introduced.\n"
+            )
         if module == "physchem" and name == "get_sasa":
             function.__doc__ += (
                 "This is a conformational surface calculation. All primary atoms "

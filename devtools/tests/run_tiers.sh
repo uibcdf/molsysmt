@@ -31,6 +31,10 @@ run_smoke() {
     tests/physchem/test_get_charge_centers.py \
     tests/physchem/test_get_hydrophobic_sites.py \
     tests/physchem/test_get_halogen_bond_sites.py \
+    tests/physchem/test_get_bulkiness.py \
+    tests/physchem/test_get_secondary_structure_propensity.py \
+    tests/physchem/test_reference_metadata_ownership.py \
+    tests/native/test_group_free_molecules.py \
     tests/topology/get_substructure_matches/test_reference_selections.py \
     tests/structure/test_dihedral_edit_contract.py
 }

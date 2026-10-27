@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, twenty-one physchem source wrappers (including formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, twenty-three physchem source wrappers (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1458,22 +1458,64 @@ adds secondary-structure propensities: the inspected inventory is now 32, with
 older source gate. GUI and installed qualification remain pending; no host
 runtime, package floor or paused-publication change is introduced.
 
-+
-+### Reference-metadata repair received locally — 2026-10-26
-+
-+Native #490 is resolved in `6eebcd4ec30e8ed3fbb76ea6e36cbfca5f326c9f`. An isolated snapshot
-+matching that committed source passes 172 targeted cases (native reference
-+ownership plus the existing feature/table consumers), zero failures/errors/skips,
-+with 77 legacy H5MSM warnings. A bound-reader check mutates one hydrophobic
-+reference and confirms a later same-reader result and a halogen result retain
-+independent canonical 2.2.2 references and the scene stays unchanged. The native
-+guard also covers nested metadata and evaluated-empty results. The provider
-+detaches small references; the addon adds no copy or scientific transformation.
-+
-+The [local receiving receipt](../../devtools/data/molsysviewer_tools_reference_metadata_receiving_20261026.json) retains source-file digests, JUnit digest
-+and the executed bound-reader observations. This removes the metadata ownership
-+limit when using that received source, without retroactively changing producer
-+02671792f or its hosted evidence. No second full regression, new hosted gate,
-+installed artifact or release qualification is claimed. Current native exports
-+remain 32; 21 wrappers and eleven pending functions retain their separate scope.
-+
+
+### Reference-metadata repair received locally — 2026-10-26
+
+Native #490 is resolved in `6eebcd4ec30e8ed3fbb76ea6e36cbfca5f326c9f`. An isolated snapshot
+matching that committed source passes 172 targeted cases (native reference
+ownership plus the existing feature/table consumers), zero failures/errors/skips,
+with 77 legacy H5MSM warnings. A bound-reader check mutates one hydrophobic
+reference and confirms a later same-reader result and a halogen result retain
+independent canonical 2.2.2 references and the scene stays unchanged. The native
+guard also covers nested metadata and evaluated-empty results. The provider
+detaches small references; the addon adds no copy or scientific transformation.
+
+The [local receiving receipt](../../devtools/data/molsysviewer_tools_reference_metadata_receiving_20261026.json) retains source-file digests, JUnit digest
+and the executed bound-reader observations. This removes the metadata ownership
+limit when using that received source, without retroactively changing producer
+02671792f or its hosted evidence. No second full regression, new hosted gate,
+installed artifact or release qualification is claimed. Current native exports
+remain 32; 21 wrappers and eleven pending functions retain their separate scope.
+
+
+## Bulkiness and secondary-structure reference scales — 2026-10-26
+
+Two explicit physchem readers add get_bulkiness and
+get_secondary_structure_propensity. The first reviewed 32-export baseline has 23 wrappers. Native 97a8dc08c then
+adds TPSA, making the inspected inventory 33 with ten pending addon functions. These group-name lookups retain native
+scientific signatures, the required propensity category, validation, output
+containers/units and optional attribution. The primary is resolved at call time;
+no scene color, assignment, preparation, averaging, category inference or
+synchronization is added.
+
+Bulkiness remains a standardized reference area quantity, with later published
+Å² interpretation and native original-derivation evidence limits. Levitt weighted
+ratios remain dimensionless float64 arrays rather than probabilities or observed
+secondary-structure assignments. Group-only scope, ordered/repeated/scalar/empty
+axes and strict unknown/modified/cap/placeholder-name errors are retained. The
+wrapper never filters terminal caps silently or invents sums and normalization.
+Rich selectors retain their own coordinate requirements; the lookup itself
+requires group names, not a structure axis or geometric calculation.
+
+All 119 focused consumer cases and the one frozen 3,144-case applicable
+regression pass on 39bb09715 plus these readers, with zero failures/errors/skips
+and unchanged source/backend hashes. All 40 guide blocks and 90 inherited
+native-context examples pass. Initial test expectations used the wrong exception
+base and miscounted the bundled ACE–ALA–NME demo; those were corrected without
+runtime changes. An authored guide block contained accidental patch prefixes;
+these were removed before successful compilation/execution. The source receipt
+preserves these attempts rather than treating them as provider defects.
+
+Exact-source hosted CI remains pending at local receiving. Broader optional-
+provider absence, installed compatibility, performance and universal scientific
+validity remain separate. Native metadata #490 remains repaired and received;
+its guard is now explicitly included in the bounded CI tier. Other scientific
+families, the GUI and both paused publications retain their own scope.
+
+
+The scientific owner subsequently publishes the group-free molecule query/builder
+repair cd00cd40a and TPSA 97a8dc08c. A 596-case focused follow-up on that incoming
+composition passes, zero failures/errors/skips, retaining the two scale signatures
+and contracts; no second full regression is claimed. The group-free native guard
+is included in the bounded CI tier. TPSA remains unreceived by the addon; a new
+native export does not automatically expand its facade or qualify that science.

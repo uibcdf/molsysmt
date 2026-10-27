@@ -1372,17 +1372,18 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes twenty-one tools under
+The source addon now exposes twenty-three tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
 aromaticity perception and three chemical-feature readers (formal-charge
-centers, hydrophobic atoms and ordered halogen sites). SASA and the chemical
-readers have bounded receiving, not universal scientific qualification. The
-inspected native inventory has grown to 32 exports; eleven, including bulkiness,
-secondary-structure propensities, further feature perception and chemical
-preparation, remain pending in the addon. The source gate below retains its
-31-export baseline and does not qualify the later native addition.
+centers, hydrophobic atoms and ordered halogen sites), plus the Zimmerman
+bulkiness and Levitt secondary-structure propensity reference lookups. SASA and
+the chemical readers have bounded receiving, not universal scientific qualification. The
+inspected native inventory now has 33 exports after TPSA was added; ten,
+including TPSA, further feature perception and chemical preparation, remain
+pending in the addon. The new reference lookups have their own source receiving; earlier hosted
+gates retain their original source identities and scopes.
 
 | Tool | Native result and received scope |
 | --- | --- |
@@ -1802,4 +1803,73 @@ provide a new H5MSM file-query interface or qualify missing-provider behavior.
 - {ref}`Tutorial_Get_charge_centers` — formal-charge participant/reference memberships.
 - {ref}`Tutorial_Get_hydrophobic_sites` — the explicit atomic SMARTS model.
 - {ref}`Tutorial_Get_halogen_bond_sites` — ordered chemical roles before geometry.
+:::
+
+
+## Reading bulkiness and secondary-structure reference propensities
+
+These two group-name lookups preserve the native reference data and output type.
+They do not calculate the visible conformation's surface, predict secondary
+structure, assign a class, color the scene or attach results to the primary.
+
+| Bound tool | Native result and explicit choices |
+| --- | --- |
+| `physchem.get_bulkiness(...)` | A standardized area quantity, one value per group. Native `definition='zimmerman'` retains its table and published later Å² interpretation. |
+| `physchem.get_secondary_structure_propensity(conformation, ...)` | A detached float64 NumPy array of dimensionless weighted frequency ratios. Choose `alpha_helix`, `beta_sheet` or `reverse_turn`; the category is required. |
+
+Select groups supported by the table explicitly. The bundled pentalanine also
+contains terminal caps, so this example selects its five ALA groups. The addon
+does not silently discard waters, ions, modified groups, caps or placeholders
+from a default `selection='all'`: unsupported names retain native errors.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+with msv.demo["pentalanine"] as view:
+    scales = view.addons.molsysmt.physchem
+    areas = scales.get_bulkiness(selection="group_name=='ALA'")
+    helix = scales.get_secondary_structure_propensity(
+        "alpha_helix", selection="group_name=='ALA'"
+    )
+    assert msm.pyunitwizard.get_value(areas, to_unit="angstrom**2").round(2).tolist() == [11.5] * 5
+    assert msm.pyunitwizard.get_value(areas, to_unit="nm**2").round(3).tolist() == [0.115] * 5
+    assert helix.tolist() == [1.29] * 5
+```
+
+Both native functions support only `element='group'`. Numeric selections retain
+the requested order and repetitions; a scalar group index keeps a one-element
+axis. Empty selections retain typed `(0,)` results and the native area unit where
+applicable. There is no structure axis or implicit repetition over trajectories.
+The lookup itself needs group identities rather than coordinates, but a rich
+spatial selection retains the native selector's coordinate requirements and
+scope. These functions have no `structure_indices` parameter; use explicit group
+indices when you need selection and reference lookup to be separate operations.
+
+Bulkiness is a reference side-chain descriptor, not the input molecule's
+measured cross-section, conformational SASA or a physically meaningful total
+area obtained by summing groups. PyUnitWizard standardization follows its unit
+policy; the adapter adds no scaling. The original 1968 derivation/normalization
+remains outside the native source review's audited claim. Read the native
+tutorial for the distinct original scale, curation and later unit evidence.
+
+Levitt's `definition='levitt_1978_weighted'` returns reference ratios, not
+probabilities. For ALA, helix/sheet/turn values are 1.29, 0.90 and 0.77: they can
+exceed one and do not sum to one. There is no clipping, renormalization, inferred
+coil remainder or automatic category choice. Use `structure.get_secondary_structure`
+for a separate coordinate-based assignment with its own engine requirements.
+Reference propensity and observed secondary structure answer different questions.
+
+Returned values are independent; editing them does not change the native tables,
+primary or scene. Calls resolve the current `view.molsys` after replacement and
+while managed edits await synchronization, without invoking `sync_view()`.
+Native definitions, `skip_digestion`, strict unsupported-level/name validation,
+selection syntax and optional Ackredit credits are forwarded unchanged. A missing
+name never becomes a parent-amino-acid substitution or invented zero. No new
+scientific dependency or consumer attribution record is introduced.
+
+:::{seealso}
+
+- {ref}`Tutorial_Get_bulkiness` — the reference area scale and its evidence limits.
+- {ref}`Tutorial_Get_secondary_structure_propensity` — required categories and weighted ratios.
 :::

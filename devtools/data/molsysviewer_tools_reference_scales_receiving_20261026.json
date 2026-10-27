@@ -1,0 +1,183 @@
+{
+  "schema": "molsysmt.viewer_tools_reference_scales_receiving@1",
+  "date": "2026-10-26",
+  "base_source": "39bb09715cfcc2bc44269d4309b16303c0cca594",
+  "host_source": "d5e715e40c2d00f7176cb13002113afef58e0b0c",
+  "new_methods": [
+    "physchem.get_bulkiness",
+    "physchem.get_secondary_structure_propensity"
+  ],
+  "inventory": {
+    "exposed": 23,
+    "reviewed_native": 32,
+    "pending": 9,
+    "current_inspected_native": 33,
+    "current_pending": 10,
+    "new_unreceived_native": "get_tpsa"
+  },
+  "scope": "Experimental source mirrors of native strict group reference lookups, not geometry or scene operations. Native outputs, selection order and scientific evidence limits retained. No installed or new scientific validation claim.",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.14.7",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    },
+    "effective_pyparsing": "3.3.2",
+    "limit": "Existing shared development environment; stale 3.3.3 PyParsing distribution metadata coexists with actual imported 3.3.2. No clean installed/pip-check claim."
+  },
+  "fixtures": [
+    "Real bundled pentalanine, three nonconsecutive source structures [0,8,3], named evaluated-empty interactions and region.",
+    "Real 181L mixed GLY/ALA/PRO group rows, nonconsecutive/repeated source indices with fixed expected reference values.",
+    "Real ACE\u2013ALA\u2013NME replacement demo, pending coordinate edits, empty/closed view lifetime and real optional Ackredit session."
+  ],
+  "focused": {
+    "counts": {
+      "tests": 119,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "7f7760dca4b1689552956fc1567be4e9b667bcebb6a66a3967112c1be6cf81ec"
+  },
+  "one_applicable_regression": {
+    "base_source": "39bb09715cfcc2bc44269d4309b16303c0cca594",
+    "counts": {
+      "tests": 3144,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-n",
+      "4",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_sasa/",
+      "tests/physchem/get_hydrogen_inventory/",
+      "tests/physchem/test_get_chemical_readiness.py",
+      "tests/physchem/test_get_aromatic_rings.py",
+      "tests/physchem/test_get_aromaticity.py",
+      "tests/physchem/test_get_charge_centers.py",
+      "tests/physchem/test_get_hydrophobic_sites.py",
+      "tests/physchem/test_get_halogen_bond_sites.py",
+      "tests/physchem/test_get_secondary_structure_propensity.py",
+      "tests/physchem/test_reference_metadata_ownership.py",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py",
+      "tests/physchem/test_collantes_legacy_contract.py",
+      "tests/physchem/test_property_selection_contract.py",
+      "tests/physchem/test_get_bulkiness.py",
+      "tests/basic/select/test_mdtraj_comparisons.py",
+      "tests/topology/test_chemical_reference_selection.py",
+      "tests/topology/test_ring_structure_scope.py",
+      "tests/form/file_h5msm/test_associations_v05_probe.py",
+      "tests/scientific_truth/physchem/test_sasa.py",
+      "tests/scientific_truth/physchem/test_bulkiness.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "devtools/tests/test_mdtraj_parser_constraint.py",
+      "--junitxml=/tmp/msv-reference-scales-regression.xml"
+    ],
+    "started": "2026-10-27T04:41:30.018905+00:00",
+    "finished": "2026-10-27T04:45:37.607969+00:00",
+    "source_changed": [],
+    "source_tree_digest_before": "f26892081a0b8155b25acb9dad56a9af903be962fe0ef0e1a9ca84b14269def9",
+    "source_tree_digest_after": "f26892081a0b8155b25acb9dad56a9af903be962fe0ef0e1a9ca84b14269def9",
+    "junit_sha256": "aafc3f825090fb1526db0473d7d8ab236a2ff2b851448996d86c572b9e539fc8",
+    "source_record_sha256": "7b16f9e158703e89111bd00ea4575c5535d084033b80a8abe6da91bab7aba624",
+    "warnings": {
+      "LegacyH5MSMWarning": 1488,
+      "GpuNotAvailableWarning": 6,
+      "DeprecationWarning": 1,
+      "DigestNotDigestedWarning": 2,
+      "PytestAssertRewriteWarning": 1,
+      "RuntimeWarning": 1
+    }
+  },
+  "examples": {
+    "guide_blocks": 40,
+    "inherited_native_context_doctests": 90,
+    "failures": 0,
+    "log_sha256": "79e26a244535267231a251c33d4c663fda04c95964917203b30505029ff93673"
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "unchanged": true,
+    "scope": "Retained frozen ABI3 backend; no rebuild, package or installed qualification."
+  },
+  "initial_attempts": [
+    {
+      "passed": 66,
+      "failed": 1,
+      "collected": 119,
+      "cause": "Test expected ArgumentChoiceError to inherit ArgumentError. Actual declared native exception is independent; corrected test import, no implementation change."
+    },
+    {
+      "passed": 114,
+      "failed": 1,
+      "collected": 119,
+      "cause": "Test assumed two ALA groups in dialanine. Confirmed bundled topology is ACE\u2013ALA\u2013NME; expected one ALA, no implementation change."
+    },
+    {
+      "scope": "Guide execution",
+      "cause": "Accidental patch prefixes in authored Markdown block prevented code compilation. Removed them; all 40 blocks compile and execute."
+    }
+  ],
+  "guard": "tests/molsysviewer_molsysmt/test_reference_scales_tools.py",
+  "hosted_ci": "Pending exact-source integration at local receipt creation. No earlier gate is relabeled.",
+  "exclusions": [
+    "No original 1968 derivation/normalization audit, conformational surface, probability normalization, observed-structure assignment or universal scientific guarantee.",
+    "No automatic filtering/parent mapping, scalar aggregation, coordinate edit, color, scene synchronization or primary result adoption.",
+    "No installed artifact, absent-provider, GPU, benchmark, GUI or release qualification. Both 1.0 publications remain paused."
+  ],
+  "authored_file_sha256": {
+    ".github/workflows/ci-smoke.yaml": "956e93b6c005f533ff6e94658dff8e26750c7ab019eca9ef36c394b49ec07a85",
+    "devguide/molsysviewer_addon.md": "333782ba47266a1889170ac24ef16a8166a70e1ba1ec82f74f16a6fe0574f608",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "89d389662ef4af287001872e68509fc7a48bb75cd47b81b60d4562640c5c9d0a",
+    "devtools/tests/run_tiers.sh": "f6d4c6f18a2c07767f781bf0205aff033ffa855f4e1e66a768b234905c087185",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "f58d5586294e33716c9c7549b0158a8d63428e6fc885ac59c9fbe218ff0d30ca",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "2599c83701bfd4fb09dc5484f57f513a4e97e7e50ac6c57d756acf025926fecf",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "18b73a1d614eef6556629c05e46c61bfd6cf5c4139fb38ae6edc935ae4bebb8a",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "4347e8c6f8a04580e2a603bec558559d0dd1ae781a1935a83d00003a0ce19f11",
+    "docs/content/user/tools/molsysviewer_tools.md": "fc9f68a52060b8a783edf1903130988c5a9ecc0d9e7139823eb85ce31255636f",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "9407ec5cb5fbabccfcf3a89b9eb613973b856a3412de61bc5846be6c571c8192",
+    "docs/docs_manifest.yml": "991f9681527748bcd97c63e1e1cf8064c94570e5e277ab7e90223f885cf02e87",
+    "molsysviewer_molsysmt/_basic.py": "2e93608b042c877c190244aa77e6f82ec1dc975d674fb631258af471ab344e5c",
+    "molsysviewer_molsysmt/_physchem.py": "7a69407696758011ba2b28d59a165bda7e450e70bc9fdde5ec68e0df8ed24ca5",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "236f6cc9a91fa01485970900f72157e8f48471d324602a605e0285d715991e9c",
+    "tests/molsysviewer_molsysmt/test_reference_scales_tools.py": "285357fb64267ad8fc677d409426e35b71ed1918800ad64883d273e33932cb87"
+  },
+  "integration_parent": "97a8dc08ce3f432c334b28978953f9418af63c72",
+  "incoming_provider_receiving": {
+    "source": "97a8dc08ce3f432c334b28978953f9418af63c72",
+    "counts": {
+      "tests": 596,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "warnings": {
+      "LegacyH5MSMWarning": 225
+    },
+    "scope": "Focused follow-up after receiving the native group-free builder/query repair and TPSA source. Covers both new bound reference scales, native scale contracts, existing feature/table/identity receiving and the group-free native guard. TPSA is not exposed or scientifically qualified by this addon slice.",
+    "junit_sha256": "dbddbd338ef17e5919eed5aade68c51e5696077cfab691f1a4fc8c3efd431623",
+    "examples": {
+      "guide_blocks": 40,
+      "inherited_native_context_doctests": 90,
+      "failures": 0,
+      "log_sha256": "b782b0de3a9f1e598a63f2f8bc1d412147f543d39e3847f89d134ce14cc22cb2"
+    }
+  }
+}
