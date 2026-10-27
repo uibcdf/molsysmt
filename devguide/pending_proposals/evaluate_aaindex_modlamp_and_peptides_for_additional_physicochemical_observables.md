@@ -642,3 +642,167 @@ This recommendation does not remove existing APIs, add a dependency, adopt a
 new predictor, or move the 1.0 publication boundary. Original-source, license,
 provider compatibility, client feedback and benchmark reviews are still needed
 for each adopted capability. No extra implementation is included in #490.
+
+## TPSA/logP public-contract study — 2026-10-26
+
+**Proposed, not implemented.** The maintainer accepted studying the first
+molecular-descriptor contract. The [review receipt](../../devtools/data/tpsa_logp_contract_review_20261026.json)
+records thirteen RDKit characterization cases, five bounded original-table TPSA
+sums, unchanged provider inputs and explicit/implicit hydrogen parity. These
+checks do not qualify a public MolSysMT implementation or establish experimental
+partition/transport accuracy. The installed RDKit 2025.9.5 and inspected clean
+RDKit checkout cbfb37abddcd5b5feeac97d53530ae6be83cac0d are identified separately.
+
+### Scientific definitions and method variants
+
+TPSA uses Ertl, Rohde and Selzer (2000), doi:10.1021/jm000942e. The
+[author-hosted paper](https://www.peter-ertl.com/reprints/Ertl-JMC-43-3714-2000.pdf)
+explicitly labels Table 1 contributions in angstrom squared. Five simple fragment
+sums agree with the executed provider. This is a fitted topological descriptor,
+not an observed geometric surface or a guarantee of permeability.
+
+The [RDKit Book](https://www.rdkit.org/docs/RDKit_Book.html#implementation-of-the-tpsa-descriptor)
+explains that its default N/O-only variant follows the reference implementation
+and comparison table, while the paper's fragment table also includes S/P.
+The proposed default is N/O-only for reproducible conventional behavior, with
+explicit `include_sulfur_phosphorus=True` enabling the other supported subset.
+Neither option is claimed universally superior. In the characterized foscarnet
+example they give 94.83 and 104.64 angstrom squared respectively. Keep this
+choice in metadata and tests; never silently change it with software versions.
+
+LogP uses Wildman–Crippen (1999), doi:10.1021/ci990307l, through the executed
+RDKit implementation. It is a dimensionless predicted octanol/water partition
+logarithm, not logD at a specified pH. The original publisher full text returned
+403 in this review; the exact original typing/derivation remains unaudited.
+RDKit's documented implementation and local C++ source were inspected. Any
+initial implementation must retain that distinction in its experimental evidence.
+The provider's ability to return a number for an ion or disconnected salt does
+not establish a physical whole-salt partition coefficient.
+
+### Recommended public signatures
+
+Use short established descriptor names, consistent with `get_sasa`, without
+reusing `get_surface_area` or changing its historical reference-table contract:
+
+```python
+# Proposed interfaces; these functions are not yet available.
+msm.physchem.get_tpsa(
+    molecular_system,
+    element='molecule',
+    selection='all',
+    structure_indices='all',
+    chemical_state='reference',
+    method='ertl_rohde_selzer',
+    include_sulfur_phosphorus=False,
+    return_report=False,
+    syntax='MolSysMT',
+    skip_digestion=False,
+)
+msm.physchem.get_logp(
+    molecular_system,
+    element='molecule',
+    selection='all',
+    structure_indices='all',
+    chemical_state='reference',
+    method='wildman_crippen',
+    return_report=False,
+    syntax='MolSysMT',
+    skip_digestion=False,
+)
+```
+
+Initially support only the molecule element. Numeric selections are molecule
+indices, preserving requested order and repetitions. String selections use the
+ordinary molecule-level selection contract; an atom-based expression may identify
+whole molecules but must never truncate their graphs. The report must make the
+complete source atom membership explicit. Do not introduce an undocumented
+atom-index interpretation or silently calculate a selected capped fragment.
+
+Each selected molecule must be a complete connected covalent graph in the
+chosen chemical state, with no bonds crossing its boundary. A molecular label
+containing disconnected salt components fails this first contract. A source
+containing several separately selected valid molecules returns one value for
+each; values are not summed as a system-level logP. Preserve source molecule
+indices rather than replacing them with ad hoc component labels.
+
+TPSA may evaluate supported charged graphs. For the first `get_logp` contract,
+recommend rejecting molecules with nonzero net formal charge, without automatic
+neutralization, counterion removal or tautomer selection. This is a proposed
+scientific scope decision, not a limitation of RDKit's numerical API. Net-zero
+graphs can contain formal atomic charges (nitro groups and zwitterions); do not
+reject every graph with a nonzero atomic charge. A net-zero admission check is
+not evidence that the prediction is accurate for all zwitterions. Broader ionic
+model scores need a separately named and reviewed contract, not a claim of logD.
+
+TPSA returns a PyUnitWizard area quantity of shape `(n_selected_molecules,)`,
+standardized to the active policy. LogP returns a float64 array of the same shape,
+explicitly dimensionless. Retain `(0,)` for empty selections. There is no
+structure axis: coordinates are needed only for a spatial selection, and
+structure indices also resolve structure-associated chemistry. Requests resolving
+to different chemical states must fail initially rather than silently average.
+
+With `return_report=True`, return `{'tpsa': quantity, 'report': ...}` or
+`{'logp': array, 'report': ...}`. The detached report should retain source
+molecule indices and ragged source atom membership, chemical-state index/digest,
+net formal charges, exact method/options, hydrogen treatment, atom inventory,
+producer versions and original bibliography. Default scalar-column returns are
+not persistent records; callers needing provenance should request the report.
+
+### Reuse and implementation boundary
+
+Reuse chemical_graph_context, validate_chemical_frames, native chemical-state
+storage and general conversion/selection. Use full-source covalent membership
+from topology tools to establish boundary completeness, then construct only the
+selected intact molecular graphs. get_covalent_blocks computes an induced
+selected graph; invoking it only after cutting away external atoms would not
+prove boundary completeness. Generic graph/molecule admission belongs in the
+existing topology/native owners, with a new public tool only if its independent
+contract warrants one. Do not hide competing molecular inference in physchem.
+
+The exploratory molecule-axis check uncovered uibcdf/molsysmt#491: a group-free
+RDKit graph converts with valid covalent components but zero molecule inventory,
+and public molecule queries raise. That general defect must be addressed before
+claiming the molecule-level boundary works across supported forms. It must not
+be worked around with a TPSA-only partition or fabricated biological groups.
+
+Require declared complete connectivity, valid elements/orders/charges and a
+supported closed-shell concrete graph. Reject query/dummy atoms, unsupported
+metals, radicals and dative relationships in the first bounded profile. Sanitize
+on detached working graphs, retaining source correspondence and detecting known
+chemical contradictions. Honor declared indexed and nonindexed hydrogen counts.
+Any provider materialization of those hydrogens occurs only on a temporary graph,
+never as scientific preparation or a change to the source atom axis. Undeclared
+missing hydrogen inventory must not be silently guessed to obtain a value.
+
+RDKit calculates descriptor caches on molecules, and Crippen's provider path can
+add hydrogens. Copy the working molecule and request force=True with explicit
+options, so user caches and hydrogen-presentation choices cannot leak across
+calculations. Both providers already use compiled kernels; start without a new
+Rust implementation or duplicate coefficient table. Use lazy DepDigest,
+ArgDigest, explicit units and the existing optional Ackredit boundary. Credit
+original models separately from actual RDKit execution. No package or predictor
+is added by this study, and no timing/memory advantage has been benchmarked.
+
+### Implementation sequence and acceptance
+
+1. Resolve and regression-test the general molecule-inventory/query defect #491.
+2. Confirm this boundary, especially N/O versus N/O/S/P and neutral-only logP.
+3. Implement TPSA first, with full unit-policy, chemical-state and molecule-axis
+   coverage; then share only genuinely general admission/reporting pieces with
+   logP. Do not expose atom contributions until their source/H mapping is designed.
+4. Check primary simple-fragment TPSA oracles separately from equivalent-provider
+   parity. Keep original logP derivation and experimental prediction evidence
+   explicitly partial until independently reviewed.
+5. Cover implicit/indexed H parity, stale provider caches, source immutability,
+   salts, mixtures, ionic/neutral pairs, nitro/zwitterion controls, malformed
+   chemistry, molecules crossed by state-specific bonds, all supported form
+   routes and rich/default/explicit-state selections. Test pm/angstrom/nm area
+   policies and typed empty results; no artificial coordinate-axis expansion.
+6. Complete optional attribution absence/failure/enclosing-session checks,
+   detached report persistence through a reviewed typed unit boundary, public API
+   classification, docstrings, User Guide, Cookbook and course lifecycle.
+
+This study establishes a concrete proposal, not new functions or an expanded
+1.0 release gate. #485 remains partial; #491 owns the independently reusable
+prerequisite fix. Whether to adopt the two new functions before 1.0 is a separate
+maintainer decision after this contract review.

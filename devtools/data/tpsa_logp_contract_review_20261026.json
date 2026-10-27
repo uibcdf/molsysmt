@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#485",
+  "molsysmt_source": "cff1f8fe0acb0728d5b4374ba531a47db33309a1",
+  "scope": "Contract exploration only; 13 provider-characterization cases plus five bounded primary-table TPSA sums. No general accuracy benchmark or runtime API implementation.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "rdkit_executed": "2025.09.5"
+  },
+  "rdkit_reference_checkout": {
+    "commit": "cbfb37abddcd5b5feeac97d53530ae6be83cac0d",
+    "clean": true,
+    "source_sha256": {
+      "Code/GraphMol/Descriptors/MolSurf.cpp": "5fab0eba38744564c1a8b07725dd37dedd47a4f1fda4881bb132d95fe886aa7a",
+      "Code/GraphMol/Descriptors/MolSurf.h": "959e5936861051c2d71f011f9fb2917f76c80297adb88423cb6e480de59aebb3",
+      "Code/GraphMol/Descriptors/Crippen.cpp": "8f39e609a2d1c9207bfe0883987d7c4eafb57ceded47efa3f0847fb6ececc8e4",
+      "rdkit/Chem/Crippen.py": "33e324596a826e5b5296937a2a6b3231779687a0e3be02e675408697e3545f33"
+    },
+    "boundary": "Inspected source checkout and executed installed provider are distinct; no claim that their builds are identical."
+  },
+  "cases": [
+    {
+      "name": "ethanol",
+      "smiles": "CCO",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 20.23,
+        "tpsa_nosp_angstrom2": 20.23,
+        "wildman_crippen": -0.0014000000000000123
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "dimethyl_ether",
+      "smiles": "COC",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 9.23,
+        "tpsa_nosp_angstrom2": 9.23,
+        "wildman_crippen": 0.26260000000000006
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "ethylamine",
+      "smiles": "CCN",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 26.02,
+        "tpsa_nosp_angstrom2": 26.02,
+        "wildman_crippen": -0.03499999999999981
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "ethylammonium",
+      "smiles": "CC[NH3+]",
+      "formal_charge": 1,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 27.64,
+        "tpsa_nosp_angstrom2": 27.64,
+        "wildman_crippen": -0.7518
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "acetic_acid",
+      "smiles": "CC(=O)O",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 37.3,
+        "tpsa_nosp_angstrom2": 37.3,
+        "wildman_crippen": 0.09089999999999993
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "acetate",
+      "smiles": "CC(=O)[O-]",
+      "formal_charge": -1,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 40.129999999999995,
+        "tpsa_nosp_angstrom2": 40.129999999999995,
+        "wildman_crippen": -1.2438
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "benzene",
+      "smiles": "c1ccccc1",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 0.0,
+        "tpsa_nosp_angstrom2": 0.0,
+        "wildman_crippen": 1.6866
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "pyridine",
+      "smiles": "c1ccncc1",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 12.89,
+        "tpsa_nosp_angstrom2": 12.89,
+        "wildman_crippen": 1.0816
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "foscarnet",
+      "smiles": "OC(=O)P(=O)(O)O",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 94.83,
+        "tpsa_nosp_angstrom2": 104.64000000000001,
+        "wildman_crippen": -0.1579000000000001
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "dimethyl_sulfone",
+      "smiles": "CS(C)(=O)=O",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 34.14,
+        "tpsa_nosp_angstrom2": 42.52,
+        "wildman_crippen": -0.33919999999999995
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "salt",
+      "smiles": "CC[NH3+].[Cl-]",
+      "formal_charge": 0,
+      "n_components": 2,
+      "values": {
+        "tpsa_no_angstrom2": 27.64,
+        "tpsa_nosp_angstrom2": 27.64,
+        "wildman_crippen": -3.747799999999999
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "nitromethane",
+      "smiles": "C[N+](=O)[O-]",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 43.14,
+        "tpsa_nosp_angstrom2": 43.14,
+        "wildman_crippen": -0.10710000000000008
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    },
+    {
+      "name": "zwitterionic_glycine",
+      "smiles": "[NH3+]CC(=O)[O-]",
+      "formal_charge": 0,
+      "n_components": 1,
+      "values": {
+        "tpsa_no_angstrom2": 67.77,
+        "tpsa_nosp_angstrom2": 67.77,
+        "wildman_crippen": -3.0218
+      },
+      "explicit_implicit_h_max_difference": 0.0
+    }
+  ],
+  "controls": "13 cases; H presentation parity at absolute tolerance 1e-12; source RDKit molecule unchanged; explicit force=True avoids stale descriptor caches.",
+  "primary_references": {
+    "tpsa": "10.1021/jm000942e",
+    "logp": "10.1021/ci990307l"
+  },
+  "paper_access": "TPSA author presentation and RDKit documented variant reviewed. Wildman-Crippen publisher full text returned 403; exact original typing/derivation not independently audited.",
+  "primary_tpsa_check": {
+    "source": "https://www.peter-ertl.com/reprints/Ertl-JMC-43-3714-2000.pdf",
+    "doi": "10.1021/jm000942e",
+    "table": "Table 1, printed page 3715",
+    "unit": "angstrom**2",
+    "coefficients": {
+      "OH_single_bond": 20.23,
+      "O_single_single": 9.23,
+      "O_double": 17.07,
+      "O_minus_single": 23.06,
+      "NH2_single": 26.02
+    },
+    "analytical_reference_cases": {
+      "ethanol": 20.23,
+      "dimethyl_ether": 9.23,
+      "ethylamine": 26.02,
+      "acetic_acid": 37.3,
+      "acetate": 40.129999999999995
+    },
+    "scope": "Five simple TPSA fragment sums checked from the primary table, absolute tolerance 1e-12. No broad transport-accuracy claim; logP remains provider characterization."
+  },
+  "molecule_inventory_blocker": "uibcdf/molsysmt#491",
+  "executed_calls": [
+    "Chem.MolFromSmiles(smiles); Chem.Mol(source) creates the detached working graph.",
+    "rdMolDescriptors.CalcTPSA(mol, force=True, includeSandP=False)",
+    "rdMolDescriptors.CalcTPSA(mol, force=True, includeSandP=True)",
+    "rdMolDescriptors.CalcCrippenDescriptors(mol, includeHs=True, force=True)[0]",
+    "Repeat all calls with Chem.AddHs(mol); compare at absolute tolerance 1e-12.",
+    "Compare original source.ToBinary() before/after all calculations."
+  ]
+}
