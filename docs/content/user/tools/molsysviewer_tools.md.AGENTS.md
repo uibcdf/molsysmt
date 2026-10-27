@@ -78,7 +78,9 @@ exports as received or introduce implicit coloring, preparation or assignment.
 
 
 Preserve all thirteen received physchem paths, including ProtOr type/rule arrays,
-native radii and four raw descriptor tables. Keep raw-table units, Janin reference
+native radii and four reference tables. Preserve the native provisional ISA area
+quantity and standardization, with original-paper verification still open under
+uibcdf/molsysmt#473. Keep the remaining raw-table units, Janin reference
 percentages, Grantham relative values and the unverified Collantes unit label
 separate from geometry/SASA. Preserve addon-only digestion for get_volume and
 no invented syntax parameter for get_area_buried. Native PBC repairs now receive

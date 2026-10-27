@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#473",
+  "related": "uibcdf/molsysmt#475",
+  "parent_source": "f234396bb46e384e1d3b30b369de9798aafbf91c",
+  "decision": "Maintainer explicitly adopts provisional angstrom\u00b2 interpretation for the unchanged ISA table and PyUnitWizard-standardized public quantities. Original-paper physical verification remains open.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "distribution_versions": {
+      "numpy": "2.4.6",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/physchem/get_surface_area.py": "f89852621858d58e79542bcd9a4d1f72e76d54e0992b967f016f9e7dfe430e35",
+    "molsysmt/physchem/groups/surface_area.py": "9a4a7ed135b2b38b5e90a7213a14af9b38c897a6f7d9e0f9f6a2db72c74f7e12",
+    "molsysviewer_molsysmt/_basic.py": "090882b043e20592bcc7ac1c7216f57738bcc98f28547b9cf1392c781951aff7",
+    "tests/physchem/get_surface_area/test_get_surface_area.py": "2f0b712a0a0b3af1683ca8e5948f3ddad92fcef74ad3e08bcfeb48674f5e6dee",
+    "tests/physchem/test_property_selection_contract.py": "fba5fa32897a06347c86d3ce5b5a100a008e228ab938bf3d199298f23790e713",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "4421411f8b418f5224e747794dea3f3c81fc82a482c41dacd7ee4d390b62280d"
+  },
+  "before": {
+    "result": "27 new quantity/conversion cases failed",
+    "log": "/tmp/molsysmt-473-quantity-before.log"
+  },
+  "after": {
+    "command": "python -m pytest tests/physchem/get_surface_area tests/physchem/test_property_selection_contract.py tests/molsysviewer_molsysmt/test_physchem_tables_tools.py --doctest-modules molsysmt/physchem/get_surface_area.py --receptor=llm -n 12",
+    "result": "547 passed; 81 expected legacy-H5MSM warnings",
+    "seconds": 27.04,
+    "log": "/tmp/molsysmt-473-quantity-after.log"
+  },
+  "contracts": [
+    "Quantity output with selected group axis, order/repetitions and typed empty results.",
+    "Configured standard units are honored for nm, angstrom and pm; explicit angstrom\u00b2 values retain legacy numbers.",
+    "ALA is 62.9 angstrom\u00b2 = 0.629 nm\u00b2 under the provisional software convention.",
+    "All twenty raw table entries unchanged by literal AST comparison.",
+    "Native, Topology and MolSysDict inputs, alternate selection syntax and bound-reader forwarding retain their contracts."
+  ],
+  "documentation": {
+    "tutorial": "Force-executed get_surface_area.ipynb successfully in 6.5 seconds.",
+    "log": "/tmp/molsysmt-473-quantity-notebook.log",
+    "other_notebooks": "Common Core 20 and four path property modules are prose-only updates; code and outputs retained."
+  },
+  "research": "devtools/data/collantes_external_sources_20261026.json",
+  "unresolved": [
+    "Original ISA unit/normalization/primary values under #473.",
+    "ECI physical dimension and aggregation under #475; existing e quantity behavior unchanged."
+  ],
+  "scope": "Local experimental software unit convention, not original-paper scientific certification, full-suite, installed pair, cross-platform or release qualification.",
+  "quality_checks": {
+    "notebook_schema": "491 passed in 8.05 seconds",
+    "fast_release_gates": "14/14 passed; heavy release qualification not executed",
+    "html": {
+      "errors": 0,
+      "warnings": 53,
+      "warning_debt": "uibcdf/molsysmt#144"
+    },
+    "docstring_validation": "251 checked successfully",
+    "signature_guard": "0 signature drift",
+    "ruff": "6 selected Python files pass check and format",
+    "raw_table": "All twenty entries identical by literal AST comparison"
+  }
+}

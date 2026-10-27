@@ -1449,7 +1449,7 @@ The four additional group tables preserve native definitions and containers:
 
 | Tool | Reference and actual result |
 | --- | --- |
-| `get_surface_area` | Raw Collantes list; physical unit verification is pending under uibcdf/molsysmt#473. Do not label it as verified nm². |
+| `get_surface_area` | Native area quantity, standardized by PyUnitWizard from the provisional Å² table convention. Original unit/normalization verification remains pending under uibcdf/molsysmt#473. |
 | `get_volume` | Grantham relative side-chain descriptors as a NumPy array; no dimensional molecular volume is calculated. |
 | `get_area_buried` | Rose average buried-area table, documented in Å², as a raw NumPy array; no quantity conversion. |
 | `get_buried_fraction` | Janin reference percentages as a raw list; neither values between zero and one nor conformational burial is inferred. |

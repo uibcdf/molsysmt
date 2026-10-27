@@ -142,7 +142,7 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
         }:
             function.__doc__ += (
                 "These are reference-table values per group, not geometry calculated "
-                "from the visible structure. Native raw list/array values are preserved; "
+                "from the visible structure. Native containers and quantities are preserved; "
                 "the addon adds no quantity units, conversion or normalization. "
                 "Use get_sasa for an explicit conformational "
                 "surface calculation, with its separate native engine limitations. "
@@ -197,9 +197,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             )
         if module == "physchem" and name == "get_surface_area":
             function.__doc__ += (
-                "The Collantes unit label requires verification under "
-                "uibcdf/molsysmt#473. Raw output is not received as a verified "
-                "nm-squared quantity or calculated conformational SASA.\n"
+                "Collantes ISA uses the native provisional angstrom-squared "
+                "convention and PyUnitWizard standardization under "
+                "uibcdf/molsysmt#473. Original units/normalization still need "
+                "paper verification; the addon adds no scaling or geometry.\n"
             )
         if module in {"topology", "structure"} and name not in {
             "translate",

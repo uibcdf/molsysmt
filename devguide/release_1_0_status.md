@@ -38,6 +38,14 @@ under #215. Local source regression and documentation checks do not replace the
 new exact-candidate platform, scientific-evidence and installed-pair gates under
 #334. Publication remains paused as recorded below.
 
+The subsequent native ring/chemical-selector repairs under #482/#483 preserve
+reference requests and validate source structure scopes. Under the maintainer's
+new #473 decision, ISA now returns standardized PyUnitWizard area quantities from
+a provisional angstrom² table convention; original-paper verification stays open.
+#475 retains ECI dimension/additivity review, and #485 records a separate external
+observable exploration. These source contracts require applicable new candidate
+qualification; they do not change the publication pause or prior artifact evidence.
+
 ## Release coordination paused — 2026-10-08
 
 On 2026-10-20 the maintainer extends the publication postponement by a couple

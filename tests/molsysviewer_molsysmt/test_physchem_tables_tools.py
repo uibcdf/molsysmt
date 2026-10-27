@@ -28,7 +28,7 @@ FIRST = {
     "get_transmembrane_tendency",
 }
 TABLES = {
-    "get_surface_area": (list, {"ALA": 62.90, "LYS": 102.78, "GLU": 30.19}),
+    "get_surface_area": (None, {"ALA": 62.90, "LYS": 102.78, "GLU": 30.19}),
     "get_volume": (np.ndarray, {"ALA": 31.0, "LYS": 119.0, "GLU": 83.0}),
     "get_area_buried": (np.ndarray, {"ALA": 86.6, "LYS": 115.5, "GLU": 113.9}),
     "get_buried_fraction": (list, {"ALA": 11.2, "LYS": 0.5, "GLU": 1.8}),
@@ -120,8 +120,13 @@ def test_raw_reference_values_group_axes_containers_order_and_empty(
     )
     actual = getattr(protein.addons.molsysmt.physchem, name)(selection=selection)
     container, reference = TABLES[name]
-    assert type(actual) is container and not puw.is_quantity(actual)
-    np.testing.assert_allclose(actual, [reference[n] for n in names])
+    if container is None:
+        assert puw.is_quantity(actual)
+        values = puw.get_value(actual, to_unit="angstrom**2")
+    else:
+        assert type(actual) is container and not puw.is_quantity(actual)
+        values = actual
+    np.testing.assert_allclose(values, [reference[n] for n in names])
     same(actual, getattr(msm.physchem, name)(protein.molsys, selection=selection))
 
 

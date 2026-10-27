@@ -88,3 +88,21 @@ selection passes 26 cases on Linux/Python 3.14.7 (two expected legacy-H5MSM
 warnings). The numerical assertions were moved intact; no original paper access
 is claimed. Commands, hashes and the remaining primary-reference requirement are
 recorded in [the evidence-scope receipt](../../devtools/data/collantes_evidence_scope_20261026.json).
+
+## Third-party implementation audit — 2026-10-26
+
+At maintainer request, official AAindex1 and pinned modlAMP/Peptides R sources
+were audited. The 566-record AAindex1 text has no identified Collantes/ISA/ECI
+record under the searched authors, names, PMID and page number. modlAMP's
+ISAECI table agrees with all twenty current ECI values, but attaches no physical
+unit or independent net-charge interpretation. Its generic calculate_global
+flattens and averages numeric scale entries; accepting arithmetic is not a
+physical charge-additivity statement. Its GlobalDescriptor.calculate_charge
+uses an independent pH/pKa method. Peptides R's reviewed R/manual text exposes
+no identified Collantes table, and charge likewise uses pH and pKa.
+
+This is compatibility evidence, not verification of e units or physically
+justified aggregation. Existing ECI quantities/sums stay unchanged and this
+issue remains open as the original-paper reminder. It is not replaced by ISA's
+new provisional area-quantity convention. Exact sources, hashes and exclusions:
+[the shared source audit](../../devtools/data/collantes_external_sources_20261026.json).

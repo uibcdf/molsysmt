@@ -85,15 +85,16 @@ Observables describing spatial extent, solvent exposure, and molecular volume:
 | Attribute / Property | Target Scope | Description | Canonical Unit |
 | :--- | :--- | :--- | :--- |
 | **`sasa`** | Supported geometric population | Coordinate-based solvent-accessible surface area. | `nanometer ** 2` (`nm²`) |
-| **`surface_area`** | Group | Raw tabulated Collantes descriptor; physical unit review remains open in issue #473. | unqualified raw values |
+| **`surface_area`** | Group | Tabulated Collantes ISA with a provisional Å² convention; original-paper review remains open in #473. | standardized area (nm² by default) |
 | **`volume`** | Group / System | Molecular or atomic volume via Voronoi tessellation or solvent envelope. | `nanometer ** 3` (`nm³`) |
 | **`area_buried`** | Group / Interface | Surface area buried upon interface formation or folding. | `nanometer ** 2` (`nm²`) |
 | **`buried_fraction`** | Atom / Group | Fractional extent of surface burial ($0.0 \dots 1.0$). | N/A |
 
 The historical Collantes ISA table is a lookup of QSAR descriptors, not a new
-surface measurement on the selected coordinates. Its raw floats do not imply
-dimensionlessness or authorize assigning nm² or Å². The original table unit
-and normalization remain under [review #473](https://github.com/uibcdf/molsysmt/issues/473).
+surface measurement on the selected coordinates. Its public reader now wraps
+unchanged table entries using a maintainer-adopted provisional Å² convention,
+then standardizes through PyUnitWizard. Request Å² explicitly to recover the
+legacy table-scale numbers. The original table unit and normalization remain under [review #473](https://github.com/uibcdf/molsysmt/issues/473).
 The companion electronic charge index (ECI), exposed by the legacy Collantes
 charge definition, has a separate [unit and aggregation review #475](https://github.com/uibcdf/molsysmt/issues/475).
 See the [ISA tutorial](../../tools/physchem/get_surface_area.ipynb) for the

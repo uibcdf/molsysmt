@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (28)
+### Open (29)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -46,6 +46,7 @@ Entries carrying front matter under
 - [`define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md`](define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md) — [#220](https://github.com/uibcdf/molsysmt/issues/220) — Define small-molecule chemical-state enumeration with atom correspondence *(inspected)*
 - [`energy_minimized_placement_for_ambiguous_modified_residue_gaps.md`](energy_minimized_placement_for_ambiguous_modified_residue_gaps.md) — [#249](https://github.com/uibcdf/molsysmt/issues/249) — Energy-minimized placement for ambiguous modified-residue gaps *(measured)*
 - [`evaluate_a_native_aminoacidsequence_value_object.md`](evaluate_a_native_aminoacidsequence_value_object.md) — [#242](https://github.com/uibcdf/molsysmt/issues/242) — Evaluate a native AminoAcidSequence value object *(inspected)*
+- [`evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md`](evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md) — [#485](https://github.com/uibcdf/molsysmt/issues/485) — Evaluate AAindex, modlAMP and Peptides for additional physicochemical observables *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`expand_and_validate_formal_charge_center_recognition.md`](expand_and_validate_formal_charge_center_recognition.md) — [#262](https://github.com/uibcdf/molsysmt/issues/262) — Expand and validate formal-charge center recognition *(inspected)*
 - [`explicit_small_molecule_standardization.md`](explicit_small_molecule_standardization.md) — [#366](https://github.com/uibcdf/molsysmt/issues/366) — Provide explicit small-molecule standardization with chemical-state and atom-identity evidence. *(inspected)*

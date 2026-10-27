@@ -182,3 +182,10 @@ See {doc}`H5MSM 0.5 <../tools/form/file/h5msm_05>` for the schema API and
 {ref}`the molecular system model <user-foundations-molecular-system-definition>`
 for domain ownership.
 :::
+
+When preparing a downstream descriptor table after loading a molecular system,
+`get_surface_area(definition='collantes')` returns an area quantity using the
+provisional Å² convention, then PyUnitWizard standardization. Extract explicit
+Å² values to retain the historical model input scale. Original-paper verification
+is still pending under #473; unit typing does not certify conformational SASA.
+See {ref}`Tutorial_Get_surface_area`.

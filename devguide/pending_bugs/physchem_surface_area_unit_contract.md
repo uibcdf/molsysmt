@@ -7,7 +7,7 @@ closed:
 severity: medium
 verification: inspected
 area: [physchem, units, docs]
-guard:
+guard: tests/physchem/get_surface_area/test_get_surface_area.py::test_provisional_isa_quantity_preserves_table_scale_and_standard_units
 normative:
 blocked_by: []
 supersedes: []
@@ -17,14 +17,15 @@ supersedes: []
 
 **Reported:** 2026-10-26 during addon receiving under uibcdf/molsysmt#421,
 consumer uibcdf/molsysviewer#264. Filing explicitly authorized by the maintainer.
-**Status:** partial; public interpretation and provenance are qualified. Original
-table units and normalization remain unverified; no incorrect numerical result
-is established.
+**Status:** partial; the maintainer has adopted provisional angstrom² typing
+and PyUnitWizard standardization. Original table units, normalization and
+primary values remain unverified; implementation is not paper certification.
 
 ## What
 
-The native get_surface_area docstring describes nm squared. The function returns
+At opening, the native get_surface_area docstring described nm squared and returned
 a raw float list from groups/surface_area.py with no conversion or attached unit.
+The later maintainer-adopted provisional quantity contract is recorded below.
 The table identifies Collantes and Dunn, J. Med. Chem. 1995, 38, 2705–2713 and
 isotropic surface area, without stating a unit or normalization.
 
@@ -74,7 +75,9 @@ merely to satisfy a dimensional assertion.
 
 ## Acceptance criteria
 
-A precise primary reference supports the declared interpretation and unit.
+An explicit original definition/table, or an authoritative curated record carrying
+its reference, units, normalization and exact numeric entries, supports the
+physical interpretation. Implementation agreement without unit metadata is insufficient.
 Native guards protect representative values and that contract; documentation
 agrees. Then receive the contract in the thin addon without an independent
 formula or normalization. Until then, keep the unit uncertainty visible.
@@ -166,3 +169,66 @@ The preceding source checkpoint 9d7d81d316f7e4f8d84f6d115343ed71dd1fe3d2
 completed all five applicable CI workflows successfully, including smoke
 run 40421796702. That is prior-source evidence, not an assertion about a later
 commit, installed package, another platform or publication readiness.
+
+## Maintainer decision: provisional typed areas — 2026-10-26
+
+The maintainer explicitly requests unit-aware output despite unavailable original
+full text. The public reader now wraps unchanged table numbers provisionally in
+angstrom² and standardizes through PyUnitWizard. Thus ALA 62.9 angstrom² appears
+as 0.629 nm² under the default policy; explicit angstrom² extraction preserves
+the historical model input scale. The experimental return changes from a list
+to an area quantity, including typed empty selections, with signatures unchanged.
+No numeric table entry is edited. The native Viewer wrapper forwards that quantity
+without correction. The tutorial, Foundations, Cookbook, course and help disclose
+the provisional convention prominently.
+
+This issue remains partial and open as the requested reminder to verify the
+original paper; a duplicate verification issue is unnecessary. The governing
+acceptance criteria above are not satisfied merely by choosing a software unit.
+The related ECI output is already a quantity in elementary charge; its dimension
+and aggregation remain unverified under uibcdf/molsysmt#475 and are not changed.
+
+## User-proposed evidence and source audit — 2026-10-26
+
+The supplied assessment suggests angstrom² from magnitude and describes hydrated
+supermolecules, empirical H-bond hydration, MMFF/AMBER and a Hermann surface program.
+These details are leads, not verified original-paper content in this review. The
+accessible original abstract confirms ISA/ECI and optimized structures for QSAR;
+it does not establish units, normalization or those computational details.
+Changing 62.9 angstrom² to 0.629 nm² within a typed quantity preserves the adopted
+physical area; table-scale machine-learning features should request explicit units.
+
+A fresh official AAindex1 download contains 566 records and no matches for
+Collantes, isotropic, electronic charge index, original PMID or page number.
+This bounded search does not establish absence from every historical release.
+Pinned modlAMP source 458c4dbb4c7888208ce3d9326484906b95324801 contains ISAECI
+and agrees with all twenty current ISA entries and all twenty ECI entries.
+It attaches no physical units to that table or its corresponding scale description.
+Peptides R source a1a91be11bd6ba183541008cd038e328b4c33868 exposes ten families
+in aaDescriptors; its R/manual text has no Collantes/ISAECI/isotropic/ECI entry.
+Its charge function uses a pH/pKa model. These implementations are not primary
+certification of the original units. No table value is altered from this audit.
+
+The [source-audit receipt](../../devtools/data/collantes_external_sources_20261026.json)
+records exact versions, original source hashes, searches and scope. The unit
+implementation and checks are retained in
+[the quantity receipt](../../devtools/data/collantes_provisional_quantity_20261026.json).
+
+## Qualification of the provisional quantity convention
+
+The 27 new unit/conversion cases fail against the preceding raw-list output.
+With the provisional implementation, the property-selection, surface-area,
+Viewer-wrapper and changed public doctest selection passes **547 tests** in
+27.04 seconds with twelve workers and pytest-receptor. All twenty table entries
+remain identical by literal AST comparison. The surface-area tutorial executes
+successfully in 6.5 seconds. The five other course notebooks change prose only;
+code cells, outputs and notebook metadata are preserved.
+
+All **491** notebook-schema cases pass (8.05 seconds), all **14** fast release
+gates pass, selected Ruff check/format pass, all 251 public docstrings pass the
+existing validator and the signature guard reports zero drift. Incremental HTML
+compilation completes with zero errors and 53 warnings under the existing
+uibcdf/molsysmt#144 documentation debt. These checks protect the adopted
+software convention, not the unresolved original-paper scientific claim.
+No full-suite, installed-pair, cross-platform or publication qualification is
+asserted for this checkpoint.

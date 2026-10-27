@@ -34,7 +34,14 @@ TOOLS = [
     ("get_polarity", "group", "grantham", [11.3, 8.1, 12.3], None, "list"),
     ("get_transmembrane_tendency", "group", "zhao", [-3.46, 0.38, -2.9], None, "list"),
     ("get_volume", "group", "grantham", [119.0, 31.0, 83.0], None, "array"),
-    ("get_surface_area", "group", "collantes", [102.78, 62.9, 30.19], None, "list"),
+    (
+        "get_surface_area",
+        "group",
+        "collantes",
+        [102.78, 62.9, 30.19],
+        "angstrom**2",
+        "quantity",
+    ),
     ("get_area_buried", "group", "rose", [115.5, 86.6, 113.9], None, "array"),
     ("get_buried_fraction", "group", "janin", [0.5, 11.2, 1.8], None, "list"),
 ]

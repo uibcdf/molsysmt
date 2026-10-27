@@ -1,3 +1,4 @@
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import ArgumentChoiceError, NotImplementedMethodError
 from molsysmt.physchem.groups._lookup import group_table_value
@@ -34,10 +35,12 @@ def get_surface_area(
 
     Returns
     -------
-    list
-        Raw Collantes reference descriptor values, one per selected group.
-        The physical unit/normalization is under review in issue #473; no
-        quantity conversion or conformational SASA measurement is performed.
+    quantity
+        Collantes ISA values with shape (n_groups,), standardized through
+        PyUnitWizard (nm² under the default length policy). The table is
+        provisionally interpreted as angstrom² by maintainer decision; original
+        units, normalization and values remain under verification in issue #473.
+        This is a reference lookup, not a conformational SASA measurement.
 
 
     Raises
@@ -50,20 +53,23 @@ def get_surface_area(
     Notes
     -----
     Numeric group indices retain order and repetitions. Empty selections
-    return the same container with length zero. The existing reference table
+    return an area quantity with a zero-length axis. The existing reference table
     and numerical values are unchanged; this query does not calculate a
     conformational geometric surface or volume, prepare chemistry or assign
     a chemical state. Unknown non-placeholder groups retain explicit errors.
     String selections use the requested syntax. Optional selection languages
     require their provider; the ordinary default remains MolSysMT.
     Unsupported element levels fail before selection is interpreted.
-    The Collantes descriptor's physical unit/normalization remains under
-    review in uibcdf/molsysmt#473. Raw values are retained without guessed
-    conversion or a new physical-unit guarantee. A bare float is not a claim
-    that the original descriptor is dimensionless. The original work describes
-    amino-acid side-chain descriptors derived from optimized structures for
-    QSAR; this function only looks up the historical table. It does not run
-    the original descriptor-generation procedure on the input coordinates.
+    The original table unit/normalization remains under review in
+    uibcdf/molsysmt#473. The angstrom² convention is provisional, not a claim
+    that the original paper has been verified. Historical numeric table entries
+    remain unchanged. For a model expecting those table-scale values, request
+    ``puw.get_value(result, to_unit='angstrom**2')`` explicitly. For example,
+    62.9 angstrom² and 0.629 nm² represent the same area under this convention.
+    The original work describes amino-acid side-chain descriptors derived from
+    optimized structures for QSAR; this function does not run its generation
+    procedure or compute an area from the input coordinates.
+
 
     References
     ----------
@@ -102,6 +108,7 @@ def get_surface_area(
 
     if definition == "collantes":
         from .groups.surface_area import collantes as values
+        from .groups.surface_area import units
     else:
         raise NotImplementedMethodError
 
@@ -125,4 +132,4 @@ def get_surface_area(
             )
         )
 
-    return output
+    return puw.standardize(puw.quantity(output, units))
