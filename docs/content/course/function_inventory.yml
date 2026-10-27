@@ -425,3 +425,9 @@ molsysmt.physchem.get_tpsa:
   first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
   summary: "Calculates unit-aware molecular TPSA with explicit chemical-state and polar-element scope."
   doc_ref: "{func}`molsysmt.physchem.get_tpsa`"
+
+molsysmt.physchem.get_lipophilicity:
+  name: "msm.physchem.get_lipophilicity"
+  first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
+  summary: "Calculates dimensionless state-preserving Wildman-Crippen model scores for complete molecules."
+  doc_ref: "{func}`molsysmt.physchem.get_lipophilicity`"

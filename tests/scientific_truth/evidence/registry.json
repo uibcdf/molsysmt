@@ -18,7 +18,8 @@
     "molsysmt.structure.get_secondary_structure",
     "molsysmt.physchem.get_bulkiness",
     "molsysmt.physchem.get_secondary_structure_propensity",
-    "molsysmt.physchem.get_tpsa"
+    "molsysmt.physchem.get_tpsa",
+    "molsysmt.physchem.get_lipophilicity"
   ],
   "experimental_api_scopes": [
     "molsysmt.build",

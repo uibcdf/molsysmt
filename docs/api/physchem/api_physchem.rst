@@ -37,6 +37,7 @@ API Physical and Chemical Properties
    get_protor_vdw_radius
    get_sasa
    get_tpsa
+   get_lipophilicity
    get_surface_area
    get_transmembrane_tendency
    get_volume

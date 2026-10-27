@@ -180,3 +180,11 @@ outputs retain the molecular axis. Reports preserve source membership and
 original scientific provenance. See {ref}`Tutorial_Get_tpsa` for scope and
 {ref}`Cookbook_TPSA_Descriptors` for exports. Neither variant directly measures
 solvent exposure or predicts permeability.
+
+{func}`molsysmt.physchem.get_lipophilicity` complements TPSA with dimensionless
+Wildman–Crippen model scores on the supplied complete molecular graph. It retains
+the chosen chemical state, including supported charged sites, and never silently
+neutralizes a molecule. Numeric availability for ions or zwitterions does not
+certify physical logP accuracy. This is not logD and has no pH parameter. Request
+a report to retain charges, source maps, model and actual producer versions.
+See {ref}`Tutorial_Get_lipophilicity` and {ref}`Cookbook_Molecular_Descriptors`.

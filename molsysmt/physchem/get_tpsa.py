@@ -1,14 +1,10 @@
 """Calculating topological polar surface area on complete molecular graphs."""
 
-import numpy as np
 from depdigest import dep_digest
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import (
-    ArgumentChoiceError,
-    StructuralInconsistencyError,
-)
+from molsysmt._private.smonitor import ArgumentChoiceError
 
 
 @signal(tags=["api", "physchem"])
@@ -129,177 +125,31 @@ def get_tpsa(
 
     .. versionadded:: 1.0.0
     """
-    from copy import deepcopy
-
-    from rdkit import Chem, rdBase
-    from rdkit.Chem import rdMolDescriptors
-
-    from molsysmt import __version__, _ackredit
     from molsysmt import pyunitwizard as puw
-    from molsysmt._private.scientific_citations import ARTICLES, SOFTWARE
-    from molsysmt.basic import convert, get
-    from molsysmt.topology._chemical_graph import (
-        chemical_graph_context,
-        chemical_graph_digest,
-        detached_chemical_graph_view,
-        validate_chemical_frames,
-    )
+
+    from ._molecular_descriptors import calculate_molecular_descriptor
 
     caller = "molsysmt.physchem.get_tpsa"
     if element != "molecule":
         raise ArgumentChoiceError(
             argument="element", value=element, choices=["molecule"], caller=caller
         )
-
-    def fail(reason):
-        raise StructuralInconsistencyError(reason=reason, caller=caller)
-
-    with _ackredit.scope(caller) as provider:
-        indices, members = get(
-            molecular_system,
-            element="molecule",
-            selection=selection,
-            structure_indices=structure_indices,
-            chemical_state=chemical_state,
-            syntax=syntax,
-            molecule_index=True,
-            atom_index=True,
-        )
-        if indices is None or members is None:
-            fail("TPSA requires source molecule indices and atom membership.")
-        indices = np.asarray(indices, dtype=np.int64)
-        if len(members) != len(indices):
-            fail(
-                "Molecule labels and source atom membership must have matching lengths."
-            )
-        source, states, state, state_index, _, pairs, frames = chemical_graph_context(
-            molecular_system, chemical_state, structure_indices, False, caller
-        )
-        validate_chemical_frames(source, frames, caller)
-        from .get_aromaticity import get_aromaticity
-
-        # Check all selected boundaries in one pass over the source bonds.
-        # Repeating the full bond scan per molecule would scale poorly in mixtures.
-        labels = np.full(states.n_atoms, -1, dtype=np.int64)
-        for molecule_index, atoms in zip(indices, members):
-            labels[np.asarray(atoms, dtype=np.int64)] = molecule_index
-        if len(pairs):
-            left, right = labels[pairs[:, 0]], labels[pairs[:, 1]]
-            if np.any((left != right) & ((left >= 0) | (right >= 0))):
-                fail("A covalent bond crosses the selected molecule boundary.")
-        values, charges, checked = [], [], {}
-        child_items = {}
-        # One detached inventory is shared by the selected calculations; structures
-        # are deliberately absent from this chemistry view.
-        view = (
-            detached_chemical_graph_view(source, states, state_index, caller)
-            if len(indices) or return_report
-            else None
-        )
-        for molecule_index, atoms in zip(indices, members):
-            atoms = np.asarray(atoms, dtype=np.int64)
-            if molecule_index in checked:
-                value, charge = checked[molecule_index]
-            else:
-                if not len(atoms):
-                    fail("Selected molecules require nonempty source atom membership.")
-                attrs = state.atom_attributes
-                for field in (
-                    "n_implicit_hydrogens",
-                    "n_explicit_hydrogens",
-                    "allows_implicit_hydrogens",
-                ):
-                    if field not in attrs or attrs[field].iloc[atoms].isna().any():
-                        fail(f"TPSA requires declared {field} for every selected atom.")
-                selected = convert(view, to_form="molsysmt.MolSys", selection=atoms)
-                aromaticity = get_aromaticity(selected)
-                for item in aromaticity["attribution"]["items"]:
-                    child_items[item["id"]] = item
-                molecule = convert(selected, to_form="rdkit.Mol")
-                if (
-                    molecule.GetNumAtoms() != len(atoms)
-                    or len(Chem.GetMolFrags(molecule)) != 1
-                ):
-                    fail(
-                        "Each selected molecule must be one complete connected covalent graph."
-                    )
-                for i, atom in enumerate(molecule.GetAtoms()):
-                    original = int(atoms[i])
-                    if atom.GetNumImplicitHs() != int(
-                        attrs["n_implicit_hydrogens"].iloc[original]
-                    ) or atom.GetNumExplicitHs() != int(
-                        attrs["n_explicit_hydrogens"].iloc[original]
-                    ):
-                        fail(
-                            "The provider changed the declared nonindexed hydrogen inventory."
-                        )
-                value = float(
-                    rdMolDescriptors.CalcTPSA(
-                        molecule, force=True, includeSandP=include_sulfur_phosphorus
-                    )
-                )
-                if not np.isfinite(value) or value < 0:
-                    fail("The TPSA provider returned an invalid area.")
-                charge = Chem.GetFormalCharge(molecule)
-                checked[molecule_index] = value, charge
-            values.append(value)
-            charges.append(charge)
-        result = puw.quantity(
-            np.asarray(values, dtype=np.float64), "angstrom**2", standardized=True
-        )
-        software = {"molsysmt": __version__, "rdkit": rdBase.rdkitVersion}
-        items = [
-            dict(
-                id="doi:10.1021/jm000942e",
-                type="article",
-                **deepcopy(ARTICLES["ertl_2000"]),
-                roles=["scientific_criterion"],
-            )
-        ]
-        items.extend(
-            dict(
-                id=f"software:{name}:{version}",
-                type="software",
-                **deepcopy(SOFTWARE[name]),
-                version=version,
-                roles=["executed_software"],
-            )
-            for name, version in software.items()
-        )
-        items = list(
-            {item["id"]: item for item in [*child_items.values(), *items]}.values()
-        )
-        _ackredit.credit(provider, items, caller)
-        if not return_report:
-            return result
-        offsets = np.concatenate(
-            ([0], np.cumsum([len(atoms) for atoms in members]))
-        ).astype(np.int64)
-        return dict(
-            tpsa=result,
-            report=dict(
-                schema="molsysmt.tpsa@1",
-                molecule_indices=indices.copy(),
-                atom_offsets=offsets,
-                atom_indices=np.concatenate(members).astype(np.int64)
-                if members
-                else np.empty(0, dtype=np.int64),
-                chemical_state_index=state_index,
-                chemical_state_id=state.state_id,
-                chemical_graph_digest=chemical_graph_digest(view, state_index),
-                formal_charges=np.asarray(charges, dtype=np.int64),
-                formal_charge_unit="elementary_charge",
-                method=method,
-                parameters=dict(
-                    include_sulfur_phosphorus=include_sulfur_phosphorus,
-                    hydrogen_treatment="preserve_declared_inventory",
-                    implementation="rdkit.CalcTPSA",
-                ),
-                software=software,
-                attribution=dict(
-                    schema="molsysmt.scientific_attribution@1",
-                    target=caller,
-                    items=items,
-                ),
-            ),
-        )
+    values, report = calculate_molecular_descriptor(
+        molecular_system,
+        selection,
+        structure_indices,
+        chemical_state,
+        syntax,
+        descriptor="tpsa",
+        method=method,
+        article_key="ertl_2000",
+        caller=caller,
+        return_report=return_report,
+        parameters=dict(
+            include_sulfur_phosphorus=include_sulfur_phosphorus,
+            hydrogen_treatment="preserve_declared_inventory",
+            implementation="rdkit.CalcTPSA",
+        ),
+    )
+    result = puw.quantity(values, "angstrom**2", standardized=True)
+    return dict(tpsa=result, report=report) if return_report else result

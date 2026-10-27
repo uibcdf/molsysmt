@@ -6,6 +6,15 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "wildman_1999": dict(
+        doi="10.1021/ci990307l",
+        title="Prediction of Physicochemical Parameters by Atomic Contributions",
+        authors=["Wildman, Scott A.", "Crippen, Gordon M."],
+        year=1999,
+        journal="Journal of Chemical Information and Computer Sciences",
+        volume="39",
+        pages="868-873",
+    ),
     "ertl_2000": dict(
         doi="10.1021/jm000942e",
         title="Fast Calculation of Molecular Polar Surface Area as a Sum of Fragment-Based Contributions and Its Application to the Prediction of Drug Transport Properties",

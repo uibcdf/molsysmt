@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "issue": "uibcdf/molsysmt#496",
+  "source_basis": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+  "scope": "Local development qualification of the new experimental native descriptor and shared TPSA admission; no clean-installed, whole-suite, cross-platform, benchmark or release qualification.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "rdkit_executed": "2025.09.5",
+    "profile": "Existing shared development environment, not a clean installed pair."
+  },
+  "sources": {
+    "original_model": "Wildman and Crippen (1999), doi:10.1021/ci990307l",
+    "primary_text": "https://www.researchgate.net/publication/220524632_Prediction_of_Physicochemical_Parameters_by_Atomic_Contributions",
+    "bounded_primary_controls": "Table 1 C1=0.1441, C18=0.1581, H1=0.1230; independent atomic sums for methane, ethane and benzene. No complete-table redistribution or general accuracy certification.",
+    "provider_review": "devtools/data/tpsa_logp_contract_review_20261026.json",
+    "provider_vs_model": "Original Wildman-Crippen model, inspected reference checkout, and actually executed installed RDKit are separate identities."
+  },
+  "checks": {
+    "initial_tpsa_regression": {
+      "command": "python -m pytest tests/physchem/test_get_tpsa.py --receptor=llm -n 12",
+      "result": "70 passed in 11.79s"
+    },
+    "broad_regression": {
+      "command": "python -m pytest tests/physchem tests/scientific_truth/physchem tests/native/test_group_free_molecules.py devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_public_api_docs.py --receptor=llm -n 12",
+      "result": "2218 passed in 93.06s; 188 warnings (95 legacy H5MSM, 56 Sphinx deprecated mapping interface, 31 pandas fillna downcasting, 6 unavailable-GPU diagnostics). Precedes the added fresh-process absence control."
+    },
+    "final_focused": {
+      "command": "python -m pytest tests/physchem/test_get_lipophilicity.py tests/scientific_truth/physchem/test_lipophilicity.py --receptor=llm -n 12",
+      "result": "61 passed in 10.72s, including fresh-process lazy imports and genuine Ackredit absence."
+    },
+    "doctest": {
+      "command": "python -m pytest molsysmt/physchem/get_lipophilicity.py molsysmt/physchem/get_tpsa.py --doctest-modules --receptor=llm -n 12",
+      "result": "2 passed in 7.10s"
+    },
+    "fast_gates": {
+      "command": "python devtools/scripts/release_gate.py",
+      "result": "14/14 passed; this is the fast portion only."
+    },
+    "static": "Scoped Ruff, 255 public docstrings, 277 API classifications, zero unauthorized public signature drift, scientific registry and devguide validation.",
+    "documentation": "Tutorial executed in 10.4s. Cookbook Python executed with source-order and descriptor-value assertions. All five edited course notebooks preserve every code cell and saved output. Final incremental HTML build exits zero; no lipophilicity or paired-descriptor warning. Remaining header/orphan diagnostics are outside this addition. Final incremental build emitted 17 existing header/orphan warnings; no warning from the new tool or recipe.",
+    "viewer_tpsa_regression": {
+      "command": "python -m pytest tests/molsysviewer_molsysmt/test_tpsa_tools.py --receptor=llm -n 12",
+      "result": "53 passed in 11.87s. Existing receiving-tool regressions only; no new Viewer lipophilicity wrapper is claimed."
+    }
+  },
+  "implementation": [
+    "Public form-agnostic, ArgDigest/SMonitor/lazy-DepDigest boundary; dimensionless float64 scores for complete supplied-state molecules.",
+    "Shared private molecule/H/aromaticity/boundary/provenance path with TPSA, using existing general scientific tools.",
+    "Compiled RDKit CalcCrippenDescriptors with includeHs=True and force=True on detached graphs.",
+    "No silent neutralization, counterion stripping, tautomer preparation, pH/logD inference, molecule summation or new descriptor persistence codec.",
+    "Detached report contains source maps, state/digest, charged source atoms and their ragged offsets, scientific method, original producer versions and optional Ackredit references."
+  ],
+  "scientific_evidence": "Partial: independent bounded original atomic sums; provider/form/H-presentation/charged-state parity does not establish general experimental partition prediction accuracy.",
+  "sha256": {
+    "molsysmt/physchem/get_lipophilicity.py": "218f2063ee7f9947faab55cbb48e04dee7f91766f18bb187a9b3d2a2fe5ccac3",
+    "molsysmt/physchem/_molecular_descriptors.py": "74e9e301fef24c3bcea823ac450ff07d6fb80d44abffcbf69f890fba4927ebc9",
+    "molsysmt/physchem/get_tpsa.py": "aa4c75c27bfb7df4cbcad56c80850e005b6ea384228fb3f2d4e84c13e60869a5",
+    "molsysmt/_private/scientific_citations.py": "167477e12d6e7627f656a63be05b1ad3ced422f218000290d19a5dd209570b2e",
+    "molsysmt/_private/argdigest/argument/method.py": "e84e5aa7583632d1e03226bddc6172005c7eacd21d67a474924428f65485fd4e",
+    "tests/physchem/test_get_lipophilicity.py": "26db943320e387e2f5412dedaba6fc03640239af3b57fb8fa029c7b361931838",
+    "tests/scientific_truth/physchem/test_lipophilicity.py": "39c53293c3afbe53f2272a6e02199dc55ebaa8a9e073433477a8b9b27fc5deb3",
+    "docs/content/user/tools/physchem/get_lipophilicity.ipynb": "73a64ba8854b5f5637cfd965679623ff8b1b6311a2240162577f4c398f0c4c13"
+  }
+}

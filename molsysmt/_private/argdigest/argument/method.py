@@ -26,6 +26,11 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    if caller == "molsysmt.physchem.get_lipophilicity.get_lipophilicity":
+        if isinstance(method, str) and method == "wildman_crippen":
+            return method
+        raise ArgumentError("method", value=method, caller=caller)
+
     if caller == "molsysmt.physchem.get_tpsa.get_tpsa":
         if isinstance(method, str) and method == "ertl_rohde_selzer":
             return method

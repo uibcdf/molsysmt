@@ -305,6 +305,10 @@ sections:
             file: docs/content/user/tools/physchem/get_secondary_structure_propensity.ipynb
             agents_file: docs/content/user/tools/physchem/get_secondary_structure_propensity.ipynb.AGENTS.md
             description: Reading dimensionless Levitt reference propensities with explicit categories
+          - name: get_lipophilicity
+            file: docs/content/user/tools/physchem/get_lipophilicity.ipynb
+            agents_file: docs/content/user/tools/physchem/get_lipophilicity.ipynb.AGENTS.md
+            description: Calculating dimensionless state-preserving molecular lipophilicity model scores
           - name: get_tpsa
             file: docs/content/user/tools/physchem/get_tpsa.ipynb
             agents_file: docs/content/user/tools/physchem/get_tpsa.ipynb.AGENTS.md
@@ -539,6 +543,10 @@ sections:
         file: docs/content/user/cookbook/exporting_secondary_structure_propensities.md
         agents_file: docs/content/user/cookbook/exporting_secondary_structure_propensities.md.AGENTS.md
         description: Exporting named reference ratios with source group indices
+      - name: molecular_descriptors
+        file: docs/content/user/cookbook/molecular_descriptors.md
+        agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md
+        description: Joining TPSA and lipophilicity scores with source maps and provenance
       - name: tpsa_descriptors
         file: docs/content/user/cookbook/tpsa_descriptors.md
         agents_file: docs/content/user/cookbook/tpsa_descriptors.md.AGENTS.md

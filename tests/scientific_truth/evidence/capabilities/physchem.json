@@ -167,5 +167,24 @@
       }
     ],
     "gap": "Only bounded original-fragment sums independently checked; no general transport/permeability, solvent exposure, metal/radical, arbitrary unsupported chemistry or all-fragment scientific validation. N/O and N/O/S/P remain explicit provider variants."
+  },
+  "molsysmt.physchem.get_lipophilicity": {
+    "domain": "physchem",
+    "status": "partial",
+    "claim": "Bounded Wildman-Crippen primary atomic sums for methane, ethane and benzene; state-preserving model scores, not logD or a general experimental logP accuracy claim.",
+    "units": [
+      "dimensionless"
+    ],
+    "periodic_behavior": "Graph descriptor without coordinate/PBC calculation; structures supply selection/state context only.",
+    "contract_test_area": "tests/physchem/test_get_lipophilicity.py",
+    "scientific_evidence": [
+      {
+        "class": "versioned-reference",
+        "test": "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+        "oracle": "Wildman and Crippen (1999), doi:10.1021/ci990307l, Table 1: C1=0.1441, C18=0.1581, H1=0.1230. Independent methane, ethane and benzene atomic sums. Author-uploaded primary text inspected 2026-10-27; original method and executed RDKit implementation remain distinct.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": "Only three primary atomic-sum controls independently checked. Ionic/zwitterionic/form/H-presentation cases establish contract and provider parity, not experimental partition accuracy, pH-dependent logD, all atom-type validation or a calibrated applicability domain."
   }
 }

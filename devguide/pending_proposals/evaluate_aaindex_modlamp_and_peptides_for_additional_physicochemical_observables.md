@@ -889,3 +889,22 @@ admission cases, preserve actual producer versions and optional Ackredit, and
 complete the API/documentation/course lifecycle. An experimental descriptor can
 ship with bounded evidence; it must not imply an experimental accuracy benchmark,
 logD prediction or a new requirement for the 1.0 release gate.
+
+## Molecular lipophilicity implementation received — 2026-10-27
+
+The maintainer accepted the supplied-state model boundary. Experimental
+`physchem.get_lipophilicity(method='wildman_crippen')` is implemented under
+uibcdf/molsysmt#496, including supported charged graphs without automatic
+neutralization. Its dimensionless score is explicitly distinct from logD and
+from a certified physical partition coefficient for arbitrary ions/zwitterions.
+Source maps, state, charged atom indices, original model and producer versions
+are available in optional detached reports and through optional Ackredit.
+
+TPSA and lipophilicity now share private complete-molecule admission/provenance
+while reusing general graph/aromaticity/conversion tools. No second public logP
+alias, new dependency or duplicated coefficient table is added. The earlier
+neutral-only `get_logp` sketch is superseded by this accepted boundary, not an
+additional pending API. Independent scientific evidence remains partial: bounded
+original atomic sums, distinct from provider/form parity and experimental
+prediction accuracy. See the [implementation record](../archive/resolved_proposals/implement_state_aware_wildman_crippen_molecular_lipophilicity_descriptors.md).
+The wider #485 capability inventory remains partial and open.

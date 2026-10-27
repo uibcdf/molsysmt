@@ -27,6 +27,7 @@
 | [Get water sites](get_water_sites.ipynb) | Recognizing neutral explicit O-H-H molecular components |
 | [Get mass](get_mass.ipynb) | Getting atomic, residue, or total molecular system mass |
 | [Get polarity](get_polarity.ipynb) | Getting polarity descriptors for residues from reference scales |
+| [Get lipophilicity](get_lipophilicity.ipynb) | Calculating state-preserving Wildman–Crippen model scores |
 | [Get TPSA](get_tpsa.ipynb) | Calculating unit-aware molecular topological polar surface areas |
 | [Get SASA](get_sasa.ipynb) | Getting the solvent accessible surface area of a molecular system |
 | [Get surface area](get_surface_area.ipynb) | Getting reference surface areas of amino acid residues |
@@ -63,6 +64,7 @@
    get_polarity.ipynb
    get_sasa.ipynb
    get_tpsa.ipynb
+   get_lipophilicity.ipynb
    get_surface_area.ipynb
    get_transmembrane_tendency.ipynb
    get_volume.ipynb

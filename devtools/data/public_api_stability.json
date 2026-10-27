@@ -2143,6 +2143,13 @@
       "owner": "physchem",
       "documentation": "docs/content/user/tools/physchem/get_tpsa.ipynb",
       "contract_tests": "tests/physchem/test_get_tpsa.py"
+    },
+    "molsysmt.physchem.get_lipophilicity": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_lipophilicity.ipynb",
+      "contract_tests": "tests/physchem/test_get_lipophilicity.py"
     }
   }
 }
