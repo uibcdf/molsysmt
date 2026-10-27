@@ -1372,13 +1372,15 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes eighteen tools under
+The source addon now exposes twenty-one tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
-aromaticity perception. SASA and the chemical readers have bounded receiving,
-not universal scientific qualification. The other 12 reviewed native exports,
-including further feature perception and chemical preparation, remain pending
+aromaticity perception and three chemical-feature readers (formal-charge
+centers, hydrophobic atoms and ordered halogen sites). SASA and the chemical
+readers have bounded receiving, not universal scientific qualification. Ten of
+the 31 reviewed native exports, including the newly added bulkiness lookup,
+further feature perception and chemical preparation, remain pending
 in the addon.
 
 | Tool | Native result and received scope |
@@ -1700,4 +1702,91 @@ there is no provider fallback or hidden molecule preparation.
 
 - {ref}`Tutorial_Get_aromatic_rings` — stored flags, sparse membership and basis limits.
 - {ref}`Tutorial_Get_Aromaticity` — model, evidence and supported chemistry.
+:::
+
+
+## Reading charge centers, hydrophobic atoms and ordered halogen sites
+
+These tools identify chemical features from the current primary. Their results
+are separate from interaction occurrences and representations. No method assigns
+charges, adds hydrogens, prepares chemistry, creates shapes or draws contacts.
+
+| Bound tool | Native result and selection contract |
+| --- | --- |
+| `physchem.get_charge_centers(...)` | Sparse whole-center participants, separate geometry-reference memberships and charge quantities in elementary charge units. Cutting a compound center rejects. |
+| `physchem.get_hydrophobic_sites(...)` | Sorted unique int64 source atom indices from the explicit native SMARTS profile. These are atom features, not group hydrophobicity scales. |
+| `physchem.get_halogen_bond_sites(...)` | int64 `(n_sites, 2)` donor–halogen and acceptor–reference pairs. Column order encodes roles; only complete selected pairs survive. These are potential sites, not observed halogen bonds. |
+
+The example supplies declared molecular chemistry and explicit viewable 2D
+coordinates before constructing the view. Those coordinates are illustration,
+not evidence for an interaction. RDKit is required for this example and the
+SMARTS readers; charge-center recognition itself does not require that engine
+when the resident MolSys already supplies its chemistry.
+
+```python
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+import molsysmt as msm
+import molsysviewer as msv
+
+molecule = Chem.MolFromSmiles("CC(=O)[O-].CCl.C=O.CCC")
+rdDepictor.Compute2DCoords(molecule)
+with msv.new_view(molecule) as view:
+    features = view.addons.molsysmt.physchem
+    centers = features.get_charge_centers()
+    hydrophobic = features.get_hydrophobic_sites()
+    halogen = features.get_halogen_bond_sites(max_matches=100000)
+    assert centers["atom_indices"].tolist() == [1, 2, 3]
+    assert msm.pyunitwizard.get_value(centers["charges"], to_unit="e").tolist() == [-1.]
+    assert 9 in hydrophobic["hydrophobic_atom_indices"]
+    assert halogen["donor_halogen_pairs"].tolist() == [[4, 5]]
+```
+
+Formal-charge recognition uses `definition='formal_charge'`. It distinguishes
+bounded carboxylate/guanidinium motifs, directly connected formal-charge clusters
+and isolated charged atoms. It does not infer protonation, partial charges or
+every ionic motif. A zero total system charge can coexist with multiple local
+centers. Participant atoms and distance-reference atoms can differ; neither
+membership array contains a computed center coordinate. Empty sparse outputs
+retain offsets `[0]` and a zero-length charge quantity.
+
+The SMARTS profiles are `method='smarts_hydrophobic_atoms'` and
+`method='smarts_donor_acceptor'`. They retain the native ProLIF 2.2.2 reference,
+actual RDKit producer version and attribution. ProLIF is not an executed
+dependency. Hydrophobic typing is a named chemical model, not a universal atom
+property. Halogen pair columns must not be independently sorted: an acceptor
+index can be larger than its reference-neighbor index. Empty pair outputs have
+shape `(0, 2)`. Native `max_matches` bounds full-source matching before output
+selection and raises instead of truncating; a small or empty selection cannot
+be used to bypass it.
+
+All three tools require their documented stored chemistry and declared complete
+connectivity. `assume_complete_connectivity=True` records an explicit scientific
+declaration without filling bonds, charges or aromatic flags. Unknown chemistry
+still rejects, including before an empty output selection. Structure indices
+and `chemical_state` remain explicit; these chemical features are not repeated
+occurrences for each structure. Mixed associated states reject instead of
+silently choosing the first state. Numeric selections refer to source indices,
+not atom IDs.
+
+Default-reference external selections are received for all three readers after
+the native repair under [#488](https://github.com/uibcdf/molsysmt/issues/488).
+`chemical_state=None` also retains the declared reference, including a reference
+at a nonzero state index independent of structure associations. Explicit and
+structure-associated SMARTS requests retain the public selector restrictions;
+use MolSysMT syntax or explicit atom indices where required. The addon neither
+translates selectors nor changes states to make a request succeed.
+
+Results are detached scientific reports. Editing their arrays or metadata does
+not edit the primary or scene. Calls resolve the current resident `view.molsys`,
+including after replacement and while managed edits await synchronization;
+they neither call `sync_view()` nor accept `update_view`. Optional RDKit absence
+and unsupported chemistry retain native diagnostics. These adapters do not
+provide a new H5MSM file-query interface or qualify missing-provider behavior.
+
+:::{seealso}
+
+- {ref}`Tutorial_Get_charge_centers` — formal-charge participant/reference memberships.
+- {ref}`Tutorial_Get_hydrophobic_sites` — the explicit atomic SMARTS model.
+- {ref}`Tutorial_Get_halogen_bond_sites` — ordered chemical roles before geometry.
 :::

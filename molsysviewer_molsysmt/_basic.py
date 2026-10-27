@@ -191,6 +191,47 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "not a per-structure occurrence detector. Native external reference "
                 "syntax follows the repaired contract under uibcdf/molsysmt#482.\n"
             )
+        if module == "physchem" and name in {
+            "get_charge_centers",
+            "get_hydrophobic_sites",
+            "get_halogen_bond_sites",
+        }:
+            function.__doc__ += (
+                "Chemical features are detached source-indexed results, not "
+                "interaction occurrences, coordinates or scene objects. Native "
+                "full-graph prerequisites and explicit chemical-state/structure "
+                "resolution are retained. No charges, hydrogens, bonds or aromatic "
+                "flags are assigned. Readers neither synchronize pending edits "
+                "nor accept update_view.\n"
+            )
+        if module == "physchem" and name == "get_charge_centers":
+            function.__doc__ += (
+                "Formal-charge centers retain whole sparse participant memberships, "
+                "distinct geometry-reference atoms and native elementary-charge "
+                "quantities. A cut compound center rejects. The bounded recognition "
+                "does not parameterize partial charges or prove an ionic interaction.\n"
+            )
+        if module == "physchem" and name in {
+            "get_hydrophobic_sites",
+            "get_halogen_bond_sites",
+        }:
+            function.__doc__ += (
+                "The explicit native SMARTS profile uses optional RDKit on declared "
+                "chemistry; ProLIF is a reference, not an executed dependency. "
+                "Matching and match limits precede output selection; no truncation "
+                "or hidden preparation is added. Attribution stays native.\n"
+            )
+        if module == "physchem" and name == "get_hydrophobic_sites":
+            function.__doc__ += (
+                "Typed hydrophobic atom sites are not group hydrophobicity scales "
+                "or geometric contact observations.\n"
+            )
+        if module == "physchem" and name == "get_halogen_bond_sites":
+            function.__doc__ += (
+                "Pair columns preserve donor-halogen and acceptor-reference roles. "
+                "Only complete selected pairs survive; matching one endpoint does "
+                "not expand the selection or create a halogen-bond observation.\n"
+            )
         if module == "physchem" and name == "get_aromatic_rings":
             function.__doc__ += (
                 "All atoms and bonds need declared aromatic flags, including False "

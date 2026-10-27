@@ -73,7 +73,7 @@ units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
 Keep OpenMM form/box prerequisites and pending-reader behavior visible.
 The native selection/scope repairs are now received: preserve positive syntax
-checks and explicit unsupported-level rejection. Do not present the other 12 physchem
+checks and explicit unsupported-level rejection. Do not present the other 10 physchem
 exports as received or introduce implicit coloring, preparation or assignment.
 
 
@@ -109,3 +109,17 @@ whole/fused ring selection, packed source axes, nonunique basis and block bounds
 Perception neither assigns flags nor prepares the stored-ring reader. Preserve
 internal-bond output filtering, model attribution and received native #482/#483 reference/frame contracts
 without downstream scientific workarounds.
+
+
+Preserve the three received chemical-feature readers: sparse formal-charge
+centers with distinct participant/reference memberships and elementary-charge
+quantities, typed hydrophobic atom sites and ordered halogen donor/reference
+pairs. Keep full-source matching, explicit chemistry/state requirements,
+complete-center versus complete-pair selection, match caps and native
+attribution separate from interactions and rendering. Default/None-reference MDTraj
+works for all three readers after native #488; explicit/associated SMARTS states
+retain their selector restrictions. No selector
+rewrite, implicit preparation or scene synchronization. The current reviewed
+inventory has 31 native physchem exports after bulkiness was added; 21 have
+wrappers and ten, including bulkiness, remain pending. This is source exposure,
+not installed or universal scientific qualification.

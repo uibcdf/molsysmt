@@ -26,6 +26,9 @@ class _PhyschemTools:
         "get_chemical_readiness",
         "get_aromatic_rings",
         "get_aromaticity",
+        "get_charge_centers",
+        "get_hydrophobic_sites",
+        "get_halogen_bond_sites",
     )
 
     def __init__(self, owner):
@@ -444,5 +447,89 @@ class _PhyschemTools:
                 "method": method,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_charge_centers", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_charge_centers(
+        self,
+        selection="all",
+        definition="formal_charge",
+        chemical_state="reference",
+        structure_indices="all",
+        assume_complete_connectivity=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_charge_centers",
+            {
+                "selection": selection,
+                "definition": definition,
+                "chemical_state": chemical_state,
+                "structure_indices": structure_indices,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_hydrophobic_sites", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_hydrophobic_sites(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="smarts_hydrophobic_atoms",
+        assume_complete_connectivity=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+    ):
+        return self._call(
+            "get_hydrophobic_sites",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
+            },
+        )
+
+    @_native_documentation("get_halogen_bond_sites", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_halogen_bond_sites(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="smarts_donor_acceptor",
+        assume_complete_connectivity=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+    ):
+        return self._call(
+            "get_halogen_bond_sites",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
             },
         )

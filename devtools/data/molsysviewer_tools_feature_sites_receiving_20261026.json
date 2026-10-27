@@ -1,0 +1,200 @@
+{
+  "schema": "molsysmt.viewer_tools_feature_sites_receiving@1",
+  "date": "2026-10-26",
+  "base_source": "c64e3599c2b772320b8bb4ec5e1842d3f997a63b",
+  "host_source": "d168986bd8229b8d1f895652be05164ea7a755c4",
+  "scope": "Experimental resident-primary chemical-feature readers. Exact native parameters/results and diagnostics; no assignment, preparation, scene projection or synchronization. Source receiving only, not installed/optional-provider-absence/universal scientific qualification.",
+  "new_methods": [
+    "physchem.get_charge_centers",
+    "physchem.get_hydrophobic_sites",
+    "physchem.get_halogen_bond_sites"
+  ],
+  "inventory": {
+    "physchem_exposed": 21,
+    "native_reviewed": 31,
+    "pending": 10,
+    "native_growth_source": "af8264049087b934cdf949525b1032e8e15f4150",
+    "new_unwrapped_native": "get_bulkiness"
+  },
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.14.7",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "mdtraj": "1.11.1",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    },
+    "pyparsing_effective": "3.3.2",
+    "pyparsing_distributions": [
+      "3.3.2",
+      "3.3.3"
+    ],
+    "pyparsing_conda_record": "pyparsing-3.3.2-pyhcf101f3_0",
+    "limit": "Stale 3.3.3 distribution metadata coexists with actual imported 3.3.2; no clean installed environment or pip-check claim."
+  },
+  "fixtures": {
+    "charge_centers": "Declared CC(=O)[O-].[Na+] graph: whole carboxylate versus atomic center, distinct geometry references and charges [-1,+1] e.",
+    "hydrophobic": "Declared CCC.CSC.CF.CC.C[NH3+] graph: source atoms [1,4], excluding blanket all-carbon typing.",
+    "halogen": "Declared CCl.C=O.CF.[Cl-].N#C graph: ordered donor-halogen [0,1], acceptor-reference [3,2]; not independently sorted pair columns.",
+    "coordinates": "Explicit deterministic 2D RDKit coordinates plus two translated copies, three structures with distinct IDs; illustration and axis receiving, not interaction evidence.",
+    "owners": "Named evaluated-empty Interactions and region, pending coordinate edit, primary replacement and closed/empty lifetime checks."
+  },
+  "guard": "tests/molsysviewer_molsysmt/test_feature_sites_tools.py",
+  "focused_pre_repair": {
+    "counts": {
+      "tests": 62,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "f99732279c254b64ab16326e5497d409e19638a6c6ecb3840d93ba5dd495cec2",
+    "scope": "62 cases on 5b5aaeeb4; known native SMARTS external-reference rejection retained, without downstream repair."
+  },
+  "one_applicable_regression": {
+    "base_source": "5b5aaeeb48d382e71df84241d0c637a57b68f3a6",
+    "counts": {
+      "tests": 2812,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-n",
+      "4",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_sasa/",
+      "tests/physchem/get_hydrogen_inventory/",
+      "tests/physchem/test_get_chemical_readiness.py",
+      "tests/physchem/test_get_aromatic_rings.py",
+      "tests/physchem/test_get_aromaticity.py",
+      "tests/physchem/test_get_charge_centers.py",
+      "tests/physchem/test_get_hydrophobic_sites.py",
+      "tests/physchem/test_get_halogen_bond_sites.py",
+      "tests/physchem/test_collantes_legacy_contract.py",
+      "tests/physchem/test_property_selection_contract.py",
+      "tests/physchem/test_get_bulkiness.py",
+      "tests/basic/select/test_mdtraj_comparisons.py",
+      "tests/topology/test_chemical_reference_selection.py",
+      "tests/topology/test_ring_structure_scope.py",
+      "tests/form/file_h5msm/test_associations_v05_probe.py",
+      "tests/scientific_truth/physchem/test_sasa.py",
+      "tests/scientific_truth/physchem/test_bulkiness.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "devtools/tests/test_mdtraj_parser_constraint.py",
+      "--junitxml=/tmp/msv-feature-sites-regression.xml"
+    ],
+    "started": "2026-10-27T03:18:38.410587+00:00",
+    "finished": "2026-10-27T03:22:36.170131+00:00",
+    "source_changed": [],
+    "source_tree_digest_before": "f1174b2402defc1a0df1a67f96929ef1b85ad59f53001b430b4a0c4c6f384fbb",
+    "source_tree_digest_after": "f1174b2402defc1a0df1a67f96929ef1b85ad59f53001b430b4a0c4c6f384fbb",
+    "junit_sha256": "30fcab8f2156e717ab1c590494e0543a868471985bb7f5feba9c7c0d7fa34191",
+    "raw_source_record_sha256": "a8309287f23bf4f063a5123bb05b39e5974a1fa78e7270957b46e0b21cc842f0",
+    "warnings": {
+      "LegacyH5MSMWarning": 1369,
+      "GpuNotAvailableWarning": 6,
+      "DeprecationWarning": 1,
+      "DigestNotDigestedWarning": 2,
+      "PytestAssertRewriteWarning": 1,
+      "RuntimeWarning": 1
+    },
+    "limit": "Predates the native #488 repair. No second full regression on the final composition is claimed."
+  },
+  "native_repair_followup": {
+    "issue": "uibcdf/molsysmt#488",
+    "counts": {
+      "tests": 390,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "addon_feature_cases": 81,
+    "warnings": {
+      "LegacyH5MSMWarning": 18
+    },
+    "junit_sha256": "a1428dac26005de28453739caa4b2cb959588c461a62a9cb7a512bac1da99b9f",
+    "copied_provider_source": {
+      "base": "5b5aaeeb48d382e71df84241d0c637a57b68f3a6",
+      "status": "Tested working-source bytes now independently matched to the scientific owner commit.",
+      "files": {
+        "molsysmt/topology/get_substructure_matches.py": "8e21c26586cbdfc79675144c0bb3b37d7e851a5e22d2aeb5f44d02038227b0c5",
+        "molsysmt/physchem/get_hydrophobic_sites.py": "4572d24ea56268fd08f49765ddf1ff573c1af2ca30c8ea94b172fe6584f90c3b",
+        "molsysmt/physchem/get_halogen_bond_sites.py": "30d92324f8396324ebae211df3d120427186165ec43b8f430948b9fcc4aefe1f",
+        "tests/topology/get_substructure_matches/test_reference_selections.py": "ab6de7600682691f7205ddf775e02736914935e57913a300f14bbec8a69a68ce"
+      },
+      "committed_source": "c64e3599c2b772320b8bb4ec5e1842d3f997a63b",
+      "committed_bytes_match": true
+    },
+    "scope": "390 positive targeted checks: new consumer features, native SMARTS reference selections, native features, existing aromatic and topology receiving. Reference/None, nonzero reference, intended populations and explicit SMARTS restrictions preserved."
+  },
+  "examples": {
+    "guide_blocks": 39,
+    "inherited_native_context_doctests": 83,
+    "failures": 0,
+    "log_sha256": "1dd93e6f1a5b5733b3d15571e98b250e9526a2a567a24a1a484d8768e91fd698"
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "unchanged_during_regression": true,
+    "scope": "Retained frozen ABI3 backend; no rebuild, package or installed qualification."
+  },
+  "initial_attempts": [
+    {
+      "passed": 24,
+      "failed": 1,
+      "collected": 62,
+      "cause": "Native SMARTS branch loses default reference; isolated without Viewer and filed as #488."
+    },
+    {
+      "passed": 48,
+      "failed": 1,
+      "collected": 62,
+      "cause": "Test referenced a non-exported exception through msm root. Corrected import from its actual owner; no runtime change."
+    }
+  ],
+  "report_lifecycle": "Original #482 was initially reopened. Local immutable-archive/status validation requires a separate active identity; original closure restored and omitted SMARTS branch tracked under #488.",
+  "native_parser_repair_received": "604d38563 excludes broken PyParsing 3.3.3. Actual imported 3.3.2 comparisons are exercised through the native and bound readers, without selector rewriting.",
+  "previous_viewer_core_ci": {
+    "source": "d168986bd8229b8d1f895652be05164ea7a755c4",
+    "run": 40440002711,
+    "conclusion": "success",
+    "scope": "Prior core browser gate, not a new source or remote-preview qualification."
+  },
+  "exact_source_ci": "Pending final integration/commit at receipt creation. Earlier passing source gates are not relabeled.",
+  "exclusions": [
+    "No implicit chemical preparation or assignment; no new optional dependency, fallback or model.",
+    "No site-to-interaction/scene conversion, automatic synchronization, GUI or new H5MSM file-query boundary.",
+    "No installed artifact, missing-provider, GPU, benchmark, universal scientific or release qualification. Both 1.0 publications remain paused."
+  ],
+  "authored_file_sha256": {
+    ".github/workflows/ci-smoke.yaml": "03d534c5b48da2d39a6d56e2aa5dee7737393d1986690c058f48f6ec9be068ab",
+    "devguide/molsysviewer_addon.md": "415ffa2da8d5b871a596c602199adead13f7c674c32a07fb6e1d6f53bdaa7af5",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "ca63ab84711ffe6152a872c5f0d4e26b0c7f2462260ea19579bd33b31ce5b81d",
+    "devtools/tests/run_tiers.sh": "2e5666a5aa4bffcc35284c217f17a23fb8705503c66c29da7c3839e6b893e98c",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "aacb95480cd822398206c4e426b868a987e8d7221713f094fcb0a831851e3581",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "588adfa381a6a18273e4e91351d772f4b7112d06c2059cdce0d1a61d0ab75abc",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "214f4fc0f47d6ae0aa9f961cc1181b190c6fc6f97be2ef7d5bf931cb8c53c8d6",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "76981b1a8af07d377ac6713ccafa041fbabec13976205727283fd07d8f465837",
+    "docs/content/user/tools/molsysviewer_tools.md": "e9dd90bd576d4b4fb9deb999467bbebc27a442834a6f982a3bf94c29c675e8f6",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "e8bd8cb36924cb3ab76a34e7af15d941224a285bbe33274350a9a77acc5aeba5",
+    "docs/docs_manifest.yml": "7a393a76a415676b46a667e2ed253e9be3f425789bcc5a457dd9e4224cae0c54",
+    "molsysviewer_molsysmt/_basic.py": "df7063e3afb1e2dcf27d2d4c716e3b429153abd34348b7e575f1573d2c70c4f6",
+    "molsysviewer_molsysmt/_physchem.py": "8154706a4cfb9fe8b7ff80f552f9d9802855819f82bf7dd0a494f8067e711f50",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "5f38031f37af73d75bd3a740ab99a82613e04ce7d429c97160b1a4a78505b34e",
+    "tests/molsysviewer_molsysmt/test_feature_sites_tools.py": "4596e02e0ba6eb6a217f7d7bee162bbb26bc4458220d02c4fa6aa501e09c8a45"
+  }
+}

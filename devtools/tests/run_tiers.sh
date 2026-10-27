@@ -28,6 +28,10 @@ run_smoke() {
     tests/physchem/test_get_chemical_readiness.py \
     tests/physchem/test_get_aromatic_rings.py \
     tests/physchem/test_get_aromaticity.py \
+    tests/physchem/test_get_charge_centers.py \
+    tests/physchem/test_get_hydrophobic_sites.py \
+    tests/physchem/test_get_halogen_bond_sites.py \
+    tests/topology/get_substructure_matches/test_reference_selections.py \
     tests/structure/test_dihedral_edit_contract.py
 }
 

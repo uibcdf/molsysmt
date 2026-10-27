@@ -27,8 +27,9 @@ Two detached chemistry reports bring source exposure to sixteen tools, with
 explicit single-structure/state scopes and native readiness external syntax
 repaired under uibcdf/molsysmt#480; independent unequal-cardinality persistence
 is repaired under uibcdf/molsysmt#481. Two aromatic participant/flag
-readers bring current physchem source exposure to eighteen of thirty reviewed
-exports, with twelve pending. Native graph selector/scope repairs are received
+readers brought physchem exposure to eighteen of thirty reviewed exports.
+Three feature readers now bring current exposure to 21/31 after native bulkiness
+was added; ten remain pending. The native SMARTS reference repair is received under #488. Native graph selector/scope repairs are received
 under uibcdf/molsysmt#482 / #483; source evidence and remaining limits are
 recorded in the dated section below.
 Other scientific namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
@@ -1139,3 +1140,46 @@ original log SHA-256 `7d2855acf0d26894597ee420c46aade0df316bc25c5cc772d49d49fdeb
 immutable local receiving receipt; its sequential local phases stay unchanged.
 The named native/third-party limits, remaining twelve reviewed physchem paths,
 GUI and installed qualification retain their own scope. No publication changes.
+
+
+## Formal-charge centers and chemical feature sites — 2026-10-26
+
+Three explicit physchem mirrors add get_charge_centers, get_hydrophobic_sites
+and get_halogen_bond_sites. They bind the current resident primary through the
+serialized reader, retain exact native scientific signatures/defaults and
+results, and do not assign chemistry, prepare molecules, synchronize managed
+edits or create scene objects. The native inventory has grown to 31 exports
+with af8264049's bulkiness addition; 21 are now exposed and ten, including
+bulkiness, remain pending in this facade.
+
+Known small declared graphs check whole sparse charge-center memberships,
+distinct geometry references and elementary-charge quantities, typed
+hydrophobic atoms, and ordered halogen donor/reference pairs. Selection cannot
+cut a compound charge center; SMARTS output filtering retains only selected
+atoms or complete pairs after full-source recognition. Explicit completeness
+assumptions record evidence without repairs; unknown chemistry and exceeded
+match caps reject even with empty output. These are bounded chemical-feature
+contracts, not universal classifications or geometric interactions.
+
+Native default-reference external syntax is received for charge centers and
+MDTraj comparison parsing uses the actual imported PyParsing 3.3.2. The installed
+environment also has stale 3.3.3 distribution metadata, so its metadata alone
+must not be reported as the executed parser or a clean package qualification.
+The SMARTS selection branch originally lost the reference request; native
+uibcdf/molsysmt#488 repairs the shared-boundary delegation. Positive default/None
+reference and nonzero-reference receiving now passes for all three feature tools. The initial reopen of #482 was
+restored to its qualified aromatic/ring scope to preserve the immutable archive.
+Explicit and structure-associated SMARTS syntax retains its native restrictions;
+the facade supplies no selector or state rewrite.
+
+The frozen pre-repair snapshot passes 62 focused cases and its one 2,812-case
+applicable regression, with unchanged source/backend hashes. The provider repair
+then passes 390 targeted checks, including the expanded 81-case feature-reader
+file. These are distinct source observations, not two full-suite gates. The
+39 guide blocks / 83 inherited native-context examples pass; final exact-source
+CI is recorded after final integration. The received native repair is fixed at
+`c64e3599c2b772320b8bb4ec5e1842d3f997a63b`; all four tested native files match
+that commit byte for byte. The [source receipt](../devtools/data/molsysviewer_tools_feature_sites_receiving_20261026.json)
+retains the initial failures, sequential test phases, provenance and exclusions. This scope does not qualify
+all chemistry, optional-provider absence, installed artifacts, graphical panels,
+benchmarks or release candidates. Both 1.0 publications remain paused.
