@@ -18,7 +18,6 @@ supersedes: []
 **Reported:** 2026-10-27, while receiving the bound molecular descriptors under
 uibcdf/molsysviewer#264. Opened with the principal maintainer's authorization.
 **Status:** resolved; corrected-source hosted CI completes successfully.
-Hosted completion is being verified without changing scientific assertions.
 
 ## What
 
@@ -108,3 +107,13 @@ claiming installed, all-platform or release qualification. The separate #499
 owner repair ab165135e is not retroactively qualified by this earlier run.
 
 Evidence: `devtools/data/molsysviewer_tools_descriptor_ci_closeout_20261027.json`.
+
+## Additional receiving check — 2026-10-27
+
+After the #499 correction, the unchanged focused files also pass on source
+`ab165135ee4ba48595ecfda70861458ef9aaaa4d` with
+`python -m pytest tests/topology/get_substructure_matches/test_reference_selections.py tests/molsysviewer_molsysmt/test_feature_sites_tools.py --receptor=llm -n 12`:
+210 passed in 18.40 s, no failures, skips or expected failures. This source-local
+check is separate from the earlier hosted source. Full receptor capture for
+run 40575948453 is complete; logs.zip SHA-256 is
+`afb3b7b8054b01404c5df0bd622219da4e60e8e7e3e192c7b450e12137176035`.

@@ -17,7 +17,6 @@ supersedes: []
 **Reported:** 2026-10-27, exact-source addon qualification. Opened with the
 principal maintainer's authorization.
 **Status:** resolved; corrected-source hosted CI completes successfully.
-Hosted completion is being verified without removing scientific tests.
 
 ## What
 
@@ -67,3 +66,11 @@ claiming installed, all-platform or release qualification. The separate #499
 owner repair ab165135e is not retroactively qualified by this earlier run.
 
 Evidence: `devtools/data/molsysviewer_tools_descriptor_ci_closeout_20261027.json`.
+
+## Observed duration — 2026-10-27
+
+Successful job 122442312482 ran from 20:12:31 to 20:21:44 UTC on Ubuntu/Python
+3.14 (553 s, 9 min 13 s), including setup, build, both scientific tiers and
+cleanup. Native pytest took 172.41 s and bound pytest 181.06 s. These checkpoint
+timings do not establish a universal runtime bound or a controlled speedup over
+the earlier runner. The original 15-minute timeout remains cancelled evidence.
