@@ -201,6 +201,7 @@ CONVERTER_ARGUMENTS = {
         "float_precision",
         "get_missing_bonds",
         "int_precision",
+        "output_filename",
         "output_name",
         "skip_digestion",
         "structure_indices",

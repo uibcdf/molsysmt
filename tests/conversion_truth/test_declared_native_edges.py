@@ -26,6 +26,12 @@ GRO_FORMS = {
     "openmm.GromacsGroFile",
     "mdtraj.GroTrajectoryFile",
 }
+TRAJECTORY_FORMS = {
+    "file:dcd",
+    "file:xtc",
+    "mdtraj.DCDTrajectoryFile",
+    "mdtraj.XTCTrajectoryFile",
+}
 DOCKING_FORMS = {
     "file:sdf",
     "file:pdbqt",
@@ -35,7 +41,10 @@ DOCKING_FORMS = {
 EDGES = sorted(
     (source, target)
     for source, target in planned_edges(declared_edges(), PLAN)
-    if not ({source, target} & (H5MSM_FORMS | PDB_FORMS | DOCKING_FORMS | GRO_FORMS))
+    if not (
+        {source, target}
+        & (H5MSM_FORMS | PDB_FORMS | DOCKING_FORMS | GRO_FORMS | TRAJECTORY_FORMS)
+    )
 )
 
 
@@ -264,6 +273,9 @@ def test_execution_modules_cover_the_selected_graph_once():
     from tests.conversion_truth.test_declared_gro_edges import EDGES as gro_edges
     from tests.conversion_truth.test_declared_h5msm_edges import EDGES as disk_edges
     from tests.conversion_truth.test_declared_pdb_edges import EDGES as pdb_edges
+    from tests.conversion_truth.test_declared_trajectory_edges import (
+        EDGES as trajectory_edges,
+    )
 
     partitions = [
         set(EDGES),
@@ -271,6 +283,7 @@ def test_execution_modules_cover_the_selected_graph_once():
         set(pdb_edges),
         set(docking_edges),
         set(gro_edges),
+        set(trajectory_edges),
     ]
     assert set.union(*partitions) == planned_edges(declared_edges(), PLAN)
     assert sum(map(len, partitions)) == len(set.union(*partitions))

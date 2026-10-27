@@ -18,7 +18,7 @@ supersedes: []
 [`uibcdf/molsysmt#180`](https://github.com/uibcdf/molsysmt/issues/180): seven public
 conversion routes were broken for eleven days with every audit green.
 **Status:** partial. Resident-native, MDTraj/OpenMM, MDAnalysis Universe/AtomGroup/
-Topology, ParmEd and bounded H5MSM/PDB/SDF/PDBQT execution profiles are implemented;
+Topology, ParmEd and bounded H5MSM/PDB/SDF/PDBQT/GRO and DCD/XTC coordinate execution profiles are implemented;
 remaining external/file/network routes remain debt.
 
 ## What
@@ -590,3 +590,41 @@ single-entry readers; the copied MDTraj cursor starts at the beginning of the
 same backing file, while queries preserve caller position and share topology
 read-only. No large-file benchmark, installed-pair, complete conversion graph,
 chemical-preparation or release qualification is claimed. #181 stays partial.
+
+
+## DCD/XTC coordinate execution extension — 2026-10-27
+
+`resident-files-v11` selects **206 of 606 declared edges**, with **400** explicitly
+deferred. Twelve added cases cover DCD/XTC paths, native coordinate output from
+open readers, legacy/public H5MSM serialization, whole-file identities and the
+MDTraj trajectory-to-XTC writer. The graph is unchanged. The sixth executor is
+partition-checked so no selected edge is omitted or counted twice.
+
+The first twelve-edge execution passes ten and fails both file identities because
+their output_name keyword disagrees with the public dispatcher and extraction.
+The correction is tracked under #502, reuses the existing file-copy owner and
+retains the original positional destination alias while adding keyword-only
+output_filename. Unsupported subset-file serialization now refuses before
+writing; native/H5MSM selected coordinate routes remain supported.
+
+Independent provider-written literals protect raw atom-list order, repeated and
+nonconsecutive structure indices, varying triclinic cells, XTC time/step labels,
+non-default application length units and caller reader position. DCD header/time
+variants and reader cloning are separate unqualified capabilities. Four declared
+reader-construction/identity edges remain explicit debt, not skipped new cases.
+
+The expanded regression passes **485 tests** in 39.32 s without skips/failures;
+the final focused run passes **38 checks**, including four real copy doctests and
+the additional positional-alias cases, in 14.24 s. Intentional legacy-H5MSM
+warnings remain visible. All fourteen fast gates and applicable static checks
+pass. Both Cookbook blocks execute. Foundations, file/reader Toolbox pages and
+Common Core Module 19 describe file ownership and selected native/H5MSM output.
+All code/output cells in the five prose-edited notebooks are preserved exactly;
+their unchanged examples are not requalified. Notebook-schema checks pass 496
+cases; incremental HTML exits zero with existing warning debt preserved.
+
+The [receipt](../../devtools/data/conversion_execution_trajectories_20261027.json)
+records commands, source/input scope, provider versions, hashes, failed attempts
+and exclusions. #181 remains partial. No complete-graph, installed-pair,
+cross-platform, memory/runtime benchmark or release qualification is claimed;
+#334's publication pause remains unchanged.

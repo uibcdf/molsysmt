@@ -1,11 +1,7 @@
-from depdigest import dep_digest
-
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 
 
 @arg_digest(form="file:xtc")
-@dep_digest("mdtraj")
 def extract(
     item,
     atom_indices="all",
@@ -15,21 +11,22 @@ def extract(
     skip_digestion=False,
 ):
     """
-    Extracting a subset of elements or structures from form file:xtc.
+    Copying a complete file:xtc while refusing unsupported file subsets.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source coordinate file; its bytes are never modified.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     output_filename : str or pathlib.Path, default=None
-        Output file path for serialization.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+        None creates a session-owned temporary for whole-file copying. An
+        explicit destination must differ from the source.
+    copy_if_all : bool, default=True
+        False returns the source for all atoms/structures when no output is given.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -39,22 +36,38 @@ def extract(
         Resulting object in file:xtc form.
 
 
+    Raises
+    ------
+    ArgumentError
+        If an explicit destination aliases the source or names a directory.
+    NotImplementedMethodError
+        If a subset is requested. Convert it to native structures or H5MSM instead.
+
+    Examples
+    --------
+    >>> import filecmp
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> import molsysmt as msm
+    >>> source = msm.systems['nglview']['md_1u19.xtc']
+    >>> with TemporaryDirectory() as folder:
+    ...     target = extract(source, output_filename=Path(folder) / 'snapshot.xtc')
+    ...     assert filecmp.cmp(source, target, shallow=False)
+
+    .. admonition:: User guide
+
+       See :ref:`Cookbook_Copying_Disk_Systems` for ownership and selected H5MSM output.
+
     .. versionadded:: 1.0.0
     """
 
-    if output_filename is None:
-        output_filename = item
+    from .to_file_xtc import to_file_xtc
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all or (output_filename != item):
-            from shutil import copy as copy_file
-
-            copy_file(item, output_filename)
-            tmp_item = output_filename
-
-        else:
-            tmp_item = item
-    else:
-        raise NotImplementedError()
-
-    return tmp_item
+    return to_file_xtc(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        output_filename=output_filename,
+        copy_if_all=copy_if_all,
+        skip_digestion=True,
+    )

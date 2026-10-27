@@ -38,3 +38,5 @@ _heavy_support = {
     "coordinates": True,
     "box": True,
 }
+
+_conversion_opt_kwargs = {"file:dcd": ["output_name", "output_filename"]}

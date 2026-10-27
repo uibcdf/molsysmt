@@ -1,12 +1,7 @@
-from depdigest import dep_digest
-
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.backend_output import silence_backend_stdout
-from molsysmt._private.variables import is_all
 
 
 @arg_digest(form="file:dcd")
-@dep_digest("mdtraj")
 def extract(
     item,
     atom_indices="all",
@@ -16,21 +11,22 @@ def extract(
     skip_digestion=False,
 ):
     """
-    Extracting a subset of elements or structures from form file:dcd.
+    Copying a complete file:dcd while refusing unsupported file subsets.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source coordinate file; its bytes are never modified.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     output_filename : str or pathlib.Path, default=None
-        Output file path for serialization.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+        None creates a session-owned temporary for whole-file copying. An
+        explicit destination must differ from the source.
+    copy_if_all : bool, default=True
+        False returns the source for all atoms/structures when no output is given.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -40,81 +36,38 @@ def extract(
         Resulting object in file:dcd form.
 
 
+    Raises
+    ------
+    ArgumentError
+        If an explicit destination aliases the source or names a directory.
+    NotImplementedMethodError
+        If a subset is requested. Convert it to native structures or H5MSM instead.
+
+    Examples
+    --------
+    >>> import filecmp
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> import molsysmt as msm
+    >>> source = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd']
+    >>> with TemporaryDirectory() as folder:
+    ...     target = extract(source, output_filename=Path(folder) / 'snapshot.dcd')
+    ...     assert filecmp.cmp(source, target, shallow=False)
+
+    .. admonition:: User guide
+
+       See :ref:`Cookbook_Copying_Disk_Systems` for ownership and selected H5MSM output.
+
     .. versionadded:: 1.0.0
     """
 
-    if output_filename is None:
-        output_filename = item
+    from .to_file_dcd import to_file_dcd
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all:
-            from shutil import copy as copy_file
-
-            copy_file(item, output_filename)
-            output = output_filename
-
-        else:
-            output = item
-    else:
-        from mdtraj.formats import DCDTrajectoryFile
-
-        with silence_backend_stdout():
-            output = DCDTrajectoryFile(str(output_filename), "w")
-            fff = DCDTrajectoryFile(str(item), "r")
-
-        atom_indices_is_all = is_all(atom_indices)
-
-        if not is_all(structure_indices):
-            stop_reading = False
-
-            ii = -1
-
-            while not stop_reading:
-                try:
-                    xyz, cell_lengths, cell_angles = fff.read(n_frames=1)
-                    ii += 1
-                except Exception:
-                    stop_reading = True
-
-                if xyz.size == 0:
-                    stop_reading = True
-
-                if (not stop_reading) and (ii in structure_indices):
-                    if atom_indices_is_all:
-                        output.write(xyz, cell_lengths, cell_angles)
-                    else:
-                        output.write(xyz[:, atom_indices, :], cell_lengths, cell_angles)
-                    structure_indices.remove(ii)
-
-                if len(structure_indices) == 0:
-                    stop_reading = True
-
-            fff.close()
-            output.close()
-
-            del xyz, cell_lengths, cell_angles
-
-        else:
-            stop_reading = False
-
-            ii = -1
-
-            while not stop_reading:
-                try:
-                    xyz, cell_lengths, cell_angles = fff.read(n_frames=1)
-                    ii += 1
-                except Exception:
-                    stop_reading = True
-
-                if xyz.size == 0:
-                    stop_reading = True
-
-                if not stop_reading:
-                    output.write(xyz[atom_indices, :], cell_lengths, cell_angles)
-
-            fff.close()
-            output.close()
-
-            del xyz, cell_lengths, cell_angles
-
-    return output_filename
+    return to_file_dcd(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        output_filename=output_filename,
+        copy_if_all=copy_if_all,
+        skip_digestion=True,
+    )

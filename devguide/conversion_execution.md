@@ -14,20 +14,20 @@ installed optional providers must not silently change the declared inventory.
 python devtools/scripts/audit_conversion_execution.py --json
 
 # Execute all profiled edges, including direct and public routes
-python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/conversion_truth/test_declared_docking_edges.py tests/conversion_truth/test_declared_gro_edges.py --receptor=llm -n 12
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/conversion_truth/test_declared_docking_edges.py tests/conversion_truth/test_declared_gro_edges.py tests/conversion_truth/test_declared_trajectory_edges.py --receptor=llm -n 12
 
 # Exercise the inventory's adversarial controls
 python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=llm
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-files-v10` profile: thirteen native containers/dictionary forms, four
+`resident-files-v11` profile: thirteen native containers/dictionary forms, four
 resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
 forms, SDF/PDBQT file/text forms, `molsysmt.PDBQTFileHandler` and
 `MDAnalysis.Universe`, `MDAnalysis.AtomGroup`, `MDAnalysis.Topology` and
-`parmed.Structure`, GRO disk/native handlers and the resident OpenMM/MDTraj GRO readers.
-The measured 2026-10-26 profile selects
-194 of 606 declared edges; 412 remain explicit coverage debt. Earlier native,
+`parmed.Structure`, GRO disk/native handlers and the resident OpenMM/MDTraj GRO readers, DCD/XTC paths and their open MDTraj readers.
+The measured 2026-10-27 profile selects
+206 of 606 declared edges; 400 remain explicit coverage debt. Earlier native,
 engine, H5MSM, PDB and docking-format subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
@@ -253,3 +253,38 @@ copy for each query. Atom counts use provider metadata without reading a
 trajectory. Handler subset/file-output modes remain explicitly unsupported.
 These are bounded execution and value contracts, not full GRO dialect coverage,
 large-trajectory memory measurements or chemical-preparation qualification.
+
+
+## DCD/XTC coordinate execution extension — 2026-10-27
+
+`resident-files-v11` adds twelve declared edges without changing the production
+graph. `test_declared_trajectory_edges.py` owns paths and open-reader coordinate
+conversions, H5MSM outputs, whole-file copies and the MDTraj trajectory XTC writer.
+The partition guard requires each selected edge to belong to exactly one executor.
+
+Provider-written literal coordinates/cells supply an independent value oracle,
+not a MolSysMT round trip. DCD writes enter MDTraj in angstroms/degrees; XTC
+writes enter it in nm/ps. Queries and conversions preserve caller reader position.
+Separate value checks exercise reversed numeric atom lists, nonconsecutive and
+repeated structure lists, triclinic cells and a non-default application length
+unit. These raw coordinate adapters preserve requested atom-list order; this
+neither changes resident-native subset policy nor replaces permute_atoms.
+DCD provides positional structure labels here; XTC retains its stored step labels
+as structure IDs, distinct from the positional structure selection. DCD time
+conventions and variant/header preservation are not independently qualified.
+
+File identity conversions and extraction now share the established byte-copy
+ownership helper. With all atoms/structures, omitted destinations produce
+session-owned copies; explicit destinations are caller-owned and reject source
+aliases. copy_if_all=False returns the input only without an explicit destination.
+Subset DCD/XTC file serialization is explicitly unsupported and rejects before
+any destination write; selected native/H5MSM output remains available. The old
+DCD writer did not safely implement ordered subsets, and XTC raised an unbounded
+NotImplementedError. No replacement trajectory writer, reader-clone API, schema,
+backend or dependency floor is added. These repairs are tracked by #502.
+
+The four remaining declared reader-construction/identity edges are still explicit
+debt. DCD's old identity function can alias the input despite copy_if_all=True;
+XTC reader cloning raises NotImplementedMethodError. This profile does not count
+those functions as successful copies or claim they are implemented. A future
+reader-copy decision needs an explicit backing-file/lifetime contract.

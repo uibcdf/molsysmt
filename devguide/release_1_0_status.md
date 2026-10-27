@@ -35,6 +35,20 @@ molecule metadata remains aligned. This is local source qualification, not a new
 release waiver. Existing source-versus-artifact identities and the publication
 pause below remain unchanged.
 
+The #181 DCD/XTC execution slice now selects 206 of 606 declared conversion
+edges, with 400 explicit debt entries. The #502 repair preserves whole-file copy
+ownership and adds the standard output_filename keyword without removing the
+legacy positional alias. Unsupported subset-file serialization refuses before
+writes; selected native/H5MSM coordinates remain supported. The
+[execution record](pending_proposals/execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md#dcdxtc-coordinate-execution-extension--2026-10-27)
+records the local 485-case regression and final 38-case receiving scope. This
+source evidence does not replace candidate/platform/installed-pair gates.
+
+The prior #499 exact-source smoke run
+[40576737384](https://github.com/uibcdf/molsysmt/actions/runs/40576737384) has now
+finished officially with success on ab165135ee4ba48595ecfda70861458ef9aaaa4d.
+It does not qualify the subsequent conversion-source changes above.
+
 ## Current source stabilization — 2026-10-26
 
 Default-reference readiness selection is source-resolved under

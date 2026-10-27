@@ -52,6 +52,35 @@ with tempfile.TemporaryDirectory() as directory:
 assert Path(automatic).is_file()  # session-owned, independent of the context above
 ```
 
+## Copying a coordinate file and saving a selection
+
+DCD/XTC byte copies have the same lifetime rules. Selected coordinate conversion
+requires optional MDTraj; subset serialization back to DCD/XTC is unsupported.
+Save selected structures as H5MSM instead. Here the source carries coordinates
+without a topology; the H5MSM output keeps that structural scope.
+
+```python
+source = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd']
+with tempfile.TemporaryDirectory() as directory:
+    snapshot = msm.convert(source, to_form='file:dcd',
+        output_filename=Path(directory) / 'snapshot.dcd')
+    assert filecmp.cmp(source, snapshot, shallow=False)
+    selected = msm.convert(source, to_form='molsysmt.Structures',
+        selection=[3, 1], structure_indices=[2, 0])
+    assert selected.coordinates.shape == (2, 2, 3)
+    destination = Path(directory) / 'selected.h5msm'
+    msm.convert(source, to_form=destination,
+        selection=[3, 1], structure_indices=[2, 0])
+    restored = msm.convert(destination, to_form='molsysmt.Structures')
+    np.testing.assert_allclose(puw.get_value(restored.coordinates, to_unit='nm'),
+        puw.get_value(selected.coordinates, to_unit='nm'), atol=1e-6)
+```
+
+The input remains unchanged. Explicit source aliases are rejected even for a
+whole-file output. `copy_if_all=False` returns the source only with all atoms,
+all structures and no output filename. File-handler copying has separate
+capabilities; it must not be inferred from a successful file-path copy.
+
 ## Respecting each boundary
 
 Without `output_filename`, MolSysMT securely reserves a unique same-suffix path

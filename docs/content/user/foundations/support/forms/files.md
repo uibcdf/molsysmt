@@ -155,3 +155,18 @@ per-atom group/chain labels and optional occupancy/B factors) without modifying
 the source inventory or chemistry. Export maps distinguish those written labels
 from original source indices and IDs. Caller REMARKs are incorporated before the
 final payload hash is calculated; see {ref}`cookbook-native-pdbqt`.
+
+
+DCD/XTC whole-file identity conversion uses `output_filename`, just like other
+file targets. With all atoms and structures, an omitted destination creates a
+private session-owned copy; an explicit destination must differ from the source.
+`copy_if_all=False` returns the input only when no destination is supplied.
+These byte copies preserve original headers and do not require MDTraj to decode
+the payload. They do not validate a trajectory's contents.
+
+For selected atoms or structures, convert DCD/XTC to `molsysmt.Structures` or
+H5MSM. Subset serialization back to DCD/XTC is explicitly unsupported and raises
+before writing; it does not silently overwrite the source or discard selection.
+The coordinate reader routes require optional MDTraj, preserve an existing reader's
+position and return unit-bearing data. Open-reader identity/cloning has a separate,
+unqualified ownership contract. See {ref}`Cookbook_Copying_Disk_Systems`.

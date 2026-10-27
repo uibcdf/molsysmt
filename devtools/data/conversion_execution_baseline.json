@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-files-v10",
+  "profile": "resident-files-v11",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -35,7 +35,11 @@
     "file:gro",
     "molsysmt.GROFileHandler",
     "openmm.GromacsGroFile",
-    "mdtraj.GroTrajectoryFile"
+    "mdtraj.GroTrajectoryFile",
+    "file:dcd",
+    "file:xtc",
+    "mdtraj.DCDTrajectoryFile",
+    "mdtraj.XTCTrajectoryFile"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -71,7 +75,9 @@
     "file:gro",
     "molsysmt.GROFileHandler",
     "openmm.GromacsGroFile",
-    "mdtraj.GroTrajectoryFile"
+    "mdtraj.GroTrajectoryFile",
+    "file:dcd",
+    "file:xtc"
   ],
   "accepted_unexecuted_edges": {
     "MDAnalysis.Universe": {
@@ -188,13 +194,9 @@
       ]
     },
     "file:dcd": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "reason": "Open-reader construction/identity needs separate ownership and copy-policy qualification; this profile executes coordinate readers and file outputs, not reader cloning.",
       "targets": [
-        "file:dcd",
-        "file:h5msm",
-        "mdtraj.DCDTrajectoryFile",
-        "molsysmt.MolSys",
-        "molsysmt.Structures"
+        "mdtraj.DCDTrajectoryFile"
       ]
     },
     "file:fasta": {
@@ -376,13 +378,9 @@
       ]
     },
     "file:xtc": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "reason": "Open-reader construction/identity needs separate ownership and copy-policy qualification; this profile executes coordinate readers and file outputs, not reader cloning.",
       "targets": [
-        "file:h5msm",
-        "file:xtc",
-        "mdtraj.Trajectory",
-        "mdtraj.XTCTrajectoryFile",
-        "molsysmt.Structures"
+        "mdtraj.XTCTrajectoryFile"
       ]
     },
     "file:xyz": {
@@ -408,11 +406,9 @@
       ]
     },
     "mdtraj.DCDTrajectoryFile": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "reason": "Open-reader construction/identity needs separate ownership and copy-policy qualification; this profile executes coordinate readers and file outputs, not reader cloning.",
       "targets": [
-        "mdtraj.DCDTrajectoryFile",
-        "molsysmt.MolSys",
-        "molsysmt.Structures"
+        "mdtraj.DCDTrajectoryFile"
       ]
     },
     "mdtraj.HDF5TrajectoryFile": {
@@ -449,7 +445,6 @@
       "targets": [
         "biopython.Seq",
         "biopython.SeqRecord",
-        "file:xtc",
         "nglview.NGLWidget",
         "pdbfixer.PDBFixer",
         "pytraj.Topology",
@@ -459,10 +454,9 @@
       ]
     },
     "mdtraj.XTCTrajectoryFile": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
+      "reason": "Open-reader construction/identity needs separate ownership and copy-policy qualification; this profile executes coordinate readers and file outputs, not reader cloning.",
       "targets": [
-        "mdtraj.XTCTrajectoryFile",
-        "molsysmt.Structures"
+        "mdtraj.XTCTrajectoryFile"
       ]
     },
     "mmcif.PdbxContainers.DataContainer": {

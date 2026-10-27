@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "issue": "uibcdf/molsysmt#181",
+  "resolved_defect": "uibcdf/molsysmt#502",
+  "source_basis": "f9ca3e1b0328d2463492f0969fec6805dfc7ca5b",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "mdtraj": "1.11.1",
+    "profile": "Existing shared development environment; not a clean installed pair."
+  },
+  "inventory": {
+    "profile": "resident-files-v11",
+    "declared_edges": 606,
+    "planned_edges": 206,
+    "accepted_unexecuted_edges": 400,
+    "newly_executed_edges": 12,
+    "production_edges_added": 0,
+    "audit_is_execution": false
+  },
+  "regression": {
+    "command": "python -m pytest tests/conversion_truth tests/form/file_dcd tests/form/file_xtc tests/form/mdtraj_DCDTrajectoryFile tests/form/mdtraj_XTCTrajectoryFile tests/basic/test_file_copy.py tests/basic/test_file_copy_lifecycle.py tests/form/test_raw_file_copy.py tests/test_argument_contract.py devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+    "result": "485 passed in 39.32s; 29 intentional legacy-H5MSM warnings; no skips or expected failures. Final runtime and independent provider-input fixture, including all positional-alias cases."
+  },
+  "focused_final": {
+    "command": "python -m pytest tests/conversion_truth/test_declared_trajectory_edges.py molsysmt/form/file_dcd/to_file_dcd.py molsysmt/form/file_xtc/to_file_xtc.py molsysmt/form/file_dcd/extract.py molsysmt/form/file_xtc/extract.py --doctest-modules --receptor=llm -n 12",
+    "result": "38 passed in 14.24s; 2 intentional legacy-H5MSM warnings. Includes final 34 trajectory cases and 4 converter/extraction doctests, with independent DCD geometry and positional/keyword alias and conflict protection."
+  },
+  "documentation": {
+    "schema": "496 notebook-schema cases passed in 8.69s.",
+    "examples": "Both Cookbook Python blocks executed sequentially, including actual bundled DCD byte copy, selected native conversion and H5MSM persistence.",
+    "unchanged_notebooks": "Code, outputs and cell identities in all five prose-edited form/course notebooks equal their source basis; no reexecution of their unchanged examples is claimed.",
+    "html": "Initial incremental HTML exits zero with 26 existing warnings and zero errors. Final incremental build after final docstrings exits zero with no new diagnostics; this is not a clean full-site/debt-reduction claim."
+  },
+  "controls": {
+    "fast_gates": "14/14 passed after final runtime and explicit signature decisions.",
+    "api": "All six positional parameters/defaults retained. Two function-specific waivers add keyword-only output_filename under #502; real legacy positional copies/conflicts are tested.",
+    "static": "Scoped Ruff lint/format, dependency lazy-import validation, generated converter-argument equality, docstring validation and conversion inventory audit pass."
+  },
+  "failed_attempts": [
+    "Initial twelve-edge test: 2 failed, 10 passed in 14.09s; both standard destination keywords rejected.",
+    "Early value tests assumed native sorting for raw coordinate-reader atom lists. Their established requested order is retained; no global atom-policy change.",
+    "DCD triclinic reconstruction uses existing rounded geometry; literal box tolerance 3e-6 nm covers this bounded path.",
+    "Early legacy-H5MSM unit test omitted unrelated required standard dimensions. Final test replaces length in the complete application policy.",
+    "Signature guard rejected renaming a positional argument; final implementation retains output_name and adds only the explicitly tracked standard keyword."
+  ],
+  "scope": [
+    "Raw and public execution of twelve new planned routes; six executor partitions cover every selected graph edge exactly once.",
+    "Provider-written literal three-structure/four-atom inputs, varying triclinic boxes and time/step labels. DCD source angles/lengths are formed independently with elementary NumPy geometry, never MolSysMT forward/inverse box functions. Raw coordinate atom-list order and repeated/nonconsecutive structure indices retained.",
+    "Native and H5MSM values checked under non-default application length units; DCD engine boundary angstrom/degree and XTC nm/ps.",
+    "Whole-file copies reuse existing destination ownership and temporary cleanup. Unsupported subset-file writes reject before changing source or explicit destination.",
+    "Four reader-construction/identity edges remain deferred with explicit reasons; no cloning, time/header/variant fidelity or new scientific model is certified.",
+    "No new scientific attribution boundary or dependency; no full-graph, installed, cross-platform, performance, release or optional-engine absence qualification."
+  ],
+  "sha256": {
+    "devtools/data/conversion_execution_baseline.json": "888e7f84e132d75d009298c9cc8ba81296386ddbfcc17ba343e3d5bb5db60a5d",
+    "devtools/data/public_api_stability.json": "832bbecf088e9f02262cbfcb74bb542ba4afd74f30229ea8324db950c997fa07",
+    "devtools/scripts/audit_conversion_execution.py": "15806488d3e3b0a5a3b084457f5993eacd641462e55b01815939253d440c6b74",
+    "molsysmt/_private/argdigest/domain/converter_arguments.py": "905bbf204e200f9d058cdce4f691ebc27daba8fd5861e1cdbe3d6380802c3896",
+    "tests/conversion_truth/test_declared_trajectory_edges.py": "5e865963ac8109d1da7119db0ac6a82eb57df9d8c513eb25cef9dfa97e6cc0ba",
+    "molsysmt/form/file_dcd/__init__.py": "21c9975c9e1e6bbde7a29197ff5a6a343b19fd4b572bce2004ac6bb534a017e5",
+    "molsysmt/form/file_dcd/extract.py": "2c78924cda0bee8328119e976fd0a330a91fb12b15cb625e1acd2db3dc61904e",
+    "molsysmt/form/file_dcd/to_file_dcd.py": "187f65b459254d8f76d8667efbade0d7897c3996093052430fdf01be8a351588",
+    "molsysmt/form/file_xtc/__init__.py": "6ba0f7c2a53554e07c88cfbfafbfcb0d1a848f7fb49f33daaf7186b28c7949eb",
+    "molsysmt/form/file_xtc/extract.py": "8a9e332c4666d8d0d4b69c5d26aa7704818b7ad6015f2b0f69ad707460f86ab0",
+    "molsysmt/form/file_xtc/to_file_xtc.py": "91700fa1679d1951af1aa9b851e255331fe48228f40f929407754002d119d412"
+  }
+}
