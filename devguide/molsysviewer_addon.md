@@ -1652,3 +1652,13 @@ Ruff, generated indexes and developer-guide validation pass. The
 records exact scope, backend retention and warning/evidence digests. Hosted
 exact-source gates remain pending; the earlier 511fafb54 success is not reused
 as qualification of these new wrappers.
+
+
+Five exact-runtime controls pass on 11e7ab7f0: Ruff, dependencies, developer guide,
+suite policy and Conda governance. Main smoke 40598293439 is cancelled at package
+installation; both scientific tiers are skipped, so it supplies no scientific
+qualification. Single recovery 40598751459 uses the fixed branch
+receiving/build-audits-11e7ab7f0 at the same producer. It is pending, with original
+cancellation evidence retained. The docs-only b7b88d94e owner commit preserves
+the new addon course note and its metadata; runtime stays unchanged. This
+administrative handoff adds no gate waiver, package or publication.

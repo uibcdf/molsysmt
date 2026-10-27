@@ -120,16 +120,14 @@ consumer evidence. No blanket dynamic forwarding, scientific workaround,
 automatic primary observation, hidden preparation or release promise is added.
 
 
-## Source qualification closeout
+## Earlier source qualification at 511fafb54
 
-Runtime bindings and scientific package sources remain identical to 511fafb54,
-whose corrected CI smoke 40585977458 and five additional source controls pass.
-The final inventory expansion changes only developer tooling/tests and maintained
-records. Its real-facade unit test and CLI pass locally in the recorded environment;
-it does not add wrappers or rerun/retroactively relabel scientific tests. Explicit
-native MD stubs need an owning implementation before addon exposure. This is not
-a release candidate, package qualification or a claim that all 128 missing paths
-are functional or equally important. Keep native #503 and legacy-data limits open.
+CI smoke 40585977458 and five additional source controls qualify the earlier
+511fafb54 runtime, including 34 physchem paths and three build diagnostics.
+The tooling-only 4e544cb12 follow-up did not add wrappers. Neither gate qualifies
+the later eight build-audit wrappers. Current source exposure, native stubs,
+scientific qualification and installed-package compatibility remain distinct;
+new exact-source campaign receiving is recorded below.
 
 
 ## Build audit continuation — 2026-10-27
@@ -150,3 +148,16 @@ reviewed baseline; the 19 remaining build paths are factories, independent
 construction/preparation or edits requiring their own effect/lifetime contract.
 Canonical interaction families are the next scientific namespace in the plan.
 The older 511fafb54 CI is not qualification of this later runtime extension.
+
+
+## Build-audit hosted gate handoff
+
+Runtime 11e7ab7f0 passes Ruff 40598293672, dependencies 40598293501, developer-guide
+integrity 40598293438, suite policy 40598294051 and Conda governance 40598293980.
+Original main smoke 40598293439 is cancelled during Install package, with both
+scientific tiers skipped. It is not a scientific success or a test failure.
+The single recovery 40598751459 uses fixed receiving/build-audits-11e7ab7f0,
+resolving exactly to 11e7ab7f0; it is still pending. No original run is relabelled,
+no main campaign is cancelled by this recovery, and no tag/package is created.
+The docs-only b7b88d94e owner work is preserved separately. This administrative
+follow-up does not change runtime and does not clear full-suite backlog.

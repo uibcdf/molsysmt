@@ -1,0 +1,81 @@
+{
+  "schema": "molsysmt.viewer-tools.build-audits-ci-followup@1",
+  "date": "2026-10-27",
+  "runtime_source": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+  "documentation_basis": "b7b88d94e327afea14f0372a0303755876550ab6",
+  "source_runs": [
+    {
+      "conclusion": "",
+      "databaseId": 40598751459,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "in_progress",
+      "workflowName": "CI smoke"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40598293672,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "completed",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40598293501,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "completed",
+      "workflowName": "Dependency contract"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40598293438,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "completed",
+      "workflowName": "Developer guide integrity"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40598293980,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "completed",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40598294051,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "completed",
+      "workflowName": "MolSysSuite policy"
+    },
+    {
+      "conclusion": "cancelled",
+      "databaseId": 40598293439,
+      "headSha": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+      "status": "completed",
+      "workflowName": "CI smoke"
+    }
+  ],
+  "original": {
+    "run": 40598293439,
+    "conclusion": "cancelled",
+    "step": "Install package",
+    "scientific_tiers": "skipped"
+  },
+  "recovery": {
+    "run": 40598751459,
+    "ref": "receiving/build-audits-11e7ab7f0",
+    "head": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+    "status_at_handoff": "pending",
+    "dispatch_count": 1
+  },
+  "evidence_sha256": {
+    "manifest.json": "df8627df0ff1844b11913952032ec1743ba72c9886fa2955338be242f9787ef1",
+    "logs.zip": "0f2f753119b98c4ecbbb6b3f5dc7f1631aa2f84bdfe3509ddff0414f1c60510c",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "checks.json": "e9877873019776147f32268a616bb9d7a525046e3ef80d02551d0a778c951865",
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "jobs.json": "6d2b3e881333cd93bcbaaecd8b54c2f9b130f2aee9e7fb7fa2cc07df3a69ce39",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69",
+    "run.json": "6bf494c57200cb0ade1887a2b0d6a2c91feffb2ec58ce57d6555b4d8ecfc74ed"
+  },
+  "scope": "No runtime changes, new package, release or full-suite backlog waiver. Preserve local 4414-pass receiving separately."
+}
