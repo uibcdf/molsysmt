@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`smarts_default_reference_external_syntax.md`](smarts_default_reference_external_syntax.md) — [#488](https://github.com/uibcdf/molsysmt/issues/488) — SMARTS readers reject external syntax for the default reference state. *(medium, reproduced)*
 
 ### Partially resolved (2)
 
