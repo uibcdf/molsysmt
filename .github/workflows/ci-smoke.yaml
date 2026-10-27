@@ -183,6 +183,11 @@ jobs:
             tests/build/test_get_residue_chemical_coverage.py \
             tests/build/test_get_covalent_bond_candidates.py \
             tests/build/test_get_peptide_bond_candidates.py \
+            tests/build/get_missing_heavy_atoms/ \
+            tests/build/get_missing_terminal_cappings/ \
+            tests/build/get_non_standard_residues/ \
+            tests/build/get_missing_bonds/ \
+            tests/interactions/disulfides/ \
             tests/form/molsysmt_Topology/test_atom_membership_order.py \
             tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py \
             tests/native/test_builder_inherited_molecules.py \
@@ -232,4 +237,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_molecular_descriptors_tools.py \
             tests/molsysviewer_molsysmt/test_chemical_assignment_readers_tools.py \
             tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py \
-            tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py
+            tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py \
+            tests/molsysviewer_molsysmt/test_build_audit_tools.py

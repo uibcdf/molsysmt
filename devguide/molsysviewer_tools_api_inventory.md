@@ -2,8 +2,9 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-27, receiving producer 511fafb54 plus a tooling-only
-completion of metadata and legacy-protocol discovery. This is source exposure, not
+**Snapshot:** 2026-10-27, the source receiving extends producer 4e544cb12
+with eight explicit build-audit wrappers; prior 511fafb54 qualification remains
+a separate earlier runtime baseline. This is source exposure, not
 installed compatibility, scientific accuracy or unconditional stability.
 
 Regenerate the full path/signature/missing-route inventory in the participating
@@ -11,7 +12,7 @@ source environment:
 
 ```bash
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_full_api_inventory_20261027.json
+  --output devtools/data/molsysviewer_tools_build_audits_inventory_20261027.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -29,7 +30,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |
-| build | 3 | 30 | 27 |
+| build | 11 | 30 | 19 |
 | molecular_mechanics | 0 | 6 | 6 |
 | interactions (canonical families) | 0 | 15 | 15 |
 | element and declared children | 0 | 57 | 57 |
@@ -39,7 +40,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | supported-capability reports | 0 | 4 | 4 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 108 exposed out of 244 inspected public callable paths. This is not
+These are 116 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -73,8 +74,9 @@ not infer universal availability for other callables. The earlier 231-path
 2. **Finish read-only build diagnostics.** Review missing-atom/bond/group audits,
    supported chemistry and hydrogen/solvation checks before preparation. Each
    function keeps its exact native axes, providers and unsupported outcomes.
-   The first three are get_residue_chemical_coverage,
-   get_covalent_bond_candidates and get_peptide_bond_candidates. Unknown legacy
+   Eleven are now exposed: the first three candidate/coverage tools plus
+   missing heavy atoms/bonds/residues/cappings, nonstandard-group suggestions,
+   hydrogen presence, solvation and build disulfide candidates. Unknown legacy
    chain metadata remains unassessed; use positive declared-chain systems too.
 3. **Expose raw canonical interaction calculations.** Preserve family paths,
    recognition/detection distinctions, sparse participants/roles, evaluated
@@ -126,5 +128,25 @@ The final inventory expansion changes only developer tooling/tests and maintaine
 records. Its real-facade unit test and CLI pass locally in the recorded environment;
 it does not add wrappers or rerun/retroactively relabel scientific tests. Explicit
 native MD stubs need an owning implementation before addon exposure. This is not
-a release candidate, package qualification or a claim that all 136 missing paths
+a release candidate, package qualification or a claim that all 128 missing paths
 are functional or equally important. Keep native #503 and legacy-data limits open.
+
+
+## Build audit continuation — 2026-10-27
+
+Eight further explicitly bound readers bring build exposure to 11/30 and total
+functional-path exposure to 116/244. The new machine-readable snapshot preserves
+the earlier full inventory rather than rewriting it. Signatures retain native
+parameters/defaults; four legacy native readers lack skip_digestion, so an
+explicit keyword-only addon control stays local and is never forwarded.
+Group-index audits, source-atom candidates, selected-subsystem sequence insertion
+positions, singular structure_index and whole-system predicates remain distinct.
+Empty unsupported/missing-reference reports do not certify complete chemistry.
+
+Native multi-structure is_solvated raises for boxed water trajectories under
+uibcdf/molsysmt#504. No consumer aggregation/formula is added. Native #503 remains
+open independently. The received read-only build slice is complete at this
+reviewed baseline; the 19 remaining build paths are factories, independent
+construction/preparation or edits requiring their own effect/lifetime contract.
+Canonical interaction families are the next scientific namespace in the plan.
+The older 511fafb54 CI is not qualification of this later runtime extension.

@@ -63,7 +63,7 @@ def test_explicit_signature_native_help_and_no_unreceived_editors(view, name):
         parameters=list(native.parameters.values())[1:]
     )
     assert method.digestion_plan is not None
-    assert set(dir(view.addons.molsysmt.build)) == set(NAMES)
+    assert set(NAMES).issubset(dir(view.addons.molsysmt.build))
     assert not hasattr(view.addons.molsysmt, name)
     assert not hasattr(view.addons.molsysmt.build, "infer_covalent_bonds")
     doc = inspect.getdoc(method)

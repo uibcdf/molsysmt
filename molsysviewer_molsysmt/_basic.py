@@ -310,6 +310,54 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "is added. A candidate is not a declared covalent bond or a "
                 "chemical-validity certificate. update_view is not accepted.\n"
             )
+        if (
+            module == "build"
+            and "skip_digestion" not in inspect.signature(native).parameters
+        ):
+            function.__doc__ += (
+                "skip_digestion : bool, keyword-only, default=False\n"
+                "    Control addon digestion only. The native callable receives no "
+                "such parameter and keeps its ordinary validation.\n"
+            )
+        if module == "build" and name in {
+            "get_missing_heavy_atoms",
+            "get_missing_terminal_cappings",
+            "get_non_standard_residues",
+        }:
+            function.__doc__ += (
+                "Numeric selection addresses source groups, not atom indices. "
+                "Native template/provider coverage and selected-scope terminal "
+                "interpretation are preserved; an empty report is not proof of "
+                "complete chemistry. No replacement is performed.\n"
+            )
+        if module == "build" and name == "get_missing_residues":
+            function.__doc__ += (
+                "The bound primary is the resident MolSys, not the original PDB/BCIF "
+                "file. Pass sequence explicitly as the native chain-ID mapping. "
+                "Without a usable reference, native MolSysMT warns and returns an "
+                "empty dict; that is not a complete-sequence certificate. Returned "
+                "chain indices/insertion positions describe the selected subsystem. "
+                "Reference extraction, selection and backend limitations remain native.\n"
+            )
+        if module == "build" and name in {"get_missing_bonds", "get_disulfide_bonds"}:
+            function.__doc__ += (
+                "Numeric selection addresses source atoms; returned candidate pairs "
+                "use source indices with both endpoints selected. structure_index "
+                "is singular and defaults to zero, independently of navigation. "
+                "Heuristic candidates are not a validated chemical graph.\n"
+            )
+        if module == "build" and name == "has_hydrogens":
+            function.__doc__ += (
+                "This predicate detects any selected indexed hydrogen, not hydrogen "
+                "completeness, protonation correctness or virtual/implicit H.\n"
+            )
+        if module == "build" and name == "is_solvated":
+            function.__doc__ += (
+                "This whole-system native density predicate uses stored water count "
+                "and box volume, not solvent completeness or a preparation protocol. "
+                "It has no structure-selection argument; multi-structure behavior "
+                "and errors are delegated without inventing an aggregation.\n"
+            )
         if module == "build" and name == "get_residue_chemical_coverage":
             function.__doc__ += (
                 "Numeric selection addresses source groups and atom expressions "

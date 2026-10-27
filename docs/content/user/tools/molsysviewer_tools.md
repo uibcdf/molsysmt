@@ -44,13 +44,16 @@ The explicit `view.addons.molsysmt.pbc` namespace also provides ten box queries
 and factories. Only `has_pbc` binds the current system; box/length/angle inputs
 remain explicit for the other nine. The same namespace adds three coordinate
 editors: `wrap_to_pbc`, `wrap_to_mic` and `unwrap`, with native independent
-outputs or managed in-place updates. Centered in-place wrapping remains
-unreceived under #467; see the periodic sections for units and precise limits.
+outputs or managed in-place updates. Centered in-place wrapping is received through the native #467 repair; see
+the periodic sections for units and precise limits.
 
-The `view.addons.molsysmt.build` namespace starts with three read-only tools:
+The `view.addons.molsysmt.build` namespace provides eleven read-only tools.
+The first three are:
 `get_residue_chemical_coverage`, `get_covalent_bond_candidates` and
 `get_peptide_bond_candidates`. They return diagnostics/candidates, not prepared
-systems or assigned bonds. Their native single-structure, exact-template and
+systems or assigned bonds. Eight further readers audit missing heavy atoms, bonds,
+residues and terminal cappings, nonstandard groups, indexed hydrogens, solvation
+and disulfide candidates; see the preparation-audit section below. Their native single-structure, exact-template and
 source metadata requirements remain explicit. Broader build editing is pending.
 
 Other scientific modules, editing families and graphical task panels
@@ -2315,3 +2318,61 @@ cutoffs and PBC remain explicit. A candidate does not certify valence, protonati
 a declared bond or chemical validity. No missing atom/bond is assigned and no
 result is colored or adopted. See {ref}`Tutorial_Residue_Chemical_Coverage`,
 {ref}`Tutorial_Covalent_Bond_Candidates` and {ref}`Tutorial_Peptide_Bond_Candidates`.
+
+
+### Auditing missing content and preparation state
+
+Eight further native readers are available under `view.addons.molsysmt.build`:
+
+| Reader | Meaning and native scope |
+| --- | --- |
+| `get_missing_heavy_atoms` | Exact supported amino-acid templates; numeric selection addresses groups. Unsupported chemistry is not certified. |
+| `get_missing_terminal_cappings` | Missing terminal OXT within the selected group scope. A partial selection can define a different apparent terminus. |
+| `get_non_standard_residues` | Native standard-name suggestions; no replacement, graph validation or preparation. Unknown groups may be absent from the report. |
+| `get_missing_residues` | Comparison against an explicit chain-ID-to-name-list reference; returned chain indices/insertion positions belong to the selected subsystem. |
+| `get_missing_bonds` | Heuristic missing source-atom pairs from templates/geometry, using singular `structure_index` where applicable. |
+| `get_disulfide_bonds` | Distance-based sulfur candidate pairs from one structure; these may already be declared bonds. |
+| `has_hydrogens` | Presence of any selected indexed hydrogen, not hydrogen completeness or correct protonation. |
+| `is_solvated` | Native whole-system water-count/box-density predicate; not a preparation or solvent-completeness check. |
+
+```python
+with msv.demo["181L"] as view:
+    tools = view.addons.molsysmt.build
+    assert tools.get_missing_heavy_atoms() == {}
+    assert tools.get_missing_terminal_cappings() == {161: ["OXT"]}
+    assert not tools.has_hydrogens()
+    assert not tools.is_solvated()
+    chain_id = view.addons.molsysmt.get(element="chain", chain_id=True)[0]
+    names = view.addons.molsysmt.get(
+        element="group", selection="chain_index==0", group_name=True,
+    )
+    reference = {chain_id: names + ["ASN", "LEU"]}
+    assert tools.get_missing_residues(sequence=reference) == {
+        (0, len(names)): ["ASN", "LEU"],
+    }
+    candidates = tools.get_missing_bonds(structure_index=0, pbc=False)
+    sulfur_candidates = tools.get_disulfide_bonds(structure_index=0, pbc=False)
+```
+
+The bound input is the resident MolSys, not its original PDB/BCIF source file.
+Without an explicit usable sequence, the native missing-residue reader warns and
+returns `{}`. Do not interpret that result as evidence of a complete sequence.
+Selection syntax, engine choices, cutoffs, units, PBC and provider rejection stay
+native. Numeric group selection in the first three readers differs from atom
+selection in the two bond readers. No visible-structure substitution occurs.
+Optional PDBFixer/pytraj routes keep their own dependencies and limitations;
+source availability is not blanket backend qualification.
+
+All eight use the serialized primary reader, including completed pending
+scientific edits. Returned reports stay separate from the source and scene;
+there is no `update_view`, repair, bond assignment or automatic attachment.
+Each method has `skip_digestion`. Where the native function has no such
+parameter, a keyword-only addon control affects only addon validation and is
+never passed to the native function.
+
+The current native `is_solvated()` can raise an ambiguous-array `ValueError` for
+multiple structures with water and box volumes. It offers no structure-selection
+argument. The addon does not choose an implicit first/any/all aggregation.
+Use an explicitly selected independent molecular system with native MolSysMT
+when a per-structure diagnostic is required. The receiving records preserve this
+limitation without treating an exception as a successful solvation result.

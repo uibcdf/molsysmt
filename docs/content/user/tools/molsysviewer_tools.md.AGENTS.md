@@ -192,3 +192,14 @@ group/atom scopes and one structure explicitly; candidates remain unassigned.
 Retain the legacy pentalanine chain-metadata limitation and positive 181L route
 until the data contract is independently resolved. Broad API inventories measure
 source exposure, not scientific or installed qualification.
+
+
+Preserve the eight additional build diagnostic readers and their native scopes.
+Group-index audits, source-atom bond pairs, selected-subsystem sequence insertion
+positions and the single structure_index must remain distinct. Missing sequence
+reference warnings and empty reports do not certify completeness. Standard-name
+suggestions never replace groups; sulfur candidates never insert covalent bonds.
+Hydrogen presence and water-density predicates are not chemical preparation.
+Keep addon-only keyword digestion controls explicit where native readers lack
+that parameter, and preserve the native multi-structure solvation limitation
+until an owning scientific repair is independently received.

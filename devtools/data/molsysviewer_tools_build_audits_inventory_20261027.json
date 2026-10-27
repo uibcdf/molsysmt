@@ -1,0 +1,2682 @@
+{
+  "schema": "molsysmt.viewer-api-inventory@1",
+  "scope": "Source exposure only; qualification is separate.",
+  "native_source": "/tmp/msm-chemical-audits-dw35w8qd/molsysmt/__init__.py",
+  "host_source": "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/__init__.py",
+  "exclusions": [
+    "form adapters",
+    "native classes and methods",
+    "configuration",
+    "raw low-level kernels",
+    "third-party bridges",
+    "datasets"
+  ],
+  "modules": {
+    "basic": {
+      "native_paths": 26,
+      "exposed_paths": 19,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "basic.add",
+        "basic.append_structures",
+        "basic.compose_atom_maps",
+        "basic.concatenate_structures",
+        "basic.merge",
+        "basic.permute_atoms",
+        "basic.view"
+      ]
+    },
+    "topology": {
+      "native_paths": 11,
+      "exposed_paths": 11,
+      "explicit_native_stubs": 0,
+      "missing": []
+    },
+    "structure": {
+      "native_paths": 28,
+      "exposed_paths": 28,
+      "explicit_native_stubs": 0,
+      "missing": []
+    },
+    "pbc": {
+      "native_paths": 13,
+      "exposed_paths": 13,
+      "explicit_native_stubs": 0,
+      "missing": []
+    },
+    "physchem": {
+      "native_paths": 34,
+      "exposed_paths": 34,
+      "explicit_native_stubs": 0,
+      "missing": []
+    },
+    "build": {
+      "native_paths": 30,
+      "exposed_paths": 11,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "build.add_missing_bonds",
+        "build.add_missing_heavy_atoms",
+        "build.add_missing_hydrogens",
+        "build.add_missing_terminal_cappings",
+        "build.add_terminal_atoms",
+        "build.assign_autodock_atom_types",
+        "build.assign_partial_charges",
+        "build.build_peptide",
+        "build.editable",
+        "build.infer_covalent_bonds",
+        "build.make_bioassembly",
+        "build.make_water_box",
+        "build.merge_nonpolar_hydrogens",
+        "build.mutate",
+        "build.project_atom_names",
+        "build.reconcile_protonation",
+        "build.remove_overlapping_molecules",
+        "build.solvate",
+        "build.solve_atoms_with_alternate_location"
+      ]
+    },
+    "molecular_mechanics": {
+      "native_paths": 6,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "molecular_mechanics.get_degrees_of_freedom",
+        "molecular_mechanics.get_engine_forcefield",
+        "molecular_mechanics.get_forces",
+        "molecular_mechanics.get_non_bonded_potential_energy",
+        "molecular_mechanics.get_potential_energy",
+        "molecular_mechanics.potential_energy_minimization"
+      ]
+    },
+    "interactions": {
+      "native_paths": 15,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "interactions.cation_pi.get_cation_pi_interactions",
+        "interactions.disulfides.get_disulfide_candidates",
+        "interactions.halogen_bonds.get_halogen_bonds",
+        "interactions.hbonds.get_acceptor_atoms",
+        "interactions.hbonds.get_buch_hbonds",
+        "interactions.hbonds.get_donor_atoms",
+        "interactions.hbonds.get_hbond_site_directions",
+        "interactions.hbonds.get_hbond_sites",
+        "interactions.hbonds.get_hbonds",
+        "interactions.hbonds.get_luzard_chandler_hbonds",
+        "interactions.hydrophobic.get_hydrophobic_interactions",
+        "interactions.ionic.get_ionic_interactions",
+        "interactions.metal_coordination.get_metal_coordination",
+        "interactions.pi_pi.get_pi_pi_interactions",
+        "interactions.water_bridges.get_water_bridges"
+      ]
+    },
+    "element": {
+      "native_paths": 57,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "element.is_composed_of",
+        "element.is_element",
+        "element.atom.get_atom_type_from_atom_ff_type",
+        "element.atom.get_atom_type_from_atom_name",
+        "element.atom.is_atom_type",
+        "element.atom.normalize_atom_types",
+        "element.chain.get_chain_id",
+        "element.chain.get_chain_index",
+        "element.chain.get_chain_name",
+        "element.chain.get_chain_type",
+        "element.component.get_component_id",
+        "element.component.get_component_index",
+        "element.component.get_component_name",
+        "element.component.get_component_type",
+        "element.component.get_n_components",
+        "element.component.is_component_type",
+        "element.entity.get_entity_id",
+        "element.entity.get_entity_index",
+        "element.entity.get_entity_name",
+        "element.entity.get_entity_type",
+        "element.entity.get_n_entities",
+        "element.group.get_bonded_atom_pairs",
+        "element.group.get_group_type",
+        "element.group.get_group_type_from_group_name",
+        "element.group.is_group_type",
+        "element.group.amino_acid.get_1_letter_code_from_name",
+        "element.group.amino_acid.get_bonded_atom_pairs",
+        "element.group.amino_acid.get_expected_heavy_atoms",
+        "element.group.amino_acid.get_expected_hydrogens",
+        "element.group.amino_acid.get_group_db",
+        "element.group.amino_acid.get_standard_name",
+        "element.group.amino_acid.is_amino_acid",
+        "element.group.ion.get_bonded_atom_pairs",
+        "element.group.ion.get_group_db",
+        "element.group.ion.is_ion",
+        "element.group.lipid.is_lipid",
+        "element.group.nucleotide.is_nucleotide",
+        "element.group.saccharide.get_bonded_atom_pairs",
+        "element.group.saccharide.get_group_db",
+        "element.group.saccharide.is_saccharide",
+        "element.group.small_molecule.get_bonded_atom_pairs",
+        "element.group.small_molecule.get_group_db",
+        "element.group.small_molecule.is_small_molecule",
+        "element.group.small_molecule.small_molecule_is_amino_acid",
+        "element.group.terminal_capping.get_bonded_atom_pairs",
+        "element.group.terminal_capping.get_group_db",
+        "element.group.terminal_capping.is_c_terminal_capping",
+        "element.group.terminal_capping.is_n_terminal_capping",
+        "element.group.terminal_capping.is_terminal_capping",
+        "element.group.water.get_bonded_atom_pairs",
+        "element.group.water.is_water",
+        "element.molecule.get_molecule_id",
+        "element.molecule.get_molecule_index",
+        "element.molecule.get_molecule_name",
+        "element.molecule.get_molecule_type",
+        "element.molecule.get_n_molecules",
+        "element.molecule.is_molecule_type"
+      ]
+    },
+    "h5msm": {
+      "native_paths": 7,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "h5msm.append_structures",
+        "h5msm.migrate_04_to_05",
+        "h5msm.migrate_to_05",
+        "h5msm.read",
+        "h5msm.read_layers",
+        "h5msm.write",
+        "h5msm.write_layers"
+      ]
+    },
+    "hbonds": {
+      "native_paths": 4,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "hbonds.get_acceptor_atoms",
+        "hbonds.get_buch_hbonds",
+        "hbonds.get_donor_atoms",
+        "hbonds.get_luzard_chandler_hbonds"
+      ]
+    },
+    "attribute": {
+      "native_paths": 7,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "attribute.bonds_are_required_to_get_attribute",
+        "attribute.get_argument_aliases",
+        "attribute.is_attribute",
+        "attribute.is_chemical_state_attribute",
+        "attribute.is_mechanical_attribute",
+        "attribute.is_structural_attribute",
+        "attribute.is_topological_attribute"
+      ]
+    },
+    "supported": {
+      "native_paths": 4,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 0,
+      "missing": [
+        "supported.conversions",
+        "supported.dependencies",
+        "supported.forms",
+        "supported.syntaxes"
+      ]
+    },
+    "molecular_dynamics": {
+      "native_paths": 2,
+      "exposed_paths": 0,
+      "explicit_native_stubs": 2,
+      "missing": [
+        "molecular_dynamics.run_NPT_equilibration",
+        "molecular_dynamics.run_NVT_equilibration"
+      ]
+    }
+  },
+  "functions": [
+    {
+      "path": "basic.add",
+      "module": "basic",
+      "signature": "(to_molecular_system, from_molecular_system, selection='all', structure_indices='all', keep_ids=True, in_place=True, syntax='MolSysMT', attribute_policy='intersection', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "to_molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.add:add",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.append_structures",
+      "module": "basic",
+      "signature": "(to_molecular_system, from_molecular_system, selection='all', structure_indices='all', syntax='MolSysMT', in_place=True, attribute_policy='intersection', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "to_molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.append_structures:append_structures",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.are_multiple_molecular_systems",
+      "module": "basic",
+      "signature": "(molecular_systems)",
+      "exposed": true,
+      "primary_parameter": "molecular_systems",
+      "input_kind": "explicit_collection",
+      "implementation": "molsysmt.basic.are_multiple_molecular_systems:are_multiple_molecular_systems",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.compare",
+      "module": "basic",
+      "signature": "(molecular_system, molecular_system_2, selection='all', structure_indices='all', selection_2='all', structure_indices_2='all', syntax='MolSysMT', rule='equal', output_type='boolean', attribute_type=None, include_none=False, redefine_indices=False, skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.compare:compare",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.compose_atom_maps",
+      "module": "basic",
+      "signature": "(atom_maps, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.basic.compose_atom_maps:compose_atom_maps",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.concatenate_structures",
+      "module": "basic",
+      "signature": "(molecular_systems, selections='all', structure_indices='all', to_form=None, syntax='MolSysMT', attribute_policy='intersection', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_systems",
+      "input_kind": "explicit_collection",
+      "implementation": "molsysmt.basic.concatenate_structures:concatenate_structures",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.contains",
+      "module": "basic",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.contains:contains",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.convert",
+      "module": "basic",
+      "signature": "(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', strict=False, return_report=False, skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.convert:convert",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.copy",
+      "module": "basic",
+      "signature": "(molecular_system, output_filename=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.copy:copy",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.extract",
+      "module": "basic",
+      "signature": "(molecular_system, selection='all', structure_indices='all', to_form=None, output_filename=None, copy_if_all=True, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.extract:extract",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.get",
+      "module": "basic",
+      "signature": "(molecular_system, element='system', selection='all', structure_indices='all', mask=None, syntax='MolSysMT', get_missing_bonds=True, output_type='values', chemical_state='reference', skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.get:get",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.get_attributes",
+      "module": "basic",
+      "signature": "(molecular_system, include_none=False, attribute_type='all', output_type='list', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.get_attributes:get_attributes",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.get_conversion_report",
+      "module": "basic",
+      "signature": "(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.get_conversion_report:get_conversion_report",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.get_form",
+      "module": "basic",
+      "signature": "(molecular_system)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.get_form:get_form",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.get_label",
+      "module": "basic",
+      "signature": "(molecular_system, element='atom', selection='all', string='{name}-{id}@{index}', syntax='MolSysMT', skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.get_label:get_label",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.has_attribute",
+      "module": "basic",
+      "signature": "(molecular_system, attribute, include_none=False, structure_indices='all', chemical_state='reference', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.has_attribute:has_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.info",
+      "module": "basic",
+      "signature": "(molecular_system, element='system', selection='all', structure_indices='all', syntax='MolSysMT', output_type='styler', skip_digestion=False, *, mask=None)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.info:info",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.is_a_molecular_system",
+      "module": "basic",
+      "signature": "(molecular_system)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.is_a_molecular_system:is_a_molecular_system",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.is_composed_of",
+      "module": "basic",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.is_composed_of:is_composed_of",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.merge",
+      "module": "basic",
+      "signature": "(molecular_systems, selections='all', structure_indices='all', keep_ids=True, syntax='MolSysMT', to_form=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_systems",
+      "input_kind": "explicit_collection",
+      "implementation": "molsysmt.basic.merge:merge",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.permute_atoms",
+      "module": "basic",
+      "signature": "(molecular_system, atom_indices, return_report=False, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.permute_atoms:permute_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.remove",
+      "module": "basic",
+      "signature": "(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.remove:remove",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.select",
+      "module": "basic",
+      "signature": "(molecular_system, selection='all', structure_indices='all', element='atom', mask=None, syntax='MolSysMT', to_syntax=None, chemical_state='reference', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.select:select",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.set",
+      "module": "basic",
+      "signature": "(molecular_system, element=None, selection='all', structure_indices='all', syntax='MolSysMT', chemical_state='reference', skip_digestion=False, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.set:set",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.view",
+      "module": "basic",
+      "signature": "(molecular_system=None, selection='all', structure_indices='all', viewer='MolSysViewer', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.view:view",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "basic.where_is_attribute",
+      "module": "basic",
+      "signature": "(molecular_system, attribute, include_none=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.basic.where_is_attribute:where_is_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_atom_correspondences",
+      "module": "topology",
+      "signature": "(molecular_system, selection='all', structure_indices='all', reference_molecular_system=None, reference_selection=None, reference_structure_indices='all', chemical_state='reference', reference_chemical_state='reference', method='declared_graph_isomorphism', max_matches=100000, syntax='MolSysMT', skip_digestion=False, *, fixed_atom_correspondence=None, candidate_atom_correspondences=None)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_atom_correspondences:get_atom_correspondences",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_bondgraph",
+      "module": "topology",
+      "signature": "(molecular_system, nodes_name='atom_index', selection='all', syntax='MolSysMT', to_form='networkx.Graph', *, chemical_state='reference', structure_indices='all', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_bondgraph:get_bondgraph",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_covalent_blocks",
+      "module": "topology",
+      "signature": "(molecular_system, selection='all', remove_bonds=None, output_type='sets', syntax='MolSysMT', *, chemical_state='reference', structure_indices='all', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_covalent_blocks:get_covalent_blocks",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_covalent_paths",
+      "module": "topology",
+      "signature": "(molecular_system, path=None, selection='all', syntax='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_covalent_paths:get_covalent_paths",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_dihedral_quartets",
+      "module": "topology",
+      "signature": "(molecular_system, with_blocks=False, selection='all', syntax='MolSysMT', **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_dihedral_quartets:get_dihedral_quartets",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_rigid_fragments",
+      "module": "topology",
+      "signature": "(molecular_system, bond_indices=None, chemical_state='reference', structure_indices='all', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_rigid_fragments:get_rigid_fragments",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_rings",
+      "module": "topology",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='minimum_cycle_basis', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_cyclic_block_size=256)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_rings:get_rings",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_rotatable_bonds",
+      "module": "topology",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='conjugation_restricted', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_rotatable_bonds:get_rotatable_bonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_sequence_alignment",
+      "module": "topology",
+      "signature": "(molecular_system, selection='all', reference_molecular_system=None, reference_selection='all', engine='Biopython', syntax='MolSysMT', prettyprint=False, alignment_index=0, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_sequence_alignment:get_sequence_alignment",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_sequence_identity",
+      "module": "topology",
+      "signature": "(molecular_system, selection='all', reference_molecular_system=None, reference_selection='all', syntax='MolSysMT', engine='Biopython', *, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_sequence_identity:get_sequence_identity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "topology.get_substructure_matches",
+      "module": "topology",
+      "signature": "(molecular_system, patterns, selection='all', structure_indices='all', chemical_state='reference', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_matches=100000)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.topology.get_substructure_matches:get_substructure_matches",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.align_principal_axes",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', principal_axes_of_selection=None, principal_axes_type='inertia', structure_indices='all', weights=None, axes=None, center=False, syntax='MolSysMT', engine='MolSysMT', in_place=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.align_principal_axes:align_principal_axes",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.center",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', source_center_selection=None, target_center_selection=None, target_coordinates=None, weights=None, structure_indices='all', syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.center:center",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.flip",
+      "module": "structure",
+      "signature": "(molecular_system, vector=None, point='[0,0,0] nm', selection='all', structure_indices='all', syntax='MolSysMT', in_place=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.flip:flip",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_angles",
+      "module": "structure",
+      "signature": "(molecular_system, triplets, structure_indices='all', pbc=False, use_gpu=None, gpu_backend=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_angles:get_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_center",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', weights=None, structure_indices='all', syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_center:get_center",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_contacts",
+      "module": "structure",
+      "signature": "(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices='all', selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None, threshold='12 angstroms', pairs=False, pbc=True, syntax='MolSysMT', output_type='numpy.ndarray', output_indices=None, use_gpu=None, gpu_backend=None, cell_list=None, parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_contacts:get_contacts",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_dihedral_angles",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', dihedral_quartets=None, structure_indices='all', syntax='MolSysMT', pbc=False, use_gpu=None, **kwargs)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_dihedral_angles:get_dihedral_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_distances",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', center_of_atoms=False, weights=None, molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None, pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None, engine='MolSysMT', syntax='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_distances:get_distances",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_least_rmsd",
+      "module": "structure",
+      "signature": "(molecular_system, selection='atom_type!=\"H\"', structure_indices='all', reference_molecular_system=None, reference_selection=None, reference_structure_index=0, syntax='MolSysMT', engine='MolSysMT', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_least_rmsd:get_least_rmsd",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_least_squares_plane",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', pbc=False, syntax='MolSysMT', heavy_mode='auto', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_least_squares_plane:get_least_squares_plane",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_maximum_distances",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', center_of_atoms=False, weights=None, as_entity=True, structure_indices='all', molecular_system_2=None, selection_2=None, center_of_atoms_2=False, weights_2=None, as_entity_2=True, structure_indices_2=None, pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_maximum_distances:get_maximum_distances",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_minimum_distances",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', center_of_atoms=False, weights=None, as_entity=True, structure_indices='all', molecular_system_2=None, selection_2=None, center_of_atoms_2=False, weights_2=None, as_entity_2=True, structure_indices_2=None, pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_minimum_distances:get_minimum_distances",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_neighbors",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', center_of_atoms=False, weights=None, molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None, threshold=None, n_neighbors=None, pairs=False, unique_pairs=False, mutual_only=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None, sorted=True, engine='MolSysMT', syntax='MolSysMT', parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_neighbors:get_neighbors",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_principal_axes",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', weights=None, principal_axes_type='inertia', syntax='MolSysMT', engine='MolSysMT', use_gpu=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_principal_axes:get_principal_axes",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_radius_of_gyration",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', weights=None, syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_radius_of_gyration:get_radius_of_gyration",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_rmsd",
+      "module": "structure",
+      "signature": "(molecular_system, selection='atom_type!=\"H\"', structure_indices='all', reference_molecular_system=None, reference_selection=None, reference_structure_index=0, syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_rmsd:get_rmsd",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_rmsf",
+      "module": "structure",
+      "signature": "(molecular_system, selection='atom_type!=\"H\"', structure_indices='all', syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_rmsf:get_rmsf",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_secondary_structure",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', simplified=True, syntax='MolSysMT', engine='MDTraj')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_secondary_structure:get_secondary_structure",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_symmetry_corrected_rmsd",
+      "module": "structure",
+      "signature": "(molecular_system, selection='atom_type!=\"H\"', structure_indices='all', reference_molecular_system=None, reference_selection=None, reference_structure_index=0, chemical_state='reference', reference_chemical_state='reference', correspondences=None, baseline_atom_correspondence=None, method='declared_graph_isomorphism', max_matches=100000, tie_tolerance='1e-12 nm', syntax='MolSysMT', heavy_mode='auto', parallel=None, num_threads=None, skip_digestion=False, *, fixed_atom_correspondence=None, candidate_atom_correspondences=None)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_symmetry_corrected_rmsd:get_symmetry_corrected_rmsd",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.get_vectors",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', center_of_atoms=False, weights=None, molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None, pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None, engine='MolSysMT', syntax='MolSysMT', heavy_mode='auto', parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.get_vectors:get_vectors",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.least_rmsd_align",
+      "module": "structure",
+      "signature": "(molecular_system, selection='atom_name==\"CA\"', structure_indices='all', reference_molecular_system=None, reference_selection=None, reference_structure_index=0, syntax='MolSysMT', engine_sequence_alignment='Biopython', engine_least_rmsd_fit='MolSysMT', in_place=False, use_gpu=None, gpu_backend=None, precision=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.least_rmsd_align:least_rmsd_align",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.least_rmsd_fit",
+      "module": "structure",
+      "signature": "(molecular_system=None, selection='all', selection_fit='atom_type!=\"H\"', structure_indices='all', reference_molecular_system=None, reference_selection_fit=None, reference_structure_index=0, to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT', parallel=None, num_threads=None, use_gpu=None, gpu_backend=None, precision=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.least_rmsd_fit:least_rmsd_fit",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.move_away",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', center_of_selection='all', weights=None, structure_indices=0, reference_molecular_system=None, reference_center_of_selection='all', reference_weights=None, reference_structure_indices=None, direction=None, distance='3 angstroms', in_place=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.move_away:move_away",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.principal_component_analysis",
+      "module": "structure",
+      "signature": "(molecular_system, selection='all', structure_indices='all', weights=None, syntax='MolSysMT', engine='MolSysMT', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.principal_component_analysis:principal_component_analysis",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.rotate",
+      "module": "structure",
+      "signature": "(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all', syntax='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.rotate:rotate",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.set_dihedral_angles",
+      "module": "structure",
+      "signature": "(molecular_system, dihedral_quartets=None, angles=None, blocks=None, structure_indices='all', pbc=True, in_place=False, engine='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.set_dihedral_angles:set_dihedral_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.shift_dihedral_angles",
+      "module": "structure",
+      "signature": "(molecular_system, dihedral_quartets=None, shifts=None, blocks=None, structure_indices='all', pbc=True, in_place=False, engine='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.shift_dihedral_angles:shift_dihedral_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "structure.translate",
+      "module": "structure",
+      "signature": "(molecular_system, translation=None, selection='all', structure_indices='all', syntax='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.structure.translate:translate",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_angles_from_box",
+      "module": "pbc",
+      "signature": "(box, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_angles_from_box:get_angles_from_box",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_box_from_lengths_and_angles",
+      "module": "pbc",
+      "signature": "(box_lengths, box_angles=None, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_box_from_lengths_and_angles:get_box_from_lengths_and_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_box_with_shape",
+      "module": "pbc",
+      "signature": "(shape='cubic', length='1 nm', n_structures=1, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_box_with_shape:get_box_with_shape",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_lengths_and_angles_from_box",
+      "module": "pbc",
+      "signature": "(box, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_lengths_and_angles_from_box:get_lengths_and_angles_from_box",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_lengths_from_box",
+      "module": "pbc",
+      "signature": "(box, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_lengths_from_box:get_lengths_from_box",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_shape_from_angles",
+      "module": "pbc",
+      "signature": "(box_angles, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_shape_from_angles:get_shape_from_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_shape_from_box",
+      "module": "pbc",
+      "signature": "(box, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_shape_from_box:get_shape_from_box",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_volume_from_box",
+      "module": "pbc",
+      "signature": "(box)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_volume_from_box:get_volume_from_box",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.get_volume_from_lengths_and_angles",
+      "module": "pbc",
+      "signature": "(box_lengths, box_angles)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.pbc.get_volume_from_lengths_and_angles:get_volume_from_lengths_and_angles",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.has_pbc",
+      "module": "pbc",
+      "signature": "(molecular_system, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.pbc.has_pbc:has_pbc",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.unwrap",
+      "module": "pbc",
+      "signature": "(molecular_system, selection='all', structure_indices='all', syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.pbc.unwrap:unwrap",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.wrap_to_mic",
+      "module": "pbc",
+      "signature": "(molecular_system, selection='all', structure_indices='all', mic_origin='[0,0,0] nanometers', center_of_selection=None, center_coordinates='[0,0,0] nanometers', weights=None, compact='component', syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.pbc.wrap_to_mic:wrap_to_mic",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "pbc.wrap_to_pbc",
+      "module": "pbc",
+      "signature": "(molecular_system, selection='all', structure_indices='all', box_origin='[0,0,0] nanometers', box_center=None, center_of_selection=None, weights=None, center_coordinates='[0,0,0] nanometers', compact='component', syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.pbc.wrap_to_pbc:wrap_to_pbc",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.apply_chemical_template",
+      "module": "physchem",
+      "signature": "(molecular_system, template, atom_correspondence, template_provenance, chemical_state='reference', template_chemical_state='reference', skip_digestion=False, *, connectivity_policy='require_same_graph', selection='all', syntax='MolSysMT', context_atom_correspondence=None)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.apply_chemical_template:apply_chemical_template",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.assess_chemical_template",
+      "module": "physchem",
+      "signature": "(molecular_system, template, atom_correspondence, template_provenance, chemical_state='reference', template_chemical_state='reference', skip_digestion=False, *, connectivity_policy='require_same_graph', selection='all', syntax='MolSysMT', context_atom_correspondence=None)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.assess_chemical_template:assess_chemical_template",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_area_buried",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', definition='rose', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_area_buried:get_area_buried",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_aromatic_rings",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', definition='stored_aromatic_bonds', method='minimum_cycle_basis', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_cyclic_block_size=256)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_aromatic_rings:get_aromatic_rings",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_aromaticity",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='fused_ring_electron_count', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_aromaticity:get_aromaticity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_atomic_radius",
+      "module": "physchem",
+      "signature": "(molecular_system, element='atom', selection='all', definition='vdw', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_atomic_radius:get_atomic_radius",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_autodock_atom_types",
+      "module": "physchem",
+      "signature": "(molecular_system, typing_scheme, selection='all', structure_indices='all', chemical_state='reference', method='chemical_environment', return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_autodock_atom_types:get_autodock_atom_types",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_bulkiness",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', definition='zimmerman', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_bulkiness:get_bulkiness",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_buried_fraction",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', definition='janin', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_buried_fraction:get_buried_fraction",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_charge",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', definition='physical_pH7', forcefield='AMBER14', water_model=None, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_charge:get_charge",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_charge_centers",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', definition='formal_charge', chemical_state='reference', structure_indices='all', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_charge_centers:get_charge_centers",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_chemical_readiness",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_chemical_readiness:get_chemical_readiness",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_cip_stereochemistry",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', engine='rdkit', syntax='MolSysMT', skip_digestion=False, *, from_coordinates=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_cip_stereochemistry:get_cip_stereochemistry",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_electronegativity",
+      "module": "physchem",
+      "signature": "(molecular_system, element='atom', selection='all', definition='pauling', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_electronegativity:get_electronegativity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_halogen_bond_sites",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='smarts_donor_acceptor', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_matches=100000)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_halogen_bond_sites:get_halogen_bond_sites",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_hydrogen_inventory",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_hydrogen_inventory:get_hydrogen_inventory",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_hydrophobic_sites",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='smarts_hydrophobic_atoms', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_matches=100000)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_hydrophobic_sites:get_hydrophobic_sites",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_hydrophobicity",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', definition='eisenberg', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_hydrophobicity:get_hydrophobicity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_lipophilicity",
+      "module": "physchem",
+      "signature": "(molecular_system, element='molecule', selection='all', structure_indices='all', chemical_state='reference', method='wildman_crippen', return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_lipophilicity:get_lipophilicity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_mass",
+      "module": "physchem",
+      "signature": "(molecular_system, element='system', selection='all', syntax='MolSysMT', definition='physical', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_mass:get_mass",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_metal_coordination_sites",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='smarts_metal_ligand', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_matches=100000)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_metal_coordination_sites:get_metal_coordination_sites",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_partial_charges",
+      "module": "physchem",
+      "signature": "(molecular_system, method, selection='all', structure_indices='all', chemical_state='reference', forcefield=None, water_model=None, expected_total_charge=None, return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_partial_charges:get_partial_charges",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_peptide_chemical_template",
+      "module": "physchem",
+      "signature": "(residue_names, n_terminal_state, c_terminal_state, skip_digestion=False, *, disulfide_group_pairs=None)",
+      "exposed": true,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.physchem.get_peptide_chemical_template:get_peptide_chemical_template",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_polarity",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', syntax='MolSysMT', definition='grantham', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_polarity:get_polarity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_protor_atom_type",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.atoms.protor:get_protor_atom_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_protor_vdw_radius",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.atoms.protor:get_protor_vdw_radius",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_sasa",
+      "module": "physchem",
+      "signature": "(molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT', engine='MolSysMT', probe_radius='1.4 angstroms', n_sphere_points=240, use_cell_list='auto', use_gpu=None, gpu_backend=None, parallel=None, num_threads=None, skip_digestion=False, *, pbc=True)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_sasa:get_sasa",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_secondary_structure_propensity",
+      "module": "physchem",
+      "signature": "(molecular_system, conformation, element='group', selection='all', definition='levitt_1978_weighted', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_secondary_structure_propensity:get_secondary_structure_propensity",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_surface_area",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', syntax='MolSysMT', definition='collantes', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_surface_area:get_surface_area",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_tpsa",
+      "module": "physchem",
+      "signature": "(molecular_system, element='molecule', selection='all', structure_indices='all', chemical_state='reference', method='ertl_rohde_selzer', include_sulfur_phosphorus=False, return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_tpsa:get_tpsa",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_transmembrane_tendency",
+      "module": "physchem",
+      "signature": "(molecular_system, element='group', selection='all', syntax='MolSysMT', definition='zhao', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_transmembrane_tendency:get_transmembrane_tendency",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_volume",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', definition='grantham')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_volume:get_volume",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.get_water_sites",
+      "module": "physchem",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='explicit_water_graph', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_matches=100000)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.get_water_sites:get_water_sites",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "physchem.normalize_aromatic_bond_orders",
+      "module": "physchem",
+      "signature": "(molecular_system, chemical_state='reference', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.physchem.normalize_aromatic_bond_orders:normalize_aromatic_bond_orders",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.add_missing_bonds",
+      "module": "build",
+      "signature": "(molecular_system, max_bond_length='2 angstroms', selection='all', structure_index=0, syntax='MolSysMT', engine='MolSysMT', in_place=True, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.add_missing_bonds:add_missing_bonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.add_missing_heavy_atoms",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT', skip_digestion=False, *, attribute_policy='intersection')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.add_missing_heavy_atoms:add_missing_heavy_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.add_missing_hydrogens",
+      "module": "build",
+      "signature": "(molecular_system, pH=7.4, engine='OpenMM', skip_digestion=False, *, mode='pH', chemical_state='reference', structure_indices='all', return_report=False, attribute_policy='intersection')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.add_missing_hydrogens:add_missing_hydrogens",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.add_missing_terminal_cappings",
+      "module": "build",
+      "signature": "(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, keep_ids=False, selection='all', syntax='MolSysMT', engine='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.add_missing_terminal_cappings:add_missing_terminal_cappings",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.add_terminal_atoms",
+      "module": "build",
+      "signature": "(molecular_system, new_atoms, coordinates, attribute_policy='intersection', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.add_terminal_atoms:add_terminal_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.assign_autodock_atom_types",
+      "module": "build",
+      "signature": "(molecular_system, typing_scheme, structure_indices='all', chemical_state='reference', method='chemical_environment', return_report=False, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.assign_autodock_atom_types:assign_autodock_atom_types",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.assign_partial_charges",
+      "module": "build",
+      "signature": "(molecular_system, method, structure_indices='all', chemical_state='reference', forcefield=None, water_model=None, expected_total_charge=None, return_report=False, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.assign_partial_charges:assign_partial_charges",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.build_peptide",
+      "module": "build",
+      "signature": "(molecular_system, to_form='molsysmt.MolSys', engine='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.build_peptide:build_peptide",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.editable",
+      "module": "build",
+      "signature": "(molecular_system=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.editable:editable",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_covalent_bond_candidates",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', syntax='MolSysMT', skip_digestion=False, *, method='exact_heavy_group_templates')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_covalent_bond_candidates:get_covalent_bond_candidates",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_disulfide_bonds",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_index=0, max_bond_length=None, group_names=None, pbc=True, syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_disulfide_bonds:get_disulfide_bonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_missing_bonds",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_index=0, max_bond_length='2 angstroms', disulfide_bonds=False, disulfide_group_names=None, pbc=True, syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_missing_bonds:get_missing_bonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_missing_heavy_atoms",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_missing_heavy_atoms:get_missing_heavy_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_missing_residues",
+      "module": "build",
+      "signature": "(molecular_system, sequence=None, selection='all', syntax='MolSysMT', engine='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_missing_residues:get_missing_residues",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_missing_terminal_cappings",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_missing_terminal_cappings:get_missing_terminal_cappings",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_non_standard_residues",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_non_standard_residues:get_non_standard_residues",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_peptide_bond_candidates",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', max_bond_length='2 angstroms', pbc=False, syntax='MolSysMT', skip_digestion=False, *, method='adjacent_backbone_distance')",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_peptide_bond_candidates:get_peptide_bond_candidates",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.get_residue_chemical_coverage",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.get_residue_chemical_coverage:get_residue_chemical_coverage",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.has_hydrogens",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.has_hydrogens:has_hydrogens",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.infer_covalent_bonds",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='supported_group_templates', return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.infer_covalent_bonds:infer_covalent_bonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.is_solvated",
+      "module": "build",
+      "signature": "(molecular_system, skip_digestion=False)",
+      "exposed": true,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.is_solvated:is_solvated",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.make_bioassembly",
+      "module": "build",
+      "signature": "(molecular_system, bioassembly=None, structure_indices=0, to_form=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.make_bioassembly:make_bioassembly",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.make_water_box",
+      "module": "build",
+      "signature": "(box, form='molsysmt.MolSys', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.build.make_water_box:make_water_box",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.merge_nonpolar_hydrogens",
+      "module": "build",
+      "signature": "(molecular_system, typing_scheme, selection='all', structure_indices='all', chemical_state='reference', return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.merge_nonpolar_hydrogens:merge_nonpolar_hydrogens",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.mutate",
+      "module": "build",
+      "signature": "(molecular_system, mutations=None, keys='group_index', selection='all', syntax='MolSysMT', engine='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.mutate:mutate",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.project_atom_names",
+      "module": "build",
+      "signature": "(molecular_system, target_form, selection='all', return_report=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.project_atom_names:project_atom_names",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.reconcile_protonation",
+      "module": "build",
+      "signature": "(molecular_system, pH=7.4, engine='MolSysMT', in_place=False, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.reconcile_protonation:reconcile_protonation",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.remove_overlapping_molecules",
+      "module": "build",
+      "signature": "(molecular_system, selection, selection_2=None, structure_index=0, threshold='3 angstroms', pbc=True, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.remove_overlapping_molecules:remove_overlapping_molecules",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.solvate",
+      "module": "build",
+      "signature": "(molecular_system, box_shape='truncated octahedral', clearance='14.0 angstroms', anion='Cl-', n_anions='neutralize', cation='Na+', n_cations='neutralize', ionic_strength='0.0 molar', water_model='TIP3P', engine='OpenMM', to_form=None, verbose=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.solvate:solvate",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "build.solve_atoms_with_alternate_location",
+      "module": "build",
+      "signature": "(molecular_system, selection='all', structure_indices='all', location_id='occupancy', syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.build.solve_atoms_with_alternate_location:solve_atoms_with_alternate_location",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "molecular_mechanics.get_degrees_of_freedom",
+      "module": "molecular_mechanics",
+      "signature": "(molecular_system, forcefield='AMBER14', water_model=None, implicit_solvent=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.molecular_mechanics.get_degrees_of_freedom:get_degrees_of_freedom",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "molecular_mechanics.get_engine_forcefield",
+      "module": "molecular_mechanics",
+      "signature": "(forcefield, implicit_solvent=None, water_model=None, engine='OpenMM', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.molecular_mechanics.get_engine_forcefield:get_engine_forcefield",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "molecular_mechanics.get_forces",
+      "module": "molecular_mechanics",
+      "signature": "(molecular_system, element='atom', selection='all', magnitude=False, engine='OpenMM', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.molecular_mechanics.get_forces:get_forces",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "molecular_mechanics.get_non_bonded_potential_energy",
+      "module": "molecular_mechanics",
+      "signature": "(molecular_system, selection='all', selection_2=None, platform='CPU', engine='OpenMM', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.molecular_mechanics.get_non_bonded_potential_energy:get_non_bonded_potential_energy",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "molecular_mechanics.get_potential_energy",
+      "module": "molecular_mechanics",
+      "signature": "(molecular_system, selection='all', decomposition=False, platform='CPU', engine='OpenMM', syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.molecular_mechanics.get_potential_energy:get_potential_energy",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "molecular_mechanics.potential_energy_minimization",
+      "module": "molecular_mechanics",
+      "signature": "(molecular_system, method='L-BFGS', platform='CPU', engine='OpenMM', to_form=None, in_place=False, verbose=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.molecular_mechanics.potential_energy_minimization:potential_energy_minimization",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.cation_pi.get_cation_pi_interactions",
+      "module": "interactions.cation_pi",
+      "signature": "(molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None, planarity_threshold=None, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='centroid_distance_angle', selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, max_cyclic_block_size=256, max_matches=100000, heavy_mode='auto', profile=None)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.cation_pi.get_cation_pi_interactions:get_cation_pi_interactions",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.disulfides.get_disulfide_candidates",
+      "module": "interactions.disulfides",
+      "signature": "(molecular_system, selection='all', structure_indices='all', max_bond_length=None, group_names=None, pbc=True, syntax='MolSysMT', sorted=True, skip_digestion=False, *, output_type='tuple')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.disulfides.get_disulfide_candidates:get_disulfide_candidates",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.halogen_bonds.get_halogen_bonds",
+      "module": "interactions.halogen_bonds",
+      "signature": "(molecular_system, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='distance_two_angles', distance_threshold=None, donor_angle_range=None, acceptor_angle_range=None, selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, max_matches=100000, heavy_mode='auto', profile=None)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.halogen_bonds.get_halogen_bonds:get_halogen_bonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_acceptor_atoms",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', inclusion_rules=None, exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_acceptor_atoms:get_acceptor_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_buch_hbonds",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all', molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None, distance_threshold='2.3 angstroms', pbc=True, syntax='MolSysMT', skip_digestion=False, *, output_type='tuple')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_buch_hbonds:get_buch_hbonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_donor_atoms",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', inclusion_rules=None, exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_donor_atoms:get_donor_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_hbond_site_directions",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='ideal_local_geometry', site_method='smarts_donor_acceptor', assume_complete_connectivity=False, pbc=True, syntax='MolSysMT', heavy_mode='auto', skip_digestion=False, *, max_matches=100000)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_hbond_site_directions:get_hbond_site_directions",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_hbond_sites",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', structure_indices='all', chemical_state='reference', method='elemental_nitrogen_oxygen', assume_complete_connectivity=False, syntax='MolSysMT', skip_digestion=False, *, max_matches=100000)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_hbond_sites:get_hbond_sites",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_hbonds",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='baker_hubbard', distance_threshold=None, angle_threshold=None, selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, donor_hydrogen_pairs=None, acceptor_atom_indices=None, max_matches=100000, heavy_mode='auto', profile=None)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_hbonds:get_hbonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hbonds.get_luzard_chandler_hbonds",
+      "module": "interactions.hbonds",
+      "signature": "(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all', molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None, distance_threshold='3.5 angstroms', angle_threshold='30 degrees', pbc=True, syntax='MolSysMT', *, output_type='tuple', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds:get_luzard_chandler_hbonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.hydrophobic.get_hydrophobic_interactions",
+      "module": "interactions.hydrophobic",
+      "signature": "(molecular_system, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='atom_pair_distance', distance_threshold=None, selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, max_matches=100000, heavy_mode='auto', profile=None)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hydrophobic.get_hydrophobic_interactions:get_hydrophobic_interactions",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.ionic.get_ionic_interactions",
+      "module": "interactions.ionic",
+      "signature": "(molecular_system, distance_threshold, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='minimum_distance', selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, heavy_mode='auto')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.ionic.get_ionic_interactions:get_ionic_interactions",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.metal_coordination.get_metal_coordination",
+      "module": "interactions.metal_coordination",
+      "signature": "(molecular_system, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='metal_ligand_distance', distance_threshold=None, selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, max_matches=100000, heavy_mode='auto', profile=None)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.metal_coordination.get_metal_coordination:get_metal_coordination",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.pi_pi.get_pi_pi_interactions",
+      "module": "interactions.pi_pi",
+      "signature": "(molecular_system, distance_threshold=None, angle_threshold=None, offset_threshold=None, planarity_threshold=None, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='centroid_angle_offset', selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, geometry='both', max_cyclic_block_size=256, max_matches=100000, heavy_mode='auto', profile=None)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.pi_pi.get_pi_pi_interactions:get_pi_pi_interactions",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "interactions.water_bridges.get_water_bridges",
+      "module": "interactions.water_bridges",
+      "signature": "(molecular_system, selection='all', selection_2=None, structure_indices='all', chemical_state='reference', method='hbond_water_path', distance_threshold=None, angle_threshold=None, selection_mode='internal', pbc=True, assume_complete_connectivity=False, output_type='molsysmt.Interactions', syntax='MolSysMT', skip_digestion=False, *, hbond_method='baker_hubbard', hbond_profile=None, max_matches=100000, heavy_mode='auto', profile=None, order=1)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.water_bridges.get_water_bridges:get_water_bridges",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.is_composed_of",
+      "module": "element",
+      "signature": "(element_1, element_2)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.is_composed_of:is_composed_of",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.is_element",
+      "module": "element",
+      "signature": "(element)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.is_element:is_element",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.atom.get_atom_type_from_atom_ff_type",
+      "module": "element.atom",
+      "signature": "(atom_ff_type, typing_scheme='autodock4', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.atom.get_atom_type_from_atom_ff_type:get_atom_type_from_atom_ff_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.atom.get_atom_type_from_atom_name",
+      "module": "element.atom",
+      "signature": "(atom_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.atom.get_atom_type_from_atom_name:get_atom_type_from_atom_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.atom.is_atom_type",
+      "module": "element.atom",
+      "signature": "(atom_type, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.atom.is_atom_type:is_atom_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.atom.normalize_atom_types",
+      "module": "element.atom",
+      "signature": "(atom_type, isotope=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.atom.normalize_atom_types:normalize_atom_types",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.chain.get_chain_id",
+      "module": "element.chain",
+      "signature": "(molecular_system, element='atom', selection='all', redefine_indices=False, redefine_ids=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.chain.get_chain_id:get_chain_id",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.chain.get_chain_index",
+      "module": "element.chain",
+      "signature": "(molecular_system, element='atom', selection='all', redefine_indices=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.chain.get_chain_index:get_chain_index",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.chain.get_chain_name",
+      "module": "element.chain",
+      "signature": "(molecular_system, element='atom', selection='all', redefine_indices=False, redefine_ids=False, redefine_names=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.chain.get_chain_name:get_chain_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.chain.get_chain_type",
+      "module": "element.chain",
+      "signature": "(molecular_system, element='atom', selection='all', redefine_indices=False, redefine_types=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.chain.get_chain_type:get_chain_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.component.get_component_id",
+      "module": "element.component",
+      "signature": "(molecular_system, element='component', selection='all', redefine_indices=False, redefine_ids=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.component.get_component_id:get_component_id",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.component.get_component_index",
+      "module": "element.component",
+      "signature": "(molecular_system, element='component', selection='all', redefine_indices=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.component.get_component_index:get_component_index",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.component.get_component_name",
+      "module": "element.component",
+      "signature": "(molecular_system, element='component', selection='all', redefine_indices=False, redefine_names=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.component.get_component_name:get_component_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.component.get_component_type",
+      "module": "element.component",
+      "signature": "(molecular_system, element='component', selection='all', redefine_indices=False, redefine_types=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.component.get_component_type:get_component_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.component.get_n_components",
+      "module": "element.component",
+      "signature": "(molecular_system, selection='all', redefine_components=False, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.component.get_n_components:get_n_components",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.component.is_component_type",
+      "module": "element.component",
+      "signature": "(component_type)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.component.is_component_type:is_component_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.entity.get_entity_id",
+      "module": "element.entity",
+      "signature": "(molecular_system, element='entity', selection='all', redefine_indices=False, redefine_ids=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.entity.get_entity_id:get_entity_id",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.entity.get_entity_index",
+      "module": "element.entity",
+      "signature": "(molecular_system, element='entity', selection='all', redefine_indices=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.entity.get_entity_index:get_entity_index",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.entity.get_entity_name",
+      "module": "element.entity",
+      "signature": "(molecular_system, element='entity', selection='all', redefine_indices=False, redefine_names=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.entity.get_entity_name:get_entity_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.entity.get_entity_type",
+      "module": "element.entity",
+      "signature": "(molecular_system, element='entity', selection='all', redefine_indices=False, redefine_types=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.entity.get_entity_type:get_entity_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.entity.get_n_entities",
+      "module": "element.entity",
+      "signature": "(molecular_system, selection='all', redefine_entities=False, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.entity.get_n_entities:get_n_entities",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.get_bonded_atom_pairs",
+      "module": "element.group",
+      "signature": "(group_name, atom_names, atom_indices=None, sorted=True)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.get_group_type",
+      "module": "element.group",
+      "signature": "(molecular_system, element='group', selection='all', redefine_types=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.group.get_group_type:get_group_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.get_group_type_from_group_name",
+      "module": "element.group",
+      "signature": "(group_name, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.get_group_type:get_group_type_from_group_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.is_group_type",
+      "module": "element.group",
+      "signature": "(group_type)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.is_group_type:is_group_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.get_1_letter_code_from_name",
+      "module": "element.group.amino_acid",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.get_1_letter_code_from_name:get_1_letter_code_from_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.get_bonded_atom_pairs",
+      "module": "element.group.amino_acid",
+      "signature": "(group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.get_expected_heavy_atoms",
+      "module": "element.group.amino_acid",
+      "signature": "(group_name, present_atom_names=None)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.get_expected_heavy_atoms:get_expected_heavy_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.get_expected_hydrogens",
+      "module": "element.group.amino_acid",
+      "signature": "(group_name, present_atom_names=None, pH=7.4, is_n_terminal=False, is_c_terminal=False, is_disulfide=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.get_expected_hydrogens:get_expected_hydrogens",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.get_group_db",
+      "module": "element.group.amino_acid",
+      "signature": "(group_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.get_group_db:get_group_db",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.get_standard_name",
+      "module": "element.group.amino_acid",
+      "signature": "(group_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.get_standard_name:get_standard_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.amino_acid.is_amino_acid",
+      "module": "element.group.amino_acid",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.amino_acid.is_amino_acid:is_amino_acid",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.ion.get_bonded_atom_pairs",
+      "module": "element.group.ion",
+      "signature": "(group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.ion.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.ion.get_group_db",
+      "module": "element.group.ion",
+      "signature": "(group_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.ion.get_group_db:get_group_db",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.ion.is_ion",
+      "module": "element.group.ion",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.ion.is_ion:is_ion",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.lipid.is_lipid",
+      "module": "element.group.lipid",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.lipid.is_lipid:is_lipid",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.nucleotide.is_nucleotide",
+      "module": "element.group.nucleotide",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.nucleotide.is_nucleotide:is_nucleotide",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.saccharide.get_bonded_atom_pairs",
+      "module": "element.group.saccharide",
+      "signature": "(group_name, atom_names, atom_indices=None, sorted=True)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.saccharide.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.saccharide.get_group_db",
+      "module": "element.group.saccharide",
+      "signature": "(group_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.saccharide.get_group_db:get_group_db",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.saccharide.is_saccharide",
+      "module": "element.group.saccharide",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.saccharide.is_saccharide:is_saccharide",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.small_molecule.get_bonded_atom_pairs",
+      "module": "element.group.small_molecule",
+      "signature": "(group_name, atom_names, atom_indices=None, sorted=True)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.small_molecule.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.small_molecule.get_group_db",
+      "module": "element.group.small_molecule",
+      "signature": "(group_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.small_molecule.get_group_db:get_group_db",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.small_molecule.is_small_molecule",
+      "module": "element.group.small_molecule",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.small_molecule.is_small_molecule:is_small_molecule",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.small_molecule.small_molecule_is_amino_acid",
+      "module": "element.group.small_molecule",
+      "signature": "(molecular_system, group_name)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.group.small_molecule.small_molecule_is_amino_acid:small_molecule_is_amino_acid",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.terminal_capping.get_bonded_atom_pairs",
+      "module": "element.group.terminal_capping",
+      "signature": "(group_name, atom_names, atom_indices=None, sorted=True)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.terminal_capping.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.terminal_capping.get_group_db",
+      "module": "element.group.terminal_capping",
+      "signature": "(group_name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.terminal_capping.get_group_db:get_group_db",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.terminal_capping.is_c_terminal_capping",
+      "module": "element.group.terminal_capping",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.terminal_capping.is_c_terminal_capping:is_c_terminal_capping",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.terminal_capping.is_n_terminal_capping",
+      "module": "element.group.terminal_capping",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.terminal_capping.is_n_terminal_capping:is_n_terminal_capping",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.terminal_capping.is_terminal_capping",
+      "module": "element.group.terminal_capping",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.terminal_capping.is_terminal_capping:is_terminal_capping",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.water.get_bonded_atom_pairs",
+      "module": "element.group.water",
+      "signature": "(atom_names, atom_indices=None, sorted=True)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.water.get_bonded_atom_pairs:get_bonded_atom_pairs",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.group.water.is_water",
+      "module": "element.group.water",
+      "signature": "(name)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.group.water.is_water:is_water",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.molecule.get_molecule_id",
+      "module": "element.molecule",
+      "signature": "(molecular_system, element='molecule', selection='all', redefine_indices=False, redefine_ids=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.molecule.get_molecule_id:get_molecule_id",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.molecule.get_molecule_index",
+      "module": "element.molecule",
+      "signature": "(molecular_system, element='molecule', selection='all', redefine_indices=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.molecule.get_molecule_index:get_molecule_index",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.molecule.get_molecule_name",
+      "module": "element.molecule",
+      "signature": "(molecular_system, element='molecule', selection='all', redefine_indices=False, redefine_names=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.molecule.get_molecule_name:get_molecule_name",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.molecule.get_molecule_type",
+      "module": "element.molecule",
+      "signature": "(molecular_system, element='molecule', selection='all', redefine_indices=False, redefine_types=False, syntax='MolSysMT', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.molecule.get_molecule_type:get_molecule_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.molecule.get_n_molecules",
+      "module": "element.molecule",
+      "signature": "(molecular_system, selection='all', redefine_molecules=False, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.element.molecule.get_n_molecules:get_n_molecules",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "element.molecule.is_molecule_type",
+      "module": "element.molecule",
+      "signature": "(molecule_type)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.element.molecule.is_molecule_type:is_molecule_type",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.append_structures",
+      "module": "h5msm",
+      "signature": "(filename, structures, *, structure_state_indices=None, block_size=256, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.h5msm:append_structures",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.migrate_04_to_05",
+      "module": "h5msm",
+      "signature": "(filename, output_filename, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.h5msm:migrate_04_to_05",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.migrate_to_05",
+      "module": "h5msm",
+      "signature": "(filename, output_filename, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.h5msm:migrate_to_05",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.read",
+      "module": "h5msm",
+      "signature": "(filename, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.h5msm:read",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.read_layers",
+      "module": "h5msm",
+      "signature": "(filename, layers=None, analysis_names=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.h5msm:read_layers",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.write",
+      "module": "h5msm",
+      "signature": "(molecular_system, output_filename, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.h5msm:write",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "h5msm.write_layers",
+      "module": "h5msm",
+      "signature": "(output_filename, *, topology=None, chemical_states=None, structures=None, interactions=None, associations=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.h5msm:write_layers",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "hbonds.get_acceptor_atoms",
+      "module": "hbonds",
+      "signature": "(molecular_system, selection='all', inclusion_rules=None, exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_acceptor_atoms:get_acceptor_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "hbonds.get_buch_hbonds",
+      "module": "hbonds",
+      "signature": "(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all', molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None, distance_threshold='2.3 angstroms', pbc=True, syntax='MolSysMT', skip_digestion=False, *, output_type='tuple')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_buch_hbonds:get_buch_hbonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "hbonds.get_donor_atoms",
+      "module": "hbonds",
+      "signature": "(molecular_system, selection='all', inclusion_rules=None, exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT')",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_donor_atoms:get_donor_atoms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "hbonds.get_luzard_chandler_hbonds",
+      "module": "hbonds",
+      "signature": "(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all', molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None, distance_threshold='3.5 angstroms', angle_threshold='30 degrees', pbc=True, syntax='MolSysMT', *, output_type='tuple', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": "molecular_system",
+      "input_kind": "primary",
+      "implementation": "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds:get_luzard_chandler_hbonds",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.bonds_are_required_to_get_attribute",
+      "module": "attribute",
+      "signature": "(attribute, from_element=None, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.bonds_are_required_to_get_attribute:bonds_are_required_to_get_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.get_argument_aliases",
+      "module": "attribute",
+      "signature": "()",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.get_argument_aliases:get_argument_aliases",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.is_attribute",
+      "module": "attribute",
+      "signature": "(attribute)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.is_attribute:is_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.is_chemical_state_attribute",
+      "module": "attribute",
+      "signature": "(attribute, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.is_chemical_state_attribute:is_chemical_state_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.is_mechanical_attribute",
+      "module": "attribute",
+      "signature": "(attribute, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.is_mechanical_attribute:is_mechanical_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.is_structural_attribute",
+      "module": "attribute",
+      "signature": "(attribute, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.is_structural_attribute:is_structural_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "attribute.is_topological_attribute",
+      "module": "attribute",
+      "signature": "(attribute, skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.attribute.is_topological_attribute:is_topological_attribute",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "supported.conversions",
+      "module": "supported",
+      "signature": "(from_form=None, to_form=None, from_form_type=None, to_form_type=None, from_viewer=None, to_viewer=None, as_rows='from', *, output_type='styler', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.supported.supported:conversions",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "supported.dependencies",
+      "module": "supported",
+      "signature": "(*, output_type='styler', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.supported.dependencies:dependencies",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "supported.forms",
+      "module": "supported",
+      "signature": "(form_type=None, *, output_type='styler', skip_digestion=False)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.supported.supported:forms",
+      "declaration_status": "callable_unqualified"
+    },
+    {
+      "path": "supported.syntaxes",
+      "module": "supported",
+      "signature": "(*args, **kwargs)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.supported.syntaxes:_SyntaxCompatibilityModule.__call__",
+      "declaration_status": "callable_compatibility_module"
+    },
+    {
+      "path": "molecular_dynamics.run_NPT_equilibration",
+      "module": "molecular_dynamics",
+      "signature": "(item, temperature='300 K', pressure='1.0 atm', time='1.0 ns', protocol=0, forcefield=('AMBER99SB-ILDN', 'TIP3P'), engine='OpenMM', verbose=True, form_out=None, *kwargs)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.molecular_dynamics.run_NPT_equilibration:run_NPT_equilibration",
+      "declaration_status": "not_implemented_stub"
+    },
+    {
+      "path": "molecular_dynamics.run_NVT_equilibration",
+      "module": "molecular_dynamics",
+      "signature": "(item, protocol=0, forcefield=('AMBER99SB-ILDN', 'TIP3P'), contraint_HBonds=True, engine='OpenMM', verbose=True, *kwargs)",
+      "exposed": false,
+      "primary_parameter": null,
+      "input_kind": "explicit_inputs",
+      "implementation": "molsysmt.molecular_dynamics.run_NVT_equilibration:run_NVT_equilibration",
+      "declaration_status": "not_implemented_stub"
+    }
+  ],
+  "source_head": "4e544cb12dd6bb7738da651827f3b69fa5847a9c",
+  "working_tree_has_changes": true
+}

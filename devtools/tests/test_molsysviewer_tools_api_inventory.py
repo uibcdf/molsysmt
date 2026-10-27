@@ -12,6 +12,17 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         == "explicit_inputs"
     )
     assert rows["build.get_peptide_bond_candidates"]["exposed"]
+    for name in (
+        "get_missing_heavy_atoms",
+        "get_missing_bonds",
+        "get_missing_residues",
+        "get_missing_terminal_cappings",
+        "get_non_standard_residues",
+        "get_disulfide_bonds",
+        "has_hydrogens",
+        "is_solvated",
+    ):
+        assert rows[f"build.{name}"]["exposed"]
     assert not rows["build.infer_covalent_bonds"]["exposed"]
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
     assert (

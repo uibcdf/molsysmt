@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, thirty-four physchem source wrappers and three build diagnostics (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, thirty-four physchem source wrappers and eleven build diagnostics (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1805,3 +1805,45 @@ canonical interactions, basic/element/file/capability utilities, explicit mechan
 and carefully received preparation/edits. New routes cannot be exposed just to
 fill a number. Native #503 and legacy-data limits stay explicit. Graphical tasks,
 installed qualification, tags/packages and both 1.0 publications remain separate.
+
+
+### Eight more native build audit readers — 2026-10-27
+
+The expert build namespace now exposes eleven of thirty inspected native paths.
+The eight additions are get_missing_heavy_atoms, get_missing_bonds,
+get_missing_residues, get_missing_terminal_cappings, get_non_standard_residues,
+get_disulfide_bonds, has_hydrogens and is_solvated. All are serialized reads of
+the current primary, including pending science, with native result and source/
+scene ownership. There is no repair, covalent assignment, scene update or
+implicit choice of visible structure. Four legacy signatures lack native
+skip_digestion; their keyword-only addon flag controls only facade validation.
+
+Group-index reports differ from source-atom bond candidates; sequence insertion
+positions belong to the selected subsystem. The resident MolSys does not restore
+the original PDB/BCIF sequence header: an absent explicit reference warns and
+returns an empty report. Selected-group terminal logic is exposed honestly;
+nonstandard-name suggestions and indexed-H/water-density predicates are not
+chemical completeness certificates. Native uibcdf/molsysmt#504 tracks ambiguous
+multi-structure boxed-water solvation; the addon supplies no first/any/all rule.
+The independent native reproducer and new reader tests retain that limit.
+Native CIP result metadata ownership uibcdf/molsysmt#503 remains separately open.
+
+The current inventory is 116/244 callable paths, with all read-only build audits
+reviewed at this baseline and 19 build construction/preparation/edit paths still
+pending. Usage guidance and course Module 12 preserve that distinction. No host
+runtime, dependency floor, GUI, published compatibility or release is changed.
+Local and exact-source CI evidence are recorded separately below.
+
+
+All 62 directed build-audit cases pass. One frozen broad receiving run passes
+4,414 cases, with zero failures/errors/skips and no Python source/backend hash
+changes during execution. All 50 guide blocks and 163 inherited examples pass;
+the first inherited remote example attempt was interrupted after sandbox DNS
+failures, then succeeds with network access. An added external-selector test
+initially assumed atom zero was heavy; independent native inspection proves H1,
+and the test now selects an explicit non-H atom. No scientific fix was needed.
+Ruff, generated indexes and developer-guide validation pass. The
+[local receiving receipt](../../devtools/data/molsysviewer_tools_build_audits_receiving_20261027.json)
+records exact scope, backend retention and warning/evidence digests. Hosted
+exact-source gates remain pending; the earlier 511fafb54 success is not reused
+as qualification of these new wrappers.
