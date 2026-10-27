@@ -34,6 +34,8 @@ def get_aromatic_rings(
         Shared atoms can make a selection cut an adjacent fused ring.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) used for selections and state resolution.
+        Explicit indices require a known source structure axis and valid bounds,
+        even for non-spatial selections. 'all' or None permits chemistry-only input.
         Recognition is chemical; no geometric occurrences are calculated.
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         State supplying aromatic flags and bonds. Structure-assigned states
@@ -48,7 +50,9 @@ def get_aromatic_rings(
         Declare supplied connectivity complete when metadata is insufficient.
         Record this assumption without changing the source.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate selection.
+        Selection syntax used to evaluate selection. External syntax preserves
+        the default reference request. Explicit and structure-associated states
+        retain the common selector's restrictions; use MolSysMT syntax or indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
     max_cyclic_block_size : int, default=256
@@ -190,6 +194,7 @@ def get_aromatic_rings(
         states=states,
         state=state,
         state_index=state_index,
+        reference_request=chemical_state in (None, "reference"),
         selection=selection,
         selection_frames=frames,
         syntax=syntax,

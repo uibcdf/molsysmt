@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issues": [
+    "uibcdf/molsysmt#482",
+    "uibcdf/molsysmt#483"
+  ],
+  "parent_source": "35ef8f5f23d5d3a0cce5ff3209172b71b2f62982",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "source_sha256": {
+    "molsysmt/_private/autodock_assignment.py": "9a196474b247c3d2a70641156b7732e45b568763344af88a8e2ceba5313f9ff3",
+    "molsysmt/_private/hydrogen_projection.py": "14fe13e558441e1c0b956988b76b40bc47b4607a2c9edb7fd216e7a055a2ffb0",
+    "molsysmt/_private/partial_charges.py": "e60e377aa22f6027aa6f085054915563675ddafaf11e02c63e5268dafb1a31b3",
+    "molsysmt/interactions/halogen_bonds/get_halogen_bonds.py": "a11b7cd4d4c1b8f631bc07442e058c24fe4a9f330e5035aa96716b40dfd6e780",
+    "molsysmt/interactions/hbonds/get_hbond_sites.py": "b0253a459b13fcdd41ca43c6ea432a5a4a044b4ff628261e5827f34a1ed5b711",
+    "molsysmt/interactions/hbonds/get_hbonds.py": "751a51192eae4c86632f9b829cca11bbd23a6c7f4349d5e0ebd64ca931fa09ce",
+    "molsysmt/interactions/hydrophobic/get_hydrophobic_interactions.py": "76e82f8ac8d7e9bcf38db4e70e93751b195cd978fde5bbd08d71f1eb2d8bc1b6",
+    "molsysmt/interactions/metal_coordination/get_metal_coordination.py": "165741dba3846ed6f25b1a3212a9854498af8377479b27c603eea71b3069d88f",
+    "molsysmt/interactions/water_bridges/get_water_bridges.py": "afdcce8f293d1340a4b85c51e55a471755be3fe475ac15875c511b6afbae5abe",
+    "molsysmt/physchem/get_aromatic_rings.py": "33e01346d9b9b6e6fb7c09960d1a3559fe50565ed74e13984fd457ddd6b7cc08",
+    "molsysmt/physchem/get_aromaticity.py": "2693062a06784095278a775f4bd464f90c8432b9d9d87372af09e6c5c5dd69e0",
+    "molsysmt/physchem/get_cip_stereochemistry.py": "861942fa41df2b72893592199019e848a49db4091c24d36de0f8718235781ad9",
+    "molsysmt/topology/_atom_correspondences.py": "7b2b86c4e52e96d78e9e52a2fc0aec643a04b984da62ffdc8915db8a9498a8cb",
+    "molsysmt/topology/_chemical_graph.py": "76200f7526b72fc401c904013a4c5296255cfac1b15a2783b41152433c469aca",
+    "molsysmt/topology/_rings.py": "14267589aa242615f5ff588382ddbf872822583d66c4844bef9a9a3c564258e6",
+    "molsysmt/topology/get_rings.py": "7765dcf8a37c30918fe2bc45da0d06c33ab1e4bdcdd20d3cfe04fd281bb09c72",
+    "molsysmt/topology/get_rotatable_bonds.py": "d05a20590013b3321793f2218b55639eb01e5db54792af49aee9c38ba83ffac2",
+    "tests/topology/conftest.py": "762567410a3e1856b7736d9dbb74ae8a8be68c2d457c55126718b6c37961cd83",
+    "tests/topology/test_chemical_reference_selection.py": "48633f8e1eab6adee375b1b5bc3146a0cedbab61bc2a89efaf052f2fb368d26e",
+    "tests/topology/test_ring_structure_scope.py": "4a4a714d9ff2ed2fe4f60b238cd57fdc2544b974ca418bdc8613c5617600b04c"
+  },
+  "shared_selector_calls": 18,
+  "scope": "Local selected source regression, not installed/full-suite/cross-platform/release qualification.",
+  "before": {
+    "483": "30 failed, 20 passed; /tmp/molsysmt-483-before-final.log",
+    "482": "80 failed, 18 passed; /tmp/molsysmt-482-before-corrected.log"
+  },
+  "after": [
+    {
+      "command": "Combined focused reference/scope modules, --receptor=llm -n 12",
+      "result": "148 passed",
+      "log": "/tmp/molsysmt-482-483-focused-final.log"
+    },
+    {
+      "command": "Affected topology, chemical readers, interaction families and preparation modules, --receptor=llm -n 12; deselect only the independent RCSB-download node",
+      "result": "884 passed; 1 deselected; 35 expected warnings",
+      "seconds": 46.57,
+      "log": "/tmp/molsysmt-482-483-regression-final.log"
+    },
+    {
+      "command": "Separate original sequence-alignment RCSB download node with network access",
+      "result": "1 passed",
+      "seconds": 19.46,
+      "log": "/tmp/molsysmt-482-483-network-control.log"
+    }
+  ],
+  "documentation": {
+    "prose_only_notebooks": 7,
+    "code_outputs_metadata_preserved": true,
+    "tutorial": "All get_aromaticity.md Python blocks executed sequentially.",
+    "html_errors": 0,
+    "html_warnings": 43,
+    "warning_owner": "uibcdf/molsysmt#144"
+  },
+  "limits": [
+    "Unknown native structural axes reject explicit lists, including empty; all/None remains chemical-only.",
+    "External conformer forms retain conversion when no direct count getter is available.",
+    "No ring, aromaticity, hydrogen-bond or force-field criterion changed.",
+    "Preliminary fixture/collection mistakes are not scientific defect evidence."
+  ],
+  "quality": {
+    "doctest_modules": 3,
+    "doctest_cases": 3,
+    "notebook_schema_cases": 491,
+    "fast_gates": "14/14 passed",
+    "docstrings": "251 passed",
+    "signature_guard": "No unauthorized drift",
+    "ruff": "20 selected Python files passed lint/format"
+  }
+}

@@ -1,13 +1,13 @@
 ---
 summary: Chemical-graph readers reject external syntax for the default reference state.
 issue: uibcdf/molsysmt#482
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: medium
 verification: reproduced
 area: [physchem, topology, selection]
-guard:
+guard: tests/topology/test_chemical_reference_selection.py::test_default_reference_external_selector_matches_intended_population
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Chemical-graph readers reject external syntax for the default reference state.
 
 **Reported:** 2026-10-26, native-only audit before aromatic addon receiving.
-**Status:** Open; no scientific selector or index compensation in the consumer.
+**Status:** Resolved in the native shared boundary; no consumer compensation.
 
 ## What
 `physchem.get_aromatic_rings` and `physchem.get_aromaticity` reject a valid external MDTraj atom selector with their default reference chemical state. Direct `msm.select` and equivalent numeric reader queries work. This is related to uibcdf/molsysmt#480 but affects the reusable chemical-graph/ring selection helpers independently of the readiness assessor.
@@ -74,4 +74,44 @@ scientific arguments differently inside the Viewer wrapper. Native shared
 boundaries and their guards own the resolution; chemical-only reads should not
 be forced to load whole trajectories or analyses.
 
-See the [native audit receipt](../../devtools/data/molsysviewer_tools_aromatic_native_audit_20261026.json).
+See the [native audit receipt](../../../devtools/data/molsysviewer_tools_aromatic_native_audit_20261026.json).
+
+## Resolution
+
+The private shared atom selector now requires an explicit `reference_request`
+flag. All 18 call sites in 13 consuming modules pass the original public request
+semantics; the two ring-result callers do likewise. Numeric chemistry views
+retain their selected-state reference; rich selectors receive the literal
+reference sentinel only when that is what the caller requested. Explicit and
+structure-associated requests keep their resolved state and existing restrictions.
+This fixes aromaticity, ring recognition and related graph/site/preparation
+consumers without weakening basic.select or adding consumer-side translations.
+No scientific criterion, units, coordinates, attribution or producer version changes.
+
+The before-fix selection module fails 80 cases and passes 18. A reserved pytest
+parameter name in the first collection attempt is excluded; the later rotatable
+output-key correction is test authoring, not a provider defect. The final 98
+cases compare intended numeric populations across six public readers and native,
+complementary and H5MSM sources, reference/None requests, empty matches, detached
+arrays, whole-ring selection and a reference index 1 distinct from structure state
+0. Unsupported explicit/associated external requests remain rejected.
+
+## Local validation and lifecycle
+
+The final combined focused modules pass 148 cases. The affected topology,
+aromaticity/CIP/charge, hydrogen/halogen/hydrophobic/metal/water-interaction and
+preparation regression passes 884 cases in 46.57 seconds with twelve workers
+and pytest-receptor. One unrelated pre-existing sequence-alignment node needs
+its public RCSB download; it passes separately with network access in 19.46
+seconds, rather than counting a sandbox DNS failure as a molecular defect.
+The first broad run exposed 15 external conformer-count compatibility failures;
+the final helper retains that pre-existing conversion path and all pass.
+The retained 35 warnings are expected legacy-H5MSM and deliberate memory-budget
+controls; no warning is hidden.
+
+The final public examples and affected docstrings, User Guide, Cookbook and four
+course property modules reflect source-axis and state-selection semantics.
+Seven notebook edits are prose-only and preserve all code, outputs and metadata.
+The [shared receipt](../../../devtools/data/chemical_graph_selection_20261026.json)
+retains source digests, commands, outcomes and limits. Local source evidence does
+not qualify installed packages, all platforms, a full suite or a release.

@@ -136,7 +136,13 @@ def get_hbond_sites(
         caller,
     )
     selected = select_chemical_atoms(
-        source, states, state_index, selection, frames, syntax
+        source,
+        states,
+        state_index,
+        selection,
+        frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     if method == "prolif":
         from molsysmt.physchem._prolif import PROLIF_HBOND_PATTERNS, PROLIF_REFERENCE

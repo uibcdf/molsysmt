@@ -39,7 +39,13 @@ class ChemicalGraph:
         self.state_id = state.state_id
         self.provenance_index = state.provenance_index
         self.selected = select_chemical_atoms(
-            source, states, index, selection, frames, syntax
+            source,
+            states,
+            index,
+            selection,
+            frames,
+            syntax,
+            reference_request=state_index in (None, "reference"),
         )
         if not len(self.selected):
             raise ArgumentError(

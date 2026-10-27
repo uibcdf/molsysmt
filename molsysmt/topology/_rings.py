@@ -10,9 +10,22 @@ from molsysmt._private.smonitor import (
 from molsysmt._private.sparse_membership import pack_membership, whole_group_selection
 
 # Existing ring tools share the general chemical graph boundary.
-from molsysmt.topology._chemical_graph import chemical_graph_context
+from molsysmt.topology._chemical_graph import (
+    chemical_graph_context,
+    validate_chemical_frames,
+)
 
-ring_context = chemical_graph_context
+
+def ring_context(
+    molecular_system, chemical_state, structure_indices, assume_complete, caller
+):
+    """Validate the source structure scope before detaching chemical domains."""
+    structure_indices = validate_chemical_frames(
+        molecular_system, structure_indices, caller
+    )
+    return chemical_graph_context(
+        molecular_system, chemical_state, structure_indices, assume_complete, caller
+    )
 
 
 def minimum_cycle_memberships(pairs, max_cyclic_block_size, caller):
@@ -45,6 +58,7 @@ def ring_result(
     states,
     state,
     state_index,
+    reference_request,
     selection,
     selection_frames,
     syntax,
@@ -76,9 +90,9 @@ def ring_result(
         selection_state = "reference"
     elif not isinstance(molecular_system, (MolSys, Topology)):
         molecular_system = convert(molecular_system, to_form="molsysmt.MolSys")
-        selection_state = state_index
+        selection_state = "reference" if reference_request else state_index
     else:
-        selection_state = state_index
+        selection_state = "reference" if reference_request else state_index
     selected = select(
         molecular_system,
         selection=selection,

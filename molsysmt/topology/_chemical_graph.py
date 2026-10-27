@@ -127,7 +127,9 @@ def chemical_graph_context(
     )
 
 
-def select_chemical_atoms(source, states, state_index, selection, frames, syntax):
+def select_chemical_atoms(
+    source, states, state_index, selection, frames, syntax, *, reference_request
+):
     """Select on a chemistry view for indices, retaining coordinates for rich syntax."""
     from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, select
@@ -145,7 +147,9 @@ def select_chemical_atoms(source, states, state_index, selection, frames, syntax
             if isinstance(source, (MolSys, Topology))
             else convert(source, to_form="molsysmt.MolSys")
         )
-        state = state_index
+        # An explicit integer is not interchangeable with the public reference
+        # sentinel when an external selector enforces state-specific limits.
+        state = "reference" if reference_request else state_index
     return np.unique(
         select(
             view,
@@ -197,23 +201,31 @@ def detached_chemical_graph_view(source, states, state_index, caller):
 def validate_chemical_frames(source, frames, caller):
     """Validate explicit structure indices before structural domains are detached."""
     from molsysmt._private.variables import is_all
-    from molsysmt.basic import convert
     from molsysmt.basic._index_validation import _get_count, validate_structure_indices
 
-    # Chemistry-only requests do not need to assemble a structural domain.
     if is_all(frames) or frames is None:
         return frames
-    if not is_all(frames) and frames is not None:
-        if _get_count(source, "structure") is None:
+    count = _get_count(source, "structure")
+    if count is None:
+        from molsysmt.basic import convert, get_form
+
+        form = get_form(source)
+        # External providers can carry conformers through conversion even when
+        # they expose no direct count getter. Native chemistry-only domains do
+        # not acquire a fictitious structure axis by conversion.
+        if isinstance(form, str) and not form.startswith("molsysmt."):
             source = convert(source, to_form="molsysmt.MolSys")
-        if _get_count(source, "structure") is None:
-            raise ArgumentError(
-                "structure_indices",
-                value=frames,
-                caller=caller,
-                message="Explicit structure_indices require a known source structure axis.",
-            )
-    return validate_structure_indices(source, frames, caller)
+            count = _get_count(source, "structure")
+    if count is None:
+        raise ArgumentError(
+            "structure_indices",
+            value=frames,
+            caller=caller,
+            message="Explicit structure_indices require a known source structure axis.",
+        )
+    return validate_structure_indices(
+        source, frames, caller, count_getter=lambda _: count
+    )
 
 
 def chemical_graph_digest(source, state_index, include_template_names=False):

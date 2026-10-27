@@ -118,3 +118,9 @@ resolving rich atom selections. External syntax can therefore select atoms in
 the default reference without an implicit integer-state override. Explicit and
 structure-associated state requests retain the public selector's restrictions.
 See {ref}`Tutorial_Chemical_Readiness` for the supported forms and numeric scopes.
+
+Chemical-graph readers preserve a default reference request when delegating to
+external selection syntax. Explicit or structure-associated states retain the
+common selector restrictions. Ring readers also validate explicit structure
+indices on the original source axis; chemistry-only objects use `all` or `None`.
+These checks neither infer aromaticity from geometry nor attach ring interactions.

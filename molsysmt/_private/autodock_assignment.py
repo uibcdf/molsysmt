@@ -174,6 +174,7 @@ def calculate(
         selection,
         original_frames if rich else frames,
         syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     references = [deepcopy(_REFERENCE), deepcopy(_COMPARISON)]
     items = deepcopy(aromaticity["attribution"]["items"]) + deepcopy(references)

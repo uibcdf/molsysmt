@@ -42,7 +42,9 @@ def get_aromaticity(
         contributions in rings and fused systems, evaluated against 4N+2.
         RDKit is an optional explicit implementation, not a fallback.
     syntax : str, default='MolSysMT'
-        Syntax used to evaluate selection.
+        Syntax used to evaluate selection. External syntax preserves the default
+        reference request; explicit and structure-associated state restrictions
+        still apply. Use MolSysMT syntax or numeric indices for those requests.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -227,6 +229,7 @@ def get_aromaticity(
         selection,
         original_frames if rich else frames,
         syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     chosen_bonds = np.flatnonzero(np.isin(pairs, selected).all(axis=1))
     software = {"molsysmt": __version__, "rdkit": rdBase.rdkitVersion}

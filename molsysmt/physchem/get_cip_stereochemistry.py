@@ -251,7 +251,13 @@ def get_cip_stereochemistry(
     assign_cip(molecule)
     atom_labels, _ = native_labels(molecule)
     indices = select_chemical_atoms(
-        source, states, state_index, selection, frames, syntax
+        source,
+        states,
+        state_index,
+        selection,
+        frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     bonds = state.bonds
     pairs = (

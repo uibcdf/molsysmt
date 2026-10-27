@@ -365,6 +365,7 @@ def calculate(
         selection,
         structure_indices if rich_selection else selection_structures,
         syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     software = {"molsysmt": __version__, **software}
     items = [

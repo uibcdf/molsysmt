@@ -90,6 +90,32 @@ loading. The calculation may copy chemical tables/provider graphs; it is not a
 bounded-memory proof for every graph or a streaming trajectory API. Optional
 Ackredit failures do not discard the detached result or its references.
 
+
+## Selecting with an external syntax
+
+The default reference request remains a reference request when an external
+selector is used. A declared reference at index 1 does not become the state
+associated with a selected structure. Explicit integer states and
+`chemical_state='structure'` retain the public selector's restrictions; use
+MolSysMT syntax or numeric atom indices for those requests.
+
+The external provider needs its normal topology metadata. This example supplies
+the ligand hierarchy explicitly rather than treating missing groups as an
+aromaticity or selection repair:
+
+```python
+builder = msm.MolSysBuilder(molsys)
+group = builder.add_group(list(range(builder.n_atoms)), group_name='CAF', group_id='1')
+builder.add_chain([group], chain_id='A')
+molsys = builder.build()
+selected = msm.physchem.get_aromaticity(molsys, selection='all and all', syntax='MDTraj')
+assert selected['atom_indices'].tolist() == list(range(24))
+```
+
+Explicit structure indices are validated on the source axis. Chemistry-only
+objects remain usable with the default `all` or `None`; no artificial coordinate
+series is constructed to satisfy an explicit index request.
+
 :::{seealso}
 :class: dropdown
 

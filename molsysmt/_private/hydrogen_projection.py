@@ -108,7 +108,15 @@ def project(
         )
     if not np.array_equal(decoded, symbols):
         fail("AutoDock labels and chemical element symbols disagree.")
-    selected = select_chemical_atoms(source, states, index, selection, frames, syntax)
+    selected = select_chemical_atoms(
+        source,
+        states,
+        index,
+        selection,
+        frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
+    )
     if not len(selected):
         raise ArgumentError(
             "selection",

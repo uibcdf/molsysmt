@@ -215,6 +215,7 @@ def get_rotatable_bonds(
         selection,
         original_frames if rich else frames,
         syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     chosen = np.flatnonzero(np.isin(pairs, selected).all(axis=1)).astype(np.int64)
     eligible = chosen[mask[chosen] == 0]

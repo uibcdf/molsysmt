@@ -229,13 +229,25 @@ def get_metal_coordination(
     )
     metals, ligands = sites["metal_atom_indices"], sites["ligand_atom_indices"]
     first = select_chemical_atoms(
-        source, states, state_index, selection, selection_frames, syntax
+        source,
+        states,
+        state_index,
+        selection,
+        selection_frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
     )
     second = (
         None
         if selection_2 is None
         else select_chemical_atoms(
-            source, states, state_index, selection_2, selection_frames, syntax
+            source,
+            states,
+            state_index,
+            selection_2,
+            selection_frames,
+            syntax,
+            reference_request=chemical_state in (None, "reference"),
         )
     )
     if second is not None and np.intersect1d(first, second).size:
