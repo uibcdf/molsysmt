@@ -12,7 +12,7 @@ def to_openmm_Modeller(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source object or file in the form named by this adapter.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -26,21 +26,28 @@ def to_openmm_Modeller(
         Resulting object in openmm.Modeller form.
 
 
+    Notes
+    -----
+    Uses native GRO conversion and its single-entry reading scope. Atom
+    extraction occurs before provider construction, keeping coordinates and
+    topology in the same native sorted source order. Modeller holds the first
+    selected structure and its box; repeated selection does not create a
+    coordinate ensemble in Modeller. Bond inference uses the existing native
+    policy, without chemical preparation or new force-field assignments.
+
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.openmm_GromacsGroFile.to_openmm_Modeller import (
-        to_openmm_Modeller as openmm_GromacsGroFile_to_openmm_Modeller,
+    from molsysmt.form.molsysmt_MolSys.to_openmm_Modeller import (
+        to_openmm_Modeller as native_to_openmm,
     )
 
-    from .to_openmm_GromacsGroFile import to_openmm_GromacsGroFile
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
-    tmp_item = to_openmm_GromacsGroFile(item, skip_digestion=True)
-    tmp_item = openmm_GromacsGroFile_to_openmm_Modeller(
-        tmp_item,
+    native = to_molsysmt_MolSys(
+        item,
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         skip_digestion=True,
     )
-
-    return tmp_item
+    return native_to_openmm(native, skip_digestion=True)

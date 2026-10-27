@@ -21,13 +21,13 @@ def extract(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source object or file in the form named by this adapter.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+    copy_if_all : bool, default=True
+        Whether a complete selection requests an independently owned result.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -37,12 +37,21 @@ def extract(
         Resulting object in mdtraj.GroTrajectoryFile form.
 
 
+    Notes
+    -----
+    Only complete-handler extraction is supported. An independent result opens
+    at the beginning of the same backing file with copied mutable topology;
+    it does not clone the caller's cursor or disk bytes. copy_if_all=False
+    returns the source explicitly. Subsets raise NotImplementedMethodError.
+
     .. versionadded:: 1.0.0
     """
 
     if is_all(atom_indices) and is_all(structure_indices):
         if copy_if_all:
-            raise NotImplementedMethodError()
+            from .copy import copy
+
+            tmp_item = copy(item, skip_digestion=True)
 
         else:
             tmp_item = item

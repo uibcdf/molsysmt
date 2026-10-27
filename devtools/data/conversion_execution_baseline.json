@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-files-v9",
+  "profile": "resident-files-v10",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -31,7 +31,11 @@
     "molsysmt.PDBQTFileHandler",
     "MDAnalysis.AtomGroup",
     "MDAnalysis.Topology",
-    "parmed.Structure"
+    "parmed.Structure",
+    "file:gro",
+    "molsysmt.GROFileHandler",
+    "openmm.GromacsGroFile",
+    "mdtraj.GroTrajectoryFile"
   ],
   "target_forms": [
     "molsysmt.MolSys",
@@ -63,7 +67,11 @@
     "molsysmt.PDBQTFileHandler",
     "MDAnalysis.AtomGroup",
     "MDAnalysis.Topology",
-    "parmed.Structure"
+    "parmed.Structure",
+    "file:gro",
+    "molsysmt.GROFileHandler",
+    "openmm.GromacsGroFile",
+    "mdtraj.GroTrajectoryFile"
   ],
   "accepted_unexecuted_edges": {
     "MDAnalysis.Universe": {
@@ -202,18 +210,7 @@
     "file:gro": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "file:gro",
-        "mdtraj.GroTrajectoryFile",
-        "mdtraj.Topology",
-        "mdtraj.Trajectory",
-        "molsysmt.GROFileHandler",
-        "molsysmt.MolSys",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
-        "nglview.NGLWidget",
-        "openmm.GromacsGroFile",
-        "openmm.Modeller",
-        "openmm.Topology"
+        "nglview.NGLWidget"
       ]
     },
     "file:h5": {
@@ -418,14 +415,6 @@
         "molsysmt.Structures"
       ]
     },
-    "mdtraj.GroTrajectoryFile": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "mdtraj.GroTrajectoryFile",
-        "molsysmt.MolSys",
-        "molsysmt.Structures"
-      ]
-    },
     "mdtraj.HDF5TrajectoryFile": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
@@ -496,10 +485,6 @@
     "molsysmt.GROFileHandler": {
       "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
       "targets": [
-        "molsysmt.GROFileHandler",
-        "molsysmt.MolSys",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
         "nglview.NGLWidget"
       ]
     },
@@ -670,15 +655,6 @@
         "molsysmt.Structures",
         "openmm.Context",
         "openmm.System"
-      ]
-    },
-    "openmm.GromacsGroFile": {
-      "reason": "Not included in the executable profile; requires an additional source/target fixture profile. This is coverage debt, not a finding that the route cannot run.",
-      "targets": [
-        "molsysmt.MolSys",
-        "molsysmt.Structures",
-        "molsysmt.Topology",
-        "openmm.GromacsGroFile"
       ]
     },
     "openmm.GromacsTopFile": {

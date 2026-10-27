@@ -15,7 +15,7 @@ def to_molsysmt_MolSys(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source object or file in the form named by this adapter.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -29,6 +29,15 @@ def to_molsysmt_MolSys(
         Resulting object in molsysmt.MolSys form.
 
 
+    Notes
+    -----
+    Applies native atom extraction once after assembling source topology and
+    selected-structure geometry. Atom labels and coordinates therefore follow
+    the same sorted source atom axis, while structure order and repetitions
+    retain their requested meaning with matching periodic boxes. This does
+    not add source attributes unavailable from the OpenMM reader, assign
+    partial charges or prepare chemistry. The source object is unchanged.
+
     .. versionadded:: 1.0.0
     """
 
@@ -38,14 +47,15 @@ def to_molsysmt_MolSys(
     from .to_molsysmt_Topology import to_molsysmt_Topology
 
     tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(
-        item, atom_indices=atom_indices, skip_digestion=True
-    )
+    tmp_item.topology = to_molsysmt_Topology(item, skip_digestion=True)
     tmp_item.structures = to_molsysmt_Structures(
         item,
-        atom_indices=atom_indices,
         structure_indices=structure_indices,
         skip_digestion=True,
     )
 
-    return tmp_item
+    # Native topology extraction sorts source atom indices. Apply that same
+    # extraction once to the assembled system so its coordinates stay aligned.
+    return tmp_item.extract(
+        atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
+    )

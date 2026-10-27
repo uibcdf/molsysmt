@@ -8,8 +8,9 @@ form = "mdtraj.GroTrajectoryFile"
 
 
 def _get_n_atoms(item):
-    item._file.seek(0)
-    return item.read()[0].shape[1]
+    # The provider records this count when opening the file. A count query
+    # must not read the trajectory or consume the caller's cursor.
+    return item.n_atoms
 
 
 @arg_digest(form=form)

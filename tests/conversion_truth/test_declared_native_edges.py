@@ -20,6 +20,12 @@ PLAN = read_plan()
 # Disk/handler routes have explicit resource and schema fixtures in their own module.
 H5MSM_FORMS = {"file:h5msm", "molsysmt.H5MSMFileHandler"}
 PDB_FORMS = {"file:pdb", "string:pdb_text", "molsysmt.PDBFileHandler"}
+GRO_FORMS = {
+    "file:gro",
+    "molsysmt.GROFileHandler",
+    "openmm.GromacsGroFile",
+    "mdtraj.GroTrajectoryFile",
+}
 DOCKING_FORMS = {
     "file:sdf",
     "file:pdbqt",
@@ -29,7 +35,7 @@ DOCKING_FORMS = {
 EDGES = sorted(
     (source, target)
     for source, target in planned_edges(declared_edges(), PLAN)
-    if not ({source, target} & (H5MSM_FORMS | PDB_FORMS | DOCKING_FORMS))
+    if not ({source, target} & (H5MSM_FORMS | PDB_FORMS | DOCKING_FORMS | GRO_FORMS))
 )
 
 
@@ -255,9 +261,16 @@ def test_execution_modules_cover_the_selected_graph_once():
     from tests.conversion_truth.test_declared_docking_edges import (
         EDGES as docking_edges,
     )
+    from tests.conversion_truth.test_declared_gro_edges import EDGES as gro_edges
     from tests.conversion_truth.test_declared_h5msm_edges import EDGES as disk_edges
     from tests.conversion_truth.test_declared_pdb_edges import EDGES as pdb_edges
 
-    partitions = [set(EDGES), set(disk_edges), set(pdb_edges), set(docking_edges)]
+    partitions = [
+        set(EDGES),
+        set(disk_edges),
+        set(pdb_edges),
+        set(docking_edges),
+        set(gro_edges),
+    ]
     assert set.union(*partitions) == planned_edges(declared_edges(), PLAN)
     assert sum(map(len, partitions)) == len(set.union(*partitions))

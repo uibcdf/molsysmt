@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issues": [
+    "uibcdf/molsysmt#181",
+    "uibcdf/molsysmt#476",
+    "uibcdf/molsysmt#477"
+  ],
+  "base_source": "5a1d3f4cc796565318b9e55b405260f2dbf3237c",
+  "scope": "Local source execution and bounded literal-value contracts; no release or installed-artifact qualification.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "distribution_versions": {
+      "numpy": "2.4.6",
+      "mdtraj": "1.11.1",
+      "openmm": "8.6.1",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    }
+  },
+  "inventory": {
+    "profile": "resident-files-v10",
+    "declared_edges": 606,
+    "planned_smoke_edges": 194,
+    "accepted_unexecuted_edges": 412,
+    "errors": [],
+    "execution": "not performed by this audit"
+  },
+  "new_executed_edges": [
+    {
+      "source": "file:gro",
+      "target": "file:gro"
+    },
+    {
+      "source": "file:gro",
+      "target": "mdtraj.GroTrajectoryFile"
+    },
+    {
+      "source": "file:gro",
+      "target": "mdtraj.Topology"
+    },
+    {
+      "source": "file:gro",
+      "target": "mdtraj.Trajectory"
+    },
+    {
+      "source": "file:gro",
+      "target": "molsysmt.GROFileHandler"
+    },
+    {
+      "source": "file:gro",
+      "target": "molsysmt.MolSys"
+    },
+    {
+      "source": "file:gro",
+      "target": "molsysmt.Structures"
+    },
+    {
+      "source": "file:gro",
+      "target": "molsysmt.Topology"
+    },
+    {
+      "source": "file:gro",
+      "target": "openmm.GromacsGroFile"
+    },
+    {
+      "source": "file:gro",
+      "target": "openmm.Modeller"
+    },
+    {
+      "source": "file:gro",
+      "target": "openmm.Topology"
+    },
+    {
+      "source": "mdtraj.GroTrajectoryFile",
+      "target": "mdtraj.GroTrajectoryFile"
+    },
+    {
+      "source": "mdtraj.GroTrajectoryFile",
+      "target": "molsysmt.MolSys"
+    },
+    {
+      "source": "mdtraj.GroTrajectoryFile",
+      "target": "molsysmt.Structures"
+    },
+    {
+      "source": "molsysmt.GROFileHandler",
+      "target": "molsysmt.GROFileHandler"
+    },
+    {
+      "source": "molsysmt.GROFileHandler",
+      "target": "molsysmt.MolSys"
+    },
+    {
+      "source": "molsysmt.GROFileHandler",
+      "target": "molsysmt.Structures"
+    },
+    {
+      "source": "molsysmt.GROFileHandler",
+      "target": "molsysmt.Topology"
+    },
+    {
+      "source": "openmm.GromacsGroFile",
+      "target": "molsysmt.MolSys"
+    },
+    {
+      "source": "openmm.GromacsGroFile",
+      "target": "molsysmt.Structures"
+    },
+    {
+      "source": "openmm.GromacsGroFile",
+      "target": "molsysmt.Topology"
+    },
+    {
+      "source": "openmm.GromacsGroFile",
+      "target": "openmm.GromacsGroFile"
+    }
+  ],
+  "source_sha256": {
+    "molsysmt/form/file_gro/to_openmm_Modeller.py": "b7daf1e816f44528b558ef45be7035083c97080d91f242669588633677a96f31",
+    "molsysmt/form/file_gro/to_openmm_Topology.py": "707f28ccff73fcc9dc1ca7aef08be74052147e52f55dca487ec22c0e958c19cf",
+    "molsysmt/form/mdtraj_GroTrajectoryFile/copy.py": "7af92d85b5cdd932c4b1f10f1e35a6588f2f68520fcb8f73502eac5901bf9908",
+    "molsysmt/form/mdtraj_GroTrajectoryFile/extract.py": "0cb1b5b86114277933604f119dc936a4ee1d08eb074575a460a6e9f4ea3c4c78",
+    "molsysmt/form/mdtraj_GroTrajectoryFile/get_structural_attributes.py": "66114f5a2eaf2237174670a6ed6141e9f03aed20111f4b4807065c9bd88f67ba",
+    "molsysmt/form/mdtraj_GroTrajectoryFile/get_topological_attributes.py": "5d34ab2a8801308d78090a02891ceccb44d55de263660755e4803162825ee1eb",
+    "molsysmt/form/molsysmt_GROFileHandler/copy.py": "1fe7e73867dbc8a908b049db12d314ddc3c2a5114cd73d571924728c12138d42",
+    "molsysmt/form/molsysmt_GROFileHandler/extract.py": "a4ae223af7367a3e34368816f82b5275b403b7bb94d75dc839698d648585e177",
+    "molsysmt/form/openmm_GromacsGroFile/to_molsysmt_MolSys.py": "1d9930598e8cf45e5741d2c7878def42c002803d7aa1e87bc9507d832326d668",
+    "devtools/scripts/audit_conversion_execution.py": "4d0435f2f1b88174f802669a9180c356853a82b5706ebb3d8d41316d18b1c8e3",
+    "devtools/data/conversion_execution_baseline.json": "3fafa79620b65fecaa02fd60ab510989d4bc21f78061ff6174a04d7f26d7ab96",
+    "tests/conversion_truth/test_declared_gro_edges.py": "1a9db97d1db2b327612455d87adbdeae2439e33aa1ac4e3cc46853cd90ad7a4b",
+    "tests/conversion_truth/test_declared_native_edges.py": "ad2411c54b5babd8de6bcf97b1df587cbb7f0acb0fee293611988a175a1a04f3",
+    "tests/form/file_gro/test_bridge_contract.py": "5cae29308694945850abc6db8658a55adc7b3248b4b04ec952558c20574f0e77",
+    "tests/form/file_gro/test_provider_selection_contract.py": "269d776d3d08f106afcf0d552a6e2fc99f3c50e288286f8289b1aa1d1866c1cf"
+  },
+  "literal_inputs": {
+    "single_gro_sha256": "34dd39c4f584e819ecce8d2f7592f43b8e012dc82695b4e48e83b186cb5bf454",
+    "concatenated_gro_sha256": "62abbadcc75b2822c0e1bd99851bc2d0eec3259467494ec2c62b330038c73179",
+    "source": "Handwritten fixed-column records; expected positions, boxes, times and source labels are independent literals. No writer generates these expectations.",
+    "format_reference": "https://manual.gromacs.org/current/reference-manual/file-formats.html#gro"
+  },
+  "checks": [
+    {
+      "name": "regression",
+      "command": "python -m pytest tests/form/file_gro tests/conversion_truth devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 437,
+      "skipped": 0,
+      "seconds": 36.15,
+      "log_sha256": "adcc696055efb264cfb1c28abacb27171dba4f89530b184389e4f283b4a962b0"
+    },
+    {
+      "name": "doctests",
+      "command": "python -m pytest --doctest-modules molsysmt/form/mdtraj_GroTrajectoryFile/get_structural_attributes.py molsysmt/form/file_gro/to_openmm_Modeller.py molsysmt/form/file_gro/to_openmm_Topology.py molsysmt/form/file_gro/to_mdtraj_Topology.py molsysmt/form/openmm_GromacsGroFile/to_molsysmt_MolSys.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 2,
+      "skipped": 0,
+      "seconds": 9.01,
+      "log_sha256": "47a36fdca3f7b7dc963c0bcd5e9827b4309495b4c5cc73408cc3fb9db8d7e04f"
+    },
+    {
+      "name": "notebook_schema",
+      "command": "python -m pytest tests/documentation/test_notebook_schema.py --receptor=llm -n 12",
+      "exit_code": 0,
+      "passed": 491,
+      "skipped": 0,
+      "seconds": 8.33,
+      "log_sha256": "a05679493dc2073393e84ec2d1c42aac4750d398b88cd1a65aadf7d6a086f09f"
+    }
+  ],
+  "fast_gates": {
+    "passed": 14,
+    "exit_code": 0
+  },
+  "sphinx_incremental": {
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 21,
+    "remaining_warning_owner": "uibcdf/molsysmt#144"
+  },
+  "baseline": {
+    "declared_route_run": {
+      "failed": 4,
+      "passed": 18,
+      "log_sha256": "a3ac86a5b7efa67bf331fd4e50a64d5c7092b43497680765e423c7a09c2411b9"
+    },
+    "provider_selection_run": {
+      "failed": 20,
+      "passed": 12,
+      "seconds": 14.61,
+      "log_sha256": "d840d0db68e98f6813cf61dabb1e3e40d865e9ea6bc2ec8f9505ec009d706a42"
+    },
+    "excluded_attempts": [
+      "Initial resource assertion called unimplemented MDTraj seek(): two test-authoring failures, corrected before the four-route baseline.",
+      "A later guard used an unavailable root-level handler export and TextIOWrapper.tell() after iteration; corrected to the actual native import and observable source remainder.",
+      "One run failed creating all 32 input files due to tmpfs user quota; no converter evidence is inferred."
+    ]
+  },
+  "notebook_changes": "Six edited notebooks retain identical code cells, outputs, metadata and cell identities; only Markdown source changes. No new execution of unchanged examples is claimed.",
+  "temporary_cleanup": "Removed owned obsolete generated /tmp/molsysmt-144-html and /tmp/molsysmt-181-engine-docs-html (about 1.05 GiB total), plus the small campaign-created pytest-of-diego fallback in the checkout. Reports/logs and repository evidence retained.",
+  "limits": [
+    "194 of 606 routes are now in the executable profile; 412 remain explicitly deferred.",
+    "The native GRO handler and native-backed file-to-OpenMM routes retain first-entry scope.",
+    "Complete MDTraj copies reopen the same file at its beginning and isolate mutable topology; they do not duplicate disk bytes or clone opaque cursor state.",
+    "Attribute reads share topology read-only and use independent closed read handles.",
+    "No full GRO dialect, trajectory streaming/large-file benchmark, arbitrary chemistry, force-field preparation, complete graph, installed-pair or release claim."
+  ]
+}

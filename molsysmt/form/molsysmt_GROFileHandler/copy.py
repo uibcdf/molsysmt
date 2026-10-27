@@ -11,7 +11,7 @@ def copy(item, output_filename=None, skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source object or file in the form named by this adapter.
     output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
@@ -23,7 +23,20 @@ def copy(item, output_filename=None, skip_digestion=False):
         Resulting object in molsysmt.GROFileHandler form.
 
 
+    Notes
+    -----
+    Copies the complete resident StringIO buffer and parsed entry independently.
+    Source cursor and mutable arrays are preserved, and closing the result does
+    not close the source. Output-file serialization is not implemented and
+    rejects an explicit output_filename before writing anything.
+
     .. versionadded:: 1.0.0
     """
 
-    raise NotImplementedMethodError
+    if output_filename is not None:
+        raise NotImplementedMethodError(
+            caller="molsysmt.form.molsysmt_GROFileHandler.copy"
+        )
+    from copy import deepcopy
+
+    return deepcopy(item)

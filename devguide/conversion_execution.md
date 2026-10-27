@@ -14,20 +14,20 @@ installed optional providers must not silently change the declared inventory.
 python devtools/scripts/audit_conversion_execution.py --json
 
 # Execute all profiled edges, including direct and public routes
-python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/conversion_truth/test_declared_docking_edges.py --receptor=llm -n 12
+python -m pytest tests/conversion_truth/test_declared_native_edges.py tests/conversion_truth/test_declared_h5msm_edges.py tests/conversion_truth/test_declared_pdb_edges.py tests/conversion_truth/test_declared_docking_edges.py tests/conversion_truth/test_declared_gro_edges.py --receptor=llm -n 12
 
 # Exercise the inventory's adversarial controls
 python -m pytest devtools/tests/test_audit_conversion_execution.py --receptor=llm
 ```
 
 `devtools/data/conversion_execution_baseline.json` defines the
-`resident-files-v9` profile: thirteen native containers/dictionary forms, four
+`resident-files-v10` profile: thirteen native containers/dictionary forms, four
 resident MDTraj/OpenMM forms, H5MSM disk/handler forms, PDB file/text/handler
 forms, SDF/PDBQT file/text forms, `molsysmt.PDBQTFileHandler` and
 `MDAnalysis.Universe`, `MDAnalysis.AtomGroup`, `MDAnalysis.Topology` and
-`parmed.Structure`.
+`parmed.Structure`, GRO disk/native handlers and the resident OpenMM/MDTraj GRO readers.
 The measured 2026-10-26 profile selects
-172 of 606 declared edges; 434 remain explicit coverage debt. Earlier native,
+194 of 606 declared edges; 412 remain explicit coverage debt. Earlier native,
 engine, H5MSM, PDB and docking-format subsets remain covered.
 Every currently declared direct edge between its source/target forms becomes a
 parametrized case. A small fresh four-atom, two-structure system supplies each
@@ -98,7 +98,7 @@ PDB fields or make optional OpenMM inference independent of that provider.
 `file:pdbqt` or `string:pdbqt_text`. Its 19 edges use four SDF variants
 (V2000, V3000, a legacy blank version and declared zero valence) or two PDBQT
 variants (rigid/ligand). Each of the 48 cases exercises both direct
-and public conversion with fresh local inputs and destinations. The four test
+and public conversion with fresh local inputs and destinations. The five test
 modules form a disjoint partition of the selected graph; a guard checks that
 nothing selected is omitted or counted twice.
 
@@ -223,3 +223,33 @@ profile does not certify its coordinate or mechanical-parameter transfer.
 Full directional field auditing remains under uibcdf/molsysmt#120. No arbitrary
 force-field transfer, trajectory-time transfer to ParmEd or release qualification
 is established by the executable profile.
+
+## GRO execution and selected-value extension — 2026-10-26
+
+The `resident-files-v10` profile adds 22 already declared routes involving
+`file:gro`, `molsysmt.GROFileHandler`, `mdtraj.GroTrajectoryFile` and
+`openmm.GromacsGroFile`. No production graph edge is added. The dedicated
+`test_declared_gro_edges.py` executor owns these routes and the partition guard
+checks it alongside the four existing executors. Fresh literal records, explicit
+output files, independent result closure and caller-owned source handles make
+execution evidence independent of downloads or existing generated structures.
+
+Initial execution exposes uibcdf/molsysmt#476; the native/OpenMM bridges and
+complete-handler copies now execute. Separate literal-value guards expose
+wrong OpenMM atom-axis correspondence and consumed MDTraj reader positions,
+repaired under uibcdf/molsysmt#477. The guards assert nm coordinates, distinct
+triclinic row-vector boxes, ps times when provided, source labels, sorted native
+MolSys atom extraction versus requested Structures order, repeated/reordered
+structures and unchanged source files/provider positions under nm/pm policies.
+MDTraj readers already advanced one structure retain their unread source.
+Failure/interruption controls assert actual independent-reader closure.
+
+The native GRO handler remains a resident single-entry reader. Its identity
+copy owns an independent parsed entry/buffer. A copied MDTraj reader instead
+starts at the beginning of the same backing file with independent mutable
+topology; it does not clone its source cursor or disk bytes. Attribute reads
+use independent read cursors with shared read-only topology, avoiding a graph
+copy for each query. Atom counts use provider metadata without reading a
+trajectory. Handler subset/file-output modes remain explicitly unsupported.
+These are bounded execution and value contracts, not full GRO dialect coverage,
+large-trajectory memory measurements or chemical-preparation qualification.

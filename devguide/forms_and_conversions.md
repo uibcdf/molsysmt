@@ -702,3 +702,26 @@ selected source atom-index order. It does not silently omit those result keys
 or force charge/type data into Topology. Guard:
 `tests/basic/get/test_mixed_mechanical_pipes.py`; resolved defect:
 uibcdf/molsysmt#301.
+
+## GRO bridge ownership and selected axes
+
+The native GRO handler loads the first coordinate entry into a resident buffer.
+Its whole-handler copy isolates mutable parsed arrays and stream ownership;
+subsets or output-file serialization remain explicitly unsupported. Native
+file-to-OpenMM bridges reuse native first-entry connectivity and extraction,
+keeping labels, coordinates and box correspondence together. These bounds
+are distinct from provider readers that expose concatenated structures.
+
+OpenMM GRO-to-MolSys conversion assembles topology and geometry before one
+native atom extraction, so selected coordinates follow native sorted source
+atom order. Structure ordering/repetitions retain matching periodic boxes.
+
+MDTraj GRO attribute queries leave the caller's stream untouched. Independent
+read cursors share provider topology read-only; public copy owns a distinct
+mutable topology and starts at the beginning of the same backing file. Copy
+does not duplicate disk bytes or clone the original cursor. Reader cleanup
+covers success, exceptions and interruption. Existing atom-count metadata is
+read without trajectory allocation. Reaching the declared form is not a claim
+that every attribute survives a conversion. Implementation/guards are owned by
+uibcdf/molsysmt#476, uibcdf/molsysmt#477 and the execution scope in
+[conversion execution](conversion_execution.md).

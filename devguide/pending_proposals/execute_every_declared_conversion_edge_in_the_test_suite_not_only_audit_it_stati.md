@@ -552,3 +552,41 @@ build exits zero but emits ten schema ERROR diagnostics from five pre-existing
 course notebooks outside the edited pages, now recorded under uibcdf/molsysmt#144.
 This is not a clean-site build claim. The two updated executable notebooks and
 four converter doctests remain separately successful.
+
+## GRO execution and source-ownership extension — 2026-10-26
+
+`resident-files-v10` selects **194 of 606 declared edges**, with **412**
+explicitly deferred. All 22 newly selected routes involve file/native GRO or
+the OpenMM/MDTraj GRO readers. The graph is unchanged. A fifth dedicated
+executor owns this slice; the partition guard proves no selected edge is
+omitted or counted twice. The baseline removes only these 22 debt entries.
+
+Initial direct/public execution identifies four failing default bridges, fixed
+under uibcdf/molsysmt#476. Independent selected-value guards identify OpenMM
+topology/coordinate atom misbinding and consumed MDTraj readers, fixed under
+uibcdf/molsysmt#477. Default public coordinate delivery also needed its existing
+advertised system-level getter. Repairs reuse native MolSys extraction and
+owning copy/read tools; no main Iterator, scientific method, dependency floor,
+new production edge or chemical store is changed.
+
+The regression `python -m pytest tests/form/file_gro tests/conversion_truth
+ devtools/tests/test_audit_conversion_execution.py --receptor=llm -n 12` passes
+**437 tests**, zero failures/skips, in **36.15 seconds**. Its 21 warnings are
+intentional legacy-H5MSM notices. Two doctest modules pass in 9.01 seconds;
+491 raw notebook-schema cases pass in 8.33 seconds. Ruff lint/format and all
+14 fast gates pass. Incremental HTML compilation exits 0 with **zero errors
+and 21 warnings** under the existing uibcdf/molsysmt#144 debt.
+
+The six changed notebooks contain prose-only edits: exact comparison against
+HEAD retains all code, outputs, execution metadata and cell identities, so
+unchanged examples are not claimed as newly executed. The corrected handler
+guide describes actual entry fields, independent-copy ownership and first-entry
+native reading bounds instead of an unimplemented writer/streaming workflow.
+
+The [receipt](../../devtools/data/conversion_execution_gro_20261026.json) records
+commands, actual provider/environment versions, code/input hashes, old/new route
+sets, failed attempts and conservative limits. Native handlers remain resident
+single-entry readers; the copied MDTraj cursor starts at the beginning of the
+same backing file, while queries preserve caller position and share topology
+read-only. No large-file benchmark, installed-pair, complete conversion graph,
+chemical-preparation or release qualification is claimed. #181 stays partial.
