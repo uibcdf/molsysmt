@@ -1538,3 +1538,39 @@ The evidence-only closeout does not expand the 23-tool facade or receive TPSA,
 optional-provider absence, graphical tasks, installed artifacts, performance or
 another platform. Both 1.0 publications remain paused. No runtime change is made
 by this receipt; no duplicate heavy smoke is needed for this evidence-only commit.
+
+
+## Molecular TPSA receiving — 2026-10-27
+
+The explicit get_tpsa reader extends the experimental physchem facade to 24 of
+33 inspected exports. Nine tools remain unreceived. It binds only current
+view.molsys and delegates unchanged native parameters, digestion and results.
+Native molecule order/repetitions/scalar/empty axes, complete covalent boundaries,
+explicit state and nonconsecutive structure context, squared area units and the
+N/O versus N/O/S/P choice remain visible. The optional detached report preserves
+source maps, method, software and provenance; no fragment capping, chemistry or
+hydrogen preparation, aggregation, color, adoption or scene sync is introduced.
+TPSA is distinct from geometric SASA and permeability prediction.
+
+Two native defects were independently reproduced without Viewer and filed with
+maintainer authorization: #494 duplicates molecule rows when adding groups to
+an existing molecule inventory; #495 fails group-free MDTraj selection with
+NAType. These are owner repairs, not consumer translation or hierarchy patches.
+The receiving uses valid group-free sources, numeric/native expressions, exact
+rejection parity for the external-syntax limit, and bundled caffeine explicitly
+read through RDKit with declared H inventory. Native SDF records without the
+required CTAB H evidence remain rejected rather than silently inferred.
+
+All 53 directed consumer cases and the one frozen 3,294-case applicable
+regression pass on c905d8ac7 plus this wrapper, zero failures/errors/skips. Source
+and retained ABI3 backend hashes are unchanged during the regression. All 41
+bound-guide blocks and 94 inherited native-context doctests pass. The source
+receipt retains the initial builder/MDTraj findings and the corrected SDF input
+expectation; these do not justify a scientific transformation in the consumer.
+The records for #494/#495 remain open with owner acceptance criteria.
+
+Exact-source hosted CI is pending at local receiving. Uncommitted native work on
+molecular descriptors is explicitly preserved and not included in this source
+qualification. The code does not receive either native repair, optional-provider
+absence, GUI, installed artifacts, universal model accuracy or another platform.
+Both 1.0 publications remain paused.

@@ -103,6 +103,7 @@ def test_signatures_help_digestion_and_no_invented_scientific_inputs(view, name)
         "get_halogen_bond_sites",
         "get_bulkiness",
         "get_secondary_structure_propensity",
+        "get_tpsa",
     }
 
 

@@ -120,8 +120,8 @@ attribution separate from interactions and rendering. Default/None-reference MDT
 works for all three readers after native #488; explicit/associated SMARTS states
 retain their selector restrictions. No selector
 rewrite, implicit preparation or scene synchronization. The current reviewed
-inventory has 33 native physchem exports after TPSA was added; 23 have wrappers and ten
-remain pending, including TPSA. The earlier 02671792f gate retains its 31-export baseline; the new reference-
+inventory has 33 native physchem exports after TPSA was added; 24 have wrappers and nine
+remain pending. The earlier 02671792f gate retains its 31-export baseline; the new reference-
 scale receiving uses its own 32-export source. This is source exposure,
 not installed or universal scientific qualification.
 
@@ -140,3 +140,18 @@ axes and strict unsupported-name handling. Do not silently remove caps, invent
 parent mappings or aggregation, normalize ratios, predict/assign structure or
 color the scene. Keep lookup coordinate independence distinct from rich-selector
 coordinate needs. Retain native optional attribution without duplicating credits.
+
+
+Preserve the explicit molecule-level TPSA mirror: native squared units,
+N/O versus N/O/S/P choice, complete molecule order/repetitions/scalar/empty maps,
+state/structure scope and optional detached report/provenance. It is a graph
+descriptor, not geometric SASA or a permeability prediction. No fragment capping,
+aggregation, chemistry/hydrogen preparation, engine fallback, adoption, color or
+synchronization is added. Retain strict native chemistry/boundary validation and
+actual optional-provider limits. Keep source receiving distinct from scientific
+accuracy and published package compatibility.
+
+Keep the explicitly RDKit-read caffeine example and declared hydrogen inventory.
+Native SDF sources with unspecified CTAB evidence retain rejection; do not infer
+missing hydrogen counts. Track #494's builder molecule duplication and #495's
+group-free MDTraj adapter limit without adding consumer workarounds.

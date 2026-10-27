@@ -1372,17 +1372,17 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes twenty-three tools under
+The source addon now exposes twenty-four tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
 aromaticity perception and three chemical-feature readers (formal-charge
 centers, hydrophobic atoms and ordered halogen sites), plus the Zimmerman
-bulkiness and Levitt secondary-structure propensity reference lookups. SASA and
+bulkiness and Levitt secondary-structure propensity reference lookups, and
+state-aware molecular TPSA. SASA and
 the chemical readers have bounded receiving, not universal scientific qualification. The
-inspected native inventory now has 33 exports after TPSA was added; ten,
-including TPSA, further feature perception and chemical preparation, remain
-pending in the addon. The new reference lookups have their own source receiving; earlier hosted
+inspected native inventory has 33 exports; nine functions covering further
+feature perception and chemical preparation remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
 gates retain their original source identities and scopes.
 
 | Tool | Native result and received scope |
@@ -1872,4 +1872,88 @@ scientific dependency or consumer attribution record is introduced.
 
 - {ref}`Tutorial_Get_bulkiness` — the reference area scale and its evidence limits.
 - {ref}`Tutorial_Get_secondary_structure_propensity` — required categories and weighted ratios.
+:::
+
+
+## Calculating molecular topological polar surface areas
+
+Use `view.addons.molsysmt.physchem.get_tpsa()` for the experimental native Ertl,
+Rohde and Selzer descriptor executed through RDKit. It returns one area per
+selected complete molecule, in the configured standard area unit (nm² by
+default). It does not measure the conformation's exposed polar surface or
+predict permeability; use conformational SASA for that separate geometric task.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+from rdkit import Chem
+
+# Supply an explicitly read graph with RDKit-declared hydrogen inventory.
+molsys = Chem.SDMolSupplier(msm.systems["caffeine"]["caffeine.sdf"], removeHs=False)[0]
+with msv.new_view(molsys) as view:
+    result = view.addons.molsysmt.physchem.get_tpsa(return_report=True)
+    area = msm.pyunitwizard.get_value(result["tpsa"], to_unit="angstrom**2")
+    assert area.round(2).tolist() == [61.82]
+    assert result["report"]["molecule_indices"].tolist() == [0]
+    assert result["report"]["method"] == "ertl_rohde_selzer"
+```
+
+This example explicitly uses RDKit to read the graph and its hydrogen inventory.
+A native SDF source with unspecified CTAB valence/hydrogen evidence is rejected
+rather than guessed; loading the same file through a different declared form
+can therefore have different chemistry completeness. The addon never changes
+the input form or supplements missing counts to make a calculation pass.
+
+Group-free native molecule selection works with numeric indices and MolSysMT
+expressions. The current native MDTraj adapter fails on missing groups under
+[#495](https://github.com/uibcdf/molsysmt/issues/495). Adding groups to an already
+populated molecule inventory through the builder also has a native correspondence
+defect under [#494](https://github.com/uibcdf/molsysmt/issues/494). These limits
+remain visible; the addon neither invents hierarchy nor rewrites selectors.
+
+Numeric `selection` indices address molecules, not atoms, groups or saved scene
+regions. Their order and repetitions are preserved; a scalar keeps a one-value
+axis and an empty selection keeps a typed `(0,)` area array. String expressions
+select whole molecules using native syntax: selecting one atom returns its full
+source molecule, without fragment capping. `element='molecule'` is the only
+supported level; no whole-system sum is inferred. Source molecule membership
+must be consistent with covalent connectivity. Disconnected salt labels and
+bonds crossing a selected molecule boundary are rejected.
+
+The native default `include_sulfur_phosphorus=False` calculates N/O contributions.
+Set it explicitly to `True` to include the model's S/P contributions. These are
+different descriptor variants. Native quantities preserve the squared unit
+conversion; the wrapper does not rescale values or combine molecules.
+
+`chemical_state='reference'` is explicit. `structure_indices` supplies context for
+chemical-state resolution and spatial selection; it adds no structure axis to
+the graph descriptor. `chemical_state='structure'` must resolve one state across
+the requested structures, including nonconsecutive lists. The visible canvas
+structure is not substituted for the requested scope. Protonation, tautomer and
+hydrogen inventories are supplied by the caller, never prepared automatically.
+
+The bounded native profile requires complete compatible closed-shell chemistry
+and declared indexed/nonindexed hydrogen counts. Metals, radicals, query atoms,
+unsupported relationships and inconsistent inventories retain native errors.
+Missing RDKit fails explicitly; no engine fallback runs. There is no implicit
+hydrogen addition, assignment, topology repair or periodic reconstruction.
+
+The default quantity carries no provenance report. Request `return_report=True`
+to obtain the detached `tpsa`/`report` dictionary with source molecule and atom
+maps, selected state, method, parameters, software and scientific attribution.
+Empty reported selections retain typed maps and provenance. Returned arrays and
+nested references remain independent of the primary and later results. Optional
+Ackredit records the native executed method; the addon adds no duplicate credit.
+
+Calls resolve current `view.molsys`, including after replacement and during
+pending managed edits. They do not adopt a result, color the scene, synchronize
+pending edits or change named interaction coverage. Exact native parameters and
+`skip_digestion` remain available. The adapter's receiving covers its declared
+fixtures and contracts; it does not establish universal model accuracy or
+published-package compatibility.
+
+:::{seealso}
+
+- {ref}`Tutorial_Get_tpsa` — complete chemistry, descriptor variants and evidence.
 :::

@@ -1,0 +1,175 @@
+{
+  "schema": "molsysmt.viewer_tools_tpsa_receiving@1",
+  "date": "2026-10-27",
+  "base_source": "c905d8ac753e98ec11959fac5ccbe049311d2068",
+  "host_source": "386ed937ca9f1240b795b51cbd4e6c201226a876",
+  "method": "physchem.get_tpsa",
+  "inventory": {
+    "exposed": 24,
+    "reviewed_native": 33,
+    "pending": 9
+  },
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "rdkit": "2025.9.5",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "effective_pyparsing": "3.3.2",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "environment_limit": "Existing development environment with actual imported PyParsing 3.3.2 and stale 3.3.3 distribution metadata. No clean solver/pip-check or installed artifact qualification.",
+  "scope": "Experimental thin source mirror of molecule-level native TPSA, exact native signature minus current primary, unchanged quantities/reports, scientific digestion, molecule order/repetitions and explicit state/structure context.",
+  "focused": {
+    "counts": {
+      "tests": 53,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "396ae131e84b78e56bffd929f01623b8b580b68c75c5d372143cf21ef3c3664b"
+  },
+  "one_applicable_regression": {
+    "counts": {
+      "tests": 3294,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "arguments": [
+      "--receptor=llm",
+      "-n",
+      "4",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_sasa/",
+      "tests/physchem/get_hydrogen_inventory/",
+      "tests/physchem/test_get_chemical_readiness.py",
+      "tests/physchem/test_get_aromatic_rings.py",
+      "tests/physchem/test_get_aromaticity.py",
+      "tests/physchem/test_get_charge_centers.py",
+      "tests/physchem/test_get_hydrophobic_sites.py",
+      "tests/physchem/test_get_halogen_bond_sites.py",
+      "tests/physchem/test_get_secondary_structure_propensity.py",
+      "tests/physchem/test_reference_metadata_ownership.py",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py",
+      "tests/physchem/test_collantes_legacy_contract.py",
+      "tests/physchem/test_property_selection_contract.py",
+      "tests/physchem/test_get_bulkiness.py",
+      "tests/physchem/test_get_tpsa.py",
+      "tests/native/test_group_free_molecules.py",
+      "tests/basic/select/test_mdtraj_comparisons.py",
+      "tests/topology/test_chemical_reference_selection.py",
+      "tests/topology/test_ring_structure_scope.py",
+      "tests/form/file_h5msm/test_associations_v05_probe.py",
+      "tests/scientific_truth/physchem/test_sasa.py",
+      "tests/scientific_truth/physchem/test_bulkiness.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "devtools/tests/test_mdtraj_parser_constraint.py",
+      "--junitxml=/tmp/msv-tpsa-regression.xml"
+    ],
+    "started": "2026-10-27T17:10:20.133937+00:00",
+    "finished": "2026-10-27T17:15:00.135621+00:00",
+    "source_changed": [],
+    "source_record_sha256": "80a22beb080cec8ed7aa7fd82b1c2dd1d1094d2f487fc661a7ca7888966c1b6d",
+    "source_tree_digest_before": "92edf27df633afab4ef6de3cf8d5c224c5ee255dfc2d63c9903e6ec690c7be8c",
+    "source_tree_digest_after": "92edf27df633afab4ef6de3cf8d5c224c5ee255dfc2d63c9903e6ec690c7be8c",
+    "junit_sha256": "692968ceb7aa20439a4df8f4c4c8856a6d7f99ea945c57a9182b0bf9f473025c",
+    "backend_before": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "backend_after": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "warnings": {
+      "LegacyH5MSMWarning": 1488,
+      "GpuNotAvailableWarning": 6,
+      "DeprecationWarning": 1,
+      "DigestNotDigestedWarning": 2,
+      "PytestAssertRewriteWarning": 1,
+      "RuntimeWarning": 1
+    }
+  },
+  "examples": {
+    "guide_blocks": 41,
+    "inherited_native_context_doctests": 94,
+    "failures": 0,
+    "log_sha256": "c2d5772ceeb22e7c8b8424d3bb7e72c988aaeb84f3f3d59428f74c4260936547"
+  },
+  "fixtures": [
+    "Complete three-molecule RDKit graph with explicit deterministic 2D coordinates and three source structures, group-free molecule membership, preserved named empty interactions and region.",
+    "Real bundled caffeine explicitly read with RDKit removeHs=False; native declared H inventory, 61.82 angstrom squared N/O reference value.",
+    "Explicit acid/acetate states and nonconsecutive structure-state associations, detached nested metadata, pending edits, replacement and lifetime."
+  ],
+  "initial_attempts": [
+    {
+      "passed": 1,
+      "failed": 1,
+      "collected": 53,
+      "cause": "Fixture insertion of groups exposed native builder molecule duplication, independently reproduced and reported as #494; changed fixtures to valid group-free sources, no wrapper workaround."
+    },
+    {
+      "passed": 32,
+      "failed": 1,
+      "collected": 53,
+      "cause": "Native MDTraj conversion of group-free sources raises NAType; independently reproduced as #495. Consumer retains native success/rejection parity and explicitly documents unreceived external adapter support."
+    },
+    {
+      "passed": 35,
+      "failed": 1,
+      "collected": 53,
+      "cause": "Native SDF does not declare unspecified CTAB hydrogen counts; correct native rejection. Explicitly read bundled caffeine through RDKit for its declared inventory; no supplementation in the addon."
+    }
+  ],
+  "owner_issues": [
+    "uibcdf/molsysmt#494",
+    "uibcdf/molsysmt#495"
+  ],
+  "guard": "tests/molsysviewer_molsysmt/test_tpsa_tools.py",
+  "hosted_ci": "Pending exact-source integration. Earlier gates retain their own source/scope.",
+  "prior_host_core": {
+    "run": 40454434547,
+    "source": "386ed937ca9f1240b795b51cbd4e6c201226a876",
+    "conclusion": "success",
+    "core_suites_passed": 44,
+    "core_suites_total": 44,
+    "log_sha256": "b142ebc44793f58b8523fd281bb9f67511d51be6b86a9a2c1b7342ccafa5bb64",
+    "scope": "Closes the previous documentation-push browser observation; does not qualify this new addon implementation."
+  },
+  "exclusions": [
+    "No molecular/hydrogen preparation, fragment capping, source hierarchy repair, selector translation, aggregation, scene coloring, adoption or synchronization.",
+    "No universal descriptor accuracy, permeability prediction, conformational exposed area, out-of-core memory bound, benchmark, optional-provider absence, GUI, installed package, cross-platform or release qualification. Both 1.0 publications remain paused."
+  ],
+  "authored_file_sha256": {
+    ".github/workflows/ci-smoke.yaml": "287143a2ff3c1d30907dd93bf6dca748dbc48b0800bdcb1f28e7d76151e05794",
+    "devguide/molsysviewer_addon.md": "a686cda6af7949a1467584a3c9435a0b790a0f30e37af4f961c59d25306ad3d6",
+    "devguide/pending_bugs/README.md": "0b636918db4990ddd1cd53291f7c4286e17f7bfd892738417eae790bfee7a7d1",
+    "devguide/pending_bugs/builder_group_insertion_duplicates_molecule_inventory.md": "be5e959e2dc13bca5ef0eff7ca91d4d09d6afdef5fd9768c56c81a65dde43581",
+    "devguide/pending_bugs/mdtraj_selection_rejects_group_free_topologies_with_natype.md": "a546216fd43de9237289615689bc5ed6dedefee2c426912f0ae450c92664a1d0",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "db0e812a599ed833f293640f3d70d07b05ebf4219eae30ba117a74dcb3b5a6f2",
+    "devtools/tests/run_tiers.sh": "d41d6cc19c447d012b8b854db2884600362e7cd654022a6640e2c62f57108887",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "6a1c2333b764cb68f402e8fe1bbd44d98be3f88577017512e78f6eeeb1cc9a77",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "79cfbda7d8d5966db91b9b37e1d8d9f180881bef7ce96c0fb3d51f17eafc2ab8",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "8e79081ec8a9afdfa16deb3820d3a688747ac1f1582079dc45c5f0e913a145f3",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "6c20da7ae836e5b8ab9991ce80f873e83c65e7908b233605a45bed4b0b479d1c",
+    "docs/content/user/tools/molsysviewer_tools.md": "f9cb1156b93deebea8ba430b23e920e184b2b194b3e432adfaec14c49f837ccb",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "b8ba8fd5c44839506533f34d2111db1292871ab3087be11d34ae25484331f40a",
+    "docs/docs_manifest.yml": "bea154205869999adbb6d8a6dfac188d4fb15a08d623301bdd4b6b271fad72b3",
+    "molsysviewer_molsysmt/_basic.py": "300a10bdecfd316e8fca4e1c22a0995cfbfde8dcfd28ab8e5ab32ac774c79288",
+    "molsysviewer_molsysmt/_physchem.py": "ef4319b435e0959d3ad3529a3ad1827a201eafc49259accef9107137c2ffe095",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "dc8c7e4e253378628dfa47bdcd307c12813f18e9eaa328541794e9ca1f75ca37",
+    "tests/molsysviewer_molsysmt/test_tpsa_tools.py": "f7f22c3421a97d7028956dbd20ed4c23e799e5ab37d52d70028bd33a675d3956"
+  },
+  "integration_parent": "54d5b263b",
+  "parallel_provider_work": "The live owner checkout contains uncommitted molecular-descriptor changes including get_tpsa and a new lipophilicity reader. Those bytes are preserved, neither staged nor qualified by this frozen c905d8ac7 receiving. Incoming committed 54d5b263b changes an unrelated proposal only."
+}

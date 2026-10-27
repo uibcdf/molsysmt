@@ -281,6 +281,19 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
             )
+        if module == "physchem" and name == "get_tpsa":
+            function.__doc__ += (
+                "Molecule indices address the source molecule axis, not atoms or "
+                "scene regions. Native order, repetitions and whole-molecule "
+                "selection are retained. This graph descriptor has no structure "
+                "axis; explicit structures resolve chemistry and spatial selectors, "
+                "never implicitly the visible frame. It retains native area units, "
+                "the N/O versus N/O/S/P choice and optional detached provenance. "
+                "No fragment capping, hydrogen guessing, molecular preparation, "
+                "aggregation, scene coloring, adoption or synchronization is added. "
+                "TPSA is not geometric SASA or a permeability prediction. Native "
+                "RDKit requirements and chemistry errors remain explicit.\n"
+            )
         if module == "physchem" and name == "get_sasa":
             function.__doc__ += (
                 "This is a conformational surface calculation. All primary atoms "

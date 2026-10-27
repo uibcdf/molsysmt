@@ -31,6 +31,7 @@ class _PhyschemTools:
         "get_halogen_bond_sites",
         "get_bulkiness",
         "get_secondary_structure_propensity",
+        "get_tpsa",
     )
 
     def __init__(self, owner):
@@ -577,6 +578,36 @@ class _PhyschemTools:
                 "element": element,
                 "selection": selection,
                 "definition": definition,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_tpsa", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_tpsa(
+        self,
+        element="molecule",
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="ertl_rohde_selzer",
+        include_sulfur_phosphorus=False,
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_tpsa",
+            {
+                "element": element,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "include_sulfur_phosphorus": include_sulfur_phosphorus,
+                "return_report": return_report,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
