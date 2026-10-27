@@ -252,3 +252,134 @@ reproduces the 30/49/47/23 inventory counts above. Selected Ruff check/format,
 developer-guide validation and generated-index checks pass. No molecular
 runtime implementation, table entry, dependency or public signature changes.
 These are research-tool controls, not validation of any proposed observable.
+
+## First-candidate review: Zimmerman bulkiness — 2026-10-26
+
+The bounded first candidate is an explicit public reader of the existing
+`groups/bulkiness.py` table. Its twenty entries agree exactly with both
+AAindex1 ZIMJ680102 and the official
+[ProtScale bulkiness page](https://web.expasy.org/protscale/pscale/Bulkiness.html).
+No new table is needed. Agreement with a curated table is implementation/data
+parity, not verification of physical dimensions or the original derivation.
+
+### Definition and units: distinguish the evidence sources
+
+The original reference is Zimmerman, Eliezer and Simha (1968), *Journal of
+Theoretical Biology* 21, 170–201, DOI
+[10.1016/0022-5193(68)90069-6](https://doi.org/10.1016/0022-5193(68)90069-6),
+PMID 5700434. The accessible publisher abstract confirms the work's use of
+bulkiness among six reference scales for sequence statistics. The complete
+original table and normalization were not accessed; they are not claimed as
+verified. AAindex and ProtScale identify the reference and all twenty numbers
+but neither inspected entry explicitly specifies the physical unit.
+
+There is additional, directly inspectable evidence for an area interpretation.
+Proust et al. (2019), DOI
+[10.3389/fmicb.2019.00906](https://doi.org/10.3389/fmicb.2019.00906), define the
+Zimmerman bulkiness used in their original research as average side-chain
+section in angstrom squared (Table 1). Their reported approximate mean across
+the twenty standard amino acids is 15.4 angstrom squared. The unchanged local
+table gives 15.3675, which rounds to that value. This supports the later
+published area convention; it does not independently certify every original
+1968 entry or reconstruct its molecular measurements.
+
+Descriptions of a side-chain volume/length ratio are useful leads for the
+original derivation, not a formula verified from the original full text in this
+review. Do not turn the bare word "index" into a dimensionless declaration.
+Conversely, do not assert that a reference lookup measures the actual selected
+system's steric cross-section or coordinate-dependent surface area.
+
+### Concrete proposed public boundary
+
+The candidate signature follows the adjacent reference readers:
+
+```python
+msm.physchem.get_bulkiness(
+    molecular_system,
+    element='group',
+    selection='all',
+    definition='zimmerman',
+    syntax='MolSysMT',
+    skip_digestion=False,
+)
+```
+
+This is a proposal, not an exported function. The recommended return is a
+PyUnitWizard area quantity with shape `(n_groups,)`, standardized to the active
+unit policy. Explicit angstrom-squared extraction retains the unchanged table
+scale: ALA 11.5 angstrom squared corresponds to 0.115 nm squared. No per-system
+sum or peptide average is inferred by the group reader.
+
+The supported population is the twenty named standard amino-acid groups. The
+reader requires group identities, not coordinates, explicit hydrogens, a force
+field, a particular chemical state or a structure axis. Inputs with that
+information remain form agnostic, including native MolSys/Topology, MolSysDict
+and suitable files. Structures alone cannot supply group identities. String
+selections use the requested syntax; numeric group indices preserve order and
+repetitions; an empty selection retains a floating zero-length quantity axis.
+Unsupported population levels should fail before selection resolution.
+
+Unknown or modified names must not silently acquire parent-amino-acid values.
+Terminal caps and dummy groups also need explicit treatment. For this new
+physical descriptor, the recommendation is an error for unsupported groups,
+including DUM/X, rather than assigning an invented zero area. The existing
+private group-table helper currently returns zero for dummy groups in legacy
+readers. Reuse it only after a small general extension permits strict lookup
+without changing those existing callers; do not duplicate the table-lookup
+mechanism or silently change all legacy property semantics.
+
+A peptide-average workflow can later perform an explicitly documented reduction
+of the selected quantities. A tabulated amino-acid bulkiness sum is not the
+physical area of a whole molecule; the reader therefore should not advertise
+system/molecule/chain output axes merely because they can be added numerically.
+
+### Attribution and implementation boundary
+
+Use the existing lazy optional Ackredit boundary once per successful lookup,
+including evaluated-empty lookups. Identify the original reference scale and
+the later published unit interpretation separately. Cite AAindex/ProtScale as
+curation/validation evidence without claiming to execute their software or
+assuming that numeric agreement establishes the historical source of MolSysMT's
+table. An absent/failing attribution provider must not alter completed values.
+The docstring and maintained reference documentation remain usable without it.
+
+The public reader belongs in `physchem`; its reusable strict table-lookup policy
+belongs in the existing group helper. No new chemical store, sequence object,
+network access, optional scientific runtime dependency or Rust kernel is needed
+for this O(n_groups) lookup. This is a workload estimate, not a benchmark claim.
+
+### Meaningful implementation qualification, if adopted
+
+- Compare all twenty outputs against the independently inspected curation,
+  retaining explicit source identifiers, precision and unit interpretation.
+- Assert values, shape and dimensionality under nm/angstrom/pm standard-length
+  policies, including typed empty outputs and selected order/repetitions.
+- Exercise native and file/dictionary routes and alternate selection syntax;
+  verify detached outputs and unchanged source domains.
+- Check explicit unsupported-group and unsupported-element diagnostics,
+  including terminal caps, modified names and dummy groups.
+- Check optional attribution absence, active-session reuse and provider failure
+  without presenting those controls as scientific validation.
+- Complete docstring, Toolbox, Foundations, Cookbook and shared/four-path course
+  coverage, stability classification and scoped scientific-evidence accounting.
+  The original paper's uninspected derivation must not be promoted to verified.
+
+### Provenance and remaining boundary
+
+The [candidate receipt](../../devtools/data/zimmerman_bulkiness_review_20261026.json)
+records inspected references, curation snapshot hashes, the unchanged local-table
+hash, the twenty-value comparisons and the proposed unit/scope contract.
+The SIB portal's terms defer to each resource's own conditions; portal access is
+not blanket permission to copy arbitrary underlying code or data. The 2019
+research article explicitly declares CC BY. This review imports no external code
+or table and does not assert a new license for the existing historical table.
+
+No public reader, runtime behavior, dependency or scientific-evidence promotion
+is implemented by this review. The candidate now has a concrete contract for
+maintainer selection; original-derivation access and any further data-rights
+question stay explicit rather than being hidden behind numeric agreement.
+
+The existing six research-runner controls pass again (3.93 seconds) and the
+unchanged local-table hash is rechecked. Developer-guide schema/link/index
+validation passes. These controls do not test a new molecular observable or
+replace the pending scientific/adoption decisions.

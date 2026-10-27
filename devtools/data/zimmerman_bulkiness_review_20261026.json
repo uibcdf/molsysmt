@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#485",
+  "source_commit": "0ba8a46b23957afa44755c47238b53c9468478c2",
+  "existing_table": {
+    "path": "molsysmt/physchem/groups/bulkiness.py",
+    "sha256": "2c45b30ffc6609edeb4f8a2874979559d337c26b9357e7ecb5d205dea1f15840",
+    "entries": 20,
+    "minimum": 3.4,
+    "maximum": 21.67,
+    "mean": 15.367500000000001,
+    "unchanged": true
+  },
+  "sources": [
+    {
+      "kind": "original reference metadata and abstract",
+      "doi": "10.1016/0022-5193(68)90069-6",
+      "pmid": "5700434",
+      "authors": [
+        "Zimmerman, J. M.",
+        "Eliezer, N.",
+        "Simha, R."
+      ],
+      "title": "The characterization of amino acid sequences in proteins by statistical methods",
+      "year": 1968,
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/0022519368900696",
+      "verified": "Bibliographic identity and abstract; full original tables, physical construction and normalization not accessed."
+    },
+    {
+      "kind": "official curated numeric reference",
+      "url": "https://www.genome.jp/ftp/db/community/aaindex/aaindex1",
+      "accession": "ZIMJ680102",
+      "snapshot_sha256": "560f102dbee8ca9837186c4b2b93e253ea6efc58c88617234cef4e54bd61f676",
+      "entry_sha256": "de3f1a6bce123a9b2f74018ad939a242ecada485933c39bbd7b5d973d6dcf050",
+      "result": "All twenty numbers match the pre-existing table without rescaling; entry does not explicitly declare a physical unit.",
+      "inventory": "devtools/data/physchem_observable_inventory_20261026.json"
+    },
+    {
+      "kind": "official provider numeric reference",
+      "url": "https://web.expasy.org/protscale/pscale/Bulkiness.html",
+      "snapshot_sha256": "d20ce98a8ae1015bda15bb5a9a1443d9b045209e22fb5c03ba580c507dcd5796",
+      "method": "Extract twenty named scalar values from the official page and compare the whole dictionary to the local literal table.",
+      "result": "20/20 match exactly; page does not explicitly declare a physical unit."
+    },
+    {
+      "kind": "later original research using the descriptor",
+      "doi": "10.3389/fmicb.2019.00906",
+      "year": 2019,
+      "authors": "Proust et al.",
+      "title": "Insights Into the Complexity of Yeast Extract Peptides and Their Utilization by Streptococcus thermophilus",
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2019.00906/full",
+      "locations": [
+        "Table 1",
+        "Results: peptide physicochemical diversity",
+        "Materials and Methods: peptide physicochemical characterization"
+      ],
+      "verified": "Table 1 identifies the Zimmerman descriptor as average side-chain section in angstrom squared. Reported approximate mean over twenty standard amino acids is 15.4 angstrom squared.",
+      "comparison": "Local-table mean 15.3675 rounds to the reported 15.4; this does not independently verify each original 1968 value.",
+      "license": "Article explicitly declares CC BY; no experimental methods, tables or code are incorporated into MolSysMT by this review."
+    },
+    {
+      "kind": "provider portal terms",
+      "url": "https://www.expasy.org/terms-of-use",
+      "verified": "Portal terms defer resource-specific rights and require appropriate attribution; not blanket permission for arbitrary data/code copying."
+    }
+  ],
+  "proposed_contract": {
+    "name": "molsysmt.physchem.get_bulkiness",
+    "definition": "zimmerman",
+    "element": "group only",
+    "return": "PyUnitWizard-standardized area quantity, one value per selected group; default nanometer squared, explicit angstrom squared recovers table scale.",
+    "examples": {
+      "ALA_angstrom2": 11.5,
+      "ALA_nm2": 0.115,
+      "GLY_angstrom2": 3.4,
+      "TRP_angstrom2": 21.67
+    },
+    "interpretation": "Name-indexed reference side-chain bulkiness, not coordinate-derived area or conformational SASA; no implicit molecular area or automatic aggregation.",
+    "unsupported": "Reject unsupported/modified/terminal/dummy group names rather than infer zero physical area.",
+    "implementation_status": "Proposed only; no new public API or modified table."
+  },
+  "open_items": [
+    "Complete original 1968 dimensional/normalization audit if access becomes available; distinguish this from the later published area interpretation.",
+    "Agree adoption scope and exact unsupported-group policy before adding a reader.",
+    "Verify relevant resource-specific provenance/rights before any new external data/code incorporation."
+  ],
+  "scope": "Research and concrete API proposal only. No new observable, dependency, package publication, benchmark or scientific-evidence promotion.",
+  "local_checks": {
+    "official_ProtScale_comparison": "All twenty named entries equal the pre-existing local dictionary.",
+    "unchanged_table": "SHA-256 rechecked after review.",
+    "research_runner_controls": "6 passed in 3.93 seconds; these are inventory-tool controls, not tests of a newly implemented molecular observable.",
+    "developer_guide": "Schema, links and generated queue indexes pass."
+  }
+}
