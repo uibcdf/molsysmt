@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-26",
+  "source": "a77d41fa5fe4f460a59e9ed4ed3c67f330570031",
+  "backend": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "execution": "Linux x86-64, Python 3.14, native-only, explicit CPU, existing frozen ABI3 backend; no rebuild or installed qualification",
+  "issues": [
+    "uibcdf/molsysmt#478",
+    "uibcdf/molsysmt#479"
+  ],
+  "observations": [
+    {
+      "scope": "isolated-carbon-unit-invariance",
+      "engine": "MolSysMT",
+      "standard_length": "nm",
+      "coordinate_unit": "nanometer",
+      "result_unit": "nanometer ** 2",
+      "area_nm2": [
+        [
+          1.2076282160399165
+        ]
+      ],
+      "analytic_nm2": 1.207628216039917
+    },
+    {
+      "scope": "isolated-carbon-unit-invariance",
+      "engine": "MolSysMT",
+      "standard_length": "angstrom",
+      "coordinate_unit": "angstrom",
+      "result_unit": "angstrom ** 2",
+      "area_nm2": [
+        [
+          120.76282160399167
+        ]
+      ],
+      "analytic_nm2": 1.207628216039917
+    },
+    {
+      "scope": "isolated-carbon-unit-invariance",
+      "engine": "MolSysMT",
+      "standard_length": "pm",
+      "coordinate_unit": "picometer",
+      "result_unit": "picometer ** 2",
+      "area_nm2": [
+        [
+          1207628.2160399163
+        ]
+      ],
+      "analytic_nm2": 1.207628216039917
+    },
+    {
+      "scope": "isolated-carbon-unit-invariance",
+      "engine": "MDTraj",
+      "standard_length": "nm",
+      "coordinate_unit": "nanometer",
+      "result_unit": "nanometer ** 2",
+      "area_nm2": [
+        [
+          1.2076282501220703
+        ]
+      ],
+      "analytic_nm2": 1.207628216039917
+    },
+    {
+      "scope": "isolated-carbon-unit-invariance",
+      "engine": "MDTraj",
+      "standard_length": "angstrom",
+      "coordinate_unit": "angstrom",
+      "result_unit": "angstrom ** 2",
+      "area_nm2": [
+        [
+          1.2076282501220703
+        ]
+      ],
+      "analytic_nm2": 1.207628216039917
+    },
+    {
+      "scope": "isolated-carbon-unit-invariance",
+      "engine": "MDTraj",
+      "standard_length": "pm",
+      "coordinate_unit": "picometer",
+      "result_unit": "picometer ** 2",
+      "area_nm2": [
+        [
+          1.2076282501220703
+        ]
+      ],
+      "analytic_nm2": 1.207628216039917
+    },
+    {
+      "scope": "opposite-faces-with-box",
+      "engine": "MolSysMT",
+      "area_nm2": [
+        [
+          0.79627985495132,
+          0.8000536931264447
+        ]
+      ]
+    },
+    {
+      "scope": "opposite-faces-with-box",
+      "engine": "MDTraj",
+      "area_nm2": [
+        [
+          1.2076282501220703,
+          1.2076282501220703
+        ]
+      ]
+    }
+  ]
+}
