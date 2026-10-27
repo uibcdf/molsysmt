@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`rdkit_group_free_conversions_leave_the_molecule_inventory_empty.md`](rdkit_group_free_conversions_leave_the_molecule_inventory_empty.md) — [#491](https://github.com/uibcdf/molsysmt/issues/491) — RDKit group-free conversions leave the molecule inventory empty *(medium, reproduced)*
 
 ### Partially resolved (2)
 
