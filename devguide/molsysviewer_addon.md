@@ -1440,3 +1440,14 @@ when completed pytest output is positive. Preserve the official run, annotations
 and original outputs, then qualify a corrected source through an actual complete
 run. The measured 15-minute exhaustion and accepted adjustment are tracked by
 uibcdf/molsysmt#501; fixture migration is the separate uibcdf/molsysmt#500.
+
+### Descriptor CI closeout — 2026-10-27
+
+Corrected source 4ad988584 passes fixed-ref smoke 40575948453: 2,847 native
+passes / four optional Ackredit skips / one strict #499 xfail, and 1,845 bound
+passes / three optional Ackredit skips. All five other applicable source controls
+pass. #500 fixture migration and #501 bounded-budget adjustment are resolved.
+Original timeout/failure conclusions remain preserved. #499's later owner
+repair ab165135e passes 80 directed native builder cases in separate receiving;
+it is not retroactively included in the earlier hosted source or its counts.
+See `devtools/data/molsysviewer_tools_descriptor_ci_closeout_20261027.json`.

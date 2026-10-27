@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
-- [`align_smarts_and_bound_feature_fixtures_with_inherited_molecule_boundaries.md`](align_smarts_and_bound_feature_fixtures_with_inherited_molecule_boundaries.md) — [#500](https://github.com/uibcdf/molsysmt/issues/500) — Align SMARTS and bound-feature fixtures with inherited molecule boundaries. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 
 ### Partially resolved (2)

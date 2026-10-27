@@ -1,13 +1,13 @@
 ---
 summary: Budget CI smoke for both native and bound scientific tiers.
 issue: uibcdf/molsysmt#501
-status: open
+status: resolved
 opened: 2026-10-27
-closed:
+closed: 2026-10-27
 verification: measured
 area: [ci, addons, testing]
 guard:
-normative:
+normative: devguide/molsysviewer_addon.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** 2026-10-27, exact-source addon qualification. Opened with the
 principal maintainer's authorization.
-**Status:** open; the bounded budget is raised without removing scientific tests.
+**Status:** resolved; corrected-source hosted CI completes successfully.
+Hosted completion is being verified without removing scientific tests.
 
 ## What
 
@@ -36,7 +37,7 @@ This operational budget policy will be absorbed in `devguide/molsysviewer_addon.
 
 Related: uibcdf/molsysmt#421, uibcdf/molsysmt#500, uibcdf/molsysviewer#264.
 
-Record: `devguide/pending_proposals/ci_smoke_budget_covers_native_and_bound_scientific_tiers.md`.
+Record: `devguide/archive/resolved_proposals/ci_smoke_budget_covers_native_and_bound_scientific_tiers.md`.
 
 
 ## Scope and exclusions
@@ -51,3 +52,18 @@ fixture migration is uibcdf/molsysmt#500.
 GitHub run 40570840482 and check-run 122424282078, source ea9fff339, Linux/Python
 3.14. Original complete bundle/log/check annotations are retained with digests.
 The conclusion is cancelled even though the two pytest processes report success.
+
+## Resolution — 2026-10-27
+
+Correction 4ad988584ec1409fb9f90e2e8ce2aab05a638473 passes fixed-source
+CI smoke 40575948453, officially success including cleanup. Native pytest has
+2,847 passes, four optional Ackredit skips and the one strict #499 xfail on that
+frozen source. Bound pytest has 1,845 passes and three optional Ackredit skips.
+All five additional applicable source controls pass. The original failed and
+timed-out runs remain non-success evidence. The 210 directed fixture cases
+pass; scientific assertions and selected tests are retained. The new budget is
+finite, not a runtime guarantee. This closes #500/#501 for this source, without
+claiming installed, all-platform or release qualification. The separate #499
+owner repair ab165135e is not retroactively qualified by this earlier run.
+
+Evidence: `devtools/data/molsysviewer_tools_descriptor_ci_closeout_20261027.json`.

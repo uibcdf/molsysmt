@@ -1,13 +1,13 @@
 ---
 summary: Align SMARTS and bound-feature fixtures with inherited molecule boundaries.
 issue: uibcdf/molsysmt#500
-status: open
+status: resolved
 opened: 2026-10-27
-closed:
+closed: 2026-10-27
 severity: medium
 verification: reproduced
 area: [tests, topology, addons]
-guard:
+guard: tests/topology/get_substructure_matches/test_reference_selections.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,8 @@ supersedes: []
 
 **Reported:** 2026-10-27, while receiving the bound molecular descriptors under
 uibcdf/molsysviewer#264. Opened with the principal maintainer's authorization.
-**Status:** open; two fixture factories are being adapted without changing science.
+**Status:** resolved; corrected-source hosted CI completes successfully.
+Hosted completion is being verified without changing scientific assertions.
 
 ## What
 
@@ -49,7 +50,7 @@ Receive both focused files and the applicable hosted source gate. Preserve the o
 
 Related: uibcdf/molsysmt#494, uibcdf/molsysmt#495, uibcdf/molsysviewer#264.
 
-Record: `devguide/pending_bugs/align_smarts_and_bound_feature_fixtures_with_inherited_molecule_boundaries.md`.
+Record: `devguide/archive/resolved_bugs/align_smarts_and_bound_feature_fixtures_with_inherited_molecule_boundaries.md`.
 
 
 ## What is measured and what is assumed
@@ -92,3 +93,18 @@ require unchanged molecule counts and memberships. Both focused files pass all
 210 cases, zero failures/errors/skips. No reader, builder guard, selection engine
 or model parameter is changed. Hosted closure remains pending on the corrected
 source; original 40571118517 stays failure evidence.
+
+## Resolution — 2026-10-27
+
+Correction 4ad988584ec1409fb9f90e2e8ce2aab05a638473 passes fixed-source
+CI smoke 40575948453, officially success including cleanup. Native pytest has
+2,847 passes, four optional Ackredit skips and the one strict #499 xfail on that
+frozen source. Bound pytest has 1,845 passes and three optional Ackredit skips.
+All five additional applicable source controls pass. The original failed and
+timed-out runs remain non-success evidence. The 210 directed fixture cases
+pass; scientific assertions and selected tests are retained. The new budget is
+finite, not a runtime guarantee. This closes #500/#501 for this source, without
+claiming installed, all-platform or release qualification. The separate #499
+owner repair ab165135e is not retroactively qualified by this earlier run.
+
+Evidence: `devtools/data/molsysviewer_tools_descriptor_ci_closeout_20261027.json`.

@@ -1,0 +1,39 @@
+{
+  "schema": "molsysviewer.tools.descriptor-ci-closeout@1",
+  "date": "2026-10-27",
+  "source": "4ad988584ec1409fb9f90e2e8ce2aab05a638473",
+  "run": 40575948453,
+  "official_conclusion": "success",
+  "fixed_ref": "receiving/descriptor-ci-4ad988584",
+  "native": {
+    "passed": 2847,
+    "skipped": 4,
+    "xfailed": 1,
+    "skip_reason": "Optional Ackredit unavailable",
+    "xfail_reason": "Known #499 on this frozen source, before ab165135e"
+  },
+  "bound": {
+    "passed": 1845,
+    "skipped": 3,
+    "skip_reason": "Optional Ackredit unavailable"
+  },
+  "other_success_controls": {
+    "dependency": 40575908007,
+    "ruff": 40575908134,
+    "devguide": 40575908042,
+    "suite": 40575909160,
+    "conda": 40575908628
+  },
+  "evidence_sha256": {
+    "manifest.json": "945f3403b474ce508790d7b07193ba4319dd7700fb513cf02b1f69acbc1125db",
+    "run.json": "a55eef612a214eea9e86cbd6ba22548234d4ec55be5e7bc06e02641010e97aa2",
+    "jobs.json": "5526e8a1c55ddf7c709311d531980d5f024245dd0eee775cc05934bcc3079b4d",
+    "msv-descriptor-corrected-ci.log": "548909b154458f3eacfc7c6acc7e8defaddc9313bf6026496d6d522a948fb606"
+  },
+  "earlier_non_success_runs": {
+    "40570840482": "cancelled: 15-minute job maximum despite both pytest tiers passing",
+    "40571118517": "failure: invalid fixture hierarchy",
+    "40575908036": "cancelled intentionally during setup; replaced by exact-SHA fixed-ref run"
+  },
+  "scope": "Source contract CI, not all platforms, installed artifacts or release qualification."
+}
