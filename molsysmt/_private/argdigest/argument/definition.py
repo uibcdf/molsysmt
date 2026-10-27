@@ -35,6 +35,14 @@ definitions = {
 
 def digest_definition(definition, caller=None):
 
+    if (
+        caller
+        == "molsysmt.physchem.get_secondary_structure_propensity.get_secondary_structure_propensity"
+    ):
+        if isinstance(definition, str) and definition == "levitt_1978_weighted":
+            return definition
+        raise ArgumentError("definition", value=definition, caller=caller)
+
     if caller == "molsysmt.physchem.get_bulkiness.get_bulkiness":
         if isinstance(definition, str) and definition in definitions["get_bulkiness"]:
             return definition

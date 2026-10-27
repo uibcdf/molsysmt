@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#489",
+  "related": "uibcdf/molsysmt#485",
+  "source_parent": "202a1b33b2a8e3f3d63a87db71f8447ff9e886aa",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    },
+    "pyparsing_module": "3.3.2",
+    "qualification": "Shared development environment; not a clean installed-package qualification. PyParsing module is 3.3.2; stale 3.3.3 distribution metadata was previously observed."
+  },
+  "source_sha256": {
+    "molsysmt/physchem/get_secondary_structure_propensity.py": "e4f2474d56596b5bd1fd553db755e57d66dc5f4ebcbdb53773858f81cb9f1da2",
+    "molsysmt/physchem/groups/secondary_structure_propensity.py": "94263c75c503332772b75ea567d00b08adcf6078de6bc2b5bfef17fa87bc38e6",
+    "molsysmt/_private/argdigest/argument/conformation.py": "4bba42fc3a3487678ca49d005a39ce6a6df5232ecf0745ebefdec6ee3242facd",
+    "molsysmt/_private/argdigest/argument/definition.py": "bdf087869ebe3277edfeb6ca1b5dfe408ea2eb219c3e83473968d3358a334b58",
+    "molsysmt/_private/scientific_citations.py": "ba50b613e98cf8b07bd03f26d47d0bbf64800f707502c17fef82a362a4d54721",
+    "tests/physchem/test_get_secondary_structure_propensity.py": "ebee4b4fa1d8c9e68bfaa2ffc39f4cc296776c154c5219719e2d4803ef226947",
+    "tests/scientific_truth/physchem/test_secondary_structure_propensity.py": "e681e46220ac75f947c9171edc1633998a7afc935b6837736325f5b4eed2b57c"
+  },
+  "scientific_source": "devtools/data/secondary_structure_propensity_review_20261026.json",
+  "implementation": [
+    "Existing sixty table entries unchanged byte-for-byte against parent.",
+    "Three explicit categories, required conformation, levitt_1978_weighted definition; detached float64 dimensionless arrays.",
+    "Form-agnostic get(group_name=True), existing strict group-table helper, explicit missing-name errors, no coordinates.",
+    "Optional lazy Ackredit credits the original reference scale once per completed call, including empty output.",
+    "Experimental public API and partial scientific-evidence record: reference lookup only."
+  ],
+  "validation": {
+    "focused": "253 passed in 15.53 seconds (new contract/scientific tests and existing bulkiness controls).",
+    "regression": {
+      "command": "python -m pytest tests/physchem tests/scientific_truth/physchem tests/_private/argdigest/test_digester_contract.py tests/documentation/test_dictionary_schemas.py --receptor=llm -n 12",
+      "result": "1536 passed",
+      "seconds": 81.34,
+      "warnings": {
+        "LegacyH5MSMWarning": 92,
+        "FutureWarning": 31,
+        "GpuNotAvailableWarning": 6
+      }
+    },
+    "schemas_and_attribution": {
+      "command": "python -m pytest tests/documentation/test_notebook_schema.py tests/test_ackredit.py --receptor=llm -n 12",
+      "result": "503 passed",
+      "seconds": 8.26
+    },
+    "doctest": "1 passed in 5.11 seconds; two LegacyH5MSMWarning instances from bundled legacy fixture.",
+    "docs": "Tutorial executed in 6.0 seconds; recipe Python block executed with source-index/category assertions. Five course notebooks change prose only; original code, outputs and code metadata remain identical.",
+    "html": "Final incremental HTML build exits zero; 17 pre-existing orphan-document warnings; no diagnostic for either new page. Warning counts are checkpoint observations, not a warning-debt comparison.",
+    "static": "253 public docstrings pass; 275 API symbols classified; zero unauthorized signature drift; scoped Ruff, dependency audit, devguide/index and scientific registry checks pass.",
+    "fast_gates": "14/14 passed."
+  },
+  "scope": "Local Linux/Python 3.14 source qualification; no benchmark, full-suite, cross-platform, installed pair, tag, release or package publication claim."
+}

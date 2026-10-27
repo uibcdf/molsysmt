@@ -413,3 +413,9 @@ molsysmt.structure.shift_dihedral_angles:
   first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
   summary: "Applies finite angular increments to selected torsions."
   doc_ref: "{func}`molsysmt.structure.shift_dihedral_angles`"
+
+molsysmt.physchem.get_secondary_structure_propensity:
+  name: "msm.physchem.get_secondary_structure_propensity"
+  first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
+  summary: "Reads dimensionless weighted Levitt reference ratios for explicit conformation categories."
+  doc_ref: "{func}`molsysmt.physchem.get_secondary_structure_propensity`"

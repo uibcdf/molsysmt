@@ -16,7 +16,8 @@
     "molsysmt.physchem.get_sasa",
     "molsysmt.structure.get_rmsf",
     "molsysmt.structure.get_secondary_structure",
-    "molsysmt.physchem.get_bulkiness"
+    "molsysmt.physchem.get_bulkiness",
+    "molsysmt.physchem.get_secondary_structure_propensity"
   ],
   "experimental_api_scopes": [
     "molsysmt.build",

@@ -6,6 +6,15 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "levitt_1978": dict(
+        doi="10.1021/bi00613a026",
+        title="Conformational preferences of amino acids in globular proteins",
+        authors=["Levitt, Michael"],
+        year=1978,
+        journal="Biochemistry",
+        volume="17",
+        pages="4277-4285",
+    ),
     # Bulkiness reference and explicitly documented later area interpretation.
     # Reviewed 2026-10-26; original full-text derivation remains unaudited (#485).
     "zimmerman_1968": dict(

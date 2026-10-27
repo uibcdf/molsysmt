@@ -301,6 +301,10 @@ sections:
           - name: get_hydrophobicity
             file: docs/content/user/tools/physchem/get_hydrophobicity.ipynb
             agents_file: docs/content/user/tools/physchem/get_hydrophobicity.ipynb.AGENTS.md
+          - name: get_secondary_structure_propensity
+            file: docs/content/user/tools/physchem/get_secondary_structure_propensity.ipynb
+            agents_file: docs/content/user/tools/physchem/get_secondary_structure_propensity.ipynb.AGENTS.md
+            description: Reading dimensionless Levitt reference propensities with explicit categories
           - name: get_bulkiness
             file: docs/content/user/tools/physchem/get_bulkiness.ipynb
             agents_file: docs/content/user/tools/physchem/get_bulkiness.ipynb.AGENTS.md
@@ -527,6 +531,10 @@ sections:
         agents_file: docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb.AGENTS.md
         description: Public string atom-ID edits, selected B-factor axes and H5MSM 0.5 persistence.
         status: reviewed
+      - name: exporting_secondary_structure_propensities
+        file: docs/content/user/cookbook/exporting_secondary_structure_propensities.md
+        agents_file: docs/content/user/cookbook/exporting_secondary_structure_propensities.md.AGENTS.md
+        description: Exporting named reference ratios with source group indices
       - name: exporting_bulkiness
         file: docs/content/user/cookbook/exporting_bulkiness.md
         agents_file: docs/content/user/cookbook/exporting_bulkiness.md.AGENTS.md

@@ -16,6 +16,7 @@ API Physical and Chemical Properties
    get_atomic_radius
    get_buried_fraction
    get_bulkiness
+   get_secondary_structure_propensity
    get_cip_stereochemistry
    get_charge
    get_charge_centers

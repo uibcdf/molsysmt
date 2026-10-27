@@ -10,6 +10,7 @@ from .get_atomic_radius import get_atomic_radius
 from .get_electronegativity import get_electronegativity
 from .get_polarity import get_polarity
 from .get_bulkiness import get_bulkiness
+from .get_secondary_structure_propensity import get_secondary_structure_propensity
 from .get_transmembrane_tendency import get_transmembrane_tendency
 from .get_area_buried import get_area_buried
 from .get_buried_fraction import get_buried_fraction

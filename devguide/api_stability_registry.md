@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 142 |
+| experimental | 143 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -251,6 +251,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_protor_atom_type` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_protor_vdw_radius` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_sasa` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_secondary_structure_propensity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_surface_area` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_transmembrane_tendency` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_volume` | experimental | active | pre-1.0 |

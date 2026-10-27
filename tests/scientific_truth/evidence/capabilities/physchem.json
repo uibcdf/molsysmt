@@ -129,5 +129,24 @@
       }
     ],
     "gap": "The original 1968 full-text derivation and normalization have not been re-audited. Numeric agreement with curated tables and later published area interpretation do not validate the geometry of a molecular conformation, arbitrary modified groups or molecular area aggregation."
+  },
+  "molsysmt.physchem.get_secondary_structure_propensity": {
+    "domain": "physchem",
+    "status": "partial",
+    "claim": "Reference lookup of sixty dimensionless weighted Levitt P_ij values for twenty standard amino-acid names and three explicit categories, matching detailed Tables III\u2013V; no prediction or observed assignment claim.",
+    "units": [
+      "dimensionless"
+    ],
+    "periodic_behavior": "Not periodic; no coordinates are used.",
+    "contract_test_area": "tests/physchem/test_get_secondary_structure_propensity.py",
+    "scientific_evidence": [
+      {
+        "class": "versioned-reference",
+        "test": "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+        "oracle": "Independent visual transcription of Levitt (1978), doi:10.1021/bi00613a026, detailed Tables III\u2013V, P_ij columns. PDF hash, transcription order and curation comparisons: devtools/data/secondary_structure_propensity_review_20261026.json.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": "Evidence certifies the bounded reference lookup, not the original population-analysis implementation, prediction accuracy, observed secondary structure, modified-group substitutions or aggregate molecular observables. Additional scale families remain unaudited."
   }
 }

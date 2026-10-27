@@ -145,3 +145,15 @@ reference. Explicit indices and structure-associated chemistry retain the
 restrictions of {func}`molsysmt.basic.select`. Recognition remains a full-source
 operation followed by complete-participant filtering; it does not truncate the
 chemical graph. See {ref}`Tutorial_Get_substructure_matches`.
+
+## Reference propensities
+
+Secondary-structure propensity tables describe reference populations, whereas
+coordinate-based secondary-structure assignments describe observed structures.
+The experimental {func}`molsysmt.physchem.get_secondary_structure_propensity`
+reader exposes weighted Levitt ratios for individual standard amino-acid groups.
+These dimensionless ratios can exceed one; they are not class probabilities,
+and no coil remainder, peptide sum or automatic class assignment is defined.
+Group names suffice, with no coordinates or chemical-state changes. See
+{ref}`Tutorial_Get_secondary_structure_propensity` for supported categories and
+{ref}`Cookbook_Export_Secondary_Structure_Propensities` for indexed exports.

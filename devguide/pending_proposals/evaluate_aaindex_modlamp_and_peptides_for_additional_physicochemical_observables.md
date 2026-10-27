@@ -525,3 +525,15 @@ receipt also passes JSON parsing, thirteen-table/260-entry completeness and
 zero-mismatch assertions. Developer-guide validation, generated-index checks
 and `git diff --check` pass. These are research/data-parity controls; no new
 molecular runtime behavior or prediction benchmark is claimed.
+
+
+## Second implementation received
+
+The bounded Levitt reader is implemented as experimental
+`physchem.get_secondary_structure_propensity` under uibcdf/molsysmt#489, with
+explicit category selection, dimensionless float64 outputs, strict supported
+group identities and optional original-source attribution. The original sixty
+values remain unchanged. The complete reference-table claim has independent
+primary-table controls; no sequence-prediction or observed-assignment accuracy
+is implied. See [its implementation receipt](../../devtools/data/secondary_structure_propensity_implementation_20261026.json).
+The wider catalogue and remaining variant/source decisions keep #485 open.

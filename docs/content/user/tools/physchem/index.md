@@ -12,6 +12,7 @@
 | [Get aromatic rings](get_aromatic_rings.ipynb) | Preparing rings from declared aromatic bonds |
 | [Get area buried](get_area_buried.ipynb) | Getting the buried surface area of elements in a molecular system |
 | [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |
+| [Get secondary structure propensity](get_secondary_structure_propensity.ipynb) | Reading dimensionless Levitt reference frequency ratios |
 | [Get bulkiness](get_bulkiness.ipynb) | Reading unit-aware Zimmerman reference side-chain areas |
 | [Get buried fraction](get_buried_fraction.ipynb) | Getting the fraction of buried surface area for elements in a molecular system |
 | [Get CIP stereochemistry](get_cip_stereochemistry.md) | Getting absolute CIP labels from declared stereo or one structure |
@@ -50,6 +51,7 @@
    get_atomic_radius.ipynb
    get_buried_fraction.ipynb
    get_bulkiness.ipynb
+   get_secondary_structure_propensity.ipynb
    get_cip_stereochemistry.md
    get_charge.ipynb
    get_charge_centers.ipynb
