@@ -48,4 +48,7 @@ def to_molsysmt_MolSys(
         copy_if_all=False,
         skip_digestion=True,
     )
-    return build_molsys_builder_from_molsys_dict(item).build(skip_digestion=True)
+    builder = build_molsys_builder_from_molsys_dict(item)
+    return builder._build(
+        preserve_absent_groups=not item.data.get("topology", {}).get("groups")
+    )

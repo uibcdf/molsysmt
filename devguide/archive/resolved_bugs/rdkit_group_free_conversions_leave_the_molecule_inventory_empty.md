@@ -1,13 +1,13 @@
 ---
 summary: RDKit group-free conversions leave the molecule inventory empty
 issue: uibcdf/molsysmt#491
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: medium
-verification: reproduced
+verification: measured
 area: [form, native, selection]
-guard:
+guard: tests/native/test_group_free_molecules.py::test_group_free_molecule_inventory_and_atom_membership
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-10-26 during TPSA/logP public-contract review under
 uibcdf/molsysmt#485.
-**Status:** reproduced; no runtime fix included in the descriptor study.
+**Status:** resolved; native membership and public queries support group-free inventories.
 
 ## What
 
@@ -84,3 +84,37 @@ not be conflated when an existing declared molecule partition has other meaning.
 Source cff1f8fe0acb0728d5b4374ba531a47db33309a1, Linux/Python 3.14.7,
 RDKit 2025.9.5. Reproduced locally using RDKit-generated input; no network,
 external files, scientific table or user dataset was needed.
+
+
+## Resolution
+
+Native rebuilding now creates molecule metadata from reference-state components
+when no groups exist. Names/types follow component metadata and IDs remain
+strings. No groups, chains or competing chemical store are invented. The shared
+native atom-to-molecule projection bypasses absent groups and is reused by
+public queries. Other active chemical-state components cannot silently change
+this reference fallback. Existing declared group-based membership remains intact.
+
+MolSysDict 0.1 conversion exposed the same prerequisite at its builder boundary:
+empty group lists caused invented groups or rejected empty molecular membership.
+Direct conversion now uses private native finalization that retains declared
+absence, validates group-free molecule-record cardinality and preserves metadata.
+Builders decoded from group-free records, or initialized from an existing
+group-free native molecule inventory, retain that explicit absence when built.
+The empty incremental builder's normal defaults do not change. Dictionary
+inventory support does not imply preservation of every chemical assignment.
+
+The guard protects six-atom/two-molecule native, RDKit, dictionary and H5MSM
+routes, including zero groups, source atom maps and repeated/empty/string
+selections. Additional tests protect native rebuild/string IDs, charged
+components, independent reference versus active-state components and explicit
+molecular declarations. Initial regression: 18 failed, 4 passed before repair.
+The affected hierarchy/form block passes 1,354 tests. The broad block passes
+5,129 tests plus its one network-dependent test recovered unchanged outside the
+DNS-restricted sandbox. Final focused native/builder/TPSA controls pass 121 tests; doctest/schema
+checks pass 502 and all fourteen fast gates pass. Source qualification is Linux/
+Python 3.14 only; no benchmark, installed pair or release claim is made.
+
+The [receipt](../../../devtools/data/group_free_molecule_inventory_20261026.json)
+records exact source hashes, commands, limitations and recovery evidence. Native
+class guidance and course bridges explain the fallback without biological groups.

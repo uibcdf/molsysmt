@@ -81,7 +81,16 @@ def build_molsys_builder_from_molsys_dict(item):
             skip_digestion=True,
         )
 
-    for molecule in topology.get("molecules", []) or []:
+    group_free = not topology.get("groups")
+    builder._preserve_absent_groups = group_free
+    molecules = topology.get("molecules", []) or []
+    if group_free and molecules:
+        builder.topology.reset_molecules(n_molecules=len(molecules))
+        for column in ("molecule_id", "molecule_name", "molecule_type"):
+            builder.topology.molecules[column] = [
+                molecule.get(column) for molecule in molecules
+            ]
+    for molecule in [] if group_free else molecules:
         builder.add_molecule(
             molecule.get("group_indices", []),
             molecule_id=molecule.get("molecule_id", None),
@@ -116,5 +125,12 @@ def build_molsys_builder_from_molsys_dict(item):
         builder.set_structure_id(structures["structure_id"], skip_digestion=True)
 
     _materialize_derived_components(builder)
+
+    if group_free and molecules and len(molecules) != builder.topology.n_components:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Group-free molecule records must match the reference component partition."
+        )
 
     return builder

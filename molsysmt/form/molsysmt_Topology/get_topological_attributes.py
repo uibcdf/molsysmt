@@ -8,6 +8,9 @@ from networkx import Graph
 
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
+from molsysmt.native._topology_infer import (
+    molecule_indices_from_atoms as _molecule_indices_from_atoms,
+)
 
 form = "molsysmt.Topology"
 
@@ -37,11 +40,14 @@ def _get_hierarchy_from_atom(item, level, attribute, indices):
     """Map nullable parent indices without assigning missing atoms to a group."""
     if level == "group" and item.n_groups == 0:
         return None
-    parents = item.atoms["group_index"]
+    if level in {"molecule", "entity"}:
+        from molsysmt.native._topology_infer import molecule_indices_from_atoms
+
+        parents = pd.Series(molecule_indices_from_atoms(item)).replace(-1, pd.NA)
+    else:
+        parents = item.atoms["group_index"]
     if not is_all(indices):
         parents = parents.iloc[indices]
-    if level in {"molecule", "entity"}:
-        parents = parents.map(item.groups["molecule_index"])
     if level == "entity":
         parents = parents.map(item.molecules["entity_index"])
     if attribute != "index":
@@ -5530,7 +5536,7 @@ def get_atom_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
 
     if indices == "all":
         aux_dict = defaultdict(list)
@@ -5581,8 +5587,8 @@ def get_atom_id_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
     if indices == "all":
@@ -5630,7 +5636,7 @@ def get_atom_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
     if indices == "all":
@@ -5684,7 +5690,7 @@ def get_atom_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
     if indices == "all":
@@ -6205,8 +6211,8 @@ def get_component_index_from_molecule(item, indices="all", skip_digestion=False)
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices == "all":
@@ -6260,8 +6266,8 @@ def get_component_id_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components["component_id"].to_numpy()
 
@@ -6317,8 +6323,8 @@ def get_component_name_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components["component_name"].to_numpy()
 
@@ -6374,8 +6380,8 @@ def get_component_type_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components["component_type"].to_numpy()
 
@@ -6431,8 +6437,8 @@ def get_chain_index_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
     if indices == "all":
@@ -6483,8 +6489,8 @@ def get_chain_id_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
@@ -6544,8 +6550,8 @@ def get_chain_name_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
@@ -6605,8 +6611,8 @@ def get_chain_type_from_molecule(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
@@ -8266,7 +8272,7 @@ def get_atom_index_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
     if indices == "all":
@@ -8316,7 +8322,7 @@ def get_atom_id_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
@@ -8367,7 +8373,7 @@ def get_atom_name_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
@@ -8418,7 +8424,7 @@ def get_atom_type_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
@@ -9003,7 +9009,7 @@ def get_component_index_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
 
@@ -9061,7 +9067,7 @@ def get_component_id_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components["component_id"].to_numpy()
@@ -9121,7 +9127,7 @@ def get_component_name_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components["component_name"].to_numpy()
@@ -9181,7 +9187,7 @@ def get_component_type_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components["component_type"].to_numpy()
@@ -9241,7 +9247,7 @@ def get_chain_index_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
@@ -9299,7 +9305,7 @@ def get_chain_id_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_id_from_chain = item.chains["chain_id"].to_numpy()
@@ -9359,7 +9365,7 @@ def get_chain_name_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_name_from_chain = item.chains["chain_name"].to_numpy()
@@ -9419,7 +9425,7 @@ def get_chain_type_from_entity(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_type_from_chain = item.chains["chain_type"].to_numpy()
@@ -11466,7 +11472,7 @@ def get_molecule_index_from_component(item, indices="all", skip_digestion=False)
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
 
     if indices == "all":
         aux_dict = defaultdict(set)
@@ -11517,7 +11523,7 @@ def get_molecule_id_from_component(item, indices="all", skip_digestion=False):
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
     if indices == "all":
@@ -11574,7 +11580,7 @@ def get_molecule_name_from_component(item, indices="all", skip_digestion=False):
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
     if indices == "all":
@@ -11691,7 +11697,7 @@ def get_entity_index_from_component(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
@@ -11745,7 +11751,7 @@ def get_entity_id_from_component(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
@@ -11810,7 +11816,7 @@ def get_entity_name_from_component(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
@@ -11875,7 +11881,7 @@ def get_entity_type_from_component(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
@@ -14296,7 +14302,7 @@ def get_molecule_index_from_chain(item, indices="all", skip_digestion=False):
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
 
     if indices == "all":
         from molsysmt.form.molsysmt_Topology.get_topological_attributes import (
@@ -14351,7 +14357,7 @@ def get_molecule_id_from_chain(item, indices="all", skip_digestion=False):
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
     if indices == "all":
@@ -14403,7 +14409,7 @@ def get_molecule_name_from_chain(item, indices="all", skip_digestion=False):
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
     if indices == "all":
@@ -14517,7 +14523,7 @@ def get_entity_index_from_chain(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
@@ -14571,7 +14577,7 @@ def get_entity_id_from_chain(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
@@ -14626,7 +14632,7 @@ def get_entity_name_from_chain(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
@@ -14681,7 +14687,7 @@ def get_entity_type_from_chain(item, indices="all", skip_digestion=False):
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = _molecule_indices_from_atoms(item)
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     entity_type_from_entity = item.entities["entity_type"].to_numpy()
 

@@ -49,9 +49,13 @@ class MolSysBuilder(NativeQueries):
         elif isinstance(molecular_system, MolSys):
             self.topology = molecular_system.topology.copy()
             self.structures = molecular_system.structures.copy()
+            self._preserve_absent_groups = (
+                self.topology.n_groups == 0 and self.topology.n_molecules > 0
+            )
         else:
             raise ArgumentChoiceError(
                 argument="molecular_system",
+                value=molecular_system,
                 choices=["None", "molsysmt.MolSys"],
                 caller="molsysmt.native.MolSysBuilder.__init__",
                 message="MolSysBuilder can only be initialized from None or molsysmt.MolSys.",
@@ -750,7 +754,7 @@ class MolSysBuilder(NativeQueries):
                     entity_index
                 ]
 
-    def _finalize_topology(self):
+    def _finalize_topology(self, *, preserve_absent_groups=False):
         topology = self.topology.copy()
         topology._coerce_id_columns_to_string()
         bonds = topology._get_chemical_state_bonds()
@@ -758,6 +762,13 @@ class MolSysBuilder(NativeQueries):
             topology._set_chemical_state_bonds(bonds)
             bonds = topology._get_chemical_state_bonds()
         bonds._sort_bonds()
+        if preserve_absent_groups and topology.n_groups == 0:
+            topology.rebuild_components()
+            if topology.n_molecules == 0:
+                topology.rebuild_molecules()
+            self._fill_entity_fallbacks(topology)
+            topology._coerce_id_columns_to_string()
+            return topology
         self._ensure_group_membership(topology)
         topology.groups["group_id"] = self._fill_missing_string_ids(
             topology.groups["group_id"]
@@ -804,12 +815,21 @@ class MolSysBuilder(NativeQueries):
     @arg_digest()
     def build(self, skip_digestion=False):
 
+        return self._build(
+            preserve_absent_groups=getattr(self, "_preserve_absent_groups", False)
+        )
+
+    def _build(self, *, preserve_absent_groups=False):
+        """Finalize declared inventories, optionally retaining explicit group absence."""
+
         from .molsys import MolSys
 
         self._validate_structures()
 
         output = MolSys(skip_digestion=True)
-        output.topology = self._finalize_topology()
+        output.topology = self._finalize_topology(
+            preserve_absent_groups=preserve_absent_groups
+        )
         output.structures = self.structures.copy()
 
         return output

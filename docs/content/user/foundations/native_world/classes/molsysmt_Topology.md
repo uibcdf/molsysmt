@@ -163,3 +163,18 @@ indices that belong to that new source. Group IDs remain labels.
 Identity is normalized by the number of query letters; empty sequence selections
 raise explicitly. See {ref}`the sequence identity tutorial <Tutorial_Get_sequence_identity>`
 and {ref}`the source-group comparison recipe <Cookbook_Sequence_source_groups>`.
+
+
+## Group-free molecules
+
+A complete atom inventory may have no group hierarchy, as with an RDKit graph.
+Native molecule rebuilding uses reference-state components as its fallback
+molecule partition, inheriting local names/types and generating string IDs.
+No biological groups or chain labels are invented. Atom-to-molecule queries
+reuse that partition; another chemical state's connectivity does not silently
+redefine the stable molecular axis. Existing group-based molecular definitions
+retain their own membership. Direct MolSysDict conversion preserves explicitly
+absent groups and validates group-free molecule records against the fallback.
+Builders decoded from such records, or initialized from a native group-free
+molecule inventory, retain that absence when built. Empty incremental builders
+keep their usual grouping defaults.

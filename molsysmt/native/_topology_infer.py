@@ -6,6 +6,23 @@ def fallback_ids(n_items):
     return np.arange(n_items, dtype=int).astype(str)
 
 
+def molecule_indices_from_atoms(topology):
+    """Project stable molecule membership without requiring a group hierarchy.
+
+    Group-free inventories use the reference state's component partition.
+    Other chemical states cannot silently redefine the stable molecule axis.
+    """
+    if topology.n_groups == 0:
+        state = topology._resolve_reference_chemical_state()
+        return state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
+    groups = topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+    molecules = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
+    result = np.full(topology.n_atoms, -1, dtype=np.int64)
+    valid = (groups >= 0) & (groups < len(molecules))
+    result[valid] = molecules[groups[valid]]
+    return result
+
+
 def _group_atom_names(topology):
     atom_group_indices = topology.atoms["group_index"].to_numpy(
         dtype=np.int64, na_value=-1
@@ -299,6 +316,12 @@ def infer_molecule_types_from_topology(topology):
         _get_component_type_from_group_names_and_types,
     )
 
+    if topology.n_groups == 0:
+        return (
+            topology._resolve_reference_chemical_state()
+            .components["component_type"]
+            .to_numpy(dtype=object, copy=True)
+        )
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
         dtype=np.int64, na_value=-1
     )
@@ -326,6 +349,12 @@ def infer_molecule_names_from_topology(topology):
     topology : object
         Argument topology.
     """
+    if topology.n_groups == 0:
+        return (
+            topology._resolve_reference_chemical_state()
+            .components["component_name"]
+            .to_numpy(dtype=object, copy=True)
+        )
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
         dtype=np.int64, na_value=-1
     )
@@ -557,6 +586,11 @@ def prepare_topology_for_molecule_queries(
         redefine_indices
         or redefine_names
         or redefine_types
+        or (
+            topology.n_atoms > 0
+            and topology.n_groups == 0
+            and topology.n_molecules == 0
+        )
         or _needs_columns(topology.molecules, ["molecule_name", "molecule_type"])
     )
     need_chains = element == "chain" and (
@@ -628,11 +662,10 @@ def project_molecule_index_from_topology(
     if element == "molecule":
         return list(range(tmp_topology.n_molecules))
     if element == "atom":
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
-            dtype=np.int64, na_value=-1
-        )
-        return molecule_index_from_group[group_index_from_atom].tolist()
+        return molecule_indices_from_atoms(tmp_topology).tolist()
     if element == "component":
+        if tmp_topology.n_groups == 0:
+            return list(range(tmp_topology.n_molecules))
         component_index_from_group = _component_index_per_group(tmp_topology)
         output = np.full(tmp_topology.n_components, -1, dtype=np.int64)
         for group_index, component_index in enumerate(component_index_from_group):
@@ -737,13 +770,7 @@ def project_entity_index_from_topology(
     if element == "molecule":
         return entity_index_from_molecule.tolist()
     if element == "atom":
-        molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(
-            dtype=np.int64, na_value=-1
-        )
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
-            dtype=np.int64, na_value=-1
-        )
-        molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+        molecule_index_from_atom = molecule_indices_from_atoms(tmp_topology)
         return entity_index_from_molecule[molecule_index_from_atom].tolist()
 
     raise NotImplementedError

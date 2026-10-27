@@ -2589,8 +2589,10 @@ class Topology(NativeQueries):
         -----
         When no better molecule definition is available, molecules fall back to
         components. Under that fallback, molecule name and type inherit from the
-        corresponding component. This method is a native API and is not
-        form-agnostic.
+        corresponding component. An inventory without groups uses the reference
+        component partition directly, retaining zero groups. Other chemical
+        states do not silently redefine this fallback molecular axis. This
+        method is a native API and is not form-agnostic.
         """
         from ._topology_infer import (
             _needs_columns,
@@ -2630,7 +2632,7 @@ class Topology(NativeQueries):
             if len(molecule_index_of_groups) > 0:
                 n_molecules = int(np.max(molecule_index_of_groups)) + 1
             else:
-                n_molecules = 0
+                n_molecules = len(self._resolve_reference_chemical_state().components)
             self.reset_molecules(n_molecules=n_molecules)
 
             del molecule_index_of_groups
