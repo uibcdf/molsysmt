@@ -4,7 +4,8 @@ This guide refines the repository root `AGENTS.md` for public element helpers un
 
 ## Scope
 
-- This guide applies to every file under `molsysmt/element` unless a more specific local `AGENTS.md` overrides it.
+- This guide applies to every file under `molsysmt/element` unless a more specific local `AGENTS.md` refines it; the common MolSysSuite
+  layer retains its stated precedence.
 - Element helpers are part of the public API. Preserve backward-compatible behavior unless a coordinated breaking change is explicitly planned.
 
 ## Public query layer vs internal reconstruction layer

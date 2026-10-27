@@ -151,7 +151,7 @@ Every course notebook (`*.ipynb`) **must** follow this layout unless an explicit
 2. **Content Protection Contract:** The micro `[Notebook_Name].AGENTS.md` file does **NOT** repeat global editorial or structural rules. Its sole purpose is to serve as a **domain content-protection contract**, listing the mandatory sections, essential explanations, and specific concepts that must be preserved when any contributor refines or updates the notebook.
 
 Rule resolution hierarchy:
-`Root AGENTS.md` ➔ `docs/AGENTS.md` ➔ `docs/content/course/AGENTS.md` ➔ `[Notebook_Name].AGENTS.md` (Most specific wins).
+`Root AGENTS.md` ➔ `docs/AGENTS.md` ➔ `docs/content/course/AGENTS.md` ➔ `[Notebook_Name].AGENTS.md` (Most specific local rule wins, under the mandatory common MolSysSuite layer).
 
 ---
 

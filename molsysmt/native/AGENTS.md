@@ -4,7 +4,8 @@ This guide refines the repository root `AGENTS.md` for native MolSysMT classes a
 
 ## Scope
 
-- This guide applies to every file under `molsysmt/native` unless a more specific local `AGENTS.md` overrides it.
+- This guide applies to every file under `molsysmt/native` unless a more specific local `AGENTS.md` refines it; the common MolSysSuite
+  layer retains its stated precedence.
 - Native classes are the canonical internal representation used by rebuild workflows and by conversion targets that need stable local semantics.
 
 ## Native-first rebuild contract

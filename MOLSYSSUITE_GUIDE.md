@@ -11,6 +11,34 @@ contributors the operational rules needed during ordinary development and routes
 to the complete, authoritative governance documents. Component copies are synchronized
 from the canonical file above; changes belong in the MolSysSuite repository.
 
+## Mandatory common instructions and local scope
+
+Read and follow this guide before working in any registered component, including
+auxiliary, incubating and subsystem repositories. Its applicable common rules
+and the authoritative policies linked below take precedence over root and nested
+`AGENTS.md` files. Local instructions refine product/scientific behavior, source
+layouts, commands and directory conventions; they do not silently waive or
+reverse a common rule. A conflicting deviation uses that policy's documented
+exception, owner, reason, interim controls, review/expiry and removal condition.
+Stricter local scientific/release gates remain local obligations, not new suite
+requirements. A directory-specific instruction can refine another local rule
+while preserving this common layer. Explicit human/session authorization and
+higher-priority instructions retain their authority.
+
+Every root `AGENTS.md` carries the mandatory read/follow and scoped-precedence
+entry defined by the [instruction policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/working_instructions_policy.md).
+Keep its remaining instructions specific to that repository. Common rules live
+here and in their normative owners; root/nested files need not repeat them.
+Use the official versioned starter for new members and review conflicts before
+receiving an existing repository. Copying files, a green structural checker or
+membership alone does not establish semantic compliance or scientific readiness.
+
+Maintain repository code, documentation and commits in English. Human discussion
+may follow the collaborator's preferred language. Preserve human work and declared
+scientific scope, keep changes focused and never publish credentials, private
+attachments or unrestricted evidence. Existing explicit authorization for the
+same work persists across commits; this guide does not add a permission round.
+
 ## Where suite governance lives
 
 Use [the MolSysSuite repository](https://github.com/uibcdf/molsyssuite) for MolSysSuite-specific compatibility contracts, member governance, domain extensions, common suite tooling, cross-component proposals, coordinated rollouts, and decisions affecting two or more suite members. Its `suite.toml` is the
@@ -237,6 +265,28 @@ tool defects or improvements in its own issue board. MolSysSuite governs member
 use and adoption; MOLI owns direct-component usage and suite-level platform
 obligations. The receptors remain suite auxiliary members.
 
+## Applicable support libraries and developer tools
+
+At each new or changed boundary, review and use the registered provider where
+applicable: ArgDigest for nontrivial public argument constraints/normalization,
+DepDigest for optional/heavy/backend availability, SMonitor for user-visible
+structured diagnostics and PyUnitWizard for physical quantity conversion and
+dimensional/interchange contracts. Optional scientific attribution uses the
+Ackredit client contract. Do not add an unused dependency to satisfy a checklist;
+record non-applicability and reassess when the boundary appears. Preserve justified
+provider bootstraps, dependency direction and documented exceptions.
+
+Use a published Pytest Receptor with `--receptor=llm` for local agent pytest and
+`--receptor=ci` for hosted output; pin the exact reviewed CI version. Preserve
+native test selection, assertions, exit status and mandatory suite. Use a published
+GH Run Receptor for first Actions inspection, then authoritative native GitHub
+run/job/step facts for missing evidence and exact-candidate acceptance. Record a
+reviewed source pin honestly for an unreleased experiment. Receptors do not gain
+publication/mutation authority. Missing tools or unsupported environments require
+a visible bounded exception and the native fallback, not a hidden skipped gate.
+Read the registered canonical integration guides for actual consumer boundaries;
+these tools are not runtime dependencies merely because a repository develops Python.
+
 ## Physical quantities and units
 
 A quantity must retain its value, unit and scientific meaning across computations,
@@ -293,8 +343,15 @@ not require a full suite after every internal push.
 
 ### Direct pushes and validation checkpoints
 
-For authorized internal direct pushes by `dprada` and `LMMV`, keep focused
-commits local and batch pushes when collaboration, backup or current CI evidence
+For explicitly authorized internal work by Diego (`dprada`), Liliana (`LMMV`) or
+an agent working directly under their supervision, the granted commit/direct-push
+route remains available within that scope. Do not ask again for each commit when
+that authorization already exists. Other contributors use owner-reviewed PRs
+with the full required suite before integration; an internal maintainer choosing
+a PR follows the same PR gates. Cross-owner fixes retain their separate
+contribution route above; shared team membership alone grants no write authority.
+
+For those authorized internal direct pushes, keep focused commits local and batch pushes when collaboration, backup or current CI evidence
 does not need a checkpoint. A permitted interim skip is conditional, never the
 default after every locally checked change. Select local checks by affected
 code, inputs and scope; reuse completed results only while they remain applicable.
@@ -332,9 +389,10 @@ Ordinary Python source edits are visible without reinstalling; changes to
 metadata, entry points or compiled extensions can require reinstalling/rebuilding.
 
 Eligibility comes from the registered development profile; the automated
-installer selects the complete current cohort. The measured Linux profile
-currently integrates fourteen Python members, with TopoMT still outside that
-cohort. A member not yet qualified uses its own compatible Python 3.14 Conda
+installer selects the complete current cohort. The current
+cohort, exclusions and measured source snapshots come from that profile and the
+linked development-workspace receipts; no fixed member count in this guide
+substitutes for them. A member not yet qualified uses its own compatible Python 3.14 Conda
 development environment and tracks the shared-environment gap and exit condition
 in its owning issue. An older interpreter requires the existing bounded migration
 exception. MolSys-AI's umbrella is not an installable Python package; a MOLI
@@ -376,6 +434,42 @@ Guide and instruction checks verify delivery/routing only. Architectural review 
 inspect the standalone tool contract and actual consumer call, distinguishing source
 inspection from executed compatibility evidence. Adoption is tracked in
 [MolSysSuite #61](https://github.com/uibcdf/molsyssuite/issues/61).
+
+## Component responsibility map
+
+Before implementing a capability, inspect the registered owner's supported APIs
+and the [suite roster](https://github.com/uibcdf/molsyssuite#registered-molsyssuite-components).
+Reuse or propose independently useful tools in that owner. Keep consumer-specific
+scientific requirements, selection, interpretation and orchestration in the
+consumer. Report a missing capability with its reproduction/use case and impact
+in the owning issue; cross-link the consumer and any workaround. A linked PR or
+an explicitly authorized principal-supervised contribution can propose the fix;
+the provider owns its contracts, priority and acceptance. Do not silently copy
+an implementation because its owner is incubating or the needed API is absent.
+
+| Capability | Owning component |
+| --- | --- |
+| Molecular-system representation, manipulation, general analysis, selection and format interoperability | MolSysMT |
+| Molecular visualization, rendering and interaction | MolSysViewer; specialized scientific add-ons retain their own owners |
+| Cavities, pockets and molecular surface topography | TopoMT; OpenCASTp owns its independent CASTp numerical kernel |
+| Pharmacophore modeling | PharmacophoreMT |
+| Elastic-network definitions and analysis | ElastNetMT |
+| Molecular docking workflows | DockingMT |
+| Peptide-specific design and functional evaluation | PeptideMT |
+| Interpolation support | LinDelINT |
+| Scientific/AI subsystem understanding and operation of the suite | MolSys-AI, preserving its subsystem/platform boundary |
+| Public argument constraints and normalization | ArgDigest |
+| Optional dependency availability/loading | DepDigest |
+| Structured diagnostics | SMonitor |
+| Physical quantities, conversion and interchange | PyUnitWizard |
+| Optional scientific attribution | Ackredit |
+| Pytest reports and Actions-run inspection | Pytest Receptor and GH Run Receptor, respectively |
+
+This map routes ownership, not a promise that an API is implemented or stable.
+Review current registration, actual contracts and evidence before depending on a
+capability. It does not require eager dependencies, force all numerical work into
+one library or authorize a scientific implementation. Other direct MOLI components
+keep their own contracts; propose cross-platform boundaries through MOLI.
 
 ## Temporary development resources
 
@@ -639,5 +733,47 @@ Check whether the change:
 4. affects the common Python/tooling baseline or needs a documented exception;
 5. should propose an improvement to this guide or another central policy.
 
-Run the component's own tests and local gates. The MolSysSuite conformance workflow
+Run the applicable component checks and selected tests for the affected inputs
+and scope, following the checkpoint policy. Full PR/admission/release gates keep
+their own executed evidence requirements. The MolSysSuite conformance workflow
 checks the common baseline; it does not replace component-specific validation.
+
+## Complete common-policy index
+
+Every accepted policy below is mandatory within its stated applicability. Follow
+the full normative document, its local adoption/evidence state and exception route,
+even when the operational summary above does not repeat every detail. Python-only
+rules do not make a non-package subsystem installable; future publication/engine
+rules activate when the corresponding work is undertaken. The registered policy
+release continues to own frozen automated values.
+
+| Registered policy | Normative owner |
+| --- | --- |
+| `member-classification` | [devguide/member_classification.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/member_classification.md) |
+| `conda-publication` | [devguide/conda_publication_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/conda_publication_policy.md) |
+| `quantity-boundaries` | [devguide/quantity_boundaries.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/quantity_boundaries.md) |
+| `ackredit-clients` | [devguide/ackredit_client_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ackredit_client_policy.md) |
+| `repository-badges` | [devguide/repository_badges.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md) |
+| `working-instructions` | [devguide/working_instructions_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/working_instructions_policy.md) |
+| `release-notices` | [devguide/release_notifications.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_notifications.md) |
+| `temporary-resources` | [devguide/temporary_resources.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/temporary_resources.md) |
+| `component-dependencies` | [devguide/dependency_graph_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/dependency_graph_policy.md) |
+| `python` | [devguide/python_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md) |
+| `python-ci` | [devguide/python_ci_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md) |
+| `python-quality` | [devguide/python_tooling_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md) |
+| `python-support-libraries` | [devguide/python_ecosystem_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md) |
+| `modular-reusable-tools` | [devguide/modular_reusable_tools.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/modular_reusable_tools.md) |
+| `optional-engine-integration` | [devguide/optional_engine_integration.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/optional_engine_integration.md) |
+| `python-developer-tools` | [devguide/python_ecosystem_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md) |
+| `python-distribution` | [devguide/python_distribution_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md) |
+| `ci-dependency-resolution` | [devguide/ci_dependency_resolution.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ci_dependency_resolution.md) |
+| `release-version` | [devguide/release_version_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md) |
+| `reporting-lifecycle` | [devguide/reporting_protocol.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md) |
+| `cross-component-feedback` | [devguide/cross_component_feedback.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md) |
+| `cross-component-issue-labels` | [devguide/reporting_protocol.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md) |
+| `component-guide` | [MOLSYSSUITE_GUIDE.md](https://github.com/uibcdf/molsyssuite/blob/main/MOLSYSSUITE_GUIDE.md) |
+| `component-starter-kit` | [devguide/new_component_starter_kit.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/new_component_starter_kit.md) |
+| `vendored-guides` | [devguide/vendored_guides.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/vendored_guides.md) |
+| `adoption-lifecycle` | [devguide/adoption_lifecycle.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/adoption_lifecycle.md) |
+| `gh-run-receptor-dogfooding` | [devguide/gh_run_receptor_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md) |
+| `zenodo-archival` | [devguide/zenodo_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/zenodo_policy.md) |

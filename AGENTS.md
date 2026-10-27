@@ -1,16 +1,29 @@
 # MolSysMT Repository Agents Guide
 
-This document defines global rules for automated agents and human contributors working on the MolSysMT repository.
-More specific `AGENTS.md` files in subdirectories refine or override these rules within their scope.
+## Mandatory MolSysSuite instructions
 
-Read `MOLSYSSUITE_GUIDE.md` before development. It is the synchronized, read-only
-suite-governance guide owned by `uibcdf/molsyssuite` and routes shared policies,
-cross-component feedback, and issue ownership.
+Read and follow `MOLSYSSUITE_GUIDE.md` before working in this repository.
+
+Within their stated scope, its common rules take precedence over this file
+and any nested `AGENTS.md`. Local instructions may refine them; deviations
+require the documented policy exception process.
+
+The synchronized guide is owned by `uibcdf/molsyssuite`. It includes the
+[reusable-tool ownership rules](MOLSYSSUITE_GUIDE.md#modular-reusable-tools)
+and [working-instruction rules](MOLSYSSUITE_GUIDE.md#durable-working-instructions).
+For work under `devguide/`, also read `devguide/AGENTS.md` and its local
+reporting protocol. Keep repository-specific instructions below.
+
+## Local working context
+
+This document defines MolSysMT-specific working rules for agents and human contributors.
+More specific `AGENTS.md` files in subdirectories refine or override these rules within their scope.
 
 ## Scope
 
 - This file applies to every file in the repository unless a more specific `AGENTS.md` in a subdirectory states otherwise.
-- When rules conflict, the more local `AGENTS.md` wins; this root file remains the global baseline.
+- Among local rules, the more specific `AGENTS.md` refines the root; the
+  mandatory MolSysSuite layer remains above both within its stated scope.
 
 ## Language and documentation
 
@@ -70,7 +83,6 @@ cross-component feedback, and issue ownership.
 - Each form module should declare `form_name`, `form_type`, `form_info`, and populate `_convert_to` with callables.
 - Respect `msm.configure.show_all_capabilities` which allows users to filter available forms based on their installed environment.
 
-
 ## Modular tool design
 
 - Before adding a feature, inspect existing general tools and identify the
@@ -126,28 +138,14 @@ adoption are tracked by `uibcdf/molsyssuite#61`; the central rollout is pending.
   scales exactly to the criterion and not one step past it. Review every new gate against
   the question *what conforming output would satisfy this without doing the work?*
 
-## Reporting a defect or a proposal
+## Local reporting tools
 
-**Read [`devguide/reporting_protocol.md`](devguide/reporting_protocol.md) before filing
-or closing anything.** It is normative and enforced by `validate_devguide.py` in the
-release gate. The short version:
-
-- If it deserves a document in `devguide/`, it deserves a GitHub issue. One theme, one
-  issue, one or more documents. We do not file documents for typos, so the document is
-  already the significance filter.
-- Open the issue first to get its number, then write the document from
-  [`devguide/templates/report.md`](devguide/templates/report.md) with `issue:` filled
-  in. `python devtools/scripts/devguide_issue.py open` does both.
-- The document holds the analysis and changes continuously. The issue holds state and
-  the settled facts an outside reader needs, and is written at two moments only — at
-  open and at close. Never put analysis in an issue.
-- Closing requires naming either the test that fails if the defect returns (`guard`) or
-  the normative document that absorbed the durable rules (`normative`). The validator
-  checks that the file exists.
-- Cross-repository references use `uibcdf/<repo>#<number>`, never a path into another
-  repository's `devguide/`. A path breaks silently; an issue closes.
-- Queue indexes are generated: `python devtools/scripts/devguide_index.py`. Edit the
-  entries, never the list.
+Read `devguide/reporting_protocol.md` and `devguide/AGENTS.md` for the local
+report paths and metadata. `python devtools/scripts/devguide_issue.py open`
+scaffolds an owning issue and report; use its documented close/sync routes.
+Run `python devtools/scripts/validate_devguide.py` and
+`python devtools/scripts/devguide_index.py --check` after lifecycle changes.
+The release gate retains the offline validator; board synchronization is separate.
 
 ## Git commits
 
@@ -206,63 +204,3 @@ These guides are required reading for anyone developing this library. They descr
   GitHub Actions runs and the native-command fallback.
 - `PYTEST_RECEPTOR_GUIDE.md` — Required guide for compact, truth-preserving pytest output
   in local and hosted development.
-
-## Direct pushes and scoped local validation
-
-Follow [the common checkpoint policy](MOLSYSSUITE_GUIDE.md#direct-pushes-and-validation-checkpoints)
-for authorized internal direct pushes by `dprada` and `LMMV`. Batch focused local
-commits when remote visibility is unnecessary; a permitted interim CI skip is
-conditional, never the default after every locally checked change. Retain local
-results while tested code, inputs, environment and scope remain applicable.
-Normally finish with an unskipped head and inspect its applicable CI, or explicitly
-execute and verify those exact-head gates manually. Record missing evidence,
-untested scope, owning issue and recovery route; administrative checks do not
-clear full-suite backlog. External PRs, admission and publication require all
-mandatory executed gates for the exact candidate and required installed file.
-An authorized manual qualification retains the original producer and artifact
-bytes/digest; a marker alone neither waives a gate nor disqualifies that evidence.
-
-## Release and package-publication notices
-
-For every new component release, with or without a published package, and every
-new package version/build/distribution route, open or update a release-specific
-issue in `uibcdf/molsyssuite` as part of closeout. Include exact version/tag/source,
-actual package availability and verification evidence, and ecosystem follow-up.
-Follow [the notice policy](MOLSYSSUITE_GUIDE.md#release-and-package-publication-notices).
-
-## Public release titles
-
-When preparing, publishing or intentionally editing a public GitHub Release, use
-exactly `X.Y.Z` as its title/name, matching the canonical tag and package/project
-version. Put descriptions in the body/notes. Read
-[the local release-title guide](devguide/release_titles.md) and
-[the canonical rule](MOLSYSSUITE_GUIDE.md#github-release-titles).
-
-## Modular reusable tools
-
-Before adding a feature, inspect existing tools and identify the owning module or
-component. Implement or extend independently useful operations as documented reusable
-tools in that owner, with their own contracts and tests; have consumers call them.
-Keep task-specific decisions local and report missing sibling capabilities to the
-provider with linked consumer evidence. Follow
-[MOLSYSSUITE_GUIDE.md#modular-reusable-tools](MOLSYSSUITE_GUIDE.md#modular-reusable-tools)
-for applicability, compatibility, performance and tracked exceptions.
-
-## Durable working instructions
-
-Keep technical findings in owning issues, fixes, tests and maintained guidance.
-Place only accepted lasting contributor actions in root or appropriately scoped
-instructions, following
-[the common policy](MOLSYSSUITE_GUIDE.md#durable-working-instructions).
-For work under `devguide/`, also read [devguide/AGENTS.md](devguide/AGENTS.md)
-and its local reporting protocol. Shared instruction proposals belong in
-`uibcdf/molsyssuite`; cross-MOLI contracts belong in `uibcdf/moli`.
-
-## Human-facing issue feedback
-
-Surface actionable suspected defects, inconsistencies, missing analyses and
-improvements, including uncertain or nonblocking findings. When working with a
-human, offer an owning issue at a natural pause; retain existing reporting
-authorization and respect declined/deferred disclosure. Follow
-[the accepted feedback route](MOLSYSSUITE_GUIDE.md#human-facing-issue-feedback)
-for ownership, uncertainty, privacy and exceptions.

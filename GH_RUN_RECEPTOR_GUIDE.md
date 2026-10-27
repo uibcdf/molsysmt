@@ -11,7 +11,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@1.2.0`
+- Source version: `gh-run-receptor@1.3.0`
 - Last synced: 2026-10-02
 
 ## What gh-run-receptor is
@@ -120,14 +120,14 @@ need GitHub CLI.
 Install the exact stable tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 1.2.0
+gh extension install uibcdf/gh-run-receptor --pin 1.3.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-1.2.0
+1.3.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -165,7 +165,7 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-      - uses: uibcdf/gh-run-receptor@1.2.0
+      - uses: uibcdf/gh-run-receptor@1.3.0
         with:
           run-id: ${{ github.event.workflow_run.id }}
           repository: ${{ github.repository }}
@@ -185,7 +185,7 @@ For a small dedicated reporter, the same complete configuration accepted by `con
 may be placed beside the Action call:
 
 ```yaml
-      - uses: uibcdf/gh-run-receptor@1.2.0
+      - uses: uibcdf/gh-run-receptor@1.3.0
         with:
           run-id: ${{ github.event.workflow_run.id }}
           repository: ${{ github.repository }}
@@ -237,7 +237,7 @@ For a smaller terminal reporter, delegate the complete job to the reusable workf
 ```yaml
 jobs:
   report:
-    uses: uibcdf/gh-run-receptor/.github/workflows/reusable-report.yml@1.2.0
+    uses: uibcdf/gh-run-receptor/.github/workflows/reusable-report.yml@1.3.0
     with:
       run-id: ${{ github.event.workflow_run.id }}
       repository: ${{ github.repository }}
@@ -249,7 +249,7 @@ ready state, and error category. It deliberately omits runner-local paths. Inter
 uses GitHub's `$/` same-repository reference, so the Action resolves from the exact commit
 selected for the reusable workflow without a checkout or moving internal reference. This
 path requires github.com runner 2.336.0 or newer; older GitHub Enterprise Server versions
-without `$/` are not claimed. Pin the full 1.2.0 commit instead of the tag when an
+without `$/` are not claimed. Pin the full 1.3.0 commit instead of the tag when an
 immutable reference is required.
 
 ## Minimum use from a client
@@ -664,3 +664,22 @@ For adoption at the current level:
    default-branch source.
 9. Record unsupported workflow shapes in gh-run-receptor, not as silent local filters.
 10. Preserve `gh run view` as the fallback for incomplete evidence.
+
+## Completed-job log inspection in 1.3.0
+
+`inspect RUN --job JOB_ID` and `capture RUN --job JOB_ID` select one completed
+job from the exact requested attempt. All structured run/job facts remain;
+logs are explicitly job-only, never a complete attempt archive. Metadata capture
+requests no log. Other capture defaults and Action/reusable inputs are unchanged.
+An active workflow remains PENDING/exit 3 despite a failed selected job;
+unavailable requested logs retain category/HTTP evidence and incomplete/exit 4.
+Offline replay preserves the subset and performs no network access. The same
+bounded diagnostic analyzer handles raw plain text and archive members. gh >=2.97
+receives its raw-byte flag only on private file downloads; older supported gh
+receives no unsupported option. Terminal/control redaction remains in the renderer.
+
+The additional official noarch Conda route retains a separate native gh dependency
+and exact-file staging/installed/promotion gates. Confirm actual public availability
+and receipts in owner issue uibcdf/gh-run-receptor#60 before changing consumer
+installation routes. No automatic gh extension registration or PyPI delivery is
+provided. Registered guide/pin receiving remains deliberate consumer work.
