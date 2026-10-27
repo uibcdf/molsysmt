@@ -1372,7 +1372,7 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes twenty-five tools under
+The source addon now exposes twenty-eight tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
@@ -1380,10 +1380,10 @@ aromaticity perception and three chemical-feature readers (formal-charge
 centers, hydrophobic atoms and ordered halogen sites), plus the Zimmerman
 bulkiness and Levitt secondary-structure propensity reference lookups, and
 state-aware TPSA and Wildman–Crippen lipophilicity with native contribution
-outputs. SASA and
-the chemical readers have bounded receiving, not universal scientific qualification. The
-inspected native inventory has 34 exports; nine further feature-perception,
-charge/typing and chemical-preparation functions remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
+outputs. Three further readers expose AutoDock types, CIP stereochemistry and
+explicit partial-charge models. SASA and the chemical readers have bounded receiving, not universal scientific qualification. The
+inspected native inventory has 34 exports; six further feature-perception and
+chemical-preparation functions remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
 gates retain their original source identities and scopes.
 
 | Tool | Native result and received scope |
@@ -1914,9 +1914,11 @@ without source groups: only the external target receives required placeholders,
 and source atom order, charges and absent hierarchy remain intact. A selector
 using target group metadata describes those external placeholders, not inferred
 biological identity. Native group insertion preserves inherited molecule identity.
-The separate populated-chemistry atom-insertion defect remains
-[#499](https://github.com/uibcdf/molsysmt/issues/499); these read-only calculations
-do not use that editing route. The addon adds no hierarchy or selector workaround.
+The separate atom-insertion repair
+[#499](https://github.com/uibcdf/molsysmt/issues/499) aligns appended unknown
+chemistry across states. Unknown assignments remain unknown and complete
+declarations become partial; scientific readers can reject that incomplete
+state. These calculations do not insert or prepare atoms. The addon adds no hierarchy or selector workaround.
 
 At the default `element='molecule'`, numeric selections address source molecules;
 selecting one atom with a string expression selects its complete parent molecule.
@@ -2077,3 +2079,96 @@ preparation or scene parameter.
 - {ref}`Tutorial_Get_tpsa` — area descriptors and complete-context contributions.
 - {ref}`Tutorial_Get_lipophilicity` — model scores, charged states and evidence.
 :::
+
+
+## Calculating chemical labels and partial charges
+
+The experimental `physchem` namespace mirrors three independent native readers.
+`get_autodock_atom_types(typing_scheme='autodock4')` returns AutoDock U2 labels;
+it does not assign the primary's `atom_ff_type`. `get_partial_charges(method=...)`
+requires an explicit model and returns native charge quantities, distinct from
+formal charge or the existing `get_charge` table lookup.
+`get_cip_stereochemistry()` returns atom/bond CIP labels and source maps.
+
+The full source chemistry is evaluated before the requested atoms are returned.
+These readers sort and deduplicate atom indices. All H must already be indexed
+for AutoDock/Gasteiger-Marsili; no protonation, H placement, valence guessing,
+neutralization or fragment capping runs. CIP can use declared virtual H evidence.
+Structures resolve chemistry and spatial selectors; the visible structure is
+never substituted for a native default. Mixed associated states require an
+explicit state or compatible structure selection. Scientific exceptions remain
+native, including provider absence and unsupported chemistry.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+import numpy as np
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+
+# Explicit example preparation happens before the view, never inside a reader.
+molsys = Chem.AddHs(Chem.MolFromSmiles("CO"))
+rdDepictor.Compute2DCoords(molsys)
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.physchem
+    labels = tools.get_autodock_atom_types(typing_scheme="autodock4")
+    assert labels.tolist() == ["C", "OA", "H", "H", "H", "HD"]
+    result = tools.get_partial_charges(
+        method="gasteiger_marsili", selection=[1, 0, 1], return_report=True
+    )
+    assert result["report"]["atom_indices"].tolist() == [0, 1]
+    assert result["report"]["evaluated_atom_indices"].tolist() == list(range(6))
+    charges = msm.pyunitwizard.get_value(result["partial_charge"], to_unit="e")
+    np.testing.assert_allclose(charges, [0.0319, -0.3996], atol=5e-5, rtol=0)
+```
+
+AutoDock's required scheme and its bounded chemical-environment profile are
+parameter choices, not universal donor/acceptor definitions or proof of docking
+readiness. Scheme labels remain separate from chemical element symbols. Optional
+reports retain ordered rules, winners, full coverage and software attribution.
+
+Gasteiger-Marsili uses the explicit native RDKit model and twelve iterations.
+For force-field charges, pass `method='forcefield'` and an explicit `forcefield`
+(and water model when required). Native OpenMM must match the unchanged source
+atom inventory; unmatched chemistry, missing H and extra particles fail. This
+reader does not parameterize arbitrary ligands or reuse stored partial charges.
+Declare `expected_total_charge` when the complete formal-charge inventory is
+absent. Native checks cover the full-system total, including when output is a
+subset; they do not certify electrostatic accuracy. Units follow the active
+PyUnitWizard charge standard; a policy without one raises `NoStandardsError`.
+
+```python
+import molsysviewer as msv
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+
+molsys = Chem.AddHs(Chem.MolFromSmiles("N[C@@H](C)C(=O)O"))
+rdDepictor.Compute2DCoords(molsys)
+with msv.new_view(molsys) as view:
+    result = view.addons.molsysmt.physchem.get_cip_stereochemistry(selection=[1])
+    assert result["atom_stereochemistry"].tolist() == ["S"]
+    assert result["bonded_atom_pairs"].shape == (0, 2)
+    assert result["evidence"] == "declared_stereochemistry"
+```
+
+CIP assigns the complete graph before filtering. A returned bond requires both
+selected endpoints. None means no assigned label; lowercase r/s and absolute
+E/Z remain distinct from cis/trans relative to the reported reference atoms.
+`from_coordinates=True` is keyword-only and requires exactly one explicit 3D
+structure. It changes tags only on the native detached graph. The reader does
+not reconstruct periodic molecules or infer a preferred structure.
+
+On the receiving baseline f9ca3e1b0, CIP's nested plain-reference author list is
+shared under [#503](https://github.com/uibcdf/molsysmt/issues/503): editing it can
+pollute later bibliography and attribution. Treat that nested metadata as
+read-only until the owner repair is received. Independent numeric arrays and
+scalar metadata do not establish independence of every nested field. The addon
+adds no consumer-specific deepcopy. AutoDock/partial-charge reports preserve
+native provenance and optional credits without duplicate consumer attribution.
+
+All three readers return scientific data, not scene objects or stored assignments.
+They neither color atoms nor update the primary. They resolve current view.molsys
+at each call, including pending managed edits, and do not synchronize pending
+projection. `update_view` is not a reader parameter. See
+{ref}`Tutorial_AutoDock_Typing`, {ref}`Tutorial_Get_CIP_stereochemistry` and
+{ref}`Tutorial_Partial_Charge_Assignment` for native method profiles and limits.

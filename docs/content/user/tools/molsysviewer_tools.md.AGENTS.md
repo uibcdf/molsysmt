@@ -155,8 +155,8 @@ Keep the explicitly RDKit-read caffeine example and declared hydrogen inventory.
 Native SDF sources with unspecified CTAB evidence retain rejection; do not infer
 missing hydrogen counts. Preserve source-qualified #494/#495 repairs: inherited molecule identity,
 MDTraj target-only placeholders, stable source order and absent native hierarchy.
-No consumer workaround or biological identity inference is added. Keep #499's
-populated-chemistry atom-insertion defect separate from read-only calculations.
+No consumer workaround or biological identity inference is added. Keep #499's received atom-growth repair separate from read-only calculations;
+unknown appended chemistry remains unknown/partial and may be rejected.
 
 
 Preserve the explicit get_lipophilicity mirror and both descriptor output/context
@@ -168,3 +168,14 @@ sites and the limits of logP/logD applicability. Document indexed/nonindexed H
 attribution without changing source H or atom indices. Keep exact native
 state/structure, selector, provider, provenance and optional attribution semantics;
 no preparation, neutralization, counterion removal, fallback or scene sync.
+
+
+Preserve the explicit AutoDock, CIP and partial-charge expert mirrors: required
+scheme/model parameters, keyword-only coordinate inference, native sorted unique
+atom outputs, full graph before selection, state/structure resolution, units,
+providers and provenance. Do not prepare H/protonation, assign results, color or
+synchronize the scene. Keep native force-field/template and charge-standard
+limits explicit. The source-qualified #503 nested CIP author-list defect remains
+visible until an owner repair is received; no consumer deepcopy or claim of full
+nested ownership is permitted. The three reader help/doc examples remain native
+contracts; tutorial links describe their scientific definitions.

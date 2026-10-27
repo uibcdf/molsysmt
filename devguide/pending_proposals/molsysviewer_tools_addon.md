@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, twenty-three physchem source wrappers (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, twenty-eight physchem source wrappers (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1648,3 +1648,61 @@ separate owner receiving; the addon adds no selector/hierarchy workaround.
 Exact-source hosted CI still requires integration. GUI tasks, optional-provider
 absence, performance, other platforms, artifacts and both paused 1.0 publications
 retain separate scope. Source support is not installed-package qualification.
+
+
+### Explicit chemical readers — 2026-10-27
+
+The expert facade now mirrors get_autodock_atom_types,
+get_cip_stereochemistry and get_partial_charges, bringing the reviewed physchem
+surface to 28 of 34 exports. The native primary is implicit; all other native
+parameters, required scheme/model inputs, keyword-only coordinate inference,
+validation and skip_digestion remain explicit. Results are returned without
+assignment, coloring, preparation, state/frame choice or synchronization.
+AutoDock returns its native vocabulary; CIP retains declared/coordinate evidence,
+source atom/bond maps and full-context labels; partial charges retain native
+Gasteiger-Marsili or explicit OpenMM force-field prerequisites, charge units and
+full-source total checks. These are source contract checks, not a scientific
+accuracy, docking-readiness, installed-package or release certificate.
+
+Owner #499 repair ab165135e passes 80 directed native builder cases, without
+expected failures. The new reader fixtures additionally check that its appended
+unknown/partial chemistry remains rejected rather than silently prepared.
+The prior exact-source descriptor gate 40575948453 and five source controls
+pass, closing #500/#501; the old failure/cancellation evidence stays separate.
+That earlier source's strict #499 xfail does not qualify the later owner repair.
+
+Native uibcdf/molsysmt#503 is independently reproduced without Viewer: nested CIP
+plain-reference authors alias the canonical list and can pollute future credits.
+It remains an explicit qualification limit; the addon adds no deepcopy, and
+numeric/scalar-metadata tests do not claim full nested-reference independence.
+
+Directed contracts cover scientific reference values and actual native output,
+selection sorting/deduplication and empty axes, state associations, explicit
+structures, native model rejection, source hierarchy and scene/coverage
+preservation, pending reads, cached replacement and closed/empty lifetimes.
+They include declared S/R and E/Z, reflected real 3D conformers, bounded AutoDock
+labels, pinned Gasteiger values, real OpenMM alanine template values, charge-unit
+contexts and real optional Ackredit scope. Guide/course changes preserve legacy
+scientific examples and outputs. Local final regression and exact new-source
+hosted CI are recorded separately; neither is implied by the earlier source gate.
+
+Six native exports remain unreceived: get_water_sites,
+get_metal_coordination_sites and assess_chemical_template, independent-result
+apply_chemical_template/normalize_aromatic_bond_orders, and explicit-input
+get_peptide_chemical_template. Keep their own state, provider, result and effect
+receiving before exposure. GUI tasks and broader editing remain separate phases.
+
+
+### Completed local chemical-reader receiving — 2026-10-27
+
+All 69 directed consumer cases pass within the one frozen applicable regression:
+3,819 passes, zero failures/errors/skips, 343.96 seconds. Source/backend hashes
+remain unchanged during execution. The 1,499 warnings retain their seven
+reported categories, including 1,488 legacy-H5MSM observations, six controlled
+GPU availability observations and controlled invalid-input diagnostics. A final
+Ruff-only wrap of one test declaration preserves its exact AST. No broad rerun
+is implied or required by that formatting change. All 45 bound-guide blocks and
+109 inherited native-context doctests pass; four course module-39 updates change
+only explanatory Markdown, preserving code and outputs. Scoped Ruff, shell
+syntax and devguide validation pass. Exact new-source hosted CI remains pending.
+Native #503 and source-versus-installed limits remain explicit.

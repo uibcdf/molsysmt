@@ -1,0 +1,99 @@
+{
+  "schema": "molsysviewer.tools.chemical-readers-receiving@1",
+  "date": "2026-10-27",
+  "source_basis": "f9ca3e1b0328d2463492f0969fec6805dfc7ca5b",
+  "wrappers": [
+    "get_autodock_atom_types",
+    "get_cip_stereochemistry",
+    "get_partial_charges"
+  ],
+  "physchem_inventory": {
+    "native": 34,
+    "bound": 28,
+    "pending": 6
+  },
+  "scope": "Experimental source API/contract checks, not installed artifacts, every platform, predictive accuracy or release qualification.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "name": "molsyssuite@uibcdf_3.14",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "backend_rebuilt": false
+  },
+  "local": {
+    "regression": {
+      "tests": 3819,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "directed_consumer_cases_in_regression": 69,
+    "seconds": 343.96,
+    "warnings": 1499,
+    "source_changed_during_run": [],
+    "regression_junit_sha256": "c72a71b46fd4de0640c9a906058864e504dbd3f05379e185b696faa770e8ff24",
+    "regression_scope_sha256": "46d054bcd4d3018a1c3e7fc25317f001f72bb264ee1d80e210591df65dfeb5ae",
+    "format_only": {
+      "file": "tests/molsysviewer_molsysmt/test_chemical_assignment_readers_tools.py",
+      "tested_sha256": "8074f7bdd1906ad2d837bb78bfb524e402ebb79fc8cb78a0fcc1eba17e15ce64",
+      "formatted_sha256": "f1e6e489fe4879ef6b0170d1eeb79e3b506fe6528d010c34d956d04ee6237781",
+      "ast_unchanged": true
+    },
+    "guide_blocks": 45,
+    "inherited_native_doctests": 109,
+    "guide_source_assertions": "Both MolSysMT and addon imports must resolve inside the isolated checkout.",
+    "guide_log_sha256": "6520248e80d15c486e6e3cf75375dd1a066b1098b980a7ad57320dec318d7aa4",
+    "builder_499": {
+      "source": "ab165135ee4ba48595ecfda70861458ef9aaaa4d",
+      "junit": {
+        "tests": 80,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0
+      },
+      "sha256": "7a9ac7a27483da9a208ec6f7a518f523e826295e547d2e9c0b22e50475b1ac52"
+    }
+  },
+  "native_limits": {
+    "issue": "uibcdf/molsysmt#503",
+    "status": "open",
+    "reproduction": {
+      "source": "f9ca3e1b0328d2463492f0969fec6805dfc7ca5b",
+      "first_authors_id_equals_second": true,
+      "sentinel_in_later_result": true,
+      "sentinel_in_later_attribution": true
+    },
+    "consumer_workaround": false
+  },
+  "prior_gates": {
+    "molsysmt_source": "4ad988584ec1409fb9f90e2e8ce2aab05a638473",
+    "molsysmt_run": 40575948453,
+    "molsysmt_official": "success",
+    "closed_issues": [
+      "uibcdf/molsysmt#500",
+      "uibcdf/molsysmt#501"
+    ],
+    "viewer_source": "a7dcd4cc5daf0e947af71b4d1ac11d4f7549c00f",
+    "viewer_e2e_run": 40576276877,
+    "viewer_official": "success"
+  },
+  "new_source_hosted_ci": "pending",
+  "authored_sha256": {
+    ".github/workflows/ci-smoke.yaml": "8cebe9523c402904ffe5c4f883b8cbff00a90991101fed16305c2f03c546f5b2",
+    "devguide/molsysviewer_addon.md": "ffafb1d403b65589b83da6d28094611330eed1703490f636cffd6b3688839b41",
+    "devguide/pending_bugs/README.md": "ccfa5a8b90cc954c5359803e2b621b35b6488dbbef81b4205385f5c104717bd8",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "2ac918b67fab191640a5a1d894291b6a08efcd8cb9ef39ae3b17e2883340d8fa",
+    "devtools/tests/run_tiers.sh": "4f82de2584e0501d4b19b8a8a5fd27800d93336aa7b3c616b1df7e7371865bd9",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "ea6e2e5daefbae87e5b10d7442c1974ffe60f59237b1b8801d49cc5bec3c4cb9",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "770ac9c5b8c2f50e4b6a7e8230981a02adc61dcecb1f8481c5e04d0020b2f038",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "b4bb87975d2b6174e3435adabefbe113932c35b0a81b75386714914f73ff6f60",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "e5fe8b6ce98422e640d0e4c3d8a0c46ed4ad6a549b0c8fe2c73cf151ba94f9fc",
+    "docs/content/user/tools/molsysviewer_tools.md": "49386a5f926850c261a4750268a7ecd5cdb99df0c1a1c00012fed7ac31286faf",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "fdffe58ced5f2ce309fd390e35665ef0715a69b0722a9ee7ce358380ea62a157",
+    "molsysviewer_molsysmt/_basic.py": "07017312028f2afd2aeb960e59e32e02ef0d49d2d7b827039587114d39b5762a",
+    "molsysviewer_molsysmt/_physchem.py": "93684e5a9df5711f887074b0695c9c4a166914d886385de0472ca7db5223d2a4",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "10d2f01df9cba78327ac86268f4199f52cc3f2e2fa6381347574276bf8bee226",
+    "devguide/pending_bugs/cip_result_reference_authors_are_shared_with_later_calculations.md": "45f5291f748e5e9e5a410138febcccdfd3671a9300fc641455f0179ec88d5fe0",
+    "tests/molsysviewer_molsysmt/test_chemical_assignment_readers_tools.py": "f1e6e489fe4879ef6b0170d1eeb79e3b506fe6528d010c34d956d04ee6237781"
+  }
+}

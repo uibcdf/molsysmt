@@ -33,6 +33,9 @@ class _PhyschemTools:
         "get_secondary_structure_propensity",
         "get_tpsa",
         "get_lipophilicity",
+        "get_autodock_atom_types",
+        "get_cip_stereochemistry",
+        "get_partial_charges",
     )
 
     def __init__(self, owner):
@@ -636,6 +639,93 @@ class _PhyschemTools:
                 "structure_indices": structure_indices,
                 "chemical_state": chemical_state,
                 "method": method,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_autodock_atom_types", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_autodock_atom_types(
+        self,
+        typing_scheme,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="chemical_environment",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_autodock_atom_types",
+            {
+                "typing_scheme": typing_scheme,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_cip_stereochemistry", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_cip_stereochemistry(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        engine="rdkit",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        from_coordinates=False,
+    ):
+        return self._call(
+            "get_cip_stereochemistry",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "engine": engine,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "from_coordinates": from_coordinates,
+            },
+        )
+
+    @_native_documentation("get_partial_charges", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_partial_charges(
+        self,
+        method,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        forcefield=None,
+        water_model=None,
+        expected_total_charge=None,
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_partial_charges",
+            {
+                "method": method,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "forcefield": forcefield,
+                "water_model": water_model,
+                "expected_total_charge": expected_total_charge,
                 "return_report": return_report,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,

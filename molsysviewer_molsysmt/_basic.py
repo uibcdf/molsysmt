@@ -281,6 +281,44 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
             )
+        if module == "physchem" and name in {
+            "get_autodock_atom_types",
+            "get_cip_stereochemistry",
+            "get_partial_charges",
+        }:
+            function.__doc__ += (
+                "The current primary supplies the complete chemical graph before "
+                "native output selection. Atom indices are sorted and deduplicated; "
+                "the visible structure is never substituted for explicit native "
+                "state/structure scope. Returned chemical results are not a scene object "
+                "or a stored assignment. No hydrogen/protonation preparation, parameter "
+                "guessing, provider fallback, result adoption, atom coloring or scene "
+                "synchronization is added. Readers remain usable during pending edits; "
+                "update_view is not accepted. Attribution stays with native MolSysMT.\n"
+            )
+        if module == "physchem" and name == "get_autodock_atom_types":
+            function.__doc__ += (
+                "typing_scheme is required. AutoDock labels are distinct from element "
+                "symbols and do not assign atom_ff_type to the primary. All H must "
+                "already be indexed. This bounded profile does not establish docking "
+                "readiness or a universal donor/acceptor definition.\n"
+            )
+        if module == "physchem" and name == "get_cip_stereochemistry":
+            function.__doc__ += (
+                "CIP atom and bond labels retain source maps and declared/coordinate "
+                "evidence. Keyword-only from_coordinates requires one explicit 3D "
+                "structure; no periodic reconstruction or structure choice is added. "
+                "Only bonds with both selected endpoints survive.\n"
+            )
+        if module == "physchem" and name == "get_partial_charges":
+            function.__doc__ += (
+                "method is required. Gasteiger-Marsili and explicit force-field "
+                "calculations preserve native charge units, full-source conservation "
+                "checks and provider prerequisites. Values are distinct from stored "
+                "formal charge and the existing get_charge table lookup. Source "
+                "partial charges are neither reused nor replaced. No electrostatic "
+                "accuracy or ligand parameterization guarantee is inferred.\n"
+            )
         if module == "physchem" and name in {"get_tpsa", "get_lipophilicity"}:
             function.__doc__ += (
                 "Molecule indices address the source molecule axis, not atoms or "

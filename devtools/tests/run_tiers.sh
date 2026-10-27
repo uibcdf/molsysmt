@@ -35,9 +35,13 @@ run_smoke() {
     tests/physchem/test_get_tpsa.py \
     tests/physchem/test_get_lipophilicity.py \
     tests/physchem/test_descriptor_contributions.py \
+    tests/physchem/test_get_autodock_atom_types.py \
+    tests/physchem/test_get_cip_stereochemistry.py \
+    tests/physchem/test_get_partial_charges.py \
     tests/form/molsysmt_Topology/test_atom_membership_order.py \
     tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py \
     tests/native/test_builder_inherited_molecules.py \
+    tests/native/test_builder_atom_extension.py \
     tests/physchem/test_get_secondary_structure_propensity.py \
     tests/physchem/test_reference_metadata_ownership.py \
     tests/native/test_group_free_molecules.py \
