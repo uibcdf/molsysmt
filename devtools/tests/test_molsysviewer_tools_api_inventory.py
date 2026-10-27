@@ -18,6 +18,20 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         rows["basic.are_multiple_molecular_systems"]["input_kind"]
         == "explicit_collection"
     )
+    assert rows["basic.add"]["input_kind"] == "primary"
+    assert rows["attribute.get_argument_aliases"]["input_kind"] == "explicit_inputs"
+    assert not rows["supported.forms"]["exposed"]
+    assert "supported.syntaxes" in rows
+    assert rows["supported.syntaxes"]["declaration_status"] in {
+        "callable_compatibility_module",
+        "callable_unqualified",
+    }
+    for path in [
+        "molecular_dynamics.run_NPT_equilibration",
+        "molecular_dynamics.run_NVT_equilibration",
+    ]:
+        assert rows[path]["declaration_status"] == "not_implemented_stub"
+        assert not rows[path]["exposed"]
     assert "h5msm.arg_digest" not in rows
     assert (
         rows["hbonds.get_buch_hbonds"]["implementation"]

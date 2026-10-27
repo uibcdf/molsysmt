@@ -1775,3 +1775,33 @@ The two observed operational/data findings have been offered to the maintainer
 for separate owning reports; no additional issue authorization is assumed.
 Installed artifacts, GUI tasks, broader edits and both paused 1.0 publications
 remain separate. No tag, package or release is produced by this work.
+
+
+### Completed scientific CI and full inventory — 2026-10-27
+
+Runtime producer 511fafb54 completes CI smoke 40585977458 officially success,
+including cleanup: nine early command/inventory/package guards, 3,365 native
+passes / eleven optional Ackredit skips and 1,971 addon passes / four optional
+Ackredit skips. All five additional exact-source controls pass. The earlier
+exit-126 workflow and local allowlist failure remain retained as failures with
+separate corrections; neither is retroactively green. The CI command now runs
+all addon modules, including the new chemical readers and build diagnostics.
+
+A final tooling-only inventory revision adds attribute metadata, supported
+capability reports and the importable legacy molecular_dynamics namespace.
+It retains the callable supported.syntaxes compatibility module regardless of
+import order. The complete snapshot finds 108 exposed / 244 inspected callable
+paths, 136 unexposed, including two explicit always-raise native MD stubs. These
+stubs require native implementation before wrappers can offer functionality.
+The former 231-path snapshot is preserved and its eleven-scope limit remains
+visible. No scientific package source or runtime binding differs from 511fafb54.
+The expanded audit's real-facade unit test and CLI pass; Ruff, dependency-contract
+and devguide checks pass. Applicable local scope is retained separately from the
+scientific producer; this does not rerun science or clear whole-suite skip debt.
+
+Evidence: `devtools/data/molsysviewer_tools_complete_api_ci_closeout_20261027.json`.
+The maintained inventory under uibcdf/molsysmt#421 orders further build audits,
+canonical interactions, basic/element/file/capability utilities, explicit mechanics
+and carefully received preparation/edits. New routes cannot be exposed just to
+fill a number. Native #503 and legacy-data limits stay explicit. Graphical tasks,
+installed qualification, tags/packages and both 1.0 publications remain separate.

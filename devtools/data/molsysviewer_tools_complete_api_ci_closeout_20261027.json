@@ -1,0 +1,67 @@
+{
+  "schema": "molsysviewer.tools.complete-api-ci-closeout@1",
+  "date": "2026-10-27",
+  "runtime_source": "511fafb54708f34d55ca311c1a4fec0787210efd",
+  "run": 40585977458,
+  "official_conclusion": "success",
+  "branch": "main",
+  "checks": {
+    "early_command_inventory_package": {
+      "passed": 9
+    },
+    "native": {
+      "passed": 3365,
+      "skipped": 11,
+      "skip_reason": "Optional Ackredit unavailable"
+    },
+    "addon": {
+      "passed": 1971,
+      "skipped": 4,
+      "skip_reason": "Optional Ackredit unavailable"
+    },
+    "additional_source_success": {
+      "ruff": 40585977217,
+      "dependency": 40585977657,
+      "devguide": 40585977287,
+      "suite": 40585978056,
+      "conda": 40585978518
+    }
+  },
+  "evidence_sha256": {
+    "manifest.json": "65613ec0921ca83786c168ce7ba78e90a2ae1f96e17b4e88b043af68631f9f61",
+    "run.json": "fd2989eea5b3d23b821c65e053ea6957ad8dd3703a51f2d7fa90c407440a79e1",
+    "jobs.json": "c4a8fcbf4ba3f2f9bf08d0f14fcf09050fb1e2dfb4815579190062c7a68b17b4",
+    "msv-complete-api-success-ci.log": "b79e8ca2f3703b0eeaf57c41496b448fac8f38bdfaae8d6e1e9d4d7cdf0fbde6"
+  },
+  "earlier_non_success": {
+    "run": 40580219002,
+    "conclusion": "failure",
+    "exit": 126,
+    "reason": "Orphan test-file command; retained, not reclassified."
+  },
+  "inventory_completion": {
+    "paths": 244,
+    "exposed": 108,
+    "unexposed": 136,
+    "explicit_native_stubs": 2,
+    "file": "devtools/data/molsysviewer_tools_full_api_inventory_20261027.json",
+    "source_runtime_changed": false,
+    "guard_junit_sha256": "ca87288e6a0409f174d97b1ea41eddcede2e33a7534e1ef7fda1b77535d083e5",
+    "scope": "Developer auditor now includes attribute/supported and legacy molecular_dynamics declarations; callable compatibility shims and always-raise stubs remain explicit. No new scientific method or wrapper.",
+    "final_scope_controls": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "9442e59d936ecda02a4444de5d2e5c6fcd30f9538b8709fdb8a80a659d8bf33a"
+    },
+    "ci_disposition": "Tooling/metadata-only follow-up uses scoped verified local controls; runtime byte-identical to fully qualified 511fafb54. No full-suite backlog or release waiver is inferred."
+  },
+  "limits": [
+    "Experimental source only; not installed artifacts or all-platform/performance qualification.",
+    "CIP reference ownership uibcdf/molsysmt#503 remains open.",
+    "Legacy pentalanine unknown-chain data finding remains separate.",
+    "Initial local regression file-allowlist failure remains retained; its focused correction passed.",
+    "Both 1.0 publications remain paused."
+  ]
+}

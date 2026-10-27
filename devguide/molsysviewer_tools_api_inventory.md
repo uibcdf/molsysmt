@@ -2,8 +2,8 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-27, native basis 87a86d439 plus the reviewed remaining
-physchem wrappers and initial build diagnostics. This is source exposure, not
+**Snapshot:** 2026-10-27, receiving producer 511fafb54 plus a tooling-only
+completion of metadata and legacy-protocol discovery. This is source exposure, not
 installed compatibility, scientific accuracy or unconditional stability.
 
 Regenerate the full path/signature/missing-route inventory in the participating
@@ -11,7 +11,7 @@ source environment:
 
 ```bash
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_api_inventory_20261027.json
+  --output devtools/data/molsysviewer_tools_full_api_inventory_20261027.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -35,11 +35,14 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | element and declared children | 0 | 57 | 57 |
 | h5msm file utilities | 0 | 7 | 7 |
 | historical hbonds aliases | 0 | 4 | 4 |
+| attribute metadata helpers | 0 | 7 | 7 |
+| supported-capability reports | 0 | 4 | 4 |
+| legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 108 exposed out of 231 inspected public function paths. This is not
-231 independent scientific capabilities: the historical hbonds routes alias
+These are 108 exposed out of 244 inspected public callable paths. This is not
+244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
-configuration, datasets and third-party bridges are outside this functional
+configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
 inventory. The output records implementation identities so aliases remain
 visible rather than inflated into new scientific algorithms. It records
 primary, destination-system, explicit-collection and explicit-input contracts;
@@ -49,6 +52,15 @@ The zero for addon interactions does not describe Viewer core availability.
 `view.interactions` already owns visual calculations/attachment and presentation.
 The future expert mirror returns ordinary native scientific results, without
 implicitly attaching or representing them. Direct MolSysMT remains available.
+
+The final review includes attribute classifiers and supported-capability reports.
+The callable supported.syntaxes compatibility module is retained even when import
+order replaces its original function object. Two molecular_dynamics declarations
+are explicit unconditional NotImplementedMethodError stubs; they are counted as
+unimplemented native declarations, not available operations awaiting thin wrappers.
+The audit recognizes that source shape without executing a simulation. It does
+not infer universal availability for other callables. The earlier 231-path
+11-scope snapshot remains preserved, rather than overwritten by this expansion.
 
 ## Ordered expansion
 
@@ -86,7 +98,7 @@ implicitly attaching or representing them. Direct MolSysMT remains available.
    retained source identity and recovery contract. Existing coordinate/removal
    receiving does not admit arbitrary topology edits. Public build.editable and
    factories need explicit native object/lifetime contracts, not placeholders.
-7. **Complete navigation and compatibility decisions.** Receive element/file
+7. **Complete navigation and compatibility decisions.** Receive element/file/attribute/supported
    utilities, canonical versus historical aliases and the basic.view bridge
    deliberately. A useful core route is not proof that its expert mirror exists.
    Review duplicate value and documentation before adding historical aliases.
@@ -104,3 +116,15 @@ Graphical tasks cannot narrow the expert API or pretend unreceived tools exist.
 A missing native capability/defect belongs to its scientific owner, with linked
 consumer evidence. No blanket dynamic forwarding, scientific workaround,
 automatic primary observation, hidden preparation or release promise is added.
+
+
+## Source qualification closeout
+
+Runtime bindings and scientific package sources remain identical to 511fafb54,
+whose corrected CI smoke 40585977458 and five additional source controls pass.
+The final inventory expansion changes only developer tooling/tests and maintained
+records. Its real-facade unit test and CLI pass locally in the recorded environment;
+it does not add wrappers or rerun/retroactively relabel scientific tests. Explicit
+native MD stubs need an owning implementation before addon exposure. This is not
+a release candidate, package qualification or a claim that all 136 missing paths
+are functional or equally important. Keep native #503 and legacy-data limits open.

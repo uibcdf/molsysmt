@@ -30,6 +30,9 @@ SCOPES = (
     "element",
     "h5msm",
     "hbonds",
+    "attribute",
+    "supported",
+    "molecular_dynamics",
 )
 
 
@@ -52,15 +55,43 @@ def _children(module):
     ]
 
 
+def _declaration_status(function):
+    """Identify explicit always-raise stubs without executing a scientific call."""
+    try:
+        node = ast.parse(inspect.getsource(inspect.unwrap(function))).body[0]
+    except (OSError, TypeError, SyntaxError):
+        return "source_unavailable"
+    body = list(node.body)
+    if (
+        body
+        and isinstance(body[0], ast.Expr)
+        and isinstance(body[0].value, ast.Constant)
+        and isinstance(body[0].value.value, str)
+    ):
+        body = body[1:]
+    if len(body) == 1 and isinstance(body[0], ast.Raise):
+        exception = body[0].exc
+        if (
+            isinstance(exception, ast.Call)
+            and isinstance(exception.func, ast.Name)
+            and exception.func.id == "NotImplementedMethodError"
+        ):
+            return "not_implemented_stub"
+    return "callable_unqualified"
+
+
 def _scan(module, path, facade):
     rows = []
     names = getattr(module, "__all__", None) or list(vars(module))
     for name in sorted(names):
         value = getattr(module, name)
+        compatibility_module = isinstance(value, types.ModuleType) and callable(value)
         if (
             name.startswith("_")
-            or not inspect.isfunction(value)
-            or not value.__module__.startswith("molsysmt.")
+            or not (inspect.isfunction(value) or compatibility_module)
+            or not getattr(
+                value, "__module__", getattr(value, "__name__", "")
+            ).startswith("molsysmt.")
         ):
             continue
         signature = inspect.signature(value)
@@ -87,7 +118,16 @@ def _scan(module, path, facade):
                 else "explicit_collection"
                 if primary
                 else "explicit_inputs",
-                implementation=f"{original.__module__}:{original.__qualname__}",
+                implementation=(
+                    f"{type(value).__module__}:{type(value).__qualname__}.__call__"
+                    if compatibility_module
+                    else f"{original.__module__}:{original.__qualname__}"
+                ),
+                declaration_status=(
+                    "callable_compatibility_module"
+                    if compatibility_module
+                    else _declaration_status(value)
+                ),
             )
         )
     for child in _children(module):
@@ -110,7 +150,11 @@ def collect_inventory():
         rows = [
             row
             for scope in SCOPES
-            for row in _scan(getattr(native, scope), scope, getattr(addon, scope, None))
+            for row in _scan(
+                importlib.import_module("molsysmt." + scope),
+                scope,
+                getattr(addon, scope, None),
+            )
         ]
     modules = {}
     for scope in SCOPES:
@@ -118,6 +162,9 @@ def collect_inventory():
         modules[scope] = dict(
             native_paths=len(selected),
             exposed_paths=sum(row["exposed"] for row in selected),
+            explicit_native_stubs=sum(
+                row["declaration_status"] == "not_implemented_stub" for row in selected
+            ),
             missing=[row["path"] for row in selected if not row["exposed"]],
         )
     return dict(
@@ -129,6 +176,7 @@ def collect_inventory():
             "form adapters",
             "native classes and methods",
             "configuration",
+            "raw low-level kernels",
             "third-party bridges",
             "datasets",
         ],
