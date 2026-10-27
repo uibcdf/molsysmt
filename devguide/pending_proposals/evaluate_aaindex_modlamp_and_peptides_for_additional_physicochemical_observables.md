@@ -821,3 +821,71 @@ valence/H evidence; absent hydrogen inventory fails rather than being guessed.
 LogP is not implemented: its charged-state scope remains a separate decision.
 See [qualification](../../devtools/data/molecular_tpsa_implementation_20261026.json).
 The wider capability review remains partial and open.
+
+## LogP scope review — 2026-10-27
+
+**Inspected, not implemented or accepted.** This review qualifies the earlier
+neutral-only recommendation; it does not silently change a public contract.
+
+The [IUPAC definition of log P](https://goldbook.iupac.org/terms/view/11469)
+specifies the uncharged form. A descriptor computed from a supplied ionic graph
+is not thereby a physical partition coefficient or a pH-dependent distribution
+coefficient. No pKa model, species populations or partitioning of an ensemble is
+established by calling the atomic contribution calculator.
+
+The [author-uploaded Wildman–Crippen paper](https://www.researchgate.net/publication/220524632_Prediction_of_Physicochemical_Parameters_by_Atomic_Contributions)
+(DOI 10.1021/ci990307l), accessed as extracted text, describes an atomic sum,
+includes charged atom types and notes implementation-sensitive SMARTS
+interpretation. This bounded reading does not establish predictive accuracy for
+arbitrary ions or zwitterions. Search matches in the page's related-publication
+abstracts must not be attributed to this paper. Unlike the earlier publisher
+access failure, this author copy supplies readable primary-method text; the
+dated earlier receipt remains a historical record.
+
+[RDKit's documentation](https://www.rdkit.org/docs/source/rdkit.Chem.Crippen.html)
+identifies the original model and a hydrogen-materialization option. The pinned
+[provider implementation](https://github.com/rdkit/rdkit/blob/cbfb37abddcd5b5feeac97d53530ae6be83cac0d/Code/GraphMol/Descriptors/Crippen.cpp)
+and [atom types](https://github.com/rdkit/rdkit/blob/cbfb37abddcd5b5feeac97d53530ae6be83cac0d/Data/Crippen.txt)
+must be distinguished from the original derivation. Provider parity is not an
+experimental validation of the molecular property.
+
+### Why a simple charge gate is insufficient
+
+The existing [provider-characterization receipt](../../devtools/data/tpsa_logp_contract_review_20261026.json)
+already contains the necessary counterexamples; no new measurement is claimed:
+
+- Nitro groups can require formally charged atoms in a net-neutral graph.
+  Rejecting every nonzero atomic formal charge would exclude such graphs.
+- Zwitterionic glycine is also net neutral. Accepting total charge zero does
+  not demonstrate an uncharged protomer or applicability of a physical logP
+  interpretation.
+- A disconnected cation/counterion pair can have total charge zero. Complete
+  connected-molecule admission remains necessary; summing its descriptor into
+  a whole-salt logP is outside the proposed boundary.
+- Acid/base conjugate states give different provider scores. Silently
+  neutralizing the graph would change the requested chemical state.
+
+### Public-contract alternatives
+
+| Alternative | Benefit | Cost or limitation |
+| --- | --- | --- |
+| `get_logp` with a net-zero admission rule | Familiar name and a bounded first scope | The gate still admits zwitterions and cannot certify physical applicability; the limitation must remain explicit. |
+| A model-descriptor tool, provisionally `get_lipophilicity(method='wildman_crippen')` | Preserves the supplied state and exposes the model without a fictitious neutralization or pH claim | Broader name needs precise documentation that the result is a dimensionless model score, with a restricted validation domain. |
+| Strict physical-property and broad model-score APIs together | Separates user intentions | Duplicates surface area before a reliable chemical-domain classifier and a second concrete client requirement exist. |
+
+**Recommendation for maintainer discussion:** favor the single model-descriptor
+boundary if charged-state evaluation is needed. Keep the method name tied to
+Wildman–Crippen and record RDKit separately as the executed implementation.
+Use the previously reviewed complete-molecule, declared-H, detached-graph and
+chemical-state contracts. Report net charge and formally charged atom indices,
+without claiming that those alone classify resonance versus zwitterionic states.
+Do not introduce a second API or a heuristic neutralizer merely to make the
+name `get_logp` appear scientifically stricter. If the maintainer instead selects
+the net-zero `get_logp` boundary, retain the zwitterion limitation explicitly.
+
+Before implementation, settle that choice. Then validate original atomic-sum
+controls separately from provider parity, add neutral/ionic/nitro/zwitterion/salt
+admission cases, preserve actual producer versions and optional Ackredit, and
+complete the API/documentation/course lifecycle. An experimental descriptor can
+ship with bounded evidence; it must not imply an experimental accuracy benchmark,
+logD prediction or a new requirement for the 1.0 release gate.
