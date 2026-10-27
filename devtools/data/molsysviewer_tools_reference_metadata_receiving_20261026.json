@@ -1,0 +1,45 @@
+{
+  "schema": "molsysmt.viewer_tools_reference_metadata_receiving@1",
+  "date": "2026-10-26",
+  "provider_source": "6eebcd4ec30e8ed3fbb76ea6e36cbfca5f326c9f",
+  "host_source": "bd3f347bb4814353593f0687de8056f18fec10fb",
+  "issue": "uibcdf/molsysmt#490",
+  "source_sha256": {
+    "molsysmt/_private/interaction_attribution.py": "84e59005abdcc8257a908ea769639602d771cfabe83d67ea0ca8aa8ff68b56ff",
+    "molsysmt/physchem/get_hydrophobic_sites.py": "57c309d4b3254740ebfa411051f1b5a97ac25a21f6768511aeb2b0e999bb8660",
+    "molsysmt/physchem/get_halogen_bond_sites.py": "08990b2a079ae2565a8cdf14cb033f392e483493c1d802759a735e7f6b74ce1e",
+    "tests/physchem/test_reference_metadata_ownership.py": "06a59c0589a21bb5701bcb9b3869d36b8d9ddf527bca3e23e986455636ad6234",
+    "molsysviewer_molsysmt/_physchem.py": "8154706a4cfb9fe8b7ff80f552f9d9802855819f82bf7dd0a494f8067e711f50",
+    "tests/molsysviewer_molsysmt/test_feature_sites_tools.py": "4596e02e0ba6eb6a217f7d7bee162bbb26bc4458220d02c4fa6aa501e09c8a45"
+  },
+  "local_focused": {
+    "counts": {
+      "tests": 172,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "warnings": {
+      "LegacyH5MSMWarning": 77
+    },
+    "files": [
+      "tests/physchem/test_reference_metadata_ownership.py",
+      "tests/molsysviewer_molsysmt/test_feature_sites_tools.py",
+      "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py"
+    ],
+    "junit_sha256": "bcf8e16854fc32a721b3b8edf424aa029fdcbab2d8cbab73dd9708169d671266"
+  },
+  "bound_readers": {
+    "source": "6eebcd4ec30e8ed3fbb76ea6e36cbfca5f326c9f",
+    "canonical_version": "2.2.2",
+    "later_version": "2.2.2",
+    "other_reader_version": "2.2.2",
+    "scene_unchanged": true,
+    "reference_objects_independent": true
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "scope": "Retained backend; no Rust changes/rebuild or installed qualification."
+  },
+  "scope": "Local Linux/Python 3.14 source receiving of provider-owned small metadata detachment, alongside existing feature/table receiving. No additional full regression, hosted-source CI, optional-provider absence, installed artifact or release qualification. The earlier 02671792f hosted gate retains its older metadata behavior and is not relabeled."
+}

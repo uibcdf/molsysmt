@@ -1457,3 +1457,23 @@ adds secondary-structure propensities: the inspected inventory is now 32, with
 21 wrappers and eleven pending tools. The newer export is not qualified by this
 older source gate. GUI and installed qualification remain pending; no host
 runtime, package floor or paused-publication change is introduced.
+
++
++### Reference-metadata repair received locally — 2026-10-26
++
++Native #490 is resolved in `6eebcd4ec30e8ed3fbb76ea6e36cbfca5f326c9f`. An isolated snapshot
++matching that committed source passes 172 targeted cases (native reference
++ownership plus the existing feature/table consumers), zero failures/errors/skips,
++with 77 legacy H5MSM warnings. A bound-reader check mutates one hydrophobic
++reference and confirms a later same-reader result and a halogen result retain
++independent canonical 2.2.2 references and the scene stays unchanged. The native
++guard also covers nested metadata and evaluated-empty results. The provider
++detaches small references; the addon adds no copy or scientific transformation.
++
++The [local receiving receipt](../../devtools/data/molsysviewer_tools_reference_metadata_receiving_20261026.json) retains source-file digests, JUnit digest
++and the executed bound-reader observations. This removes the metadata ownership
++limit when using that received source, without retroactively changing producer
++02671792f or its hosted evidence. No second full regression, new hosted gate,
++installed artifact or release qualification is claimed. Current native exports
++remain 32; 21 wrappers and eleven pending functions retain their separate scope.
++

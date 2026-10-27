@@ -1786,6 +1786,11 @@ Editing that field can contaminate later reported method references, including
 the other reader. Keep reference declarations unchanged until using a qualified
 provider repair. This source gate does not certify arbitrary mutation of returned
 reference metadata; the addon supplies no consumer-specific copy or transformation.
+The repair in native source `6eebcd4ec` has separate local receiving: 172
+targeted cases and a bound-reader mutation check. With that source, each result
+owns its small method reference independently, including evaluated-empty output.
+This does not turn the older hosted gate into a qualification of the repair or
+establish installed-package compatibility.
 Calls resolve the current resident `view.molsys`,
 including after replacement and while managed edits await synchronization;
 they neither call `sync_view()` nor accept `update_view`. Optional RDKit absence
