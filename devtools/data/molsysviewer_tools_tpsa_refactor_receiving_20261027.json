@@ -1,0 +1,293 @@
+{
+  "schema": "molsysmt.viewer_tools_tpsa_refactor_receiving@1",
+  "date": "2026-10-27",
+  "source": "4e2e18ce71d64256baf3c0a7fd52f89e6aa9b792",
+  "earlier_producer": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+  "inventory": {
+    "native_exports": 34,
+    "addon_physchem_wrappers": 24,
+    "pending": 10,
+    "new_unreceived_native": "get_lipophilicity"
+  },
+  "focused_follow_up": {
+    "counts": {
+      "tests": 158,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "arguments": [
+      "tests/molsysviewer_molsysmt/test_tpsa_tools.py",
+      "tests/physchem/test_get_tpsa.py",
+      "tests/physchem/test_reference_metadata_ownership.py",
+      "tests/native/test_group_free_molecules.py"
+    ],
+    "junit_sha256": "bd5dadab78821cd92ab5fa93791a6988133ab615b77e40ec8c34f02aa8534c8a",
+    "scope": "Directed receiving of the native TPSA refactor and shared chemistry/provenance helper. Not a second full regression and not a new bound lipophilicity calculation."
+  },
+  "examples": {
+    "guide_blocks": 41,
+    "inherited_native_context_doctests": 94,
+    "failures": 0,
+    "log_sha256": "c02a6bfc0cded9d28e849f8f54a102601dd5d242f82732990281b74ef8650cda"
+  },
+  "tracked_snapshot_clean_before_and_after": true,
+  "source_file_sha256": {
+    "molsysmt/physchem/get_tpsa.py": "aa4c75c27bfb7df4cbcad56c80850e005b6ea384228fb3f2d4e84c13e60869a5",
+    "molsysmt/physchem/_molecular_descriptors.py": "74e9e301fef24c3bcea823ac450ff07d6fb80d44abffcbf69f890fba4927ebc9",
+    "molsysmt/physchem/__init__.py": "e6557fe7c0386170b14cd91cc494ddff16ee2e5fa58836e21f5c0f15b9c76c7b",
+    "molsysmt/_private/argdigest/argument/method.py": "e84e5aa7583632d1e03226bddc6172005c7eacd21d67a474924428f65485fd4e",
+    "molsysmt/_private/scientific_citations.py": "167477e12d6e7627f656a63be05b1ad3ced422f218000290d19a5dd209570b2e",
+    "molsysviewer_molsysmt/_physchem.py": "ef4319b435e0959d3ad3529a3ad1827a201eafc49259accef9107137c2ffe095",
+    "molsysviewer_molsysmt/_basic.py": "300a10bdecfd316e8fca4e1c22a0995cfbfde8dcfd28ab8e5ab32ac774c79288",
+    "tests/molsysviewer_molsysmt/test_tpsa_tools.py": "f7f22c3421a97d7028956dbd20ed4c23e799e5ab37d52d70028bd33a675d3956"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "backend_scope": "Retained frozen ABI3 backend; Rust sources unchanged in this incoming refactor. No local rebuild or artifact qualification.",
+  "hosted_ci": {
+    "conclusion": "success",
+    "databaseId": 40549946055,
+    "event": "push",
+    "headBranch": "main",
+    "headSha": "4e2e18ce71d64256baf3c0a7fd52f89e6aa9b792",
+    "jobs": [
+      {
+        "completedAt": "2026-10-27T17:30:47Z",
+        "conclusion": "success",
+        "databaseId": 122350654552,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-27T17:22:24Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T17:22:26Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T17:22:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:40Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-27T17:22:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:40Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-27T17:22:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:40Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-27T17:22:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:23:32Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-27T17:22:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:23:39Z",
+            "conclusion": "success",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-27T17:23:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:37Z",
+            "conclusion": "success",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-27T17:23:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:37Z",
+            "conclusion": "success",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-27T17:24:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:37Z",
+            "conclusion": "success",
+            "name": "Test import",
+            "number": 9,
+            "startedAt": "2026-10-27T17:24:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:38Z",
+            "conclusion": "success",
+            "name": "Validate public API stability against parent",
+            "number": 10,
+            "startedAt": "2026-10-27T17:24:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:39Z",
+            "conclusion": "success",
+            "name": "Validate docstrings bidirectionally",
+            "number": 11,
+            "startedAt": "2026-10-27T17:24:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:43Z",
+            "conclusion": "success",
+            "name": "Validate form contracts",
+            "number": 12,
+            "startedAt": "2026-10-27T17:24:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:24:46Z",
+            "conclusion": "success",
+            "name": "Enforce the Rust-only runtime",
+            "number": 13,
+            "startedAt": "2026-10-27T17:24:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:27:33Z",
+            "conclusion": "success",
+            "name": "Run test suite",
+            "number": 14,
+            "startedAt": "2026-10-27T17:24:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:30:44Z",
+            "conclusion": "success",
+            "name": "Receive the bound MolSysViewer tools",
+            "number": 15,
+            "startedAt": "2026-10-27T17:27:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:30:44Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 28,
+            "startedAt": "2026-10-27T17:30:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:30:44Z",
+            "conclusion": "success",
+            "name": "Post Set up Python",
+            "number": 29,
+            "startedAt": "2026-10-27T17:30:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:30:44Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 30,
+            "startedAt": "2026-10-27T17:30:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:30:44Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 31,
+            "startedAt": "2026-10-27T17:30:44Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549946055/job/122350654552"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549946055"
+  },
+  "applicable_source_controls": [
+    {
+      "conclusion": "success",
+      "databaseId": 40549946391,
+      "event": "push",
+      "headSha": "4e2e18ce71d64256baf3c0a7fd52f89e6aa9b792",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549946391",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549947206,
+      "event": "push",
+      "headSha": "4e2e18ce71d64256baf3c0a7fd52f89e6aa9b792",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549947206",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549946054,
+      "event": "push",
+      "headSha": "4e2e18ce71d64256baf3c0a7fd52f89e6aa9b792",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549946054",
+      "workflowName": "Developer guide integrity"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549947081,
+      "event": "push",
+      "headSha": "4e2e18ce71d64256baf3c0a7fd52f89e6aa9b792",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549947081",
+      "workflowName": "MolSysSuite policy"
+    }
+  ],
+  "dependency_contract": {
+    "run": 40549383587,
+    "source": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+    "scope": "Earlier applicable dependency contract retained; this incoming refactor changes neither dependency declarations nor CI pins. No distinct dependency-contract workflow was triggered for 4e2e18ce7."
+  },
+  "native_cases": 2645,
+  "addon_cases": 1718,
+  "skipped": {
+    "native": 3,
+    "addon": 2
+  },
+  "skip_reason": "Optional Ackredit absent in hosted environment. Local directed receiving executes it; hosted omissions remain omissions.",
+  "failures": 0,
+  "errors": 0,
+  "log_pass_summaries": [
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tRun test suite\t2026-10-27T17:27:31.7817440Z PASS exit=0 | 2645 passed, 3 skipped | 164.17s | 397 warnings",
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tReceive the bound MolSysViewer tools\t2026-10-27T17:30:41.6694314Z PASS exit=0 | 1718 passed, 2 skipped | 185.90s | 1423 warnings"
+  ],
+  "log_sha256": "0ede6a988bf33450e3f437db624343dced29f9d886bf1963cbb1e375f08746af",
+  "receptor_bundle_file_sha256": {
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "checks.json": "6f433e498ea9b79c798a19eb6b4bae2804e14af288ba8aefe903079b2a36f2ec",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "jobs.json": "951a629103341709e8a68f5952c34686d5b1936177fa17b9cd0e6a97de82e060",
+    "logs.zip": "3bc9239093ee676adb9698e1ecd6d7b5dbaaac4ada380db1d56bb0017e7f44ae",
+    "manifest.json": "8c51e21e078a9102d606ce48a6b0878b5162b721d2388892e04e52f7237b6a85",
+    "run.json": "1476eb9f53286d2a7bb3c707242ea76e53abf5eb0b8d6e87d0eee4ae68f6f49a",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69"
+  },
+  "known_native_limits": [
+    "uibcdf/molsysmt#494",
+    "uibcdf/molsysmt#495"
+  ],
+  "scope": "Source TPSA wrapper remains unchanged. Native lipophilicity is a new unreceived export; no automatic facade growth, new scientific model qualification, optional-provider absence, GUI, installed package, benchmark, cross-platform, tag or release claim. The older 3294-case regression retains its pre-refactor source identity. Both 1.0 publications stay paused."
+}

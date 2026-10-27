@@ -1381,8 +1381,9 @@ centers, hydrophobic atoms and ordered halogen sites), plus the Zimmerman
 bulkiness and Levitt secondary-structure propensity reference lookups, and
 state-aware molecular TPSA. SASA and
 the chemical readers have bounded receiving, not universal scientific qualification. The
-inspected native inventory has 33 exports; nine functions covering further
-feature perception and chemical preparation remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
+inspected native inventory now has 34 exports after native lipophilicity was
+added; ten functions, including that new reader, further feature perception and
+chemical preparation, remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
 gates retain their original source identities and scopes.
 
 | Tool | Native result and received scope |

@@ -1,0 +1,442 @@
+{
+  "schema": "molsysmt.viewer_tools_tpsa_source_ci@1",
+  "date": "2026-10-27",
+  "source": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+  "viewer_source": "deaba4cbea43015859544b1b393ecbe02dd2ee19",
+  "run": {
+    "conclusion": "success",
+    "databaseId": 40549539065,
+    "event": "workflow_dispatch",
+    "headBranch": "receiving/tpsa-f55d7c2f7",
+    "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+    "jobs": [
+      {
+        "completedAt": "2026-10-27T17:33:40Z",
+        "conclusion": "success",
+        "databaseId": 122349235769,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-27T17:19:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T17:19:57Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T17:19:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-27T17:19:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:21:14Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:21:22Z",
+            "conclusion": "success",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-27T17:21:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:46Z",
+            "conclusion": "success",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-27T17:21:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:46Z",
+            "conclusion": "success",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-27T17:22:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:47Z",
+            "conclusion": "success",
+            "name": "Test import",
+            "number": 9,
+            "startedAt": "2026-10-27T17:22:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:47Z",
+            "conclusion": "success",
+            "name": "Validate public API stability against parent",
+            "number": 10,
+            "startedAt": "2026-10-27T17:22:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:49Z",
+            "conclusion": "success",
+            "name": "Validate docstrings bidirectionally",
+            "number": 11,
+            "startedAt": "2026-10-27T17:22:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:54Z",
+            "conclusion": "success",
+            "name": "Validate form contracts",
+            "number": 12,
+            "startedAt": "2026-10-27T17:22:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:22:58Z",
+            "conclusion": "success",
+            "name": "Enforce the Rust-only runtime",
+            "number": 13,
+            "startedAt": "2026-10-27T17:22:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:28:16Z",
+            "conclusion": "success",
+            "name": "Run test suite",
+            "number": 14,
+            "startedAt": "2026-10-27T17:22:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:33:36Z",
+            "conclusion": "success",
+            "name": "Receive the bound MolSysViewer tools",
+            "number": 15,
+            "startedAt": "2026-10-27T17:28:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:33:36Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 28,
+            "startedAt": "2026-10-27T17:33:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:33:37Z",
+            "conclusion": "success",
+            "name": "Post Set up Python",
+            "number": 29,
+            "startedAt": "2026-10-27T17:33:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:33:37Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 30,
+            "startedAt": "2026-10-27T17:33:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:33:37Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 31,
+            "startedAt": "2026-10-27T17:33:37Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549539065/job/122349235769"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549539065"
+  },
+  "controls": [
+    {
+      "conclusion": "success",
+      "databaseId": 40549383587,
+      "event": "push",
+      "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549383587",
+      "workflowName": "Dependency contract"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549384257,
+      "event": "push",
+      "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549384257",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549384196,
+      "event": "push",
+      "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549384196",
+      "workflowName": "MolSysSuite policy"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549383372,
+      "event": "push",
+      "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549383372",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40549383673,
+      "event": "push",
+      "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549383673",
+      "workflowName": "Developer guide integrity"
+    }
+  ],
+  "cancelled_original_main": {
+    "conclusion": "cancelled",
+    "databaseId": 40549383525,
+    "event": "push",
+    "headBranch": "main",
+    "headSha": "f55d7c2f77057ae97b7cb0219d427f41132b8f0c",
+    "jobs": [
+      {
+        "completedAt": "2026-10-27T17:20:14Z",
+        "conclusion": "cancelled",
+        "databaseId": 122348660936,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-27T17:18:52Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T17:18:54Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T17:18:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:19:11Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-27T17:18:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:19:11Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-27T17:19:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:19:11Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-27T17:19:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:04Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-27T17:19:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "cancelled",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-27T17:20:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Test import",
+            "number": 9,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Validate public API stability against parent",
+            "number": 10,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Validate docstrings bidirectionally",
+            "number": 11,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Validate form contracts",
+            "number": 12,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Enforce the Rust-only runtime",
+            "number": 13,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Run test suite",
+            "number": 14,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Receive the bound MolSysViewer tools",
+            "number": 15,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 28,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:12Z",
+            "conclusion": "skipped",
+            "name": "Post Set up Python",
+            "number": 29,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:13Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 30,
+            "startedAt": "2026-10-27T17:20:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T17:20:13Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 31,
+            "startedAt": "2026-10-27T17:20:13Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549383525/job/122348660936"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/40549383525"
+  },
+  "ci_switch_reason": "Intentionally cancelled only our own automatic main smoke during setup and dispatched one canonical smoke on an immutable verification branch, amid active parallel owner changes. Isolates source qualification from main cancel-in-progress; not a passing original run or a scientific failure. No release candidate/tag is created.",
+  "native_cases": 2645,
+  "addon_cases": 1718,
+  "skips": {
+    "native": 3,
+    "addon": 2
+  },
+  "failures": 0,
+  "errors": 0,
+  "log_pass_summaries": [
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tRun test suite\t2026-10-27T17:28:15.1119838Z PASS exit=0 | 2645 passed, 3 skipped | 315.25s | 397 warnings",
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tReceive the bound MolSysViewer tools\t2026-10-27T17:33:34.8608122Z PASS exit=0 | 1718 passed, 2 skipped | 316.46s | 1423 warnings"
+  ],
+  "log_sha256": "47afbb09e4f743b1f0242df8cc39b99e9d7ce15fb8819ddf776e4c8e89c8a7fc",
+  "receptor_bundle_file_sha256": {
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "checks.json": "060d42f473ef0e229356701fd29573e37685c64b1bf8eff02e3182182604adf4",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "jobs.json": "72316a6800a8782fac64fddc1358c326a904f840937b92183f877f2f5f920e8b",
+    "logs.zip": "b5fe4327f37ad8ee816b645e1ce2bf6bdcddcdc48f43c1aa56c76cf011da6dfe",
+    "manifest.json": "5ef456344cfa39272f8b87d56644256d30d82316984b5a861410c6d0e04692a1",
+    "run.json": "d58b143061c18ec30668d6775c6e96ffb12e3633011703b6b20b7940c0f0f6a5",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69"
+  },
+  "local_receipt": "molsysviewer_tools_tpsa_receiving_20261027.json",
+  "inventory": {
+    "exposed": 24,
+    "reviewed_native": 33,
+    "pending": 9
+  },
+  "known_native_limits": [
+    "uibcdf/molsysmt#494: builder group insertion duplicates existing molecule rows.",
+    "uibcdf/molsysmt#495: MDTraj selection of group-free topology fails."
+  ],
+  "scope": "Exact-source Linux/Python 3.14 CI for the experimental 24-tool physchem facade with molecular TPSA. No qualification of owner WIP molecular descriptors, either open native repair, optional-provider absence, universal scientific validity, GUI, installed artifact, benchmark or another platform. Both 1.0 publications remain paused.",
+  "skip_log_evidence": [
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tRun test suite\t2026-10-27T17:28:15.1129818Z skipped: 3 in 1 group",
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tRun test suite\t2026-10-27T17:28:15.1130223Z   x3 | could not import 'ackredit': No module named 'ackredit'",
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tReceive the bound MolSysViewer tools\t2026-10-27T17:33:34.8617335Z skipped: 2 in 1 group",
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tReceive the bound MolSysViewer tools\t2026-10-27T17:33:34.8617779Z   x2 | could not import 'ackredit': No module named 'ackredit'"
+  ]
+}

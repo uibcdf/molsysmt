@@ -1574,3 +1574,38 @@ molecular descriptors is explicitly preserved and not included in this source
 qualification. The code does not receive either native repair, optional-provider
 absence, GUI, installed artifacts, universal model accuracy or another platform.
 Both 1.0 publications remain paused.
+
+
+### TPSA terminal source receiving and incoming refactor — 2026-10-27
+
+All six applicable source gates pass for producer f55d7c2f7. The single fixed-ref
+smoke [40549539065](https://github.com/uibcdf/molsysmt/actions/runs/40549539065)
+passes 2,645 native / 1,718 addon cases; three native and two addon attribution
+cases are skipped because optional Ackredit is absent. Our automatic main smoke
+40549383525 was intentionally cancelled during setup, preserving its non-pass
+status while the canonical gate runs on receiving/tpsa-f55d7c2f7. No tag, release
+candidate or package is created. The [terminal source receipt](../../devtools/data/molsysviewer_tools_tpsa_source_ci_20261027.json)
+preserves official source/ref/job/step identity, controls, original cancellation,
+counts, skip evidence and complete log/receptor-bundle digests.
+
+The native owner subsequently commits 4e2e18ce7, moving TPSA internals into a
+shared molecular-descriptor helper and adding get_lipophilicity. The TPSA wrapper
+remains unchanged. A clean incoming-source snapshot passes 158 directed native
+and consumer cases, zero failures/errors/skips, plus 41 guide blocks and 94
+inherited examples. This is focused receiving, not a second full regression.
+Owner smoke [40549946055](https://github.com/uibcdf/molsysmt/actions/runs/40549946055)
+also passes 2,645 native / 1,718 addon cases with the same five optional Ackredit
+omissions; Ruff, guide integrity, suite policy and Conda governance pass on this
+same incoming source. The unchanged dependency declarations/pins retain their
+prior applicable f55d7c2f7 check; no separate 4e2e18ce7 dependency workflow ran.
+The [incoming receiving receipt](../../devtools/data/molsysviewer_tools_tpsa_refactor_receiving_20261027.json)
+keeps both phases distinct. The original 3,294-case regression stays attached to
+its older c905d8ac7-plus-wrapper source.
+
+The inspected native inventory is now 34, with 24 addon functions and ten pending,
+including lipophilicity. Its new scientific model is not adapted or qualified by
+this TPSA receiving. Native #494/#495 remain owner repairs, with no consumer
+hierarchy/selector workaround. Actual optional-provider absence, GUI, installed
+artifacts, universal model accuracy, performance and other platforms remain
+separate. Both 1.0 publications stay paused. This evidence-only closeout changes
+no runtime and reuses the exact completed source gates.

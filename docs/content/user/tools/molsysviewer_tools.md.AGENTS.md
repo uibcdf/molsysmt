@@ -120,8 +120,8 @@ attribution separate from interactions and rendering. Default/None-reference MDT
 works for all three readers after native #488; explicit/associated SMARTS states
 retain their selector restrictions. No selector
 rewrite, implicit preparation or scene synchronization. The current reviewed
-inventory has 33 native physchem exports after TPSA was added; 24 have wrappers and nine
-remain pending. The earlier 02671792f gate retains its 31-export baseline; the new reference-
+inventory has 34 native physchem exports after lipophilicity was added; 24 have
+wrappers and ten remain pending, including lipophilicity. The earlier 02671792f gate retains its 31-export baseline; the new reference-
 scale receiving uses its own 32-export source. This is source exposure,
 not installed or universal scientific qualification.
 
