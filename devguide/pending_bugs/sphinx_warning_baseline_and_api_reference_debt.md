@@ -471,3 +471,69 @@ comparison and before/after hashes are retained in
 The raw schema guard then passes all 491 source notebooks. The broader warning
 and reference debt remains open; no complete course or warning-free build is
 claimed by these metadata-only repairs.
+
+
+## Bounded directive rendering and cell-ID repair — 2026-10-27
+
+A forced full-site build on source 4e544cb12 plus the recorded working-tree
+baseline completes with 737 warnings and zero errors. A first separate /tmp
+output fails with OSError 122 (quota exceeded); it is not a successful baseline.
+Only the task-owned failed output is retired. Subsequent full builds reuse the
+existing workspace output with fresh environments and all documents rewritten:
+
+```bash
+python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html
+```
+
+The bounded correction keeps native note/seealso directive kinds and dropdown
+classes, moving ten accidental first-line title arguments into their bodies in
+six topology tutorials. Their catalog text, linked tool lists and ordering remain.
+The Tools AGENTS examples now prescribe that valid syntax instead of reproducing
+the same parser warning. The initial course page's glossary was already valid;
+the broken block was its separate Supported Forms Portal notice. A supported
+admonition now renders its original text/link with the information styling.
+Citation panels use the installed sphinx_design tab-set/tab-item directives and
+an explicit BibTeX download role; all citation metadata and BibTeX bytes remain.
+
+A real-source rendering guard initially fails three actual-source cases while
+three negative controls reproduce the old warnings. It now passes all six cases,
+requiring panel content and actual bibliography bytes, the portal link/body,
+ten typed dropdowns and their linked reference lists. No warning is suppressed.
+Fixture labels isolate directive parsing; the full-site run separately checks
+real cross-references. This is stronger than checking for a replacement string
+or merely registering a directive name.
+
+The combined raw-schema/rendering run exposes one additional missing cell ID in
+Common Core 12 (one failed, 503 passed). Assigning cell 31 the deterministic
+ID d790ba39f0606da3 is its only JSON change. The existing raw-source guard then
+passes; every code cell, output, execution count and all other metadata remain
+identical. The seven prose-edited notebooks likewise retain all code, output and
+cell IDs. No examples are newly executed or scientifically requalified.
+
+Final checks:
+
+```bash
+python -m pytest tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12
+python devtools/scripts/validate_citation.py
+```
+
+The direct developer-tool run passes all 504 cases in 10.51 s with no skips.
+The six real-source cases also participate in normal pytest discovery through
+`tests/documentation/test_directive_rendering.py`, retaining their fixture and
+negative controls. The corrected forced full-site build
+exits zero with zero errors and 725 warnings. Comparison against the successful
+baseline reduces only these families:
+
+| Family | Before | After |
+|---|---:|---:|
+| myst.directive_unknown | 2 | 0 |
+| myst.directive_parse | 271 | 261 |
+| All warnings | 737 | 725 |
+
+Other warning-family counts are unchanged. Source hash comparison verifies that
+only the ten intended documentation/guidance files differ; the four previously
+dirty generated API pages remain untouched. Ruff and citation checks pass.
+The [receipt](../../devtools/data/documentation_directive_repair_20261027.json)
+records source hashes, preserved payloads, exact counts, environment, failed
+attempts and guard intent. #144 remains partial for its remaining 725 warnings;
+this is not a warning-free site, new scientific result or release qualification.

@@ -7,19 +7,19 @@ history and cite the DOI assigned to the exact release used in your calculation.
 
 <br/>
 
-````{tabs}
+````{tab-set}
 
-```{tab} Paper
+```{tab-item} Paper
 
 Coming soon...
 
 ```
-```{tab} Software
+```{tab-item} Software
 
 Diego Prada-Gracia & Liliana M. Moreno-Vargas. (2026). MolSysMT (Version
 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.1298752
 
-[BibTeX](../../_bibtex/software.bib)
+{download}`BibTeX <../../_bibtex/software.bib>`
 
 ```
 

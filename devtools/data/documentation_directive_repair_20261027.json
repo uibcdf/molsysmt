@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "issue": "uibcdf/molsysmt#144",
+  "source_basis": "4e544cb12dd6bb7738da651827f3b69fa5847a9c",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "sphinx": "9.1.0",
+    "myst_nb": "1.4.0",
+    "sphinx_design": "0.7.0",
+    "profile": "Existing shared development environment, source documentation; not installed release qualification."
+  },
+  "scope": "Ten existing documentation/guidance sources: six topology notebooks, Common Core 01 portal, citation tabs, Tools instructions, plus a metadata-only Common Core 12 cell ID repair. New real-source rendering guard. No scientific code or notebook execution.",
+  "full_builds": {
+    "command": "python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html",
+    "notebook_execution": "off, unchanged repository configuration",
+    "before": {
+      "warnings": 737,
+      "errors": 0,
+      "families": {
+        "docutils": 1,
+        "misc.highlighting_failure": 4,
+        "myst.directive_parse": 271,
+        "myst.directive_unknown": 2,
+        "myst.header": 434,
+        "myst.xref_missing": 5,
+        "ref.footnote": 1,
+        "ref.ref": 1,
+        "toc.not_included": 17,
+        "untagged": 1
+      },
+      "log_sha256": "1b50dc04135576acbe383e3e793e4e62d483bc01e23dec9c43eb1a2be561e3c3",
+      "exit_code": 0
+    },
+    "after": {
+      "warnings": 725,
+      "errors": 0,
+      "families": {
+        "docutils": 1,
+        "misc.highlighting_failure": 4,
+        "myst.directive_parse": 261,
+        "myst.header": 434,
+        "myst.xref_missing": 5,
+        "ref.footnote": 1,
+        "ref.ref": 1,
+        "toc.not_included": 17,
+        "untagged": 1
+      },
+      "log_sha256": "50f5f211dabaaa9c90f36c79573378395c1b1bd0a51391e62bff809915d27b61",
+      "exit_code": 0
+    },
+    "initial_failed_attempt": "A separate fresh /tmp output failed with OSError 122 (disk quota exceeded). This is not a complete build or the comparison baseline. Only this task-owned failed output was removed; logs retained. Full builds then succeeded using the existing workspace output."
+  },
+  "guards": {
+    "red": "3 actual-source rendering cases fail on their real unknown/parse warnings; 3 broken negative controls pass, 5.91s.",
+    "green": "All six source-rendering and broken-negative-control cases pass in 5.56s after markup repair.",
+    "schema_discovery": "Combined run initially reports 1 failed, 503 passed in 10.93s: newly added Common Core 12 markdown cell lacks an ID. The existing raw-JSON guard catches it without repair.",
+    "final_command": "python -m pytest devtools/tests/test_documentation_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12",
+    "final_result": "504 passed in 10.51s; no skips or failures.",
+    "test_sha256": "cbfba3e539217a958c6f5b2c5aee42e12fe4b916c566b042d34decd22de9b503",
+    "intent": "Render actual repository blocks; require bibliography bytes, authors/DOI, two real panels, notice body/link, ten typed dropdowns and linked reference lists. Adversarial controls restore old broken markup and require warnings. Miniature reference targets isolate parsing; the full site checks actual references.",
+    "normal_discovery_command": "python -m pytest tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12",
+    "normal_discovery_result": "504 passed in 8.52s; no skips or failures. The ordinary tests/ entry point reexports all three parametrized rendering tests and their fixture.",
+    "normal_discovery_sha256": "e7e2df5aa7ef90eee05274ff7d7c9d38cf1478d4f858d1ae061137d1707a37e6"
+  },
+  "source_comparison": {
+    "tracked_doc_sources_hashed": 1597,
+    "changed_sources": [
+      "docs/content/about/citation.md",
+      "docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "docs/content/user/tools/AGENTS.md",
+      "docs/content/user/tools/topology/get_bondgraph.ipynb",
+      "docs/content/user/tools/topology/get_covalent_blocks.ipynb",
+      "docs/content/user/tools/topology/get_covalent_paths.ipynb",
+      "docs/content/user/tools/topology/get_dihedral_quartets.ipynb",
+      "docs/content/user/tools/topology/get_sequence_alignment.ipynb",
+      "docs/content/user/tools/topology/get_sequence_identity.ipynb"
+    ],
+    "unrelated_sources_unchanged": true,
+    "initial_dirty_autosummary_sources": "Four pre-existing generated RST changes were retained in both baselines and excluded from commits."
+  },
+  "notebook_preservation": [
+    {
+      "path": "docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+      "before_file_sha256": "7634ae3459415da4dd371096dae0b10af0c9516d2dbd9c9ae74abbf727a9b281",
+      "after_file_sha256": "6674425d5f103fb02967bb7ef0090ae8c52018f6107201590be473f6a49decb0",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "before_file_sha256": "ba70063bf87a65e2c5c870f7d3588c57795f1eae259f69eb6b81492e63ff4f84",
+      "after_file_sha256": "a580de30c593b3bf90d1122c39ac3928e7fd96ff269eb54a99702ff03258ce9b",
+      "code_outputs_metadata_unchanged": true,
+      "only_change": "Added cell 31 ID d790ba39f0606da3; every other JSON value is equal.",
+      "missing_id_method": "First 16 hex digits of SHA-256(relative docs path:cell index:cell type), matching #144 previous repair."
+    },
+    {
+      "path": "docs/content/user/tools/topology/get_bondgraph.ipynb",
+      "before_file_sha256": "35f1cd8bb014823bbfb6fb93a8a668a7e4c4b92996bb81c38d4ff52a997db768",
+      "after_file_sha256": "0782fa249652e57db9bb339bb4584369e5ee88975c8915ffdb9252f7bf5ff0eb",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/topology/get_covalent_blocks.ipynb",
+      "before_file_sha256": "8697b1888ba5b8ed648d16524d3e0b59200afc0632a51bd13a85c0dd9b69d6cb",
+      "after_file_sha256": "1213c82538b80dab386e5bee974e77f9a6f65316e4e1ec985e5c94401e5ee989",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/topology/get_covalent_paths.ipynb",
+      "before_file_sha256": "d3a37dd1324c3da226997010dd784227dbeb511b4be72d14bd044f5a59257cec",
+      "after_file_sha256": "751ed1191bf15501dd5613bb67db069d00424e371e0f211c9da6c3e2d6307bff",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/topology/get_dihedral_quartets.ipynb",
+      "before_file_sha256": "2317b37d5e17caa11c9100226f9ce08bac1c1972c266cf89039fa0a7e108ac21",
+      "after_file_sha256": "09cc982c521072efd58f0ad20b0759eda65521ab191301740900ca9bef8097cf",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/topology/get_sequence_alignment.ipynb",
+      "before_file_sha256": "a7c128093c90f4f96dd2acba7b42108852c4d6d0f19d574e4251508a3ede8e67",
+      "after_file_sha256": "e4042e7f558af4bfe19d84413cf0daed1e4bed3df76c288effac085c5c4de4eb",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/topology/get_sequence_identity.ipynb",
+      "before_file_sha256": "c12ff6db84df49af9d6a58bfb3fc710b1dce99f176f032f0d15ff4608fdbde63",
+      "after_file_sha256": "dd43e5f17df4c7bab9cb43fbfa05d4ae29596c98f00957df2bacc4b31e2db80a",
+      "code_outputs_metadata_unchanged": true,
+      "cell_ids_preserved": true
+    }
+  ],
+  "citation": "validate_citation.py passes; authors, version, DOI and BibTeX bytes are unchanged. Only panel syntax and download markup change.",
+  "remaining": "725 warnings remain, including 434 header warnings, 261 parse warnings and existing navigation/reference/highlighting debt. No suppression or source exclusion is added; #144 remains partial. No warning-free, executed-science, performance or release claim."
+}
