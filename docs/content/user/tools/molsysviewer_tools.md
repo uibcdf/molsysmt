@@ -1496,19 +1496,17 @@ including atoms outside the output selection. Extract a separate system explicit
 if you need a different set of occluding atoms. No hydrogens are added, no molecular
 preparation is inferred, and no colors or representations are created.
 
-:::{warning} Experimental native limitations
-Native-engine area values under a non-nm standard length context are incorrect
-under [#478](https://github.com/uibcdf/molsysmt/issues/478). The addon forwards
-native results without correction; those combinations are not qualified.
-MDTraj has bounded nm/angstrom/pm context receiving.
-
-With a box present, the native engine uses minimum-image periodic occlusion;
-MDTraj evaluates the Cartesian geometry without periodic occlusion. These are
-different scientific choices, tracked by
-[#479](https://github.com/uibcdf/molsysmt/issues/479). There is currently no public
-`pbc` argument on this tool. Do not treat changing engines as preserving boundary
-conditions. This receiving covers explicit CPU execution, not a GPU or a new
-installed package.
+:::{warning} Explicit SASA geometry
+Areas follow the square of the configured standard length unit, with bounded
+nm/angstrom/pm receiving for both CPU engines under
+[#478](https://github.com/uibcdf/molsysmt/issues/478). Use `pbc=False` for Cartesian
+SASA, including MDTraj on boxed systems. With a box, native `pbc=True` screens
+other atom indices with minimum images, excluding self-images; without a box,
+it is Cartesian. MDTraj rejects periodic requests with a box under
+[#479](https://github.com/uibcdf/molsysmt/issues/479). The addon forwards this
+choice without geometric compensation. This receiving covers source CPU
+execution, not GPU support or an installed package. See {ref}`Tutorial_Get_sasa`
+for small-cell and sampling limits.
 :::
 
 ```python

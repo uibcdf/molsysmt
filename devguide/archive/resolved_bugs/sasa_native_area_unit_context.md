@@ -1,13 +1,13 @@
 ---
 summary: Native SASA mislabels squared coordinate units as nm²
 issue: uibcdf/molsysmt#478
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: high
 verification: reproduced
 area: [physchem, sasa]
-guard:
+guard: tests/physchem/get_sasa/test_get_sasa_units.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Native SASA mislabels squared coordinate units as nm²
 
 **Reported:** 2026-10-26, native audit before expert-addon receiving.
-**Status:** Open; scientific resolution belongs to MolSysMT, without consumer corrections.
+**Status:** Resolved on 2026-10-26; the scientific fix and its guards are native to MolSysMT.
 
 ## What
 The native CPU `physchem.get_sasa` returns physically different areas when changing only the configured standard length unit. An isolated carbon should have area `4*pi*(0.17+0.14)^2 = 1.207628216 nm^2`. Results converted back to nm^2 are 1.207628216 (nm), 120.762821604 (angstrom), and 1207628.216040 (pm). MDTraj returns 1.207628250 nm^2 in all three contexts.
@@ -67,8 +67,45 @@ nm throughout, excluding the separate unit-context defect as its cause.
 
 ## Scope and exclusions
 
-This report does not change scientific code, dependency floors, package versions
-or addon semantics. No implicit preparation, unit compensation or periodic
-geometry correction is authorized in the consumer.
+The resolution changes native Python area labeling and periodic dispatch, and
+forwards the same control through the bound SASA reader. It does not change
+Rust algorithms, dependency floors, package versions, scene synchronization or
+chemical preparation. There is no consumer-side numerical compensation.
 
-See the [audit receipt](../../devtools/data/molsysviewer_tools_sasa_native_audit_20261026.json).
+See the [audit receipt](../../../devtools/data/molsysviewer_tools_sasa_native_audit_20261026.json).
+
+## Resolution
+
+The native result is now labeled with `length_unit**2` before PyUnitWizard
+standardization. Coordinates, atomic radii, probe radius and periodic boxes are
+aligned in that working length unit. MDTraj retains its documented nm² engine
+boundary. No kernel rebuild or physical-radius change was needed.
+
+**Contract-tested / analytically checked:** the new unit guard varies input
+coordinates and standard units independently across nm, angstrom and pm, uses
+three explicit probe units, native brute-force/cell-list and MDTraj providers,
+atom/group outputs, repeated nonconsecutive structures, and a partially occluded
+selected atom. It also covers native, composite and MDTraj input forms and
+checks source/configuration preservation. Before the fix, the corrected first
+170-case guard failed 76 cases and passed 94; the earlier fixture-authoring run
+is not scientific failure evidence.
+
+The common native output boundary also covers the retired GPU-selector
+fallback. No GPU backend is supported or qualified; tests exercise CPU fallback,
+not CUDA or Taichi kernels.
+
+## Verification and documentation
+
+Local Python 3.14 CPU source checks: 271 SASA/analytic cases including the public
+doctest; 144 bound SASA/table-reader cases; 491 notebook-schema cases; all 14 fast
+release gates. The updated SASA tutorial executed successfully. Course and
+Cookbook changes preserve every existing code cell, output and metadata.
+Local HTML built with zero errors and 45 warnings; the known course heading and
+MyST warning debt remains under uibcdf/molsysmt#144. This is not a full-suite,
+installed-artifact, cross-platform or release qualification.
+
+The User Guide Foundations, tool tutorial, Cookbook, all four property course
+modules, bound-reader documentation and API docstring now describe the selected
+contract. The docstring attributes Shrake–Rupley and links the MDTraj interface.
+See the [resolution receipt](../../../devtools/data/sasa_units_periodic_20261026.json)
+for commands, before/after outcomes, environment and source digests.

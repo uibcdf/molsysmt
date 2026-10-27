@@ -1254,8 +1254,10 @@ occluders; requested elements filter outputs. No Viewer runtime change is needed
 Scientific qualification remains bounded: native CPU in the nm length context,
 MDTraj CPU with nm/angstrom/pm contexts, native hierarchy sums and selection axes,
 analytical sphere truth, and the actual different engine boundary conditions.
-Native-engine non-nm area correctness is unresolved under uibcdf/molsysmt#478;
-implicit engine-periodic semantics are tracked under uibcdf/molsysmt#479.
+Native-engine squared area units are corrected under uibcdf/molsysmt#478.
+Explicit pbc controls and unsupported periodic MDTraj rejection are guarded
+under uibcdf/molsysmt#479. The bound reader forwards these native choices;
+controlled carbon evidence does not certify arbitrary periodic-cell SASA.
 The addon does not compensate for either. GPU and installed-artifact receiving
 remain separate, and both 1.0 publications stay paused.
 

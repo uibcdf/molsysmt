@@ -26,7 +26,7 @@ def _system():
 
 def _total_sasa(molsys, engine, probe_radius="1.4 angstroms"):
     sasa = msm.physchem.get_sasa(
-        molsys, element="atom", engine=engine, probe_radius=probe_radius
+        molsys, element="atom", engine=engine, probe_radius=probe_radius, pbc=False
     )
     return puw.get_value(sasa, to_unit="nm**2").sum()
 
@@ -35,7 +35,7 @@ def test_get_sasa_probe_radius_default_matches_14_angstroms_molsysmt():
     molsys = _system()
     # The signature default is '1.4 angstroms'; omitting the argument must match it.
     default = puw.get_value(
-        msm.physchem.get_sasa(molsys, element="atom", engine="MolSysMT"),
+        msm.physchem.get_sasa(molsys, element="atom", engine="MolSysMT", pbc=False),
         to_unit="nm**2",
     ).sum()
     explicit = _total_sasa(molsys, "MolSysMT", probe_radius="1.4 angstroms")
@@ -54,7 +54,8 @@ def test_get_sasa_probe_radius_changes_result_molsysmt():
 def test_get_sasa_probe_radius_default_matches_mdtraj():
     molsys = _system()
     default = puw.get_value(
-        msm.physchem.get_sasa(molsys, element="atom", engine="mdtraj"), to_unit="nm**2"
+        msm.physchem.get_sasa(molsys, element="atom", engine="mdtraj", pbc=False),
+        to_unit="nm**2",
     ).sum()
     explicit = _total_sasa(molsys, "mdtraj", probe_radius="1.4 angstroms")
     assert np.isclose(default, explicit)

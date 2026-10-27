@@ -20,12 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (2)
 
-- [`sasa_native_area_unit_context.md`](sasa_native_area_unit_context.md) — [#478](https://github.com/uibcdf/molsysmt/issues/478) — Native SASA mislabels squared coordinate units as nm² *(high, reproduced)*
 - [`chemical_readiness_external_reference_syntax.md`](chemical_readiness_external_reference_syntax.md) — [#480](https://github.com/uibcdf/molsysmt/issues/480) — Chemical readiness rejects external syntax for its default reference state. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`sasa_engine_periodic_contract.md`](sasa_engine_periodic_contract.md) — [#479](https://github.com/uibcdf/molsysmt/issues/479) — SASA engines have an implicit different periodic contract *(medium, reproduced)*
 
 ### Partially resolved (2)
 

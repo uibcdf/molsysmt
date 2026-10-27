@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issues": [
+    "uibcdf/molsysmt#478",
+    "uibcdf/molsysmt#479"
+  ],
+  "initial_base_source": "04b1b41a752dd8e8c389aacc9f5f0657fa31e0e4",
+  "concurrent_bound_reader_source": "9442e0df2",
+  "parent_at_receipt": "30d14a1cfb6a399b2768398db8df3d4f0f27ccf4",
+  "scope": "Local CPU source execution; no installed artifact, GPU, full-suite, cross-platform or release qualification.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "distribution_versions": {
+      "numpy": "2.4.6",
+      "mdtraj": "1.11.1",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    }
+  },
+  "compiled_backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rebuilt": false,
+    "source": "Verified on the existing imported molsysmt/_rust.abi3.so; Python wrapper correction only."
+  },
+  "source_sha256": {
+    "molsysmt/physchem/get_sasa.py": "f5c4c44432277536bca1be23e579bfb08f7510edd85386306ab469100367257d",
+    "molsysviewer_molsysmt/_basic.py": "0d6c5d9935c1d633b5be35b32646c99ad1beca87209792d1643758f51920847c",
+    "molsysviewer_molsysmt/_physchem.py": "1cf3a0e8f41c728168830fe64c2b569a278d10c48c0d044aae3c73ee860731b7",
+    "tests/physchem/get_sasa/test_get_sasa_units.py": "4bd4ce82501b075dffe86edab48d7d167a01d166563eee6f827cdf5f7edbef41",
+    "tests/physchem/get_sasa/test_get_sasa_periodic_contract.py": "6bef72b0e9e5d622be35b1f5a3b6a26eb09f38beedc028d3d80ded322f84cd0f",
+    "tests/scientific_truth/physchem/test_sasa.py": "4dcd8b041e1eafd2cac8be2321792cdb060d24954ff02131582a6857c5b247c8",
+    "tests/molsysviewer_molsysmt/test_sasa_tools.py": "d5432db013a340f8a00818950abb1819538fe5b35faefd472e2947ea0970d4dc",
+    "tests/scientific_truth/evidence/tolerances.json": "5156682cd592cf2e8cc7f4e338cdebe98e72a31732c68e2a45db1cdfed0d57c0",
+    "tests/scientific_truth/evidence/capabilities/physchem.json": "2a294460c51a11eb83a57c1f87895f82fa361d8ba3ff9b70ff75c1b1e6342330"
+  },
+  "before": [
+    {
+      "selection": "First corrected unit guard (170 cases)",
+      "result": "76 failed, 94 passed",
+      "log": "/tmp/molsysmt-478-before-corrected.log",
+      "exclusion": "Earlier fixture-authoring failures are not scientific evidence."
+    },
+    {
+      "selection": "test_boxed_mdtraj_default_rejects_implicit_cartesian_fallback",
+      "result": "1 failed (did not raise)",
+      "log": "/tmp/molsysmt-479-before.log"
+    }
+  ],
+  "after": [
+    {
+      "command": "python -m pytest tests/physchem/get_sasa tests/scientific_truth/physchem/test_sasa.py --doctest-modules molsysmt/physchem/get_sasa.py --receptor=llm -n 12",
+      "result": "271 passed; 23 expected legacy-H5MSM/GPU-selector warnings",
+      "seconds": 28.23,
+      "log": "/tmp/molsysmt-sasa-regression-final.log"
+    },
+    {
+      "command": "python -m pytest tests/molsysviewer_molsysmt/test_sasa_tools.py tests/molsysviewer_molsysmt/test_physchem_tables_tools.py --receptor=llm -n 12",
+      "result": "144 passed; 139 legacy-H5MSM warnings",
+      "seconds": 15.87,
+      "log": "/tmp/molsysmt-sasa-addon-final.log"
+    },
+    {
+      "command": "python -m pytest tests/documentation/test_notebook_schema.py --receptor=llm -n 12",
+      "result": "491 passed",
+      "log": "/tmp/molsysmt-sasa-schema.log"
+    },
+    {
+      "command": "MSM_VIEWS_FROM_HTML_FILES=True MPLBACKEND=Agg python docs/execute_notebooks.py -q -n 12 -f docs/content/user/tools/physchem/get_sasa.ipynb",
+      "result": "1 executed successfully",
+      "log": "/tmp/molsysmt-sasa-notebook.log"
+    },
+    {
+      "command": "make -C docs html SPHINXOPTS='-q -j 12'",
+      "result": "Exit 0; zero errors, 45 warnings",
+      "log": "/tmp/molsysmt-sasa-html.log",
+      "limit": "Incremental local HTML; known heading/directive warning debt under #144 remains."
+    },
+    {
+      "command": "python devtools/scripts/release_gate.py",
+      "result": "14/14 fast gates passed",
+      "log": "/tmp/molsysmt-sasa-fast-gates-final.log"
+    },
+    {
+      "command": "python devtools/scripts/validate_docstrings.py",
+      "result": "251 public docstrings passed"
+    },
+    {
+      "command": "python devtools/scripts/validate_public_api_stability.py",
+      "result": "No unauthorized drift; one explicit #479 keyword-only signature waiver"
+    },
+    {
+      "command": "ruff check and ruff format --check (12 changed Python files)",
+      "result": "Passed"
+    }
+  ],
+  "contracts": {
+    "pbc_default": true,
+    "positional_arguments": "Unchanged; pbc is appended keyword-only.",
+    "native_pbc": "MIC occlusion by other atom indices when a box exists; Cartesian without a box.",
+    "mdtraj_pbc": "Reject pbc=True with a box; pbc=False explicitly selects Cartesian SASA.",
+    "units": "Squared working length is labeled before standardization.",
+    "occlusion": "All source atoms occlude before output selection/aggregation.",
+    "bound_reader": "Forwards pbc and native units, no scene edits or hidden preparation."
+  },
+  "scientific_evidence": "Partial: independent carbon-sphere and spherical-cap constructions, including one controlled opposite-face pair. No arbitrary-cell or general protein accuracy claim.",
+  "limitations": [
+    "Native periodic screening omits self-images.",
+    "No supported GPU backend; retired selectors exercise Rust CPU fallback only.",
+    "Local source checks do not qualify a release or installed pair."
+  ],
+  "documentation_payload_check": "All four course property modules and the Cookbook retain identical code cells, outputs and code-cell metadata to their parent; only explanatory prose changed.",
+  "primary_references": [
+    "https://doi.org/10.1016/0022-2836(73)90011-9",
+    "https://mdtraj.readthedocs.io/en/latest/api/generated/mdtraj.shrake_rupley.html"
+  ]
+}

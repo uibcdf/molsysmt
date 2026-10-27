@@ -98,3 +98,17 @@ The companion electronic charge index (ECI), exposed by the legacy Collantes
 charge definition, has a separate [unit and aggregation review #475](https://github.com/uibcdf/molsysmt/issues/475).
 See the [ISA tutorial](../../tools/physchem/get_surface_area.ipynb) for the
 original reference and the distinct coordinate-based SASA route.
+
+Coordinate-based SASA uses Shrake–Rupley sphere sampling, followed by output
+selection or aggregation. All atoms in the input remain occluders. Its quantity
+is standardized to the square of the configured standard length unit (nm² by
+default), independently of coordinate or probe input units. Use explicit area
+conversion for exports and comparisons.
+
+Request Cartesian screening with `pbc=False`. With a box, the native default
+`pbc=True` uses minimum-image screening by other atoms, excluding self-images;
+without a box it is Cartesian. This is not a general all-images surface for
+arbitrarily small cells. MDTraj supports Cartesian SASA only and rejects
+`pbc=True` with a box. See {ref}`Tutorial_Get_sasa` for examples and sampling
+controls. Engine agreement under different boundary conditions does not
+establish surface accuracy.

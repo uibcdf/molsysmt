@@ -321,6 +321,8 @@ class _PhyschemTools:
         parallel=None,
         num_threads=None,
         skip_digestion=False,
+        *,
+        pbc=True,
     ):
         return self._call(
             "get_sasa",
@@ -338,5 +340,6 @@ class _PhyschemTools:
                 "parallel": parallel,
                 "num_threads": num_threads,
                 "skip_digestion": skip_digestion,
+                "pbc": pbc,
             },
         )

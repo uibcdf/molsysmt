@@ -10,30 +10,38 @@ from molsysmt import systems
 
 
 def test_get_sasa_gpu_vacuum():
-    """Verify GPU-accelerated and native CPU JIT SASA under vacuum (no PBC)."""
+    """Verify retired GPU selectors retain Rust Cartesian SASA."""
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
     molsys = msm.remove(molsys, selection="group_type in ['water', 'ion']")
 
     # 1. CPU Reference (MDTraj Engine)
-    sasa_mdtraj = msm.physchem.get_sasa(molsys, element="molecule", engine="MDTraj")
+    sasa_mdtraj = msm.physchem.get_sasa(
+        molsys, element="molecule", engine="MDTraj", pbc=False
+    )
 
     # 2. Native CPU JIT (MolSysMT Engine on CPU)
     sasa_cpu_native = msm.physchem.get_sasa(
-        molsys, element="molecule", engine="MolSysMT", use_gpu=False
+        molsys, element="molecule", engine="MolSysMT", use_gpu=False, pbc=False
     )
 
     # 3. Retired CUDA selector
     sasa_gpu_cuda = msm.physchem.get_sasa(
-        molsys, element="molecule", engine="MolSysMT", use_gpu=True, gpu_backend="cuda"
+        molsys,
+        element="molecule",
+        engine="MolSysMT",
+        use_gpu=True,
+        gpu_backend="cuda",
+        pbc=False,
     )
 
-    # 4. Taichi GPU
+    # 4. Retired Taichi selector
     sasa_gpu_taichi = msm.physchem.get_sasa(
         molsys,
         element="molecule",
         engine="MolSysMT",
         use_gpu=True,
         gpu_backend="taichi",
+        pbc=False,
     )
 
     val_mdtraj = puw.get_value(sasa_mdtraj, to_unit="nm**2")
@@ -48,7 +56,7 @@ def test_get_sasa_gpu_vacuum():
 
 
 def test_get_sasa_gpu_orthogonal_pbc():
-    """Verify native and GPU-accelerated SASA calculations under orthogonal PBC."""
+    """Verify retired GPU selectors retain Rust SASA under orthogonal PBC."""
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
     molsys = msm.remove(molsys, selection="group_type in ['water', 'ion']")
 
@@ -82,7 +90,7 @@ def test_get_sasa_gpu_orthogonal_pbc():
 
 
 def test_get_sasa_gpu_triclinic_pbc():
-    """Verify native and GPU-accelerated SASA calculations under triclinic PBC."""
+    """Verify retired GPU selectors retain Rust SASA under triclinic PBC."""
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
     molsys = msm.remove(molsys, selection="group_type in ['water', 'ion']")
 

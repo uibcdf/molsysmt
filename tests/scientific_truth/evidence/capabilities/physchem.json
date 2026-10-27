@@ -83,11 +83,11 @@
   "molsysmt.physchem.get_sasa": {
     "domain": "physchem",
     "status": "partial",
-    "claim": "Nonperiodic native Shrake\u2013Rupley per-atom SASA on isolated, separated and overlapping carbon-sphere fixtures.",
+    "claim": "Native Shrake\u2013Rupley carbon-sphere SASA against isolated, separated and one-cap overlap analytic constructions; a controlled opposite-face pair under Cartesian and MIC screening, with brute-force/cell-list searches and nm/pm standard units.",
     "units": [
       "nm**2"
     ],
-    "periodic_behavior": "Nonperiodic fixtures only; no periodic scientific claim.",
+    "periodic_behavior": "A two-carbon opposite-face pair in a 2 nm cubic box agrees with an independent spherical-cap area under MIC and with isolated-sphere areas under Cartesian screening. This does not validate general periodic cells or self-image occlusion.",
     "contract_test_area": "tests/physchem/get_sasa",
     "scientific_evidence": [
       {
@@ -107,8 +107,14 @@
         "test": "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
         "oracle": "MDTraj Topology and Trajectory constructed directly from literal carbon-sphere inputs; public change_radii fixes carbon radius to 0.17 nm.",
         "tolerance": "shrake_rupley_sampling_area_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+        "oracle": "Equal carbon spheres at 0.1 and 1.9 nm in a 2 nm cubic cell: MIC separation 0.2 nm; accessible area 2*pi*R**2+pi*R*0.2, R=0.31 nm. Cartesian separation 1.8 nm gives full spheres.",
+        "tolerance": "shrake_rupley_sampling_area_atol"
       }
     ],
-    "gap": "Carbon fixtures and brute-force occlusion only. Other elements, general proteins, cell-list behavior and sampling convergence need separate governed evidence; wrapper-engine agreement is regression parity."
+    "gap": "Evidence remains partial: controlled carbon fixtures only. Other elements, general proteins, arbitrary periodic cells, own-image overlap and sampling convergence need separate governed evidence; wrapper-engine agreement is regression parity."
   }
 }

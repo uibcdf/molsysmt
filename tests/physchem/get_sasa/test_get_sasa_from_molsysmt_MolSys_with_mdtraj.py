@@ -15,9 +15,11 @@ from molsysmt import systems
 def test_get_sasa_from_molsysmt_MolSys_with_mdtraj_1():
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
     molsys = msm.remove(molsys, selection="group_type in ['water', 'ion']")
-    sasa_per_residue = msm.physchem.get_sasa(molsys, element="group", engine="mdtraj")
+    sasa_per_residue = msm.physchem.get_sasa(
+        molsys, element="group", engine="mdtraj", pbc=False
+    )
     sasa_per_molecule = msm.physchem.get_sasa(
-        molsys, element="molecule", engine="mdtraj"
+        molsys, element="molecule", engine="mdtraj", pbc=False
     )
     # Anchors computed with the unified default of n_sphere_points=240 (previously
     # mdtraj's own default of 960).

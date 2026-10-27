@@ -87,6 +87,6 @@ temporary-rejection claims without introducing a downstream scientific repair.
 
 
 Preserve the separate conformational SASA reader and all-atom occlusion contract.
-Keep native #478 unit-context and #479 periodic-engine limitations explicit;
-source exposure and bounded CPU receiving do not qualify non-nm native results,
-GPU execution or installed artifacts. Do not add scene effects or hidden preparation.
+Keep the #478 squared-unit contract and #479 explicit Cartesian/MIC engine
+limits visible; bounded CPU receiving does not qualify arbitrary-cell surface
+accuracy, GPU execution or installed artifacts. Do not add scene effects or hidden preparation.

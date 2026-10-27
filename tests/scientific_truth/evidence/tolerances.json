@@ -20,7 +20,7 @@
   "shrake_rupley_sampling_area_atol": {
     "atol": 0.0101,
     "rtol": 0,
-    "applies_to": "Per-atom carbon-sphere overlap SASA in nm**2 at 960 sample points, inflated radius 0.31 nm.",
+    "applies_to": "Per-atom carbon-sphere overlap SASA in nm**2 at 960 sample points, inflated radius 0.31 nm and one-cap separations 0.20 or 0.31 nm, including the controlled opposite-face MIC fixture.",
     "rationale": "Eight sphere-patch areas, 8 * 4*pi*0.31**2/960, rounded upward; allows different sampling orientations for the one-cap fixture, not general SASA accuracy."
   }
 }

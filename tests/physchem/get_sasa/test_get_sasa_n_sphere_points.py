@@ -24,7 +24,9 @@ def _system():
 
 
 def _total_sasa(molsys, engine, **kwargs):
-    sasa = msm.physchem.get_sasa(molsys, element="atom", engine=engine, **kwargs)
+    sasa = msm.physchem.get_sasa(
+        molsys, element="atom", engine=engine, pbc=False, **kwargs
+    )
     return puw.get_value(sasa, to_unit="nm**2").sum()
 
 

@@ -31,70 +31,152 @@ def get_sasa(
     parallel=None,
     num_threads=None,
     skip_digestion=False,
+    *,
+    pbc=True,
 ):
     """
-    Solvent-accessible surface area (SASA) per atom or residue group.
+    Computing solvent-accessible surface areas with Shrake–Rupley sampling.
 
-    Uses the Shrake–Rupley rolling-sphere algorithm. The default engine
-    computes SASA with the bundled Rust kernels.
-
+    Evaluate atomic areas with all atoms present as occluders, then select or
+    aggregate the requested output elements. The native engine uses bundled
+    Rust kernels; the optional MDTraj engine evaluates Cartesian coordinates.
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported MolSysMT format.
+        Molecular system in any supported form providing coordinates and the
+        topology required by the selected engine.
     element : str, default='atom'
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
-    selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Output level: 'atom', 'group', 'component', 'molecule', 'chain' or
+        'entity'. Non-atomic outputs sum their constituent atomic areas.
+    selection : str, list, tuple or numpy.ndarray, default='all'
+        Selection of output elements. Atoms outside this selection still
+        occlude the selected atoms; extract a subsystem first to exclude them.
+    structure_indices : int, list, tuple or numpy.ndarray, default='all'
+        Zero-based indices of structures to evaluate, preserving order and
+        repeated indices.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    probe_radius : object, default='1.4 angstroms'
-        Argument probe_radius.
-    n_sphere_points : object, default=240
-        Argument n_sphere_points.
-    use_cell_list : object, default='auto'
-        Argument use_cell_list.
-    use_gpu : bool, default=None
-        Whether to perform computation using GPU acceleration.
-    gpu_backend : object, default=None
-        Argument gpu_backend.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+        Selection syntax used to interpret string selections.
+    engine : str, default='MolSysMT'
+        Calculation provider: 'MolSysMT' or 'MDTraj'. MDTraj requires its
+        optional dependency and supports Cartesian SASA only.
+    probe_radius : str or quantity, default='1.4 angstroms'
+        Solvent-probe radius with length units. Explicit compatible units are
+        converted to the engine's working length unit.
+    n_sphere_points : int, default=240
+        Positive number of sampling points per atom. Increasing this number
+        improves surface quadrature at additional computational cost.
+    use_cell_list : bool or str, default='auto'
+        Native CPU occlusion search. True enables cell lists, False uses
+        brute force; 'auto' enables cell lists at 1,000 atoms or more.
+        This choice does not affect the MDTraj engine.
+    use_gpu : bool or None, default=None
+        Compatibility selector, inheriting configuration when None. No GPU
+        backend is supported in 1.0; GPU requests warn and use the CPU.
+    gpu_backend : str or None, default=None
+        Compatibility configuration override for the retired GPU selectors.
+    parallel : bool or None, default=None
+        Override native CPU parallel execution; None inherits configuration.
+    num_threads : int or None, default=None
+        Override the native CPU thread count; None inherits configuration.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    pbc : bool, default=True
+        Keyword-only periodic control. With a box, the native engine applies
+        minimum-image occlusion by other atoms. Without a box it evaluates
+        Cartesian coordinates. False requests Cartesian SASA for either
+        engine, ignoring the box. MDTraj with a box and pbc=True raises an
+        error rather than silently ignoring periodicity.
 
     Returns
     -------
     quantity
-        SASA values as a PyUnitWizard quantity in area units (nm²).
-        Shape: ``(n_structures, n_elements)``.
-
+        Areas with shape ``(n_structures, n_elements)`` in the square of the
+        configured standard length unit (nm² by default). Convert explicitly
+        with PyUnitWizard when a particular area unit is required.
 
     Raises
     ------
     NotImplementedMethodError
-        If an unsupported engine is requested.
-
+        If the engine is unsupported, or periodic MDTraj SASA is requested
+        for a system with a box.
 
     Notes
     -----
-    Non-protein atoms (e.g. solvent) are included in the SASA calculation
-    but their contribution to neighbouring atoms is accounted for.
+    Shrake–Rupley sampling estimates the accessible fraction of a sphere whose
+    radius is the atom's van der Waals radius plus the solvent-probe radius
+    [1]_. The result depends on the radii and sampling density. Both supported
+    engines include all input atoms as occluders, including solvent.
 
+    Native periodic screening applies the minimum-image convention between
+    each sample point and other atom indices. It does not include an atom's
+    own periodic images; do not interpret it as a general all-images surface
+    calculation for cells small enough for self-image occlusion. Cartesian
+    SASA may require reconstructing whole molecules before calculation.
+    MDTraj's public Shrake–Rupley interface has no periodic control [2]_.
+
+    See Also
+    --------
+    get_atomic_radius : Querying atomic radii.
+    molsysmt.pbc.unwrap : Reconstructing molecular coordinates across structures.
+
+    References
+    ----------
+    .. [1] Shrake, A. and Rupley, J. A. (1973). Environment and exposure to
+       solvent of protein atoms. Lysozyme and insulin. J. Mol. Biol. 79,
+       351–371. https://doi.org/10.1016/0022-2836(73)90011-9
+    .. [2] MDTraj Shrake–Rupley documentation:
+       https://mdtraj.readthedocs.io/en/latest/api/generated/mdtraj.shrake_rupley.html
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.systems['Trp-Cage']['1l2y.h5msm']
+    >>> area = msm.physchem.get_sasa(molsys, selection=[0],
+    ...                            structure_indices=0, pbc=False, use_gpu=False)
+    >>> area.shape
+    (1, 1)
+    >>> bool(msm.pyunitwizard.get_value(area, to_unit='nm**2')[0, 0] >= 0)
+    True
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_sasa` for aggregation, units and periodic choices.
 
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import convert, get, select
 
+    if engine not in {"MolSysMT", "MDTraj"}:
+        raise NotImplementedMethodError(
+            method=engine, caller="molsysmt.physchem.get_sasa"
+        )
+
+    # Read the requested box population once. Cartesian requests do not use it.
+    periodic_box = (
+        get(
+            molecular_system,
+            element="system",
+            structure_indices=structure_indices,
+            box=True,
+        )
+        if pbc
+        else None
+    )
+
     if engine == "MDTraj":
+        if periodic_box is not None:
+            raise NotImplementedMethodError(
+                method="MDTraj periodic SASA",
+                arguments="pbc=True with a periodic box",
+                caller="molsysmt.physchem.get_sasa",
+                message=(
+                    "MDTraj does not implement periodic SASA. Set pbc=False "
+                    "for Cartesian coordinates or select engine='MolSysMT' "
+                    "for minimum-image occlusion."
+                ),
+            )
         tmp_item = convert(
             molecular_system,
             to_form="mdtraj.Trajectory",
@@ -171,26 +253,25 @@ def get_sasa(
         payload = coordinates.shape[0] * coordinates.shape[1]
         _use_gpu = resolve_use_gpu(use_gpu, payload)
 
+        box = None
+        if periodic_box is not None:
+            from molsysmt._private.pbc_validation import validate_box_array
+
+            # The shared validator owns shape, finite/singular checks and
+            # constant-box broadcasting on the canonical nm boundary.
+            box_nm = validate_box_array(
+                puw.get_value(periodic_box, to_unit="nm"),
+                coordinates.shape[0],
+                caller="molsysmt.physchem.get_sasa",
+            )
+            box = np.asarray(
+                puw.get_value(puw.quantity(box_nm, "nm"), to_unit=length_unit),
+                dtype=np.float64,
+            )
+
         sasa_array = None
 
         if _use_gpu:
-            box = None
-            from molsysmt.pbc import has_pbc as _has_pbc
-
-            if _has_pbc(molecular_system):
-                box = get(
-                    molecular_system,
-                    element="system",
-                    structure_indices=structure_indices,
-                    box=True,
-                )
-                if box is not None and box[0] is not None:
-                    box = np.asarray(
-                        puw.get_value(box, to_unit=length_unit), dtype=np.float64
-                    )
-                else:
-                    box = None
-
             # Taichi backend
             if config.gpu_backend == "taichi":
                 try:
@@ -253,25 +334,8 @@ def get_sasa(
                         coordinates, radii_val, probe_radius, n_points=n_sphere_points
                     )
 
-        # Fallback to JIT CPU backend
+        # Supported Rust CPU path (also used by retired GPU selectors)
         if sasa_array is None:
-            box = None
-            from molsysmt.pbc import has_pbc as _has_pbc
-
-            if _has_pbc(molecular_system):
-                box = get(
-                    molecular_system,
-                    element="system",
-                    structure_indices=structure_indices,
-                    box=True,
-                )
-                if box is not None and box[0] is not None:
-                    box = np.asarray(
-                        puw.get_value(box, to_unit=length_unit), dtype=np.float64
-                    )
-                else:
-                    box = None
-
             from molsysmt._private import rust_backend as _kernels
             from molsysmt.lib.structure.sphere_points import (
                 get_fibonacci_sphere_points,
@@ -334,7 +398,8 @@ def get_sasa(
                 new_sasa_array[:, ii] = sasa_array[:, sets_atoms[ii]].sum(axis=1)
             sasa_array = new_sasa_array
 
-        sasa_array = puw.quantity(sasa_array, "nm**2")
+        # Both native execution branches return squared working-length values.
+        sasa_array = puw.quantity(sasa_array, length_unit**2)
         sasa_array = puw.standardize(sasa_array)
 
     else:

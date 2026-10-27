@@ -19,8 +19,10 @@ centered in-place ownership under uibcdf/molsysmt#467. Thirteen physchem tools
 are source-received, including the repaired native syntax/element contracts
 under uibcdf/molsysmt#470 and uibcdf/molsysmt#471. Collantes unit review remains
 uibcdf/molsysmt#473. The additional conformational SASA wrapper brings source
-exposure to fourteen tools, with bounded CPU receiving and unresolved native
-unit-context / periodic-engine issues uibcdf/molsysmt#478 / #479.
+exposure to fourteen tools, with bounded CPU receiving. Native area-unit
+context and explicit periodic controls are corrected under uibcdf/molsysmt#478
+and uibcdf/molsysmt#479; own-image screening and general SASA accuracy are not
+qualified by these controlled fixtures.
 Other scientific namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.

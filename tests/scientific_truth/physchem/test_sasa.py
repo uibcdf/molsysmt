@@ -73,3 +73,36 @@ def test_native_sasa_agrees_with_independently_constructed_mdtraj():
         change_radii={"C": _RADIUS},
     )
     np.testing.assert_allclose(_native(coordinates), expected, atol=_TOLERANCE, rtol=0)
+
+
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+@pytest.mark.parametrize("cell", [False, True])
+@pytest.mark.parametrize("pbc", [False, True])
+def test_opposite_faces_match_independent_spherical_cap(unit, cell, pbc):
+    """Check a literal two-sphere MIC construction against a closed-form area."""
+    puw = msm.pyunitwizard
+    molsys = MolSys(n_atoms=2)
+    molsys.topology.atoms["atom_type"] = ["C", "C"]
+    molsys.structures.append(
+        coordinates=puw.quantity([[[0.1, 0, 0], [1.9, 0, 0]]], "nm"),
+        box=puw.quantity([np.diag([2.0, 2.0, 2.0])], "nm"),
+    )
+    radius = _RADIUS + _PROBE
+    expected = (
+        2 * np.pi * radius**2 + np.pi * radius * 0.2 if pbc else 4 * np.pi * radius**2
+    )
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        actual = msm.physchem.get_sasa(
+            molsys,
+            probe_radius="140 pm",
+            n_sphere_points=_POINTS,
+            use_cell_list=cell,
+            use_gpu=False,
+            pbc=pbc,
+        )
+        np.testing.assert_allclose(
+            puw.get_value(actual, to_unit="nm**2"),
+            [[expected, expected]],
+            atol=_TOLERANCE,
+            rtol=0,
+        )

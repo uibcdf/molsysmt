@@ -1,7 +1,6 @@
 """Receive CPU SASA without replacing native science or publishing scene edits.
 
-Native non-nm unit correctness and engine-periodic policy remain owning issues
-#478/#479. These checks do not qualify GPU execution or an installed artifact.
+Native unit and explicit periodic contracts are guarded under #478/#479. These checks do not qualify GPU execution or an installed artifact.
 """
 
 import inspect
@@ -15,6 +14,7 @@ from argdigest import UnknownArgumentError
 from molsysviewer.system_edits import SystemEditPendingError
 
 import molsysmt as msm
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 puw = msm.pyunitwizard
 CPU = dict(use_gpu=False, n_sphere_points=960, use_cell_list=False)
@@ -76,7 +76,7 @@ def test_signature_help_and_integration_controls(view):
 def test_selected_atoms_are_output_filter_with_native_axes(
     view, engine, structures, selection
 ):
-    args = dict(CPU, engine=engine, structure_indices=structures)
+    args = dict(CPU, engine=engine, structure_indices=structures, pbc=False)
     full = nm2(msm.physchem.get_sasa(view.molsys, **args))
     indices = msm.select(view.molsys, selection=selection)
     expected = full[:, indices]
@@ -94,7 +94,7 @@ def test_selected_atoms_are_output_filter_with_native_axes(
     "element", ["group", "component", "molecule", "chain", "entity"]
 )
 def test_hierarchy_is_sum_of_all_atom_occlusion(view, engine, element):
-    args = dict(CPU, engine=engine, structure_indices=[2, 0])
+    args = dict(CPU, engine=engine, structure_indices=[2, 0], pbc=False)
     atoms = nm2(msm.physchem.get_sasa(view.molsys, **args))
     membership = msm.get(view.molsys, element=element, atom_index=True)
     expected = np.column_stack(
@@ -136,7 +136,8 @@ def test_isolated_real_carbon_has_analytic_area(view, engine, probe):
 
 
 @pytest.mark.parametrize("engine", ["MolSysMT", "MDTraj"])
-def test_boundary_conditions_have_distinct_explicit_receiving(view, engine):
+@pytest.mark.parametrize("pbc", [False, True])
+def test_boundary_conditions_have_distinct_explicit_receiving(view, engine, pbc):
     carbons = msm.select(view.molsys, selection="atom_type=='C'")[:2]
     molecular_system = msm.extract(
         view.molsys, selection=carbons, structure_indices=[0]
@@ -147,12 +148,20 @@ def test_boundary_conditions_have_distinct_explicit_receiving(view, engine):
         box=puw.quantity([2 * np.eye(3)], "nm"),
     )
     with msv.new_view(molecular_system) as pair:
-        actual = nm2(pair.addons.molsysmt.physchem.get_sasa(**CPU, engine=engine))
-        # Native MIC distance is 0.2 nm; MDTraj uses 1.8 nm in Cartesian space.
+        if engine == "MDTraj" and pbc:
+            before = pair.export_state()
+            with pytest.raises(NotImplementedMethodError):
+                pair.addons.molsysmt.physchem.get_sasa(**CPU, engine=engine, pbc=pbc)
+            assert pair.export_state() == before
+            return
+        actual = nm2(
+            pair.addons.molsysmt.physchem.get_sasa(**CPU, engine=engine, pbc=pbc)
+        )
+        # The literal MIC separation is 0.2 nm; Cartesian separation is 1.8 nm.
         radius = 0.31
         area = (
             2 * np.pi * radius**2 + np.pi * radius * 0.2
-            if engine == "MolSysMT"
+            if pbc
             else 4 * np.pi * radius**2
         )
         np.testing.assert_allclose(actual, [[area, area]], atol=AREA_ATOL, rtol=0)
@@ -210,7 +219,7 @@ def test_read_preserves_primary_owners_coordinates_box_scene_and_named_analysis(
     xyz, box = puw.get_value(xyz).copy(), puw.get_value(box).copy()
     coverage = owners[2].to_dict()
     state, status = view.export_state(), view.addons.molsysmt.get_sync_status()
-    view.addons.molsysmt.physchem.get_sasa(**CPU, engine=engine)
+    view.addons.molsysmt.physchem.get_sasa(**CPU, engine=engine, pbc=False)
     assert (
         view.molsys is primary
         and primary.topology is owners[0]
@@ -269,14 +278,14 @@ def test_cached_facade_resolves_replacement_empty_and_closed_views(view):
 
 
 @pytest.mark.parametrize("length_unit", ["nm", "angstrom", "pm"])
-def test_mdtraj_unit_context_has_independent_analytic_receiving(view, length_unit):
+@pytest.mark.parametrize("engine", ["MolSysMT", "MDTraj"])
+def test_unit_context_has_independent_analytic_receiving(view, length_unit, engine):
     carbon = int(msm.select(view.molsys, selection="atom_type=='C'")[0])
     molecular_system = msm.extract(
         view.molsys, selection=[carbon], structure_indices=[0]
     )
     msm.set(molecular_system, box=None)
     with msv.new_view(molecular_system) as isolated:
-        # Native-engine non-nm results are deliberately not certified here (#478).
         with puw.context(
             standard_units=[
                 length_unit,
@@ -287,6 +296,6 @@ def test_mdtraj_unit_context_has_independent_analytic_receiving(view, length_uni
                 "dimensionless",
             ]
         ):
-            actual = isolated.addons.molsysmt.physchem.get_sasa(**CPU, engine="MDTraj")
+            actual = isolated.addons.molsysmt.physchem.get_sasa(**CPU, engine=engine)
             assert puw.get_unit(actual).is_compatible_with(puw.unit(length_unit) ** 2)
             np.testing.assert_allclose(nm2(actual), [[4 * np.pi * 0.31**2]], rtol=1e-6)
