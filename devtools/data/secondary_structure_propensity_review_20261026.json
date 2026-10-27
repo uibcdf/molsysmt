@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#485",
+  "source_commit": "02671792f3b90de654b467683a8d394118dc4ccb",
+  "local_file": "molsysmt/physchem/groups/secondary_structure_propensity.py",
+  "local_sha256": "94263c75c503332772b75ea567d00b08adcf6078de6bc2b5bfef17fa87bc38e6",
+  "method": "AST literal-table inventory; independently parse twenty named values from each official ProtScale page and compare by group; AAindex1 uses the paired-header parser with absolute tolerance 1e-9 and no rescaling.",
+  "aaindex1_sha256": "560f102dbee8ca9837186c4b2b93e253ea6efc58c88617234cef4e54bd61f676",
+  "tables": [
+    {
+      "table": "alpha_helix_levitt",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/alpha-helixLevitt.html",
+      "protscale_sha256": "9c98e52198ecd2025543d49b737de12701a637f619b39786677b7021544d462b",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "LEVM780101",
+        "PRAM900102"
+      ]
+    },
+    {
+      "table": "beta_sheet_levitt",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/beta-sheetLevitt.html",
+      "protscale_sha256": "67dfb4d48e0d3edb4b308b6fba725d852d2f3e76e7e5fa47576816d3f4205f17",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "LEVM780102",
+        "PRAM900103"
+      ]
+    },
+    {
+      "table": "beta_turn_levitt",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/beta-turnLevitt.html",
+      "protscale_sha256": "929a23f02975c79784eb0027d854d826fb3bdc56c89cef0a27292f41f1838d7a",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "LEVM780103"
+      ]
+    },
+    {
+      "table": "alpha_helix_chou",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/alpha-helixFasman.html",
+      "protscale_sha256": "1e12a69b1acd815075eead31a1e4d41b422b1fbd4bed03cb1612dcf1ef5fdb06",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "CHOP780201"
+      ]
+    },
+    {
+      "table": "beta_sheet_chou",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/beta-sheetFasman.html",
+      "protscale_sha256": "e7eb7861b06e34b71b2dd721b0fa6bb681c231c6cce80ccdd84d2d7d2ec8e0b2",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "CHOP780202"
+      ]
+    },
+    {
+      "table": "beta_turn_chou",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/beta-turnFasman.html",
+      "protscale_sha256": "cf70203632063e6e18a8f08c9f3c15e8541bef6ae932855fd4847dd887367986",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "CHOP780101"
+      ]
+    },
+    {
+      "table": "alpha_helix_deleage",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/alpha-helixRoux.html",
+      "protscale_sha256": "9e649bef2f9de0d5532045907f3b03657bc678893bd40a9f78325c43d94d4d48",
+      "protscale_differences": [],
+      "aaindex_exact_matches": []
+    },
+    {
+      "table": "beta_sheet_deleage",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/beta-sheetRoux.html",
+      "protscale_sha256": "5a05096d04bd6caed98d6e498dce67fd8026b2925ff48087ddedec43163dd0d5",
+      "protscale_differences": [],
+      "aaindex_exact_matches": []
+    },
+    {
+      "table": "beta_turn_deleage",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/beta-turnRoux.html",
+      "protscale_sha256": "7df8883828a23bfd72955921c2af02855fdbc4b31e687ecd09e5e4e4fce06075",
+      "protscale_differences": [],
+      "aaindex_exact_matches": []
+    },
+    {
+      "table": "coil_deleage",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/CoilRoux.html",
+      "protscale_sha256": "b4420aacc8a880f5f444cf93ab461e93d794c50e7956c78bf9edc0c4d9df4c03",
+      "protscale_differences": [],
+      "aaindex_exact_matches": []
+    },
+    {
+      "table": "total_beta_strand_lifson",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/Totalbeta-strand.html",
+      "protscale_sha256": "b1076fbfa6c55bdb8d80dbe621bdf292fbca586cc4510532b7603b34a7bb4ebc",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "LIFS790101"
+      ]
+    },
+    {
+      "table": "antiparallel_beta_strand_lifson",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/Antiparallelbeta-strand.html",
+      "protscale_sha256": "49309b2f1eee32f458af7b46e8708d76e9a574cc1b4b43ecd5fa4848e1271bec",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "LIFS790103"
+      ]
+    },
+    {
+      "table": "parallel_beta_strand_lifson",
+      "entries": 20,
+      "protscale_url": "https://web.expasy.org/protscale/pscale/Parallelbeta-strand.html",
+      "protscale_sha256": "6146243260dde9ebf69130fff580dbe8547c17ebd4c47c7557d02fba679f9192",
+      "protscale_differences": [],
+      "aaindex_exact_matches": [
+        "LIFS790102"
+      ]
+    }
+  ],
+  "levitt_primary": {
+    "doi": "10.1021/bi00613a026",
+    "url": "https://web.stanford.edu/class/sbio228/public/readings/Structure_Prediction_I_Lecture8/Levitt_BIOC_78_Conformational_prefs.pdf",
+    "pdf_sha256": "8f8f694f309e9e6540fab9b90f7a82a63c4342bd8d1d9b8d3e8704da60a2b3eb",
+    "printed_pages_visually_checked": [
+      4279,
+      4280,
+      4281
+    ],
+    "tables": [
+      "III",
+      "IV",
+      "V"
+    ],
+    "source_column": "P_ij",
+    "amino_acid_order": [
+      "ALA",
+      "CYS",
+      "LEU",
+      "MET",
+      "GLU",
+      "GLN",
+      "HIS",
+      "LYS",
+      "VAL",
+      "ILE",
+      "PHE",
+      "TYR",
+      "TRP",
+      "THR",
+      "GLY",
+      "SER",
+      "ASP",
+      "ASN",
+      "PRO",
+      "ARG"
+    ],
+    "independent_visual_transcription": {
+      "alpha_helix_levitt": [
+        1.29,
+        1.11,
+        1.3,
+        1.47,
+        1.44,
+        1.27,
+        1.22,
+        1.23,
+        0.91,
+        0.97,
+        1.07,
+        0.72,
+        0.99,
+        0.82,
+        0.56,
+        0.82,
+        1.04,
+        0.9,
+        0.52,
+        0.96
+      ],
+      "beta_sheet_levitt": [
+        0.9,
+        0.74,
+        1.02,
+        0.97,
+        0.75,
+        0.8,
+        1.08,
+        0.77,
+        1.49,
+        1.45,
+        1.32,
+        1.25,
+        1.14,
+        1.21,
+        0.92,
+        0.95,
+        0.72,
+        0.76,
+        0.64,
+        0.99
+      ],
+      "beta_turn_levitt": [
+        0.77,
+        0.81,
+        0.58,
+        0.41,
+        0.99,
+        0.98,
+        0.68,
+        0.96,
+        0.47,
+        0.51,
+        0.59,
+        1.05,
+        0.76,
+        1.04,
+        1.64,
+        1.32,
+        1.41,
+        1.28,
+        1.91,
+        0.88
+      ]
+    },
+    "comparison": "60/60 entries equal the existing local dictionaries.",
+    "normalization": "P_ij = (n_ij/N_i)/(N_j/N_t)",
+    "dimension": "dimensionless relative frequency, not probability",
+    "source_distinction": "The summary Table II and detailed Table V differ in several turn entries. The existing vector matches Table V; no cause or correction is inferred."
+  },
+  "chou_turn_distinction": {
+    "local_table": "beta_turn_chou",
+    "exact_accession": "CHOP780101",
+    "source": "1978a; doi:10.1146/annurev.bi.47.070178.001343",
+    "other_accession": "CHOP780203",
+    "different_entries": 14,
+    "source_for_other": "1978b; PMID364941",
+    "decision": "Do not silently label the existing turn vector as the 1978b variant. Numeric parity does not establish historical provenance."
+  },
+  "summary": {
+    "protscale_tables_matching_all_twenty_entries": 13,
+    "protscale_values_compared": 260,
+    "tables_with_exact_aaindex_match": 9,
+    "local_data_changed": false,
+    "runtime_api_implemented": false,
+    "license_scope": "No external code or table added to runtime; matching numbers do not establish redistribution rights."
+  },
+  "proposal": {
+    "name": "physchem.get_secondary_structure_propensity",
+    "status": "proposed, not implemented",
+    "first_definition": "levitt_1978_weighted",
+    "conformation": [
+      "alpha_helix",
+      "beta_sheet",
+      "reverse_turn"
+    ],
+    "output": "group-aligned float64 ndarray; explicitly dimensionless relative frequency",
+    "scope": "Reference lookup only; no observed assignment, prediction, averaging, clipping or renormalization."
+  }
+}

@@ -394,3 +394,134 @@ lifecycle. The implementation uses existing data and general helpers. See
 [its qualification receipt](../../devtools/data/zimmerman_bulkiness_implementation_20261026.json).
 This proposal remains partial for the remaining candidate inventory and choices;
 the original 1968 derivation is still outside the audited scientific claim.
+
+## Second-candidate review: secondary-structure propensities — 2026-10-26
+
+**Inspected and data-parity checked; proposed, not implemented.** The thirteen
+existing dictionaries in `groups/secondary_structure_propensity.py` agree with
+all 260 named values on the corresponding official ProtScale pages. Nine also
+match complete AAindex1 vectors in the pinned 566-record snapshot. The four
+Deleage/Roux vectors have no exact AAindex1 match under this comparison; their
+complete agreement with ProtScale is separate positive evidence. A missing
+AAindex match alone does not establish an error.
+
+The [review receipt](../../devtools/data/secondary_structure_propensity_review_20261026.json)
+records the source commit and local-file hash, all thirteen URLs and capture
+hashes, the accession matches and the independent primary-paper transcription.
+The comparison parses twenty named values per page and compares by group name;
+it neither rescales data nor treats a partial match as complete. No runtime
+constant or public API is changed by this review.
+
+| Existing family | Complete ProtScale comparisons | Matching AAindex1 accessions | Source boundary |
+| --- | --- | --- | --- |
+| Levitt: helix, sheet, turn | 60/60 | LEVM780101, LEVM780102, LEVM780103; helix/sheet also PRAM900102/103 | Weighted relative frequencies; original detailed Tables III–V checked visually |
+| Chou/Fasman: helix, sheet, turn | 60/60 | CHOP780201, CHOP780202, CHOP780101 respectively | Helix/sheet match 1978b, but the stored turn vector matches 1978a |
+| Deleage/Roux: helix, sheet, turn, coil | 80/80 | No exact match in this snapshot | Curated values confirmed; original derivation not fully audited here |
+| Lifson/Sander: total, antiparallel, parallel strand | 60/60 | LIFS790101, LIFS790103, LIFS790102 respectively | Distinct strand categories; no generic three-class predictor inferred |
+
+### Primary-paper check and variant distinctions
+
+Levitt (1978), DOI [10.1021/bi00613a026](https://doi.org/10.1021/bi00613a026),
+defines relative frequencies against a reference population. The weighted
+`P_ij` columns of detailed Tables III, IV and V match all sixty existing values.
+These ratios are dimensionless, may exceed one and are not per-group class
+probabilities. They must not be clipped, normalized to sum to one or interpreted
+as an observed secondary-structure assignment.
+
+The original was inspected using the
+[institutional reprint](https://web.stanford.edu/class/sbio228/public/readings/Structure_Prediction_I_Lecture8/Levitt_BIOC_78_Conformational_prefs.pdf).
+The receipt pins its SHA-256. Several turn entries in summary Table II differ
+from detailed Table V; the existing vector matches the latter. This review does
+not infer the reason or correct either table. The AAindex weighted/unweighted
+variants are also distinct: LEVM780104–106 must not replace LEVM780101–103
+merely because they share an author and year.
+
+The current source comment attributes the Chou/Fasman family to the 1978b
+reference, but its stored turn vector matches CHOP780101 (1978a), DOI
+[10.1146/annurev.bi.47.070178.001343](https://doi.org/10.1146/annurev.bi.47.070178.001343).
+It differs at fourteen entries from CHOP780203 (1978b, PMID 364941).
+This establishes numeric variant identity, not the historical origin of the
+local data. A future reader must name the adopted variant explicitly rather
+than publish a silently mixed `chou_1978` family. No existing values or comments
+are rewritten in this research checkpoint.
+
+Deleage/Roux (1987), DOI
+[10.1093/protein/1.4.289](https://doi.org/10.1093/protein/1.4.289), describes a
+prediction algorithm as well as compositional parameters. Reading the existing
+tables would not reproduce that algorithm. Lifson/Sander (1979), DOI
+[10.1038/282109a0](https://doi.org/10.1038/282109a0), distinguishes parallel and
+antiparallel strands; a future API must preserve that distinction. Full original
+method/table checks for these families remain pending before adopting them.
+
+### Recommended first public boundary
+
+Start with the primary-checked Levitt vectors, reusing existing data and the
+strict group-table helper introduced for bulkiness. Proposed signature:
+
+```python
+msm.physchem.get_secondary_structure_propensity(
+    molecular_system,
+    conformation,
+    element='group',
+    selection='all',
+    definition='levitt_1978_weighted',
+    syntax='MolSysMT',
+    skip_digestion=False,
+)
+```
+
+`conformation` is required and accepts `alpha_helix`, `beta_sheet` or
+`reverse_turn`. This name avoids confusing the requested reference category
+with MolSysMT's coordinate structures axis. One requested category produces
+one group-aligned float64 array with shape `(n_groups,)`, including `(0,)` for
+an empty selection. The proposed bare-array contract explicitly denotes a
+dimensionless frequency ratio; no physical unit is invented. PyUnitWizard
+continues to handle actual physical quantities in adjacent readers. A later
+quantity/labelled-output extension must be explicit rather than depend on the
+selected definition.
+
+Group names are obtained through the form-agnostic public query path. Numeric
+selection order and repetitions are preserved. Only the twenty supported
+standard amino-acid identities are accepted initially; unknown, modified,
+terminal-cap and dummy groups fail explicitly without zero filling or implicit
+parent substitution. No coordinates, structure indices, force field, chemical
+state assignment or sequence window are needed. An atom subset must not silently
+redefine the full-group descriptor.
+
+This tool belongs in `physchem`. Observed coordinate-based assignment remains
+separate in `structure.get_secondary_structure`; this reader must not claim to
+execute DSSP, a sequence predictor or the original table-generation procedure.
+No average, argmax class, artificial coil remainder or peptide-level reduction
+is a default. Future definitions must reject unsupported conformation/definition
+combinations rather than mix source families silently.
+
+Use ArgDigest and the established `skip_digestion` contract. Optional Ackredit
+should credit Levitt's reference data and separately identify curated validation
+sources; attribution must not suggest execution of those providers. The lookup
+needs O(n_groups) output and no new dependency, runtime HTTP request or compiled
+kernel. This is a complexity estimate, not a performance measurement. A Rust
+implementation would require a demonstrated workload benefit.
+
+### Adoption and qualification still required
+
+Before coding, accept this public boundary and the bounded first definition.
+Implementation must complete docstrings, User Guide, Cookbook and all course
+paths, public API stability classification and appropriately bounded scientific
+evidence. Tests should independently compare all sixty primary-checked entries,
+assert dimensionless non-probability semantics and preserve native/file/dict
+parity, selection order/repetitions, empty shape and detached outputs. Exercise
+unsupported populations/categories, optional attribution and unchanged source
+objects. Table parity does not validate secondary-structure prediction accuracy.
+
+No external runtime table or code is copied. The institutional reprint's access
+does not grant blanket redistribution rights; source attribution and any data
+rights questions remain explicit before expanding the catalogue. The existing
+lookup data are unchanged. This research extends uibcdf/molsysmt#485, which stays
+partial and open; it does not expand the release gate or authorize publication.
+
+Checkpoint controls on Linux/Python 3.14.7: the six existing inventory-parser
+controls pass in 3.90 seconds with Pytest Receptor and twelve workers. The new
+receipt also passes JSON parsing, thirteen-table/260-entry completeness and
+zero-mismatch assertions. Developer-guide validation, generated-index checks
+and `git diff --check` pass. These are research/data-parity controls; no new
+molecular runtime behavior or prediction benchmark is claimed.
