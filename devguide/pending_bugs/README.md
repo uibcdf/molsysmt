@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`shared_method_reference_metadata.md`](shared_method_reference_metadata.md) — [#490](https://github.com/uibcdf/molsysmt/issues/490) — Feature results share mutable reference metadata across calculations. *(medium, reproduced)*
 
 ### Partially resolved (2)
 

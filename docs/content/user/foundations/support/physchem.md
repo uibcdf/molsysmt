@@ -157,3 +157,13 @@ and no coil remainder, peptide sum or automatic class assignment is defined.
 Group names suffice, with no coordinates or chemical-state changes. See
 {ref}`Tutorial_Get_secondary_structure_propensity` for supported categories and
 {ref}`Cookbook_Export_Secondary_Structure_Propensities` for indexed exports.
+
+
+## Result reference ownership
+
+Chemical feature readers return independently owned `method_reference` metadata,
+including nested fields. User edits cannot change shared method declarations or
+references in earlier or later calculations. This small metadata boundary does
+not copy coordinates or interaction arrays. The detached `attribution` bibliography
+records the completed calculation separately; manually editing a reference field
+does not revise the bibliography or establish new scientific provenance.

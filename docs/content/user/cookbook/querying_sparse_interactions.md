@@ -288,7 +288,13 @@ it even when saved or loaded by another version. `{}` means the producer
 version was not recorded, as in these manually constructed synthetic records.
 
 Detector-produced analyses also retain a compact bibliography in
-`analysis.parameters["attribution"]`. H5MSM preserves the original references
+`analysis.parameters["attribution"]`.
+
+Method-reference metadata belongs to the result, including nested fields. Editing
+it cannot rewrite the shared method declaration or another analysis. The detached
+bibliography remains a separate record of the completed calculation.
+
+H5MSM preserves the original references
 and producer versions independently of whether Ackredit is installed when
 reading the file. Loading does not credit a new calculation. The synthetic
 records in this recipe have no attribution because no scientific detector was

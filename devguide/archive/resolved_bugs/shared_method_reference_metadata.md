@@ -1,13 +1,13 @@
 ---
 summary: Feature results share mutable reference metadata across calculations.
 issue: uibcdf/molsysmt#490
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: medium
-verification: reproduced
+verification: measured
 area: [physchem, metadata, attribution]
-guard:
+guard: tests/physchem/test_reference_metadata_ownership.py::test_method_references_are_owned_by_each_result
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,7 @@ supersedes: []
 # Shared result references contaminate later method metadata
 
 **Reported:** 2026-10-26 during final expert addon feature-reader receiving.
-**Status:** open; numeric recognition succeeds, mutable result metadata aliases
-shared declarations.
+**Status:** resolved; each result now owns its small method-reference metadata.
 
 ## What
 
@@ -47,7 +46,7 @@ The expert addon under #421 / uibcdf/molsysviewer#264 must retain native scienti
 
 Return independently owned result-level reference metadata while preserving existing plain-dictionary fields, values, roles and serialization. Add native pytest guards that mutate `method_reference` in one result and confirm an earlier result, a later same-reader result and a different-reader result retain canonical values. Check positive and evaluated-empty recognition outputs and distinguish `method_reference` from already detached attribution items. Audit other consumers of the shared constant where applicable; do not presume every detector has the same alias without a reproduction. Keep numeric results, source axes, units and scientific parameters unchanged. Detach the small metadata at its owning boundary; avoid copying entire systems, trajectories or large occurrence buffers.
 
-Record: `devguide/pending_bugs/shared_method_reference_metadata.md`. This report does not introduce a Viewer workaround or promise broader scientific/model validation.
+Record: `devguide/archive/resolved_bugs/shared_method_reference_metadata.md`. This report does not introduce a Viewer workaround or promise broader scientific/model validation.
 
 
 ## What is measured and what is assumed
@@ -77,3 +76,42 @@ Linux/Python 3.14.7, RDKit 2025.9.5, native source 02671792f and documentation-o
 successor 87d7b9d09. Short-lived isolated process; the intentional mutation does
 not persist in the user's Python session or alter source files. Original
 ProLIF version 2.2.2 becomes user-edited metadata in both subsequent calls.
+
+
+## Resolution — 2026-10-26
+
+The shared `attributed` boundary now deep-copies only `method_reference` before
+building bibliography. The four public site readers retain identical executable
+ASTs after docstrings are removed. This ownership change neither copies a
+molecular system nor its coordinate/occurrence arrays, and does not change
+recognition rules, source indices, units or producer versions.
+
+Audit found the same direct alias in the SMARTS hydrogen-bond reader. The metal
+site reader already copies top-level fields; a controlled nested declaration
+reproduces its remaining shallow-copy alias. These are distinct findings, not a
+claim that its existing flat fields shared identity. Interaction constructors
+already deep-copy their parameter mapping. Every attributed result now obtains
+an independent method reference at the same small boundary, including empty
+results. Existing detached bibliography remains separate from that field.
+
+The guard mutates version and nested reference fields in one returned result and
+checks the original declaration, an earlier result, a later same-reader result
+and a different-reader result. Its controlled declaration is isolated with
+monkeypatch, so the deliberately failing baseline does not contaminate other
+tests. Positive and empty selections across four readers yield eight failures
+before the fix and eight passes afterward. Arrays and detached bibliography
+remain equal, and reference metadata stays plain-dictionary JSON serializable.
+
+The expanded interaction/feature/attribution regression passes 919 tests in
+29.85 seconds with twelve workers and Pytest Receptor. Another 497 doctest/schema
+checks pass in 8.04 seconds. All fourteen fast gates, Ruff, 253 public docstrings,
+soft-import, signature and developer-guide checks pass. HTML builds with zero
+errors and 51 existing header-level/orphan-document warnings under #144; none
+names a site tutorial. Nine changed course/tool notebooks preserve their code
+cells, outputs and code metadata. The User Guide, Cookbook and course explain
+ownership and the distinction from separately preserved bibliography.
+
+The [qualification receipt](../../../devtools/data/reference_metadata_ownership_20261026.json)
+records source hashes, environment, commands and limits. This is local source
+qualification on Linux/Python 3.14.7, RDKit 2025.9.5; no memory benchmark,
+scientific model certification, installed pair or release claim is made.

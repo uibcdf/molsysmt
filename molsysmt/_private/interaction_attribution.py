@@ -136,6 +136,12 @@ def attributed(family, fixed_method=None):
                     parameters, software = result, result["software"]
                 else:
                     parameters, software = {}, {"molsysmt": __version__}
+                # Result metadata must not expose shared method declarations.
+                # Copy only this small reference, never occurrence buffers.
+                if "method_reference" in parameters:
+                    parameters["method_reference"] = deepcopy(
+                        parameters["method_reference"]
+                    )
                 items = _bibliography(definition, software, parameters)
                 parameters.update(
                     method=definition["method"],

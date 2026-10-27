@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#490",
+  "source_parent": "5681f5e789d550dd4caa2e503e41582572d21f0b",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "rdkit": "2025.9.5",
+      "numpy": "2.4.6",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    },
+    "scope": "Shared development environment, not clean installed-package qualification."
+  },
+  "source_sha256": {
+    "molsysmt/_private/interaction_attribution.py": "84e59005abdcc8257a908ea769639602d771cfabe83d67ea0ca8aa8ff68b56ff",
+    "tests/physchem/test_reference_metadata_ownership.py": "06a59c0589a21bb5701bcb9b3869d36b8d9ddf527bca3e23e986455636ad6234",
+    "molsysmt/physchem/get_hydrophobic_sites.py": "57c309d4b3254740ebfa411051f1b5a97ac25a21f6768511aeb2b0e999bb8660",
+    "molsysmt/physchem/get_halogen_bond_sites.py": "08990b2a079ae2565a8cdf14cb033f392e483493c1d802759a735e7f6b74ce1e",
+    "molsysmt/physchem/get_metal_coordination_sites.py": "c580040baf5f52e6dc9f00ca4118a3596e0c39bd2b89d5f5c661a176c4182ff5",
+    "molsysmt/interactions/hbonds/get_hbond_sites.py": "a10d793ef72ecdd2ca272f9be9e2c1f95c01d0292a1a8cea2c6bc67375143f84"
+  },
+  "mechanism": "The shared attributed boundary deep-copies only method_reference before constructing bibliography. Molecular systems, coordinates and occurrence arrays are not passed to this new copy.",
+  "baseline": {
+    "result": "8 failed before fix",
+    "seconds": 6.19,
+    "cases": "Positive/empty outputs for hydrophobic, halogen, SMARTS hbond and metal site readers; controlled nested metadata tests also reject shallow-copy ownership."
+  },
+  "validation": {
+    "focused": "50 passed in 9.20 seconds",
+    "regression": {
+      "command": "python -m pytest tests/physchem/test_reference_metadata_ownership.py tests/interactions tests/physchem/test_get_hydrophobic_sites.py tests/physchem/test_get_halogen_bond_sites.py tests/physchem/test_get_metal_coordination_sites.py tests/test_ackredit.py --receptor=llm -n 12",
+      "result": "919 passed",
+      "seconds": 29.85,
+      "warnings": {
+        "MemoryPressureWarning": 17,
+        "LegacyH5MSMWarning": 5
+      }
+    },
+    "doctests_and_schema": {
+      "command": "python -m pytest --doctest-modules molsysmt/physchem/get_hydrophobic_sites.py molsysmt/physchem/get_halogen_bond_sites.py molsysmt/physchem/get_metal_coordination_sites.py molsysmt/interactions/hbonds/get_hbond_sites.py tests/documentation/test_notebook_schema.py --receptor=llm -n 12",
+      "result": "497 passed",
+      "seconds": 8.04
+    },
+    "static": "Scoped Ruff, 253 public docstrings, dependency validation, zero unauthorized signature drifts, devguide/index checks pass.",
+    "fast_gates": "14/14 passed.",
+    "documentation": "HTML exits zero with 51 existing header-level/orphan-document warnings under #144; no site-tutorial diagnostic. Nine changed notebooks preserve original code cells, outputs and code metadata.",
+    "algorithm_preservation": "ASTs of all four public site readers match parent after removing docstrings. No scientific criterion or recognition body changes."
+  },
+  "audit": "Hydrophobic, halogen and SMARTS hbond readers exposed the shared declaration directly. Metal reader copies top-level fields, with nested aliases reproduced using a controlled nested declaration. Interaction constructors already deep-copy parameter metadata; all attributed consumers now also detach method_reference at the common boundary. No blanket claim of a reproduced flat alias in every detector.",
+  "exclusions": "No scientific-model validation, runtime benchmark, installed/cross-platform qualification, new API, dependency or publication."
+}

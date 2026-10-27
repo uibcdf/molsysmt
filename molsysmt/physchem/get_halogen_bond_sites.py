@@ -76,6 +76,10 @@ def get_halogen_bond_sites(
 
     Notes
     -----
+    Returned method_reference metadata is independently owned, including nested
+    fields. Editing one result cannot change another result or the shared
+    method declaration. This does not alter numerical recognition.
+
     The donor is [C,N,Si,F,Cl,Br,I]-[Cl,Br,I,At], excluding F as the terminal
     halogen. Acceptor-reference matches use [N,O,P,S,Se,Te,a;!positive]!#[*]:
     non-triple links, including carbonyl and aromatic links. The acceptor

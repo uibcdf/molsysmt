@@ -81,6 +81,10 @@ def get_hbond_sites(
 
     Notes
     -----
+    Returned method_reference metadata is independently owned, including nested
+    fields. Editing one result cannot change another result or the shared
+    method declaration. This does not alter numerical recognition.
+
     The returned attribution field contains a detached bibliography, with
     reference implementations distinguished from executed dependencies.
     Optional Ackredit records this completed recognition in the current session.

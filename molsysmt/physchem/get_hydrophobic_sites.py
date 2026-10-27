@@ -71,6 +71,10 @@ def get_hydrophobic_sites(
 
     Notes
     -----
+    Returned method_reference metadata is independently owned, including nested
+    fields. Editing one result cannot change another result or the shared
+    method declaration. This does not alter numerical recognition.
+
     This experimental definition reproduces ProLIF 2.2.2, whose patterns are
     adapted from RDKit chemical features. It includes neutral aromatic c/s,
     Br/I, sulfur with no hydrogens and valence two, and specified nonterminal

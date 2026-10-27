@@ -69,6 +69,10 @@ def get_metal_coordination_sites(
 
     Notes
     -----
+    Returned method_reference metadata is independently owned, including nested
+    fields. Editing one result cannot change another result or the shared
+    method declaration. This does not alter numerical recognition.
+
     The reference metal set is Ca, Cd, Co, Cu, Fe, Mg, Mn, Ni and Zn. It is a
     bounded profile, not all metals. Ligands include O, chemically restricted
     N, and negative nonpositive atoms; protonated/quaternary and selected
