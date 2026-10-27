@@ -1,13 +1,13 @@
 ---
 summary: Chemical readiness rejects external syntax for its default reference state.
 issue: uibcdf/molsysmt#480
-status: open
+status: resolved
 opened: 2026-10-26
-closed:
+closed: 2026-10-26
 severity: medium
 verification: reproduced
 area: [physchem, selection, chemical-states]
-guard:
+guard: tests/physchem/test_get_chemical_readiness.py::test_external_reference_syntax_preserves_intended_population
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Chemical readiness rejects external syntax for its default reference state
 
 **Reported:** 2026-10-26, native-only reproduction during addon receiving.
-**Status:** Open; no consumer selector/state compensation is implemented.
+**Status:** Resolved; native reference semantics are preserved without consumer compensation.
 
 ## What
 `physchem.get_chemical_readiness(..., syntax='MDTraj')` rejects an ordinary atom-name selection even with the default `chemical_state='reference'`. The equivalent numeric selection works, as does the hydrogen inventory with the external syntax. Reproduced without MolSysViewer.
@@ -61,3 +61,38 @@ restriction, adding implicit preparation or interpreting unsupported state
 semantics in the addon. Explicit unsupported combinations retain diagnostics.
 The existing addon wrapper forwards native results/errors; native scientific
 resolution and a positive intended-population guard belong to MolSysMT.
+
+## Resolution — 2026-10-26
+
+The internal assessor retains `reference` (including normalized None) as the
+selector state for a reference request. It still resolves the actual reference
+index separately for reading chemical fields. Explicit and structure-associated
+requests retain their prior resolved-state path and selector restrictions.
+No generic selector policy, public signature, optional provider or preparation
+algorithm changes.
+
+**Contract-tested:** fresh bundled pentalanine sources cover native,
+complementary and H5MSM 0.5 forms, single structures and a nonconsecutive
+trajectory slice, MDTraj atom names and empty matches, reference/None requests,
+sorted unique numeric comparison, and unchanged chemical fields/coordinates/file
+bytes. Negative controls preserve explicit-state refusal. A second multistate
+control proves that reference state 1 is not replaced by associated state 0.
+The addon delegates the same positive result without translating selectors.
+
+The corrected 27-case before-fix guard fails 16 cases and passes 11; earlier
+fixture-authoring failures (an unsupported external token, a read-only property
+setter and a list/array assertion mismatch) are excluded from defect evidence.
+The independent two-state H5MSM prefix-association failure is reproduced and
+reported under uibcdf/molsysmt#481, not concealed as a selector correction.
+
+Local qualification: 227 readiness/inventory/selector/addon cases including the
+public doctest, with 131 expected legacy-H5MSM warnings; 491 notebook-schema
+cases; three executed tutorial blocks; all 14 fast gates. Local HTML exits 0
+with zero errors and 43 known markup/navigation warnings under #144. All four course changes preserve every
+code cell, output, execution count and code metadata. Public help, Foundations,
+the tool guide, Cookbook and bound-reader guidance describe the reference and
+explicit-state boundary. The shared receipt retains source hashes, environment,
+commands and limits:
+[readiness receipt](../../../devtools/data/readiness_reference_20261026.json).
+No full-suite, installed-package, cross-platform or release qualification is
+claimed. Publication remains paused under uibcdf/molsysmt#334.

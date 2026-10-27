@@ -370,15 +370,16 @@ def test_inventory_external_syntax_reports_intended_population(view, structure):
     assert len(actual["atom_indices"]) == 5
 
 
-def test_native_readiness_external_syntax_limitation_is_forwarded(view):
-    # Native reference resolution currently turns reference into integer 0,
-    # which the common selector rejects with external syntax. Do not repair it
-    # in the wrapper; uibcdf/molsysmt#480 and its receiving remain separate work.
-    args = dict(selection="name CA", syntax="MDTraj", structure_indices=[2])
-    with pytest.raises(msm.ArgumentError) as expected:
-        msm.physchem.get_chemical_readiness(view.molsys, **args)
-    with pytest.raises(type(expected.value)):
-        view.addons.molsysmt.physchem.get_chemical_readiness(**args)
+@pytest.mark.parametrize(
+    "query,expected", [("name CA", [8, 18, 28, 38, 48]), ("name ZZZX", [])]
+)
+def test_native_readiness_external_reference_syntax_is_forwarded(view, query, expected):
+    args = dict(selection=query, syntax="MDTraj", structure_indices=[2])
+    native = msm.physchem.get_chemical_readiness(view.molsys, **args)
+    actual = view.addons.molsysmt.physchem.get_chemical_readiness(**args)
+    same(actual, native)
+    assert actual["atom_indices"].tolist() == expected
+    assert actual["chemical_state_index"] == 0
 
 
 @pytest.mark.parametrize("length_unit", ["nm", "angstrom", "pm"])

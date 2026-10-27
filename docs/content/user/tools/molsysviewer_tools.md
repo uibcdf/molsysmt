@@ -1592,14 +1592,12 @@ positions and unknown chemistry are reported without repair. Atom selections
 are returned as sorted unique source indices, and empty arrays retain defined
 types and shapes. Neither reader invents missing group/atom data.
 
-:::{warning} Native external-syntax limitation
-The default-reference readiness path currently rejects external MDTraj string
-syntax under [#480](https://github.com/uibcdf/molsysmt/issues/480). Use explicit
-atom indices or MolSysMT syntax for that report. The hydrogen inventory has
-positive default-reference MDTraj selection receiving. Explicit non-reference
-state syntax retains the native selector's actual restrictions; the addon does
-not translate selectors to hide them.
-:::
+Default-reference external selections, such as `selection="name CA", syntax="MDTraj"`,
+are now supported by the native readiness reader under
+[#480](https://github.com/uibcdf/molsysmt/issues/480) and forwarded unchanged.
+For explicit or structure-associated chemical-state queries, use MolSysMT syntax
+or explicit atom indices where required by the public selector. The addon does
+not translate selectors or choose another state to conceal a native restriction.
 
 Both calls bind the current resident `view.molsys`, including after replacement
 or while managed edits await synchronization. They do not call `sync_view()` or

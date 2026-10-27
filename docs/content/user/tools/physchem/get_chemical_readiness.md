@@ -99,6 +99,23 @@ raise. A topology or chemical-state input without structures is assessable,
 with missing coordinates. Coordinate-only inputs are also assessable, with
 missing chemical fields. Complementary items use the existing public
 composition and selection rules. Rich atom selections use `syntax` as usual.
+Default-reference external syntax retains its reference meaning, including when
+the collection's declared reference index is not zero. An explicit integer state
+or `chemical_state='structure'` remains subject to the public selector's state
+restrictions; use MolSysMT syntax or numeric atom indices for those queries.
+
+```python
+molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+                     structure_indices=[0, 8, 3])
+report = msm.physchem.get_chemical_readiness(
+    molsys, selection='name CA', syntax='MDTraj', structure_indices=[2])
+assert report['atom_indices'].tolist() == [8, 18, 28, 38, 48]
+assert report['structure_index'] == 2
+```
+
+This example uses the optional MDTraj selection provider and reports fields from
+the declared reference state; it does not choose the selected structure's state.
+
 
 For H5MSM 0.5, numeric atom/structure selections load chemical layers and read
 only the selected coordinate frame and atom rows. Combining independent layers

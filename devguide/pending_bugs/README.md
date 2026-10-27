@@ -22,7 +22,7 @@ that front matter -- edit the entries, not this list.
 
 ### Open (2)
 
-- [`chemical_readiness_external_reference_syntax.md`](chemical_readiness_external_reference_syntax.md) — [#480](https://github.com/uibcdf/molsysmt/issues/480) — Chemical readiness rejects external syntax for its default reference state. *(medium, reproduced)*
+- [`h5msm_writes_an_unreadable_identity_association_when_structure_and_chemical_stat.md`](h5msm_writes_an_unreadable_identity_association_when_structure_and_chemical_stat.md) — [#481](https://github.com/uibcdf/molsysmt/issues/481) — H5MSM writes an unreadable identity association when structure and chemical-state counts differ *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 
 ### Partially resolved (2)

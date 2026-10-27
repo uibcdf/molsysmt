@@ -112,3 +112,9 @@ arbitrarily small cells. MDTraj supports Cartesian SASA only and rejects
 `pbc=True` with a box. See {ref}`Tutorial_Get_sasa` for examples and sampling
 controls. Engine agreement under different boundary conditions does not
 establish surface accuracy.
+
+Stored-chemistry readiness keeps the semantic reference-state request when
+resolving rich atom selections. External syntax can therefore select atoms in
+the default reference without an implicit integer-state override. Explicit and
+structure-associated state requests retain the public selector's restrictions.
+See {ref}`Tutorial_Chemical_Readiness` for the supported forms and numeric scopes.

@@ -1296,9 +1296,9 @@ Receiving covers native coverage/issues, int64 unknown H counts, indexed/virtual
 separation, selected parents with external H neighbors, incident/crossing bonds,
 typed empties, explicit and ambiguous/unassociated states, detached result edits,
 nonfinite-coordinate reporting, unit metadata, pending/replacement/close behavior
-and preserved molecular/interaction/scene domains. Reference-state external
-readiness syntax is unresolved under uibcdf/molsysmt#480; no scientific selector
-compensation is made. The report labels never certify valence or protonation.
+and preserved molecular/interaction/scene domains. Reference-state external readiness syntax is repaired under uibcdf/molsysmt#480;
+the bound reader now forwards its positive native contract without scientific
+selector compensation. The report labels never certify valence or protonation.
 
 Local receiving passes 66 report cases, plus 61 focused SASA cases on native
 repair d8bda65ec. One joint regression passes 1,760 cases with zero failures,
@@ -1316,3 +1316,17 @@ preserves the exact source, job/step identity and original-log SHA-256
 174f60a533e5685f87cb98cc82ee0fbb6749d6620654255f39f8dcd3328e7b41. This supersedes the pending-CI state in the immutable local receiving
 snapshot; #480 and other remaining tools keep their own scope. No host runtime,
 dependency floor, installed qualification or paused publication changes.
+
+## Default-reference selector repair — 2026-10-26
+
+Native uibcdf/molsysmt#480 now preserves a reference-state request when
+resolving external selections. Positive native/complementary/H5MSM and bound
+reader guards cover the intended population, typed empty matches and read-only
+state. A declared reference at index 1 remains distinct from a structure's
+associated state 0. Explicit and structure-associated requests retain the
+common selector's restrictions. No downstream selector translation is added.
+
+The owning resolution and local qualification are
+[recorded in #480](https://github.com/uibcdf/molsysmt/issues/480).
+Unequal structure/state population persistence exposed a separate writer issue,
+uibcdf/molsysmt#481; the selection repair does not fix that storage defect.

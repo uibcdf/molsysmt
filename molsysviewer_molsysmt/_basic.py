@@ -177,8 +177,9 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "endpoints. Coordinate values are finite-position booleans, not "
                 "coordinate arrays. Stored-field availability and declared evidence "
                 "do not establish a universal ready flag or downstream suitability. "
-                "External reference-state syntax is currently limited by "
-                "uibcdf/molsysmt#480; numeric or MolSysMT selections remain explicit.\n"
+                "Default-reference external syntax follows the native #480 repair. "
+                "Explicit/associated states retain the public selector's restrictions; "
+                "no selector translation or implicit state choice is added.\n"
             )
         if module == "physchem" and name == "get_sasa":
             function.__doc__ += (

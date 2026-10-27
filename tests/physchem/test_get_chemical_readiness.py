@@ -338,3 +338,115 @@ assert 'rdkit' not in sys.modules and 'ackredit' not in sys.modules
 """
     run = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True)
     assert run.returncode == 0, run.stderr
+
+
+@pytest.mark.parametrize("form", ["native", "complementary", "h5msm"])
+@pytest.mark.parametrize("single_structure", [False, True])
+@pytest.mark.parametrize("requested_state", ["reference", None])
+@pytest.mark.parametrize(
+    "query,expected", [("name CA", [8, 18, 28, 38, 48]), ("name ZZZX", [])]
+)
+def test_external_reference_syntax_preserves_intended_population(
+    form, single_structure, requested_state, query, expected, tmp_path
+):
+    """Resolve atom names without turning the reference sentinel into a state request."""
+    pytest.importorskip("mdtraj")
+    molsys = msm.convert(
+        msm.systems["pentalanine"]["traj_pentalanine.h5msm"],
+        structure_indices=[0] if single_structure else [0, 8, 3],
+    )
+    frame = "all" if single_structure else [2]
+    source = molsys
+    if form == "complementary":
+        source = [molsys.topology, molsys.structures]
+    elif form == "h5msm":
+        source = tmp_path / "source.h5msm"
+        msm.convert(molsys, to_form=source)
+    before = msm.convert(
+        molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"
+    ).to_dict()
+    xyz = msm.pyunitwizard.get_value(molsys.structures.coordinates, to_unit="nm").copy()
+    file_bytes = source.read_bytes() if form == "h5msm" else None
+    report = msm.physchem.get_chemical_readiness(
+        source,
+        selection=query,
+        structure_indices=frame,
+        chemical_state=requested_state,
+        syntax="MDTraj",
+    )
+    numeric = msm.physchem.get_chemical_readiness(
+        source,
+        selection=list(reversed(expected)) + expected,
+        structure_indices=frame,
+        chemical_state=requested_state,
+    )
+    assert report["atom_indices"].dtype == np.int64
+    assert report["atom_indices"].tolist() == expected
+    assert report["chemical_state_index"] == 0
+    assert report["structure_index"] == (0 if single_structure else 2)
+    np.testing.assert_equal(report["fields"], numeric["fields"])
+    np.testing.assert_array_equal(
+        report["bonded_atom_pairs"], numeric["bonded_atom_pairs"]
+    )
+    if not expected:
+        assert report["bonded_atom_pairs"].shape == (0, 2)
+    np.testing.assert_equal(
+        before,
+        msm.convert(
+            molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"
+        ).to_dict(),
+    )
+    np.testing.assert_array_equal(
+        xyz, msm.pyunitwizard.get_value(molsys.structures.coordinates, to_unit="nm")
+    )
+    if form == "h5msm":
+        assert source.read_bytes() == file_bytes
+
+
+@pytest.mark.parametrize("requested_state", [0, 1, "structure"])
+def test_external_syntax_does_not_admit_explicit_or_associated_states(
+    chain, requested_state
+):
+    """Keep the common selector's safety boundary for resolved native state requests."""
+    pytest.importorskip("mdtraj")
+    molsys = msm.convert(chain, to_form="molsysmt.MolSys")
+    molsys.chemical_states.append_state()
+    molsys.chemical_states._set_reference_index(1)
+    molsys.structures.append(
+        coordinates=msm.pyunitwizard.quantity(np.zeros((1, 4, 3)), "nm")
+    )
+    msm.set(molsys, structure_chemical_state_index=[0])
+    with pytest.raises(ArgumentError):
+        msm.physchem.get_chemical_readiness(
+            molsys, selection="name CA", chemical_state=requested_state, syntax="MDTraj"
+        )
+    assert molsys.chemical_states.reference_chemical_state_index == 1
+    assert msm.get(molsys, structure_chemical_state_index=True) == [0]
+
+
+@pytest.mark.parametrize("file_source", [False, True])
+def test_external_reference_uses_declared_reference_not_structure_state(
+    tmp_path, file_source
+):
+    pytest.importorskip("mdtraj")
+    molsys = msm.convert(
+        msm.systems["pentalanine"]["traj_pentalanine.h5msm"], structure_indices=[0, 8]
+    )
+    molsys.chemical_states.append_state()
+    charges = np.zeros(molsys.get_n_atoms(), dtype=int)
+    charges[8] = -1
+    molsys.chemical_states._states[1].set_atom_attribute("formal_charge", charges)
+    molsys.chemical_states._set_reference_index(1)
+    msm.set(molsys, structure_chemical_state_index=[0, 1])
+    source = molsys
+    if file_source:
+        source = tmp_path / "multistate.h5msm"
+        msm.convert(molsys, to_form=source)
+    report = msm.physchem.get_chemical_readiness(
+        source, selection="name CA", structure_indices=[0], syntax="MDTraj"
+    )
+    assert report["atom_indices"].tolist() == [8, 18, 28, 38, 48]
+    assert report["chemical_state_index"] == 1
+    assert report["fields"]["formal_charge"]["values"].tolist() == [-1, 0, 0, 0, 0]
+    assert molsys.chemical_states.reference_chemical_state_index == 1
+    assert msm.get(molsys, structure_chemical_state_index=True) == [0, 1]

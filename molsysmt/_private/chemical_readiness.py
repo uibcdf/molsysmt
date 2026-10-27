@@ -290,11 +290,13 @@ def _assess_from_domains(
             raise ArgumentError("selection", value=selection, caller=caller)
         atoms = np.unique(raw).astype(np.int64)
     else:
-        # Rich syntax uses the established public resolver, including spatial
-        # and state-dependent selection semantics; numeric scopes need no view.
+        # Preserve a reference request as a reference request: converting it to
+        # an integer would trigger the selector's external-state restriction.
+        # Explicit and structure-associated requests retain their resolved state.
         selection_state = (
             "reference"
-            if state_index is None
+            if chemical_state in (None, "reference")
+            or state_index is None
             or (
                 source is not molecular_system
                 and links is None

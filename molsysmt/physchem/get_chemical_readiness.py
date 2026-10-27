@@ -29,11 +29,14 @@ def get_chemical_readiness(
         Structure indices (0-based). Select exactly one when structures exist;
         a source without structures is assessed with missing coordinate data.
     chemical_state : str, int or None, default='reference'
-        State to inspect. 'structure' uses the selected frame association.
+        State to inspect. 'structure' uses the selected structure association.
         An ambiguous reference or absent association is reported as unassessed
         chemistry; an invalid explicit index raises.
     syntax : str, default='MolSysMT'
-        Syntax used for atom selection.
+        Syntax used for atom selection. Default-reference string selections
+        preserve the reference request when delegated to the public selector.
+        Explicit and structure-associated state queries retain that selector's
+        restrictions; use MolSysMT syntax or explicit atom indices for them.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -41,7 +44,7 @@ def get_chemical_readiness(
     -------
     dict
         Detached molsysmt.chemical_readiness@1 report with source atom/bond
-        indices, selected state/frame, per-field values and coverage, explicit
+        indices, selected state/structure, per-field values and coverage, explicit
         or inferred bond evidence when stored, connectivity boundary/integrity
         checks, explicit H atom indices and unassessed scientific checks.
         Coverage statuses are present, partial, missing, unsupported, conflict
@@ -52,7 +55,7 @@ def get_chemical_readiness(
     Raises
     ------
     ArgumentError
-        If an atom/frame selection is invalid or selects multiple structures.
+        If an atom/structure selection is invalid or selects multiple structures.
     StructuralInconsistencyError
         If a state index, coordinate shape or combined source axes are invalid.
     FormatError

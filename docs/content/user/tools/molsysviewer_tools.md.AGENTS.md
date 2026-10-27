@@ -96,5 +96,6 @@ Preserve both detached stored-chemistry reports, explicit single-structure/state
 selection, sorted unique indices and typed empties. Keep unknown inventory counts
 at -1, indexed/virtual H separate, full-graph auditing and incident/crossing bonds
 explicit. Do not interpret availability as chemical validity or introduce repair,
-assignment, a universal ready flag or a file-backed view query promise. Native
-readiness external-syntax receiving remains tracked under uibcdf/molsysmt#480.
+assignment, a universal ready flag or a file-backed view query promise.
+Preserve positive default-reference readiness syntax receiving under
+uibcdf/molsysmt#480 and the separate restrictions for explicit/associated states.

@@ -45,6 +45,14 @@ receive the same honest treatment. A supported group's empty missing list means
 the bounded comparison found no heavy-atom gap, while its protonation, hydrogen
 variants or reference orders may still be unassessed.
 
+When querying stored chemistry directly with
+{func}`molsysmt.physchem.get_chemical_readiness`, default-reference atom selections
+also accept an available external syntax, such as MDTraj `name CA`. The report
+retains the declared reference state and sorted unique source atom indices.
+For explicit or structure-associated state queries, keep the common selector's
+restrictions: use MolSysMT syntax or explicit indices rather than guessing a
+state or translating selections downstream. See {ref}`Tutorial_Chemical_Readiness`.
+
 ## Choose a separate preparation operation
 
 Use the individual reason codes and template identity to decide which gaps can
