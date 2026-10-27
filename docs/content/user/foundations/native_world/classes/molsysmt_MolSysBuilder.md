@@ -115,5 +115,26 @@ inherited axis retain ordinary inference. Staging keeps a compact source-atom
 ownership map; it does not create a second chemical store. The source system
 remains unchanged. See {ref}`Cookbook_Group_Free_Hierarchy` for executed examples.
 
-Changing the atom axis is separate: appending to populated chemical-state tables
-remains an open defect under [#499](https://github.com/uibcdf/molsysmt/issues/499).
+## Atom Inventory
+
+Appending an atom extends every chemical state with aligned nullable rows. Old
+assignments, bonds, state labels, reference selection and original producer
+history are retained. The new atom has unknown chemical assignments; no formal
+charge, aromaticity, valence or hydrogen inventory is guessed. Complete
+connectivity/component declarations become partial, so scientific readers can
+require explicit chemical completion before evaluating the result.
+
+Atom metadata and all extended state tables are prepared and validated before
+publication. Validation/allocation failure leaves the staging inventory unchanged.
+The strict post-edit alignment validator remains active. Existing coordinates,
+velocities or B factors prohibit adding atoms; structural arrays are not silently
+resized. State bonds/components and coordinate series are not copied by atom
+growth itself. This does not establish a concurrent-edit transaction or introduce
+another chemical store. See {ref}`Cookbook_Group_Free_Hierarchy` for an executed
+append/group/build workflow.
+
+Group-free compilation keeps the missing group axis while extending molecule
+metadata for new disconnected components. Inherited molecule positions and labels
+remain aligned even for a permuted source. A connectivity edit that splits or
+merges inherited molecules cannot silently redefine their group-free axis;
+explicit groups are required to retain those boundaries.

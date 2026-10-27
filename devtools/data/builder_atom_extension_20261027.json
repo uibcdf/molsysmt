@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "resolved_issues": [
+    "uibcdf/molsysmt#499"
+  ],
+  "source_basis": "3781031d0c1d08f34b2aa966ad0b82bf3b64a31d",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux",
+    "rdkit": "2025.09.5",
+    "profile": "Shared development environment; not a clean installed pair."
+  },
+  "checks": {
+    "broad": {
+      "command": "python -m pytest tests/native tests/form/molsysmt_MolSysBuilder tests/form/molsysmt_Topology tests/physchem/test_get_tpsa.py tests/physchem/test_get_lipophilicity.py --receptor=llm -n 12",
+      "result": "2391 passed in 38.85s; 88 existing warnings. Runtime code final; precedes addition of the final H5MSM test."
+    },
+    "focused": {
+      "command": "python -m pytest tests/native/test_builder_atom_extension.py tests/native/test_builder_inherited_molecules.py tests/native/test_molsys_builder.py tests/native/test_group_free_molecules.py --receptor=llm -n 12",
+      "result": "80 passed in 9.54s; 9 existing warnings. Includes public H5MSM round trip; no expected failures."
+    },
+    "documentation": {
+      "command": "python -m pytest molsysmt/native/molsys_builder.py --doctest-modules devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12",
+      "result": "500 passed in 7.50s (4 doctests, 496 schema tests). Cookbook executed successfully with docs/execute_notebooks.py --force --quiet; make -C docs html completed with 17 existing orphan-document warnings."
+    },
+    "static": "14/14 fast gates; scoped Ruff; 255 public docstrings; no unauthorized public signature drift."
+  },
+  "implementation": [
+    "Stage all typed atom-state tables and declarations before publication; new fields remain unknown and complete declarations become partial.",
+    "Preserve old state identity, reference, bonds, component tables and producer history; strict post-edit alignment validation unchanged.",
+    "Stage atom inventory first; reject atom-dependent structure arrays and malformed state records before writes.",
+    "Preserve inherited group-free molecule identity and append newly disconnected molecule rows at compilation. Ambiguous connectivity changes require explicit groups.",
+    "Original expected-failure guard retains every assertion; only the marker was removed."
+  ],
+  "allocation": "Growth allocates the stable atom table and materialized per-state atom fields. It does not copy coordinate, bond or component-table payloads. No measured memory/performance claim or concurrent-edit transaction guarantee.",
+  "exclusions": "No whole-suite, clean-installed, cross-platform, performance or release qualification. No dependency, scientific attribution boundary or public signature change.",
+  "sha256": {
+    "molsysmt/native/chemical_states.py": "ebf2005e59daff0cba6d28dc0e553c6657d028280795ed5726386c5b16e81825",
+    "molsysmt/native/molsys_builder.py": "50675eabe2be2907fe5ec2d685db18985d86c449455577ec94302b08e24b002f",
+    "tests/native/test_builder_atom_extension.py": "2fae89cbf42cda4417b189fabaed269e77c9927dfe25b7cff835f8a2a2d92754",
+    "tests/native/test_builder_inherited_molecules.py": "e4d1518a102457c20c408ba61c5aeb1f50243696efa5e7905f85dd0eeaeb6b9b",
+    "docs/content/user/cookbook/group_free_hierarchy.ipynb": "a2d40a23f074471a1780853bf20e9b62cf0a3356e7ce76b3a0e57967f337bed6"
+  }
+}

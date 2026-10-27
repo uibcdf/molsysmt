@@ -102,11 +102,6 @@ def test_reference_identity_is_not_taken_from_a_different_chemical_state():
     assert builder.build().topology.n_molecules == 2
 
 
-@pytest.mark.xfail(
-    strict=True,
-    raises=msm.StructuralInconsistencyError,
-    reason="uibcdf/molsysmt#499: appending to populated chemistry leaves state rows misaligned",
-)
 def test_new_atoms_and_explicit_new_molecule_remain_supported():
     builder = msm.MolSysBuilder(source("CCO"))
     builder.add_group([0, 1, 2], group_name="LIG")

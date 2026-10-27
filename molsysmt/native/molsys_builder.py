@@ -214,28 +214,101 @@ class MolSysBuilder(NativeQueries):
     def add_atom(
         self, atom_id=None, atom_name=None, atom_type=None, skip_digestion=False
     ):
+        """Appending an atom and aligned unknown rows to every chemical state.
+
+        Parameters
+        ----------
+        atom_id : str or int, optional
+            Atom label, normalized to a string. None uses the new atom index.
+        atom_name : str, optional
+            Atom name. None uses UNK.
+        atom_type : str, optional
+            Element symbol in MolSysMT terminology. None uses the existing
+            atom-name interpretation tool, with its unknown-name diagnostic.
+        skip_digestion : bool, default=False
+            Whether to skip argument digestion for already validated arguments.
+
+        Returns
+        -------
+        int
+            Appended atom index in the stable native inventory.
+
+        Raises
+        ------
+        StructuralInconsistencyError
+            If atom-dependent structure arrays are present or existing chemical
+            records are misaligned or invalid. Validation precedes publication.
+
+        Notes
+        -----
+        All chemical states retain their existing atom assignments, bonds,
+        component tables, labels, reference selection and producer history.
+        The new rows have missing chemical assignments and component membership,
+        preserving nullable dtypes. Complete connectivity/component declarations
+        become partial; unavailable declarations are not upgraded. No formal
+        charge, valence, hydrogen count or aromaticity is guessed.
+
+        Adding an atom is inventory editing, not chemical preparation. Scientific
+        tools can reject the incomplete resulting state until it is explicitly
+        completed and satisfies their method profile. Validation errors leave
+        the builder inventory and all chemical-state tables unchanged. Existing
+        coordinates, velocities or B factors forbid atom addition; no structural
+        arrays are silently resized. The source used to initialize a builder
+        remains independent. Publication is not a concurrent-edit transaction.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> builder.add_atom(atom_id=7, atom_name='C', atom_type='C')
+        0
+        >>> builder.topology.atoms.atom_id.tolist()
+        ['7']
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Editable` and :ref:`Cookbook_Group_Free_Hierarchy`.
+
+        .. versionadded:: 1.0.0
+        """
 
         from molsysmt.element.atom import get_atom_type_from_atom_name
 
         self._ensure_atom_editable()
 
         atom_index = self.topology.n_atoms
-        self.topology.atoms.loc[atom_index, "atom_id"] = (
-            self._normalize_optional_string(atom_id, default=str(atom_index))
-        )
+        if self.topology._chemical_states_domain.n_atoms != atom_index:
+            raise StructuralInconsistencyError(
+                caller="molsysmt.native.MolSysBuilder.add_atom",
+                reason="Existing topology and chemical-state atom domains must align.",
+            )
+        if not self.topology.atoms.index.equals(pd.RangeIndex(atom_index)):
+            raise StructuralInconsistencyError(
+                caller="molsysmt.native.MolSysBuilder.add_atom",
+                reason="Existing atom rows must follow the stable atom-index domain.",
+            )
         atom_name = self._normalize_optional_string(atom_name, default="UNK")
-        self.topology.atoms.loc[atom_index, "atom_name"] = atom_name
-
         if atom_type is None:
             atom_type = get_atom_type_from_atom_name(atom_name)
-        self.topology.atoms.loc[atom_index, "atom_type"] = (
-            self._normalize_optional_string(atom_type, default="UNK")
+        self._capture_group_free_molecule_membership()
+        # Normalize and stage stable inventory before growing any owned states.
+        atoms = self.topology.atoms.copy(deep=True)
+        atoms.loc[atom_index, "atom_id"] = self._normalize_optional_string(
+            atom_id, default=str(atom_index)
         )
-
-        self.topology.atoms.loc[atom_index, "group_index"] = pd.NA
-        self.topology._chemical_states_domain._n_atoms = self.topology.n_atoms
-        self.topology._set_component_indices(pd.NA, atom_indices=atom_index)
-        self.topology.atoms.loc[atom_index, "chain_index"] = pd.NA
+        atoms.loc[atom_index, "atom_name"] = atom_name
+        atoms.loc[atom_index, "atom_type"] = self._normalize_optional_string(
+            atom_type, default="UNK"
+        )
+        atoms.loc[atom_index, "group_index"] = pd.NA
+        atoms.loc[atom_index, "chain_index"] = pd.NA
+        atoms["atom_id"] = atoms["atom_id"].astype("string")
+        atoms["group_index"] = atoms["group_index"].astype("Int64")
+        atoms["chain_index"] = atoms["chain_index"].astype("Int64")
+        if "isotope" in atoms:
+            atoms["isotope"] = atoms["isotope"].astype("UInt16")
+        self.topology._chemical_states_domain._extend_atom_domain(atom_index + 1)
+        self.topology.atoms = atoms
+        self.topology._components_dirty = True
 
         return atom_index
 
@@ -722,8 +795,6 @@ class MolSysBuilder(NativeQueries):
     def _fill_molecule_fallbacks(self, topology):
         from ._topology_infer import (
             infer_component_indices_from_topology,
-            infer_molecule_names_from_topology,
-            infer_molecule_types_from_topology,
         )
 
         if topology.n_groups == 0:
@@ -772,6 +843,14 @@ class MolSysBuilder(NativeQueries):
                     component_to_molecule[ci]
                 )
 
+        self._fill_molecule_metadata(topology)
+
+    def _fill_molecule_metadata(self, topology):
+        from ._topology_infer import (
+            infer_molecule_names_from_topology,
+            infer_molecule_types_from_topology,
+        )
+
         topology.molecules["molecule_id"] = self._fill_missing_string_ids(
             topology.molecules["molecule_id"]
         )
@@ -786,6 +865,47 @@ class MolSysBuilder(NativeQueries):
                 topology.molecules.loc[molecule_index, "molecule_type"] = (
                     inferred_types[molecule_index]
                 )
+
+    def _retain_group_free_molecule_axis(self, topology):
+        """Align rebuilt components with inherited molecule positions without groups."""
+        inherited = getattr(self, "_inherited_atom_molecules", None)
+        if inherited is None:
+            if topology.n_molecules == 0:
+                topology.rebuild_molecules()
+            return
+        state = topology._resolve_reference_chemical_state()
+        components = state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
+        by_component, by_owner = {}, {}
+        for component, owner in zip(components, inherited):
+            if component < 0 or owner < 0:
+                continue
+            if (component in by_component and by_component[component] != owner) or (
+                owner in by_owner and by_owner[owner] != component
+            ):
+                raise StructuralInconsistencyError(
+                    caller="molsysmt.native.MolSysBuilder.build",
+                    reason="Connectivity splits or merges inherited group-free molecules; declare explicit groups to retain their boundaries.",
+                )
+            by_component[component] = owner
+            by_owner[owner] = component
+        next_owner = topology.n_molecules
+        mapping = np.empty(len(state.components), dtype=np.int64)
+        for component in range(len(mapping)):
+            if component in by_component:
+                mapping[component] = by_component[component]
+            else:
+                mapping[component] = next_owner
+                next_owner += 1
+        reordered = state.components.copy(deep=True)
+        reordered.index = mapping
+        state.components = reordered.reindex(range(next_owner)).reset_index(drop=True)
+        state.component_indices = pd.Series(mapping[components], dtype="Int64")
+        for owner in range(topology.n_molecules, next_owner):
+            topology.molecules.loc[owner, "molecule_id"] = str(owner)
+            topology.molecules.loc[owner, "molecule_name"] = pd.NA
+            topology.molecules.loc[owner, "molecule_type"] = pd.NA
+            topology.molecules.loc[owner, "entity_index"] = pd.NA
+        self._fill_molecule_metadata(topology)
 
     def _fill_entity_fallbacks(self, topology):
         from ._topology_infer import (
@@ -845,8 +965,7 @@ class MolSysBuilder(NativeQueries):
         bonds._sort_bonds()
         if preserve_absent_groups and topology.n_groups == 0:
             topology.rebuild_components()
-            if topology.n_molecules == 0:
-                topology.rebuild_molecules()
+            self._retain_group_free_molecule_axis(topology)
             self._fill_entity_fallbacks(topology)
             topology._coerce_id_columns_to_string()
             return topology

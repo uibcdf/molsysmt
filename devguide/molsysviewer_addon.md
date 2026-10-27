@@ -1422,8 +1422,10 @@ group insertion and allow MDTraj selections through external-only placeholders.
 The bound TPSA reader retains exact native delegation and requires actual selector
 success in its receiving guard, with source hierarchy and scene state unchanged.
 Metadata selector limits follow the native adapter; no consumer translation or
-source repair is added. Populated-state atom insertion remains independently open
-under uibcdf/molsysmt#499 with a strict expected-failure native guard.
+source repair is added. The subsequent uibcdf/molsysmt#499 owner repair aligns atom growth across
+all populated states and converts its retained guard to an ordinary passing test.
+New assignments stay unknown/partial; this does not add a Viewer atom-editing
+operation or automatic scene adoption.
 
 
 ### Bounded native-plus-addon scientific smoke budget

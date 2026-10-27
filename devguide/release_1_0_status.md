@@ -28,10 +28,12 @@ owner repairs preserve inherited molecules when adding groups and support MDTraj
 selection of group-free sources through target-only hierarchy. Local tests and
 executed documentation do not replace candidate/platform/installed-pair gates.
 
-An independent populated-state builder atom-insertion defect remains open under
-#499, with a retained strict expected-failure control. It is not fixed by the
-group-insertion repair or waived for release. Existing source-versus-artifact
-identities and the publication pause below remain unchanged.
+The subsequent #499 source correction coordinates atom growth across every
+chemical state, retaining original evidence and marking new chemistry unknown/partial.
+Its former strict expected-failure guard now passes normally; group-free compiled
+molecule metadata remains aligned. This is local source qualification, not a new
+release waiver. Existing source-versus-artifact identities and the publication
+pause below remain unchanged.
 
 ## Current source stabilization — 2026-10-26
 
